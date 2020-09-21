@@ -52,19 +52,18 @@ public class GeneralUtility extends DriverBase {
     EmailUtility emailUtility = new EmailUtility();
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
 
-    private String GetPartnerUrl(){
+    private String GetPartnerUrl(String PP_Site){
         String partnerURL = null;
         String environment =PropertyUtility.getProp("environment");
-        if(environment.equalsIgnoreCase("QA_AUTO"))
-            partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
-        return  partnerURL;
-    }
-
-    private String GetkioskPartnerUrl(){
-        String partnerURL = null;
-        String environment =PropertyUtility.getProp("environment");
-        if(environment.equalsIgnoreCase("QA_AUTO"))
-            partnerURL = PropertyUtility.getDataProperties("qa.kioskpartner.url");
+        if(environment.equalsIgnoreCase("QA_AUTO")){
+            if(PP_Site.equalsIgnoreCase("normal")){
+                partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+            }else if(PP_Site.equalsIgnoreCase("service level")){
+                partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
+            }else if(PP_Site.equalsIgnoreCase("kiosk mode")){
+                partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
+            }
+        }
         return  partnerURL;
     }
 
@@ -92,6 +91,7 @@ public class GeneralUtility extends DriverBase {
         return adminURL;
     }
 
+
     public void DriverLogin(String Phone, String Password) {
         String driverURL = GetDriverUrl();
 
@@ -109,13 +109,8 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void NavigateToPartnerLogin(String Site){
-        String partnerURL="";
-        if(Site.equalsIgnoreCase("PP SiteA")) {
-            partnerURL = GetPartnerUrl();
-        }
-        else if(Site.equalsIgnoreCase("PP SiteB")){
-            partnerURL = GetkioskPartnerUrl();
-        }
+
+        String partnerURL = GetPartnerUrl(Site);
         action.deleteAllCookies();
         action.navigateTo(partnerURL);
     }
@@ -132,8 +127,6 @@ public class GeneralUtility extends DriverBase {
     public void AdminLoginFromPartner() throws InterruptedException {
         String adminURL = GetAdminUrl();
         Thread.sleep(2000);
-
-
         action.openNewTab();
         action.navigateTo(adminURL);
         action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));

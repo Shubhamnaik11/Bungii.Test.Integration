@@ -37,7 +37,7 @@ public class Partner_IntegrationSteps extends DriverBase {
 
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
 
-    @When("^I request \"([^\"]*)\" Bungii trip in partner portal for \"([^\"]*)\" in \"([^\"]*)\" geofence$")
+    @When("^I request \"([^\"]*)\" Bungii trip in partner portal configured for \"([^\"]*)\" in \"([^\"]*)\" geofence$")
     public void i_request_something_bungii_trip_in_partner_portal_for_some_geofence(String Type,String Site,String geofence, DataTable data) throws InterruptedException {
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String Pickup_Address;
@@ -60,8 +60,9 @@ public class Partner_IntegrationSteps extends DriverBase {
         //int numberOf_Driver = dataMap.get("Driver").trim().equalsIgnoreCase("duo") ? 2 :1;
 
         cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+        cucumberContextManager.setScenarioContext("PP_Site",Site);
 
-        if(Site.equalsIgnoreCase("PP SiteA")) {
+        if(Site.equalsIgnoreCase("normal")) {
             switch (Type) {
                 case "Solo":
                     //action.click(Page_Partner_Dashboard.Partner_Solo());
@@ -174,7 +175,7 @@ public class Partner_IntegrationSteps extends DriverBase {
         */
 
         }
-        else if(Site.equalsIgnoreCase("PP SiteB")){
+        else if(Site.equalsIgnoreCase("kiosk mode")){
             switch (Type) {
                 case "Solo":
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
@@ -208,6 +209,46 @@ public class Partner_IntegrationSteps extends DriverBase {
                     action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                     action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                    break;
+                default:
+                    break;
+            }
+
+        }else if(Site.equalsIgnoreCase("service level")){
+            switch (Type) {
+                case "Solo":
+                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                    //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
+                    action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                    Thread.sleep(1000);
+                    action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                    Thread.sleep(2000);
+                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                    action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                    //Thread.sleep(1000);
+                    action.click(Page_Partner_Dashboard.List_Delivery_Address());
+
+                    //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                    break;
+                case "Duo":
+
+                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                    //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
+                    action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                    Thread.sleep(1000);
+                    action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                    Thread.sleep(2000);
+                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                    action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                    //Thread.sleep(1000);
+                    action.click(Page_Partner_Dashboard.List_Delivery_Address());
+
+                    //Clicking on duo radio button
+                    action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+
+                    //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
                     break;
                 default:
                     break;

@@ -145,13 +145,41 @@ public class DbUtility extends DbContextManager {
         listOfGeofences = getDataFromMySqlServerMap(queryString);
         return listOfGeofences;
     }
-    
+
     public static String getEstimateDistance() {
     String Estimate_distance;
     String queryString = "SELECT EstDistance FROM pickupdetails order by  pickupid desc limit 1";
     Estimate_distance = getDataFromMySqlServer(queryString);
         logger.detail("Estimate Distance=  " + Estimate_distance + " of latest trip" );
         return Estimate_distance;
+
+    }
+
+    public static String getServicePrice(String Alias,int No_of_Driver,String Trip_Estimate_Distance,String Service_name) {
+        String Trip_Price;
+        /*String queryString = "select amount\n" +
+                "from business_partner_loc_fixed_distance_pricing fp\n" +
+                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
+                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
+                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
+                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
+                "and ss.service_name = '"+Service_name+"' and no_of_drivers=" +No_of_Driver+ "and "+Trip_Estimate_Distance+" BETWEEN mile_range_min and mile_range_max\n" +
+                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+
+         */
+        String queryString ="select amount\n" +
+                "from business_partner_loc_fixed_distance_pricing fp\n" +
+                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
+                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
+                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
+                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
+                "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  "+Trip_Estimate_Distance+" BETWEEN mile_range_min and mile_range_max\n" +
+                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+
+        //Trip_Price = getDataFromMySqlServer(queryString);
+        Trip_Price = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("Estimate Distance=  " + Trip_Price + " of latest trip" );
+        return Trip_Price;
 
     }
 
@@ -163,4 +191,16 @@ public class DbUtility extends DbContextManager {
         return Estimate_time;
 
     }
+
+    public static List<HashMap<String,Object>> getListOfService(String Alias_Name){
+        List<HashMap<String,Object>> Service = new ArrayList<>();
+        String queryString = "select ss.service_name\n" +
+                "from bp_supplementary_service ss\n" +
+                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =ss.business_partner_location_config_version_id\n" +
+                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
+                "where c.IsActive = 1 and alias like '"+Alias_Name+"%'";
+        Service = getListDataFromMySqlMgmtServer(queryString);
+        return Service;
+    }
+
 }

@@ -38,7 +38,7 @@ public class Partner_Delivery_Details extends DriverBase {
         String PickupContactName = dataMap.get("Pickup_Contact_Name").trim();
         String PickupContactPhone = dataMap.get("Pickup_Contact_Phone").trim();
 
-        if(Site.equalsIgnoreCase("PP SiteA")) {
+        if(Site.equalsIgnoreCase("normal")) {
         switch(str){
             case "Delivery Details":
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(),Items_deliver);
@@ -80,7 +80,7 @@ public class Partner_Delivery_Details extends DriverBase {
         String DropOffContactPhone = dataMap.get("Drop_Contact_Phone").trim();
         String ReceiptNumber = dataMap.get("Receipt_Number").trim();
 
-        if(Site.equalsIgnoreCase("PP SiteA")) {
+        if(Site.equalsIgnoreCase("normal")) {
         switch(str) {
             case "Delivery Details":
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
@@ -107,7 +107,7 @@ public class Partner_Delivery_Details extends DriverBase {
                 break;
             }
         }
-        else if(Site.equalsIgnoreCase("PP SiteB")){
+        else if(Site.equalsIgnoreCase("kiosk mode")){
             switch(str) {
                 case "Delivery Details":
                     action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
@@ -123,6 +123,33 @@ public class Partner_Delivery_Details extends DriverBase {
 
                     String scheduled_date_time1 = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
                     cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time1);
+
+                    break;
+                default:
+                    break;
+            }
+
+        }else if(Site.equalsIgnoreCase("service level")){
+            switch(str) {
+                case "Delivery Details":
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                    //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                    action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                    action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+
+                    String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                    cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
+
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
+                    action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Receipt_Number(), ReceiptNumber);
 
                     break;
                 default:

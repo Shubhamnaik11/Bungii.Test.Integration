@@ -58,11 +58,12 @@ public class Kiosk_Steps extends DriverBase {
     }
 
     @And("^I click on \"([^\"]*)\" button on Kiosk Partner Portal$")
-    public void i_click_on_some_button_on_kiosk_partner_portal(String value){
+    public void i_click_on_some_button_on_kiosk_partner_portal(String value) throws InterruptedException {
         switch(value)
         {
             case "Continue":
                 action.click(Page_Kiosk.Button_Continue());
+                Thread.sleep(2000);
                 break;
         }
 
