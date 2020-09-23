@@ -84,7 +84,7 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Label_ErrorContainerCVV(){ return  findElement("//div[contains(text(),'Please fill out a CVV.')]", LocatorType.XPath);}
     //BOC
-    public WebElement Link_DownloadFailedCSVFile( ) { return findElement("//div[@id='validatedBulkTrips']/a[contains(text(),'Click here to download trips which failed validation')]", LocatorType.XPath); }
+    public WebElement Link_DownloadFailedCSVFile( ) { return findElement("//div[@id='validatedBulkTrips']/a[contains(text(),'Click here to download deliveries which failed validation')]", LocatorType.XPath); }
 
     public WebElement Label_ErrorContainerPostalCode(){ return  findElement("Please fill out a postal code.')]", LocatorType.XPath);}
 
