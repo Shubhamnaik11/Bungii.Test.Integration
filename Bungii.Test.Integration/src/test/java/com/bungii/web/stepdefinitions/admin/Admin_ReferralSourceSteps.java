@@ -52,7 +52,7 @@ public class Admin_ReferralSourceSteps extends DriverBase {
         case "Referral Source":
 
             switch (header) {
-                case "Sources":
+                case "Source":
                     DefaultGridData = paginateAndGetGridData(5);
                     sort = admin_ReferralSourcePage.Header_Source().getAttribute("class");
                     if (sortOrder.equals("Ascending")) {

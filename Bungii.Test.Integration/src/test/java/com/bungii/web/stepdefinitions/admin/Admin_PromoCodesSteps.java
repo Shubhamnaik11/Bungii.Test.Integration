@@ -240,10 +240,10 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     case "FB Shared":
                         action.click(admin_PromoCodesPage.CheckBox_FilterOneOffFBShare());
                         break;
-                    case "Delivery By Promoter":
+                    case "Delivery By Partner":
                         action.click(admin_PromoCodesPage.CheckBox_FilterDeliveryChargesByPromoter());
                         break;
-                    case "Delivery By Promoter (M)":
+                    case "Delivery By Partner (M)":
                         action.click(admin_PromoCodesPage.CheckBox_FilterDeliveryChargesByPromoterMultipleUse());
                         break;
                 }
@@ -411,7 +411,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @Then("^the promocode grid shows the results by type \"([^\"]*)\"$")
     public void the_promocode_grid_shows_the_results_by_type_something(String Type) throws Throwable {
-        Type = Type.replace("Delivery By Promoter (M)","Delivery Charges By Promoter Multiple Use"); ////////////////
+        Type = Type.replace("Delivery By Partner (M)","Delivery Charges By Partner Multiple Use"); ////////////////
         String xpath = String.format("//tr/td[5][text()='%s']",Type);
         //page 1 records verified
         List<WebElement> rowswithtype = SetupManager.getDriver().findElements(By.xpath(xpath));
