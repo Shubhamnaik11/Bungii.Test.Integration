@@ -709,6 +709,7 @@ public class CoreServices extends DriverBase {
         jsonObj.put("DeviceName", "XT1092");
         //make status online
         jsonObj.put("PickupRequestID", pickuprequestid);
+        jsonObj.put("EventSource", 2);
         jsonObj.put("DeviceToken", "fYUrbPrSXAo:APAS1bFc7QqYIWYyYaIvlcu1Nz30Swc67UDBg75rwUlNbPZDIi2dLdrsgdplYB5GmJqOihXVB64bwVmfEqZAF0DkTOsYX8b8VrjleMHjkSVdQy3ao2nWrCot_HcXx6jYY7pksq3JbKCHP0QYyvmywSA6HRNIhXgiSa" + utility.genearateRandomString());
         Header header = new Header("AuthorizationToken", authToken);
 
