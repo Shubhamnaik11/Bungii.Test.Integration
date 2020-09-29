@@ -107,8 +107,10 @@ public class NotificationSteps extends DriverBase {
                 // String driverPhoneNum= ;
                // String driverPassword = ;
                 String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
-                if(expectedNotification.equalsIgnoreCase("stack trip"))
-                new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
+                if(expectedNotification.equalsIgnoreCase("stack trip")) {
+                    Thread.sleep(90000);
+                    new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
+                }
                 else
                 new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
                 ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
