@@ -1432,6 +1432,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE |                 |
 
   @regression
+  @pushnotification
   Scenario:Verify Driver Can Receive Long Stack Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
