@@ -11,6 +11,7 @@ import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.AppiumDriver;
@@ -89,6 +90,10 @@ public class NotificationSteps extends DriverBase {
 
         }
     }
+    @And("^I view and accept virtual notification for \"([^\"]*)\" for \"([^\"]*)\"$")
+    public void i_view_and_accept_virtual_notification_for_something_for_something(String strArg1, String expectedNotification) throws Throwable {
+        acceptVirtualNotificationAsDriver((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"),expectedNotification);
+    }
 
     public void acceptVirtualNotificationAsDriver(String driverPhoneNum, String expectedNotification) throws InterruptedException{
         String driverPhoneCode="1";
@@ -106,7 +111,8 @@ public class NotificationSteps extends DriverBase {
                 new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
                 else
                 new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
-
+                ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                 utility.loginToDriverApp(driverPhoneNum, driverPassword);
             }
             else

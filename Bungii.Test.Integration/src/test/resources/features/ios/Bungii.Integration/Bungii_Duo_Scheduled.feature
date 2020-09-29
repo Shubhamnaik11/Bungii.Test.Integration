@@ -590,12 +590,13 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "customer" application on "ORIGINAL" devices
 
   #  When I open "customer" application on "ORIGINAL" devices
-    And I click on notification for "Driver" for "stack trip"
-    And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    When I click "View" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
-    And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
-    When I click "OK" on alert message
+    And I view and accept virtual notification for "Driver" for "stack trip"
+    #And I click on notification for "Driver" for "stack trip"
+    #And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
+    #When I click "View" on alert message
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    #And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
+    #When I click "OK" on alert message
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
 
@@ -719,12 +720,14 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "SEARCHING" screen
 
     When I open "customer" application on "ORIGINAL" devices
-    And I click on notification for "Driver" for "stack trip"
-    And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    When I click "View" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
-    And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
-    When I click "OK" on alert message
+    #And I click on notification for "Driver" for "stack trip"
+    #And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
+    #When I click "View" on alert message
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    #And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
+    #When I click "OK" on alert message
+    And I view and accept virtual notification for "Driver" for "stack trip"
+  
     And try to finish time should be correctly displayed for long stack trip
 
     When  I switch to "Customer2" instance
@@ -839,10 +842,11 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "SEARCHING" screen
 
     When I open "customer" application on "ORIGINAL" devices
-    And I click on notification for "Driver" for "stack trip"
-    And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    When I click "View" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #And I click on notification for "Driver" for "stack trip"
+    #And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
+    #When I click "View" on alert message
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "stack trip"
     Then I calculate projected driver arrival time
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
     When I click "OK" on alert message
@@ -926,11 +930,12 @@ Feature: To Test Duo - Scheduled Bungii
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    And I click on notification for "Driver" for "stack trip"
-    When I click "View" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
-    When I click "OK" on alert message
-    And stack trip information should be displayed on deck
+    #And I click on notification for "Driver" for "stack trip"
+    #When I click "View" on alert message
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click "OK" on alert message
+      And I view and accept virtual notification for "Driver" for "stack trip"
+      And stack trip information should be displayed on deck
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I enter Username :9403960183 and  Password :{VALID}
@@ -987,10 +992,11 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "REJECT" button on "Bungii Request" screen
 
     And I open "driver" application on "Driver2" devices
-    And I click on notification for "Driver" for "stack trip"
-    When I click "View" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
-    When I click "OK" on alert message
+   # And I click on notification for "Driver" for "stack trip"
+    #When I click "View" on alert message
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click "OK" on alert message
+    And I view and accept virtual notification for "Driver" for "stack trip"
     And stack trip information should be displayed on deck
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
@@ -1049,10 +1055,12 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "REJECT" button on "Bungii Request" screen
 
     And I open "customer" application on "ORIGINAL" devices
-    And I click on notification for "Driver" for "stack trip"
-    When I click "View" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
-    When I click "OK" on alert message
+    #And I click on notification for "Driver" for "stack trip"
+    #When I click "View" on alert message
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click "OK" on alert message
+    And I view and accept virtual notification for "Driver" for "stack trip"
+  
     And stack trip information should be displayed on deck
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I slide update button on "UNLOADING ITEM" Screen
@@ -1327,17 +1335,18 @@ Feature: To Test Duo - Scheduled Bungii
     When I enter Username :9403960183 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
 
-    And I click on notification for "Driver" for "stack trip"
-    When I click "View" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
-    When I click "OK" on alert message
-    And I click on notification for "Customer" for "Driver accepted stack Bungii"
+    #And I click on notification for "Driver" for "stack trip"
+    #When I click "View" on alert message
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click "OK" on alert message
+    And I view and accept virtual notification for "Driver" for "stack trip"
+    #And I click on notification for "Customer" for "Driver accepted stack Bungii"
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii Completed" screen
-    And I click on notification for "Customer" for "DRIVER STARTED STACK BUNGII"
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
+    #And I click on notification for "Customer" for "DRIVER STARTED STACK BUNGII"
+    #When I click "Ok" button on "BUNGII ACCEPTED" screen
     Then I should be navigated to "EN ROUTE" screen
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
@@ -1356,10 +1365,11 @@ Feature: To Test Duo - Scheduled Bungii
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    And I click on notification for "Driver" for "stack trip"
-    When I click "View" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
-    When I click "OK" on alert message
+   # And I click on notification for "Driver" for "stack trip"
+   # When I click "View" on alert message
+   # When I click "ACCEPT" button on "Bungii Request" screen
+   # When I click "OK" on alert message
+    And I view and accept virtual notification for "Driver" for "stack trip"
     And stack trip information should be displayed on deck
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
@@ -1392,10 +1402,11 @@ Feature: To Test Duo - Scheduled Bungii
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    And I click on notification for "Driver" for "stack trip"
-    When I click "View" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
-    When I click "OK" on alert message
+    #And I click on notification for "Driver" for "stack trip"
+   # When I click "View" on alert message
+   # When I click "ACCEPT" button on "Bungii Request" screen
+   # When I click "OK" on alert message
+    And I view and accept virtual notification for "Driver" for "stack trip"
     And stack trip information should be displayed on deck
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
@@ -1432,11 +1443,13 @@ Feature: To Test Duo - Scheduled Bungii
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    And I click on notification for "Driver" for "stack trip"
-    When I click "View" on alert message
-    Then "correct stack trip details" should be displayed on Bungii request screen
-    When I click "ACCEPT" button on "Bungii Request" screen
-    When I click "OK" on alert message
+    
+   And I view and accept virtual notification for "Driver" for "stack trip"
+   # And I click on notification for "Driver" for "stack trip"
+   # When I click "View" on alert message
+   # Then "correct stack trip details" should be displayed on Bungii request screen
+   # When I click "ACCEPT" button on "Bungii Request" screen
+   # When I click "OK" on alert message
     And stack trip information should be displayed on deck
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
