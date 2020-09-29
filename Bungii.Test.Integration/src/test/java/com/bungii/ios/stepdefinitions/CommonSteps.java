@@ -849,6 +849,7 @@ public class CommonSteps extends DriverBase {
                     break;
             }        //temp fixed
             new GeneralUtility().handleIosUpdateMessage();
+            new GeneralUtility().handleAppleIDVerification();
             if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
@@ -862,6 +863,7 @@ public class CommonSteps extends DriverBase {
                 }
             }
             new GeneralUtility().handleIosUpdateMessage();
+            new GeneralUtility().handleAppleIDVerification();
             if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
                 logger.error("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
 
@@ -880,7 +882,7 @@ public class CommonSteps extends DriverBase {
                     "Switched to : " + appName + " application on device instance", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
         } catch (Throwable e) {
-            logger.error("Error in switching tp app "+ appName, ExceptionUtils.getStackTrace(e));
+            logger.error("Error in switching to app "+ appName, ExceptionUtils.getStackTrace(e));
           //  logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step should be successful",
                     "Error in switching tp app "+ appName, true);
