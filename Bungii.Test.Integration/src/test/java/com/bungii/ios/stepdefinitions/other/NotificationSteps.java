@@ -99,7 +99,7 @@ public class NotificationSteps extends DriverBase {
         String driverPhoneCode="1";
         String pickupRequestID= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         if(pickupRequestID!= null) {
-            if(driverPhoneNum!= null) {
+            if(driverPhoneNum== null) {
                 driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
             }
             if(driverPhoneNum!= null) {
