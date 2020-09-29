@@ -101,6 +101,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Promo Code Page":
                 testStepAssert.isElementDisplayed(admin_PromoCodesPage.Title_PromocodesPage(true), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
+            case "Standard Codes Page":
+                testStepAssert.isElementDisplayed(admin_PromoCodesPage.Title_StandardcodesPage(true), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
             case "Referral Source Page":
                 testStepAssert.isElementDisplayed(admin_ReferralSourcePage.Title_ReferralSourcePage(true), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
