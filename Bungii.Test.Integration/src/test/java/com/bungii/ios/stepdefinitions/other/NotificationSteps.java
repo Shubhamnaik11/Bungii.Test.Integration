@@ -65,7 +65,7 @@ public class NotificationSteps extends DriverBase {
             //	logger.detail(SetupManager.getDriver().getPageSource());
             boolean notificationClick = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
             if (!notificationClick) {
-                Thread.sleep(120000);
+              //  Thread.sleep(120000);
                 notificationClickRetry = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
 
             }
@@ -90,12 +90,12 @@ public class NotificationSteps extends DriverBase {
         }
     }
 
-    public void acceptVirtualNotificationAsDriver(String driverPhoneNum, String expectedNotification) {
+    public void acceptVirtualNotificationAsDriver(String driverPhoneNum, String expectedNotification) throws InterruptedException{
         String driverPhoneCode="1";
         String pickupRequestID= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         if(pickupRequestID!= null) {
             if(driverPhoneNum!= null) {
-                driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+                driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
             }
             if(driverPhoneNum!= null) {
 
@@ -106,6 +106,7 @@ public class NotificationSteps extends DriverBase {
                 new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
                 else
                 new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
+                utility.loginToDriverApp(driverPhoneNum, driverPassword);
             }
             else
             {
