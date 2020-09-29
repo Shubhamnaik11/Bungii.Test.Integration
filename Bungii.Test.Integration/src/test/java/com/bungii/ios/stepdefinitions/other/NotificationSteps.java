@@ -102,6 +102,9 @@ public class NotificationSteps extends DriverBase {
                 // String driverPhoneNum= ;
                 String driverPassword = ((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("") ? "Cci12345" : (String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
                 String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+                if(expectedNotification.equalsIgnoreCase("stack trip"))
+                new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
+                else
                 new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
             }
             else
