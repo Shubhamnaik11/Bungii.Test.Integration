@@ -790,6 +790,8 @@ public class GeneralUtility extends DriverBase {
                 action.sendKeys(driverLoginPage.Textfield_Password(), password);
                 action.click(driverLoginPage.Button_Login());
                 Thread.sleep(2500);
+                cucumberContextManager.setScenarioContext("DRIVER_PHONE_PUSH", phone);
+                cucumberContextManager.setScenarioContext("DRIVER_PWD_PUSH", password);
 
                 navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
                 if(navigationBarName != null && !navigationBarName.isEmpty())

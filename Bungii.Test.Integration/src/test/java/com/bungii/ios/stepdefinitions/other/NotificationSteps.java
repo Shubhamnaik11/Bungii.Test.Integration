@@ -92,10 +92,10 @@ public class NotificationSteps extends DriverBase {
     }
     @And("^I view and accept virtual notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_view_and_accept_virtual_notification_for_something_for_something(String strArg1, String expectedNotification) throws Throwable {
-        acceptVirtualNotificationAsDriver((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"),expectedNotification);
+        acceptVirtualNotificationAsDriver((String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_PUSH"),(String) cucumberContextManager.getScenarioContext("DRIVER_PWD_PUSH"),expectedNotification);
     }
 
-    public void acceptVirtualNotificationAsDriver(String driverPhoneNum, String expectedNotification) throws InterruptedException{
+    public void acceptVirtualNotificationAsDriver(String driverPhoneNum, String driverPassword, String expectedNotification) throws InterruptedException{
         String driverPhoneCode="1";
         String pickupRequestID= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         if(pickupRequestID!= null) {
@@ -105,7 +105,7 @@ public class NotificationSteps extends DriverBase {
             if(driverPhoneNum!= null) {
 
                 // String driverPhoneNum= ;
-                String driverPassword = ((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("") ? "Cci12345" : (String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
+               // String driverPassword = ;
                 String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
                 if(expectedNotification.equalsIgnoreCase("stack trip"))
                 new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
