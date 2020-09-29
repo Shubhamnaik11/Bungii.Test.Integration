@@ -47,7 +47,7 @@ public class NotificationSteps extends DriverBase {
     @Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_click_on_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
 
-        //Thread.sleep(30000);
+        Thread.sleep(10000);
         //Thread.sleep(10000);
         try {
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
@@ -65,15 +65,15 @@ public class NotificationSteps extends DriverBase {
             //	logger.detail(SetupManager.getDriver().getPageSource());
             boolean notificationClick = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
             if (!notificationClick) {
-              //  Thread.sleep(120000);
+                Thread.sleep(5000);
                 notificationClickRetry = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
 
             }
             if (!notificationClick && !notificationClickRetry) {
-                //fail("I should be able to click on push notification : " + expectedNotification, "PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
+                fail("I should be able to click on push notification : " + expectedNotification, "PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
 
                 action.hideNotifications();
-                acceptVirtualNotificationAsDriver((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"),expectedNotification);
+               // acceptVirtualNotificationAsDriver((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"),expectedNotification);
 
             } else {
                 pass("I should be able to click on push notification : " + expectedNotification, "I clicked on push notifications with text : " + getExpectedNotification(expectedNotification), true);
@@ -106,6 +106,7 @@ public class NotificationSteps extends DriverBase {
                 new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
                 else
                 new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
+
                 utility.loginToDriverApp(driverPhoneNum, driverPassword);
             }
             else
