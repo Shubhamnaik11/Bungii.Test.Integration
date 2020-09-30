@@ -117,8 +117,12 @@ public class NotificationSteps extends DriverBase {
                 }
                 else
                 new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
-                ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                // Switch and login on same device
+              // ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+              //  ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                 ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+
+                Thread.sleep(2000);
                 utility.loginToDriverApp(driverPhoneNum, driverPassword);
             }
             else
