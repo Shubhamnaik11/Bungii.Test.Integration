@@ -73,7 +73,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                 case "timezone":
                     String expectedBungiiTime=(String)cucumberContextManager.getScenarioContext("BUNGII_TIME");
                     if(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()).inDaylightTime( new Date() ))
-                        expectedBungiiTime = expectedBungiiTime.replace("S","D");
+                        expectedBungiiTime = expectedBungiiTime.replace("ST","DT");
                     String actualBungiiTime=action.getText(myBungiisPage.Text_TripScheduledDate());
                     testStepAssert.isEquals(actualBungiiTime,expectedBungiiTime,"Bungii time expected is "+expectedBungiiTime,"Expected Bungii Time is displayed.",expectedBungiiTime+" is not displayed.");
                     break;

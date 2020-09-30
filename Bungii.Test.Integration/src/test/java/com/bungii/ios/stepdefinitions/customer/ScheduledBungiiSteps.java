@@ -139,7 +139,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 		int year=currentDate.getYear()+1900;
 		//Handle code to update Daylight
 		if(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()).inDaylightTime( new Date() ))
-		bungiiTime=bungiiTime.replace("S","D");
+		bungiiTime=bungiiTime.replace("ST","DT");
 		action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
 	}
 

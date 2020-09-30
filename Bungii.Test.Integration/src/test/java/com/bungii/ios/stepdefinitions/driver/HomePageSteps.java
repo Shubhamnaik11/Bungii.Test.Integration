@@ -419,7 +419,7 @@ public class HomePageSteps extends DriverBase {
 
             //Add Code to handle daylight
             if(TimeZone.getTimeZone("CST6CDT").inDaylightTime(new Date()))
-                timeRange = timeRange.replace("S","D");
+                timeRange = timeRange.replace("ST","DT");
 
             switch (strArg1) {
                 case "DELIVERY ALERT":
