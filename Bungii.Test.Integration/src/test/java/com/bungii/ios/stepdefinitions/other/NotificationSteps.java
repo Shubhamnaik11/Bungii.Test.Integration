@@ -40,6 +40,7 @@ public class NotificationSteps extends DriverBase {
     NotificationPage notificationPage;
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    DbUtility dbUtility = new DbUtility();
 
     public NotificationSteps(NotificationPage notificationPage) {
         this.notificationPage = notificationPage;
@@ -97,8 +98,11 @@ public class NotificationSteps extends DriverBase {
 
     public void acceptVirtualNotificationAsDriver(String driverPhoneNum, String driverPassword, String expectedNotification) throws InterruptedException{
         String driverPhoneCode="1";
-        String pickupRequestID= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-        if(pickupRequestID!= null) {
+        String pickupRequestID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        if(pickupRequestID== "")
+        {   pickupRequestID =  dbUtility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH_PHONE"));
+        }
+        if(pickupRequestID!= "") {
             if(driverPhoneNum== null) {
                 driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
             }
