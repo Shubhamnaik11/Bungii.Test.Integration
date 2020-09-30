@@ -102,7 +102,7 @@ public class EstimateSteps extends DriverBase {
 
             testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
                     "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
-                            + strTime + actualTime + " not matching with entered time ");
+                            + strTime + " | " + actualTime + " not matching with entered time ");
             utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -6,7 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
 import com.bungii.ios.stepdefinitions.customer.*;
-import com.bungii.ios.utilityfunctions.DbUtility;
+import com.bungii.api.utilityFunctions.DbUtility;
 import cucumber.api.junit.Cucumber;
 import io.restassured.http.Header;
 import io.restassured.path.json.JsonPath;
@@ -43,7 +43,7 @@ public class CoreServices extends DriverBase {
     private static String DRIVER_CANCELPICKUPLIST = "/api/driver/cancelpickup";
     private static String STACKED_PICKUP_CONFIRMATION = "/api/driver/stackedpickupconfirmation";
     GeneralUtility utility = new GeneralUtility();
-
+    DbUtility dbUtility = new DbUtility();
 
     public Response validatePickupRequest(String authToken, String geoFence) {
         logger.detail("API REQUEST : Validate Pickup Request : " + authToken +" : "+ geoFence);
@@ -203,7 +203,16 @@ public class CoreServices extends DriverBase {
 
             }
             if (!foundPickup) {
-                error("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip since Driver "+driverDetail+" is not eligible for pickup : "+expectedPickupRequest, false);
+
+                List<HashMap<String,Object>> driverEligible =dbUtility.getAllDriversEligible(expectedPickupRequest);
+                String drivers = "IDs of drivers who are eligible for pickup : "+ expectedPickupRequest+ " : ";
+                int i =0 ;
+                while (i<driverEligible.size())
+                {
+                    drivers = drivers + " "+driverEligible.get(i);
+                    i++;
+                }
+                error("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip since Driver "+driverDetail+" is not eligible for pickup : "+expectedPickupRequest +" | "+ drivers, false);
             }
 
         } catch (Exception e) {
