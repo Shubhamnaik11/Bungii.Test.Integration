@@ -301,10 +301,10 @@ public class ApiHelper {
 
         if (error == null) {
           //  logger.detail(response.then().log().body()); //temporary checkin
-            logger.detail(RequestText + " | API call response - Success ");
+            logger.detail(RequestText + " | Response - Success ");
         }
         else
-        {   logger.detail(RequestText + " | API call response - Failure ");
+        {   logger.detail(RequestText + " | Response - Failure ");
             logger.detail(response.then().log().body());
         }
             response.then().statusCode(200);
@@ -316,13 +316,13 @@ public class ApiHelper {
             if (error.size()!=0) {
                 logger.error("API Call failed : ", " Failed due to : " + error.get("Message").toString());
                 error("Step should be successful", "Failed due to :  " + error.get("Message").toString(),
-                        true);
+                        false);
             }
             else
             {
                 logger.error("API Call failed : ", " API Response is empty. It seems to be queue error. Please reset the queue and try again.");
                 error("Step should be successful", "API Response is empty. It see seems to be queue error. Please reset the queue and try again.",
-                        true);
+                        false);
             }
         }
 
