@@ -27,7 +27,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
-      | 30       |           |              | NEXT_POSSIBLE | large image | Yes            |
+      | 30       |           |              | NEXT_POSSIBLE | Default | Yes            |
     Then I should be navigated to "Success" screen
     When I click "Done" button on "Success" screen
     And I Select "Home" from Customer App menu

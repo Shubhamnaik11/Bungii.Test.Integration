@@ -473,6 +473,8 @@ public class CoreServices extends DriverBase {
         Header header = new Header("AuthorizationToken", authToken);
 
         String apiURL = null;
+        try{
+        Thread.sleep(60000);} catch(Exception ex){}
 
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CONFIRMATION);
         Response response = ApiHelper.uploadImage(apiURL, jsonObj, header);
