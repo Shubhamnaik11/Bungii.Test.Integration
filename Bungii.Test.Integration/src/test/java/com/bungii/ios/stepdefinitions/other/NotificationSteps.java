@@ -123,6 +123,8 @@ public class NotificationSteps extends DriverBase {
                 ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                 Thread.sleep(2000);
+                utility.handleIosUpdateMessage();
+                utility.handleAppleIDVerification();
                 utility.loginToDriverApp(driverPhoneNum, driverPassword);
             }
             else

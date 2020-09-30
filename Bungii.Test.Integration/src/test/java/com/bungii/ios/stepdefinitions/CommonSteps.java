@@ -885,7 +885,7 @@ public class CommonSteps extends DriverBase {
             logger.error("Error in switching to app "+ appName, ExceptionUtils.getStackTrace(e));
           //  logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step should be successful",
-                    "Error in switching tp app "+ appName, true);
+                    "Error in switching to app "+ appName, true);
 
         }
     }
