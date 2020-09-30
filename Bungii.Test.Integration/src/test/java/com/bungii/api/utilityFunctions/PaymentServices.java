@@ -15,19 +15,19 @@ public class PaymentServices {
 
     public Response getGetPaymentMethod(String authToken) {
         String apiURL = null;
-        logger.detail("API REQUEST : Get Payment Method by Authtoken : " + authToken);
+        String RequestText ="API REQUEST : Get Payment Method by Authtoken : " + authToken;
         apiURL = UrlBuilder.createApiUrl("payment", GET_PAYMENT_METHOD);
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForCustomer(apiURL, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
     }
 
     public String getPaymentMethodRef(String authToken) {
-        logger.detail("API REQUEST : Get Payment Method Reference by Authtoken : " + authToken);
+        String RequestText ="API REQUEST : Get Payment Method Reference by Authtoken : " + authToken;
 
         Response response = getGetPaymentMethod(authToken);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         JsonPath jsonPathEvaluator = response.jsonPath();
         String paymentRef = jsonPathEvaluator.get("PaymentMethods[0].PaymentMethodRef");
         return paymentRef;

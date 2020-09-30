@@ -14,6 +14,7 @@ import io.restassured.response.Response;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.runner.Request;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -46,7 +47,7 @@ public class CoreServices extends DriverBase {
     DbUtility dbUtility = new DbUtility();
 
     public Response validatePickupRequest(String authToken, String geoFence) {
-        logger.detail("API REQUEST : Validate Pickup Request : " + authToken +" : "+ geoFence);
+        String RequestText ="API REQUEST : Validate Pickup Request : " + authToken +" : "+ geoFence;
         JSONObject jsonObj = new JSONObject();
         JSONObject dropOffCordinate = new JSONObject();
         JSONObject pickupCordinates = new JSONObject();
@@ -115,12 +116,12 @@ public class CoreServices extends DriverBase {
         String apiURL = UrlBuilder.createApiUrl("core", VALIDATE_PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
         //logger.detail(response.then().log().body());
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
 
     }
     public Response validatePickupRequestOfPartnerFirm(String authToken, String geoFence) {
-        logger.detail("API REQUEST : Validate Pickup Request Of Partner Firm : " + authToken +" : "+ geoFence);
+        String RequestText ="API REQUEST : Validate Pickup Request Of Partner Firm : " + authToken +" : "+ geoFence;
 
         JSONObject jsonObj = new JSONObject();
         JSONObject dropOffCordinate = new JSONObject();
@@ -148,17 +149,17 @@ public class CoreServices extends DriverBase {
         String apiURL = UrlBuilder.createApiUrl("core", VALIDATE_PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
        // logger.detail(response.then().log().body());
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
 
     }
     public Response availablePickupList(String authToken) {
-        logger.detail("API REQUEST : Available Pickup List : Auth token " + authToken);
+        String RequestText ="API REQUEST : Available Pickup List : Auth token " + authToken;
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", AVAILABLE_PICKUPLIST);
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
     }
 
@@ -222,7 +223,7 @@ public class CoreServices extends DriverBase {
     }
 
     public Response pickupRequest(String authToken, int numberOfDriver, String geoFence) {
-        logger.detail("API REQUEST : Pickpup Request " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
+        String RequestText ="API REQUEST : Pickpup Request " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence;
 
         JSONObject jsonObj = new JSONObject();
         JSONObject dropOffAddress = new JSONObject();
@@ -266,14 +267,14 @@ public class CoreServices extends DriverBase {
 
         String apiURL = UrlBuilder.createApiUrl("core", PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
 
 
     }
 
     public Response pickupRequestPartnerFirm(String authToken, int numberOfDriver, String geoFence) {
-        logger.detail("API REQUEST : Pickpup Request of Partner Firm " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
+        String RequestText ="API REQUEST : Pickpup Request of Partner Firm " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence;
 
         JSONObject jsonObj = new JSONObject();
         JSONObject dropOffAddress = new JSONObject();
@@ -317,7 +318,7 @@ public class CoreServices extends DriverBase {
 
         String apiURL = UrlBuilder.createApiUrl("core", PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
 
 
@@ -360,7 +361,7 @@ public class CoreServices extends DriverBase {
     }
     public void recalculateEstimate(String pickupRequestID, String walletReferance, String authToken) {
         try {
-            logger.detail("Recalculating Estimate of pickup request : " + pickupRequestID+" | Wallet Reference : "+ walletReferance+" | Auth Token : "+ authToken);
+            String RequestText ="Recalculating Estimate of pickup request : " + pickupRequestID+" | Wallet Reference : "+ walletReferance+" | Auth Token : "+ authToken;
 
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("PickupRequestID", pickupRequestID);
@@ -374,7 +375,7 @@ public class CoreServices extends DriverBase {
             Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
             JsonPath jsonPathEvaluator = response.jsonPath();
 
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
             cucumberContextManager.setScenarioContext("BUNGII_TIME", "NOW");
             String bungiiDistance="";
            /* if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
@@ -396,7 +397,7 @@ public class CoreServices extends DriverBase {
     }
     public void recalculateEstimate(String pickupRequestID, String walletReferance, String authToken,String customerLabel) {
         try {
-            logger.detail("Recalculating Estimate of pickup request : " + pickupRequestID+" | Wallet Reference : "+ walletReferance+" | Auth Token : "+ authToken);
+            String RequestText ="Recalculating Estimate of pickup request : " + pickupRequestID+" | Wallet Reference : "+ walletReferance+" | Auth Token : "+ authToken;
 
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("PickupRequestID", pickupRequestID);
@@ -410,7 +411,7 @@ public class CoreServices extends DriverBase {
             Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
             JsonPath jsonPathEvaluator = response.jsonPath();
 
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response, RequestText);
             cucumberContextManager.setScenarioContext("BUNGII_TIME"+customerLabel, "NOW");
             String bungiiDistance="";
             //now two decimal point are shown
@@ -454,7 +455,7 @@ public class CoreServices extends DriverBase {
 
 
     public Response customerConfirmation(String pickRequestID, String paymentMethodID, String authToken, String scheduledDateTime) {
-        logger.detail("API REQUEST : Customer Confirmation of pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken +" | Scheduled Date Time : "+ scheduledDateTime);
+        String RequestText ="API REQUEST : Customer Confirmation of pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken +" | Scheduled Date Time : "+ scheduledDateTime;
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("WalletRef", (String)cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"));
@@ -478,7 +479,7 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CONFIRMATION);
         Response response = ApiHelper.uploadImage(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
     }
 
@@ -652,7 +653,7 @@ public class CoreServices extends DriverBase {
 
 
     public Response customerView(String pickuprequestid, String authToken) {
-        logger.detail("API REQUEST : Customer View "+ pickuprequestid +" | Auth Token : "+ authToken);
+        String RequestText ="API REQUEST : Customer View "+ pickuprequestid +" | Auth Token : "+ authToken;
 
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -663,13 +664,13 @@ public class CoreServices extends DriverBase {
                 get(apiURL);
         //response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
 
     }
 
     public Response driverView(String pickuprequestid, String authToken) {
-        logger.detail("API REQUEST : Driver View "+ pickuprequestid +" | Auth Token : "+ authToken);
+        String RequestText ="API REQUEST : Driver View "+ pickuprequestid +" | Auth Token : "+ authToken;
 
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -679,7 +680,7 @@ public class CoreServices extends DriverBase {
         Response response = ApiHelper.givenDriverConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
        // response.then().log().body();
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
 
 
@@ -687,9 +688,9 @@ public class CoreServices extends DriverBase {
 
     public String driverPaymentMethod(String pickuprequestid, String authToken) {
         try {
-            logger.detail("API REQUEST : Driver Payment Method "+ pickuprequestid +" | Auth Token : "+ authToken);
+            String RequestText ="API REQUEST : Driver Payment Method "+ pickuprequestid +" | Auth Token : "+ authToken;
             Response response = driverView(pickuprequestid, authToken);
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
             JsonPath jsonPathEvaluator = response.jsonPath();
             return jsonPathEvaluator.get("PickupDetails.PaymentMethodRef");
         } catch (Exception e) {
@@ -699,7 +700,7 @@ public class CoreServices extends DriverBase {
 
     public Response updateDriverLocation(String authToken, String geofence) {
         Float[] driverLocations = utility.getDriverLocation(geofence);
-        logger.detail("API REQUEST : (For Ondemand Bungiis) Update Driver Location of Authtoken : "+ authToken +" | Geofence : "+ geofence+" | Location : "+ driverLocations[0]+","+driverLocations[1]);
+        String RequestText ="API REQUEST : (For Ondemand Bungiis) Update Driver Location of Authtoken : "+ authToken +" | Geofence : "+ geofence+" | Location : "+ driverLocations[0]+","+driverLocations[1];
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("Latitude", driverLocations[0]);
         jsonObj.put("Longitude", driverLocations[1]);
@@ -709,12 +710,12 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", UPDATE_LOCATION);
         Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
 
     }
     public Response stackedPickupConfirmation(String pickuprequestid, String authToken) {
-        logger.detail("API REQUEST : Stacked Pickup Request Confirmation of Pickup Request id:  "+ pickuprequestid +" | Auth Token : "+ authToken);
+       String RequestText= "API REQUEST : Stacked Pickup Request Confirmation of Pickup Request id:  "+ pickuprequestid +" | Auth Token : "+ authToken;
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("DeviceName", "XT1092");
@@ -728,7 +729,7 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", STACKED_PICKUP_CONFIRMATION);
         Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
     }
 
@@ -753,7 +754,7 @@ public class CoreServices extends DriverBase {
 
     public void updateStatus(String pickupID, String authToken, int statusID) {
         try {
-            logger.detail("API REQUEST : Update Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID);
+            String RequestText = "API REQUEST : Update Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID;
 
             JSONObject jsonObj = new JSONObject();
             JSONObject status = new JSONObject();
@@ -774,7 +775,7 @@ public class CoreServices extends DriverBase {
 
             apiURL = UrlBuilder.createApiUrl("core", UPDATE_PICKUP_STATUS);
             Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
 
 
         } catch (Exception e) {
@@ -786,7 +787,7 @@ public class CoreServices extends DriverBase {
 
     public void pickupdetails(String pickupID, String authToken, String geofence) {
         try {
-            logger.detail("API REQUEST : Pickup Details of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Geofence : "+ geofence);
+            String RequestText = "API REQUEST : Pickup Details of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Geofence : "+ geofence;
             JSONObject jsonObj = new JSONObject();
             JSONObject driverCordinate = new JSONObject();
             Float[] driverLocations = utility.getDriverLocation(geofence);
@@ -804,7 +805,7 @@ public class CoreServices extends DriverBase {
 
             apiURL = UrlBuilder.createApiUrl("core", PICKUP_DETAILS);
             Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response, RequestText);
 
 
         } catch (Exception e) {
@@ -816,7 +817,7 @@ public class CoreServices extends DriverBase {
     public void rateAndTip(String pickupRef, String authToken, String driverRef, String tipPaymentMethod, Double
             rating, Double tipAmount) {
         try {
-            logger.detail("API REQUEST : Rate and Tip | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Driver Ref : "+ driverRef + " | Tip Payment Method : "+ tipPaymentMethod+ " | Rating : "+ rating+ " | Tip Amount : "+ tipAmount);
+            String RequestText = "API REQUEST : Rate and Tip | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Driver Ref : "+ driverRef + " | Tip Payment Method : "+ tipPaymentMethod+ " | Rating : "+ rating+ " | Tip Amount : "+ tipAmount;
             JSONObject jsonObj = new JSONObject();
             JSONObject driver = new JSONObject();
             JSONArray driverArray = new JSONArray();
@@ -836,7 +837,7 @@ public class CoreServices extends DriverBase {
             apiURL = UrlBuilder.createApiUrl("core", RATE_AND_TIP);
             Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
             JsonPath jsonPathEvaluator = response.jsonPath();
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response, RequestText);
 
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
@@ -846,8 +847,7 @@ public class CoreServices extends DriverBase {
     public void rateAndTip(String pickupRef, String authToken, String driverRef, String tipPaymentMethod, Double
             rating, Double tipAmount, String driver2Ref, String tipPayment2Method) {
         try {
-            logger.detail("API REQUEST : Rate and Tip | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Driver Ref : "+ driverRef + " | Tip Payment Method : "+ tipPaymentMethod+ " | Rating : "+ rating+ " | Tip Amount : "+ tipAmount);
-
+            String RequestText = "API REQUEST : Rate and Tip | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Driver Ref : "+ driverRef + " | Tip Payment Method : "+ tipPaymentMethod+ " | Rating : "+ rating+ " | Tip Amount : "+ tipAmount;
             JSONObject jsonObj = new JSONObject();
             JSONObject driver = new JSONObject();
             JSONObject driver2 = new JSONObject();
@@ -875,7 +875,7 @@ public class CoreServices extends DriverBase {
             apiURL = UrlBuilder.createApiUrl("core", RATE_AND_TIP);
             Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
             JsonPath jsonPathEvaluator = response.jsonPath();
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
 
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
@@ -893,26 +893,26 @@ public class CoreServices extends DriverBase {
 
     }
     public Response getCustomersScheduledPickupList(String authToken) {
-        logger.detail("API REQUEST : Get Customer Scheduled Pickup List | Auth Token : "+ authToken);
+        String RequestText = "API REQUEST : Get Customer Scheduled Pickup List | Auth Token : "+ authToken;
 
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_SCHEDULEDLIST);
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
 
         return response;
 
     }
 
     public Response getDriverScheduledPickupList(String authToken) {
-        logger.detail("API REQUEST : Get driver Scheduled Pickup List | Auth Token : "+ authToken);
+        String RequestText = "API REQUEST : Get driver Scheduled Pickup List | Auth Token : "+ authToken;
 
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", DRIVER_SCHEDULEDLIST);
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
        // response.then().log().body();
         return response;
 
@@ -1011,7 +1011,7 @@ public class CoreServices extends DriverBase {
             logger.detail("No Bungiis Found for Customer ");
     }
     public Response getScheduledPickupDetails(String pickuprequestid, String authToken) {
-        logger.detail("API REQUEST : Get Scheduled Pickup Details | pickup Request : "+ pickuprequestid + " | Authtoken : "+ authToken);
+        String RequestText ="API REQUEST : Get Scheduled Pickup Details | pickup Request : "+ pickuprequestid + " | Authtoken : "+ authToken;
 
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -1022,13 +1022,13 @@ public class CoreServices extends DriverBase {
                 get(apiURL);
        // response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
     }
 
     public void cancelBungiiAsCustomer(String pickupRef, String authToken) {
         try {
-            logger.detail("API REQUEST : Cancel Bungii As a Customer | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Status : "+ 64);
+            String RequestText ="API REQUEST : Cancel Bungii As a Customer | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Status : "+ 64;
 
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("Status", 64);
@@ -1038,7 +1038,7 @@ public class CoreServices extends DriverBase {
             String apiURL = null;
             apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CANCELPICKUPLIST);
             Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
 
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
@@ -1046,7 +1046,7 @@ public class CoreServices extends DriverBase {
     }
 
     public Response getPromoCodes(String authToken,String pickupRequestid) {
-        logger.detail("API REQUEST : Get Promo Codes | pickup Request : "+ pickupRequestid + " | Authtoken : "+ authToken);
+        String RequestText ="API REQUEST : Get Promo Codes | pickup Request : "+ pickupRequestid + " | Authtoken : "+ authToken;
 
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", GET_PROMOCODE);
@@ -1055,7 +1055,7 @@ public class CoreServices extends DriverBase {
                 get(apiURL);
        // response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
      }
 }

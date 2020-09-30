@@ -293,7 +293,7 @@ public class ApiHelper {
         return gson;
     }
 
-    public static void genericResponseValidation(Response response) {
+    public static void genericResponseValidation(Response response, String RequestText) {
         JsonPath jsonPathEvaluator;
         try {
             jsonPathEvaluator = response.jsonPath();
@@ -301,10 +301,10 @@ public class ApiHelper {
 
         if (error == null) {
           //  logger.detail(response.then().log().body()); //temporary checkin
-            logger.detail("VERIFIED | API call response - Success ");
+            logger.detail(RequestText + " | API call response - Success ");
         }
         else
-        {
+        {   logger.detail(RequestText + " | API call response - Failure ");
             logger.detail(response.then().log().body());
         }
             response.then().statusCode(200);

@@ -36,30 +36,30 @@ public class AuthServices {
     }
     //get customer access token
     public String getCustomerToken(String custPhoneCode, String custPhoneNum, String custPassword){
-        logger.detail("API REQUEST : Get Customer Token of " + custPhoneNum);
+        String RequestText = "API REQUEST : Get Customer Token of " + custPhoneNum;
         Response response=customerLogin( custPhoneCode, custPhoneNum, custPassword);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
 
         JsonPath jsonPathEvaluator = response.jsonPath();
         return jsonPathEvaluator.get("AccessToken");
     }
     //Driver login
     public Response driverLogin(String driverPhoneCode, String driverPhoneNum, String driverPassword) {
-        logger.detail("API REQUEST : Get Driver Login of " + driverPhoneNum);
+        String RequestText = "API REQUEST : Get Driver Login of " + driverPhoneNum;
         Map<String, String> data = new HashedMap();
             data.put("PhoneCountryCode", driverPhoneCode);
             data.put("Password", driverPassword);
             data.put("PhoneNo", driverPhoneNum);
             String loginURL = UrlBuilder.createApiUrl("auth", DRIVER_LOGIN_ENDPOINT);
             Response response= ApiHelper.postDetailsForDriver(loginURL, data);
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response, RequestText);
         return response;
     }
     //Get driver access token
     public String getDriverToken(String driverPhoneCode, String driverPhoneNum, String driverPassword){
-        logger.detail("API REQUEST : Get Driver Token of " + driverPhoneNum);
+        String RequestText = "API REQUEST : Get Driver Token of " + driverPhoneNum;
         Response response=driverLogin( driverPhoneCode, driverPhoneNum, driverPassword);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         JsonPath jsonPathEvaluator = response.jsonPath();
         return jsonPathEvaluator.get("AccessToken");
     }
