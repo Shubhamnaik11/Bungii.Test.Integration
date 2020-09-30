@@ -61,13 +61,18 @@ And I should be navigated to "Estimate" screen
 Then I save bungii trip time details
 And I request for bungii using Request Bungii Button
 Then I click "Done" button on "Success" screen
+  
+  And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+  When I Select "SCHEDULED BUNGIIS" from driver App menu
+  Then I should be navigated to "SCHEDULED BUNGII" screen
+  
+  #When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+#And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+#When I click "View" on alert message
+#Then I should be navigated to "BUNGII REQUEST" screen
+#When I accept selected Bungii
+#Then I should be navigated to "SCHEDULED BUNGII" screen
 
-When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-When I click "View" on alert message
-Then I should be navigated to "BUNGII REQUEST" screen
-When I accept selected Bungii
-Then I should be navigated to "SCHEDULED BUNGII" screen
 And I Select Trip from scheduled trip
 And I start selected Bungii
 Then I should be navigated to "EN ROUTE" screen
@@ -194,12 +199,16 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I request for bungii using Request Bungii Button
 	Then I click "Done" button on "Success" screen
 	
-	When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-	And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-	When I click "View" on alert message
-	Then I should be navigated to "BUNGII REQUEST" screen
-	When I accept selected Bungii
+	#When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+	#And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+	#When I click "View" on alert message
+	#Then I should be navigated to "BUNGII REQUEST" screen
+	#When I accept selected Bungii
+	#Then I should be navigated to "SCHEDULED BUNGII" screen
+	And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+	When I Select "SCHEDULED BUNGIIS" from driver App menu
 	Then I should be navigated to "SCHEDULED BUNGII" screen
+	
 	And I Select Trip from scheduled trip
 	And I start selected Bungii
 	Then I should be navigated to "EN ROUTE" screen
@@ -271,12 +280,16 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I request for bungii using Request Bungii Button
 	Then I click "Done" button on "Success" screen
 	
-	When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-	And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-	When I click "View" on alert message
-	Then I should be navigated to "BUNGII REQUEST" screen
-	When I accept selected Bungii
+	#When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+	#And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+	#When I click "View" on alert message
+	#Then I should be navigated to "BUNGII REQUEST" screen
+	#When I accept selected Bungii
+	#Then I should be navigated to "SCHEDULED BUNGII" screen
+	And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+	When I Select "SCHEDULED BUNGIIS" from driver App menu
 	Then I should be navigated to "SCHEDULED BUNGII" screen
+	
 	And I Select Trip from scheduled trip
 	And I start selected Bungii
 	Then I should be navigated to "EN ROUTE" screen

@@ -125,11 +125,13 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I should be navigated to "Estimate" screen
     And I request for bungii using Request Bungii Button
 
-    And I click on notification for "Driver" for "on demand trip"
-    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #And I click on notification for "Driver" for "on demand trip"
+    #And Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
+  
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
 
@@ -148,6 +150,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
 
   @ready
+  @pushnotification
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -184,12 +187,17 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I request for bungii using Request Bungii Button
     When I click "Done" button on "Success" screen
 
-    And I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-    And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-    When I click "View" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I accept selected Bungii
+    #And I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    #And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+    #When I click "View" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I accept selected Bungii
+    #Then I should be navigated to "SCHEDULED BUNGII" screen
+    And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    When I Select "SCHEDULED BUNGIIS" from driver App menu
     Then I should be navigated to "SCHEDULED BUNGII" screen
+    
+    
     Then I wait for "2" mins
 
     And I open new "Chrome" browser for "ADMIN"
@@ -208,6 +216,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
   
   @ready
+    @pushnotification
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
     
     And I am on the "LOG IN" page
@@ -236,11 +245,12 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I should be navigated to "Estimate" screen
     And I request for bungii using Request Bungii Button
     
-    And I click on notification for "Driver" for "on demand trip"
-    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #And I click on notification for "Driver" for "on demand trip"
+    #And Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
     Then I should be navigated to "EN ROUTE" screen
     
     And I Switch to "customer" application on "same" devices

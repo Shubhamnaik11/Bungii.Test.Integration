@@ -282,12 +282,14 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
 
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
-
+    #When I click on notification for "Driver" for "on demand trip"
+    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+   # When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
+  
+  
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
     When I click "Ok" button on "BUNGII ACCEPTED" screen
@@ -353,11 +355,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
 
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click on notification for "Driver" for "on demand trip"
+    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
 
     Then I click on notification for "Customer" for "DRIVER ENROUTE"
  #   And I Switch to "customer" application on "same" devices
@@ -437,11 +440,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
 
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click on notification for "Driver" for "on demand trip"
+    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
@@ -534,11 +538,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
 
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click on notification for "Driver" for "on demand trip"
+    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
@@ -591,11 +596,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
 
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click on notification for "Driver" for "on demand trip"
+    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
@@ -665,11 +671,13 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 15       |           |              | Now  | Default     |
     Then I should be navigated to "SEARCHING" screen
-    And I click on notification for "Driver" for "on demand trip"
-    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #And I click on notification for "Driver" for "on demand trip"
+    #And Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
+  
     Then I should be navigated to "EN ROUTE" trip status screen
     
     When I Switch to "customer" application on "same" devices
