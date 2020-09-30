@@ -652,6 +652,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @sanity
   @regression
   @ondemand
+    @pushnotification
   Scenario: Verify Ondemand Bungii Flow Till Completion
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page
