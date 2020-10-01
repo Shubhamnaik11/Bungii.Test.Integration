@@ -257,13 +257,16 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @ready
 
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
+  
+    And I Switch to "driver" application on "same" devices
+   # And I am logged in as "valid nashville" driver
+   # And I Select "HOME" from driver App menu
+  #  Then I change driver status to "Online"
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+  
+    When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
-    And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    Then I change driver status to "Online"
-    When I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
@@ -330,13 +333,16 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
   @regression
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code : Promoter Type Promocode
+
+    And I Switch to "driver" application on "same" devices
+    #And I am logged in as "valid nashville" driver
+    #And I Select "HOME" from driver App menu
+    #Then I change driver status to "Online"
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+  
+    When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
-    And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    Then I change driver status to "Online"
-    When I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
@@ -516,10 +522,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   Scenario: Verify Requesting Of Ondemand Bungii With Referral Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    Then I change driver status to "Online"
+    #And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid nashville" driver
+    #And I Select "HOME" from driver App menu
+    #Then I change driver status to "Online"
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+  
     When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "newly created user" user
@@ -573,10 +581,13 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   Scenario: Verify Requesting Of Ondemand Bungii With Received Referred Code
     Given I have customer with referral code received
     And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    Then I change driver status to "Online"
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+  
+    #And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid nashville" driver
+    #And I Select "HOME" from driver App menu
+    #Then I change driver status to "Online"
+    
     When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
@@ -655,10 +666,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     @pushnotification
   Scenario: Verify Ondemand Bungii Flow Till Completion
     And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    And I change driver status to "Online"
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+  
+    #And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid nashville" driver
+    #And I Select "HOME" from driver App menu
+    #And I change driver status to "Online"
     
     And I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
