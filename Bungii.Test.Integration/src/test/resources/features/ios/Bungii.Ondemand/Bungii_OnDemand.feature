@@ -258,7 +258,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
   
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
    # And I am logged in as "valid nashville" driver
    # And I Select "HOME" from driver App menu
   #  Then I change driver status to "Online"
@@ -334,7 +334,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @regression
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code : Promoter Type Promocode
 
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     #And I am logged in as "valid nashville" driver
     #And I Select "HOME" from driver App menu
     #Then I change driver status to "Online"
@@ -521,7 +521,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @ready
   Scenario: Verify Requesting Of Ondemand Bungii With Referral Code
     Given I have customer with referral code
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     #And I am on the "LOG IN" page on driverApp
     #And I am logged in as "valid nashville" driver
     #And I Select "HOME" from driver App menu
@@ -580,7 +580,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @ready
   Scenario: Verify Requesting Of Ondemand Bungii With Received Referred Code
     Given I have customer with referral code received
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I login as "valid nashville" driver on "same" device and make driver status as "Online"
   
     #And I am on the "LOG IN" page on driverApp
@@ -665,7 +665,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @ondemand
     @pushnotification
   Scenario: Verify Ondemand Bungii Flow Till Completion
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I login as "valid nashville" driver on "same" device and make driver status as "Online"
   
     #And I am on the "LOG IN" page on driverApp

@@ -8,7 +8,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   
   @regression
   Scenario: Verify Driver Can Reject Ondemand Bungii Request After Viewing Trip Details
-    When I Switch to "driver" application on "same" devices
+    #When I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
     
     And I Switch to "customer" application on "ORIGINAL" devices
@@ -96,7 +96,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   @regression
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
     
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
 
     And I Switch to "customer" application on "same" devices
@@ -148,7 +148,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I get promo code for "one off"
 
     When I switch to "ORIGINAL" instance
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
 
     And I Switch to "customer" application on "same" devices
@@ -198,7 +198,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     @pushnotification
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
     
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
     
     And I Switch to "customer" application on "same" devices
