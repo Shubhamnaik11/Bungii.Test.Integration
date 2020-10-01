@@ -13,10 +13,12 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
+    
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
+    
     And I Switch to "customer" application on "ORIGINAL" devices
     And I logged in Customer application using  "customer-duo" user
     And I request for  bungii for given pickup and drop location
@@ -156,10 +158,7 @@ Feature: To Test Duo - Scheduled Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
       | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
-
-    And I Switch to "customer" application on "same" devices
-    When I logged in Customer application using  "customer-duo" user
-
+    
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
@@ -170,6 +169,9 @@ Feature: To Test Duo - Scheduled Bungii
     Then I check ETA of "control driver"
 
     And I Switch to "customer" application on "same" devices
+    #And I Switch to "customer" application on "same" devices
+    When I logged in Customer application using  "customer-duo" user
+  
     Then I should be navigated to "EN ROUTE" screen
     Then "control driver" eta should be displayed to customer
 
@@ -253,10 +255,12 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
+    
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
+    
     And I Switch to "customer" application on "ORIGINAL" devices
     And I logged in Customer application using  "customer-duo" user
     And I request for  bungii for given pickup and drop location
@@ -385,6 +389,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
+    
     And I Switch to "customer" application on "ORIGINAL" devices
     When I logged in Customer application using  "customer-duo" user
 
@@ -571,14 +576,15 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
+    
     And I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "existing" user
-
 
     And I connect to "extra1" using "Customer2" instance
     And I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid customer2" user
+    
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
       | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |

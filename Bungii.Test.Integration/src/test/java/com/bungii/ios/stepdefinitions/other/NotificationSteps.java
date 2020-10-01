@@ -131,7 +131,7 @@ public class NotificationSteps extends DriverBase {
                 utility.handleIosUpdateMessage();
                 utility.handleAppleIDVerification();
 
-                utility.loginToDriverApp(driverPhoneNum, driverPassword);
+                utility.loginToDriverApp(driverPhoneNum, driverPassword); // Explictly login back since driver gets log out as a part of api call
             }
             else
             {

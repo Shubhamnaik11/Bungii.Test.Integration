@@ -13,6 +13,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid miami" driver
     And I change driver status to "Online"
+    
     And I Switch to "customer" application on "ORIGINAL" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid miami" user
@@ -28,6 +29,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
       | 15       |           |              | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
+    
     When I click on notification for "Driver" for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "YES" on alert message
@@ -215,12 +217,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
   
   @ready
-    @pushnotification
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
-    
-    And I am on the "LOG IN" page
-    And I logged in Customer application using  "valid miami" user
-    And I am on Customer logged in Home page
     
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -228,7 +225,11 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I change driver status to "Online"
     
     And I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
     And I am on Customer logged in Home page
+    
+    #And I am on Customer logged in Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location          | Drop Location           | Geofence |
       | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
