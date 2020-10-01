@@ -131,9 +131,9 @@ public class ActionManager {
         }
         catch(Exception ex)
         {
-            logger.error("ACTION FAILED | Error in getting Screen Header", ExceptionUtils.getStackTrace(ex));
-            error("Get name for element by locator -> " + getElementDetails(element), "Unable to get name for element by locator -> " + getElementDetails(element),
-                    true);
+           // logger.error("ACTION FAILED | Error in getting Screen Header", ExceptionUtils.getStackTrace(ex));
+            //error("Get name for element by locator -> " + getElementDetails(element), "Unable to get name for element by locator -> " + getElementDetails(element),
+                  //  true);
         }
         return value;
 
