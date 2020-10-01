@@ -62,6 +62,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.pass;
+
 public class GeneralUtility extends DriverBase {
     private static LogUtility logger = new LogUtility(GeneralUtility.class);
 
@@ -822,6 +826,82 @@ catch(Exception ex)
             } else {
                 //Not on Login page
             }
+        }
+    }
+    public void switchToApp(String appName, String device) {
+        try {
+            logger.detail ("*** Switching to : " + appName + " application ****");
+            String appHeader = "";
+            if (!device.equalsIgnoreCase("same")) {
+                try {
+                    SetupManager.getObject().useDriverInstance(device);
+                    log("I switch to " + device + " device instance",
+                            "I switch to  " + device + " device instance", false);
+
+                } catch (Exception e) {
+                    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                    error("Step  Should be successful",
+                            "Error performing step,Please check logs for more details", true);
+                }
+                Thread.sleep(1000);
+            }
+            //Vishal[20092019]: added terminate before switching the app, works faster
+            switch (appName.toUpperCase()) {
+                case "DRIVER":
+                    //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    appHeader = "Bungii Driver";
+                    break;
+                case "CUSTOMER":
+                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    appHeader = "Bungii";
+                    //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }        //temp fixed
+            new GeneralUtility().handleIosUpdateMessage();
+            new GeneralUtility().handleAppleIDVerification();
+            if (!action.getScreenHeader(customerHomePage.Application_Name()).equals(appHeader)) {
+                switch (appName.toUpperCase()) {
+                    case "DRIVER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        break;
+                    case "CUSTOMER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        break;
+                }
+            }
+            new GeneralUtility().handleIosUpdateMessage();
+            new GeneralUtility().handleAppleIDVerification();
+            if (!action.getScreenHeader(customerHomePage.Application_Name()).equals(appHeader)) {
+                logger.error("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
+
+                switch (appName.toUpperCase()) {
+                    case "DRIVER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        break;
+                    case "CUSTOMER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        break;
+                }
+            }
+            pass("Switch to : " + appName + " application on device instance",
+                    "Switched to : " + appName + " application on device instance", true);
+            cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
+        } catch (Throwable e) {
+            logger.error("Error in switching to app "+ appName, ExceptionUtils.getStackTrace(e));
+            //  logger.error("Page source", SetupManager.getDriver().getPageSource());
+            error("Step should be successful",
+                    "Error in switching to app "+ appName, true);
+
         }
     }
 

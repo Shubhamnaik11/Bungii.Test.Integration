@@ -86,7 +86,7 @@ public class HomePage extends PageBase {
     //public WebElement AppMenu_ScheduledTrip() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SCHEDULED BUNGIIS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_MyBungiisTrip() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'MY BUNGIIS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_LogOut() {return findElement("LOGOUT", LocatorType.AccessibilityId); }
-    public WebElement Text_NavigationBar() {return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName); }
+    public WebElement Text_NavigationBar(boolean ...ignoreException) {return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName, ignoreException); }
     public WebElement Indicator_Loading(boolean ... ignoreError) {return findElement("In progress", PageBase.LocatorType.AccessibilityId,ignoreError); }
     public WebElement Text_HeaderPickup() {return findElement("PICKUP LOCATION", PageBase.LocatorType.AccessibilityId); }
     public WebElement Text_HeaderDrop() {return findElement("DROP OFF LOCATION", PageBase.LocatorType.AccessibilityId); }

@@ -1180,7 +1180,7 @@ public class CommonSteps extends DriverBase {
             logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
             iClickButtonOnScreen("Log In", "Log In");
             Thread.sleep(2000);
-            NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
+            NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar(true));
 
             if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
                 new GeneralUtility().navigateFromTermToHomeScreen();

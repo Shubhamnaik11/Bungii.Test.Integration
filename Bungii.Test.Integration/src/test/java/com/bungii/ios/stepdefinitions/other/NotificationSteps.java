@@ -135,8 +135,7 @@ public class NotificationSteps extends DriverBase {
                     logger.detail("Accepted pickup " + pickupRequestID +" as driver " + driverPhoneNum );
                 }
                 // Switch and login on same device
-                ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
-                ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                utility.switchToApp("driver","same");
 
                 Thread.sleep(10000);
                 utility.handleIosUpdateMessage();
