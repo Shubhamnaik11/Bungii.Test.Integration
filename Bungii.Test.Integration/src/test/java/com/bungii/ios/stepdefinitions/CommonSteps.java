@@ -763,12 +763,15 @@ public class CommonSteps extends DriverBase {
      * driver goes online
      */
     public void goOnline() {
+        String navigationHeaderName = "";
+        try{
+         navigationHeaderName = action.getScreenHeader(driverhomepage.NavigationBar_Status(true));
+        } catch (Exception e) {
 
-        String navigationHeaderName = action.getScreenHeader(driverhomepage.NavigationBar_Status());
-
+        }
         if (navigationHeaderName.equals("ONLINE"))
             logger.warning("driver Status is already Online");
-        else if (navigationHeaderName.equals("OFFLINE")) {
+        else if (navigationHeaderName.equals("OFFLINE") || navigationHeaderName.equals("")) {
             action.click(driverhomepage.Button_GoOnline());
         } else if (action.isElementPresent(driverhomepage.Button_GoOnline(true)))
             action.click(driverhomepage.Button_GoOnline());
@@ -780,11 +783,15 @@ public class CommonSteps extends DriverBase {
      * driver goes offline
      */
     public void goOffline() {
-        String navigationHeaderName = action.getScreenHeader(driverhomepage.NavigationBar_Status());
+        String navigationHeaderName = "";
+        try{
+            navigationHeaderName = action.getScreenHeader(driverhomepage.NavigationBar_Status(true));
+        } catch (Exception e) {
 
+        }
         if (navigationHeaderName.equals("OFFLINE")) {
             logger.warning("driver Status is already offline");
-        } else if (navigationHeaderName.equals("ONLINE")) {
+        } else if (navigationHeaderName.equals("ONLINE") || navigationHeaderName.equals("")) {
             action.click(driverhomepage.Button_GoOffline());
         } else if (action.isElementPresent(driverhomepage.Button_GoOffline(true)))
             action.click(driverhomepage.Button_GoOffline());
