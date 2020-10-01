@@ -6,7 +6,6 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
   Background:
     #When I clear all notification
-    When I Switch to "customer" application on "same" devices
   
   
   @regression
@@ -14,9 +13,11 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
-
-    When I am on the "LOG IN" page
+  
+	When I Switch to "customer" application on "same" devices
+	When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+	
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
@@ -69,7 +70,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
-
+	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
    # And I am on Customer logged in Home page
     And I logged in Customer application using  "valid nashville" user
@@ -155,7 +156,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
-
+	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
    # And I am on Customer logged in Home page
     And I logged in Customer application using  "valid nashville" user
@@ -236,8 +237,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | UNLOADING ITEM      |
-    
-    When I am on the "LOG IN" page
+	When I Switch to "customer" application on "same" devices
+	When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -411,7 +412,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
       | nashville | UNLOADING ITEM |
-
+	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
     And I Switch to "driver" application on "same" devices
@@ -644,6 +645,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | UNLOADING ITEM      |
+	When I Switch to "customer" application on "same" devices
 
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
