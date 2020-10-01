@@ -792,17 +792,24 @@ public class GeneralUtility extends DriverBase {
                 Thread.sleep(2500);
                 cucumberContextManager.setScenarioContext("DRIVER_PHONE_PUSH", phone);
                 cucumberContextManager.setScenarioContext("DRIVER_PWD_PUSH", password);
+try {
+    navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
+}
+catch(Exception ex)
+{
+    action.click(driverHomePage.GoOnline_Btn());
+    navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
+}
+    if (navigationBarName != null && !navigationBarName.isEmpty())
+        if (navigationBarName.equals("NOTIFICATIONS")) {
+            grantPermissionToDriverApp();
+            Thread.sleep(3000);
+            if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Always Allow");
+            }
+        }
 
-                navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
-                if(navigationBarName != null && !navigationBarName.isEmpty())
-                    if (navigationBarName.equals("NOTIFICATIONS")) {
-                    grantPermissionToDriverApp();
-                    Thread.sleep(3000);
-                        if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
-                            action.click(enableLocationPage.Button_Sure());
-                            action.clickAlertButton("Always Allow");
-                        }
-                }
 /*                else if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
                     action.click(enableNotificationPage.Button_Sure());
                     action.clickAlertButton("Allow");
