@@ -6,6 +6,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
   Background:
     #When I clear all notification
+    When I Switch to "customer" application on "same" devices
   
   
   @regression
