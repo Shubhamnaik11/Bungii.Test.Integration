@@ -117,11 +117,16 @@ public class NotificationSteps extends DriverBase {
                // String driverPassword = ;
                 String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
                 if(expectedNotification.equalsIgnoreCase("stack trip")) {
+                    logger.detail("Accept stack pickup " + pickupRequestID +" as driver " + driverPhoneNum );
                     Thread.sleep(90000);
                     new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
+                    logger.detail("Accepted stack pickup" + pickupRequestID +" as driver " + driverPhoneNum );
                 }
-                else
-                new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
+                else {
+                    logger.detail("Accept pickup " + pickupRequestID +" as driver " + driverPhoneNum );
+                    new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
+                    logger.detail("Accepted pickup " + pickupRequestID +" as driver " + driverPhoneNum );
+                }
                 // Switch and login on same device
                 ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
               //  ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
