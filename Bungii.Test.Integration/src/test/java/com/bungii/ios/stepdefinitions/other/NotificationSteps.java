@@ -119,11 +119,18 @@ public class NotificationSteps extends DriverBase {
                 if(expectedNotification.equalsIgnoreCase("stack trip")) {
                     logger.detail("Accept stack pickup " + pickupRequestID +" as driver " + driverPhoneNum );
                     Thread.sleep(90000);
+                    Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID);
+                    if (!isDriverEligible)
+                        error("Diver should be eligible for stacked trip", "Driver "+driverPhoneNum+" is not eligible for stacked pickup : "+ pickupRequestID, false);
                     new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
                     logger.detail("Accepted stack pickup" + pickupRequestID +" as driver " + driverPhoneNum );
                 }
                 else {
                     logger.detail("Accept pickup " + pickupRequestID +" as driver " + driverPhoneNum );
+                    Thread.sleep(10000);
+                    Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID);
+                    if (!isDriverEligible)
+                        error("Diver should be eligible for trip", "Driver "+driverPhoneNum+" is not eligible for pickup : "+ pickupRequestID, false);
                     new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
                     logger.detail("Accepted pickup " + pickupRequestID +" as driver " + driverPhoneNum );
                 }
