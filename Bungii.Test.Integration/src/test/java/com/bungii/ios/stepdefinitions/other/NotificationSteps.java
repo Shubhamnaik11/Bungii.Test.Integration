@@ -95,6 +95,11 @@ public class NotificationSteps extends DriverBase {
     public void i_view_and_accept_virtual_notification_for_something_for_something(String strArg1, String expectedNotification) throws Throwable {
         acceptVirtualNotificationAsDriver((String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_PUSH"),(String) cucumberContextManager.getScenarioContext("DRIVER_PWD_PUSH"),expectedNotification);
     }
+    @And("^I view and reject virtual notification for \"([^\"]*)\" for \"([^\"]*)\"$")
+    public void i_view_and_reject_virtual_notification_for_something_for_something(String strArg1, String expectedNotification) throws Throwable {
+        //rejectVirtualNotificationAsDriver((String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_PUSH"),(String) cucumberContextManager.getScenarioContext("DRIVER_PWD_PUSH"),expectedNotification);
+    }
+
 
     public void acceptVirtualNotificationAsDriver(String driverPhoneNum, String driverPassword, String expectedNotification) throws InterruptedException{
         String driverPhoneCode="1";
@@ -118,13 +123,14 @@ public class NotificationSteps extends DriverBase {
                 else
                 new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
                 // Switch and login on same device
-              // ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
               //  ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                 ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
 
-                Thread.sleep(2000);
+                Thread.sleep(10000);
                 utility.handleIosUpdateMessage();
                 utility.handleAppleIDVerification();
+
                 utility.loginToDriverApp(driverPhoneNum, driverPassword);
             }
             else
