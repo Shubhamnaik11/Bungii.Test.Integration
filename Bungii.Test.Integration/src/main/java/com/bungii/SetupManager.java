@@ -435,12 +435,12 @@ public class SetupManager extends EventFiringWebDriver {
     public void restartApp() {
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
             ((IOSDriver) getDriver()).launchApp();
+            logger.detail("Restarted App");
         } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             ((AndroidDriver) getDriver()).closeApp();
             ((AndroidDriver) getDriver()).launchApp();
-
+            logger.detail("Restarted App");
         }
-
     }
 
     public void launchApp(String bundleId) {
@@ -491,6 +491,8 @@ public class SetupManager extends EventFiringWebDriver {
 
     public void useDriverInstance(String instanceKey) {
         DriverManager.getObject().useDriverInstance(instanceKey);
+        logger.detail("Driver Instance : " + instanceKey);
+
     }
 
     public String getCurrentInstanceKey() {

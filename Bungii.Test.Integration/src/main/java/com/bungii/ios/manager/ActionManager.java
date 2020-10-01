@@ -573,30 +573,35 @@ public class ActionManager {
      * @param show
      */
     private void manageNotifications(Boolean show) {
+try {
+    Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
+    int yMargin = 5;
+    int xMid = screenSize.width / 2;
+    PointOption top = point(xMid, yMargin);
+    PointOption bottom = point(xMid, screenSize.height - yMargin);
 
-        Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
-        int yMargin = 5;
-        int xMid = screenSize.width / 2;
-        PointOption top = point(xMid, yMargin);
-        PointOption bottom = point(xMid, screenSize.height - yMargin);
+    TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
+    if (show) {
+        action.press(top);
+        logger.detail("ACTION | Open notification tray ");
+    } else {
+        action.press(bottom);
+        logger.detail("ACTION | Close notification tray ");
+    }
+    action.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
+    if (show) {
+        action.moveTo(bottom);
+        // logger.detail("ACTION | Open notification tray ");
+    } else {
+        action.moveTo(top);
+        //logger.detail("ACTION | Close notification tray ");
+    }
+    action.perform();
+}
+        catch(Exception ex)
+    {
 
-        TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
-        if (show) {
-            action.press(top);
-            logger.detail("ACTION | Open notification tray ");
-        } else {
-            action.press(bottom);
-            logger.detail("ACTION | Close notification tray ");
-        }
-        action.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
-        if (show) {
-            action.moveTo(bottom);
-           // logger.detail("ACTION | Open notification tray ");
-        } else {
-            action.moveTo(top);
-            //logger.detail("ACTION | Close notification tray ");
-        }
-        action.perform();
+    }
     }
 
     /**
