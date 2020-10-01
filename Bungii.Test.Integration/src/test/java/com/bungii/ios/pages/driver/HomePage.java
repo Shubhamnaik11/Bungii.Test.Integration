@@ -35,7 +35,7 @@ public class HomePage extends PageBase {
     public WebElement GoOffline_Btn() { return findElement("GO OFFLINE", PageBase.LocatorType.AccessibilityId); }
 
 
-    public WebElement NavigationBar_Status () { return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName); }
+    public WebElement NavigationBar_Status (boolean ...ignoreException) { return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName, ignoreException); }
     //	public WebElement Text_NavigationBar () { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
     //public WebElement Text_NavigationBar (boolean ...ignoreException) { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath,ignoreException); }

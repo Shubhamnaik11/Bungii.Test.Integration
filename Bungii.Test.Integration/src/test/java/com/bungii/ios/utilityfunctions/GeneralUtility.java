@@ -793,13 +793,8 @@ public class GeneralUtility extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_PHONE_PUSH", phone);
                 cucumberContextManager.setScenarioContext("DRIVER_PWD_PUSH", password);
 try {
-    navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
-}
-catch(Exception ex)
-{
-    action.click(driverHomePage.GoOnline_Btn());
-    navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
-}
+    navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status(true));
+
     if (navigationBarName != null && !navigationBarName.isEmpty())
         if (navigationBarName.equals("NOTIFICATIONS")) {
             grantPermissionToDriverApp();
@@ -809,7 +804,11 @@ catch(Exception ex)
                 action.clickAlertButton("Always Allow");
             }
         }
-
+}
+catch(Exception ex)
+{
+    //Ignore exception
+}
 /*                else if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
                     action.click(enableNotificationPage.Button_Sure());
                     action.clickAlertButton("Allow");
