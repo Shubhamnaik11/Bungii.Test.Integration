@@ -136,7 +136,6 @@ public class NotificationSteps extends DriverBase {
                 }
                 // Switch and login on same device
                 ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
-              //  ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                 ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                 Thread.sleep(10000);
@@ -144,6 +143,8 @@ public class NotificationSteps extends DriverBase {
                 utility.handleAppleIDVerification();
 
                 utility.loginToDriverApp(driverPhoneNum, driverPassword); // Explictly login back since driver gets log out as a part of api call
+                log("I should able to accept trip through virtual notification",
+                        "I accept trip through virtual notification");
             }
             else
             {
