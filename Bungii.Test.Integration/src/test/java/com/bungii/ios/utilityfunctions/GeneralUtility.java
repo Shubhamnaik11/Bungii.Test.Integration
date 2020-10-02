@@ -865,34 +865,7 @@ catch(Exception ex)
             }        //temp fixed
             new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
-            if (!action.getScreenHeader(customerHomePage.Application_Name()).equals(appHeader)) {
-                switch (appName.toUpperCase()) {
-                    case "DRIVER":
-                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
-                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                        break;
-                    case "CUSTOMER":
-                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
-                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                        break;
-                }
-            }
-            new GeneralUtility().handleIosUpdateMessage();
-            new GeneralUtility().handleAppleIDVerification();
-            if (!action.getScreenHeader(customerHomePage.Application_Name()).equals(appHeader)) {
-                logger.error("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
-
-                switch (appName.toUpperCase()) {
-                    case "DRIVER":
-                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
-                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                        break;
-                    case "CUSTOMER":
-                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
-                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                        break;
-                }
-            }
+            
             pass("Switch to : " + appName + " application on device instance",
                     "Switched to : " + appName + " application on device instance", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());

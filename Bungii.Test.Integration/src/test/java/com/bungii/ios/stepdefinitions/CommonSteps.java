@@ -666,13 +666,10 @@ public class CommonSteps extends DriverBase {
             }
         }
     }
-    @And("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")
-    public void i_login_as_something_driver_on_something_device_and_make_driver_status_something_as(String user, String device, String driverStatus) throws Throwable {
-        try {
+    private List<String> getDriverCredentials(String user) throws Throwable
+    {
+        List<String> credentials = null;
 
-            i_switch_to_something_application_on_something_devices("driver",device);
-        String navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
-        goToDriverLogInPage(navigationBarName);
         String phone, password;
         boolean shouldLoginSucessful;
         switch (user.toLowerCase()) {
@@ -736,22 +733,34 @@ public class CommonSteps extends DriverBase {
             default:
                 throw new Exception("Please specify valid input");
         }
-        utility.loginToDriverApp(phone, password);
+        credentials.set(0, phone);
+        credentials.set(1, password);
+        return credentials;
+    }
+    @And("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")
+    public void i_login_as_something_driver_on_something_device_and_make_driver_status_something_as(String user, String device, String driverStatus) throws Throwable {
+        try {
 
-        new GeneralUtility().logDriverDeviceToken(phone);
-            switch (driverStatus.toUpperCase()) {
-                case "ONLINE":
-                    goOnline();
-                    break;
-                case "OFFLINE":
-                    goOffline();
-                    break;
+            i_switch_to_something_application_on_something_devices("driver",device);
+            String navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
+            goToDriverLogInPage(navigationBarName);
+
+            List<String> credentials =  getDriverCredentials(user);
+            utility.loginToDriverApp(credentials.get(0), credentials.get(1));
+                new GeneralUtility().logDriverDeviceToken(credentials.get(0));
+                    switch (driverStatus.toUpperCase()) {
+                        case "ONLINE":
+                            goOnline();
+                             break;
+                        case "OFFLINE":
+                            goOffline();
+                             break;
             }
 
-        log("I am logged in as "+user+" driver"," I am loggedin as driver using ["+phone+" / "+password+"]",true);
+        log("I log in as driver "+user+" and make driver status as "+ driverStatus," I am loggedin as driver using ["+credentials.get(0)+" / "+credentials.get(1)+"] and make driver status as "+ driverStatus,true);
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        error( "Step should be successful", "Error in login as driver and updating driver status", true);
     }
     }
     /**
