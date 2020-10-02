@@ -43,6 +43,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.bungii.SetupManager.getDriver;
+import static com.bungii.SetupManager.setDriver;
 import static com.bungii.common.manager.ResultManager.*;
 
 
@@ -748,7 +749,7 @@ public class CommonSteps extends DriverBase {
 
             List<String> credentials =  getDriverCredentials(user);
             utility.loginToDriverApp(credentials.get(0), credentials.get(1));
-                new GeneralUtility().logDriverDeviceToken(credentials.get(0));
+               // new GeneralUtility().logDriverDeviceToken(credentials.get(0));
                     switch (driverStatus.toUpperCase()) {
                         case "ONLINE":
                             goOnline();
@@ -774,6 +775,7 @@ public class CommonSteps extends DriverBase {
         } catch (Exception e) {
 
         }
+        logger.detail(getDriver().getPageSource());
         if (navigationHeaderName.equals("ONLINE"))
             logger.warning("driver Status is already Online");
         else if (navigationHeaderName.equals("OFFLINE") || navigationHeaderName.equals("")) {
