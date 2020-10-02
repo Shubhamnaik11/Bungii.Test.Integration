@@ -733,8 +733,8 @@ public class CommonSteps extends DriverBase {
             default:
                 throw new Exception("Please specify valid input");
         }
-        credentials.set(0, phone);
-        credentials.set(1, password);
+        credentials.add(phone);
+        credentials.add(password);
         logger.detail("Driver Credentials : " + credentials.get(0) +" / "+ credentials.get(1));
         return credentials;
     }
