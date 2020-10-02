@@ -668,7 +668,7 @@ public class CommonSteps extends DriverBase {
     }
     private List<String> getDriverCredentials(String user) throws Throwable
     {
-        List<String> credentials = null;
+        List<String> credentials =  new ArrayList<String>();
 
         String phone, password;
         boolean shouldLoginSucessful;
