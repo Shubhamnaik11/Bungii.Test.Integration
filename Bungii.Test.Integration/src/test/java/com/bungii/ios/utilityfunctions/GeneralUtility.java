@@ -856,7 +856,7 @@ catch(Exception ex)
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                     int retry = 3;
                     String appstate = "";
-                    while(!appstate.equalsIgnoreCase("RUNNING_IN_FOREGROUND") || retry>0) {
+                    while(!appstate.equalsIgnoreCase("RUNNING_IN_FOREGROUND") && retry>0) {
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                         appHeader = "Bungii Driver";
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
