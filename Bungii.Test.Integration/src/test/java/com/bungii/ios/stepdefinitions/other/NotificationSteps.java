@@ -132,6 +132,8 @@ public class NotificationSteps extends DriverBase {
                     if (!isDriverEligible)
                         error("Diver should be eligible for trip", "Driver "+driverPhoneNum+" is not eligible for pickup : "+ pickupRequestID, false);
                     new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
+                    if(expectedNotification.equalsIgnoreCase("on demand trip"))
+                        new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 23);
                     logger.detail("Accepted pickup " + pickupRequestID +" as driver " + driverPhoneNum );
                 }
                 // Switch and login on same device
