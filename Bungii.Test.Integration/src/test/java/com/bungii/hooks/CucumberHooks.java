@@ -143,7 +143,7 @@ public class CucumberHooks {
 
                 else
                     logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
-                CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
+                    CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
             }
             else if (scenario.isFailed() || this.reportManager.isVerificationFailed()) {
                 //if consecutive two case failed then create new instance

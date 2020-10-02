@@ -735,6 +735,7 @@ public class CommonSteps extends DriverBase {
         }
         credentials.set(0, phone);
         credentials.set(1, password);
+        logger.detail("Driver Credentials : " + credentials.get(0) +" / "+ credentials.get(1));
         return credentials;
     }
     @And("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")

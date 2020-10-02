@@ -865,7 +865,7 @@ catch(Exception ex)
             }        //temp fixed
             new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
-            
+
             pass("Switch to : " + appName + " application on device instance",
                     "Switched to : " + appName + " application on device instance", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
