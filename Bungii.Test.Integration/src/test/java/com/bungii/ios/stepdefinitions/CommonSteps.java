@@ -737,12 +737,7 @@ public class CommonSteps extends DriverBase {
                 throw new Exception("Please specify valid input");
         }
         utility.loginToDriverApp(phone, password);
-        if (shouldLoginSucessful) {
-            //   utility.isDriverLoginSucessful();
-        }
-        else {
-            //TODO: specify failure here
-        }
+
         new GeneralUtility().logDriverDeviceToken(phone);
             switch (driverStatus.toUpperCase()) {
                 case "ONLINE":
@@ -858,6 +853,7 @@ public class CommonSteps extends DriverBase {
             new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
             if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
+                logger.detail("Retrying to start app 2nd time ");//:Page source:", SetupManager.getDriver().getPageSource());
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
                         ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
@@ -872,7 +868,7 @@ public class CommonSteps extends DriverBase {
             new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
             if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
-                logger.error("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
+                logger.detail("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
 
                 switch (appName.toUpperCase()) {
                     case "DRIVER":

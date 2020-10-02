@@ -157,9 +157,9 @@ public class CucumberHooks {
                 }
 
                 if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-                    new GeneralUtility().hideNotifications();
                     new BungiiSteps().recoveryScenario();
                     new GeneralUtility().recoverScenario();
+                    new GeneralUtility().hideNotifications();
                 } else if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
                     new GeneralUtility().hideNotifications();
                     new BungiiSteps().recoveryScenario();
