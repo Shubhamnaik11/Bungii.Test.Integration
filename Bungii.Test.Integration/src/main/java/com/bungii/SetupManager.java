@@ -73,8 +73,8 @@ public class SetupManager extends EventFiringWebDriver {
 
 
                 }catch (SessionNotCreatedException e) {
-                    logger.detail(getStackTrace(e));
-                    logger.detail("Initialing driver failed, removing and trying again  on "+deviceID);
+                    //logger.detail(getStackTrace(e));
+                    logger.detail("Initialing driver failed, on "+deviceID +" SessionNotCreatedException" );
                     //logger.detail("Removing WebDriver Agent on "+deviceID);
                     //removeWebdriverAgent();
                     //logger.detail("Restarting iPhone on "+deviceID);
@@ -347,8 +347,9 @@ public class SetupManager extends EventFiringWebDriver {
                 driver = new IOSDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
             //logger.detail("Appium Driver Running at port : " + portNumber); //Not needed for browserstack
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+           // e.printStackTrace();
+            logger.detail("Error in creating Session");
         }
         return driver;
     }
