@@ -25,6 +25,7 @@ import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.ios.stepdefinitions.admin.*;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.appmanagement.ApplicationState;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -850,9 +851,16 @@ catch(Exception ex)
                 case "DRIVER":
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    logger.detail("Switched To App : "+ PropertyUtility.getProp("bundleId_Driver"));
-                    appHeader = "Bungii Driver";
+                    int retry = 3;
+                    String appstate = "";
+                    while(!appstate.equalsIgnoreCase("RUNNING_IN_FOREGROUND") || retry>0) {
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        appHeader = "Bungii Driver";
+                        ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
+                        appstate = state.toString();
+                        logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
+                        retry--;
+                    }
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
@@ -870,6 +878,7 @@ catch(Exception ex)
             //:Page source:", SetupManager.getDriver().getPageSource());
             //new GeneralUtility().handleIosUpdateMessage();
            // new GeneralUtility().handleAppleIDVerification();
+
             if (!action.getScreenHeader(customerHomePage.Application_Name()).equals(appHeader)) {
                 logger.detail("Retrying to start app 2nd time ");//:Page source:", SetupManager.getDriver().getPageSource());
                 switch (appName.toUpperCase()) {
