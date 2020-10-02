@@ -514,7 +514,7 @@ public class CommonSteps extends DriverBase {
 
             if (screen.equalsIgnoreCase("Home"))
                 screen = "BUNGII";
-
+            Thread.sleep(5000);
             isCorrectPage = utility.verifyPageHeader(screen);
             testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I should be navigated to " + screen, "I was not navigated to " + screen + " screen ");
@@ -744,6 +744,7 @@ public class CommonSteps extends DriverBase {
         try {
 
             utility.switchToApp("driver",device);
+
             String navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
             goToDriverLogInPage(navigationBarName);
 
