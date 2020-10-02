@@ -248,6 +248,7 @@ public class ReportGeneratorUtility extends DriverBase {
 			String reason = this.reason;
              //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
 			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
+			CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
 			detailsArray.add(st);
 			failed++;
 
