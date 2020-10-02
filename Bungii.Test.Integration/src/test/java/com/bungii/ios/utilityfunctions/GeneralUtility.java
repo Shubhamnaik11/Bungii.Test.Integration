@@ -234,6 +234,9 @@ public class GeneralUtility extends DriverBase {
         try {
     if (action.isElementPresent(customerHomePage.Application_Name(true))) {
         //do nothing
+        if(action.getScreenHeader(customerHomePage.Application_Name()).equalsIgnoreCase("BUNGII DRIVER"));
+        SetupManager.getObject().restartApp();
+
     } else if (action.isElementPresent(customerHomePage.AppIcon_Phone(true))) {
         //if app is closed and just phone screen is present then restart app
         SetupManager.getObject().restartApp();
