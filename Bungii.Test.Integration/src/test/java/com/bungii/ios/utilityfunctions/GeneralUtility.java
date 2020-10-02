@@ -851,20 +851,25 @@ catch(Exception ex)
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    logger.detail("Switched To App : "+ PropertyUtility.getProp("bundleId_Driver"));
                     appHeader = "Bungii Driver";
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                     appHeader = "Bungii";
+                    logger.detail("Switched To App : "+ PropertyUtility.getProp("bundleId_Customer"));
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }        //temp fixed
-            new GeneralUtility().handleIosUpdateMessage();
-            new GeneralUtility().handleAppleIDVerification();
+            logger.detail("Expected App Header After Switching : "+ appHeader);
+
+            //:Page source:", SetupManager.getDriver().getPageSource());
+            //new GeneralUtility().handleIosUpdateMessage();
+           // new GeneralUtility().handleAppleIDVerification();
             if (!action.getScreenHeader(customerHomePage.Application_Name()).equals(appHeader)) {
                 logger.detail("Retrying to start app 2nd time ");//:Page source:", SetupManager.getDriver().getPageSource());
                 switch (appName.toUpperCase()) {
@@ -878,8 +883,8 @@ catch(Exception ex)
                         break;
                 }
             }
-            new GeneralUtility().handleIosUpdateMessage();
-            new GeneralUtility().handleAppleIDVerification();
+           // new GeneralUtility().handleIosUpdateMessage();
+           // new GeneralUtility().handleAppleIDVerification();
             if (!action.getScreenHeader(customerHomePage.Application_Name()).equals(appHeader)) {
                 logger.detail("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
 
