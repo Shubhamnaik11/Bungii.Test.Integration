@@ -140,8 +140,8 @@ public class NotificationSteps extends DriverBase {
                 utility.switchToApp("driver","same");
 
                 Thread.sleep(10000);
-                utility.handleIosUpdateMessage();
-                utility.handleAppleIDVerification();
+               // utility.handleIosUpdateMessage();
+               // utility.handleAppleIDVerification();
 
                 utility.loginToDriverApp(driverPhoneNum, driverPassword); // Explictly login back since driver gets log out as a part of api call
                 log("I should able to accept trip through virtual notification",
