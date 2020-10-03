@@ -1194,7 +1194,7 @@ public class CommonSteps extends DriverBase {
             if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
                 new GeneralUtility().navigateFromTermToHomeScreen();
             }
-            new GeneralUtility().logCustomerDeviceToken(userName);
+          //  new GeneralUtility().logCustomerDeviceToken(userName);
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

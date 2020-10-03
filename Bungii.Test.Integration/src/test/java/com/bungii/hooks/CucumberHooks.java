@@ -217,7 +217,7 @@ public class CucumberHooks {
     public void beforeStep() {
         String name = ThreadLocalStepDefinitionMatch.get();
         if (name!= null)
-        logger.detail("CUCUMBER STEP COMPLETE : "+ name);
+        logger.detail("CUCUMBER STEP COMPLETE : "+ name.toUpperCase());
     }
 
     //for first test case after duo reinstall the apps

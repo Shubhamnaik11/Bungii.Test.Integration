@@ -882,8 +882,8 @@ catch(Exception ex)
             logger.detail("Expected App Header After Switching : "+ appHeader);
             Thread.sleep(5000);
             //:Page source:", SetupManager.getDriver().getPageSource());
-            //new GeneralUtility().handleIosUpdateMessage();
-           // new GeneralUtility().handleAppleIDVerification();
+            new GeneralUtility().handleIosUpdateMessage();
+            new GeneralUtility().handleAppleIDVerification();
 
             pass("Switch to : " + appName + " application on device instance",
                     "Switched to : " + appName + " application on device instance", true);
