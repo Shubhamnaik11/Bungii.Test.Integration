@@ -131,7 +131,7 @@ public class CucumberHooks {
             if (isFirstTestCase) isFirstTestCase = false;
             DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
             SetupManager.getObject().useDriverInstance("ORIGINAL");
-
+            this.reportManager.endTestCase(scenario.isFailed());
 
             if (!scenario.isFailed() || !this.reportManager.isVerificationFailed())
             {
@@ -181,7 +181,7 @@ public class CucumberHooks {
                 JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
                 js.executeScript(String.format("window.localStorage.clear();"));
             }
-            this.reportManager.endTestCase(scenario.isFailed());
+
             //clear scenario context
             CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
