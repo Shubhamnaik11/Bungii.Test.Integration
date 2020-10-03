@@ -868,7 +868,7 @@ catch(Exception ex)
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
-                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                     int retry = 3;
                     String appstate = "";
                     while(!appstate.equalsIgnoreCase("RUNNING_IN_FOREGROUND") && retry>0) {
@@ -881,7 +881,7 @@ catch(Exception ex)
                     }
                     break;
                 case "CUSTOMER":
-                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     int retry1 = 3;
                     String appstate1 = "";
                     while(!appstate1.equalsIgnoreCase("RUNNING_IN_FOREGROUND") && retry1>0) {
