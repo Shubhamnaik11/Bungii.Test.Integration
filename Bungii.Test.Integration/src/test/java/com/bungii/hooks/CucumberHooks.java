@@ -216,9 +216,10 @@ public class CucumberHooks {
     @BeforeStep
     public void beforeStep() {
         String name = ThreadLocalStepDefinitionMatch.get();
-        logger.detail("TEST STEP : "+ name);
+        if (name!= null)
+        logger.detail("CUCUMBER STEP COMPLETE : "+ name);
     }
-    
+
     //for first test case after duo reinstall the apps
     @Before("@POSTDUO")
     public void afterDuoScenario() {
