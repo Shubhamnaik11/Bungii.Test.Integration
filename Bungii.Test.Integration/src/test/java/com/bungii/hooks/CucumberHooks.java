@@ -9,7 +9,9 @@ import com.bungii.common.utilities.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
+import cucumber.api.java.AfterStep;
 import cucumber.api.java.Before;
+import cucumber.api.java.BeforeStep;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -200,6 +202,7 @@ public class CucumberHooks {
      *
      * @throws IOException
      */
+
     public void tearDown() throws IOException {
         try {
             this.reportManager.endSuiteFile();
@@ -210,8 +213,12 @@ public class CucumberHooks {
         }
     }
 
-
-
+    @BeforeStep
+    public void beforeStep() {
+        String name = ThreadLocalStepDefinitionMatch.get();
+        logger.detail("TEST STEP : "+ name);
+    }
+    
     //for first test case after duo reinstall the apps
     @Before("@POSTDUO")
     public void afterDuoScenario() {
