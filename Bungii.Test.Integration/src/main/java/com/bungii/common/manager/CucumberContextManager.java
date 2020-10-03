@@ -29,7 +29,6 @@ public class CucumberContextManager {
      * @param value Value that is to be fetched
      */
     public void setScenarioContext(String key, Object value) {
-        System.out.println("                  NOTE DOWN: "+ key.toString() + " : "+value );
         scenarioContext.put(key.toString(), value);
     }
 
@@ -40,7 +39,9 @@ public class CucumberContextManager {
      */
     public Object getScenarioContext(String key){
         if(scenarioContext.containsKey(key)) {
-            return scenarioContext.get(key.toString());
+            String value = scenarioContext.get(key.toString()).toString();
+            System.out.println("                  GET STORED VARIABLE: "+ key.toString() + " : "+value );
+            return value;
         }
         else
             return "";
