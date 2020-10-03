@@ -233,14 +233,14 @@ public class GeneralUtility extends DriverBase {
     {
         String driverPhoneCode="1";
         String driverPhoneNum=((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")) ;
-        if(driverPhoneNum!= null) {
+        if(driverPhoneNum!= "") {
             String driverPassword =(String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
-            String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+            new AuthServices().driverLogin(driverPhoneCode, driverPhoneNum, driverPassword);
         }
-        driverPhoneNum=((String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE")) ;
-        if(driverPhoneNum!= null) {
+        String driverPhoneNum2=((String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE")) ;
+        if(driverPhoneNum2!= "") {
             String driverPassword = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PASSWORD");
-            String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+           new AuthServices().driverLogin(driverPhoneCode, driverPhoneNum2, driverPassword);
         }
     }
     public void recoverScenario() {
