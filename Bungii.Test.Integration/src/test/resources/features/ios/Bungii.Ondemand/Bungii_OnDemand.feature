@@ -662,11 +662,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
 
     And I click "On To The Next One" button on "Bungii Completed" screen
-  
-  @sanity
-  @regression
-  @ondemand
-  @pushnotification
+    
+
   Scenario: Verify Ondemand Bungii Request
     And I login as "valid nashville" driver on "same" device and make driver status as "Online"
     And I Switch to "customer" application on "same" devices
@@ -687,7 +684,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @sanity
   @regression
   @ondemand
-    @pushnotificationtest
+    @pushnotification
   Scenario: Verify Ondemand Bungii Flow Till Completion
     #And I Switch to "driver" application on "same" devices
     And I login as "valid nashville" driver on "same" device and make driver status as "Online"
