@@ -234,12 +234,12 @@ public class GeneralUtility extends DriverBase {
         String driverPhoneCode="1";
         String driverPhoneNum=((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")) ;
         if(driverPhoneNum!= null) {
-            String driverPassword = ((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("") ? "Cci12345" : (String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
+            String driverPassword =(String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
             String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
         }
         driverPhoneNum=((String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE")) ;
         if(driverPhoneNum!= null) {
-            String driverPassword = ((String) cucumberContextManager.getScenarioContext("DRIVER_2_PASSWORD")).equals("") ? "Cci12345" : (String) cucumberContextManager.getScenarioContext("DRIVER_2_PASSWORD");
+            String driverPassword = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PASSWORD");
             String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
         }
     }
