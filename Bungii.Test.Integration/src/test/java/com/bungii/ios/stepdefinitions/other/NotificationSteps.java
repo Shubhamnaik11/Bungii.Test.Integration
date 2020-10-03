@@ -8,6 +8,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.driver.HomePage;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
@@ -41,9 +42,11 @@ public class NotificationSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+    private HomePage homepage;
 
-    public NotificationSteps(NotificationPage notificationPage) {
+    public NotificationSteps(NotificationPage notificationPage, HomePage homePage) {
         this.notificationPage = notificationPage;
+        this.homepage = homepage;
     }
 
     @Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
@@ -112,7 +115,14 @@ public class NotificationSteps extends DriverBase {
                 driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
             }
             if(driverPhoneNum!= null) {
-
+                utility.switchToApp("driver","same");
+                action.click(homepage.Button_AppMenu());
+                Thread.sleep(1000);
+                action.swipeUP();
+                Thread.sleep(1000);
+                action.click(homepage.AppMenu_LogOut1());
+                if (action.isElementPresent(homepage.AppMenu_LogOut1(true)))
+                    action.tapByElement(homepage.AppMenu_LogOut1());
                 // String driverPhoneNum= ;
                // String driverPassword = ;
                 String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
