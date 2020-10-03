@@ -865,7 +865,7 @@ public class CommonSteps extends DriverBase {
             }        //temp fixed
             new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
-            if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
+            if (!action.getAppName(homePage.Application_Name()).equals(appHeader)) {
                 logger.detail("Retrying to start app 2nd time ");//:Page source:", SetupManager.getDriver().getPageSource());
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
@@ -878,7 +878,7 @@ public class CommonSteps extends DriverBase {
                         break;
                 }
             }
-            new GeneralUtility().handleIosUpdateMessage();
+            /*new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
             if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
                 logger.detail("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
@@ -893,7 +893,7 @@ public class CommonSteps extends DriverBase {
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                         break;
                 }
-            }
+            }*/
             pass("Switch to : " + appName + " application on device instance",
                     "Switched to : " + appName + " application on device instance", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());

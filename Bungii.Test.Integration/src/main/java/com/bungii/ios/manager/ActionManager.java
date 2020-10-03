@@ -138,6 +138,22 @@ public class ActionManager {
         return value;
 
     }
+    public String getAppName(WebElement element) {
+        String value = "";
+        try {
+            value = element.getAttribute("name");
+
+            logger.detail("GET | App Name is " + value);
+        }
+        catch(Exception ex)
+        {
+            // logger.error("ACTION FAILED | Error in getting Screen Header", ExceptionUtils.getStackTrace(ex));
+            //error("Get name for element by locator -> " + getElementDetails(element), "Unable to get name for element by locator -> " + getElementDetails(element),
+            //  true);
+        }
+        return value;
+
+    }
     public void click(WebElement element) {
         try{
         element.click();
