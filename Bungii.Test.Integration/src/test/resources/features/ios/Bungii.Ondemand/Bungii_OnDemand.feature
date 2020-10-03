@@ -666,7 +666,28 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @sanity
   @regression
   @ondemand
-    @pushnotification
+  @pushnotification
+  Scenario: Verify Ondemand Bungii Request
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+    And I Switch to "customer" application on "same" devices
+    Given I am on the "LOG IN" page
+   # When I am on Customer logged in Home page
+    When I logged in Customer application using  "valid nashville" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                 | Drop Location                      | geofence  |
+      | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 15       |           |              | Now  | Default     |
+    Then I should be navigated to "SEARCHING" screen
+    And I wait for "5" mins
+  
+  @sanity
+  @regression
+  @ondemand
+    @pushnotificationtest
   Scenario: Verify Ondemand Bungii Flow Till Completion
     #And I Switch to "driver" application on "same" devices
     And I login as "valid nashville" driver on "same" device and make driver status as "Online"
