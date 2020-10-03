@@ -160,7 +160,7 @@ public class CucumberHooks {
 
                 if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
                     new BungiiSteps().recoveryScenario();
-                    new GeneralUtility().resetDriverAppsStateToInital();
+                    //new GeneralUtility().resetDriverAppsStateToInital();
                    // new GeneralUtility().recoverScenario();
                     new GeneralUtility().hideNotifications();
                 } else if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
