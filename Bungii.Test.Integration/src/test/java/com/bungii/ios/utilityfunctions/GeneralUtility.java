@@ -2,6 +2,7 @@ package com.bungii.ios.utilityfunctions;
 
 import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
+import com.bungii.api.utilityFunctions.AuthServices;
 import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
@@ -227,6 +228,20 @@ public class GeneralUtility extends DriverBase {
     }
     public void hideNotifications() {
     action.hideNotifications();
+    }
+    public void resetDriverAppsStateToInital()
+    {
+        String driverPhoneCode="1";
+        String driverPhoneNum=((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")) ;
+        if(driverPhoneNum!= null) {
+            String driverPassword = ((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("") ? "Cci12345" : (String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
+            String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+        }
+        driverPhoneNum=((String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE")) ;
+        if(driverPhoneNum!= null) {
+            String driverPassword = ((String) cucumberContextManager.getScenarioContext("DRIVER_2_PASSWORD")).equals("") ? "Cci12345" : (String) cucumberContextManager.getScenarioContext("DRIVER_2_PASSWORD");
+            String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+        }
     }
     public void recoverScenario() {
         logger.detail("***** RECOVERING CUSTOMER AND DRIVER STATE : UI ACTIONS *****");
