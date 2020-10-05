@@ -115,17 +115,7 @@ public class NotificationSteps extends DriverBase {
                 driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
             }
             if(driverPhoneNum!= null) {
-                utility.switchToApp("driver","same");
-                action.click(homepage.Button_AppMenu());
-                Thread.sleep(1000);
-                action.swipeUP();
-                Thread.sleep(1000);
-                action.click(homepage.AppMenu_LogOut1());
-                if (action.isElementPresent(homepage.AppMenu_LogOut1(true)))
-                    action.tapByElement(homepage.AppMenu_LogOut1());
-                // String driverPhoneNum= ;
-               // String driverPassword = ;
-                String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+                String driverAccessToken = new DbUtility().getDriverCurrentToken(driverPhoneNum);
                 if(expectedNotification.equalsIgnoreCase("stack trip")) {
                     logger.detail("Accept stack pickup " + pickupRequestID +" as driver " + driverPhoneNum );
                     Thread.sleep(90000);
@@ -139,6 +129,7 @@ public class NotificationSteps extends DriverBase {
                     logger.detail("Accept pickup " + pickupRequestID +" as driver " + driverPhoneNum );
                     Thread.sleep(10000);
                     Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID);
+                    new GeneralUtility().logDriverDeviceToken(driverPhoneNum);
                     if (!isDriverEligible)
                         error("Diver should be eligible for trip", "Driver "+driverPhoneNum+" is not eligible for pickup : "+ pickupRequestID, false);
                     new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
@@ -149,11 +140,6 @@ public class NotificationSteps extends DriverBase {
                 // Switch and login on same device
                 utility.switchToApp("driver","same");
 
-                Thread.sleep(10000);
-               // utility.handleIosUpdateMessage();
-               // utility.handleAppleIDVerification();
-
-                utility.loginToDriverApp(driverPhoneNum, driverPassword); // Explictly login back since driver gets log out as a part of api call
                 log("I should able to accept trip through virtual notification",
                         "I accept trip through virtual notification");
             }
