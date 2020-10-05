@@ -139,6 +139,11 @@ public class NotificationSteps extends DriverBase {
                 }
                 // Switch and login on same device
                 utility.switchToApp("driver","same");
+                if(action.isElementPresent(homepage.Button_AppMenu())) {
+                    action.click(homepage.Button_AppMenu());
+                    Thread.sleep(1000);
+                    action.click(homepage.AppMenu_Home());
+                }
 
                 log("I should able to accept trip through virtual notification",
                         "I accept trip through virtual notification");
