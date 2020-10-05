@@ -43,7 +43,7 @@ public class HomePage extends PageBase {
     public WebElement NavigationBar_Text() {return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName); }
 
     //public WebElement Button_AppMenu () { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
-    public WebElement Button_AppMenu () { return findElement("**/XCUIElementTypeNavigationBar/XCUIElementTypeButton", LocatorType.ClassChain); }
+    public WebElement Button_AppMenu (boolean ...ignoreException) { return findElement("**/XCUIElementTypeNavigationBar/XCUIElementTypeButton", LocatorType.ClassChain, ignoreException); }
 //'**/XCUIElementTypeNavigationBar/XCUIElementTypeButton
 
     public WebElement Text_DriverName() { return findElement("//XCUIElementTypeButton[@name='Available Bungiis']/preceding-sibling::XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }

@@ -139,7 +139,7 @@ public class NotificationSteps extends DriverBase {
                 }
                 // Switch and login on same device
                 utility.switchToApp("driver","same");
-                if(action.isElementPresent(homepage.Button_AppMenu())) {
+                if(action.isElementPresent(homepage.Button_AppMenu(true))) {
                     action.click(homepage.Button_AppMenu());
                     Thread.sleep(1000);
                     action.click(homepage.AppMenu_Home());
