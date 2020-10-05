@@ -871,12 +871,14 @@ catch(Exception ex)
                     //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                     int retry = 3;
                     String appstate = "";
-                    while(!appstate.equalsIgnoreCase("RUNNING_IN_FOREGROUND") && retry>0) {
+                    while(retry>0) {
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                         appHeader = "Bungii Driver";
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
+                        if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader))
+                            break;
                         retry--;
                     }
                     break;
@@ -884,10 +886,12 @@ catch(Exception ex)
                     //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     int retry1 = 3;
                     String appstate1 = "";
-                    while(!appstate1.equalsIgnoreCase("RUNNING_IN_FOREGROUND") && retry1>0) {
+                    while(retry1>0) {
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                     appHeader = "Bungii";
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate1);
+                        if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader))
+                            break;
                         retry1--;
                     }
                 default:
