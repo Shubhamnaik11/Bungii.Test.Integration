@@ -115,6 +115,14 @@ public class NotificationSteps extends DriverBase {
                 driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
             }
             if(driverPhoneNum!= null) {
+                String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
+                if(pushNotificationContent!= null)
+                testStepAssert.isTrue(pushNotificationContent.contains("You’re receiving a Bungii request."),"VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" +getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" +getExpectedNotification(expectedNotification));
+                else
+                {
+                    fail("I should be able to click on push notification [Virtual] : " + expectedNotification, "Driver has not received push notification " + getExpectedNotification(expectedNotification), true);
+
+                }
                 String driverAccessToken = new DbUtility().getDriverCurrentToken(driverPhoneNum);
                 if(expectedNotification.equalsIgnoreCase("stack trip")) {
                     logger.detail("Accept stack pickup " + pickupRequestID +" as driver " + driverPhoneNum );

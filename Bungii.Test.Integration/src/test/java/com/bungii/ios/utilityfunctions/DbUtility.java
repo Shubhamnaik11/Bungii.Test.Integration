@@ -213,12 +213,16 @@ public class DbUtility extends DbContextManager {
         return deviceToken;
     }
 
-    ; public static String getCustomerCurrentToken(String phoneNumber){
+     public static String getCustomerCurrentToken(String phoneNumber){
 
         String queryString2 = "select Token from userloginlog where UserId in (select id from customer where Phone= '"+phoneNumber+"') and UserType = 2 and OutTime is null";
         String deviceToken = getDataFromMySqlMgmtServer(queryString2);
         return deviceToken;
     }
-
+    public static String getPushNotificationContent(String phoneNumber, String pickupRef){
+        String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+phoneNumber+"') and Payload Like '%"+pickupRef+"%'";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
 
 }
