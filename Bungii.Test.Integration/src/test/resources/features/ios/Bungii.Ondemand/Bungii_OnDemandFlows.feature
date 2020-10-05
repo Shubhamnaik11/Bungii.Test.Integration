@@ -7,8 +7,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   Background:
   
   @regression
-  Scenario: Verify Driver Can Reject Ondemand Bungii Request After Viewing Trip Details
-    #When I Switch to "driver" application on "same" devices
+  Scenario: Verify Customer Can Cancel Ondemand Bungii Request in searching state
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
     
     And I Switch to "customer" application on "ORIGINAL" devices
@@ -25,12 +24,12 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | 15       |           |              | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
     
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "REJECT" button on "Bungii Request" screen
-    Then I should be navigated to "HOME" screen
+   # When I click on notification for "Driver" for "on demand trip"
+    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "REJECT" button on "Bungii Request" screen
+    #Then I should be navigated to "HOME" screen
     
     When I Switch to "customer" application on "same" devices
     And I click "Cancel" button on "SEARCHING" screen
@@ -72,7 +71,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | geofence | Bungii State |
       | miami    | ARRIVED      |
     When I am on the "LOG IN" page
-  #  And I am on Customer logged in Home page
     When I logged in Customer application using  "valid miami" user
     Then Customer should be navigated to "ARRIVED" trip status screen
 
@@ -95,14 +93,11 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @regression
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
-    
-    #And I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
 
     And I Switch to "customer" application on "same" devices
     Given I login as "valid miami" customer and on Home page
   
-    #And I am on Customer logged in Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location          | Drop Location           | Geofence |
       | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
@@ -119,14 +114,13 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I request for bungii using Request Bungii Button
     
     And I view and accept virtual notification for "Driver" for "on demand trip"
-  
-    And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" screen
 
     And I Switch to "customer" application on "same" devices
     And I click "Ok" button on "BUNGII ACCEPTED" screen
 
     And I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "ARRIVED" screen
     When I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
@@ -146,6 +140,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I get promo code for "VALID"
     And I Select "Promo Code" from admin sidebar
     Then I get promo code for "one off"
+    
 
     When I switch to "ORIGINAL" instance
     #And I Switch to "driver" application on "same" devices
@@ -176,9 +171,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Select "SCHEDULED BUNGIIS" from driver App menu
     Then I should be navigated to "SCHEDULED BUNGII" screen
     
-    
     Then I wait for "2" mins
-
+    
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
@@ -195,10 +189,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
   
   @ready
-    @pushnotification
+  @pushnotification
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
-    
-    #And I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
     
     And I Switch to "customer" application on "same" devices
@@ -220,12 +212,12 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I request for bungii using Request Bungii Button
     
     And I view and accept virtual notification for "Driver" for "on demand trip"
-    Then I should be navigated to "EN ROUTE" screen
     
     And I Switch to "customer" application on "same" devices
     And I click "Ok" button on "BUNGII ACCEPTED" screen
     
     And I Switch to "driver" application on "same" devices
+    Then I should be navigated to "EN ROUTE" screen
     When I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message

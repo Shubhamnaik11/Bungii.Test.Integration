@@ -9,81 +9,93 @@ Feature: DriverMenu
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-
+    
+  @sanity
   @regression
-   @sanity
+  Scenario: Verify Driver App Menu Option Navigation - ACCOUNT | FAQ | LEADERBOARD | SCHEDULED BUNGIIS | AVAILABLE BUNGIIS | EARNINGS | ALERT SETTINGS | STORE | FEEDBACK | LOGOUT
+    When I Select "ACCOUNT" from driver App menu
+    Then I should be navigated to "ACCOUNT" screen
+    Then I should be able to see data on "ACCOUNT" page
+    When I Select "LEADERBOARD" from driver App menu
+    Then I should be navigated to "LEADERBOARD" screen
+    Then I should be able to see data on "LEADERBOARD" page
+    When I Select "SCHEDULED BUNGIIS" from driver App menu
+    Then I should be navigated to "SCHEDULED BUNGII" screen
+    Then I should be able to see data on "SCHEDULED BUNGIIS" page
+    When I Select "AVAILABLE BUNGIIS" from driver App menu
+    Then I should be navigated to "AVAILABLE BUNGIIS" screen
+    Then I should be able to see data on "AVAILABLE BUNGIIS" page
+    When I Select "EARNINGS" from driver App menu
+    Then I should be navigated to "EARNINGS" screen
+    Then I should be able to see data on "EARNINGS" page
+    When I Select "ALERT SETTINGS" from driver App menu
+    Then I should be navigated to "ALERT SETTINGS" screen
+    Then I should be able to see data on "ALERT SETTINGS" page
+    When I Select "STORE" from driver App menu
+    Then I should be navigated to "STORE" screen
+    Then I should be able to see data on "STORE" page
+    When I Select "FEEDBACK" from driver App menu
+    Then I should be navigated to "FEEDBACK" screen
+    Then I should be able to see data on "FEEDBACK" page
+    When I Select "FAQ" from driver App menu
+    Then I should be navigated to "FAQ" screen
+    Then I should be able to see data on "FAQ" page
+    When I Select "LOGOUT" from driver App menu
+    Then I should be able to see data on "LOGOUT" page
+    Then I should be navigated to "LOG IN" screen
+    
+    # All below 11 scenarios are covered in one above to save the time of execution
   Scenario: Verify Driver FAQ Menu
     When I Select "FAQ" from driver App menu
     Then I should be navigated to "FAQ" screen
     Then I should be able to see data on "FAQ" page
-
-  @regression
-  @sanity
+    
   Scenario: Verify Driver LEADERBOARD Menu
     When I Select "LEADERBOARD" from driver App menu
     Then I should be navigated to "LEADERBOARD" screen
     Then I should be able to see data on "LEADERBOARD" page
-
-
-  @regression
-  @sanity
+    
   Scenario: Verify Driver SCHEDULED BUNGII Menu
     When I Select "SCHEDULED BUNGIIS" from driver App menu
     Then I should be navigated to "SCHEDULED BUNGII" screen
     Then I should be able to see data on "SCHEDULED BUNGIIS" page
-
-  @regression
-  @sanity
+    
   Scenario:Verify Driver AVAILABLE BUNGIIS menu
     When I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should be navigated to "AVAILABLE BUNGIIS" screen
     Then I should be able to see data on "AVAILABLE BUNGIIS" page
-
-  @regression
-  @sanity
+    
   Scenario: Verify Driver EARNINGS Menu
     When I Select "EARNINGS" from driver App menu
     Then I should be navigated to "EARNINGS" screen
     Then I should be able to see data on "EARNINGS" page
-
-  @regression
-  @sanity
+    
   Scenario: Verify Driver ITEMIZED EARNINGS Screen
     When I Select "EARNINGS" from driver App menu
     Then I should be navigated to "EARNINGS" screen
     When I click "ITEMIZED EARNINGS" button on "Home" screen on driverApp
     Then I should be able to see data on "ITEMIZED EARNINGS" page
-
-
-  @regression
+    
   Scenario: Verify Driver ACCOUNT Menu
     When I Select "ACCOUNT" from driver App menu
     Then I should be navigated to "ACCOUNT" screen
     Then I should be able to see data on "ACCOUNT" page
-
-  @regression
-  @sanity
+    
   Scenario: Verify Driver ALERT SETTINGS Menu
     When I Select "ALERT SETTINGS" from driver App menu
     Then I should be navigated to "ALERT SETTINGS" screen
     Then I should be able to see data on "ALERT SETTINGS" page
-
-  @regression
-  @sanity
+    
   Scenario:Verify Driver LOGOUT Menu
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
-
-  @regression
-  @sanity
+    
   Scenario: Verify Driver STORE Menu
     When I Select "STORE" from driver App menu
     Then I should be navigated to "STORE" screen
     Then I should be able to see data on "STORE" page
-
-  @regression
-  @sanity
+    
   Scenario: Verify Driver FEEDBACK Menu
     When I Select "FEEDBACK" from driver App menu
     Then I should be navigated to "FEEDBACK" screen

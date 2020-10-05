@@ -708,10 +708,10 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       | 15       |           |              | Now  | Default     |
     Then I should be navigated to "SEARCHING" screen
     #And I click on notification for "Driver" for "on demand trip"
-    #And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    #When I click "YES" on alert message
-    #Then I should be navigated to "BUNGII REQUEST" screen
-    #When I click "ACCEPT" button on "Bungii Request" screen
+    #    #And Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #    #When I click "YES" on alert message
+    #    #Then I should be navigated to "BUNGII REQUEST" screen
+    #    #When I click "ACCEPT" button on "Bungii Request" screen
     And I view and accept virtual notification for "Driver" for "on demand trip"
   
     Then I should be navigated to "EN ROUTE" trip status screen
