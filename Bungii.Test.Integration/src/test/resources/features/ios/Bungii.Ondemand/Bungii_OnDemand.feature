@@ -686,14 +686,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @ondemand
     @pushnotification
   Scenario: Verify Ondemand Bungii Flow Till Completion
-    #And I Switch to "driver" application on "same" devices
     And I login as "valid nashville" driver on "same" device and make driver status as "Online"
-  
-    #And I am on the "LOG IN" page on driverApp
-    #And I am logged in as "valid nashville" driver
-    #And I Select "HOME" from driver App menu
-    #And I change driver status to "Online"
-    
+	
     And I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page
@@ -707,14 +701,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 15       |           |              | Now  | Default     |
     Then I should be navigated to "SEARCHING" screen
-    #And I click on notification for "Driver" for "on demand trip"
-    #    #And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    #    #When I click "YES" on alert message
-    #    #Then I should be navigated to "BUNGII REQUEST" screen
-    #    #When I click "ACCEPT" button on "Bungii Request" screen
+
     And I view and accept virtual notification for "Driver" for "on demand trip"
-  
-    Then I should be navigated to "EN ROUTE" trip status screen
     
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
@@ -722,6 +710,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then Customer should be navigated to "EN ROUTE" trip status screen
     
     When I Switch to "driver" application on "same" devices
+	Then I should be navigated to "EN ROUTE" trip status screen
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen
     
