@@ -3,8 +3,8 @@ Feature: Admin_Promocodes
 
   Background:
     Given I am logged in as Admin
-    When I click on "Marketing  > Promocode" Menu
-    Then I should be directed to "Promo Code Page"
+    When I click on "Promo Codes > Standard Codes" Menu
+    Then I should be directed to "Standard Codes Page"
 
   @sanity
   @regression
@@ -37,13 +37,13 @@ Feature: Admin_Promocodes
     Then the edited promocode is displayed in the Promocodes grid
 
   @regression
-  Scenario: Verify Add New Promocode of Type Delivery By Promoter
+  Scenario: Verify Add New Promocode of Type Delivery By Partner
     When I click on the "New Code" Button
     And I enter following values in fields
       | Promo Code Type                | Promo Code Name    | Select Promoter   | Select Promotion  | No Of Codes  |
-      | Delivery By Promoter           | DP<<CurrentDateTime>>|   World Market Promotion  |  Promotion | 5        |
+      | Delivery By Partner           | DP<<CurrentDateTime>>|   World Market Promotion  |  Promotion | 5        |
     When I click on the "Save" Button
-    Then the "Delivery By Promocode" type 5 promocodes gets saved successfully and it is displayed in the Promocodes grid
+    Then the "Delivery By Partner" type 5 promocodes gets saved successfully and it is displayed in the Promocodes grid
     When I search by first code generated for above promocode
     Then the promocode is displayed in the Promocodes grid
     When I view the searched promocode
@@ -51,13 +51,13 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
-  Scenario: Verify Add Edit Promocode of Type Delivery By Promoter Multiple
+  Scenario: Verify Add Edit Promocode of Type Delivery By Partner Multiple
     When I click on the "New Code" Button
     And I enter following values in fields
       | Promo Code Type                | Promo Code Name    | Select Promoter   | Select Promotion  | Code  |
-      | Delivery By Promoter (M)       | DM<<CurrentDateTime>>|   World Market Promotion  |  Promotion | M<<CurrentDateTime>>        |
+      | Delivery By Partner (M)       | DM<<CurrentDateTime>>|   World Market Promotion  |  Promotion | M<<CurrentDateTime>>        |
     When I click on the "Save" Button
-    Then the "Delivery By Promoter (M)" type promocode gets saved successfully and it is displayed in the Promocodes grid
+    Then the "Delivery By Partner (M)" type promocode gets saved successfully and it is displayed in the Promocodes grid
 
   @regression
   Scenario: Verify Cancellation of Add New Promocode
@@ -77,10 +77,10 @@ Feature: Admin_Promocodes
   @regression
   Scenario: Verify Field Validations On Add New Promocode Popup Upon Blank Inputs
     When I click on the "New Code" Button
-    And I select promocode type as "Delivery By Promoter"
+    And I select promocode type as "Delivery By Partner"
     And I click on the "Save" Button
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
-    And the "Please select Promoter." message is displayed for the "Select Promoter" field
+    And the "Please select Partner." message is displayed for the "Select Partner" field
     And the "Please enter a value greater than or equal to 1." message is displayed for the "No of Codes" field
     When I enter "No of Codes" field with below values and click Save
     |Value|Message|
@@ -100,11 +100,11 @@ Feature: Admin_Promocodes
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
     And I click on the "Cancel" Button on "Add New Promocode" popup
     When I click on the "New Code" Button
-    And I select promocode type as "Delivery By Promoter (M)"
+    And I select promocode type as "Delivery By Partner (M)"
     And I click on the "Save" Button
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
-    And the "Please select Promoter." message is displayed for the "Select Promoter" field
-    And the "Please select Promoter." message is displayed for the "Select Promoter" field
+    And the "Please select Partner." message is displayed for the "Select Partner" field
+    And the "Please select Partner." message is displayed for the "Select Partner" field
     And I click on the "Cancel" Button on "Add New Promocode" popup
     When I click on the "New Code" Button
     And I select promocode type as "Promo"
@@ -160,13 +160,13 @@ Feature: Admin_Promocodes
     And I click on the "Apply" Button
     Then the promocode grid shows the results by type "One Off" having Code value starting with "FBSHARE"
     When I click on "Filter" icon
-    And I select "Code Type" as "Delivery By Promoter"
+    And I select "Code Type" as "Delivery By Partner"
     And I click on the "Apply" Button
-    Then the promocode grid shows the results by type "Delivery By Promoter"
+    Then the promocode grid shows the results by type "Delivery By Partner"
     When I click on "Filter" icon
-    And I select "Code Type" as "Delivery By Promoter (M)"
+    And I select "Code Type" as "Delivery By Partner (M)"
     And I click on the "Apply" Button
-    Then the promocode grid shows the results by type "Delivery By Promoter (M)"
+    Then the promocode grid shows the results by type "Delivery By Partner (M)"
     When I click on "Filter" icon
     And I select "Active" as "Hide Expired"
     And I click on the "Apply" Button

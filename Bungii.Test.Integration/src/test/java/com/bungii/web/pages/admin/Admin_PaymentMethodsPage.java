@@ -9,7 +9,7 @@ public class Admin_PaymentMethodsPage extends PageBase {
 
     public WebElement Menu_PaymentMethods () { return findElement("adminmenu-paymentmethods", LocatorType.Id); }
 
-    public WebElement Menu_BungiiCards(){return findElement("//a[contains(text(),'Bungii Cards')]", LocatorType.XPath);}
+    public WebElement Menu_BungiiCards(){return findElement("//a[contains(text(),'Bungii Card')]", LocatorType.XPath);}
 
     public WebElement Dropdown_Partners () { return findElement("lstPartners", LocatorType.Id); }
 

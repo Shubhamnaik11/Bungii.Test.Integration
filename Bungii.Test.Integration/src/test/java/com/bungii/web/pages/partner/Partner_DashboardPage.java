@@ -77,7 +77,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Button_Get_Estimate() { return findElement("get-estimate",LocatorType.Id);}
 
     //Estimated Cost label
-    public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Delivery Cost: ')]",LocatorType.XPath);}
+    public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Estimated Cost: ')]",LocatorType.XPath);}
 
     //Continue button
     public  WebElement Button_Continue() { return findElement("//a[@class='btn']",LocatorType.XPath);}

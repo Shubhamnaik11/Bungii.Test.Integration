@@ -1,11 +1,15 @@
 package com.bungii.ios.stepdefinitions.other;
 
 import com.bungii.SetupManager;
+import com.bungii.api.stepdefinitions.BungiiSteps;
+import com.bungii.api.utilityFunctions.AuthServices;
+import com.bungii.api.utilityFunctions.CoreServices;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.other.NotificationPage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -43,7 +47,7 @@ public class NotificationSteps extends DriverBase {
     @Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_click_on_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
 
-        Thread.sleep(30000);
+        Thread.sleep(10000);
         //Thread.sleep(10000);
         try {
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
@@ -61,13 +65,16 @@ public class NotificationSteps extends DriverBase {
             //	logger.detail(SetupManager.getDriver().getPageSource());
             boolean notificationClick = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
             if (!notificationClick) {
-                Thread.sleep(120000);
+                Thread.sleep(5000);
                 notificationClickRetry = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
 
             }
             if (!notificationClick && !notificationClickRetry) {
                 fail("I should be able to click on push notification : " + expectedNotification, "PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
+
                 action.hideNotifications();
+               // acceptVirtualNotificationAsDriver((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"),expectedNotification);
+
             } else {
                 pass("I should be able to click on push notification : " + expectedNotification, "I clicked on push notifications with text : " + getExpectedNotification(expectedNotification), true);
 
@@ -83,6 +90,36 @@ public class NotificationSteps extends DriverBase {
         }
     }
 
+    public void acceptVirtualNotificationAsDriver(String driverPhoneNum, String expectedNotification) throws InterruptedException{
+        String driverPhoneCode="1";
+        String pickupRequestID= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        if(pickupRequestID!= null) {
+            if(driverPhoneNum!= null) {
+                driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
+            }
+            if(driverPhoneNum!= null) {
+
+                // String driverPhoneNum= ;
+                String driverPassword = ((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("") ? "Cci12345" : (String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
+                String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+                if(expectedNotification.equalsIgnoreCase("stack trip"))
+                new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
+                else
+                new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
+
+                utility.loginToDriverApp(driverPhoneNum, driverPassword);
+            }
+            else
+            {
+                fail("I should be able to click on push notification [Virtual] : " + expectedNotification, "PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
+            }
+        }
+        else
+        {
+            fail("I should be able to accept virtual push notification : " + expectedNotification, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
+
+        }
+    }
     @Then("^I should not get notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_should_not_get_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
 

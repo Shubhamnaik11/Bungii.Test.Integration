@@ -32,14 +32,14 @@ Feature: Partner Integration with Admin and Driver
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     When I navigate to "Bungii Admin Portal in new tab" URL
-    And I view the all Scheduled Trips list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted |
-    And I view the all Scheduled Trips list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Scheduled |
@@ -49,7 +49,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Enroute |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status |
       | Trip Started |
@@ -59,7 +59,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Arrived |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status |
       | Driver(s) Arrived |
@@ -69,7 +69,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Loading Item |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       |  Status |
       | Loading Items |
@@ -79,7 +79,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Driving To Dropoff |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status |
       | Driving To Dropoff |
@@ -89,7 +89,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Unloading Item |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status |
       | Unloading Items |
