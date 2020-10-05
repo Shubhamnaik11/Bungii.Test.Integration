@@ -896,10 +896,10 @@ catch(Exception ex)
             }        //temp fixed
             logger.detail("Expected App Header After Switching : "+ appHeader);
             Thread.sleep(5000);
-            logger.detail(SetupManager.getDriver().getPageSource());
+            //logger.detail(SetupManager.getDriver().getPageSource());
             new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
-            logger.detail(SetupManager.getDriver().getPageSource());
+           // logger.detail(SetupManager.getDriver().getPageSource());
             pass("Switch to : " + appName + " application on device instance",
                     "Switched to : " + appName + " application on device instance", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
