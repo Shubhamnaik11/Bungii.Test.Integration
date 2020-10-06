@@ -872,13 +872,16 @@ catch(Exception ex)
                     int retry = 3;
                     String appstate = "";
                     while(retry>0) {
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                         appHeader = "Bungii Driver";
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
-                        if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader))
+                        if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader)) {
+                            logger.detail("Actual App Header After Switching : "+ customerHomePage.Application_Name());
                             break;
+                        }
                         retry--;
                     }
                     break;
@@ -887,11 +890,14 @@ catch(Exception ex)
                     int retry1 = 3;
                     String appstate1 = "";
                     while(retry1>0) {
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                     appHeader = "Bungii";
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate1);
-                        if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader))
+                        if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader)) {
+                            logger.detail("Actual App Header After Switching : "+ customerHomePage.Application_Name());
                             break;
+                        }
                         retry1--;
                     }
                 default:
@@ -900,7 +906,7 @@ catch(Exception ex)
             }        //temp fixed
             logger.detail("Expected App Header After Switching : "+ appHeader);
             Thread.sleep(5000);
-         
+
             pass("Switch to : " + appName + " application on device instance",
                     "Switched to : " + appName + " application on device instance", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
