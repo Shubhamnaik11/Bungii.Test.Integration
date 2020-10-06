@@ -210,7 +210,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I tap "Back" on Promos screen
     And I should be navigated to "Estimate" screen
     And I request for bungii using Request Bungii Button
-    
+    Then I should be navigated to "SEARCHING" screen
+  
     And I view and accept virtual notification for "Driver" for "on demand trip"
     
     And I Switch to "customer" application on "same" devices
