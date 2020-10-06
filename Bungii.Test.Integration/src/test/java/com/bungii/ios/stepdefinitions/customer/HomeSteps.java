@@ -147,6 +147,8 @@ public class HomeSteps extends DriverBase {
                 List<String> getListOfAlertButton = action.getListOfAlertButton();
                 if(alertMessage.contains("Oops! It looks like we are not operating in your area quite yet"))
                     action.clickAlertButton("Done");
+                if(alertMessage.contains("Apple ID Verification"))
+                    action.clickAlertButton("Not Now");
             }
             if (action.isElementPresent(homePage.Button_ClearPickup(true))) {
                 action.tapByElement(homePage.Button_ClearPickup());

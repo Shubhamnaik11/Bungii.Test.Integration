@@ -879,8 +879,17 @@ catch(Exception ex)
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
                         if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader)) {
-                            logger.detail("Actual App Header After Switching : "+ customerHomePage.Application_Name());
+                            logger.detail("Actual App Header After Switching : "+ customerHomePage.Application_Name().getText());
                             break;
+                        }
+                        else {
+                            if (action.isAlertPresent()) {
+                                String alertMessage = action.getAlertMessage();
+                                logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                                if(alertMessage.contains("Apple ID Verification"))
+                                    action.clickAlertButton("Not Now");
+                            }
                         }
                         retry--;
                     }
@@ -895,8 +904,17 @@ catch(Exception ex)
                     appHeader = "Bungii";
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate1);
                         if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader)) {
-                            logger.detail("Actual App Header After Switching : "+ customerHomePage.Application_Name());
+                            logger.detail("Actual App Header After Switching : "+ customerHomePage.Application_Name().getText());
                             break;
+                        }
+                        else {
+                            if (action.isAlertPresent()) {
+                                String alertMessage = action.getAlertMessage();
+                                logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                                if(alertMessage.contains("Apple ID Verification"))
+                                    action.clickAlertButton("Not Now");
+                            }
                         }
                         retry1--;
                     }
