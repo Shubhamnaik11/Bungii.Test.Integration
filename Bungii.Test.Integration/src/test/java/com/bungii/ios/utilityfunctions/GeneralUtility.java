@@ -878,7 +878,8 @@ catch(Exception ex)
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
-                        if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader)) {
+                      //  if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader)) {
+                        if(SetupManager.getDriver().getPageSource().contains(appHeader)){
                             logger.detail("Actual App Header After Switching : "+ customerHomePage.Application_Name().getText());
                             break;
                         }
@@ -903,8 +904,9 @@ catch(Exception ex)
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                     appHeader = "Bungii";
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate1);
-                        if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader)) {
-                            logger.detail("Actual App Header After Switching : "+ customerHomePage.Application_Name().getText());
+                        //if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader)) {
+                            if(SetupManager.getDriver().getPageSource().contains(appHeader)){
+                                logger.detail("Actual App Header After Switching : "+ customerHomePage.Application_Name().getText());
                             break;
                         }
                         else {
