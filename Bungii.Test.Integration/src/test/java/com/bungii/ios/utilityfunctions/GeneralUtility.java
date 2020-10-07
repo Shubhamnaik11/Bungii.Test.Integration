@@ -872,14 +872,15 @@ catch(Exception ex)
                     int retry = 3;
                     String appstate = "";
                     while(retry>0) {
-                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        //Thread.sleep(5000);
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                         appHeader = "Bungii Driver";
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
                         Thread.sleep(5000);
-                        logger.detail(" After switching Page Source : " + SetupManager.getDriver().getPageSource());
+                        logger.detail(" After switching "+SetupManager.getDriver().getTitle()+" Page Source : " + SetupManager.getDriver().getPageSource());
                         if(SetupManager.getDriver().getPageSource().contains("XCUIElementTypeApplication")) {
                             String appTitle = action.getAppName(driverHomePage.Application_Name());
                             if (appTitle != null) {
@@ -906,7 +907,7 @@ catch(Exception ex)
                     int retry1 = 3;
                     String appstate1 = "";
                     while(retry1>0) {
-                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                       // ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                     appHeader = "Bungii";
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Customer"));
