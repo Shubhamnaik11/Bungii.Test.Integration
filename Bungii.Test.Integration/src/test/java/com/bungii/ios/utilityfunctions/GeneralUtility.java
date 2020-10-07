@@ -881,12 +881,11 @@ catch(Exception ex)
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
                         Thread.sleep(5000);
                         String pageSource = SetupManager.getDriver().getPageSource();
-                        logger.detail(" After switching Page Source : " + pageSource);
-
+                        //logger.detail(" After switching Page Source : " + pageSource);
                         if(pageSource.contains("XCUIElementTypeApplication")) {
-                            String appTitle = action.getAppName(driverHomePage.Application_Name());
-                            if (appTitle != null) {
-                                if (appTitle.equals(appHeader)) {
+                           // String appTitle = action.getAppName(driverHomePage.Application_Name());
+                            if (pageSource.contains("label=\""+appHeader+"\"")) {
+                                //if (appTitle.equals(appHeader)) {
                                     // if(SetupManager.getDriver().getPageSource().contains(appHeader)){
                                     logger.detail("Actual App Header After Switching : " + appHeader);
                                     break;
@@ -899,7 +898,10 @@ catch(Exception ex)
                                             action.clickAlertButton("Not Now");
                                     }
                                 }
-                            }
+                        }
+                        else
+                        {
+                            logger.detail("Driver App is not running");
                         }
                         retry--;
                     }
@@ -934,6 +936,10 @@ catch(Exception ex)
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            logger.detail("Customer App is not running");
                         }
                         retry1--;
                     }
