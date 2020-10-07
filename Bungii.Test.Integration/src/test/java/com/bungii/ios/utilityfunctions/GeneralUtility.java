@@ -908,8 +908,16 @@ catch(Exception ex)
                                 }
                         }
                         else
-                        {
-                            logger.detail("Driver App is not running");
+                        { int getPageCount =3;
+                            while (getPageCount > 0){
+                                 pageSource = SetupManager.getDriver().getPageSource();
+                                if(pageSource.contains("XCUIElementTypeApplication")) {
+                                    logger.detail("Driver App is running");
+                                    break;
+                                }
+                                getPageCount--;
+                            }
+
                         }
                         retry--;
                     }
