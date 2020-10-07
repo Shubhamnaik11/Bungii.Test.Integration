@@ -880,8 +880,10 @@ catch(Exception ex)
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
                         Thread.sleep(5000);
-                        logger.detail(" After switching Page Source : " + SetupManager.getDriver().getPageSource());
-                        if(SetupManager.getDriver().getPageSource().contains("XCUIElementTypeApplication")) {
+                        String pageSource = SetupManager.getDriver().getPageSource();
+                        logger.detail(" After switching Page Source : " + pageSource);
+
+                        if(pageSource.contains("XCUIElementTypeApplication")) {
                             String appTitle = action.getAppName(driverHomePage.Application_Name());
                             if (appTitle != null) {
                                 if (appTitle.equals(appHeader)) {
@@ -914,7 +916,8 @@ catch(Exception ex)
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate1);
                         Thread.sleep(5000);
-                        if(SetupManager.getDriver().getPageSource().contains("XCUIElementTypeApplication")) {
+                        String pageSource = SetupManager.getDriver().getPageSource();
+                        if(pageSource.contains("XCUIElementTypeApplication")) {
                             String appTitle = action.getAppName(customerHomePage.Application_Name());
                             if (appTitle != null) {
                                 if (appTitle.equals(appHeader)) {
