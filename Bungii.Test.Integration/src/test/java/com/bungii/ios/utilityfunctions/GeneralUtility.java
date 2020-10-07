@@ -887,8 +887,8 @@ catch(Exception ex)
                         String pageSource = SetupManager.getDriver().getPageSource();
                         //logger.detail(" After switching Page Source : " + pageSource);
                         if(pageSource.contains("XCUIElementTypeApplication")) {
-                           // String appTitle = action.getAppName(driverHomePage.Application_Name());
-                            if (pageSource.contains("label=\""+appHeader+"\"")) {
+                           String appTitle = action.getAppName(driverHomePage.Application_Name());
+                            if (appTitle.contains(appHeader)) {
                                 //if (appTitle.equals(appHeader)) {
                                     // if(SetupManager.getDriver().getPageSource().contains(appHeader)){
                                     logger.detail("Actual App Header After Switching : " + appHeader);
