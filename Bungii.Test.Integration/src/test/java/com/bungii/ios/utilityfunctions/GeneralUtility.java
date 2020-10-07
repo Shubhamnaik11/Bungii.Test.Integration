@@ -879,6 +879,10 @@ catch(Exception ex)
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
+                        state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Customer"));
+                        appstate = state.toString();
+                        logger.detail("State of other App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate);
+
                         Thread.sleep(5000);
                         String pageSource = SetupManager.getDriver().getPageSource();
                         //logger.detail(" After switching Page Source : " + pageSource);
