@@ -887,11 +887,11 @@ catch(Exception ex)
                         String pageSource = SetupManager.getDriver().getPageSource();
                         //logger.detail(" After switching Page Source : " + pageSource);
                         if(pageSource.contains("XCUIElementTypeApplication")) {
-                           String appTitle = action.getAppName(driverHomePage.Application_Name());
-                            if (appTitle.contains(appHeader)) {
+                           String appTitle = action.getAppName(driverHomePage.Application_Name(true));
+                            if (appTitle!=null) {
                                 //if (appTitle.equals(appHeader)) {
                                     // if(SetupManager.getDriver().getPageSource().contains(appHeader)){
-                                    logger.detail("Actual App Header After Switching : " + appHeader);
+                                    logger.detail("Actual App Header After Switching : " + appTitle);
                                     break;
                                 } else {
                                     if (action.isAlertPresent()) {
