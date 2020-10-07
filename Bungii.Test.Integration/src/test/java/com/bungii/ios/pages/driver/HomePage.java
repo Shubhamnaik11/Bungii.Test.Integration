@@ -90,6 +90,7 @@ public class HomePage extends PageBase {
     public WebElement Link_Itemized_Earnings() { return findElement("type == 'XCUIElementTypeLink' AND name == 'Click here to view itemized earnings Itemized Earnings'", PageBase.LocatorType.Predicate); }
 
 
+    public WebElement Application_Name(boolean ...ignoreException) {return findElement("XCUIElementTypeApplication", LocatorType.ClassName,ignoreException); }
 
 
 }
