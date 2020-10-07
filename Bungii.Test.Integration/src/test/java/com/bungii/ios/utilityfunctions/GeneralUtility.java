@@ -892,12 +892,12 @@ catch(Exception ex)
                         logger.detail(" After switching Page Source : " + pageSource);
                         if(pageSource.contains("XCUIElementTypeApplication")) {
                            String appTitle = action.getAppName(driverHomePage.Application_Name(true));
-                            if (appTitle!=null || appTitle !=" ") {
-                                //if (appTitle.equals(appHeader)) {
+                            if (appTitle!=null) {
+                                if (!appTitle.equals(" ")) {
                                     // if(SetupManager.getDriver().getPageSource().contains(appHeader)){
                                     logger.detail("Actual App Header After Switching : " + appTitle);
                                     break;
-                                } else {
+                                }} else {
                                     if (action.isAlertPresent()) {
                                         String alertMessage = action.getAlertMessage();
                                         logger.detail("Alert is present on screen, Alert message:" + alertMessage);
