@@ -879,6 +879,7 @@ catch(Exception ex)
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
                         Thread.sleep(5000);
+                        logger.detail(" After switching Page Source : " + SetupManager.getDriver().getPageSource());
                         String appTitle = action.getAppName(driverHomePage.Application_Name());
                         if (appTitle!= null){
                       if(appTitle.equals(appHeader)) {

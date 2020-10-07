@@ -30,7 +30,7 @@ public class DbContextManager {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection conn = DriverManager.getConnection(MSSQL_URL, MSSQL_USER, MSSQL_PASSWORD);
-            logger.detail("Connected to ms sql server");
+           // logger.detail("Connected to ms sql server");
 
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(queryString);
@@ -51,7 +51,7 @@ public class DbContextManager {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
-            logger.detail("Connected to my sql server | "+ MYSQL_URL);
+            //logger.detail("Connected to my sql server | "+ MYSQL_URL);
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(queryString);
@@ -72,7 +72,7 @@ public class DbContextManager {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
-            logger.detail("Connected to my sql server");
+           // logger.detail("Connected to my sql server");
 
             Statement stmt = con.createStatement();
              rs = stmt.executeQuery(queryString);
@@ -97,7 +97,7 @@ public class DbContextManager {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(MYSQL_MGMT_URL, MYSQL_USER, MYSQL_PASSWORD);
-            logger.detail("Connected to my sql server");
+           // logger.detail("Connected to my sql server");
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(queryString);
@@ -119,7 +119,7 @@ public class DbContextManager {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
-            logger.detail("Connected to my sql server | "+ MYSQL_URL);
+          //  logger.detail("Connected to my sql server | "+ MYSQL_URL);
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(queryString);
