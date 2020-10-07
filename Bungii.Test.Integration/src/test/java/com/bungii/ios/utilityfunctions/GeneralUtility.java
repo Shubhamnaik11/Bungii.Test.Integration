@@ -883,7 +883,7 @@ catch(Exception ex)
                         logger.detail("State of other App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate);
                          if(appstate.equalsIgnoreCase("RUNNING_IN_BACKGROUND_SUSPENDED"))
                          {
-                             ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                             ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                              ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                              ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                          }
