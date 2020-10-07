@@ -879,7 +879,9 @@ catch(Exception ex)
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
                         Thread.sleep(5000);
-                      if(action.getAppName(driverHomePage.Application_Name()).equals(appHeader)) {
+                        String appTitle = action.getAppName(driverHomePage.Application_Name());
+                        if (appTitle!= null){
+                      if(appTitle.equals(appHeader)) {
                        // if(SetupManager.getDriver().getPageSource().contains(appHeader)){
                             logger.detail("Actual App Header After Switching : "+ appHeader);
                             break;
@@ -892,7 +894,7 @@ catch(Exception ex)
                                 if(alertMessage.contains("Apple ID Verification"))
                                     action.clickAlertButton("Not Now");
                             }
-                        }
+                        }}
                         retry--;
                     }
                     break;
@@ -908,18 +910,20 @@ catch(Exception ex)
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate1);
                         Thread.sleep(5000);
-                        if(action.getAppName(customerHomePage.Application_Name()).equals(appHeader)) {
-                            //if(SetupManager.getDriver().getPageSource().contains(appHeader)){
-                                logger.detail("Actual App Header After Switching : "+ appHeader);
-                            break;
-                        }
-                        else {
-                            if (action.isAlertPresent()) {
-                                String alertMessage = action.getAlertMessage();
-                                logger.detail("Alert is present on screen, Alert message:" + alertMessage);
-                                List<String> getListOfAlertButton = action.getListOfAlertButton();
-                                if(alertMessage.contains("Apple ID Verification"))
-                                    action.clickAlertButton("Not Now");
+                        String appTitle = action.getAppName(customerHomePage.Application_Name());
+                        if (appTitle!= null) {
+                            if (appTitle.equals(appHeader)) {
+                                //if(SetupManager.getDriver().getPageSource().contains(appHeader)){
+                                logger.detail("Actual App Header After Switching : " + appHeader);
+                                break;
+                            } else {
+                                if (action.isAlertPresent()) {
+                                    String alertMessage = action.getAlertMessage();
+                                    logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                                    List<String> getListOfAlertButton = action.getListOfAlertButton();
+                                    if (alertMessage.contains("Apple ID Verification"))
+                                        action.clickAlertButton("Not Now");
+                                }
                             }
                         }
                         retry1--;
