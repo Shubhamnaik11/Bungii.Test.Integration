@@ -882,7 +882,11 @@ catch(Exception ex)
                         state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Customer"));
                         appstate = state.toString();
                         logger.detail("State of other App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate);
-
+                         if(appstate.equalsIgnoreCase("RUNNING_IN_BACKGROUND_SUSPENDED"))
+                         {
+                             ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                             ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                         }
                         Thread.sleep(5000);
                         String pageSource = SetupManager.getDriver().getPageSource();
                         //logger.detail(" After switching Page Source : " + pageSource);
