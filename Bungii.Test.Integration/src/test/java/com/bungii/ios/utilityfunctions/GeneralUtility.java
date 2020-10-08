@@ -847,6 +847,7 @@ catch(Exception ex)
             }
         }
     }
+
     public void switchToApp(String appName, String device) {
         try {
             logger.detail ("*** Switching to : " + appName + " application ****");
@@ -864,7 +865,6 @@ catch(Exception ex)
                 }
                 Thread.sleep(1000);
             }
-            //Vishal[20092019]: added terminate before switching the app, works faster
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
@@ -872,7 +872,7 @@ catch(Exception ex)
                     int retry = 3;
                     String appstate = "";
                     while(retry>0) {
-                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                         appHeader = "Bungii Driver";
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
@@ -883,7 +883,7 @@ catch(Exception ex)
                         logger.detail("State of other App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate);
                          if(appstate.equalsIgnoreCase("RUNNING_IN_BACKGROUND_SUSPENDED"))
                          {
-                             ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                            // ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                              ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                              ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                          }
@@ -963,7 +963,7 @@ catch(Exception ex)
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }        //temp fixed
-            logger.detail("Expected App Header After Switching : "+ appHeader);
+           // logger.detail("Expected App Header After Switching : "+ appHeader);
             Thread.sleep(5000);
 
             pass("Switch to : " + appName + " application on device instance",
