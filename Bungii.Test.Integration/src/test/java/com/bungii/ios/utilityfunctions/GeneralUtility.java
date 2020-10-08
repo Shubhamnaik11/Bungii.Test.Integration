@@ -889,7 +889,7 @@ catch(Exception ex)
                          }
                         Thread.sleep(10000);
                         String pageSource = SetupManager.getDriver().getPageSource();
-                        logger.detail(" After switching Page Source : " + pageSource);
+                        //logger.detail(" After switching Page Source : " + pageSource);
                         if(pageSource.contains("XCUIElementTypeApplication")) {
                            String appTitle = action.getAppName(driverHomePage.Application_Name(true));
                             if (appTitle!=null) {
