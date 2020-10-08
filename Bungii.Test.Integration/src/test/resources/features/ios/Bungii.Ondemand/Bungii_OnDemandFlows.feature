@@ -5,6 +5,7 @@ Feature: OnDemandBungii_Flows
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
   
   Background:
+    And I Switch to "customer" application on "same" devices
   
   @regression
   Scenario: Verify Customer Can Cancel Ondemand Bungii Request in searching state
