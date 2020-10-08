@@ -743,10 +743,16 @@ public class CommonSteps extends DriverBase {
     @And("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")
     public void i_login_as_something_driver_on_something_device_and_make_driver_status_something_as(String user, String device, String driverStatus) throws Throwable {
         try {
-
+            String navigationBarName = "";
           //  utility.switchToApp("driver",device);
-
-            String navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
+            int retry =2;
+            while(retry>0) {
+                if (action.isElementPresent(driverHomePage.Text_NavigationBar(true)))
+                 navigationBarName = action.getScreenHeader(driverHomePage.Text_NavigationBar(true));
+                else
+                    Thread.sleep(5000);
+                retry--;
+            }
             goToDriverLogInPage(navigationBarName);
 
             List<String> credentials =  getDriverCredentials(user);
