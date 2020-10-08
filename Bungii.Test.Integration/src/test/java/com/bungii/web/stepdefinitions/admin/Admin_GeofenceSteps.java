@@ -602,4 +602,55 @@ public class Admin_GeofenceSteps extends DriverBase {
         String xpath = (String)cucumberContextManager.getScenarioContext("G_XPATH");
         testStepAssert.isElementDisplayed(action.getElementByXPath(xpath),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
     }
+
+    @And("I set \"([^\"]*)\" % Bungii Cut Per Delivery for the geofence")
+    public void i_set_some_bungii_cut_per_delivery_for_the_geofence(String BungiiRateData){
+        switch(BungiiRateData){
+            case "Valid":
+                int BungiiRate = Integer.parseInt(PropertyUtility.getDataProperties("valid.bungii.rate"));
+                cucumberContextManager.setScenarioContext("Bungii_cut",BungiiRate);
+                action.clearSendKeys(admin_GeofencePage.TextBox_Bunggi_Cut_Rate(),Integer.toString(BungiiRate));
+                break;
+            case "Above100":
+                int Above100BungiiRate = Integer.parseInt(PropertyUtility.getDataProperties("Above100.bungii.rate"));
+                action.clearSendKeys(admin_GeofencePage.TextBox_Bunggi_Cut_Rate(),Integer.toString(Above100BungiiRate)+Keys.TAB);
+                break;
+            case "Below Zero":
+                int BelowZeroBungiiRate = Integer.parseInt(PropertyUtility.getDataProperties("BelowZero.bungii.rate"));
+                action.clearSendKeys(admin_GeofencePage.TextBox_Bunggi_Cut_Rate(),Integer.toString(BelowZeroBungiiRate)+Keys.TAB);
+                break;
+            case "Blank":
+                action.clear(admin_GeofencePage.TextBox_Bunggi_Cut_Rate());
+                break;
+        }
+
+    }
+
+    @Then("I check that correct Driver cut calculated based on Bungii Cut Per Delivery")
+    public void I_check_that_correct_Driver_cut_calculated_based_on_Bungii_Cut_Per_Delivery(){
+        int bungii_cut = (int)cucumberContextManager.getScenarioContext("Bungii_cut");
+        int driver_cut = 100-bungii_cut;
+        String dc = Integer.toString(driver_cut);
+
+        String driver_rate = action.getElementByXPath("//input[@id='attributeValueDiverCutPerDelivery']").getAttribute("value");
+        testStepVerify.isEquals(dc,driver_rate,"Correct Driver cut is calculated","Incorrect Driver cut");
+
+    }
+
+    @Then("I see \"([^\"]*)\" validation error message.")
+    public void I_see_some_validation_error_message(String ErrorMessage){
+        switch(ErrorMessage){
+            case "Above 100 Bungii rate":
+                testStepVerify.isElementTextEquals(admin_GeofencePage.TextError_BunggiCut(),"Please enter a value less than or equal to 100.");
+                break;
+            case "Blank Bungii rate":
+                testStepVerify.isElementTextEquals(admin_GeofencePage.TextError_General(),"Oops! It looks like you missed something. Please fill out all fields before proceeding.");
+                testStepVerify.isElementTextEquals(admin_GeofencePage.TextError_BunggiCut(),"bungii cut per delivery is required.");
+                break;
+            case "Below Zero Bungii rate":
+                testStepVerify.isElementTextEquals(admin_GeofencePage.TextError_BunggiCut(),"Please enter a value greater than or equal to 0.");
+                break;
+        }
+
+    }
 }
