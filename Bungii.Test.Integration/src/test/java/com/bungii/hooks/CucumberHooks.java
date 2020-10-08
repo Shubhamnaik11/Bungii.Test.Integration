@@ -70,13 +70,13 @@ public class CucumberHooks {
         try {
             this.reportManager.startSuiteFile(resultFolder);
         } catch (Exception e) {
-            logger.error("Unable to start report com.bungii.android.manager");
+            logger.error("Unable to start report");
         }
 
         try {
             //adding ternary operator in logger is creating issue
             String device = System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
-            logger.detail("********** Initializing Test Scenario Setup on Device : "+device+" ************");
+            logger.detail("********** Initializing Test Setup on Device : "+device+" ************");
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
             logger.error("Unable to create default appium driver");
@@ -85,7 +85,6 @@ public class CucumberHooks {
 
 
     }
-
 
     /**
      * Cucumber hook to update test case in report
@@ -100,8 +99,8 @@ public class CucumberHooks {
         String[] rawFeatureName = rawFeature[rawFeature.length - 1].split(":");
 
 
-        logger.detail("Feature : " + rawFeatureName[0]);
-        logger.detail("Starting Scenario : " + scenario.getName());
+        logger.detail("Feature : " + rawFeatureName[0].toUpperCase());
+        logger.detail("Starting Scenario : " + scenario.getName().toUpperCase());
         this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0]);
         SetupManager.getObject().useDriverInstance("ORIGINAL");
         try {

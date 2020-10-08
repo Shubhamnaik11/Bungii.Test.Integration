@@ -523,7 +523,7 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "I was not navigated to " + screen + " screen ", true);
         }
     }
 

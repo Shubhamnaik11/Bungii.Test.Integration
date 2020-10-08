@@ -61,29 +61,16 @@ public class SetupManager extends EventFiringWebDriver {
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS") || TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             String deviceID = System.getProperty("DEVICE");
             String APPIUM_SERVER_PORT = String.valueOf(returnPortNumber(deviceID));
+            DesiredCapabilities dc = getCapabilities(deviceID);
             CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
 
             if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
                 try {
-                    driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
-                    //restartIphone();
-                   // ImmutableMap<String, String> pressHome = ImmutableMap.of("name", "home");
-                    //driver.ExecuteScript("mobile: pressButton", ImmutableMap.of("name", "home"));
-                   // driver.ExecuteScript("client:client.deviceAction(\"Home\")");
-
-
+                    driver = (IOSDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
                 }catch (SessionNotCreatedException e) {
-                    //logger.detail(getStackTrace(e));
                     logger.detail("Initialing driver failed, on "+deviceID +" SessionNotCreatedException" );
-                    //logger.detail("Removing WebDriver Agent on "+deviceID);
-                    //removeWebdriverAgent();
-                    //logger.detail("Restarting iPhone on "+deviceID);
-                   // restartIphone();
-
-
                     try {
-                       // Thread.sleep(180000);
-                        driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                        driver = (IOSDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
                         ((IOSDriver) driver).executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
                         ((IOSDriver) driver).runAppInBackground(Duration.ofSeconds(-1));
 
@@ -97,26 +84,24 @@ public class SetupManager extends EventFiringWebDriver {
                     logger.detail(getStackTrace(e));
                     logger.detail("Initialising driver failed. Trying again ");
                     try {
-                        driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                        driver = (IOSDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
                         CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
 
                     }
                 }
-                if (getCapabilities(deviceID).getCapability("app").toString().contains("customer"))
+                if (dc.getCapability("app").toString().contains("customer"))
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION", "CUSTOMER");
                 else
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION", "DRIVER");
 
             } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
-                //System.out.println("PORT :" + APPIUM_SERVER_PORT + "");
                 try{
-                driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                driver = (AndroidDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
                 }catch (SessionNotCreatedException e) {
                     try {
-                        // Thread.sleep(180000);
-                        driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                        driver = (AndroidDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
 
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
@@ -401,7 +386,7 @@ public class SetupManager extends EventFiringWebDriver {
             capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort", REMOTE_ADB_PORT);
         }
-        logger.detail("Test Kickoff On Device " + deviceId + " : " + phoneDetails);
+        logger.detail("TEST EXECUTION ON DEVICE " + deviceId + " : " + phoneDetails);
         return capabilities;
     }
 

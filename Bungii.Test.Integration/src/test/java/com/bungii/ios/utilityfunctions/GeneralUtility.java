@@ -637,7 +637,7 @@ public class GeneralUtility extends DriverBase {
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {
                     if (!action.isElementPresent(driverHomePage.Text_NavigationBar(true))) {
-                        Thread.sleep(9000);
+                        Thread.sleep(25000);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -860,8 +860,8 @@ catch(Exception ex)
 
                 } catch (Exception e) {
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-                    error("Step  Should be successful",
-                            "Error performing step,Please check logs for more details", true);
+                    error("Step should be successful",
+                            "Error in switching to second device", true);
                 }
                 Thread.sleep(1000);
             }
