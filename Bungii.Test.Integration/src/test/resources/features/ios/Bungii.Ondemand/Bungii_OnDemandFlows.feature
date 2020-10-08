@@ -191,6 +191,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   @ready
   @pushnotification
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
+    When I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
     
     And I Switch to "customer" application on "same" devices

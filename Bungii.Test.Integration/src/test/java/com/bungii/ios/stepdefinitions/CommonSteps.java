@@ -744,7 +744,7 @@ public class CommonSteps extends DriverBase {
     public void i_login_as_something_driver_on_something_device_and_make_driver_status_something_as(String user, String device, String driverStatus) throws Throwable {
         try {
 
-            utility.switchToApp("driver",device);
+          //  utility.switchToApp("driver",device);
 
             String navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
             goToDriverLogInPage(navigationBarName);
