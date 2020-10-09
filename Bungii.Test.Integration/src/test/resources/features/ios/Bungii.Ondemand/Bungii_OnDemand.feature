@@ -684,7 +684,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 15       |           |              | Now  | Default     |
     Then I should be navigated to "SEARCHING" screen
-
+    
+    When I Switch to "driver" application on "same" devices
     And I view and accept virtual notification for "Driver" for "on demand trip"
     
     When I Switch to "customer" application on "same" devices
