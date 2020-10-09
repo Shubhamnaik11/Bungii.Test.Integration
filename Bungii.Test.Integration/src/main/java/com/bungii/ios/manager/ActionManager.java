@@ -558,7 +558,7 @@ public class ActionManager {
      * elements value attribute.
      */
     public void textToBePresentInElementName(final WebElement element, final String text) {
-        SetupManager.getDriver().navigate().refresh();
+        
         Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(50))
                 .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
         try {
