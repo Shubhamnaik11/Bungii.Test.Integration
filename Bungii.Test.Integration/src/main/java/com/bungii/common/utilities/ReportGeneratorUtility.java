@@ -248,10 +248,11 @@ public class ReportGeneratorUtility extends DriverBase {
 			String reason = this.reason;
              //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
 			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
-			CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+			if(reason=="")
+				CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+			else
+				failed++;
 			detailsArray.add(st);
-			failed++;
-
 			status = "<td style='background-color:pink;'>Fail</td>";
 			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
 			failureArray.add(str2);
@@ -347,8 +348,10 @@ public class ReportGeneratorUtility extends DriverBase {
 	public boolean isScenarioFailed(){
 		return this.isTcVerifyFailed;
 	}
+
 	public int skipped(){
 		inconclusive++;
+
 		return inconclusive;
 	}
 
