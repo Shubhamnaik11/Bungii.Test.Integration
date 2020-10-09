@@ -758,7 +758,7 @@ public class CommonSteps extends DriverBase {
             List<String> credentials =  getDriverCredentials(user);
             utility.loginToDriverApp(credentials.get(0), credentials.get(1));
             Thread.sleep(5000);
-            navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
+           // navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
             // new GeneralUtility().logDriverDeviceToken(credentials.get(0));
                     switch (driverStatus.toUpperCase()) {
                         case "ONLINE":
