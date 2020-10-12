@@ -547,12 +547,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       |          |           |              | Now  | Default     |
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
-
-    #When I click on notification for "Driver" for "on demand trip"
-    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    #When I click "YES" on alert message
-    #Then I should be navigated to "BUNGII REQUEST" screen
-    #When I click "ACCEPT" button on "Bungii Request" screen
+    
     And I view and accept virtual notification for "Driver" for "on demand trip"
 
     And I Switch to "customer" application on "same" devices
@@ -582,13 +577,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @ready
   Scenario: Verify Requesting Of Ondemand Bungii With Received Referred Code
     Given I have customer with referral code received
-    #And I Switch to "driver" application on "same" devices
     And I login as "valid nashville" driver on "same" device and make driver status as "Online"
-  
-    #And I am on the "LOG IN" page on driverApp
-    #And I am logged in as "valid nashville" driver
-    #And I Select "HOME" from driver App menu
-    #Then I change driver status to "Online"
     
     When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
@@ -608,12 +597,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       |          |           |              | Now  | Default     |
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
-
-    #When I click on notification for "Driver" for "on demand trip"
-    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    #When I click "YES" on alert message
-    #Then I should be navigated to "BUNGII REQUEST" screen
-    #When I click "ACCEPT" button on "Bungii Request" screen
+    
     And I view and accept virtual notification for "Driver" for "on demand trip"
 
     And I Switch to "customer" application on "same" devices
@@ -666,7 +650,6 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @sanity
   @regression
   @ondemand
-    @pushnotification
   Scenario: Verify Ondemand Bungii Flow Till Completion
     When I Switch to "driver" application on "same" devices
     And I login as "valid nashville" driver on "same" device and make driver status as "Online"
@@ -733,4 +716,4 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-
+  

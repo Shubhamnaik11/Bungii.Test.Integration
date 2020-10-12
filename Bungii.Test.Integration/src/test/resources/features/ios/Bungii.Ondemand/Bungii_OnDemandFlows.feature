@@ -217,10 +217,10 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "driver" application on "same" devices
     And I view and accept virtual notification for "Driver" for "on demand trip"
     
-    And I Switch to "customer" application on "same" devices
-    And I click "Ok" button on "BUNGII ACCEPTED" screen
+    #And I Switch to "customer" application on "same" devices
+    #And I click "Ok" button on "BUNGII ACCEPTED" screen
     
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     Then I should be navigated to "EN ROUTE" screen
     When I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
