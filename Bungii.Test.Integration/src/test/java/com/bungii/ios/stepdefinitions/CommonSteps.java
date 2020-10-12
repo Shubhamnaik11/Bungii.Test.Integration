@@ -852,17 +852,20 @@ public class CommonSteps extends DriverBase {
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
                 Thread.sleep(1000);
+                logger.detail ("Switched To : " + device + " device");
             }
             //Vishal[20092019]: added terminate before switching the app, works faster
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                     appHeader = "Bungii Driver";
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                     appHeader = "Bungii";
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
@@ -886,7 +889,7 @@ public class CommonSteps extends DriverBase {
                         break;
                 }
             }
-            /*new GeneralUtility().handleIosUpdateMessage();
+            new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
             if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
                 logger.detail("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
@@ -901,7 +904,7 @@ public class CommonSteps extends DriverBase {
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                         break;
                 }
-            }*/
+            }
             pass("Switch to : " + appName + " application on device instance",
                     "Switched to : " + appName + " application on device instance", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
