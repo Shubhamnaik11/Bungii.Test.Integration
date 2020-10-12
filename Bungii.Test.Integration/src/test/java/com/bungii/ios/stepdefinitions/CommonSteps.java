@@ -876,7 +876,9 @@ public class CommonSteps extends DriverBase {
             }        //temp fixed
             new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
-            if (!action.getAppName(homePage.Application_Name()).equals(appHeader)) {
+            WebElement element = homePage.Application_Name(true);
+            if(element != null){
+            if (!action.getAppName(element).equals(appHeader)) {
                 logger.detail("Retrying to start app 2nd time ");//:Page source:", SetupManager.getDriver().getPageSource());
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
@@ -888,6 +890,21 @@ public class CommonSteps extends DriverBase {
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                         break;
                 }
+            }
+            }
+            else
+            {
+                switch (appName.toUpperCase()) {
+                    case "DRIVER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        break;
+                    case "CUSTOMER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        break;
+                }
+
             }
             new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
