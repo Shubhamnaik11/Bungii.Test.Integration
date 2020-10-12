@@ -3,15 +3,16 @@
 
 Feature: Bungiis
   Background:
-	When I Switch to "customer" application on "same" devices
+	#When I Switch to "customer" application on "same" devices
  
 @sanity
 @regression
 @ondemand
 @pushnotification
-Scenario: Verify Ondemand Bungii Delivery Completion
+Scenario: Verify Ondemand Bungii Completion
 When I Switch to "driver" application on "same" devices
 And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+
 And I Switch to "customer" application on "same" devices
 Given I am on the "LOG IN" page
 When I logged in Customer application using  "valid nashville" user
@@ -31,8 +32,9 @@ When I Switch to "driver" application on "same" devices
 Then I should be navigated to "EN ROUTE" trip status screen
 And I slide update button on "EN ROUTE" Screen
 Then I should be navigated to "ARRIVED" trip status screen
-Then I should be navigated to "LOADING ITEM" trip status screen
-And I slide update button on "LOADING ITEM" Screen
+  And I slide update button on "ARRIVED" Screen
+  Then I should be navigated to "LOADING ITEM" trip status screen
+  And I slide update button on "LOADING ITEM" Screen
 Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
 And I slide update button on "DRIVING TO DROP OFF" Screen
 Then I should be navigated to "UNLOADING ITEM" trip status screen
