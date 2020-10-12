@@ -2,7 +2,7 @@
   Feature: Partner_Estimate
 
     Background:
-      Given I navigate to "Partner" portal of "PP SiteA" URL
+      Given I navigate to "Partner" portal configured for "normal" URL
       And I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
@@ -10,7 +10,7 @@
     @regression
     @sanity
     Scenario: Verify that correct estimate cost calculated for Solo Bungii
-      When I request "Solo" Bungii trip in partner portal for "PP SiteA" in "washingtondc" geofence
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time on partner portal
@@ -23,7 +23,7 @@
 
     @regression
     Scenario:Verify If Partner User Cancel Solo Bungii After Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
-      When I request "Solo" Bungii trip in partner portal for "PP SiteA" in "washingtondc" geofence
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time on partner portal
@@ -33,7 +33,7 @@
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
       Then I should "see Delivery Details screen"
-      When I enter following details on "Delivery Details" for "PP SiteA" on partner screen
+      When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
         |Furniture       |TestPP Customer |9975960666     |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
@@ -46,7 +46,7 @@
 
     @regression
     Scenario:Verify If Partner User Cancel OnDemand Bungii Before Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
-      When I request "Solo" Bungii trip in partner portal for "PP SiteA" in "washingtondc" geofence
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time on partner portal
@@ -78,7 +78,7 @@
     @regression
     @sanity
     Scenario:Verify that Get Estimate cost get recalculate on changing the Load/Unload Time
-      When I request "Solo" Bungii trip in partner portal for "PP SiteA" in "washingtondc" geofence
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time on partner portal
@@ -94,7 +94,7 @@
 
     @regression
     Scenario: Verify that Get Estimate cost get recalculated on changing the Delivery Address
-      When I request "Solo" Bungii trip in partner portal for "PP SiteA" in "washingtondc" geofence
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time on partner portal
@@ -110,7 +110,7 @@
 
     @regression
     Scenario:Verify that clearing Pickup address clears Address field on "Get Estimate" screen
-      When I request "Solo" Bungii trip in partner portal for "PP SiteA" in "washingtondc" geofence
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I click "GET ESTIMATE" button on Partner Portal

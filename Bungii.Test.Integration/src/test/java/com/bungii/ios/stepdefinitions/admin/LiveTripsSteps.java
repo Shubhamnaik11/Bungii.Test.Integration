@@ -392,6 +392,7 @@ public class LiveTripsSteps extends DriverBase {
         }
 
     }
+
     @When("^I view the trip details$")
     public void i_view_the_trip_details() throws Throwable {
     try{
@@ -403,6 +404,19 @@ public class LiveTripsSteps extends DriverBase {
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+
+    @Then("^I view the trip details on admin$")
+    public void i_view_the_trip_details_on_admin() throws Throwable {
+        try{
+            SetupManager.getDriver().navigate().refresh();
+            String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+            action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     public String getGeofence(String geofence)

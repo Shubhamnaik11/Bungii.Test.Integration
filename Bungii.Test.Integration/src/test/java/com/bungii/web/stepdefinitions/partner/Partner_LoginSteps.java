@@ -86,7 +86,7 @@ public class Partner_LoginSteps extends DriverBase {
         WebElement Xpath1 = action.getElementByXPath(Xpath);
         action.click(Xpath1);
 
-        cucumberContextManager.setScenarioContext("Selected_Service",Service_Name);
+        cucumberContextManager.setScenarioContext("Selected_service",Service_Name);
         //String alias = (String) cucumberContextManager.getScenarioContext("Alias");
         /*if(alias.equalsIgnoreCase("Brandsmart - Kansas")){
             switch (Service_Name){
@@ -184,12 +184,11 @@ public class Partner_LoginSteps extends DriverBase {
 
     @Then("^I should \"([^\"]*)\"$")
     public void IShould(String str) throws ParseException {
-        switch (str)
-        {
+        switch (str) {
             case "be logged in":
                 //testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.Header_Dashboard()), PropertyUtility.getMessage("DriverDashboardHeader"));
-                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Label_Get_Estimate_Header(), (long) 2000);
-                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
+                //action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Label_Get_Estimate_Header(), (long) 2000);
+                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Start_Over()), PropertyUtility.getMessage("Start_Over_Header"));
                 break;
             case "see validations message for blank password field":
                 testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Blank_Password"));
@@ -198,35 +197,44 @@ public class Partner_LoginSteps extends DriverBase {
                 testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Incorrect_Password"));
                 break;
             case "see Delivery Details screen":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
-                String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
+                String PP_Site = (String) cucumberContextManager.getScenarioContext("SiteUrl");
+                if (PP_Site.equalsIgnoreCase("normal")) {
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
+                }
+                else if(PP_Site.equalsIgnoreCase("kiosk mode")) {
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
+                }
+                else if(PP_Site.equalsIgnoreCase("service level")) {
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Service_Delivery_Details_Header"));
+                }
+                    String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
 
                 //StringBuilder sb = new StringBuilder(PickupDateTime);
                 //sb.setCharAt(3,'(');
 
                 //PickupDateTime = sb.toString();
 
-                String[] S2 = PickupDateTime.split(" ",2);
+                String[] S2 = PickupDateTime.split(" ", 2);
 
-                String Month = S2[0].substring(0,3);
+                String Month = S2[0].substring(0, 3);
                 String space = " ";
-                S2[0] = Month+space;
+                S2[0] = Month + space;
 
 
                 PickupDateTime = S2[0] + S2[1];
 
                 char ch = PickupDateTime.charAt(4);
 
-                if(PickupDateTime.charAt(4)=='0'){
+                if (PickupDateTime.charAt(4) == '0') {
                     StringBuilder sb = new StringBuilder(PickupDateTime);
                     sb.deleteCharAt(4);
-                    PickupDateTime= sb.toString();
+                    PickupDateTime = sb.toString();
                 }
 
-                PickupDateTime = PickupDateTime.replaceAll("[()]","");
+                PickupDateTime = PickupDateTime.replaceAll("[()]", "");
 
 
-                cucumberContextManager.setScenarioContext("PickupDateTime",PickupDateTime);
+                cucumberContextManager.setScenarioContext("PickupDateTime", PickupDateTime);
                 break;
             case "see Done screen":
                 String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
@@ -276,7 +284,8 @@ public class Partner_LoginSteps extends DriverBase {
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Cancel_Trip()),PropertyUtility.getMessage("Message_Cancel_Trip"));
                 break;
             case "see Get Estimate screen":
-                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
+                testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Label_Get_Estimate_Header(),"Get Estimate START OVER should be shown","Get Estimate START OVER is shown","Get Estimate START OVER is not shown");
+                //testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
                 break;
             case "see five future days including today":
                 Calendar calendar = Calendar.getInstance();
@@ -298,8 +307,8 @@ public class Partner_LoginSteps extends DriverBase {
                 testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Text_No_Service()),"No service selected.");
                 break;
             case "see the service name":
+                String Service_Name1 = (String) cucumberContextManager.getScenarioContext("Selected_service");
                 action.JavaScriptScrolldown();
-                String Service_Name1 = (String) cucumberContextManager.getScenarioContext("Selected_Service");
                 String Display_Service_name = action.getText(Page_Partner_Delivery_List.Text_Selected_Service());
                 testStepVerify.isEquals(Display_Service_name,Service_Name1);
                 break;

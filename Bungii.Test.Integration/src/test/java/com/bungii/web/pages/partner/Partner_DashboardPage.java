@@ -9,6 +9,9 @@ public class Partner_DashboardPage extends PageBase {
     //Partner Get Estimate Header
     public WebElement Label_Get_Estimate_Header() { return findElement("//h1[contains(text(),'Get Estimate')]", LocatorType.XPath); }
 
+    //Start Over
+    public WebElement Label_Start_Over() { return findElement("//span[contains(text(),'Start Over')]",LocatorType.XPath);}
+
     //Logout button
     public WebElement Button_Partner_LogOut(){ return findElement("//a[@class='header-btn logout-btn']", LocatorType.XPath); }
 
@@ -80,7 +83,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Button_Get_Estimate() { return findElement("get-estimate",LocatorType.Id);}
 
     //Estimated Cost label
-    public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Delivery Cost: ')]",LocatorType.XPath);}
+    public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Estimated Cost: ')]",LocatorType.XPath);}
 
     //Continue button
     public  WebElement Button_Continue() { return findElement("//a[@class='btn']",LocatorType.XPath);}
@@ -122,7 +125,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Dropdown_Service_Level() { return findElement("//div[@id='service-level-menu']",LocatorType.XPath);}
 
     //No service selected text
-    public WebElement Text_No_Service() { return findElement("//div[@class='no-service-title']",LocatorType.XPath);}
+    public WebElement Text_No_Service() { return findElement("//div[@class='service-title']",LocatorType.XPath);}
 
     //Service Level text
     public WebElement Text_Service_Level() { return findElement("//h2[contains(text(),'Service Level')]",LocatorType.XPath);}

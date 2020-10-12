@@ -80,6 +80,7 @@ Feature: Service Level
       |Duo |11151 Veirs Mill Road, Wheaton-Glenmont, United States, Maryland, 20902          |Threshold     |
 
   @ready
+    @gs
   Scenario: Verify that service level partner portal trip is shown in Admin portal
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -110,8 +111,9 @@ Feature: Service Level
     Then I close the Trip Delivery Details page
     When I navigate to "Admin" portal configured for "QA" URL
     #When I navigate to "Bungii Admin Portal in new tab" URL
-    And I view the Deliveries list on the admin portal
-    When I view the trip details
+    #And I view the Deliveries list on the admin portal
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I view the trip details on admin
     Then the Bungii details is displayed successfully
     And I should logout from Partner Portal
 

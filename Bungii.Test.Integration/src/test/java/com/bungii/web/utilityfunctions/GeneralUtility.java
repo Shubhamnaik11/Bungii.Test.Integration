@@ -54,6 +54,7 @@ public class GeneralUtility extends DriverBase {
 
     private String GetPartnerUrl(String PP_Site){
         String partnerURL = null;
+        cucumberContextManager.setScenarioContext("SiteUrl",PP_Site);
         String environment =PropertyUtility.getProp("environment");
         if(environment.equalsIgnoreCase("QA_AUTO")){
             if(PP_Site.equalsIgnoreCase("normal")){

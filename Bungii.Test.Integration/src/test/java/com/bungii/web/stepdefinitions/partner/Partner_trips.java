@@ -271,7 +271,7 @@ public class Partner_trips extends DriverBase {
     @And("^I check correct price is shown for selected service$")
     public void i_check_correct_price_is_shown_for_selected_service(){
         String Alias_Name= (String) cucumberContextManager.getScenarioContext("Alias");
-        String Selected_Service =(String) cucumberContextManager.getScenarioContext("Selected_Service");
+        String Selected_Service =(String) cucumberContextManager.getScenarioContext("Selected_service");
         String Trip_Type = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
         int Driver_Number=1;
 

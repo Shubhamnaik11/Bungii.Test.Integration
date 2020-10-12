@@ -178,6 +178,56 @@ public class Partner_IntegrationSteps extends DriverBase {
         else if(Site.equalsIgnoreCase("kiosk mode")){
             switch (Type) {
                 case "Solo":
+                    action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+
+                    action.click(Page_Partner_Dashboard.Button_PickupClear());
+                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                    action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                    Thread.sleep(1000);
+                    action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                    Thread.sleep(2000);
+                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                    action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                    //Thread.sleep(1000);
+                    action.click(Page_Partner_Dashboard.List_Delivery_Address());
+
+                    Thread.sleep(5000);
+
+                    action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
+                    switch (Load_Unload) {
+                        case "15 minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_15());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 15);
+                            break;
+                        case "30 minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_30());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 30);
+                            break;
+                        case "45 minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_45());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 45);
+                            break;
+                        case "60 minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_60());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 60);
+                            break;
+                        case "75 minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_75());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 75);
+                            break;
+                        case "90+ minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_90());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 90);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case "Duo":
+                    action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+                    action.click(Page_Partner_Dashboard.Button_PickupClear());
+
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
                     //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
@@ -190,25 +240,40 @@ public class Partner_IntegrationSteps extends DriverBase {
                     //Thread.sleep(1000);
                     action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
-                    action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
-                    break;
-                case "Duo":
                     //Clicking on duo radio button
                     action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
 
-                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
-                    //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
-                    action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-                    Thread.sleep(1000);
-                    action.click(Page_Partner_Dashboard.List_Pickup_Address());
+                    //Clicking on Load Unload dropdown
+                    action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
 
-                    Thread.sleep(2000);
-                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
-                    action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                    //Thread.sleep(1000);
-                    action.click(Page_Partner_Dashboard.List_Delivery_Address());
-
-                    action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                    switch (Load_Unload) {
+                        case "15 minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_15());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 15);
+                            break;
+                        case "30 minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_30());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 30);
+                            break;
+                        case "45 minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_45());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 45);
+                            break;
+                        case "60 minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_60());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 60);
+                            break;
+                        case "75 minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_75());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 75);
+                            break;
+                        case "90+ minutes":
+                            action.click(Page_Partner_Dashboard.Load_Unload_Time_90());
+                            cucumberContextManager.setScenarioContext("LoadUnload_Time", 90);
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;
