@@ -858,7 +858,7 @@ public class CommonSteps extends DriverBase {
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
-                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                   // ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                     Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                     appHeader = "Bungii Driver";
