@@ -155,7 +155,7 @@ Feature: Admin_PartnerFirm
     @log
     #Create driver in base
   Scenario: Verify Partner Firm Scheduled Email - Solo Scheduled Bulk Trip
-    When I click on "Business Users  > Bulk Trips" Menu
+    When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
     And I upload image and csv file associated with the "Solo Scheduled" trip
     And I click on "Upload" button on "Bulk Trips" page
