@@ -838,7 +838,10 @@ public class CommonSteps extends DriverBase {
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Always Allow");
             }
+            if (!navigationBarName.equals("SIGN UP"))
             homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
+            else if (navigationBarName.equals("SIGN UP"))
+                action.click(signupPage.Button_Login());
         }
 
 

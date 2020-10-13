@@ -405,7 +405,7 @@ public class GeneralUtility extends DriverBase {
 
         action.click(tutorialPage.Button_Close());
 
-        logger.detail("***** RECOVERING STATE : UI ACTIONS COMPLETE *****");
+       // logger.detail("***** RECOVERING STATE : UI ACTIONS COMPLETE *****");
 
     }
 
