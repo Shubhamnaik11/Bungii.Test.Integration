@@ -1380,6 +1380,7 @@ Feature: To Test Duo - Scheduled Bungii
       |                | CUSTOMER2_PHONE |
 
   @ready
+    @push
   Scenario:Verify Driver Can Receive Short Stack Request And Can Cancel Bungii On Unloading Item State
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |

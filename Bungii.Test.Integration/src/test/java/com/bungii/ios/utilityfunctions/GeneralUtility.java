@@ -156,6 +156,30 @@ public class GeneralUtility extends DriverBase {
 
         }
     }
+    public void handleAppleIDVerification() {
+        try {
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if (alertMessage.contains("Apple ID Verification")) {
+                    if (getListOfAlertButton.contains("Not Now")) {
+                        action.clickAlertButton("Not Now");
+                    }
+                } else if (alertMessage.contains("Failed to fetch your profile")) {
+                    if (getListOfAlertButton.contains("OK")) {
+                        action.clickAlertButton("OK");
+                    }
+                } else if (alertMessage.contains("we are not operating in your area")) {
+                    if (getListOfAlertButton.contains("Done")) {
+                        action.clickAlertButton("Done");
+                    }
+                }
+
+            }
+        }catch( Exception e){
+
+        }
+    }
 
     public void recoverScenarioscheduled() {
 

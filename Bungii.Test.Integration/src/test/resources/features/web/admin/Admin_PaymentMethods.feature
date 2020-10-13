@@ -130,7 +130,7 @@ Feature: Admin_PaymentMethods
     When I enter following card details on "Bungii Cards" screen
       |Card Number | Expiration Date | CVV | Postal Code|
       |4000111111111511 | 12/39      | 1236  |     12345|
-    And I click on "Save" button on "Bungii Card" screen
+    And I click on "Save" button on "Bungii Cards" screen
     Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed
   
   @regression
@@ -140,5 +140,5 @@ Feature: Admin_PaymentMethods
     When I enter following card details on "Partner Cards" screen
       |Card Number | Expiration Date | CVV | Postal Code|
       |4000111111111511 | 12/39      | 1236  |     12345|
-    And I click on "Save" button on "Partner Card" screen
+    And I click on "Save" button on "Partner Cards" screen
     Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed

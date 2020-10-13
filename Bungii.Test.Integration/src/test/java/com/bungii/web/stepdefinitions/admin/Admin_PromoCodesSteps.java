@@ -54,6 +54,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Marketing  > Promocode" :
               action.click(admin_PromoCodesPage.Menu_Marketing());
               break;
+           case "Promo Codes > Standard Codes" :
+               action.click(admin_PromoterPage.Menu_Promotion());
+               break;
            case "Marketing  > Referral Sources" :
                action.click(admin_PromoCodesPage.Menu_Marketing());
                action.click(admin_ReferralSourcePage.Menu_ReferralSource());
@@ -201,7 +204,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     break;
                 case "Driver Trips":
                     String driver = (String) cucumberContextManager.getScenarioContext("DRIVER");
-                    String xpath = String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Driver Trips']", driver);
+                    String xpath = String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Driver Deliveries']", driver);
 //                    action.waitUntilIsElementExistsAndDisplayed(admin_DriverPage.Icon_DriverTrips(xpath), (long) 5000);
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
                     break;
@@ -237,10 +240,10 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     case "FB Shared":
                         action.click(admin_PromoCodesPage.CheckBox_FilterOneOffFBShare());
                         break;
-                    case "Delivery By Promoter":
+                    case "Delivery By Partner":
                         action.click(admin_PromoCodesPage.CheckBox_FilterDeliveryChargesByPromoter());
                         break;
-                    case "Delivery By Promoter (M)":
+                    case "Delivery By Partner (M)":
                         action.click(admin_PromoCodesPage.CheckBox_FilterDeliveryChargesByPromoterMultipleUse());
                         break;
                 }
@@ -408,7 +411,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @Then("^the promocode grid shows the results by type \"([^\"]*)\"$")
     public void the_promocode_grid_shows_the_results_by_type_something(String Type) throws Throwable {
-        Type = Type.replace("Delivery By Promoter (M)","Delivery Charges By Promoter Multiple Use"); ////////////////
+        Type = Type.replace("Delivery By Partner (M)","Delivery Charges By Partner Multiple Use"); ////////////////
         String xpath = String.format("//tr/td[5][text()='%s']",Type);
         //page 1 records verified
         List<WebElement> rowswithtype = SetupManager.getDriver().findElements(By.xpath(xpath));
@@ -665,7 +668,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     action.sendKeys(admin_PromoCodesPage.TextBox_DiscountValue(), DiscountValue);
                     action.click(admin_PromoCodesPage.RadioButton_Percent());
                     break;
-                case "Delivery By Promoter":
+                case "Delivery By Partner":
                     Promoter = dataMap.get("Select Promoter").trim();
                     Promotion = dataMap.get("Select Promotion").trim();
                     NoOfCodes = dataMap.get("No Of Codes").trim();
@@ -683,7 +686,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CODE_COUNT", NoOfCodes);
                     cucumberContextManager.setScenarioContext("DISCOUNT_CATEGORY", (admin_PromoCodesPage.RadioButton_DollarsDisabled().isSelected() ? "Dollars" : "Percent"));
                     break;
-                case "Delivery By Promoter (M)":
+                case "Delivery By Partner (M)":
                     Promoter = dataMap.get("Select Promoter").trim();
                     Promotion = dataMap.get("Select Promotion").trim();
                     Code = dataMap.get("Code").trim().replace("<<CurrentDateTime>>",Integer.toString(i));
