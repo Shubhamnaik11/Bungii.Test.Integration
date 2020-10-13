@@ -1,7 +1,7 @@
 @ios
 @bungiiflow
   # this will run in miami
-Feature: OnDemandBungii_Flows
+Feature: OnDemandBungii_CancellationFlows
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
   
   Background:
@@ -133,6 +133,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
 
   @ready
+  @pushnotification
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -190,7 +191,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
   
   @ready
-  @pushnotification
+  
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
     When I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
@@ -217,10 +218,10 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "driver" application on "same" devices
     And I view and accept virtual notification for "Driver" for "on demand trip"
     
-    #And I Switch to "customer" application on "same" devices
-    #And I click "Ok" button on "BUNGII ACCEPTED" screen
+    And I Switch to "customer" application on "same" devices
+    And I click "Ok" button on "BUNGII ACCEPTED" screen
     
-    #And I Switch to "driver" application on "same" devices
+    And I Switch to "driver" application on "same" devices
     Then I should be navigated to "EN ROUTE" screen
     When I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed

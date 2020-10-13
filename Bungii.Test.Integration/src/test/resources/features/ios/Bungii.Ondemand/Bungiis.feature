@@ -8,7 +8,6 @@ Feature: Bungiis
 @sanity
 @regression
 @ondemand
-@pushnotification
 Scenario: Verify Ondemand Bungii Completion
 When I Switch to "driver" application on "same" devices
 And I login as "valid nashville" driver on "same" device and make driver status as "Online"
@@ -28,7 +27,7 @@ Then I should be navigated to "SEARCHING" screen
 
 And I view and accept virtual notification for "Driver" for "on demand trip"
 
-When I Switch to "driver" application on "same" devices
+#When I Switch to "driver" application on "same" devices
 Then I should be navigated to "EN ROUTE" trip status screen
 And I slide update button on "EN ROUTE" Screen
 Then I should be navigated to "ARRIVED" trip status screen

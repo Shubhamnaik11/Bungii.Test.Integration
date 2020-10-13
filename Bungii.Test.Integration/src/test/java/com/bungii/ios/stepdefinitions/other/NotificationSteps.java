@@ -42,11 +42,11 @@ public class NotificationSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
-    private HomePage homepage;
+    HomePage homepage;
 
     public NotificationSteps(NotificationPage notificationPage, HomePage homePage) {
         this.notificationPage = notificationPage;
-        this.homepage = homepage;
+        this.homepage = homePage;
     }
 
     @Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
@@ -146,12 +146,17 @@ public class NotificationSteps extends DriverBase {
                     logger.detail("Accepted pickup " + pickupRequestID +" as driver " + driverPhoneNum );
                 }
                 // Switch and login on same device
-               /* utility.switchToApp("driver","same");
-                if(action.isElementPresent(homepage.Button_AppMenu(true))) {
+                utility.switchToApp("driver","same");
+                String navigationBarName = action.getScreenHeader(homepage.Text_NavigationBar());
+               if(navigationBarName.equalsIgnoreCase("ONLINE")) {
                     action.click(homepage.Button_AppMenu());
                     Thread.sleep(1000);
-                    action.click(homepage.AppMenu_Home());
-                }*/
+                    action.click(homepage.AppMenu_ScheduledTrip());
+                   Thread.sleep(1000);
+                 //  action.click(homepage.Button_AppMenu());
+                   Thread.sleep(1000);
+                  // action.click(homepage.AppMenu_Home());
+                }
 
                 log("I should able to accept trip through virtual notification",
                         "I accept trip through virtual notification");
