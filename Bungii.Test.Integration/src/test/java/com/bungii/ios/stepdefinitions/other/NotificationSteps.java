@@ -63,22 +63,18 @@ public class NotificationSteps extends DriverBase {
             new BungiiSteps().ByPassNotification(driverName,bungiiType,PickupRequest);
             /*((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
             action.showNotifications();
-
             log("Checking push notifications", "Checking push notifications", true);
-
             //	logger.detail(SetupManager.getDriver().getPageSource());
             boolean notificationClick = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
             if (!notificationClick) {
                 Thread.sleep(120000);
                 notificationClickRetry = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
-
             }
             if (!notificationClick && !notificationClickRetry) {
                 fail("I should be able to click on push notification : " + expectedNotification, "PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
                 action.hideNotifications();
             } else {
                 pass("I should be able to click on push notification : " + expectedNotification, "I clicked on push notifications with text : " + getExpectedNotification(expectedNotification), true);
-
             }*/
 
             Thread.sleep(1000);
