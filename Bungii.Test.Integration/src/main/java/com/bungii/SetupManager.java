@@ -199,8 +199,8 @@ public class SetupManager extends EventFiringWebDriver {
     public static String getAppiumServerURL(String portNumber) {
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost") || APPIUM_SERVER_IP.equals("") || APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP = "127.0.0.1";
-       return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
-       //return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
+      // return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
+       return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
     }
 
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber) {
@@ -334,7 +334,7 @@ public class SetupManager extends EventFiringWebDriver {
 
         } catch (Exception e) {
            // e.printStackTrace();
-            logger.detail("Error in creating Session");
+            logger.detail("Error in creating Appium Session");
         }
         return driver;
     }
@@ -361,25 +361,22 @@ public class SetupManager extends EventFiringWebDriver {
 
         while (keys.hasNext()) {
             String key = keys.next();
-          /*  if(key.toString().equalsIgnoreCase("otherApps"))
+            if(key.toString().equalsIgnoreCase("otherApps"))
             {
                String[] Arrary = new String[]{jsonCaps.get(key).toString()};
                 capabilities.setCapability(key, Arrary);
             }
-            else*/
-            //TODO check key type , then verify and add
-            capabilities.setCapability(key, jsonCaps.get(key));
-            if(key.toString().equalsIgnoreCase("deviceName"))
-            {
-                phoneDetails += " "+ jsonCaps.get(key).toString();
-            }
-            if(key.toString().equalsIgnoreCase("platformName"))
-            {
-                phoneDetails += " "+ jsonCaps.get(key).toString();
-            }
-            if(key.toString().equalsIgnoreCase("platformVersion"))
-            {
-                phoneDetails += " "+ jsonCaps.get(key).toString();
+            else {
+                capabilities.setCapability(key, jsonCaps.get(key));
+                if (key.toString().equalsIgnoreCase("deviceName")) {
+                    phoneDetails += " " + jsonCaps.get(key).toString();
+                }
+                if (key.toString().equalsIgnoreCase("platformName")) {
+                    phoneDetails += " " + jsonCaps.get(key).toString();
+                }
+                if (key.toString().equalsIgnoreCase("platformVersion")) {
+                    phoneDetails += " " + jsonCaps.get(key).toString();
+                }
             }
         }
         if (!System.getProperty("remoteAdbHost").trim().equals("") && TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())) {
