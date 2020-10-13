@@ -476,8 +476,15 @@ public class SetupManager extends EventFiringWebDriver {
     }
 
     public void useDriverInstance(String instanceKey) {
-        DriverManager.getObject().useDriverInstance(instanceKey);
-        logger.detail("Driver Instance : " + instanceKey);
+        try {
+            DriverManager.getObject().useDriverInstance(instanceKey);
+            logger.detail("Driver Instance : " + instanceKey);
+        }
+        catch(Exception ex)
+        {
+            logger.detail("Getting Driver Instance Failed : " + instanceKey);
+            CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+        }
 
     }
 
