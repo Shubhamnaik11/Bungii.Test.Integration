@@ -10,7 +10,7 @@ Feature: AlertSettings
 	And I am logged in as "new driver" driver
 	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	
-@ready
+@regression
 Scenario: Verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
 When I Select "ALERT SETTINGS" from driver App menu
 When I click "SMS ALERT" button on "ALERT SETTINGS" screen on driverApp

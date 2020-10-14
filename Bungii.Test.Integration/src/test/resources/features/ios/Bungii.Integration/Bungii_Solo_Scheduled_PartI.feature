@@ -131,6 +131,8 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	When I Get SMS CODE for new "Customer"
 	And I enter "valid" Verification code
 	Then I should be navigated to "Home" screen
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
 	When I Select "PAYMENT" from Customer App menu
 	Then I should be navigated to "PAYMENT" screen
 	When I click "Add-Button" button on "PAYMENT" screen

@@ -175,7 +175,30 @@ public class NotificationSteps extends DriverBase {
     @Then("^I should not get notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_should_not_get_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
 
-        //Thread.sleep(20000);
+        String driverPhoneCode="1";
+        String driverPhoneNum=null;
+        String pickupRequestID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        if(pickupRequestID== "")
+        {   pickupRequestID =  dbUtility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA"));
+        }
+        if(pickupRequestID!= "") {
+            if(driverPhoneNum== null) {
+                driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
+            }
+            if(driverPhoneNum!= null) {
+                String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
+                if (pushNotificationContent == null)
+                    testStepAssert.isTrue(true, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" + getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" + pushNotificationContent);
+                else {
+                    fail("I should be not receive push notification [Virtual] : " + expectedNotification, "Driver has received push notification " + getExpectedNotification(expectedNotification), true);
+
+                }
+
+                log("I should not be able to get trip notification",
+                        "I do not get the virtual push notification");
+            }
+        }
+       /* //Thread.sleep(20000);
         Thread.sleep(10000);
         try {
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
@@ -210,6 +233,7 @@ public class NotificationSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
 
         }
+        */
     }
 
     private String getExpectedNotification(String identifier) {

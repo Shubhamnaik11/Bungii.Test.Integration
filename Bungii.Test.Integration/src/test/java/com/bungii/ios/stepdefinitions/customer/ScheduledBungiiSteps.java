@@ -10,6 +10,7 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.joda.time.DateTime;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
@@ -37,6 +38,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 			String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 			String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
 			//String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+			logger.detail("Trip Time is ",tripTime);
 			selectBungii(tripNoOfDriver, tripTime);
 			pass("I select scheduled bungii", "I have selected already scheduled bungii of "+tripNoOfDriver+" type and at time: " + tripTime , true);
 		} catch (Exception e) {
@@ -108,19 +110,33 @@ public class ScheduledBungiiSteps extends DriverBase {
 			imageTag = Image_Solo;
 		}
 		action.swipeDown();
+		String currentYear = String.valueOf(DateTime.now().getYear());
+		String gmtTime = bungiiTime.replace("AM", "a.m.").replace("PM", "p.m.").replace(currentYear,"").replace(" - ","");
 
+		if(gmtTime.contains("MDT")||gmtTime.contains("MST"))
+			gmtTime = gmtTime.replace("MDT","GMT-6").replace("MST","GMT-6");
+		if(gmtTime.contains("CST")||gmtTime.contains("CDT"))
+			gmtTime = gmtTime.replace("CST","GMT-5").replace("CDT","GMT-5");
+		if(gmtTime.contains("EST")||gmtTime.contains("EDT"))
+			gmtTime = gmtTime.replace("EST","GMT-4").replace("EDT","GMT-4");
+		if(gmtTime.contains("PST")||gmtTime.contains("PDT"))
+			gmtTime = gmtTime.replace("PST","GMT-7").replace("PDT","GMT-7");
+		if(gmtTime.contains("IST"))
+			gmtTime = gmtTime.replace("IST","GMT+5:30");
+
+		String browserStackTime = "//XCUIElementTypeStaticText[contains(@name,'"+gmtTime+"') or contains(@name,'" + bungiiTime + "') ]/parent::XCUIElementTypeCell";
 		//By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
 		WebElement Image_SelectBungii =null;
 		try {
 			//	WebElement Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-			if (action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath, true)))
-				Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+			if (action.isElementPresent(scheduledBungiiPage.findElement(browserStackTime, PageBase.LocatorType.XPath, true)))
+				Image_SelectBungii = scheduledBungiiPage.findElement(browserStackTime, PageBase.LocatorType.XPath);
 			else
-				Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+				Image_SelectBungii = scheduledBungiiPage.findElement(browserStackTime, PageBase.LocatorType.XPath);
 		}
 		catch(Exception ex)
 		{
-			error("Element with [Locator : "+"//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell"+" ] by type [ "+"XPath"+" ] should be displayed", "Element with [Locator : "+"//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell"+" ] by type [ "+"XPath"+" ] is not displayed. Please refer error logs for more details.",
+			error("Element with [Locator : "+browserStackTime+" ] by type [ "+"XPath"+" ] should be displayed in Driver Scheduled List", "Element with [Locator : "+browserStackTime+" ] by type [ "+"XPath"+" ] is not displayed in Driver Scheduled List. Please refer error logs for more details.",
 					true);
 		}
 		return Image_SelectBungii;
@@ -140,6 +156,8 @@ public class ScheduledBungiiSteps extends DriverBase {
 		//Handle code to update Daylight
 		if(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()).inDaylightTime( new Date() ))
 		bungiiTime=bungiiTime.replace("ST","DT");
+		//XCUIElementTypeStaticText[contains(@name,'Oct 13, 11:45 a.m. GMT-6') or contains(@name,'Oct 13, 2020 - 11:45 AM MDT') ]/parent::XCUIElementTypeCell
+
 		action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
 	}
 
