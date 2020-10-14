@@ -955,8 +955,6 @@ public class Admin_PromoCodesSteps extends DriverBase {
     public void i_search_by_the_code_something(String Code) throws Throwable {
         switch (Code) {
             case "Promo":
-                action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
-                break;
 
             case "@#$@@":
                 action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
