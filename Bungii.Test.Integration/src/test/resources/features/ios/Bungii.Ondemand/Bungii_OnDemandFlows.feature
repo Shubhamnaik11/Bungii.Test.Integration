@@ -25,14 +25,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | 15       |           |              | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
     
-   # When I click on notification for "Driver" for "on demand trip"
-    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    #When I click "YES" on alert message
-    #Then I should be navigated to "BUNGII REQUEST" screen
-    #When I click "REJECT" button on "Bungii Request" screen
-    #Then I should be navigated to "HOME" screen
-    
-    When I Switch to "customer" application on "same" devices
+   # When I Switch to "customer" application on "same" devices
     And I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
@@ -93,6 +86,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   
 
   @regression
+  @pushnotification
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
 
@@ -116,10 +110,10 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     
     And I view and accept virtual notification for "Driver" for "on demand trip"
 
-    And I Switch to "customer" application on "same" devices
-    And I click "Ok" button on "BUNGII ACCEPTED" screen
+    #And I Switch to "customer" application on "same" devices
+    #And I click "Ok" button on "BUNGII ACCEPTED" screen
 
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
     When I click "Cancel" button on "update" screen
@@ -133,7 +127,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
 
   @ready
-  @pushnotification
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -218,8 +211,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "driver" application on "same" devices
     And I view and accept virtual notification for "Driver" for "on demand trip"
     
-    And I Switch to "customer" application on "same" devices
-    And I click "Ok" button on "BUNGII ACCEPTED" screen
+    #And I Switch to "customer" application on "same" devices
+    #And I click "Ok" button on "BUNGII ACCEPTED" screen
     
     And I Switch to "driver" application on "same" devices
     Then I should be navigated to "EN ROUTE" screen

@@ -180,6 +180,11 @@ public class GeneralUtility extends DriverBase {
                         action.clickAlertButton("Done");
                     }
                 }
+                else if (alertMessage.contains("Enabling location services allows you to connect with Bungii customers")) {
+                    if (getListOfAlertButton.contains("OK")) {
+                        action.clickAlertButton("OK");
+                    }
+                }
 
             }
         }catch( Exception e){
@@ -789,9 +794,10 @@ public class GeneralUtility extends DriverBase {
     }
 
 
-    public void grantPermissionToDriverApp() {
+    public void grantPermissionToDriverApp() throws InterruptedException {
         action.click(enableNotificationPage.Button_Sure());
         action.clickAlertButton("Allow");
+        Thread.sleep(5000);
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
             action.clickAlertButton("Always Allow");

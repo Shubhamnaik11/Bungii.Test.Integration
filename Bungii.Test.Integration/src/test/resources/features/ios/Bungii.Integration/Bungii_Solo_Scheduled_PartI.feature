@@ -6,7 +6,7 @@
 Feature: Solo Scheduled Bungii Part I
   
   Background:
-	When I clear all notification
+	#When I clear all notification
 	When I Switch to "customer" application on "same" devices
   
   @regression

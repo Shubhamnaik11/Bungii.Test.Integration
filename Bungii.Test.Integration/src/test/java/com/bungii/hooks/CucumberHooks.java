@@ -98,7 +98,6 @@ public class CucumberHooks {
         String[] rawFeature = scenario.getId().split("features/")[1].split("/");
         String[] rawFeatureName = rawFeature[rawFeature.length - 1].split(":");
 
-
         logger.detail("Feature : " + rawFeatureName[0].toUpperCase());
         logger.detail("Starting Scenario : " + scenario.getName().toUpperCase());
         this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0]);
@@ -160,8 +159,8 @@ public class CucumberHooks {
                 if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
                     new BungiiSteps().recoveryScenario();
                     //new GeneralUtility().resetDriverAppsStateToInital();
-                   // new GeneralUtility().recoverScenario();
-                    new GeneralUtility().hideNotifications();
+                  new GeneralUtility().recoverScenario();
+                    //new GeneralUtility().hideNotifications();
                 } else if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
                     new GeneralUtility().hideNotifications();
                     new BungiiSteps().recoveryScenario();

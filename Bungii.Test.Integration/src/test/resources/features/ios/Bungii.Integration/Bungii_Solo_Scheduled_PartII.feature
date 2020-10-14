@@ -6,7 +6,7 @@ Feature: Solo Scheduled Bungii Part II
   I want to use request Scheduling Bungii with Solo type
   
   Background:
-    When I clear all notification
+    #When I clear all notification
     When I Switch to "customer" application on "same" devices
   
   @FAILED2702
@@ -769,7 +769,7 @@ Feature: Solo Scheduled Bungii Part II
   #change login
   @failed
   @ready
-  Scenario:Verify That Driver Is Not Able To Accept The Request If The Trip Is Already Accepted By Required Number Of Drivers
+  Scenario:Verify That Driver Is Not Able To Accept The DUO Request If The Trip Is Already Accepted By Required Number Of Drivers
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I enter phoneNumber :8888884321 and  Password :Cci12345
