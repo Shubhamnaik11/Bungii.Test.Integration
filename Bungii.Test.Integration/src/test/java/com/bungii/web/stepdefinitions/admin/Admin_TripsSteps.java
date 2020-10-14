@@ -149,7 +149,7 @@ public class Admin_TripsSteps extends DriverBase {
     @Then("^Trip should be listed in the grid$")
     public void trip_should_be_listed_in_the_grid() throws Throwable {
         String tripType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
-        String status = "Processing Confirmation";
+        String status = "Assigning Driver(s)";
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER_NAME");
         action.selectElementByText(admin_CustomerPage.Dropdown_TimeFrame(), "The Beginning of Time");
         Thread.sleep(5000);
@@ -737,6 +737,8 @@ public class Admin_TripsSteps extends DriverBase {
             action.click(admin_TripsPage.CheckBox_FilterAdminCancelled());
         if (admin_TripsPage.CheckBox_FilterDriverCancelled().isSelected())
             action.click(admin_TripsPage.CheckBox_FilterDriverCancelled());
+        if (admin_TripsPage.CheckBox_FilterPartnerCancelled().isSelected())
+            action.click(admin_TripsPage.CheckBox_FilterPartnerCancelled());
         if (admin_TripsPage.CheckBox_FilterPickupWithError().isSelected())
             action.click(admin_TripsPage.CheckBox_FilterPickupWithError());
         if (admin_TripsPage.CheckBox_FilterPriceEstimated().isSelected())
@@ -856,8 +858,8 @@ public class Admin_TripsSteps extends DriverBase {
     @Then("^the triplist grid shows the results by type \"([^\"]*)\"$")
     public void the_triplist_grid_shows_the_results_by_type_something(String filter) throws Throwable {
         Thread.sleep(4000);
-        if(SetupManager.getDriver().getPageSource().contains("No trips found.")) {
-            testStepAssert.isTrue(true, "No trips found.", "No trips found.");
+        if(SetupManager.getDriver().getPageSource().contains("No Deliveries found.")) {
+            testStepAssert.isTrue(true, "No Deliveries found.", "No Deliveries found.");
         }
         else{
             String xpath = null;
