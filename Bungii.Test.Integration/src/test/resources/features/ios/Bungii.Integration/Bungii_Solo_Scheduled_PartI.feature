@@ -35,11 +35,14 @@ Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually End
 When I Switch to "customer" application on "same" devices
 And I am on the "LOG IN" page
 And I logged in Customer application using  "valid miami 2" user
-
+  And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  And I close "Tutorial" if exist
+  
 And I Switch to "driver" application on "same" devices
 And I am on the "LOG IN" page on driverApp
 And I am logged in as "valid miami" driver
-And I change driver status to "Online"
+  And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  And I change driver status to "Online"
 
 When I Switch to "customer" application on "same" devices
 And I request for  bungii for given pickup and drop location
@@ -179,9 +182,12 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I Switch to "driver" application on "same" devices
 	And I am on the "LOG IN" page on driverApp
 	And I am logged in as "valid miami" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I change driver status to "Online"
 	
 	When I Switch to "customer" application on "same" devices
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
 	And I request for  bungii for given pickup and drop location
 	  | Driver | Pickup Location             | Drop Location            | Geofence |
 	  | Solo   | 7346 coldstream drive miami | 2400 S Bayshore Dr Miami | miami    |
@@ -254,10 +260,13 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	When I Switch to "customer" application on "same" devices
 	And I am on the "LOG IN" page
 	And I logged in Customer application using  "valid miami" user
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
 	
 	And I Switch to "driver" application on "same" devices
 	And I am on the "LOG IN" page on driverApp
 	And I am logged in as "valid miami" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I change driver status to "Online"
 	
 	When I Switch to "customer" application on "same" devices

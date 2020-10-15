@@ -46,6 +46,7 @@ Feature: EstimateBungii
 
   #@regression
     @ready
+      @fix
   Scenario: Verify When Customer Switches From Ondemand To Scheduled Bungii On Account Of Unavailibility Of Driver Then Customer Is Taken To Estimate Screen With Prepoulated Existing Fields
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -63,7 +64,7 @@ Feature: EstimateBungii
     #Then "Estimate" page should be opened
     #When I add loading/unloading time of "30 mins"
     #Then I should see "previous values" on Bungii estimate
-    Then I should be navigated to "Success" screen
+    Then I should be navigated to "Success!" screen
     And I click "Done" button on "Success" screen
 
   @regression
@@ -85,7 +86,7 @@ Feature: EstimateBungii
     And I add "4" photos to the Bungii
 
   #@regression
-  @ready
+  @regression
   Scenario: Verify Next Available Scheduled Time In Correct Timezone Is Selected On Estimate Screen For Duo Scheduled Bungii
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number

@@ -562,7 +562,63 @@ public class CommonSteps extends DriverBase {
     public void i_login_as_something_customer_and_on_home_page(String key) throws Throwable {
         i_am_on_the_something_page("LOG IN");
         i_logged_in_customer_application_using_something_user(key);
+        acceptCustomerPermissions("TERMS & CONDITIONS" , "ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
+        closeTutorial("Tutorial");
         iAmOnCustomerLoggedInHomePage();
+    }
+    public void acceptCustomerPermissions(String terms, String notification, String location) {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            Thread.sleep(3000);
+            String pageHeader = utility.getPageHeader();
+
+            if(action.isElementPresent(termsAndConditionPage.Button_CheckOff())) {
+                action.click(termsAndConditionPage.Button_CheckOff());
+                action.click(termsAndConditionPage.Button_Continue());
+                Thread.sleep(3000);
+                // pageHeader = utility.getPageHeader();
+            }
+            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
+                action.click(enableNotificationPage.Button_Sure());
+                Thread.sleep(3000);
+                action.clickAlertButton("Allow");
+                Thread.sleep(3000);
+                // pageHeader = utility.getPageHeader();
+            }
+            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+                action.click(enableLocationPage.Button_Sure());
+                Thread.sleep(3000);
+                action.clickAlertButton("Allow");  //Customer App alert for ios 12 and below
+                Thread.sleep(3000);
+                // pageHeader = utility.getPageHeader();
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
+    public void closeTutorial(String Tutorial) throws Throwable {
+        try {
+            if(action.isElementPresent(tutorialPage.Button_Close())) {
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.click(tutorialPage.Button_Start());
+                if (action.isAlertPresent()) {
+                    String alertMessage = action.getAlertMessage();
+                    List<String> getListOfAlertButton = action.getListOfAlertButton();
+                    if (alertMessage.contains("we are not operating in your area")) {
+                        if (getListOfAlertButton.contains("Done")) {
+                            action.clickAlertButton("Done");
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+        }
+
     }
 
     @Given("^I am on the \"([^\"]*)\" page$")
@@ -758,6 +814,8 @@ public class CommonSteps extends DriverBase {
             List<String> credentials =  getDriverCredentials(user);
             utility.loginToDriverApp(credentials.get(0), credentials.get(1));
             Thread.sleep(5000);
+
+            acceptDriverPermissions("ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
            // navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
             // new GeneralUtility().logDriverDeviceToken(credentials.get(0));
                     switch (driverStatus.toUpperCase()) {
@@ -774,6 +832,27 @@ public class CommonSteps extends DriverBase {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error( "Step should be successful", "Error in login as driver and updating driver status", true);
     }
+    }
+    public void acceptDriverPermissions(String Notification, String Location) throws Throwable {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            String pageName = utility.getPageHeader();
+            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
+                action.click(enableNotificationPage.Button_Sure());
+                action.clickAlertButton("Allow");
+                // pageName = utility.getPageHeader();
+            }
+            Thread.sleep(3000);
+            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Always Allow");
+                //pageName = utility.getPageHeader();
+            }
+
+        } catch (Exception e) {
+
+        }
+
     }
     /**
      * driver goes online
@@ -1220,6 +1299,7 @@ public class CommonSteps extends DriverBase {
             logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
             iClickButtonOnScreen("Log In", "Log In");
             Thread.sleep(2000);
+
             NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar(true));
 
             if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {

@@ -986,7 +986,7 @@ public class CommonSteps extends DriverBase {
             boolean isCorrectPage = false;
             isCorrectPage = utility.isCorrectPage(screen);
             testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
-                    "I should be navigated to " + screen, "I was not navigated to " + screen + "screen ");
+                    "I should be navigated to " + screen, "I was not navigated to " + screen + " screen ");
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
