@@ -57,6 +57,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                /* if(!tripTime.contains(timeZone))
                     tripTime=tripTime+" "+timeZone;*/
                 //if ((action.getText(schDate)+""+action.getText(schTimeZone)).equalsIgnoreCase(tripTime)) {
+                Thread.sleep(4000);
                 if ((action.getText(schDate)).equalsIgnoreCase(tripTime)) {
                     WebElement rowViewIcom = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_icon"));
                     action.click(new Point(rowViewIcom.getLocation().getX(), rowViewIcom.getLocation().getY()));

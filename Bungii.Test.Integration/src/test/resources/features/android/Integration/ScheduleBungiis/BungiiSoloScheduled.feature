@@ -309,7 +309,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
 
-  #@regression
+  @regression
   Scenario: Verify Status Of Scheduled Bungii Trip In Scheduled Bungiis Menu Page When Required Drivers Have Not Accepted It - Scenario:DUO
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -328,7 +328,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  #@regression
+  @regression
   Scenario:Verify Status In Scheduled Bungiis Screen When Only One Driver Accepts The Trip
     When I Switch to "driver" application on "same" devices
     Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
