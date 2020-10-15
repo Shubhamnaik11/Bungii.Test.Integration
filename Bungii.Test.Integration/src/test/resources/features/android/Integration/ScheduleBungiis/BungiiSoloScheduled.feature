@@ -318,6 +318,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
     And I select already scheduled bungii
@@ -344,6 +346,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
     And I select already scheduled bungii
@@ -370,6 +374,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "estimated cost"
     And I select already scheduled bungii
@@ -393,6 +399,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "Solo Scheduled" trip
@@ -417,6 +425,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
@@ -434,6 +444,9 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     When I try to schedule bungii for "today - after working hour" for "SOLO"
@@ -447,6 +460,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
@@ -462,6 +477,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     When I confirm trip with following detail
@@ -530,6 +547,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
@@ -608,6 +627,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations less than 150 miles" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened
@@ -633,6 +654,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations less than 150 miles" on Bungii estimate
 
     And I tap on "Get Estimate button" on Bungii estimate
@@ -676,6 +699,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
@@ -726,6 +751,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "3" mins
     When I Switch to "driver" application on "same" devices
@@ -816,6 +843,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     When I try to contact driver using "call driver2"
@@ -839,6 +868,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
@@ -849,6 +880,8 @@ Feature: SoloScheduled
     And I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     Then I verify that text "You will have the ability to contact your drivers when the Bungii begins" is displayed
@@ -1005,6 +1038,8 @@ Feature: SoloScheduled
     And I am on the LOG IN page on driver app
     And I enter phoneNumber :8888881019 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then trips status should be "Contacting Other Driver"
     And I Select Trip from driver scheduled trip
@@ -1031,6 +1066,8 @@ Feature: SoloScheduled
     And I am on the LOG IN page on driver app
     And I enter phoneNumber :8888881019 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then trips status should be "estimated cost of duo trip"
     And I Select Trip from driver scheduled trip
@@ -1052,6 +1089,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
@@ -1075,6 +1114,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
@@ -1095,10 +1136,14 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I enter phoneNumber :8888881019 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Switch to "customer" application on "same" devices
 
     And I enter "kansas pickup and dropoff locations greater than 30mins" on Bungii estimate
@@ -1120,6 +1165,8 @@ Feature: SoloScheduled
     And I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
     Then I cancel all bungiis of customer
@@ -1227,6 +1274,8 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
 
@@ -1253,6 +1302,8 @@ Feature: SoloScheduled
     And I am on the LOG IN page on driver app
     And I enter phoneNumber :8888881019 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Given I Switch to "customer" application on "same" devices
 
     Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
@@ -1285,6 +1336,8 @@ Feature: SoloScheduled
     And I am on the LOG IN page on driver app
     And I enter phoneNumber :9999999991 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And I start selected Bungii
@@ -1396,6 +1449,8 @@ Feature: SoloScheduled
     When I enter customers "9871450107" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
 
@@ -1532,11 +1587,14 @@ Feature: SoloScheduled
     And I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I enter phoneNumber :9999999991 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And Bungii Driver "slides to the next state"
     Then I accept Alert message for "Reminder: both driver at drop off"
     Then non control driver should see "waiting for other driver" screen
@@ -1581,6 +1639,8 @@ Feature: SoloScheduled
 
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I confirm trip with following details
@@ -1625,6 +1685,8 @@ Feature: SoloScheduled
     And I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
@@ -2103,6 +2165,8 @@ Feature: SoloScheduled
     And I am on the LOG IN page on driver app
     And I enter phoneNumber :8888881019 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     When I Select "ALERT SETTINGS" from driver App menu
     And I update kansas driver todays trip alert setting to outside current time
     When I Switch to "customer" application on "same" devices

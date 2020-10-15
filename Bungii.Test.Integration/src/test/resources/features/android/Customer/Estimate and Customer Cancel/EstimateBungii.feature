@@ -45,8 +45,7 @@ Feature: EstimateBungii
     Then check if I have ability to select different load time and Estimate cost is re calculated
 
   #@regression
-    @ready
-      @fix
+    @regression
   Scenario: Verify When Customer Switches From Ondemand To Scheduled Bungii On Account Of Unavailibility Of Driver Then Customer Is Taken To Estimate Screen With Prepoulated Existing Fields
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate

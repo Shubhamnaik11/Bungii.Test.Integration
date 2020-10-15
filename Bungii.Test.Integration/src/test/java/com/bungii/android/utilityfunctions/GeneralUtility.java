@@ -905,7 +905,7 @@ Thread.sleep(5000);
     }
 
     public void isDriverLoginSucessful() {
-        testStepAssert.isElementEnabled(driverHomePage.Title_Status(true), "driver should be sucessfully login in", "driver was logged in sucessfuly and driver status is" + action.getText(driverHomePage.Title_Status()), "driver was logged in successfuly");
+        //testStepAssert.isElementEnabled(driverHomePage.Title_Status(true), "driver should be sucessfully login in", "driver was logged in sucessfuly and driver status is" + action.getText(driverHomePage.Title_Status()), "driver was logged in successfuly");
     }
 
     public boolean clickOnNofitication(String appName, String notificationMessage) {

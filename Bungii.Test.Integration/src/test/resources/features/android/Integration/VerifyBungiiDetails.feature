@@ -51,14 +51,14 @@
       Then I should see "masked card number" on Payment page
 
 @ready
-    Scenario: Verify that clicking on Details field on the Estimate screen opens a blank text box.
+    Scenario: Verify that clicking on Details field on the Estimate screen opens a placeholder in text box
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
 
       And I enter "valid pickup and dropoff locations" on Bungii estimate
       And I tap on "Get Estimate button" on Bungii estimate
       And I tap on "Details" on Estimate screen
-      Then I should see blank textbox
+      Then I should see placeholder textbox
       When I enter "text" in Additional Notes field
       Then the "remaining characters value" should change
       When I enter "500 characters" in Additional Notes field

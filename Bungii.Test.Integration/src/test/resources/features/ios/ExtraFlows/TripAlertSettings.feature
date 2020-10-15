@@ -6,7 +6,6 @@ Feature: Trip Alert Settings
   
 	  #Always Last scenario from this feature file since it changes settings for the driver
 	  @regression
-		@fix
 	  Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of Time That Is Set In Trip Alert Settings
 	  #When I clear all notification
 	  When I Switch to "driver" application on "same" devices
