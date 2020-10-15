@@ -259,6 +259,7 @@ public class SignupSteps extends DriverBase {
         }
 
         action.enterText(Page_Signup.TextField_Referral(), strPromoCode);
+        action.hideKeyboard();
         log("I should able to enter Promo code in signup Page ",
                 "I entered  " + strPromoCode + " as " + strArg1 + "promoCode", true);
     } catch (Exception e) {
