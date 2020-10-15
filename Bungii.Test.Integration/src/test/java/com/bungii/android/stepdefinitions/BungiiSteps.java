@@ -934,6 +934,7 @@ public class BungiiSteps extends DriverBase {
                 case "tab On to Next":
                 case "completes Bungii":
                     //action.click(Page_BungiiComplete.Button_OnToTheNext(true));
+                    Thread.sleep(2000);
                     action.click(estimatePage.Button_NextBungii());
                     try{
                     String currentPage = action.getText(Page_Signup.GenericHeader(true));
@@ -944,7 +945,6 @@ public class BungiiSteps extends DriverBase {
                         Thread.sleep(5000);
                         action.click(Page_BungiiComplete.Button_OnToTheNext());
                     }}catch (Exception e){}
-
                     break;
                 case "tab on Cancel bungii":
                    // SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));

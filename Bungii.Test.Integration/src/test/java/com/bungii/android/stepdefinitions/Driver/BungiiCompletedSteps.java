@@ -46,13 +46,14 @@ public class BungiiCompletedSteps extends DriverBase {
     /**
      * Verify Static texts on Bungii Completed page
      */
-        public void verifyBungiiCompletedPage(){
+        public void verifyBungiiCompletedPage() throws InterruptedException {
+            Thread.sleep(6000);
             testStepVerify.isElementTextEquals(bungiiCompletedSteps.Title_Status(),"Bungii Completed");
            // testStepVerify.isElementEnabled(bungiiCompletedSteps.Image_Dollar(),"'Dollar Image' should be displayed on Summary page","'Dollar Image' is displayed","'Dollar Image' is not displayed");
            // testStepVerify.isElementEnabled(bungiiCompletedSteps.Text_Label(),"'Cha-Ching' should be displayed on Summary page","'Cha-Ching' is displayed","'Cha-Ching' is not displayed");
            // testStepVerify.isElementEnabled(bungiiCompletedSteps.Text_TotalTimeLabel(),"Total Time label should be displayed on Summary page");
            // testStepVerify.isElementEnabled(bungiiCompletedSteps.Text_TotalDistanceLabel(),"Total Distance label should be displayed on Summary page");
-            testStepVerify.isElementEnabled(bungiiCompletedSteps.Text_TotalEarningsLabel(),"Total Earning label should be displayed on Summary page");
+           // testStepVerify.isElementTextEquals(bungiiCompletedSteps.Text_TotalEarningsLabel(),"Total Earnings:");
         }
 
     /**
@@ -87,7 +88,5 @@ public class BungiiCompletedSteps extends DriverBase {
            // testStepVerify.isTrue(actualTotalDistance.equalsIgnoreCase(tripDistance),"Total Distance should be"+tripDistance);
             testStepVerify.isEquals(actualTotalDistance,tripDistance);*/
             testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning be "+truncValue);
-
-
         }
 }
