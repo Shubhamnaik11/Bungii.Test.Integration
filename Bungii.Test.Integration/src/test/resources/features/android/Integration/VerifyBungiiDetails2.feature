@@ -4,7 +4,6 @@
 Feature: VerifyBungiiDetails2
 
   @regression
-  @ready
   Scenario: Verify that the My Bungii Past trip is visible when admin manually ends bungii
     Given I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app

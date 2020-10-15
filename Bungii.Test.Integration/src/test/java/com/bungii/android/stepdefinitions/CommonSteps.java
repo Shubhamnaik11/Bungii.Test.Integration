@@ -355,6 +355,12 @@ public class CommonSteps extends DriverBase {
     @Then("^\"([^\"]*)\" page should be opened$")
     public void ThenPageShouldBeOpened(String page) {
         try {
+            switch(page)
+            {
+                case "bungii.com":
+                    action.click(locationPage.Option_Chrome());
+                    action.click(locationPage.Button_Always());
+            }
             boolean isCorrectPage = utility.isCorrectPage(page);
             testStepAssert.isTrue(isCorrectPage, page + " should be displayed", page + " is displayed correctly  ", page + " is not displayed correct");
         } catch (Exception e) {

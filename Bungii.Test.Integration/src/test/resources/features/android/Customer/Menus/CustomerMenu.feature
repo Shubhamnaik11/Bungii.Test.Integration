@@ -50,6 +50,7 @@ Feature: CustomerMenu
     When I tap on "Menu" > "SIGN UP TO DRIVE" link
     Then "bungii.com" page should be opened
     
+    When I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "Logout" link
     Then "Login" page should be opened
 
