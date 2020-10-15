@@ -3,7 +3,7 @@ Feature: CustomerApplicationLinks
   Check the basic User information is available.
 
   Background:
-    Given I newly installed "Bungii Customer" app
+    #Given I newly installed "Bungii Customer" app
   @sanity
   @regression
     #Following scenario also covered:

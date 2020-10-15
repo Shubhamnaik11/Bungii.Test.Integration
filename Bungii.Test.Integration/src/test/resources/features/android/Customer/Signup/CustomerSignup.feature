@@ -113,8 +113,8 @@ Feature: CustomerSignup
       #create new customer
     
       When I enter "unique" customer phone number on Signup Page
-      And I enter "valid" data in mandatory fields on Signup Page
       And I enter "ValidPercent" promo code on Signup Page
+      And I enter "valid" data in mandatory fields on Signup Page
       And I tap on the "Sign Up" button on Signup Page
       And I enter "valid" Verification code
       And I tap on the "Verification Continue" Link

@@ -486,7 +486,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
             }
             log(" I am logged in as" + arg0 + " customer",
-                    " I am logged in as" + (String) cucumberContextManager.getScenarioContext("CUSTOMER") +" ("+(String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE")+ ") customer", true);
+                    " I am logged in as "+arg0+" customer", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -976,7 +976,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(bungiiEstimatePage.Permissions_CameraAllow());
 
                 action.click(bungiiEstimatePage.Option_Camera());
-
+                Thread.sleep(10000);
                 try {
                     int x1 = 114, y1 = 1530, x2 = 117, y2 = 1579, x3 = 109, y3 = 1562;
                     TouchAction touchAction = new TouchAction((AppiumDriver) SetupManager.getDriver());
@@ -1063,7 +1063,7 @@ public class EstimateBungiiSteps extends DriverBase {
         }
     }
 
-    @And("I select Bungii Time as {string}")
+    @And("I select Bungii Time as \"([^\"]*)\"")
     public void iSelectBungiiTimeAs(String arg0) {
         try {
             switch (arg0) {

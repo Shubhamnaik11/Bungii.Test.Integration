@@ -328,7 +328,7 @@ public class BungiiSteps extends DriverBase {
             //stack take times to get notifications
             if(strArg1.equalsIgnoreCase("STACK TRIP") && !isFound){
                 for (int i=0; i<5 &&!isFound;i++){
-                    Thread.sleep(40000);
+                   // Thread.sleep(40000);
                     isFound = utility.clickOnNofitication("Bungii", expecteMessage);
                     i++;
                 }

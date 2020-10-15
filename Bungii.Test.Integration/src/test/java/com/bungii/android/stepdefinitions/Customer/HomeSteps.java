@@ -661,13 +661,13 @@ public class HomeSteps extends DriverBase {
                 case "Scheduled info":
                     String actualText = action.getText(homePage.Text_ScheduledBungiisInfo());
                     actualText = actualText.replace("\n", " ");
-                    testStepAssert.isEquals(actualText, PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed.");
+                    testStepAssert.isEquals(actualText, PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
                     break;
 
                 case "Past info":
                     actualText = action.getText(homePage.Text_PastBungiisInfo());
                     actualText = actualText.replace("\n", " ");
-                    testStepAssert.isEquals(actualText, PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed.");
+                    testStepAssert.isEquals(actualText, PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
                     break;
 
                 default:

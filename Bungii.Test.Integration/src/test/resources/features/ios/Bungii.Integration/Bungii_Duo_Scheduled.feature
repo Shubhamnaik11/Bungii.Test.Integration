@@ -13,14 +13,18 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
-    
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
-    
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Switch to "customer" application on "ORIGINAL" devices
     And I logged in Customer application using  "customer-duo" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Duo    | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
@@ -162,6 +166,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
@@ -171,7 +176,9 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "same" devices
     #And I Switch to "customer" application on "same" devices
     When I logged in Customer application using  "customer-duo" user
-  
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
     Then I should be navigated to "EN ROUTE" screen
     Then "control driver" eta should be displayed to customer
 
@@ -179,6 +186,8 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
@@ -255,14 +264,20 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
-    
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
-    
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I Switch to "customer" application on "ORIGINAL" devices
     And I logged in Customer application using  "customer-duo" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location           |
       | Duo    | Margao Railway Overbridge  | peerbaugh Rd, Peer wadi |
@@ -384,14 +399,20 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
-    
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I Switch to "customer" application on "ORIGINAL" devices
     When I logged in Customer application using  "customer-duo" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
     And I Switch to "driver" application on "Driver2" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
@@ -576,14 +597,20 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
-    
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "existing" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
     And I connect to "extra1" using "Customer2" instance
     And I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid customer2" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
@@ -708,14 +735,19 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "existing" user
-
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
     And I connect to "extra1" using "Customer2" instance
     And I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid customer2" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
       | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
@@ -830,14 +862,19 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "existing" user
-
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
     And I connect to "extra1" using "Customer2" instance
     And I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid customer2" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
       | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
@@ -932,7 +969,9 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
-    When I Switch to "customer" application on "same" devices
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+      When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
@@ -980,11 +1019,15 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Switch to "customer" application on "same" devices
 
     And I Switch to "customer" application on "ORIGINAL" devices
@@ -1042,11 +1085,15 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Switch to "customer" application on "same" devices
 
     And I Switch to "customer" application on "ORIGINAL" devices
@@ -1097,6 +1144,8 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
  #   When I wait for Minimum duration for Bungii Start Time
@@ -1127,12 +1176,15 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "customer-duo" user
-
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I accept selected Bungii
@@ -1159,12 +1211,15 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "customer-duo" user
-
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I accept selected Bungii
@@ -1193,16 +1248,22 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "customer-duo" user
-
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
@@ -1223,13 +1284,17 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     When I Switch to "customer" application on "same" devices
   #driver1 in background
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
@@ -1250,12 +1315,16 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
   #driver1 in foregroundground
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
@@ -1272,10 +1341,14 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     When I logged in Customer application using  "valid customer2" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location          | Drop Location  |
       | Solo   | St mary paralytic centre | froggyland Goa |
@@ -1302,10 +1375,14 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     When I logged in Customer application using  "valid customer2" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location          | Drop Location  |
       | Solo   | St mary paralytic centre | froggyland Goa |
@@ -1332,6 +1409,8 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
@@ -1367,6 +1446,8 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
@@ -1404,6 +1485,8 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
@@ -1445,6 +1528,8 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
