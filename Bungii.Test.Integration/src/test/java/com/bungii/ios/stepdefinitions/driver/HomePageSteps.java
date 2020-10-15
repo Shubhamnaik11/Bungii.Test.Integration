@@ -420,7 +420,7 @@ public class HomePageSteps extends DriverBase {
             //Add Code to handle daylight
             if(TimeZone.getTimeZone("CST6CDT").inDaylightTime(new Date()))
                 timeRange = timeRange.replace("ST","DT");
-            String bsTimeRange = "07:00 a.m. - 09:00 p.m.  GMT-5";
+            String bsTimeRange = "07:00 a.m. - 09:00 p.m.";
 
             //Add Code to handle daylight
             if(TimeZone.getTimeZone("CST6CDT").inDaylightTime(new Date()))
