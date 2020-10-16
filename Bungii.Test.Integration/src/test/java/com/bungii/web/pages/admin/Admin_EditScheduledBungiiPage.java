@@ -39,4 +39,5 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement TickMarkDriver (String driverName) { return findElement("//td[text()='"+driverName+"']/ancestor::tr/td/i[@class='fa fa-check text-green-alt']", LocatorType.XPath); }
 
+    public WebElement  Button_Edit() {return findElement("//p[@id='btnEdit']",LocatorType.XPath);}
 }

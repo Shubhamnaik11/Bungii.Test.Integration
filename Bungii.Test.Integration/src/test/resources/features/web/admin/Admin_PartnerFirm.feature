@@ -310,16 +310,17 @@ Feature: Admin_PartnerFirm
 
 @ready
 Scenario: Verify that same trip is shown for other driver under Trips section When admin adds driver to duo trip.
-  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+  When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
     | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|
-  And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled" Delivery
+  And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Duo Scheduled" Delivery
     | driver1 state|
     | Accepted  |
   And I view the Scheduled Deliveries list on the admin portal
   Then I should be able to see the respective bungii with the below status
     |  Status |
-    | Scheduled |
+    | Searching Drivers |
+  And Click on "Edit" button
   When I click on "Edit Trip Details" radiobutton
   And I assign driver "Testdrivertywd_appledc_a_web Sundarm" for the trip
   And I click on "VERIFY" button

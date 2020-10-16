@@ -385,6 +385,9 @@ public class Admin_TripsSteps extends DriverBase {
             case "Cancel":
                 action.click(admin_TripDetailsPage.Button_Cancel());
                 break;
+            case "Edit":
+                action.click(admin_EditScheduledBungiiPage.Button_Edit());
+                break;
         }
 
     }
