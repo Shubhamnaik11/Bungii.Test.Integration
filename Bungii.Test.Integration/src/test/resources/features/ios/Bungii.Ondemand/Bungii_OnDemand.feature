@@ -18,10 +18,13 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 	When I Switch to "customer" application on "same" devices
 	When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
-	
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
@@ -75,9 +78,13 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I am on the "LOG IN" page
    # And I am on Customer logged in Home page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     Then correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
@@ -161,9 +168,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I am on the "LOG IN" page
    # And I am on Customer logged in Home page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     When I Switch to "customer" application on "same" devices
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
@@ -172,15 +182,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I slide update button on "EN ROUTE" Screen
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
-
     When I Switch to "customer" application on "same" devices
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
-
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
-
 
     When I Switch to "customer" application on "same" devices
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
@@ -224,9 +231,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then ratting should be correctly displayed on Bungii progress page
     
     Then I cancel all bungiis of customer
@@ -241,9 +251,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 	When I Switch to "customer" application on "same" devices
 	When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
     
     When I Switch to "customer" application on "same" devices
@@ -269,6 +282,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
@@ -344,6 +359,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I logged in Customer application using  "<User>" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
@@ -416,9 +433,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
     And I should be navigated to "Bungii Completed" screen
     And I click "On To The Next One" button on "Bungii Completed" screen
@@ -486,6 +506,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I click "Invite referrals" button on "HOME" screen
     Then I should be navigated to "Invite" screen
     When I get Invite Code
@@ -533,6 +555,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "newly created user" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
@@ -582,6 +606,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
@@ -634,9 +660,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
     And I click on notification for "customer" for "BUNGII FINISHED -RATE DRIVER"
 
@@ -658,6 +687,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page
     When I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                      | geofence  |
       | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |

@@ -784,6 +784,7 @@ Feature: Solo Scheduled Bungii Part II
     And I am on the "LOG IN" page on driverApp
     And I enter phoneNumber :8888884321 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
@@ -817,6 +818,7 @@ Feature: Solo Scheduled Bungii Part II
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
     And I Select Trip from available trip
@@ -860,7 +862,10 @@ Feature: Solo Scheduled Bungii Part II
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Given I Switch to "customer" application on "same" devices
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
     Given I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                      |
@@ -897,6 +902,7 @@ Feature: Solo Scheduled Bungii Part II
     And I am on the "LOG IN" page on driverApp
     And I enter phoneNumber :9999998086 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then trips status should be "contacting other driver"
     And I Select Trip from scheduled trip
@@ -922,6 +928,7 @@ Feature: Solo Scheduled Bungii Part II
     And I am on the "LOG IN" page on driverApp
     And I enter phoneNumber :9999998086 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then trips status should be "estimated cost of duo trip"
     And I Select Trip from scheduled trip
@@ -940,6 +947,8 @@ Feature: Solo Scheduled Bungii Part II
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Select "MY BUNGIIS" from Customer App menu
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
