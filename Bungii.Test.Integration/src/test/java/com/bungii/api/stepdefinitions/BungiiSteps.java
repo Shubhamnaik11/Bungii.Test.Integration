@@ -656,7 +656,8 @@ public class BungiiSteps extends DriverBase {
 
                         boolean waitedForMinTime = false;
                         if (driver1State.equalsIgnoreCase("Enroute") || driver1State.equalsIgnoreCase("Arrived") || driver1State.equalsIgnoreCase("Loading Item") || driver1State.equalsIgnoreCase("Driving To Dropoff") || driver1State.equalsIgnoreCase("Unloading Item") || driver1State.equalsIgnoreCase("Bungii Completed")) {
-                            int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
+                            //int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
+                            int wait = Integer.parseInt((String)cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START"));
                             try {
                                 logger.detail("Waiting for " + wait / 60000 + " minutes before Scheduled trip can be started");
                                 //from sprint 32 min time is changed to  1 hour
