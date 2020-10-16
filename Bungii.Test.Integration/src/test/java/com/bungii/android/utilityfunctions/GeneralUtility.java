@@ -840,7 +840,7 @@ Thread.sleep(5000);
 
             } else if (currentPage.equals("LOCATION")) {
                 action.click(driverLoginPage.Button_Sure());
-                action.click(driverLoginPage.Button_AllowWhileUsing());
+                action.click(driverLoginPage.Button_Allow());
             } else if (action.isElementPresent(driverLoginPage.Header_Location(true))) {
                 action.click(driverLoginPage.Button_Sure());
                 action.click(driverLoginPage.Button_Allow());
