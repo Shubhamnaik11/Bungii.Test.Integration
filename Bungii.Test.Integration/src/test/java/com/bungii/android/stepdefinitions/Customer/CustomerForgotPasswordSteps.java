@@ -31,7 +31,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
     String PreviousSMSCode = "";
 
 
-    @And("I tap on the {string} Link")
+    @And("I tap on the \"([^\"]*)\" Link")
     public void iTapOnTheLink(String arg0) {
         try {
 
@@ -130,7 +130,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
         }
     }
 
-    @When("I enter customers new {string} Password")
+    @When("I enter customers new \"([^\"]*)\" Password")
     public void i_enter_customers_new_Password(String string) {
         try {
 
@@ -170,9 +170,12 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     action.click(Page_CustTerms.Button_PermissionsAllow());
                     // ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                 }
+            }
+                Thread.sleep(5000);
                 if (action.isElementPresent(homePage.Button_Closetutorials(true)))
                     action.click(homePage.Button_Closetutorials());
-            }
+                //Add code to handle Done
+
             testStepAssert.isTrue(utility.isCorrectPage("Home"), "Home page should be displayed", "Home page is displayed", "Home page was not displayed");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

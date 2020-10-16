@@ -64,7 +64,7 @@ public class SupportSteps extends DriverBase {
                 break;
             case "support question":
                 testStepAssert.isEquals(action.getText(supportPage.Text_Title()).trim(),PropertyUtility.getMessage("customer.support.question"),"Support Menu Title must be displayed sucessfully","Support text "+PropertyUtility.getMessage("customer.support.question")+"is displayed correctly","Support text "+PropertyUtility.getMessage("customer.support.question")+"is not displayed correctly");
-                testStepAssert.isEquals(action.getText(supportPage.Text_SubTitle()).trim(),PropertyUtility.getMessage("customer.support.question.label"),"Support Menu Title must be displayed sucessfully","Support text "+PropertyUtility.getMessage("customer.support.question.label")+"is displayed correctly","Support text "+PropertyUtility.getMessage("customer.support.question.label")+"is not displayed correctly");
+                testStepAssert.isEquals(action.getText(supportPage.Text_SubTitle()).trim(),PropertyUtility.getMessage("customer.support.question.label.android"),"Support Menu Title must be displayed sucessfully","Support text "+PropertyUtility.getMessage("customer.support.question.label.android")+"is displayed correctly","Support text "+PropertyUtility.getMessage("customer.support.question.label.android")+"is not displayed correctly");
                 break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");

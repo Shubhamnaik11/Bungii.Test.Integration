@@ -811,7 +811,9 @@ Thread.sleep(5000);
 
     public void loginToDriverApp(String phone, String password) throws InterruptedException {
         action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
+        Thread.sleep(5000);
         String currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
+
         if (currentPage.equals("LOGIN")) {
             // if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
             WebElement element = driverLoginPage.TextField_PhoneNumber();
@@ -838,12 +840,13 @@ Thread.sleep(5000);
 
             } else if (currentPage.equals("LOCATION")) {
                 action.click(driverLoginPage.Button_Sure());
-                action.click(driverLoginPage.Button_Allow());
+                action.click(driverLoginPage.Button_AllowWhileUsing());
             } else if (action.isElementPresent(driverLoginPage.Header_Location(true))) {
                 action.click(driverLoginPage.Button_Sure());
                 action.click(driverLoginPage.Button_Allow());
             }
-        } else {
+        }
+        else {
             //Not on Login page
         }
     }
@@ -1267,21 +1270,21 @@ Thread.sleep(5000);
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
         WebElement element = wait.ignoring(StaleElementReferenceException.class)
-                .until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.customer:id/snackbar_text")));
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.customer:id/snackbar_text")));
         return action.getText(element);
     }
 
     public String getCustomerPromoInfoMessage() {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("android:id/message")));
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/message")));
         return action.getText(element);
     }
 
     public String getDriverSnackBarMessage() {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
-        WebElement element = wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.driver:id/snackbar_text")));
+        WebElement element = wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.driver:id/snackbar_text")));
         return action.getText(element);
     }
 

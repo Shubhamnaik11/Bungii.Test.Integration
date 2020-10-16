@@ -1005,6 +1005,17 @@ public class EstimateBungiiSteps extends DriverBase {
                             .tap(point(100, 500))
                             .waitAction(waitOptions(Duration.ofMillis(250))).perform();
                     Thread.sleep(2000);
+
+                    //if (action.isElementPresent(bungiiEstimatePage.Button_CameraIcon(true)))
+                     //   action.click(bungiiEstimatePage.Button_CameraIcon());
+                    //Camera click for Motorola 9.0 G7 Play
+                    new TouchAction(driver)
+                            .tap(point(355, 1230))
+                            .waitAction(waitOptions(Duration.ofMillis(250))).perform();
+                    Thread.sleep(2000);
+                    new TouchAction(driver)
+                            .tap(point(432, 1229))
+                            .waitAction(waitOptions(Duration.ofMillis(250))).perform();
                     if (action.isElementPresent(bungiiEstimatePage.Button_Review(true)))
                         action.click(bungiiEstimatePage.Button_Review());
                     else if (driver.getCapabilities().getCapability("deviceModel").toString().contains("Moto G") && driver.getCapabilities().getCapability("deviceModel").toString().contains("4")) {
@@ -1035,7 +1046,7 @@ public class EstimateBungiiSteps extends DriverBase {
             testStepVerify.isElementDisplayed(bungiiEstimatePage.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in adding photo to bungii", true);
         }
     }
 

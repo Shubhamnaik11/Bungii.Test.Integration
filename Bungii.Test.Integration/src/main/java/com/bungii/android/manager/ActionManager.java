@@ -113,8 +113,12 @@ public class ActionManager {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, 10);
+            if(element!= null)
             wait.until((ExpectedConditions.visibilityOf(element)));
-        } catch (Exception ex) {
+        } catch (StaleElementReferenceException ex) {
+
+        }
+        catch (Exception ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Following element is not displayed -> " + getElementDetails(element),
                     true);
@@ -126,7 +130,11 @@ public class ActionManager {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, waitTime);
             wait.until((ExpectedConditions.visibilityOf(element)));
-        } catch (Exception ex) {
+        }
+        catch (StaleElementReferenceException ex) {
+
+        }
+        catch (Exception ex) {
             Assert.fail("Following element is not displayed : " + element);
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Following element is not displayed : " + getElementDetails(element),
@@ -297,7 +305,8 @@ public class ActionManager {
             params.put("text", text);
             params.put("element", ((RemoteWebElement) element).getId());
             js.executeScript("mobile:type", params);
-                 logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+                 logger.detail("Send  " + text + " in element [Mobile Type] -> " + getElementDetails(element));
+
             }
         catch(Exception ex)
                 {

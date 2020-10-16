@@ -30,6 +30,7 @@ public class HomeSteps extends DriverBase {
     EstimatePage estimatePage = new EstimatePage();
     ActionManager action = new ActionManager();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
+    HomePage Page_CustHome = new HomePage();
 
     @When("^I Select \"([^\"]*)\" from customer app menu list$")
     public void i_select_something_from_customer_app_menu_list(String strArg1) throws Throwable {
@@ -331,23 +332,15 @@ public class HomeSteps extends DriverBase {
         try {
             switch (toDoAction.toUpperCase()) {
                 case "DROP":
-                    action.click(homePage.Button_Locator());
-                    //Commented because of SPRINT-33 changes
-                    //action.click(homePage.Button_Locator());
-                    Thread.sleep(3000);
-                    action.click(homePage.Button_ETASet());
-                    Thread.sleep(3000);
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(),"9351 Todd Road");
+                    //selectDropLocation(1);
                     break;
                 case "PICK UP":
-                    action.click(homePage.Button_Locator());
-                    //Commented because of SPRINT-33 changes
-                    //Thread.sleep(3000);
-                    //action.click(homePage.Button_Locator());
-                    Thread.sleep(3000);
-                    action.click(homePage.Button_ETASet());
-                    Thread.sleep(3000);
-/*                    testStepVerify.isElementNotDisplayed(homePage.TextBox_DropOff(),"Drop Off TextBox shouldn't be displayed.",
-                            "Drop Off TextBox is displayed.","Drop Off TextBox is not displayed.");*/
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(),"6800 Zoo Drive");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");

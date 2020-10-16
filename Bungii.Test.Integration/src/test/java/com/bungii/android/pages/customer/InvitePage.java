@@ -48,7 +48,7 @@ public class InvitePage extends PageBase {
 
     //------Share - Gmail App-------------------------------------------------------------------
     public WebElement Gmail_Referral_Subject() { return findElement("com.google.android.gm:id/subject", LocatorType.Id); }
-
+    public WebElement Gmail_SkipTutorial(boolean ...ignoreException) { return findElement("com.google.android.gm:id/welcome_tour_skip", LocatorType.Id,ignoreException); }
     public WebElement Gmail_Referral_Body_other(boolean ...ignoreException) { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.view.View", LocatorType.XPath,ignoreException); }
     public WebElement Gmail_Referral_Body() { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.widget.EditText", LocatorType.XPath); }
 
@@ -61,6 +61,7 @@ public class InvitePage extends PageBase {
 
     public WebElement Twitter_PhoneNumber() { return findElements("android.widget.EditText", LocatorType.ClassName).get(0); }
     public WebElement Twitter_Password() { return findElements("android.widget.EditText", LocatorType.ClassName).get(1); }
+    public WebElement Browser_bar(boolean ...ignoreException) { return findElement("com.android.chrome:id/url_bar", LocatorType.Id,ignoreException); }
 
 
 

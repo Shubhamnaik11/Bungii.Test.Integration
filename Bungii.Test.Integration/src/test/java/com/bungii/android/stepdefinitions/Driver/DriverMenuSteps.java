@@ -38,11 +38,11 @@ public class DriverMenuSteps extends DriverBase {
             shouldLoginSucessful = true;
 
             utility.loginToDriverApp(phone, password);
-            if (shouldLoginSucessful)
+            /*if (shouldLoginSucessful)
                 utility.isDriverLoginSucessful();
             else {
                 //TODO: specify failure here
-            }
+            }*/
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE",phone);
             log("I should be logged in", "I am logged in", true);
         } catch (Exception e) {

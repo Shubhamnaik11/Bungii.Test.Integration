@@ -114,6 +114,7 @@ public class EstimatePage extends PageBase {
     public WebElement Button_Review (boolean ...ignoreException) { return findElement("com.motorola.camera:id/review_approve", LocatorType.Id,ignoreException); }
     public WebElement Button_SelectedImage (boolean ...ignoreException) { return findElement("com.bungii.customer:id/selected_image", LocatorType.Id,ignoreException); }
 
+  public WebElement Button_CameraIcon (boolean ...ignoreException) { return findElement("com.motorola.camera2:id/preview_surface", LocatorType.Id,ignoreException); }
 
 
     //------Confirmations---------------------------------------------------------------------------

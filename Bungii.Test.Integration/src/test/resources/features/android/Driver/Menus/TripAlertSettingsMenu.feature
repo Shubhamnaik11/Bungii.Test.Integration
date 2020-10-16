@@ -9,7 +9,7 @@ Feature: DriverMenu
     And I am on the LOG IN page on driver app
 
   @regression
-  Scenario Outline: Verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
+  Scenario Outline: Verify Trip Alert Settings On Trip Alerts Tab [Default7.00AM-9.00PM]
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -24,11 +24,12 @@ Feature: DriverMenu
       | 8888882020 | Cci12345   |
 
   #@regression
-  @ready
-  Scenario Outline: Verify Trip Alert Settings On SMS Alerts Tab (Default:7.00AM-9.00PM)
+  @regression
+  Scenario Outline: Verify Trip Alert Settings On SMS Alerts Tab [Default7.00AM-9.00PM]
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
     And I Select "ALERT SETTINGS" from driver App menu
     And the "ALERT SETTINGS" page is opened
     And I click on "SMS Alerts" tab
@@ -36,8 +37,8 @@ Feature: DriverMenu
     Examples:
       | Username   | Password   |
       | 8989890909 | Cci12345   |
-
-
+  
+  @regression
     Scenario Outline: Verify Correct Data Is Displayed In Trip And Sms Alert Settings Upon Switching Between Trip And SMS Alerts Tabs
       When I enter phoneNumber :<Username> and  Password :<Password>
       And I click "Log In" button on Log In screen on driver app

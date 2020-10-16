@@ -395,7 +395,7 @@ public class GeneralUtility extends DriverBase {
      catch(Exception e){}
     }
 
-    public void navigateFromTermToHomeScreen() {
+    public void navigateFromTermToHomeScreen() throws InterruptedException {
         action.click(termsAndConditionPage.Button_CheckOff());
         action.click(termsAndConditionPage.Button_Continue());
         if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
@@ -407,7 +407,7 @@ public class GeneralUtility extends DriverBase {
             action.click(enableLocationPage.Button_Sure());
             action.clickAlertButton("Allow"); // Added for customer App changes  Krishna
         }
-
+        Thread.sleep(5000);
         action.click(tutorialPage.Button_Close());
 
        // logger.detail("***** RECOVERING STATE : UI ACTIONS COMPLETE *****");
