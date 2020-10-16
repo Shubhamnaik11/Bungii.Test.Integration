@@ -173,7 +173,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted |
-    And I view the all Scheduled Trips list on the admin portal
+    And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Scheduled |

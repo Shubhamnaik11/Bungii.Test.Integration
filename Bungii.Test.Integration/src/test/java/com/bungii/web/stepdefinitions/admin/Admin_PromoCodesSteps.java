@@ -957,6 +957,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
             case "Promo":
 
             case "@#$@@":
+                Thread.sleep(2000);
                 action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
                 break;
 

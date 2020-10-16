@@ -151,15 +151,17 @@ public class Partner_Payment extends DriverBase {
         action.sendKeys(Page_Partner_Delivery.TextBox_Expiry_Date(), expiry);
         action.switchToMainFrame();
 
+        action.switchToFrame("braintree-hosted-field-postalCode");
+        action.click(Page_Partner_Delivery.TextBox_Postal_Code());
+        action.sendKeys(Page_Partner_Delivery.TextBox_Postal_Code(), postalCode);
+        action.switchToMainFrame();
+
         action.switchToFrame("braintree-hosted-field-cvv");
         action.click(Page_Partner_Delivery.TextBox_CVV());
         action.sendKeys(Page_Partner_Delivery.TextBox_CVV(), cvv);
         action.switchToMainFrame();
 
-        action.switchToFrame("braintree-hosted-field-postalCode");
-        action.click(Page_Partner_Delivery.TextBox_Postal_Code());
-        action.sendKeys(Page_Partner_Delivery.TextBox_Postal_Code(), postalCode);
-        action.switchToMainFrame();
+
         Thread.sleep(1000);
     }
 }
