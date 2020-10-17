@@ -153,6 +153,7 @@ public class ResultManager {
 
     public static void setStacktrace(String stackTrace)
     {
+        stackTrace = stackTrace.substring(1,1500)+" ...";
         reportManager.addStackTrace(getDataMap("", "", stackTrace,"", false));
 
     }

@@ -51,6 +51,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -762,6 +763,8 @@ Thread.sleep(5000);
                 break;
 
         }
+        currentPage = action.getText(Page_Signup.GenericHeader(true));
+        logger.detail("Current Page is "+currentPage);
         if (currentPage.equalsIgnoreCase("LOGIN") || isNextScreenLogIN) {
             WebElement element = Page_Login.TextField_PhoneNumber();
             if (StringUtils.isNumeric(phone)) {
@@ -796,7 +799,7 @@ Thread.sleep(5000);
                     action.click(homePage.Button_Closetutorials());
             }
         } else {
-            //I am not on Login screen
+            logger.detail("Customer not logged in");
         }
         //AssertionManager.ElementDisplayed(homePage.Title_HomePage);
         //AssertionManager.ElementDisplayed(homePage.Link_Invite);

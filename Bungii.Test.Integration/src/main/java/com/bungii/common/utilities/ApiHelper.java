@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
+import io.restassured.path.json.exception.JsonPathException;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -308,6 +309,12 @@ public class ApiHelper {
             logger.detail(response.then().log().body());
         }
             response.then().statusCode(200);
+        }
+        catch (JsonPathException ex) {
+            logger.error("Lexical error in JSON response");
+            error("Step should be successful", "Failed due to :  Lexical error in JSON response",
+                    false);
+
         }
         catch (AssertionError ex)
         {
