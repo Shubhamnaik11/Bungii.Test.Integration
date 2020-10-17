@@ -17,6 +17,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: Verify Addition Of New Promocode With Valid Promocode
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "valid" PromoCode
     And I tap "Add" on Save Money page
@@ -35,6 +37,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: Verify Addition Of New Promocode With Expired Promocode
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "expired" PromoCode
     And I tap "Add" on Save Money page
@@ -44,6 +48,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: Verify Addition Of New Promocode With Already Added Promocode
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "valid" PromoCode
     And I tap "Add" on Save Money page
@@ -55,6 +61,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario:  Verify Referral Are For New Users Notification for Newly Registered Customer
     Given I am logged in as "newly registered" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "referral" PromoCode
     And I tap "Add" on Save Money page

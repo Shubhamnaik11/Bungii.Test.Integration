@@ -92,6 +92,8 @@ Feature: CustomerSignup
     And I tap on the "Sign Up" button on Signup Page
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then The user should be logged in
     When I tap on "Menu" > "Promos" link
     Then "ValidPercent" promo code should be displayed
@@ -196,4 +198,6 @@ Feature: CustomerSignup
     And the new user should see "Signup page"
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then The user should be logged in

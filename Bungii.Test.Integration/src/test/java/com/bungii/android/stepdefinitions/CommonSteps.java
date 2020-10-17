@@ -1127,7 +1127,7 @@ public class CommonSteps extends DriverBase {
                     action.click(driverLoginPage.Button_Allow());
                 // pageName = utility.getPageHeader();
             }
-            Thread.sleep(3000);
+            Thread.sleep(6000);
             pageName = utility.getPageHeader();
             if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
                 //action.click(driverHomePage.Button_Sure(true));
