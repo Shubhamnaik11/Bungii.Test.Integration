@@ -334,7 +334,7 @@ public class HomeSteps extends DriverBase {
                 case "DROP":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
-                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(),"9351 Todd Road");
+                        utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(),"9351 Todd Road");
                     //selectDropLocation(1);
                     break;
                 case "PICK UP":

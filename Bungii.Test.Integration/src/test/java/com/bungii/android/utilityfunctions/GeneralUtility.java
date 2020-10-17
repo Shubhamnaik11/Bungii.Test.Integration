@@ -1274,7 +1274,8 @@ Thread.sleep(5000);
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
         WebElement element = wait.ignoring(StaleElementReferenceException.class)
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.customer:id/snackbar_text")));
-        return action.getText(element);
+        String snackbarMessage = action.getText(element);
+        return snackbarMessage;
     }
 
     public String getCustomerPromoInfoMessage() {

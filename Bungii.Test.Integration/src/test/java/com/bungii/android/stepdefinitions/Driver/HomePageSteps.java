@@ -88,10 +88,12 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (button) {
                 case "Go Online":
+                    Thread.sleep(4000);
                     action.click(driverHomePage.Button_OnlineOffline());
                     Thread.sleep(4000);
                     break;
                 case "Go Offline":
+                    Thread.sleep(4000);
                     action.click(driverHomePage.Button_OnlineOffline());
                     break;
                 case "Available Trips":

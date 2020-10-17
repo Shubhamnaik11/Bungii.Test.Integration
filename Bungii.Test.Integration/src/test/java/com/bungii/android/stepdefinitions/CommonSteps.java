@@ -1120,20 +1120,14 @@ public class CommonSteps extends DriverBase {
             GeneralUtility utility = new GeneralUtility();
             String pageName = utility.getPageHeader();
             if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
-                action.click(driverHomePage.Button_Sure(true));
-                //action.clickAlertButton("ALLOW");
-             //  if (currentPage.equals("LOCATION")) {
-                    action.click(driverLoginPage.Button_Sure());
+                action.click(driverLoginPage.Button_Sure());
                     action.click(driverLoginPage.Button_Allow());
-                // pageName = utility.getPageHeader();
             }
             Thread.sleep(6000);
             pageName = utility.getPageHeader();
             if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
-                //action.click(driverHomePage.Button_Sure(true));
                 action.click(driverLoginPage.Button_Sure());
                 action.click(driverLoginPage.Button_Allow());
-                //pageName = utility.getPageHeader();
             }
 
         } catch (Exception e) {

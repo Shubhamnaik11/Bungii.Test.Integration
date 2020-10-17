@@ -12,9 +12,6 @@ Feature: DriverMenu
   
   @regression
   Scenario: Verify Driver Menus - FAQ | Leaderboard | Scheduled And Available Bungiis | Earnigs | Account |  Alert Settings | Store | Logout
-    When I Select "FAQ" from driver App menu
-    And the "FAQ" page is opened
-    Then I should be able to see data on "FAQ" page
     When I Select "LEADERBOARD" from driver App menu
     And the "LEADERBOARD" page is opened
     Then I should be able to see data on "LEADERBOARD" page
@@ -36,6 +33,9 @@ Feature: DriverMenu
     When I Select "STORE" from driver App menu
     And the "STORE" page is opened
     Then I should be able to see data on "STORE" page
+    When I Select "FAQ" from driver App menu
+    And the "FAQ" page is opened
+    Then I should be able to see data on "FAQ" page
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
   
