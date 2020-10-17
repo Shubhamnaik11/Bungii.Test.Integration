@@ -147,9 +147,13 @@ Feature: SoloScheduled
   #@regression
   Scenario: Verify Customer Can Create Scheduled Bungii
     Given I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "HOME" from driver App menu
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "Home" link
@@ -224,10 +228,14 @@ Feature: SoloScheduled
       | kansas   | Accepted     | NEXT_POSSIBLE |
     When I Switch to "customer" application on "same" devices
     And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
@@ -258,8 +266,12 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Switch to "customer" application on "same" devices
     And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -284,6 +296,8 @@ Feature: SoloScheduled
       | geofence | Bungii State | Bungii Time   |
       | kansas   | Scheduled    | NEXT_POSSIBLE |
     When I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
@@ -300,6 +314,8 @@ Feature: SoloScheduled
       | geofence | Bungii State | Bungii Time   |
       | kansas   | Scheduled    | NEXT_POSSIBLE |
     When I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
     And I select already scheduled bungii
@@ -785,6 +801,8 @@ Feature: SoloScheduled
     And I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Then I click "Go Online" button on Home screen on driver app
     And I Switch to "customer" application on "same" devices
 
@@ -816,6 +834,8 @@ Feature: SoloScheduled
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     When I try to contact driver using "sms driver1"
@@ -897,6 +917,8 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Then I click "Go Online" button on Home screen on driver app
     When I Switch to "customer" application on "same" devices
 
@@ -921,6 +943,8 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Then I click "Go Offline" button on Home screen on driver app
     When I Switch to "customer" application on "same" devices
     And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
@@ -953,6 +977,8 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -986,7 +1012,9 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
+  And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
     And I Select Trip from available trip
     And I click "ACCEPT" button on Bungii Request screen
@@ -1012,6 +1040,8 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
     And I Select Trip from available trip
@@ -1183,6 +1213,8 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
@@ -1220,6 +1252,8 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
@@ -1256,6 +1290,8 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     Then User should see message "60 MINS BEFORE SCHEDULE TRIP TIME" text on the screen
@@ -1358,7 +1394,9 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from driver scheduled trip
@@ -1397,6 +1435,8 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I tap on "Go Online button" on Driver Home page
     When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
@@ -1418,6 +1458,8 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
     Then I wait for "1" mins
 
     And I open new "Chrome" browser for "ADMIN"
@@ -1444,6 +1486,8 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     When I enter customers "9871450107" Phone Number
@@ -1485,9 +1529,13 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
 
@@ -1518,6 +1566,8 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I tap on "Go Online button" on Driver Home page
     When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
@@ -1538,6 +1588,8 @@ Feature: SoloScheduled
     And I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I wait for Minimum duration for current Bungii to be T-2 hours
     And I Switch to "driver" application on "same" devices
     Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
@@ -1556,10 +1608,13 @@ Feature: SoloScheduled
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "valid kansas" customer
-
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "kansas driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And Bungii Driver "slides to the next state"
     Then I accept Alert message for "Reminder: both driver at drop off"
 
@@ -1622,6 +1677,8 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Switch to "customer" application on "same" devices
 
     When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
@@ -1718,6 +1775,8 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
@@ -1750,6 +1809,8 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
@@ -1785,6 +1846,8 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
@@ -1817,6 +1880,8 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
@@ -1846,6 +1911,8 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "kansas driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     When Bungii Driver "cancels Bungii request"
@@ -1866,6 +1933,8 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Kansas driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     When Bungii Driver "cancels Bungii request"
@@ -1884,11 +1953,15 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas 2" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then for a Bungii I should see "Enroute screen"
 
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Kansas driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Then Bungii driver should see "Enroute screen"
 
     And I click the "Cancel" button on "update" screen
@@ -1914,11 +1987,15 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas 2" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then for a Bungii I should see "Arrived screen"
 
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Kansas driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Then Bungii driver should see "Arrived screen"
     And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
@@ -1943,12 +2020,16 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then for a Bungii I should see "Enroute screen"
 
      #non control driver
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Kansas driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Then Bungii driver should see "Enroute screen"
     And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
@@ -1969,11 +2050,15 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then for a Bungii I should see "Arrived screen"
 
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Kansas driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Then Bungii driver should see "Arrived screen"
     And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
@@ -1997,6 +2082,8 @@ Feature: SoloScheduled
       | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state    | driver2 state    |
       | Bungii Completed | Bungii Completed |
@@ -2029,7 +2116,9 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "kansas driver 1" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
@@ -2067,7 +2156,9 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "kansas driver 2" driver
-
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
@@ -2090,6 +2181,8 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I tap on "Available Trips link" on Driver Home page
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
@@ -2137,6 +2230,8 @@ Feature: SoloScheduled
 
     Given I am on customer Log in page
     And I am logged in as "new test customer" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "PAYMENT" link
     Then "Payment" page should be opened
     When I swipe "default" card on the payment page
@@ -2148,6 +2243,8 @@ Feature: SoloScheduled
       | NEW_USER_NUMBER |                 |
     Given I am on customer Log in page
     And I am logged in as "new test customer" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "PAYMENT" link
     When I swipe "default" card on the payment page
     And I tap on "Delete" on Payment page
@@ -2194,6 +2291,8 @@ Feature: SoloScheduled
 
     When I Switch to "customer" application on "same" devices
     And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -2210,7 +2309,9 @@ Feature: SoloScheduled
       When I Open "driver" application on "same" devices
       And I am on the LOG IN page on driver app
       And I am logged in as "valid" driver
-      Then I click "Go Online" button on Home screen on driver app
+  And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+  Then I click "Go Online" button on Home screen on driver app
 
       When that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
         | geofence | Bungii State | Bungii Time  |
@@ -2246,7 +2347,9 @@ Feature: SoloScheduled
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
-    Then I click "Go Online" button on Home screen on driver app
+   And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+   Then I click "Go Online" button on Home screen on driver app
 
     When that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
       | geofence | Bungii State | Bungii Time  |
@@ -2282,7 +2385,9 @@ Feature: SoloScheduled
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
-    Then I click "Go Online" button on Home screen on driver app
+   And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+   Then I click "Go Online" button on Home screen on driver app
     When that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 0.75 hour ahead |
@@ -2324,6 +2429,8 @@ Feature: SoloScheduled
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Then I click "Go Online" button on Home screen on driver app
 
     When that solo schedule bungii is in progress

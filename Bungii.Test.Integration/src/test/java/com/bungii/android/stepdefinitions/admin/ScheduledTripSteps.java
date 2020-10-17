@@ -569,8 +569,8 @@ public class ScheduledTripSteps extends DriverBase {
 
 			String rowCustName = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[6]")).getText();
 			String rowSchduledTime = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[5]")).getText();
-			String rowEstimatedDistance = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[8]")).getText();
-			String rowSrNumber = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[2]")).getText();
+			//String rowEstimatedDistance = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[8]")).getText();
+			String rowSrNumber = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[1]")).getText();
 			if (rowCustName.equalsIgnoreCase(custName) && scheduledDate.equalsIgnoreCase(rowSchduledTime)) {
 				rowNumber = Integer.parseInt(rowSrNumber);
 			}

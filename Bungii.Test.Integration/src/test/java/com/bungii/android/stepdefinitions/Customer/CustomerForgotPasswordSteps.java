@@ -70,7 +70,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
         }
     }
 
-    @When("I enter {string} Phone Number")
+    @When("I enter \"([^\"]*)\" Phone Number")
     public void i_enter_Phone_Number(String string) {
         try {
 
@@ -99,7 +99,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
         }
     }
 
-    @When("I enter {string} SMS code")
+    @When("I enter \"([^\"]*)\" SMS code")
     public void i_enter_SMS_code(String string) {
         try {
 

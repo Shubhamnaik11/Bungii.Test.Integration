@@ -12,6 +12,7 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
@@ -375,6 +376,23 @@ public class ActionManager {
                 true);
     }
     }
+    public void tap(WebElement element) {
+        try{
+            TouchActions action = new TouchActions(driver);
+            action.singleTap(element);
+            action.perform();
+            logger.detail(" Tap on element by locator -> " + getElementDetails(element));
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to Tap on  element -> " + getElementDetails(element),
+                    true);
+        }
+    }
+
+
+
     /**
      * @param element ,locator that is to be clicked
      */

@@ -473,7 +473,7 @@ public class BungiiSteps extends DriverBase {
                     action.click(Page_CustomerBungiiProgress.Button_DuoDriver_SMS());
                     break;
                 case "Call for a solo driver":
-                    action.click(Page_CustomerBungiiProgress.Button_Bungii_Driver_Call());
+                    action.tap(Page_CustomerBungiiProgress.Button_Bungii_Driver_Call());
                     break;
                 case "Call for driver 1":
                     action.waitUntilIsElementExistsAndDisplayed(Page_CustomerBungiiProgress.Button_DuoMore1());

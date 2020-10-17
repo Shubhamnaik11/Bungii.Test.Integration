@@ -9,63 +9,37 @@ Feature: DriverMenu
     And I am on the LOG IN page on driver app
     Given I am on Driver logged in Home page
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-
+  
   @regression
-
-  Scenario: Verify Driver FAQ Menu
+  Scenario: Verify Driver Menus - FAQ | Leaderboard | Scheduled And Available Bungiis | Earnigs | Account |  Alert Settings | Store | Logout
     When I Select "FAQ" from driver App menu
     And the "FAQ" page is opened
     Then I should be able to see data on "FAQ" page
-
-  @regression
-
-  Scenario:  Verify Driver LEADERBOARD Menu
     When I Select "LEADERBOARD" from driver App menu
     And the "LEADERBOARD" page is opened
     Then I should be able to see data on "LEADERBOARD" page
-
-  @regression
-  Scenario:  Verify Driver SCHEDULED BUNGIIS Menu
     When I Select "SCHEDULED BUNGIIS" from driver App menu
     And the "SCHEDULED BUNGIIS" page is opened
     Then I should be able to see data on "SCHEDULED BUNGIIS" page
-
-  @regression
-  Scenario: Verify Driver AVAILABLE BUNGIIS Menu
     When I Select "AVAILABLE BUNGIIS" from driver App menu
     And the "AVAILABLE BUNGIIS" page is opened
     Then I should be able to see data on "AVAILABLE BUNGIIS" page
-
-  @regression
-  Scenario: Verify Driver EARNINGS Menu
     When I Select "EARNINGS" from driver App menu
     And the "EARNINGS" page is opened
     Then I should be able to see data on "EARNINGS" page
-
-  @regression
-  Scenario: Verify Driver ACCOUNT Menu
     When I Select "ACCOUNT" from driver App menu
     And the "ACCOUNT" page is opened
     Then I should be able to see data on "ACCOUNT" page
-
-  @regression
-
-  Scenario:  Verify Driver ALERT SETTINGS Menu
     When I Select "ALERT SETTINGS" from driver App menu
     And the "ALERT SETTINGS" page is opened
     Then I should be able to see data on "ALERT SETTINGS" page
-
-  @regression
-  Scenario:  Verify Driver STORE Menu
     When I Select "STORE" from driver App menu
     And the "STORE" page is opened
     Then I should be able to see data on "STORE" page
-
-  @regression
-
-  Scenario:  Verify Driver LOGOUT Menu
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
+  
+    
 #failing due to BCKD-1103
   #@regression
   Scenario: Verify Device Token De-registration Upon Driver Logout
@@ -81,3 +55,49 @@ Feature: DriverMenu
     Then I should be able to see data on "EARNINGS" page
     When I click on "Click here to view itemized earnings" hyperlink
     Then I am redirected to "Trip History Page"
+  
+  # Covered in single scenario to reduce time of execution
+  Scenario: Verify Driver FAQ Menu
+    When I Select "FAQ" from driver App menu
+    And the "FAQ" page is opened
+    Then I should be able to see data on "FAQ" page
+  
+  Scenario:  Verify Driver LEADERBOARD Menu
+    When I Select "LEADERBOARD" from driver App menu
+    And the "LEADERBOARD" page is opened
+    Then I should be able to see data on "LEADERBOARD" page
+  
+  Scenario:  Verify Driver SCHEDULED BUNGIIS Menu
+    When I Select "SCHEDULED BUNGIIS" from driver App menu
+    And the "SCHEDULED BUNGIIS" page is opened
+    Then I should be able to see data on "SCHEDULED BUNGIIS" page
+  
+  Scenario: Verify Driver AVAILABLE BUNGIIS Menu
+    When I Select "AVAILABLE BUNGIIS" from driver App menu
+    And the "AVAILABLE BUNGIIS" page is opened
+    Then I should be able to see data on "AVAILABLE BUNGIIS" page
+  
+  Scenario: Verify Driver EARNINGS Menu
+    When I Select "EARNINGS" from driver App menu
+    And the "EARNINGS" page is opened
+    Then I should be able to see data on "EARNINGS" page
+  
+  Scenario: Verify Driver ACCOUNT Menu
+    When I Select "ACCOUNT" from driver App menu
+    And the "ACCOUNT" page is opened
+    Then I should be able to see data on "ACCOUNT" page
+  
+  Scenario:  Verify Driver ALERT SETTINGS Menu
+    When I Select "ALERT SETTINGS" from driver App menu
+    And the "ALERT SETTINGS" page is opened
+    Then I should be able to see data on "ALERT SETTINGS" page
+  
+  Scenario:  Verify Driver STORE Menu
+    When I Select "STORE" from driver App menu
+    And the "STORE" page is opened
+    Then I should be able to see data on "STORE" page
+  
+  Scenario:  Verify Driver LOGOUT Menu
+    When I Select "LOGOUT" from driver App menu
+    Then I should be able to see data on "LOGOUT" page
+    

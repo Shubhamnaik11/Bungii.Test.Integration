@@ -89,13 +89,26 @@ public class AvailableTripsSteps extends DriverBase {
 
             //List_AvailableBungiis
             List<WebElement> elements = availableTrips.List_AvailableBungiis();
+            if(elements.size()==0)
+            {
+                fail("Trip should be displayed in available bungii list of driver",
+                        "Trip is not displayed in available bungii list of driver", true);
+            }
+            else if (elements.size()==1)
+            {
+                logger.detail("Only One Available Bungii List Is Available.");
+                for (WebElement element : elements) {
+                element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_arrow")).click();
+                isSelected = true;
+                }
+            }
+            else
             for (WebElement element : elements) {
                 MobileElement image = element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_type"));
                 WebElement actualCustomer = element.findElement(By.id("com.bungii.driver:id/row_available_pickup_drivername"));
                 String actualCustomerName = actualCustomer.getText();
                 System.out.println(SetupManager.getDriver().getPageSource());
                 //      String  instance =image.getAttribute("instance");
-
                 if (actualCustomerName.equals(customerName)) {
                     element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_arrow")).click();
                     isSelected = true;
