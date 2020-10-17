@@ -4,6 +4,7 @@ Feature: DriverMenu
   As a logged in driver
   I want to check Trip Alert Settings
 
+  
   Background:
     Given I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
