@@ -185,3 +185,17 @@ Feature: Admin_Geofence
       | BusinessFAQ      | BusinessFAQ        |  | |
     And I click on the "Save" Button on "GeofenceAttributes" Screen
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+
+    @ready
+    Scenario:Verify setting driver/bungii cuts for geofence
+      When I click on the geofence "Chicago"
+      And I click on the "Settings" Button on "Geofence" Screen
+      And I set "Blank" % Bungii Cut Per Delivery for the geofence
+      And I click on the "Save" Button on "Geofence Settings" Screen
+      Then I see "Blank Bungii rate" validation error message.
+      And I set "Above100" % Bungii Cut Per Delivery for the geofence
+      Then I see "Above 100 Bungii rate" validation error message.
+      And I set "Below Zero" % Bungii Cut Per Delivery for the geofence
+      Then I see "Below Zero Bungii rate" validation error message.
+      And I set "Valid" % Bungii Cut Per Delivery for the geofence
+      Then I check that correct Driver cut calculated based on Bungii Cut Per Delivery

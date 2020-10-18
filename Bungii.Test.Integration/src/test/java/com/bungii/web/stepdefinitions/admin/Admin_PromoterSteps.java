@@ -54,6 +54,7 @@ public class Admin_PromoterSteps extends DriverBase {
                 String Description = dataMap.get("Description").trim();
                 String Status = dataMap.get("Status").trim();
 
+                Thread.sleep(2000);
                 action.sendKeys(admin_PromoterPage.TextBox_PromoterName(), PromoterName);
                 action.sendKeys(admin_PromoterPage.TextBox_CodeInitials(), CodeInitials);
                 action.sendKeys(admin_PromoterPage.TextBox_Discription(), Description);
@@ -101,6 +102,7 @@ public class Admin_PromoterSteps extends DriverBase {
     public void i_search_by_promoter_name_something(String strArg1) throws Throwable {
         String PromoterName =(String)cucumberContextManager.getScenarioContext("PROMOTER_NAME");;
         action.clearSendKeys(admin_PromoterPage.TextBox_Search(),PromoterName+Keys.ENTER);
+        Thread.sleep(4000);
         log("I search by "+ PromoterName ,
                 "I search by "+ PromoterName, true);
 
@@ -140,7 +142,7 @@ public class Admin_PromoterSteps extends DriverBase {
         String CodeInitials = (String) cucumberContextManager.getScenarioContext("CODE_INITIALS");
         String Description = (String) cucumberContextManager.getScenarioContext("DESCRIPTION");
         String Status = (String)cucumberContextManager.getScenarioContext("STATUS");
-        Thread.sleep(4000);
+        Thread.sleep(6000);
         i_search_by_promoter_name_something(PromoterName);
         String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/span[text()='%s']",PromoterName, CodeInitials, Description, Status);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");

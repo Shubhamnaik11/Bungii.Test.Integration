@@ -340,7 +340,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             break;
                     }
                     break;
-            case "Trips":
+            case "All Deliveries":
                     switch (button){
                         case "Apply":
                             action.click(admin_TripsPage.Button_Apply());

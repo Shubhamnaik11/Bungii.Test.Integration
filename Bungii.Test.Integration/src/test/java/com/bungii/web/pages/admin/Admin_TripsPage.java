@@ -32,6 +32,8 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement CheckBox_FilterAdminCancelled () { return findElement("chkStatus-70", LocatorType.Id); }
 
+    public WebElement CheckBox_FilterPartnerCancelled () { return findElement("chkStatus-72", LocatorType.Id); }
+
     public WebElement CheckBox_FilterPickupWithError () { return findElement("chkStatus-PickupwithError", LocatorType.Id); }
 
     public WebElement CheckBox_FilterPriceEstimated () { return findElement("chkStatus-2", LocatorType.Id); }

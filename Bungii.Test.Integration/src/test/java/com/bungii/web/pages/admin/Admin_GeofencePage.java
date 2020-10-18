@@ -83,4 +83,10 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Select_GoaGeofence() { return findElement("//tbody[@id='NewApplicantsTBody']/tr/td[contains(text(),'Goa')]\n", LocatorType.XPath);}
 
+    public WebElement TextBox_Bunggi_Cut_Rate() { return findElement("attributeValueBungiiCutPerDelivery",LocatorType.Id);}
+    public WebElement TextBox_Driver_Cut_Rate() { return findElement("attributeValueDiverCutPerDelivery",LocatorType.Id);}
+
+    public WebElement TextError_BunggiCut() { return findElement("//label[@id='attributeValueBungiiCutPerDelivery-error']",LocatorType.XPath);}
+    public WebElement TextError_General() { return findElement("//p[contains(text(),'Oops! It looks like you missed something. Please fill out all fields before proceeding.')]",LocatorType.XPath);}
+
 }
