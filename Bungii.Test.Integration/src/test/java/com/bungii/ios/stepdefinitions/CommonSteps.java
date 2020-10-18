@@ -588,7 +588,7 @@ public class CommonSteps extends DriverBase {
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
                 Thread.sleep(3000);
-                action.clickAlertButton("Allow");  //Customer App alert for ios 12 and below
+                action.clickAlertButton("Always Allow");  //Customer App alert for ios 12 and below
                 Thread.sleep(3000);
                 // pageHeader = utility.getPageHeader();
             }
@@ -682,7 +682,7 @@ public class CommonSteps extends DriverBase {
                 action.clickAlertButton("Allow");
                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
-                    action.clickAlertButton("Allow");
+                    action.clickAlertButton("Always Allow");
                 }
 
                 homeSteps.i_selectlogout();
@@ -1635,7 +1635,7 @@ public class CommonSteps extends DriverBase {
                 action.clickAlertButton("Allow");
                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
-                    action.clickAlertButton("Allow");
+                    action.clickAlertButton("Always Allow");
                 }
             }else if (NavigationBarName.equalsIgnoreCase("WANT $5?")){
                 takeActionOnPromotion("REJECT");
@@ -1700,7 +1700,7 @@ public class CommonSteps extends DriverBase {
                 action.clickAlertButton("Allow");
                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
-                    action.clickAlertButton("Allow");
+                    action.clickAlertButton("Always Allow");
                 }
             }else if (NavigationBarName.equalsIgnoreCase("WANT $5?")){
                 takeActionOnPromotion("REJECT");
