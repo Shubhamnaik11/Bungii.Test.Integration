@@ -10,7 +10,7 @@ Feature: Driver_Application
     Then I should be directed to "phone verification page" on Driver portal
 
   @sanity
-  @regression
+  @ready
   @email
   Scenario: Verify Driver Signup And Form Completion For Non Fountain Flow
     When I enter "correct" verification code

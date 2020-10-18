@@ -365,7 +365,7 @@ Feature: Partner Integration with Admin and Driver
       | Completed      |
 
 
-  @ready
+  @regression
   Scenario: Verify Solo Scheduled trip cannot cancel in Partner portal once the Trip started
     When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
       | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

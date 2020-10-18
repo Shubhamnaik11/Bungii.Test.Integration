@@ -49,7 +49,15 @@ public class ActionManager {
             //  Assert.fail("Following element is not displayed : " + element);
         }
     }
-
+    public static void waitUntilIsElementClickable(WebElement element) {
+        try {
+            IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            wait.until((ExpectedConditions.elementToBeClickable(element)));
+        } catch (Exception Ex) {
+            //  Assert.fail("Following element is not displayed : " + element);
+        }
+    }
     /**
      * @param element , locator of field
      * @param text    , Text value that is to be sent
@@ -158,6 +166,12 @@ public class ActionManager {
         try{
         element.click();
         logger.detail("ACTION | Click on element by locator -> " + getElementDetails(element));
+
+    }
+    catch(ElementClickInterceptedException ex)
+    {
+        waitUntilIsElementClickable(element);
+        element.click();
 
     }
          catch(Exception ex)
@@ -558,7 +572,7 @@ public class ActionManager {
      * elements value attribute.
      */
     public void textToBePresentInElementName(final WebElement element, final String text) {
-        
+
         Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(50))
                 .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
         try {

@@ -67,8 +67,8 @@ public class SetupManager extends EventFiringWebDriver {
             if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
                 try {
                     driver = (IOSDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
-                }catch (SessionNotCreatedException e) {
-                    logger.detail("Initialing driver failed, on "+deviceID +" SessionNotCreatedException" );
+                } catch (SessionNotCreatedException e) {
+                    logger.detail("Initialing driver failed, on " + deviceID + " SessionNotCreatedException");
                     try {
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
                         ((IOSDriver) driver).executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
@@ -79,8 +79,7 @@ public class SetupManager extends EventFiringWebDriver {
                         CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
 
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     logger.detail(getStackTrace(e));
                     logger.detail("Initialising driver failed. Trying again ");
                     try {
@@ -97,9 +96,9 @@ public class SetupManager extends EventFiringWebDriver {
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION", "DRIVER");
 
             } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
-                try{
-                driver = (AndroidDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
-                }catch (SessionNotCreatedException e) {
+                try {
+                    driver = (AndroidDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
+                } catch (SessionNotCreatedException e) {
                     try {
                         driver = (AndroidDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
 
@@ -112,12 +111,14 @@ public class SetupManager extends EventFiringWebDriver {
         } else if (TARGET_PLATFORM.equalsIgnoreCase("WEB"))
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
 
-        driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+        if (driver != null)
+        { driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
 
 
         DriverManager.getObject().setPrimaryInstanceKey("ORIGINAL");
         DriverManager.getObject().storeDriverInstance("ORIGINAL", driver);
         DriverManager.getObject().setDriver(driver);
+    }
         Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
     }
     private static void removeWebdriverAgent(){
@@ -245,7 +246,10 @@ public class SetupManager extends EventFiringWebDriver {
      */
     public static WebDriver getDriver() {
         // return APPIUM_DRIVER;
+        if (DriverManager.getObject().getDriver()!=null)
         return DriverManager.getObject().getDriver();
+        else
+            return null;
     }
 
     public static void setDriver(WebDriver newDriver) {

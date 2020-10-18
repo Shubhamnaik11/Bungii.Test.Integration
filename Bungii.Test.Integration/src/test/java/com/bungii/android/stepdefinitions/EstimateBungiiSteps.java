@@ -1021,7 +1021,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     driver.pressKey(new KeyEvent(AndroidKey.TAB));
                     Thread.sleep(1000);
                     driver.pressKey(new KeyEvent(AndroidKey.ENTER));
-                    Thread.sleep(2000);
+                    Thread.sleep(10000);
                     driver.pressKey(new KeyEvent(AndroidKey.ENTER));
 
                     if (action.isElementPresent(bungiiEstimatePage.Button_Review(true)))

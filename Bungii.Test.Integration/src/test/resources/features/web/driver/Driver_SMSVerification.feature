@@ -9,19 +9,19 @@ Feature: Driver_SMSVerification
     And I click "Signup button" on driver portal
     Then I should be directed to "phone verification page" on Driver portal
 
-  @regression
+  @ready
     @failed
   Scenario: Verify Resend Verification Code on Driver Signup
     When I click "Resend verification code" on driver portal
     Then I should see "new verification code" on Driver Registration
 
-  @regression
+  @ready
   Scenario: Verify Blank Verification Code Validation on Driver Signup
     When I enter "empty" verification code
     And I click "Submit verification code" on driver portal
     Then I should see "validation for blank verification code" on Driver Registration
 
-  @regression
+  @ready
   Scenario: Verify Incorrect Verification Code Validation on Driver Signup
     When I enter "incorrect" verification code
     And I click "Submit verification code" on driver portal

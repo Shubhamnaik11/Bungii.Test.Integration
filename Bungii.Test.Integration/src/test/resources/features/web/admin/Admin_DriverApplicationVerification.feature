@@ -6,7 +6,7 @@ Feature: Admin_DriverApplicationVerification
     And there is a pending application for driver verification
 
   @sanity
-  @regression
+  @ready
   @email
   @failed
     #test data created in base
@@ -23,7 +23,7 @@ Feature: Admin_DriverApplicationVerification
     And I should receive "BUNGII: Time to Hit the Road!" email
 
   @sanity
-  @regression
+  @ready
     #test data created in base
   @email
   @failed

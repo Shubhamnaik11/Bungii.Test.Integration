@@ -9,6 +9,9 @@ public class SignupPage extends PageBase {
         public WebElement Header_HomePage(boolean ...ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()] | //android.view.ViewGroup[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()]", LocatorType.XPath,ignoreException); }
 
 
+        public WebElement Message_Error(boolean ...ignoreException) { return findElement("android:id/message", LocatorType.Id,ignoreException); }
+        public WebElement Button_Retry(boolean ...ignoreException) { return findElement("android:id/button1", LocatorType.Id,ignoreException); }
+
     // Login link
     public WebElement Link_Login(boolean ...ignoreException) { return findElement("com.bungii.customer:id/title_login", LocatorType.Id,ignoreException); }
     //-------------Signup fields---------------------------------------------------------------------------

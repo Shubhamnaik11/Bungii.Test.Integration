@@ -7,7 +7,7 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
-    @regression
+    @ready
     @sanity
       Scenario: Verify that Partner can scheduled Solo bungii Trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
@@ -64,7 +64,7 @@
       Then I should see "Estimated Cost"
       And I should logout from Partner Portal
 
-    @ready
+    @regression
     @sanity
     Scenario: Verify Cancellation of Solo Scheduled Trips
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence

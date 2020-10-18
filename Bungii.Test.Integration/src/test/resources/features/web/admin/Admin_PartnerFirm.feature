@@ -4,7 +4,7 @@ Feature: Admin_PartnerFirm
   Background:
     Given I am logged in as TestAdmin
     
-  @regression
+  @ready
   @email
   Scenario: Verify Partner Firm Scheduled Email - Ondemand Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
@@ -21,7 +21,7 @@ Feature: Admin_PartnerFirm
     When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarg"
     Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
-  @regression
+  @ready
   @email
     @failed
   Scenario: Verify Partner Firm Scheduled Email - Solo Ondemand
@@ -37,7 +37,7 @@ Feature: Admin_PartnerFirm
     And Admin receives "Failed Scheduled Trips" trip email for "Driver Cancelled" status
 
   @sanity
-  @regression
+  @ready
   @email
   @failed
       #test data created in base
@@ -67,7 +67,7 @@ Feature: Admin_PartnerFirm
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Updated" email
     
-  @regression
+  @ready
   @email
       #test data created in base
   Scenario: Verify Partner Firm Cancellation Email - Duo Scheduled
@@ -96,7 +96,7 @@ Feature: Admin_PartnerFirm
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
 
 
-  @regression
+  @ready
   @email
     @failed
     #test data created in base
@@ -149,7 +149,7 @@ Feature: Admin_PartnerFirm
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
 
 
-  @regression
+  @ready
   @email
   @failed
     @log
@@ -184,7 +184,7 @@ Feature: Admin_PartnerFirm
     When I cancel bungii as a customer "Testcustomertywd_apple-Jd1" with phone number "9999794897"
     Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
 
-  @regression
+  @ready
   @email
   @failed
     #test data created in base
@@ -209,7 +209,7 @@ Feature: Admin_PartnerFirm
     When I cancel bungii as a customer "Testcustomertywd_appleWashI Shah" with phone number "9999999363"
     Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
-  @regression
+  @ready
   @email
   @failed
     #test data created in base
@@ -242,7 +242,7 @@ Feature: Admin_PartnerFirm
     Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @sanity
-  @regression
+  @ready
   @failed
     #test data created in base
     #changed driver name

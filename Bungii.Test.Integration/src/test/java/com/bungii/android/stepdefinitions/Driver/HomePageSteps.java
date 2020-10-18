@@ -96,7 +96,7 @@ public class HomePageSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(driverHomePage.Button_OnlineOffline());
                     break;
-                case "Available Trips":
+                case "Available Bungiis":
                     action.click(driverHomePage.Link_AvailableTrips());
                     break;
                 default:

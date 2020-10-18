@@ -105,7 +105,6 @@ Feature: CustomerSignup
 
 
   @regression
-    @fix
   Scenario Outline: Verify Trip completed Count On Admin Portal Is Updated When Customer Completes A Bungii.
       When I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
@@ -192,7 +191,7 @@ Feature: CustomerSignup
     And I enter "valid" data in mandatory fields on Signup Page
     And I Enter "Referral Code" value in "Referral code" field in "SIGN UP" Page
       | Referral Code |
-      | R1D2          |
+      | R1D2INVALID   |
     And I Select Referral source
     And I tap on the "Sign Up" button on Signup Page
     And the new user should see "Signup page"

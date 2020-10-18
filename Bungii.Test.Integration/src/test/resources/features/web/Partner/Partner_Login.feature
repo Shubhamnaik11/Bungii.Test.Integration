@@ -17,7 +17,7 @@
       When I click "SIGN IN" button on Partner Portal
       Then I should "see validations message for blank password field"
 
-    @regression
+    @ready
     Scenario:Verify Partner Login Validations With Invalid Password
       When I enter "invalid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal

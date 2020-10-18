@@ -7,7 +7,7 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
-    @regression
+    @ready
     @sanity
     Scenario: Verify Customer Payment method with Valid card details for Bungii trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
@@ -100,7 +100,7 @@
       Then I should "see validation message for Cvv" on partner portal
       And I should logout from Partner Portal
 
-    @ready
+    @regression
     Scenario: Verify Customer Payment method with Invalid Postal Code for Bungii trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

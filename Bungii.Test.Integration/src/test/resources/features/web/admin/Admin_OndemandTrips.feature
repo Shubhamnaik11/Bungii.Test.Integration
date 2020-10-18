@@ -85,7 +85,8 @@ Feature: Admin_OndemandTrips
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
     
-  @regression
+  @ready
+    @web1
   Scenario: Verify Driver Does Not receive Ondemand requests If He Is Not Assigned To Geofence In Which His Current Location Is
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |

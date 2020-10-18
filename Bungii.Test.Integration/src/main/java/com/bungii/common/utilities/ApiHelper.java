@@ -311,8 +311,8 @@ public class ApiHelper {
             response.then().statusCode(200);
         }
         catch (JsonPathException ex) {
-            logger.error("Lexical error in JSON response");
-            error("Step should be successful", "Failed due to :  Lexical error in JSON response",
+            logger.error("Lexical error in JSON response " + response.then().log().body());
+            error("Step should be successful", "Failed due to :  Lexical error in JSON response " +response.then().log().body(),
                     false);
 
         }

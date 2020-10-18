@@ -65,7 +65,7 @@ public class InvitePage extends PageBase {
 
 
 
-    public WebElement Button_Back(){return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]",LocatorType.XPath);}
+    public WebElement Button_Back(){return findElement("//android.widget.ImageButton[contains(@content-desc,\"Navigate up\")]",LocatorType.XPath);}
 
 
     //MOTO G4 specific

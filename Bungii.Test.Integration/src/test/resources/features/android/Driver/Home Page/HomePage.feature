@@ -28,4 +28,5 @@ Feature: Driver Home screen
     And The navigation title should change to "Online"
 
     When I click "Available Bungiis" button on Home screen on driver app
-    Then I should be navigated to Available Bungiis screen on driver app
+    Then the "AVAILABLE BUNGIIS" page is opened
+    

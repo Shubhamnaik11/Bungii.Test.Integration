@@ -659,6 +659,11 @@ Thread.sleep(5000);
 
         boolean skipNormalFlow = false;
         //    System.out.println("Page"+SetupManager.getDriver().getPageSource());
+        if(action.isElementPresent(Page_Signup.Message_Error(true)))
+        {
+           action.click(Page_Signup.Button_Retry());
+           logger.detail("Retried on error on Could not connet to server");
+        }
         String currentPage = action.getText(Page_Signup.GenericHeader(true));
         switch (currentPage.toUpperCase()) {
             case "BUNGII":
@@ -1201,7 +1206,7 @@ Thread.sleep(5000);
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
         action.clear(element);
-        element.click();
+        action.click(element);
         element.sendKeys(searchstring);
         int x = element.getLocation().getX() + 32;
         int y = element.getLocation().getY() + element.getRect().getHeight() + 10;

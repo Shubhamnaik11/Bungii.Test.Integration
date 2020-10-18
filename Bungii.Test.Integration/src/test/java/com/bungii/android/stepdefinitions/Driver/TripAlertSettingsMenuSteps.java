@@ -42,7 +42,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     public void i_click_on_something_tab(String option) throws Throwable {
         try {
             switch (option) {
-                case "Trip Alerts":
+                case "Delivery Alerts":
                     action.click(tripAlertSettingsPage.Tab_TripAlerts());
                     break;
 
@@ -75,10 +75,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     @Then("^I should be able to see \"([^\"]*)\" Text and Time$")
     public void i_should_be_able_to_see_something_text_and_time(String tab)  {
         String data=null;Boolean b;
-        String time=PropertyUtility.getDataProperties("alert.time");
+        String time=PropertyUtility.getDataProperties("alert.time.to");
         try {
             switch (tab) {
-                case "Trip Alerts":
+                case "Delivery Alerts":
                     data = action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
                     testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("trip.alert.text"));
                     b = clickDriverMenu(time);
@@ -194,6 +194,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             switch (Name) {
                 case "SAVE TIME":
                     action.click(tripAlertSettingsPage.TimePicker_OK());
+                    action.click(tripAlertSettingsPage.Button_SaveTime());
+
                     break;
 
                 case "ADD":
@@ -328,7 +330,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
         Boolean isCorrectTime = true;
         List<WebElement> elements = tripAlertSettingsPage.Text_TripAlertsTime();
         for (WebElement element : elements) {
-            if (element.getText().equals(time) && isCorrectTime) {
+            if (element.getText().contains(time) && isCorrectTime) {
                 isCorrectTime = true;
                  }else{
                 isCorrectTime = false;

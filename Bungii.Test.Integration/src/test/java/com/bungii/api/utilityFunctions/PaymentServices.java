@@ -29,6 +29,7 @@ public class PaymentServices {
         Response response = getGetPaymentMethod(authToken);
         ApiHelper.genericResponseValidation(response,RequestText);
         JsonPath jsonPathEvaluator = response.jsonPath();
+        response.then().log().body();
         String paymentRef = jsonPathEvaluator.get("PaymentMethods[0].PaymentMethodRef");
         return paymentRef;
     }

@@ -16,8 +16,7 @@ Feature: Admin_Geofence
     Then I verify that the default settings are displayed
     
   @sanity
-  @regression
-    @demo
+  @ready
   Scenario: Verify Add Edit New Geofence
     When I click on the "Scale" Button
     And I enter following values in "Geofence" fields
@@ -86,7 +85,6 @@ Feature: Admin_Geofence
   #this test script will fail as the value of above parameters are set as 30 mins and 840 mins.
   #It should be 15 mins and 1410 mins, currently validations are put considering 15 and 1410 mins
   @regression
-    @test
   Scenario: Verify Minimum Scheduled Time For Solo Or Duo Trip Cannot Be More Than The Difference Between SCHEDULE_PICKUP_FROM_TIME And SCHEDULE_PICKUP_TO_TIME
     When I click on the geofence "Chicago"
     And I click on the "Settings" Button on "Geofence" Screen
@@ -177,8 +175,7 @@ Feature: Admin_Geofence
     When I click on the "Save" Button on "GeofenceAttributes" Screen
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
 
-  @ready
-    @test
+  @regression
   Scenario: Verify Field Validations on Geofence Attributes page
     When I load Geofence Attributes Page and Click on New Attributes button
     And I click on the "Save" Button on "GeofenceAttributes" Screen

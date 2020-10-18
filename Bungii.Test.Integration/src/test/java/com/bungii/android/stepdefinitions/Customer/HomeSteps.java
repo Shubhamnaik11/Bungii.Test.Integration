@@ -209,7 +209,7 @@ public class HomeSteps extends DriverBase {
             } else {
                 i_tap_on_something_something_link("Menu", "HOME");
             }}
-            log(" I am on Customer logged in Home page", "");
+            pass(" I should be on Customer Home page", "I am on Customer Home page");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -331,13 +331,14 @@ public class HomeSteps extends DriverBase {
     public void i_select_something_location(String toDoAction) {
         try {
             switch (toDoAction.toUpperCase()) {
-                case "DROP":
+                case "PICK UP":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
-                        utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(),"9351 Todd Road");
+                         action.click(Page_CustHome.TextBox_PickUpTextBox());
+                        utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(),"6800 Zoo Drive");
                     //selectDropLocation(1);
                     break;
-                case "PICK UP":
+                case "DROP":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(),"6800 Zoo Drive");
@@ -654,13 +655,13 @@ public class HomeSteps extends DriverBase {
             switch (strArg1) {
                 case "Scheduled info":
                     String actualText = action.getText(homePage.Text_ScheduledBungiisInfo());
-                    actualText = actualText.replace("\n", " ");
+                    actualText = actualText.replace("\n", " ").replace("�","'");
                     testStepAssert.isEquals(actualText, PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
                     break;
 
                 case "Past info":
                     actualText = action.getText(homePage.Text_PastBungiisInfo());
-                    actualText = actualText.replace("\n", " ");
+                    actualText = actualText.replace("\n", " ").replace("�","'");
                     testStepAssert.isEquals(actualText, PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
                     break;
 

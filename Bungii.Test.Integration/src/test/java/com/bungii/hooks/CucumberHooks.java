@@ -79,7 +79,7 @@ public class CucumberHooks {
             logger.detail("********** Initializing Test Setup on Device : "+device+" ************");
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
-            logger.error("Unable to create default appium driver");
+            logger.error("Unable to coonect with default appium server. Either VPN is down or Browserstack tunnel is broken");
             e.printStackTrace();
         }
 

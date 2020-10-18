@@ -106,7 +106,7 @@ public class DriverMenuSteps extends DriverBase {
 
                 case "ALERT SETTINGS":
                     data = action.getText(homePage.Text_TripAlertSettings()).toString();
-                    testStepAssert.isElementTextEquals(homePage.Text_TripAlertSettings(), "Trip Alerts", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    testStepAssert.isElementTextEquals(homePage.Text_TripAlertSettings(), "Delivery Alerts", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "FEEDBACK":
