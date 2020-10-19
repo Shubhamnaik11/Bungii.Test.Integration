@@ -278,10 +278,8 @@ Feature: On Demand Bungii
     And I am on the LOG IN page on driver app
     And I am logged in as "valid baltimore" driver
     And I wait for "2" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "live trips" from admin sidebar
+    And I open Admin portal and navigate to "Live Deliveries" page
+  
     And I select trip from live trips
 
     When I switch to "ADMIN" instance
@@ -625,11 +623,8 @@ Feature: On Demand Bungii
     And Bungii Driver "completes Bungii"
 
     And I wait for "2" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "live trips" from admin sidebar
-    And I select trip from live trips
+      And I open Admin portal and navigate to "Live Deliveries" page
+      And I select trip from live trips
     Then On admin trip details page "<Expected value in admin>" should be displayed
 
     Examples:

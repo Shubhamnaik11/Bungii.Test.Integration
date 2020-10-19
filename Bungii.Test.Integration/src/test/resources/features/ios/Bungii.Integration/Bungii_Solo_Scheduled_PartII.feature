@@ -236,7 +236,7 @@ Feature: Solo Scheduled Bungii Part II
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @ready
-    @failed
+    @testingCard
   Scenario: Verify When Admin Cancels Bungii Then Trip Is Removed From The Scheduled Trip In App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -246,11 +246,8 @@ Feature: Solo Scheduled Bungii Part II
     Given I login as "valid denver" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |
@@ -613,10 +610,8 @@ Feature: Solo Scheduled Bungii Part II
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "4" mins
     When I Switch to "driver" application on "same" devices
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I verify status and researches Bungii with following details
       | label                | Status of Trip      |
       | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found |
@@ -1015,10 +1010,8 @@ Feature: Solo Scheduled Bungii Part II
     And I am logged in as "valid denver" driver
     When I Switch to "customer" application on "same" devices
     Then I wait for "1" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
@@ -1040,10 +1033,8 @@ Feature: Solo Scheduled Bungii Part II
     And I am logged in as "valid denver" driver
     When I Switch to "customer" application on "same" devices
     Then I wait for "1" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
     And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
@@ -1206,10 +1197,8 @@ Feature: Solo Scheduled Bungii Part II
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | denver   | Accepted     | 15 min ahead |
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I remove current driver and researches Bungii
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" trip
       | driver1 state |
@@ -1240,10 +1229,8 @@ Feature: Solo Scheduled Bungii Part II
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I remove current driver and researches Bungii
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -1422,11 +1409,9 @@ Feature: Solo Scheduled Bungii Part II
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |
@@ -1505,11 +1490,9 @@ Feature: Solo Scheduled Bungii Part II
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app
  #   And I click "TOP BACK" button on "Bungii Details" screen
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |
@@ -1537,11 +1520,9 @@ Feature: Solo Scheduled Bungii Part II
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |
@@ -1571,11 +1552,9 @@ Feature: Solo Scheduled Bungii Part II
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |
@@ -1605,11 +1584,9 @@ Feature: Solo Scheduled Bungii Part II
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |
@@ -1854,10 +1831,7 @@ Feature: Solo Scheduled Bungii Part II
     And I am logged in as "valid denver" driver
     When I Switch to "customer" application on "same" devices
     Then I wait for "1" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices

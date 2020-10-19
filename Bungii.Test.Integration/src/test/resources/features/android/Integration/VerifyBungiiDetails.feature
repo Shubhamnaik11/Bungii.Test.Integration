@@ -576,11 +576,8 @@
       And I am logged in as "valid" driver
       When I Switch to "customer" application on "same" devices
       Then I wait for "2" mins
-      And I open new "Chrome" browser for "ADMIN"
-      And I navigate to admin portal
-      And I log in to admin portal
-      And I Select "Scheduled Trip" from admin sidebar
-      And I remove current driver and researches Bungii
+   And I open Admin portal and navigate to "Scheduled Deliveries" page
+   And I remove current driver and researches Bungii
       And I Select "Edit Trip Details" option
       And I assign driver for the "Solo" trip
       And I click on "VERIFY" button
@@ -609,11 +606,8 @@
       And As a driver "Testdriver_goa_e Android_test" and "Testdriver_goa_f Android_test" perform below action with respective "DUO SCHEDULED" trip
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
-      And I open new "Chrome" browser for "ADMIN"
-      And I navigate to admin portal
-      And I log in to admin portal
-      And I Select "Scheduled Trip" from admin sidebar
-      And I remove "control" driver and researches Bungii
+  And I open Admin portal and navigate to "Scheduled Deliveries" page
+  And I remove "control" driver and researches Bungii
       And I Select "Edit Trip Details" option
       And I assign driver for the "control" trip
       And I click on "VERIFY" button
@@ -642,11 +636,8 @@
       And As a driver "Testdriver_goa_e Android_test" and "Testdriver_goa_f Android_test" perform below action with respective "DUO SCHEDULED" trip
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
-      And I open new "Chrome" browser for "ADMIN"
-      And I navigate to admin portal
-      And I log in to admin portal
-      And I Select "Scheduled Trip" from admin sidebar
-      And I remove "noncontrol" driver and researches Bungii
+  And I open Admin portal and navigate to "Scheduled Deliveries" page
+  And I remove "noncontrol" driver and researches Bungii
       And I Select "Edit Trip Details" option
       And I assign driver for the "noncontrol" trip
       And I click on "VERIFY" button
@@ -675,11 +666,8 @@
       And As a driver "Testdriver_goa_e Android_test" and "Testdriver_goa_f Android_test" perform below action with respective "DUO SCHEDULED" trip
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
-      And I open new "Chrome" browser for "ADMIN"
-      And I navigate to admin portal
-      And I log in to admin portal
-      And I Select "Scheduled Trip" from admin sidebar
-      And I remove current driver and researches Bungii
+  And I open Admin portal and navigate to "Scheduled Deliveries" page
+  And I remove current driver and researches Bungii
       And I Select "Edit Trip Details" option
       And the " Adding a driver through this feature overrides driver assigning restrictions." message is displayed
       And I assign driver for the "Duo" trip

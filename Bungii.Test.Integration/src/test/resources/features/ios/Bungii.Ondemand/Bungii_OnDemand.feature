@@ -26,10 +26,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I am logged in as "valid nashville" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I wait for "2" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "live trips" from admin sidebar
+    And I open Admin portal and navigate to "Live Deliveries" page
     And I select trip from live trips
 
     When I switch to "ADMIN" instance

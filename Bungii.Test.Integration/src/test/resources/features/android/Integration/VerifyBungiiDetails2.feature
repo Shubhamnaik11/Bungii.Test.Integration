@@ -79,10 +79,7 @@ Feature: VerifyBungiiDetails2
     And I am logged in as "testdriver_goa_e android_test" driver
 
     And I wait for "2" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I Cancel Bungii with following details
       | Charge | Comments | Reason                         |
       | 0      | TEST     | Outside of delivery scope      |
@@ -118,11 +115,8 @@ Feature: VerifyBungiiDetails2
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
     Then I Select "SCHEDULED BUNGIIS" from driver App menu
-
-    When I open new "Chrome" browser for "ADMIN_PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I open the trip for "Testcustomertywd_appleand_F Android" customer
     And I Select "Edit Trip Details" option
     And I assign driver for the "Solo" trip

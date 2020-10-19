@@ -2,6 +2,8 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.DashBoardPage;
+import com.bungii.android.pages.admin.LogInPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.LocationPage;
 import com.bungii.android.pages.driver.*;
@@ -58,6 +60,8 @@ public class CommonSteps extends DriverBase {
     SignupPage Page_Signup= new SignupPage();
     private DbUtility dbUtility = new DbUtility();
     com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
+    LogInPage logInPage=  new LogInPage();
+    DashBoardPage dashBoardPage=new DashBoardPage();
 
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
@@ -303,6 +307,49 @@ public class CommonSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I open Admin portal and navigate to \"([^\"]*)\" page$")
+    public void i_open_admin_portal_and_navigate_to_something_page(String option) throws Throwable {
+        try {
+        i_open_new_something_browser_for_something_instance("CHROME","ADMIN");
+        SetupManager.getDriver().get(utility.GetAdminUrl());
+        logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
+        logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
+        logInPage.Button_LogIn().click();
+
+            switch (option.toLowerCase()) {
+                case "scheduled deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_ScheduledTrips());
+                    break;
+                case "live deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_LiveTrips());
+                    break;
+                case "promo code":
+                    action.click(dashBoardPage.Button_PromoCode());
+                    action.click(dashBoardPage.Link_StandardCodes());
+                    break;
+                case "referral source":
+                    action.click(dashBoardPage.Button_Marketing());
+                    action.click(dashBoardPage.Button_ReferralSource());
+                    break;
+                case "customers":
+                    action.click(dashBoardPage.Button_Customers());
+                    break;
+                case "deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            log("I open Admin portal and navigate to "+option+ " page","I am on admin "+ option+" page" ,true );
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in navigating to admin portal ",
+                    true);
         }
     }
 

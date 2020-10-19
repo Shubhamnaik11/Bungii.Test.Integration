@@ -167,11 +167,9 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should be navigated to "SCHEDULED BUNGII" screen
     
     Then I wait for "2" mins
-    
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |

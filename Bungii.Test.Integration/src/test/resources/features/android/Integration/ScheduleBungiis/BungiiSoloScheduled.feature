@@ -222,7 +222,6 @@ Feature: SoloScheduled
 
 
   @regression
-    @fix
   Scenario: Verify When Bungii Is Cancelled By Admin It Is Removed From The Scheduled Trip List On Drivers App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -238,10 +237,7 @@ Feature: SoloScheduled
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   
     And I wait for "2" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+	And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I Cancel Bungii with following details
       | Charge | Comments | Reason                         |
       | 0      | TEST     | Outside of delivery scope      |
@@ -1177,10 +1173,8 @@ Feature: SoloScheduled
   
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
@@ -1216,10 +1210,8 @@ Feature: SoloScheduled
   
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
     And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
@@ -1418,11 +1410,9 @@ Feature: SoloScheduled
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     Then I wait for "1" mins
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
@@ -1697,11 +1687,9 @@ Feature: SoloScheduled
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct details should be displayed on the "ADMIN-SMS" app
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I Cancel Bungii with following details
       | Charge | Comments | Reason                         |
       | 0      | TEST     | Outside of delivery scope      |
@@ -1731,11 +1719,9 @@ Feature: SoloScheduled
     When I Cancel selected Bungii
     Then correct details should be displayed on the "ADMIN-SMS" app
  #   And I click "TOP BACK" button on "Bungii Details" screen
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I Cancel Bungii with following details
       | Charge | Comments | Reason                         |
       | 0      | TEST     | Outside of delivery scope      |
@@ -1764,11 +1750,9 @@ Feature: SoloScheduled
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct details should be displayed on the "ADMIN-SMS" app
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I Cancel Bungii with following details
       | Charge | Comments | Reason                         |
       | 0      | TEST     | Outside of delivery scope      |
@@ -1801,11 +1785,9 @@ Feature: SoloScheduled
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct details should be displayed on the "ADMIN-SMS" app
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I Cancel Bungii with following details
       | Charge | Comments | Reason                         |
       | 0      | TEST     | Outside of delivery scope      |
@@ -2048,11 +2030,9 @@ Feature: SoloScheduled
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | kansas1  | Accepted     | 15 min ahead |
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I remove current driver and researches Bungii
     And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
       | driver1 state |
@@ -2088,11 +2068,9 @@ Feature: SoloScheduled
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
-
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+  
     And I remove current driver and researches Bungii
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |

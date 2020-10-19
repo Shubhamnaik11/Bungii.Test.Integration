@@ -14,6 +14,7 @@ public class SignupPage extends PageBase {
 
     // Login link
     public WebElement Link_Login(boolean ...ignoreException) { return findElement("com.bungii.customer:id/title_login", LocatorType.Id,ignoreException); }
+
     //-------------Signup fields---------------------------------------------------------------------------
     public WebElement TextField_FirstName() { return findElement("com.bungii.customer:id/signup_field_first_nam", LocatorType.Id); }
 

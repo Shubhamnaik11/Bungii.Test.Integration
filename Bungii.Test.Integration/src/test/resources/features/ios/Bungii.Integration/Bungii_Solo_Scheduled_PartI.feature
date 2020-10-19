@@ -85,10 +85,7 @@ And I slide update button on "LOADING ITEM" Screen
 And I slide update button on "DRIVING TO DROP OFF" Screen
 
 And I wait for "3" mins
-And I open new "Chrome" browser for "ADMIN"
-And I navigate to admin portal
-And I log in to admin portal
-And I Select "live trips" from admin sidebar
+  And I open Admin portal and navigate to "Live Deliveries" page
 Then I should be able to see the respective bungii with the below status
 | Status          |
 | Unloading Items |
@@ -163,10 +160,7 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	Then I should be navigated to "Bungii Completed" screen
 	And I click "On To The Next One" button on "Bungii Completed" screen
 	Then I wait for "2" mins
-	And I open new "Chrome" browser for "ADMIN"
-	And I navigate to admin portal
-	And I log in to admin portal
-	And I Select "customers" from admin sidebar
+	And I open Admin portal and navigate to "Customers" page
 	Then trips requested count should be "1"
 	Examples:
 	  | First Name | Last Name       | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
@@ -224,10 +218,7 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I slide update button on "ARRIVED" Screen
 	
 	And I wait for "3" mins
-	And I open new "Chrome" browser for "ADMIN"
-	And I navigate to admin portal
-	And I log in to admin portal
-	And I Select "live trips" from admin sidebar
+	And I open Admin portal and navigate to "Live Deliveries" page
 	Then I should be able to see the respective bungii with the below status
 	  | Status        |
 	  | Loading Items |
@@ -309,10 +300,7 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I slide update button on "LOADING ITEM" Screen
 	
 	And I wait for "3" mins
-	And I open new "Chrome" browser for "ADMIN"
-	And I navigate to admin portal
-	And I log in to admin portal
-	And I Select "live trips" from admin sidebar
+	And I open Admin portal and navigate to "Live Deliveries" page
 	Then I should be able to see the respective bungii with the below status
 	  | Status             |
 	  | Driving To Dropoff |
