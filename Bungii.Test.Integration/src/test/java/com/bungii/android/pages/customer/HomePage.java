@@ -81,8 +81,13 @@ public class HomePage extends PageBase {
     public WebElement Text_ErrorNonGeofence() { return findElement("//*[@resource-id='com.bungii.customer:id/fragment_home_not_operating_container']/android.widget.TextView[2]", LocatorType.XPath);}
 
     //Tutuorial
-    public List<WebElement> Button_PdfPages(){return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath);}
-    public WebElement Text_TutorialPdfPage1() { return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath).get(0);}
+   // public List<WebElement> Button_PdfPages(){return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath);}
+   // public WebElement Text_TutorialPdfPage1() { return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath).get(0);}
+
+    //Tutorial Moto 9.0
+    public List<WebElement> Button_PdfPages(){return findElements("//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout", LocatorType.XPath);}
+    public WebElement Text_TutorialPdfPage1() { return findElements("//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout", LocatorType.XPath).get(0);}
+
     public WebElement Button_StartApp() { return findElement("com.bungii.customer:id/tutorials_screen_five_btn_start",LocatorType.Id); }
     public WebElement Button_BackOfPage() {return findElement("//android.widget.ImageButton[contains(@content-desc,\"Navigate up\")]", LocatorType.XPath);}
 

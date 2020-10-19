@@ -8,7 +8,6 @@ Feature: Duo
   @regression
   @sanity
   Scenario: Verify Scheduling Of Duo Bungii As An Android Customer
-  #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -38,6 +37,9 @@ Feature: Duo
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I check if the customer is on success screen
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    
+    #Step to keep driver 2 instance alive
+    And I Switch to "driver" application on "Driver2" devices
 
     And I Switch to "driver" application on "same" devices
     And I tap on "Available Trips link" on Driver Home page
@@ -165,6 +167,9 @@ Feature: Duo
     And I check if the customer is on success screen
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
+     #Step to keep driver 2 instance alive
+    And I Switch to "driver" application on "Driver2" devices
+    
     And I Switch to "driver" application on "same" devices
     And I tap on "Available Trips link" on Driver Home page
     And I Select Trip from driver available trip
@@ -277,6 +282,7 @@ Feature: Duo
     And I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid driver 2" driver
+    
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     When I Switch to "driver" application on "ORIGINAL" devices

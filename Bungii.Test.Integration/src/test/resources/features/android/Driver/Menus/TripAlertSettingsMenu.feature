@@ -41,7 +41,6 @@ Feature: DriverMenu
       | 8989890909 | Cci12345   |
   
   @regression
-  @fix
     Scenario Outline: Verify Correct Data Is Displayed In Trip And Sms Alert Settings Upon Switching Between Trip And SMS Alerts Tabs
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
