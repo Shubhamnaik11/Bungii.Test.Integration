@@ -1071,10 +1071,22 @@ public class EstimateBungiiSteps extends DriverBase {
 
             action.click(bungiiEstimatePage.Link_AddPhoto());
             Thread.sleep(2000);
-            action.click(bungiiEstimatePage.Option_Gallery());
-            action.click(bungiiEstimatePage.Option_OverLayPhotos());
-            action.click(bungiiEstimatePage.Option_LARGEIMAGEFOLDER());
-            action.click(bungiiEstimatePage.IMAGE_LOCATOR());
+
+            if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true)))
+                action.click(bungiiEstimatePage.Permissions_CameraAllow());
+            action.click(bungiiEstimatePage.Option_Camera());
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            driver.pressKey(new KeyEvent(AndroidKey.TAB));
+            Thread.sleep(1000);
+            driver.pressKey(new KeyEvent(AndroidKey.TAB));
+            Thread.sleep(1000);
+            driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+            Thread.sleep(10000);
+            driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+           // action.click(bungiiEstimatePage.Option_Gallery());
+           // action.click(bungiiEstimatePage.Option_OverLayPhotos());
+            //action.click(bungiiEstimatePage.Option_LARGEIMAGEFOLDER());
+           // action.click(bungiiEstimatePage.IMAGE_LOCATOR());
 
 
         } catch (Exception e) {

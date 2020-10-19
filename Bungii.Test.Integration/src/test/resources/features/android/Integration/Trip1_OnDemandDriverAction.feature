@@ -28,7 +28,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then Bungii driver should see "Home screen"
     When I Switch to "customer" application on "same" devices
     And I tap on "Cancel during search" on Bungii estimate
-    And Quit Bungii Driver app
 
 
   @regression

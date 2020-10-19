@@ -1,6 +1,5 @@
 @android
-@bungii
-  Feature: OnDemandBungii_Cancellation
+  Feature: FailedOnDemandBungiis
   Scenarios where customer requests and cancels the Bungii.
 
   #This feature will run in goa geofence.

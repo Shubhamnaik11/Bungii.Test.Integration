@@ -662,38 +662,14 @@ Feature: On Demand Bungii
     When I Open "driver" application on "same" devices
     And Bungii Driver "accepts On Demand Bungii" request
     Then Bungii driver should see "Enroute screen"
-
-    When I Switch to "customer" application on "same" devices
-    And I tap "OK on Driver Accepted screen" during a Bungii
-    Then for a Bungii I should see "Enroute screen"
-
-    When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
-
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Arrived screen"
-
-    When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Loading Item screen"
-
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Loading Item screen"
-
-    When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Driving to DropOff screen"
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Driving to DropOff screen"
-
-    When I Switch to "driver" application on "same" devices
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
-
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Unloading Item screen"
-    When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
 
     When I Switch to "customer" application on "same" devices
@@ -701,7 +677,6 @@ Feature: On Demand Bungii
     When I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
     And I Switch to "driver" application on "same" devices
-    #And Bungii Driver "completes Bungii"
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
