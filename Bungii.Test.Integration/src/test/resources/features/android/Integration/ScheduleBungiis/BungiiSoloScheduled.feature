@@ -2032,20 +2032,16 @@ Feature: SoloScheduled
       | kansas1  | Accepted     | 15 min ahead |
   
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-  
     And I remove current driver and researches Bungii
     And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
       | driver1 state |
       | Accepted      |
 
     When I switch to "ORIGINAL" instance
-
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "kansas driver 1" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
@@ -2259,12 +2255,11 @@ Feature: SoloScheduled
       And Bungii Driver "slides to the next state"
       And Bungii Driver "slides to the next state"
       And Bungii Driver "slides to the next state"
+      Then Bungii Driver "completes Bungii"
 
       And I Switch to "customer" application on "same" devices
       And I tap on "OK on complete" on Bungii estimate
       And I tap on "No free money" on Bungii estimate
-      And I Switch to "driver" application on "same" devices
-      Then Bungii Driver "completes Bungii"
 
 
  @ready
@@ -2297,12 +2292,11 @@ Feature: SoloScheduled
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
+   Then Bungii Driver "completes Bungii"
 
     And I Switch to "customer" application on "same" devices
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
-    And I Switch to "driver" application on "same" devices
-    Then Bungii Driver "completes Bungii"
 
 
  @ready
@@ -2350,7 +2344,7 @@ Feature: SoloScheduled
     And Bungii Driver "Start Schedule Bungii" request
 
   @regression
-  Scenario: Verify That  error message on android and iOS When Customer has two Bungiis scheduled, and the 1 hour prior start time of second Bungii overlaps with the TELET of the first Bungii, the message show to driver are different in IOS and Android
+  Scenario: Verify That  error message on android When Customer has two Bungiis scheduled, and the 1 hour prior start time of second Bungii overlaps with the TELET of the first Bungii, the message show to driver are different in IOS and Android
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
@@ -2404,6 +2398,5 @@ Feature: SoloScheduled
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-    And Bungii Driver "Start Schedule Bungii" request
     And Bungii Driver "Start Schedule Bungii" request
 
