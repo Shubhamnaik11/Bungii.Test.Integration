@@ -2332,4 +2332,47 @@ public class CommonSteps extends DriverBase {
 
         return containedUrls;
     }
+
+    @And("^I open Admin portal and navigate to \"([^\"]*)\" page$")
+    public void i_open_admin_portal_and_navigate_to_something_page(String option) throws Throwable {
+        try {
+            i_open_new_something_browser_for_something_instance("CHROME","ADMIN");
+            SetupManager.getDriver().get(utility.GetAdminUrl());
+            logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
+            logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
+            logInPage.Button_LogIn().click();
+
+            switch (option.toLowerCase()) {
+                case "scheduled deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_ScheduledTrips());
+                    break;
+                case "live deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_LiveTrips());
+                    break;
+                case "promo code":
+                    action.click(dashBoardPage.Button_PromoCode());
+                    action.click(dashBoardPage.Link_StandardCodes());
+                    break;
+                case "referral source":
+                    action.click(dashBoardPage.Button_Marketing());
+                    action.click(dashBoardPage.Button_ReferralSource());
+                    break;
+                case "customers":
+                    action.click(dashBoardPage.Button_Customers());
+                    break;
+                case "deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            log("I open Admin portal and navigate to "+option+ " page","I am on admin "+ option+" page" ,true );
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in navigating to admin portal ",
+                    true);
+        }
+    }
 }
