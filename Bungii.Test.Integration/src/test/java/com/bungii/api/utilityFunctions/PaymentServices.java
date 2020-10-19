@@ -7,6 +7,10 @@ import io.restassured.http.Header;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class PaymentServices {
 
     private static String GET_PAYMENT_METHOD = "/api/payment/getpaymentmethods";
@@ -24,13 +28,28 @@ public class PaymentServices {
     }
 
     public String getPaymentMethodRef(String authToken) {
-        String RequestText ="API REQUEST : Get Payment Method Reference by Authtoken : " + authToken;
+        String RequestText ="API REQUEST : Get Default Payment Method Reference by Authtoken : " + authToken;
 
         Response response = getGetPaymentMethod(authToken);
         ApiHelper.genericResponseValidation(response,RequestText);
         JsonPath jsonPathEvaluator = response.jsonPath();
         response.then().log().body();
-        String paymentRef = jsonPathEvaluator.get("PaymentMethods[0].PaymentMethodRef");
+        String paymentRef = "";
+        ArrayList<HashMap<String,?>> paymentMethods = jsonPathEvaluator.get("PaymentMethods");
+        int i =0;
+        while (i<paymentMethods.size()){
+            HashMap<String,?> keyValue = paymentMethods.get(i);
+            Boolean value = (Boolean) keyValue.get("IsDefault");
+            if(value==true)
+            {
+                paymentRef = keyValue.get("PaymentMethodRef").toString();
+                break;
+            }
+
+            i++;
+        }
+        logger.detail("Default Payment Method Reference by Authtoken : " + authToken +" is "+paymentRef);
+
         return paymentRef;
     }
 }
