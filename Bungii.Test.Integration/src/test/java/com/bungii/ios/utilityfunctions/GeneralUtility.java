@@ -405,7 +405,7 @@ public class GeneralUtility extends DriverBase {
 
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Allow"); // Added for customer App changes  Krishna
+            action.clickAlertButton("Always Allow"); // Added for customer App changes  Krishna
         }
         Thread.sleep(5000);
         action.click(tutorialPage.Button_Close());
