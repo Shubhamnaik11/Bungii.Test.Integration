@@ -275,7 +275,8 @@ public class BungiiSteps extends DriverBase {
                         } else if (driver1State.equalsIgnoreCase("Enroute")) {
                             // coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
                             // coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
-                            int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
+                            //logger.detail("Wait="+cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START"));
+                            //int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
 /*                            try {
                                 while (wait > 1) {
                                     logger.detail("Waiting for " + wait / (60000 * 4) + " minute(s) before Scheduled trip can be started");
