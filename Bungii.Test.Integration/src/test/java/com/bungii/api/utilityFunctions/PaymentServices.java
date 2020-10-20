@@ -48,6 +48,12 @@ public class PaymentServices {
 
             i++;
         }
+        if (paymentRef.equalsIgnoreCase("") && paymentMethods.size()>=1){
+
+            paymentRef = paymentMethods.get(0).get("PaymentMethodRef").toString();
+            logger.detail("Default Payment Method Reference by Authtoken : " + authToken +" is "+paymentRef +" NOTE: CARD IS NOT DAFAULT");
+
+        }
         logger.detail("Default Payment Method Reference by Authtoken : " + authToken +" is "+paymentRef);
 
         return paymentRef;
