@@ -260,7 +260,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then I should be navigated to "Bungii Complete" screen
     And Bungii customer should see "correct rating detail for solo" on Bungii completed page
     When I select "3" Ratting star for solo Driver 1
-    Then "3" starts should be highlighted for solo Driver 1
+    Then "3" stars should be highlighted for solo Driver1
     When I click "OK" button on "BUNGII COMPLETE" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then poor driver ratting should be sent to customer

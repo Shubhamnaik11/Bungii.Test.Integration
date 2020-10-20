@@ -496,6 +496,15 @@ public class EstimateBungiiSteps extends DriverBase {
     @When("^I enter \"([^\"]*)\" on Bungii estimate$")
     public void iEnterOnBungiiEstimate(String arg0) throws Throwable {
         try {
+            action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
+            String screen =   action.getText(Page_Signup.GenericHeader());
+
+            logger.detail("Customer is on Screen : "+screen);
+            if(!action.getText(Page_Signup.GenericHeader()).equalsIgnoreCase("BUNGII"))
+            {
+                fail("Customer should be on Home screen", "Customer is on "+ screen +" screen");
+            }
+
             Thread.sleep(2000);
             switch (arg0) {
                 case "valid pickup and dropoff locations":
@@ -515,6 +524,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     break;
@@ -525,6 +535,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.kansas"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
                     Thread.sleep(1000);
@@ -536,6 +547,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location2.kansas"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
                     Thread.sleep(1000);
@@ -547,6 +559,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.away.atlanta"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(1000);
@@ -558,6 +571,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.boston"));
+
                     Thread.sleep(4000);
                     break;
                 case "baltimore pickup and dropoff locations":
@@ -567,6 +581,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.baltimore"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "baltimore");
                     Thread.sleep(1000);
@@ -578,6 +593,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.atlanta"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(1000);
@@ -589,6 +605,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.away.atlanta"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(1000);
@@ -605,6 +622,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_CustHome.Button_ETASet());
 
                     action.click(Page_CustHome.Button_Locator());
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     break;
@@ -621,6 +639,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(2000);
                     action.hideKeyboard();
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     break;
@@ -629,10 +648,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("current.location"));
+                    action.click(Page_CustHome.Button_ETASet());
+
                     Thread.sleep(4000);
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
-                    action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(4000);
                     testStepAssert.isNotElementDisplayed(homePage.Text_ETAvalue(), "Less than 30mins", "Less than 30mins", "More than 30mins");
                     break;
@@ -644,6 +664,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.less.150"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
@@ -658,6 +679,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.equal.150"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
@@ -672,6 +694,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.more.150"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
@@ -685,6 +708,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.sanFrancisco"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "San Francisco");
                     Thread.sleep(1000);
@@ -697,6 +721,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.less.30"));
+
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
@@ -707,8 +732,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("goa.pickup.location.A"));
+                    action.click(Page_CustHome.Button_ETASet());
+
                     Thread.sleep(2000);
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("goa.dropoff.location.A"));
+
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Goa");
                     //action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(2000);
@@ -718,8 +746,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Goa"));
+                    action.click(Page_CustHome.Button_ETASet());
+
                     Thread.sleep(4000);
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
+
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     Thread.sleep(2000);
                     break;
@@ -729,14 +760,12 @@ public class EstimateBungiiSteps extends DriverBase {
             }
             //savePickupAddress();
             //saveDropupAddress();
+            if(action.isElementPresent(Page_CustHome.Button_ETASet(true)))
+                action.click(Page_CustHome.Button_ETASet(true));
 
             String pickUpLocationLine1 = action.getText(Page_CustHome.TextBox_PickUpLocLine1()), pickUpLocationLine2 = action.getText(Page_CustHome.TextBox_PickUpLocLine2());
 
-            //   Page_CustHome.Button_GetEstimate()
-            if (!action.isElementPresent(Page_CustHome.TextBox_DropOff(true))) {
-                Thread.sleep(5000);
-                action.click(Page_CustHome.Button_ETASet());
-            }
+
             action.waitUntilIsElementExistsAndDisplayed(Page_CustHome.Button_GetEstimate());
             //action.invisibilityOfElementLocated(Page_CustHome.Button_ETASet(true));
             String dropUpLocationLine1 = action.getText(Page_CustHome.TextBox_DropOffLine1()), dropUpLocationLine2 = action.getText(Page_CustHome.TextBox_DropOffLine2());
@@ -750,7 +779,7 @@ public class EstimateBungiiSteps extends DriverBase {
             testStepAssert.isFalse(dropUpLocationLine2.equals(""), "I should able to select drop location", "drop location was selected , drop value is " + dropUpLocationLine1, "I was not able select pickup location");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error in selecting pickup and drop off address. Most probable rootcause google address api limit exceeded.", true);
+            error("Step  Should be successful", "GOOGLE API LIMIT EXCEEDED | Error in selecting pickup and drop off address. Most probable rootcause google address api limit exceeded.", true);
         }
     }
 
@@ -776,7 +805,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "\"Error in selecting pickup and drop off address. Most probable rootcause google address api limit exceeded.", true);
+            error("Step  Should be successful", "\"GOOGLE API LIMIT EXCEEDED | Error in selecting pickup and drop off address. Most probable rootcause google address api limit exceeded.", true);
         }
     }
 
@@ -936,7 +965,47 @@ public class EstimateBungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
+{
+    if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)))
+        action.swipeLeft(bungiiEstimatePage.Row_Images());
 
+    if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)))
+        action.scrollToBottom();
+
+    action.click(bungiiEstimatePage.Link_AddPhoto());
+    Thread.sleep(2000);
+    if(action.isAlertPresent()){
+        try {
+            Thread.sleep(3000);
+            action.clickAlertButton("ALLOW");
+            Thread.sleep(3000);
+        }
+        catch (Exception ex){
+
+        }
+    }
+    action.click(bungiiEstimatePage.Option_Camera());
+    Thread.sleep(3000);
+    driver.pressKey(new KeyEvent(AndroidKey.TAB));
+    Thread.sleep(5000);
+    driver.pressKey(new KeyEvent(AndroidKey.TAB));
+    Thread.sleep(5000);
+    driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+   // Thread.sleep(5000);
+   // bungiiEstimatePage.Link_AddPhoto(true);
+    int i = 0;
+    while(i<=180000) {
+        Thread.sleep(i); //After 3 minutes it automatically selects image
+        i++;
+    }
+
+    //Thread.sleep(5000);
+    //driver.pressKey(new KeyEvent(AndroidKey.TAB));
+    //driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+    bungiiEstimatePage.Link_AddPhoto(true);
+
+}
     @When("^I add \"([^\"]*)\" photos to the Bungii$")
     public void iAddPhotosToTheBungii(String arg0) throws Throwable {
         try {
@@ -944,8 +1013,9 @@ public class EstimateBungiiSteps extends DriverBase {
             action.waitUntilIsElementExistsAndDisplayed(bungiiEstimatePage.Header_Estimate(), 30L);
             int i = 0;
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            addPhoto(driver);
             //    action.scrollToBottom();
-            do {
+         /*   do {
                 if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)))
                     action.swipeLeft(bungiiEstimatePage.Row_Images());
 
@@ -1046,16 +1116,15 @@ public class EstimateBungiiSteps extends DriverBase {
                 Thread.sleep(2000);
 
                 i++;
+
             } while (i < Integer.parseInt(arg0));
 
-/*            if (action.isElementPresent(Page_Estimate.Text_PickupLocation())) {
-                //code to be added incase of "Invalid Image error"
-            }*/
+*/
             Thread.sleep(4000);
             testStepVerify.isElementDisplayed(bungiiEstimatePage.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error in adding photo to bungii", true);
+            error("Step  Should be successful", "Problem in adding a photo to Bungii on Estimate Screen", true);
         }
     }
 

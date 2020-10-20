@@ -9,42 +9,25 @@ import com.bungii.common.utilities.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
-import cucumber.api.java.AfterStep;
 import cucumber.api.java.Before;
 import cucumber.api.java.BeforeStep;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.PropertyConfigurator;
-import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterTest;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-
-//Cannot be moved Framework as it has to call recovery secnario
-
-/**
- * @author vishal.bagi
- */
 public class CucumberHooks {
-
     private static boolean isFirstTestCase;
     private static LogUtility logger = new LogUtility(CucumberHooks.class);
-
 
     static {
         PropertyUtility.loadRunConfigProps();
         String autoHome = CucumberHooks.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace("/target/test-classes/", "");// (String) PropertyUtility.getProp("auto.home");
-
         if (SystemUtils.IS_OS_WINDOWS)
             autoHome = autoHome.substring(0, 1).equals("/") ? autoHome.substring(1) : autoHome;
-
         FileUtility.autoHome = autoHome;
         String log4jConfPath = "src/main/resources/SystemProperties/log4j.properties";
         PropertyConfigurator.configure(FileUtility.getSuiteResource("", log4jConfPath));
@@ -65,21 +48,13 @@ public class CucumberHooks {
      * This method will be called at start of each test suite
      */
     public synchronized void start(String resultFolder) {
-//ideviceinstaller -u ebcd350201440c817087b1cd99413f8b74e846bd --uninstall com.apple.test.WebDriverAgentRunner-Runner
-
         try {
             this.reportManager.startSuiteFile(resultFolder);
-        } catch (Exception e) {
-            logger.error("Unable to start report");
-        }
-
-        try {
-            //adding ternary operator in logger is creating issue
             String device = System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
             logger.detail("********** Initializing Test Setup on Device : "+device+" ************");
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
-            logger.error("Unable to coonect with default appium server. Either VPN is down or Browserstack tunnel is broken");
+            logger.error("Unable to connect with default appium server. Either VPN is down or Browserstack tunnel is broken");
             e.printStackTrace();
         }
 
@@ -92,28 +67,19 @@ public class CucumberHooks {
      * @param scenario Scenario that is being executed
      */
     @Before
-    public void beforeTest(Scenario scenario) {
+    public void beforeTest(Scenario scenario) throws InterruptedException {
 
         logger.detail("**********************************************************************************");
         String[] rawFeature = scenario.getId().split("features/")[1].split("/");
         String[] rawFeatureName = rawFeature[rawFeature.length - 1].split(":");
 
-        logger.detail("Feature : " + rawFeatureName[0].toUpperCase());
-        logger.detail("Starting Scenario : " + scenario.getName().toUpperCase());
+        logger.detail("FEATURE : " + rawFeatureName[0]);
+        logger.detail("STARTING SCENARIO : " + scenario.getName());
         this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0]);
         SetupManager.getObject().useDriverInstance("ORIGINAL");
-        try {
             Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         if (!isFirstTestCase) {
             SetupManager.getObject().restartApp();
-        }
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
