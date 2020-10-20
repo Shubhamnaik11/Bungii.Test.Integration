@@ -1150,13 +1150,22 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
             driver.pressKey(new KeyEvent(AndroidKey.TAB));
             Thread.sleep(1000);
             driver.pressKey(new KeyEvent(AndroidKey.ENTER));
-            Thread.sleep(10000);
-            driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+            //Thread.sleep(10000);
+            //driver.pressKey(new KeyEvent(AndroidKey.ENTER));
            // action.click(bungiiEstimatePage.Option_Gallery());
            // action.click(bungiiEstimatePage.Option_OverLayPhotos());
             //action.click(bungiiEstimatePage.Option_LARGEIMAGEFOLDER());
            // action.click(bungiiEstimatePage.IMAGE_LOCATOR());
+            int i = 0;
+            while(i<=180000) {
+                Thread.sleep(i); //After 3 minutes it automatically selects image
+                i++;
+            }
 
+            //Thread.sleep(5000);
+            //driver.pressKey(new KeyEvent(AndroidKey.TAB));
+            //driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+            bungiiEstimatePage.Link_AddPhoto(true);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
