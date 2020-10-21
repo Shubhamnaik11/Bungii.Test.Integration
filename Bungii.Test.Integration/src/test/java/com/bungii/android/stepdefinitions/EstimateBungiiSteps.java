@@ -253,7 +253,7 @@ public class EstimateBungiiSteps extends DriverBase {
             String pickupTime = pickupDateTime.substring(8,13);
             System.out.println("Pickup time " + pickupTime);
 
-            actualTime=actualTime.replace(" am", "").replace(" pm", "");
+            actualTime=actualTime.replace(" am", "").replace(" pm", "").replace(" AM", "").replace(" PM", "");
         testStepVerify.isEquals(actualTime, pickupTime);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

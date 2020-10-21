@@ -899,7 +899,66 @@ public class BungiiSteps extends DriverBase {
         logger.detail("cucumberContextManager" + cucumberContextManager.toString());
         testStepAssert.isTrue(!((String) cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST" + "_" + scenarioLabel)).equals(""), "I should have already scheduled bungii", "I should have already scheduled bungii,pickid" + (String) cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST" + scenarioLabel));
     }
+    @Given("that duo schedule bungii is scheduled")
+    public void thatduoScheduleBungiiIsInScheduled(DataTable data) {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
+            String geofence = dataMap.get("geofence").trim();
+            String scheduleTime = dataMap.get("Bungii Time").trim();
+
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+
+            String state = dataMap.get("Bungii State").trim();
+            String customer = dataMap.get("Customer").trim();
+            String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
+
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
+
+                if (customer.equalsIgnoreCase("valid atlanta")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("atlanta.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
+
+                }
+            }
+            //LOGIN
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            //request Bungii
+            coreServices.validatePickupRequest(custAccessToken, geofence);
+            String pickupRequest = coreServices.getPickupRequest(custAccessToken, 2, geofence);
+            String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
+            coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+            int wait = 0;
+
+            if (scheduleTime.equalsIgnoreCase("1 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 60);
+            else if (scheduleTime.equalsIgnoreCase("2 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 120);
+            else if (scheduleTime.equalsIgnoreCase("0.75 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 45);
+            else if (scheduleTime.equalsIgnoreCase("0.5 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 30);
+            else if (scheduleTime.equalsIgnoreCase("15 min ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 15);
+            else
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+
+            log("that duo schedule bungii is scheduled", "that duo schedule bungii is scheduled : "+  pickupRequest, false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
     @Given("that duo schedule bungii is in progress")
     public void thatduoScheduleBungiiIsInProgress(DataTable data) {
         try {
@@ -1045,14 +1104,16 @@ public class BungiiSteps extends DriverBase {
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
 
             try {
-                Thread.sleep(10000);
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
             try{ coreServices.getDriverScheduledPickupList(driver2AccessToken);coreServices.driverView("",driver2AccessToken);}catch (Exception e){}
+
             coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
-            coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_2") + "(" + driverPhoneNum + ")", driver2AccessToken, pickupRequest);
+
+            coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_2") + "(" + driver2PhoneNum + ")", driver2AccessToken, pickupRequest);
 
 
             if (state.equalsIgnoreCase("Accepted")) {
@@ -1684,7 +1745,10 @@ public class BungiiSteps extends DriverBase {
 
             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
-            if (state.equalsIgnoreCase("Enroute")) {
+            if (state.equalsIgnoreCase("Requested")) {
+                //Do nothing
+            }
+            else if (state.equalsIgnoreCase("Enroute")) {
             } else if (state.equalsIgnoreCase("ARRIVED")) {
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
             } else if (state.equalsIgnoreCase("LOADING ITEM")) {
@@ -2401,7 +2465,7 @@ public class BungiiSteps extends DriverBase {
     }
 
     public String[] getCustomerDriverDetailsForDuo(String custName){
-        String[] Details=new String[8];
+        String[] Details=new String[9];
         switch(custName)
         {
             case "Testcustomertywd_appleand_A Android":

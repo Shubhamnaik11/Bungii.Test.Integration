@@ -18,6 +18,9 @@ import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import java.io.IOException;
+import java.util.Map;
+
+import static com.bungii.common.manager.DriverManager.getCurrentKey;
 
 public class CucumberHooks {
     private static boolean isFirstTestCase;
@@ -183,6 +186,17 @@ public class CucumberHooks {
         String name = ThreadLocalStepDefinitionMatch.get();
         if (name!= null)
         logger.detail("CUCUMBER STEP COMPLETE : "+ name.toUpperCase());
+
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") || PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
+            if(DriverManager.driverArray.size()>1) {
+                for (Map.Entry<String, WebDriver> entry : DriverManager.driverArray.entrySet()) {
+                    entry.getValue().getPageSource();
+                    logger.detail("Pinging : "+ entry.getKey());
+                }
+                //Ping all instances to keep them running in browserstack, used in duo scenarioss
+            }
+        }
+
     }
 
     //for first test case after duo reinstall the apps

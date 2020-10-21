@@ -57,6 +57,9 @@ public class ScheduledBungiiSteps extends DriverBase {
                /* if(!tripTime.contains(timeZone))
                     tripTime=tripTime+" "+timeZone;*/
                 //if ((action.getText(schDate)+""+action.getText(schTimeZone)).equalsIgnoreCase(tripTime)) {
+                if(TimeZone.getTimeZone("CST6CDT").inDaylightTime(new Date()))
+                    tripTime = tripTime.replace("ST","DT");
+
                 Thread.sleep(4000);
                 if ((action.getText(schDate)).equalsIgnoreCase(tripTime)) {
                     WebElement rowViewIcom = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_icon"));
@@ -68,9 +71,9 @@ public class ScheduledBungiiSteps extends DriverBase {
             }
         }
         if(skipNormalFlow)
-            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using alert for upcoming trip to driver ","I was not able to select Bungii");
+            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using alert for upcoming trip to driver ","I was not able to start Bungii");
         else
-            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using list of Bungii's present in avialable bungii list","I was not able to select Bungii");
+            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using list of Bungii's present in avialable bungii list","I was not able to start Bungii");
 
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
