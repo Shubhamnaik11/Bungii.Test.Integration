@@ -37,6 +37,9 @@ public class HomePage extends PageBase {
     public WebElement MapPanningArea () { return findElement("android.widget.FrameLayout",LocatorType.ClassName); }
 
     public WebElement Button_ETASet (boolean ... ignoreException) { return findElement("com.bungii.customer:id/eta_bar_button_set",LocatorType.Id,ignoreException); }
+    public WebElement Button_ETAPickupSet (boolean ... ignoreException) { return findElement("//eta_bar_button_set[]",LocatorType.XPath,ignoreException); }
+    public WebElement Button_ETADropoffSet (boolean ... ignoreException) { return findElement("//eta_bar_button_set[]",LocatorType.XPath,ignoreException); }
+
     public WebElement Text_ETAHeader(){return findElement("com.bungii.customer:id/eta_bar_title",LocatorType.Id);}
     public WebElement Header_HomePage (boolean ... ignoreException) { return findElement("//android.widget.TextView[@text='BUNGII']",LocatorType.XPath,ignoreException); }
 

@@ -1645,9 +1645,9 @@ Feature: Solo Scheduled Bungii Part II
     When I Switch to "customer" application on "same" devices
     And Bungii customer should see "correct rating detail for duo" on Bungii completed page
     When I select "3" Ratting star for duo Driver 1
-    Then "3" stars should be highlighted for Driver 1
+    Then "3" stars should be highlighted for Driver1
     When I select "4" Ratting star for duo Driver 2
-    Then "4" stars should be highlighted for Driver 2
+    Then "4" stars should be highlighted for Driver2
     When I click "DONE" button on "BUNGII COMPLETE" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 

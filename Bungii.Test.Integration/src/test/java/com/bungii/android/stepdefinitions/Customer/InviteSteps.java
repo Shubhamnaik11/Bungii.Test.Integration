@@ -207,7 +207,7 @@ public class InviteSteps extends DriverBase {
                         action.click(locationPage.Option_Chrome(true));
                         action.click(locationPage.Button_Always());
                     }
-                    String url ="mobile.twitter.com/intent/tweet?text=Check+out+%40BungiiApp%2C+like+“Uber+for+trucks.”+Use+my+promo+code%2C+"+referralCode+"+for+%2410+off+your+first+trip.+%23UseBungii+https%3A%2F%2Fdjg8x.app.goo";
+                    String url ="twitter.com/intent/tweet?text=Check+out+%40BungiiApp%2C+like+“Uber+for+trucks.”+Use+my+promo+code%2C+"+referralCode+"+for+%2410+off+your+first+trip.+%23UseBungii+https%3A%2F%2Fdjg8x.app.goo";
                     String actual = invitePage.Browser_bar().getText();
                     if(actual.contains(url))
                     testStepAssert.isTrue(true," Application should redirect to Twitter with Referral code ", " Application redirected to Twitter with Referral code : "+ actual, "Application didnt redirect to twitter with Referral code : " + url + actual );

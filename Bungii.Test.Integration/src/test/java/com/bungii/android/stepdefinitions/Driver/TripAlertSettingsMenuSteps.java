@@ -75,7 +75,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     @Then("^I should be able to see \"([^\"]*)\" Text and Time$")
     public void i_should_be_able_to_see_something_text_and_time(String tab)  {
         String data=null;Boolean b;
-        String time=PropertyUtility.getDataProperties("alert.time.to");
+        String time=PropertyUtility.getDataProperties("alert.time.to.android");
         try {
             switch (tab) {
                 case "Delivery Alerts":

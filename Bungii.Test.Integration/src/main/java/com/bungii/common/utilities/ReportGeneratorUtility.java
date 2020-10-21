@@ -138,7 +138,7 @@ public class ReportGeneratorUtility extends DriverBase {
 		detailsArray.add(str);
 		stackTraceArray.clear();
         this.reason="";
-		logger.detail("Scenario: "+testCases+" of Feature: "+ featureName);
+		logger.detail("SCENARIO : "+testCases+" OF FEATURE : "+ featureName);
 	}
 
 	/**
@@ -270,7 +270,7 @@ public class ReportGeneratorUtility extends DriverBase {
 
 		summaryArray.add(str1);
 		int totalExecuted = passed + failed;
-		logger.trace("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | TOTAL EXECUTED : " + totalExecuted );
+		logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | TOTAL EXECUTED : " + totalExecuted);
 
 	}
 

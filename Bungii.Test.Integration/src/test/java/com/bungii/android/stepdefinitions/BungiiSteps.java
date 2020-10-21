@@ -205,7 +205,7 @@ public class BungiiSteps extends DriverBase {
                         utility.launchDriverApplication();
                         Thread.sleep(3000);
                     }
-
+                    Thread.sleep(10000);
                     action.click(Page_DriverHome.Link_AvailableTrips());
                     break;
                 case "Go Online button":

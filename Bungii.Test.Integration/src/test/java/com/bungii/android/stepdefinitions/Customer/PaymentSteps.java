@@ -114,7 +114,7 @@ public class PaymentSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Browserstack local environment issue with braintree connection. Manually verify this test case.",
+            error("Step  Should be successful", "BROWSERSTACK ISSUE : Browserstack local environment issue with braintree connection. Manually verify this test case.",
                     true);
         }
     }
