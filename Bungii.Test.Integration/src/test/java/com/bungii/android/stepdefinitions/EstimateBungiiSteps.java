@@ -994,11 +994,11 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
     driver.pressKey(new KeyEvent(AndroidKey.ENTER));
    // Thread.sleep(5000);
    // bungiiEstimatePage.Link_AddPhoto(true);
-    int i = 0;
-    while(i<=180000) {
-        Thread.sleep(i); //After 3 minutes it automatically selects image
-        i++;
-    }
+   // int i = 1000;
+   // while(i<=180000) {
+        Thread.sleep(180000); //After 3 minutes it automatically selects image
+     //   i++;
+    //}
 
     //Thread.sleep(5000);
     //driver.pressKey(new KeyEvent(AndroidKey.TAB));
@@ -1156,11 +1156,11 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
            // action.click(bungiiEstimatePage.Option_OverLayPhotos());
             //action.click(bungiiEstimatePage.Option_LARGEIMAGEFOLDER());
            // action.click(bungiiEstimatePage.IMAGE_LOCATOR());
-            int i = 0;
-            while(i<=180000) {
-                Thread.sleep(i); //After 3 minutes it automatically selects image
-                i++;
-            }
+           // int i = 1000;
+           // while(i<=180000) {
+                Thread.sleep(180000); //After 3 minutes it automatically selects image
+            //    i++;
+           // }
 
             //Thread.sleep(5000);
             //driver.pressKey(new KeyEvent(AndroidKey.TAB));
