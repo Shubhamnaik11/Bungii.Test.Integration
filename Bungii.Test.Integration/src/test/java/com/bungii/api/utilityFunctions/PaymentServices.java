@@ -33,7 +33,7 @@ public class PaymentServices {
         Response response = getGetPaymentMethod(authToken);
         ApiHelper.genericResponseValidation(response,RequestText);
         JsonPath jsonPathEvaluator = response.jsonPath();
-        response.then().log().body();
+       // response.then().log().body();
         String paymentRef = "";
         ArrayList<HashMap<String,?>> paymentMethods = jsonPathEvaluator.get("PaymentMethods");
         int i =0;

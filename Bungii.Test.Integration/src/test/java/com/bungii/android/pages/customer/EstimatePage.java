@@ -102,8 +102,8 @@ public class EstimatePage extends PageBase {
 
     public WebElement Option_Gallery () { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Gallery']", LocatorType.XPath); }
     public WebElement Option_OverLayPhotos () { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Photos']", LocatorType.XPath); }
-    public WebElement Option_LARGEIMAGEFOLDER() { return findElement("//android.widget.TextView[@resource-id='com.google.android.apps.photos:id/title' and @text='ALARGE_IMAGE']", LocatorType.XPath); }
-    public WebElement IMAGE_LOCATOR() { return findElement("//android.view.View[contains(@content-desc,\"Photo taken on \")]", LocatorType.XPath); }
+    public WebElement Option_LARGEIMAGEFOLDER() { return findElement("//android.widget.TextView[@resource-id='com.google.android.apps.photos:id/title' and @text='Pictures']", LocatorType.XPath); }
+    public WebElement IMAGE_LOCATOR() { return findElement("//android.view.ViewGroup[contains(@content-desc,\"Photo taken on\")][1]", LocatorType.XPath); }
 
     public WebElement Button_Camera_ClickAlternate () { return findElement("com.sec.android.app.camera:id/camera_preview", LocatorType.Id); }
 

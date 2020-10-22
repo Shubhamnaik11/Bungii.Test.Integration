@@ -9,6 +9,7 @@ import com.bungii.android.pages.customer.LocationPage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
@@ -356,6 +357,17 @@ public class CommonSteps extends DriverBase {
     @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
         try {
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") || PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
+                String currentKey = DriverManager.getCurrentKey();
+                if(DriverManager.driverArray.size()>1) {
+                    for (Map.Entry<String, WebDriver> entry : DriverManager.driverArray.entrySet()) {
+                        entry.getValue().getPageSource();
+                        logger.detail("Pinging : "+ entry.getKey());
+                    }
+                    DriverManager.driverArray.get(currentKey).getPageSource();
+                    //Ping all instances to keep them running in browserstack, used in duo scenarioss
+                }
+            }
             SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
             SetupManager.getObject().useDriverInstance(instanceName);
             log(
@@ -1169,8 +1181,9 @@ public class CommonSteps extends DriverBase {
             if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
                 action.click(driverLoginPage.Button_Sure());
                     action.click(driverLoginPage.Button_Allow());
+                Thread.sleep(15000);
             }
-            Thread.sleep(6000);
+
             pageName = utility.getPageHeader();
             if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
                 action.click(driverLoginPage.Button_Sure());

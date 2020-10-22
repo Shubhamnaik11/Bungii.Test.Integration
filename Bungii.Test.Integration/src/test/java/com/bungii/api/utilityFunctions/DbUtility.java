@@ -24,9 +24,9 @@ public class DbUtility extends DbContextManager {
     }
     public static List<HashMap<String,Object>> getAllDriversEligible(String pickupRef) {
         List<HashMap<String,Object>> drivers = null;
-        String queryString = "SELECT DriverID FROM eligibletripderiver WHERE pickupid in (select * from pickupdetails where pickupref = " + pickupRef+")";
+        String queryString = "SELECT phone from driver where Id in (SELECT DriverID FROM eligibletripdriver WHERE pickupid in (select PickupId from pickupdetails where pickupref = '" + pickupRef+"'))";
         drivers = getDataFromMySqlServerMap(queryString);
-        logger.detail("SMS code is" + drivers + ", query, " + queryString);
+        logger.detail("Eligible Phone numbers are " + drivers + ", query, " + queryString);
         return drivers;
     }
     public static String getVerificationCodeDriver(String phoneNumber) {

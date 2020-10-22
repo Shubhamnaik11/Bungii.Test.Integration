@@ -38,7 +38,9 @@ public class InvitePage extends PageBase {
   //  public WebElement FBApp_PostLink() { return findElement("com.facebook.katana:id/button_share", LocatorType.Id); }
 
     public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.Button[@content-desc=\"POST\"]", LocatorType.XPath,ignoreException); }
-  //  public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.ImageView[@content-desc=\"Set Album\"]/following-sibling::android.widget.TextView", LocatorType.XPath,ignoreException); }
+    public WebElement FBApp_Policy(boolean ...ignoreException) { return findElement("//android.widget.TextView[text()=\"By clicking continue, you agree to our Terms and Privacy Policy. We use a service that's pre-installed on your device to auto-update apps. You can turn off the service at any time. Learn more.\"]", LocatorType.XPath,ignoreException); }
+
+    //  public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.ImageView[@content-desc=\"Set Album\"]/following-sibling::android.widget.TextView", LocatorType.XPath,ignoreException); }
 
 
     //------Share - Samsung Msg App-------------------------------------------------------------

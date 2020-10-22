@@ -173,16 +173,17 @@ public class CoreServices extends DriverBase {
                 String pickupRequest = (String) pickupDetails.get("PickupRef");
                 if (pickupRequest.equalsIgnoreCase(expectedPickupRequest)) {
                     isPickupInAvailableTrip = true;
+                    logger.detail("Driver is eligible for pickup : "+ pickupRequest);
                     break;
                 }
                 else
                 {
-                    System.out.println("Pickup requests for which driver is eligible are : "+ pickupRequest);
+                    logger.detail("Pickup requests for which driver is eligible are : "+ pickupRequest);
                 }
             }
         }
         else
-            System.out.println("No Pickup requests found for which driver is eligible");
+            logger.detail("No Pickup requests found for which driver is eligible");
 
         return isPickupInAvailableTrip;
     }
@@ -206,11 +207,12 @@ public class CoreServices extends DriverBase {
             if (!foundPickup) {
 
                 List<HashMap<String,Object>> driverEligible =dbUtility.getAllDriversEligible(expectedPickupRequest);
-                String drivers = "IDs of drivers who are eligible for pickup : "+ expectedPickupRequest+ " : ";
+                String drivers = " Phone numbers of drivers who are eligible for pickup : "+ expectedPickupRequest+ " : ";
                 int i =0 ;
+
                 while (i<driverEligible.size())
                 {
-                    drivers = drivers + " "+driverEligible.get(i);
+                    drivers = drivers + " "+driverEligible.get(i).get("Phone");
                     i++;
                 }
                 error("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip since Driver "+driverDetail+" is not eligible for pickup : "+expectedPickupRequest +" | "+ drivers, false);

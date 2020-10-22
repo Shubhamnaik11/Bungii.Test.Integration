@@ -51,7 +51,7 @@ public class BungiiSteps extends DriverBase {
     @Then("^for a Bungii I should see \"([^\"]*)\"$")
     public void forABungiiIShouldSee(String arg0) throws Throwable {
         try {
-
+            Thread.sleep(2000);
             switch (arg0) {
                 case "Bungii Home page with locations":
                     testStepVerify.isTrue(utility.isCorrectPage("Home"), "I should be navigated to Home Page", "I was navigated to Home Page", "I was not navigate to Home page");

@@ -54,7 +54,7 @@ public class CucumberHooks {
         try {
             this.reportManager.startSuiteFile(resultFolder);
             String device = System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
-            logger.detail("********** Initializing Test Setup on Device : "+device+" ************");
+            logger.detail("********** Initializing Test on Device : "+device.toUpperCase()+" ************");
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
             logger.error("Unable to connect with default appium server. Either VPN is down or Browserstack tunnel is broken");
@@ -188,11 +188,13 @@ public class CucumberHooks {
         logger.detail("CUCUMBER STEP COMPLETE : "+ name.toUpperCase());
 
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") || PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
+            String currentKey = DriverManager.getCurrentKey();
             if(DriverManager.driverArray.size()>1) {
                 for (Map.Entry<String, WebDriver> entry : DriverManager.driverArray.entrySet()) {
                     entry.getValue().getPageSource();
                     logger.detail("Pinging : "+ entry.getKey());
                 }
+                DriverManager.driverArray.get(currentKey).getPageSource();
                 //Ping all instances to keep them running in browserstack, used in duo scenarioss
             }
         }

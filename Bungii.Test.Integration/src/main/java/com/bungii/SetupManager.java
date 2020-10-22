@@ -56,7 +56,7 @@ public class SetupManager extends EventFiringWebDriver {
 
     static {
         TARGET_PLATFORM = PropertyUtility.getProp("target.platform");
-        logger.detail("TARGET PLATFORM : " + TARGET_PLATFORM);
+        logger.detail("PLATFORM : " + TARGET_PLATFORM);
         APPIUM_SERVER_IP = PropertyUtility.getProp("server");
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS") || TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             String deviceID = System.getProperty("DEVICE");
@@ -180,7 +180,9 @@ public class SetupManager extends EventFiringWebDriver {
      * Make class singleton, one instance of driver is shared with all the class
      */
     private SetupManager() {
+
         super(driver);
+
     }
 
     public static SetupManager getObject() {
@@ -387,7 +389,7 @@ public class SetupManager extends EventFiringWebDriver {
             capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort", REMOTE_ADB_PORT);
         }
-        logger.detail("CONNECTING DEVICE " + deviceId + " : " + phoneDetails);
+        logger.detail("CONNECTING ["+ deviceId.toUpperCase() + ":" + phoneDetails+"] DEVICE");
         return capabilities;
     }
 
@@ -479,7 +481,7 @@ public class SetupManager extends EventFiringWebDriver {
     public void useDriverInstance(String instanceKey) {
         try {
             DriverManager.getObject().useDriverInstance(instanceKey);
-            logger.detail("Driver Instance : " + instanceKey);
+            logger.detail("Running on Driver Instance : " + instanceKey);
         }
         catch(Exception ex)
         {
