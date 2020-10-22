@@ -387,7 +387,7 @@ public class SetupManager extends EventFiringWebDriver {
             capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort", REMOTE_ADB_PORT);
         }
-        logger.detail("TEST EXECUTION ON DEVICE " + deviceId + " : " + phoneDetails);
+        logger.detail("CONNECTING DEVICE " + deviceId + " : " + phoneDetails);
         return capabilities;
     }
 

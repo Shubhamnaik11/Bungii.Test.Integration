@@ -540,7 +540,8 @@ public class CoreServices extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         int mnts = calendar.get(Calendar.MINUTE);
 
-        calendar.set(Calendar.MINUTE, mnts + 30+minuteDifferance);
+        calendar.set(Calendar.MINUTE, mnts +30+minuteDifferance);
+        logger.detail("Calculated Time : " + mnts+30+minuteDifferance);
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));
