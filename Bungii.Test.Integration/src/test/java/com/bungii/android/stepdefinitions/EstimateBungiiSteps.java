@@ -985,8 +985,8 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
 
         }
     }
-    action.click(bungiiEstimatePage.Option_Camera());
-    Thread.sleep(3000);
+    /*action.click(bungiiEstimatePage.Option_Camera());
+    Thread.sleep(5000);
     driver.pressKey(new KeyEvent(AndroidKey.TAB));
     Thread.sleep(5000);
     driver.pressKey(new KeyEvent(AndroidKey.TAB));
@@ -1003,6 +1003,10 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
     //Thread.sleep(5000);
     //driver.pressKey(new KeyEvent(AndroidKey.TAB));
     //driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+    bungiiEstimatePage.Link_AddPhoto(true);*/
+    action.click(bungiiEstimatePage.Option_Gallery());
+    action.click(bungiiEstimatePage.Option_LARGEIMAGEFOLDER());
+    action.click(bungiiEstimatePage.IMAGE_LOCATOR());
     bungiiEstimatePage.Link_AddPhoto(true);
 
 }
@@ -1143,28 +1147,12 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
 
             if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true)))
                 action.click(bungiiEstimatePage.Permissions_CameraAllow());
-            action.click(bungiiEstimatePage.Option_Camera());
-            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-            driver.pressKey(new KeyEvent(AndroidKey.TAB));
-            Thread.sleep(1000);
-            driver.pressKey(new KeyEvent(AndroidKey.TAB));
-            Thread.sleep(1000);
-            driver.pressKey(new KeyEvent(AndroidKey.ENTER));
-            //Thread.sleep(10000);
-            //driver.pressKey(new KeyEvent(AndroidKey.ENTER));
-           // action.click(bungiiEstimatePage.Option_Gallery());
-           // action.click(bungiiEstimatePage.Option_OverLayPhotos());
-            //action.click(bungiiEstimatePage.Option_LARGEIMAGEFOLDER());
-           // action.click(bungiiEstimatePage.IMAGE_LOCATOR());
-           // int i = 1000;
-           // while(i<=180000) {
-                Thread.sleep(180000); //After 3 minutes it automatically selects image
-            //    i++;
-           // }
+            Thread.sleep(2000);
 
-            //Thread.sleep(5000);
-            //driver.pressKey(new KeyEvent(AndroidKey.TAB));
-            //driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+           action.click(bungiiEstimatePage.Option_Gallery());
+           //action.click(bungiiEstimatePage.Option_OverLayPhotos());
+           action.click(bungiiEstimatePage.Option_LARGEIMAGEFOLDER());
+           action.click(bungiiEstimatePage.IMAGE_LOCATOR());
             bungiiEstimatePage.Link_AddPhoto(true);
 
         } catch (Exception e) {

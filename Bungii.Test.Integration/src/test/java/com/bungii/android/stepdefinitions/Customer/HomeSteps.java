@@ -664,17 +664,20 @@ public class HomeSteps extends DriverBase {
     public void i_should_see_something_message_displayed(String strArg1) throws Throwable {
 
         try {
+            String expected ="";
             switch (strArg1) {
                 case "Scheduled info":
                     String actualText = action.getText(homePage.Text_ScheduledBungiisInfo());
+                    expected = PropertyUtility.getMessage("no.scheduled.bungiis").replace("�","'").replace("â??","'");
                     actualText = actualText.replace("\n", " ").replace("�","'");
-                    testStepAssert.isEquals(actualText, PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
+                    testStepAssert.isEquals(actualText,expected , "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
                     break;
 
                 case "Past info":
                     actualText = action.getText(homePage.Text_PastBungiisInfo());
+                     expected = PropertyUtility.getMessage("no.scheduled.bungiis").replace("�","'").replace("â??","'");
                     actualText = actualText.replace("\n", " ").replace("�","'");
-                    testStepAssert.isEquals(actualText, PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
+                    testStepAssert.isEquals(actualText, expected, "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
                     break;
 
                 default:

@@ -124,7 +124,7 @@ public class InviteSteps extends DriverBase {
 
             switch (strArg1) {
                 case "Facebook with app installed":
-                   // Thread.sleep(60000);
+                   /* Thread.sleep(60000);
                     testStepAssert.isElementDisplayed(invitePage.FBApp_PostLink(true), "Overlay post button should be be displayed", "Post button is displayed", "Post button is not displayed");
                     action.sendKeys(invitePage.FBApp_StatusText(), PropertyUtility.getDataProperties("support.text"));
                     Thread.sleep(10000);
@@ -149,7 +149,8 @@ public class InviteSteps extends DriverBase {
                             retrycount--;
                             retry = true;
                         }
-                    }
+                    }*/
+                    testStepAssert.isElementDisplayed(invitePage.FBApp_Policy(true), "By clicking continue, you agree to our Terms and Privacy Policy. We use a service that's pre-installed on your device to auto-update apps. You can turn off the service at any time. Learn more.", "Facebook policy is displayed", "Facebook policy is not displayed");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
