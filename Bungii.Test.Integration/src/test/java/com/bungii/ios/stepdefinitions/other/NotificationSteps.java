@@ -117,7 +117,8 @@ public class NotificationSteps extends DriverBase {
             if(driverPhoneNum!= null) {
                 String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
                 if(pushNotificationContent!= null)
-                testStepAssert.isTrue(pushNotificationContent.contains("You’re receiving a Bungii request."),"VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" +getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" +pushNotificationContent);
+                testStepAssert.isTrue(pushNotificationContent.contains(expectedNotification),"VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" +getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" +pushNotificationContent);
+                //testStepAssert.isTrue(pushNotificationContent.contains("You’re receiving a Bungii request."),"VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" +getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" +pushNotificationContent);
                 else
                 {
                     fail("I should be able to click on push notification [Virtual] : " + expectedNotification, "Driver has not received push notification " + getExpectedNotification(expectedNotification), true);

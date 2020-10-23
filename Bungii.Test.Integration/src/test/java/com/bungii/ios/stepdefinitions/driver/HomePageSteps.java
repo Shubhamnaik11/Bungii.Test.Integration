@@ -444,7 +444,7 @@ public class HomePageSteps extends DriverBase {
                         if(currentRowData.contains("CST")||currentRowData.contains("CDT"))
                         testStepAssert.isEquals(currentRowData, timeRange, "default trip "+timeRange+" should be displayed", "default trip data s is displayed", "default trip data  is not displayed");
                     else
-                        testStepAssert.isEquals(currentRowData, bsTimeRange, "default trip "+bsTimeRange+" should be displayed", "default trip data s is displayed", "default trip data  is not displayed");
+                        testStepAssert.isTrue(currentRowData.contains(bsTimeRange),"default trip data should be displayed","default trip data is not displayed");
 
                     }
                     testStepAssert.isElementNameEquals(tripAlertSettingsPage.Text_ScheduledInfo(), PropertyUtility.getMessage("driver.sms.alert.settings"), PropertyUtility.getMessage("driver.sms.alert.settings") + "should be displayed", "SMS Alerts info is displayed", "SMS Alerts info is not displayed");
