@@ -77,19 +77,26 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
         String data=null;Boolean b;
         String time=PropertyUtility.getDataProperties("alert.time.to.android");
         try {
+            int count =0;
             switch (tab) {
                 case "Delivery Alerts":
                     data = action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
                     testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("trip.alert.text"));
-                    b = clickDriverMenu(time);
-                    testStepVerify.isEquals(b.toString(), "true");
+                    //b = clickDriverMenu(time);
+                    //testStepVerify.isEquals(b.toString(), "true");
+                     count = getTimeRow();
+                    testStepAssert.isTrue(count==7,"All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed");
+
                     break;
 
                 case "SMS Alerts":
                     data = action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
                     testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("sms.alert.text"));
-                    b = clickDriverMenu(time);
-                    testStepVerify.isEquals(b.toString(), "true");
+                  //  b = clickDriverMenu(time);
+                   // testStepVerify.isEquals(b.toString(), "true");
+                     count = getTimeRow();
+                    testStepAssert.isTrue(count==7,"All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed");
+
                     break;
 
                 default:
@@ -293,8 +300,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     @Then("^I verify that changes in time are saved$")
     public void i_verify_that_changes_in_time_are_saved() throws Throwable {
         try {
-            Boolean b = checkTimeChange("08:00 - 21:00");
-            testStepVerify.isEquals(b.toString(), "true");
+            //Boolean b = checkTimeChange("08:00 - 09:00");
+            int count = getTimeRow();
+            testStepAssert.isTrue(count==7,"All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed");
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -328,6 +336,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
     public boolean clickDriverMenu(String time) {
         Boolean isCorrectTime = true;
+
         List<WebElement> elements = tripAlertSettingsPage.Text_TripAlertsTime();
         for (WebElement element : elements) {
             if (element.getText().contains(time) && isCorrectTime) {
@@ -340,5 +349,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             isCorrectTime=false;
 
         return isCorrectTime;
+    }
+    public int getTimeRow() {
+        List<WebElement> elements = tripAlertSettingsPage.Text_TripAlertsTime();
+        return elements.size();
     }
 }

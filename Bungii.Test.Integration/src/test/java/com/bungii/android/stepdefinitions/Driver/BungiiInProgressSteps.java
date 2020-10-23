@@ -51,13 +51,17 @@ public class BungiiInProgressSteps extends DriverBase {
             //drivername and customer name validation
             if(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO")){
                 isCustomerNameCorrect=action.getText(bungiiProgressPage.Text_DuoCustomer_Name()).equals(expectedCustName);
-                String driver1Name=(String) cucumberContextManager.getScenarioContext("DRIVER_1"),driver2Name=(String) cucumberContextManager.getScenarioContext("DRIVER_2");
-                boolean isDriverNameCorrect=action.getText(bungiiProgressPage.Text_DuoDriver_Name()).equals(driver1Name.substring(0,driver1Name.indexOf(" ")+2))||action.getText(bungiiProgressPage.Text_DuoDriver_Name()).equals(driver2Name.substring(0,driver2Name.indexOf(" ")+2));
+
+                String driver1Name=(String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                String driver2Name=(String) cucumberContextManager.getScenarioContext("DRIVER_2");
+
+                     String driverName = action.getText(bungiiProgressPage.Text_DuoDriver_Name());
+                boolean isDriverNameCorrect=driverName.equals(driver1Name.substring(0,driver1Name.indexOf(" ")+2))||action.getText(bungiiProgressPage.Text_DuoDriver_Name()).equals(driver2Name.substring(0,driver2Name.indexOf(" ")+2));
                 logger.detail("driver1Name"+driver1Name.substring(0,driver1Name.indexOf(" ")+2) +"|||Driver 2"+driver2Name.substring(0,driver2Name.indexOf(" ")+2));
                 testStepVerify.isTrue(isDriverNameCorrect,
                         "Driver name should correctly display",
-                        "Driver name was correctly display",
-                        "Driver name was not correctly display");
+                        "Driver name was correctly displayed",
+                        "Driver name was not correctly displayed. ["+driverName+" is displayed");
             }
             else
                 isCustomerNameCorrect = getCustomerName().equals(expectedCustName);

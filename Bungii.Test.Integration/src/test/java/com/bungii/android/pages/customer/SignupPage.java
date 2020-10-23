@@ -74,4 +74,7 @@ public class SignupPage extends PageBase {
     public WebElement Link_Resend() { return findElement("//android.widget.Button[@text='Resend code']", LocatorType.XPath); }
 
     public WebElement Title_Verification() { return findElement("//android.widget.TextView[@text='VERIFICATION']", LocatorType.XPath); }
+
+    public WebElement Button_Yes() { return findElement("//android.widget.Button[@text='YES']", LocatorType.XPath); }
+
 }

@@ -194,7 +194,8 @@ Feature: CustomerSignup
       | R1D2INVALID   |
     And I Select Referral source
     And I tap on the "Sign Up" button on Signup Page
-    And the new user should see "Signup page"
+    Then the new user should see "Invalid Promo Code message"
+    
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist

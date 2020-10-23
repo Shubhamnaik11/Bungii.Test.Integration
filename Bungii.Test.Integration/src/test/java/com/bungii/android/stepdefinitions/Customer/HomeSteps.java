@@ -452,8 +452,12 @@ public class HomeSteps extends DriverBase {
         try {
             switch (strArg1) {
                 case "Pick up":
-                    action.click(homePage.Button_Locator());
-                    action.click(homePage.Button_Locator());
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    action.click(Page_CustHome.TextBox_PickUpTextBox());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(),"6800 Zoo Drive");
+                   // action.click(homePage.Button_Locator());
+                   // action.click(homePage.Button_Locator());
                     Thread.sleep(3000);
                     break;
                 default:
@@ -536,10 +540,17 @@ public class HomeSteps extends DriverBase {
                         action.click(homePage.Button_ClearPickUp());
                     utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
                     if(action.isElementPresent(homePage.Button_ETASet(true)))
-                        action.click(homePage.Button_ETASet());
+                       action.click(homePage.Button_ETASet());
                     Thread.sleep(2000);
                     break;
-
+                case "Goa pickup location":
+                    if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
+                        action.click(homePage.Button_ClearPickUp());
+                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    //if(action.isElementPresent(homePage.Button_ETASet(true)))
+                    //  action.click(homePage.Button_ETASet());
+                    Thread.sleep(2000);
+                    break;
                 case "Goa Geofence dropoff location":
                     utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
                     if(action.isElementPresent(homePage.Button_ETASet(true)))

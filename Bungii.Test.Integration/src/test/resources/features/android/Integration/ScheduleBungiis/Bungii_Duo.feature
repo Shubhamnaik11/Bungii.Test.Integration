@@ -7,6 +7,7 @@ Feature: Scheduled Duo Bungiis
 	
   @regression
   @sanity
+	#stable
   Scenario: Verify Customer can request Scheduled Duo Bungii [Atlanta Geofence]
 	Given I am logged in as "valid atlanta" customer
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -30,7 +31,6 @@ Feature: Scheduled Duo Bungiis
   
   @regression
   @sanity
-	
   Scenario: Verify Duo Bungii Completion - Android [Kansas Geofence]
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -100,7 +100,6 @@ Feature: Scheduled Duo Bungiis
 	And I tap on "No free money" on Bungii estimate
 	
   @regression
-  @dd
   Scenario Outline: Verify Customer Amount Calculation in Admin portal For The Scheduled Duo Bungii Having Promocode <PROMO CODE> Applied To It [Kansas Geofence]
 	Given I am logged in as "valid kansas" customer
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -136,7 +135,7 @@ Feature: Scheduled Duo Bungiis
 	  |PROMO DOLLAR OFF |
 	  |PROMO PERCENT OFF|
   
-  @ready
+  @regression
   Scenario: Verify that Duo scheduled Bungii can be started 1 hr before the scheduled Trip start time
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time    | Customer | Driver1 | Driver2        |
@@ -161,13 +160,13 @@ Feature: Scheduled Duo Bungiis
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
 	Then Bungii driver should see "Enroute screen"
-	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+	#Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 	
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
-  @ready
+  @regression
   Scenario: Verify that Duo scheduled Bungii can be started 30 mins before the scheduled Trip start time
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time    | Customer | Driver1 | Driver2        |
@@ -193,7 +192,7 @@ Feature: Scheduled Duo Bungiis
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
 	Then Bungii driver should see "Enroute screen"
-	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+	#Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 	
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
@@ -240,3 +239,6 @@ Feature: Scheduled Duo Bungiis
 	#And I slide update button on "DRIVING TO DROP OFF" Screen
 	#And I slide update button on "UNLOADING ITEM" Screen
 	#And I click "On To The Next One" button on the "Bungii Completed" screen
+  
+  
+ 

@@ -231,7 +231,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Snack bar validation messages vanishes quickly on Motorola Browserstack phone",
                     true);
         }
     }

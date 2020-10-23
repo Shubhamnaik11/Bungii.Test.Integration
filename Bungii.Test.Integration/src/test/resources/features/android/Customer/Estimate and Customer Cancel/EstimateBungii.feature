@@ -46,7 +46,7 @@ Feature: EstimateBungii
 
   #@regression
     @regression
-  Scenario: Verify When Customer Switches From Ondemand To Scheduled Bungii On Account Of Unavailibility Of Driver Then Customer Is Taken To Estimate Screen With Prepoulated Existing Fields
+  Scenario: Verify When Customer Switches From Ondemand To Scheduled Bungii On Account Of Unavailibility Of Driver Then Customer can schedule bungii
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
@@ -57,12 +57,8 @@ Feature: EstimateBungii
     Then for a Bungii I should see "Bungii search screen"
     When I wait for SEARCHING screen to disappear
     Then "SET PICKUP TIME" page should be opened
-    #When I tap "Ok" button on DRIVER NOT AVAILABLE screen
     And I should see "Schedule Bungii option" on DRIVER NOT AVAILABLE screen
     When I tap "Schedule Bungii" button on DRIVER NOT AVAILABLE screen
-    #Then "Estimate" page should be opened
-    #When I add loading/unloading time of "30 mins"
-    #Then I should see "previous values" on Bungii estimate
     Then I should be navigated to "Success!" screen
     And I click "Done" button on "Success" screen
 

@@ -957,6 +957,8 @@ public class CommonSteps extends DriverBase {
     @And("^I tap on \"([^\"]*)\" button of android mobile$")
     public void i_tap_on_something_button_of_android_mobile(String strArg1) throws Throwable {
         action.NavigateBack();
+        log("I tap back button "  ,"I tapped back button",
+                true);
     }
 
     @And("^I tap on \"([^\"]*)\" icon of page$")
@@ -966,6 +968,8 @@ public class CommonSteps extends DriverBase {
         } else {
             action.click(estimatePage.Button_Back(true));
         }
+        log("I tap back button "  ,"I tapped back button",
+                 true);
     }
 
     @Then("^I wait for \"([^\"]*)\" mins$")

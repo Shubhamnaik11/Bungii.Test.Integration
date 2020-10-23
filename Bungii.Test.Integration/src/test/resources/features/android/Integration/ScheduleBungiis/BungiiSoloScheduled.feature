@@ -1,6 +1,3 @@
-@android
-@SoloScheduled
-@bungii
 #These feature will run in kansas geofence
 Feature: SoloScheduled
 

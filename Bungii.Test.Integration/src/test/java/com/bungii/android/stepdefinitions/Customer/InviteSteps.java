@@ -150,7 +150,7 @@ public class InviteSteps extends DriverBase {
                             retry = true;
                         }
                     }*/
-                    testStepAssert.isElementDisplayed(invitePage.FBApp_Policy(true), "By clicking continue, you agree to our Terms and Privacy Policy. We use a service that's pre-installed on your device to auto-update apps. You can turn off the service at any time. Learn more.", "Facebook policy is displayed", "Facebook policy is not displayed");
+                    testStepAssert.isElementDisplayed(invitePage.FBApp_Policy(), "By clicking continue, you agree to our Terms and Privacy Policy. We use a service that's pre-installed on your device to auto-update apps. You can turn off the service at any time. Learn more.", "Facebook policy is displayed", "Facebook policy is not displayed");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

@@ -15,10 +15,7 @@ import io.restassured.response.Response;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -1116,7 +1113,7 @@ public class BungiiSteps extends DriverBase {
 
          response = coreServices.customerView(pickupRequest, custAccessToken);;
          jsonPathEvaluator = response.jsonPath();
-         String discountValue = jsonPathEvaluator.get("PickupDetails.Actual.DiscountedCost");
+         String discountValue = jsonPathEvaluator.get("PickupDetails.Actual.DiscountedCost").toString();
         cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", discountValue);
 
         coreServices.driverView(pickupRequest, driverAccessToken);
@@ -1268,20 +1265,36 @@ public class BungiiSteps extends DriverBase {
             coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
             //int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
             int wait = 0;
-
-            if (scheduleTime.equalsIgnoreCase("1 hour ahead"))
-                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 60);
-            else if (scheduleTime.equalsIgnoreCase("2 hour ahead"))
-                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 120);
-            else if (scheduleTime.equalsIgnoreCase("0.75 hour ahead"))
-                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 45);
-            else if (scheduleTime.equalsIgnoreCase("0.5 hour ahead"))
-                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 30);
-            else if (scheduleTime.equalsIgnoreCase("15 min ahead"))
-                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 15);
-            else
-                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
-
+            if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
+            {
+    if (scheduleTime.equalsIgnoreCase("1 hour ahead"))
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 30);
+    else if (scheduleTime.equalsIgnoreCase("2 hour ahead"))
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 90);
+    else if (scheduleTime.equalsIgnoreCase("0.75 hour ahead"))
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 15);
+    else if (scheduleTime.equalsIgnoreCase("0.5 hour ahead"))
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 0);
+    else if (scheduleTime.equalsIgnoreCase("15 min ahead"))
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, -15);
+    else
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+}
+else
+{
+    if (scheduleTime.equalsIgnoreCase("1 hour ahead"))
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 60);
+    else if (scheduleTime.equalsIgnoreCase("2 hour ahead"))
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 120);
+    else if (scheduleTime.equalsIgnoreCase("0.75 hour ahead"))
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 45);
+    else if (scheduleTime.equalsIgnoreCase("0.5 hour ahead"))
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 30);
+    else if (scheduleTime.equalsIgnoreCase("15 min ahead"))
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 15);
+    else
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+}
             try {
                 Thread.sleep(60000);
             } catch (InterruptedException e) {
@@ -1290,9 +1303,8 @@ public class BungiiSteps extends DriverBase {
             try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
             try{ coreServices.getDriverScheduledPickupList(driver2AccessToken);coreServices.driverView("",driver2AccessToken);}catch (Exception e){}
 
-            coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
-
-            coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_2") + "(" + driver2PhoneNum + ")", driver2AccessToken, pickupRequest);
+          //  coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
+           // coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_2") + "(" + driver2PhoneNum + ")", driver2AccessToken, pickupRequest);
 
 
             if (state.equalsIgnoreCase("Accepted")) {
@@ -1612,7 +1624,7 @@ public class BungiiSteps extends DriverBase {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
+            //coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
 
             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
             if (state.equalsIgnoreCase("Accepted")) {
@@ -1723,7 +1735,7 @@ public class BungiiSteps extends DriverBase {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
+          //  coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
 
             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
             if (state.equalsIgnoreCase("Accepted")) {

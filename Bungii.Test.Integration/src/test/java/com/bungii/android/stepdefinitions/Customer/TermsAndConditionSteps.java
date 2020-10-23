@@ -71,7 +71,7 @@ public class TermsAndConditionSteps extends DriverBase {
             Thread.sleep(3000);
             String pageHeader = utility.getPageHeader();
 
-            if(action.isElementPresent(termsAndConditionPage.Checkbox_Agree())) {
+            if(action.isElementPresent(termsAndConditionPage.Checkbox_Agree(true))) {
                 action.click(termsAndConditionPage.Checkbox_Agree());
                 action.click(termsAndConditionPage.Button_Continue());
                 Thread.sleep(3000);
@@ -79,12 +79,12 @@ public class TermsAndConditionSteps extends DriverBase {
             }
             //if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
                // action.click(driverHomePage.Button_Sure(true));
-                if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure()) ){
+                if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure(true)) ){
                     action.click(Page_CustTerms.Button_PermissionsSure());
                     action.click(Page_CustTerms.Button_PermissionsAllow());
                 }
                 Thread.sleep(3000);
-            if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure()) ){
+            if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure(true)) ){
                 action.click(Page_CustTerms.Button_PermissionsSure());
                 action.click(Page_CustTerms.Button_PermissionsAllow());
             }

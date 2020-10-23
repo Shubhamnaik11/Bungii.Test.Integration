@@ -49,6 +49,7 @@ public class BungiiCompletedSteps extends DriverBase {
         public void verifyBungiiCompletedPage() throws InterruptedException {
             Thread.sleep(6000);
             testStepVerify.isElementTextEquals(bungiiCompletedSteps.Title_Status(),"BUNGII COMPLETED");
+
            // testStepVerify.isElementEnabled(bungiiCompletedSteps.Image_Dollar(),"'Dollar Image' should be displayed on Summary page","'Dollar Image' is displayed","'Dollar Image' is not displayed");
            // testStepVerify.isElementEnabled(bungiiCompletedSteps.Text_Label(),"'Cha-Ching' should be displayed on Summary page","'Cha-Ching' is displayed","'Cha-Ching' is not displayed");
            // testStepVerify.isElementEnabled(bungiiCompletedSteps.Text_TotalTimeLabel(),"Total Time label should be displayed on Summary page");

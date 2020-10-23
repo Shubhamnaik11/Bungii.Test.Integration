@@ -584,6 +584,7 @@ public class ActionManager {
             action.moveTo(top);
         }
         action.perform();
+        SetupManager.getDriver().getPageSource();
     }
 
     public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {

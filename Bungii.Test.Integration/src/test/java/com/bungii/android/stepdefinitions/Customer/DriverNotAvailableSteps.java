@@ -22,10 +22,6 @@ public class DriverNotAvailableSteps extends DriverBase {
     public void i_should_see_something_on_driver_not_available_screen(String strArg1) throws Throwable {
         try {
             switch (strArg1) {
-                /*case "Schedule Bungii option":
-                    testStepVerify.isElementTextEquals(driverNotAvailablePage.Alert_ConfirmRequestMessage(),PropertyUtility.getMessage("customer.driver.unavailable.schedule.android"));
-                    testStepVerify.isElementEnabled(driverNotAvailablePage.Alert_ScheduleBungii(true),"Schedule bungii Button should be present on alert box","Schedule bungii option is present on alert box","Schedule bungii option is not present on alert box");
-                    break;*/
                 case "Schedule Bungii option":
                     testStepVerify.isElementEnabled(driverNotAvailablePage.Button_ScheduleBungii(), "SCHEDULE BUNGII option is available.");
                     break;

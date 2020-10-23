@@ -5,6 +5,7 @@
 Feature: Scheduled Duo Bungiis - Single Phone
   
   @regression
+	#Stable
   Scenario: Verify Minimum Scheduled Time For The Duo Trip
 	Given I am on customer Log in page
 	When I am logged in as "New" customer
@@ -157,3 +158,151 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
+  
+  @regression
+  @sanity
+    #stable
+  Scenario: STACK BUNGII : Long Stack : Verify Driver receives Long Stack and accept and complete it [Complete Flow]
+	Given I am on customer Log in page
+	When I am logged in as "valid" customer
+	
+	And I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid atlanta" driver
+	And I tap on "Go Online button" on Driver Home page
+	
+	And I connect to "extra1" using "customer2" instance
+	And I Open "customer" application on "same" devices
+	And I am logged in as "valid customer 2" customer
+	
+	And I Switch to "customer" application on "ORIGINAL" devices
+	And I enter "atlanta pickup and dropoff locations" on Bungii estimate
+	And I tap on "Get Estimate button" on Bungii estimate
+	And I add "1" photos to the Bungii
+	And I add loading/unloading time of "30 mins"
+	And I select Bungii Time as "next possible scheduled"
+	And I tap on "Request Bungii" on Bungii estimate
+	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+	And I check if the customer is on success screen
+	And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+	
+	And I Switch to "driver" application on "same" devices
+	And I tap on "Available Trips link" on Driver Home page
+	And I Select Trip from driver available trip
+	And I tap on "ACCEPT" on driver Trip details Page
+	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I Select Trip from driver scheduled trip
+	And Bungii Driver "Start Schedule Bungii" request
+	Then "Enroute screen" page should be opened
+	
+	When I Switch to "customer" application on "same" devices
+	Then "Enroute screen" page should be opened
+	
+	When I Switch to "customer" application on "customer2" devices
+	And I enter "atlanta pickup and dropoff locations" on Bungii estimate
+	And I tap on "Get Estimate button" on Bungii estimate
+	And I add "1" photos to the Bungii
+	And I add loading/unloading time of "30 mins"
+	And I tap on "Request Bungii" on Bungii estimate
+	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+	
+	And I Open "driver" application on "ORIGINAL" devices
+	And Bungii Driver "accepts stack message" request
+	Then I accept Alert message for "Alert: Display Stack trip after current trip"
+	And stack trip information should be displayed on deck
+	Then try to finish time should be correctly displayed for long stack trip
+	
+	When  I switch to "customer2" instance
+	Then for a Bungii I should see "BUNGII ACCEPTED for Stack screen"
+	And I tap "OK on Driver Accepted screen" during a Bungii
+	And for a Bungii I should see "Stack accepted screen"
+	
+	When I Switch to "driver" application on "ORIGINAL" devices
+	Then "Enroute screen" page should be opened
+	When Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	Then Bungii Driver "completes Bungii"
+	
+	And I Switch to "customer" application on "same" devices
+	And I tap on "OK on complete" on Bungii estimate
+	And I tap on "No free money" on Bungii estimate
+    #Complete second trip
+	When I Switch to "customer" application on "customer2" devices
+	Then "Enroute screen" page should be opened
+	
+	When I Switch to "driver" application on "ORIGINAL" devices
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	Then Bungii Driver "completes Bungii"
+	
+	And I Switch to "customer" application on "customer2" devices
+	And I tap on "OK on complete" on Bungii estimate
+	And I tap on "No free money" on Bungii estimate
+	And I Switch to "driver" application on "ORIGINAL" devices
+  
+  
+  @regression
+  Scenario: Verify Driver Does Not Receive Long Stacked Request If Drivers Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of The Newly Requested Trip
+	Given that ondemand bungii is in progress
+	  | geofence    | Bungii State | Driver label            |
+	  | atlanta.far | LOADING ITEM | far away atlanta driver |
+	
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid far away atlanta" driver
+	
+	And I Switch to "customer" application on "same" devices
+	And I am on customer Log in page
+	And I am logged in as "valid customer 2" customer
+	And I enter "atlanta pickup and dropoff locations away from driver" on Bungii estimate
+	And I tap on "Get Estimate button" on Bungii estimate
+	And I add "1" photos to the Bungii
+	And I add loading/unloading time of "30 mins"
+	And I tap on "Request Bungii" on Bungii estimate
+	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+	Then for a Bungii I should see "Bungii search screen"
+	
+	And I Open "driver" application on "ORIGINAL" devices
+	When I verify that driver to pickup time is greater than 100 mins for second trip
+	Then I should not get notification for stack trip
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+  
+  @regression
+  Scenario: Verify Driver Does Not Receive Short Stacked Request If Drivers Location Is More Than 100 Mins From The Current Location Of The Driver To The Pickup Of The Newly Requested Trip
+	Given that ondemand bungii is in progress
+	  | geofence    | Bungii State   | Driver label            |
+	  | atlanta.far | UNLOADING ITEM | far away atlanta driver |
+	
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid far away atlanta" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+ 
+	And I Switch to "customer" application on "same" devices
+	And I am on customer Log in page
+	And I am logged in as "valid customer 2" customer
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	
+	And I enter "atlanta pickup and dropoff locations away from driver" on Bungii estimate
+	And I tap on "Get Estimate button" on Bungii estimate
+	And I add "1" photos to the Bungii
+	And I add loading/unloading time of "30 mins"
+	And I tap on "Request Bungii" on Bungii estimate
+	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+	Then for a Bungii I should see "Bungii search screen"
+	
+	And I Open "driver" application on "ORIGINAL" devices
+	When I verify that driver to pickup time is greater than 100 mins for second trip
+	Then I should not get notification for stack trip
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE |

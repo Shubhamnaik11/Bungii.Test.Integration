@@ -12,8 +12,8 @@ Feature: Customer Home screen
     And I select "Pick up" location
     Then "Pick up" address should be displayed in text box
     And I tap "Pick Up Clear Text" on Home page
-    And I tap "My location" on Home page
-    Then current location should be present as pickup location
+    #And I tap "My location" on Home page
+    #Then current location should be present as pickup location
     When I select "Pick up" location
     Then "Pick up" address should be displayed in text box
     When I select "Drop" location
@@ -23,8 +23,9 @@ Feature: Customer Home screen
     When I select "Drop" location
     Then "Drop" address should be displayed in text box
     When I tap "Pick Up Clear Text" on Home page
-    And I tap "My location" on Home page
-    Then current location should be present as pickup location
+    And I select "Pick up" location
+    #And I tap "My location" on Home page
+    #Then current location should be present as pickup location
     And "Drop" address should be empty
 
   @regression
@@ -34,6 +35,7 @@ Feature: Customer Home screen
     Then "Drop Off" address text box should be displayed on app screen
 
   @regression
+    @fix
   Scenario: Verify If ETA Bar Remains On Map When Pickup Address Is Cleared
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -94,7 +96,7 @@ Feature: Customer Home screen
     And I am logged in as "Goa driver_1" driver
     Then I Switch to "customer" application on "same" devices
     When I tap on "Menu" > "Home" link
-    And I enter "Goa Geofence pickup location" on Bungii estimate screen
+    And I enter "Goa pickup location" on Bungii estimate screen
     Then I verify that "SET PICKUP LOCATION BUTTON" is displayed
     When I click on "SET PICKUP LOCATION" button
     Then I verify that "SET DROP OFF LOCATION BUTTON" is displayed

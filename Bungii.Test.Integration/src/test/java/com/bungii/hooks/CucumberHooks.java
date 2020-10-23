@@ -45,11 +45,6 @@ public class CucumberHooks {
         this.reportManager = new ReportManager();
     }
 
-    // @BeforeSuite
-
-    /**
-     * This method will be called at start of each test suite
-     */
     public synchronized void start(String resultFolder) {
         try {
             this.reportManager.startSuiteFile(resultFolder);
@@ -64,11 +59,6 @@ public class CucumberHooks {
 
     }
 
-    /**
-     * Cucumber hook to update test case in report
-     *
-     * @param scenario Scenario that is being executed
-     */
     @Before
     public void beforeTest(Scenario scenario) throws InterruptedException {
 
@@ -87,11 +77,6 @@ public class CucumberHooks {
     }
 
 
-    /**
-     * Cucumber hook to update test case in report
-     *
-     * @param scenario Scenario that was being executed
-     */
     @After
     public void afterTest(Scenario scenario) {
         try {
@@ -161,15 +146,6 @@ public class CucumberHooks {
 
 
     }
-
-
-    // @AfterSuite
-
-    /**
-     * This will be called at end of each suite
-     *
-     * @throws IOException
-     */
 
     public void tearDown() throws IOException {
         try {

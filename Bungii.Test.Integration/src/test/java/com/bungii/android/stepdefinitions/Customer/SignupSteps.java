@@ -214,14 +214,18 @@ public class SignupSteps extends DriverBase {
             case "Inactive Promo Code message":
                 testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message for Inactive Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
                 break;
+            case "Invalid Promo Code message":
+                testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.promos.invalid"), "Alert message for Invalid Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
+                action.click(Page_Signup.Button_Yes());
 
+                break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+        error("Step  Should be successful", "Snack bar validation messages vanishes quickly on Motorola Browserstack phone",
                 true);
     }
     }

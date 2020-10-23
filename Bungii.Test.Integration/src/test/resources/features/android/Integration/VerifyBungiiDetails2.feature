@@ -51,7 +51,7 @@ Feature: VerifyBungiiDetails2
     And I verify the field "trip cost"
 
     @ready
-    Scenario: Verify that the date and time displayed in edit Schedule bungii page against a driver's schedule list is proper timezone and not in UTC
+    Scenario: Verify that the date and time displayed in edit Schedule bungii page against a drivers schedule list is proper timezone and not in UTC
       Given I am on the LOG IN page on driver app
       And I am logged in as "Testdriver_goa_a Android_test" driver
       And I tap on "Go Online button" on Driver Home page
@@ -67,7 +67,7 @@ Feature: VerifyBungiiDetails2
       Then I check that time is not displayed in UTC
 
   @ready
-  Scenario: Verify that Cancel button goes off once the Trip is cancelled
+  Scenario: Verify that Cancel button goes off once the solo scheduled Trip is cancelled
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_E Android"
       | geofence | Bungii State | Bungii Time   |
       | goa      | Accepted     | NEXT_POSSIBLE |
