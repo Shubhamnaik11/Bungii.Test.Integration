@@ -358,7 +358,7 @@ Feature: On Demand Bungii
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     When I Switch to "customer" application on "same" devices
-    Then Bungii customer should see "correct details" on Bungii completed page
+    Then Bungii customer should see "correct details with promo" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
 
