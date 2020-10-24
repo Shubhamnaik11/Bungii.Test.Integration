@@ -52,7 +52,7 @@ Feature: CustomerForgotPassword
   Scenario: Verify Customer Forgot Password With Resend SMS Code Functionality
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
-    And I tap on the "Resend Code" Link
+    #And I tap on the "Resend Code" Link
     And I enter "valid" SMS code
     And I enter customers new "valid" Password
     And I tap on the "Continue" Link

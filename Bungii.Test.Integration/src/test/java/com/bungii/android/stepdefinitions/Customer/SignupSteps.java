@@ -209,7 +209,7 @@ public class SignupSteps extends DriverBase {
                 break;
 
             case "snackbar validation message for existing user":
-                testStepVerify.isEquals(utility.getSnackBarMessage(), PropertyUtility.getMessage("customer.signup.existinguser"), "Warning message for Existing message should be displayed", "Snackbar message is displayed", "Snackbar message is not displayed");
+                testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.signup.existinguser"), "Warning message for Existing message should be displayed", "Snackbar message is displayed", "Snackbar message is not displayed");
                 break;
             case "Inactive Promo Code message":
                 testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message for Inactive Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
@@ -225,7 +225,7 @@ public class SignupSteps extends DriverBase {
         }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Snack bar validation messages vanishes quickly on Motorola Browserstack phone",
+        error("Step  Should be successful", "Validation message not displayed",
                 true);
     }
     }

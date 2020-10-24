@@ -136,12 +136,12 @@ Feature: Duo
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
     When I Switch to "customer" application on "same" devices
+    
     #driver1 in background
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid driver 2" driver
-
     And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on the alert message
@@ -151,6 +151,7 @@ Feature: Duo
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   @regression
+    #stable
   Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |

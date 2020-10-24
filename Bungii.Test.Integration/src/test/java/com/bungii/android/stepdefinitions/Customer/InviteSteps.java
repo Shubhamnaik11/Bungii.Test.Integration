@@ -16,6 +16,7 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
@@ -57,8 +58,8 @@ public class InviteSteps extends DriverBase {
                     action.click(invitePage.Share_TextMessage());
                     break;
                 case "Back":
-                    action.tap(invitePage.Button_Back());
-                    //((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    //action.tap(invitePage.Button_Back());
+                    ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -177,7 +178,7 @@ public class InviteSteps extends DriverBase {
                     } else {
                         //send any phone number
                         action.sendKeys(invitePage.Text_Receipient(), "55");
-                        ((AndroidDriver) SetupManager.getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
+                        ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
                         action.hideKeyboard();
                         expectedText = PropertyUtility.getMessage("customer.invite.sms").replace("{0}", referralCode);
                         testStepVerify.contains(action.getText(invitePage.Text_Body()), expectedText, " I should able to see properly invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");

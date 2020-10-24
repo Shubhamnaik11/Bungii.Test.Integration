@@ -182,7 +182,7 @@ Feature: SoloScheduled Part H
     And Bungii Driver "Start Schedule Bungii" request
   
   @ready
-  Scenario: Verify driver is able to view pickup node entered in Details when a Solo scheduled bungii is in progress.
+  Scenario: Verify driver is able to view pickup note entered in Details when a Solo scheduled bungii is in progress.
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Testdrivertywd_apple_z Android_Test" driver

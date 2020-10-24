@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.SupportPage;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -15,6 +16,7 @@ import static com.bungii.common.manager.ResultManager.log;
 
 public class SupportSteps extends DriverBase {
     SupportPage supportPage = new SupportPage();
+    GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(SupportSteps.class);
 
@@ -53,7 +55,8 @@ public class SupportSteps extends DriverBase {
         try {
         switch (strArg1) {
             case "snackbar validation":
-                testStepAssert.isElementTextEquals(supportPage.Snackbar(), PropertyUtility.getMessage("customer.support.submitted"), "Support message submitted should be displayed ", "Support message submitted is displayed", "Support message submitted is not displayed");
+                //supportPage.Snackbar()
+                testStepAssert.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.support.submitted"), "Support message submitted should be displayed ", "Support message submitted is displayed", "Support message submitted is not displayed");
                 break;
             case "Send button disabled":
                 testStepAssert.isElementDisplayed(supportPage.Button_Send(), "Send button should be disabled", "Send button is disabled", "Send button is enabled");
@@ -72,7 +75,7 @@ public class SupportSteps extends DriverBase {
         }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Snack bar validation message vanishes quickly on Motorola Browserstack phone",
+        error("Step  Should be successful", "Validation message not displayed",
                 true);
     }
     }

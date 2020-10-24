@@ -72,30 +72,6 @@ Feature: SoloScheduled Part D
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |                 |
 
-  #@regression
-  @ready
-  Scenario: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time or for trip time between 24 hours prior to current time
-    When I clear all notification
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | kansas   | Accepted     | NEXT_POSSIBLE |
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    When I Switch to "customer" application on "same" devices
-    Then I wait for "2" mins
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-  
-    And I remove current driver and researches Bungii
-    When I switch to "ORIGINAL" instance
-    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-    When I Switch to "customer" application on "same" devices
-    And Notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE" should be displayed
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
 
   #@regression
   Scenario:Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Solo Trip
@@ -109,30 +85,7 @@ Feature: SoloScheduled Part D
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
-
-  Scenario: Verify Re-searched Trip Request Doesnt Show Urgent Notification Text If Is More Than One Hour From The Scheduled Trip Time
-    When I clear all notification
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time  |
-      | Kansas   | Accepted     | 2 hour ahead |
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   
-    When I Switch to "customer" application on "same" devices
-    Then I wait for "2" mins
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-  
-    And I remove current driver and researches Bungii
-    When I switch to "ORIGINAL" instance
-    And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
-    When I Switch to "customer" application on "same" devices
-    Then Notification for "driver" for "SCHEDULED PICKUP AVAILABLE" should be displayed
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
 
   #@regression
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Trip

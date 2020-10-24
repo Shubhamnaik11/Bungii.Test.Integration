@@ -353,28 +353,6 @@ Feature: SoloScheduled Part B
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8805368840      |
-
-  @regression
-  Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time  |
-      | Kansas   | Accepted     | 1 hour ahead |
-
-    And I Switch to "customer" application on "same" devices
-    When I am on customer Log in page
-    And I am logged in as "valid" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I tap on "Menu" > "MY BUNGIIS" link
-    And I select already scheduled bungii
-    When I try to contact driver using "sms driver1"
-    Then user is alerted for "more than 1 hour from scheduled time"
-    And correct support details should be displayed to customer on "SMS" app
-    When I try to contact driver using "call driver1"
-    Then user is alerted for "more than 1 hour from scheduled time"
-    And correct support details should be displayed to customer on "SMS" app
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
+  
 
     ############################################################################################
