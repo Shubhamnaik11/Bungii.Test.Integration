@@ -59,7 +59,6 @@ public class GenerateSummaryReport {
                     //Parse HTML file and extract data
                     Document doc = Jsoup.parse(in, null);
                     Element table = doc.select("table").get(0); //select the first table.
-                    Element table2 = doc.select("table").get(2); //select the third hidden table.
 
                     Elements rows = table.select("tr");
                     summaryData.add("<tr> </tr>");
@@ -92,6 +91,9 @@ public class GenerateSummaryReport {
                         summaryData.add(data);
                         testCount++;
                     }
+                    if(doc.select("table").size()>2) {
+                        Element table2 = doc.select("table").get(2); //select the third hidden table.
+
                     Elements rows2 = table2.select("tr");
                     for (int i = 1 + 1; i < rows2.size(); i++) { //first row is the col names so skip it.
                         Element row = rows2.get(i);
@@ -99,6 +101,7 @@ public class GenerateSummaryReport {
                         String data = cols.toString();
                         failureSummaryData.add("<tr>" + data + "</tr>");
                         isFailed = true;
+                    }
                     }
                 }
                 createResultFileFromSummaryTemplate(platform, category, environment);
