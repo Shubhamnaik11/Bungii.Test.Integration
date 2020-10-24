@@ -494,7 +494,7 @@ public class BungiiInProgressSteps extends DriverBase {
 
                 }
 
-                testStepVerify.isFalse(isFound, "I should not get notification for stack trip" ," I didnt get notificatiob for stack trip","I got notifcation of stack trip");
+                testStepVerify.isFalse(isFound, "I should not get notification for stack trip" ," I didnt get notification for stack trip","I got notifcation of stack trip");
             } catch (Exception e) {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
                 error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

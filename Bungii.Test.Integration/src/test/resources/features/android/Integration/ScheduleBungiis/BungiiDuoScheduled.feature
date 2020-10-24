@@ -6,38 +6,6 @@
 Feature: Duo
 
   #change user login
-  
-  @regression
-  Scenario: Verify Non-control Driver Does Not Receive Long Stacking Request If Started Before The Controlled Driver - Also Non Control Driver Cannot Cancel Trip If Controlled driver has Not Started
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | atlanta  | Accepted     | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
-    And I connect to "extra1" using "Driver2" instance
-    And I Open "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid driver 2" driver
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    #non control driver start the trip
-    And Bungii Driver "Start Schedule Bungii" request
-    And I Open "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-    
-    Then I should not get notification for stack trip
-    
-    When I Switch to "driver" application on "same" devices
-    When Bungii Driver "tab on Cancel bungii"
-    Then Alert message with TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED text should be displayed
-    Then Alert should have "cancel,proceed" button
-    When I click "Cancel" on alert message
-    Then "Enroute screen" page should be opened
-    
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-
   @regression
   Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification Though The App Remains In Background
     Given that duo schedule bungii is in progress
@@ -95,87 +63,7 @@ Feature: Duo
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
-
-  @regression
-  Scenario: Verify Other Driver And Customer Are Notified When One Driver Cancels The Duo Bungii
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
-
-    When I Switch to "customer" application on "same" devices
-    And I am on customer Log in page
-    And I am logged in as "valid atlanta" customer
-
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid atlanta" driver
-
-    And I connect to "extra1" using "Driver1" instance
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid driver 2" driver
-
-    And I click the "Cancel" button on "update" screen
-    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "YES" on the alert message
-
-    When I switch to "ORIGINAL" instance
-    #message to driver
-    Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
     
-    When I Switch to "driver" application on "same" devices
-    And I click on notification for "DRIVER CANCELLED BUNGII"
-
-  @regression
-  Scenario: Verify Driver Notification When Other Driver Cancels Duo Bungii
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
-      | atlanta  | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid atlanta" driver
-    When I Switch to "customer" application on "same" devices
-    
-    #driver1 in background
-    And I connect to "extra1" using "Driver1" instance
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid driver 2" driver
-    And I click the "Cancel" button on "update" screen
-    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "YES" on the alert message
-
-    When I switch to "ORIGINAL" instance
-    Then I click on notification for "OTHER DRIVER CANCELLED BUNGII"
-    Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
-
-  @regression
-    #stable
-  Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
-      | atlanta  | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
-
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid atlanta" driver
-    #driver1 in foregroundground
-    
-    And I connect to "extra1" using "Driver1" instance
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid driver 2" driver
-
-    And I click the "Cancel" button on "update" screen
-    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "YES" on the alert message
-
-    When I switch to "ORIGINAL" instance
-    Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
-  
-  
-  
   @regression
   Scenario: Verify Duo Bungii As An Android Customer
     Given I am logged in as "valid atlanta" customer

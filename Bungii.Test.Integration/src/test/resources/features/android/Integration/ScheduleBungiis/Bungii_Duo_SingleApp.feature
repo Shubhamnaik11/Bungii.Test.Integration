@@ -3,6 +3,7 @@
 @bungii
 
 Feature: Scheduled Duo Bungiis - Single Phone
+    #These feature will runs atlanta and san fransisco geofence [9 scenarios] on one phone
   
   @regression
 	#Stable
@@ -62,35 +63,6 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
-  @regression
-  Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Only By Control Driver
-	Given that duo schedule bungii is in progress
-	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
-	  | Kansas   | Accepted     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
-	
-	And I Switch to "customer" application on "same" devices
-	And I am logged in as "valid kansas" customer
-	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	And I close "Tutorial" if exist
-	
-	When I Switch to "driver" application on "same" devices
-	And I am on the LOG IN page on driver app
-	And I am logged in as "kansas driver 1" driver
-	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	
-	And I Select "SCHEDULED BUNGIIS" from driver App menu
-	And I Select Trip from driver scheduled trip
-	And I start selected Bungii
-	Then I should be navigated to "EN ROUTE" screen
-	Then I check ETA of "control driver"
-	
-	And I Switch to "customer" application on "same" devices
-	Then I should be navigated to "EN ROUTE" screen
-	Then "control driver" eta should be displayed to customer
-	
-	Then I cancel all bungiis of customer
-	  | Customer Phone  | Customer2 Phone |
-	  | CUSTOMER1_PHONE |                 |
   
   @regression
   Scenario: STACK BUNGII: Verify Driver Can Get Long Stack Request On Arrived State
@@ -111,6 +83,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	And I tap on the "ACCEPT" Button on Bungii Request screen
 	Then I accept Alert message for "Alert: Display Stack trip after current trip"
 	And stack trip information should be displayed on deck
+	
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
@@ -306,3 +279,68 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+  
+  @regression
+  Scenario: Verify Non-control Driver Does Not Receive Long Stacking Request If Started Before The Controlled Driver - Also Non Control Driver Cannot Cancel Trip If Controlled driver has Not Started
+	Given that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
+	  | atlanta  | Accepted     | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+	
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid driver 2" driver
+	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I Select Trip from driver scheduled trip
+    #non control driver start the trip
+	And Bungii Driver "Start Schedule Bungii" request
+	
+	And I Open "customer" application on "same" devices
+	When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+	
+	Then I should not get notification for stack trip
+	
+	When I Switch to "driver" application on "same" devices
+	When Bungii Driver "tab on Cancel bungii"
+	Then Alert message with TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED text should be displayed
+	Then Alert should have "cancel,proceed" button
+	When I click "Cancel" on alert message
+	Then "Enroute screen" page should be opened
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+  
+  
+  @regression
+  Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Only By Control Driver
+	Given that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+	 #| Kansas   | Accepted     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+	  | atlanta  | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2             |
+  
+	And I Switch to "customer" application on "same" devices
+	And I am logged in as "valid atlanta" customer
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid atlanta" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	
+	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I Select Trip from driver scheduled trip
+	And I start selected Bungii
+	Then I should be navigated to "EN ROUTE" screen
+	Then I check ETA of "control driver"
+	
+	And I Switch to "customer" application on "same" devices
+	Then I should be navigated to "EN ROUTE" screen
+	Then "control driver" eta should be displayed to customer
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE |                 |
+  
