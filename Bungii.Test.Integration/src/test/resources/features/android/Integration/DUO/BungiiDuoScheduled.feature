@@ -465,69 +465,7 @@ Feature: Duo
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
-  
-  @duo1
-  @sanity
-    #move to top
-    #need to do in atlanta
-  @regression
-  Scenario: Verify Long Stack Request Acceptance By Non Control Driver
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    Then I am logged in as "valid atlanta" driver
     
-    When I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    Then I am logged in as "valid driver 2" driver
-    
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
-    
-    And I Open "customer" application on "same" devices
-    
-    When I Switch to "customer" application on "ORIGINAL" devices
-    And I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-    #control driver reject stak trip
-    Then I click on notification for "STACK TRIP"
-    And Bungii Driver "reject stack message" request
-    
-    And I Open "driver" application on "Driver2" devices
-    Then I click on notification for "STACK TRIP"
-    And Bungii Driver "accepts stack message" request
-    Then I accept Alert message for "Alert: Display Stack trip after current trip"
-    And stack trip information should be displayed on deck
-    
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    
-    And I Switch to "driver" application on "ORIGINAL" devices
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    
-    And I Open "driver" application on "Driver2" devices
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    
-    Then I accept Alert message for "Reminder: both driver at drop off"
-    
-    And I Switch to "driver" application on "ORIGINAL" devices
-    And Bungii Driver "slides to the next state"
-    Then I accept Alert message for "Reminder: both driver at drop off"
-    And I Open "driver" application on "Driver2" devices
-    Then Bungii Driver "tab On to Next"
-    Then "Enroute screen" page should be opened
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      |                | CUSTOMER2_PHONE |
  #need to do in atlanta
           #move to top
   @duo1
@@ -578,6 +516,7 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "tab On to Next"
     Then "Enroute screen" page should be opened
+    
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |

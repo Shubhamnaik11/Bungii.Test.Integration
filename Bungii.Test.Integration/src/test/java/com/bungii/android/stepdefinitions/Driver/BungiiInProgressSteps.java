@@ -485,7 +485,7 @@ public class BungiiInProgressSteps extends DriverBase {
                         i++;
                     }
 
-                //if no notificatiaon then hide
+                //if no notification then hide
                 if (!isFound) {
                     action.hideNotifications();
                     Thread.sleep(5000);
@@ -493,8 +493,8 @@ public class BungiiInProgressSteps extends DriverBase {
                     action.click(otherAppsPage.Status_Bar());
 
                 }
-
                 testStepVerify.isFalse(isFound, "I should not get notification for stack trip" ," I didnt get notification for stack trip","I got notifcation of stack trip");
+
             } catch (Exception e) {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
                 error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

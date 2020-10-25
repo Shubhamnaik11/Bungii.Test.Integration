@@ -344,3 +344,156 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
+  @sanity
+  @regression
+  Scenario: Verify Long Stack Request Acceptance By Non Control Driver
+	Given that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
+	  | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+	
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	Then I am logged in as "valid driver 2" driver
+	
+	And I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+	
+	When I Switch to "driver" application on "same" devices
+	Then I click on notification for "STACK TRIP"
+	And Bungii Driver "accepts stack message" request
+	Then I accept Alert message for "Alert: Display Stack trip after current trip"
+	And stack trip information should be displayed on deck
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone | Customer2 Phone |
+	  |                | CUSTOMER2_PHONE |
+  
+	
+  @ready
+  Scenario: Verify that that Past Trips page correctly displays completed Scheduled Duo Bungii
+	Given that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
+	  | atlanta  | Completed      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+  
+	And I Switch to "customer" application on "same" devices
+	And I am logged in as "valid atlanta" customer
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	
+	And I tap on "Menu" > "My Bungiis" link
+	Then "MY BUNGIIS" page should be opened
+	And I click on "Past" tab
+	And I open the trip for "Testdrivertywd_applega_a_steve Stark_altOnE" driver
+	Then I verify driver names and trip cost
+	
+	And I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE |                 |
+  
+  
+  @ready
+  Scenario: Verify that that Past Trips page correctly displays completed Ondemand Bungii
+  
+  Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-OnDemand
+	Given I am on customer Log in page
+	And I am logged in as "Testcustomertywd_appleand_A Android" customer
+	Given that ondemand bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+	  | geofence | Bungii State |
+	  | goa      | Enroute      |
+	And As a driver "Testdriver_goa_a Android_test" perform below action with respective "Solo Scheduled" trip
+	  | driver1 state     |
+	  | Bungii Completed  |
+	When I Switch to "customer" application on "same" devices
+	And I select "4" Ratting star for duo "Driver 1"
+	And I give tip to Bungii Driver with following tip and Press "OK" Button
+	  | Tip |
+	  | 5   |
+	Then I Switch to "driver" application on "same" devices
+	And Bungii driver should see "correct details" on Bungii completed page
+	And I click "On To The Next One" button on "Bungii Completed" screen
+	When I Switch to "customer" application on "same" devices
+	And I tap on "OK on complete" on Bungii estimate
+	And I tap on "No free money" on Bungii estimate
+	And I tap on "Menu" > "My Bungiis" link
+	Then "MY BUNGIIS" page should be opened
+	And I click on "Past" tab
+	And I open the trip for "Testdriver_goa_a Android_test" driver
+	Then I verify the field "driver name"
+	And I verify the field "pickup address"
+	And I verify the field "dropoff address"
+	And I verify the field "trip cost"
+	And I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | 9393939393      |                 |
+  
+  
+  @ready
+  Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-Solo
+	Given I am on customer Log in page
+	And I am logged in as "Testcustomertywd_appleand_A Android" customer
+	Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+	  | geofence | Bungii State | Bungii Time   |
+	  | goa      | enroute     | NEXT_POSSIBLE |
+	And As a driver "Testdriver_goa_a Android_test" perform below action with respective "Solo Scheduled" trip
+	  | driver1 state     |
+	  | Bungii Completed  |
+	When I Switch to "customer" application on "same" devices
+	And I select "4" Ratting star for duo "Driver 1"
+	And I give tip to Bungii Driver with following tip and Press "OK" Button
+	  | Tip |
+	  | 5   |
+	Then I Switch to "driver" application on "same" devices
+	And Bungii driver should see "correct details" on Bungii completed page
+	And I click "On To The Next One" button on "Bungii Completed" screen
+	When I Switch to "customer" application on "same" devices
+	And I tap on "OK on complete" on Bungii estimate
+	And I tap on "No free money" on Bungii estimate
+	And I tap on "Menu" > "My Bungiis" link
+	Then "MY BUNGIIS" page should be opened
+	And I click on "Past" tab
+	And I open the trip for "Testdriver_goa_a Android_test" driver
+	Then I verify the field "driver name"
+	And I verify the field "pickup address"
+	And I verify the field "dropoff address"
+	And I verify the field "trip cost"
+	
+	And I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | 9393939393      |                 |
+  
+  
+  @ready
+  Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-Duo
+	Given I am on customer Log in page
+	And I am logged in as "Testcustomertywd_appleand_A Android" customer
+	
+	Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+	  | geofence | Bungii State    | Bungii Time   | Customer        |
+	  | goa      | unloading items | NEXT_POSSIBLE | Testcustomertywd_appleand_A Android |
+	And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "Duo Scheduled" trip
+	  | driver1 state     |driver2 state    |
+	  | Bungii Completed  |Bungii Completed |
+	When I Switch to "customer" application on "same" devices
+	And I select "4" Ratting star for duo "Driver 1"
+	And I give tip to Bungii Driver with following tip and Press "OK" Button
+	  | Tip |
+	  | 5   |
+	Then I Switch to "driver" application on "same" devices
+	And Bungii driver should see "correct details" on Bungii completed page
+	And I click "On To The Next One" button on "Bungii Completed" screen
+	When I Switch to "customer" application on "same" devices
+	And I tap on "OK on complete" on Bungii estimate
+	And I tap on "No free money" on Bungii estimate
+	And I tap on "Menu" > "My Bungiis" link
+	Then "MY BUNGIIS" page should be opened
+	And I click on "Past" tab
+	And I open the trip for "Testdriver_goa_a Android_test" driver
+	Then I verify the field "driver name"
+	And I verify the field "pickup address"
+	And I verify the field "dropoff address"
+	And I verify the field "trip cost"
+	
+	And I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | 9393939393      |                 |

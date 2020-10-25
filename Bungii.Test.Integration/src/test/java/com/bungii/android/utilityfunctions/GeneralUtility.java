@@ -1240,6 +1240,7 @@ Thread.sleep(5000);
         //get timezone value of Geofence
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
         String getDayLightGeofenceTimeZone=null;
+        String getDayLightGeofenceTimeZoneGMT=null;
 
         switch (getGeofenceTimeZone){
             case "CST":
@@ -1255,9 +1256,24 @@ Thread.sleep(5000);
                 getDayLightGeofenceTimeZone="IST";
                 break;
         }
-        String [] timeZones=new String[2];
+        switch (getGeofenceTimeZone){
+            case "CST":
+                getDayLightGeofenceTimeZoneGMT="GMT-5";
+                break;
+            case "EST":
+                getDayLightGeofenceTimeZoneGMT="GMT-4";
+                break;
+            case "MST":
+                getDayLightGeofenceTimeZoneGMT="GMT-6";
+                break;
+            case "IST":
+                getDayLightGeofenceTimeZoneGMT="GMT+5:30";
+                break;
+        }
+        String [] timeZones=new String[3];
         timeZones[0]=getGeofenceTimeZone;
         timeZones[1]=getDayLightGeofenceTimeZone;
+        timeZones[2]=getDayLightGeofenceTimeZoneGMT;
         return timeZones;
     }
     /**
@@ -1357,7 +1373,10 @@ Thread.sleep(5000);
             //   if (action.isElementPresent(driverBungiiProgressPage.Title_Status(true))) {
             if (action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
                 String screen = action.getText(driverHomePage.Generic_HeaderElement());
-                logger.detail("Driver struck screen" + screen);
+                logger.detail("Driver struck screen " + screen);
+                if (screen.equalsIgnoreCase("Google Play Store")) {
+                    //TODO
+                }
                 if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
                     logger.detail("Driver struck on arrived screen");
                     action.click(driverBungiiProgressPage.Button_Cancel());

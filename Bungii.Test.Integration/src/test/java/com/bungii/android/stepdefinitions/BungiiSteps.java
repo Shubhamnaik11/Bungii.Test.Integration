@@ -243,6 +243,7 @@ public class BungiiSteps extends DriverBase {
                         case "accepts On Demand Bungii":
                             Thread.sleep(5000);
                             action.click(Page_BungiiRequest.Button_Accept());
+                            //error step above
                             break;
 
                         case "rejects On Demand Bungii":
@@ -324,7 +325,7 @@ public class BungiiSteps extends DriverBase {
                 Thread.sleep(80000);
                 isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             }
-            logger.detail(SetupManager.getDriver().getPageSource());
+            //logger.detail(SetupManager.getDriver().getPageSource());
             //stack take times to get notifications
             if(strArg1.equalsIgnoreCase("STACK TRIP") && !isFound){
                 for (int i=0; i<5 &&!isFound;i++){
@@ -365,7 +366,7 @@ public class BungiiSteps extends DriverBase {
                 action.click(message);
                 notificationClick=true;
             }
-            logger.detail(SetupManager.getDriver().getPageSource());
+            //logger.detail(SetupManager.getDriver().getPageSource());
             //stack take times to get notifications
             for (int i=0; i<0 &&!notificationClick;i++){
                 Thread.sleep(40000);

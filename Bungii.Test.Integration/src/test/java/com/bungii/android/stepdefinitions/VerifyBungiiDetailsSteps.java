@@ -28,6 +28,21 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     MyBungiisPage myBungiisPage = new MyBungiisPage();
 
+    @Then("^I verify driver names and trip cost$")
+    public void i_verify_driver_names_pickup_and_drop_off_address_and_trip_cost() throws Throwable {
+        String expectedDriverName=(String)cucumberContextManager.getScenarioContext("DRIVER_1");
+        String actualDriverName=action.getText(myBungiisPage.Text_FirstDriverName());
+        testStepAssert.isEquals(actualDriverName,expectedDriverName,"Driver name expected is "+expectedDriverName,"Expected Driver name is displayed.",expectedDriverName+" driver name is not displayed.");
+         expectedDriverName=(String)cucumberContextManager.getScenarioContext("DRIVER_2");
+         actualDriverName=action.getText(myBungiisPage.Text_SecondDriverName());
+        testStepAssert.isEquals(actualDriverName,expectedDriverName,"Driver name expected is "+expectedDriverName,"Expected Driver name is displayed.",expectedDriverName+" driver name is not displayed.");
+        String expectedTripCost=(String)cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+        String actualTripCost=action.getText(myBungiisPage.Text_TripCost());
+        testStepAssert.isEquals(actualTripCost,expectedTripCost,"Trip cost expected is "+expectedTripCost,"Expected Trip Cost is displayed.",expectedTripCost+" is not displayed.");
+
+    }
+
+
     @Then("^I verify the field \"([^\"]*)\"$")
     public void i_verify_the_field_something(String option) throws Throwable {
         try{

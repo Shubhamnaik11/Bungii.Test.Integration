@@ -2710,9 +2710,13 @@ else
                 Details[4]=PropertyUtility.getDataProperties("driverD.phone.password");
                 Details[5]=PropertyUtility.getDataProperties("driverD.phone.name");
 
-                Details[6]=PropertyUtility.getDataProperties("driverB.phone.number");
-                Details[7]=PropertyUtility.getDataProperties("driverB.phone.password");
-                Details[8]=PropertyUtility.getDataProperties("driverB.phone.name");
+                Details[6]=PropertyUtility.getDataProperties("driverC.phone.number");
+                Details[7]=PropertyUtility.getDataProperties("driverC.phone.password");
+                Details[8]=PropertyUtility.getDataProperties("driverC.phone.name");
+
+               /// Details[6]=PropertyUtility.getDataProperties("driverB.phone.number");
+               /// Details[7]=PropertyUtility.getDataProperties("driverB.phone.password");
+                ///Details[8]=PropertyUtility.getDataProperties("driverB.phone.name");
                 break;
 
             case "Testcustomertywd_appleand_E Android":

@@ -770,7 +770,7 @@ public class ScheduledBungiiSteps extends DriverBase {
         String[] timeZones=utility.getDayLightTimeZoneBasedOnGeofence();
         String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
 
-        if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]))
+        if (bungiiTime.contains(timeZones[0]))
             action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -")));
 
         else

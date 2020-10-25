@@ -8,6 +8,8 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -23,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.error;
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
@@ -576,15 +579,21 @@ public class ActionManager {
             action.press(top);
         } else {
             action.press(bottom);
+            ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
+
         }
         action.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
         if (show) {
             action.moveTo(bottom);
         } else {
             action.moveTo(top);
+            ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
+            logger.detail("Pressed HOME Button to Remove Push notification tray");
+
+
         }
         action.perform();
-        SetupManager.getDriver().getPageSource();
+        //SetupManager.getDriver().getPageSource();
     }
 
     public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {

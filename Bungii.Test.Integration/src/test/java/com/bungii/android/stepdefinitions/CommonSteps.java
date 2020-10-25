@@ -319,29 +319,38 @@ public class CommonSteps extends DriverBase {
         logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
         logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
         logInPage.Button_LogIn().click();
-
             switch (option.toLowerCase()) {
                 case "scheduled deliveries":
-                    action.click(dashBoardPage.Button_Trips());
-                    action.click(dashBoardPage.Button_ScheduledTrips());
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
+
+                    //action.click(dashBoardPage.Button_Trips());
+                    //action.click(dashBoardPage.Button_ScheduledTrips());
                     break;
                 case "live deliveries":
-                    action.click(dashBoardPage.Button_Trips());
-                    action.click(dashBoardPage.Button_LiveTrips());
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=False");
+
+                    //action.click(dashBoardPage.Button_Trips());
+                    //action.click(dashBoardPage.Button_LiveTrips());
                     break;
                 case "promo code":
-                    action.click(dashBoardPage.Button_PromoCode());
-                    action.click(dashBoardPage.Link_StandardCodes());
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/PromoCodes");
+                    //action.click(dashBoardPage.Button_PromoCode());
+                   // action.click(dashBoardPage.Link_StandardCodes());
                     break;
                 case "referral source":
-                    action.click(dashBoardPage.Button_Marketing());
-                    action.click(dashBoardPage.Button_ReferralSource());
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ReferralSource");
+
+                   // action.click(dashBoardPage.Button_Marketing());
+                    //action.click(dashBoardPage.Button_ReferralSource());
                     break;
                 case "customers":
-                    action.click(dashBoardPage.Button_Customers());
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Customers");
+
+                   // action.click(dashBoardPage.Button_Customers());
                     break;
                 case "deliveries":
-                    action.click(dashBoardPage.Button_Trips());
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=True");
+                    //action.click(dashBoardPage.Button_Trips());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
