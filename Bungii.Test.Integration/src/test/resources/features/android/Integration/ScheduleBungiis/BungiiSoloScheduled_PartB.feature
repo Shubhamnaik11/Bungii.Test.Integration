@@ -3,12 +3,13 @@
 @bungii
 #These feature will run in kansas geofence
 Feature: SoloScheduled Part B
-
+   # With 8805368840 - 11 cases
+  
   Background:
   
 #########################################
   #@regression
-  Scenario:  Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours - Scenario:SOLO
+  Scenario:  Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours :SOLO
     And I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -21,7 +22,7 @@ Feature: SoloScheduled Part B
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
 
   #@regression
-  Scenario: Verify Customer Cannot Schedule Bungii For A Time That Is Outside Working Hours - Scenario:DUO
+  Scenario: Verify Customer Cannot Schedule Bungii For A Time That Is Outside Working Hours :DUO
     Given I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -35,7 +36,7 @@ Feature: SoloScheduled Part B
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
 
   @regression
-  Scenario:  Verify Customer Can Schedule Bungii Only 5 Days Ahead Including Current Date - Scenario:SOLO
+  Scenario:  Verify Customer Can Schedule Bungii Only 5 Days Ahead Including Current Date :SOLO
     Given I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -102,7 +103,7 @@ Feature: SoloScheduled Part B
 
 
   @regression
-  Scenario:  Verify Customer Can Schedule Bungii Only 5 days ahead Including Current Date - Scenario:Duo
+  Scenario:  Verify Customer Can Schedule Bungii Only 5 days ahead Including Current Date :Duo
     Given I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -198,7 +199,7 @@ Feature: SoloScheduled Part B
 
 
   @regression
-  Scenario: Verify Customer Cannot Schedule Bungii That Overlaps With Another Scheduled Trip TELET Time - Scenario:Solo
+  Scenario: Verify Customer Cannot Schedule Bungii That Overlaps With Another Scheduled Trip TELET Time :Solo
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -240,7 +241,7 @@ Feature: SoloScheduled Part B
       | 8805368840     |                 |
 
   @regression
-  Scenario: Verify Customer Cannot Schedule Bungii That Overlaps With Another Scheduled Trip TELET Time - Scenario:Duo
+  Scenario: Verify Customer Cannot Schedule Bungii That Overlaps With Another Scheduled Trip TELET Time :Duo
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -355,4 +356,34 @@ Feature: SoloScheduled Part B
       | CUSTOMER1_PHONE | 8805368840      |
   
 
-    ############################################################################################
+   #@regression
+  @ready
+  Scenario: Verify Customer Can Contact Controlled Driver When Non-control Driver Starts the trip
+    
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_five Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+      |               | Enroute       |
+    And I login as customer "8805368840" and is on Home Page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I select already scheduled bungii
+    When I try to contact driver using "call driver2"
+    Then correct details should be displayed to driver on "Calling" app
+    When I try to contact driver using "call driver1"
+    Then correct details should be displayed to driver on "Calling" app
+    When I try to contact driver using "sms driver1"
+    Then correct details should be displayed to driver on "SMS" app
+    When I try to contact driver using "sms driver2"
+    Then correct details should be displayed to driver on "SMS" app
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+  
+  
+    
+  
