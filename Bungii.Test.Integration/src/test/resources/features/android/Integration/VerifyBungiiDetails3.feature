@@ -87,7 +87,7 @@
 
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
-        | 9999991020      |                 |
+        | 9889889888      |                 |
 
 
  @ready
@@ -113,7 +113,7 @@
 
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
-        | 9999991020      |                 |
+        | 9889889888      |                 |
 
     @regression
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in an On Demand Bungii request.
@@ -142,7 +142,7 @@
       Then I should be able to see "Customer Note" Text
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
-        | 9999991020      |                 |
+        | 9889889888      |                 |
   
   
       @ready
@@ -178,7 +178,7 @@
         Then I should be able to see "Customer Note" Text
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+          | 9889889888      |                 |
   
       @ready
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page.
@@ -208,7 +208,7 @@
         Then I should be able to see "Customer Note" Text
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+          | 9889889888      |                 |
   
       @ready
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request, when viewed from Available Trips page.
@@ -239,7 +239,7 @@
         Then I should be able to see "Customer Note" Text
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+          | 9889889888      |                 |
   
       @ready
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in the Bungii Details page for a Scheduled Bungii.
@@ -272,7 +272,7 @@
         Then I should be able to see "Customer Note" Text
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+          | 9889889888      |                 |
   
       @ready
       Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
@@ -311,7 +311,7 @@
         Then I should be able to see "Details From Customer" Text
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+          | 9889889888      |                 |
   
       @ready
       Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
@@ -347,7 +347,7 @@
     
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+          | 9889889888      |                 |
   
   
       @ready
@@ -378,7 +378,7 @@
     
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+          | 9889889888      |                 |
   
   
   
@@ -405,7 +405,9 @@
         And I Select "Edit Trip Details" option
         And I assign driver for the "Duo" trip
         Then I am not allowed to assign more drivers
-  
+		And I cancel all bungiis of customer
+		  | Customer Phone  | Customer2 Phone |
+		  | 9889889888      | 9999991020      |
   
       @ready
     #web scenario
@@ -433,7 +435,9 @@
         Then I click on "SAVE CHANGES" button
         And the "Bungii Saved!" message is displayed
         And I verify that noncontrol driver becomes control driver
-  
+		And I cancel all bungiis of customer
+		  | Customer Phone  | Customer2 Phone |
+		  | 9889889888      |                 |
   
       @ready
       #web
@@ -453,7 +457,7 @@
         Then I check that time is not displayed in UTC
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999999999      |                 |
+          | 9889889888      |                 |
       @ready
     #web
       Scenario: Verify that Cancel button goes off once the solo scheduled Trip is cancelled
