@@ -41,97 +41,22 @@ Feature: On Demand Bungii
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
 
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Arrived screen"
-    When I tap "SMS for a solo driver" during a Bungii
-    Then correct details should be displayed on "SMS" app
-    When I tap "Call for a solo driver" during a Bungii
-    Then correct details should be displayed on "Calling" app
-    And Trip Information should be correctly displayed on "ARRIVED" status screen for customer
-
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver taps "SMS for a customer" during a Bungii
-    Then correct details should be displayed to driver on "SMS" app
-    When Bungii Driver taps "Call for a customer" during a Bungii
-    Then correct details should be displayed to driver on "Calling" app
-    When Bungii Driver taps "Contact support" during a Bungii
-    Then correct details should be displayed to driver on "Support-SMS" app
-    When Bungii Driver taps "View items" during a Bungii
-    Then Bungii driver should see "Pickup Item"
-    And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
-
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Loading Item screen"
 
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Loading Item screen"
-    When I tap "SMS for a solo driver" during a Bungii
-    Then correct details should be displayed on "SMS" app
-    When I tap "Call for a solo driver" during a Bungii
-    Then correct details should be displayed on "Calling" app
-    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
-
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver taps "SMS for a customer" during a Bungii
-    Then correct details should be displayed to driver on "SMS" app
-    When Bungii Driver taps "Call for a customer" during a Bungii
-    Then correct details should be displayed to driver on "Calling" app
-    When Bungii Driver taps "Contact support" during a Bungii
-    Then correct details should be displayed to driver on "Support-SMS" app
-    When Bungii Driver taps "View items" during a Bungii
-    Then Bungii driver should see "Pickup Item"
-    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
-
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Driving to DropOff screen"
-
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Driving to DropOff screen"
-    When I tap "SMS for a solo driver" during a Bungii
-    Then correct details should be displayed on "SMS" app
-    When I tap "Call for a solo driver" during a Bungii
-    Then correct details should be displayed on "Calling" app
-    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
-
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver taps "SMS for a customer" during a Bungii
-    Then correct details should be displayed to driver on "SMS" app
-    When Bungii Driver taps "Call for a customer" during a Bungii
-    Then correct details should be displayed to driver on "Calling" app
-    When Bungii Driver taps "Contact support" during a Bungii
-    Then correct details should be displayed to driver on "Support-SMS" app
-    When Bungii Driver taps "View items" during a Bungii
-    Then Bungii driver should see "Pickup Item"
-    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
-
+    
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
-
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Unloading Item screen"
-    When I tap "SMS for a solo driver" during a Bungii
-    Then correct details should be displayed on "SMS" app
-    When I tap "Call for a solo driver" during a Bungii
-    Then correct details should be displayed on "Calling" app
-    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
-
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver taps "SMS for a customer" during a Bungii
-    Then correct details should be displayed to driver on "SMS" app
-    When Bungii Driver taps "Call for a customer" during a Bungii
-    Then correct details should be displayed to driver on "Calling" app
-    When Bungii Driver taps "Contact support" during a Bungii
-    Then correct details should be displayed to driver on "Support-SMS" app
-    When Bungii Driver taps "View items" during a Bungii
-    Then Bungii driver should see "Pickup Item"
-    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
-
+    
     When Bungii Driver "slides to the next state"
 
     And I Switch to "customer" application on "same" devices
     Then Bungii customer should see "correct details" on Bungii completed page
     When I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
+    
     And I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
@@ -735,3 +660,18 @@ Feature: On Demand Bungii
     Then poor driver ratting should be sent to customer
     And I Switch to "customer" application on "same" devices
     And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
+  
+  
+  @regression
+  Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State   |
+      | baltimore | COMPLETED|
+    
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid baltimore" customer
+    And I tap on "Menu" > "My Bungiis" link
+    Then "MY BUNGIIS" page should be opened
+    And I click on "Past" tab
+    And I open the trip for "Testdrivertywd_applemd_a_bill Stark_bltTwO" driver
+    Then I verify driver names and trip cost

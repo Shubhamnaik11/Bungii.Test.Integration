@@ -109,13 +109,13 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     public void i_open_the_trip_for_something_driver(String driverName) throws Throwable {
         try{
             WebElement selectDriver;
-            selectDriver= SetupManager.getDriver().findElement(By.xpath("//*[contains(@text, '"+driverName+"')]/following::android.widget.ImageView[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow']"));
+            selectDriver= SetupManager.getDriver().findElement(By.xpath("//*[contains(@text, '"+driverName+"')]/following::android.widget.ImageView[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow'][1]"));
             action.click(selectDriver);
             cucumberContextManager.setScenarioContext("DRIVER1NAME",driverName);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             logger.error("Page source", SetupManager.getDriver().getPageSource());
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Trip is not displayed in Past Trips", true);
         }
     }
 }

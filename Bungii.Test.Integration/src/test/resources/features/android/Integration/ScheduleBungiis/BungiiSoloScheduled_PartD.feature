@@ -231,9 +231,7 @@ Feature: SoloScheduled Part D
   
   
   
-
-  
-  
+    
   @sanity
   #@regression
   Scenario: Verify Customer Can Create Scheduled Bungii
@@ -335,3 +333,24 @@ Feature: SoloScheduled Part D
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
   
+  
+  @regression
+  Scenario: Verify that that Past Trips page correctly displays completed Scheduled Duo Bungii
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas   | Completed     | NEXT_POSSIBLE |
+    
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+  
+    And I tap on "Menu" > "My Bungiis" link
+    Then "MY BUNGIIS" page should be opened
+    And I click on "Past" tab
+    And I open the trip for "Testdrivertywd_appleks_a_kay Stark_ksThreE" driver
+    Then I verify driver names and trip cost
+  
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
