@@ -599,7 +599,7 @@ public class HomeSteps extends DriverBase {
            testStepAssert.isTrue(true,"TextBox is showing placeholder ."+ noText,"TextBox doesnot have placeholder.");
        }
        else {
-           testStepAssert.isFail("TextBox is does not contain placeholder.");
+           testStepAssert.isFail("TextBox is does not contain placeholder. placeholder is " + noText);
        }
     }
 

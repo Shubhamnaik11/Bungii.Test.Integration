@@ -21,6 +21,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class TripAlertSettingsMenuSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LoginSteps.class);
@@ -55,14 +56,15 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "Past":
-                    Thread.sleep(2000);
+                    Thread.sleep(10000);
                     action.click(homePage.Tab_MyBungiisPast());
                     break;
 
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-        }
+            log(" I tap on " + option + " on My Bungiis",
+                    "I  tap on  " + option, true);        }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -186,6 +188,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             action.click(tripAlertSettingsPage.Image_TimeSettingsArrow());
             action.click(tripAlertSettingsPage.Text_TimeSettingsFromTime());
             action.click(tripAlertSettingsPage.TimePicker_ChangeTime());
+            log(" I click on time and change " + strArg1 + "",
+                    "I clicked on time and change  " + strArg1, true);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -289,6 +293,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }
+            log(" I click on " + Name + " button",
+                    "I clicked on  " + Name +" button", true);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

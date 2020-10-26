@@ -356,7 +356,7 @@ public class ScheduledTripSteps extends DriverBase {
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+			error("Step  Should be successful", "Unable to view see scheduled delivery in admin portal",
 					true);
 		}
 	}
@@ -562,7 +562,7 @@ public class ScheduledTripSteps extends DriverBase {
 		String label = utility.getTimeZoneBasedOnGeofence();
 		if (!scheduledDate.contains(label))
 			scheduledDate = scheduledDate + " " + label;
-		scheduledDate = scheduledDate.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST").replace("GMT+5:30 ", "");
+		scheduledDate = scheduledDate.replace(":00 "," ").replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST").replace("GMT+5:30 ", "");
 		int rowNumber = 999;
 		List<WebElement> rows = scheduledTripsPage.Row_TripDetails();
 		for (int i = 1; i <= rows.size(); i++) {

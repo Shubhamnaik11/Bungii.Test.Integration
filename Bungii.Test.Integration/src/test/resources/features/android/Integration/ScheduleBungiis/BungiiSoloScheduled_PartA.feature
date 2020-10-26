@@ -102,7 +102,7 @@ Feature: SoloScheduled
   
   @regression
   
-  Scenario:Verify When Bungii Is Not Started Driver Can Cancel Scheduled Bungii From The App - Scenario:duo
+  Scenario:Verify When Bungii Is Not Started Driver Can Cancel Scheduled Bungii From The App :duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
       | kansas   | Accepted     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
@@ -123,7 +123,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
   
   @regression
-  Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii - Scenario:enroute
+  Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :enroute
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
       | kansas   | enroute      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
@@ -194,7 +194,7 @@ Feature: SoloScheduled
     Then Bungii must be removed from "MY BUNGIIS" screen
   
   @regression
-  Scenario: Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - Scenario:Duo
+  Scenario: Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over :Duo
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |

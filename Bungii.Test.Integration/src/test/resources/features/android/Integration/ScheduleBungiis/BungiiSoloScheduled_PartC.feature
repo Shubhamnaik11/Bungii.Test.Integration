@@ -94,7 +94,7 @@ Feature: SoloScheduled Part C
     
     And I Open "customer" application on "same" devices
     When I am on customer Log in page
-    When I am logged in as "Testcustomertywd_appleand_B Android" customer
+    When I am logged in as "Testcustomertywd_appleand_C Android" customer
     And I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -111,7 +111,7 @@ Feature: SoloScheduled Part C
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleand_B Android" customer
+    And I open the trip for "Testcustomertywd_appleand_C Android" customer
     And I Select "Edit Trip Details" option
     And I assign driver for the "Testdrivertywd_appleks_a_kay Stark_ksThreE" trip
     And I click on "VERIFY" button
@@ -139,7 +139,7 @@ Feature: SoloScheduled Part C
     
     And I Open "customer" application on "same" devices
     When I am on customer Log in page
-    When I am logged in as "Testcustomertywd_appleand_B Android" customer
+    When I am logged in as "Testcustomertywd_appleand_A Android" customer
     And I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -156,7 +156,7 @@ Feature: SoloScheduled Part C
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleand_B Android" customer
+    And I open the trip for "Testcustomertywd_appleand_A Android" customer
     And I Select "Edit Trip Details" option
     And I assign driver for the "Testdrivertywd_appleks_a_kay Stark_ksThreE" trip
     And I click on "VERIFY" button

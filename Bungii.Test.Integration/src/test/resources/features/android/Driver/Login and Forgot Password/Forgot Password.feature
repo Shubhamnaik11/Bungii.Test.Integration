@@ -10,7 +10,7 @@ Feature: FORGOT PASSWORD
 
   @regression
 
-  Scenario Outline: Verify Driver Is Alerted If Invalid Phone Number Is Added During Forgot Password Functionality - Scenario:<Scenario>
+  Scenario Outline: Verify Driver Is Alerted If Invalid Phone Number Is Added During Forgot Password Functionality - Case:<Scenario>
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
     And I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app
@@ -25,7 +25,7 @@ Feature: FORGOT PASSWORD
 
   @regression
 
-  Scenario Outline:  Verify Driver Is Alerted If Enters Invalid Password Or Sms Code During Forgot Password Functionality - Scenario:<Scenario>
+  Scenario Outline:  Verify Driver Is Alerted If Enters Invalid Password Or Sms Code During Forgot Password Functionality - Case:<Scenario>
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
     When I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app

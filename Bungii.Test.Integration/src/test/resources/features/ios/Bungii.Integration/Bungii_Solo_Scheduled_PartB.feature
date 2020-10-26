@@ -9,55 +9,7 @@ Feature: Solo Scheduled Bungii Part II
     #When I clear all notification
     When I Switch to "customer" application on "same" devices
 
-  @regression
-  @failed
-  Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time  |
-      | denver   | Accepted     | 1 hour ahead |
-
-    Given I login as "valid denver" customer and on Home page
-    #And I Switch to "customer" application on "same" devices
-   # When I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
-    And I Select "MY BUNGIIS" from Customer App menu
-    And I select already scheduled bungii
-    When I try to contact driver using "sms driver1"
-    Then user is alerted for "more than 1 hour from scheduled time"
-    Then correct support details should be displayed to customer on "SMS" app
-    When I try to contact driver using "call driver1"
-    Then user is alerted for "more than 1 hour from scheduled time"
-    Then correct support details should be displayed to customer on "SMS" app
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-
-  @regression
-  @test
-  Scenario: Verify Customer Can Contact Control Driver When Non-control Driver Starts The Trip
-    When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
-      |               | Enroute       |
-    Given I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    And I Select "MY BUNGIIS" from Customer App menu
-    And I select already scheduled bungii
-    When I try to contact driver using "call driver2"
-    Then correct support details should be displayed to customer on "call" app
-    When I try to contact driver using "call driver1"
-    Then correct support details should be displayed to customer on "call" app
-    When I try to contact driver using "sms driver1"
-    Then correct support details should be displayed to customer on "SMS" app
-    When I try to contact driver using "sms driver2"
-    Then correct support details should be displayed to customer on "SMS" app
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+ 
 
   @regression
   Scenario:Verify Scheduled Bungii Notification Info(Estimated Earnings Date etc.)
@@ -292,5 +244,56 @@ Feature: Solo Scheduled Bungii Part II
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+  
+  
+  @regression
+  @failed
+  Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | denver   | Accepted     | 1 hour ahead |
+    
+    Given I login as "valid denver" customer and on Home page
+    #And I Switch to "customer" application on "same" devices
+   # When I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    When I try to contact driver using "sms driver1"
+    Then user is alerted for "more than 1 hour from scheduled time"
+    Then correct support details should be displayed to customer on "SMS" app
+    When I try to contact driver using "call driver1"
+    Then user is alerted for "more than 1 hour from scheduled time"
+    Then correct support details should be displayed to customer on "SMS" app
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+  
+  @regression
+  @test
+  Scenario: Verify Customer Can Contact Control Driver When Non-control Driver Starts The Trip
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+      |               | Enroute       |
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    When I try to contact driver using "call driver2"
+    Then correct support details should be displayed to customer on "call" app
+    When I try to contact driver using "call driver1"
+    Then correct support details should be displayed to customer on "call" app
+    When I try to contact driver using "sms driver1"
+    Then correct support details should be displayed to customer on "SMS" app
+    When I try to contact driver using "sms driver2"
+    Then correct support details should be displayed to customer on "SMS" app
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
 
 

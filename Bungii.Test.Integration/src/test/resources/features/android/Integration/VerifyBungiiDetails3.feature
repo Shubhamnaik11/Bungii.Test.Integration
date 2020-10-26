@@ -7,7 +7,8 @@
       #Driver    Testdriver_goa_e Android_test" driver Testdriver_goa_B Android_test" driver
       #Geofence : Goa
   
-      @ready
+      @regression
+        #Stable
       Scenario: Verify that correct trip details are displayed on the grey bar of the Estimate screen.
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_E Android" customer
@@ -38,7 +39,8 @@
       And I tap on "Back" icon of page
       Then I should see "estimated cost" on Bungii estimate
 
-@ready
+@regression
+  #stable
     Scenario: Verify that four masked characters are displayed before the last four characters of Payment Mode.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_E Android" customer
@@ -390,7 +392,7 @@
           | NEXT_POSSIBLE | 9393939393     | Testcustomertywd_appleand_E Android | Cci12345          |
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-          | NEXT_POSSIBLE | 9999991020     | Testcustomertywd_appleand_B Android | Cci12345          |
+          | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
         Then I wait for "2" mins
         When I open new "Chrome" browser for "ADMIN"
         And I navigate to admin portal
@@ -401,13 +403,13 @@
         And I assign driver for the "Solo" trip
         Then I am not allowed to assign more drivers
         And I click on "Close" button
-        When I open the trip for "Testcustomertywd_appleand_B Android" the customer
+        When I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver for the "Duo" trip
         Then I am not allowed to assign more drivers
 		And I cancel all bungiis of customer
 		  | Customer Phone  | Customer2 Phone |
-		  | 9889889888      | 9999991020      |
+		  | 9889889888      | 9999992222      |
   
       @ready
     #web scenario

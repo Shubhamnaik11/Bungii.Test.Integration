@@ -471,6 +471,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
 	  | geofence | Bungii State    | Bungii Time   | Customer        |
 	  | goa      | unloading items | NEXT_POSSIBLE | Testcustomertywd_appleand_A Android |
+	
 	And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "Duo Scheduled" trip
 	  | driver1 state     |driver2 state    |
 	  | Bungii Completed  |Bungii Completed |

@@ -6,18 +6,20 @@
       # Driver D and C  - Testdriver_goa_d Android_test and Testdriver_goa_c Android_test
       
 @ready
-    Scenario: Verify that admin can assign one or both drivers to a duo trip when it is in searching status.
+  @dd
+    Scenario: Verify that admin can assign one or both drivers to a duo trip when it is in searching status
       Given I am on customer Log in page
-      And I am logged in as "Testcustomertywd_appleand_C Android" customer
-
-      Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_C Android"
-        | geofence | Bungii State | Bungii Time   |
-        | goa      | Scheduled    | NEXT_POSSIBLE |
+      And I am logged in as "Testcustomertywd_appleand_D Android" customer
+  
+  When I request "duo" Bungii as a customer in "goa" geofence
+    | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+    | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+  
       When I open new "Chrome" browser for "ADMIN_PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      And I open the trip for "Testcustomertywd_appleand_C Android" customer
+      And I open the trip for "Testcustomertywd_appleand_D Android" customer
       And I Select "Edit Trip Details" option
       And I assign driver for the "Duo" trip
       And I click on "VERIFY" button
@@ -26,7 +28,7 @@
       And the "Bungii Saved!" message is displayed
       When I switch to "ORIGINAL" instance
       And I Switch to "customer" application on "same" devices
-      And I am logged in as "Testcustomertywd_appleand_C Android" customer
+      And I am logged in as "Testcustomertywd_appleand_D Android" customer
       And I tap on "Menu" > "MY BUNGIIS" link
       And I select already scheduled bungii
       Then I verify the "duo driver names"

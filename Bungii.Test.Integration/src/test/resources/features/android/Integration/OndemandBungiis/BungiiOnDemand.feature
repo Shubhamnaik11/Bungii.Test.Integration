@@ -200,7 +200,7 @@ Feature: On Demand Bungii
     And Customer should receive "Your Bungii Receipt" email
 
   @regression
-  Scenario Outline: Verify Customer Can Create An Ondemand Bungii With Promocode - Scenario:<Scenario>
+  Scenario Outline: Verify Customer Can Create An Ondemand Bungii With Promocode - Case:<Scenario>
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "<User>" customer
