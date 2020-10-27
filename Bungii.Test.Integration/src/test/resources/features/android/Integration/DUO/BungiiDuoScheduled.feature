@@ -388,6 +388,8 @@ Feature: Duo
     And I enter customers "9871450107" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     
     And I Switch to "driver" application on "ORIGINAL" devices
     Then I click on notification for "STACK TRIP"
@@ -440,7 +442,8 @@ Feature: Duo
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
       | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-    
+  
+    And I Switch to "driver" application on "ORIGINAL" devices
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "accepts stack message" request
     Then I accept Alert message for "Alert: Display Stack trip after current trip"
@@ -451,6 +454,9 @@ Feature: Duo
     And I enter customers "9871450107" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
     Then for a Bungii I should see "bungii accepted screen"
     
     When I Switch to "driver" application on "same" devices
@@ -493,12 +499,12 @@ Feature: Duo
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
       | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
     
-    And I Open "customer" application on "Driver2" devices
+    And I Open "driver" application on "Driver2" devices
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "reject stack message" request
 
           #control driver accept  stack trip
-    And I Open "customer" application on "ORIGINAL" devices
+    And I Open "driver" application on "ORIGINAL" devices
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "accepts stack message" request
     Then I accept Alert message for "Alert: Display Stack trip after current trip"

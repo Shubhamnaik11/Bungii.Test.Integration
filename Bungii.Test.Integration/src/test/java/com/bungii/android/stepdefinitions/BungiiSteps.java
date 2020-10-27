@@ -232,11 +232,10 @@ public class BungiiSteps extends DriverBase {
     public void bungiiDriverRequest(String arg0) {
         try {
             if (arg0.equalsIgnoreCase("accepts On Demand Bungii")||arg0.equalsIgnoreCase("rejects On Demand Bungii")) {
-                boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
+                boolean isDisplayed = action.waitUntilAlertDisplayed(15L);
                 if (!isDisplayed)
                     i_click_on_notification_for_something("on demand trip");
-                isDisplayed = action.waitUntilAlertDisplayed(180L);
-
+                   //isDisplayed = action.waitUntilAlertDisplayed(180L);
                 if (action.isElementPresent(Page_BungiiRequest.Alert_Msg(true))) {
                     action.click(Page_BungiiRequest.AlertButton_View());
                     switch (arg0) {
@@ -269,10 +268,10 @@ public class BungiiSteps extends DriverBase {
                 action.scrollToBottom();
                 action.click(scheduledBungiiPage.Button_Start());
             } else if (arg0.equalsIgnoreCase("verify stack message")) {
-                boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
-                if (!isDisplayed)
-                    i_click_on_notification_for_something("STACK TRIP");
-                isDisplayed = action.waitUntilAlertDisplayed(180L);
+               // boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
+                //if (!isDisplayed)
+                //   i_click_on_notification_for_something("STACK TRIP");
+                //isDisplayed = action.waitUntilAlertDisplayed(180L);
 
                 if (action.isNotificationAlertDisplayed()) {
                     testStepVerify.isElementTextEquals(Page_BungiiRequest.Alert_Msg(true),PropertyUtility.getMessage("driver.alert.stack.alert.message"));
@@ -285,10 +284,10 @@ public class BungiiSteps extends DriverBase {
 
             }
             else if (arg0.equalsIgnoreCase("accepts stack message") ||arg0.equalsIgnoreCase("reject stack message")||arg0.equalsIgnoreCase("view stack message")) {
-                boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
-                if (!isDisplayed)
-                    i_click_on_notification_for_something("STACK TRIP");
-                isDisplayed = action.waitUntilAlertDisplayed(180L);
+               // boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
+              // if (!isDisplayed)
+               //    i_click_on_notification_for_something("STACK TRIP");
+               //isDisplayed = action.waitUntilAlertDisplayed(180L);
 
                 if (action.isNotificationAlertDisplayed()) {
                     if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.stack.alert.message"))) {
@@ -338,7 +337,7 @@ public class BungiiSteps extends DriverBase {
             if (!isFound)
                 action.hideNotifications();
 
-            testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find notification with " + expecteMessage + " message");
+            testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "Push Notification not received with text " + expecteMessage + " message");
 
             //SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                    } catch (Exception e) {
@@ -384,7 +383,7 @@ public class BungiiSteps extends DriverBase {
 
                 action.hideNotifications();
 
-            testStepAssert.isTrue(notificationClick, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find notification with " + expecteMessage + " message");
+            testStepAssert.isTrue(notificationClick, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "Push Notification not received with text " + expecteMessage + " message");
 
             //SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
         } catch (Exception e) {
@@ -662,6 +661,8 @@ public class BungiiSteps extends DriverBase {
                 case "SMS FOR CANCEL INCASE OF EMERGENCEY":
                     validateSMSNumber(action.getText(messagesPage.Text_ToField()),PropertyUtility.getMessage("driver.support.number"));
                     ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
+
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

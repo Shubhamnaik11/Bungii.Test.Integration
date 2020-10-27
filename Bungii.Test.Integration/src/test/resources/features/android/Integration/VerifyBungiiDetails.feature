@@ -6,7 +6,6 @@
       # Driver D and C  - Testdriver_goa_d Android_test and Testdriver_goa_c Android_test
       
 @ready
-  @dd
     Scenario: Verify that admin can assign one or both drivers to a duo trip when it is in searching status
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_D Android" customer

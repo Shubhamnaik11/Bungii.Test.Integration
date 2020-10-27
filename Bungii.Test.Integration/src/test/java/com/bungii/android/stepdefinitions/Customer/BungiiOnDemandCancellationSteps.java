@@ -26,7 +26,7 @@ public class BungiiOnDemandCancellationSteps extends DriverBase {
     public void a_popup_with_something_should_appear(String option) {
         try{
             switch (option){
-                case "Cancel Reason":
+                case "Cancel Reasons":
                     setPickupTimePage.Popup_CancelReasonTitle();
                     break;
 

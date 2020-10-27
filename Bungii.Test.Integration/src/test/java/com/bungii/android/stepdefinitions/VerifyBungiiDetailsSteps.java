@@ -31,12 +31,18 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     @Then("^I verify driver names and trip cost$")
     public void i_verify_driver_names_pickup_and_drop_off_address_and_trip_cost() throws Throwable {
         String expectedDriverName=(String)cucumberContextManager.getScenarioContext("DRIVER_1");
+        String[] Name = expectedDriverName.split(" ");
+        expectedDriverName = Name[0]+" "+Name[1].charAt(0); //Last Name initial
         String actualDriverName=action.getText(myBungiisPage.Text_FirstDriverName());
+
         testStepAssert.isEquals(actualDriverName,expectedDriverName,"Driver name expected is "+expectedDriverName,"Expected Driver name is displayed.",expectedDriverName+" driver name is not displayed.");
          expectedDriverName=(String)cucumberContextManager.getScenarioContext("DRIVER_2");
+          Name = expectedDriverName.split(" ");
+        expectedDriverName = Name[0]+" "+Name[1].charAt(0); //Last Name initial
          actualDriverName=action.getText(myBungiisPage.Text_SecondDriverName());
         testStepAssert.isEquals(actualDriverName,expectedDriverName,"Driver name expected is "+expectedDriverName,"Expected Driver name is displayed.",expectedDriverName+" driver name is not displayed.");
         String expectedTripCost=(String)cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+        expectedTripCost= expectedTripCost.replace("~","");
         String actualTripCost=action.getText(myBungiisPage.Text_TripCost());
         testStepAssert.isEquals(actualTripCost,expectedTripCost,"Trip cost expected is "+expectedTripCost,"Expected Trip Cost is displayed.",expectedTripCost+" is not displayed.");
 
@@ -109,12 +115,15 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     public void i_open_the_trip_for_something_driver(String driverName) throws Throwable {
         try{
             WebElement selectDriver;
+            String[] Name = driverName.split(" ");
+            driverName = Name[0]+" "+Name[1].charAt(0)+"."; //Last Name initial
+
             selectDriver= SetupManager.getDriver().findElement(By.xpath("//*[contains(@text, '"+driverName+"')]/following::android.widget.ImageView[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow'][1]"));
             action.click(selectDriver);
             cucumberContextManager.setScenarioContext("DRIVER1NAME",driverName);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
+            //logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Trip is not displayed in Past Trips", true);
         }
     }

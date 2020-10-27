@@ -3,7 +3,81 @@
   @ondemand
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii
-
+  
+  @regression
+  Scenario: Verify Customer Receives Notification Upon Bungii Completion
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State |
+      | baltimore | Enroute      |
+    
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid baltimore" customer
+    
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid baltimore" driver
+    And I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I click "On To The Next One" button on the "Bungii Completed" screen
+    Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
+  
+  @regression
+  Scenario:Verify Manually End Bungii Option Is Available In The Last Three States Only
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State |
+      | baltimore | Enroute      |
+    
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid baltimore" customer
+    
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid baltimore" driver
+    And I wait for "2" mins
+    And I open Admin portal and navigate to "Live Deliveries" page
+    
+    And I select trip from live trips
+    
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Trip Started"
+    Then manually end bungii should be "disabled"
+    
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "EN ROUTE" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Driver(s) Arrived"
+    Then manually end bungii should be "disabled"
+    
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "ARRIVED" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Loading Items"
+    Then manually end bungii should be "enabled"
+    
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "LOADING ITEM" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Driving To Dropoff"
+    Then manually end bungii should be "enabled"
+    
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Unloading Items"
+    Then manually end bungii should be "enabled"
+    
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I click "On To The Next One" button on the "Bungii Completed" screen
+    
+    And I Switch to "customer" application on "same" devices
+    And I tap on "OK on complete" on Bungii estimate
+    When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
+    
   @regression
   Scenario: Verify Customer Can Create An Ondemand Bungii And Correct Contact Number Is Displayed On Call And SMS Option
 
@@ -190,58 +264,7 @@ Feature: On Demand Bungii
       | Promo percentage    | valid percent | valid baltimore |promo                   |
       | valid one off fixed | valid one off | valid baltimore |oneoff                  |
 
-  @regression
-  Scenario:Verify Manually End Bungii Option Is Available In The Last Three States Only
-    Given that ondemand bungii is in progress
-      | geofence  | Bungii State |
-      | baltimore | Enroute      |
 
-    And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid baltimore" customer
-
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid baltimore" driver
-    And I wait for "2" mins
-    And I open Admin portal and navigate to "Live Deliveries" page
-  
-    And I select trip from live trips
-
-    When I switch to "ADMIN" instance
-    Then I wait for trip status to be "Trip Started"
-    Then manually end bungii should be "disabled"
-
-    When I switch to "ORIGINAL" instance
-    And I slide update button on "EN ROUTE" Screen
-    When I switch to "ADMIN" instance
-    Then I wait for trip status to be "Driver(s) Arrived"
-    Then manually end bungii should be "disabled"
-
-    When I switch to "ORIGINAL" instance
-    And I slide update button on "ARRIVED" Screen
-    When I switch to "ADMIN" instance
-    Then I wait for trip status to be "Loading Items"
-    Then manually end bungii should be "enabled"
-
-    When I switch to "ORIGINAL" instance
-    And I slide update button on "LOADING ITEM" Screen
-    When I switch to "ADMIN" instance
-    Then I wait for trip status to be "Driving To Dropoff"
-    Then manually end bungii should be "enabled"
-
-    When I switch to "ORIGINAL" instance
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    When I switch to "ADMIN" instance
-    Then I wait for trip status to be "Unloading Items"
-    Then manually end bungii should be "enabled"
-
-    When I switch to "ORIGINAL" instance
-    And I slide update button on "UNLOADING ITEM" Screen
-    And I click "On To The Next One" button on the "Bungii Completed" screen
-
-    And I Switch to "customer" application on "same" devices
-    And I tap on "OK on complete" on Bungii estimate
-    When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
   @regression
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With First Time Promocode
@@ -616,27 +639,7 @@ Feature: On Demand Bungii
       | Scenario            | Promo Code    | User            |Expected value in admin |
       | Promoter type       | promoter type | valid baltimore |promoter                |
 
-
-  @regression
-  Scenario: Verify Customer Receives Notification Upon Bungii Completion
-    Given that ondemand bungii is in progress
-      | geofence  | Bungii State |
-      | baltimore | Enroute      |
-
-    And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid baltimore" customer
-
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid baltimore" driver
-    And I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    And I slide update button on "UNLOADING ITEM" Screen
-    And I click "On To The Next One" button on the "Bungii Completed" screen
-    Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
+    
 
   @regression
   Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount

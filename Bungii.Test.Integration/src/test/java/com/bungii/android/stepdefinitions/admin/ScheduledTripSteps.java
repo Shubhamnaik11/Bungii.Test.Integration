@@ -612,7 +612,7 @@ public class ScheduledTripSteps extends DriverBase {
 	 *
 	 * @param tripDetails Trip information
 	 */
-	public void AssignDriver(Map<String, String> tripDetails) {
+	public void AssignDriver(Map<String, String> tripDetails) throws Exception{
 		int rowNumber = getTripRowNumber(tripDetails);
 		testStepAssert.isFalse(rowNumber == 999, "I should able to find bungii that is to be cancelled ", "I found bungii at row number " + rowNumber, " I was not able to find bungii");
 		WebElement editButton;
@@ -623,6 +623,7 @@ public class ScheduledTripSteps extends DriverBase {
 			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/p[@id='btnEdit']"));
 		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
 		editButton.click();
+		Thread.sleep(10000);
 		action.click(scheduledTripsPage.CheckBox_Driver1());
 		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 		if (numberOfDriver.equalsIgnoreCase("duo"))
@@ -883,7 +884,7 @@ public class ScheduledTripSteps extends DriverBase {
 				String newTime = GetNewScheduledTime(currentTime);
 				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
-				WebElement selectTime = SetupManager.getDriver().findElement(By.xpath("//li/a[@class='ui-corner-all'][contains(text(),'" + newTime + "')]"));
+				WebElement selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
 				action.click(selectTime);
 				break;
 
@@ -891,7 +892,7 @@ public class ScheduledTripSteps extends DriverBase {
 				newTime = (String)cucumberContextManager.getScenarioContext("OLD_BUNGII_TIME");
 				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
-				selectTime = SetupManager.getDriver().findElement(By.xpath("//li/a[@class='ui-corner-all'][contains(text(),'" + newTime + "')]"));
+				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
 				action.click(selectTime);
 				break;
 
@@ -908,7 +909,7 @@ public class ScheduledTripSteps extends DriverBase {
 				newTime=t2+newTime.substring(2,8);
 				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
-				selectTime = SetupManager.getDriver().findElement(By.xpath("//li/a[@class='ui-corner-all'][contains(text(),'" + newTime + "')]"));
+				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
 				action.click(selectTime);
 				break;
 		}

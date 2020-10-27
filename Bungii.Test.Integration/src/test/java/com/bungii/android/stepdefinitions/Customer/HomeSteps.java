@@ -594,7 +594,8 @@ public class HomeSteps extends DriverBase {
     @Then("^I should see placeholder textbox$")
     public void i_should_see_blank_textbox() throws Throwable {
        String noText=action.getText(estimatePage.TextBox_DetailsNote());
-       String placeholder = "Apt #, door codes, special instruction, etc.&#10;&#10;If you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
+       String placeholder ="Apt #, door codes, special instruction, etc. If you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
+       //String placeholder = "Apt #, door codes, special instruction, etc.&#10;&#10;If you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
        if(noText.contains(placeholder)){
            testStepAssert.isTrue(true,"TextBox is showing placeholder ."+ noText,"TextBox doesnot have placeholder.");
        }
@@ -747,7 +748,11 @@ public class HomeSteps extends DriverBase {
                     String expectedMessage= PropertyUtility.getMessage("customer.info.cancel.ondemand.bungii");
                     testStepAssert.isEquals(actualMessage,expectedMessage,expectedMessage+" is displayed.",expectedMessage+" is displayed.",expectedMessage+" is not displayed.");
                     break;
-
+                case "Pickup Message Popup":
+                    String actual=setPickupTimePage.Icon_PickupTimeInfoMessage().getText();
+                    String expected= PropertyUtility.getMessage("customer.info.time");
+                    testStepAssert.isEquals(actual,expected,expected+" is displayed.",expected+" is displayed.",expected+" is not displayed.");
+                    break;
                 case "Four Reasons":
                     testStepAssert.isElementDisplayed(setPickupTimePage.Text_FirstCancellationReason(),"First cancellation reason should be displayed.","First cancellation reason is displayed.", "First cancellation reason is not displayed.");
                     testStepAssert.isElementDisplayed(setPickupTimePage.Text_SecondCancellationReason(),"Second cancellation reason should be displayed.","Second cancellation reason is displayed.", "Second cancellation reason is not displayed.");

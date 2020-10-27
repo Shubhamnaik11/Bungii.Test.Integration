@@ -397,7 +397,7 @@ public class CommonSteps extends DriverBase {
             SetupManager.getObject().createNewAndroidInstance(instanceName, deviceId);
             SetupManager.getObject().useDriverInstance(instanceName);
             log("I should be connected to " + deviceId,
-                    "I connected to " + deviceId + " device and assigned session name " + instanceName, true);
+                    "I am connected to " + deviceId + " device and assigned session name " + instanceName, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",

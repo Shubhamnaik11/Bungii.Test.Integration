@@ -7,6 +7,7 @@ Feature: Scheduled Duo Bungiis
 	
   @regression
   @sanity
+  
 	#stable
   Scenario: Verify Customer can request Scheduled Duo Bungii [Kansas Geofence]
 	Given I am logged in as "valid atlanta" customer
@@ -50,6 +51,8 @@ Feature: Scheduled Duo Bungiis
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
+	
+	When I Switch to "driver" application on "same" devices
 	Then Bungii driver should see "Enroute screen"
 	And Bungii Driver "slides to the next state"
 	Then Bungii driver should see "Arrived screen"
@@ -209,7 +212,7 @@ Feature: Scheduled Duo Bungiis
   
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
-	And I am logged in as " Kansas driver 1" driver
+	And I am logged in as "Kansas driver 1" driver
     #driver1 in foregroundground
 	
 	And I connect to "extra1" using "Driver1" instance
@@ -238,7 +241,7 @@ Feature: Scheduled Duo Bungiis
 	
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
-	And I am logged in as " Kansas driver 1" driver
+	And I am logged in as "Kansas driver 1" driver
 	
 	And I connect to "extra1" using "Driver1" instance
 	When I Switch to "driver" application on "same" devices

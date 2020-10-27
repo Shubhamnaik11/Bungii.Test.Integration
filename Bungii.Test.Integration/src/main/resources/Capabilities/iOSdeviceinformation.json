@@ -19,7 +19,8 @@
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
     "browserstack.acceptSslCerts": true,
-    "newCommandTimeout":0
+    "newCommandTimeout":0,
+    "browserstack.geoLocation":"US"
 
   },
   "device1": {
@@ -41,10 +42,9 @@
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
     "browserstack.acceptSslCerts": true,
-    "newCommandTimeout":0
-
+    "newCommandTimeout":0,
+    "browserstack.geoLocation":"US"
   },
-
 
   "connection": {
     "device1": "",

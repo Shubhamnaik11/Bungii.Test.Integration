@@ -201,7 +201,7 @@
   
   
       @ready
-      Scenario: Verify if admin can update date/time for a solo trip for which a driver has accepted and Customer has no conflicting trips at the new time.
+      Scenario: Verify if admin can update date_time for a solo trip for which a driver has accepted and Customer has no conflicting trips at the new time.
         Given that solo schedule bungii is in progress
           | geofence | Bungii State | Bungii Time   |
           | goa   | Accepted     | NEXT_POSSIBLE |

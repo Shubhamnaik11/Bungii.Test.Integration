@@ -56,12 +56,16 @@ public class BungiiInProgressSteps extends DriverBase {
                 String driver2Name=(String) cucumberContextManager.getScenarioContext("DRIVER_2");
 
                      String driverName = action.getText(bungiiProgressPage.Text_DuoDriver_Name());
-                boolean isDriverNameCorrect=driverName.equals(driver1Name.substring(0,driver1Name.indexOf(" ")+2))||action.getText(bungiiProgressPage.Text_DuoDriver_Name()).equals(driver2Name.substring(0,driver2Name.indexOf(" ")+2));
+                     String expected1 = driver1Name.substring(0,driver1Name.indexOf(" ")+2);
+                     String expected2 = driver2Name.substring(0,driver2Name.indexOf(" ")+2);
+
+                boolean isDriverNameCorrect=driverName.equals(expected1) || driverName.equals(expected2);
+
                 logger.detail("driver1Name"+driver1Name.substring(0,driver1Name.indexOf(" ")+2) +"|||Driver 2"+driver2Name.substring(0,driver2Name.indexOf(" ")+2));
                 testStepVerify.isTrue(isDriverNameCorrect,
                         "Driver name should correctly display",
                         "Driver name was correctly displayed",
-                        "Driver name was not correctly displayed. ["+driverName+" is displayed");
+                        "Driver name was not correctly displayed. ["+driverName+" ] is displayed instead of "+ expected1 +" or "+ expected2);
             }
             else
                 isCustomerNameCorrect = getCustomerName().equals(expectedCustName);

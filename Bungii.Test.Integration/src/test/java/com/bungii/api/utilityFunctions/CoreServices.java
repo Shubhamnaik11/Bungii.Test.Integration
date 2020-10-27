@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.junit.runner.Request;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -477,12 +478,39 @@ public class CoreServices extends DriverBase {
 
         String apiURL = null;
         try{
-        Thread.sleep(60000);} catch(Exception ex){}
+        Thread.sleep(10000);} catch(Exception ex){}
 
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CONFIRMATION);
         Response response = ApiHelper.uploadImage(apiURL, jsonObj, header);
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        HashMap error = jsonPathEvaluator.get("Error");
+        if (error != null) {
+             String errorCode = jsonPathEvaluator.get("Error.Code").toString();
+             if (errorCode=="20027")
+             {
+                 scheduledDateTime = getNextTime(scheduledDateTime);
+                 logger.detail("Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Requesting with 15 minutes later time.");
+                 customerConfirmation(pickRequestID, paymentMethodID, authToken, scheduledDateTime);
+             }
+        }
+
         ApiHelper.genericResponseValidation(response, RequestText);
         return response;
+    }
+    public String getNextTime(String scheduledDateTime)
+    {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+        Date d = null;
+        try {
+            d = df.parse(scheduledDateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        cal.add(Calendar.MINUTE, 15);
+        String newTime = df.format(cal.getTime());
+        return newTime;
     }
 
     public String[] getScheduledBungiiTime() {

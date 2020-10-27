@@ -335,7 +335,7 @@ Feature: SoloScheduled Part D
   
   
   @regression
-  Scenario: Verify that that Past Trips page correctly displays completed Scheduled Duo Bungii
+  Scenario: Verify that that Past Trips page correctly displays completed Scheduled Solo Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas   | Completed     | NEXT_POSSIBLE |

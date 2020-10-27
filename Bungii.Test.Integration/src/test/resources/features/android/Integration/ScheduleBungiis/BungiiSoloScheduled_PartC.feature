@@ -125,7 +125,7 @@ Feature: SoloScheduled Part C
     And Bungii Driver "Start Schedule Bungii" request
   
   @regression
-  Scenario: Verify That  error message on android When Customer has two Bungiis scheduled, and the 1 hour prior start time of second Bungii overlaps with the TELET of the first Bungii, the message show to driver are different in IOS and Android
+  Scenario: Verify error message on android When Customer has two Bungiis scheduled, and the 1 hour prior start time of second Bungii overlaps with the TELET of the first Bungii
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver

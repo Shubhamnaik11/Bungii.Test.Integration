@@ -1256,24 +1256,9 @@ Thread.sleep(5000);
                 getDayLightGeofenceTimeZone="IST";
                 break;
         }
-        switch (getGeofenceTimeZone){
-            case "CST":
-                getDayLightGeofenceTimeZoneGMT="GMT-5";
-                break;
-            case "EST":
-                getDayLightGeofenceTimeZoneGMT="GMT-4";
-                break;
-            case "MST":
-                getDayLightGeofenceTimeZoneGMT="GMT-6";
-                break;
-            case "IST":
-                getDayLightGeofenceTimeZoneGMT="GMT+5:30";
-                break;
-        }
-        String [] timeZones=new String[3];
+        String [] timeZones=new String[2];
         timeZones[0]=getGeofenceTimeZone;
         timeZones[1]=getDayLightGeofenceTimeZone;
-        timeZones[2]=getDayLightGeofenceTimeZoneGMT;
         return timeZones;
     }
     /**

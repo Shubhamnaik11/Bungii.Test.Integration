@@ -250,7 +250,7 @@ Feature: SoloScheduled Part B
     And I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations less than 150 miles" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
 

@@ -138,8 +138,28 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     Then Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
-
-
+  
+  @regression
+  Scenario: Verify If Customer Can Rate Driver For The Duo Trip
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state    | driver2 state    |
+      | Bungii Completed | Bungii Completed |
+    When I Switch to "customer" application on "same" devices
+    And Bungii customer should see "correct rating detail for duo" on Bungii completed page
+    When I select "3" Ratting star for duo "Driver 1"
+    And I select "5" Ratting star for duo "Driver 2"
+    Then I tap on "OK" on Bungii Complete
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8888888881 |                 |
+    
   @regression
   Scenario: Verify When Bungii Is Cancelled By Admin It Is Removed From The Scheduled Trip List On Drivers App
     Given that solo schedule bungii is in progress
@@ -607,7 +627,7 @@ Feature: SoloScheduled
     And I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations less than 150 miles" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
 
@@ -1621,7 +1641,7 @@ Feature: SoloScheduled
     Then Bungii must be removed from "MY BUNGIIS" screen
 
   @regression
-  Scenario:Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - Scenario:Solo
+  Scenario:Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - Case:Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas1  | Scheduled    | NEXT_POSSIBLE |
@@ -1653,7 +1673,7 @@ Feature: SoloScheduled
     Then Bungii must be removed from "MY BUNGIIS" screen
 
   @regression
-  Scenario: Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - Scenario:Duo
+  Scenario: Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - Case:Duo
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -1923,26 +1943,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
-  Scenario: Verify If Customer Can Rate Driver For The Duo Trip
-    When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
-    Given I am on customer Log in page
-    And I am logged in as "valid kansas" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state    | driver2 state    |
-      | Bungii Completed | Bungii Completed |
-    When I Switch to "customer" application on "same" devices
-    And Bungii customer should see "correct rating detail for duo" on Bungii completed page
-    When I select "3" Ratting star for duo "Driver 1"
-    And I select "5" Ratting star for duo "Driver 2"
-    Then I tap on "OK" on Bungii Complete
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 8888888881 |                 |
+ 
 
   @regression
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Solo Trip

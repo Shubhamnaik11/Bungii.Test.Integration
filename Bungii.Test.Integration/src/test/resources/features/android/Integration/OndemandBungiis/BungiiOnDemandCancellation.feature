@@ -1,11 +1,12 @@
 @android
-  Feature: FailedOnDemandBungiis
+  @bungii
+  Feature: OndemandBungiiCancellation
   Scenarios where customer requests and cancels the Bungii.
 
   #This feature will run in goa geofence.
 
   @regression
-  Scenario: Verify that 'SET PICKUP TIME' page is shown when no driver accepts on demand bungii.
+  Scenario: Verify that 'SET PICKUP TIME' page is shown when no driver accepts on demand bungii
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -20,7 +21,7 @@
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     And I verify that "DRIVERS NOT AVAILABLE" is displayed
     When I click on "i info" icon
-    Then I verify that "Message Popup" is displayed
+    Then I verify that "Pickup Message Popup" is displayed
 
   @regression
   Scenario: Verify that the customer can schedule pickup by clicking on SCHEDULE BUNGII button.

@@ -29,7 +29,8 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
 	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
 	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-	
+  
+	When I Switch to "driver" application on "same" devices
 	Then I click on notification for "STACK TRIP"
 	Then Bungii Driver "verify stack message" request
 	And Bungii Driver "accepts stack message" request
@@ -77,6 +78,8 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
 	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
 	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+  
+	When I Switch to "driver" application on "same" devices
 	Then I click on notification for "STACK TRIP"
 	And Bungii Driver "view stack message" request
 	Then "correct stack trip details" should be displayed on Bungii request screen
@@ -101,6 +104,8 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
 	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
 	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+  
+	When I Switch to "driver" application on "same" devices
 	Then I click on notification for "STACK TRIP"
 	Then Bungii Driver "verify stack message" request
 	And Bungii Driver "accepts stack message" request

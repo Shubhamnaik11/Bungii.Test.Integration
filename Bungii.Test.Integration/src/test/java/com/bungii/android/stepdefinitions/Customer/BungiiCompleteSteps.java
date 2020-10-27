@@ -343,7 +343,7 @@ public class BungiiCompleteSteps extends DriverBase {
         String distanceValueDB=utility.getEstimateDistance();
 
         //double distance =Double.parseDouble(distanceValueDB);
-        double distance =Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DISTANCE")));
+        double distance =Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DISTANCE")).replace(" miles",""));
         // distance = Double.parseDouble(totalDistance.replace(" miles", ""));
         double tripValue = distance * perMileValue + tripActualTime * perMinutesValue;
         if (numberOfDriver.equalsIgnoreCase("DUO"))

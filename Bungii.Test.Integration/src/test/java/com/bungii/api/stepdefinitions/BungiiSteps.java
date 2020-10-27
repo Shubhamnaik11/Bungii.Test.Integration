@@ -636,7 +636,7 @@ public class BungiiSteps extends DriverBase {
 
                         if (driver1State.equalsIgnoreCase("Accepted")) {
                             try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
-                            coreServices.waitForAvailableTrips(driverAName + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
+                          //  coreServices.waitForAvailableTrips(driverAName + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest); //temporary comment
                         }
                         logger.detail("*** As a driver " + driverBName + "(" + driver2PhoneNum + ") " + bungiiType + "(" + pickupRequest + ") is being " + driver2State);
 
@@ -1113,7 +1113,7 @@ public class BungiiSteps extends DriverBase {
 
          response = coreServices.customerView(pickupRequest, custAccessToken);;
          jsonPathEvaluator = response.jsonPath();
-         String discountValue = jsonPathEvaluator.get("PickupDetails.Actual.DiscountedCost").toString();
+         String discountValue = jsonPathEvaluator.get("PickupDetails.Actual.DiscountValue").toString();
         cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", discountValue);
 
         coreServices.driverView(pickupRequest, driverAccessToken);

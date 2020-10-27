@@ -486,7 +486,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
             }
             log(" I am logged in as" + arg0 + " customer",
-                    " I am logged in as "+arg0+" customer", true);
+                    " I am logged in as "+arg0+" customer ", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -513,6 +513,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationB"));
                     Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
+
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationB"));
                     Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
@@ -797,7 +798,7 @@ public class EstimateBungiiSteps extends DriverBase {
             testStepAssert.isFalse(dropUpLocationLine2.equals(""), "I should able to select drop location", "drop location was selected , drop value is " + dropUpLocationLine1, "I was not able select pickup location");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "GOOGLE API LIMIT EXCEEDED | Error in selecting pickup and drop off address. Most probable rootcause google address api limit exceeded.", true);
+            error("Step  Should be successful", "GOOGLE API LIMIT EXCEEDED | Error in selecting pickup and drop off address.", true);
         }
     }
 
@@ -1210,7 +1211,7 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
             action.scrollToTop();
             String bungiiTime = action.getText(bungiiEstimatePage.Time());
             if (arg0.equalsIgnoreCase("OLD BUNGII TIME")) {
-                testStepVerify.isEquals(bungiiTime, (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"), "I selected bungii time as old bungii time:" + bungiiTime, "I was not able to select bungii with old bungii time , Bungii time" + bungiiTime + " expected time" + (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+                testStepVerify.isEquals(bungiiTime, (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"), "I selected bungii time as old bungii time : " + bungiiTime, " I was not able to select bungii with old bungii time , Bungii time : " + bungiiTime + " | Expected time : " + (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             }
             cucumberContextManager.setScenarioContext("BUNGII_TIME", bungiiTime);
             log(" I select Bungii Time as " + arg0,

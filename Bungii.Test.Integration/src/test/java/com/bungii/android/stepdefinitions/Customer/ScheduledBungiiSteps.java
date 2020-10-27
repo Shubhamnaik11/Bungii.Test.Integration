@@ -20,6 +20,7 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -88,7 +89,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             pass("I select already scheduled bungii", "I selected already scheduled bungii of " + tripNoOfDriver + " type and at time: " + tripTime, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Problem in selecting scheduled bungii from customer scheduled list", true);
         }
     }
 
@@ -617,14 +618,16 @@ public class ScheduledBungiiSteps extends DriverBase {
         switch (strArg1) {
             case "MY BUNGIIS":
                 String expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("MY_BUNGII_DATE");
-                String actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText();
-                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed.");
+                int year = DateTime.now().getYear();
+                String actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" -" , "");
+
+                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed. "+ actualMyBungiiTime+"is displayed");
                 break;
 
             case "MY BUNGII":
                  expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("NEW_SCHDL_BUNGII_TIME");
                  actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText();
-                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed.");
+                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed. "+ actualMyBungiiTime+"is displayed");
                 break;
         }
     }
@@ -768,9 +771,9 @@ public class ScheduledBungiiSteps extends DriverBase {
         Date currentDate = new Date();
         int year = currentDate.getYear() + 1900;
         String[] timeZones=utility.getDayLightTimeZoneBasedOnGeofence();
-        String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
+       // String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
 
-        if (bungiiTime.contains(timeZones[0]))
+        if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]))
             action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -")));
 
         else
