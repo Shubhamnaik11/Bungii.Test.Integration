@@ -117,7 +117,7 @@ public class NotificationSteps extends DriverBase {
             if(driverPhoneNum!= null) {
                 String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
                 if(pushNotificationContent!= null)
-                testStepAssert.isTrue(pushNotificationContent.contains(expectedNotification),"VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" +getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" +pushNotificationContent);
+                testStepAssert.isTrue(pushNotificationContent.contains(getExpectedNotification(expectedNotification)),"VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" +getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" +pushNotificationContent);
                 //testStepAssert.isTrue(pushNotificationContent.contains("You’re receiving a Bungii request."),"VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" +getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" +pushNotificationContent);
                 else
                 {
@@ -164,12 +164,12 @@ public class NotificationSteps extends DriverBase {
             }
             else
             {
-                fail("I should be able to click on push notification [Virtual] : " + expectedNotification, "PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
+                fail("I should be able to click on push notification [Virtual] : " + getExpectedNotification(expectedNotification), "PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
             }
         }
         else
         {
-            fail("I should be able to accept virtual push notification : " + expectedNotification, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
+            fail("I should be able to accept virtual push notification : " + getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
 
         }
     }
@@ -191,7 +191,7 @@ public class NotificationSteps extends DriverBase {
                 if (pushNotificationContent == null)
                     testStepAssert.isTrue(true, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" + getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" + pushNotificationContent);
                 else {
-                    fail("I should be not receive push notification [Virtual] : " + expectedNotification, "Driver has received push notification " + getExpectedNotification(expectedNotification), true);
+                    fail("I should be not receive push notification [Virtual] : " + getExpectedNotification(expectedNotification), "Driver has received push notification " + getExpectedNotification(expectedNotification), true);
 
                 }
 

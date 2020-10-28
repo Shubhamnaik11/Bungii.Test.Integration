@@ -112,6 +112,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 		action.swipeDown();
 		String currentYear = String.valueOf(DateTime.now().getYear());
 		String gmtTime = bungiiTime.replace("AM", "a.m.").replace("PM", "p.m.").replace(currentYear,"").replace(" - ","");
+		String justTime = bungiiTime.replace("AM", "").replace("PM", "").replace(currentYear,"").replace(" - ","");
 
 		if(gmtTime.contains("MDT")||gmtTime.contains("MST"))
 			gmtTime = gmtTime.replace("MDT","GMT-6").replace("MST","GMT-6");
@@ -124,7 +125,18 @@ public class ScheduledBungiiSteps extends DriverBase {
 		if(gmtTime.contains("IST"))
 			gmtTime = gmtTime.replace("IST","GMT+5:30");
 
-		String browserStackTime = "//XCUIElementTypeStaticText[contains(@name,'"+gmtTime+"') or contains(@name,'" + bungiiTime + "') ]/parent::XCUIElementTypeCell";
+		if(justTime.contains("MDT")||justTime.contains("MST"))
+			justTime = justTime.replace("MDT","").replace("MST","");
+		if(justTime.contains("CST")||justTime.contains("CDT"))
+			justTime = justTime.replace("CST","").replace("CDT","");
+		if(justTime.contains("EST")||justTime.contains("EDT"))
+			justTime = justTime.replace("EST","").replace("EDT","");
+		if(justTime.contains("PST")||justTime.contains("PDT"))
+			justTime = justTime.replace("PST","").replace("PDT","");
+		if(justTime.contains("IST"))
+			justTime = justTime.replace("IST","");
+
+		String browserStackTime = "//XCUIElementTypeStaticText[contains(@name,'"+gmtTime+"') or contains(@name,'" + bungiiTime + "') or contains(@name,'"+ justTime.trim()+"')]/parent::XCUIElementTypeCell";
 		//By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
 		WebElement Image_SelectBungii =null;
 		try {
