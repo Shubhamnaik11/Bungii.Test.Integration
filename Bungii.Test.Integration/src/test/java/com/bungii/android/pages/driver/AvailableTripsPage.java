@@ -38,5 +38,5 @@ public class AvailableTripsPage extends PageBase {
 
     public WebElement Row_AvailableTrip() {return findElements("//*[@resource-id='com.bungii.driver:id/row_available_pickup_imageview_arrow']",LocatorType.XPath).get(0);}
 
-    public List<WebElement> Image_SelectBungiis()  {return findElements("com.bungii.driver:id/available_trips_recyclerview_list",LocatorType.Id);}
+    public List<WebElement> Image_SelectBungiis()  {return findElements("com.bungii.driver:id/row_available_pickup_container",LocatorType.Id);}
 }

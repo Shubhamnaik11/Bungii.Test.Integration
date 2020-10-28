@@ -256,16 +256,18 @@ Feature: SoloScheduled Part G
     And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+  
     When I Switch to "customer" application on "same" devices
     Given I login as customer "8805368840" and is on Home Page
     
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
-    When I Cancel selected Bungii
+    #When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
     
     And I open Admin portal and navigate to "Scheduled Deliveries" page

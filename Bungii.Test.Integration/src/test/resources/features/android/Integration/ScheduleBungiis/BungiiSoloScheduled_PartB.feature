@@ -296,10 +296,11 @@ Feature: SoloScheduled Part B
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                    |
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+  
     Given I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "3" mins
     When I Switch to "driver" application on "same" devices
     When I open new "Chrome" browser for "ADMIN"

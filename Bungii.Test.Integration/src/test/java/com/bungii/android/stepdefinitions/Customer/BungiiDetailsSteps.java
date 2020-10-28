@@ -28,6 +28,22 @@ public class BungiiDetailsSteps extends DriverBase {
     BungiiRequest bungiiRequest=new BungiiRequest();
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
 
+    @When("I tap on \"([^\"]*)\" button$")
+    public void i_tap_cancelbungii(String button) {
+        try {
+            Thread.sleep(5000);
+            action.scrollToBottom();
+            action.click(bungiiDetailsPage.Button_CancelBungii());
+            Thread.sleep(2000);
+            action.click(bungiiDetailsPage.Button_Yes());
+
+            pass("I should able to cancel bungii","I cancelled bungii",true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @Then("^I Cancel selected Bungii$")
     public void i_cancel_selected_bungii() {
         try {

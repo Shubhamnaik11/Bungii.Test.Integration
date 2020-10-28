@@ -573,7 +573,7 @@ public class EstimateSteps extends DriverBase {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone());
-            System.out.println("\t" + date1);
+            //System.out.println("\t" + date1);
         } catch (Exception e) {
         }
 
@@ -584,7 +584,7 @@ public class EstimateSteps extends DriverBase {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZoneForGeofence());
-            System.out.println("\t" + date1);
+           // System.out.println("\t" + date1);
         } catch (Exception e) {
         }
 
@@ -595,7 +595,7 @@ public class EstimateSteps extends DriverBase {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone(minuteDifferance));
-            System.out.println("\t" + date1);
+            //System.out.println("\t" + date1);
         } catch (Exception e) {
         }
 

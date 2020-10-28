@@ -49,7 +49,8 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
   
-  @ready
+  @regression
+    #stable
   Scenario: Verify Customer Can Cancel Through SMS To Admin If Only One Driver Accepts And Processing Gets Over
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -57,17 +58,17 @@ Feature: SoloScheduled
     And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" trip
       | driver1 state |
       | Accepted      |
-    
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+  
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-    Then I wait for "2" mins
     And I select already scheduled bungii
-    When I Cancel selected Bungii
+    #When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
     
     And I open Admin portal and navigate to "Scheduled Deliveries" page
@@ -86,21 +87,22 @@ Feature: SoloScheduled
     
     
   @regression
-  Scenario:Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - Scenario:Solo
+  Scenario:Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - case :Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas  | Scheduled    | NEXT_POSSIBLE |
-    
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+  
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
-    When I Cancel selected Bungii
+    #When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
  #   And I click "TOP BACK" button on "Bungii Details" screen
     
@@ -119,20 +121,22 @@ Feature: SoloScheduled
 
   #@regression
   @ready
-  Scenario: Verify Customer Can Cancel Through SMS To Admin If Required Number Of Drivers Have Accepted The Trip  - scenario : duo
+  Scenario: Verify Customer Can Cancel Through SMS To Admin If Required Number Of Drivers Have Accepted The Trip  - case : duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
       | kansas   | Accepted     | 0.75 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+  
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
-    When I Cancel selected Bungii
+    #When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
     
     And I Cancel Bungii with following details
@@ -200,17 +204,18 @@ Feature: SoloScheduled
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
-    
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+  
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
-    When I Cancel selected Bungii
+   # When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
     
     And I open Admin portal and navigate to "Scheduled Deliveries" page

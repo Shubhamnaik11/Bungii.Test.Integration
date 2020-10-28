@@ -6,20 +6,7 @@ Feature: VerifyBungiiDetails2
      #Testcustomertywd_appleand_F Android 9999999999
       #driverF.phone.name=Driver_goa_f Android_test 9999999996
   
-  @ready
-  Scenario: Verify if re-search automatically happens if admin does not add a new driver after removal
-    Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
-      | geofence | Bungii State | Bungii Time  |
-      | goa      | Accepted     | 15 min ahead |
-    When I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
-    Then I remove current driver
-    
-    And I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 9999999999      |                 |
+
   
   @ready
   Scenario: Verify that changing date/time for a scheduled bungii for which the customer has a conflicting bungii during the newly selected time.
@@ -218,8 +205,24 @@ Feature: VerifyBungiiDetails2
     And I Select "Scheduled Trip" from admin sidebar
     And I open the trip for "Testcustomertywd_appleand_F Android" the customer
     Then I remove current driver and researches Bungii
+    
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 9999999999      |                 |
     ###############################
+  
+  @ready
+  Scenario: Verify if re-search automatically happens if admin does not add a new driver after removal
+    Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
+      | geofence | Bungii State | Bungii Time  |
+      | goa      | Accepted     | 15 min ahead |
+    When I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    Then I remove current driver
+    
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 9999999999      |                 |
   

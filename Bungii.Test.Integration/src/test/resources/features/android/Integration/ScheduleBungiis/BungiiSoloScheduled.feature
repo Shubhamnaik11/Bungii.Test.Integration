@@ -1624,7 +1624,8 @@ Feature: SoloScheduled
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
-    When I Cancel selected Bungii
+    #When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
   
     And I open Admin portal and navigate to "Scheduled Deliveries" page
@@ -1655,7 +1656,8 @@ Feature: SoloScheduled
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
-    When I Cancel selected Bungii
+    #When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
  #   And I click "TOP BACK" button on "Bungii Details" screen
   
@@ -1705,6 +1707,7 @@ Feature: SoloScheduled
 
   #@regression
   @ready
+    @dd
   Scenario: Verify Customer Can Cancel Through SMS To Admin If Only One Driver Accepts And Processing Gets Over
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1722,11 +1725,11 @@ Feature: SoloScheduled
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
-    When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
+   # When I Cancel selected Bungii
     Then correct details should be displayed on the "ADMIN-SMS" app
   
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-  
     And I Cancel Bungii with following details
       | Charge | Comments | Reason                         |
       | 0      | TEST     | Outside of delivery scope      |
@@ -1754,7 +1757,8 @@ Feature: SoloScheduled
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
-    When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
+    #When I Cancel selected Bungii
     Then correct details should be displayed on the "ADMIN-SMS" app
 
     And I Cancel Bungii with following details

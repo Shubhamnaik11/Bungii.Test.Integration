@@ -51,8 +51,6 @@ Feature: Scheduled Duo Bungiis
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
-	
-	When I Switch to "driver" application on "same" devices
 	Then Bungii driver should see "Enroute screen"
 	And Bungii Driver "slides to the next state"
 	Then Bungii driver should see "Arrived screen"
@@ -102,41 +100,7 @@ Feature: Scheduled Duo Bungiis
 	And I tap on "OK on complete" on Bungii estimate
 	And I tap on "No free money" on Bungii estimate
 	
-  @regression
-  Scenario Outline: Verify Customer Amount Calculation in Admin portal For The Scheduled Duo Bungii Having Promocode <PROMO CODE> Applied To It [Kansas Geofence]
-	Given I am logged in as "valid kansas" customer
-	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	And I close "Tutorial" if exist
-	
-	And I enter "kansas pickup and dropoff locations" on Bungii estimate
-	And I tap on "two drivers selector" on Bungii estimate
-	Then I should see "two drivers selected" on Bungii estimate
-	When I tap on "Get Estimate button" on Bungii estimate
-	And I add large image photos to the Bungii
-	And I add loading/unloading time of "30 mins"
-	And I tap on "Promo Code" on Bungii estimate
-	And I add "<PROMO CODE>" PromoCode
-	And I tap "Add" on Save Money page
-	And I tap on "desired Promo Code" on Bungii estimate
-	And I get Bungii details on Bungii Estimate
-	And I tap on "Request Bungii" on Bungii estimate
-	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-	And I check if the customer is on success screen
-	And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-	
-	And I accept and complete "kansas" geofence trip of "Kansas customer" customer as a "Kansas driver 1" and "Kansas driver 2" driver
-	When I Switch to "customer" application on "same" devices
  
-	Then I wait for "2" mins
-	And I open Admin portal and navigate to "Deliveries" page
-	And I select "The Beginning of Time" from search peroid
-	And I select trip from trips
-	Then On admin trip details page "promo" should be displayed
-	
-	Examples:
-	  | PROMO CODE      |
-	  |PROMO DOLLAR OFF |
-	  |PROMO PERCENT OFF|
   
   @regression
   Scenario: Verify that Duo scheduled Bungii can be started 1 hr before the scheduled Trip start time
@@ -218,7 +182,7 @@ Feature: Scheduled Duo Bungiis
 	And I connect to "extra1" using "Driver1" instance
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
-	And I am logged in as " Kansas driver 2" driver
+	And I am logged in as "Kansas driver 2" driver
 	
 	And I click the "Cancel" button on "update" screen
 	Then Alert message with DRIVER CANCEL BUNGII text should be displayed
@@ -246,7 +210,7 @@ Feature: Scheduled Duo Bungiis
 	And I connect to "extra1" using "Driver1" instance
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
-	And I am logged in as " Kansas driver 2" driver
+	And I am logged in as "Kansas driver 2" driver
 	
 	And I click the "Cancel" button on "update" screen
 	Then Alert message with DRIVER CANCEL BUNGII text should be displayed
@@ -285,9 +249,44 @@ Feature: Scheduled Duo Bungiis
 	When I switch to "ORIGINAL" instance
 	Then I click on notification for "OTHER DRIVER CANCELLED BUNGII"
 	Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
-
- 
- 
+  
+  
+  @regression
+  @dd
+  Scenario Outline: Verify Customer Amount Calculation in Admin portal For The Scheduled Duo Bungii Having Promocode <PROMO CODE> Applied To It [Kansas Geofence]
+	Given I am logged in as "valid kansas" customer
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	
+	And I enter "kansas pickup and dropoff locations" on Bungii estimate
+	And I tap on "two drivers selector" on Bungii estimate
+	Then I should see "two drivers selected" on Bungii estimate
+	When I tap on "Get Estimate button" on Bungii estimate
+	And I add large image photos to the Bungii
+	And I add loading/unloading time of "30 mins"
+	And I tap on "Promo Code" on Bungii estimate
+	And I add "<PROMO CODE>" PromoCode
+	And I tap "Add" on Save Money page
+	And I tap on "desired Promo Code" on Bungii estimate
+	And I get Bungii details on Bungii Estimate
+	And I tap on "Request Bungii" on Bungii estimate
+	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+	And I check if the customer is on success screen
+	And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+	
+	And I accept and complete "kansas" geofence trip of "Kansas customer" customer as a "Kansas driver 1" and "Kansas driver 2" driver
+	When I Switch to "customer" application on "same" devices
+	
+	Then I wait for "2" mins
+	And I open Admin portal and navigate to "Deliveries" page
+	And I select "The Beginning of Time" from search peroid
+	And I select trip from trips
+	Then On admin trip details page "promo" should be displayed
+	
+	Examples:
+	  | PROMO CODE      |
+	  |PROMO DOLLAR OFF |
+	  |PROMO PERCENT OFF|
  
 	#And I Switch to "driver" application on "same" devices
 	#And I am on the LOG IN page on driver app

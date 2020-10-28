@@ -169,7 +169,7 @@ public class ScheduledTripSteps extends DriverBase {
 			Thread.sleep(30000);
 			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
 
-			log("I should able to cancel bungii", "I was able to cancel bungii",
+			log("I should able to veridy and research bungii", "I was able to verify and research bungii",
 					true);
 
 		} catch (Exception e) {
@@ -259,6 +259,7 @@ public class ScheduledTripSteps extends DriverBase {
 
 			String pickupRequest = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
 			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+
 			testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest), " Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
 			log("I should able to cancel bungii", "I was able to cancel bungii",
 					true);
@@ -344,14 +345,22 @@ public class ScheduledTripSteps extends DriverBase {
 				rowNumber = getTripRowNumber(tripDetails);
 			}
 			String pickupRequestOld = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+			WebElement editButton;
+			Thread.sleep(10000);
+			if (rowNumber != 999) {
+				editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/p[@id='btnEdit']"));
+				editButton.click();
+			} else
+			{
+				fail("Trip should be displayed in admin scheduled list ","Trip is not displayed in Admin scheduled list",true);
+			}
+			//AssignDriver(tripDetails);
+			//Thread.sleep(30000);
 
-			AssignDriver(tripDetails);
-			Thread.sleep(30000);
-
-			String pickupRequest = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
-			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
-			testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest), " Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
-			log("I should able to cancel bungii", "I was able to cancel bungii",
+			//String pickupRequest = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+			//cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+			//testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest), " Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
+			log("I should able to open bungii", "I was able to open bungii",
 					true);
 
 		} catch (Exception e) {
@@ -562,7 +571,7 @@ public class ScheduledTripSteps extends DriverBase {
 		String label = utility.getTimeZoneBasedOnGeofence();
 		if (!scheduledDate.contains(label))
 			scheduledDate = scheduledDate + " " + label;
-		scheduledDate = scheduledDate.replace(":00 "," ").replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST").replace("GMT+5:30 ", "");
+		scheduledDate = scheduledDate.replace(":00 "," ").replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST").replace("GMT+5:30 ", "").replace("GMT+05:30 ", "");
 		int rowNumber = 999;
 		List<WebElement> rows = scheduledTripsPage.Row_TripDetails();
 		for (int i = 1; i <= rows.size(); i++) {
@@ -612,7 +621,7 @@ public class ScheduledTripSteps extends DriverBase {
 	 *
 	 * @param tripDetails Trip information
 	 */
-	public void AssignDriver(Map<String, String> tripDetails) throws Exception{
+	public void AssignDriver(Map<String, String> tripDetails) throws Exception {
 		int rowNumber = getTripRowNumber(tripDetails);
 		testStepAssert.isFalse(rowNumber == 999, "I should able to find bungii that is to be cancelled ", "I found bungii at row number " + rowNumber, " I was not able to find bungii");
 		WebElement editButton;
@@ -624,12 +633,14 @@ public class ScheduledTripSteps extends DriverBase {
 		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
 		editButton.click();
 		Thread.sleep(10000);
+
 		action.click(scheduledTripsPage.CheckBox_Driver1());
 		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 		if (numberOfDriver.equalsIgnoreCase("duo"))
 			action.click(scheduledTripsPage.CheckBox_Driver2());
 
 		action.click(scheduledTripsPage.Button_Remove());
+
 		scheduledTripsPage.waitForPageLoad();
 		try {
 			Thread.sleep(5000);
@@ -647,15 +658,12 @@ public class ScheduledTripSteps extends DriverBase {
 			switch (messageElement.toUpperCase()) {
 				case "BUNGII CANCEL":
 					Thread.sleep(35000);
-					messageDisplayed = action.invisibilityOfElementLocated(scheduledTripsPage.Button_Submit());
+					testStepAssert.isElementTextEquals(scheduledTripsPage.Label_Message(),"Pick up has been successfully cancelled.","Pick up has been successfully cancelled. should be displayed","Pick up has been successfully cancelled. is displayed","Pick up has been successfully cancelled. is not displayed");
 					break;
 				default:
 					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
 					break;
 			}
-			testStepVerify.isFalse(messageDisplayed,
-					messageElement + " should not be displayed", messageElement + " button is Displayed",
-					messageElement + " Button is Displayed");
 
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e);
@@ -829,7 +837,7 @@ public class ScheduledTripSteps extends DriverBase {
 		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
 		WebElement tripStatus;
 
-		tripStatus=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td[9]"));
+		tripStatus=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td[11]"));
 		testStepVerify.isElementTextEquals(tripStatus,status);
 	}
 
@@ -879,11 +887,16 @@ public class ScheduledTripSteps extends DriverBase {
 		try{
 		Thread.sleep(2000);
 		String currentTime=scheduledTripsPage.Time_EditTripDetailsTime().getAttribute("value");
+			action.click(scheduledTripsPage.Calendar_EditTripDetailsScheduledDate());
+			Thread.sleep(2000);
+			action.click(scheduledTripsPage.Calendar_NextDate());
+
 		switch (strArg1) {
 			case "trip time":
-				String newTime = GetNewScheduledTime(currentTime);
-				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
+				//String newTime = GetNewScheduledTime(currentTime);
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+				String newTime = scheduledTripsPage.Time_FirstAvailable().getText();
+				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
 				WebElement selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
 				action.click(selectTime);
 				break;
@@ -925,21 +938,18 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_verify_that_time_change_is_saved() throws Throwable {
 		try{
 		Thread.sleep(1000);
-		action.click(scheduledTripsPage.Button_ClosePopUp());
+		//action.click(scheduledTripsPage.Button_ClosePopUp());
 		SetupManager.getDriver().navigate().refresh();
 		scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")).click();
+
 		String expectedTime=(String) cucumberContextManager.getScenarioContext("NEW_TIME");
 		String actualTime=action.getText(scheduledTripsPage.Label_ChangedScheduledTime());
 
 		System.out.println("Expected Time: "+expectedTime);
 		System.out.println("Actual Time: "+actualTime);
-		if(actualTime.contains(expectedTime)){
-			testStepAssert.isTrue(true,"Expected time is displayed.", "Expected time is not displayed.");
-		}
-		else
-		{
-			testStepAssert.isFail("Expected time is not displayed.");
-		}
+
+			testStepAssert.isTrue(actualTime.contains(expectedTime),"Expected time is displayed.", "Expected time is not displayed :" + expectedTime+" instead "+ actualTime +" is displayed");
+
 		}catch (Throwable e) {
 			logger.error("Error performing step" + e);
 			error("Step  Should be successful",

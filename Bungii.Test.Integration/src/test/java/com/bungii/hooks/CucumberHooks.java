@@ -55,8 +55,6 @@ public class CucumberHooks {
             logger.error("Unable to connect with default appium server. Either VPN is down or Browserstack tunnel is broken");
             e.printStackTrace();
         }
-
-
     }
 
     @Before
@@ -70,17 +68,15 @@ public class CucumberHooks {
         logger.detail("STARTING SCENARIO : " + scenario.getName());
         this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0]);
         SetupManager.getObject().useDriverInstance("ORIGINAL");
-            Thread.sleep(2000);
+           // Thread.sleep(2000);
         if (!isFirstTestCase) {
             SetupManager.getObject().restartApp();
         }
     }
 
-
     @After
     public void afterTest(Scenario scenario) {
         try {
-
             //if first test case flag is ste to true then change it to false
             if (isFirstTestCase) isFirstTestCase = false;
             DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
@@ -94,7 +90,6 @@ public class CucumberHooks {
                 if (Failure.equals("TRUE")) {
                     logger.detail("SKIPPED TEST SCENARIO : " + scenario.getName()+" | Skipped Count : "+this.reportManager.skipped());
                 }
-
                 else
                     logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
                     CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
@@ -106,14 +101,10 @@ public class CucumberHooks {
                 try {
                     logger.detail("FAILED TEST SCENARIO : " + scenario.getName());
                     logger.warning("PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
-
-                } catch (Exception e) {
-                }
-
+                } catch (Exception e) { }
                 if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
                     new BungiiSteps().recoveryScenario();
-                    //new GeneralUtility().resetDriverAppsStateToInital();
-                  new GeneralUtility().recoverScenario();
+                    new GeneralUtility().recoverScenario();
                     //new GeneralUtility().hideNotifications();
                 } else if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
                     new GeneralUtility().hideNotifications();
@@ -125,36 +116,24 @@ public class CucumberHooks {
             } else if (!PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {
                 SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                 SetupManager.getObject().restartApp();
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
-
             if(PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")){
                 JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
                 js.executeScript(String.format("window.localStorage.clear();"));
             }
-
             //clear scenario context
             CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
             logger.error("Error in After Test Block ", ExceptionUtils.getStackTrace(e));
 
         }
-
-
     }
 
     public void tearDown() throws IOException {
         try {
             this.reportManager.endSuiteFile();
         }
-        catch (Exception ex)
-        {
-
-        }
+        catch (Exception ex) { }
     }
 
     @BeforeStep
@@ -173,39 +152,6 @@ public class CucumberHooks {
                 DriverManager.driverArray.get(currentKey).getPageSource();
                 //Ping all instances to keep them running in browserstack, used in duo scenarioss
             }
-        }
-
-    }
-
-    //for first test case after duo reinstall the apps
-    @Before("@POSTDUO")
-    public void afterDuoScenario() {
-        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-        }
-    }
-
-    //Cancel bungii from admin panel
-    @After("@scheduled")
-    public void afterScheduledBungii(Scenario scenario) {
-        //This scenario is not complete/full prof
-        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") && scenario.isFailed()) {
-            //   new GeneralUtility().recoverScenarioscheduled();
-        }
-    }
-
-    //Create a duo
-    @Before("@DUO_SCH_DONOT_ACCEPT")
-    public void createDuoBungii() {
-        //create trip for denver and keep
-        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "denver", PropertyUtility.getDataProperties("denver.customer2.phone"), PropertyUtility.getDataProperties("denver.customer2.name"), PropertyUtility.getDataProperties("denver.customer2.password"), "DUO_SCH_DONOT_ACCEPT");
-
-        }
-
-        //create trip for Kansas and keep
-        if (PropertyUtility.targetPlatform.equalsIgnoreCase("android")) {
-            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "Kansas", PropertyUtility.getDataProperties("kansas.customer1.phone"),
-                    PropertyUtility.getDataProperties("kansas.customer1.name"), PropertyUtility.getDataProperties("kansas.customer1.password"), "DUO_SCH_DONOT_ACCEPT");
         }
     }
 

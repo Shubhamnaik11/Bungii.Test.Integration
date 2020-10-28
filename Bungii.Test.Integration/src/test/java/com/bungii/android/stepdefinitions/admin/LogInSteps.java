@@ -32,7 +32,7 @@ public class LogInSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step should be successful", "Error in navigating to admin portal in browser",
                     true);
         }
     }
@@ -44,10 +44,10 @@ public class LogInSteps extends DriverBase {
             logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
             logInPage.Button_LogIn().click();
             pass("I log in to admin portal",
-                    "I got log in to admin portal", true);
+                    "I am logged in to admin portal", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step should be successful", "Error in logging in to admin portal",
                     true);
         }
     }

@@ -610,7 +610,7 @@ public class CommonSteps extends DriverBase {
             if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
             } else if (actualMessage.equals("")) {
-                actualMessage = action.getText(driverHomePage.Alert_NewBungii(true));
+                actualMessage = action.getText(driverHomePage.Alert_NewBungii());
             } else {
                 actualMessage = bungiiRequest.Alert_Msg(true).getText();
             }

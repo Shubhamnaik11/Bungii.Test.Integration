@@ -594,8 +594,8 @@ public class HomeSteps extends DriverBase {
     @Then("^I should see placeholder textbox$")
     public void i_should_see_blank_textbox() throws Throwable {
        String noText=action.getText(estimatePage.TextBox_DetailsNote());
-       String placeholder ="Apt #, door codes, special instruction, etc. If you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
-       //String placeholder = "Apt #, door codes, special instruction, etc.&#10;&#10;If you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
+       String placeholder ="Apt #, door codes, special instruction, etc.\n\nIf you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
+       //String placeholder = "Apt #, door codes, special instruction, etc.\n\nIf you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
        if(noText.contains(placeholder)){
            testStepAssert.isTrue(true,"TextBox is showing placeholder ."+ noText,"TextBox doesnot have placeholder.");
        }
@@ -616,7 +616,7 @@ public class HomeSteps extends DriverBase {
                     action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("500.characters"));
                     break;
                 case "1 more character":
-                    action.sendKeys(estimatePage.TextBox_DetailsNote(),"A");
+                    action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("500.characters")+"A");
                     break;
                 case "special characters":
                     action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("special.characters"));
@@ -656,10 +656,10 @@ public class HomeSteps extends DriverBase {
                      remainingChar=totalCharCount-charCount;
                      text=action.getText(estimatePage.Text_CharactersRemaining());
                     if(remainingChar == 0){
-                        testStepAssert.isTrue(true, "The remaining character count is 0.", "The remaining character count is not 0");
+                        testStepAssert.isTrue(true, "The remaining character count is 0.", "The remaining character count is not 0. Remaining characters are "+ remainingChar);
                     }
                     else{
-                        testStepAssert.isFail("The remaining character count is not 0.");
+                        testStepAssert.isFail("The remaining character count is not 0. Remaining characters are "+ remainingChar);
                     }
                     break;
             }

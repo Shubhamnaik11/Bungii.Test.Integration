@@ -1,7 +1,7 @@
     @android
     @bungii
     #These feature will run in Goa geofence
-    Feature: Customer Pickup Details Feature
+    Feature: Admin God Mode Feature
   # Customer  Testcustomertywd_appleand_A Android - 9393939393
   # Driver Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test
   
@@ -95,7 +95,7 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip" button
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_a Android_test" for the trip
         And I click on "VERIFY" button
@@ -127,7 +127,7 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip" button
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_a Android_test" for the trip
         And I assign driver "Testdriver_goa_b Android_test" for the trip
@@ -157,7 +157,7 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip" button
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
         And I change the "trip time to past" to future time
         And I click on "VERIFY" button
@@ -169,7 +169,8 @@
   
   
       @ready
-      Scenario: Verify if admin can update date/time for a solo trip for which no driver has accepted.
+        @dd
+      Scenario: Verify if admin can update date_time for a solo trip for which no driver has accepted
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_A Android" customer
         When I enter "goa location in pickup and dropoff fields long distance" on Bungii estimate
@@ -182,17 +183,21 @@
         And I check if the customer is on success screen
         Then I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
         And I wait for "2" mins
+        
         When I open new "Chrome" browser for "ADMIN"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip" button
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
         And I change the "trip time" to future time
         And I click on "VERIFY" button
         Then the "Your changes are good to be saved." message is displayed
         And I click on "SAVE CHANGES" button
         And the "Bungii Saved!" message is displayed
+        
+        And I wait for "2" mins
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
         When I Select "Research Driver" option
         Then I verify that time change is saved
         And I cancel all bungiis of customer
@@ -210,7 +215,7 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip" button
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
         And I change the "trip time" to future time
         And I click on "VERIFY" button

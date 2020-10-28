@@ -657,6 +657,7 @@ public class BungiiSteps extends DriverBase {
                 case "ADMIN-SMS":
                     validateSMSNumber(action.getText(messagesPage.Text_ToField()),PropertyUtility.getMessage("customer.scheduled.cancel.support.number"));
                     ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
                     break;
                 case "SMS FOR CANCEL INCASE OF EMERGENCEY":
                     validateSMSNumber(action.getText(messagesPage.Text_ToField()),PropertyUtility.getMessage("driver.support.number"));
@@ -1015,7 +1016,7 @@ public class BungiiSteps extends DriverBase {
                 //do nothing
             } else {
                 // minimum wait of 30 mins
-                action.hardWaitWithSwipeUp(5 - (int) diffInMinutes);
+                action.hardWaitWithSwipeUp(2 - (int) diffInMinutes); // No need to wait as android steps nearly take same time to reach scheduled list. so just wait for 2 mins and try
 
             }
 

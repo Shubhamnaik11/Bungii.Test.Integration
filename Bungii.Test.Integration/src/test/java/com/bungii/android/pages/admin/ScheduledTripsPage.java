@@ -45,6 +45,7 @@ public class ScheduledTripsPage extends PageBase {
         waitForLoadingToDisappear();
     }
     public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria",LocatorType.Id);}
+    public WebElement Label_Message(){return  findElement("//p[@id='cancel-success-message']/i[2]",LocatorType.XPath);}
 
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
     public WebElement Button_Research() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[2]", LocatorType.XPath); }
@@ -56,6 +57,9 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement RadioBox_EditTrip() {return findElement("//label[contains(@class,'adminEditTrip')]/span", LocatorType.XPath);}
     public WebElement Text_EditTripType() {return findElement("//div[@class='CancelComments row']/p[2]", LocatorType.XPath);}
     public WebElement Calendar_EditTripDetailsScheduledDate() {return findElement("PickupDetails_ScheduledDate", LocatorType.Id);}
+    public WebElement Calendar_NextDate() {return findElement("//td[@data-handler='selectDay'][1]/following-sibling::td[1]/a", LocatorType.XPath);}
+    public WebElement Time_FirstAvailable(){return findElement("//ul[@class='ui-timepicker-list']/li[1]", LocatorType.XPath);}
+
     public WebElement Time_EditTripDetailsTime(){return findElement("PickupDetails_ScheduledTime", LocatorType.Id);}
     public WebElement TextBox_DriverSearch() {return findElement("txtDriverSearch", LocatorType.Id);}
     public WebElement Button_VerifyDriver(){return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath);}

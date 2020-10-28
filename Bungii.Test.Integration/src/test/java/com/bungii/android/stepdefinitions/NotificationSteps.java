@@ -42,7 +42,7 @@ public class NotificationSteps extends DriverBase {
             action.showNotifications();
             Thread.sleep(90000);
             log("Checking notifications", "Checking notifications", true);
-            switch (expectedNotification) {
+            switch (expectedNotification.toUpperCase()) {
                 case "TIP RECEIVED 5 DOLLAR":
                     String text = null;
                     String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
@@ -79,8 +79,8 @@ public class NotificationSteps extends DriverBase {
 
 
             if (notificationClick == false) {
-                fail("I should able to click notification for" + expectedNotification, "I was not clicked on notifications with text" + getExpectedNotification(expectedNotification), true);
                 action.hideNotifications();
+                fail("I should able to click notification for " + expectedNotification, "I did not click on notifications with text " + getExpectedNotification(expectedNotification), true);
             } else {
                 pass("I should able to click notification for" + expectedNotification, "I clicked on notifications with text" + getExpectedNotification(expectedNotification), true);
 

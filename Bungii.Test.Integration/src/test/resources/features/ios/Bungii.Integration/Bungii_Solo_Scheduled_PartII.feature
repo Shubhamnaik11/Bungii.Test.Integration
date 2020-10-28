@@ -601,11 +601,13 @@ Feature: Solo Scheduled Bungii Part II
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+  
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+  
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I Select "Home" from Customer App menu
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "4" mins
     When I Switch to "driver" application on "same" devices
     And I open Admin portal and navigate to "Scheduled Deliveries" page
@@ -1477,12 +1479,12 @@ Feature: Solo Scheduled Bungii Part II
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
 
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
     And I Select "MY BUNGIIS" from Customer App menu
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
     When I Cancel selected Bungii
@@ -1507,13 +1509,13 @@ Feature: Solo Scheduled Bungii Part II
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
 
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I Select "MY BUNGIIS" from Customer App menu
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
     When I Cancel selected Bungii
@@ -1540,12 +1542,13 @@ Feature: Solo Scheduled Bungii Part II
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Duo Scheduled" trip
       | driver1 state |
       | Accepted      |
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+  
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I Select "MY BUNGIIS" from Customer App menu
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "4" mins
     And I select already scheduled bungii
     When I Cancel selected Bungii
@@ -1572,12 +1575,13 @@ Feature: Solo Scheduled Bungii Part II
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+  
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I Select "MY BUNGIIS" from Customer App menu
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "2" mins
     And I select already scheduled bungii
     When I Cancel selected Bungii

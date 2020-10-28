@@ -1210,8 +1210,11 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
             }
             action.scrollToTop();
             String bungiiTime = action.getText(bungiiEstimatePage.Time());
-            if (arg0.equalsIgnoreCase("OLD BUNGII TIME")) {
-                testStepVerify.isEquals(bungiiTime, (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"), "I selected bungii time as old bungii time : " + bungiiTime, " I was not able to select bungii with old bungii time , Bungii time : " + bungiiTime + " | Expected time : " + (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+            String oldTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+            if(!oldTime.equalsIgnoreCase("")) {
+                if (arg0.equalsIgnoreCase("OLD BUNGII TIME")) {
+                    testStepVerify.isEquals(bungiiTime, (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"), "I selected bungii time as old bungii time : " + bungiiTime, " I was not able to select bungii with old bungii time , Bungii time : " + bungiiTime + " | Expected time : " + (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+                }
             }
             cucumberContextManager.setScenarioContext("BUNGII_TIME", bungiiTime);
             log(" I select Bungii Time as " + arg0,

@@ -541,7 +541,7 @@ Thread.sleep(5000);
             ((AndroidDriver) SetupManager.getDriver()).pressKey(new KeyEvent(AndroidKey.valueOf("DIGIT_" + c)));
             Thread.sleep(200);
         }
-        System.out.println("ENTER VALUE :" + strNum);
+        System.out.println("                  TEXT ENTERED :" + strNum);
         try {
             ((AndroidDriver) SetupManager.getDriver()).hideKeyboard();
         } catch (Exception e) {
@@ -1210,7 +1210,7 @@ Thread.sleep(5000);
         element.sendKeys(searchstring);
         int x = element.getLocation().getX() + 32;
         int y = element.getLocation().getY() + element.getRect().getHeight() + 10;
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         new TouchAction(driver).tap(new PointOption().withCoordinates(x, y)).release().perform();
         Thread.sleep(2000);
 
