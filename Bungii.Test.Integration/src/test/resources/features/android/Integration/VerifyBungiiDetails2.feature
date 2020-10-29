@@ -6,10 +6,9 @@ Feature: VerifyBungiiDetails2
      #Testcustomertywd_appleand_F Android 9999999999
       #driverF.phone.name=Driver_goa_f Android_test 9999999996
   
-
-  
   @ready
-  Scenario: Verify that changing date/time for a scheduled bungii for which the customer has a conflicting bungii during the newly selected time.
+    #need to work
+  Scenario: Verify that changing date_time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
       | NEXT_POSSIBLE | 9999999999     | Testcustomertywd_appleand_F Android | Cci12345          |
@@ -33,18 +32,22 @@ Feature: VerifyBungiiDetails2
   
   
   @ready
-  Scenario: Verify that changing date/time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time.
+    @dd
+  Scenario: Verify that changing date_time for a scheduled bungii for which the customer has a conflicting bungii during the newly selected time
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time     |
-      | goa      | Accepted     | 1.5 hour ahead  |
+      | goa      | Accepted     | 15 min ahead  |
+    Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
+      | geofence | Bungii State | Bungii Time     |
+      | goa      | Accepted     | 2 hour ahead  |
     And I wait for "2" mins
     When I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
-    And I click on "Edit Trip1" button
+    And I open the trip for "Testcustomertywd_appleand_F Android" customer
     And I Select "Edit Trip Details" option
-    And I change the "particular trip time" to future time
+    And I change the "1.5 hour ahead" to future time
     And I click on "VERIFY" button
     Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
     And I cancel all bungiis of customer

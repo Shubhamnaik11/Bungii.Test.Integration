@@ -74,7 +74,7 @@
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "2" mins
+    And I wait for "3" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "CANCEL" button
     Then A popup with "Cancel Reasons" should appear
@@ -90,7 +90,7 @@
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "2" mins
+    And I wait for "3" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "CANCEL" button
     Then A popup with "Cancel Reasons" should appear
@@ -108,7 +108,7 @@
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "2" mins
+    And I wait for "3" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "CANCEL" button
     Then A popup with "Cancel Reasons" should appear
@@ -127,7 +127,7 @@
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "2" mins
+    And I wait for "3" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "CANCEL" button
     Then A popup with "Cancel Reasons" should appear

@@ -887,12 +887,11 @@ public class ScheduledTripSteps extends DriverBase {
 		try{
 		Thread.sleep(2000);
 		String currentTime=scheduledTripsPage.Time_EditTripDetailsTime().getAttribute("value");
-			action.click(scheduledTripsPage.Calendar_EditTripDetailsScheduledDate());
-			Thread.sleep(2000);
-			action.click(scheduledTripsPage.Calendar_NextDate());
-
 		switch (strArg1) {
 			case "trip time":
+				action.click(scheduledTripsPage.Calendar_EditTripDetailsScheduledDate());
+				Thread.sleep(2000);
+				action.click(scheduledTripsPage.Calendar_NextDate());
 				//String newTime = GetNewScheduledTime(currentTime);
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
 				String newTime = scheduledTripsPage.Time_FirstAvailable().getText();
@@ -908,7 +907,13 @@ public class ScheduledTripSteps extends DriverBase {
 				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
 				action.click(selectTime);
 				break;
-
+			case "1.5 hour ahead":
+				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+				String firstTime = scheduledTripsPage.Time_FirstAvailable().getText();
+				selectTime = scheduledTripsPage.Time_FirstAvailable().findElement(By.xpath("//following::li[3]"));
+				//selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
+				action.click(selectTime);
+				break;
 			case "trip time to past":
 				newTime = currentTime;
 				String t2 = null;

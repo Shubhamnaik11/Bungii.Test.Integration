@@ -463,7 +463,8 @@ public class ScheduledBungiiSteps extends DriverBase {
                     action.click(estimatePage.Button_OkDriverNotAvailable());
                     break;
                 case "Schedule Bungii":
-                    action.click(estimatePage.Button_ScheduleBungii());
+                    Thread.sleep(5000);
+                    action.click(estimatePage.Button_Schedule());
                     break;
 
 
@@ -615,19 +616,20 @@ public class ScheduledBungiiSteps extends DriverBase {
     @Then("^the trip is displayed on \"([^\"]*)\" screen$")
     public void the_trip_is_displayed_on_something_screen(String strArg1) throws Throwable {
         try{
-        switch (strArg1) {
+            int year = DateTime.now().getYear();
+            String actualMyBungiiTime ="";
+            switch (strArg1) {
             case "MY BUNGIIS":
                 String expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("MY_BUNGII_DATE");
-                int year = DateTime.now().getYear();
-                String actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" -" , "");
+                actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" -" , "");
 
-                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed. "+ actualMyBungiiTime+"is displayed");
+                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed. "+ actualMyBungiiTime+" is displayed");
                 break;
 
             case "MY BUNGII":
                  expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("NEW_SCHDL_BUNGII_TIME");
-                 actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText();
-                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed. "+ actualMyBungiiTime+"is displayed");
+                 actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" -" , "");
+                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed. "+ actualMyBungiiTime+" is displayed");
                 break;
         }
     }

@@ -235,8 +235,8 @@ public class BungiiSteps extends DriverBase {
                 boolean isDisplayed = action.waitUntilAlertDisplayed(15L);
                 if (!isDisplayed)
                     i_click_on_notification_for_something("on demand trip");
-                   //isDisplayed = action.waitUntilAlertDisplayed(180L);
-                if (action.isElementPresent(Page_BungiiRequest.Alert_Msg(true))) {
+                      action.waitUntilAlertDisplayed(180L);
+                if (action.isElementPresent(Page_BungiiRequest.Alert_Msg())) {
                     action.click(Page_BungiiRequest.AlertButton_View());
                     switch (arg0) {
                         case "accepts On Demand Bungii":
@@ -337,7 +337,7 @@ public class BungiiSteps extends DriverBase {
             if (!isFound)
                 action.hideNotifications();
 
-            testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "Push Notification not received with text " + expecteMessage + " message");
+            testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message " + expecteMessage, "Push Notification not received with text " + expecteMessage + " message");
 
             //SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                    } catch (Exception e) {
@@ -383,7 +383,7 @@ public class BungiiSteps extends DriverBase {
 
                 action.hideNotifications();
 
-            testStepAssert.isTrue(notificationClick, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "Push Notification not received with text " + expecteMessage + " message");
+            testStepAssert.isTrue(notificationClick, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message " + expecteMessage, "Push Notification not received with text " + expecteMessage + " message");
 
             //SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
         } catch (Exception e) {

@@ -265,6 +265,7 @@ public class EstimateBungiiSteps extends DriverBase {
     public void i_should_see_the_minimum_scheduled_time_for_solo_bungii_displayed_on_the_estimate_page() throws Throwable {
         try{
         action.click(estimatePage.Time());
+        if(action.isElementPresent(estimatePage.Button_Later(true)))
         action.click(estimatePage.Button_Later());
         action.click(estimatePage.Button_DateConfirm());
         action.click(estimatePage.Button_TimeConfirm());
@@ -342,7 +343,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     estimatedCost.replace("~$","");
                     previousCost.replace("~$","");
                     if(!previousCost.equals(estimatedCost))
-                    testStepAssert.isTrue(true, "Cost is estimated for Bungii.", "Cost is not estimated for Bungii.");
+                    testStepAssert.isTrue(true, "Cost is estimated for Bungii.", "Cost is not estimated for Bungii. "+ previousCost+ " | "+ estimatedCost);
                     break;
                 case "Correct Time Format":
 
@@ -976,6 +977,8 @@ public class EstimateBungiiSteps extends DriverBase {
             }
             Thread.sleep(5000);
             //save load time in cucumber context
+            String estimatedCost=action.getText(estimatePage.Text_GetCost());
+            cucumberContextManager.setScenarioContext("BUNGIICOST", estimatedCost);
             cucumberContextManager.setScenarioContext("BUNGII_LOAD_TIME", arg0.replace(" mins", ""));
             log(" I add loading/unloading time " + arg0 + "on Estimate page",
                     "I clicked on " + arg0 + "as Estimate loading/unloading time ", true);

@@ -21,24 +21,6 @@
         And I add loading/unloading time of "30 mins"
         Then I should see "all elements" on Bungii estimate
 
-@ready
-    Scenario: Verify that the Estimated cost on the grey bar is updated on updating load/unload time and promo code.
-      Given I am on customer Log in page
-      And I am logged in as "Testcustomertywd_appleand_E Android" customer
-
-      When I Switch to "customer" application on "same" devices
-      And I enter "Goa pickup and dropoff location" on Bungii estimate
-      And I tap on "Get Estimate button" on Bungii estimate
-  
-      And I add loading/unloading time of "15 mins"
-      And I tap on "Promo code value" on Estimate screen
-      And I add "PROMOTER TYPE PROMO" PromoCode
-      And I tap "Add" on Save Money page
-      Then I should able to see expected promo code in available promo code
-  
-      And I tap on "Back" icon of page
-      Then I should see "estimated cost" on Bungii estimate
-
 @regression
   #stable
     Scenario: Verify that four masked characters are displayed before the last four characters of Payment Mode.
@@ -75,13 +57,13 @@
       When I Switch to "customer" application on "same" devices
       And I enter "Goa pickup and dropoff location" on Bungii estimate
       And I tap on "Get Estimate button" on Bungii estimate
-      And I select Bungii Time as "next possible scheduled"
       And I add loading/unloading time of "15 mins"
       Then I add "1" photos to the Bungii
       When I tap on "Details" on Estimate screen
       And I enter "special characters" in Additional Notes field
       And I click on "ADD NOTE" button
       Then "Estimate" page should be opened
+      And I select Bungii Time as "next possible scheduled"
       When I tap on "Request Bungii" on Bungii estimate
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
       And I check if the customer is on success screen
@@ -163,13 +145,14 @@
         And I enter "Goa pickup and dropoff location" on Bungii estimate
         And I tap on "two drivers selector" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "BUNGII TIME"
         And I add loading/unloading time of "15 mins"
         Then I add "1" photos to the Bungii
         When I tap on "Details" on Estimate screen
         And I enter "text" in Additional Notes field
         And I click on "ADD NOTE" button
         Then "Estimate" page should be opened
+        And I select Bungii Time as "BUNGII TIME"
+  
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
         Then I click "Done" button on "Success" screen
@@ -197,13 +180,14 @@
         And I Switch to "customer" application on "same" devices
         And I enter "Goa pickup and dropoff location" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "next possible scheduled"
         And I add loading/unloading time of "15 mins"
         Then I add "1" photos to the Bungii
         When I tap on "Details" on Estimate screen
         And I enter "text" in Additional Notes field
         And I click on "ADD NOTE" button
         Then "Estimate" page should be opened
+        And I select Bungii Time as "next possible scheduled"
+  
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     
@@ -228,13 +212,13 @@
         And I enter "Goa pickup and dropoff location" on Bungii estimate
         And I tap on "two drivers selector" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "next possible scheduled"
         And I add loading/unloading time of "15 mins"
         Then I add "1" photos to the Bungii
         When I tap on "Details" on Estimate screen
         And I enter "text" in Additional Notes field
         And I click on "ADD NOTE" button
         Then "Estimate" page should be opened
+        And I select Bungii Time as "next possible scheduled"
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     
@@ -258,13 +242,13 @@
         And I Switch to "customer" application on "same" devices
         And I enter "Goa pickup and dropoff location" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "OLD BUNGII TIME"
         And I add loading/unloading time of "15 mins"
         Then I add "1" photos to the Bungii
         When I tap on "Details" on Estimate screen
         And I enter "text" in Additional Notes field
         And I click on "ADD NOTE" button
         Then "Estimate" page should be opened
+        And I select Bungii Time as "OLD BUNGII TIME"
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     
@@ -292,13 +276,13 @@
         And I Switch to "customer" application on "same" devices
         And I enter "Goa pickup and dropoff location" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "OLD BUNGII TIME"
         And I add loading/unloading time of "15 mins"
         Then I add "1" photos to the Bungii
         When I tap on "Details" on Estimate screen
         And I enter "text" in Additional Notes field
         And I click on "ADD NOTE" button
         Then "Estimate" page should be opened
+        And I select Bungii Time as "OLD BUNGII TIME"
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     
@@ -332,9 +316,9 @@
         And I Switch to "customer" application on "same" devices
         And I enter "Goa pickup and dropoff location" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "OLD BUNGII TIME"
         And I add loading/unloading time of "15 mins"
         Then I add "1" photos to the Bungii
+        And I select Bungii Time as "OLD BUNGII TIME"
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     
@@ -365,12 +349,13 @@
         And I am logged in as "Testcustomertywd_appleand_E Android" customer
         And I enter "Goa pickup and dropoff location" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "NEW BUNGII TIME"
         And I add loading/unloading time of "15 mins"
         Then I add "1" photos to the Bungii
         When I tap on "Details" on Estimate screen
         And I enter "text" in Additional Notes field
         And I click on "ADD NOTE" button
+        And I select Bungii Time as "NEW BUNGII TIME"
+  
         Then "Estimate" page should be opened
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate

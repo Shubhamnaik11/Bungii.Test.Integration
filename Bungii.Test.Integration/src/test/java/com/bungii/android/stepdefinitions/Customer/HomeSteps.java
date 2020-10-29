@@ -732,7 +732,8 @@ public class HomeSteps extends DriverBase {
                     break;
 
                 case "SET PICKUP TIME PAGE":
-                    testStepAssert.isElementDisplayed(setPickupTimePage.Text_SetPickupTimeTitle(), "SET PICKUP TIME page title should be displayed.", "SET PICKUP TIME page title is displayed.","SET PICKUP TIME page title is not displayed.");
+                    testStepAssert.isElementDisplayed(setPickupTimePage.Text_DriversBusyMessage(),"Driver Busy message should be shown","Driver Busy message is shown","Driver Busy message is not shown");
+                    testStepAssert.isElementTextEquals(setPickupTimePage.Text_SetPickupTimeTitle(),"SET PICKUP TIME", "SET PICKUP TIME page title should be displayed.", "SET PICKUP TIME page title is displayed.","SET PICKUP TIME page title is not displayed.");
                     break;
 
                 case "DRIVERS NOT AVAILABLE":
@@ -763,6 +764,7 @@ public class HomeSteps extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
             }
+            pass("I verify that "+strArg1 +" is displayed",strArg1 +" is displayed");
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

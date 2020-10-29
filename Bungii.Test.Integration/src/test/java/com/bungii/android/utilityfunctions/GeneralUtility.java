@@ -474,14 +474,17 @@ Thread.sleep(5000);
         double tripTime = Double.parseDouble(estTime);
         double actualValue = distance + loadUnloadTime + tripTime;
         double discount = 0;
+        String promoValue = Promo;
         if (Promo.contains("$"))
             discount = Double.parseDouble(Promo.replace("-$", ""));
         else if (Promo.contains("%"))
             discount = actualValue * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
 
         double estimate = distance + loadUnloadTime + tripTime - discount;
+        if(promoValue.contains("-100%"))
+            estimate =estimate;
+            else
         estimate = estimate > MIN_COST ? estimate : MIN_COST;
-
         return estimate;
     }
 
@@ -1124,7 +1127,8 @@ Thread.sleep(5000);
     public void selectBungiiTime() {
         action.scrollToTop();
         action.click(estimatePage.Time());
-        action.click(estimatePage.Button_Later());
+        if(action.isElementPresent(estimatePage.Button_Later(true)))
+            action.click(estimatePage.Button_Later());
         action.click(estimatePage.Button_DateConfirm());
         action.click(estimatePage.Button_TimeConfirm());
 
@@ -1133,14 +1137,16 @@ Thread.sleep(5000);
     public void selectNewBungiiTime() {
         action.scrollToTop();
         action.click(estimatePage.Time());
+        if(action.isElementPresent(estimatePage.Button_Later(true)))
+            action.click(estimatePage.Button_Later());
         action.click(estimatePage.Button_DateConfirm());
         action.click(estimatePage.Button_TimeConfirm());
     }
 
     public void selectBungiiTime(String hour, String minutes, String ampm) {
         action.scrollToTop();
-        action.click(estimatePage.Time());
-        action.click(estimatePage.Button_Later());
+        action.click(estimatePage.Time()); if(action.isElementPresent(estimatePage.Button_Later(true)))
+            action.click(estimatePage.Button_Later());
         action.click(estimatePage.Button_DateConfirm());
         action.sendKeys(estimatePage.TextBox_CurrentBungiiHour(), hour);
         action.sendKeys(estimatePage.TextBox_CurrentBungiiMinutes(), minutes);

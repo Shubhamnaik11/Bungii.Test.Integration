@@ -252,7 +252,6 @@ Feature: Scheduled Duo Bungiis
   
   
   @regression
-  @dd
   Scenario Outline: Verify Customer Amount Calculation in Admin portal For The Scheduled Duo Bungii Having Promocode <PROMO CODE> Applied To It [Kansas Geofence]
 	Given I am logged in as "valid kansas" customer
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist

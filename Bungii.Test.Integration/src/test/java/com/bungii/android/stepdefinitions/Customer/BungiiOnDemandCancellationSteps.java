@@ -27,7 +27,9 @@ public class BungiiOnDemandCancellationSteps extends DriverBase {
         try{
             switch (option){
                 case "Cancel Reasons":
-                    setPickupTimePage.Popup_CancelReasonTitle();
+                    //setPickupTimePage.Button_Ok()
+                    actionManager.isElementPresent(setPickupTimePage.Popup_CancelReasonTitle());
+
                     break;
 
                 default:
@@ -53,7 +55,7 @@ public class BungiiOnDemandCancellationSteps extends DriverBase {
                     actionManager.click(setPickupTimePage.Text_SecondCancellationReason());
                     break;
 
-                case "I don't need it anymore":
+                case "I don't need it anymore.":
                     actionManager.click(setPickupTimePage.Text_ThirdCancellationReason());
 
                 case "Other...":

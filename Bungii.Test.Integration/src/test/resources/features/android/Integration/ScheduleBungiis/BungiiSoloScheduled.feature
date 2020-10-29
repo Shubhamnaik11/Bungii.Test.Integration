@@ -1707,7 +1707,6 @@ Feature: SoloScheduled
 
   #@regression
   @ready
-    @dd
   Scenario: Verify Customer Can Cancel Through SMS To Admin If Only One Driver Accepts And Processing Gets Over
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |

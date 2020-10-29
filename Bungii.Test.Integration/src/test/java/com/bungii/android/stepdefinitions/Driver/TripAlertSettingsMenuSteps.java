@@ -22,6 +22,7 @@ import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.pass;
 
 public class TripAlertSettingsMenuSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LoginSteps.class);
@@ -293,8 +294,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }
-            log(" I click on " + Name + " button",
-                    "I clicked on  " + Name +" button", true);
+            pass(" I click on " + Name + " button",
+                    "I clicked on  " + Name +" button");
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

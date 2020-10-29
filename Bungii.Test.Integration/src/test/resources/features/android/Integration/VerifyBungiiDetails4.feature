@@ -46,6 +46,8 @@
           | Driving To Dropoff | Driving To Dropoff |
           | Unloading Item     | Unloading Item     |
           | Bungii Completed   | Bungii Completed   |
+        
+        
 #      When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
 #        | Bungii Time    | Customer Phone | Customer Name                       | Customer Password |
 #        | NEXT_POSSIBLE  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
@@ -102,6 +104,7 @@
         And the "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
         And the "Bungii Saved!" message is displayed
+        
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9999991020      |                 |
@@ -135,6 +138,7 @@
         And the "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
         And the "Bungii Saved!" message is displayed
+        
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9999991020      |                 |
@@ -169,7 +173,6 @@
   
   
       @ready
-        @dd
       Scenario: Verify if admin can update date_time for a solo trip for which no driver has accepted
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -200,7 +203,7 @@
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         When I Select "Research Driver" option
         Then I verify that time change is saved
-        And I cancel all bungiis of customer
+        Then I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9999991020      |                 |
   
@@ -233,8 +236,6 @@
   
       @ready
       Scenario: Verify that correct date of the trip is displayed as per the timezone of the geofence.
-        Given I am on customer Log in page
-        And I am logged in as "Testcustomertywd_appleand_A Android" customer
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time  |
           | goa  | Accepted     | 15 min ahead |
@@ -243,6 +244,8 @@
           | Bungii Completed      |
     
         When I Switch to "customer" application on "same" devices
+		Given I am on customer Log in page
+		And I am logged in as "Testcustomertywd_appleand_A Android" customer
         And I tap on "Menu" > "My Bungiis" link
         And "MY BUNGIIS" page should be opened
         And I click on "Past" tab
@@ -256,8 +259,7 @@
   
       @ready
       Scenario: Verify that admin can assign a driver to a solo trip when it is in searching status.
-        Given I am on customer Log in page
-        And I am logged in as "Testcustomertywd_appleand_A Android" customer
+     
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time   |
           | goa  | Scheduled    | NEXT_POSSIBLE |

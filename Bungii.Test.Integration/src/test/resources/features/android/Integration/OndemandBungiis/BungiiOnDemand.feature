@@ -478,7 +478,6 @@ Feature: On Demand Bungii
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid baltimore" driver
-
     And Bungii Driver "slides to the next state"
     Then Bungii Driver "completes Bungii"
 
@@ -488,6 +487,9 @@ Feature: On Demand Bungii
     And I share on "Facebook with app installed"
 
     And I Switch to "customer" application on "same" devices
+    And I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    # test line to check if facebook app is not installed
+    
     And I enter "baltimore pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "15 mins"
@@ -525,6 +527,7 @@ Feature: On Demand Bungii
 
   #@regression
     @ready
+      # Also Case Covered, Verify that the Estimated cost on the grey bar is updated on updating load/unload time and promo code
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     When I am on customer Log in page
     And I am logged in as "valid baltimore" customer
@@ -543,7 +546,8 @@ Feature: On Demand Bungii
     And I tap "Add" on Save Money page
     Then I should able to see expected promo code in available promo code
     And I tap on "Back" icon of page
-    And I tap on "Request Bungii" on Bungii estimate
+      Then I should see "estimated cost" on Bungii estimate
+      And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
 
