@@ -86,9 +86,9 @@ public class Partner_Delivery_Details extends DriverBase {
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
-                //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
                 action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+
 
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
                 action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
@@ -134,10 +134,6 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Delivery Details":
                     action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
                     action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
-                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
-                    //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
-                    action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
-                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
 
                     action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
                     action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
@@ -170,9 +166,9 @@ public class Partner_Delivery_Details extends DriverBase {
     public void i_confirm_details_shown_in_summary(){
         String Bungii_type = (String)cucumberContextManager.getScenarioContext("Partner_Bungii_type");
         if(Bungii_type.equalsIgnoreCase("Solo")){
-            testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Driver_Truck(),"Solo - 1 driver & 1 truck");
+            testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Driver_Truck(),"Solo - 1 driver 1 truck");
         }else{
-            testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Driver_Truck(),"Duo - 2 drivers & 2 trucks");
+            testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Driver_Truck(),"Duo - 2 driver 2 truck");
         }
 
         String Pickup_Address = (String)cucumberContextManager.getScenarioContext("PickupAddress");
