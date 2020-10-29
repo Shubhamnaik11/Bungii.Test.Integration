@@ -43,7 +43,7 @@ Feature: Admin_OndemandTrips
     And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       | Status |
-      | Processing Confirmation|
+      | Assigning Driver(s)|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverD" perform below action with respective "Solo Ondemand" Delivery
       | driver1 state|
       | Accepted |
