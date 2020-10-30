@@ -3,6 +3,8 @@ package com.bungii.android.pages.customer;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class MyBungiisPage extends PageBase {
     public WebElement Select_PastTrip1(){return findElements("//*[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow']", LocatorType.XPath).get(0);}
     public WebElement Select_PastTrip2(){return findElements("//*[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow']", LocatorType.XPath).get(1);}
@@ -21,6 +23,8 @@ public class MyBungiisPage extends PageBase {
     public WebElement Text_DropOff_Location2(){return findElements("//*[@resource-id='com.bungii.customer:id/completed_bungii_iv_pickup_icon']/following::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath).get(3);}
 
     public WebElement Text_TripScheduledDate(){return findElement("com.bungii.customer:id/completed_bungii_tv_scheduled_date", LocatorType.Id);}
+   public WebElement Text_DeliveryDate(){return findElements("//android.widget.TextView[@resource-id='com.bungii.customer:id/item_my_bungii_tv_date']", LocatorType.XPath).get(0);}
+
     public WebElement Text_TripCost(){return findElement("com.bungii.customer:id/completed_bungii_tv_estimated_cost_label", LocatorType.Id);}
     public WebElement Text_DriverNotRated(){return findElement("com.bungii.customer:id/driver_details_row_driver_not_rated_info", LocatorType.Id);}
 

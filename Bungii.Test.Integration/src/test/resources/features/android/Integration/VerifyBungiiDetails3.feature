@@ -133,7 +133,7 @@
   
   
       @ready
-      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request.
+      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_E Android" customer
     
@@ -168,39 +168,9 @@
           | Customer Phone  | Customer2 Phone |
           | 9889889888      |                 |
   
+      
       @ready
-      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page.
-        Given I am on customer Log in page
-        And I am logged in as "Testcustomertywd_appleand_E Android" customer
-    
-        When I Switch to "driver" application on "same" devices
-        And I am on the LOG IN page on driver app
-        And I am logged in as "Testdriver_goa_e Android_test" driver
-        And I tap on "Go Online button" on Driver Home page
-        And I Switch to "customer" application on "same" devices
-        And I enter "Goa pickup and dropoff location" on Bungii estimate
-        And I tap on "Get Estimate button" on Bungii estimate
-        And I add loading/unloading time of "15 mins"
-        Then I add "1" photos to the Bungii
-        When I tap on "Details" on Estimate screen
-        And I enter "text" in Additional Notes field
-        And I click on "ADD NOTE" button
-        Then "Estimate" page should be opened
-        And I select Bungii Time as "next possible scheduled"
-  
-        When I tap on "Request Bungii" on Bungii estimate
-        And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    
-        When I Switch to "driver" application on "same" devices
-        And I Select "AVAILABLE BUNGIIS" from driver App menu
-        And I Select Trip from driver available trip
-        Then I should be able to see "Customer Note" Text
-        And I cancel all bungiis of customer
-          | Customer Phone  | Customer2 Phone |
-          | 9889889888      |                 |
-  
-      @ready
-      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request, when viewed from Available Trips page.
+      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request, when viewed from Available Trips page
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_E Android" customer
     
@@ -231,7 +201,7 @@
           | 9889889888      |                 |
   
       @ready
-      Scenario: Verify that driver is able to correctly view all the text entered in Details field in the Bungii Details page for a Scheduled Bungii.
+      Scenario: Verify that driver is able to correctly view all the text entered in Details field in the Bungii Details page for a Scheduled Bungii
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_E Android" customer
     
@@ -264,15 +234,15 @@
           | 9889889888      |                 |
   
       @ready
-      Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
+      Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_E Android" customer
     
         When I Switch to "driver" application on "same" devices
         And I am on the LOG IN page on driver app
         And I am logged in as "Testdriver_goa_e Android_test" driver
-  
         And I tap on "Go Online button" on Driver Home page
+        
         And I Switch to "customer" application on "same" devices
         And I enter "Goa pickup and dropoff location" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
@@ -283,6 +253,7 @@
         And I click on "ADD NOTE" button
         Then "Estimate" page should be opened
         And I select Bungii Time as "OLD BUNGII TIME"
+        
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     
@@ -303,16 +274,15 @@
           | 9889889888      |                 |
   
       @ready
-      Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
+      Scenario: Verify that driver is able to correctly view all the text entered in Details field while solo bungii is in progress
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_E Android" customer
     
         When I Switch to "driver" application on "same" devices
         And I am on the LOG IN page on driver app
-        #And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
         And I am logged in as "Testdriver_goa_e Android_test" driver
-  
         And I tap on "Go Online button" on Driver Home page
+        
         And I Switch to "customer" application on "same" devices
         And I enter "Goa pickup and dropoff location" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
@@ -340,7 +310,7 @@
   
   
       @ready
-      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request.
+      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii push notification request
         When I am on the LOG IN page on driver app
         And I am logged in as "Testdriver_goa_e Android_test" driver
         And I tap on "Go Online button" on Driver Home page
@@ -468,4 +438,36 @@
           | 0      | TEST     | Outside of delivery scope      |
         Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
         And "Cancel button" should not be displayed
+  
+      @ready
+      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page
+        Given I am on customer Log in page
+        And I am logged in as "Testcustomertywd_appleand_E Android" customer
+    
+        When I Switch to "driver" application on "same" devices
+        And I am on the LOG IN page on driver app
+        And I am logged in as "Testdriver_goa_e Android_test" driver
+        And I tap on "Go Online button" on Driver Home page
+        And I Switch to "customer" application on "same" devices
+        And I enter "Goa pickup and dropoff location" on Bungii estimate
+        And I tap on "Get Estimate button" on Bungii estimate
+        And I add loading/unloading time of "15 mins"
+        Then I add "1" photos to the Bungii
+        When I tap on "Details" on Estimate screen
+        And I enter "text" in Additional Notes field
+        And I click on "ADD NOTE" button
+        Then "Estimate" page should be opened
+        And I select Bungii Time as "next possible scheduled"
+    
+        When I tap on "Request Bungii" on Bungii estimate
+        And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    
+        When I Switch to "driver" application on "same" devices
+        And I Select "AVAILABLE BUNGIIS" from driver App menu
+        And I Select Trip from driver available trip
+        Then I should be able to see "Customer Note" Text
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | 9889889888      |                 |
+  
 

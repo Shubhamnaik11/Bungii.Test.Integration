@@ -1221,7 +1221,7 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
             }
             cucumberContextManager.setScenarioContext("BUNGII_TIME", bungiiTime);
             log(" I select Bungii Time as " + arg0,
-                    " I select Bungii Time as " + bungiiTime + ", Selected Bungii time is " + bungiiTime, true);
+                    "Selected Bungii time is " + bungiiTime, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

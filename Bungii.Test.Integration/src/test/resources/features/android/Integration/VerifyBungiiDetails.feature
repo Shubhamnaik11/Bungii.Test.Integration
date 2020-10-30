@@ -343,6 +343,7 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
+   
       And I click on "Edit Trip1" button
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip

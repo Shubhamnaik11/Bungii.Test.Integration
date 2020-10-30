@@ -685,7 +685,7 @@ public class CoreServices extends DriverBase {
 
 
     public Response customerView(String pickuprequestid, String authToken) {
-        String RequestText ="API REQUEST : Customer View "+ pickuprequestid +" | Auth Token : "+ authToken;
+        String RequestText ="API REQUEST : Get Customer View "+ pickuprequestid +" | Auth Token : "+ authToken;
 
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -702,7 +702,7 @@ public class CoreServices extends DriverBase {
     }
 
     public Response driverView(String pickuprequestid, String authToken) {
-        String RequestText ="API REQUEST : Driver View "+ pickuprequestid +" | Auth Token : "+ authToken;
+        String RequestText ="API REQUEST : Get Driver View "+ pickuprequestid +" | Auth Token : "+ authToken;
 
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -720,7 +720,7 @@ public class CoreServices extends DriverBase {
 
     public String driverPaymentMethod(String pickuprequestid, String authToken) {
         try {
-            String RequestText ="API REQUEST : Driver Payment Method "+ pickuprequestid +" | Auth Token : "+ authToken;
+            String RequestText ="API REQUEST : Get Driver Payment Method "+ pickuprequestid +" | Auth Token : "+ authToken;
             Response response = driverView(pickuprequestid, authToken);
             ApiHelper.genericResponseValidation(response,RequestText);
             JsonPath jsonPathEvaluator = response.jsonPath();
@@ -786,7 +786,7 @@ public class CoreServices extends DriverBase {
 
     public void updateStatus(String pickupID, String authToken, int statusID) {
         try {
-            String RequestText = "API REQUEST : Update Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID;
+            String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID;
 
             JSONObject jsonObj = new JSONObject();
             JSONObject status = new JSONObject();
@@ -819,7 +819,7 @@ public class CoreServices extends DriverBase {
 
     public void pickupdetails(String pickupID, String authToken, String geofence) {
         try {
-            String RequestText = "API REQUEST : Pickup Details of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Geofence : "+ geofence;
+            String RequestText = "API REQUEST : Get Pickup Details of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Geofence : "+ geofence;
             JSONObject jsonObj = new JSONObject();
             JSONObject driverCordinate = new JSONObject();
             Float[] driverLocations = utility.getDriverLocation(geofence);

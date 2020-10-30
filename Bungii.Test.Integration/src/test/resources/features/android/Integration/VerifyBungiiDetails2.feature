@@ -32,7 +32,6 @@ Feature: VerifyBungiiDetails2
   
   
   @ready
-    @dd
   Scenario: Verify that changing date_time for a scheduled bungii for which the customer has a conflicting bungii during the newly selected time
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time     |
@@ -70,10 +69,10 @@ Feature: VerifyBungiiDetails2
     And I close "Tutorial" if exist
     When I enter "Goa pickup and dropoff locations" on Bungii estimate screen
     And I tap on "Get Estimate button" on Bungii estimate
-    And I select Bungii Time as "NEW BUNGII TIME"
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "15 mins"
-    And I tap on "Request Bungii" on Bungii estimate
+	And I select Bungii Time as "NEW BUNGII TIME"
+	And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I check if the customer is on success screen
     Then I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
@@ -118,10 +117,10 @@ Feature: VerifyBungiiDetails2
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
-    And I select Bungii Time as "next possible scheduled for duo"
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
-    And I get Bungii details on Bungii Estimate
+	And I select Bungii Time as "next possible scheduled for duo"
+	And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I check if the customer is on success screen
@@ -156,12 +155,12 @@ Feature: VerifyBungiiDetails2
     And I am logged in as "Testcustomertywd_appleand_F Android" customer
     And I enter "Goa pickup and dropoff location" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
-    And I select Bungii Time as "NEW BUNGII TIME"
     And I add loading/unloading time of "15 mins"
     Then I add "1" photos to the Bungii
     When I tap on "Details" on Estimate screen
     And I enter "text" in Additional Notes field
     And I click on "ADD NOTE" button
+    And I select Bungii Time as "NEW BUNGII TIME"
     Then "Estimate" page should be opened
     When I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
@@ -212,7 +211,6 @@ Feature: VerifyBungiiDetails2
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 9999999999      |                 |
-    ###############################
   
   @ready
   Scenario: Verify if re-search automatically happens if admin does not add a new driver after removal

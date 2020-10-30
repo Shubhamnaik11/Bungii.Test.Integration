@@ -12,7 +12,10 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -89,10 +92,12 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                 case "trip cost":
                     String expectedTripCost=(String)cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
                     String actualTripCost=action.getText(myBungiisPage.Text_TripCost());
-                    testStepAssert.isEquals(actualTripCost,expectedTripCost,"Trip cost expected is "+expectedTripCost,"Expected Trip Cost is displayed.",expectedTripCost+" is not displayed.");
+                    testStepAssert.isEquals(actualTripCost,expectedTripCost,"Trip cost expected is "+expectedTripCost,"Expected Trip Cost is displayed. ",expectedTripCost+" is not displayed.");
                     break;
                 case "timezone":
                     String expectedBungiiTime=(String)cucumberContextManager.getScenarioContext("BUNGII_TIME");
+                     expectedBungiiTime=expectedBungiiTime.replace(" GMT+5:30","");
+
                     if(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()).inDaylightTime( new Date() ))
                         expectedBungiiTime = expectedBungiiTime.replace("ST","DT");
                     String actualBungiiTime=action.getText(myBungiisPage.Text_TripScheduledDate());
@@ -105,12 +110,27 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
 
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
     }
+    @Then("^correct date of the trip is displayed as per the timezone of the geofence$")
+    public void correct_date_of_the_trip_is_displayed_as_per_the_timezone_of_the_geofence() throws Throwable {
+        String expectedBungiiTime=(String)cucumberContextManager.getScenarioContext("BUNGII_TIME");
+        expectedBungiiTime=expectedBungiiTime.replace("GMT+5:30","GMT+05:30");
 
+        if(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()).inDaylightTime( new Date() ))
+            expectedBungiiTime = expectedBungiiTime.replace("ST","DT");
+        int year = new DateTime().getYear();
+        expectedBungiiTime = expectedBungiiTime.substring(0,7)+expectedBungiiTime.substring(16,expectedBungiiTime.length());
+        String actualBungiiTime =action.getText(myBungiisPage.Text_TripScheduledDate()).replace(" "+String.valueOf(year),"");
+        testStepAssert.isTrue(expectedBungiiTime.contains(actualBungiiTime),"Bungii time expected is "+expectedBungiiTime,"Expected Bungii Time is displayed.",actualBungiiTime+" is displayed instead of "+expectedBungiiTime);
+    }
+
+    @When("^I view last completed bungii$")
+    public void i_view_last_completed_bungii() throws Throwable {
+        action.click(myBungiisPage.Text_DeliveryDate());
+    }
     @And("^I open the trip for \"([^\"]*)\" driver$")
     public void i_open_the_trip_for_something_driver(String driverName) throws Throwable {
         try{

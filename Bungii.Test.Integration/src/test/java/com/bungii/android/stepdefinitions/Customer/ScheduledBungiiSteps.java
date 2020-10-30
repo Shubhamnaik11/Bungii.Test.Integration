@@ -101,51 +101,56 @@ public class ScheduledBungiiSteps extends DriverBase {
             switch (strArg1) {
                 case "solo driver names":
                     driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+
                     appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
                     if (driver1Name.contains(appDriver1Name))
                     {
                         testStepAssert.isTrue(true, "Driver name match.", "Driver name doesn't match.");
                     }
                     else{
-                        testStepAssert.isFail("Driver name doesn't match.");
+                        testStepAssert.isFail("Driver name doesn't match." + appDriver1Name +" | "+ driver1Name);
                     }
                     break;
 
                 case "duo driver names":
                     driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+
                     appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
                     driver2Name=(String)cucumberContextManager.getScenarioContext("DRIVER2_NAME");
+
                     appDriver2Name=scheduledTripsPage.Text_Driver2Name().getText();
                     if (driver1Name.contains(appDriver1Name) && driver2Name.contains(appDriver2Name) )
                     {
                         testStepAssert.isTrue(true, "Driver names match.", "Driver names doesn't match.");
                     }
                     else{
-                        testStepAssert.isFail("Driver names doesn't match.");
+                        testStepAssert.isFail("Driver name doesn't match." + appDriver1Name +" | "+ driver1Name + " & "+ appDriver2Name+ " | " + driver2Name );
                     }
                     break;
 
                 case "control driver name":
                     driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+
                     appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
                     if (driver1Name.contains(appDriver1Name))
                     {
                         testStepAssert.isTrue(true, "Driver name match.", "Driver name doesn't match.");
                     }
                     else{
-                        testStepAssert.isFail("Driver name doesn't match.");
+                        testStepAssert.isFail("Driver name doesn't match." + appDriver1Name +" | "+ driver1Name);
                     }
                     break;
 
                 case "noncontrol driver name":
                     driver2Name=(String)cucumberContextManager.getScenarioContext("DRIVER2_NAME");
+
                     appDriver2Name=scheduledTripsPage.Text_Driver2Name().getText();
                     if (driver2Name.contains(appDriver2Name))
                     {
                         testStepAssert.isTrue(true, "Driver name match.", "Driver name doesn't match.");
                     }
                     else{
-                        testStepAssert.isFail("Driver name doesn't match.");
+                        testStepAssert.isFail("Driver name doesn't match." + appDriver2Name +" | "+ driver2Name);
                     }
                     break;
                 default:
@@ -775,9 +780,8 @@ public class ScheduledBungiiSteps extends DriverBase {
         String[] timeZones=utility.getDayLightTimeZoneBasedOnGeofence();
        // String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
 
-        if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]))
-            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -")));
-
+        if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]) || bungiiTime.contains("GMT+5:30"))
+            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -").replace("+5:30","+05:30")));
         else
             action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[0],
                     bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[1]));
