@@ -233,7 +233,7 @@ Feature: SoloScheduled
   
   
   @regression
-  Scenario: DUO: Verify If Customer Can Rate Driver For The Duo Trip
+  Scenario: Rate: Verify If Customer Can Rate Driver For The Duo Trip
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -260,7 +260,7 @@ Feature: SoloScheduled
     
      #@regression
   @ready
-  Scenario: Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Case:DUO
+  Scenario: TELET : Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Case:DUO
     Given I Switch to "customer" application on "same" devices
     #trip 1
     Given I request "duo" Bungii as a customer in "kansas" geofence
