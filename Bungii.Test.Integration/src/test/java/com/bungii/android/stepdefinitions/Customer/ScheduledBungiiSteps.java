@@ -626,14 +626,14 @@ public class ScheduledBungiiSteps extends DriverBase {
             switch (strArg1) {
             case "MY BUNGIIS":
                 String expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("MY_BUNGII_DATE");
-                actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" -" , "");
+                actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" - " , "");
 
                 testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed. "+ actualMyBungiiTime+" is displayed");
                 break;
 
             case "MY BUNGII":
                  expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("NEW_SCHDL_BUNGII_TIME");
-                 actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" -" , "");
+                 actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" - " , "");
                 testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed. "+ actualMyBungiiTime+" is displayed");
                 break;
         }

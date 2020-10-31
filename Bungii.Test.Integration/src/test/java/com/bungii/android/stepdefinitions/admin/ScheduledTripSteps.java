@@ -277,27 +277,27 @@ public class ScheduledTripSteps extends DriverBase {
 			String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
 
-			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+			/*action.sendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
 			action.click(scheduledTripsPage.Button_Search());
 			Thread.sleep(5000);
 			//On admin panel CST time use to show
-			//	getPortalTime("Aug 09, 06:15 AM CDT");
+			//	getPortalTime("Aug 09, 06:15 AM CDT");*/
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
 			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 
 
-			int rowNumber = getTripRowNumber(tripDetails);
+			/*int rowNumber = getTripRowNumber(tripDetails);
 			// it takes max 2.5 mins to appear
 			for (int i = 0; i < 5 && rowNumber == 999; i++) {
 				Thread.sleep(30000);
 				SetupManager.getDriver().navigate().refresh();
 				scheduledTripsPage.waitForPageLoad();
 				rowNumber = getTripRowNumber(tripDetails);
-			}
+			}*/
 			String pickupRequestOld = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
 
-			RemoveDriverAndresearchBungii(tripDetails, driverType);
+            removeDriverAndResearchDeliveryAsAdmin(tripDetails, driverType);
 			Thread.sleep(30000);
 
 			String pickupRequest = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
@@ -533,6 +533,22 @@ public class ScheduledTripSteps extends DriverBase {
 		scheduledTripsPage.waitForPageLoad();
 	}
 
+    public void removeDriverAndResearchDeliveryAsAdmin(Map<String, String> tripDetails, String driverType) {
+        if (driverType.equalsIgnoreCase("control")) {
+            action.click(scheduledTripsPage.CheckBox_Driver1());
+        } else if (driverType.equalsIgnoreCase("noncontrol")) {
+            action.click(scheduledTripsPage.CheckBox_Driver2());
+        }
+        action.click(scheduledTripsPage.Button_Remove());
+        scheduledTripsPage.waitForPageLoad();
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {
+        }
+
+        action.click(scheduledTripsPage.Button_Research());
+        scheduledTripsPage.waitForPageLoad();
+    }
 
 	/**
 	 * Got to trip details from list of scheduled list
@@ -782,7 +798,7 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_am_not_allowed_to_assign_more_drivers() throws Throwable {
 		//String textBoxAttribute= scheduledTripsPage.TextBox_DriverSearch().getAttribute("disabled");
 		try {
-			testStepAssert.isElementEnabled(scheduledTripsPage.TextBox_DriverSearch(), "The textbox should be disabled.", "The textbox is disabled.", "The textbox is not disabled.");
+			testStepAssert.isElementNotEnabled(scheduledTripsPage.TextBox_DriverSearch(), "The textbox should be disabled.", "The textbox is disabled.", "The textbox is not disabled.");
 			}
 		catch(Throwable e)
 		{
@@ -1036,14 +1052,14 @@ public class ScheduledTripSteps extends DriverBase {
 	}
 
 	@And("^I check if a validation message \"([^\"]*)\" is shown$")
-	public void i_check_if_a_validation_message_something_is_shown(String strArg1) throws Throwable {
+	public void i_check_if_a_validation_message_something_is_shown(String expectedMessage) throws Throwable {
 		try{
-		testStepAssert.isElementDisplayed(scheduledTripsPage.Label_IconTextMessage(),"I check if a validation message is displayed","Validation message is displayed","Validation message is not displayed");
+		testStepAssert.isElementTextEquals(scheduledTripsPage.Label_IconTextMessage(),expectedMessage,"I check if a validation message is displayed","Validation message is displayed","Validation message is not displayed");
 		}
 			catch (Exception e){
 			logger.error("Error performing step" + e);
 			error("Step  Should be successful",
-					"Error performing step,Please check logs for more details", true);
+					"Validation message is not shown ", true);
 		}
 	}
 

@@ -366,8 +366,7 @@ Feature: SoloScheduled Part B
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
     And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_five Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
-      |               | Enroute       |
+      | Accepted      | Enroute      |
     And I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist

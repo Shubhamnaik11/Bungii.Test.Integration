@@ -134,10 +134,11 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     @And("^I open the trip for \"([^\"]*)\" driver$")
     public void i_open_the_trip_for_something_driver(String driverName) throws Throwable {
         try{
+
             WebElement selectDriver;
             String[] Name = driverName.split(" ");
             driverName = Name[0]+" "+Name[1].charAt(0)+"."; //Last Name initial
-
+             Thread.sleep(5000);
             selectDriver= SetupManager.getDriver().findElement(By.xpath("//*[contains(@text, '"+driverName+"')]/following::android.widget.ImageView[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow'][1]"));
             action.click(selectDriver);
             cucumberContextManager.setScenarioContext("DRIVER1NAME",driverName);

@@ -509,7 +509,7 @@ public class BungiiInProgressSteps extends DriverBase {
     @And("^I wait for Minimum duration for current Bungii to be T-2 hours$")
     public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_t_minus2() {
         try {
-
+/*
             String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
 
 
@@ -534,6 +534,8 @@ public class BungiiInProgressSteps extends DriverBase {
                 // minimum wait of 30 mins
 
             }
+            */
+                  //Commented since it waits more than hour
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -25,6 +25,8 @@ public class AvailableTripsSteps extends DriverBase {
     ActionManager action = new ActionManager();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility= new GeneralUtility();
+    DriverHomePage driverHomePage = new DriverHomePage();
+
     @And("I Select Trip from driver available trip")
     public void iSelectTripFromDriverAvailableTrip() {
         try {
@@ -86,7 +88,11 @@ public class AvailableTripsSteps extends DriverBase {
                 expectedInstance = "4";
 
             }
+            if(action.isElementPresent(driverHomePage.Alert_NewBungii(true)))
+            {
+                action.click(driverHomePage.Notification_AlertReject());
 
+            }
             //List_AvailableBungiis
             List<WebElement> elements = availableTrips.List_AvailableBungiis();
             if(elements.size()==0)

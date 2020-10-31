@@ -49,7 +49,8 @@
       And I am logged in as "valid" driver
       When I Switch to "customer" application on "same" devices
       Then I wait for "2" mins
-   And I open Admin portal and navigate to "Scheduled Deliveries" page
+     And I open Admin portal and navigate to "Scheduled Deliveries" page
+   And I open the trip for "Testcustomertywd_appleand_D Android" the customer
    And I remove current driver and researches Bungii
       And I Select "Edit Trip Details" option
       And I assign driver for the "Solo" trip
@@ -159,20 +160,15 @@
         | 9999990074      |                 |
 
 
-
-
- 
-
-   
+  
  @ready
-    Scenario: Verify that if admin can assign (controlled)driver on duo trip when non controlled driver has started the trip
+    Scenario: Verify that if admin can assign controlled driver on duo trip when non controlled driver has started the trip
       When I request "duo" Bungii as a customer in "goa" geofence
         | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
         | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
       And As a driver "Testdriver_goa_d Android_test" and "Testdriver_goa_c Android_test" perform below action with respective "DUO SCHEDULED" trip
         | driver1 state | driver2 state |
-        | Accepted      | Accepted      |
-        |               | Enroute       |
+        | Accepted      | Enroute      |
       Then I wait for "2" mins
       When I open new "Chrome" browser for "ADMIN"
       And I navigate to admin portal

@@ -343,6 +343,7 @@ Feature: SoloScheduled Part G
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
+    
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I enter customers "8805368840" Phone Number

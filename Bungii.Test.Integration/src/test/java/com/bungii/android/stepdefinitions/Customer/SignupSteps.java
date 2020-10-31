@@ -12,6 +12,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -45,7 +46,12 @@ public class SignupSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            action.enterText(Page_Signup.TextField_Phonenumber(), customerPhone);
+            if (StringUtils.isNumeric(customerPhone)) {
+                //element.sendKeys();
+                Page_Signup.TextField_Phonenumber().click();
+                utility.inputOnNumberKeyBoard(customerPhone);
+            }
+            //action.enterText(Page_Signup.TextField_Phonenumber(), customerPhone);
             cucumberContextManager.setScenarioContext("CustomerPhoneNum", customerPhone);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

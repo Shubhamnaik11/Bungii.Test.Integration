@@ -114,6 +114,7 @@
         When I Switch to "customer" application on "same" devices
 		Given I am on customer Log in page
 		And I am logged in as "Testcustomertywd_appleand_A Android" customer
+        
         And I tap on "Menu" > "My Bungiis" link
         And "MY BUNGIIS" page should be opened
         And I click on "Past" tab
@@ -125,6 +126,7 @@
           | 9393939393      |                 |
   
       @regression
+        #stable
       Scenario: Verify that admin can assign a driver to a solo trip when it is in searching status
      
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
@@ -152,7 +154,8 @@
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
   
-      @ready
+      @regression
+        #stable
       Scenario: Verify updating time to past time and date
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time  |
@@ -174,6 +177,7 @@
           | 9999991020      |                 |
   
       @ready
+        #web
       Scenario: Verify that the list displays all completed Bungiis in descending order of date.
       #Given I am logged in as "Testcustomertywd_appleand_A Android" customer
         When I request "duo" Bungii as a customer in "goa" geofence
@@ -181,24 +185,19 @@
           | NEXT_POSSIBLE | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
         And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "Duo Scheduled Researched" trip
           | driver1 state      | driver2 state      |
-          | Accepted           | Accepted           |
-          | Arrived            | Arrived            |
-          | Loading Item       | Loading Item       |
-          | Driving To Dropoff | Driving To Dropoff |
-          | Unloading Item     | Unloading Item     |
           | Bungii Completed   | Bungii Completed   |
   
   
       @ready
+        #web
       Scenario: Verify the DUO trip started by non controller driver and controller driver is removed and new driver is added to the same trip
-    
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
           | TELET SAME TIME  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
         And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "Duo Scheduled" trip
           | driver1 state  |  driver2 state  |
-          | Accepted       |  Accepted       |
-          |                |  Enroute        |
+          | Accepted       |  Enroute       |
+        
         Then I wait for "2" mins
         When I open new "Chrome" browser for "ADMIN"
         And I navigate to admin portal
@@ -215,7 +214,6 @@
           | 9393939393      |                 |
   
       @regression
-      @dd
         #web
       Scenario: Verify if admin can update date_time for a solo trip for which no driver has accepted
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"

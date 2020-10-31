@@ -1227,8 +1227,7 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-
-    @And("^I schedule Bungii at \"([^\"]*)\" Time $")
+    @And("^I schedule Bungii at \"([^\"]*)\" Time$")
     public void i_schedule_bungii_at_something_time(String strArg1) throws Throwable {
         try {
             switch (strArg1) {
@@ -1246,8 +1245,8 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
-
     }
+
 
 
     @Then("^\"([^\"]*)\" information icon should display correct information$")

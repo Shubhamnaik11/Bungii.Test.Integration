@@ -694,8 +694,7 @@ Feature: Solo Scheduled Bungii Part II
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
-      |               | Enroute       |
+      | Accepted      | Enroute      |
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen

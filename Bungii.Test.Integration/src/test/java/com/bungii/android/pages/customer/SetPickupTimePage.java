@@ -43,7 +43,7 @@ public class SetPickupTimePage extends PageBase {
 
     public WebElement Page_TitleSuccess(){return findElement("//*[@resource-id='com.bungii.customer:id/action_bar']/android.widget.TextView", LocatorType.XPath);}
 
-    public WebElement Popup_CancelReasonTitle() {return findElement("android:id/message", LocatorType.Id);}
+    public WebElement Popup_CancelReasonTitle() {return findElement("//android.widget.TextView[contains(@text,\"What's your reason\")]", LocatorType.XPath);}
     public WebElement Text_MonthPicker(){return findElement("android:id/date_picker_month", LocatorType.Id);}
     public WebElement Text_DayPicker(){return findElement("android:id/date_picker_day", LocatorType.Id);}
     public WebElement Text_YearPicker(){return findElement("android:id/date_picker_year", LocatorType.Id);}

@@ -81,7 +81,7 @@
     And I verify that "Four Reasons" is displayed
 
   @regression
-  Scenario: Verify that the textbox is displayed when customer selects 'Other..' as the cancelling on demand bungii reason.
+  Scenario: Verify that the textbox is displayed when customer selects Other.. as the cancelling on demand bungii reason
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
     And I enter "current location in pickup and dropoff fields long distance" on Bungii estimate
@@ -118,7 +118,7 @@
     And I click on "SUBMIT REASON" button
 
   @regression
-  Scenario Outline: Verify that user can select each of the reason and submit successfully.
+  Scenario Outline: Verify that user can select each of the reason and submit successfully
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
     And I enter "current location in pickup and dropoff fields long distance" on Bungii estimate

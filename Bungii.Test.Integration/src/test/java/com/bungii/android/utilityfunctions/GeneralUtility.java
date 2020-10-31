@@ -785,7 +785,7 @@ Thread.sleep(5000);
 
             action.clearSendKeys(Page_Login.TextField_Password(), password);
             action.click(Page_Login.Button_Login());
-            Thread.sleep(4000);
+            Thread.sleep(10000);
             //   action.invisibilityOfElementLocated(Page_Login.Button_Login(true));
             String nextPage = "";
             try {

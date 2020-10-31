@@ -344,7 +344,7 @@
   
       @ready
     #web scenario
-      Scenario: Verify that Admin is not allowed to add multiple driver for solo bungii and more than 2 drivers for DUO
+      Scenario: Verify that Admin is NOT allowed to add multiple driver for solo bungii and more than 2 drivers for Duo Delivery
         When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
           | NEXT_POSSIBLE | 9393939393     | Testcustomertywd_appleand_E Android | Cci12345          |
@@ -361,25 +361,26 @@
         And I assign driver for the "Solo" trip
         Then I am not allowed to assign more drivers
         And I click on "Close" button
+        
         When I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver for the "Duo" trip
         Then I am not allowed to assign more drivers
+        
 		And I cancel all bungiis of customer
 		  | Customer Phone  | Customer2 Phone |
 		  | 9889889888      | 9999992222      |
   
       @ready
     #web scenario
-      Scenario: Verify that if non control driver started the trip and control driver is removed by Admin and assigned a new driver, the non controller driver becomes new control driver
-      Verify that a message/ alert is not displayed to ADMIN when no field on Edit schedule Trip is edited and Admin clicks Verify button
+      Scenario: DUO: Verify that if non control driver starts delivery and control driver is then removed by Admin and assigned with new driver then noncontroller driver becomes control driver
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
           | NEXT_POSSIBLE | 9889889888     | Testcustomertywd_appleand_E Android | Cci12345          |
         And As a driver "Driver_goa_e Android_test" and "Driver_goa_f Android_test" perform below action with respective "DUO SCHEDULED" trip
           | driver1 state | driver2 state |
-          | Accepted      | Accepted      |
-          |               | Enroute       |
+          | Accepted      | Enroute      |
+        
         Then I wait for "2" mins
         When I open new "Chrome" browser for "ADMIN"
         And I navigate to admin portal
@@ -388,13 +389,16 @@
         And I open the trip for "Testcustomertywd_appleand_E Android" the customer
         And I remove "control" driver and researches Bungii
         And I Select "Edit Trip Details" option
-        And I check if a validation message "<string>" is shown
+        And I check if a validation message "Driver 1: Add driver below or Bungii driver search will continue" is shown
         And I assign driver for the "control" trip
         And I click on "VERIFY" button
         And the "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
         And the "Bungii Saved!" message is displayed
+        
+        #need to work on this step
         And I verify that noncontrol driver becomes control driver
+        
 		And I cancel all bungiis of customer
 		  | Customer Phone  | Customer2 Phone |
 		  | 9889889888      |                 |
@@ -405,6 +409,7 @@
         Given I am on the LOG IN page on driver app
         And I am logged in as "testdriver_goa_e Android_test" driver
         And I tap on "Go Online button" on Driver Home page
+        
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_E Android"
           | geofence | Bungii State | Bungii Time   |
           | goa      | Accepted     | NEXT_POSSIBLE |
