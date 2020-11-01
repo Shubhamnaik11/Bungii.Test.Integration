@@ -37,7 +37,7 @@ public class BungiiDetailsSteps extends DriverBase {
             Thread.sleep(2000);
             action.click(bungiiDetailsPage.Button_Yes());
 
-            pass("I should able to cancel bungii","I cancelled bungii",true);
+            pass("I should be able to tap on cancel bungii","I tap on Cancel bungii",true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

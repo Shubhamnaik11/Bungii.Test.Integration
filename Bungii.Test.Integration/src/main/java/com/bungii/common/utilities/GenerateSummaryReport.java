@@ -61,14 +61,19 @@ public class GenerateSummaryReport {
                     Element table = doc.select("table").get(0); //select the first table.
 
                     Elements rows = table.select("tr");
+                    int featureTotal = Integer.parseInt(doc.getElementById("pass").val().contains("--") ? "0" : doc.getElementById("pass").val())+Integer.parseInt(doc.getElementById("fail").val().contains("--") ? "0" : doc.getElementById("fail").val())+ Integer.parseInt(doc.getElementById("inconclusive").val().contains("--") ? "0" : doc.getElementById("inconclusive").val());
+                    int featurePass = Integer.parseInt(doc.getElementById("pass").val().contains("--") ? "0" : doc.getElementById("pass").val());
+                    int featureFail = Integer.parseInt(doc.getElementById("fail").val().contains("--") ? "0" : doc.getElementById("fail").val());
+                    int featureInconclusive = Integer.parseInt(doc.getElementById("inconclusive").val().contains("--") ? "0" : doc.getElementById("inconclusive").val());
+                    String featureSummary = "[TOTAL : "+featureTotal+" | PASS : "+ featurePass +" | FAIL : "+ featureFail + " | INCONCLUSIVE : " + featureInconclusive + "]";
                     summaryData.add("<tr> </tr>");
-                    summaryData.add(" <td colspan=3 style='text-align:left;'> FEATURE : " + in.getName().toString().replace(".html", "") + "</td>");
-                    summaryData.add(" <td colspan=3><a href=" + subFolder + "/" + in.getName() + "> EXECUTION REPORT : " + in.getName() + "</td>");
+                    summaryData.add(" <td colspan=3 style='text-align:left;'> FEATURE : " + in.getName().toString().replace(".html", "") +" "+ featureSummary+" </td>");
+                    summaryData.add(" <td colspan=3><a href=" + subFolder + "/" + in.getName() + "> EXECUTION REPORT : " + in.getName() + "[Total Scenarios : ]</td>");
                     summaryData.add("<tr> </tr>");
 
-                    passCount = passCount + Integer.parseInt(doc.getElementById("pass").val().contains("--") ? "0" : doc.getElementById("pass").val());
-                    failCount = failCount + Integer.parseInt(doc.getElementById("fail").val().contains("--") ? "0" : doc.getElementById("fail").val());
-                    inConclusiveCount = inConclusiveCount + Integer.parseInt(doc.getElementById("inconclusive").val().contains("--") ? "0" : doc.getElementById("inconclusive").val());
+                    passCount = passCount + featurePass;
+                    failCount = failCount + featureFail;
+                    inConclusiveCount = inConclusiveCount + featureInconclusive;
 
                     for (int i = 1 + 1; i < rows.size(); i++) { //first row is the col names so skip it.
                         Element row = rows.get(i);
@@ -110,6 +115,8 @@ public class GenerateSummaryReport {
                 System.out.println("Generated summarycount.html");
 
                 new GenerateResultCSV().GenerateCSV(mainFolder);
+
+
                 if (isFailed)
                 {
                     createResultFileFromFailedSummaryTemplate(platform, category, environment);

@@ -100,7 +100,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             String appDriver1Name, appDriver2Name;
             switch (strArg1) {
                 case "solo driver names":
-                    driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+                    driver1Name=(String)cucumberContextManager.getScenarioContext("ASSIGNED_DRIVER1_NAME");
 
                     appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
                     if (driver1Name.contains(appDriver1Name))
@@ -113,10 +113,10 @@ public class ScheduledBungiiSteps extends DriverBase {
                     break;
 
                 case "duo driver names":
-                    driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+                    driver1Name=(String)cucumberContextManager.getScenarioContext("ASSIGNED_DRIVER1_NAME");
 
                     appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
-                    driver2Name=(String)cucumberContextManager.getScenarioContext("DRIVER2_NAME");
+                    driver2Name=(String)cucumberContextManager.getScenarioContext("ASSIGNED_DRIVER2_NAME");
 
                     appDriver2Name=scheduledTripsPage.Text_Driver2Name().getText();
                     if (driver1Name.contains(appDriver1Name) && driver2Name.contains(appDriver2Name) )
@@ -129,7 +129,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                     break;
 
                 case "control driver name":
-                    driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+                    driver1Name=(String)cucumberContextManager.getScenarioContext("ASSIGNED_DRIVER1_NAME");
 
                     appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
                     if (driver1Name.contains(appDriver1Name))
@@ -142,7 +142,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                     break;
 
                 case "noncontrol driver name":
-                    driver2Name=(String)cucumberContextManager.getScenarioContext("DRIVER2_NAME");
+                    driver2Name=(String)cucumberContextManager.getScenarioContext("ASSIGNED_DRIVER2_NAME");
 
                     appDriver2Name=scheduledTripsPage.Text_Driver2Name().getText();
                     if (driver2Name.contains(appDriver2Name))

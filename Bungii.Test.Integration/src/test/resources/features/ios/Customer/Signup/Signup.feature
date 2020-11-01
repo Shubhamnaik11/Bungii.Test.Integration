@@ -208,7 +208,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
     And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
     And I Enter "<Referral Code>" value in "Referral code" field in "SIGN UP" Page
-    And I Select Referral source as "<Verify Driver Can Reject Ondemand Bungii Request After Viewing Trip DetailsSource>"
+    And I Select Referral source as "<Source>"
     And I click "SIGN UP" button on "SIGN UP" screen
   #  Then user is alerted for "<Expected Message>"
     # And I should be navigated to "SIGN UP" screen  Invalid Step commented

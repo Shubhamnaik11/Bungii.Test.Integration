@@ -163,7 +163,7 @@ public class NotificationSteps extends DriverBase {
 
     @When("^I clear all notification$")
     public void i_clear_all_notification() {
-        String bunddleId = getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
+       /* String bunddleId = getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
         try {
             boolean cleared = false;
             ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
@@ -178,6 +178,7 @@ public class NotificationSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+        */
     }
 
 

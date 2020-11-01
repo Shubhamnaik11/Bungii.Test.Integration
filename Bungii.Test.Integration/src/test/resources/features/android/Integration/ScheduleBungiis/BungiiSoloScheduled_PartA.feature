@@ -99,8 +99,9 @@ Feature: SoloScheduled
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
-    Then I wait for "2" mins
+    Then I wait for "4" mins
     And I select already scheduled bungii
+    Then I wait for "1" mins
     #When I Cancel selected Bungii
     When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
@@ -138,7 +139,8 @@ Feature: SoloScheduled
     #When I Cancel selected Bungii
     When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
-    
+  
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I Cancel Bungii with following details
       | Charge | Comments | Reason                         |
       | 0      | TEST     | Outside of delivery scope      |
@@ -261,7 +263,6 @@ Feature: SoloScheduled
      #@regression
   @ready
   Scenario: TELET : Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Case:DUO
-    Given I Switch to "customer" application on "same" devices
     #trip 1
     Given I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time  | Customer Phone | Customer Password | Customer Name                    |

@@ -593,6 +593,8 @@ public class ScheduledTripSteps extends DriverBase {
 			String rowCustName = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[6]")).getText();
 			String rowSchduledTime = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[5]")).getText();
 			String rowSrNumber = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[1]")).getText();
+			logger.detail("Actual Row Details : "+ rowSchduledTime +" "+ rowCustName +" on "+ rowSrNumber );
+			logger.detail("Expected Row Details : "+ scheduledDate +" "+ custName +" ");
 			if (rowCustName.equalsIgnoreCase(custName) && scheduledDate.equalsIgnoreCase(rowSchduledTime)) {
 				rowNumber = Integer.parseInt(rowSrNumber);
 			}
@@ -721,42 +723,42 @@ public class ScheduledTripSteps extends DriverBase {
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
 					action.click(scheduledTripsPage.Select_TestDriver());
 					String driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
-					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver1Name);
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
 					break;
 				case "Duo":
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
 					action.click(scheduledTripsPage.Select_TestDriver());
 					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
-					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver1Name);
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
 					action.click(scheduledTripsPage.Select_TestDriver());
 					String driver2Name = scheduledTripsPage.Text_EditTrpDetailsDriver2Name().getText();
-					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver2Name);
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER2_NAME", driver2Name);
 					break;
 				case "control":
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
 					action.click(scheduledTripsPage.Select_TestDriver());
 					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
-					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver1Name);
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
 					break;
 				case "noncontrol":
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
 					action.click(scheduledTripsPage.Select_TestDriver());
 					driver2Name = scheduledTripsPage.Text_EditTrpDetailsDriver2Name().getText();
-					cucumberContextManager.setScenarioContext("DRIVER2_NAME", driver2Name);
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER2_NAME", driver2Name);
 					break;
 				case "control driver":
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Testdriver_goa_a Android_test");
 					action.click(scheduledTripsPage.Select_TestDriver());
 					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
-					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver1Name);
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
 					break;
 
 				case "current":
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys(tripType);
 					action.click(scheduledTripsPage.Select_TestDriver());
 					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
-					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver1Name);
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
 					break;
 				default:
 					error("UnImplemented Step or incorrect Trip Type.", "UnImplemented Step");
@@ -777,7 +779,7 @@ public class ScheduledTripSteps extends DriverBase {
 
 			switch (option) {
 				case "Cancel button":
-					displayed = scheduledTripsPage.isElementEnabled(scheduledTripsPage.Button_Submit());
+					displayed = action.isElementPresent(scheduledTripsPage.Button_Submit(true));
 					break;
 				default:
 					error("UnImplemented Step or incorrect button name", "UnImplemented Step");

@@ -201,7 +201,6 @@ Feature: SoloScheduled Part E
 
     ##################################################################################################
   
-      ##################################################################################################
   @regression
   Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip Telet Then Request Should Not Be Sent To driver.
     Given that solo schedule bungii is in progress

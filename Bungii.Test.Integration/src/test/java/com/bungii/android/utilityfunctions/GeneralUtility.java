@@ -838,12 +838,17 @@ Thread.sleep(5000);
             action.sendKeys(driverLoginPage.TextField_Password(), password);
             Thread.sleep(2000);
             action.click(driverLoginPage.Button_Login());
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             try {
                 action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
                 currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
+                if(currentPage.equals("LOGIN"))
+                {
+                    Thread.sleep(5000);
+                    currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
+                }
             } catch (StaleElementReferenceException ex) {
-                Thread.sleep(4000);
+                Thread.sleep(5000);
                 WebElement header = driverHomePage.Generic_HeaderElement();
                 currentPage = header.getText();
             }
@@ -852,6 +857,7 @@ Thread.sleep(5000);
             } else if (currentPage.equals("LOCATION")) {
                 action.click(driverLoginPage.Button_Sure());
                 action.click(driverLoginPage.Button_Allow());
+
             } else if (action.isElementPresent(driverLoginPage.Header_Location(true))) {
                 action.click(driverLoginPage.Button_Sure());
                 action.click(driverLoginPage.Button_Allow());
@@ -885,7 +891,18 @@ Thread.sleep(5000);
         } else if (currentPage.equals("ONLINE") || currentPage.equals("OFFLINE")) {
             clickDriverMenuItem("LOGOUT");
         } else if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {
-        } else clickDriverMenuItem("LOGOUT");
+        }
+        else if (currentPage.equals("LOCATION")) {
+            action.click(driverLoginPage.Button_Sure());
+            action.click(driverLoginPage.Button_Allow());
+            clickDriverMenuItem("LOGOUT");
+
+        } else if (action.isElementPresent(driverLoginPage.Header_Location(true))) {
+            action.click(driverLoginPage.Button_Sure());
+            action.click(driverLoginPage.Button_Allow());
+            clickDriverMenuItem("LOGOUT");
+        }
+        else clickDriverMenuItem("LOGOUT");
 
     }
 

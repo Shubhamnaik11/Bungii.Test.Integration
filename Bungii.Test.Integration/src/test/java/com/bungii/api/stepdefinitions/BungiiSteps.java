@@ -654,6 +654,7 @@ public class BungiiSteps extends DriverBase {
                         if (driver1State.equalsIgnoreCase("Accepted")) {
                             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+
                         }
                         if (driver2State.equalsIgnoreCase("Accepted")) {
                             coreServices.pickupdetails(pickupRequest, driver2AccessToken, geofence);
@@ -666,13 +667,8 @@ public class BungiiSteps extends DriverBase {
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
-
                             try {
-                                logger.detail("Waiting for " + wait / 60000 + " minutes before Scheduled trip can be started");
-                                //from sprint 32 min time is changed to  1 hour
-                                //Thread.sleep(wait);
                                 Thread.sleep(1000);
-                                waitedForMinTime = true;
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -680,7 +676,10 @@ public class BungiiSteps extends DriverBase {
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                         }
                         if (driver2State.equalsIgnoreCase("Enroute")) {
-
+                            if (!driver1State.equalsIgnoreCase("Enroute")) {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+                                //If Driver 1 is accepted and Driver 2 starts trip
+                            }
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
                         }
                         if (driver1State.equalsIgnoreCase("Arrived")) {

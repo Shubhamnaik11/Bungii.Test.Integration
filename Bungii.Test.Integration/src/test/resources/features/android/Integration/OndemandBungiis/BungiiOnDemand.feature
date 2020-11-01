@@ -142,6 +142,7 @@ Feature: On Demand Bungii
     Given I am logged in as "valid baltimore" customer
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
+    
     And I Select "HOME" from driver App menu
     And I tap on "Go Online button" on Driver Home page
     And I Switch to "customer" application on "same" devices

@@ -235,7 +235,8 @@ public class BungiiSteps extends DriverBase {
                 boolean isDisplayed = action.waitUntilAlertDisplayed(15L);
                 if (!isDisplayed)
                     i_click_on_notification_for_something("on demand trip");
-                      action.waitUntilAlertDisplayed(180L);
+                      action.waitUntilAlertDisplayed(30L);
+
                 if (action.isElementPresent(Page_BungiiRequest.Alert_Msg())) {
                     action.click(Page_BungiiRequest.AlertButton_View());
                     switch (arg0) {

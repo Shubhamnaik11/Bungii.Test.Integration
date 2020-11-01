@@ -64,7 +64,6 @@ Feature: Failed Ondemand Delivery
       | CUSTOMER1_PHONE |                 |
   
   @regression
-  @dd
   Scenario: Failed Ondemand Delivery : Verify that the customer can see 4 options when cancels the on demand trip
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer

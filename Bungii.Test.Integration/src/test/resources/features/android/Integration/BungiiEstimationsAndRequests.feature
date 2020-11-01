@@ -3,8 +3,8 @@
     #These feature will run in Goa geofence
     Feature: Verify Bungii Estimations and Requests
   
-      #Customer : Testcustomertywd_appleand_E Android and Testcustomertywd_appleand_B Android
-      #Driver    Testdriver_goa_e Android_test" driver Testdriver_goa_B Android_test" driver
+      #Customer : Testcustomertywd_appleand_E Android   9393939393
+      #Driver    Testdriver_goa_e Android_test" driver
       #Geofence : Goa
   
       @regression
@@ -89,7 +89,7 @@
       Then "Estimate" page should be opened
       When I tap on "Request Bungii" on Bungii estimate
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-      And I wait for "8" mins
+      And I wait for "3" mins
    
      # And I click "OK" button on the "Driver Not Available" screen
       And I click "Schedule Bungii" button on the "Driver Not Available" screen
@@ -340,110 +340,8 @@
           | Customer Phone  | Customer2 Phone |
           | 9889889888      |                 |
   
-  
-  
-      @ready
-    #web scenario
-      Scenario: Verify that Admin is NOT allowed to add multiple driver for solo bungii and more than 2 drivers for Duo Delivery
-        When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
-          | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-          | NEXT_POSSIBLE | 9393939393     | Testcustomertywd_appleand_E Android | Cci12345          |
-        When I request "duo" Bungii as a customer in "goa" geofence
-          | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-          | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
-        Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
-        And I navigate to admin portal
-        And I log in to admin portal
-        And I Select "Scheduled Trip" from admin sidebar
-        And I open the trip for "Testcustomertywd_appleand_E Android" the customer
-        And I Select "Edit Trip Details" option
-        And I assign driver for the "Solo" trip
-        Then I am not allowed to assign more drivers
-        And I click on "Close" button
         
-        When I open the trip for "Testcustomertywd_appleand_C Android" the customer
-        And I Select "Edit Trip Details" option
-        And I assign driver for the "Duo" trip
-        Then I am not allowed to assign more drivers
-        
-		And I cancel all bungiis of customer
-		  | Customer Phone  | Customer2 Phone |
-		  | 9889889888      | 9999992222      |
-  
-      @ready
-    #web scenario
-      Scenario: DUO: Verify that if non control driver starts delivery and control driver is then removed by Admin and assigned with new driver then noncontroller driver becomes control driver
-        When I request "duo" Bungii as a customer in "goa" geofence
-          | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-          | NEXT_POSSIBLE | 9889889888     | Testcustomertywd_appleand_E Android | Cci12345          |
-        And As a driver "Driver_goa_e Android_test" and "Driver_goa_f Android_test" perform below action with respective "DUO SCHEDULED" trip
-          | driver1 state | driver2 state |
-          | Accepted      | Enroute      |
-        
-        Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
-        And I navigate to admin portal
-        And I log in to admin portal
-        And I Select "Scheduled Trip" from admin sidebar
-        And I open the trip for "Testcustomertywd_appleand_E Android" the customer
-        And I remove "control" driver and researches Bungii
-        And I Select "Edit Trip Details" option
-        And I check if a validation message "Driver 1: Add driver below or Bungii driver search will continue" is shown
-        And I assign driver for the "control" trip
-        And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
-        Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
-        
-        #need to work on this step
-        And I verify that noncontrol driver becomes control driver
-        
-		And I cancel all bungiis of customer
-		  | Customer Phone  | Customer2 Phone |
-		  | 9889889888      |                 |
-  
-      @ready
-      #web
-      Scenario: Verify that the date and time displayed in edit Schedule bungii page against a drivers schedule list is proper timezone and not in UTC
-        Given I am on the LOG IN page on driver app
-        And I am logged in as "testdriver_goa_e Android_test" driver
-        And I tap on "Go Online button" on Driver Home page
-        
-        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_E Android"
-          | geofence | Bungii State | Bungii Time   |
-          | goa      | Accepted     | NEXT_POSSIBLE |
-        And I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN_PORTAL"
-        And I navigate to admin portal
-        And I log in to admin portal
-        And I Select "Scheduled Trip" from admin sidebar
-        And I open the trip for "Testcustomertywd_appleand_E Android" the customer
-        Then I check that time is not displayed in UTC
-        And I cancel all bungiis of customer
-          | Customer Phone  | Customer2 Phone |
-          | 9889889888      |                 |
-      @ready
-    #web
-      Scenario: Verify that Cancel button goes off once the solo scheduled Trip is cancelled
-        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_E Android"
-          | geofence | Bungii State | Bungii Time   |
-          | goa      | Accepted     | NEXT_POSSIBLE |
-        When I Switch to "customer" application on "same" devices
-        And I am logged in as "Testcustomertywd_appleand_E Android" customer
-    
-        And I Switch to "driver" application on "same" devices
-        And I am on the LOG IN page on driver app
-        And I am logged in as "testdriver_goa_e android_test" driver
-    
-        And I wait for "2" mins
-        And I open Admin portal and navigate to "Scheduled Deliveries" page
-        And I Cancel Bungii with following details
-          | Charge | Comments | Reason                         |
-          | 0      | TEST     | Outside of delivery scope      |
-        Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-        And "Cancel button" should not be displayed
-  
+     
       @ready
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page
         Given I am on customer Log in page

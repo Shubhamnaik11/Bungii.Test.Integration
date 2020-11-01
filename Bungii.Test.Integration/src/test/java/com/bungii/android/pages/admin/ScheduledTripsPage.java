@@ -37,8 +37,8 @@ public class ScheduledTripsPage extends PageBase {
         return findElement("txtCustomerCancellationComments", LocatorType.Id);
     }
 
-    public WebElement Button_Submit() {
-        return findElement("CustomerCancel", LocatorType.Name);
+    public WebElement Button_Submit(boolean ...ignoreException) {
+        return findElement("CustomerCancel", LocatorType.Name, ignoreException);
     }
 
     public void waitForLoadingToDisappear(){
