@@ -156,7 +156,7 @@ public class ResultManager {
         int len = stackTrace.length();
         if (len>1500)
             len =1500;
-        stackTrace = stackTrace.substring(1,len)+" ...";
+        stackTrace = stackTrace.substring(0,len)+" ...";
         reportManager.addStackTrace(getDataMap("", "", stackTrace,"", false));
 
     }
