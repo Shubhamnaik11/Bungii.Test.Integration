@@ -68,7 +68,7 @@ public class GenerateSummaryReport {
                     String featureSummary = "[TOTAL : "+featureTotal+" | PASS : "+ featurePass +" | FAIL : "+ featureFail + " | INCONCLUSIVE : " + featureInconclusive + "]";
                     summaryData.add("<tr> </tr>");
                     summaryData.add(" <td colspan=3 style='text-align:left;'> FEATURE : " + in.getName().toString().replace(".html", "") +" "+ featureSummary+" </td>");
-                    summaryData.add(" <td colspan=3><a href=" + subFolder + "/" + in.getName() + "> EXECUTION REPORT : " + in.getName() + "[Total Scenarios : ]</td>");
+                    summaryData.add(" <td colspan=3><a href=" + subFolder + "/" + in.getName() + "> EXECUTION REPORT : " + in.getName() + "</td>");
                     summaryData.add("<tr> </tr>");
 
                     passCount = passCount + featurePass;
