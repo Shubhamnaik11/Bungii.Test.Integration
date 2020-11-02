@@ -36,7 +36,7 @@ Feature: SoloScheduled Part B
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
 
   @regression
-  Scenario:  Verify Customer Can Schedule Bungii Only 5 Days Ahead Including Current Date :SOLO
+  Scenario:  Verify Customer Can Schedule Solo Bungii Only 5 Days Ahead Including Current Date
     Given I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -51,7 +51,7 @@ Feature: SoloScheduled Part B
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I click "Done" button on "Success" screen
-
+  
     And I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -64,7 +64,7 @@ Feature: SoloScheduled Part B
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I click "Done" button on "Success" screen
-
+  
     And I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -77,7 +77,7 @@ Feature: SoloScheduled Part B
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I click "Done" button on "Success" screen
-
+  
     And I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -90,7 +90,7 @@ Feature: SoloScheduled Part B
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I click "Done" button on "Success" screen
-
+  
     And I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -103,7 +103,7 @@ Feature: SoloScheduled Part B
 
 
   @regression
-  Scenario:  Verify Customer Can Schedule Bungii Only 5 days ahead Including Current Date :Duo
+  Scenario:  Verify Customer Can Schedule DUO Bungii Only 5 days ahead Including Current Date
     Given I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist

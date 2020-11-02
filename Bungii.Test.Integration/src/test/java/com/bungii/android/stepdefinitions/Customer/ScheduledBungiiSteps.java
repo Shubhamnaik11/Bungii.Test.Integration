@@ -717,7 +717,13 @@ public class ScheduledBungiiSteps extends DriverBase {
                 else{
                     String text=" selected";
                     WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date +"']", PageBase.LocatorType.XPath);
+                    testStepAssert.isElementNotEnabled(Select_Day,"Current Date + 5 should be disabled","Current Date + 5 is not enabled", "Current Date + 5 is enabled");
                     action.click(Select_Day);
+                    action.click(estimatePage.Button_SystemCalenderOK());
+                    selectHour(hour);
+                    selectMins(minutes);
+                    selectMeridean(meridiem);
+                    action.click(estimatePage.Button_OKOnTimePicker());
                     //action.click(estimatePage.Button_SystemCalenderOK());
 
                    // String snackBarMessage=utility.getCustomerSnackBarMessage();//action.getText(promosPage.Snackbar());
