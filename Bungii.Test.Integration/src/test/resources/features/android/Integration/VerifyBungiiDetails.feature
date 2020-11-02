@@ -6,7 +6,6 @@
       # Driver D and C  - Testdriver_goa_d Android_test and Testdriver_goa_c Android_test
       
 @ready
-  @dd
     Scenario: Verify that admin can assign one or both drivers to a duo trip when it is in searching status
   
      When I request "duo" Bungii as a customer in "goa" geofence
@@ -688,7 +687,6 @@
   
   
       @ready
-      @dd
     #web scenario
       Scenario: DUO: Verify that if non control driver starts delivery and control driver is then removed by Admin and assigned with new driver then noncontroller driver becomes control driver
         When I request "duo" Bungii as a customer in "goa" geofence

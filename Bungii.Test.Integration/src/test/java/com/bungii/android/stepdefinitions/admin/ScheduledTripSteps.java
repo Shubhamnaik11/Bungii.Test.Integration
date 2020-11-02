@@ -178,7 +178,27 @@ public class ScheduledTripSteps extends DriverBase {
 		}
 
 	}
+	@And("^I researches Bungii$")
+	public void i__researches_bungii() throws Throwable {
+		try {
+			Map<String, String> tripDetails = new HashMap<String, String>();
+			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+			String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+			String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+			tripDetails.put("CUSTOMER", custName);
 
+			action.click(scheduledTripsPage.Button_Research());
+			scheduledTripsPage.waitForPageLoad();
+			String pickupRequest = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+			pass("I researches Bungii", "I researched Bungii");
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
 	@And("^I remove current driver and researches Bungii$")
 	public void i_remove_current_driver_and_researches_bungii() throws Throwable {
 		try {

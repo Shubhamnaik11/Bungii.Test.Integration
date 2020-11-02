@@ -397,6 +397,35 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
 	
+	
+  @regression
+	@dd
+  Scenario:Verify If Customer Receieve Notification After Admin Researches For Drivers
+	Given that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
+	  | atlanta  | Completed      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+	And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+	Then I wait for "3" mins
+	
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid atlanta" driver
+	Then I wait for "2" mins
+ 
+	When I open new "Chrome" browser for "ADMIN"
+	And I navigate to admin portal
+	And I log in to admin portal
+	And I Select "Scheduled Trip" from admin sidebar
+	And I open the trip for "valid" the customer
+	And I researches Bungii
+	
+	When I Switch to "driver" application on "ORIGINAL" devices
+	Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone | Customer2 Phone |
+	  | 8805368840     |                 |
+	
 
   
   

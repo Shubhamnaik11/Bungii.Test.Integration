@@ -285,40 +285,7 @@ Feature: SoloScheduled Part B
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  #@DUO_SCH_DONOT_ACCEPT
-  @regression
-  Scenario:Verify If Customer Receieve Notification After Admin Researches For Drivers And Both Drivers Accepts It
-  #  Given I have already scheduled bungii with "DUO_SCH_DONOT_ACCEPT" label
-    When I Switch to "driver" application on "same" devices
-    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
-
-    And I Switch to "customer" application on "same" devices
-    When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                    |
-      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-  
-    Given I login as customer "8805368840" and is on Home Page
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    Then I wait for "3" mins
-    When I Switch to "driver" application on "same" devices
-    When I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
-    And I verify status and researches Bungii with following details
-      | label                | Status of Trip      |
-      | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found |
-
-    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
-    When I Switch to "driver" application on "ORIGINAL" devices
-    Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
+ 
 
   @regression
   #@ready

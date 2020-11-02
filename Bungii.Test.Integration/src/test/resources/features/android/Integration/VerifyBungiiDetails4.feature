@@ -37,7 +37,7 @@
   
   
       @ready
-      Scenario: Verify that the driver can be assigned to a duo trip irrespective of drive time to pickup
+      Scenario: Verify that the driver can be assigned to a solo scheduled trip irrespective of drive time to pickup
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_A Android" customer
     
@@ -45,8 +45,8 @@
         And I enter "far off Goa pickup and dropoff locations" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
         And I add loading/unloading time of "30 mins"
-        And I select Bungii Time as "next possible scheduled"
         And I add "1" photos to the Bungii
+        And I select Bungii Time as "next possible scheduled"
         And I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
         And I check if the customer is on success screen

@@ -615,6 +615,11 @@ Feature: On Demand Bungii
     When I Open "driver" application on "same" devices
     And Bungii Driver "accepts On Demand Bungii" request
     Then Bungii driver should see "Enroute screen"
+  
+    When I Switch to "customer" application on "same" devices
+    When I click "Ok" button on the "BUNGII ACCEPTED" screen
+    
+    When I Open "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
     And Bungii Driver "slides to the next state"

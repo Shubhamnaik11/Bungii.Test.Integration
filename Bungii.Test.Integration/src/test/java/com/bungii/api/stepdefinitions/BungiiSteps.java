@@ -1012,7 +1012,7 @@ public class BungiiSteps extends DriverBase {
                 e.printStackTrace();
             }
 
-            log("I should able to request bungii ", "Requested " + bungiiType + " trip as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence +" Pickup Reference : "+ pickupRequest, false);
+            pass("I should be able to request bungii ", "Requested " + bungiiType + " trip as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence +" Pickup Reference : "+ pickupRequest);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -1132,7 +1132,9 @@ public class BungiiSteps extends DriverBase {
             else
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
 
-            log("that duo schedule bungii is scheduled", "that duo schedule bungii is scheduled : "+  pickupRequest, false);
+            //log("that duo schedule bungii is scheduled", "that duo schedule bungii is scheduled : "+  pickupRequest, false);
+            pass("Precondition: Given that duo schedule bungii is scheduled  ", "Duo Schedule Bungii [ "+pickupRequest+" ]  by customer " +custPhoneNum+" is scehduled for "+ scheduleTime);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -1309,7 +1311,7 @@ public class BungiiSteps extends DriverBase {
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0, driver2Ref, driver2PaymentMethod);
                 System.out.println(pickupRequest);
 
-            log("Driver should accept and complete the trip", "Driver accepts and complete trip", false);
+            pass("Driver should accept and complete the trip", "Driver [ "+driverPhoneNum+" ] accepts and completes delivery [ "+pickupRequest+" ] ", false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -1620,7 +1622,7 @@ else
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0, driver2Ref, driver2PaymentMethod);
                 System.out.println(pickupRequest);
             }
-            log("that duo schedule bungii is in progress", "that duo schedule bungii is on" + state, false);
+            pass("Precondition: Given that duo schedule bungii is in progress ", "Duo Schedule Bungii [ "+pickupRequest+" ]  by customer " +custPhoneNum+" is in " + state);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -1683,7 +1685,7 @@ else
                     e.printStackTrace();
                 }
 
-                log("I should able to request bungii ", "Requested " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence" + geofence, false);
+                pass("I should able to request bungii ", "Requested " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence" + geofence );
             } catch (Exception e) {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
                 error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -1843,7 +1845,7 @@ else
 
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0);
             }
-            log("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ scheduleTime+"] is in " + state +" for geofence "+ geofence , false);
+            pass("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ pickupRequest +" - " + scheduleTime+"] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum );
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -1954,7 +1956,7 @@ else
 
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0);
             }
-            log("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ scheduleTime+"] is in " + state +" for geofence "+ geofence , false);
+            pass("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ pickupRequest+" - "+scheduleTime+"] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -2146,7 +2148,7 @@ else
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
             }
-            log("Given that the Solo Ondemand Bungii is in progress", "Solo schedule bungii is in " + state +" for geofence "+ geofence , false);
+            pass("Given that the Solo Ondemand Bungii is in progress", "Solo schedule bungii [ "+pickupRequest+" ] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum );
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -2238,7 +2240,7 @@ else
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
             }
-            log("Given that the Solo Ondemand Bungii is in progress", "Solo schedule bungii is in " + state +" for geofence "+ geofence , false);
+            pass("Given that the Solo Ondemand Bungii is in progress", "Solo schedule bungii [ "+pickupRequest+" ] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -2346,7 +2348,7 @@ else
             if (!custPhoneNum.equalsIgnoreCase("")) {
                 String pickupRef = new DbUtility().getPickupRef(custPhoneNum);
                 new WebPortal().asAdminManuallyEndBungii(pickupRef);
-                log("bungii admin manually end bungii created by " + customer, "manually ended bungii", false);
+                pass("bungii admin manually end bungii created by " + customer, "manually ended bungii", false);
 
             } else {
                 fail("bungii admin manually end bungii created by " + customer, "Not able to find customer", false);
@@ -2429,7 +2431,7 @@ else
         if (!customer.equalsIgnoreCase("")) {
             handleOngoingBungii(custPhoneCode, customer, custPassword);
         }
-        log("I cancel the trip for the customer",
+        pass("I cancel the trip for the customer",
                 "I have cancelled the trip for the customer");
     }
 
@@ -2483,7 +2485,7 @@ else
                 e.printStackTrace();
             }
 
-            log("I should able to request bungii ", "I requested " + bungiiType + " for '" + geofence + "'", false);
+            pass("I should able to request bungii ", "I requested " + bungiiType + " for '" + geofence + "'");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -2756,7 +2758,8 @@ else
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0, driver2Ref, driver2PaymentMethod);
                 System.out.println(pickupRequest);
             }
-            log("that duo schedule bungii is in progress", "that duo schedule bungii is on" + state, false);
+            pass("Precondition: Given that duo schedule bungii is in progress ", "Duo Schedule Bungii [ "+pickupRequest+" ]  by customer " +custPhoneNum+" is in " + state);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
