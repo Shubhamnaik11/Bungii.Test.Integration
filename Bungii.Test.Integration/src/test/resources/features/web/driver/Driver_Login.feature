@@ -7,7 +7,6 @@ Feature: Driver_Login
     Then I should be directed to "LOG IN tab" on Driver portal
 
   @smoke
-  @sanity
   @ready
   Scenario: Verify Driver Login With Valid Credentials
     When I enter "valid" driver Phone Number on Driver portal

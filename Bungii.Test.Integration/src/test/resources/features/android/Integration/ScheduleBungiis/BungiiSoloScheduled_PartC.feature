@@ -113,7 +113,7 @@ Feature: SoloScheduled Part C
     And I Select "Scheduled Trip" from admin sidebar
     And I open the trip for "Testcustomertywd_appleand_C Android" customer
     And I Select "Edit Trip Details" option
-    And I assign driver for the "Testdrivertywd_appleks_a_kay Stark_ksThreE" trip
+    And I assign driver for the "Solo" trip
     And I click on "VERIFY" button
     And the "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
@@ -158,7 +158,7 @@ Feature: SoloScheduled Part C
     And I Select "Scheduled Trip" from admin sidebar
     And I open the trip for "Testcustomertywd_appleand_A Android" customer
     And I Select "Edit Trip Details" option
-    And I assign driver for the "Testdrivertywd_appleks_a_kay Stark_ksThreE" trip
+    And I assign driver for the "Solo" trip
     And I click on "VERIFY" button
     And the "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
@@ -189,6 +189,8 @@ Feature: SoloScheduled Part C
     And I tap on "Go Online button" on Driver Home page
     
     And I Switch to "customer" application on "same" devices
+    When I am on customer Log in page
+    When I am logged in as "Testcustomertywd_appleand_A Android" customer
     And I enter "valid pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate

@@ -230,11 +230,11 @@ public class EstimateBungiiSteps extends DriverBase {
         ZoneId zoneId = ZoneId.of("America/Los_Angeles");
         ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.now(), zoneId);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-        String actualTime = zonedDateTime.format(formatter);
-        System.out.println("Original Time"+ actualTime);
+        String expectedTime = zonedDateTime.format(formatter);
+        System.out.println("Original Time "+ expectedTime);
         zonedDateTime = zonedDateTime.plusMinutes(45);
-        actualTime = zonedDateTime.format(formatter);
-        System.out.println("Plus 45 Original Time"+ actualTime);
+            expectedTime = zonedDateTime.format(formatter);
+        System.out.println("Plus 45 Original Time "+ expectedTime);
         int minutes = zonedDateTime.getMinute();
         int difference = 0;
         if(minutes > 0 && minutes < 15) {
@@ -247,14 +247,14 @@ public class EstimateBungiiSteps extends DriverBase {
             difference = 60 - minutes;
         }
         zonedDateTime =  zonedDateTime.plusMinutes(difference);
-        actualTime = zonedDateTime.format(formatter);
-        System.out.println("Actual Time"+actualTime);
+            expectedTime = zonedDateTime.format(formatter);
+        System.out.println("Expected Time "+expectedTime);
             String pickupDateTime = action.getText(bungiiEstimatePage.Time());
             String pickupTime = pickupDateTime.substring(8,13);
             System.out.println("Pickup time " + pickupTime);
 
-            actualTime=actualTime.replace(" am", "").replace(" pm", "").replace(" AM", "").replace(" PM", "");
-        testStepVerify.isEquals(actualTime, pickupTime);
+            expectedTime=expectedTime.replace(" am", "").replace(" pm", "").replace(" AM", "").replace(" PM", "");
+        testStepVerify.isEquals(pickupTime, expectedTime);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -486,8 +486,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            log(" I am logged in as" + arg0 + " customer",
-                    " I am logged in as "+arg0+" customer ", true);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

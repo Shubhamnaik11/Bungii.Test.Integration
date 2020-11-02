@@ -8,7 +8,7 @@ Feature: SoloScheduled
   
  #######################################################################################
   @regression
-  Scenario: Verify Minimum Scheduled Time For Solo Trip
+  Scenario: Verify Minimum Scheduled Time For Solo Trip in San Francisco Geofence
     Given I am on customer Log in page
     When I am logged in as "New" customer
     And I enter "San Francisco pickup and dropoff locations" on Bungii estimate
@@ -153,7 +153,6 @@ Feature: SoloScheduled
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
 
-   #Date: 22-01-2020
   @regression
   Scenario:Verify When Bungii Is Not Started Driver Can Cancel Scheduled Bungii From The App :solo
     Given that solo schedule bungii is in progress
@@ -175,7 +174,6 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
   
   @regression
-  
   Scenario:Verify When Bungii Is Not Started Driver Can Cancel Scheduled Bungii From The App :duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -195,11 +193,7 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-  
- 
-    #####################################################
-   #@regression
-  
+    
   
   @regression
   Scenario: Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over :Duo
@@ -259,9 +253,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | 8888888881 |                 |
     
-    
-     #@regression
-  @ready
+  @regression
   Scenario: TELET : Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Case:DUO
     #trip 1
     Given I request "duo" Bungii as a customer in "kansas" geofence

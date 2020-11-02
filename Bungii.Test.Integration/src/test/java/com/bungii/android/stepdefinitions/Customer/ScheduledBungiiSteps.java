@@ -718,10 +718,11 @@ public class ScheduledBungiiSteps extends DriverBase {
                     String text=" selected";
                     WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date +"']", PageBase.LocatorType.XPath);
                     action.click(Select_Day);
-                    action.click(estimatePage.Button_SystemCalenderOK());
-                    String snackBarMessage=utility.getCustomerSnackBarMessage();//action.getText(promosPage.Snackbar());
-                            testStepAssert.isEquals(snackBarMessage, PropertyUtility.getMessage("customer.valid.bungii.date"), "Please select a valid date.",snackBarMessage+" is not displayed.", snackBarMessage+" is displayed.");
-                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    //action.click(estimatePage.Button_SystemCalenderOK());
+
+                   // String snackBarMessage=utility.getCustomerSnackBarMessage();//action.getText(promosPage.Snackbar());
+                      //      testStepAssert.isEquals(snackBarMessage, PropertyUtility.getMessage("customer.valid.bungii.date"), "Please select a valid date.",snackBarMessage+" is not displayed.", snackBarMessage+" is displayed.");
+                   // ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                 }
             }
         } catch (Exception e) {

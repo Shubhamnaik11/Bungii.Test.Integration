@@ -55,6 +55,7 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.warning;
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -806,6 +807,8 @@ Thread.sleep(5000);
                 if (action.isElementPresent(homePage.Button_Closetutorials(true)))
                     action.click(homePage.Button_Closetutorials());
             }
+            log(" I am logged in as customer with phone : "+phone,
+                    " I am logged in as customer with phone : "+phone, true);
         } else {
             logger.detail("Customer not logged in");
         }
@@ -947,62 +950,62 @@ Thread.sleep(5000);
 
         //FIX FOR APPIUM 1.42
         if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.ondemand"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_OnDemand(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_OnDemand())) {
                 action.click(otherAppsPage.Notification_OnDemand());
                 isDisplayed = true;
             }
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_Stack(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_Stack())) {
                 action.click(otherAppsPage.Notification_Stack());
                 isDisplayed = true;
             }
 
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack.cancel"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_StackCustomerCancel(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_StackCustomerCancel())) {
                 action.click(otherAppsPage.Notification_StackCustomerCancel());
                 isDisplayed = true;
             }
 
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.accepted.stack"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted())) {
                 action.click(otherAppsPage.Notification_StackDriverAccepted());
                 isDisplayed = true;
             }
 
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.started.stack"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_StackDriverStarted(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_StackDriverStarted())) {
                 action.click(otherAppsPage.Notification_StackDriverStarted());
                 isDisplayed = true;
             }
 
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted1(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted1())) {
                 action.click(otherAppsPage.Notification_StackDriverAccepted1());
                 isDisplayed = true;
             }
 
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.scheduled.t.minus.2"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_TMinus2(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_TMinus2())) {
                 action.click(otherAppsPage.Notification_TMinus2());
                 isDisplayed = true;
             }
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.cancelled"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_OtherDriverCancel(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_OtherDriverCancel())) {
                 action.click(otherAppsPage.Notification_OtherDriverCancel());
                 isDisplayed = true;
             }
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_CustomerCancel(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_CustomerCancel())) {
                 action.click(otherAppsPage.Notification_CustomerCancel());
                 isDisplayed = true;
             }
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.other.driver.bungii.cancel.notification"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_DriverBungiiCancel(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_DriverBungiiCancel())) {
                 action.click(otherAppsPage.Notification_DriverBungiiCancel());
                 isDisplayed = true;
             }
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.finish.bungii"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_CustomerFinsihBungii(true))) {
+            if (action.isElementPresent(otherAppsPage.Notification_CustomerFinsihBungii())) {
                 action.click(otherAppsPage.Notification_CustomerFinsihBungii());
                 isDisplayed = true;
             }
@@ -1072,6 +1075,9 @@ Thread.sleep(5000);
                     String expectedCustomerName = custName.substring(0, custName.indexOf(" ") + 2);
                     text = PropertyUtility.getMessage("driver.received.5.dollar.tip");
                     text=text.replace("<Customer Name>", expectedCustomerName);
+                    break;
+                case "URGENT SCHEDULED PICKUP AVAILABLE":
+                    text = PropertyUtility.getMessage("driver.notification.scheduled.urgent");
                     break;
                 case "SCHEDULED PICKUP AVAILABLE":
                     text = PropertyUtility.getMessage("driver.notification.scheduled");

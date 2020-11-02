@@ -150,7 +150,7 @@ public class Partner_LoginSteps extends DriverBase {
                 PickupDateTime = S2[0] + S2[1];
 
                 char ch = PickupDateTime.charAt(4);
-
+               String PickupDateTimeWithZero =  PickupDateTime;
                 if(PickupDateTime.charAt(4)=='0'){
                     StringBuilder sb = new StringBuilder(PickupDateTime);
                     sb.deleteCharAt(4);
@@ -159,7 +159,7 @@ public class Partner_LoginSteps extends DriverBase {
 
                 PickupDateTime = PickupDateTime.replaceAll("[()]","");
 
-
+                cucumberContextManager.setScenarioContext("PickupDateTimeWithZero",PickupDateTimeWithZero);
                 cucumberContextManager.setScenarioContext("PickupDateTime",PickupDateTime);
                 break;
             case "see Done screen":
@@ -178,7 +178,9 @@ public class Partner_LoginSteps extends DriverBase {
             case "see the trip in the Delivery List":
                 //String Customer_Name = null;
                // String DeliveryDace = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
-                String Delivery_Date = (String) cucumberContextManager.getScenarioContext("PickupDateTime");
+                //String Delivery_Date = (String) cucumberContextManager.getScenarioContext("PickupDateTime");
+                String Delivery_Date = (String) cucumberContextManager.getScenarioContext("PickupDateTimeWithZero");
+
                 String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
                 String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
 

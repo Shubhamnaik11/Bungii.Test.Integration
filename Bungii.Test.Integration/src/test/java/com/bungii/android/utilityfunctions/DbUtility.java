@@ -194,22 +194,33 @@ public class DbUtility extends DbContextManager {
         String activeFlag = getDataFromMySqlServer(queryString2);
         return activeFlag;
     }
-    public  String getCustomerDeviceToken(String phoneNumber){
-        String queryString2 = " select token from device where UserRef IN (select CustomerRef from customer where phone="+phoneNumber+") order by DevID desc limit 1";
+    public String getCustomerDeviceToken(String phoneNumber){
+        String queryString2 = "select token from device where UserRef IN (select CustomerRef from customer where phone='"+phoneNumber+"') order by DevID desc limit 1";
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
 
-    public  String getDriverDeviceToken(String phoneNumber){
-        String queryString2 = " select token from device where UserRef IN (select DriverRef from driver  where phone="+phoneNumber+") order by DevID desc limit 1";
+    public String getDriverDeviceToken(String phoneNumber){
+        String queryString2 = "select token from device where UserRef IN (select DriverRef from driver  where phone='"+phoneNumber+"') order by DevID desc limit 1";
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
 
-    public  String getCustomersMostRecentBungii(String phoneNumber){
+    public String getCustomersMostRecentBungii(String phoneNumber){
 
-        String queryString2 = "SELECT PickupRef FROM pickupdetails  WHERE customerRef IN(SELECT CustomerRef FROM customer WHERE phone="+phoneNumber+") order by pickupid desc limit 1";
+        String queryString2 = "SELECT PickupRef FROM pickupdetails  WHERE customerRef IN(SELECT CustomerRef FROM customer WHERE phone='"+phoneNumber+"') order by pickupid desc limit 1";
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
+    }
+    public String getCustomersMostRecentBungiiPickupId(String phoneNumber){
+        String queryString2 = "SELECT Pickupid FROM pickupdetails WHERE customerRef IN (SELECT CustomerRef FROM customer WHERE phone='"+phoneNumber+"') order by pickupid desc limit 1";
+        String Pickupid = getDataFromMySqlServer(queryString2);
+        return Pickupid;
+    }
+    public String getPickupNoteOfLastPickupOf(String phoneNumber){
+        String getLastPickupId = getCustomersMostRecentBungiiPickupId(phoneNumber);
+        String queryString2 = "select cust_sch_conversion_remark_comments from pickup_detail_remarks where pickup_id in ('"+getLastPickupId+"')";
+        String getPickupNote = getDataFromMySqlServer(queryString2);
+        return getPickupNote;
     }
 }

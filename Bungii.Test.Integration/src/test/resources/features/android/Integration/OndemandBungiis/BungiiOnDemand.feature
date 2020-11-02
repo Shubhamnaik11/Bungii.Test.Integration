@@ -155,7 +155,7 @@ Feature: On Demand Bungii
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
 
-    When I Open "driver" application on "same" devices
+    #When I Open "driver" application on "same" devices
     And Bungii Driver "accepts On Demand Bungii" request
     Then Bungii driver should see "Enroute screen"
 
@@ -197,7 +197,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
     And I Switch to "driver" application on "same" devices
     Then Bungii Driver "completes Bungii"
-    And Customer should receive "Your Bungii Receipt" email
+    #And Customer should receive "Your Bungii Receipt" email
 
   @regression
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With Promocode - Case:<Scenario>

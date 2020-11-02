@@ -205,6 +205,10 @@ public class BungiiSteps extends DriverBase {
                         utility.launchDriverApplication();
                         Thread.sleep(3000);
                     }
+                    if (action.isNotificationAlertDisplayed()) {
+                        action.click(Page_BungiiRequest.AlertButton_Cancel(true));
+                        Thread.sleep(1000);
+                    }
                     Thread.sleep(10000);
                     action.click(Page_DriverHome.Link_AvailableTrips());
                     break;
@@ -237,7 +241,7 @@ public class BungiiSteps extends DriverBase {
                     i_click_on_notification_for_something("on demand trip");
                       action.waitUntilAlertDisplayed(30L);
 
-                if (action.isElementPresent(Page_BungiiRequest.Alert_Msg())) {
+                if (action.isElementPresent(Page_BungiiRequest.Alert_Msg(true))) {
                     action.click(Page_BungiiRequest.AlertButton_View());
                     switch (arg0) {
                         case "accepts On Demand Bungii":
@@ -252,6 +256,12 @@ public class BungiiSteps extends DriverBase {
                             break;
                     }
                 }
+                else
+                {
+                    if (action.isNotificationAlertDisplayed()) {
+                            utility.acceptNotificationAlert();
+                        }
+                    }
             } else if (arg0.equalsIgnoreCase("Start Schedule Bungii")) {
                 boolean skipClick = false;
 
@@ -322,7 +332,7 @@ public class BungiiSteps extends DriverBase {
                     expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
-                Thread.sleep(80000);
+                Thread.sleep(60000);
                 isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             }
             //logger.detail(SetupManager.getDriver().getPageSource());
@@ -908,7 +918,7 @@ public class BungiiSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Problem in opening External Apps : Phone/SMS ", true);
         }
     }
 

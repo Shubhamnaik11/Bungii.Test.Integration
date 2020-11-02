@@ -9,7 +9,6 @@ Feature: Driver_Application
     And I click "Signup button" on driver portal
     Then I should be directed to "phone verification page" on Driver portal
 
-  @sanity
   @ready
   @email
   Scenario: Verify Driver Signup And Form Completion For Non Fountain Flow

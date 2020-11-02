@@ -30,7 +30,7 @@ public class ScreenshotUtility {
 			return targetFile.getName();
 			//return targetFile.getPath();
 		}catch (Exception e){
-			logger.detail(" Problem capturing screenshot");
+			logger.detail("Problem capturing screenshot");
 			return "";
 		}
 

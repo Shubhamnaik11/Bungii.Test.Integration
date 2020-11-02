@@ -393,6 +393,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
         CreatedDate = dateFormat.format(today1).toString();
 
         xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']", Name, CreatedDate, Expires, Code, Type, Status, Discount, Entered, Used);
+        action.waitUntilIsElementExistsAndDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),30L);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath", xpath);
     }

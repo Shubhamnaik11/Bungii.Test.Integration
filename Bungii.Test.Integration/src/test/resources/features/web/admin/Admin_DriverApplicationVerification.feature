@@ -22,7 +22,6 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Active"
     And I should receive "BUNGII: Time to Hit the Road!" email
 
-  @sanity
   @ready
     #test data created in base
   @email
@@ -98,7 +97,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the field resets to default
 
   @regression
-  @failedT
+  @failed
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
     When I click "Verify" button against the "Melvin Johnson" applicant
