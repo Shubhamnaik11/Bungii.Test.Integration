@@ -52,11 +52,19 @@ public class GeneralUtility extends DriverBase {
     EmailUtility emailUtility = new EmailUtility();
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
 
-    private String GetPartnerUrl(){
+    private String GetPartnerUrl(String PP_Site){
         String partnerURL = null;
+        cucumberContextManager.setScenarioContext("SiteUrl",PP_Site);
         String environment =PropertyUtility.getProp("environment");
-        if(environment.equalsIgnoreCase("QA_AUTO"))
-            partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+        if(environment.equalsIgnoreCase("QA_AUTO")){
+            if(PP_Site.equalsIgnoreCase("normal")){
+                partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+            }else if(PP_Site.equalsIgnoreCase("service level")){
+                partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
+            }else if(PP_Site.equalsIgnoreCase("kiosk mode")){
+                partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
+            }
+        }
         return  partnerURL;
     }
 
@@ -84,6 +92,7 @@ public class GeneralUtility extends DriverBase {
         return adminURL;
     }
 
+
     public void DriverLogin(String Phone, String Password) {
         String driverURL = GetDriverUrl();
 
@@ -100,8 +109,9 @@ public class GeneralUtility extends DriverBase {
         action.navigateTo(driverURL);
     }
 
-    public void NavigateToPartnerLogin(){
-        String partnerURL = GetPartnerUrl();
+    public void NavigateToPartnerLogin(String Site){
+
+        String partnerURL = GetPartnerUrl(Site);
         action.deleteAllCookies();
         action.navigateTo(partnerURL);
     }
@@ -118,8 +128,6 @@ public class GeneralUtility extends DriverBase {
     public void AdminLoginFromPartner() throws InterruptedException {
         String adminURL = GetAdminUrl();
         Thread.sleep(2000);
-
-
         action.openNewTab();
         action.navigateTo(adminURL);
         action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));

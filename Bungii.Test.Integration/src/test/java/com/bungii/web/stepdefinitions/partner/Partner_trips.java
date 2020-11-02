@@ -268,9 +268,28 @@ public class Partner_trips extends DriverBase {
 
     }
 
-    @And("^I confirm the trip details from Get Estimate$")
-    public void i_confirm_the_trip_details_from_get_estimate(){
+    @And("^I check correct price is shown for selected service$")
+    public void i_check_correct_price_is_shown_for_selected_service(){
+        String Alias_Name= (String) cucumberContextManager.getScenarioContext("Alias");
+        String Selected_Service =(String) cucumberContextManager.getScenarioContext("Selected_service");
+        String Trip_Type = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
+        int Driver_Number=1;
 
+        if(Trip_Type.equalsIgnoreCase("Duo")){
+            Driver_Number=2;
+        }
+
+        String Display_Price = action.getElementByXPath("//h2[text()='Delivery Cost']//following::span/strong").getText();
+        Display_Price = Display_Price.substring(1);
+
+        String Estimate_distance = dbUtility.getEstimateDistance();
+
+        String Price = dbUtility.getServicePrice(Alias_Name,Driver_Number,Estimate_distance,Selected_Service);
+
+        String Estimated_Price = (String) cucumberContextManager.getScenarioContext("Price_Estimate_Page");
+        testStepVerify.isEquals(Display_Price,Estimated_Price);
+        testStepVerify.isEquals(Display_Price,Price);
+        log("For Selected "+Selected_Service+" service correct price should be shown.","For Selected "+Selected_Service+" service correct price is shown.", true);
     }
 
     @Then("^I should see \"([^\"]*)\"$")
