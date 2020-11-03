@@ -223,7 +223,7 @@ public class NotificationSteps extends DriverBase {
             if (notificationClick) {
                 fail("I should not get notification for " + expectedNotification, "I should not get notification for " + getExpectedNotification(expectedNotification), true);
             } else {
-                pass("I should not able to click notification for" + expectedNotification, "I was not able t notifications with text" + getExpectedNotification(expectedNotification), true);
+                pass("I should not able to click notification for" + expectedNotification, "I was not able to notifications with text" + getExpectedNotification(expectedNotification), true);
                 action.hideNotifications();
             }
 

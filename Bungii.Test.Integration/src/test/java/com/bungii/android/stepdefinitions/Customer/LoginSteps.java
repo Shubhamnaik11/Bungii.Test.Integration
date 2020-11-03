@@ -30,7 +30,6 @@ public class LoginSteps extends DriverBase {
             testStepVerify.isElementDisplayed(loginPage.Header_LoginPage(true), "Login button should be displayed ", "Login button is displayed", "Sign up button is not displayed");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
