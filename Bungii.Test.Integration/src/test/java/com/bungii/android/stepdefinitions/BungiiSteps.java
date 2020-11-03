@@ -260,6 +260,18 @@ public class BungiiSteps extends DriverBase {
                 {
                     if (action.isNotificationAlertDisplayed()) {
                             utility.acceptNotificationAlert();
+                        switch (arg0) {
+                            case "accepts On Demand Bungii":
+                                Thread.sleep(5000);
+                                action.click(Page_BungiiRequest.Button_Accept());
+                                //error step above
+                                break;
+
+                            case "rejects On Demand Bungii":
+                                Thread.sleep(5000);
+                                action.click(Page_BungiiRequest.Button_Reject());
+                                break;
+                        }
                         }
                     }
             } else if (arg0.equalsIgnoreCase("Start Schedule Bungii")) {

@@ -117,7 +117,6 @@ Feature: Failed Ondemand Delivery
     And I click on "SUBMIT REASON" button
   
   @regression
-    @dd
   Scenario Outline: Failed Ondemand Delivery : Verify that user can select each of the reason and submit successfully
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer

@@ -39,7 +39,6 @@ Feature: Scheduled Duo Bungiis
 	
 	When I Switch to "customer" application on "same" devices
 	And I am logged in as "valid kansas" customer
- 
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I close "Tutorial" if exist
 	

@@ -48,7 +48,14 @@ public class HomePageSteps extends DriverBase {
             Thread.sleep(3000);
             action.click(driverHomePage.Button_NavigationBar());
             List<WebElement> elements = driverHomePage.Button_NavigationBarText();
+            if (action.isNotificationAlertDisplayed()) {
+                if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
+                    utility.acceptNotificationAlert();
+                } else {
+                    action.click(Page_BungiiRequest.AlertButton_Cancel());
+                }
 
+            }
             for (WebElement element : elements) {
                 if (element.getText().equalsIgnoreCase(menuItem)) {
                     action.click(element);

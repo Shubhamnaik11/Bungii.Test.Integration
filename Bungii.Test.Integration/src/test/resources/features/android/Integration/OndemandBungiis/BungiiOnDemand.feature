@@ -663,7 +663,10 @@ Feature: On Demand Bungii
     And I am on the LOG IN page on driver app
     And I am logged in as "valid baltimore" driver
     And I slide update button on "UNLOADING ITEM" Screen
+    
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
+    And I Switch to "customer" application on "same" devices
+  
     When I select "2" Ratting star for duo "Driver 1"
     When I give tip to Bungii Driver with following tip and Press "OK" Button
       | Tip |
@@ -676,7 +679,7 @@ Feature: On Demand Bungii
   
   
   @regression
-  Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount
+  Scenario:Verify ondemand Trip is displayed in past trips after completion
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
       | baltimore | COMPLETED|
@@ -686,5 +689,5 @@ Feature: On Demand Bungii
     And I tap on "Menu" > "My Bungiis" link
     Then "MY BUNGIIS" page should be opened
     And I click on "Past" tab
-    And I open the trip for "Testdrivertywd_applemd_a_bill Stark_bltTwO" driver
+    And I open the trip for "Testdrivertywd_applemd_a_ryan Stark_bltOnE" driver
     Then I verify driver names and trip cost
