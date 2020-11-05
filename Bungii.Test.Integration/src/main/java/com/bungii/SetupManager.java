@@ -53,6 +53,7 @@ public class SetupManager extends EventFiringWebDriver {
     private static SetupManager setupManager;
     private static String TARGET_PLATFORM;
     private static AppiumDriverLocalService service = null;
+    private static String BrowserStackLocal;
 
     static {
         TARGET_PLATFORM = PropertyUtility.getProp("target.platform");
@@ -352,6 +353,7 @@ public class SetupManager extends EventFiringWebDriver {
     public static DesiredCapabilities getCapabilities(String deviceId) {
         String deviceInfoFileKey = "";
         String phoneDetails ="";
+        String browserlocal ="";
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS"))
             deviceInfoFileKey = "ios.capabilities.file";
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
@@ -374,6 +376,16 @@ public class SetupManager extends EventFiringWebDriver {
             }
             else {
                 capabilities.setCapability(key, jsonCaps.get(key));
+                if (key.toString().equalsIgnoreCase("browserstack.local")) {
+                    browserlocal = jsonCaps.get(key).toString();
+                    //phoneDetails += " " + jsonCaps.get(key).toString();
+                    if(browserlocal.equalsIgnoreCase("true")){
+                        BrowserStackLocal = "true";
+                    }
+                    else{
+                        BrowserStackLocal = "false";
+                    }
+                }
                 if (key.toString().equalsIgnoreCase("deviceName")) {
                     phoneDetails += " " + jsonCaps.get(key).toString();
                 }
@@ -419,6 +431,10 @@ public class SetupManager extends EventFiringWebDriver {
             return 0;
         }
 
+    }
+
+    public static String BrowserStackLocal(){
+        return BrowserStackLocal;
     }
 
     public void restartApp() {

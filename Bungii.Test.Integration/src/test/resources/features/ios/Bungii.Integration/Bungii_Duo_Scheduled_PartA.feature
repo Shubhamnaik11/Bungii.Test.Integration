@@ -100,6 +100,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @regression
+   #stable
   Scenario: Verify Customer Doesnt Receives Notification When Duo Scheduled Bungii Is Requested At A Time Outside Working Hours
     #When I am on the "LOG IN" page
     #And I logged in Customer application using  "valid denver" user
