@@ -60,7 +60,6 @@ Feature: Service Level
 
       Examples:
       |Type|DeliveryAddress                                                                  |ServiceName   |Distance |
-
       |Solo|900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|White Glove   |0-10     |
       |Duo |900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|White Glove   |0-10     |
       |Solo|11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |White Glove   |10-15    |
