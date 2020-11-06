@@ -312,6 +312,7 @@ public class Partner_IntegrationSteps extends DriverBase {
 
                     //Clicking on duo radio button
                     action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+                    Thread.sleep(2000);
 
                     //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
                     break;

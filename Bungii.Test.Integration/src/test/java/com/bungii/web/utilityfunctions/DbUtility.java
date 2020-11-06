@@ -157,16 +157,7 @@ public class DbUtility extends DbContextManager {
 
     public static String getServicePrice(String Alias,int No_of_Driver,String Trip_Estimate_Distance,String Service_name) {
         String Trip_Price;
-        /*String queryString = "select amount\n" +
-                "from business_partner_loc_fixed_distance_pricing fp\n" +
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
-                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
-                "and ss.service_name = '"+Service_name+"' and no_of_drivers=" +No_of_Driver+ "and "+Trip_Estimate_Distance+" BETWEEN mile_range_min and mile_range_max\n" +
-                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
 
-         */
         String queryString ="select amount\n" +
                 "from business_partner_loc_fixed_distance_pricing fp\n" +
                 "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
@@ -180,6 +171,93 @@ public class DbUtility extends DbContextManager {
         Trip_Price = getDataFromMySqlMgmtServer(queryString);
         logger.detail("Estimate Distance=  " + Trip_Price + " of latest trip" );
         return Trip_Price;
+
+    }
+
+    public static String getServicePriceLastTier(String Alias,int No_of_Driver,String Trip_Estimate_Distance,String Service_name) {
+        Double Trip_Price;
+        String Last_Tier;
+        Double Second_Last_Tier_Amount;
+        double Second_Last_Tier_Milenge;
+
+        //Query for selecting last tier number
+        String queryString ="select max(tier_number)\n" +
+                "from business_partner_loc_fixed_distance_pricing fp\n" +
+                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
+                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
+                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
+                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
+                "and ss.service_name = '"+Service_name+"'\n" +
+                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+
+        Last_Tier = getDataFromMySqlMgmtServer(queryString);
+
+        int Last_Tier_Number = Integer.parseInt(Last_Tier);
+
+        int Second_Last_Tier = Last_Tier_Number-1;
+
+        //Query for selecting second last tier amount
+        String queryString1 ="select amount\n" +
+                "from business_partner_loc_fixed_distance_pricing fp\n" +
+                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
+                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
+                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
+                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
+                "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  tier_number="+Second_Last_Tier+"\n" +
+                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+
+        //Trip_Price = getDataFromMySqlServer(queryString);
+        Second_Last_Tier_Amount = Double.parseDouble(getDataFromMySqlMgmtServer(queryString1));
+
+        //Query for selecting maxium milenge for second last last tier
+        String queryString2 ="select mile_range_max\n" +
+                "from business_partner_loc_fixed_distance_pricing fp\n" +
+                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
+                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
+                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
+                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
+                "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  tier_number="+Second_Last_Tier+"\n" +
+                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+
+        Second_Last_Tier_Milenge = Double.parseDouble(getDataFromMySqlMgmtServer(queryString2));
+
+        Double Remaining_Milenge = Double.parseDouble(Trip_Estimate_Distance) - Second_Last_Tier_Milenge;
+
+        //Multiplying factor
+        String queryString3 ="select amount\n" +
+                "from business_partner_loc_fixed_distance_pricing fp\n" +
+                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
+                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
+                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
+                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
+                "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  tier_number="+Last_Tier_Number+"\n" +
+                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+
+        Double Multiplier = Double.parseDouble(getDataFromMySqlMgmtServer(queryString3));
+        Double Cal2 = Remaining_Milenge*Multiplier;
+        Trip_Price = Second_Last_Tier_Amount + Cal2;
+
+        logger.detail("Estimate Distance=  " + Trip_Price + " of latest trip" );
+        return String.valueOf(Trip_Price);
+
+    }
+
+    public static String getMaxMilengeValue(String Alias,String Service_name) {
+        String Max_Value_Min_Milenge;
+
+        String queryString ="select max(mile_range_min)\n" +
+                "from business_partner_loc_fixed_distance_pricing fp\n" +
+                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
+                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
+                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
+                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
+                "and ss.service_name = '"+Service_name+"'\n" +
+                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+
+
+        Max_Value_Min_Milenge = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("Estimate Distance=  " + Max_Value_Min_Milenge + " of latest trip" );
+        return Max_Value_Min_Milenge;
 
     }
 

@@ -283,10 +283,23 @@ public class Partner_trips extends DriverBase {
         Display_Price = Display_Price.substring(1);
 
         String Estimate_distance = dbUtility.getEstimateDistance();
+        double Estimate_distance_value = Double.parseDouble(Estimate_distance);
 
-        String Price = dbUtility.getServicePrice(Alias_Name,Driver_Number,Estimate_distance,Selected_Service);
+        String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Selected_Service);
+        double Last_Tier_Milenge_Min_Range_value = Double.parseDouble(Last_Tier_Milenge_Min_Range);
+
+        String Price="";
+        if(Estimate_distance_value <= Last_Tier_Milenge_Min_Range_value) {
+            Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, Estimate_distance, Selected_Service);
+        }
+        else{
+            Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, Estimate_distance, Selected_Service);
+        }
 
         String Estimated_Price = (String) cucumberContextManager.getScenarioContext("Price_Estimate_Page");
+
+
+
         testStepVerify.isEquals(Display_Price,Estimated_Price);
         testStepVerify.isEquals(Display_Price,Price);
         log("For Selected "+Selected_Service+" service correct price should be shown.","For Selected "+Selected_Service+" service correct price is shown.", true);
