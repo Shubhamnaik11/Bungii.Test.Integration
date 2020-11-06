@@ -79,7 +79,7 @@ public class Partner_LoginSteps extends DriverBase {
     }
 
     @And("^I change the service level to \"([^\"]*)\"$")
-    public void i_change_the_service_level(String Service_Name){
+    public void i_change_the_service_level(String Service_Name) throws InterruptedException {
 
         String Xpath = "//span[@class='service-title' and @data-name='"+Service_Name+"']";
 
