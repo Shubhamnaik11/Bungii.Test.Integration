@@ -50,7 +50,7 @@ Feature: Admin_DriverDetails
 #    And I click on "Save Driver Details" button
 #    Then I check if driver SSN is masked
 
-  @regression
+  @ready
   Scenario: Verify Driver Trip List Status Updation for Solo Scheduled Bungii
     When I search driver "Macy Chang"
     And I click on "Driver Trips" icon

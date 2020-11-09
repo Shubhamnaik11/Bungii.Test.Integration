@@ -4,7 +4,7 @@ Feature: Admin_FailedTripEmails
   Background:
     Given I am logged in as TestAdmin
 
-  @regression
+  @ready
   @email
   Scenario: Verify Failed Trip Email - Ondemand Trip - No driver accepts
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -14,7 +14,7 @@ Feature: Admin_FailedTripEmails
     When I ensure no driver accepts the trip
     Then Admin receives "Failed On-Demand Trips" trip email for "No Driver(s) Accepted" status
 
-  @regression
+  @ready
   @email
   Scenario: Verify Failed Trip Email - Ondemand Trip Cancelled By Customer
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location

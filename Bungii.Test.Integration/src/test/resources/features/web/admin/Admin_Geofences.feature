@@ -16,8 +16,7 @@ Feature: Admin_Geofence
     Then I verify that the default settings are displayed
     
   @sanity
-  @regression
-    @demo
+  @ready
   Scenario: Verify Add Edit New Geofence
     When I click on the "Scale" Button
     And I enter following values in "Geofence" fields
@@ -177,8 +176,7 @@ Feature: Admin_Geofence
     When I click on the "Save" Button on "GeofenceAttributes" Screen
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
 
-  @ready
-    @test
+  @regression
   Scenario: Verify Field Validations on Geofence Attributes page
     When I load Geofence Attributes Page and Click on New Attributes button
     And I click on the "Save" Button on "GeofenceAttributes" Screen

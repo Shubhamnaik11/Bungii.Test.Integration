@@ -34,7 +34,7 @@ Feature: Service Level
     Then I close the Trip Delivery Details page
     And I should logout from Partner Portal
 
-    @ready
+    @regression
   Scenario: Verify that service level options display on configured Partner portal site only after selecting the pickup  and delivery address.
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -44,7 +44,7 @@ Feature: Service Level
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |
     Then I should "see Service Level"
 
-    @ready
+    @regression
   Scenario Outline: Verify changing the service level options display on configured Partner portal <Type>-<ServiceName> for <Distance> distance
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal

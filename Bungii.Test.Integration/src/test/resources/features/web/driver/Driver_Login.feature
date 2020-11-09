@@ -8,7 +8,7 @@ Feature: Driver_Login
 
   @smoke
   @sanity
-  @regression
+  @ready
   Scenario: Verify Driver Login With Valid Credentials
     When I enter "valid" driver Phone Number on Driver portal
     And I enter "valid" driver Password on Driver portal
