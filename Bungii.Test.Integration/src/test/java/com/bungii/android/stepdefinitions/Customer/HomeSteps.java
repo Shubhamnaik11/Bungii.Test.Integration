@@ -55,7 +55,7 @@ public class HomeSteps extends DriverBase {
             log(" I should able to tap on " + strArg2, " I tapped on " + strArg2, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in tapping on menu item : "+ strArg2, true);
         }
     }
     @Then("^Customer active flag should be \"([^\"]*)\"$")

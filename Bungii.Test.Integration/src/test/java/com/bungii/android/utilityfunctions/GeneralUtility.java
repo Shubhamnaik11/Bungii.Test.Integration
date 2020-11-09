@@ -795,8 +795,12 @@ Thread.sleep(5000);
             } catch (Exception e) {
                 nextPage = action.getText(Page_Signup.GenericHeader(true));
             }
-
-            if (nextPage.equalsIgnoreCase("TERMS & CONDITIONS")) {
+            if (nextPage.equalsIgnoreCase("LOGIN")) {
+                Thread.sleep(10000);
+                action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
+                nextPage = action.getText(Page_Signup.GenericHeader(true));
+            }
+                if (nextPage.equalsIgnoreCase("TERMS & CONDITIONS")) {
                 action.click(Page_CustTerms.Checkbox_Agree());
                 action.click(Page_CustTerms.Button_Continue());
                 if (action.isElementPresent(Page_CustTerms.Header_PermissionsLocation(true))) {
@@ -888,7 +892,8 @@ Thread.sleep(5000);
     }
 
     public void goToDriverLoginPage() {
-        String currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
+
+        String currentPage = action.getText(driverHomePage.Generic_HeaderElement());
 
         if (currentPage.equals("LOGIN")) {
         } else if (currentPage.equals("ONLINE") || currentPage.equals("OFFLINE")) {
