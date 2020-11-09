@@ -30,7 +30,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
     
-  @regression
+  @ready
   Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Enroute State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -59,7 +59,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
  #   And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
 
   @sanity
-  @regression
+  @ready
   Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -85,7 +85,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 #    And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
   
 
-  @regression
+  @ready
   @pushnotification
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
@@ -181,7 +181,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
   
-  @regression
+  @ready
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
     When I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"

@@ -72,7 +72,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
   @failed
   @email
-  @regression
+  @ready
   Scenario Outline: Verify Customer Can Submit Registration Form Without Promocode
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
     And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -181,7 +181,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Ron        | testerr   | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | ONETESTTIM | facebook |
 
   @failed
-  @regression
+  @ready
   Scenario Outline:Verify Customer Cannot Signup With Future Active Promoter Type Promo codes
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page

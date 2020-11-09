@@ -24,7 +24,7 @@ Feature: Payment page
       | FRAUD_CARD     | FRAUD CARD   | 12/29  | "There was a problem processing your credit card; please double check your payment information and try again." | VALID POSTAL CODE | VALID CVV |
     
     
-  @regression
+  @ready
   @sanity
   @payment
   Scenario Outline: Verify Customer Can Add New Payment Card -  <Scenario> Scenario

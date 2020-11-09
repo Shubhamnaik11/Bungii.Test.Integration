@@ -11,7 +11,7 @@ Feature: DriverMenu
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
   @sanity
-  @regression
+  @ready
   Scenario: Verify Driver App Menu Option Navigation - ACCOUNT | FAQ | LEADERBOARD | SCHEDULED BUNGIIS | AVAILABLE BUNGIIS | EARNINGS | ALERT SETTINGS | STORE | FEEDBACK | LOGOUT
     When I Select "ACCOUNT" from driver App menu
     Then I should be navigated to "ACCOUNT" screen
