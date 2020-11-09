@@ -4,7 +4,7 @@ Feature: Customer	Referral Invite page
 
   Background: 
     Given I am on Customer logged in Home page
-  @FAILED2702
+
   @regression
   Scenario: Verify Proper Info And Promocode Is Displayed On Customer Invite Screen
     When I Select "Home" from Customer App menu
@@ -14,7 +14,7 @@ Feature: Customer	Referral Invite page
     Then Invite Referral page should be properly displayed
     And I click "Done" button on "Invite" screen
   
-  @ready
+  @regression
   Scenario: Verify Customer Can Share Code Using Text Message
     When I Select "Home" from Customer App menu
     And I click "Invite referrals" button on "HOME" screen
@@ -25,7 +25,7 @@ Feature: Customer	Referral Invite page
     Then I should see draft post in "Message" application
     And I click "Done" button on "Invite" screen
 
-  @ready
+  @regression
   Scenario: Verify Customer Can Share Code Using Email
     When I Select "Home" from Customer App menu
     And I click "Invite referrals" button on "HOME" screen

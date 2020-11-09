@@ -114,7 +114,7 @@ Feature: Customer Estimate screen
       | 30       |           |              | Now  | Default     |
     Then Estimate value for trip should be properly displayed
 
-  @ready
+  @regression
   Scenario: Verify Customer Is Prompted To Go To Add Payment Page If No Payment Exists
     Given I am on the "LOG IN" page
     When I enter Username :9999990216 and  Password :{VALID}
@@ -135,7 +135,7 @@ Feature: Customer Estimate screen
     When I Switch to "customer" application on "same" devices
     And I Select "LOGOUT" from Customer App menu
     
-    @ready
+    @regression
     Scenario:Verify Customer Can Add Atleast One And Maximum Of Four Images Of Items On Estimate Screen
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Location | Drop Location                |
@@ -152,7 +152,7 @@ Feature: Customer Estimate screen
       Then I should be navigated to "SEARCHING" screen
       When I click "Cancel" button on "SEARCHING" screen
       Then user is alerted for "CANCEL BUNGII"
-  @failed
+
   @ready
       Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
       And I request for  bungii for given pickup and drop location
@@ -162,7 +162,7 @@ Feature: Customer Estimate screen
     Then correct details next available scheduled time should be displayed
 
 
-  @ready
+  @regression
   Scenario: Verify Customer Selects Scheduled Bungii When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To Estimate Screen With Prefilled Data
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
