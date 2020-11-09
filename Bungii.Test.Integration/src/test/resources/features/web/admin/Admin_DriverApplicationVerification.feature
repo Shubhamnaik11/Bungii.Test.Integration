@@ -95,7 +95,7 @@ Feature: Admin_DriverApplicationVerification
     When I click and reset the status of "Driver Picture" field
     Then the status of the field resets to default
 
-  @regression
+  @ready
   @failedT
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
