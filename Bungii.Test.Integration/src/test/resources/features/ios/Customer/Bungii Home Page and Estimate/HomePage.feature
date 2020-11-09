@@ -100,7 +100,7 @@ Feature: Customer Home screen
     Then user is alerted for "LONG HAUL"
 
 
-  @ready
+  @regression
   Scenario: Verify ETA Box When Geofence Is Not Active
     Given I am on Customer logged in Home page
 
