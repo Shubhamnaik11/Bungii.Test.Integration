@@ -264,7 +264,7 @@ public class ActionManager {
                             ExpectedConditions.textToBePresentInElement(element,text2)
                     )
             );        } catch (Exception e) {
-            logger.detail("Wait failed");
+            logger.detail("Wait failed for : " + text1 + " or "+ text2);
         }
     }
     /**

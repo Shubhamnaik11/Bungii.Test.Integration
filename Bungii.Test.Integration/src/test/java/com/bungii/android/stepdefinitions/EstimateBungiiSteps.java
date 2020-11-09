@@ -127,7 +127,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.waitUntilIsElementExistsAndDisplayed(bungiiEstimatePage.Alert_ConfirmRequestMessage(), 120L);
                     action.click(bungiiEstimatePage.Button_RequestConfirm());
                     Thread.sleep(3000);
-                    action.eitherTextToBePresentInElementText(bungiiEstimatePage.GenericHeader(true), "Success!", "SEARCHING…");
+                    action.eitherTextToBePresentInElementText(bungiiEstimatePage.GenericHeader(true), "SUCCESS!", "SEARCHING…");
 
                     break;
 
@@ -187,8 +187,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            log(" I tap on " + arg0 + " on Bungii estimate",
-                    "I  Selected " + arg0, true);
+            pass(" I tap on " + arg0 + " on Bungii estimate",
+                    "I  Selected " + arg0);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -980,7 +980,7 @@ public class EstimateBungiiSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGIICOST", estimatedCost);
             cucumberContextManager.setScenarioContext("BUNGII_LOAD_TIME", arg0.replace(" mins", ""));
             log(" I add loading/unloading time " + arg0 + "on Estimate page",
-                    "I clicked on " + arg0 + "as Estimate loading/unloading time ", true);
+                    "I clicked on " + arg0 + " as Estimate loading/unloading time ", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

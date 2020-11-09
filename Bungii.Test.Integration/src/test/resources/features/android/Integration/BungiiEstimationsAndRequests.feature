@@ -89,7 +89,9 @@
       Then "Estimate" page should be opened
       When I tap on "Request Bungii" on Bungii estimate
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-      And I wait for "3" mins
+      And I click "Done" button on "Success" screen
+  
+   And I wait for "3" mins
    
      # And I click "OK" button on the "Driver Not Available" screen
       And I click "Schedule Bungii" button on the "Driver Not Available" screen
@@ -122,6 +124,7 @@
       Then "Estimate" page should be opened
       When I tap on "Request Bungii" on Bungii estimate
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+      And I click "Done" button on "Success" screen
 
       When I click on notification for "on demand trip"
       Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
@@ -177,6 +180,7 @@
         When I Switch to "driver" application on "same" devices
         And I am on the LOG IN page on driver app
         And I am logged in as "Testdriver_goa_e Android_test" driver
+        
         And I tap on "Go Online button" on Driver Home page
         And I Switch to "customer" application on "same" devices
         And I enter "Goa pickup and dropoff location" on Bungii estimate
@@ -191,7 +195,8 @@
         And I select Bungii Time as "next possible scheduled"
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    
+        And I click "Done" button on "Success" screen
+  
         When I Switch to "driver" application on "same" devices
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from driver available trip
@@ -221,7 +226,8 @@
         And I select Bungii Time as "OLD BUNGII TIME"
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    
+        And I click "Done" button on "Success" screen
+  
         When I Switch to "driver" application on "same" devices
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from driver available trip
@@ -256,7 +262,8 @@
         
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    
+        And I click "Done" button on "Success" screen
+  
         When I Switch to "driver" application on "same" devices
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from driver available trip
@@ -291,7 +298,8 @@
         And I select Bungii Time as "OLD BUNGII TIME"
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    
+        And I click "Done" button on "Success" screen
+  
         When I Switch to "driver" application on "same" devices
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from driver available trip
@@ -364,7 +372,8 @@
     
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    
+        And I click "Done" button on "Success" screen
+  
         When I Switch to "driver" application on "same" devices
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from driver available trip
