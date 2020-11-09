@@ -46,7 +46,7 @@ Feature: Customer Home screen
     And I select "Pick up" location
     Then The ETA bar is seen on screen
     When I clear "Pick up" location
-    Then The ETA bar is seen on screen
+    Then The ETA bar is not seen on screen
 
   @regression
   Scenario: Verify If Driver ETA Is Displayed When Drivers Within 30 min Of Radius From Pickup Location Is Available

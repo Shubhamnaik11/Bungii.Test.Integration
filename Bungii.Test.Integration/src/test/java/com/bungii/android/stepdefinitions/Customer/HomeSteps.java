@@ -446,7 +446,18 @@ public class HomeSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
-
+    @Then("^The ETA bar is not seen on screen$")
+    public void the_eta_bar_is_not_seen_on_screen() throws Throwable {
+        try {
+            //testStepVerify.isElementDisplayed(homePage.Button_ETASet(), "ETA SET button should be displayed.", "ETA SET button is displayed.", "ETA SET button is not displayed.");
+            testStepVerify.isElementNotDisplayed(homePage.Label_ETAContainer(), "ETA bar should not be displayed.", "ETA bar is not displayed.", "ETA bar is displayed.");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @And("^I select \"([^\"]*)\" location to check driver within 30mins$")
     public void i_select_something_location_to_check_driver_within_30mins(String strArg1) throws Throwable {
         try {
