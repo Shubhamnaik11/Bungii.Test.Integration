@@ -39,11 +39,14 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
         String actualDriverName=action.getText(myBungiisPage.Text_FirstDriverName());
 
         testStepAssert.isEquals(actualDriverName,expectedDriverName,"Driver name expected is "+expectedDriverName,"Expected Driver name is displayed.",expectedDriverName+" driver name is not displayed.");
-         expectedDriverName=(String)cucumberContextManager.getScenarioContext("DRIVER_2");
-          Name = expectedDriverName.split(" ");
-        expectedDriverName = Name[0]+" "+Name[1].charAt(0); //Last Name initial
-         actualDriverName=action.getText(myBungiisPage.Text_SecondDriverName());
-        testStepAssert.isEquals(actualDriverName,expectedDriverName,"Driver name expected is "+expectedDriverName,"Expected Driver name is displayed.",expectedDriverName+" driver name is not displayed.");
+
+        expectedDriverName=(String)cucumberContextManager.getScenarioContext("DRIVER_2");
+        if(expectedDriverName!="") {
+            Name = expectedDriverName.split(" ");
+            expectedDriverName = Name[0] + " " + Name[1].charAt(0); //Last Name initial
+            actualDriverName = action.getText(myBungiisPage.Text_SecondDriverName());
+            testStepAssert.isEquals(actualDriverName, expectedDriverName, "Driver name expected is " + expectedDriverName, "Expected Driver name is displayed.", expectedDriverName + " driver name is not displayed.");
+        }
         String expectedTripCost=(String)cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
         expectedTripCost= expectedTripCost.replace("~","");
         String actualTripCost=action.getText(myBungiisPage.Text_TripCost());
