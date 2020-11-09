@@ -106,7 +106,7 @@ public class Driver_ForgotPasswordSteps extends DriverBase {
                 break;
             case "correct phone number":
                 String phone = PropertyUtility.getDataProperties("DriverPhoneNumber");
-                String PhoneLast4 = PropertyUtility.getMessage("VerifyPhoneText1") + " ******" + phone.substring(phone.length() - 3) + PropertyUtility.getMessage("VerifyPhoneText2");
+                String PhoneLast4 = PropertyUtility.getMessage("VerifyPhoneText1");
                 testStepVerify.isEquals(action.getText(Page_VerifyPhone.Text_Verify_PhoneNo()), PhoneLast4);
                 break;
             case "new verification code":
