@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.bungii.SetupManager.BrowserStackLocal;
 import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -895,7 +896,14 @@ public class EstimateSteps extends DriverBase {
             String displayedTime = getElementValue("TIME");
             Date date = getNextScheduledBungiiTime();
             String strTime = bungiiTimeDisplayInTextArea(date);
-            testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"),strTime.replace("am","AM").replace("pm","PM"));
+            if(BrowserStackLocal().equalsIgnoreCase("true")) {
+                strTime = strTime.replace("am","a.m.").replace("pm","p.m.").replace("AM","a.m.").replace("PM","p.m.");
+                strTime = utility.getGmtTime(strTime);
+
+                testStepVerify.isEquals(displayedTime, strTime);
+            }
+            else
+                testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"),strTime.replace("am","AM").replace("pm","PM"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -929,7 +937,14 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTimeForGeofence();
             String strTime = bungiiTimeDisplayInTextArea(date);
 
-            testStepVerify.isEquals( displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"));
+            if(BrowserStackLocal().equalsIgnoreCase("true")) {
+                strTime = strTime.replace("am","a.m.").replace("pm","p.m.").replace("AM","a.m.").replace("PM","p.m.");
+                strTime = utility.getGmtTime(strTime);
+              testStepVerify.isEquals(displayedTime, strTime);
+            }
+            else
+
+            testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"));
 
 
         } catch (Exception e) {

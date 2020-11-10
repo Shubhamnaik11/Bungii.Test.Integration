@@ -167,7 +167,7 @@ public class HomeSteps extends DriverBase {
 
           //  isbungiiTypeCorrect = (tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) || (tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
             testStepVerify.isTrue(isbungiiTypeCorrect,
-                    "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up address : " + pickup + " and drop address : " + drop + " using search dropdown",
+                    "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii is requested for Pick up address : " + pickup + " and drop address : " + drop + " using search dropdown",
                     "Driver for Bungii is not " + bungiiType);
         } catch (Exception e) {
             logger.error("Error Requesting Bungii", ExceptionUtils.getStackTrace(e));

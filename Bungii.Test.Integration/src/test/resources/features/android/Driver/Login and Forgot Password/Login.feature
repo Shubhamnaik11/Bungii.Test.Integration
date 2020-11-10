@@ -58,6 +58,8 @@ Feature: Log In
       Scenario Outline: Verify New Driver With Payment Status As Inactive Or Pending Cannot Go Online
       When I enter phoneNumber :<Username> and  Password :<Password>
       And I click "Log In" button on Log In screen on driver app
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
       And I tap on "Go Online button" on Driver Home page
       Then I should see "<Expected Message>" on Log In screen on driver app
       Examples:

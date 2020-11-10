@@ -1609,6 +1609,7 @@ public class CommonSteps extends DriverBase {
                 logInSteps.i_enter_valid_and_as_per_below_table(PropertyUtility.getDataProperties("customer.user"),
                         PropertyUtility.getDataProperties("customer.password"));
                 // cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+                cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer.user"));
                 cucumberContextManager.setScenarioContext("CUSTOMER_PUSH_PHONE", PropertyUtility.getDataProperties("customer.user"));
                 cucumberContextManager.setScenarioContext("CUSTOMER_PUSH_PWD", PropertyUtility.getDataProperties("customer.password"));
 

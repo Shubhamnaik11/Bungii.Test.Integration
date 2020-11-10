@@ -698,13 +698,7 @@ try {
         else {
             HashMap<String, String> params = new HashMap<>();
             JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
-
-           // params.put("action", "accept");
-           // params.put("buttonLabel", buttonLabel);
-          //  js.executeScript("mobile: alert", params);
              SetupManager.getDriver().findElement(By.id(label)).click();
-           // Alert alert = SetupManager.getDriver().switchTo().alert();
-           // alert.accept();
             logger.detail("ACTION | Accept Alert button : "+ label);
 
             return true;

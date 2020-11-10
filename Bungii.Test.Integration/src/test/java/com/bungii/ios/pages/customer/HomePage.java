@@ -98,7 +98,7 @@ public class HomePage extends PageBase {
 
     public WebElement Image_eta_bar() {return findElement("//XCUIElementTypeStaticText[contains(@name,'ETA at Pickup Location:')]", LocatorType.XPath);}
     public WebElement Text_eta_mins(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[contains(@name,'ETA at Pickup Location:')]", LocatorType.XPath,ignoreException); }
-    public WebElement Text_OutOfOffice(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name=\"Whoops! Sorry, we’re not operating here yet.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Text_OutOfOffice(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name='Whoops! Sorry, we’re not operating here yet.']", LocatorType.XPath,ignoreException); }
     public WebElement Text_OutOfOffice_RequestCity(boolean ...ignoreException) {return findElement("//XCUIElementTypeButton[@name=\"Request your city\"]", LocatorType.XPath,ignoreException); }
     public WebElement Button_Invite() {return findElement("menu icon invite referrals", PageBase.LocatorType.AccessibilityId); }
     public WebElement AppMenu_Home() {return findElement("HOME", LocatorType.AccessibilityId); }

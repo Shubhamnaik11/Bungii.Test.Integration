@@ -154,10 +154,11 @@ Feature: Customer Estimate screen
       Then user is alerted for "CANCEL BUNGII"
 
   @ready
+    @is
       Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
       And I request for  bungii for given pickup and drop location
         | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
-        | Duo    |Kansas City Zoo| 5629 Nashville Rd, Franklin, KY 42134 | nashville |
+        | Duo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
     And I click "Get Estimate" button on "Home" screen
     Then correct details next available scheduled time should be displayed
 

@@ -1,5 +1,5 @@
 @ios
-@bungiiflow
+@bungii
   # this will run in miami
 Feature: OnDemandBungii_CancellationFlows
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
@@ -64,6 +64,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | miami    | ARRIVED      |
+    
     When I am on the "LOG IN" page
     When I logged in Customer application using  "valid miami" user
     Then Customer should be navigated to "ARRIVED" trip status screen
