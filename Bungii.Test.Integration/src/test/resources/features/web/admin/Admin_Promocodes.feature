@@ -175,3 +175,9 @@ Feature: Admin_Promocodes
     And I uncheck "Hide Expired"
     And I click on the "Apply" Button
     Then the promocode grid shows the both "Active & Expired" promocodes
+    
+  @regression
+  Scenario: Verify search by XSS script on Standard Codes grid
+    When I search by string "<script>alert('hello')</script>"
+    Then the "No promo codes found." message is displayed
+
