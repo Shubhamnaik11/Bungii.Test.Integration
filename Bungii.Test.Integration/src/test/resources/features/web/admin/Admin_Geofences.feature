@@ -32,6 +32,7 @@ Feature: Admin_Geofence
       | Primary                                              | Secondary                   | Geo-Name  | Geo-TimeZone | Geo-Status|
       | e{o~FpctuOjE\|j_Ao\|e@veBfe@mbt@lqe@_rM      | km_}FhtotOznYf~gDcoeDxy]cx@stsBlmoC{orA        |     | PST            |Inactive|
     When I click on the "Save" Button on "Geofence" Screen
+    And I uncheck the Active Geofences Only Checkbox
     Then the geofence gets saved successfully and it is displayed in the "Geofences" grid
 
   @sanity
@@ -191,7 +192,7 @@ Feature: Admin_Geofence
 
     @ready
     Scenario:Verify setting driver/bungii cuts for geofence
-      When I click on the geofence "Chicago"
+      When I click on the geofence "Boston"
       And I click on the "Settings" Button on "Geofence" Screen
       And I set "Blank" % Bungii Cut Per Delivery for the geofence
       And I click on the "Save" Button on "Geofence Settings" Screen

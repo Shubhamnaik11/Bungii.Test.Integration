@@ -102,7 +102,6 @@ Feature: Service Level
       |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
 
   @ready
-  @braintree
   Scenario: Verify that service level partner portal trip is shown in Admin portal
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal

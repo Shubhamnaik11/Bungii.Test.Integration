@@ -31,7 +31,8 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
-    When I navigate to "Bungii Admin Portal in new tab" URL
+    #When I navigate to "Bungii Admin Portal in new tab" URL
+    When I navigate to "Admin" portal configured for "QA" URL
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
