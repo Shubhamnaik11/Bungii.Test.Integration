@@ -653,4 +653,11 @@ public class Admin_GeofenceSteps extends DriverBase {
         }
 
     }
+
+    @And("^I uncheck the Active Geofences Only Checkbox$")
+    public void I_uncheck_the_active_geofences_only_checkbox(){
+        action.click(admin_GeofencePage.Checkbox_Active_Geofences());
+        //Thread.sleep(2000);
+    }
+
 }
