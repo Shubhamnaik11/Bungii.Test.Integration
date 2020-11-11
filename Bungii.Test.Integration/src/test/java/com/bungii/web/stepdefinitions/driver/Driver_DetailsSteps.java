@@ -181,6 +181,7 @@ public class Driver_DetailsSteps extends DriverBase {
     }
     @And("^I click Next on \"([^\"]*)\" page$")
     public void i_click_next_on_something_page(String strArg1) throws Throwable {
+        try{
         switch (strArg1) {
             case "Driver Details":
                 action.click(Page_Driver_Details.Button_DetailsNext());
@@ -206,7 +207,11 @@ public class Driver_DetailsSteps extends DriverBase {
                 break;
         }
         log("I should able to click " + strArg1 + " page", "I clicked " + strArg1 + " page", true);
-
+        }
+        catch(Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Driver should log in to driver portal", "Driver is not logged in due to error. [Probable root cause : encryption decryption in local environment]", true);
+        }
     }
 
     @Then("^I should see blank fields validation on \"([^\"]*)\" page$")

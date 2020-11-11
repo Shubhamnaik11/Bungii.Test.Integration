@@ -13,11 +13,13 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jsoup.nodes.Document;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
 
@@ -183,7 +185,13 @@ public class DriverRegistrationSteps extends DriverBase {
                 testStepVerify.isEquals(action.getText(Page_VerifyPhone.Header_VerifyPhone()), PropertyUtility.getMessage("DriverVerifyPhoneHeader"),  PropertyUtility.getMessage("DriverVerifyPhoneHeader")+" should be displayed", PropertyUtility.getMessage("DriverForgotPasswordHeader")+" is displayed", PropertyUtility.getMessage("DriverVerifyPhoneHeader")+" is not displayed");
                 break;
             case "phone verification page":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.Text_Verification()), PropertyUtility.getMessage("RegSuccess"),  PropertyUtility.getMessage("RegSuccess")+" should be displayed", PropertyUtility.getMessage("RegSuccess")+" is displayed", PropertyUtility.getMessage("RegSuccess")+" is not displayed");
+                try {
+                    testStepVerify.isEquals(action.getText(Page_Driver_Reg.Text_Verification()), PropertyUtility.getMessage("RegSuccess"), PropertyUtility.getMessage("RegSuccess") + " should be displayed", PropertyUtility.getMessage("RegSuccess") + " is displayed", PropertyUtility.getMessage("RegSuccess") + " is not displayed");
+                }
+                catch(Exception ex) {
+                    logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+                    error("Driver should log in to driver portal", "Driver is not logged in due to error. [Probable root cause : encryption decryption in local environment]", true);
+                }
                 break;
             case "Verification Successful page":
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.Header_VerificationSuccess()), PropertyUtility.getMessage("SMSVerifSuccess"),  PropertyUtility.getMessage("SMSVerifSuccess")+" should be displayed", PropertyUtility.getMessage("SMSVerifSuccess")+" is displayed", PropertyUtility.getMessage("SMSVerifSuccess")+" is not displayed");
