@@ -3,6 +3,7 @@ package com.bungii.web.stepdefinitions.driver;
 import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.api.utilityFunctions.*;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
@@ -13,9 +14,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.util.Map;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Driver_LoginSteps extends DriverBase {
@@ -28,6 +31,7 @@ public class Driver_LoginSteps extends DriverBase {
     ActionManager action = new ActionManager();
     AuthServices authServices = new AuthServices();
     CoreServices coreServices = new CoreServices();
+    private static LogUtility logger = new LogUtility(Driver_LoginSteps.class);
 
     @When("^I enter \"([^\"]*)\" driver Phone Number on Driver portal$")
     public void WhenIEnterDriverPhoneNumberOnDriverPortal(String p0)
@@ -65,24 +69,33 @@ public class Driver_LoginSteps extends DriverBase {
     @Then("^the driver should \"([^\"]*)\"$")
     public void ThenTheDriverShould(String p0)
     {
-        switch (p0)
-        {
-            case "be logged in":
-        //        testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.Header_Dashboard()), PropertyUtility.getMessage("DriverDashboardHeader"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.SideNavigationSetting()), PropertyUtility.getMessage("DriverHomeSetting"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.SideNavigationGeneral()), PropertyUtility.getMessage("DriverHomeGENERAL"));
-                break;
-            case "see validation message for blank fields":
-                testStepVerify.isEquals(action.getText(Page_Driver_Login.Err_DriverLogin_Blank()), PropertyUtility.getMessage("Err_Pages_BlankFields"));
-                break;
-            case "see validation message for invalid phone field":
-                testStepVerify.isEquals(action.getText(Page_Driver_Login.Err_DriverLogin_Phone()), PropertyUtility.getMessage("Err_DriverLogin_Phone"));
-                break;
-            case "see validation message for incorrect credentials":
-                testStepVerify.isEquals(action.getText(Page_Driver_Login.Err_DriverLogin_FieldValidation()), PropertyUtility.getMessage("Err_DriverLogin_IncorrectCredentials"));
-                break;
-            default: break;
-        }
+
+            switch (p0) {
+                case "be logged in":
+                    try {
+                        //        testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.Header_Dashboard()), PropertyUtility.getMessage("DriverDashboardHeader"));
+                        testStepAssert.isElementDisplayed(Page_Driver_Dashboard.SideNavigationSetting(), "Driver should log in to driver portal", "Driver is logged in to driver portal", "Driver is not logged in to driver portal due to error");
+                        testStepAssert.isElementDisplayed(Page_Driver_Dashboard.SideNavigationGeneral(), "Driver should log in to driver portal", "Driver is logged in to driver portal", "Driver is not logged in to driver portal due to error");
+                    }
+                    catch(Exception ex) {
+                        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+                        error("Driver should log in to driver portal", "Driver is not logged in due to error [Probable root cause : encryption decryption in local environment]", true);
+                    }
+                    break;
+                case "see validation message for blank fields":
+                    testStepVerify.isEquals(action.getText(Page_Driver_Login.Err_DriverLogin_Blank()), PropertyUtility.getMessage("Err_Pages_BlankFields"));
+                    break;
+                case "see validation message for invalid phone field":
+                    testStepVerify.isEquals(action.getText(Page_Driver_Login.Err_DriverLogin_Phone()), PropertyUtility.getMessage("Err_DriverLogin_Phone"));
+                    break;
+                case "see validation message for incorrect credentials":
+                    testStepVerify.isEquals(action.getText(Page_Driver_Login.Err_DriverLogin_FieldValidation()), PropertyUtility.getMessage("Err_DriverLogin_IncorrectCredentials"));
+                    break;
+                default:
+                    break;
+            }
+
+
     }
 
     @And("^I login to the driver portal as driver \"([^\"]*)\"$")
@@ -92,6 +105,14 @@ public class Driver_LoginSteps extends DriverBase {
         driverRegistrationSteps.i_click_something_on_driver_portal("LOG IN link");
         driverRegistrationSteps.i_enter_driver_phone_number_as_something_and_valid_password(phone);
         driverRegistrationSteps.i_click_something_on_driver_portal("LOG IN button");
+        try {
+            testStepAssert.isElementDisplayed(Page_Driver_Dashboard.SideNavigationSetting(), "Driver should log in to driver portal", "Driver is logged in to driver portal", "Driver is not logged in to driver portal due to error");
+            testStepAssert.isElementDisplayed(Page_Driver_Dashboard.SideNavigationGeneral(), "Driver should log in to driver portal", "Driver is logged in to driver portal", "Driver is not logged in to driver portal due to error");
+        }
+        catch(Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Driver should log in to driver portal", "Driver is not logged in due to error. [Probable root cause : encryption decryption in local environment]", true);
+        }
     }
 
     @Given("^I Login as a driver with below phone numbers and Make them online$")

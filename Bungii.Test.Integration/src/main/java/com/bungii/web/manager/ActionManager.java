@@ -61,6 +61,12 @@ public class ActionManager {
             element.sendKeys(text);
             logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
         }
+        catch(ElementNotInteractableException ex)
+        {
+            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+            element.sendKeys(text);
+            logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+        }
           catch(Exception ex)
             {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
