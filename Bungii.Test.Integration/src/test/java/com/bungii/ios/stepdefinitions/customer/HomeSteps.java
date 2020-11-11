@@ -526,8 +526,8 @@ public class HomeSteps extends DriverBase {
             switch (strArg1.toLowerCase()) {
                 case "less than 30 mins":
                     String minsValue = action.getValueAttribute(homePage.Text_EtaTime());
-                    int intMinValue = Integer.parseInt(minsValue.replace("ETA at Pickup Location: ", "").replace(" minutes", ""));
-                    testStepVerify.isTrue(minsValue.contains(" minutes"), "Minutes should displayed");
+                    int intMinValue = Integer.parseInt(minsValue.replace("ETA at Pickup Location: ", "").replace(" mins", ""));
+                    testStepVerify.isTrue(minsValue.contains(" mins"), "Mins should displayed");
                     testStepVerify.isTrue(intMinValue < 31, " Mins valus should be less than 30", "Mins value is" + intMinValue, "Mins value is" + intMinValue);
                     break;
                 case "not be displayed":

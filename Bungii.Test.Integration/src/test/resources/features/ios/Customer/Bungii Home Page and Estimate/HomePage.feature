@@ -11,7 +11,7 @@ Feature: Customer Home screen
     When I click "Pick Up Clear Text" button on "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
 
-  @ready
+  @regression
   Scenario: Verify ETA And Location Textbox Header - Also Verify Clear Text Button Is Enabled Once Location Is Selected
     When I logged in Customer application using  "existing" user
 
@@ -56,7 +56,7 @@ Feature: Customer Home screen
     Then drop off field should be "not be displayed"
 
 
-  @ready
+  @regression
   Scenario:Verify If Driver ETA Is Displayed When There Are Drivers Present In 30 Min Radius Of Pickup Location
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp

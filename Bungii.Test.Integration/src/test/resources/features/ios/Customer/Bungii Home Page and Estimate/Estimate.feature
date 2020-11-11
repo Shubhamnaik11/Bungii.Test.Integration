@@ -99,7 +99,7 @@ Feature: Customer Estimate screen
 
 
 
-  @ready
+  @regression
   Scenario: Verify Estimate Value For The Bungii Should Be Correctly Displayed In Estimate Screen
     And I am on the "LOG IN" page
     And I am on Customer logged in Home page
@@ -153,8 +153,7 @@ Feature: Customer Estimate screen
       When I click "Cancel" button on "SEARCHING" screen
       Then user is alerted for "CANCEL BUNGII"
 
-  @ready
-    @is
+  @regression
       Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
       And I request for  bungii for given pickup and drop location
         | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
