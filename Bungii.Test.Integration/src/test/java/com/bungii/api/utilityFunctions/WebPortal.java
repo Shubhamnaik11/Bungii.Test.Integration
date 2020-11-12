@@ -43,20 +43,20 @@ public class WebPortal {
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                 .when().
                         get(loginURL);
-             String verificationToken = "";//responseGet.htmlPath().getString("html.body.span.input.@value");
-             String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
-            Pattern pattern = Pattern.compile("return '(.+?)'");
-             Matcher matcher = pattern.matcher(responseGet.htmlPath().toString());
-             if (matcher.find())
-             {
-             csrfToken =matcher.group(1);
-             }
-             pattern = Pattern.compile("\"__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
-             matcher = pattern.matcher(responseGet.htmlPath().toString());
-            if (matcher.find())
-            {
-                verificationToken =matcher.group(1);
-            }
+        String verificationToken = "";//responseGet.htmlPath().getString("html.body.span.input.@value");
+        String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
+        Pattern pattern = Pattern.compile("return '(.+?)'");
+        Matcher matcher = pattern.matcher(responseGet.htmlPath().toString());
+        if (matcher.find())
+        {
+            csrfToken =matcher.group(1);
+        }
+        pattern = Pattern.compile("\"__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
+        matcher = pattern.matcher(responseGet.htmlPath().toString());
+        if (matcher.find())
+        {
+            verificationToken =matcher.group(1);
+        }
         Response response = given().log().body()
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
@@ -72,7 +72,7 @@ public class WebPortal {
 
         //response.then().log().all();
         adminCookies = response.then().extract().response().getDetailedCookies();
-      //  ApiHelper.genericResponseValidation(response);
+        //  ApiHelper.genericResponseValidation(response);
         return response;
     }
 
@@ -111,8 +111,8 @@ public class WebPortal {
                 /*.log().body()*/.
                         when().
                         post(cancelBungii);
-       // response.then().log().body();
-      //  ApiHelper.genericResponseValidation(response);
+        // response.then().log().body();
+        //  ApiHelper.genericResponseValidation(response);
     }
 
     public void cancelBungiiAsAdmin(String pickupRequestId) {
@@ -169,8 +169,8 @@ public class WebPortal {
                 /*.log().body()*/.
                         when().
                         get(cancelBungii);
-       // response.then().log().body();
-      //  ApiHelper.genericResponseValidation(response);
+        // response.then().log().body();
+        //  ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
 
         boolean isSuccess = jsonPathEvaluator1.get("Success");
@@ -214,8 +214,8 @@ public class WebPortal {
                 /*.log().body()*/.
                         when().
                         post(cancelBungii);
-     //   response.then().log().body();
-     //   ApiHelper.genericResponseValidation(response);
+        //   response.then().log().body();
+        //   ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
         if(!isSuccess)
@@ -257,8 +257,8 @@ public class WebPortal {
                 /*.log().body()*/.
                         when().
                         post(cancelBungii);
-       // response.then().log().body();
-      //  ApiHelper.genericResponseValidation(response);
+        // response.then().log().body();
+        //  ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
         if(!isSuccess)
