@@ -870,7 +870,7 @@ catch(Exception ex)
                     while(retry>0) {
                         //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                        appHeader = "Bungii Driver";
+                        appHeader = "Bungii Driver QAAuto";
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
@@ -925,7 +925,7 @@ catch(Exception ex)
                     while(retry1>0) {
                        // ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader = "Bungii";
+                    appHeader = "Bungii QAAuto";
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Customer"));
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate1);

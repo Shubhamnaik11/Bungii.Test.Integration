@@ -943,13 +943,13 @@ public class CommonSteps extends DriverBase {
                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                     Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    appHeader = "Bungii Driver";
+                    appHeader = "Bungii Driver QAAuto";
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader = "Bungii";
+                    appHeader = "Bungii QAAuto";
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
                     break;
                 default:
@@ -1028,11 +1028,11 @@ public class CommonSteps extends DriverBase {
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    appHeader = "Bungii Driver";
+                    appHeader = "Bungii Driver QAAuto";
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader = "Bungii";
+                    appHeader = "Bungii QAAuto";
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
