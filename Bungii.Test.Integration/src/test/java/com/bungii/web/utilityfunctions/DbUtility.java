@@ -3,6 +3,7 @@ package com.bungii.web.utilityfunctions;
 import com.bungii.common.manager.DbContextManager;
 import com.bungii.common.utilities.LogUtility;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -233,12 +234,15 @@ public class DbUtility extends DbContextManager {
                 "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  tier_number="+Last_Tier_Number+"\n" +
                 "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
 
+
         Double Multiplier = Double.parseDouble(getDataFromMySqlMgmtServer(queryString3));
         Double Cal2 = Remaining_Milenge*Multiplier;
         Trip_Price = Second_Last_Tier_Amount + Cal2;
+        DecimalFormat dec = new DecimalFormat("#.00");
+        String priceValue = dec.format(Trip_Price).toString();
 
-        logger.detail("Estimate Distance=  " + Trip_Price + " of latest trip" );
-        return String.valueOf(Trip_Price);
+        logger.detail("Estimate Distance=  " + priceValue + " of latest trip" );
+        return priceValue;
 
     }
 
