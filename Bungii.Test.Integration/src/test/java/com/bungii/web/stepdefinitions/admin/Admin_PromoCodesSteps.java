@@ -113,9 +113,12 @@ public class Admin_PromoCodesSteps extends DriverBase {
                break;
            case "Partner Portal  > Partner Card":
                action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethodsSubMenu());
+
                break;
            case "Partner Portal  > Bungii Card":
                action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethodsSubMenu());
                action.click(admin_paymentMethodsPage.Menu_BungiiCards());
                break;
 

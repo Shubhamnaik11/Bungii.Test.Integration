@@ -8,6 +8,7 @@ public class Admin_PaymentMethodsPage extends PageBase {
     public WebElement Label_PartnerCardHeader () { return findElement("//h4[text()='Partner Cards']",LocatorType.XPath);}
 
     public WebElement Menu_PaymentMethods () { return findElement("adminmenu-paymentmethods", LocatorType.Id); }
+    public WebElement Menu_PaymentMethodsSubMenu () { return findElement("adminmenu-portal-payments-menu", LocatorType.Id); }
 
     public WebElement Menu_BungiiCards(){return findElement("//a[contains(text(),'Bungii Card')]", LocatorType.XPath);}
 
