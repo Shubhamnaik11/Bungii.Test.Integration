@@ -163,7 +163,7 @@ Feature: Customer Estimate screen
 
 
   @regression
-  Scenario: Verify Customer Selects Scheduled Bungii When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To Estimate Screen With Prefilled Data
+  Scenario: Verify When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To SET PICKUP TIME Screen With Prefilled Date
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Panjim bus stand  | Old Goa Road, Velha Goa, Goa |
@@ -174,7 +174,10 @@ Feature: Customer Estimate screen
     Then I should be navigated to "SEARCHING" screen
     When I wait for SEARCHING screen to disappear
     Then I should be navigated to "SET PICKUP TIME" screen
-    When I click "SCHEDULE BUNGII" button on "SET PICKUP TIME" screen
+    #When I click "SCHEDULE BUNGII" button on "SET PICKUP TIME" screen
+    #Then If time is already passed then i should see "Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Please recheck and submit your request." message
+    When I select a new time
+    And I click "SCHEDULE BUNGII" button on "SET PICKUP TIME" screen
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
 

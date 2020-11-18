@@ -266,6 +266,26 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @When("^I select a new time$")
+    public void i_select_a_new_time() throws Throwable {
+        action.click(estimatePage.Label_TimeSelect());
+        action.dateTimePicker(estimatePage.DatePicker_BungiiTime, estimatePage.DateWheel_BungiiTime,1, "11", "45", "" );
+        //  action.click(estimatePage.Row_TimeSelect());
+        action.click(estimatePage.Button_Set());
+
+    }
+
+    @Then("^If time is already passed then i should see \"([^\"]*)\" message$")
+    public void if_time_is_already_passed_then_i_should_see_something_message(String list1) throws Throwable {
+
+        Thread.sleep(5000);
+
+        if (action.isAlertPresent()) {
+            testStepAssert.isEquals(action.getAlertMessage(),list1,list1 + " should be displayed",list1 + " is displayed", list1 + " is not displayed");
+           action.clickAlertButton("OK");
+        }
+
+    }
 
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void iClickButtonOnScreen(String button, String screen) {

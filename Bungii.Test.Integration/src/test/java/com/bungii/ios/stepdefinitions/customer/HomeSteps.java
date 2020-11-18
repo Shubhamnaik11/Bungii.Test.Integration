@@ -526,7 +526,7 @@ public class HomeSteps extends DriverBase {
             switch (strArg1.toLowerCase()) {
                 case "less than 30 mins":
                     String minsValue = action.getValueAttribute(homePage.Text_EtaTime());
-                    int intMinValue = Integer.parseInt(minsValue.replace("ETA at Pickup Location: ", "").replace(" mins", ""));
+                    int intMinValue = Integer.parseInt(minsValue.replace("Driver ETA to pickup: ", "").replace(" mins", ""));
                     testStepVerify.isTrue(minsValue.contains(" mins"), "Mins should displayed");
                     testStepVerify.isTrue(intMinValue < 31, " Mins valus should be less than 30", "Mins value is" + intMinValue, "Mins value is" + intMinValue);
                     break;
@@ -547,7 +547,7 @@ public class HomeSteps extends DriverBase {
     @Then("^geofence not active message should be displayed$")
     public void geofence_not_active_message_should_be_displayed() throws Throwable {
         try {
-            testStepVerify.isElementEnabled(homePage.Text_OutOfOffice(),"'Whoops! Sorry, we’re not operating here yet.' should be displayed");
+            testStepVerify.isElementDisplayed(homePage.Text_OutOfOffice(),"'Whoops! Sorry, we’re not operating here yet.' should be displayed","'Whoops! Sorry, we’re not operating here yet.' is displayed","'Whoops! Sorry, we’re not operating here yet.' is not displayed");
             testStepVerify.isElementEnabled(homePage.Text_OutOfOffice_RequestCity(),"'Request your city' should be displayed");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

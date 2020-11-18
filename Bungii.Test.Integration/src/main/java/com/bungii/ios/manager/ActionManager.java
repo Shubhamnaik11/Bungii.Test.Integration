@@ -12,6 +12,7 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
 
@@ -191,7 +192,13 @@ public class ActionManager {
         new TouchAction(driver).tap(point(endX, startY)).perform();
         logger.detail("ACTION | Tap element by locator -> " + getElementDetails(element));
     }
-
+    public void doubleTapByElement(WebElement element) {
+        AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
+        TouchActions action = new TouchActions(driver);
+        action.doubleTap(element);
+        action.perform();
+        logger.detail("ACTION | Tap element by locator -> " + getElementDetails(element));
+    }
     public void clickMiddlePoint(WebElement element) {
         Point elementLocation = element.getLocation();
         Dimension elementSize = element.getSize();
