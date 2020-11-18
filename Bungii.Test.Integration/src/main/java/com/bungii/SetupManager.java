@@ -341,7 +341,7 @@ public class SetupManager extends EventFiringWebDriver {
 
         } catch (Exception e) {
            // e.printStackTrace();
-            logger.detail("Error in creating Appium Session");
+            logger.detail("Error in creating Appium Session : " + e.getLocalizedMessage());
         }
         return driver;
     }
