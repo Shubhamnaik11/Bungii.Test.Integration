@@ -43,8 +43,8 @@ public class InviteSteps extends DriverBase {
                     Thread.sleep(30000);
                     if(!action.isElementPresent(invitePage.FBApp_PostLink(true))){
 
-                        i_tap_something_on_invite_page("Share");
-                        action.click(invitePage.Share_Facebook());
+                       // i_tap_something_on_invite_page("Share");
+                        //action.click(invitePage.Share_Facebook());
 
                     }
                     break;

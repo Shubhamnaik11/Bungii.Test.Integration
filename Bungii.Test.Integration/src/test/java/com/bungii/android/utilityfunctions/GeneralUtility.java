@@ -1312,9 +1312,9 @@ Thread.sleep(5000);
     public String getCustomerSnackBarMessage() {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
-        WebElement element = wait.ignoring(StaleElementReferenceException.class)
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.customer:id/snackbar_text")));
-        String snackbarMessage = action.getText(element);
+        String snackbarMessage = wait.ignoring(StaleElementReferenceException.class)
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.customer:id/snackbar_text"))).getText();
+        //String snackbarMessage = action.getText(element);
         return snackbarMessage;
     }
 
@@ -1328,8 +1328,8 @@ Thread.sleep(5000);
     public String getDriverSnackBarMessage() {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
-        WebElement element = wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.driver:id/snackbar_text")));
-        return action.getText(element);
+        String snackbarMessage =  wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.driver:id/snackbar_text"))).getText();
+        return snackbarMessage;
     }
 
 

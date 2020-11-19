@@ -103,9 +103,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("sms.alert.text"));
                   //  b = clickDriverMenu(time);
                    // testStepVerify.isEquals(b.toString(), "true");
-                    //At a time u can see only 6
+                    //At a time u can see  7 in SMS alerts
                     count = getTimeRow();
-                    testStepAssert.isTrue(count==6,"All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed. Days displayed : "+ count);
+                    testStepAssert.isTrue(count==7,"All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed. Days displayed : "+ count);
                     action.scrollToBottom();
                     element = getLastTimeRow();
                     testStepAssert.isEquals(element.getText(),"Saturday","All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed.");

@@ -102,9 +102,8 @@ Feature: CustomerSignup
     Then The "This code is only available for your first Bungii." is displayed
     When I click on "i" icon
     Then The "Info" is displayed
-
-
-  @regression
+    
+  @knownissue
   Scenario Outline: Verify Trip completed Count On Admin Portal Is Updated When Customer Completes A Bungii.
       When I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app

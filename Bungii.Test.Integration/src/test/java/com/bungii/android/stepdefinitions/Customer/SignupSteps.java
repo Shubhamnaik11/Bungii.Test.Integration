@@ -231,7 +231,7 @@ public class SignupSteps extends DriverBase {
         }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Validation message not displayed",
+        error("Step  Should be successful", "Validation message not displayed ",
                 true);
     }
     }

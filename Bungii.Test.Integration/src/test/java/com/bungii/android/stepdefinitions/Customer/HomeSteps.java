@@ -213,12 +213,10 @@ public class HomeSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         } catch (Throwable throwable) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(throwable));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
@@ -691,14 +689,14 @@ public class HomeSteps extends DriverBase {
             switch (strArg1) {
                 case "Scheduled info":
                     String actualText = action.getText(homePage.Text_ScheduledBungiisInfo());
-                    expected = PropertyUtility.getMessage("no.scheduled.bungiis").replace("�","'").replace("â??","'");
+                    expected = "You don’t have any scheduled Bungiis at this time.";//.replace("�","'").replace("â??","'");
                     actualText = actualText.replace("\n", " ").replace("�","'");
-                    testStepAssert.isEquals(actualText,expected , "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
+                    testStepAssert.isEquals(actualText,expected, "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
                     break;
 
                 case "Past info":
                     actualText = action.getText(homePage.Text_PastBungiisInfo());
-                     expected = PropertyUtility.getMessage("no.scheduled.bungiis").replace("�","'").replace("â??","'");
+                     expected = "You don’t have any completed Bungiis at this time.";// PropertyUtility.getMessage("no.scheduled.bungiis").replace("�","'").replace("â??","'");
                     actualText = actualText.replace("\n", " ").replace("�","'");
                     testStepAssert.isEquals(actualText, expected, "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
                     break;
