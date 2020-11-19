@@ -10,7 +10,8 @@ Feature: Driver_PickupInfo
     And I click "LOG IN button" on driver portal
     And I click Next on "Driver Details" page
 
-  @ready
+  #@ready
+  @knownissue
   Scenario: Verify Driver Application Pickup Info Form - Invalid Data Validations On Exisiting Non Fountain Application
     When I click Next on "Pickup Information" page
      Then I should see blank fields validation on "Pickup Information" page

@@ -98,6 +98,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
            case "Deliveries > All Deliveries" :
                action.click(admin_TripsPage.Menu_Trips());
+               action.click(admin_TripsPage.Menu_CompletedTrips());
                break;
 
            case "Drivers":
