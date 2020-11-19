@@ -122,7 +122,7 @@
       Then I should "see validation message for Postal Code" on partner portal
       And I should logout from Partner Portal
 
-    @ready
+    @knownissue
     Scenario: Verify Partner Pay Payment method for Bungii Trip
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
