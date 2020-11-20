@@ -496,6 +496,10 @@ public class EstimateBungiiSteps extends DriverBase {
     @When("^I enter \"([^\"]*)\" on Bungii estimate$")
     public void iEnterOnBungiiEstimate(String arg0) throws Throwable {
         try {
+            if(action.isAlertPresent())
+            {
+                action.click(homePage.Button_AlertDone());
+            }
             action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
             String screen =   action.getText(Page_Signup.GenericHeader());
 
@@ -1358,10 +1362,11 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
             String[] strTime=bungiiTimeZoneDisplayInTextArea(date);
             strTime[0]=strTime[0].replace("am ","").replace("pm" ,"");
             strTime[1]=strTime[1].replace("am ","").replace("pm ","");
+
             String displayedTime = getElementValue("TIME");
             if(displayedTime.equalsIgnoreCase(strTime[0]) || displayedTime.equalsIgnoreCase(strTime[1]))
             {
-                testStepAssert.isTrue(true,"The correct scheduled time is displayed.", "The correct scheduled time is not displayed.");
+                testStepAssert.isTrue(true,"The correct scheduled time is displayed.", "The correct scheduled time is not displayed. Actual : "+displayedTime + " |  Expected : "+ strTime[0] +" or " +strTime[1]);
             }
             else {
              testStepAssert.isFail("The correct scheduled time is not displayed.");

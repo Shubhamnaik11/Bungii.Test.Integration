@@ -55,6 +55,7 @@ public class HomePage extends PageBase {
     public WebElement Image_Tick () { return findElement("//android.widget.FrameLayout[@id='android:id/content']/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.ImageView",LocatorType.XPath); }
 
     public WebElement Button_Done (boolean ... ignoreException) { return findElement("com.bungii.customer:id/bungii_posted_button_done",LocatorType.Id,ignoreException); }
+    public WebElement Button_AlertDone (boolean ... ignoreException) { return findElement("android:id/button2",LocatorType.Id,ignoreException); }
 
     public WebElement Button_NavHome() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(0); }
     public WebElement Button_NavFAQ() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(1); }

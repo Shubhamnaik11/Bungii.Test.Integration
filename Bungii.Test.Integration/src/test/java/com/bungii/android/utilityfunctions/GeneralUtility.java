@@ -559,10 +559,14 @@ Thread.sleep(5000);
      */
     public void clickCustomerMenuItem(String menuItem) {
         try {
+          /* */
             action.click(homePage.Button_NavigationBar());
         } catch (org.openqa.selenium.NoSuchElementException e) {
             if (action.isElementPresent(homePage.Button_NavigationBarCompleter(true))) {
-
+                if(action.isAlertPresent())
+                {
+                    action.click(homePage.Button_AlertDone());
+                }
                 WebElement Button_NavigationBar = homePage.Button_NavigationBarCompleter();
                 int xAxisStartPoint = Button_NavigationBar.getLocation().getX() + 20;
                 int yAxis = Button_NavigationBar.getLocation().getY() + Button_NavigationBar.getRect().getHeight() / 2;

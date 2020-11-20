@@ -5,7 +5,22 @@ Feature: Login
 
   Background:
     Given I am on customer Log in page
-
+    
+  @regression
+  Scenario: Verify Terms And Condition Screen Is Displayed To Bungii Customer On First Time Login (Resetting data Of App To Simulate Fresh Install)
+    Given I newly installed "Bungii Customer" app
+    When I tap on the "Log in" button on Signup Page
+    And I enter customers "valid" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    Then "Terms and Conditions" page should be opened
+    And I should see "all details" on Term and Condition agreement
+    When I accept Term and Condition agreement
+    Then "Tutorial" page should be opened
+    When I close tutorial Page
+    Then The user should be logged in
+    And I tap on "Menu" > "Logout" link
+    
   @sanity
   @regression
   Scenario: Verify Customer Login With Valid Credentials

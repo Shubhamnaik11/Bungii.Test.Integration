@@ -722,13 +722,13 @@ public class HomeSteps extends DriverBase {
 
                 case "SET PICKUP LOCATION BUTTON":
                     String actualBtnText=homePage.Button_ETASet(true).getText();
-                    String expectedBtnText="Set Pickup Location";
+                    String expectedBtnText="SET PICKUP LOCATION";
                     testStepAssert.isEquals(actualBtnText, expectedBtnText,"SET PICKUP LOCATION should be displayed.","SET PICKUP LOCATION is displayed.","SET PICKUP LOCATION is not displayed.");
                     break;
 
                 case "SET DROP OFF LOCATION BUTTON":
                     actualBtnText=homePage.Button_ETASet(true).getText();
-                    expectedBtnText="Set Drop Off Location";
+                    expectedBtnText="SET DROP OFF LOCATION";
                     testStepAssert.isEquals(actualBtnText, expectedBtnText,"SET DROP OFF LOCATION should be displayed.","SET DROP OFF LOCATION is displayed.","SET DROP OFF LOCATION is not displayed.");
                     break;
 
