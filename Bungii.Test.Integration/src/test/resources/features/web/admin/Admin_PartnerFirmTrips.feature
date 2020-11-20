@@ -1,5 +1,6 @@
 @web
-Feature: Admin_PartnerFirm_Email_Commented
+  #Email steps from Admin_PartnerFirm.feature file has been commented out
+Feature: Admin_PartnerFirmTrips
 
   Background:
     Given I am logged in as TestAdmin
