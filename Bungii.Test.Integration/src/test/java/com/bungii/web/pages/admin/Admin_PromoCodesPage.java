@@ -53,6 +53,8 @@ public class Admin_PromoCodesPage extends PageBase {
 
     public WebElement TextBox_Search() { return findElement("SearchCriteria", LocatorType.Id); }
 
+    public WebElement Button_Search() { return findElement("btnSearch", LocatorType.Id); }
+
     public WebElement Button_Filter() { return findElement("btnFilter", LocatorType.Id); }
 
     public WebElement CheckBox_FilterAll() { return findElement("chkCodeTypeFilterAll", LocatorType.Id); }
