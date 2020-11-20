@@ -113,7 +113,7 @@ public class WebPortal {
                 .formParams("PickupRequestID", pickupRequestId, "CancellationFee", "6", "CancelComments", "test","__RequestVerificationToken",verificationToken)
                 .when().redirects().follow(false).
                         post(cancelBungii);
-         response.then().log().body();
+        // response.then().log().body();
     }
 
     public void cancelBungiiAsAdmin(String pickupRequestId) {
