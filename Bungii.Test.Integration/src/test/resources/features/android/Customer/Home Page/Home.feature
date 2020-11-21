@@ -6,7 +6,7 @@ Feature: Customer Home screen
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
 
-  @regression
+  @ready
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location
@@ -34,8 +34,7 @@ Feature: Customer Home screen
     And I select "Pick up" location
     Then "Drop Off" address text box should be displayed on app screen
 
-  @regression
-    @fix
+  @ready
   Scenario: Verify If ETA Bar Remains On Map When Pickup Address Is Cleared
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -48,7 +47,7 @@ Feature: Customer Home screen
     When I clear "Pick up" location
     Then The ETA bar is not seen on screen
 
-  @regression
+  @ready
   Scenario: Verify If Driver ETA Is Displayed When Drivers Within 30 min Of Radius From Pickup Location Is Available
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -101,7 +100,7 @@ Feature: Customer Home screen
     When I click on "SET PICKUP LOCATION" button
     Then I verify that "SET DROP OFF LOCATION BUTTON" is displayed
 
-  @regression
+  @ready
   Scenario: Verify that ETA bar appears when customer selects pickup and drop-off address.
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app

@@ -33,8 +33,9 @@ Feature: Customer	Referral Invite page
     When I get Invite Code
     And I click "SHARE" button on "INVITE" screen
     And I click "SHARE BY EMAIL" button on "INVITE" screen
-    Then I should see "No Mail Accounts" message
-    #Then I should see draft post in "MAIL" application #Mail account removed from browserstack
+    #Then I should see "No Mail Accounts" message
+    Then I should see draft post in "MAIL" application
+    #Mail account removed from browserstack
     
 # this test case is to run individually not in suite
  # @regression

@@ -88,7 +88,7 @@ Feature: FORGOT PASSWORD
 
 
   @regression
-  Scenario: Verify Customer Is Able To Login And Complete Bungii After Updating Password Using Forgot Password On Being Locked Out
+  Scenario: Verify Customer Is Able To Login After Updating Password Using Forgot Password On Being Locked Out
 
     When I enter Username :8877995510 and  Password :cci12345
     And I click "Log In" button on "Log In" screen
@@ -110,11 +110,6 @@ Feature: FORGOT PASSWORD
     When I enter Username :8877995510 and  Password :cci12345
     And I click "Log In" button on "Log In" screen
     Then user is alerted for "USER ACCOUNT LOCKED"
-#6th attempts with correct password
-    # commented this as , locked user are able to login in QA_AUTO
- #   When I enter Username :8877995510 and  Password :Cci12345
- #   And I click "Log In" button on "Log In" screen
- #   Then user is alerted for "USER ACCOUNT LOCKED"
 
     When I click "Forgot Password" button on "LOG IN" screen
     When I Enter "8877995510" value in "Phone Number" field in "FORGOT PASSWORD" Page
