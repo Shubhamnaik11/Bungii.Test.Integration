@@ -420,7 +420,8 @@ public class HomePageSteps extends DriverBase {
             //Add Code to handle daylight
             if(TimeZone.getTimeZone("CST6CDT").inDaylightTime(new Date()))
                 timeRange = timeRange.replace("ST","DT");
-            String bsTimeRange = "07:00 a.m. - 09:00 p.m.";
+            String bsTimeRangeA = "07:00 a.m. - 09:00 p.m.";
+            String bsTimeRangeB = "07:00 AM - 09:00 PM";
 
             //Add Code to handle daylight
             if(TimeZone.getTimeZone("CST6CDT").inDaylightTime(new Date()))
@@ -433,7 +434,7 @@ public class HomePageSteps extends DriverBase {
                         if(currentRowData.contains("CST")||currentRowData.contains("CDT"))
                         testStepAssert.isEquals(currentRowData, timeRange, "default trip "+timeRange+" should be displayed", "default trip data is displayed", "default trip data is not displayed");
                         else
-                        testStepAssert.isEquals(currentRowData, bsTimeRange, "default trip "+bsTimeRange+" should be displayed", "default trip data is displayed", "default trip data is not displayed");
+                        testStepAssert.isEquals(currentRowData, bsTimeRangeA, "default trip "+bsTimeRangeA+" should be displayed", "default trip data is displayed", "default trip data is not displayed");
                     }
                     testStepAssert.isElementNameEquals(tripAlertSettingsPage.Text_ScheduledInfo(), PropertyUtility.getMessage("driver.trip.alert.settings"), "TRIP Alerts info is displayed", "TRIP Alerts info is displayed", "TRIP Alerts info is not displayed");
                     break;
@@ -442,9 +443,12 @@ public class HomePageSteps extends DriverBase {
                     for (WebElement row : timeDataSms) {
                         String currentRowData = action.getNameAttribute(row);
                         if(currentRowData.contains("CST")||currentRowData.contains("CDT"))
-                        testStepAssert.isEquals(currentRowData, timeRange, "default trip "+timeRange+" should be displayed", "default trip data s is displayed", "default trip data  is not displayed");
+                        testStepAssert.isEquals(currentRowData, timeRange, "default trip "+timeRange+" should be displayed", "default trip data s is displayed", "default trip data  is not displayed Actual : "+currentRowData);
                     else
-                        testStepAssert.isTrue(currentRowData.contains(bsTimeRange),"default trip data should be displayed","default trip data is not displayed");
+                        if(currentRowData.contains("a.m.")||currentRowData.contains("p.m."))
+                        testStepAssert.isTrue(currentRowData.contains(bsTimeRangeA),"default trip data should be displayed","default trip data is not displayed Actual : "+currentRowData);
+                     else
+                         testStepAssert.isTrue(currentRowData.contains(bsTimeRangeB),"default trip data should be displayed","default trip data is not displayed. Actual : "+currentRowData);
 
                     }
                     testStepAssert.isElementNameEquals(tripAlertSettingsPage.Text_ScheduledInfo(), PropertyUtility.getMessage("driver.sms.alert.settings"), PropertyUtility.getMessage("driver.sms.alert.settings") + "should be displayed", "SMS Alerts info is displayed", "SMS Alerts info is not displayed");

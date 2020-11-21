@@ -70,9 +70,32 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
-  @failed
-  @email
-  @ready
+  
+  @regression
+  Scenario Outline: Verify Customer Can Submit Registration Form Without Promocode
+    When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
+    And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
+    And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
+    And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
+    And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
+    And I Select Referral source as "<Source>"
+    And I click "SIGN UP" button on "SIGN UP" screen
+#removed as part of sprint 32
+#    Then Alert message with NO PROMO CODE text should be displayed
+#    When I reject Alert message
+    Then I should be navigated to "VERIFICATION" screen
+    When I Get SMS CODE for new "Customer"
+    And I enter "valid" Verification code
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    Then I should be navigated to "Home" screen
+
+
+    Examples:
+      | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
+      | VALID    | Mike       | Test      | Bungiiauto+TEs123@gmail.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
+  
+  @knownissue
   Scenario Outline: Verify Customer Can Submit Registration Form Without Promocode
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
     And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -91,8 +114,8 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     And I close "Tutorial" if exist
     Then I should be navigated to "Home" screen
     And Customer should receive signup email
-
-
+    
+    
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
       | VALID    | Mike       | Test      | Bungiiauto+TEs123@gmail.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |

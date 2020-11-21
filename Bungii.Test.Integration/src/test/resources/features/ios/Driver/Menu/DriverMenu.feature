@@ -11,8 +11,8 @@ Feature: DriverMenu
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
   @sanity
-  @ready
-  Scenario: Verify Driver App Menu Option Navigation - ACCOUNT | FAQ | LEADERBOARD | SCHEDULED BUNGIIS | AVAILABLE BUNGIIS | EARNINGS | ALERT SETTINGS | STORE | FEEDBACK | LOGOUT
+  @regression
+  Scenario: Verify Driver App Menu Option Navigation - ACCOUNT | LEADERBOARD | SCHEDULED BUNGIIS | AVAILABLE BUNGIIS | EARNINGS | ALERT SETTINGS | STORE | FEEDBACK | LOGOUT
     When I Select "ACCOUNT" from driver App menu
     Then I should be navigated to "ACCOUNT" screen
     Then I should be able to see data on "ACCOUNT" page
@@ -37,12 +37,20 @@ Feature: DriverMenu
     When I Select "FEEDBACK" from driver App menu
     Then I should be navigated to "FEEDBACK" screen
     Then I should be able to see data on "FEEDBACK" page
+    When I Select "LOGOUT" from driver App menu
+    Then I should be able to see data on "LOGOUT" page
+    Then I should be navigated to "LOG IN" screen
+  
+  @knownissue
+  Scenario: Verify Driver App Menu Option Navigation - FAQ
     When I Select "FAQ" from driver App menu
     Then I should be navigated to "FAQ" screen
     Then I should be able to see data on "FAQ" page
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
+    
+    
     
     # All below 11 scenarios are covered in one above to save the time of execution
   Scenario: Verify Driver FAQ Menu
