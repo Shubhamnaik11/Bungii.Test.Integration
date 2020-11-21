@@ -25,7 +25,7 @@ Feature: Customer	Referral Invite page
     Then I should see draft post in "Message" application
     And I click "Done" button on "Invite" screen
 
-  @regression
+  @ready
   Scenario: Verify Customer Can Share Code Using Email
     When I Select "Home" from Customer App menu
     And I click "Invite referrals" button on "HOME" screen

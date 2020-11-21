@@ -87,7 +87,7 @@ Feature: FORGOT PASSWORD
       | VALID PHONE | {VALID USER} | Cci12345     | PASSWORD CHANGE SUCCESS |
 
 
-  @regression
+  @ready
   Scenario: Verify Customer Is Able To Login After Updating Password Using Forgot Password On Being Locked Out
 
     When I enter Username :8877995510 and  Password :cci12345
