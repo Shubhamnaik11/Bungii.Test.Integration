@@ -69,37 +69,42 @@ public class PaymentSteps extends DriverBase {
             pass("I should able enter " + cardType + " and " + expiry + " on Card Details page",
                     "I entered " + cardNumber + " and " + expiry + " on Card Details page",
                     true);
-        } catch (Exception e) {
-            fail(
-                    "I should able enter " + cardType + " and " + expiry + " on Card Details page",
-                    "I was not able to entered " + cardType + " and " + expiry + " on Card Details page",
-                    true);
+        }  catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Screen is not loaded properly. Probable rootcause : An SSL error occured and a secure connection to server cannot be made.", true);
         }
     }
 
     @And("^I enter postal code :(.+) and Cvv: (.+) on Card Details page$")
     public void i_enter_postal_code_and_cvv_on_card_details_page(String postalcode, String cvv) throws Throwable {
-        String postalCodeValue="",cvvValue="";
-        switch (postalcode.toUpperCase()) {
-            case "VALID POSTAL CODE":
-                postalCodeValue = PropertyUtility.getDataProperties("valid.card.postal.code");
-                break;
+
+        try {
+            String postalCodeValue = "", cvvValue = "";
+            switch (postalcode.toUpperCase()) {
+                case "VALID POSTAL CODE":
+                    postalCodeValue = PropertyUtility.getDataProperties("valid.card.postal.code");
+                    break;
 /*            case "INVALID POSTAL CODE":
                 postalCode = PropertyUtility.getDataProperties("payment.valid.card.discover");
                 break;*/
-        }
-        switch (cvv.toUpperCase()) {
-            case "VALID CVV":
-                cvvValue = PropertyUtility.getDataProperties("valid.card.cvv");
-                break;
+            }
+            switch (cvv.toUpperCase()) {
+                case "VALID CVV":
+                    cvvValue = PropertyUtility.getDataProperties("valid.card.cvv");
+                    break;
 /*            case "INVALID POSTAL CODE":
                 postalCode = PropertyUtility.getDataProperties("payment.valid.card.discover");
                 break;*/
+            }
+            action.sendKeys(paymentPage.TextBox_PostalCode(), postalCodeValue);
+            action.sendKeys(paymentPage.TextBox_CVV(), cvvValue);
+            pass("I enter postal code :" + postalcode + " and Cvv: " + cvv + " on Card Details page",
+                    "I entered " + postalCodeValue + " and " + cvvValue + " on Card Details page", true);
         }
-        action.sendKeys(paymentPage.TextBox_PostalCode(), postalCodeValue);
-        action.sendKeys(paymentPage.TextBox_CVV(), cvvValue);
-        pass("I enter postal code :"+postalcode+" and Cvv: "+cvv+" on Card Details page",
-                "I entered " + postalCodeValue + " and " + cvvValue + " on Card Details page",true);
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Screen is not loaded properly. Probable rootcause : An SSL error occured and a secure connection to server cannot be made.", true);
+        }
     }
 
     @When("^I swipe \"([^\"]*)\" card on the payment page$")

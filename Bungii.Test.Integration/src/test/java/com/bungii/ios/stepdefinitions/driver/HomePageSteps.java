@@ -407,7 +407,7 @@ public class HomePageSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Screen "+strArg1+" is not loaded properly", true);
         }
     }
 
