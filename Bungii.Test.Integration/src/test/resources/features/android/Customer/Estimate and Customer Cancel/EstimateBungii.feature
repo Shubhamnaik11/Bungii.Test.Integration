@@ -63,7 +63,7 @@ Feature: EstimateBungii
     #Then "Estimate" page should be opened
     #When I add loading/unloading time of "30 mins"
     #Then I should see "previous values" on Bungii estimate
-    Then I should be navigated to "Success" screen
+    Then I should be navigated to "Success!" screen
     And I click "Done" button on "Success" screen
 
   @regression

@@ -183,7 +183,7 @@ public class EstimatePage extends PageBase {
   public WebElement Text_DetailsNote(){return findElement("com.bungii.customer:id/pickup_estimate_tv_pickup_note", LocatorType.Id);}
   public WebElement Button_OkDriverNotAvailable(){return findElement("com.bungii.customer:id/driver_unavailaible_button_ok", LocatorType.Id);}
   public WebElement Button_ScheduleBungii(){return findElement("android:id/button1", LocatorType.Id);}
-  public WebElement Button_Schedule(){return findElement("  com.bungii.customer:id/fragment_pickup_searching_driver_btn_schedule", LocatorType.Id);}
+  public WebElement Button_Schedule(){return findElement("com.bungii.customer:id/fragment_pickup_searching_driver_btn_schedule", LocatorType.Id);}
 
 
   public WebElement TextBox_CurrentBungiiHour(){return findElements("//android.widget.EditText[@resource-id='android:id/numberpicker_input' and @index=1]", LocatorType.XPath).get(0);}

@@ -603,7 +603,7 @@ public class HomeSteps extends DriverBase {
     @Then("^I should see placeholder textbox$")
     public void i_should_see_blank_textbox() throws Throwable {
        String noText=action.getText(estimatePage.TextBox_DetailsNote());
-       String placeholder ="Apt #, door codes, special instruction, etc.\n\nIf you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
+       String placeholder ="Apt #, door codes, special instructions, etc.\n\nIf you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
        //String placeholder = "Apt #, door codes, special instruction, etc.\n\nIf you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
        if(noText.contains(placeholder)){
            testStepAssert.isTrue(true,"TextBox is showing placeholder ."+ noText,"TextBox doesnot have placeholder.");

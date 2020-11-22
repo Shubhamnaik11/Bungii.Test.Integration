@@ -108,7 +108,7 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Button_StackInfo() { return findElement("com.bungii.driver:id/pickup_details_iv_stack_info", LocatorType.Id); }
 
     //Details Note
-    public WebElement Button_DetailsFromCustomer(boolean ... ignoreException) { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[2]", LocatorType.XPath, ignoreException); }
+    public WebElement Button_DetailsFromCustomer(boolean ... ignoreException) { return findElement("//android.widget.TextView[@text='Delivery Details']", LocatorType.XPath, ignoreException); }
     public WebElement Text_CustomerNote(boolean ... ignoreException) {return findElement("com.bungii.driver:id/activity_customer_details_tv_customernote", LocatorType.Id, ignoreException);}
 
 }

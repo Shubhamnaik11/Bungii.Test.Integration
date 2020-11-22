@@ -31,7 +31,7 @@
       And I tap on "Menu" > "Payment" link
       Then I should see "masked card number" on Payment page
 
-@ready
+@regression
     Scenario: Verify that clicking on Details field on the Estimate screen opens a placeholder in text box
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_E Android" customer
@@ -73,7 +73,6 @@
         | Customer Phone  | Customer2 Phone |
         | 9889889888      |                 |
 
-
  @ready
     Scenario: Verify that the text entered in Details is displayed after customer schedules a Bungii of an on demand bungii that has timed out
       Given I am on customer Log in page
@@ -89,16 +88,9 @@
       Then "Estimate" page should be opened
       When I tap on "Request Bungii" on Bungii estimate
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-      And I click "Done" button on "Success" screen
-  
-   And I wait for "3" mins
-   
-     # And I click "OK" button on the "Driver Not Available" screen
+      And I wait for "3" mins
       And I click "Schedule Bungii" button on the "Driver Not Available" screen
-   
-      #Then "Estimate" page should be opened
-      #And I should be able to see "Note Details" Text
-      # Need to add additional code to check pickupnote at scheduled trip in admin portal
+      #add code to check bungii  is scheduled with pickupnote
    
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
@@ -124,8 +116,6 @@
       Then "Estimate" page should be opened
       When I tap on "Request Bungii" on Bungii estimate
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-      And I click "Done" button on "Success" screen
-
       When I click on notification for "on demand trip"
       Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
       When I click "YES" button on alert message
