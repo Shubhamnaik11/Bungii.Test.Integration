@@ -6,7 +6,7 @@ Feature: Admin_BusinessUsers
     When I click on "Customers" Menu
     Then I should be directed to "Customers Page"
 
-  @regression
+  @knownissue
   Scenario: Verify Customer List - Sort ASC DESC
     When I click on "Name" header for "Ascending" order in the "Customer List" table
     Then The column "Name" data gets sorted in "Ascending" order in the "Customer List" table
