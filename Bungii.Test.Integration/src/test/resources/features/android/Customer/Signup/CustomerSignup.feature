@@ -76,7 +76,7 @@ Feature: CustomerSignup
     Then the new user should see "snackbar validation message for existing user"
     And the new user should see "Signup page"
 
-  @ready
+  @knownissue
   Scenario: Verify Signup With Promo Code To Be Active In Future
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
@@ -183,7 +183,7 @@ Feature: CustomerSignup
 
   #used one off
   #Know issue, no alert
-  @ready
+  @knownissue
   Scenario: Verify That Validation Message Is Displayed On Signing Up With Invalid Or Used One off Promocode
     When I Switch to "customer" application on "same" devices
     And I enter "unique" customer phone number on Signup Page

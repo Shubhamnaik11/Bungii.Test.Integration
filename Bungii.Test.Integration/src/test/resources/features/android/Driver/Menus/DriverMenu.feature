@@ -36,7 +36,7 @@ Feature: DriverMenu
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
   
-  @ready
+  @knownissue
   Scenario: Verify Driver Menus - FAQ
     When I Select "FAQ" from driver App menu
     And the "FAQ" page is opened
