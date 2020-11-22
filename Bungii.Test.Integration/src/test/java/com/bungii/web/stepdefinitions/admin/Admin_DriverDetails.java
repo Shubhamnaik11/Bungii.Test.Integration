@@ -80,7 +80,7 @@ public class Admin_DriverDetails extends DriverBase{
         String XPath = "";
       
         if (!scheduled_time.equalsIgnoreCase("NOW")) {
-                       Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
+            Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
             inputdate.setYear(new Date().getYear());
             ZoneId zoneId = TimeZone.getDefault().toZoneId();
             //TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date());

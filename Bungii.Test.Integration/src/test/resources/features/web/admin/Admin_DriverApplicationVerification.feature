@@ -8,7 +8,7 @@ Feature: Admin_DriverApplicationVerification
   @ready
   @email
   @failed
-    #test data created in base
+      #test data created in base
   Scenario: Verify Driver Application Approval - NonFountain
     When I click "Verify" button against the "John MwrB" applicant
     Then I should be directed to "Driver Verification Page"
@@ -25,6 +25,7 @@ Feature: Admin_DriverApplicationVerification
     #test data created in base
   @email
   @failed
+
   Scenario: Verify Driver Application Rejection - NonFountain
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
@@ -95,8 +96,9 @@ Feature: Admin_DriverApplicationVerification
     When I click and reset the status of "Driver Picture" field
     Then the status of the field resets to default
 
-  @ready
-  @failedT
+  #@ready
+  #@failedT
+  @knownissue
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
     When I click "Verify" button against the "Melvin Johnson" applicant

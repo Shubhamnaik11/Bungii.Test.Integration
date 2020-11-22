@@ -98,6 +98,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
            case "Deliveries > All Deliveries" :
                action.click(admin_TripsPage.Menu_Trips());
+               action.click(admin_TripsPage.Menu_CompletedTrips());
                break;
 
            case "Drivers":
@@ -151,7 +152,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
         action.click(admin_PromoCodesPage.Button_Filter());
         action.click(admin_PromoCodesPage.Button_Reset());
         String LastCode = (String) cucumberContextManager.getScenarioContext("LASTCODE");
-        action.sendKeys(admin_PromoCodesPage.TextBox_Search(), LastCode+Keys.ENTER);
+        action.sendKeys(admin_PromoCodesPage.TextBox_Search(), LastCode);
+        action.click(admin_PromoCodesPage.Button_Search());
+        Thread.sleep(4000);
         log("I search "+ LastCode + "prmocode" ,
                 "I have on searched "+LastCode+" prmocode", true);
     }
