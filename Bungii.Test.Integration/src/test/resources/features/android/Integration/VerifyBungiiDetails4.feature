@@ -36,7 +36,7 @@
 #      Then I verify that completed bungiis are displayed in "Descending order of date"
   
   
-      @ready
+      @regression
       Scenario: Verify that the driver can be assigned to a solo scheduled trip irrespective of drive time to pickup
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -67,44 +67,10 @@
         
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+          | 9393939393      |                 |
   
-      @ready
-      Scenario: Verify that the driver can be assigned to a duo trip irrespective of driver home address
-        Given I am on customer Log in page
-        And I am logged in as "Testcustomertywd_appleand_A Android" customer
-    
-        When I Switch to "customer" application on "same" devices
-        And I enter "far off Goa pickup and dropoff locations" on Bungii estimate
-        And I tap on "two drivers selector" on Bungii estimate
-        And I tap on "Get Estimate button" on Bungii estimate
-        And I add loading/unloading time of "30 mins"
-        And I add "1" photos to the Bungii
-        And I tap on "Request Bungii" on Bungii estimate
-        And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-        And I check if the customer is on success screen
-        And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-    
-        Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
-        And I navigate to admin portal
-        And I log in to admin portal
-        And I Select "Scheduled Trip" from admin sidebar
-        And I open the trip for "Testcustomertywd_appleand_A Android" customer
-        And I Select "Edit Trip Details" option
-        And I assign driver "Testdriver_goa_a Android_test" for the trip
-        And I assign driver "Testdriver_goa_b Android_test" for the trip
-        And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
-        Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+     
         
-        And I cancel all bungiis of customer
-          | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
-  
-    
-		
       @regression
       Scenario: Verify that correct date of the trip is displayed in past bungii screen
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
@@ -174,7 +140,7 @@
     
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+          | 9393939393      |                 |
   
       @ready
         #web
@@ -213,7 +179,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
   
-      @regression
+      @ready
         #web
       Scenario: Verify if admin can update date_time for a solo trip for which no driver has accepted
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
@@ -240,10 +206,10 @@
     
         Then I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+          | 9393939393      |                 |
   
   
-      @regression
+      @ready
         #web
       Scenario: Verify if admin can update date_time for a solo trip for which a driver has accepted and Customer has no conflicting trips at the new time
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
@@ -271,7 +237,41 @@
     
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | CUSTOMER1_PHONE |                 |
+          | 9393939393 |                 |
+  
+      @ready
+      Scenario: Verify that the driver can be assigned to a duo trip irrespective of driver home address
+        Given I am on customer Log in page
+        And I am logged in as "Testcustomertywd_appleand_A Android" customer
+    
+        When I Switch to "customer" application on "same" devices
+        And I enter "far off Goa pickup and dropoff locations" on Bungii estimate
+        And I tap on "two drivers selector" on Bungii estimate
+        And I tap on "Get Estimate button" on Bungii estimate
+        And I add loading/unloading time of "30 mins"
+        And I add "1" photos to the Bungii
+        And I tap on "Request Bungii" on Bungii estimate
+        And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+        And I check if the customer is on success screen
+        And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    
+        Then I wait for "2" mins
+        When I open new "Chrome" browser for "ADMIN"
+        And I navigate to admin portal
+        And I log in to admin portal
+        And I Select "Scheduled Trip" from admin sidebar
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
+        And I Select "Edit Trip Details" option
+        And I assign driver "Testdriver_goa_a Android_test" for the trip
+        And I assign driver "Testdriver_goa_b Android_test" for the trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+    
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | 9393939393      |                 |
   
     
         

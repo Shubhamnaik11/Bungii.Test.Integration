@@ -124,7 +124,7 @@ Feature: SoloScheduled Part C
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
   
-  @regression
+  @ready
   Scenario: Verify error message on android When Customer has two Bungiis scheduled, and the 1 hour prior start time of second Bungii overlaps with the TELET of the first Bungii
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -221,7 +221,7 @@ Feature: SoloScheduled Part C
      #keep this scenario at last
 #CMA 1513: delete card once trip is cancel
   #@regression
-  @ready
+  @knownissue
   Scenario Outline: Verify Customer Cannot Delete Payment Method Linked To Any Ongoing Or Scheduled Trip
     Given I am on Sign up page
     When I enter "unique" customer phone number on Signup Page

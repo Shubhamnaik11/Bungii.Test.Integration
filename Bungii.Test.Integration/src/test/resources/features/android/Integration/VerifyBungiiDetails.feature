@@ -718,7 +718,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9889889888      |                 |
   
-      @ready
+      @regression
       #web
       Scenario: Verify that the date and time displayed in edit Schedule bungii page against a drivers schedule list is proper timezone and not in UTC
         Given I am on the LOG IN page on driver app
@@ -739,7 +739,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9889889888      |                 |
         
-      @regression
+      @ready
     #web
       Scenario: Verify that Cancel button goes off once the solo scheduled Trip is cancelled
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"

@@ -1753,7 +1753,7 @@ else
                     driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver.phone");
                     driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
-                } else {
+                }  else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
                     custPassword = PropertyUtility.getDataProperties("customer_generic.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
@@ -2011,7 +2011,9 @@ else
                     }
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer.name"));
-                } else if (geofence.equalsIgnoreCase("denver")) {
+                }
+
+                else if (geofence.equalsIgnoreCase("denver")) {
                     custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
                     custPassword = PropertyUtility.getDataProperties("denver.customer.password");
                     if (driverLabel.equalsIgnoreCase("driver 2")) {
@@ -2080,7 +2082,19 @@ else
                     }
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer.name"));
-                } else {
+                }
+                else if (geofence.equalsIgnoreCase("kansas1")) {
+                    geofence = "kansas";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("kansas.customer1.phone");
+                    custPassword = PropertyUtility.getDataProperties("kansas.customer1.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("kansas.customer1.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver2.phone");
+                    driverPassword = PropertyUtility.getDataProperties("Kansas.driver2.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver2.name"));
+                }
+                else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
                     custPassword = PropertyUtility.getDataProperties("customer_generic.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
@@ -2118,8 +2132,9 @@ else
                 coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken, tripLabel);
             coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
             Boolean isDriverEligibel = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
-            if (!isDriverEligibel)
-                error("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
+           // if (!isDriverEligibel)
+            //    error("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
+              logger.detail("Diver should be eligible for on demand trip", " Warning Message :  Driver ID is not in eligibleDriver list", false);
 
             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);

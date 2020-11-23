@@ -186,6 +186,16 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
+                case "Testdrivertywd_appleks_rathree Test":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("android.valid.driver2.phone");
+                    password = PropertyUtility.getDataProperties("web.valid.common.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", "Testdrivertywd_appleks_rathree Test");
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+
+
                 default:
                     throw new Exception("Please specify valid input - Driver name sent in cucumber steps " + option);
             }

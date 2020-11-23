@@ -85,43 +85,9 @@ Feature: SoloScheduled
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
     
-    
-  @regression
-  Scenario:Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - case :Solo
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | kansas  | Scheduled    | NEXT_POSSIBLE |
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-  
-    When I Switch to "customer" application on "same" devices
-    Given I am on customer Log in page
-    And I am logged in as "valid kansas" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I tap on "Menu" > "MY BUNGIIS" link
-    Then I wait for "4" mins
-    And I select already scheduled bungii
-    Then I wait for "1" mins
-    #When I Cancel selected Bungii
-    When I tap on "Cancel Bungii" button
-    Then correct details should be displayed on the "ADMIN-SMS" app
- #   And I click "TOP BACK" button on "Bungii Details" screen
-    
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
-    And I Cancel Bungii with following details
-      | Charge | Comments | Reason                         |
-      | 0      | TEST     | Outside of delivery scope      |
-    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-    And I wait for "2" mins
-    And Bungii must be removed from the List
-    When I switch to "ORIGINAL" instance
-    And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "MY BUNGIIS" link
-    Then Bungii must be removed from "MY BUNGIIS" screen
 
   #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Can Cancel Through SMS To Admin If Required Number Of Drivers Have Accepted The Trip  - case : duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
@@ -280,4 +246,40 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888888881      |
+  
+  
+  @ready
+  Scenario:Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - case :Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas1  | Scheduled    | NEXT_POSSIBLE |
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then I wait for "4" mins
+    And I select already scheduled bungii
+    Then I wait for "1" mins
+    #When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
+    Then correct details should be displayed on the "ADMIN-SMS" app
+ #   And I click "TOP BACK" button on "Bungii Details" screen
+    
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+    
+    And I Cancel Bungii with following details
+      | Charge | Comments | Reason                         |
+      | 0      | TEST     | Outside of delivery scope      |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And I wait for "2" mins
+    And Bungii must be removed from the List
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "MY BUNGIIS" screen
+
 

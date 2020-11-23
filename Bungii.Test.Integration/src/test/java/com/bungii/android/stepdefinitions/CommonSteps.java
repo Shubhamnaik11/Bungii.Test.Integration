@@ -780,21 +780,25 @@ public class CommonSteps extends DriverBase {
     @Then("^User should see message \"([^\"]*)\" text on the screen$")
     public void user_should_see_message_something_text_on_the_screen(String message) throws Throwable {
         try {
-            String actualMessage = utility.getSnackBarMessage();
+            String actualMessage = "";//utility.getSnackBarMessage();
             String expectedMessage;
             switch (message.toUpperCase()) {
                 case "OUTSIDE BUISSNESS HOUR":
-                    expectedMessage = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
+                    actualMessage = utility.getCustomerSnackBarMessage();
+                    expectedMessage = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
                     action.click(estimatePage.Samsung_Time_Cancel());
                     break;
 
                 case "DELETE WARNING":
+                    actualMessage = utility.getCustomerSnackBarMessage();
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
                 case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    actualMessage = utility.getCustomerSnackBarMessage();
                     expectedMessage=PropertyUtility.getMessage("driver.start.60.mins.before");
                     break;
                 case "Please install a browser in order to access this link.":
+                    actualMessage = utility.getCustomerSnackBarMessage();
                     expectedMessage = PropertyUtility.getMessage("browser.uninstalled.message");
                     action.click(inProgressBungiiPages.Button_Cancel_Yes());
                     break;

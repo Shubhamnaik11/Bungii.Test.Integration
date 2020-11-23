@@ -496,6 +496,7 @@ public class EstimateBungiiSteps extends DriverBase {
     @When("^I enter \"([^\"]*)\" on Bungii estimate$")
     public void iEnterOnBungiiEstimate(String arg0) throws Throwable {
         try {
+            Thread.sleep(5000);
             if(action.isAlertPresent())
             {
                 action.click(homePage.Button_AlertDone());
@@ -802,7 +803,7 @@ public class EstimateBungiiSteps extends DriverBase {
             testStepAssert.isFalse(dropUpLocationLine2.equals(""), "I should able to select drop location", "drop location was selected , drop value is " + dropUpLocationLine1, "I was not able select pickup location");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "GOOGLE API LIMIT EXCEEDED | Error in selecting pickup and drop off address.", true);
+            error("Step  Should be successful", "Error in selecting pickup and drop off address.", true);
         }
     }
 

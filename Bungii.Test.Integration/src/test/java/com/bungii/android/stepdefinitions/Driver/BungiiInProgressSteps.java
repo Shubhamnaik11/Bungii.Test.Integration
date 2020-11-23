@@ -476,7 +476,11 @@ public class BungiiInProgressSteps extends DriverBase {
                 action.showNotifications();
                 log("Checking notifications","Checking notifications",true);
                 String expecteMessage = utility.getExpectedNotification(message.toUpperCase());
-                boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
+
+                boolean isFound = utility.getNofitication("Bungii QAAuto", expecteMessage);
+                action.hideNotifications();
+
+               /* boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
                 if (!isFound) {
                     Thread.sleep(5000);
                     isFound = utility.clickOnNofitication("Bungii", expecteMessage);
@@ -496,8 +500,8 @@ public class BungiiInProgressSteps extends DriverBase {
 
                     action.click(otherAppsPage.Status_Bar());
 
-                }
-                testStepVerify.isFalse(isFound, "I should not get notification for stack trip" ," I didnt get notification for stack trip","I got notifcation of stack trip");
+                }*/
+                testStepVerify.isFalse(isFound, "I should not get notification "+ message ," I didnt get notification for stack trip","I got notifcation of stack trip");
 
             } catch (Exception e) {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

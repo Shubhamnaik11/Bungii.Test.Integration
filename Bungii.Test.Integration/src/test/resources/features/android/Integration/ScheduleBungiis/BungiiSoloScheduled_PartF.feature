@@ -6,8 +6,7 @@ Feature: SoloScheduled Part F
 
   Background:
     
-      #@regression
-  @ready
+  @regression
   Scenario: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time or for trip time between 24 hours prior to current time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -56,19 +55,20 @@ Feature: SoloScheduled Part F
     
      #@regression
   @ready
+    @ad
   Scenario:Verify Driver Can Start Bungii If The Customer Is Currently In An Ongoing Trip :Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 0.5 hour ahead |
     Given that ondemand bungii is in progress
       | geofence | Bungii State | Driver label | Trip Label |
-      | Kansas   | Enroute      | driver 2     | 2          |
+      | Kansas1   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
     And I Select "SCHEDULED BUNGIIS" from driver App menu
+  
     When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from driver scheduled trip
     And I start selected Bungii
@@ -124,7 +124,7 @@ Feature: SoloScheduled Part F
       | CUSTOMER1_PHONE |                 |
   
   
-  @regression
+  @ready
   
   Scenario: Verify If Incoming Scheduled Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
     

@@ -36,6 +36,7 @@ public class HomePageSteps extends DriverBase {
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
+            Thread.sleep(6000);
             if (action.isNotificationAlertDisplayed()) {
                 if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                     utility.acceptNotificationAlert();
@@ -44,8 +45,8 @@ public class HomePageSteps extends DriverBase {
                 }
 
             }
-            boolean isClicked = false;
             Thread.sleep(3000);
+            boolean isClicked = false;
             action.click(driverHomePage.Button_NavigationBar());
             List<WebElement> elements = driverHomePage.Button_NavigationBarText();
             if (action.isNotificationAlertDisplayed()) {

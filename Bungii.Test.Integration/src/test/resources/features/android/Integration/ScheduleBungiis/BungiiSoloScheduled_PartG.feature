@@ -34,7 +34,7 @@ Feature: SoloScheduled Part G
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
   
-  @regression
+  @ready
   
   Scenario:Verify Driver Recieves Scheduled Bungii Request While In Offline State
     When I clear all notification
@@ -205,8 +205,7 @@ Feature: SoloScheduled Part G
 
     ##################################################################################################
   
-  @regression
-  
+  @ready
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -330,7 +329,7 @@ Feature: SoloScheduled Part G
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
   
-  @regression
+  @ready
   Scenario: Verify Customer Can See Text Stating That Driver Can Be Contacted On The Bungii Details Screen Only When The Trip Has Been Accepted By Required Number Of Drivers
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |

@@ -104,7 +104,7 @@ Feature: SoloScheduled Part H
       | CUSTOMER1_PHONE |                 |
   
   
-  @regression
+  @ready
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Solo Trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -112,14 +112,17 @@ Feature: SoloScheduled Part H
     
     And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I remove current driver and researches Bungii
+
     And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
       | driver1 state |
       | Accepted      |
     
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
+
     And I am on the LOG IN page on driver app
-    And I am logged in as "kansas driver 1" driver
+    And I am logged in as "Testdrivertywd_appleks_rathree Test" driver
+
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip

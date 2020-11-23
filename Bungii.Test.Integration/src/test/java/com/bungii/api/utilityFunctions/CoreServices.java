@@ -570,9 +570,18 @@ public class CoreServices extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         int mnts = calendar.get(Calendar.MINUTE);
 
-        calendar.set(Calendar.MINUTE, mnts +30+minuteDifferance);
-        int timer = mnts+30+minuteDifferance;
-        logger.detail("Calculated Time : " +timer );
+       /* if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
+        {
+            calendar.set(Calendar.MINUTE, mnts + 30 + minuteDifferance);
+            int timer = mnts + 30 + minuteDifferance;
+            logger.detail("Calculated Time [Daylight On] : " + timer);
+        }
+        else*/
+        {
+            calendar.set(Calendar.MINUTE, mnts + minuteDifferance);
+            int timer = mnts + minuteDifferance;
+            logger.detail("Calculated Time [Daylight Off] : " + timer);
+        }
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));
@@ -586,6 +595,7 @@ public class CoreServices extends DriverBase {
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
         rtnArray[0] = formattedDate+".000";;
         rtnArray[1] = wait;
+        logger.detail("Schedule Time  : " +  rtnArray[0]);
         return rtnArray;
 
     }
@@ -1020,7 +1030,7 @@ public class CoreServices extends DriverBase {
                     case 27:
                         updateStatus(pickupRequestID, driverAccessToken, 28);
                     case 28:
-                        try {Thread.sleep(35000); } catch (InterruptedException e) {e.printStackTrace();}
+                       // try {Thread.sleep(35000); } catch (InterruptedException e) {e.printStackTrace();}
                 }
                 String paymentMethod = new PaymentServices().getPaymentMethodRef(custAccessToken);
 

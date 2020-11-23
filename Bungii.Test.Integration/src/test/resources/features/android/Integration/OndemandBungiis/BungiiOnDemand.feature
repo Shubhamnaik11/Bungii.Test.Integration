@@ -78,63 +78,6 @@ Feature: On Demand Bungii
     And I tap on "OK on complete" on Bungii estimate
     When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
     
-  @regression
-  Scenario: Verify Customer Can Create An Ondemand Bungii And Correct Contact Number Is Displayed On Call And SMS Option
-
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State |
-      | baltimore   | Enroute      |
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid baltimore" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-
-    And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid baltimore" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    Then for a Bungii I should see "Enroute screen"
-    When I tap "SMS for a solo driver" during a Bungii
-    Then correct details should be displayed on "SMS" app
-    When I tap "Call for a solo driver" during a Bungii
-    Then correct details should be displayed on "Calling" app
-    And Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
-
-    When I Switch to "driver" application on "same" devices
-    Then Bungii driver should see "Enroute screen"
-    When Bungii Driver taps "SMS for a customer" during a Bungii
-    Then correct details should be displayed to driver on "SMS" app
-    When Bungii Driver taps "Call for a customer" during a Bungii
-    Then correct details should be displayed to driver on "Calling" app
-    When Bungii Driver taps "Contact support" during a Bungii
-    Then correct details should be displayed to driver on "Support-SMS" app
-    When Bungii Driver taps "View items" during a Bungii
-    Then Bungii driver should see "Pickup Item"
-    And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
-
-    When Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Arrived screen"
-
-    When Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Loading Item screen"
-
-    When Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Driving to DropOff screen"
-    
-    When Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Unloading Item screen"
-    
-    When Bungii Driver "slides to the next state"
-
-    And I Switch to "customer" application on "same" devices
-    Then Bungii customer should see "correct details" on Bungii completed page
-    When I tap on "OK on complete" on Bungii estimate
-    And I tap on "No free money" on Bungii estimate
-    
-    And I Switch to "driver" application on "same" devices
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And Bungii Driver "completes Bungii"
-    And Customer should receive "bungii" receipt email
 
   @sanity
   @regression
@@ -265,8 +208,6 @@ Feature: On Demand Bungii
       | Promo percentage    | valid percent | valid baltimore |promo                   |
       | valid one off fixed | valid one off | valid baltimore |oneoff                  |
 
-
-
   @regression
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With First Time Promocode
     When I Switch to "driver" application on "same" devices
@@ -326,10 +267,162 @@ Feature: On Demand Bungii
     Examples:
       | Scenario         | Expected value in admin |
       | First time       | promo                   |
-
+    
+  @ready
+  Scenario: Verify Customer Can Create An Ondemand Bungii And Correct Contact Number Is Displayed On Call And SMS Option
+    
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | baltimore   | Enroute      |
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid baltimore" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid baltimore" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    Then for a Bungii I should see "Enroute screen"
+    When I tap "SMS for a solo driver" during a Bungii
+    Then correct details should be displayed on "SMS" app
+    When I tap "Call for a solo driver" during a Bungii
+    Then correct details should be displayed on "Calling" app
+    And Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
+    
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "Enroute screen"
+    When Bungii Driver taps "SMS for a customer" during a Bungii
+    Then correct details should be displayed to driver on "SMS" app
+    When Bungii Driver taps "Call for a customer" during a Bungii
+    Then correct details should be displayed to driver on "Calling" app
+    When Bungii Driver taps "Contact support" during a Bungii
+    Then correct details should be displayed to driver on "Support-SMS" app
+    When Bungii Driver taps "View items" during a Bungii
+    Then Bungii driver should see "Pickup Item"
+    And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+    
+    When Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Arrived screen"
+    
+    When Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Loading Item screen"
+    
+    When Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Driving to DropOff screen"
+    
+    When Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Unloading Item screen"
+    
+    When Bungii Driver "slides to the next state"
+    
+    And I Switch to "customer" application on "same" devices
+    Then Bungii customer should see "correct details" on Bungii completed page
+    When I tap on "OK on complete" on Bungii estimate
+    And I tap on "No free money" on Bungii estimate
+    
+    And I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And Bungii Driver "completes Bungii"
+    And Customer should receive "bungii" receipt email
+  
+  
+  @ready
+  Scenario: Verify Customer Can Create Ondemand Bungii With Referral Code
+    Given I have customer with referral code
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid baltimore" driver
+    And I Select "HOME" from driver App menu
+    Then I tap on "Go Online button" on Driver Home page
+    When I Switch to "customer" application on "same" devices
+    And I am on customer Log in page
+    And I am logged in as "newly created user" customer
+    
+    And I enter "baltimore pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "15 mins"
+    And I tap on "Promo code value" on Estimate screen
+    Then I should able to see expected promo code in available promo code
+    When I tap on "Back" button of android mobile
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then for a Bungii I should see "Bungii search screen"
+    
+    Then I click on notification for "on demand trip"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" button on alert message
+    And I click "ACCEPT" button on the "Bungii Request" screen
+    
+    And I Switch to "customer" application on "same" devices
+    When I click "Ok" button on the "BUNGII ACCEPTED" screen
+    
+    And I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    
+    And I Switch to "customer" application on "same" devices
+    Then Bungii customer should see "correct details with promo" on Bungii completed page
+    And I tap on "OK on complete" on Bungii estimate
+    And I tap on "No free money" on Bungii estimate
+    
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on the "Bungii Completed" screen
+  
+  
+  @ready
+  Scenario: Verify Customer Can Create Ondemand Bungii With Received Referred Code
+    Given I have customer with referral code
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid baltimore" driver
+    And I Select "HOME" from driver App menu
+    Then I tap on "Go Online button" on Driver Home page
+    When I Switch to "customer" application on "same" devices
+    And I am on customer Log in page
+    And I am logged in as "valid baltimore" customer
+    
+    And I enter "baltimore pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add loading/unloading time of "15 mins"
+    And I tap on "Promo code value" on Estimate screen
+    Then I should able to see expected promo code in available promo code
+    Then The "referral code received with out first time tag" is displayed
+    When I tap on "Back" button of android mobile
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then for a Bungii I should see "Bungii search screen"
+    
+    Then I click on notification for "on demand trip"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" button on alert message
+    And I click "ACCEPT" button on the "Bungii Request" screen
+    
+    And I Switch to "customer" application on "same" devices
+    Then I click "Ok" button on the "Bungii Request" screen
+    
+    And I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    
+    And I Switch to "customer" application on "same" devices
+    Then Bungii customer should see "correct details with promo" on Bungii completed page
+    And I tap on "OK on complete" on Bungii estimate
+    And I tap on "No free money" on Bungii estimate
+    
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And Bungii Driver "completes Bungii"
+    
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
-  @regression
-    @demo
+  @knownissue
   Scenario Outline: Verify Customer Signup With Referral code
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -360,7 +453,7 @@ Feature: On Demand Bungii
     And I enter "<Card Expiry>" on Card Details page
     And I enter "<CVV>" on Card Details page
     And I enter "<Postal Code>" on Card Details page
-
+    
     And I tap on "Add Card" on Payment page
     Then I should see "the card has been added" on Payment page
     And I tap on "Menu" > "Logout" link
@@ -368,125 +461,28 @@ Feature: On Demand Bungii
     Examples:
       | Scenario       | Card Detail                | Card Expiry       |CVV      |Postal Code      |
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
-
-
- @regression
-    @demo
-  Scenario: Verify Customer Can Create Ondemand Bungii With Referral Code
-    Given I have customer with referral code
-    And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid baltimore" driver
-    And I Select "HOME" from driver App menu
-    Then I tap on "Go Online button" on Driver Home page
-    When I Switch to "customer" application on "same" devices
-    And I am on customer Log in page
-    And I am logged in as "newly created user" customer
-
-    And I enter "baltimore pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add "1" photos to the Bungii
-    And I add loading/unloading time of "15 mins"
-    And I tap on "Promo code value" on Estimate screen
-    Then I should able to see expected promo code in available promo code
-    When I tap on "Back" button of android mobile
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    Then for a Bungii I should see "Bungii search screen"
-
-    Then I click on notification for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" button on alert message
-    And I click "ACCEPT" button on the "Bungii Request" screen
-
-    And I Switch to "customer" application on "same" devices
-    When I click "Ok" button on the "BUNGII ACCEPTED" screen
-
-    And I Switch to "driver" application on "same" devices
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-
-    And I Switch to "customer" application on "same" devices
-    Then Bungii customer should see "correct details with promo" on Bungii completed page
-    And I tap on "OK on complete" on Bungii estimate
-    And I tap on "No free money" on Bungii estimate
-
-    When I Switch to "driver" application on "same" devices
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on the "Bungii Completed" screen
-
-
- @regression
-  Scenario: Verify Customer Can Create Ondemand Bungii With Received Referred Code
-    Given I have customer with referral code
-    And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid baltimore" driver
-    And I Select "HOME" from driver App menu
-    Then I tap on "Go Online button" on Driver Home page
-    When I Switch to "customer" application on "same" devices
-    And I am on customer Log in page
-    And I am logged in as "valid baltimore" customer
-
-    And I enter "baltimore pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add loading/unloading time of "15 mins"
-    And I tap on "Promo code value" on Estimate screen
-    Then I should able to see expected promo code in available promo code
-    Then The "referral code received with out first time tag" is displayed
-    When I tap on "Back" button of android mobile
-    And I add "1" photos to the Bungii
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    Then for a Bungii I should see "Bungii search screen"
-
-    Then I click on notification for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" button on alert message
-    And I click "ACCEPT" button on the "Bungii Request" screen
-
-    And I Switch to "customer" application on "same" devices
-    Then I click "Ok" button on the "Bungii Request" screen
-
-    And I Switch to "driver" application on "same" devices
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-
-    And I Switch to "customer" application on "same" devices
-    Then Bungii customer should see "correct details with promo" on Bungii completed page
-    And I tap on "OK on complete" on Bungii estimate
-    And I tap on "No free money" on Bungii estimate
-
-    When I Switch to "driver" application on "same" devices
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And Bungii Driver "completes Bungii"
-
-
-
-  @regression
+  
+  
+  @ready
   Scenario: Verify Customer Can Create Ondemand Bungii With FB Share Code
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
       | baltimore | UNLOADING ITEM |
-
+    
     And I Switch to "customer" application on "same" devices
     And I am logged in as "valid baltimore" customer
-
+    
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid baltimore" driver
     And Bungii Driver "slides to the next state"
     Then Bungii Driver "completes Bungii"
-
+    
     And I Switch to "customer" application on "same" devices
     And I tap on "OK on complete" on Bungii estimate
     When I click "YES, I'LL TAKE $5" button on the "Promotion" screen
     And I share on "Facebook with app installed"
-
+    
     And I Switch to "customer" application on "same" devices
     And I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     # test line to check if facebook app is not installed
@@ -502,15 +498,15 @@ Feature: On Demand Bungii
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
-
+    
     Then I click on notification for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "YES" button on alert message
     And I click "ACCEPT" button on the "Bungii Request" screen
-
+    
     And I Switch to "customer" application on "same" devices
     Then I click "Ok" button on the "Bungii Request" screen
-
+    
     And I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
@@ -521,13 +517,12 @@ Feature: On Demand Bungii
     Then Bungii customer should see "correct details with promo" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
-
+    
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
-
-  #@regression
-    @ready
+    
+  @ready
       # Also Case Covered, Verify that the Estimated cost on the grey bar is updated on updating load/unload time and promo code
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     When I am on customer Log in page
@@ -537,7 +532,7 @@ Feature: On Demand Bungii
     And I Select "HOME" from driver App menu
     Then I tap on "Go Online button" on Driver Home page
     When I Switch to "customer" application on "same" devices
-
+    
     And I enter "baltimore pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -547,19 +542,19 @@ Feature: On Demand Bungii
     And I tap "Add" on Save Money page
     Then I should able to see expected promo code in available promo code
     And I tap on "Back" icon of page
-      Then I should see "estimated cost" on Bungii estimate
-      And I tap on "Request Bungii" on Bungii estimate
+    Then I should see "estimated cost" on Bungii estimate
+    And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
-
+    
     Then I click on notification for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "YES" button on alert message
     And I click "ACCEPT" button on the "Bungii Request" screen
-
+    
     And I Switch to "customer" application on "same" devices
     When I click "Ok" button on the "BUNGII ACCEPTED" screen
-
+    
     And I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
@@ -570,33 +565,32 @@ Feature: On Demand Bungii
     Then Bungii customer should see "correct details with promoter" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
-
+    
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
-
+    
     And I wait for "2" mins
-      And I open Admin portal and navigate to "Live Deliveries" page
-      And I select trip from live trips
+    And I open Admin portal and navigate to "Live Deliveries" page
+    And I select trip from live trips
     Then On admin trip details page "<Expected value in admin>" should be displayed
-
+    
     Examples:
       | Expected value in admin |
       | promo                   |
-
-  #@regression
+    
   @ready
   Scenario Outline: Verify Customer Can Create Ondemand Bungii With Promoter Type Promocode
-
+    
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "<User>" customer
-
+    
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
     And I tap on "Go Online button" on Driver Home page
     And I Switch to "customer" application on "same" devices
-
+    
     And I tap on "Menu" > "HOME" link
     And I enter "baltimore pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -611,11 +605,11 @@ Feature: On Demand Bungii
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
-
+    
     When I Open "driver" application on "same" devices
     And Bungii Driver "accepts On Demand Bungii" request
     Then Bungii driver should see "Enroute screen"
-  
+    
     When I Switch to "customer" application on "same" devices
     When I click "Ok" button on the "BUNGII ACCEPTED" screen
     
@@ -629,7 +623,7 @@ Feature: On Demand Bungii
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
     And Bungii Driver "slides to the next state"
-
+    
     When I Switch to "customer" application on "same" devices
     Then Bungii customer should see "correct details with promo" on Bungii completed page
     When I tap on "OK on complete" on Bungii estimate
@@ -637,7 +631,7 @@ Feature: On Demand Bungii
     And I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on the "Bungii Completed" screen
-
+    
     And I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -648,15 +642,13 @@ Feature: On Demand Bungii
     Examples:
       | Scenario            | Promo Code    | User            |Expected value in admin |
       | Promoter type       | promoter type | valid baltimore |promoter                |
-
     
-
-  @regression
+  @ready
   Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
       | baltimore | UNLOADING ITEM |
-
+    
     And I Switch to "customer" application on "same" devices
     And I am logged in as "valid baltimore" customer
     And I Switch to "driver" application on "same" devices
@@ -666,7 +658,7 @@ Feature: On Demand Bungii
     
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
     And I Switch to "customer" application on "same" devices
-  
+    
     When I select "2" Ratting star for duo "Driver 1"
     When I give tip to Bungii Driver with following tip and Press "OK" Button
       | Tip |
@@ -676,9 +668,8 @@ Feature: On Demand Bungii
     Then poor driver ratting should be sent to customer
     And I Switch to "customer" application on "same" devices
     And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
-  
-  
-  @regression
+    
+  @ready
   Scenario:Verify ondemand Trip is displayed in past trips after completion
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
@@ -691,3 +682,6 @@ Feature: On Demand Bungii
     And I click on "Past" tab
     And I open the trip for "Testdrivertywd_applemd_a_ryan Stark_bltOnE" driver
     Then I verify driver names and trip cost
+  
+    
+

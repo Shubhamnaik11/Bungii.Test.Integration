@@ -442,8 +442,8 @@ public class BungiiSteps extends DriverBase {
                 fail("I should get notification for " + expectedNotification, "I should not get notification for " + expecteMessage, true);
 
             } else {
-                pass("I should not get notification for SCHEDULED PICKUP AVAILABLE to click notification for " + expectedNotification, "I was not able to click on notifications with text " + expecteMessage, true);
                 action.hideNotifications();
+                pass("I should not get notification for SCHEDULED PICKUP AVAILABLE to click notification for " + expectedNotification, "I was not able to click on notifications with text " + expecteMessage, true);
             }
 
         } catch (Exception e) {
