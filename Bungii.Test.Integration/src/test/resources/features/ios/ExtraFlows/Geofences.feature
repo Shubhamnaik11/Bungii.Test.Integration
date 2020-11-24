@@ -27,6 +27,7 @@ When I open new "Chrome" browser for "ADMIN PORTAL"
 And I navigate to admin portal
 Then I log in to admin portal
 When I Select "Geofence" from admin sidebar
+And I uncheck the Active Geofences Only
 And I select "Chicago" geofence
 And I edit the geofence "Chicago"
 And I select "Geo-Status" as "Active"
