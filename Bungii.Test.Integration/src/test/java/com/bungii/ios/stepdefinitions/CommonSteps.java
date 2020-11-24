@@ -42,8 +42,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.bungii.SetupManager.getDriver;
-import static com.bungii.SetupManager.setDriver;
+import static com.bungii.SetupManager.*;
 import static com.bungii.common.manager.ResultManager.*;
 
 
@@ -1528,6 +1527,13 @@ public class CommonSteps extends DriverBase {
                 tripTime=tripTime.replace("st","dt").replace("ST","DT");
                 logger.detail("Daylight Savings is ON");
             }
+
+            if(BrowserStackLocal().equalsIgnoreCase("true")) {
+                tripTime = tripTime.replace("am","a.m.").replace("pm","p.m.").replace("AM","a.m.").replace("PM","p.m.");
+                tripTime = utility.getGmtTime(tripTime);
+                //testStepVerify.isEquals(displayedTime, strTime);
+            }
+
             logger.detail("TRIP TIME [According to Daylight Savings]: "+tripTime);
 
             if (currentApplication.equalsIgnoreCase("CUSTOMER")) {

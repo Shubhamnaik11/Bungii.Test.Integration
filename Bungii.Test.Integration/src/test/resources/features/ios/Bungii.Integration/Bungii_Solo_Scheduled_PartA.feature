@@ -26,6 +26,7 @@ Feature: Solo Scheduled Bungii Part II
     #And I am logged in as "valid denver" driver
 
     Given I login as "valid denver" customer and on Home page
+    When I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "Online"
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
