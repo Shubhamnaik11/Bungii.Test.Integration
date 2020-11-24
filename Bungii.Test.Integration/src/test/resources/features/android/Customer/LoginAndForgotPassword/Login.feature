@@ -16,6 +16,7 @@ Feature: Login
     Then "Terms and Conditions" page should be opened
     And I should see "all details" on Term and Condition agreement
     When I accept Term and Condition agreement
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then "Tutorial" page should be opened
     When I close tutorial Page
     Then The user should be logged in

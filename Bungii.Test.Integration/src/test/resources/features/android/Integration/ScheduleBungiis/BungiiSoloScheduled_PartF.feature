@@ -56,18 +56,23 @@ Feature: SoloScheduled Part F
      #@regression
   @ready
     @ad
-  Scenario:Verify Driver Can Start Bungii If The Customer Is Currently In An Ongoing Trip :Solo
+  Scenario:Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip :Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | Kansas   | Accepted     | 0.5 hour ahead |
+      | Kansas   | Accepted     | 1.25 hour ahead |
+    And I wait for "3" mins
     Given that ondemand bungii is in progress
       | geofence | Bungii State | Driver label | Trip Label |
-      | Kansas1   | Enroute      | driver 2     | 2          |
+      | same   | Enroute      | driver 2     | 2          |
+    
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
+    And I wait for "3" mins
     And I am logged in as "valid" driver
+    And I wait for "3" mins
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I wait for "3" mins
   
     When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from driver scheduled trip
@@ -79,7 +84,7 @@ Feature: SoloScheduled Part F
 
   #@regression
   @ready
-  Scenario:Verify Driver Can Start Bungii If The Customer Is Currently In An Ongoing Trip - Duo
+  Scenario:Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip - Duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  | Customer        | Driver1         | Driver2         |
       | Kansas   | Accepted     | 0.5 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |

@@ -18,6 +18,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -325,6 +326,8 @@ public class ScheduledTripSteps extends DriverBase {
 			testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest), " Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
 			pass("I remove driver and researches Bungii ", "I removed "+driverType+"driver and researches Bungii",
 					true);
+			action.click(scheduledTripsPage.Button_ClosePopUp());
+
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -340,7 +343,7 @@ public class ScheduledTripSteps extends DriverBase {
 			Map<String, String> tripDetails = new HashMap<String, String>();
 			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
 			String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
-			String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+			//String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
 
 			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
@@ -349,7 +352,7 @@ public class ScheduledTripSteps extends DriverBase {
 			//On admin panel CST time use to show
 			//	getPortalTime("Aug 09, 06:15 AM CDT");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
-			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
+			//tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 
 
@@ -600,22 +603,23 @@ public class ScheduledTripSteps extends DriverBase {
 	 */
 	public int getTripRowNumber(Map<String, String> tripDetails) {
 		String custName = tripDetails.get("CUSTOMER");
-		String scheduledDate = tripDetails.get("SCHEDULED_DATE"),
-				estimatedDistance = tripDetails.get("BUNGII_DISTANCE");
+		//String scheduledDate = tripDetails.get("SCHEDULED_DATE"),
+			String estimatedDistance = tripDetails.get("BUNGII_DISTANCE");
 		String label = utility.getTimeZoneBasedOnGeofence();
-		if (!scheduledDate.contains(label))
+		/*if (!scheduledDate.contains(label))
 			scheduledDate = scheduledDate + " " + label;
 		scheduledDate = scheduledDate.replace(":00 "," ").replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST").replace(" GMT+5:30", "").replace(" GMT+05:30", "");
+		*/
 		int rowNumber = 999;
 		List<WebElement> rows = scheduledTripsPage.Row_TripDetails();
 		for (int i = 1; i <= rows.size(); i++) {
 
 			String rowCustName = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[6]")).getText();
-			String rowSchduledTime = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[5]")).getText();
+			//String rowSchduledTime = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[5]")).getText();
 			String rowSrNumber = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[1]")).getText();
-			logger.detail("Actual Row Details : "+ rowSchduledTime +" "+ rowCustName +" on "+ rowSrNumber );
-			logger.detail("Expected Row Details : "+ scheduledDate +" "+ custName +" ");
-			if (rowCustName.equalsIgnoreCase(custName) && scheduledDate.equalsIgnoreCase(rowSchduledTime)) {
+			//logger.detail("Actual Row Details : "+ rowSchduledTime +" "+ rowCustName +" on "+ rowSrNumber );
+			//logger.detail("Expected Row Details : "+ scheduledDate +" "+ custName +" ");
+			if (rowCustName.equalsIgnoreCase(custName) ) { //&& scheduledDate.equalsIgnoreCase(rowSchduledTime)) {
 				rowNumber = Integer.parseInt(rowSrNumber);
 			}
 
@@ -891,8 +895,8 @@ public class ScheduledTripSteps extends DriverBase {
 					actualMessage=action.getText(scheduledTripsPage.Text_SuccessMessage());
 					break;
 
-				case " Adding a driver through this feature overrides driver assigning restrictions.":
-					actualMessage=action.getText(scheduledTripsPage.Label_IconTextMessage());
+				case "Adding a driver through this feature overrides driver assigning restrictions.":
+					actualMessage=action.getText(scheduledTripsPage.Label_StaticText());
 					break;
 
 				case "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time":
@@ -906,12 +910,8 @@ public class ScheduledTripSteps extends DriverBase {
 					error("UnImplemented Step or incorrect option.", "UnImplemented Step");
 					break;
 			}
-			if(actualMessage.equalsIgnoreCase(message)){
-				testStepAssert.isTrue(true,"Expected message is displayed.","Expected message is not displayed.");
-			}
-			else {
-				testStepAssert.isFail("Expected message is not displayed.");
-			}
+				testStepAssert.isTrue(actualMessage.contains(message),"Expected message is displayed.","Expected message is not displayed. Actual is : "+actualMessage );
+
 		}catch (Throwable e) {
 			logger.error("Error performing step" + e);
 			error("Step  Should be successful",
@@ -992,9 +992,14 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_verify_that_time_change_is_saved() throws Throwable {
 		try{
 		Thread.sleep(1000);
-		//action.click(scheduledTripsPage.Button_ClosePopUp());
-		SetupManager.getDriver().navigate().refresh();
-		action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")),30L);
+		action.click(scheduledTripsPage.Button_ClosePopUp());
+			SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=True");
+			//SetupManager.getDriver().navigate().refresh();
+			Thread.sleep(120000);
+			//SetupManager.getDriver().navigate().refresh();
+			SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
+
+			action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")),30L);
 		scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")).click();
 
 		String expectedTime=(String) cucumberContextManager.getScenarioContext("NEW_TIME");
@@ -1002,6 +1007,10 @@ public class ScheduledTripSteps extends DriverBase {
 
 		System.out.println("Expected Time: "+expectedTime);
 		System.out.println("Actual Time: "+actualTime);
+			DateFormat formater = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+			Date date = formater.parse(expectedTime);
+			DateFormat format2 = new SimpleDateFormat("H:mm", Locale.ENGLISH);
+			 expectedTime = format2.format(date);
 
 			testStepAssert.isTrue(actualTime.contains(expectedTime),"Expected time is displayed.", "Expected time is not displayed :" + expectedTime+" instead "+ actualTime +" is displayed");
 

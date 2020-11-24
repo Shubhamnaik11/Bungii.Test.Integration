@@ -1,4 +1,3 @@
-    @android
     @bungii
     #These feature will run in Goa geofence
     Feature: Verify Bungii Estimations and Requests

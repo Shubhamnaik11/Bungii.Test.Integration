@@ -1276,6 +1276,14 @@ Thread.sleep(5000);
         cucumberContextManager.setScenarioContext("MY_BUNGII_DATE", myBungiiDateTime);
     }
 
+    public void selectNewerTime() {
+        action.click(estimatePage.Button_DateConfirm());
+        int currentHour= Integer.parseInt(setPickupTimePage.Text_SelectHours().getText());
+        currentHour=currentHour+1;
+        action.sendKeys(setPickupTimePage.Text_SelectHours(),String.valueOf(currentHour));
+        String mins=setPickupTimePage.Text_SelectMinutes().getText();
+        action.click(setPickupTimePage.Button_TimePickerOK());
+    }
     /*private void selectHour(String hour) throws InterruptedException {
         int hrs = Integer.parseInt(action.getText(setPickupTimePage.Text_SelectHours()));
         if (hrs == Integer.parseInt(hour)) {
@@ -1314,7 +1322,7 @@ Thread.sleep(5000);
 
     public void selectAddress(WebElement element, String searchstring) throws InterruptedException {
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-
+        Thread.sleep(4000);
         action.clear(element);
         action.click(element);
         element.sendKeys(searchstring);

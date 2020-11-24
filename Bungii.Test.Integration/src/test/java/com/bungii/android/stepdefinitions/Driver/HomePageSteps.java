@@ -37,7 +37,7 @@ public class HomePageSteps extends DriverBase {
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
             Thread.sleep(6000);
-            if (action.isNotificationAlertDisplayed()) {
+            if (action.isAlertPresent()) {
                 if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                     utility.acceptNotificationAlert();
                 } else {
@@ -49,7 +49,7 @@ public class HomePageSteps extends DriverBase {
             boolean isClicked = false;
             action.click(driverHomePage.Button_NavigationBar());
             List<WebElement> elements = driverHomePage.Button_NavigationBarText();
-            if (action.isNotificationAlertDisplayed()) {
+            if (action.isAlertPresent()) {
                 if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                     utility.acceptNotificationAlert();
                 } else {

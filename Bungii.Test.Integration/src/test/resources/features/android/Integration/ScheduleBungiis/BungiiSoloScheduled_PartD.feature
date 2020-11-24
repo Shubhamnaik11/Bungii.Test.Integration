@@ -259,8 +259,8 @@ Feature: SoloScheduled Part D
     
     
   #@regression
-  @ready
-  Scenario:Verify Customer Notification - 2 hours before scheduled trip
+  #need to work on automation cannot wait for 2 hours
+  Scenario:Verify Customer Notification - 2 hours before scheduled trip [Not to be executed]
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
       | kansas   | Accepted     | 1.5 hour ahead |

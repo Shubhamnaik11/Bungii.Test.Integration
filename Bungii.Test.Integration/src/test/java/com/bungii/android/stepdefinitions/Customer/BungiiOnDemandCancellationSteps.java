@@ -118,6 +118,7 @@ public class BungiiOnDemandCancellationSteps extends DriverBase {
     @Then("^I check if a \"([^\"]*)\" is shown in the table$")
     public void i_check_if_a_something_is_shown_in_the_table(String expectedReason) throws Throwable {
         try{
+            Thread.sleep(10000);
             String customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE") ;
             if(customerPhone=="")
                 customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE") ;

@@ -1236,7 +1236,8 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
         try {
             switch (strArg1) {
                 case "Next Schedule":
-                    utility.selectTime();
+                   // utility.selectTime();
+                    utility.selectNewerTime();
                     break;
 
                 default:

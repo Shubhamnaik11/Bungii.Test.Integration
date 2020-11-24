@@ -587,7 +587,8 @@ public class ActionManager {
             action.moveTo(bottom);
         } else {
             action.moveTo(top);
-            ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
+            //((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
+            ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
             logger.detail("Pressed HOME Button to Remove Push notification tray");
 
 

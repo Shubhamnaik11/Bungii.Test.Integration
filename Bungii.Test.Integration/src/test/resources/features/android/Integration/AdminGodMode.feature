@@ -149,11 +149,11 @@
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
           | NEXT_POSSIBLE | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
-        And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "Duo Scheduled Researched" trip
+        And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "Duo Scheduled" trip
           | driver1 state      | driver2 state      |
           | Bungii Completed   | Bungii Completed   |
-  
-  
+        
+        
       @ready
         #web
       Scenario: Verify the DUO trip started by non controller driver and controller driver is removed and new driver is added to the same trip
@@ -169,8 +169,15 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
         Then I remove "control" driver and researches Bungii
+        
+        Then I wait for "2" mins
+        And I Select "Scheduled Trip" from admin sidebar
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
+        
         When I Select "Edit Trip Details" option
+        And I assign driver "Testdriver_goa_c Android_test" for the trip
         And I click on "VERIFY" button
         And the "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
@@ -240,6 +247,7 @@
           | 9393939393 |                 |
   
       @ready
+     #stable
       Scenario: Verify that the driver can be assigned to a duo trip irrespective of driver home address
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_A Android" customer

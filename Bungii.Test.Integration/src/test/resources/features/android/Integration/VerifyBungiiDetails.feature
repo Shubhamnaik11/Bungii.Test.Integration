@@ -109,8 +109,9 @@
       And As a driver "Testdriver_goa_d Android_test" and "Testdriver_goa_c Android_test" perform below action with respective "DUO SCHEDULED" trip
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
-  And I open Admin portal and navigate to "Scheduled Deliveries" page
-  And I remove "noncontrol" driver and researches Bungii
+      And I open Admin portal and navigate to "Scheduled Deliveries" page
+      
+      And I remove "noncontrol" driver and researches Bungii
       And I Select "Edit Trip Details" option
       And I assign driver for the "noncontrol" trip
       And I click on "VERIFY" button
@@ -139,10 +140,10 @@
       And As a driver "Testdriver_goa_d Android_test" and "Testdriver_goa_c Android_test" perform below action with respective "DUO SCHEDULED" trip
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
-  And I open Admin portal and navigate to "Scheduled Deliveries" page
-  And I remove current driver and researches Bungii
+      And I open Admin portal and navigate to "Scheduled Deliveries" page
+      And I remove current driver and researches Bungii
       And I Select "Edit Trip Details" option
-      And the " Adding a driver through this feature overrides driver assigning restrictions." message is displayed
+      And the "Adding a driver through this feature overrides driver assigning restrictions." message is displayed
       And I assign driver for the "Duo" trip
       And I click on "VERIFY" button
       And the "Your changes are good to be saved." message is displayed
@@ -625,7 +626,7 @@
 
 
 @ready
-    Scenario: Verify that  if driver have two TELET overlapping bungiis, and admin researches any one of the Bungii,
+    Scenario: Verify that if driver have two TELET overlapping bungiis, and admin researches any one of the Bungii,
               then concerned driver does not recieve push notification
       Given I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app

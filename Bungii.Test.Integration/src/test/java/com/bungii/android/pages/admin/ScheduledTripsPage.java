@@ -75,6 +75,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_SaveChanges(){return findElement("//button[@class='btn btn-primary ml15 saveTrip']", LocatorType.XPath);}
     public WebElement Text_SuccessMessage(){return findElement("//p[@id='success-message']/i[2]", LocatorType.XPath);}
     public WebElement Label_IconTextMessage(){return findElement("//table[@id='editTripDrivers']/tbody/tr/td/table/tbody/tr/td", LocatorType.XPath);}
+     public WebElement Label_StaticText(){return findElement("//em", LocatorType.XPath);}
 
     public WebElement Label_ChangedScheduledTime(){return findElement("//p[contains(text(),'Schedule Time:')]/following-sibling::p", LocatorType.XPath);}
     public WebElement Button_ClosePopUp(){return findElement("//button[@class='close']/span", LocatorType.XPath);}

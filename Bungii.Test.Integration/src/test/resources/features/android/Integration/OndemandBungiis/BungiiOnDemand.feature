@@ -578,7 +578,22 @@ Feature: On Demand Bungii
     Examples:
       | Expected value in admin |
       | promo                   |
+  
+  @ready
+  Scenario:Verify ondemand Trip is displayed in past trips after completion
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State   |
+      | baltimore | COMPLETED|
     
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid baltimore" customer
+    And I tap on "Menu" > "My Bungiis" link
+    Then "MY BUNGIIS" page should be opened
+    And I click on "Past" tab
+    And I open the trip for "Testdrivertywd_applemd_a_ryan Stark_bltOnE" driver
+    Then I verify driver names and trip cost
+  
+  
   @ready
   Scenario Outline: Verify Customer Can Create Ondemand Bungii With Promoter Type Promocode
     
@@ -668,20 +683,5 @@ Feature: On Demand Bungii
     Then poor driver ratting should be sent to customer
     And I Switch to "customer" application on "same" devices
     And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
-    
-  @ready
-  Scenario:Verify ondemand Trip is displayed in past trips after completion
-    Given that ondemand bungii is in progress
-      | geofence  | Bungii State   |
-      | baltimore | COMPLETED|
-    
-    And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid baltimore" customer
-    And I tap on "Menu" > "My Bungiis" link
-    Then "MY BUNGIIS" page should be opened
-    And I click on "Past" tab
-    And I open the trip for "Testdrivertywd_applemd_a_ryan Stark_bltOnE" driver
-    Then I verify driver names and trip cost
   
-    
 

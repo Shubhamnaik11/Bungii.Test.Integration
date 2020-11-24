@@ -1,5 +1,4 @@
 @android
-@SoloScheduled
 @bungii
 #These feature will run in kansas geofence
 Feature: SoloScheduled Part B
@@ -258,47 +257,10 @@ Feature: SoloScheduled Part B
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
     
-  @ready
-  #@ready
-  Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Is Currently Has A Ongoing Bungii.
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time     |
-      | Kansas   | Accepted     | 0.75 hour ahead |
-    And I Open "customer" application on "same" devices
-    When I am on customer Log in page
-    When I am logged in as "valid" customer
-    And I Open "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    Then I click "Go Online" button on Home screen on driver app
-    And I Switch to "customer" application on "same" devices
-
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
-      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
-    
-    And I Switch to "customer" application on "same" devices
-    And I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on the alert message
-    And I click "ACCEPT" button on "Bungii Request" screen
-
-    And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "MY BUNGIIS" link
-    And I select 1st trip from scheduled bungii
-    When I wait for 1 hour for Bungii Schedule Time
-    When I try to contact driver using "call driver1"
-    Then user is alerted for "driver finishing current bungii"
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | 8805368840      |
-  
-
    #@regression
   @ready
-  Scenario: Verify Customer Can Contact Controlled Driver When Non-control Driver Starts the trip
+	@ad1
+  Scenario: Verify Customer Can Contact Controlled Driver When Noncontrol Driver Starts the trip
     
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -311,20 +273,21 @@ Feature: SoloScheduled Part B
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
-    When I try to contact driver using "call driver2"
-    Then correct details should be displayed to driver on "Calling" app
-    When I try to contact driver using "call driver1"
-    Then correct details should be displayed to driver on "Calling" app
     When I try to contact driver using "sms driver1"
     Then correct details should be displayed to driver on "SMS" app
     When I try to contact driver using "sms driver2"
     Then correct details should be displayed to driver on "SMS" app
+	When I try to contact driver using "call driver2"
+	Then correct details should be displayed to driver on "Calling" app
+	When I try to contact driver using "call driver1"
+	Then correct details should be displayed to driver on "Calling" app
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
   
   @ready
-  Scenario:  Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours :SOLO
+   #stable
+  Scenario: Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours :SOLO
     And I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -337,6 +300,7 @@ Feature: SoloScheduled Part B
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
   
   @ready
+	#stable
   Scenario: Verify Customer Cannot Schedule Bungii For A Time That Is Outside Working Hours :DUO
     Given I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist

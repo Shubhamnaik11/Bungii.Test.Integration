@@ -485,7 +485,7 @@ public class HomeSteps extends DriverBase {
     public void the_eta_bar_is_seen_on_screen_with_less_then_something_mins(String strArg1)  {
         try {
             String minutes = homePage.Text_ETAvalue().getText();
-            minutes = minutes.replace(" minutes", "");
+            minutes = minutes.replace(" mins", "");
             int ETA = Integer.parseInt(minutes);
             if (ETA <= 30) {
                 testStepAssert.isElementDisplayed(homePage.Text_ETAvalue(), "Less than 30mins", "Less than 30mins", "More than 30mins");

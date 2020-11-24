@@ -51,7 +51,7 @@ public class SetPickupTimePage extends PageBase {
 
     public WebElement Text_FirstCancellationReason() {return findElement("//*[@resource-id='com.bungii.customer:id/alert_cancellation_reason_tv' and @text='I needed it right away.']", LocatorType.XPath);}
     public WebElement Text_SecondCancellationReason() {return findElement("//*[@resource-id='com.bungii.customer:id/alert_cancellation_reason_tv' and @text='I found an alternative.']", LocatorType.XPath);}
-    public WebElement Text_ThirdCancellationReason() {return findElement("//*[@resource-id='com.bungii.customer:id/alert_cancellation_reason_tv']", LocatorType.XPath);}
+    public WebElement Text_ThirdCancellationReason() {return findElement("//*[@resource-id='com.bungii.customer:id/alert_cancellation_reason_tv' and contains(@text,'need it anymore.')]", LocatorType.XPath);}
     public WebElement Text_FourthCancellationReason() {return findElement("//*[@resource-id='com.bungii.customer:id/alert_cancellation_reason_tv' and @text='Other...']", LocatorType.XPath);}
     public WebElement TextBox_CancellationReason() {return findElement("com.bungii.customer:id/alert_cancellation_reason_et", LocatorType.Id);}
     public WebElement Button_SubmitCancellationReason(){return findElement("com.bungii.customer:id/alert_cancellation_reason_et_submit", LocatorType.Id);}

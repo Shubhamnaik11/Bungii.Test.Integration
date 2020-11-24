@@ -152,7 +152,10 @@ public class BungiiDetailsSteps extends DriverBase {
     @Then("^I should see \"([^\"]*)\" on screen$")
     public void i_should_see_something_on_screen(String strArg1) throws Throwable {
         try {
+
             String expectedText=null; String actualText =null;
+            actualText = utility.getDriverSnackBarMessage();// action.getText(bungiiDetailsPage.Text_snackbarmessage());
+
             switch(strArg1)
             {
             case "REQUIRED DRIVER NOT ACCEPTED":
@@ -162,7 +165,6 @@ public class BungiiDetailsSteps extends DriverBase {
                  expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
                  break;
         }
-            actualText = utility.getDriverSnackBarMessage();// action.getText(bungiiDetailsPage.Text_snackbarmessage());
             testStepVerify.isEquals(actualText, expectedText);
          } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
