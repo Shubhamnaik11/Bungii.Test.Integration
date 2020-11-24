@@ -739,7 +739,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9889889888      |                 |
         
-      @ready
+      @regression
     #web
       Scenario: Verify that Cancel button goes off once the solo scheduled Trip is cancelled
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"

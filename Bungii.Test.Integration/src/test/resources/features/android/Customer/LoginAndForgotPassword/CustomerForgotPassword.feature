@@ -40,7 +40,7 @@ Feature: CustomerForgotPassword
     And I tap on the "Continue" Link
     Then The user should see "snackbar validation message for invalid sms code" on forgot password page
 
-  @ready
+  @regression
   Scenario: Verify Customer Forgot Password With Password Less Than 6 Characters
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
@@ -48,7 +48,7 @@ Feature: CustomerForgotPassword
     And I enter customers new "invalid" Password
     Then The user should see "validation for incorrect password" on forgot password page
 
-  @ready
+  @regression
   Scenario: Verify Customer Forgot Password With Resend SMS Code Functionality
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
@@ -58,7 +58,7 @@ Feature: CustomerForgotPassword
     And I tap on the "Continue" Link
     Then The user should be logged in
 
-  @ready
+  @regression
   Scenario: Verify Customer Forgot Password Functionality With Expired SMS Code
     When I enter "valid" Phone Number
     And I tap on the "Send" Link

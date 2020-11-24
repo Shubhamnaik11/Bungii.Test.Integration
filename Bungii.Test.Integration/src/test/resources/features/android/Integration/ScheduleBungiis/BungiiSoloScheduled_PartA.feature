@@ -248,7 +248,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | 8888888881      |
   
   
-  @ready
+  @regression
   Scenario:Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - case :Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |

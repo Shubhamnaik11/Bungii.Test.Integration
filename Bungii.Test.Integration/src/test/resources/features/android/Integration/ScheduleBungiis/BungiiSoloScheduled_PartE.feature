@@ -367,7 +367,7 @@ Feature: SoloScheduled Part E
       | CUSTOMER1_PHONE | 8805368840      |
   
   
-  @ready
+  @regression
   Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip Telet Then Request Should Not Be Sent To driver.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
@@ -411,7 +411,7 @@ Feature: SoloScheduled Part E
   
   
   
-  @ready
+  @regression
   Scenario: Verify If Non control Driver Completes The Trip First Then He Is Shown With Waiting Screen Till The Control Driver Completes And The Correct Summary Is Shown Thereafter
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |

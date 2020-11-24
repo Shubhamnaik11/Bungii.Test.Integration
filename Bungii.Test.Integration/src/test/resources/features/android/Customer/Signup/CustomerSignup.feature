@@ -4,7 +4,17 @@ Feature: CustomerSignup
 
   Background:
     Given I am on Sign up page
-
+  
+  
+  @regression
+  Scenario: Verify Signup With Existing Phone Number
+    When I enter "existing" customer phone number on Signup Page
+    And I enter "valid" data in mandatory fields on Signup Page
+    And I tap on the "Sign Up" button on Signup Page
+  #  And I tap on the "No, Continue" button on Signup Page
+    Then the new user should see "snackbar validation message for existing user"
+    And the new user should see "Signup page"
+    
   @regression
   Scenario: Verify Referral Source Count Upon Customer Signup
     When I open new "Chrome" browser for "ADMIN_PORTAL"
@@ -67,14 +77,6 @@ Feature: CustomerSignup
     Then the new user should see "Signup page"
 
 
-  @ready
-  Scenario: Verify Signup With Existing Phone Number
-    When I enter "existing" customer phone number on Signup Page
-    And I enter "valid" data in mandatory fields on Signup Page
-    And I tap on the "Sign Up" button on Signup Page
-  #  And I tap on the "No, Continue" button on Signup Page
-    Then the new user should see "snackbar validation message for existing user"
-    And the new user should see "Signup page"
 
   @knownissue
   Scenario: Verify Signup With Promo Code To Be Active In Future

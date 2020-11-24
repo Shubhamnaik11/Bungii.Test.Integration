@@ -100,7 +100,7 @@ Feature: Customer Home screen
     When I click on "SET PICKUP LOCATION" button
     Then I verify that "SET DROP OFF LOCATION BUTTON" is displayed
 
-  @ready
+  @regression
   Scenario: Verify that ETA bar appears when customer selects pickup and drop-off address.
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app

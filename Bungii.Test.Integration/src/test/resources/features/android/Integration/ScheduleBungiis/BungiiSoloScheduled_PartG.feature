@@ -34,8 +34,7 @@ Feature: SoloScheduled Part G
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
   
-  @ready
-  
+  @regression
   Scenario:Verify Driver Recieves Scheduled Bungii Request While In Offline State
     When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -243,7 +242,7 @@ Feature: SoloScheduled Part G
       | 8805368840     |                 |
     
       #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Can Cancel Through SMS To Admin after 2 hour processing is over (Irrespective Of No. Of Required Drivers Have Accepted Or Not)
     When I Switch to "driver" application on "same" devices
     Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in

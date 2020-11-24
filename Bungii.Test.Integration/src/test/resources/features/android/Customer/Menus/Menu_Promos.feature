@@ -1,7 +1,6 @@
 @android
-
 Feature: Menu_SaveMoney
-  @ready
+  @regression
   Scenario: Verify First Time Promo Code For New Users Notification For Existing Customer
     Given I am logged in as "existing" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -106,7 +105,7 @@ Feature: Menu_SaveMoney
 #    Then I should see post "on Facebook app"
 
   #@regression
-  @ready
+  @regression
   Scenario: Verify When Customer With No Twitter App Shares Promocode Via Twitter Then It Opens in Browser
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
@@ -117,7 +116,7 @@ Feature: Menu_SaveMoney
     Then I should see post "on Twitter in browser"
     And I Switch to "customer" application on "same" devices
 
-  @ready
+  @regression
   Scenario: Verify Promocode Is Refunded Upon Cancellation Of Bungii With Promocode Applied To It
     Given I am on customer Log in page
     When I am logged in as "no promocode" customer
@@ -137,7 +136,7 @@ Feature: Menu_SaveMoney
     When I tap on "Menu" > "Promos" link
     Then I should see the unused promo code
 
-  @ready
+  @regression
   Scenario: Verify Promocode From The Trip Gets Automatically Applied To The Researched Trip
     Given I am on customer Log in page
     When I am logged in as "no promocode" customer
