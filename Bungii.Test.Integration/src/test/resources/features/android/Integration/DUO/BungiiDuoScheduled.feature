@@ -98,7 +98,7 @@ Feature: Bungii Duo Scheduled
     #Step to keep driver 2 instance alive
     And I Switch to "driver" application on "Driver2" devices
     
-    And I Switch to "driver" application on "same" devices
+    And I Switch to "driver" application on "ORIGINAL" devices
     And I tap on "Available Trips link" on Driver Home page
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
