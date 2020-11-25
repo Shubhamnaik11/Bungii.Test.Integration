@@ -968,62 +968,62 @@ Thread.sleep(5000);
 
         //FIX FOR APPIUM 1.42
         if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.ondemand"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_OnDemand())) {
+            if (action.isElementPresent(otherAppsPage.Notification_OnDemand(true))) {
                 action.click(otherAppsPage.Notification_OnDemand());
                 isDisplayed = true;
             }
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_Stack())) {
+            if (action.isElementPresent(otherAppsPage.Notification_Stack(true))) {
                 action.click(otherAppsPage.Notification_Stack());
                 isDisplayed = true;
             }
 
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack.cancel"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_StackCustomerCancel())) {
+            if (action.isElementPresent(otherAppsPage.Notification_StackCustomerCancel(true))) {
                 action.click(otherAppsPage.Notification_StackCustomerCancel());
                 isDisplayed = true;
             }
 
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.accepted.stack"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted())) {
+            if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted(true))) {
                 action.click(otherAppsPage.Notification_StackDriverAccepted());
                 isDisplayed = true;
             }
 
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.started.stack"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_StackDriverStarted())) {
+            if (action.isElementPresent(otherAppsPage.Notification_StackDriverStarted(true))) {
                 action.click(otherAppsPage.Notification_StackDriverStarted());
                 isDisplayed = true;
             }
 
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted1())) {
+            if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted1(true))) {
                 action.click(otherAppsPage.Notification_StackDriverAccepted1());
                 isDisplayed = true;
             }
 
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.scheduled.t.minus.2"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_TMinus2())) {
+            if (action.isElementPresent(otherAppsPage.Notification_TMinus2(true))) {
                 action.click(otherAppsPage.Notification_TMinus2());
                 isDisplayed = true;
             }
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.cancelled"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_OtherDriverCancel())) {
+            if (action.isElementPresent(otherAppsPage.Notification_OtherDriverCancel(true))) {
                 action.click(otherAppsPage.Notification_OtherDriverCancel());
                 isDisplayed = true;
             }
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_CustomerCancel())) {
+            if (action.isElementPresent(otherAppsPage.Notification_CustomerCancel(true))) {
                 action.click(otherAppsPage.Notification_CustomerCancel());
                 isDisplayed = true;
             }
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.other.driver.bungii.cancel.notification"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_DriverBungiiCancel())) {
+            if (action.isElementPresent(otherAppsPage.Notification_DriverBungiiCancel(true))) {
                 action.click(otherAppsPage.Notification_DriverBungiiCancel());
                 isDisplayed = true;
             }
         } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.finish.bungii"))) {
-            if (action.isElementPresent(otherAppsPage.Notification_CustomerFinsihBungii())) {
+            if (action.isElementPresent(otherAppsPage.Notification_CustomerFinsihBungii(true))) {
                 action.click(otherAppsPage.Notification_CustomerFinsihBungii());
                 isDisplayed = true;
             }

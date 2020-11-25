@@ -66,15 +66,14 @@ Feature: Scheduled Duo Bungiis
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
-	
-	Then for a Bungii I should see "Enroute screen"
+ 
+	When I Switch to "driver" application on "ORIGINAL" devices
 	And Bungii Driver "slides to the next state"
 	Then Bungii driver should see "Arrived screen"
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at pickup"
 	And Bungii driver should see "Loading Item screen"
 	
-	When I Switch to "driver" application on "ORIGINAL" devices
 	And Bungii Driver "slides to the next state"
 	Then Bungii driver should see "Driving to DropOff screen"
 	And Bungii Driver "slides to the next state"

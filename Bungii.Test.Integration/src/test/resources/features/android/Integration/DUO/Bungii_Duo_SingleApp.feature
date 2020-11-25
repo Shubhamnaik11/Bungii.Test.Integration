@@ -16,55 +16,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	When I tap on "Get Estimate button" on Bungii estimate
 	Then I should see the minimum scheduled time displayed on the Estimate page
   
-	
-  @regression
-  Scenario:Verify Driver Can Get Short Stack Request On Unloading Item State
-	Given that ondemand bungii is in progress
-	  | geofence | Bungii State   |
-	  | atlanta  | UNLOADING ITEM |
-	When I Switch to "driver" application on "same" devices
-	And I am on the LOG IN page on driver app
-	And I am logged in as "valid atlanta" driver
-	
-	When I Switch to "customer" application on "same" devices
-	When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
-	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-  
-	When I Switch to "driver" application on "same" devices
-	Then I click on notification for "STACK TRIP"
-	Then Bungii Driver "verify stack message" request
-	And Bungii Driver "accepts stack message" request
-	Then I accept Alert message for "Alert: Display Stack trip after current trip"
-	And stack trip information should be displayed on deck
-	
-	When I Switch to "customer" application on "same" devices
-	And I am on customer Log in page
-	And I enter customers "9871450107" Phone Number
-	And I enter customers "valid" Password
-	And I tap on the "Log in" Button on Login screen
-	Then for a Bungii I should see "bungii accepted screen"
-	
-	When I click "CANCEL BUNGII" on bungii accepted screen
-	Then I see "Alert: Bungii cancel confirmation" on bungii accepted screen
-	When I click "Dismiss on Alert message" on bungii accepted screen
-	Then for a Bungii I should see "bungii accepted screen"
-	
-	When I click "CANCEL BUNGII" on bungii accepted screen
-	When I click "Cantact Support on Alert message" on bungii accepted screen
-	Then correct details should be displayed on "customer support-SMS" app
-	
-	When I click "CANCEL BUNGII" on bungii accepted screen
-	When I click "CANCEL BUNGII on Alert message" on bungii accepted screen
-	Then for a Bungii I should see "Bungii Home page"
-	
-	Then I click on notification for "CUSTOMER CANCEL STACK TRIP"
-	And stack trip information should not be displayed on deck
-	
-	Then I cancel all bungiis of customer
-	  | Customer Phone  | Customer2 Phone |
-	  | CUSTOMER1_PHONE |                 |
-  
+
   
   @regression
   Scenario: STACK BUNGII: Verify Driver Can Get Long Stack Request On Arrived State
@@ -350,31 +302,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
-  @sanity
-  @regression
-  Scenario: Verify Long Stack Request Acceptance By Non Control Driver
-	Given that duo schedule bungii is in progress
-	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-	  | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
-	
-	When I Switch to "driver" application on "same" devices
-	And I am on the LOG IN page on driver app
-	Then I am logged in as "valid driver 2" driver
-	
-	And I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
-	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-	
-	When I Switch to "driver" application on "same" devices
-	Then I click on notification for "STACK TRIP"
-	And Bungii Driver "accepts stack message" request
-	Then I accept Alert message for "Alert: Display Stack trip after current trip"
-	And stack trip information should be displayed on deck
-	
-	Then I cancel all bungiis of customer
-	  | Customer Phone | Customer2 Phone |
-	  |                | CUSTOMER2_PHONE |
-  
+
 	
   @ready
   Scenario: Verify that that Past Trips page correctly displays completed Scheduled Duo Bungii
@@ -403,7 +331,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   Scenario:Verify If Customer Receieve Notification After Admin Researches For Drivers
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-	  | atlanta  | Completed      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+	  | atlanta  | Scheduled      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
 	And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
 	Then I wait for "3" mins
 	
@@ -425,7 +353,80 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
 	  | 8805368840     |                 |
-	
-
   
+  
+  @sanity
+  @regression
+  Scenario: Verify Long Stack Request Acceptance By Non Control Driver
+	Given that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
+	  | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+	
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	Then I am logged in as "valid driver 2" driver
+	
+	And I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+	
+	When I Switch to "driver" application on "same" devices
+	Then I click on notification for "STACK TRIP"
+	And Bungii Driver "accepts stack message" request
+	Then I accept Alert message for "Alert: Display Stack trip after current trip"
+	And stack trip information should be displayed on deck
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone | Customer2 Phone |
+	  |                | CUSTOMER2_PHONE |
+  
+  
+  
+  @regression
+  Scenario:Verify Driver Can Get Short Stack Request On Unloading Item State
+	Given that ondemand bungii is in progress
+	  | geofence | Bungii State   |
+	  | atlanta  | UNLOADING ITEM |
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid atlanta" driver
+	
+	When I Switch to "customer" application on "same" devices
+	When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+	
+	When I Switch to "driver" application on "same" devices
+	Then I click on notification for "STACK TRIP"
+	Then Bungii Driver "verify stack message" request
+	And Bungii Driver "accepts stack message" request
+	Then I accept Alert message for "Alert: Display Stack trip after current trip"
+	And stack trip information should be displayed on deck
+	
+	When I Switch to "customer" application on "same" devices
+	And I am on customer Log in page
+	And I enter customers "9871450107" Phone Number
+	And I enter customers "valid" Password
+	And I tap on the "Log in" Button on Login screen
+	Then for a Bungii I should see "bungii accepted screen"
+	
+	When I click "CANCEL BUNGII" on bungii accepted screen
+	Then I see "Alert: Bungii cancel confirmation" on bungii accepted screen
+	When I click "Dismiss on Alert message" on bungii accepted screen
+	Then for a Bungii I should see "bungii accepted screen"
+	
+	When I click "CANCEL BUNGII" on bungii accepted screen
+	When I click "Cantact Support on Alert message" on bungii accepted screen
+	Then correct details should be displayed on "customer support-SMS" app
+	
+	When I click "CANCEL BUNGII" on bungii accepted screen
+	When I click "CANCEL BUNGII on Alert message" on bungii accepted screen
+	Then for a Bungii I should see "Bungii Home page"
+	
+	Then I click on notification for "CUSTOMER CANCEL STACK TRIP"
+	And stack trip information should not be displayed on deck
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE |                 |
   

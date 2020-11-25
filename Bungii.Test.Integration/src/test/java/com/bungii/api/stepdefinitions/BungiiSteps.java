@@ -1455,15 +1455,15 @@ public class BungiiSteps extends DriverBase {
             if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
     if (scheduleTime.equalsIgnoreCase("1 hour ahead"))
-        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 30);
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 60);
     else if (scheduleTime.equalsIgnoreCase("2 hour ahead"))
-        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 90);
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 120);
     else if (scheduleTime.equalsIgnoreCase("0.75 hour ahead"))
-        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 15);
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 45);
     else if (scheduleTime.equalsIgnoreCase("0.5 hour ahead"))
-        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 0);
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 30);
     else if (scheduleTime.equalsIgnoreCase("15 min ahead"))
-        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, -15);
+        wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 15);
     else
         wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
 }

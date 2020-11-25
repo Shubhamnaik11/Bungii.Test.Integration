@@ -3,7 +3,7 @@
 @bungii
   #These feature will run in atlanta geofence
 
-Feature: Duo
+Feature: Bungii Duo Scheduled
 
   #change user login
   @regression
