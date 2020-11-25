@@ -50,9 +50,7 @@ Feature: Scheduled Duo Bungiis
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
-	Then Bungii driver should see "Enroute screen"
 	And Bungii Driver "slides to the next state"
-	Then Bungii driver should see "Arrived screen"
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at pickup"
 	And Bungii driver should see "Loading Item screen"
@@ -69,15 +67,12 @@ Feature: Scheduled Duo Bungiis
  
 	When I Switch to "driver" application on "ORIGINAL" devices
 	And Bungii Driver "slides to the next state"
-	Then Bungii driver should see "Arrived screen"
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at pickup"
 	And Bungii driver should see "Loading Item screen"
 	
 	And Bungii Driver "slides to the next state"
-	Then Bungii driver should see "Driving to DropOff screen"
 	And Bungii Driver "slides to the next state"
-	Then Bungii driver should see "Unloading Item screen"
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at drop off"
 	Then Bungii driver should see "correct details" on Bungii completed page
@@ -85,9 +80,7 @@ Feature: Scheduled Duo Bungiis
 	
 	And I Switch to "driver" application on "Driver2" devices
 	And Bungii Driver "slides to the next state"
-	Then Bungii driver should see "Driving to DropOff screen"
 	And Bungii Driver "slides to the next state"
-	Then Bungii driver should see "Unloading Item screen"
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at drop off"
 	Then Bungii driver should see "correct details" on Bungii completed page
@@ -187,6 +180,7 @@ Feature: Scheduled Duo Bungiis
 	When I click "YES" on the alert message
 	
 	When I switch to "ORIGINAL" instance
+	When I Switch to "driver" application on "same" devices
 	Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
   
   @regression
@@ -215,6 +209,7 @@ Feature: Scheduled Duo Bungiis
 	When I click "YES" on the alert message
 	
 	When I switch to "ORIGINAL" instance
+	When I Switch to "driver" application on "same" devices
     #message to driver
 	Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 	

@@ -20,9 +20,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class VerifyBungiiDetailsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LoginSteps.class);
@@ -134,6 +136,21 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     public void i_view_last_completed_bungii() throws Throwable {
         action.click(myBungiisPage.Text_DeliveryDate());
     }
+    @And("^I open first trip in past trips$")
+    public void i_view_last_completed_bungii_trip() throws Throwable {
+        try{
+
+            List<WebElement> selectDriver;
+            selectDriver= SetupManager.getDriver().findElements(By.xpath("//android.widget.ImageView[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow'][1]"));
+            action.click(selectDriver.get(0));
+            log("I open first trip from Past Bungiis ","I opened first trip from Past Bungiis ",true);
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            //logger.error("Page source", SetupManager.getDriver().getPageSource());
+            error("Step  Should be successful", "Trip is not displayed in Past Trips", true);
+        }
+    }
+
     @And("^I open the trip for \"([^\"]*)\" driver$")
     public void i_open_the_trip_for_something_driver(String driverName) throws Throwable {
         try{
@@ -144,6 +161,8 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
              Thread.sleep(5000);
             selectDriver= SetupManager.getDriver().findElement(By.xpath("//*[contains(@text, '"+driverName+"')]/following::android.widget.ImageView[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow'][1]"));
             action.click(selectDriver);
+            log("I open trip from Past Bungiis ","I opened trip of "+driverName+" from Past Bungiis ",true);
+
             cucumberContextManager.setScenarioContext("DRIVER1NAME",driverName);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

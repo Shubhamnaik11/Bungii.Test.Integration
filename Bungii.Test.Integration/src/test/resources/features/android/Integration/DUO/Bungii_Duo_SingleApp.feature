@@ -305,6 +305,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 
 	
   @ready
+	#stable
   Scenario: Verify that that Past Trips page correctly displays completed Scheduled Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -318,7 +319,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	And I tap on "Menu" > "My Bungiis" link
 	Then "MY BUNGIIS" page should be opened
 	And I click on "Past" tab
-	And I open the trip for "Testdrivertywd_applega_a_steve Stark_altOnE" driver
+	And I open first trip in past trips
 	Then I verify driver names and trip cost
 	
 	And I cancel all bungiis of customer
