@@ -60,7 +60,7 @@ public class BungiiOnDemandCancellationSteps extends DriverBase {
 
                 case "I don't need it anymore.":
                     actionManager.click(setPickupTimePage.Text_ThirdCancellationReason());
-
+                     break;
                 case "Other...":
                     actionManager.click(setPickupTimePage.Text_FourthCancellationReason());
                     break;

@@ -191,11 +191,12 @@ Feature: SoloScheduled Part G
     And I tap on the "Log in" Button on Login screen
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I tap on "Menu" > "MY BUNGIIS" link
+    
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Enroute       | Accepted      |
+    
     When I Switch to "customer" application on "same" devices
     And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
     Then I cancel all bungiis of customer
@@ -205,7 +206,8 @@ Feature: SoloScheduled Part G
     ##################################################################################################
   
   @ready
-  Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Duo Trip
+    #stable
+  Scenario: Verify If Researched Driver Can Cancel Trip After Starting The Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -215,9 +217,10 @@ Feature: SoloScheduled Part G
       | Accepted      | Accepted      |
     
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
+    And I open the trip for "Testcustomertywd_appleRicha Test" customer
     And I remove current driver and researches Bungii
-    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+    
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
     
@@ -225,9 +228,8 @@ Feature: SoloScheduled Part G
     
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "kansas driver 2" driver
+    And I am logged in as "Testdrivertywd_appleks_rathree Test" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
     
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
@@ -235,8 +237,9 @@ Feature: SoloScheduled Part G
     And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on the alert message
-    Then Bungii driver should see "Scheduled Bungii screen"
-    
+    Then Driver should see "This trip cannot be cancelled as of now since the other driver has not started the trip. Please text the driver support line for cancellation." message
+    #Then Bungii driver should see "Scheduled Bungii screen"
+
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
@@ -269,7 +272,7 @@ Feature: SoloScheduled Part G
     Then correct details should be displayed on the "ADMIN-SMS" app
     
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
+  
     And I Cancel Bungii with following details
       | Charge | Comments | Reason                         |
       | 0      | TEST     | Outside of delivery scope      |

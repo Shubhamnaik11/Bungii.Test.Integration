@@ -277,10 +277,11 @@ Feature: SoloScheduled Part E
     
       #@regression
   @ready
+    @ad1
   Scenario: Verify Validation Message Is Shown If Driver Tries To Start Bungii More Than 60 Mins Before The Scheduled Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | Kansas   | Accepted     | 1 hour ahead |
+      | Kansas   | Accepted     | 1.5 hour ahead |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
@@ -325,7 +326,7 @@ Feature: SoloScheduled Part E
   
       #@regression
   @ready
-  Scenario:Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked Request (Trip 2) Then Driver Doesn't Receive Scheduled Notification Or offline SMS
+  Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked Request (Trip 2) Then Driver Doesn't Receive Scheduled Notification Or offline SMS
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | kansas   | Enroute      |
@@ -388,8 +389,7 @@ Feature: SoloScheduled Part E
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
   
   
-  @ready
-  
+  @regression
   Scenario: Verify If Incoming On-demend Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |

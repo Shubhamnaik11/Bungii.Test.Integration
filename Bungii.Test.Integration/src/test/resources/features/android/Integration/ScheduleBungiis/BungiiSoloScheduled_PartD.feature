@@ -279,7 +279,7 @@ Feature: SoloScheduled Part D
   
   
   @sanity
-  @ready
+  @regression
   #@regression
   Scenario: Verify Customer Can Create Scheduled Bungii
     Given I am logged in as "valid" customer

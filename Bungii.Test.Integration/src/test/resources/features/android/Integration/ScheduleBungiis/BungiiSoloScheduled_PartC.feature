@@ -83,8 +83,8 @@ Feature: SoloScheduled Part C
   
   
   @ready
+    #stable
   Scenario: Verify That a scheduled Bungii cannot be started more than 1hr before the scheduled Trip start time
-   
     When that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 1.5 hour ahead |
@@ -94,10 +94,13 @@ Feature: SoloScheduled Part C
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then I click "Go Online" button on Home screen on driver app
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
+    And I open first Trip from driver scheduled trip
+    #And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
     Then User should see message "60 MINS BEFORE SCHEDULE TRIP TIME" text on the screen
-    Then Bungii Driver "cancels Bungii"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889916     |                 |
     
   
   @ready
@@ -155,14 +158,16 @@ Feature: SoloScheduled Part C
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
-    Then Bungii Driver "cancels Bungii"
-  
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889916     |                 |
     
   @ready
+    #stable
   Scenario: Verify driver is able to view pickup note entered in Details when a Solo scheduled bungii is in progress
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
+    And I am logged in as "valid" driver
     And I tap on "Go Online button" on Driver Home page
     
     And I Switch to "customer" application on "same" devices
@@ -171,12 +176,12 @@ Feature: SoloScheduled Part C
     And I enter "valid pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
-    And I select Bungii Time as "OLD BUNGII TIME"
     And I add loading/unloading time of "15 mins"
     Then I add "1" photos to the Bungii
     When I tap on "Details" on Estimate screen
     And I enter "text" in Additional Notes field
     And I click on "ADD NOTE" button
+    And I select Bungii Time as "OLD BUNGII TIME"
     Then "Estimate" page should be opened
     When I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate

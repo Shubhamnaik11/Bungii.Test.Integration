@@ -6,7 +6,7 @@ Feature: VerifyBungiiDetails2
      #Testcustomertywd_appleand_F Android 9999999999
       #driverF.phone.name=Driver_goa_f Android_test 9999999996
   
-  @ready
+  @regression
   #@stable
   Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has A Ongoing Bungii
     Given that solo schedule bungii is in progress
@@ -34,6 +34,49 @@ Feature: VerifyBungiiDetails2
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 8888889916      | 8805368840      |
+  
+  @regression
+  Scenario: Verify that for Duo trips if Admin portal displays Application error when one driver is accepted through push notification and other is assigned by ADMIN
+    
+    Given I am logged in as "Testcustomertywd_appleand_F Android" customer
+    
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Driver_goa_f Android_test" driver
+    And I Select "Home" from driver App menu
+    
+    And I Open "customer" application on "ORIGINAL" devices
+    And I enter "Goa pickup and dropoff location" on Bungii estimate
+    And I tap on "two drivers selector" on Bungii estimate
+    Then I should see "two drivers selected" on Bungii estimate
+    When I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I select Bungii Time as "next possible scheduled for duo"
+    And I get Bungii details on Bungii Estimate
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
+    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    
+    And I Switch to "driver" application on "same" devices
+    And I tap on "Available Trips link" on Driver Home page
+    And I Select Trip from driver available trip
+    And I tap on "ACCEPT" on driver Trip details Page
+    Then I Select "SCHEDULED BUNGIIS" from driver App menu
+    
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+    And I open the trip for "Testcustomertywd_appleand_F Android" customer
+    And I Select "Edit Trip Details" option
+    And I assign driver for the "Solo" trip
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I select already scheduled bungii
     
   @ready
     #need to work
@@ -44,7 +87,7 @@ Feature: VerifyBungiiDetails2
     And I save the Bungii Time
     And that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time    |
-      | goa   | Scheduled     | 0.5 hour ahead |
+      | goa   | Scheduled       | 1.5 hour ahead |
     And I wait for "2" mins
     When I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
@@ -64,7 +107,7 @@ Feature: VerifyBungiiDetails2
   Scenario: Verify that changing date_time for a scheduled bungii for which the customer has a conflicting bungii during the newly selected time
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time     |
-      | goa      | Accepted     | 15 min ahead  |
+      | goa      | Accepted     | 0.5 hour ahead  |
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time     |
       | goa      | Accepted     | 2 hour ahead  |
@@ -130,50 +173,6 @@ Feature: VerifyBungiiDetails2
     And I verify the field "dropoff address"
     And I verify the field "trip cost"
 
-   
-  @ready
-  Scenario: Verify that for Duo trips if Admin portal displays Application error when one driver is accepted through push notification and other is assigned by ADMIN
-
-    Given I am logged in as "Testcustomertywd_appleand_F Android" customer
-
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "Driver_goa_f Android_test" driver
-    And I Select "Home" from driver App menu
-
-    And I Open "customer" application on "ORIGINAL" devices
-    And I enter "Goa pickup and dropoff location" on Bungii estimate
-    And I tap on "two drivers selector" on Bungii estimate
-    Then I should see "two drivers selected" on Bungii estimate
-    When I tap on "Get Estimate button" on Bungii estimate
-    And I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-	And I select Bungii Time as "next possible scheduled for duo"
-	And I get Bungii details on Bungii Estimate
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I check if the customer is on success screen
-    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-
-    And I Switch to "driver" application on "same" devices
-    And I tap on "Available Trips link" on Driver Home page
-    And I Select Trip from driver available trip
-    And I tap on "ACCEPT" on driver Trip details Page
-    Then I Select "SCHEDULED BUNGIIS" from driver App menu
-  
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-    And I open the trip for "Testcustomertywd_appleand_F Android" customer
-    And I Select "Edit Trip Details" option
-    And I assign driver for the "Solo" trip
-    And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
-    Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
-    When I switch to "ORIGINAL" instance
-    And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "MY BUNGIIS" link
-    And I select already scheduled bungii
-
   @ready
   Scenario: Verify that the Pickup note is not displayed as NULL or undefined when customer does not add a pickup note
     When I am on the LOG IN page on driver app
@@ -189,7 +188,7 @@ Feature: VerifyBungiiDetails2
     When I tap on "Details" on Estimate screen
     And I enter "text" in Additional Notes field
     And I click on "ADD NOTE" button
-    And I select Bungii Time as "NEW BUNGII TIME"
+    And I select Bungii Time as "30 MIN DELAY"
     Then "Estimate" page should be opened
     When I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
@@ -245,7 +244,7 @@ Feature: VerifyBungiiDetails2
   Scenario: Verify if re-search automatically happens if admin does not add a new driver after removal
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time  |
-      | goa      | Accepted     | 15 min ahead |
+      | goa      | Accepted     | 0.5 hour ahead |
     When I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal

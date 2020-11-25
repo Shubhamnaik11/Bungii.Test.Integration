@@ -111,6 +111,7 @@ Feature: SoloScheduled Part H
       | kansas  | Accepted     | 15 min ahead |
     
     And I open Admin portal and navigate to "Scheduled Deliveries" page
+    And I open the trip for "Testcustomertywd_appleyyhGZP Stark" customer
     And I remove current driver and researches Bungii
 
     And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
@@ -139,7 +140,8 @@ Feature: SoloScheduled Part H
   
 
   #@regression
-  @ready
+  #need to rework
+  @onetime
   Scenario: Verify Driver Notification - 30 Mins Before Scheduled Trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |

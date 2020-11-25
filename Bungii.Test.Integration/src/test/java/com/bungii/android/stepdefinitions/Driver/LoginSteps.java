@@ -186,7 +186,7 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
-                case "Testdrivertywd_appleks_rathree Test":
+                case "testdrivertywd_appleks_rathree test":
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                     phone = PropertyUtility.getDataProperties("android.valid.driver2.phone");
                     password = PropertyUtility.getDataProperties("web.valid.common.driver.password");
@@ -206,7 +206,7 @@ public class LoginSteps extends DriverBase {
             else {
                 //TODO: specify failure here
             }
-            log("I should be logged in","I am logged in as "+ option,true);
+            log("I should be logged in","I am logged in as driver "+ option +" [ "+ phone+" ]",true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             logger.error("PageSource", SetupManager.getDriver().getPageSource());

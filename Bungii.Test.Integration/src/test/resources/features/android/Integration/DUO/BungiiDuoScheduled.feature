@@ -192,73 +192,7 @@ Feature: Bungii Duo Scheduled
     Then Bungii Driver "completes Bungii"
     And Customer should receive "Your Bungii Receipt" email
   
-  @regression
-  Scenario: Verify Bungii Details - Call SMS
-    
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
-    
-    And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid atlanta" customer
-    
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid atlanta" driver
-    
-    And I connect to "extra1" using "Driver2" instance
-    And I Open "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid driver 2" driver
-    
-    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
-    
-    When I Switch to "driver" application on "ORIGINAL" devices
-    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
-    
-    When I Switch to "customer" application on "same" devices
-    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
-    When I tap "SMS for driver 1" during a Bungii
-    Then correct details should be displayed on "Driver 1 SMS" app
-    When I tap "Call for driver 1" during a Bungii
-    Then correct details should be displayed on "Driver 1 Calling" app
-    When I tap "SMS for driver 2" during a Bungii
-    Then correct details should be displayed on "Driver 2 SMS" app
-    When I tap "Call for driver 2" during a Bungii
-    Then correct details should be displayed on "Driver 2 Calling" app
-    
-    When I Switch to "driver" application on "Driver2" devices
-    And Bungii Driver taps "SMS for a driver" during a Bungii
-    Then correct details should be displayed to driver on "Driver 2 SMS" app
-    When Bungii Driver taps "Call for a driver" during a Bungii
-    Then correct details should be displayed to driver on "Driver 2 Calling" app
-    When Bungii Driver taps "Contact support for driver" during a Bungii
-    Then correct details should be displayed to driver on "Support-SMS" app
-    When Bungii Driver taps "SMS for a customer" during a Bungii
-    Then correct details should be displayed to driver on "SMS" app
-    When Bungii Driver taps "Call for a customer" during a Bungii
-    Then correct details should be displayed to driver on "Calling" app
-    When Bungii Driver taps "Contact support" during a Bungii
-    Then correct details should be displayed to driver on "Support-SMS" app
-    When Bungii Driver taps "View items" during a Bungii
-    Then Bungii driver should see "Pickup Item"
-    
-    
-    When I Switch to "driver" application on "ORIGINAL" devices
-    When Bungii Driver taps "SMS for a driver" during a Bungii
-    Then correct details should be displayed to driver on "Driver 1 SMS" app
-    When Bungii Driver taps "Call for a driver" during a Bungii
-    Then correct details should be displayed to driver on "Driver 1 Calling" app
-    When Bungii Driver taps "Contact support for driver" during a Bungii
-    Then correct details should be displayed to driver on "Support-SMS" app
-    When Bungii Driver taps "SMS for a customer" during a Bungii
-    Then correct details should be displayed to driver on "SMS" app
-    When Bungii Driver taps "Call for a customer" during a Bungii
-    Then correct details should be displayed to driver on "Calling" app
-    When Bungii Driver taps "Contact support" during a Bungii
-    Then correct details should be displayed to driver on "Support-SMS" app
-    When Bungii Driver taps "View items" during a Bungii
-    Then Bungii driver should see "Pickup Item"
+  
   
   
   @regression
@@ -526,6 +460,75 @@ Feature: Bungii Duo Scheduled
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
+  
+  
+  @regression
+  Scenario: Verify Bungii Details - Call SMS
+	
+	Given that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
+	  | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+	
+	And I Switch to "customer" application on "same" devices
+	And I am logged in as "valid atlanta" customer
+	
+	And I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid atlanta" driver
+	
+	And I connect to "extra1" using "Driver2" instance
+	And I Open "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid driver 2" driver
+	
+	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+	
+	When I Switch to "driver" application on "ORIGINAL" devices
+	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+	
+	When I Switch to "customer" application on "same" devices
+	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
+	When I tap "SMS for driver 1" during a Bungii
+	Then correct details should be displayed on "Driver 1 SMS" app
+	When I tap "Call for driver 1" during a Bungii
+	Then correct details should be displayed on "Driver 1 Calling" app
+	When I tap "SMS for driver 2" during a Bungii
+	Then correct details should be displayed on "Driver 2 SMS" app
+	When I tap "Call for driver 2" during a Bungii
+	Then correct details should be displayed on "Driver 2 Calling" app
+	
+	When I Switch to "driver" application on "Driver2" devices
+	And Bungii Driver taps "SMS for a driver" during a Bungii
+	Then correct details should be displayed to driver on "Driver 2 SMS" app
+	When Bungii Driver taps "Call for a driver" during a Bungii
+	Then correct details should be displayed to driver on "Driver 2 Calling" app
+	When Bungii Driver taps "Contact support for driver" during a Bungii
+	Then correct details should be displayed to driver on "Support-SMS" app
+	When Bungii Driver taps "SMS for a customer" during a Bungii
+	Then correct details should be displayed to driver on "SMS" app
+	When Bungii Driver taps "Call for a customer" during a Bungii
+	Then correct details should be displayed to driver on "Calling" app
+	When Bungii Driver taps "Contact support" during a Bungii
+	Then correct details should be displayed to driver on "Support-SMS" app
+	When Bungii Driver taps "View items" during a Bungii
+	Then Bungii driver should see "Pickup Item"
+	
+	
+	When I Switch to "driver" application on "ORIGINAL" devices
+	When Bungii Driver taps "SMS for a driver" during a Bungii
+	Then correct details should be displayed to driver on "Driver 1 SMS" app
+	When Bungii Driver taps "Call for a driver" during a Bungii
+	Then correct details should be displayed to driver on "Driver 1 Calling" app
+	When Bungii Driver taps "Contact support for driver" during a Bungii
+	Then correct details should be displayed to driver on "Support-SMS" app
+	When Bungii Driver taps "SMS for a customer" during a Bungii
+	Then correct details should be displayed to driver on "SMS" app
+	When Bungii Driver taps "Call for a customer" during a Bungii
+	Then correct details should be displayed to driver on "Calling" app
+	When Bungii Driver taps "Contact support" during a Bungii
+	Then correct details should be displayed to driver on "Support-SMS" app
+	When Bungii Driver taps "View items" during a Bungii
+	Then Bungii driver should see "Pickup Item"
 
 
  

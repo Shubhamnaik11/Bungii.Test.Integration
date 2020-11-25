@@ -39,11 +39,15 @@
     
       When I Switch to "customer" application on "same" devices
       And I am logged in as "valid boston" customer
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       Then for a Bungii I should see "Enroute screen"
     
       When I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
       And I am logged in as "valid boston" driver
+      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I close "Tutorial" if exist
+      
       Then Bungii driver should see "Enroute screen"
       When Bungii Driver "cancels Bungii"
       And I Switch to "customer" application on "same" devices
@@ -60,9 +64,14 @@
     
       And I am on customer Log in page
       When I am logged in as "valid boston" customer
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      
       And I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
       And I am logged in as "valid boston" driver
+      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I close "Tutorial" if exist
+      
       Then Bungii driver should see "Arrived screen"
       When Bungii Driver "cancels Bungii"
       And I Switch to "customer" application on "same" devices
@@ -74,9 +83,14 @@
     Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Enroute State
       Given I am on customer Log in page
       When I am logged in as "valid boston" customer
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
       And I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
       And I am logged in as "valid boston" driver
+      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I close "Tutorial" if exist
+      
       And I tap on "Go Online button" on Driver Home page
       And I Switch to "customer" application on "same" devices
       And I enter "boston pickup and dropoff locations" on Bungii estimate
@@ -100,9 +114,14 @@
     Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Arrived State
       Given I am on customer Log in page
       When I am logged in as "valid boston" customer
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
       And I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
       And I am logged in as "valid boston" driver
+      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I close "Tutorial" if exist
+      
       And I tap on "Go Online button" on Driver Home page
       And I Switch to "customer" application on "same" devices
       And I enter "boston pickup and dropoff locations" on Bungii estimate

@@ -6,7 +6,7 @@ Feature: Login
   Background:
     Given I am on customer Log in page
     
-  @ready
+  @regression
   Scenario: Verify Terms And Condition Screen Is Displayed To Bungii Customer On First Time Login (Resetting data Of App To Simulate Fresh Install)
     Given I newly installed "Bungii Customer" app
     When I tap on the "Log in" button on Signup Page

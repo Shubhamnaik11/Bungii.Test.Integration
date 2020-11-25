@@ -590,7 +590,7 @@ Feature: On Demand Bungii
     And I tap on "Menu" > "My Bungiis" link
     Then "MY BUNGIIS" page should be opened
     And I click on "Past" tab
-    And I open the trip for "Testdrivertywd_applemd_a_ryan Stark_bltOnE" driver
+    And I open the trip for "Testdrivertywd_applemd_a_bill Stark_bltOnE" driver
     Then I verify driver names and trip cost
   
   
@@ -658,7 +658,7 @@ Feature: On Demand Bungii
       | Scenario            | Promo Code    | User            |Expected value in admin |
       | Promoter type       | promoter type | valid baltimore |promoter                |
     
-  @ready
+  @regression
   Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |

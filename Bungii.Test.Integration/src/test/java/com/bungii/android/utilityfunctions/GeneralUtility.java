@@ -530,6 +530,11 @@ Thread.sleep(5000);
         }
         double costToCustomer = tripValue - discount;
         //costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
+        if (costToCustomer==0.00)
+            {
+                costToCustomer = 0.00;
+            }
+            else
         costToCustomer = costToCustomer > minCost ? costToCustomer : minCost;
 
         return costToCustomer;
@@ -1235,7 +1240,7 @@ Thread.sleep(5000);
             action.click(estimatePage.Button_Later());
         action.click(estimatePage.Button_DateConfirm());
         action.click(estimatePage.Button_TimeConfirm());
-
+// Estimate picker
     }
 
     public void selectNewBungiiTime() {
@@ -1275,7 +1280,17 @@ Thread.sleep(5000);
         String myBungiiDateTime=month+" "+Day+", "+year+" - "+String.valueOf(currentHour)+":"+mins;
         cucumberContextManager.setScenarioContext("MY_BUNGII_DATE", myBungiiDateTime);
     }
-
+    public void selectTimeValue() {
+        action.scrollToTop();
+        action.click(estimatePage.Time()); if(action.isElementPresent(estimatePage.Button_Later(true)))
+            action.click(estimatePage.Button_Later());
+        action.click(estimatePage.Button_DateConfirm());
+        int currentMin= Integer.parseInt(setPickupTimePage.Text_SelectMinutes().getText());
+        currentMin=currentMin+30;
+        action.sendKeys(setPickupTimePage.Text_SelectMinutes(),String.valueOf(currentMin));
+        String mins=setPickupTimePage.Text_SelectMinutes().getText();
+        action.click(setPickupTimePage.Button_TimePickerOK());
+    }
     public void selectNewerTime() {
         action.click(estimatePage.Button_DateConfirm());
         int currentHour= Integer.parseInt(setPickupTimePage.Text_SelectHours().getText());
@@ -1395,7 +1410,7 @@ Thread.sleep(5000);
 
     public String getCustomerSnackBarMessage() {
 
-        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
         String snackbarMessage = wait.ignoring(StaleElementReferenceException.class)
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.customer:id/snackbar_text"))).getText();
         //String snackbarMessage = action.getText(element);
@@ -1404,14 +1419,14 @@ Thread.sleep(5000);
 
     public String getCustomerPromoInfoMessage() {
 
-        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/message")));
         return action.getText(element);
     }
 
     public String getDriverSnackBarMessage() {
 
-        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
         String snackbarMessage =  wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.driver:id/snackbar_text"))).getText();
         return snackbarMessage;
     }

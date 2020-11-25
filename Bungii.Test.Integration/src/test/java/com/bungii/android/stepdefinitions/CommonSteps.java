@@ -21,6 +21,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -41,6 +43,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.*;
 
 public class CommonSteps extends DriverBase {
@@ -63,6 +66,7 @@ public class CommonSteps extends DriverBase {
     com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
     LogInPage logInPage=  new LogInPage();
     DashBoardPage dashBoardPage=new DashBoardPage();
+    PhonePage phonePage = new PhonePage();
 
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
@@ -89,6 +93,12 @@ public class CommonSteps extends DriverBase {
         boolean isApplicationIsInForeground = false;
 
         try {
+            if(action.isElementPresent(phonePage.Container_Notification(true)))
+            {
+                ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                logger.detail("Attempted to hide container");
+
+            }
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
                 Thread.sleep(5000);
@@ -794,7 +804,7 @@ public class CommonSteps extends DriverBase {
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
                 case "60 MINS BEFORE SCHEDULE TRIP TIME":
-                    actualMessage = utility.getCustomerSnackBarMessage();
+                    actualMessage = utility.getDriverSnackBarMessage();
                     expectedMessage=PropertyUtility.getMessage("driver.start.60.mins.before");
                     break;
                 case "Please install a browser in order to access this link.":

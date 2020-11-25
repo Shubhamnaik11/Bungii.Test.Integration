@@ -80,6 +80,7 @@
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
   And I open Admin portal and navigate to "Scheduled Deliveries" page
+  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
   And I remove "control" driver and researches Bungii
       And I Select "Edit Trip Details" option
       And I assign driver for the "control" trip
@@ -110,8 +111,8 @@
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
       And I open Admin portal and navigate to "Scheduled Deliveries" page
-      
-      And I remove "noncontrol" driver and researches Bungii
+  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+  And I remove "noncontrol" driver and researches Bungii
       And I Select "Edit Trip Details" option
       And I assign driver for the "noncontrol" trip
       And I click on "VERIFY" button
@@ -141,6 +142,8 @@
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
       And I open Admin portal and navigate to "Scheduled Deliveries" page
+  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+  
       And I remove current driver and researches Bungii
       And I Select "Edit Trip Details" option
       And the "Adding a driver through this feature overrides driver assigning restrictions." message is displayed
@@ -149,6 +152,7 @@
       And the "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
       And the "Bungii Saved!" message is displayed
+  
       When I switch to "ORIGINAL" instance
       And I Switch to "customer" application on "same" devices
       And I am logged in as "Testcustomertywd_appleand_D Android" customer

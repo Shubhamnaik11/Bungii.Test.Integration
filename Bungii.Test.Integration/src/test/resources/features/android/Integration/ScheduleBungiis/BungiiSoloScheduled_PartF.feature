@@ -19,7 +19,8 @@ Feature: SoloScheduled Part F
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
+    And I open the trip for "Testcustomertywd_appleyyhGZP Stark" customer
+  
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
@@ -43,7 +44,8 @@ Feature: SoloScheduled Part F
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
+    And I open the trip for "Testcustomertywd_appleyyhGZP Stark" customer
+  
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
     And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
@@ -55,7 +57,7 @@ Feature: SoloScheduled Part F
     
      #@regression
   @ready
-    @ad
+    @ad1
   Scenario:Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip :Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -119,7 +121,8 @@ Feature: SoloScheduled Part F
     Then I wait for "1" mins
     
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
+    And I open the trip for "Testcustomertywd_appleyyhGZP Stark" customer
+  
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices

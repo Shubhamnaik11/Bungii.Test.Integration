@@ -47,6 +47,7 @@ public class BungiiSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     MessagesPage messagesPage=new MessagesPage();
     EstimatePage estimatePage = new EstimatePage();
+    SignupPage signupPage = new SignupPage();
 
     @Then("^for a Bungii I should see \"([^\"]*)\"$")
     public void forABungiiIShouldSee(String arg0) throws Throwable {
@@ -344,14 +345,14 @@ public class BungiiSteps extends DriverBase {
                     expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
-                Thread.sleep(60000);
+                Thread.sleep(120000);
                 isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             }
             //logger.detail(SetupManager.getDriver().getPageSource());
             //stack take times to get notifications
             if(strArg1.equalsIgnoreCase("STACK TRIP") && !isFound){
                 for (int i=0; i<5 &&!isFound;i++){
-                   // Thread.sleep(40000);
+                   Thread.sleep(10000);
                     isFound = utility.clickOnNofitication("Bungii", expecteMessage);
                     i++;
                 }
@@ -519,6 +520,25 @@ public class BungiiSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^Driver should see \"([^\"]*)\" message$")
+    public void driver_should_see_something_message(String message) throws Throwable {
+        try {
+
+            switch (message) {
+                case "This trip cannot be cancelled as of now since the other driver has not started the trip. Please text the driver support line for cancellation.":
+                    String text= action.getText(signupPage.Message_Error());
+                    testStepAssert.isTrue(text.contains(message),message+" should be displayed", text +" is displayed",message+" is not displayed");
+                    break;
+            }
+            log(message +" should be displayed",
+                    message + " is displayed", true);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 

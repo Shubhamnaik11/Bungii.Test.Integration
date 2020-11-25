@@ -448,7 +448,7 @@ public class HomeSteps extends DriverBase {
     public void the_eta_bar_is_not_seen_on_screen() throws Throwable {
         try {
             //testStepVerify.isElementDisplayed(homePage.Button_ETASet(), "ETA SET button should be displayed.", "ETA SET button is displayed.", "ETA SET button is not displayed.");
-            testStepVerify.isElementNotDisplayed(homePage.Label_ETAContainer(), "ETA bar should not be displayed.", "ETA bar is not displayed.", "ETA bar is displayed.");
+            testStepVerify.isElementNotDisplayed(homePage.Label_ETAContainer(true), "ETA bar should not be displayed.", "ETA bar is not displayed.", "ETA bar is displayed.");
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -629,6 +629,9 @@ public class HomeSteps extends DriverBase {
                     break;
                 case "special characters":
                     action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("special.characters"));
+                    break;
+                default:
+                    action.clearSendKeys(estimatePage.TextBox_DetailsNote(),textValue);
                     break;
             }
         }

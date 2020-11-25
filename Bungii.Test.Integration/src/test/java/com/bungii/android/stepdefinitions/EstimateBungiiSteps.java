@@ -1211,6 +1211,9 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
                 case "Next Schedule Time":
                     utility.selectTime();
                     break;
+                case "30 MIN DELAY":
+                    utility.selectTimeValue();
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
