@@ -752,11 +752,11 @@ public class ScheduledTripSteps extends DriverBase {
 				case "Duo":
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
 					action.click(scheduledTripsPage.Select_TestDriver());
-					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
-					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
 					action.click(scheduledTripsPage.Select_TestDriver());
+					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
 					String driver2Name = scheduledTripsPage.Text_EditTrpDetailsDriver2Name().getText();
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
 					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER2_NAME", driver2Name);
 					break;
 				case "control":

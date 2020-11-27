@@ -71,7 +71,7 @@ Feature: Customer	Menu
     When I click "GET MORE MONEY" button on "PROMOS" screen
     Then I should be navigated to "Invite" screen
 
-  @regression
+  @ready
   Scenario: Verify Save Money Button Redirects To Invite Screen
     When I Select "MY BUNGIIS" from Customer App menu
     When I click "SAVE MONEY" button on "MY BUNGIIS" screen
