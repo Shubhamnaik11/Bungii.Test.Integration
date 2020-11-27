@@ -100,7 +100,7 @@
       Then I should "see validation message for Cvv" on partner portal
       And I should logout from Partner Portal
 
-    @ready
+    @regression
     Scenario: Verify Customer Payment method with Invalid Postal Code for Bungii trip
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

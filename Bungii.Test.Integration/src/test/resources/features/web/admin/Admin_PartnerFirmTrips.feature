@@ -5,9 +5,8 @@ Feature: Admin_PartnerFirmTrips
   Background:
     Given I am logged in as TestAdmin
     
-  @ready
-  @email
-  Scenario: Verify Partner Firm Scheduled Email - Ondemand Bulk Trip
+  @regression
+  Scenario: Verify Partner Firm Scheduled  - Ondemand Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
     And I upload image and csv file associated with the "Ondemand" trip
@@ -22,10 +21,8 @@ Feature: Admin_PartnerFirmTrips
     When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarg"
     #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
-  @ready
-  @email
-    @failed
-  Scenario: Verify Partner Firm Scheduled Email - Solo Ondemand
+  @regression
+  Scenario: Verify Partner Firm Scheduled  - Solo Ondemand
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999359 | Testcustomertywd_appleWashD Shah|
@@ -39,10 +36,8 @@ Feature: Admin_PartnerFirmTrips
 
   @sanity
   @ready
-  @email
-  @failed
       #test data created in base
-  Scenario: Verify Partner Firm Email Upon Driver Acceptance And Removal Research - Duo Scheduled
+  Scenario: Verify Partner Firm Upon Driver Acceptance And Removal Research - Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999355 | Testcustomertywd_appleWashA Shah|
@@ -69,9 +64,8 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
     
   @ready
-  @email
       #test data created in base
-  Scenario: Verify Partner Firm Cancellation Email - Duo Scheduled
+  Scenario: Verify Partner Firm Cancellation - Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999356 | Testcustomertywd_appleWashB Shah|
@@ -99,10 +93,8 @@ Feature: Admin_PartnerFirmTrips
 
 
   @ready
-  @email
-    @failed
     #test data created in base
-  Scenario: Verify Partner Firm Email Upon Driver Acceptance And Remove Research - Solo Scheduled
+  Scenario: Verify Partner Firm  Upon Driver Acceptance And Remove Research - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999358 | Testcustomertywd_appleWashC Shah|
@@ -126,10 +118,8 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
 
   @ready
-  @email
-    @failed
     #test data created in base
-  Scenario: Verify Partner Email When Cancel Scheduled Bungii As An Admin
+  Scenario: Verify Partner When Cancel Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999360 | Testcustomertywd_appleWashE Shah|
@@ -152,11 +142,8 @@ Feature: Admin_PartnerFirmTrips
 
 
   @ready
-  @email
-  @failed
-    @log
     #Create driver in base
-  Scenario: Verify Partner Firm Scheduled Email - Solo Scheduled Bulk Trip
+  Scenario: Verify Partner Scheduled - Solo Scheduled Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
     And I upload image and csv file associated with the "Solo Scheduled" trip
@@ -187,10 +174,8 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
 
   @ready
-  @email
-  @failed
     #test data created in base
-  Scenario: Verify Partner Firm Email For Long Stacked Bungii - Solo Scheduled
+  Scenario: Verify Partner Firm For Long Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999362 | Testcustomertywd_appleWashG Shah|
@@ -212,10 +197,8 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @ready
-  @email
-  @failed
     #test data created in base
-  Scenario: Verify Partner Firm Email For Short Stacked Bungii - Solo Scheduled
+  Scenario: Verify Partner Firm For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999357 | Testcustomertywd_appleWashJ Shah|
@@ -245,7 +228,6 @@ Feature: Admin_PartnerFirmTrips
 
   @sanity
   @ready
-  @failed
     #test data created in base
     #changed driver name
   Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin

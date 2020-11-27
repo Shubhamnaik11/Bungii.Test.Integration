@@ -16,7 +16,7 @@ Feature: Admin_Geofence
     Then I verify that the default settings are displayed
     
   @sanity
-  @ready
+  @regression
   Scenario: Verify Add Edit New Geofence
     When I click on the "Scale" Button
     And I enter following values in "Geofence" fields
@@ -81,12 +81,11 @@ Feature: Admin_Geofence
     Then The validation error message is displayed
 
 
-  @failed
+  
     #NEED TO VERIFY VALUES OF THESE PARAMETERS SCHEDULE_PICKUP_FROM_TIME and SCHEDULE_PICKUP_TO_TIME
   #this test script will fail as the value of above parameters are set as 30 mins and 840 mins.
   #It should be 15 mins and 1410 mins, currently validations are put considering 15 and 1410 mins
   @regression
-    @test
   Scenario: Verify Minimum Scheduled Time For Solo Or Duo Trip Cannot Be More Than The Difference Between SCHEDULE_PICKUP_FROM_TIME And SCHEDULE_PICKUP_TO_TIME
     When I click on the geofence "Chicago"
     And I click on the "Settings" Button on "Geofence" Screen
@@ -133,7 +132,7 @@ Feature: Admin_Geofence
    # And I click on the "Save" Button on "Geofence Settings" Screen
     #Then check if error message is displayed for "solo trip"
 
-  @failed
+ 
         #NEED TO VERIFY VALUES OF THIS PARAMETER SCHEDULED_PICKUP_MAX_PROCESSING_TIME
   #In database this value is set as 120 mins, needs to be checked.
   @regression
@@ -188,8 +187,8 @@ Feature: Admin_Geofence
     And I click on the "Save" Button on "GeofenceAttributes" Screen
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
 
-    @ready
-    Scenario:Verify setting driver/bungii cuts for geofence
+    @regression
+    Scenario:Verify setting driver-bungii cuts for geofence
       When I click on the geofence "Boston"
       And I click on the "Settings" Button on "Geofence" Screen
       And I set "Blank" % Bungii Cut Per Delivery for the geofence

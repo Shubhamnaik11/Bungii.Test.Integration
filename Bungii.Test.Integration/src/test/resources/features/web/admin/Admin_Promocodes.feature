@@ -7,8 +7,7 @@ Feature: Admin_Promocodes
     Then I should be directed to "Standard Codes Page"
 
   @sanity
-  @ready
-    @failed
+  @regression
   Scenario: Verify Add New Promocode of Type Promo
     When I click on the "New Code" Button
     And I enter following values in fields
@@ -36,7 +35,7 @@ Feature: Admin_Promocodes
     When I click on the "Save" Button
     Then the edited promocode is displayed in the Promocodes grid
 
-  @ready
+  @regression
   Scenario: Verify Add New Promocode of Type Delivery By Partner
     When I click on the "New Code" Button
     And I enter following values in fields
