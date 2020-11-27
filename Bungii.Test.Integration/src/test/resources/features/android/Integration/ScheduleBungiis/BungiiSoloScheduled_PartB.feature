@@ -268,9 +268,11 @@ Feature: SoloScheduled Part B
     And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_five Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Enroute      |
+    
     And I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
+    
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     When I try to contact driver using "sms driver1"
@@ -285,7 +287,7 @@ Feature: SoloScheduled Part B
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
   
-  @ready
+  @regression
    #stable
   Scenario: Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours :SOLO
     And I login as customer "8805368840" and is on Home Page
@@ -299,7 +301,7 @@ Feature: SoloScheduled Part B
     When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
   
-  @ready
+  @regression
 	#stable
   Scenario: Verify Customer Cannot Schedule Bungii For A Time That Is Outside Working Hours :DUO
     Given I login as customer "8805368840" and is on Home Page

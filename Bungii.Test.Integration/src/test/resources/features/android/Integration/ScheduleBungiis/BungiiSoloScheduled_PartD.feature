@@ -215,48 +215,7 @@ Feature: SoloScheduled Part D
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-    
-    
-  #@regression
-  @ready
-  Scenario: Verify If Incoming Scheduled Trip Request Start Time (Trip A) Overlaps TELET Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or offline SMS
-    
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Accepted     | NEXT_POSSIBLE |
-    And I get TELET time of of the current trip
-    
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I Switch to "customer" application on "same" devices
-    Given I am on customer Log in page
-    And I am logged in as "valid" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    And I tap on "two drivers selector" on Bungii estimate
-    
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I confirm trip with following details
-      | Day | Trip Type | Time                                               |
-      | 0   | DUO       | <TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1> |
-    And I add loading/unloading time of "30 mins"
-    And I get Bungii details on Bungii Estimate
-    And I add "1" photos to the Bungii
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-    Then I should not get notification for SCHEDULED PICKUP AVAILABLE
-    And I Switch to "driver" application on "same" devices
-    And I tap on "Available Trips link" on Driver Home page
-    Then I should able to see "zero" available trip
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone      |
-      | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
-    
+	
     
   #@regression
   #need to work on automation cannot wait for 2 hours
@@ -355,5 +314,48 @@ Feature: SoloScheduled Part D
     And I Switch to "driver" application on "same" devices
     Then Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
+	
+	
+	   
+  #@regression
+  @ready
+  Scenario: Verify If Incoming Scheduled Trip Request Start Time (Trip A) Overlaps TELET Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or offline SMS
+	
+	Given that solo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   |
+	  | kansas1   | Accepted     | NEXT_POSSIBLE |
+	And I get TELET time of of the current trip
+	
+	And I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	
+	And I Switch to "customer" application on "same" devices
+	Given I am on customer Log in page
+	And I am logged in as "valid" customer
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	And I enter "kansas pickup and dropoff locations" on Bungii estimate
+	And I tap on "two drivers selector" on Bungii estimate
+	
+	And I tap on "Get Estimate button" on Bungii estimate
+	And I confirm trip with following details
+	  | Day | Trip Type | Time                                               |
+	  | 0   | DUO       | <TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1> |
+	And I add loading/unloading time of "30 mins"
+	And I get Bungii details on Bungii Estimate
+	And I add "1" photos to the Bungii
+	And I tap on "Request Bungii" on Bungii estimate
+	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+	And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+	Then I should not get notification for SCHEDULED PICKUP AVAILABLE
+	
+	And I Switch to "driver" application on "same" devices
+	And I tap on "Available Trips link" on Driver Home page
+	Then I should able to see "zero" available trip
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone      |
+	  | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
     
     

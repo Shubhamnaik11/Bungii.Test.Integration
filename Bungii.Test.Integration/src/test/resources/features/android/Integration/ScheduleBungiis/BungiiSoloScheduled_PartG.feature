@@ -179,6 +179,7 @@ Feature: SoloScheduled Part G
 
   #@regression
   @ready
+	@ad
   Scenario: Verify Customer Receives Notification When Control Driver Starts Duo Bungii
     When I clear all notification
     And I request "duo" Bungii as a customer in "kansas" geofence
@@ -195,17 +196,18 @@ Feature: SoloScheduled Part G
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
-      | Enroute       | Accepted      |
+      | Enroute       | Enroute      |
     
     When I Switch to "customer" application on "same" devices
     And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
+    
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
     ##################################################################################################
   
-  @ready
+  @regression
     #stable
   Scenario: Verify If Researched Driver Can Cancel Trip After Starting The Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "kansas" geofence

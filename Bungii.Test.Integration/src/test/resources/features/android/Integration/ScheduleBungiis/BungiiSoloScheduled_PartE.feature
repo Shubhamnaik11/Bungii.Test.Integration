@@ -310,11 +310,11 @@ Feature: SoloScheduled Part E
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
       | NEXT_POSSIBLE | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
     
-    Then I wait for "1" mins
     And I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I click "ACCEPT" button on Bungii Request screen
+    Then I wait for "1" mins
     And I Switch to "customer" application on "same" devices
     And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed

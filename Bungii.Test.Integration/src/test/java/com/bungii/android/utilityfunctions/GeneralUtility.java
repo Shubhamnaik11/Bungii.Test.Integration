@@ -160,7 +160,7 @@ public class GeneralUtility extends DriverBase {
             return true;
         else {
             // Thread.sleep(5000);
-            logger.detail(SetupManager.getDriver().getPageSource());
+            //logger.detail(SetupManager.getDriver().getPageSource());
             return false;
             // return action.isElementPresent(homePage.Generic_Element(true));
         }
@@ -532,10 +532,11 @@ Thread.sleep(5000);
         //costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
         if (costToCustomer==0.00)
             {
-                costToCustomer = 0.00;
+                //costToCustomer = 0;
+                //do nothing
             }
             else
-        costToCustomer = costToCustomer > minCost ? costToCustomer : minCost;
+                costToCustomer = costToCustomer > minCost ? costToCustomer : minCost;
 
         return costToCustomer;
     }

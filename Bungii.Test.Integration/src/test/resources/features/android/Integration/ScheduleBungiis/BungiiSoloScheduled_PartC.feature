@@ -82,7 +82,7 @@ Feature: SoloScheduled Part C
     And I tap on "No free money" on Bungii estimate
   
   
-  @ready
+  @regression
     #stable
   Scenario: Verify That a scheduled Bungii cannot be started more than 1hr before the scheduled Trip start time
     When that solo schedule bungii is in progress

@@ -21,7 +21,7 @@ Feature: Customer Home screen
     And I select "Pick up" location
     Then "Drop Off" address text box should be displayed on app screen
 
-  @ready
+  @regression
   Scenario: Verify If ETA Bar Remains On Map When Pickup Address Is Cleared
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app

@@ -268,7 +268,7 @@ Feature: On Demand Bungii
       | Scenario         | Expected value in admin |
       | First time       | promo                   |
     
-  @ready
+  @knownissue
   Scenario: Verify Customer Can Create An Ondemand Bungii And Correct Contact Number Is Displayed On Call And SMS Option
     
     Given that ondemand bungii is in progress
@@ -327,7 +327,7 @@ Feature: On Demand Bungii
     And Customer should receive "bungii" receipt email
   
   
-  @ready
+  @knownissue
   Scenario: Verify Customer Can Create Ondemand Bungii With Referral Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -374,7 +374,7 @@ Feature: On Demand Bungii
     And I click "On To The Next One" button on the "Bungii Completed" screen
   
   
-  @ready
+  @knownissue
   Scenario: Verify Customer Can Create Ondemand Bungii With Received Referred Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices

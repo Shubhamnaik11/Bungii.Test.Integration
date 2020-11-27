@@ -102,7 +102,7 @@ public class AvailableTripsSteps extends DriverBase {
             }
             else if (elements.size()==1)
             {
-                logger.detail("Only One Available Bungii List Is Available.");
+                logger.detail("Only One Available Bungii List Is Available. : "+ elements.get(0).getText());
                 for (WebElement element : elements) {
                 element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_arrow")).click();
                 isSelected = true;

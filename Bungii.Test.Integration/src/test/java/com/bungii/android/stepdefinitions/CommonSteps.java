@@ -160,6 +160,12 @@ public class CommonSteps extends DriverBase {
             Thread.sleep(2000);
             if (!isApplicationIsInForeground)
                 warning("Switch to " + appName + " application", "Not able to currently verify if " + appName + " application was not successfull");
+            if(action.isElementPresent(phonePage.Container_Notification(true)))
+            {
+                ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                logger.detail("Attempted to hide container");
+
+            }
             else
                 pass("Switch to " + appName + " application", "Switch to " + appName + " application is successful");
 
@@ -390,8 +396,8 @@ public class CommonSteps extends DriverBase {
             SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
             SetupManager.getObject().useDriverInstance(instanceName);
             log(
-                    "I open new " + browser + " browser for " + instanceName + " instance$",
-                    "I open new " + browser + " browser for " + instanceName + " instance$", true);
+                    "I open new " + browser + " browser for " + instanceName + " instance",
+                    "I open new " + browser + " browser for " + instanceName + " instance", true);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -795,7 +801,7 @@ public class CommonSteps extends DriverBase {
             switch (message.toUpperCase()) {
                 case "OUTSIDE BUISSNESS HOUR":
                     actualMessage = utility.getCustomerSnackBarMessage();
-                    expectedMessage = "We’re only able to schedule Bungii’s between 12:15 AM - 11:30 PM. Please choose a time in that range"; //PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
+                    expectedMessage = "We’re only able to schedule Bungii’s between 12:15 AM - 11:30 PM. Please choose a time in that range."; //PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
                     action.click(estimatePage.Samsung_Time_Cancel());
                     break;
 

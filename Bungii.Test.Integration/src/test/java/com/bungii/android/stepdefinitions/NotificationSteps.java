@@ -56,6 +56,7 @@ public class NotificationSteps extends DriverBase {
                     break;
 
                 case "DRIVERS ARE ENROUTE":
+                    Thread.sleep(180000);
                     if (action.isElementPresent(otherAppsPage.Notification_DriverEnroute(true))) {
                         action.click(otherAppsPage.Notification_DriverEnroute(true));
                         notificationClick = true;
