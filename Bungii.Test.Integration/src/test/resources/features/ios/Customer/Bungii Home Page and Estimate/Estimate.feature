@@ -24,7 +24,7 @@ Feature: Customer Estimate screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
   
   
-  @ready
+  @regression
   Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details Remains Unchanged
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -88,7 +88,7 @@ Feature: Customer Estimate screen
       | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | **** 4242/**** 1117/**** 1881   | Now  | UNCHECK             | DISABLED       |
 
 
-  @ready
+  @regression
   Scenario: Verify Load Unload Time Functionality And Verify If Estimate Cost Is Recalculated
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -99,7 +99,7 @@ Feature: Customer Estimate screen
 
 
 
-  @ready
+  @regression
   Scenario: Verify Estimate Value For The Bungii Should Be Correctly Displayed In Estimate Screen
     And I am on the "LOG IN" page
     And I am on Customer logged in Home page
@@ -114,7 +114,7 @@ Feature: Customer Estimate screen
       | 30       |           |              | Now  | Default     |
     Then Estimate value for trip should be properly displayed
 
-  @ready
+  @regression
   Scenario: Verify Customer Is Prompted To Go To Add Payment Page If No Payment Exists
     Given I am on the "LOG IN" page
     When I enter Username :9999990216 and  Password :{VALID}
@@ -135,7 +135,7 @@ Feature: Customer Estimate screen
     When I Switch to "customer" application on "same" devices
     And I Select "LOGOUT" from Customer App menu
     
-    @ready
+    @regression
     Scenario:Verify Customer Can Add Atleast One And Maximum Of Four Images Of Items On Estimate Screen
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Location | Drop Location                |
@@ -153,7 +153,7 @@ Feature: Customer Estimate screen
       When I click "Cancel" button on "SEARCHING" screen
       Then user is alerted for "CANCEL BUNGII"
 
-  @ready
+  @regression
       Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
       And I request for  bungii for given pickup and drop location
         | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
@@ -162,7 +162,7 @@ Feature: Customer Estimate screen
     Then correct details next available scheduled time should be displayed
 
 
-  @ready
+  @regression
   Scenario: Verify When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To SET PICKUP TIME Screen With Prefilled Date
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |

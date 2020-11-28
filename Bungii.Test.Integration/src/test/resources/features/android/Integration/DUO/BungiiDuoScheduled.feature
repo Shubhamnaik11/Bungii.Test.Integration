@@ -6,11 +6,11 @@
 Feature: Bungii Duo Scheduled
 
   #change user login
-  @regression
-  Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification Though The App Remains In Background
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | atlanta  | Accepted    | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+  @ready
+  Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Controller Driver Gets A Notification Though The App Remains In Background
+    Given that duo schedule bungii is in accepted by controlled driver
+      | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2 |
+      | atlanta  | Accepted    | NEXT_POSSIBLE | valid    | valid   | NA |
 
     When I Switch to "customer" application on "same" devices
     And I am on customer Log in page
@@ -41,9 +41,9 @@ Feature: Bungii Duo Scheduled
   #@regression
   @ready
   Scenario: DONE : Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification When The App Remains open
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | atlanta  | Accepted    | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+    Given that duo schedule bungii is in accepted by controlled driver
+      | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2 |
+      | atlanta  | Accepted    | NEXT_POSSIBLE | valid    | valid   | NA |
 
     When I Switch to "customer" application on "same" devices
     And I am on customer Log in page
@@ -70,7 +70,7 @@ Feature: Bungii Duo Scheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
     
-  @regression
+  @ready
   Scenario: Verify Duo Bungii As An Android Customer
     Given I am logged in as "valid atlanta" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -201,7 +201,7 @@ Feature: Bungii Duo Scheduled
   
   
   
-  @regression
+  @ready
   Scenario: STACK BUNGII: Long Stack : Verify Status Of Current Ondemand Bungii And Stacked pickup And Stack Request Alert Message And Decked Request
     ##############################
     Given I am on customer Log in page
@@ -310,7 +310,7 @@ Feature: Bungii Duo Scheduled
     Then Bungii Driver "completes Bungii"
   
   
-  @regression
+  @ready
   Scenario:  SHORT STACK BUNGII: Verify Driver can accept and complete short stack Bungii [Altanta Geofence]
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -370,7 +370,7 @@ Feature: Bungii Duo Scheduled
       | Customer Phone | Customer2 Phone |
       | 9871450107     |                 |
   
-  @regression
+  @ready
   Scenario: Manually Ending A Bungii For A Driver Who Has Stacked Bungii Should Display Summary And Start With The Stacked Bungii
     Given that ondemand bungii is in progress
       | geofence | Bungii State        |
@@ -417,8 +417,8 @@ Feature: Bungii Duo Scheduled
     
  #need to do in atlanta
           #move to top
-  @duo1
-  @regression
+ 
+  @ready
   Scenario: Verify Short Stack Request Acceptance By Control Driver
     Given that duo schedule bungii is in progress
       | geofence | Bungii State       | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -471,7 +471,7 @@ Feature: Bungii Duo Scheduled
       |                | CUSTOMER2_PHONE |
   
   
-  @regression
+  @ready
   Scenario: Verify Bungii Details - Call SMS
 	
 	Given that duo schedule bungii is in progress

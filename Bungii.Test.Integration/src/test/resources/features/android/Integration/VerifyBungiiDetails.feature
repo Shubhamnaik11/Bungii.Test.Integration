@@ -5,7 +5,7 @@
       #Customer D and C - Testcustomertywd_appleand_D Android 9999990074 and Testcustomertywd_appleand_C Android 9999992222
       # Driver D and C  - Testdriver_goa_d Android_test and Testdriver_goa_c Android_test
       
-@ready
+@regression
  #stable
     Scenario: God Mode: Verify that admin can assign one or both drivers to a duo trip when it is in searching status
   
@@ -37,8 +37,7 @@
         | 9999990074      |                 |
 
 
- @ready
-   @ad
+ @regression
     Scenario: God Mode: Verify that admin can assign a driver to a Solo Scheduled trip when it has been re-searched.
       Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"
         | geofence | Bungii State | Bungii Time   |

@@ -16,7 +16,7 @@ Feature: CustomerApplicationLinks
     #Tutorials - 5 pages
     #Verify text on Tutorials pages and swipe. Should be able to swipe back and forth between pages. (Completed PARTIALLY)
     #Dismiss Tutorials by tapping on Start
-  Scenario: Verify Tutorials Is displayed Only On First Installation.
+  Scenario: Verify Tutorials Is displayed Only On First Installation
     Then "Tutorial" page should be opened
     And I check that "5" pages of turotial are present
     And I check that if i can swipe the pages

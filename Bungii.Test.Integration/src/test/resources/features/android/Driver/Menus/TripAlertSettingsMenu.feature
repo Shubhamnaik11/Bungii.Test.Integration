@@ -1,5 +1,5 @@
 @android
-Feature: DriverMenu
+Feature: Trip Alert Settings Menu
   In Bungii Driver
   As a logged in driver
   I want to check Trip Alert Settings

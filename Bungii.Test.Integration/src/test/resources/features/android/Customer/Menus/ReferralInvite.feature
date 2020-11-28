@@ -30,6 +30,12 @@ Feature: ReferralInvite
     And I tap "Share on Twitter" on Invite page
     Then I should see post "on Twitter in browser"
 
+  @regression
+  Scenario: Verify Screen With Proper Info And Promocode is displayed on Invite Screen
+    Then I should see "all elements" on Invite Page
+    When I tap "Back" on Invite page
+    Then "Home" page should be opened
+  
   @notwitter
  # @regression
   Scenario: Verify When Customer With Twitter App Shares Referral Invite Via Twitter
@@ -37,10 +43,4 @@ Feature: ReferralInvite
     When I tap "Share" on Invite page
     And I tap "Share on Twitter" on Invite page
     Then I should see post "Tweet Post in Twitter app"
-
-  @regression
-  Scenario: Verify Screen With Proper Info And Promocode is displayed on Invite Screen
-    Then I should see "all elements" on Invite Page
-    When I tap "Back" on Invite page
-    Then "Home" page should be opened
 

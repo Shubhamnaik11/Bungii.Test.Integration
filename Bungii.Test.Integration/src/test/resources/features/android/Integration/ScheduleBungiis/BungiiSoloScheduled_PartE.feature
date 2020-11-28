@@ -233,7 +233,8 @@ Feature: SoloScheduled Part E
       | 8805368840     |                 |
   
   
-  @ready
+  @regression
+    #stable
   Scenario: Verify Driver Doesnt Receive Scheduled Trip Request If His Home Is Over 30 Mins Away From Pickup Location
     When I clear all notification
     When I Switch to "customer" application on "same" devices

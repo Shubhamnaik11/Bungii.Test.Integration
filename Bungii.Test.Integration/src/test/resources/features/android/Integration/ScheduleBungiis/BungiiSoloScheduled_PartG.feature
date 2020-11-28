@@ -363,7 +363,8 @@ Feature: SoloScheduled Part G
       | 8805368840     |                 |
     
        #@regression
-  @ready
+  @regression
+    #stable
   Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of The Time That Is Set For Trip Alert Settings
     When I clear all notification
     When I Switch to "driver" application on "same" devices

@@ -7,7 +7,6 @@ Feature: Scheduled Duo Bungiis
 	
   @regression
   @sanity
-  
 	#stable
   Scenario: Verify Customer can request Scheduled Duo Bungii [Kansas Geofence]
 	Given I am logged in as "valid atlanta" customer
@@ -30,7 +29,7 @@ Feature: Scheduled Duo Bungiis
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
-  @regression
+  @ready
   @sanity
   Scenario: Verify Duo Bungii Completion - Android [Kansas Geofence]
 	Given that duo schedule bungii is in progress
@@ -93,7 +92,7 @@ Feature: Scheduled Duo Bungiis
 	
  
   
-  @regression
+  @ready
   Scenario: Verify that Duo scheduled Bungii can be started 1 hr before the scheduled Trip start time
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time    | Customer | Driver1 | Driver2        |
@@ -129,17 +128,6 @@ Feature: Scheduled Duo Bungiis
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time    | Customer | Driver1 | Driver2        |
 	  | Kansas   | Accepted     | 0.5 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |
-  
-	And I connect to "extra1" using "Driver2" instance
-	And I Open "driver" application on "same" devices
-	And I am on the LOG IN page on driver app
-	And I am logged in as "Kansas driver 2" driver
-	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	And I Select "SCHEDULED BUNGIIS" from driver App menu
-	And I Select Trip from driver scheduled trip
-	And Bungii Driver "Start Schedule Bungii" request
-	Then Bungii driver should see "Enroute screen"
-	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 	
 	When I Switch to "driver" application on "ORIGINAL" devices
 	And I Switch to "driver" application on "same" devices
@@ -150,8 +138,20 @@ Feature: Scheduled Duo Bungiis
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
 	Then Bungii driver should see "Enroute screen"
-	#Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
-	
+	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for "controller" driver
+ 
+	And I connect to "extra1" using "Driver2" instance
+	And I Open "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "non controller kansas driver 2" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I Select Trip from driver scheduled trip
+	And Bungii Driver "Start Schedule Bungii" request
+	Then Bungii driver should see "Enroute screen"
+	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for "non controller" driver
+ 
+ 
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |

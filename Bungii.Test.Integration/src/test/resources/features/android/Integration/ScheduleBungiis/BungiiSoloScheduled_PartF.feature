@@ -55,10 +55,9 @@ Feature: SoloScheduled Part F
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
     
-     #@regression
-  @ready
-    @ad1
-  Scenario:Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip :Solo
+  @regression
+    #stable
+  Scenario:Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip - Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 1.25 hour ahead |
@@ -132,8 +131,8 @@ Feature: SoloScheduled Part F
       | CUSTOMER1_PHONE |                 |
   
   
-  @ready
-  
+  @regression
+  #stable
   Scenario: Verify If Incoming Scheduled Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
     
     Given that solo schedule bungii is in progress

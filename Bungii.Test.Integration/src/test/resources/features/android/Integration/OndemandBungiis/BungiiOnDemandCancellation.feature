@@ -110,7 +110,8 @@
       And I tap on "Menu" > "Promos" link
       Then I should see unused promo code
   
-    @ready
+    @regression
+      #stable
     Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Arrived State
       Given I am on customer Log in page
       When I am logged in as "valid boston" customer

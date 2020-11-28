@@ -26,7 +26,8 @@ Feature: Customer	Menu
     When I Select "LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
     
-  @ready
+  @regression
+    #stable
   Scenario: Verify Customer App Menu Links - DRIVE WITH BUNGII
     When I Select "DRIVE WITH BUNGII" from Customer App menu
     Then I should be navigated to "bungii.com" screen

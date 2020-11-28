@@ -129,7 +129,7 @@ public class EstimatePage extends PageBase {
     public WebElement Button_RequestConfirmCancel () { return findElement("android:id/button2", LocatorType.Id); }
 
     public WebElement Button_OK (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath,ignoreException); }
-    public WebElement Button_Cancel (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button2' and @text='Cancel']", LocatorType.XPath,ignoreException); }
+    public WebElement Button_Cancel (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button2' and @text='CANCEL']", LocatorType.XPath,ignoreException); }
       public WebElement Button_Proceed (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='PROCEED']", LocatorType.XPath,ignoreException); }
 
 

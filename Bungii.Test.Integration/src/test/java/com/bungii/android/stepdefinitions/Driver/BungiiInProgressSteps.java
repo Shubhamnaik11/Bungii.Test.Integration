@@ -40,6 +40,88 @@ public class BungiiInProgressSteps extends DriverBase {
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     OtherAppsPage otherAppsPage = new OtherAppsPage();
     InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
+    @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
+    public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
+        try {
+
+
+            String expectedCustName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            expectedCustName = expectedCustName.substring(0, expectedCustName.indexOf(" ") + 2);
+            boolean isCustomerNameCorrect = false;
+            boolean isDriverNameCorrect = false;
+            if (driverType.equalsIgnoreCase("controller")) {
+                //drivername and customer name validation
+                if (String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO")) {
+                    isCustomerNameCorrect = action.getText(bungiiProgressPage.Text_DuoCustomer_Name()).equals(expectedCustName);
+
+                    String driver2Name = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+
+                    String driverName = action.getText(bungiiProgressPage.Text_DuoDriver_Name());
+                    String expected2 = driver2Name.substring(0, driver2Name.indexOf(" ") + 2);
+
+                    isDriverNameCorrect = driverName.equals(expected2);
+
+                    logger.detail("Driver 2" + driver2Name.substring(0, driver2Name.indexOf(" ") + 2));
+                    testStepVerify.isTrue(isDriverNameCorrect,
+                            "Driver name should correctly display",
+                            "Driver name was correctly displayed",
+                            "Driver name was not correctly displayed. [" + driverName + " ] is displayed instead of " + expected2);
+                } else
+                    isCustomerNameCorrect = getCustomerName().equals(expectedCustName);
+
+            }
+            else
+            {
+                if (String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO")) {
+                    isCustomerNameCorrect = action.getText(bungiiProgressPage.Text_DuoCustomer_Name()).equals(expectedCustName);
+
+                    String driver1Name = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+
+                    String driverName = action.getText(bungiiProgressPage.Text_DuoDriver_Name());
+                    String expected1 = driver1Name.substring(0, driver1Name.indexOf(" ") + 2);
+
+                    isDriverNameCorrect = driverName.equals(expected1);
+
+                    logger.detail("driver1Name" + driver1Name.substring(0, driver1Name.indexOf(" ") + 2));
+                    testStepVerify.isTrue(isDriverNameCorrect,
+                            "Driver name should correctly display",
+                            "Driver name was correctly displayed",
+                            "Driver name was not correctly displayed. [" + driverName + " ] is displayed instead of " + expected1);
+                } else
+                    isCustomerNameCorrect = getCustomerName().equals(expectedCustName);
+            }
+            switch (key) {
+                case "EN ROUTE":
+                    validateEnRouteInfo(getTripInformation(key));
+                    break;
+                case "ARRIVED":
+                    validateArrivedInfo(getTripInformation(key));
+                    break;
+                case "LOADING ITEM":
+                    validateArrivedInfo(getTripInformation(key));
+                    break;
+                case "DRIVING TO DROP OFF":
+                    validateDrivingInfo(getTripInformation(key));
+                    break;
+                case "UNLOADING ITEM":
+                    validateUnloadingInfo(getTripInformation(key));
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+            if (/*isInfoCorrectlyDisplayed && */isCustomerNameCorrect) {
+                pass("Trip Information should be correctly displayed and customer name :" + expectedCustName + "should be displayed", "Trip Information is correctly displayed and customer name :" + expectedCustName + "is displayed correctly");
+            } else {
+                fail("Trip Information should be correctly displayed and customer name :" + expectedCustName + "should be displayed", "Trip Information is correctly displayed and customer name :" + expectedCustName + "is displayed correctly");
+
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key) {
         try {

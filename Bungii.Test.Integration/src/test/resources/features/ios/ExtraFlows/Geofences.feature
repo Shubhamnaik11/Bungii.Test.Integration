@@ -1,7 +1,7 @@
 @ios
 Feature: Geofence Configuration
 
-@ready
+@regression
 Scenario: Verify Geofence Not Active Message Ss Displayed On The Customer App When Geofence Is Set off
 Given I am on the "LOG IN" page
 And I logged in Customer application using  "valid chicago" user

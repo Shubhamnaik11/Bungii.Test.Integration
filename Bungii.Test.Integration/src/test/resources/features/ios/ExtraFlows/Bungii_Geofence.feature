@@ -1,7 +1,8 @@
 @ios
 Feature: Bungii Geofence Based Calculation
   
-  @ready
+  @regression
+    #Stable
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Solo Is Selected By Customer
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid chicago" user

@@ -18,7 +18,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   
 
   
-  @regression
+  @ready
   Scenario: STACK BUNGII: Verify Driver Can Get Long Stack Request On Arrived State
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State |
@@ -44,7 +44,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
   
-  @regression
+  @ready
   Scenario: STACK BUNGII: Verify Driver Can Get Long Stack Request On Loading Item State And Cancellation
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State |
@@ -90,7 +90,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
-  @regression
+  @ready
   @sanity
     #stable
   Scenario: STACK BUNGII : Long Stack : Verify Driver receives Long Stack and accept and complete it [Complete Flow]
@@ -238,7 +238,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
   
-  @regression
+  @ready
   Scenario: Verify Non-control Driver Does Not Receive Long Stacking Request If Started Before The Controlled Driver - Also Non Control Driver Cannot Cancel Trip If Controlled driver has Not Started
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -271,7 +271,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
   
   
-  @regression
+  @ready
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Only By Control Driver
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -304,7 +304,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   
 
 	
-  @ready
+  @regression
 	#stable
   Scenario: Verify that that Past Trips page correctly displays completed Scheduled Duo Bungii
 	Given that duo schedule bungii is in progress
@@ -327,7 +327,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | CUSTOMER1_PHONE |                 |
 	
 	
-  @regression
+  @ready
 	@dd
   Scenario:Verify If Customer Receieve Notification After Admin Researches For Drivers
 	Given that duo schedule bungii is in progress
@@ -357,7 +357,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   
   
   @sanity
-  @regression
+  @ready
   Scenario: Verify Long Stack Request Acceptance By Non Control Driver
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -383,7 +383,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   
   
   
-  @regression
+  @ready
   Scenario:Verify Driver Can Get Short Stack Request On Unloading Item State
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State   |
