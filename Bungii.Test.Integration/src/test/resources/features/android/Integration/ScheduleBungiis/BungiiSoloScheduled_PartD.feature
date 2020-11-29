@@ -91,7 +91,7 @@ Feature: SoloScheduled Part D
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
-    And I select already scheduled bungii
+    And I select 1st trip from scheduled bungii
     When I try to contact driver using "sms driver1"
     Then user is alerted for "more than 1 hour from scheduled time"
     And correct support details should be displayed to customer on "SMS" app

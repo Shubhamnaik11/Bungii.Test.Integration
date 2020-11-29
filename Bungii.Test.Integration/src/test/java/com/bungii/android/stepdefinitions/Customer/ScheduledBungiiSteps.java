@@ -502,7 +502,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void i_select_first_already_scheduled_bungii() {
         try {
             action.click(scheduledBungiiPage.Cell_FirstTrip());
-            pass("I select already scheduled bungii", "I selected first already scheduled bungii", true);
+            pass("I select already scheduled bungii", "I selected first scheduled bungii", true);
         } catch (Exception e) {
             logger.error("Error performing step", SetupManager.getDriver().getPageSource());
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

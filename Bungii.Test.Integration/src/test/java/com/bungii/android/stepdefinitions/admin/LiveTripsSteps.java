@@ -132,8 +132,8 @@ public class LiveTripsSteps extends DriverBase {
             String truncValue = new DecimalFormat("#.00").format(dblDiscountValue);truncValue=truncValue.replace(".00", "");
             //decimal formating
             bungiiCostCustomer=new DecimalFormat("#.##").format(Double.parseDouble(bungiiCostCustomer.replace("$","")));
-            Double price = Double.parseDouble(bungiiCostCustomer)-Double.parseDouble(discountValue);
-            String str = String.format("%1.1f", price);
+            Double price = Double.parseDouble(bungiiCostCustomer);//-Double.parseDouble(discountValue);
+            String str = String.format("%1.2f", price);
             bungiiCostCustomer = str.toString();
             bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
 

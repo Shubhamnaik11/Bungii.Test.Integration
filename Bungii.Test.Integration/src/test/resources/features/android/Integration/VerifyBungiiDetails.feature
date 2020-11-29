@@ -790,25 +790,6 @@
           | Customer Phone  | Customer2 Phone |
           | 9889889888      |                 |
         
-      @regression
-    #web
-      Scenario: Verify that Cancel button goes off once the solo scheduled Trip is cancelled
-        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"
-          | geofence | Bungii State | Bungii Time   |
-          | goa      | Accepted     | NEXT_POSSIBLE |
-        When I Switch to "customer" application on "same" devices
-        And I am logged in as "Testcustomertywd_appleand_D Android" customer
     
-        And I Switch to "driver" application on "same" devices
-        And I am on the LOG IN page on driver app
-        And I am logged in as "testdriver_goa_d android_test" driver
-    
-        And I wait for "2" mins
-        And I open Admin portal and navigate to "Scheduled Deliveries" page
-        And I Cancel Bungii with following details
-          | Charge | Comments | Reason                         |
-          | 0      | TEST     | Outside of delivery scope      |
-        Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-        And "Cancel button" should not be displayed
   
 

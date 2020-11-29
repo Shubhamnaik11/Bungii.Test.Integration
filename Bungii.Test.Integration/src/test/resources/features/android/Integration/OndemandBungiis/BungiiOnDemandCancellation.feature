@@ -27,9 +27,7 @@
       And I Open "driver" application on "same" devices
       And Bungii Driver "rejects On Demand Bungii" request
       Then Bungii driver should see "Home screen"
-      When I Switch to "customer" application on "same" devices
-      And I tap on "Cancel during search" on Bungii estimate
-  
+      
   
     @regression
     Scenario: Verify Driver Can Cancel Ondemand Bungii In Enroute State

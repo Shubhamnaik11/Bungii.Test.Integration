@@ -101,6 +101,8 @@ Feature: SoloScheduled
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     Then I wait for "2" mins
+    And I select 1st trip from scheduled bungii
+    
     And I select already scheduled bungii
     #When I Cancel selected Bungii
     When I tap on "Cancel Bungii" button

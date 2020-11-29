@@ -179,7 +179,7 @@ Feature: SoloScheduled Part G
 
   #@regression
   @ready
-	@ad
+	@ad1
   Scenario: Verify Customer Receives Notification When Control Driver Starts Duo Bungii
     When I clear all notification
     And I request "duo" Bungii as a customer in "kansas" geofence
@@ -246,45 +246,7 @@ Feature: SoloScheduled Part G
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
     
-      #@regression
-  @regression
-  Scenario: Verify Customer Can Cancel Through SMS To Admin after 2 hour processing is over (Irrespective Of No. Of Required Drivers Have Accepted Or Not)
-    When I Switch to "driver" application on "same" devices
-    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
     
-    And I Switch to "customer" application on "same" devices
-    When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-  
-    When I Switch to "customer" application on "same" devices
-    Given I login as customer "8805368840" and is on Home Page
-    
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I tap on "Menu" > "MY BUNGIIS" link
-    Then I wait for "2" mins
-    And I select already scheduled bungii
-    #When I Cancel selected Bungii
-    When I tap on "Cancel Bungii" button
-    Then correct details should be displayed on the "ADMIN-SMS" app
-    
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-  
-    And I Cancel Bungii with following details
-      | Charge | Comments | Reason                         |
-      | 0      | TEST     | Outside of delivery scope      |
-    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-    And I wait for "2" mins
-    And Bungii must be removed from the List
-    When I switch to "ORIGINAL" instance
-    And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "MY BUNGIIS" link
-    Then Bungii must be removed from "MY BUNGIIS" screen
     
     
     
@@ -362,31 +324,4 @@ Feature: SoloScheduled Part G
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
     
-       #@regression
-  @regression
-    #stable
-  Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of The Time That Is Set For Trip Alert Settings
-    When I clear all notification
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881019 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    When I Select "ALERT SETTINGS" from driver App menu
-    And I update kansas driver todays trip alert setting to outside current time
-    When I Switch to "customer" application on "same" devices
-    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-    
-    When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    Then I should be navigated to "AVAILABLE BUNGIIS" screen
-    And I should able to see "zero" available trip
-    And I Select "ALERT SETTINGS" from driver App menu
-    And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
+  

@@ -568,6 +568,10 @@ Thread.sleep(5000);
         try {
           /* */
             action.click(homePage.Button_NavigationBar());
+            if(action.isAlertPresent())
+            {
+                action.click(homePage.Button_AlertDone());
+            }
         } catch (org.openqa.selenium.NoSuchElementException e) {
             if (action.isElementPresent(homePage.Button_NavigationBarCompleter(true))) {
                 if(action.isAlertPresent())
