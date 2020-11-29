@@ -38,7 +38,8 @@
 
 
  @regression
-    Scenario: God Mode: Verify that admin can assign a driver to a Solo Scheduled trip when it has been re-searched.
+    #stable
+    Scenario: God Mode: Verify that admin can assign a driver to a Solo Scheduled trip when it has been re-searched
       Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"
         | geofence | Bungii State | Bungii Time   |
         | goa   | Accepted     | NEXT_POSSIBLE |
@@ -75,7 +76,7 @@
 
 @ready
   @ad
-    Scenario: God Mode: Verify admin can assign one (controlled) driver on DUO trip when it has been re-searched
+    Scenario: God Mode: Verify admin can assign one [controlled] driver on DUO trip when it has been re-searched
       When I request "duo" Bungii as a customer in "goa" geofence
         | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
         | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
@@ -123,9 +124,13 @@
       And I open Admin portal and navigate to "Scheduled Deliveries" page
      And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I remove "noncontrol" driver and researches Bungii
+  And I click on "Close" button
   
+  Then I wait for "2" mins
+  And I open Admin portal and navigate to "Scheduled Deliveries" page
+  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
   
-      And I Select "Edit Trip Details" option
+  And I Select "Edit Trip Details" option
       And I assign driver for the "noncontrol" trip
       And I click on "VERIFY" button
       And the "Your changes are good to be saved." message is displayed
@@ -156,6 +161,12 @@
       And I open Admin portal and navigate to "Scheduled Deliveries" page
       And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I remove current driver and researches Bungii
+  And I click on "Close" button
+  
+  Then I wait for "2" mins
+  And I open Admin portal and navigate to "Scheduled Deliveries" page
+  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+  
       And I Select "Edit Trip Details" option
       And the "Adding a driver through this feature overrides driver assigning restrictions." message is displayed
       And I assign driver for the "Duo" trip
@@ -192,6 +203,12 @@
       And I Select "Scheduled Trip" from admin sidebar
       And I click on "Edit Trip1" button
       And I remove "control" driver and researches Bungii
+   And I click on "Close" button
+  
+   Then I wait for "2" mins
+   And I open Admin portal and navigate to "Scheduled Deliveries" page
+   And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+   
       And I Select "Edit Trip Details" option
       And I assign driver for the "control driver" trip
       And I click on "VERIFY" button
@@ -226,7 +243,8 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      And I click on "Edit Trip1" button
+      #And I click on "Edit Trip1" button
+      And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
@@ -235,8 +253,9 @@
       And the "Bungii Saved!" message is displayed
       When I click on "Close" button
    
-      And I click on "Edit Trip2" button
-      And I Select "Edit Trip Details" option
+      #And I click on "Edit Trip2" button
+   And I open the trip for "Testcustomertywd_appleand_C Android" the customer
+   And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
       And the "Your changes are good to be saved." message is displayed
@@ -270,7 +289,7 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      And I click on "Edit Trip1" button
+   And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
@@ -278,7 +297,8 @@
       Then I click on "SAVE CHANGES" button
       And the "Bungii Saved!" message is displayed
       When I click on "Close" button
-      And I click on "Edit Trip2" button
+   
+   And I open the trip for "Testcustomertywd_appleand_C Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
@@ -315,7 +335,7 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      And I click on "Edit Trip1" button
+   And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -324,8 +344,8 @@
       Then I click on "SAVE CHANGES" button
       And the "Bungii Saved!" message is displayed
       When I click on "Close" button
-   
-      And I click on "Edit Trip2" button
+  
+      And I open the trip for "Testcustomertywd_appleand_C Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -362,8 +382,8 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-   
-      And I click on "Edit Trip1" button
+  
+   And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -373,7 +393,7 @@
       And the "Bungii Saved!" message is displayed
 
       When I click on "Close" button
-      And I click on "Edit Trip2" button
+   And I open the trip for "Testcustomertywd_appleand_C Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -408,7 +428,7 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      And I click on "Edit Trip1" button
+  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -418,7 +438,7 @@
       And the "Bungii Saved!" message is displayed
 
       When I click on "Close" button
-      And I click on "Edit Trip2" button
+  And I open the trip for "Testcustomertywd_appleand_C Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -455,7 +475,7 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip1" button
+   And I open the trip for "Testcustomertywd_appleand_D Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -465,7 +485,7 @@
         And the "Bungii Saved!" message is displayed
 
         When I click on "Close" button
-        And I click on "Edit Trip2" button
+   And I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -500,7 +520,7 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip1" button
+  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -510,7 +530,7 @@
         And the "Bungii Saved!" message is displayed
 
         When I click on "Close" button
-        And I click on "Edit Trip2" button
+  And I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -547,7 +567,7 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip1" button
+  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -557,7 +577,7 @@
         And the "Bungii Saved!" message is displayed
 
         When I click on "Close" button
-        And I click on "Edit Trip2" button
+  And I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -592,7 +612,7 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip1" button
+   And I open the trip for "Testcustomertywd_appleand_D Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I click on "VERIFY" button
@@ -601,7 +621,7 @@
         And the "Bungii Saved!" message is displayed
 
         When I click on "Close" button
-        And I click on "Edit Trip2" button
+   And I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I click on "VERIFY" button
@@ -637,7 +657,7 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip2" button
+  And I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I click on "VERIFY" button
@@ -678,7 +698,8 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      Then I remove "control" driver and researches Bungii
+  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+  Then I remove "control" driver and researches Bungii
       When I switch to "ORIGINAL" instance
       Then I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
       And I cancel all bungiis of customer

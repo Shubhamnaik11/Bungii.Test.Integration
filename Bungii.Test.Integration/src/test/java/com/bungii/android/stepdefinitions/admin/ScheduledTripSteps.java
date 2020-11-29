@@ -393,41 +393,16 @@ public class ScheduledTripSteps extends DriverBase {
 
 
 	@And("^I open the trip for \"([^\"]*)\" the customer$")
-	public void i_open_the_trip_for_something_the_customer(String strArg1) throws Throwable {
+	public void i_open_the_trip_for_something_the_customer(String custName) throws Throwable {
 		try {
-			Map<String, String> tripDetails = new HashMap<String, String>();
-			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-			String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
-			String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-			tripDetails.put("CUSTOMER", custName);
 
-			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
 			action.click(scheduledTripsPage.Button_Search());
+
 			Thread.sleep(5000);
-			//On admin panel CST time use to show
-			//	getPortalTime("Aug 09, 06:15 AM CDT");
-			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
-			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
-			tripDetails.put("BUNGII_DISTANCE", tripDistance);
-
-
-			int rowNumber = getTripRowNumber(tripDetails);
-			// it takes max 2.5 mins to appear
-			for (int i = 0; i < 5 && rowNumber == 999; i++) {
-				Thread.sleep(30000);
-				SetupManager.getDriver().navigate().refresh();
-				scheduledTripsPage.waitForPageLoad();
-				rowNumber = getTripRowNumber(tripDetails);
-			}
-			//testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
-			WebElement editButton;
-			if (rowNumber == 0) {
-				editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
-			} else
-				editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/p[@id='btnEdit']"));
-			//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
-			editButton.click();
-			pass("I should able to open trip", "I was able to open trip",
+			List<WebElement> rows = SetupManager.getDriver().findElements(By.xpath(String.format("//td/a[contains(text(),'{0}')]/ancestor::tr/td/p[@id='btnEdit']",custName)));
+			rows.get(0).click();
+			pass("I should able to open trip", "I viewed scheduled delivery",
 					true);
 
 		} catch (Exception e) {
