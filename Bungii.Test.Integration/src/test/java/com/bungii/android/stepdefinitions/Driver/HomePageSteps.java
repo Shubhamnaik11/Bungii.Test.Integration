@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.pages.driver.DriverHomePage;
@@ -32,6 +33,7 @@ public class HomePageSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility = new GeneralUtility();
     TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
+    EstimatePage estimatePage = new EstimatePage();
 
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
@@ -40,6 +42,10 @@ public class HomePageSteps extends DriverBase {
             if (action.isAlertPresent()) {
                 if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                     utility.acceptNotificationAlert();
+                    if (action.isAlertPresent()) {
+                        if (action.isElementPresent(estimatePage.Button_OK(true)))
+                            action.click(estimatePage.Button_OK());
+                    }
                 } else {
                     action.click(Page_BungiiRequest.AlertButton_Cancel());
                 }
@@ -52,6 +58,10 @@ public class HomePageSteps extends DriverBase {
             if (action.isAlertPresent()) {
                 if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                     utility.acceptNotificationAlert();
+                    if (action.isAlertPresent()) {
+                        if (action.isElementPresent(estimatePage.Button_OK(true)))
+                            action.click(estimatePage.Button_OK());
+                    }
                 } else {
                     action.click(Page_BungiiRequest.AlertButton_Cancel());
                 }

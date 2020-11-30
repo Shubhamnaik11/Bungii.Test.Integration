@@ -83,9 +83,13 @@ Feature: On Demand Bungii
   @regression
   Scenario: Verify Customer Can An Create Ondemand Bungii
     Given I am logged in as "valid baltimore" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
-    
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "HOME" from driver App menu
     And I tap on "Go Online button" on Driver Home page
     And I Switch to "customer" application on "same" devices

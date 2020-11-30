@@ -75,7 +75,7 @@
 
 
 @ready
-  @ad
+  @ad1
     Scenario: God Mode: Verify admin can assign one [controlled] driver on DUO trip when it has been re-searched
       When I request "duo" Bungii as a customer in "goa" geofence
         | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -161,11 +161,11 @@
       And I open Admin portal and navigate to "Scheduled Deliveries" page
       And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I remove current driver and researches Bungii
-  And I click on "Close" button
+      And I click on "Close" button
   
-  Then I wait for "2" mins
-  And I open Admin portal and navigate to "Scheduled Deliveries" page
-  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+     Then I wait for "2" mins
+     And I open Admin portal and navigate to "Scheduled Deliveries" page
+     And I open the trip for "Testcustomertywd_appleand_D Android" the customer
   
       And I Select "Edit Trip Details" option
       And the "Adding a driver through this feature overrides driver assigning restrictions." message is displayed

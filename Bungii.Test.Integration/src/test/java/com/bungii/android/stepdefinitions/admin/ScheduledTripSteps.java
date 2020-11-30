@@ -192,7 +192,7 @@ public class ScheduledTripSteps extends DriverBase {
 			scheduledTripsPage.waitForPageLoad();
 			String pickupRequest = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
 			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
-			pass("I researches Bungii", "I researched Bungii");
+			pass("I researches Bungii", "I researched Bungii. New Pickup Ref is "+ pickupRequest);
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

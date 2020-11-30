@@ -223,4 +223,20 @@ public class DbUtility extends DbContextManager {
         String getPickupNote = getDataFromMySqlServer(queryString2);
         return getPickupNote;
     }
+
+    public static String getDriverPushNotificationContent(String phoneNumber, String pickupRef){
+        String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+phoneNumber+"') and Payload Like '%"+pickupRef+"%' and UserType ='AUD'";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
+    public static String getCustomerPushNotificationContent(String phoneNumber, String pickupRef){
+        String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+phoneNumber+"') and Payload Like '%"+pickupRef+"%' and UserType ='AUC'";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
+    public static String getPickupRef(String customerPhone){
+        String custRef=getCustomerRefference(customerPhone);
+        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
+        return pickupRef;
+    }
 }

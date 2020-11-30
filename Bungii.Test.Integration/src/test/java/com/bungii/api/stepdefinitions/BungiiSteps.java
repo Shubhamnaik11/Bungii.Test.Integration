@@ -234,7 +234,7 @@ public class BungiiSteps extends DriverBase {
                     if (bungiiType.equalsIgnoreCase("SOLO ONDEMAND")) {
                         Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
                         if (!isDriverEligible)
-                            error("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
+                            logger.detail("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
 
                         //for on demand enroute and accepted are same
                         if (driver1State.equalsIgnoreCase("Stacked Pickup Accepted")) {
@@ -1600,6 +1600,10 @@ public class BungiiSteps extends DriverBase {
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
             String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+            cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
+            cucumberContextManager.setScenarioContext("DRIVER_1_PUSH", driverPhoneNum);
+            cucumberContextManager.setScenarioContext("DRIVER_2_PUSH", driver2PhoneNum);
+
             String driver2AccessToken = null;
             String driver2Ref = null;
                     String custRef = null;
