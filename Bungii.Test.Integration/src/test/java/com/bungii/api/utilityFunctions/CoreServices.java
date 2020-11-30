@@ -216,7 +216,7 @@ public class CoreServices extends DriverBase {
                     drivers = drivers + " "+driverEligible.get(i).get("Phone");
                     i++;
                 }
-                error("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip since Driver "+driverDetail+" is not eligible for pickup : "+expectedPickupRequest +" | "+ drivers, false);
+                logger.detail("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip since Driver "+driverDetail+" is not eligible for pickup : "+expectedPickupRequest +" | "+ drivers, false);
             }
 
         } catch (Exception e) {
@@ -519,7 +519,7 @@ public class CoreServices extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         int mnts = calendar.get(Calendar.MINUTE);
 
-        calendar.set(Calendar.MINUTE, mnts+ 30);
+        calendar.set(Calendar.MINUTE, mnts+ 45);
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));
@@ -533,7 +533,8 @@ public class CoreServices extends DriverBase {
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
         rtnArray[0] = formattedDate+".000";
         rtnArray[1] = wait;
-        logger.detail("TIME CALC BLOCK3");
+
+        logger.detail("TIME CALC BLOCK3 : "+  rtnArray[0]);
         return rtnArray;
 
     }

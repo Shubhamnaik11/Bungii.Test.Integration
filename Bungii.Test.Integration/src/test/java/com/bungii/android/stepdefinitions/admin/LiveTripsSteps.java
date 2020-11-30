@@ -140,6 +140,14 @@ public class LiveTripsSteps extends DriverBase {
             bungiiCostCustomer="$"+bungiiCostCustomer;
             switch (strArg1.toLowerCase()) {
                 case "promo":
+                    //recalculate
+                    bungiiCostCustomer=new DecimalFormat("#.##").format(Double.parseDouble(bungiiCostCustomer.replace("$","")));
+                     price = Double.parseDouble(bungiiCostCustomer)-Double.parseDouble(discountValue);
+                     str = String.format("%1.1f", price);
+                    bungiiCostCustomer = str.toString();
+                    bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
+
+                    bungiiCostCustomer="$"+bungiiCostCustomer;
                     bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "Promo");
