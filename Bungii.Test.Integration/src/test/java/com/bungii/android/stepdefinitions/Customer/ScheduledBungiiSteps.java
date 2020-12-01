@@ -89,7 +89,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             pass("I select already scheduled bungii", "I selected already scheduled bungii of " + tripNoOfDriver + " type and at time: " + tripTime, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Problem in selecting scheduled bungii from customer scheduled list", true);
+            error("Step  Should be successful", "There is Problem in selecting Scheduled Bungii from customers scheduled list | Expected Bungii : "+ String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME")), true);
         }
     }
 

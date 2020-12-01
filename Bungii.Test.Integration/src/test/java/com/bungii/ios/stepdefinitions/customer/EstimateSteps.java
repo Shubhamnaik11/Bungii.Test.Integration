@@ -516,6 +516,8 @@ public class EstimateSteps extends DriverBase {
             formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
         else
             formattedDate = formattedDate + " " + utility.getTimeZoneBasedOnGeofence();
+
+        cucumberContextManager.setScenarioContext("BUNGII_FORMATTED", formattedDate);
         return formattedDate;
     }
 
@@ -542,7 +544,7 @@ public class EstimateSteps extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime + 15); //15 added to eliminate there is deplay in requeting bungii
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
 

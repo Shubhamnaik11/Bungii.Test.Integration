@@ -52,6 +52,7 @@ public class BungiiProgressPage extends PageBase {
     public WebElement Text_DuoDriver1_Name() { return findElements("com.bungii.customer:id/pickup_details_person_name", LocatorType.Id).get(0); }
     public WebElement Text_DuoDriver2_Name() { return findElements("com.bungii.customer:id/pickup_details_person_name", LocatorType.Id).get(1); }
 
+    public WebElement Alert_Message(boolean ... ignoreException){return findElement("android:id/message",LocatorType.Id,ignoreException);}
 
 
 

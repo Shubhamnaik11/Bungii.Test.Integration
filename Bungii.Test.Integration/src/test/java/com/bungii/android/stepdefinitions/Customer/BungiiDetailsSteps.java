@@ -81,6 +81,8 @@ public class BungiiDetailsSteps extends DriverBase {
     @When("^I wait for 1 hour for Bungii Schedule Time$")
     public void i_wait_for_one_hour_for_bungii_start_time() {
         try {
+            Thread.sleep(180000); // Wait for 3 minutes
+
           /*  String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
             int mininumWaitTime = 60;
             if (!bungiiTime.equalsIgnoreCase("NOW")) {

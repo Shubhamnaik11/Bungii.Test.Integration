@@ -519,7 +519,7 @@ public class CoreServices extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         int mnts = calendar.get(Calendar.MINUTE);
 
-        calendar.set(Calendar.MINUTE, mnts+ 45);
+        calendar.set(Calendar.MINUTE, mnts+ 45); // Always choose 2nd possible slot to avoid issues with delay in requesting bungii
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));
@@ -535,6 +535,8 @@ public class CoreServices extends DriverBase {
         rtnArray[1] = wait;
 
         logger.detail("TIME CALC BLOCK3 : "+  rtnArray[0]);
+        cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
+
         return rtnArray;
 
     }
@@ -563,7 +565,9 @@ public class CoreServices extends DriverBase {
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
         rtnArray[0] = formattedDate+".000";
         rtnArray[1] = wait;
-        logger.detail("TIME CALC BLOCK2");
+        logger.detail("TIME CALC BLOCK TELET");
+        cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
+
         return rtnArray;
 
     }
@@ -599,7 +603,9 @@ public class CoreServices extends DriverBase {
         rtnArray[0] = formattedDate+".000";;
         rtnArray[1] = wait;
         logger.detail("Schedule Time  : " +  rtnArray[0]);
-        logger.detail("TIME CALC BLOCK1");
+        logger.detail("TIME CALC BLOCK with Differnece of "+ minuteDifferance);
+        cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
+
 
         return rtnArray;
 
@@ -621,7 +627,8 @@ public class CoreServices extends DriverBase {
                 strTime=strTime.replace(timeLabel,"");
         }
             cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
-     //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
+            cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+        //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
     //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
         int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
@@ -630,7 +637,7 @@ public class CoreServices extends DriverBase {
     }
     public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken,int minDiff) {
         //get utc time and time for bungii to start
-        logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken);
+        logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken +" | Minute Difference "+ minDiff);
 
         String[] nextAvailableBungii = getScheduledBungiiTime(minDiff);
         Date date = new EstimateSteps().getNextScheduledBungiiTime(minDiff);
@@ -643,6 +650,8 @@ public class CoreServices extends DriverBase {
                 strTime=strTime.replace(timeLabel,"");
         }
         cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+        cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+
         //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
         //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
@@ -666,6 +675,8 @@ public class CoreServices extends DriverBase {
         }
 
         cucumberContextManager.setScenarioContext("BUNGII_TIME"+label, strTime.replace("am", "AM").replace("pm","PM"));
+        cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+
         //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
         //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
@@ -690,6 +701,8 @@ public class CoreServices extends DriverBase {
         }
 
         cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+        cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+
         //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
         //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 

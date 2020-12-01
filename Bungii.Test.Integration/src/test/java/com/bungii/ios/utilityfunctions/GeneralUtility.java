@@ -1368,7 +1368,7 @@ catch(Exception ex)
         String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String estimateTime = com.bungii.android.utilityfunctions.DbUtility.getEstimateTime(custRef);
         long totalEstimateDuration = Integer.parseInt(loadtime) + Integer.parseInt(estimateTime);
-        double timeToBeAdded = (totalEstimateDuration * 1.5) + 30;
+        double timeToBeAdded = (totalEstimateDuration * 1.5) +45;//+ 30;
         Date telet = DateUtils.addMinutes(bungiiDate, (int) timeToBeAdded);
 
         //int year=currentDate.getYear()+1900;

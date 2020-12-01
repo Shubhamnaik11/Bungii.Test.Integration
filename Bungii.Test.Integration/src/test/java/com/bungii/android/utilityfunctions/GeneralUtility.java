@@ -92,6 +92,7 @@ public class GeneralUtility extends DriverBase {
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     DbUtility dbUtility=new DbUtility();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
+    BungiiProgressPage Page_CustomerBungiiProgress = new BungiiProgressPage();
 
     EmailUtility emailUtility = new EmailUtility();
     /**
@@ -568,13 +569,13 @@ Thread.sleep(5000);
         try {
           /* */
             action.click(homePage.Button_NavigationBar());
-            if(action.isAlertPresent())
+            if(action.isElementPresent(Page_CustomerBungiiProgress.Alert_Message(true)))
             {
                 action.click(homePage.Button_AlertDone());
             }
         } catch (org.openqa.selenium.NoSuchElementException e) {
             if (action.isElementPresent(homePage.Button_NavigationBarCompleter(true))) {
-                if(action.isAlertPresent())
+                if(action.isElementPresent(Page_CustomerBungiiProgress.Alert_Message(true)))
                 {
                     action.click(homePage.Button_AlertDone());
                 }
@@ -1923,7 +1924,7 @@ Thread.sleep(5000);
         String custRef = dbUtility.getCustomerRefference(phoneNumber);
         String estimateTime = dbUtility.getEstimateTime(custRef);
         long totalEstimateDuration = Integer.parseInt(loadtime) + Integer.parseInt(estimateTime);
-        double timeToBeAdded = (totalEstimateDuration * 1.5) + 30;
+        double timeToBeAdded = (totalEstimateDuration * 1.5) + 45; //30;
         Date telet = DateUtils.addMinutes(bungiiDate, (int) timeToBeAdded);
 
         //int year=currentDate.getYear()+1900;

@@ -234,6 +234,7 @@ public class ScheduledTripSteps extends DriverBase {
 
 			String pickupRequest = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
 			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+
 			testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest), " Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
 			pass("I remove current driver and researches Bungii", "I removeed current driver and researches Bungii");
 
@@ -401,13 +402,18 @@ public class ScheduledTripSteps extends DriverBase {
 
 			Thread.sleep(5000);
 			List<WebElement> rows = SetupManager.getDriver().findElements(By.xpath(String.format("//td/a[contains(text(),'{0}')]/ancestor::tr/td/p[@id='btnEdit']",custName)));
+			if(rows.size()>0)
 			rows.get(0).click();
+			else {
+			    String xpath = String.format("//td/a[contains(text(),'{0}')]/ancestor::tr/td/p[@id='btnEdit']",custName);
+                error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
+            }
 			pass("I should able to open trip", "I viewed scheduled delivery",
-					true);
+					false);
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+			error("Step  Should be successful", "Problem in selecting a Bungii Scheduled deliveries in admin portal for customer "+custName,
 					true);
 		}
 	}
@@ -434,9 +440,10 @@ public class ScheduledTripSteps extends DriverBase {
 			action.click(scheduledTripsPage.CheckBox_Driver2());
 
 		action.click(scheduledTripsPage.Button_Remove());
+
 		scheduledTripsPage.waitForPageLoad();
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 		} catch (Exception e) {
 		}
 		action.click(scheduledTripsPage.Button_Research());
