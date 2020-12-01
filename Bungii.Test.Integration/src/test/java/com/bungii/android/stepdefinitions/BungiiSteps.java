@@ -374,7 +374,7 @@ public class BungiiSteps extends DriverBase {
                 Thread.sleep(80000);
                 isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             }
-            logger.detail(SetupManager.getDriver().getPageSource());
+            //logger.detail(SetupManager.getDriver().getPageSource());
             //stack take times to get notifications
             if(strArg1.equalsIgnoreCase("STACK TRIP") && !isFound){
                 for (int i=0; i<5 &&!isFound;i++){
@@ -1114,9 +1114,9 @@ public class BungiiSteps extends DriverBase {
         try {
             long initialTime;
             if (strArg1.equalsIgnoreCase("current"))
-                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME");
+                initialTime = Long.parseLong((String)cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME"));
             else
-                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
+                initialTime = Long.parseLong((String) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1));
             long currentTime = System.currentTimeMillis() / 1000L;
             long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
             if (diffInMinutes > 5) {

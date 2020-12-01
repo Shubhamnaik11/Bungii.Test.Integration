@@ -252,8 +252,8 @@ Feature: SoloScheduled Part G
     
   #@regression
   Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts The Scheduled Trip - Solo
-    When I Switch to "driver" application on "same" devices
-    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
+    #When I Switch to "driver" application on "same" devices
+   # Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
     
     And I Switch to "customer" application on "same" devices
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
@@ -262,12 +262,14 @@ Feature: SoloScheduled Part G
     And I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I tap on "Menu" > "MY BUNGIIS" link
-    When I Switch to "driver" application on "same" devices
+   # And I tap on "Menu" > "MY BUNGIIS" link
+   # When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "Solo Scheduled" trip
       | driver1 state |
       | Accepted      |
-    Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
+    #Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
+    Then I should get "SCHEDULED PICKUP ACCEPTED" notification for customer
+  
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |

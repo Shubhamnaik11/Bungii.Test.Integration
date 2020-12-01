@@ -969,6 +969,8 @@ public class BungiiSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("CUSTOMER" + customerLabel, customerName);
                 cucumberContextManager.setScenarioContext("CUSTOMER" + customerLabel + "_PHONE", custPhoneNum);
             }
+            cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
+
             cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
             logger.detail("*** Requesting " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence + " ***");
@@ -1103,6 +1105,7 @@ public class BungiiSteps extends DriverBase {
 
                 }
             }
+            cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
 
@@ -1957,7 +1960,8 @@ else
             }
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
-
+            cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
+            cucumberContextManager.setScenarioContext("DRIVER_1_PUSH", driverPhoneNum);
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
             String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
@@ -2070,7 +2074,8 @@ else
 
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
-
+            cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
+            cucumberContextManager.setScenarioContext("DRIVER_1_PUSH", driverPhoneNum);
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
             String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
@@ -2312,7 +2317,8 @@ else
 
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
-
+            cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
+            cucumberContextManager.setScenarioContext("DRIVER_1_PUSH", driverPhoneNum);
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
             String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
@@ -2418,7 +2424,8 @@ else
             cucumberContextManager.setScenarioContext("CUSTOMER2_PASSWORD", custPassword);
 
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
-
+            cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
+            cucumberContextManager.setScenarioContext("DRIVER_1_PUSH", driverPhoneNum);
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
             String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
@@ -2513,7 +2520,8 @@ else
 
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
-
+            cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
+            cucumberContextManager.setScenarioContext("DRIVER_1_PUSH", driverPhoneNum);
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
             String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);

@@ -623,6 +623,7 @@ public class CommonSteps extends DriverBase {
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
             String actualMessage = "";
+            Thread.sleep(10000);
             if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
             } else if (actualMessage.equals("")) {
