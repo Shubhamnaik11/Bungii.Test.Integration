@@ -443,7 +443,7 @@ public class ScheduledTripSteps extends DriverBase {
 
 		scheduledTripsPage.waitForPageLoad();
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(120000);
 		} catch (Exception e) {
 		}
 		action.click(scheduledTripsPage.Button_Research());

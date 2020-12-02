@@ -2584,34 +2584,37 @@ else
 
     public void recoveryScenario() {
         String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
-        logger.detail("********* RECOVERING CUSTOMER AND DRIVER STATE : API *********");
+        logger.detail("********* CLEARING CUSTOMER BUNGIIS *********");
 
         custPhoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         custPassword = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PASSWORD");
         custPassword = custPassword.equalsIgnoreCase("") ? "Cci12345" : custPassword;
+
         if (!custPhoneNum.equalsIgnoreCase("")) {
-            handleOngoingBungii(custPhoneCode, custPhoneNum, custPassword);
-            cancelScheduledBungii(custPhoneCode, custPhoneNum, custPassword);
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+            handleOngoingBungii(custAccessToken);
+            cancelScheduledBungii(custAccessToken);
         }
         // remove driver 2 bungiis
         custPhoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
         custPassword = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PASSWORD");
         custPassword = custPassword.equalsIgnoreCase("") ? "Cci12345" : custPassword;
         if (!custPhoneNum.equalsIgnoreCase("")) {
-            handleOngoingBungii(custPhoneCode, custPhoneNum, custPassword);
-            cancelScheduledBungii(custPhoneCode, custPhoneNum, custPassword);
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+            handleOngoingBungii(custAccessToken);
+            cancelScheduledBungii(custAccessToken);
         }
-        logger.detail("***************** RECOVERY API DATA COMPLETE ******************");
+        logger.detail("***************** CLEARED CUSTOMER BUNGIIS ******************");
 
     }
 
-    public void handleOngoingBungii(String custPhoneCode, String custPhoneNum, String custPassword) {
-        String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+    public void handleOngoingBungii(String custAccessToken) {
+       // String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
         coreServices.cancelOrCompleteOngoingBungii(custAccessToken);
     }
 
-    public void cancelScheduledBungii(String custPhoneCode, String custPhoneNum, String custPassword) {
-        String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+    public void cancelScheduledBungii(String custAccessToken) {
+        //String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
         coreServices.cancelAllScheduledBungiis(custAccessToken);
     }
 
@@ -2633,8 +2636,9 @@ else
             custPassword = PropertyUtility.getDataProperties("customer.password");
 
             if (!custPhoneNum.equalsIgnoreCase("")) {
-                handleOngoingBungii(custPhoneCode, custPhoneNum, custPassword);
-                cancelScheduledBungii(custPhoneCode, custPhoneNum, custPassword);
+                String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+                handleOngoingBungii(custAccessToken);
+                cancelScheduledBungii(custAccessToken);
             }
 
             cust2PhoneNum = dataMap.get("Customer2 Phone").trim();
@@ -2646,9 +2650,10 @@ else
             cust2Password = PropertyUtility.getDataProperties("customer.password");
 
             if (!cust2PhoneNum.equalsIgnoreCase("")) {
-                Thread.sleep(10000);
-                handleOngoingBungii(custPhoneCode, cust2PhoneNum, cust2Password);
-                cancelScheduledBungii(custPhoneCode, cust2PhoneNum, cust2Password);
+                //Thread.sleep(10000);
+                String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+                handleOngoingBungii(custAccessToken);
+                cancelScheduledBungii(custAccessToken);
             }
             if (!cust2PhoneNum.equalsIgnoreCase("")) {
                 pass("Test Data Cleanup : I cancel all the bungiis of a customer", "I cancelled all Bungiis of a customer : " + custPhoneNum + " & " + cust2PhoneNum);
@@ -2761,7 +2766,8 @@ else
         String custPhoneCode = "1", custPassword = "";
         custPassword = PropertyUtility.getDataProperties("web.customer.password");
         if (!customer.equalsIgnoreCase("")) {
-            handleOngoingBungii(custPhoneCode, customer, custPassword);
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, customer, custPassword);
+            handleOngoingBungii(custAccessToken);
         }
         pass("I cancel the trip for the customer",
                 "I have cancelled the trip for the customer");

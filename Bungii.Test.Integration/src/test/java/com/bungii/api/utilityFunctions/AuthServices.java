@@ -23,7 +23,8 @@ public class AuthServices {
      * @return access token
      */
     public Response customerLogin(String custPhoneCode, String custPhoneNum, String custPassword) {
-        logger.detail("API REQUEST : Customer Login of " + custPhoneNum);
+       // logger.detail("API REQUEST : Customer Login of " + custPhoneNum);
+        String RequestText = "API REQUEST : Login Customer :  " + custPhoneNum;
         String token = "";
             Map<String, String> data = new HashedMap();
             data.put("PhoneCountryCode", custPhoneCode);
@@ -31,21 +32,21 @@ public class AuthServices {
             data.put("PhoneNo", custPhoneNum);
             String loginURL = UrlBuilder.createApiUrl("auth", CUST_LOGIN_ENDPOINT);
             Response response = ApiHelper.postDetailsForCustomer(loginURL, data);
-           // ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
         return response;
     }
     //get customer access token
     public String getCustomerToken(String custPhoneCode, String custPhoneNum, String custPassword){
-        String RequestText = "API REQUEST : Get Customer Token of " + custPhoneNum;
+       // String RequestText = "API REQUEST : Get Customer Token of " + custPhoneNum;
         Response response=customerLogin( custPhoneCode, custPhoneNum, custPassword);
-        ApiHelper.genericResponseValidation(response,RequestText);
+        //ApiHelper.genericResponseValidation(response,RequestText);
 
         JsonPath jsonPathEvaluator = response.jsonPath();
         return jsonPathEvaluator.get("AccessToken");
     }
     //Driver login
     public Response driverLogin(String driverPhoneCode, String driverPhoneNum, String driverPassword) {
-        String RequestText = "API REQUEST : Get Driver Login of " + driverPhoneNum;
+        String RequestText = "API REQUEST : Login Driver : " + driverPhoneNum;
         Map<String, String> data = new HashedMap();
             data.put("PhoneCountryCode", driverPhoneCode);
             data.put("Password", driverPassword);
@@ -57,9 +58,9 @@ public class AuthServices {
     }
     //Get driver access token
     public String getDriverToken(String driverPhoneCode, String driverPhoneNum, String driverPassword){
-        String RequestText = "API REQUEST : Get Driver Token of " + driverPhoneNum;
+       // String RequestText = "API REQUEST : Get Driver Token of " + driverPhoneNum;
         Response response=driverLogin( driverPhoneCode, driverPhoneNum, driverPassword);
-        ApiHelper.genericResponseValidation(response, RequestText);
+       // ApiHelper.genericResponseValidation(response, RequestText);
         JsonPath jsonPathEvaluator = response.jsonPath();
         return jsonPathEvaluator.get("AccessToken");
     }

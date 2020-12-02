@@ -978,13 +978,12 @@ public class CoreServices extends DriverBase {
 
     }
     public void cancelAllScheduledBungiis(String authToken){
-        logger.detail("Canceling Scheduled Bungii | Auth Token : "+ authToken);
 
         JsonPath jsonPathEvaluator = getCustomersScheduledPickupList(authToken).jsonPath();
 
         ArrayList ScheduledPickups = jsonPathEvaluator.get("ScheduledPickups");
         if (ScheduledPickups != null) {
-            logger.detail("Total scheduled deliveries found for customer : "+ ScheduledPickups.size());
+            logger.detail("***Total scheduled deliveries found for customer : "+ ScheduledPickups.size()+"***");
             for (int i = 0; i < ScheduledPickups.size(); i++) {
                 HashMap pickupDetails = (HashMap) ScheduledPickups.get(i);
                 String pickupRequest = (String) pickupDetails.get("PickupRef");
@@ -992,22 +991,20 @@ public class CoreServices extends DriverBase {
                 getScheduledPickupDetails(pickupRequest,authToken);
                 if(CanBeCancelled) {
                     cancelBungiiAsCustomer(pickupRequest, authToken);
-                    logger.detail("Cancelled Pickup Request as Customer | Pickup Request : "+ pickupRequest);
+                    logger.detail("***Cancelled Pickup Request as Customer | Pickup Request : "+ pickupRequest+"***");
                 }
                 else {
                     new WebPortal().cancelBungiiAsAdmin(pickupRequest);
-                    logger.detail("Cancelled Pickup Request as Admin | Pickup Request : "+ pickupRequest);
+                    logger.detail("***Cancelled Pickup Request as Admin | Pickup Request : "+ pickupRequest+"***");
                 }
             }
         }
         else
-            logger.detail("No Scheduled Bungiis Found for Customer");
+            logger.detail("***No Scheduled Bungiis Found for Customer***");
 
 
     }
     public void cancelOrCompleteOngoingBungii(String custAccessToken){
-        logger.detail("Canceling or completing Ongoing Bungii");
-
         Response response= customerView("", custAccessToken);
 
 
@@ -1068,7 +1065,7 @@ public class CoreServices extends DriverBase {
 
         }
         else
-            logger.detail("No Bungiis Found for Customer ");
+            logger.detail("***No Ongoing Bungiis Found for the Customer***" );
     }
     public Response getScheduledPickupDetails(String pickuprequestid, String authToken) {
         String RequestText ="API REQUEST : Get Scheduled Pickup Details | pickup Request : "+ pickuprequestid + " | Authtoken : "+ authToken;

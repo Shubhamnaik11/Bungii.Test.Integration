@@ -46,7 +46,7 @@ public class WebPortal {
                         get(loginURL);
         String responseData = responseGet.asString();
         adminCookies = responseGet.then().extract().response().getDetailedCookies();
-        logger.detail("Admin Cookie : "+ adminCookies);
+       // logger.detail("Admin Cookie : "+ adminCookies);
         String verificationToken = "";//responseGet.htmlPath().getString("html.body.span.input.@value");
         String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
         Pattern pattern = Pattern.compile("return '(.+?)'");
@@ -54,14 +54,14 @@ public class WebPortal {
         if (matcher.find())
         {
             csrfToken =matcher.group(1);
-            logger.detail("CSRF Token : "+csrfToken) ;
+           // logger.detail("CSRF Token : "+csrfToken) ;
         }
          pattern = Pattern.compile("__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
          matcher = pattern.matcher(responseData);
         if (matcher.find())
         {
             verificationToken=matcher.group(1);
-            logger.detail("Verification Token POST Parameter : "+ verificationToken);
+           // logger.detail("Verification Token POST Parameter : "+ verificationToken);
         }
         Response response = given().cookies(adminCookies).contentType("application/x-www-form-urlencoded; charset=UTF-8").urlEncodingEnabled(false)
                 .header("Accept-Language", "en-US,en;q=0.5")
@@ -76,7 +76,7 @@ public class WebPortal {
                 .when().redirects().follow(true).
                         post(loginURL);
         adminCookies2 = response.then().extract().response().getDetailedCookies();
-        logger.detail("Admin Cookie : "+adminCookies2);
+        //logger.detail("Admin Cookie : "+adminCookies2);
         return response;
     }
 

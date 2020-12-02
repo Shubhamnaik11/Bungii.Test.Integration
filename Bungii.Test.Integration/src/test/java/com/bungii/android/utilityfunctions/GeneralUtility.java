@@ -1471,23 +1471,18 @@ Thread.sleep(5000);
 
 
     public void recoverScenario() {
-        logger.detail("Inside recovery scenario");
+        logger.detail("********* RESTORING APP STATE : DRIVER *********");
         try{
             if(action.isElementPresent(driverHomePage.Generic_DriverCustomerApp(true))){
-
             }
             else if(action.isElementPresent(otherAppsPage.Notification_Screen(true))){
                 action.hideNotifications();
             }
-
         }catch (Exception e) {
-            logger.detail(ExceptionUtils.getStackTrace(e));
         }
-
         try {
             SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-
-            logger.detail("Switched to Driver in recovery scenario");
+           // logger.detail("Switched to Driver in recovery scenario");
             Thread.sleep(1000);
 
         } catch (Exception e) {
@@ -1497,12 +1492,12 @@ Thread.sleep(5000);
             //   if (action.isElementPresent(driverBungiiProgressPage.Title_Status(true))) {
             if (action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
                 String screen = action.getText(driverHomePage.Generic_HeaderElement());
-                logger.detail("Driver struck screen " + screen);
+                logger.detail("Driver App Screen " + screen);
                 if (screen.equalsIgnoreCase("Google Play Store")) {
                     //TODO
                 }
                 if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
-                    logger.detail("Driver struck on arrived screen");
+                    logger.detail("Driver is on arrived screen");
                     action.click(driverBungiiProgressPage.Button_Cancel());
                     action.click(driverBungiiProgressPage.Button_Cancel_Yes());
                     launchCustomerApplication();
@@ -1511,13 +1506,13 @@ Thread.sleep(5000);
                 } else if (screen.equals("LOGIN") || screen.equals("ONLINE") || screen.equals("OFFLINE")) {
                     //do nothing
                 } else if (screen.equals(Status.EN_ROUTE.toString())) {
-                    logger.detail("Driver struck on EN_ROUTE screen");
+                    logger.detail("Driver is on EN_ROUTE screen");
                     action.click(driverBungiiProgressPage.Button_Cancel());
                     action.click(driverBungiiProgressPage.Button_Cancel_Yes());
                     launchCustomerApplication();
                     action.click(estimatePage.Button_OK());
                 } else if (screen.equals(Status.LOADING_ITEM.toString())) {
-                    logger.detail("Driver struck on LOADING_ITEM screen");
+                    logger.detail("Driver is on LOADING_ITEM screen");
                     action.swipeRight(driverBungiiProgressPage.Slider());
 
                     if (action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))) {
@@ -1537,7 +1532,7 @@ Thread.sleep(5000);
                     }
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
                 } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
-                    logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
+                    logger.detail("Driver is on DRIVING_TO_DROP_OFF screen");
                     action.swipeRight(driverBungiiProgressPage.Slider());
                     action.swipeRight(driverBungiiProgressPage.Slider());
 
@@ -1549,7 +1544,7 @@ Thread.sleep(5000);
                     }
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
                 } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
-                    logger.detail("Driver struck on UNLOADING_ITEM screen");
+                    logger.detail("Driver is on UNLOADING_ITEM screen");
                     action.swipeRight(driverBungiiProgressPage.Slider());
 
                     if (action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))) {
@@ -1564,18 +1559,18 @@ Thread.sleep(5000);
 
                 }
             } else if (action.isElementPresent(bungiiCompletedPage.Button_OnToTheNext(true))) {
-                logger.detail("Driver struck on bungii completed screen");
+                logger.detail("Driver is on bungii completed screen");
                 action.click(bungiiCompletedPage.Button_OnToTheNext());
             } else if (action.isElementPresent(estimatePage.Button_OK(true))) {
-                logger.detail("Driver struck on  Popup message ");
+                logger.detail("Driver is on Popup screen ");
                 action.click(estimatePage.Button_OK());
             }
 
         } catch (Exception e) {
-            logger.detail(ExceptionUtils.getStackTrace(e));
+            //logger.detail(ExceptionUtils.getStackTrace(e));
         }
         SetupManager.getObject().restartApp();
-        logger.detail("Switched to customer in recovery scenario");
+        logger.detail("********* RESTORING APP STATE : CUSTOMER *********");
         String appHeader = "";
         try {
             appHeader = action.getText(Page_Signup.GenericHeader(true));
@@ -1586,15 +1581,15 @@ Thread.sleep(5000);
         if (appHeader.equalsIgnoreCase("BUNGII") || appHeader.equalsIgnoreCase("SIGN UP") || appHeader.equalsIgnoreCase("LOGIN")) {
             //do nothing
         } else if (action.isElementPresent(searchingPage.ProgressBar(true))) {
-            logger.detail("customer struck on searching screen");
+            logger.detail("customer is on searching screen");
             action.click(searchingPage.Link_CancelSearch());
             action.click(searchingPage.Button_CancelConfirm());
         } else if (action.isElementPresent(customerBungiiCompletePage.PageTitle_BungiiComplete(true))) {
-            logger.detail("customer struck on bungii complete screen");
+            logger.detail("customer is on bungii complete screen");
             action.click(customerBungiiCompletePage.CloseRateTipPage());
             action.click(wantDollar5Page.Button_NoFreeMoney());
         } else if (action.isElementPresent(wantDollar5Page.Titlebar_WantDollar5Page(true))) {
-            logger.detail("Customer struck on promotion screen");
+            logger.detail("Customer is on promotion screen");
             action.click(wantDollar5Page.Button_NoFreeMoney());
         }
     }
