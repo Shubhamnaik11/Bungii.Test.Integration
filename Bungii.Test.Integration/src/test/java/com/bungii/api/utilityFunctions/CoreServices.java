@@ -1019,7 +1019,7 @@ public class CoreServices extends DriverBase {
             //on demand searching
             if (pickupStatus == 4) {
                 cancelBungiiAsCustomer(pickupRequestID, custAccessToken);
-                logger.detail("Cancelled Pickup Request as Customer | Pickup Request : "+ pickupRequestID);
+                logger.detail("***Cancelled Pickup Request as Customer | Pickup Request : "+ pickupRequestID+"***");
             }
             else if(pickupStatus == 23 || pickupStatus == 24) {
                 //cancel Bungii as driver
@@ -1029,7 +1029,7 @@ public class CoreServices extends DriverBase {
                 String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
 
                 updateStatus(pickupRequestID, driverAccessToken, 66);
-                logger.detail("Pickup Status moved to 66 From either 23 or 24 | Pickup Request : "+ pickupRequestID);
+                logger.detail("***Pickup Status moved to 66 From either 23 or 24 | Pickup Request : "+ pickupRequestID+"***");
 
             } else if(pickupStatus == 25 || pickupStatus == 26 ||pickupStatus == 27 ||pickupStatus == 28) {
                 //complete Bungii as driver
@@ -1059,7 +1059,7 @@ public class CoreServices extends DriverBase {
                     rateAndTip(pickupRequestID, custAccessToken, driver1Ref, paymentMethod, 5.0, 0.0, driver2Ref, paymentMethod);
 
                 }
-                logger.detail("Completed In Progress Trip | Pickup Request : "+ pickupRequestID);
+                logger.detail("***Completed In Progress Trip | Pickup Request : "+ pickupRequestID+"***");
 
             }
 
