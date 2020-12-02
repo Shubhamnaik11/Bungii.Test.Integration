@@ -230,7 +230,7 @@ public class DbUtility extends DbContextManager {
         return deviceToken;
     }
     public static String getCustomerPushNotificationContent(String phoneNumber, String pickupRef){
-        String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+phoneNumber+"') and Payload Like '%"+pickupRef+"%' and UserType ='AUC'";
+        String queryString2= "select Payload from pushnotification where userid in (select Id from customer where phone = '"+phoneNumber+"') and Payload Like '%"+pickupRef+"%' and UserType ='AUC'";
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }

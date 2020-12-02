@@ -69,7 +69,7 @@ public class TermsAndConditionSteps extends DriverBase {
         try {
             GeneralUtility utility = new GeneralUtility();
             Thread.sleep(3000);
-            String pageHeader = utility.getPageHeader();
+           // String pageHeader = utility.getPageHeader();
 
             if(action.isElementPresent(termsAndConditionPage.Checkbox_Agree(true))) {
                 action.click(termsAndConditionPage.Checkbox_Agree());
@@ -106,7 +106,7 @@ public class TermsAndConditionSteps extends DriverBase {
     @Then("^I close \"([^\"]*)\" if exist$")
     public void i_close_tutorial_page(String Tutorial) throws Throwable {
         try {
-            if(action.isElementPresent(homePage.Button_Closetutorials())) {
+            if(action.isElementPresent(homePage.Button_Closetutorials(true))) {
                 List<WebElement> xpath = homePage.Button_PdfPages();
                 int xpathCount = xpath.size();
                 boolean isClicked = false, isSwiped = false;

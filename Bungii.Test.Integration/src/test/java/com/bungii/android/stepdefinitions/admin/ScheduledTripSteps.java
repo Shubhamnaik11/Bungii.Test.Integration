@@ -396,8 +396,9 @@ public class ScheduledTripSteps extends DriverBase {
 	@And("^I open the trip for \"([^\"]*)\" the customer$")
 	public void i_open_the_trip_for_something_the_customer(String custName) throws Throwable {
 		try {
+			String[] name = custName.split(" ");
 
-			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(), name[0]);
 			action.click(scheduledTripsPage.Button_Search());
 
 			Thread.sleep(5000);
