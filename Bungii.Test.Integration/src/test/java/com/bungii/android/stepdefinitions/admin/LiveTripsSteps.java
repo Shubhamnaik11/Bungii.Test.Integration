@@ -143,7 +143,12 @@ public class LiveTripsSteps extends DriverBase {
                     //recalculate
                     bungiiCostCustomer=new DecimalFormat("#.##").format(Double.parseDouble(bungiiCostCustomer.replace("$","")));
                      price = Double.parseDouble(bungiiCostCustomer);//-Double.parseDouble(discountValue);
+                     Double calc = price * 100;
+                     if (calc%10==0)
                      str = String.format("%1.1f", price);
+                     else
+                         str = String.format("%1.2f", price);
+
                     bungiiCostCustomer = str.toString();
                     bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
 

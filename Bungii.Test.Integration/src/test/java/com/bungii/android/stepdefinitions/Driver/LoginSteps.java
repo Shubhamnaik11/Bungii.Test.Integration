@@ -357,6 +357,7 @@ public class LoginSteps extends DriverBase {
 
                     for (int i = 0; i < 5; i++) {
                         action.click(driverLogInPage.Button_Login());
+                        Thread.sleep(5000);
                     }
                     break;
 
@@ -366,12 +367,14 @@ public class LoginSteps extends DriverBase {
 
                 for (int i = 0; i < 3; i++) {
                     action.click(driverLogInPage.Button_Login());
+                    Thread.sleep(5000);
                 }
                 break;
 
             case "2":
                 for (int i = 0; i < 2; i++) {
                     action.click(driverLogInPage.Button_Login());
+                    Thread.sleep(5000);
                 }
                 break;
             }

@@ -123,7 +123,7 @@ public class VerificationManager {
 			ResultManager.pass( expectedValue+" should be displayed", actualValue+" is correctly displayed", true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedValue+" should be displayed", expectedValue+ " is not displayed. Actual : "+actualValue, true);
+			ResultManager.fail( expectedValue+" should be displayed", expectedValue+ " is not displayed. Actual value : "+actualValue, true);
 		}
 		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 	}

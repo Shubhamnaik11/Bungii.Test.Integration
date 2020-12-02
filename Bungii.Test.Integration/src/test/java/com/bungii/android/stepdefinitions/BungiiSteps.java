@@ -348,13 +348,13 @@ public class BungiiSteps extends DriverBase {
                 if (pickupRequestID != "") {
                     String pushNotificationContent = dbutility.getCustomerPushNotificationContent(CustomerPhoneNum, pickupRequestID);
 
-                    testStepAssert.isTrue(pushNotificationContent.contains(expecteMessage), "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find virtual notification with " + expecteMessage + " message");
+                    testStepAssert.isTrue(pushNotificationContent.contains(expecteMessage), "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "VIRTUAL PUSH NOTIFICATION NOT RECEIVED : " + expecteMessage + " message");
 
                 } else
                     error("I should get virtual notification.", "pickupRequestID : is null ", false);
 
                 } else
-                    testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find notification with " + expecteMessage + " message");
+                    testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "PUSH NOTIFICATION NOT RECEIVED : " + expecteMessage + " message");
 
             //SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
         } catch (Exception e) {
@@ -447,7 +447,7 @@ public class BungiiSteps extends DriverBase {
                 action.hideNotifications();
                 //error("I was not able to find push notification with " + expecteMessage + " message in android.");
             }
-            testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find notification with " + expecteMessage + " message");
+            testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "PUSH NOTIFICATION NOT RECEIVED : " + expecteMessage + " message");
 
             //SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                    } catch (Exception e) {
@@ -487,13 +487,13 @@ public class BungiiSteps extends DriverBase {
             if(notificationClick==true){
                 pass("I should able to click notification for "+expecteMessage,"I clicked on notifications with text "+utility.getExpectedNotification(expecteMessage),true);
             }else{
-                fail("I should able to click notification for "+expecteMessage,"I was not clicked on notifications with text "+utility.getExpectedNotification(expecteMessage),true);
+                fail("I should able to click notification for "+expecteMessage,"PUSH NOTIFICATION NOT RECEIVED : "+utility.getExpectedNotification(expecteMessage),true);
                 action.hideNotifications();
             }
 
                 action.hideNotifications();
 
-            testStepAssert.isTrue(notificationClick, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find notification with " + expecteMessage + " message");
+            testStepAssert.isTrue(notificationClick, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "PUSH NOTIFICATION NOT RECEIVED : " + expecteMessage + " message");
 
             //SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
         } catch (Exception e) {

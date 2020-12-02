@@ -103,7 +103,7 @@ Feature: SoloScheduled
     Then I wait for "2" mins
     And I select 1st trip from scheduled bungii
     
-    And I select already scheduled bungii
+    #And I select already scheduled bungii
     #When I Cancel selected Bungii
     When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
@@ -220,34 +220,6 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 8888888881 |                 |
-    
-  @regression
-  Scenario: TELET : Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Case:DUO
-    #trip 1
-    Given I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time  | Customer Phone | Customer Password | Customer Name                    |
-      | 15 min ahead | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
-     #trip 2
-    Given I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Password | Customer Name                     | Customer label |
-      | NEXT_POSSIBLE | 8888888881     | Cci12345          | Testcustomertywd_appleRicha1 Test | 2              |
-    
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    Then I should able to see "two" available trip
-    
-    And I Select Trip from available trip
-    And I click "ACCEPT" button on Bungii Request screen
-    Then I should be navigated to "AVAILABLE BUNGIIS" screen
-    Then I should able to see "zero" available trip
-    
-    And I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | 8888888881      |
   
   
   @regression
