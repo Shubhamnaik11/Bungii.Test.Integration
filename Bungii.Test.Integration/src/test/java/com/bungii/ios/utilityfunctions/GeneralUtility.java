@@ -611,6 +611,7 @@ public class GeneralUtility extends DriverBase {
                     isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("AVAILABLE BUNGIIS");
                     break;
                 }
+            case "DRIVER HOME":
             case "HOME":
                 if (currentApplication.equals("DRIVER")) {
                     String naviagationBar = action.getScreenHeader(driverHomePage.Text_NavigationBar());
@@ -802,6 +803,9 @@ public class GeneralUtility extends DriverBase {
             action.click(enableLocationPage.Button_Sure());
             action.clickAlertButton("Always Allow");
         }
+        else if(action.isAlertPresent()){
+            action.clickAlertButton("Always Allow");
+        }
     }
 
     public void loginToDriverApp(String phone, String password) throws InterruptedException {
@@ -832,6 +836,7 @@ try {
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Always Allow");
             }
+
         }
 }
 catch(Exception ex)
