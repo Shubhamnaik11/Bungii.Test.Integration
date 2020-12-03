@@ -42,11 +42,11 @@ public class LiveTripsSteps extends DriverBase {
             action.click(liveTripsPage.Button_StartDateSort());Thread.sleep(2000);
             action.click(liveTripsPage.Button_RowOne());
         }
-         catch (Throwable e) {
+        catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
-            }
+        }
     }
 
     @Then("^I select trip from trips$")
@@ -229,10 +229,10 @@ public class LiveTripsSteps extends DriverBase {
     @When("^I click on \"([^\"]*)\" link$")
     public void i_click_on_something_link(String link) throws Throwable {
         try{
-        switch(link) {
-            case "Manually End Bungii":
-                action.click(liveTripsPage.Link_ManuallyEndBungii());
-                break;
+            switch(link) {
+                case "Manually End Bungii":
+                    action.click(liveTripsPage.Link_ManuallyEndBungii());
+                    break;
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -271,18 +271,18 @@ public class LiveTripsSteps extends DriverBase {
     @And("^Click on \"([^\"]*)\" button$")
     public void click_on_something_button(String button) throws Throwable {
         try{
-        switch (button)
-        {
-            case "Calculate Cost":
-                action.click(liveTripsPage.Button_CalculateCost());
-                break;
-            case "Confirm":
-                action.click(liveTripsPage.Button_Confirm());Thread.sleep(120000);
-                break;
-            case "Cancel":
-                action.click(liveTripsPage.Button_Cancel());
-                break;
-        }
+            switch (button)
+            {
+                case "Calculate Cost":
+                    action.click(liveTripsPage.Button_CalculateCost());
+                    break;
+                case "Confirm":
+                    action.click(liveTripsPage.Button_Confirm());Thread.sleep(120000);
+                    break;
+                case "Cancel":
+                    action.click(liveTripsPage.Button_Cancel());
+                    break;
+            }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -294,11 +294,11 @@ public class LiveTripsSteps extends DriverBase {
     public void i_view_the_trips_list_on_the_admin_portal() throws Throwable {
         try{
             Thread.sleep(120000);
-        action.click(liveTripsPage.Menu_Trips());
-        SetupManager.getDriver().navigate().refresh();
-        action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
-        log("I view the Trips list on the admin portal",
-                "I viewed the Trips list on the admin portal", true);
+            action.click(liveTripsPage.Menu_Trips());
+            SetupManager.getDriver().navigate().refresh();
+            action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
+            log("I view the Trips list on the admin portal",
+                    "I viewed the Trips list on the admin portal", true);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -329,62 +329,62 @@ public class LiveTripsSteps extends DriverBase {
             if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
                 String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType[0].toUpperCase(), customer);
 
-            int retrycount =10;
-            boolean retry = true;
+                int retrycount =10;
+                boolean retry = true;
 
-            while (retry == true && retrycount >0) {
-                try {
-                    WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
-                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
-                    retry = false;
-                } catch (Exception ex) {
-                    SetupManager.getDriver().navigate().refresh();
-                    action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
-                    action.click(liveTripsPage.Button_ApplyGeofenceFilter());
-                    retrycount--;
-                    retry = true;
+                while (retry == true && retrycount >0) {
+                    try {
+                        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+                        retry = false;
+                    } catch (Exception ex) {
+                        SetupManager.getDriver().navigate().refresh();
+                        action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
+                        action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+                        retrycount--;
+                        retry = true;
+                    }
+
                 }
-
-            }
-            int retryCount = 1;
-            while (!SetupManager.getDriver().findElement(By.xpath(xpath)).getText().equalsIgnoreCase(status)) {
-                if (retryCount >= 20) break;
-                Thread.sleep(15000); //Wait for 15 seconds
-                retryCount++;
-                SetupManager.getDriver().navigate().refresh();
-            }
-            cucumberContextManager.setScenarioContext("XPATH",xpath);
-            testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
-
-        } else {
-            String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
-            int retrycount =10;
-            boolean retry = true;
-            while (retry == true && retrycount >0) {
-                try {
-                    WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
-                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPath)));
-                    retry = false;
-                } catch (Exception ex) {
+                int retryCount = 1;
+                while (!SetupManager.getDriver().findElement(By.xpath(xpath)).getText().equalsIgnoreCase(status)) {
+                    if (retryCount >= 20) break;
+                    Thread.sleep(15000); //Wait for 15 seconds
+                    retryCount++;
                     SetupManager.getDriver().navigate().refresh();
-                    action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
-                    action.click(liveTripsPage.Button_ApplyGeofenceFilter());
-                    retrycount--;
-                    retry = true;
                 }
+                cucumberContextManager.setScenarioContext("XPATH",xpath);
+                testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
+            } else {
+                String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
+                int retrycount =10;
+                boolean retry = true;
+                while (retry == true && retrycount >0) {
+                    try {
+                        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPath)));
+                        retry = false;
+                    } catch (Exception ex) {
+                        SetupManager.getDriver().navigate().refresh();
+                        action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
+                        action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+                        retrycount--;
+                        retry = true;
+                    }
+
+                }
+                int retryCount = 1;
+                while (!SetupManager.getDriver().findElement(By.xpath(XPath)).getText().equalsIgnoreCase(status)) {
+                    if (retryCount >= 20) break;
+                    Thread.sleep(15000); //Wait for 15 seconds
+                    retryCount++;
+                    SetupManager.getDriver().navigate().refresh();
+                }
+                cucumberContextManager.setScenarioContext("XPATH",XPath);
+                logger.detail("XPATH is"+XPath);
+                testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
             }
-            int retryCount = 1;
-            while (!SetupManager.getDriver().findElement(By.xpath(XPath)).getText().equalsIgnoreCase(status)) {
-                if (retryCount >= 20) break;
-                Thread.sleep(15000); //Wait for 15 seconds
-                retryCount++;
-                SetupManager.getDriver().navigate().refresh();
-            }
-            cucumberContextManager.setScenarioContext("XPATH",XPath);
-            logger.detail("XPATH is"+XPath);
-            testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
-        }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -394,31 +394,31 @@ public class LiveTripsSteps extends DriverBase {
     }
     @When("^I view the trip details$")
     public void i_view_the_trip_details() throws Throwable {
-    try{
-        SetupManager.getDriver().navigate().refresh();
-        String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
-        action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
-    } catch (Throwable e) {
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Error performing step,Please check logs for more details",
-                true);
-    }
+        try{
+            SetupManager.getDriver().navigate().refresh();
+            String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+            action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     public String getGeofence(String geofence)
     {
         String geofenceName = "";
         try{
-        switch(geofence) {
-            case "washingtondc":
-                geofenceName = "Washington DC";
-                break;
+            switch(geofence) {
+                case "washingtondc":
+                    geofenceName = "Washington DC";
+                    break;
 
-            case "miami":
-                geofenceName = "Miami";
-                break;
+                case "miami":
+                    geofenceName = "Miami";
+                    break;
 
-        }
+            }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

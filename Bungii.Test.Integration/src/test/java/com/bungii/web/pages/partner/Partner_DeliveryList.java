@@ -59,4 +59,7 @@ public class Partner_DeliveryList extends PageBase {
     //Apply button for status filter
     public WebElement Button_Apply() { return findElement("//button[@class='btn']",LocatorType.XPath);}
 
+    //Selected service name
+    public WebElement Text_Selected_Service() { return findElement("//label[contains(text(),'Service Level')]//following::p/span",LocatorType.XPath);}
+
 }

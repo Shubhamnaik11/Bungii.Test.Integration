@@ -5,11 +5,10 @@ Feature: Admin_DriverApplicationVerification
     Given I am logged in as Admin
     And there is a pending application for driver verification
 
-  @sanity
   @ready
   @email
   @failed
-    #test data created in base
+      #test data created in base
   Scenario: Verify Driver Application Approval - NonFountain
     When I click "Verify" button against the "John MwrB" applicant
     Then I should be directed to "Driver Verification Page"
@@ -26,6 +25,7 @@ Feature: Admin_DriverApplicationVerification
     #test data created in base
   @email
   @failed
+
   Scenario: Verify Driver Application Rejection - NonFountain
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
@@ -39,7 +39,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Rejected"
     And I should receive "Your application has been rejected." email
     
-  @regression
+  @ready
   @email
     #test data created in base
   Scenario: Verify Driver Application Resend Application - NonFountain
@@ -96,8 +96,9 @@ Feature: Admin_DriverApplicationVerification
     When I click and reset the status of "Driver Picture" field
     Then the status of the field resets to default
 
-  @regression
-  @failed
+  #@ready
+  #@failedT
+  @knownissue
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
     When I click "Verify" button against the "Melvin Johnson" applicant

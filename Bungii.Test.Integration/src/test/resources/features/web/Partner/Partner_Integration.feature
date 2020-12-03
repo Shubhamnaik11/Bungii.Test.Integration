@@ -2,7 +2,7 @@
 Feature: Partner Integration with Admin and Driver
 
   Background:
-    Given I navigate to "Bungii Partner Portal" URL
+    Given I navigate to "Partner" portal configured for "normal" URL
     And I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
@@ -10,9 +10,9 @@ Feature: Partner Integration with Admin and Driver
   @ready
   @sanity
   Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup on Partner Portal
-    When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -20,7 +20,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should see "Estimated Cost"
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-    When I enter following details on "Delivery Details" partner screen
+    When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
       |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
@@ -31,7 +31,8 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
-    When I navigate to "Bungii Admin Portal in new tab" URL
+    #When I navigate to "Bungii Admin Portal in new tab" URL
+    When I navigate to "Admin" portal configured for "QA" URL
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
@@ -106,9 +107,9 @@ Feature: Partner Integration with Admin and Driver
 
   @ready
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip from Admin Portal
-    When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -116,7 +117,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should see "Estimated Cost"
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-    When I enter following details on "Delivery Details" partner screen
+    When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
       |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
@@ -144,9 +145,9 @@ Feature: Partner Integration with Admin and Driver
 
   @ready
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip from Driver
-    When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -154,7 +155,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should see "Estimated Cost"
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-    When I enter following details on "Delivery Details" partner screen
+    When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
       |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
@@ -200,9 +201,9 @@ Feature: Partner Integration with Admin and Driver
 
   @ready
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by control Driver
-    When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
-      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | Duo    | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -210,7 +211,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should see "Estimated Cost"
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-    When I enter following details on "Delivery Details" partner screen
+    When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
       |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
@@ -256,9 +257,9 @@ Feature: Partner Integration with Admin and Driver
 
   @ready
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by Non control Driver
-    When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
-      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | Duo    | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -266,7 +267,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should see "Estimated Cost"
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-    When I enter following details on "Delivery Details" partner screen
+    When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
       |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
@@ -312,9 +313,9 @@ Feature: Partner Integration with Admin and Driver
 
   @ready
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip manually by Admin
-    When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -322,7 +323,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should see "Estimated Cost"
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-    When I enter following details on "Delivery Details" partner screen
+    When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
       |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
@@ -367,9 +368,9 @@ Feature: Partner Integration with Admin and Driver
 
   @regression
   Scenario: Verify Solo Scheduled trip cannot cancel in Partner portal once the Trip started
-    When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -377,7 +378,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should see "Estimated Cost"
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-    When I enter following details on "Delivery Details" partner screen
+    When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
       |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method

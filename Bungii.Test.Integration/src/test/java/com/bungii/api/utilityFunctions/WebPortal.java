@@ -28,6 +28,7 @@ public class WebPortal {
     private static String SCHEDULED_DELIVERY = "/BungiiReports/ScheduledTrips";
     private static String LIVE_DELIVERY_DETAIL="/BungiiReports/TripDetails?tripRef=";
 
+
     private static LogUtility logger = new LogUtility(AuthServices.class);
 
 
@@ -101,6 +102,7 @@ public class WebPortal {
         {
             csrfToken =matcher.group(1);
         }
+
         pattern = Pattern.compile("__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
         matcher = pattern.matcher(responseGet);
         if (matcher.find())
@@ -108,6 +110,7 @@ public class WebPortal {
             verificationToken =matcher.group(1);
         }
         String cancelBungii = UrlBuilder.createApiUrl("web core", CUSTOMER_CANCELPICKUP);
+
         Response response = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("__requestverificationtoken",csrfToken)
                 .formParams("PickupRequestID", pickupRequestId, "CancellationFee", "6", "CancelComments", "test","__RequestVerificationToken",verificationToken)
@@ -138,6 +141,7 @@ public class WebPortal {
     public void canEditPickup(String pickupRequestId) {
         logger.detail("API REQUEST : Edit Pickup " + pickupRequestId);
         String scheduledDelivery = UrlBuilder.createApiUrl("web core", SCHEDULED_DELIVERY);
+
         String responseGet = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
@@ -156,6 +160,7 @@ public class WebPortal {
         {
             csrfToken =matcher.group(1);
         }
+
 
         String cancelBungii = UrlBuilder.createApiUrl("web core", CAN_EDIT_PICKUP);
         Response response = given().cookies(adminCookies).cookies(adminCookies2)
@@ -177,6 +182,7 @@ public class WebPortal {
 
     public void calculateManuallyEndCost(String pickupRequestId,String bungiiEndTime,String bungiiTimeZoneLabel) {
         logger.detail("API REQUEST : Calculate Manually End Cost : " + pickupRequestId);
+
         String scheduledDelivery = UrlBuilder.createApiUrl("web core", LIVE_DELIVERY_DETAIL+pickupRequestId+"&isComplete=False&caller=1&userType=1");
         Response responseGet = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("Accept-Language", "en-US,en;q=0.5")
@@ -188,6 +194,7 @@ public class WebPortal {
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                 .when().
                         get(scheduledDelivery);
+
         String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
         Pattern pattern = Pattern.compile("return '(.+?)'");
         Matcher matcher = pattern.matcher(responseGet.htmlPath().toString());
@@ -195,8 +202,6 @@ public class WebPortal {
         {
             csrfToken =matcher.group(1);
         }
-
-
         String endBungii = UrlBuilder.createApiUrl("web core", CALCULATE_COST);
         Response response = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("__requestverificationtoken",csrfToken)
@@ -214,6 +219,7 @@ public class WebPortal {
 
     public void calculateManuallyBungii(String pickupRequestId,String bungiiEndTime,String bungiiTimeZoneLabel) {
         logger.detail("API REQUEST : Calculate Manually Bungii : " + pickupRequestId);
+
        // String scheduledDelivery = UrlBuilder.createApiUrl("web core", SCHEDULED_DELIVERY);
         String scheduledDelivery = UrlBuilder.createApiUrl("web core", LIVE_DELIVERY_DETAIL+pickupRequestId+"&isComplete=False&caller=1&userType=1");
         Response responseGet = given().cookies(adminCookies).cookies(adminCookies2)

@@ -14,17 +14,16 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.WebElement;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
+import static com.bungii.web.utilityfunctions.DbUtility.getListOfService;
 
 public class Partner_LoginSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LogInSteps.class);
@@ -39,14 +38,14 @@ public class Partner_LoginSteps extends DriverBase {
     //DbUtility dbUtility = new DbUtility();
 
 
-    @Given("^I navigate to \"([^\"]*)\" URL$")
-    public void i_navigate_to_something(String page) throws Throwable {
+    @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
+    public void i_navigate_to_something(String page, String url) throws Throwable {
         switch (page)
         {
-            case "Bungii Partner Portal":
-                utility.NavigateToPartnerLogin();
+            case "Partner":
+                utility.NavigateToPartnerLogin(url);
                 break;
-            case "Bungii Admin Portal in new tab":
+            case "Admin":
                 utility.AdminLoginFromPartner();
                 break;
             default:break;
@@ -74,6 +73,35 @@ public class Partner_LoginSteps extends DriverBase {
 
     }
 
+    @And("^I click on close button on service level$")
+    public void i_click_on_close_button_on_service_level(){
+        action.click(Page_Partner_Dashboard.Button_close());
+    }
+
+    @And("^I change the service level to \"([^\"]*)\"$")
+    public void i_change_the_service_level(String Service_Name) throws InterruptedException {
+
+        String Xpath = "//span[@class='service-title' and @data-name='"+Service_Name+"']";
+
+        WebElement Xpath1 = action.getElementByXPath(Xpath);
+        action.click(Xpath1);
+
+        cucumberContextManager.setScenarioContext("Selected_service",Service_Name);
+        //String alias = (String) cucumberContextManager.getScenarioContext("Alias");
+        /*if(alias.equalsIgnoreCase("Brandsmart - Kansas")){
+            switch (Service_Name){
+                case "Curbside":
+                    action.click(Page_Partner_Dashboard.Radio_Button_Curbside());
+                    break;
+                case "Threshold":
+                    action.click(Page_Partner_Dashboard.Radio_Button_Threshold());
+                    break;
+                default:break;
+
+            }
+        }*/
+
+    }
 
     @And("^I click \"([^\"]*)\" button on Partner Portal$")
     public void I_Click_Some_Button_On_Partner_Portal(String str) throws InterruptedException {
@@ -86,7 +114,15 @@ public class Partner_LoginSteps extends DriverBase {
                 action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                 break;
             case "Continue":
-                action.click(Page_Partner_Dashboard.Button_Continue());
+                String Partner_Portal_Site = (String) cucumberContextManager.getScenarioContext("PP_Site");
+                if(Partner_Portal_Site.equalsIgnoreCase("service level")){
+                    String Price_Estimated_Page = action.getElementByXPath("//label[contains(text(),'Delivery Cost:')]//following::strong").getText();
+                    Price_Estimated_Page = Price_Estimated_Page.substring(1);
+                    cucumberContextManager.setScenarioContext("Price_Estimate_Page",Price_Estimated_Page);
+                    action.click(Page_Partner_Dashboard.Button_Get_Estimate());
+                }else {
+                    action.click(Page_Partner_Dashboard.Button_Continue());
+                }
                 break;
             case "Schedule Bungii":
                 action.JavaScriptScrolldown();
@@ -111,19 +147,48 @@ public class Partner_LoginSteps extends DriverBase {
             case "Cancel Delivery":
                 action.click(Page_Partner_Delivery_List.Button_Cancel_Delivery());
                 break;
+            case "Service Level List":
+                action.click(Page_Partner_Dashboard.Dropdown_Service_Level());
+                break;
             default: break;
 
         }
     }
 
-    @Then("^I should \"([^\"]*)\"$")
-    public void IShould(String str) throws ParseException {
+    @Then("^I should \"([^\"]*)\" for \"([^\"]*)\" Alias$")
+    public void i_should_something_for_something_alias(String str,String Alias){
+        cucumberContextManager.setScenarioContext("Alias",Alias);
+        //List Service_name = new DbUtility().getServiceName(Alias);
+        List<HashMap<String,Object>> Service_name = getListOfService(Alias);
         switch (str)
         {
+             case "see all the Service Level":
+                if(Alias.equalsIgnoreCase("Biglots")){
+
+                    for(int i=0;i<Service_name.size();i++) {
+                        String Db_Service_Name = Service_name.get(i).values().toString();
+                        Db_Service_Name = Db_Service_Name.substring(1, Db_Service_Name.length() - 1);
+                        String Xpath = "//span[contains(text(),'"+Db_Service_Name+"')]";
+                        String Display_Service_name= action.getElementByXPath(Xpath).getText();
+                        testStepAssert.isElementDisplayed(action.getElementByXPath(Xpath),"Service Name:-"+Db_Service_Name+" should be shown","Service Name:-"+Db_Service_Name+" is shown","Service Name-"+Db_Service_Name+" is not shown");
+                        //testStepVerify.isEquals(Display_Service_name, Db_Service_Name);
+
+                    }
+                    log("All service for "+Alias+" should be listed ","All service for "+Alias+" are listed ", true);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Then("^I should \"([^\"]*)\"$")
+    public void IShould(String str) throws ParseException {
+        switch (str) {
             case "be logged in":
                 //testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.Header_Dashboard()), PropertyUtility.getMessage("DriverDashboardHeader"));
-                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Label_Get_Estimate_Header(), (long) 2000);
-                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
+                //action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Label_Get_Estimate_Header(), (long) 2000);
+                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Start_Over()), PropertyUtility.getMessage("Start_Over_Header"));
                 break;
             case "see validations message for blank password field":
                 testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Blank_Password"));
@@ -132,35 +197,47 @@ public class Partner_LoginSteps extends DriverBase {
                 testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Incorrect_Password"));
                 break;
             case "see Delivery Details screen":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
-                String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
+                String PP_Site = (String) cucumberContextManager.getScenarioContext("SiteUrl");
+                if (PP_Site.equalsIgnoreCase("normal")) {
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
+                }
+                else if(PP_Site.equalsIgnoreCase("kiosk mode")) {
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
+                }
+                else if(PP_Site.equalsIgnoreCase("service level")) {
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Service_Delivery_Details_Header"));
+                }
+                    String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
+                   cucumberContextManager.setScenarioContext("ActualPickupDateTime", PickupDateTime);
 
                 //StringBuilder sb = new StringBuilder(PickupDateTime);
                 //sb.setCharAt(3,'(');
 
                 //PickupDateTime = sb.toString();
+                     // December 03, 2020 at 7:15 AM (EST)
+                String[] S2 = PickupDateTime.split(" ", 2);
 
-                String[] S2 = PickupDateTime.split(" ",2);
-
-                String Month = S2[0].substring(0,3);
+                String Month = S2[0].substring(0, 3);
                 String space = " ";
-                S2[0] = Month+space;
+                S2[0] = Month + space;
 
 
                 PickupDateTime = S2[0] + S2[1];
 
                 char ch = PickupDateTime.charAt(4);
-               String PickupDateTimeWithZero =  PickupDateTime;
-                if(PickupDateTime.charAt(4)=='0'){
+
+                if (PickupDateTime.charAt(4) == '0') {
+
                     StringBuilder sb = new StringBuilder(PickupDateTime);
                     sb.deleteCharAt(4);
-                    PickupDateTime= sb.toString();
+                    PickupDateTime = sb.toString();
                 }
 
-                PickupDateTime = PickupDateTime.replaceAll("[()]","");
+                PickupDateTime = PickupDateTime.replaceAll("[()]", "");
 
-                cucumberContextManager.setScenarioContext("PickupDateTimeWithZero",PickupDateTimeWithZero);
-                cucumberContextManager.setScenarioContext("PickupDateTime",PickupDateTime);
+
+                cucumberContextManager.setScenarioContext("PickupDateTime", PickupDateTime);
+
                 break;
             case "see Done screen":
                 String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
@@ -178,13 +255,12 @@ public class Partner_LoginSteps extends DriverBase {
             case "see the trip in the Delivery List":
                 //String Customer_Name = null;
                // String DeliveryDace = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
-                //String Delivery_Date = (String) cucumberContextManager.getScenarioContext("PickupDateTime");
-                String Delivery_Date = (String) cucumberContextManager.getScenarioContext("PickupDateTimeWithZero");
+                String Delivery_Date = (String) cucumberContextManager.getScenarioContext("ActualPickupDateTime");
+                //String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
 
-                String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
                 String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
 
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", Delivery_Date,CustomerName, DeliveryAddress);
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", Delivery_Date, DeliveryAddress);
                 testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
                 /*
                 try {
@@ -212,7 +288,8 @@ public class Partner_LoginSteps extends DriverBase {
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Cancel_Trip()),PropertyUtility.getMessage("Message_Cancel_Trip"));
                 break;
             case "see Get Estimate screen":
-                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
+                testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Label_Get_Estimate_Header(),"Get Estimate START OVER should be shown","Get Estimate START OVER is shown","Get Estimate START OVER is not shown");
+                //testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
                 break;
             case "see five future days including today":
                 Calendar calendar = Calendar.getInstance();
@@ -221,6 +298,23 @@ public class Partner_LoginSteps extends DriverBase {
                 break;
             case "see Delivery cancellation failed message":
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Delivery_Cancellation_Failed()),PropertyUtility.getMessage("Message_Delivery_Cancellation_Failed"));
+                break;
+            case "see Service Level":
+                //String xpath ="//div[@class='service-level form-group']/div/p";
+                String Service_Name = action.getText(Page_Partner_Dashboard.Text_Service_Name());
+                cucumberContextManager.setScenarioContext("Selected_service",Service_Name);
+                testStepVerify.isElementDisplayed(Page_Partner_Dashboard.Information_Icon__Service_Level(),"Information icon for service level should be display","Information icon for service level is display","Information icon for service level is not display");
+                //testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Text_Service_Level_Edit()),"SERVICE LEVEL EDIT");
+                //testStepAssert.isElementTextEquals(Page_Partner_Dashboard.Text_Service_Level(),"Service Level","Service Level configuration is present","Service Level configuration is not present");
+                break;
+            case "see No service selected":
+                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Text_No_Service()),"No service selected.");
+                break;
+            case "see the service name":
+                String Service_Name1 = (String) cucumberContextManager.getScenarioContext("Selected_service");
+                action.JavaScriptScrolldown();
+                String Display_Service_name = action.getText(Page_Partner_Delivery_List.Text_Selected_Service());
+                testStepVerify.isEquals(Display_Service_name,Service_Name1);
                 break;
             default: break;
         }

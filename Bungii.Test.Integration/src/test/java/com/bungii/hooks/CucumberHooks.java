@@ -119,7 +119,8 @@ public class CucumberHooks {
             }
             if(PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")){
                 JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
-                js.executeScript(String.format("window.localStorage.clear();"));
+                //js.executeScript(String.format("window.localStorage.clear();"));
+                js.executeScript(String.format("window.sessionStorage.clear();"));
             }
             //clear scenario context
             CucumberContextManager.getObject().clearSecnarioContextMap();

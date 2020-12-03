@@ -9,6 +9,8 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Menu_Trips () { return findElement("adminmenu-trips", LocatorType.Id); }
 
+    public WebElement Menu_CompletedTrips () { return findElement("adminmenu-completedtrips", LocatorType.Id); }
+
     public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }

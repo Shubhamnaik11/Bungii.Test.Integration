@@ -6,8 +6,9 @@ Feature: Driver_Login
     When I click "LOG IN link" on driver portal
     Then I should be directed to "LOG IN tab" on Driver portal
 
-  @smoke
-  @ready
+  #@sanity
+  #@ready
+  @knownissue
   Scenario: Verify Driver Login With Valid Credentials
     When I enter "valid" driver Phone Number on Driver portal
     And I enter "valid" driver Password on Driver portal

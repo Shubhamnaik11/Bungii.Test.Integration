@@ -64,7 +64,7 @@ Feature: Admin_PaymentMethods
     Then The "Partner Card" gets saved successfully and it is displayed in the grid
 
 
-  @ready
+  @regression
   Scenario: Verify Field Validations On Add New Bungii Card page Upon Blank Inputs
     When I click on "Partner Portal  > Bungii Card" Menu
     When I click on "Add Payment Method" button on "Bungii Cards" page
@@ -102,7 +102,7 @@ Feature: Admin_PaymentMethods
     And I click on "Save" button on "Partner Cards" screen
     Then The "Partner Cards" gets saved successfully and it is displayed in the grid
 
-  @ready
+  @regression
   Scenario: Verify Field Validations Of Add New Bungii Card
     When I click on "Partner Portal  > Bungii Card" Menu
     When I click on "Add Payment Method" button on "Bungii Cards" page

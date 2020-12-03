@@ -89,4 +89,5 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement TextError_BunggiCut() { return findElement("//label[@id='attributeValueBungiiCutPerDelivery-error']",LocatorType.XPath);}
     public WebElement TextError_General() { return findElement("//p[contains(text(),'Oops! It looks like you missed something. Please fill out all fields before proceeding.')]",LocatorType.XPath);}
 
+    public WebElement Checkbox_Active_Geofences() { return findElement("activeGeofenceOnly",LocatorType.Id);}
 }

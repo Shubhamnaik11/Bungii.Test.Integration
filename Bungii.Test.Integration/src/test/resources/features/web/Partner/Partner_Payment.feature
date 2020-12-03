@@ -2,7 +2,7 @@
   Feature: Partner_Payment
 
     Background:
-      Given I navigate to "Bungii Partner Portal" URL
+      Given I navigate to "Partner" portal configured for "normal" URL
       And I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
@@ -10,9 +10,9 @@
     @ready
     @sanity
     Scenario: Verify Customer Payment method with Valid card details for Bungii trip
-      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Next Possible Pickup Date and Pickup Time
         |Trip_Time            |
         |NEXT_POSSIBLE        |
@@ -20,7 +20,7 @@
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
       Then I should "see Delivery Details screen"
-      When I enter following details on "Delivery Details" partner screen
+      When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name     |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
         |Furniture       |TestPP Customer   |9899999359     |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
@@ -35,9 +35,9 @@
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Card Number for Bungii trip
-      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Next Possible Pickup Date and Pickup Time
         |Trip_Time            |
         |NEXT_POSSIBLE        |
@@ -45,7 +45,7 @@
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
       Then I should "see Delivery Details screen"
-      When I enter following details on "Delivery Details" partner screen
+      When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name     |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
         |Furniture       |TestPP Customer   |9899999359     |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
@@ -57,9 +57,9 @@
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Card Expiry Date for Bungii trip
-      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Next Possible Pickup Date and Pickup Time
         |Trip_Time            |
         |NEXT_POSSIBLE        |
@@ -67,7 +67,7 @@
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
       Then I should "see Delivery Details screen"
-      When I enter following details on "Delivery Details" partner screen
+      When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name     |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
         |Furniture       |TestPP Customer   |9899999359     |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
@@ -79,9 +79,9 @@
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Cvv for Bungii trip
-      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Next Possible Pickup Date and Pickup Time
         |Trip_Time            |
         |NEXT_POSSIBLE        |
@@ -89,7 +89,7 @@
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
       Then I should "see Delivery Details screen"
-      When I enter following details on "Delivery Details" partner screen
+      When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name     |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
         |Furniture       |TestPP Customer   |9899999359     |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
@@ -102,9 +102,9 @@
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Postal Code for Bungii trip
-      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Next Possible Pickup Date and Pickup Time
         |Trip_Time            |
         |NEXT_POSSIBLE        |
@@ -112,7 +112,7 @@
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
       Then I should "see Delivery Details screen"
-      When I enter following details on "Delivery Details" partner screen
+      When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name    |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
         |Furniture       |TestPP Customer  |9899999359     |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
@@ -122,11 +122,11 @@
       Then I should "see validation message for Postal Code" on partner portal
       And I should logout from Partner Portal
 
-    @ready
-    Scenario: Verify Partner Payment method for Bungii Trip
-      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    @knownissue
+    Scenario: Verify Partner Pay Payment method for Bungii Trip
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Next Possible Pickup Date and Pickup Time
         |Trip_Time            |
         |NEXT_POSSIBLE        |
@@ -134,7 +134,7 @@
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
       Then I should "see Delivery Details screen"
-      When I enter following details on "Delivery Details" partner screen
+      When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name    |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
         |Furniture       |TestPP Customer  |9899999359     |Test Pickup        |9999999359          |
       And I Select "Partner Pay" as Payment Method
@@ -146,9 +146,9 @@
   
     @fraud
     Scenario: Verify Customer Payment method with Fraud Card Number for Bungii trip
-      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
+        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Next Possible Pickup Date and Pickup Time
         |Trip_Time            |
         |NEXT_POSSIBLE        |
@@ -156,7 +156,7 @@
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
       Then I should "see Delivery Details screen"
-      When I enter following details on "Delivery Details" partner screen
+      When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name     |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
         |Furniture       |TestPP Customer   |9899999359     |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
