@@ -208,12 +208,13 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Service_Delivery_Details_Header"));
                 }
                     String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
+                   cucumberContextManager.setScenarioContext("ActualPickupDateTime", PickupDateTime);
 
                 //StringBuilder sb = new StringBuilder(PickupDateTime);
                 //sb.setCharAt(3,'(');
 
                 //PickupDateTime = sb.toString();
-
+                     // December 03, 2020 at 7:15 AM (EST)
                 String[] S2 = PickupDateTime.split(" ", 2);
 
                 String Month = S2[0].substring(0, 3);
@@ -252,7 +253,7 @@ public class Partner_LoginSteps extends DriverBase {
             case "see the trip in the Delivery List":
                 //String Customer_Name = null;
                // String DeliveryDace = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
-                String Delivery_Date = (String) cucumberContextManager.getScenarioContext("PickupDateTime");
+                String Delivery_Date = (String) cucumberContextManager.getScenarioContext("ActualPickupDateTime");
                 //String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
                 String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
 
