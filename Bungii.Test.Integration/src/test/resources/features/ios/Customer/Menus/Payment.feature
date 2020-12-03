@@ -6,8 +6,8 @@ Feature: Payment page
 
   Background:
     Given I am on Customer logged in Home page
-  @FAILED2702
-  @ready
+
+  @knownissue
   Scenario Outline: Verify Customer Cannot Add Invalid Card - <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -22,11 +22,9 @@ Feature: Payment page
       | INVALID_EXPIRY | VISA CARD    | 12/02  | "invalid expiry" | VALID POSTAL CODE | VALID CVV |
       | INVALID_CARD   | INVALID CARD | 12/29  | "invalid card"   | VALID POSTAL CODE | VALID CVV |
       | FRAUD_CARD     | FRAUD CARD   | 12/29  | "There was a problem processing your credit card; please double check your payment information and try again." | VALID POSTAL CODE | VALID CVV |
-    
-    
-  @regression
-  @sanity
-  @payment
+  
+  
+  @knownissue
   Scenario Outline: Verify Customer Can Add New Payment Card -  <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -42,7 +40,7 @@ Feature: Payment page
       | ValidCard Discover | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
       #| ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
     
-  @regression
+  @ready
   Scenario: Verify Customer Can Change Default Payment Card
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen

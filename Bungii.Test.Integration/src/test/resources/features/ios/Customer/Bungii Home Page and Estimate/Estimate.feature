@@ -8,7 +8,7 @@ Feature: Customer Estimate screen
   Background:
     Given I am on Customer logged in Home page
  
-  @regression
+  @ready
   Scenario: Verify If Customer Cancels Ondemand Bungii While It Is In Searching driver State Then He Is Navigated To Home Screen - Also Pickup And Dropoff Location Of Previous Trip Is Not Reset
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -152,18 +152,18 @@ Feature: Customer Estimate screen
       Then I should be navigated to "SEARCHING" screen
       When I click "Cancel" button on "SEARCHING" screen
       Then user is alerted for "CANCEL BUNGII"
-  @failed
-  @ready
+
+  @regression
       Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
       And I request for  bungii for given pickup and drop location
         | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
-        | Duo    |Kansas City Zoo| 5629 Nashville Rd, Franklin, KY 42134 | nashville |
+        | Duo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
     And I click "Get Estimate" button on "Home" screen
     Then correct details next available scheduled time should be displayed
 
 
   @regression
-  Scenario: Verify Customer Selects Scheduled Bungii When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To Estimate Screen With Prefilled Data
+  Scenario: Verify When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To SET PICKUP TIME Screen With Prefilled Date
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Panjim bus stand  | Old Goa Road, Velha Goa, Goa |
@@ -174,7 +174,10 @@ Feature: Customer Estimate screen
     Then I should be navigated to "SEARCHING" screen
     When I wait for SEARCHING screen to disappear
     Then I should be navigated to "SET PICKUP TIME" screen
-    When I click "SCHEDULE BUNGII" button on "SET PICKUP TIME" screen
+    #When I click "SCHEDULE BUNGII" button on "SET PICKUP TIME" screen
+    #Then If time is already passed then i should see "Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Please recheck and submit your request." message
+    When I select a new time
+    And I click "SCHEDULE BUNGII" button on "SET PICKUP TIME" screen
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
 

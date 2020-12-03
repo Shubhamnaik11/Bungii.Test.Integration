@@ -38,4 +38,5 @@ public class DashBoardPage extends PageBase {
     }
     public WebElement Menu_Geofences(){return findElement("adminmenu-geofences",LocatorType.Id);}
 
+    public WebElement Checkbox_Active_geofence() {return findElement("activeGeofenceOnly",LocatorType.Id);}
 }

@@ -14,7 +14,6 @@ Feature: Driver_RegistrationCompletion
     And I click Next on "Bank Details" page
 
   #@ready
-    #@failed
   @knownissue
   Scenario: Verify Driver Application Terms And Conditions Form - Uncheck Terms On Exisiting Non Fountain Application
     When I uncheck "agree to the Terms and Conditions." checkbox

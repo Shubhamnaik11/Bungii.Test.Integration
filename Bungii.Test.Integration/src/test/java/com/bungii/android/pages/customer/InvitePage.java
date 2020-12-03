@@ -38,7 +38,9 @@ public class InvitePage extends PageBase {
   //  public WebElement FBApp_PostLink() { return findElement("com.facebook.katana:id/button_share", LocatorType.Id); }
 
     public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.Button[@content-desc=\"POST\"]", LocatorType.XPath,ignoreException); }
-  //  public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.ImageView[@content-desc=\"Set Album\"]/following-sibling::android.widget.TextView", LocatorType.XPath,ignoreException); }
+    public WebElement FBApp_Policy(boolean ...ignoreException) { return findElement("//android.widget.TextView[@text=\"By clicking continue, you agree to our Terms and Privacy Policy. We use a service that's pre-installed on your device to auto-update apps. You can turn off the service at any time. Learn more.\"]", LocatorType.XPath,ignoreException); }
+
+    //  public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.ImageView[@content-desc=\"Set Album\"]/following-sibling::android.widget.TextView", LocatorType.XPath,ignoreException); }
 
 
     //------Share - Samsung Msg App-------------------------------------------------------------
@@ -48,7 +50,7 @@ public class InvitePage extends PageBase {
 
     //------Share - Gmail App-------------------------------------------------------------------
     public WebElement Gmail_Referral_Subject() { return findElement("com.google.android.gm:id/subject", LocatorType.Id); }
-
+    public WebElement Gmail_SkipTutorial(boolean ...ignoreException) { return findElement("com.google.android.gm:id/welcome_tour_skip", LocatorType.Id,ignoreException); }
     public WebElement Gmail_Referral_Body_other(boolean ...ignoreException) { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.view.View", LocatorType.XPath,ignoreException); }
     public WebElement Gmail_Referral_Body() { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.widget.EditText", LocatorType.XPath); }
 
@@ -61,10 +63,11 @@ public class InvitePage extends PageBase {
 
     public WebElement Twitter_PhoneNumber() { return findElements("android.widget.EditText", LocatorType.ClassName).get(0); }
     public WebElement Twitter_Password() { return findElements("android.widget.EditText", LocatorType.ClassName).get(1); }
+    public WebElement Browser_bar(boolean ...ignoreException) { return findElement("com.android.chrome:id/url_bar", LocatorType.Id,ignoreException); }
 
 
 
-    public WebElement Button_Back(){return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]",LocatorType.XPath);}
+    public WebElement Button_Back(){return findElement("//android.widget.ImageButton[contains(@content-desc,\"Navigate up\")]",LocatorType.XPath);}
 
 
     //MOTO G4 specific

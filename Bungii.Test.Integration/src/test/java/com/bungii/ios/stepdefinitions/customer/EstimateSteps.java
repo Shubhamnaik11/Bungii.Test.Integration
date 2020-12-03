@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.bungii.SetupManager.BrowserStackLocal;
 import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -102,7 +103,7 @@ public class EstimateSteps extends DriverBase {
 
             testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
                     "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
-                            + strTime + actualTime + " not matching with entered time ");
+                            + strTime + " | " + actualTime + " not matching with entered time ");
             utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -242,15 +243,30 @@ public class EstimateSteps extends DriverBase {
     @When("^I try to schedule bungii for \"([^\"]*)\"$")
     public void i_try_to_schedule_bungii_for_something(String strArg1) throws Throwable {
         try {
-
+            String browserstack=SetupManager.BrowserStackLocal();
             switch (strArg1.toLowerCase()) {
                 case "today - after working hour":
-                    selectBungiiTime(0, "11", "45", "PM");
-                    log("I select time for trip as 11:45  pm", "I selected time for trip as 11:45  pm");
+                    //selectBungiiTime(0, "11", "45", "PM");
+
+                    if(browserstack=="true"){
+                        selectBungiiTime(0, "23", "45", "");
+                        log("I select time for trip as 23:45", "I selected time for trip as 23:45");
+                    }
+                    else {
+                        selectBungiiTime(0, "11", "45", "PM");
+                        log("I select time for trip as 11:45  pm", "I selected time for trip as 11:45  pm");
+                    }
+
                     break;
                 case "tommorow - before working hour":
-                    selectBungiiTime(1, "12", "00", "AM");
-                    log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
+                    if(browserstack=="true"){
+                        selectBungiiTime(1, "00", "00", "");
+                        log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
+                    }
+                    else {
+                        selectBungiiTime(1, "12", "00", "AM");
+                        log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
+                    }
                     break;
                 case "today+5":
                     selectBungiiTime(5, "", "", "");
@@ -500,6 +516,8 @@ public class EstimateSteps extends DriverBase {
             formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
         else
             formattedDate = formattedDate + " " + utility.getTimeZoneBasedOnGeofence();
+
+        cucumberContextManager.setScenarioContext("BUNGII_FORMATTED", formattedDate);
         return formattedDate;
     }
 
@@ -526,7 +544,7 @@ public class EstimateSteps extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime + 15); //15 added to eliminate there is deplay in requeting bungii
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
 
@@ -573,7 +591,7 @@ public class EstimateSteps extends DriverBase {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone());
-            System.out.println("\t" + date1);
+            //System.out.println("\t" + date1);
         } catch (Exception e) {
         }
 
@@ -584,7 +602,7 @@ public class EstimateSteps extends DriverBase {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZoneForGeofence());
-            System.out.println("\t" + date1);
+           // System.out.println("\t" + date1);
         } catch (Exception e) {
         }
 
@@ -595,7 +613,7 @@ public class EstimateSteps extends DriverBase {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone(minuteDifferance));
-            System.out.println("\t" + date1);
+            //System.out.println("\t" + date1);
         } catch (Exception e) {
         }
 
@@ -880,7 +898,14 @@ public class EstimateSteps extends DriverBase {
             String displayedTime = getElementValue("TIME");
             Date date = getNextScheduledBungiiTime();
             String strTime = bungiiTimeDisplayInTextArea(date);
-            testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"),strTime.replace("am","AM").replace("pm","PM"));
+            if(BrowserStackLocal().equalsIgnoreCase("true")) {
+                strTime = strTime.replace("am","a.m.").replace("pm","p.m.").replace("AM","a.m.").replace("PM","p.m.");
+                strTime = utility.getGmtTime(strTime);
+
+                testStepVerify.isEquals(displayedTime, strTime);
+            }
+            else
+                testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"),strTime.replace("am","AM").replace("pm","PM"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -914,7 +939,14 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTimeForGeofence();
             String strTime = bungiiTimeDisplayInTextArea(date);
 
-            testStepVerify.isEquals( displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"));
+            if(BrowserStackLocal().equalsIgnoreCase("true")) {
+                strTime = strTime.replace("am","a.m.").replace("pm","p.m.").replace("AM","a.m.").replace("PM","p.m.");
+                strTime = utility.getGmtTime(strTime);
+              testStepVerify.isEquals(displayedTime, strTime);
+            }
+            else
+
+            testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"));
 
 
         } catch (Exception e) {

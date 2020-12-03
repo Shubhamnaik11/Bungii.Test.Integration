@@ -350,4 +350,13 @@ catch(Exception ex)
 
 
     }
+    public boolean isElementPresent(WebElement element) {
+        try {
+            boolean isdisplayed = element.isDisplayed();
+            return isdisplayed;
+        } catch (Exception Ex) {
+            return false;
+        }
+    }
+
 }

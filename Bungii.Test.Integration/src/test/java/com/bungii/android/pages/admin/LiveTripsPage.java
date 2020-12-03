@@ -17,7 +17,7 @@ public class LiveTripsPage extends PageBase {
     public WebElement Text_CodeValue(){return  findElement("//td[text()='Code Value']/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Text_PromoCode(){return  findElement("//td[text()='Promo Value']/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Text_EstimatedCharge(){return  findElement("//td[text()='Estimated Charge']/following-sibling::td/strong", LocatorType.XPath);}
-    public WebElement Text_TripPayment(){return  findElement("//td[text()='Trip Payment']/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_TripPayment(){return  findElement("//td[text()='Delivery Payment']/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Link_ManuallyEndBungii () { return findElement("btnEndPickup", LocatorType.Id); }
 
     public WebElement Textbox_PickupEndDate () { return findElement("pickupEndDate", LocatorType.Id); }

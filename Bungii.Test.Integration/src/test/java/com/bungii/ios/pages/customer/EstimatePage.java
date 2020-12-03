@@ -147,6 +147,11 @@ public class EstimatePage extends PageBase {
         return findElement(
                 "//XCUIElementTypeStaticText[@name='Pickup Time']/parent::XCUIElementTypeOther", LocatorType.XPath);
     }
+
+    public WebElement Label_TimeSelect() {
+        return findElement(
+                "//XCUIElementTypeStaticText[@name='Pickup Time']/following-sibling::XCUIElementTypeButton[2]", LocatorType.XPath);
+    }
 /*    public WebElement Button_AddPhoto() {
         return findElement("ADD ITEM PHOTO", LocatorType.Name);
     }

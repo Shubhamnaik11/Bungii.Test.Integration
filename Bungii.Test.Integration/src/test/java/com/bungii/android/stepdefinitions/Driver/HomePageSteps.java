@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.pages.driver.DriverHomePage;
@@ -32,23 +33,40 @@ public class HomePageSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility = new GeneralUtility();
     TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
+    EstimatePage estimatePage = new EstimatePage();
 
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
-            if (action.isNotificationAlertDisplayed()) {
+            Thread.sleep(6000);
+            if (action.isAlertPresent()) {
                 if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                     utility.acceptNotificationAlert();
+                    if (action.isAlertPresent()) {
+                        if (action.isElementPresent(estimatePage.Button_OK(true)))
+                            action.click(estimatePage.Button_OK());
+                    }
                 } else {
                     action.click(Page_BungiiRequest.AlertButton_Cancel());
                 }
 
             }
-            boolean isClicked = false;
             Thread.sleep(3000);
+            boolean isClicked = false;
             action.click(driverHomePage.Button_NavigationBar());
             List<WebElement> elements = driverHomePage.Button_NavigationBarText();
+            if (action.isAlertPresent()) {
+                if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
+                    utility.acceptNotificationAlert();
+                    if (action.isAlertPresent()) {
+                        if (action.isElementPresent(estimatePage.Button_OK(true)))
+                            action.click(estimatePage.Button_OK());
+                    }
+                } else {
+                    action.click(Page_BungiiRequest.AlertButton_Cancel());
+                }
 
+            }
             for (WebElement element : elements) {
                 if (element.getText().equalsIgnoreCase(menuItem)) {
                     action.click(element);
@@ -88,13 +106,15 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (button) {
                 case "Go Online":
+                    Thread.sleep(4000);
                     action.click(driverHomePage.Button_OnlineOffline());
                     Thread.sleep(4000);
                     break;
                 case "Go Offline":
+                    Thread.sleep(4000);
                     action.click(driverHomePage.Button_OnlineOffline());
                     break;
-                case "Available Trips":
+                case "Available Bungiis":
                     action.click(driverHomePage.Link_AvailableTrips());
                     break;
                 default:

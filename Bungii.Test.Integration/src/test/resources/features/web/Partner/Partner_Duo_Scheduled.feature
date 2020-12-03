@@ -7,7 +7,7 @@ Feature: Partner Duo Scheduled Trips
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
 
-  @ready
+  @regression
   Scenario: Verify that Partner portal can scheduled Duo bungii Trip
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

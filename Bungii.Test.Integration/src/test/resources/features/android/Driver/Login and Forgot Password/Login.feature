@@ -8,7 +8,7 @@ Feature: Log In
 
 
   @regression
-  Scenario Outline: Verify Driver Should Not Be Able To Login To App Using Invalid Details - Scenario:<Scenario>
+  Scenario Outline: Verify Driver Should Not Be Able To Login To App Using Invalid Details - Case:<Scenario>
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     Then I should see "<Expected Message>" on Log In screen on driver app
@@ -32,11 +32,11 @@ Feature: Log In
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then I should be navigated to Home screen on driver app
 
-  @regression
-  Scenario Outline: Verify Driver Cannot Login On Driver App Before Admin Verification
+  @ready
+#stable
+   Scenario Outline: Verify Driver Cannot Login On Driver App Before Admin Verification
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then I should see "<Expected Message>" on Log In screen on driver app
     And I should see "<Login Button Status>" on Log In screen on driver app
     Examples:
@@ -58,6 +58,8 @@ Feature: Log In
       Scenario Outline: Verify New Driver With Payment Status As Inactive Or Pending Cannot Go Online
       When I enter phoneNumber :<Username> and  Password :<Password>
       And I click "Log In" button on Log In screen on driver app
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
       And I tap on "Go Online button" on Driver Home page
       Then I should see "<Expected Message>" on Log In screen on driver app
       Examples:

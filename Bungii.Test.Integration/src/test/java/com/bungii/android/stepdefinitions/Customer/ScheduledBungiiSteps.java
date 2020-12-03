@@ -20,6 +20,7 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -88,7 +89,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             pass("I select already scheduled bungii", "I selected already scheduled bungii of " + tripNoOfDriver + " type and at time: " + tripTime, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "There is Problem in selecting Scheduled Bungii from customers scheduled list | Expected Bungii : "+ String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME")), true);
         }
     }
 
@@ -99,52 +100,57 @@ public class ScheduledBungiiSteps extends DriverBase {
             String appDriver1Name, appDriver2Name;
             switch (strArg1) {
                 case "solo driver names":
-                    driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+                    driver1Name=(String)cucumberContextManager.getScenarioContext("ASSIGNED_DRIVER1_NAME");
+
                     appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
                     if (driver1Name.contains(appDriver1Name))
                     {
                         testStepAssert.isTrue(true, "Driver name match.", "Driver name doesn't match.");
                     }
                     else{
-                        testStepAssert.isFail("Driver name doesn't match.");
+                        testStepAssert.isFail("Driver name doesn't match." + appDriver1Name +" | "+ driver1Name);
                     }
                     break;
 
                 case "duo driver names":
-                    driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+                    driver1Name=(String)cucumberContextManager.getScenarioContext("ASSIGNED_DRIVER1_NAME");
+
                     appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
-                    driver2Name=(String)cucumberContextManager.getScenarioContext("DRIVER2_NAME");
+                    driver2Name=(String)cucumberContextManager.getScenarioContext("ASSIGNED_DRIVER2_NAME");
+
                     appDriver2Name=scheduledTripsPage.Text_Driver2Name().getText();
                     if (driver1Name.contains(appDriver1Name) && driver2Name.contains(appDriver2Name) )
                     {
                         testStepAssert.isTrue(true, "Driver names match.", "Driver names doesn't match.");
                     }
                     else{
-                        testStepAssert.isFail("Driver names doesn't match.");
+                        testStepAssert.isFail("Driver name doesn't match." + appDriver1Name +" | "+ driver1Name + " & "+ appDriver2Name+ " | " + driver2Name );
                     }
                     break;
 
                 case "control driver name":
-                    driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+                    driver1Name=(String)cucumberContextManager.getScenarioContext("ASSIGNED_DRIVER1_NAME");
+
                     appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
                     if (driver1Name.contains(appDriver1Name))
                     {
                         testStepAssert.isTrue(true, "Driver name match.", "Driver name doesn't match.");
                     }
                     else{
-                        testStepAssert.isFail("Driver name doesn't match.");
+                        testStepAssert.isFail("Driver name doesn't match." + appDriver1Name +" | "+ driver1Name);
                     }
                     break;
 
                 case "noncontrol driver name":
-                    driver2Name=(String)cucumberContextManager.getScenarioContext("DRIVER2_NAME");
+                    driver2Name=(String)cucumberContextManager.getScenarioContext("ASSIGNED_DRIVER2_NAME");
+
                     appDriver2Name=scheduledTripsPage.Text_Driver2Name().getText();
                     if (driver2Name.contains(appDriver2Name))
                     {
                         testStepAssert.isTrue(true, "Driver name match.", "Driver name doesn't match.");
                     }
                     else{
-                        testStepAssert.isFail("Driver name doesn't match.");
+                        testStepAssert.isFail("Driver name doesn't match." + appDriver2Name +" | "+ driver2Name);
                     }
                     break;
                 default:
@@ -352,14 +358,21 @@ public class ScheduledBungiiSteps extends DriverBase {
     }
 
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
-    public void i_click_something_button_on_something_screen(String strArg1, String strArg2) throws Throwable {
+    public void i_click_something_button_on_something_screen(String button, String strArg2) throws Throwable {
         try {
             action.scrollToBottom();
-            //action.click(estimatePage.Button_DoneOnSuccess());
-            action.click(estimatePage.Button_NextBungii());
+            switch (button)
+            {
+                case "Done":
+                    action.click(estimatePage.Button_DoneOnSuccess());
+                    break;
+                case "On To The Next One":
+                    action.click(estimatePage.Button_NextBungii());
+                    break;
+            }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error Occured While Requesting Bungii. Probable rootcause : Payment card error on braintree",
                     true);
         }
     }
@@ -412,6 +425,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" button on the \"([^\"]*)\" screen$")
     public void i_click_something_button_on_the_something_screen(String strArg1, String strArg2) throws Throwable {
         try {
+            Thread.sleep(2000);
             switch (strArg1) {
                 case "ACCEPT":
                     action.click(bungiiRequest.Button_Accept());
@@ -420,7 +434,6 @@ public class ScheduledBungiiSteps extends DriverBase {
                     action.click(bungiiAcceptedPage.Button_OK());
                     break;
                 case "On To The Next One":
-                    Thread.sleep(2000);
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
                     break;
                 case "YES, I'LL TAKE $5":
@@ -455,7 +468,8 @@ public class ScheduledBungiiSteps extends DriverBase {
                     action.click(estimatePage.Button_OkDriverNotAvailable());
                     break;
                 case "Schedule Bungii":
-                    action.click(estimatePage.Button_ScheduleBungii());
+                    Thread.sleep(5000);
+                    action.click(estimatePage.Button_Schedule());
                     break;
 
 
@@ -488,7 +502,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void i_select_first_already_scheduled_bungii() {
         try {
             action.click(scheduledBungiiPage.Cell_FirstTrip());
-            pass("I select already scheduled bungii", "I selected first already scheduled bungii", true);
+            pass("I select already scheduled bungii", "I selected first scheduled bungii", true);
         } catch (Exception e) {
             logger.error("Error performing step", SetupManager.getDriver().getPageSource());
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -607,17 +621,20 @@ public class ScheduledBungiiSteps extends DriverBase {
     @Then("^the trip is displayed on \"([^\"]*)\" screen$")
     public void the_trip_is_displayed_on_something_screen(String strArg1) throws Throwable {
         try{
-        switch (strArg1) {
+            int year = DateTime.now().getYear();
+            String actualMyBungiiTime ="";
+            switch (strArg1) {
             case "MY BUNGIIS":
                 String expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("MY_BUNGII_DATE");
-                String actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText();
-                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed.");
+                actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" - " , "");
+
+                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed. "+ actualMyBungiiTime+" is displayed");
                 break;
 
             case "MY BUNGII":
                  expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("NEW_SCHDL_BUNGII_TIME");
-                 actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText();
-                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed.");
+                 actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" - " , "");
+                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed. "+ actualMyBungiiTime+" is displayed");
                 break;
         }
     }
@@ -700,11 +717,18 @@ public class ScheduledBungiiSteps extends DriverBase {
                 else{
                     String text=" selected";
                     WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date +"']", PageBase.LocatorType.XPath);
+                    testStepAssert.isElementNotEnabled(Select_Day,"Current Date + 5 should be disabled","Current Date + 5 is not enabled", "Current Date + 5 is enabled");
                     action.click(Select_Day);
                     action.click(estimatePage.Button_SystemCalenderOK());
-                    String snackBarMessage=action.getText(promosPage.Snackbar());
-                            testStepAssert.isEquals(snackBarMessage, PropertyUtility.getMessage("customer.valid.bungii.date"), "Please select a valid date.",snackBarMessage+" is not displayed.", snackBarMessage+" is displayed.");
-                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    selectHour(hour);
+                    selectMins(minutes);
+                    selectMeridean(meridiem);
+                    action.click(estimatePage.Button_OKOnTimePicker());
+                    //action.click(estimatePage.Button_SystemCalenderOK());
+
+                   // String snackBarMessage=utility.getCustomerSnackBarMessage();//action.getText(promosPage.Snackbar());
+                      //      testStepAssert.isEquals(snackBarMessage, PropertyUtility.getMessage("customer.valid.bungii.date"), "Please select a valid date.",snackBarMessage+" is not displayed.", snackBarMessage+" is displayed.");
+                   // ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                 }
             }
         } catch (Exception e) {
@@ -761,11 +785,10 @@ public class ScheduledBungiiSteps extends DriverBase {
         Date currentDate = new Date();
         int year = currentDate.getYear() + 1900;
         String[] timeZones=utility.getDayLightTimeZoneBasedOnGeofence();
-        String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
+       // String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
 
-        if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]))
-            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -")));
-
+        if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]) || bungiiTime.contains("GMT+5:30")|| bungiiTime.contains("GMT+05:30"))
+            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -").replace("+5:30","+05:30")));
         else
             action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[0],
                     bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[1]));

@@ -6,7 +6,7 @@
 Feature: Solo Scheduled Bungii Part I
   
   Background:
-	When I clear all notification
+	#When I clear all notification
 	When I Switch to "customer" application on "same" devices
   
   @regression
@@ -35,11 +35,14 @@ Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually End
 When I Switch to "customer" application on "same" devices
 And I am on the "LOG IN" page
 And I logged in Customer application using  "valid miami 2" user
-
+  And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  And I close "Tutorial" if exist
+  
 And I Switch to "driver" application on "same" devices
 And I am on the "LOG IN" page on driverApp
 And I am logged in as "valid miami" driver
-And I change driver status to "Online"
+  And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  And I change driver status to "Online"
 
 When I Switch to "customer" application on "same" devices
 And I request for  bungii for given pickup and drop location
@@ -61,13 +64,18 @@ And I should be navigated to "Estimate" screen
 Then I save bungii trip time details
 And I request for bungii using Request Bungii Button
 Then I click "Done" button on "Success" screen
+  
+  And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+  When I Select "SCHEDULED BUNGIIS" from driver App menu
+  Then I should be navigated to "SCHEDULED BUNGII" screen
+  
+  #When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+#And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+#When I click "View" on alert message
+#Then I should be navigated to "BUNGII REQUEST" screen
+#When I accept selected Bungii
+#Then I should be navigated to "SCHEDULED BUNGII" screen
 
-When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-When I click "View" on alert message
-Then I should be navigated to "BUNGII REQUEST" screen
-When I accept selected Bungii
-Then I should be navigated to "SCHEDULED BUNGII" screen
 And I Select Trip from scheduled trip
 And I start selected Bungii
 Then I should be navigated to "EN ROUTE" screen
@@ -77,10 +85,7 @@ And I slide update button on "LOADING ITEM" Screen
 And I slide update button on "DRIVING TO DROP OFF" Screen
 
 And I wait for "3" mins
-And I open new "Chrome" browser for "ADMIN"
-And I navigate to admin portal
-And I log in to admin portal
-And I Select "live trips" from admin sidebar
+  And I open Admin portal and navigate to "Live Deliveries" page
 Then I should be able to see the respective bungii with the below status
 | Status          |
 | Unloading Items |
@@ -126,6 +131,8 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	When I Get SMS CODE for new "Customer"
 	And I enter "valid" Verification code
 	Then I should be navigated to "Home" screen
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
 	When I Select "PAYMENT" from Customer App menu
 	Then I should be navigated to "PAYMENT" screen
 	When I click "Add-Button" button on "PAYMENT" screen
@@ -153,10 +160,7 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	Then I should be navigated to "Bungii Completed" screen
 	And I click "On To The Next One" button on "Bungii Completed" screen
 	Then I wait for "2" mins
-	And I open new "Chrome" browser for "ADMIN"
-	And I navigate to admin portal
-	And I log in to admin portal
-	And I Select "customers" from admin sidebar
+	And I open Admin portal and navigate to "Customers" page
 	Then trips requested count should be "1"
 	Examples:
 	  | First Name | Last Name       | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
@@ -172,9 +176,12 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I Switch to "driver" application on "same" devices
 	And I am on the "LOG IN" page on driverApp
 	And I am logged in as "valid miami" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I change driver status to "Online"
 	
 	When I Switch to "customer" application on "same" devices
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
 	And I request for  bungii for given pickup and drop location
 	  | Driver | Pickup Location             | Drop Location            | Geofence |
 	  | Solo   | 7346 coldstream drive miami | 2400 S Bayshore Dr Miami | miami    |
@@ -194,12 +201,16 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I request for bungii using Request Bungii Button
 	Then I click "Done" button on "Success" screen
 	
-	When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-	And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-	When I click "View" on alert message
-	Then I should be navigated to "BUNGII REQUEST" screen
-	When I accept selected Bungii
+	#When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+	#And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+	#When I click "View" on alert message
+	#Then I should be navigated to "BUNGII REQUEST" screen
+	#When I accept selected Bungii
+	#Then I should be navigated to "SCHEDULED BUNGII" screen
+	And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+	When I Select "SCHEDULED BUNGIIS" from driver App menu
 	Then I should be navigated to "SCHEDULED BUNGII" screen
+	
 	And I Select Trip from scheduled trip
 	And I start selected Bungii
 	Then I should be navigated to "EN ROUTE" screen
@@ -207,10 +218,7 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I slide update button on "ARRIVED" Screen
 	
 	And I wait for "3" mins
-	And I open new "Chrome" browser for "ADMIN"
-	And I navigate to admin portal
-	And I log in to admin portal
-	And I Select "live trips" from admin sidebar
+	And I open Admin portal and navigate to "Live Deliveries" page
 	Then I should be able to see the respective bungii with the below status
 	  | Status        |
 	  | Loading Items |
@@ -243,10 +251,13 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	When I Switch to "customer" application on "same" devices
 	And I am on the "LOG IN" page
 	And I logged in Customer application using  "valid miami" user
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
 	
 	And I Switch to "driver" application on "same" devices
 	And I am on the "LOG IN" page on driverApp
 	And I am logged in as "valid miami" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I change driver status to "Online"
 	
 	When I Switch to "customer" application on "same" devices
@@ -271,12 +282,16 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I request for bungii using Request Bungii Button
 	Then I click "Done" button on "Success" screen
 	
-	When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-	And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-	When I click "View" on alert message
-	Then I should be navigated to "BUNGII REQUEST" screen
-	When I accept selected Bungii
+	#When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+	#And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+	#When I click "View" on alert message
+	#Then I should be navigated to "BUNGII REQUEST" screen
+	#When I accept selected Bungii
+	#Then I should be navigated to "SCHEDULED BUNGII" screen
+	And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+	When I Select "SCHEDULED BUNGIIS" from driver App menu
 	Then I should be navigated to "SCHEDULED BUNGII" screen
+	
 	And I Select Trip from scheduled trip
 	And I start selected Bungii
 	Then I should be navigated to "EN ROUTE" screen
@@ -285,10 +300,7 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I slide update button on "LOADING ITEM" Screen
 	
 	And I wait for "3" mins
-	And I open new "Chrome" browser for "ADMIN"
-	And I navigate to admin portal
-	And I log in to admin portal
-	And I Select "live trips" from admin sidebar
+	And I open Admin portal and navigate to "Live Deliveries" page
 	Then I should be able to see the respective bungii with the below status
 	  | Status             |
 	  | Driving To Dropoff |

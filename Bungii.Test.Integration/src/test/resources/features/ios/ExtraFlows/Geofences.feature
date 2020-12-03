@@ -1,7 +1,7 @@
 @ios
 Feature: Geofence Configuration
 
-@ready
+@regression
 Scenario: Verify Geofence Not Active Message Ss Displayed On The Customer App When Geofence Is Set off
 Given I am on the "LOG IN" page
 And I logged in Customer application using  "valid chicago" user
@@ -27,6 +27,7 @@ When I open new "Chrome" browser for "ADMIN PORTAL"
 And I navigate to admin portal
 Then I log in to admin portal
 When I Select "Geofence" from admin sidebar
+And I uncheck the Active Geofences Only
 And I select "Chicago" geofence
 And I edit the geofence "Chicago"
 And I select "Geo-Status" as "Active"

@@ -2,11 +2,9 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.android.pages.driver.*;
-import com.bungii.android.utilityfunctions.*;
 import com.bungii.api.utilityFunctions.AuthServices;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -15,7 +13,6 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.util.Map;
@@ -116,6 +113,14 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
+                case "non controller kansas driver 2":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("Kansas.driver2.phone");
+                    password = PropertyUtility.getDataProperties("Kansas.driver2.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("Kansas.driver2.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
                 case "testdrivertywd_apple_z android_test":
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                     phone = PropertyUtility.getDataProperties("driver.1.Goa.phone");
@@ -181,10 +186,26 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
+                case "driver_goa_f android_test":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("driverF.phone.number");
+                    password = PropertyUtility.getDataProperties("goa.driver.password1");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("driverF.phone.number"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdrivertywd_appleks_rathree test":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("android.valid.driver2.phone");
+                    password = PropertyUtility.getDataProperties("web.valid.common.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", "Testdrivertywd_appleks_rathree Test");
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+
 
                 default:
-                    throw new Exception("Please specify valid input");
-
+                    throw new Exception("Please specify valid input - Driver name sent in cucumber steps " + option);
             }
             Thread.sleep(4000);
             utility.loginToDriverApp(phone, password);
@@ -193,7 +214,7 @@ public class LoginSteps extends DriverBase {
             else {
                 //TODO: specify failure here
             }
-            log("I should be logged in","I am logged in",true);
+            log("I should be logged in","I am logged in as driver "+ option +" [ "+ phone+" ]",true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             logger.error("PageSource", SetupManager.getDriver().getPageSource());
@@ -226,7 +247,6 @@ public class LoginSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page Source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
@@ -337,6 +357,7 @@ public class LoginSteps extends DriverBase {
 
                     for (int i = 0; i < 5; i++) {
                         action.click(driverLogInPage.Button_Login());
+                        Thread.sleep(5000);
                     }
                     break;
 
@@ -346,12 +367,14 @@ public class LoginSteps extends DriverBase {
 
                 for (int i = 0; i < 3; i++) {
                     action.click(driverLogInPage.Button_Login());
+                    Thread.sleep(5000);
                 }
                 break;
 
             case "2":
                 for (int i = 0; i < 2; i++) {
                     action.click(driverLogInPage.Button_Login());
+                    Thread.sleep(5000);
                 }
                 break;
             }

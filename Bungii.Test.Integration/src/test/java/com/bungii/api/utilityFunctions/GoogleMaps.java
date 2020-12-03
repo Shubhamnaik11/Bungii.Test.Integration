@@ -29,7 +29,7 @@ public class GoogleMaps {
         String strOrigins = driverCoordinate[0]+","+driverCoordinate[1]+"|"+dropCoordinate[0]+","+dropCoordinate[1];
         String strDestinations = dropCoordinate[0]+","+dropCoordinate[1]+"|"+stackPickupCoordinate[0]+","+stackPickupCoordinate[1];
         Map<String, String> data = new HashedMap();
-        logger.detail("API REQUEST : Get duration in Traffic");
+        String RequestText="API REQUEST : Get duration in Traffic";
 
         Response response =given()//.log().body()
                 .header("User-Agent", "okhttp/3.4.1")
@@ -47,7 +47,7 @@ public class GoogleMaps {
                 .get(DISTANCE_MATRIX_API);
 
       //  response.then().log().body();
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return  getStackDuration(response);
     }
 

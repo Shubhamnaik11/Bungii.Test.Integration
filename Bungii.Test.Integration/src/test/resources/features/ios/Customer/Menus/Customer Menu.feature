@@ -4,9 +4,10 @@ Feature: Customer	Menu
 
   Background: 
     Given I am on Customer logged in Home page
+    
   @sanity
   @regression
-  Scenario: Verify Customer App Menu Links
+  Scenario: Verify Customer App Menu Links - HOME | FAQ | ACCOUNT | MY BUNGIIS | PAYMENT | SUPPORT | PROMOS | LOGOUT
     When I Select "Home" from Customer App menu
     Then I should be navigated to "Home" screen
     When I Select "FAQ" from Customer App menu
@@ -21,12 +22,19 @@ Feature: Customer	Menu
     Then I should be navigated to "SUPPORT" screen
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
+    When I Switch to "customer" application on "same" devices
+    When I Select "LOGOUT" from Customer App menu
+    Then I should be navigated to "LOG IN" screen
+    
+  @regression
+    #stable
+  Scenario: Verify Customer App Menu Links - DRIVE WITH BUNGII
     When I Select "DRIVE WITH BUNGII" from Customer App menu
     Then I should be navigated to "bungii.com" screen
     When I Switch to "customer" application on "same" devices
     When I Select "LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
-
+    
   @regression
   Scenario: Verify Customer Support Menu
     When I Select "SUPPORT" from Customer App menu
@@ -64,7 +72,7 @@ Feature: Customer	Menu
     When I click "GET MORE MONEY" button on "PROMOS" screen
     Then I should be navigated to "Invite" screen
 
-  @regression
+  @ready
   Scenario: Verify Save Money Button Redirects To Invite Screen
     When I Select "MY BUNGIIS" from Customer App menu
     When I click "SAVE MONEY" button on "MY BUNGIIS" screen

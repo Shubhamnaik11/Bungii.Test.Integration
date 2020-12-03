@@ -1,5 +1,4 @@
 @android
-
 Feature: Menu_SaveMoney
   @regression
   Scenario: Verify First Time Promo Code For New Users Notification For Existing Customer
@@ -17,6 +16,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: Verify Addition Of New Promocode With Valid Promocode
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "valid" PromoCode
     And I tap "Add" on Save Money page
@@ -26,6 +27,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: Verify Addition Of New Promocode With Invalid Promocode
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "invalid" PromoCode
     And I tap "Add" on Save Money page
@@ -35,6 +38,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: Verify Addition Of New Promocode With Expired Promocode
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "expired" PromoCode
     And I tap "Add" on Save Money page
@@ -44,6 +49,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: Verify Addition Of New Promocode With Already Added Promocode
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "valid" PromoCode
     And I tap "Add" on Save Money page
@@ -55,6 +62,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario:  Verify Referral Are For New Users Notification for Newly Registered Customer
     Given I am logged in as "newly registered" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "referral" PromoCode
     And I tap "Add" on Save Money page
@@ -64,6 +73,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: Verify Used One Off Code Notification When Promocode Is Already Utilized
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "used one off" PromoCode
     And I tap "Add" on Save Money page
@@ -73,6 +84,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: Verify First Time Promo User Who Has Referral Code Behavior
     Given I am logged in as "having referral code" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "Promos" link
     And I add "referral" PromoCode
     And I tap "Add" on Save Money page
@@ -89,6 +102,8 @@ Feature: Menu_SaveMoney
   Scenario: Verify Referral Invite When Facebook App Is Already Installed
     Given I have "facebook" app "installed"
     When I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I tap on "Menu" > "Promos" link
     And I tap "Get More Money" on Save Money page
     Then I should see "all elements" on Invite Page
@@ -98,9 +113,11 @@ Feature: Menu_SaveMoney
 #    Then I should see post "on Facebook app"
 
   #@regression
-  @ready
+  @regression
   Scenario: Verify When Customer With No Twitter App Shares Promocode Via Twitter Then It Opens in Browser
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I tap "Get More Money" on Save Money page
     Then I should see "Referral Code" on Invite Page
@@ -113,6 +130,8 @@ Feature: Menu_SaveMoney
   Scenario: Verify Promocode Is Refunded Upon Cancellation Of Bungii With Promocode Applied To It
     Given I am on customer Log in page
     When I am logged in as "no promocode" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -133,6 +152,8 @@ Feature: Menu_SaveMoney
   Scenario: Verify Promocode From The Trip Gets Automatically Applied To The Researched Trip
     Given I am on customer Log in page
     When I am logged in as "no promocode" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -153,6 +174,8 @@ Feature: Menu_SaveMoney
   Scenario: Verify Already Added Expired Promocodes Are Not Available To Customer On Estimate Screen
     Given I am on customer Log in page
     When I am logged in as "New" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     Then I should see the "expired promo code" no more displayed on the estimates page

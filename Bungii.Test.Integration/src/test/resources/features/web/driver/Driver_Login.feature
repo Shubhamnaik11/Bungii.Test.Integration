@@ -6,7 +6,6 @@ Feature: Driver_Login
     When I click "LOG IN link" on driver portal
     Then I should be directed to "LOG IN tab" on Driver portal
 
-  #@smoke
   #@sanity
   #@ready
   @knownissue

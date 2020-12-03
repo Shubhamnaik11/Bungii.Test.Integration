@@ -22,6 +22,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.PageLoadStrategy;
 import java.io.File;
@@ -53,37 +55,25 @@ public class SetupManager extends EventFiringWebDriver {
     private static SetupManager setupManager;
     private static String TARGET_PLATFORM;
     private static AppiumDriverLocalService service = null;
+    private static String BrowserStackLocal;
 
     static {
         TARGET_PLATFORM = PropertyUtility.getProp("target.platform");
-        logger.detail("TARGET PLATFORM : " + TARGET_PLATFORM);
+        logger.detail("PLATFORM : " + TARGET_PLATFORM);
         APPIUM_SERVER_IP = PropertyUtility.getProp("server");
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS") || TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             String deviceID = System.getProperty("DEVICE");
             String APPIUM_SERVER_PORT = String.valueOf(returnPortNumber(deviceID));
+            DesiredCapabilities dc = getCapabilities(deviceID);
             CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
 
             if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
                 try {
-                    driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
-                    //restartIphone();
-                   // ImmutableMap<String, String> pressHome = ImmutableMap.of("name", "home");
-                    //driver.ExecuteScript("mobile: pressButton", ImmutableMap.of("name", "home"));
-                   // driver.ExecuteScript("client:client.deviceAction(\"Home\")");
-
-
-                }catch (SessionNotCreatedException e) {
-                    logger.detail(getStackTrace(e));
-                    logger.detail("Initialing driver failed, removing and trying again  on "+deviceID);
-                    //logger.detail("Removing WebDriver Agent on "+deviceID);
-                    //removeWebdriverAgent();
-                    //logger.detail("Restarting iPhone on "+deviceID);
-                   // restartIphone();
-
-
+                    driver = (IOSDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
+                } catch (SessionNotCreatedException e) {
+                    logger.detail("Initialing driver failed, on " + deviceID + " SessionNotCreatedException");
                     try {
-                       // Thread.sleep(180000);
-                        driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                        driver = (IOSDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
                         ((IOSDriver) driver).executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
                         ((IOSDriver) driver).runAppInBackground(Duration.ofSeconds(-1));
 
@@ -92,31 +82,28 @@ public class SetupManager extends EventFiringWebDriver {
                         CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
 
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     logger.detail(getStackTrace(e));
                     logger.detail("Initialising driver failed. Trying again ");
                     try {
-                        driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                        driver = (IOSDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
                         CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
 
                     }
                 }
-                if (getCapabilities(deviceID).getCapability("app").toString().contains("customer"))
+                if (dc.getCapability("app").toString().contains("customer"))
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION", "CUSTOMER");
                 else
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION", "DRIVER");
 
             } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
-                //System.out.println("PORT :" + APPIUM_SERVER_PORT + "");
-                try{
-                driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
-                }catch (SessionNotCreatedException e) {
+                try {
+                    driver = (AndroidDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
+                } catch (SessionNotCreatedException e) {
                     try {
-                        // Thread.sleep(180000);
-                        driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                        driver = (AndroidDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
 
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
@@ -127,12 +114,19 @@ public class SetupManager extends EventFiringWebDriver {
         } else if (TARGET_PLATFORM.equalsIgnoreCase("WEB"))
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
 
-        driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-
+        if (driver != null)
+        {
+            if (!TARGET_PLATFORM.equalsIgnoreCase("WEB")) {
+                SessionId sessionid = ((RemoteWebDriver) driver).getSessionId();
+                logger.detail(" BROWSERSTACK SESSION ID : " + sessionid);
+                CucumberContextManager.getObject().setScenarioContext("SESSION", sessionid);
+            }
+            driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
 
         DriverManager.getObject().setPrimaryInstanceKey("ORIGINAL");
         DriverManager.getObject().storeDriverInstance("ORIGINAL", driver);
         DriverManager.getObject().setDriver(driver);
+    }
         Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
     }
     private static void removeWebdriverAgent(){
@@ -194,7 +188,9 @@ public class SetupManager extends EventFiringWebDriver {
      * Make class singleton, one instance of driver is shared with all the class
      */
     private SetupManager() {
+
         super(driver);
+
     }
 
     public static SetupManager getObject() {
@@ -214,8 +210,8 @@ public class SetupManager extends EventFiringWebDriver {
     public static String getAppiumServerURL(String portNumber) {
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost") || APPIUM_SERVER_IP.equals("") || APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP = "127.0.0.1";
-       return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
-       //return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
+      // return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
+       return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
     }
 
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber) {
@@ -260,7 +256,10 @@ public class SetupManager extends EventFiringWebDriver {
      */
     public static WebDriver getDriver() {
         // return APPIUM_DRIVER;
+        if (DriverManager.getObject().getDriver()!=null)
         return DriverManager.getObject().getDriver();
+        else
+            return null;
     }
 
     public static void setDriver(WebDriver newDriver) {
@@ -347,8 +346,9 @@ public class SetupManager extends EventFiringWebDriver {
                 driver = new IOSDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
             //logger.detail("Appium Driver Running at port : " + portNumber); //Not needed for browserstack
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+           // e.printStackTrace();
+            logger.detail("Error in creating Appium Session : " + e.getLocalizedMessage());
         }
         return driver;
     }
@@ -360,6 +360,7 @@ public class SetupManager extends EventFiringWebDriver {
     public static DesiredCapabilities getCapabilities(String deviceId) {
         String deviceInfoFileKey = "";
         String phoneDetails ="";
+        String browserlocal ="";
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS"))
             deviceInfoFileKey = "ios.capabilities.file";
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
@@ -375,32 +376,39 @@ public class SetupManager extends EventFiringWebDriver {
 
         while (keys.hasNext()) {
             String key = keys.next();
-          /*  if(key.toString().equalsIgnoreCase("otherApps"))
+            if(key.toString().equalsIgnoreCase("otherApps"))
             {
                String[] Arrary = new String[]{jsonCaps.get(key).toString()};
                 capabilities.setCapability(key, Arrary);
             }
-            else*/
-            //TODO check key type , then verify and add
-            capabilities.setCapability(key, jsonCaps.get(key));
-            if(key.toString().equalsIgnoreCase("deviceName"))
-            {
-                phoneDetails += " "+ jsonCaps.get(key).toString();
-            }
-            if(key.toString().equalsIgnoreCase("platformName"))
-            {
-                phoneDetails += " "+ jsonCaps.get(key).toString();
-            }
-            if(key.toString().equalsIgnoreCase("platformVersion"))
-            {
-                phoneDetails += " "+ jsonCaps.get(key).toString();
+            else {
+                capabilities.setCapability(key, jsonCaps.get(key));
+                if (key.toString().equalsIgnoreCase("browserstack.local")) {
+                    browserlocal = jsonCaps.get(key).toString();
+                    //phoneDetails += " " + jsonCaps.get(key).toString();
+                    if(browserlocal.equalsIgnoreCase("true")){
+                        BrowserStackLocal = "true";
+                    }
+                    else{
+                        BrowserStackLocal = "false";
+                    }
+                }
+                if (key.toString().equalsIgnoreCase("deviceName")) {
+                    phoneDetails += " " + jsonCaps.get(key).toString();
+                }
+                if (key.toString().equalsIgnoreCase("platformName")) {
+                    phoneDetails += " " + jsonCaps.get(key).toString();
+                }
+                if (key.toString().equalsIgnoreCase("platformVersion")) {
+                    phoneDetails += " " + jsonCaps.get(key).toString();
+                }
             }
         }
         if (!System.getProperty("remoteAdbHost").trim().equals("") && TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())) {
             capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort", REMOTE_ADB_PORT);
         }
-        logger.detail("Test Kickoff On Device " + deviceId + " : " + phoneDetails);
+        logger.detail("CONNECTING ["+ deviceId.toUpperCase() + ":" + phoneDetails+"] DEVICE");
         return capabilities;
     }
 
@@ -432,15 +440,19 @@ public class SetupManager extends EventFiringWebDriver {
 
     }
 
+    public static String BrowserStackLocal(){
+        return BrowserStackLocal;
+    }
+
     public void restartApp() {
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
             ((IOSDriver) getDriver()).launchApp();
+            logger.detail("Restarted App");
         } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             ((AndroidDriver) getDriver()).closeApp();
             ((AndroidDriver) getDriver()).launchApp();
-
+            logger.detail("Restarted App");
         }
-
     }
 
     public void launchApp(String bundleId) {
@@ -490,7 +502,16 @@ public class SetupManager extends EventFiringWebDriver {
     }
 
     public void useDriverInstance(String instanceKey) {
-        DriverManager.getObject().useDriverInstance(instanceKey);
+        try {
+            DriverManager.getObject().useDriverInstance(instanceKey);
+            logger.detail("Running on Driver Instance : " + instanceKey);
+        }
+        catch(Exception ex)
+        {
+            logger.detail("Getting Driver Instance Failed : " + instanceKey);
+            CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+        }
+
     }
 
     public String getCurrentInstanceKey() {

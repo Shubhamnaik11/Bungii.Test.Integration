@@ -21,7 +21,7 @@ Feature: Customer Login
       | EMPTY USERNAME          | <BLANK>  | Cci12345 | EMPTY_FIELD      |
     
   @sanity
-  @ready
+  @regression
   Scenario: Verify Customer Can Login Using Valid Credentials
     When I enter Username :{VALID1} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen

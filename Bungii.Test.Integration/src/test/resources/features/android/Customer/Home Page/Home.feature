@@ -9,23 +9,11 @@ Feature: Customer Home screen
   @regression
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     When I tap on "Menu" > "Home" link
-    And I select "Pick up" location
-    Then "Pick up" address should be displayed in text box
-    And I tap "Pick Up Clear Text" on Home page
-    And I tap "My location" on Home page
-    Then current location should be present as pickup location
-    When I select "Pick up" location
-    Then "Pick up" address should be displayed in text box
-    When I select "Drop" location
-    Then "Drop" address should be displayed in text box
+    And I enter "Goa pickup and dropoff locations" on Bungii estimate screen
     When I tap "Drop Clear Text" on Home page
     Then "Drop" address should be empty
-    When I select "Drop" location
-    Then "Drop" address should be displayed in text box
     When I tap "Pick Up Clear Text" on Home page
-    And I tap "My location" on Home page
-    Then current location should be present as pickup location
-    And "Drop" address should be empty
+    Then "PICK UP" address should be empty
 
   @regression
   Scenario: Verify That Dropoff Field Is Displayed Only When Pickup Address Is Selected
@@ -44,7 +32,7 @@ Feature: Customer Home screen
     And I select "Pick up" location
     Then The ETA bar is seen on screen
     When I clear "Pick up" location
-    Then The ETA bar is seen on screen
+    Then The ETA bar is not seen on screen
 
   @regression
   Scenario: Verify If Driver ETA Is Displayed When Drivers Within 30 min Of Radius From Pickup Location Is Available
@@ -70,7 +58,6 @@ Feature: Customer Home screen
     And I tap on "Cancel during search" on Bungii estimate
 
   @regression
-    @demo
   Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance Between Pickup And Dropoff Is >150 Miles
     When I tap on "Menu" > "Home" link
     And I enter "Atlanta pickup and Indiana dropoff location" on Bungii estimate screen
@@ -94,7 +81,7 @@ Feature: Customer Home screen
     And I am logged in as "Goa driver_1" driver
     Then I Switch to "customer" application on "same" devices
     When I tap on "Menu" > "Home" link
-    And I enter "Goa Geofence pickup location" on Bungii estimate screen
+    And I enter "Goa pickup location" on Bungii estimate screen
     Then I verify that "SET PICKUP LOCATION BUTTON" is displayed
     When I click on "SET PICKUP LOCATION" button
     Then I verify that "SET DROP OFF LOCATION BUTTON" is displayed

@@ -57,6 +57,9 @@ public class GenerateResultCSV {
                         data = data.replace("\n<td style=\"background-color:MediumSeaGreen;\">",",");
                         data = data.replace("<td cursor:'pointer;'>","");
                         data = data.replace("</td>","");
+                        data = data.replace("<td>","");
+                        data = data.replace("<b>","");
+                        data = data.replace("</b>","");
                         data = data.replace("\n\n\n","");
                         data = data.replace("<td cursor:'pointer;' style=\"text-align:left;\">","");
                         summaryData.add(data);

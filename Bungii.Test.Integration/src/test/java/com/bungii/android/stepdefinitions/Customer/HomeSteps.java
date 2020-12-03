@@ -30,6 +30,7 @@ public class HomeSteps extends DriverBase {
     EstimatePage estimatePage = new EstimatePage();
     ActionManager action = new ActionManager();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
+    HomePage Page_CustHome = new HomePage();
 
     @When("^I Select \"([^\"]*)\" from customer app menu list$")
     public void i_select_something_from_customer_app_menu_list(String strArg1) throws Throwable {
@@ -54,7 +55,7 @@ public class HomeSteps extends DriverBase {
             log(" I should able to tap on " + strArg2, " I tapped on " + strArg2, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in tapping on menu item : "+ strArg2, true);
         }
     }
     @Then("^Customer active flag should be \"([^\"]*)\"$")
@@ -208,16 +209,14 @@ public class HomeSteps extends DriverBase {
             } else {
                 i_tap_on_something_something_link("Menu", "HOME");
             }}
-            log(" I am on Customer logged in Home page", "");
+            pass(" I should be on Customer Home page", "I am on Customer Home page");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         } catch (Throwable throwable) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(throwable));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
@@ -330,24 +329,17 @@ public class HomeSteps extends DriverBase {
     public void i_select_something_location(String toDoAction) {
         try {
             switch (toDoAction.toUpperCase()) {
-                case "DROP":
-                    action.click(homePage.Button_Locator());
-                    //Commented because of SPRINT-33 changes
-                    //action.click(homePage.Button_Locator());
-                    Thread.sleep(3000);
-                    action.click(homePage.Button_ETASet());
-                    Thread.sleep(3000);
-                    break;
                 case "PICK UP":
-                    action.click(homePage.Button_Locator());
-                    //Commented because of SPRINT-33 changes
-                    //Thread.sleep(3000);
-                    //action.click(homePage.Button_Locator());
-                    Thread.sleep(3000);
-                    action.click(homePage.Button_ETASet());
-                    Thread.sleep(3000);
-/*                    testStepVerify.isElementNotDisplayed(homePage.TextBox_DropOff(),"Drop Off TextBox shouldn't be displayed.",
-                            "Drop Off TextBox is displayed.","Drop Off TextBox is not displayed.");*/
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                         action.click(Page_CustHome.TextBox_PickUpTextBox());
+                        utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(),"6800 Zoo Drive");
+                    //selectDropLocation(1);
+                    break;
+                case "DROP":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(),"6800 Zoo Drive");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
@@ -452,14 +444,29 @@ public class HomeSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
-
+    @Then("^The ETA bar is not seen on screen$")
+    public void the_eta_bar_is_not_seen_on_screen() throws Throwable {
+        try {
+            //testStepVerify.isElementDisplayed(homePage.Button_ETASet(), "ETA SET button should be displayed.", "ETA SET button is displayed.", "ETA SET button is not displayed.");
+            testStepVerify.isElementNotDisplayed(homePage.Label_ETAContainer(true), "ETA bar should not be displayed.", "ETA bar is not displayed.", "ETA bar is displayed.");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @And("^I select \"([^\"]*)\" location to check driver within 30mins$")
     public void i_select_something_location_to_check_driver_within_30mins(String strArg1) throws Throwable {
         try {
             switch (strArg1) {
                 case "Pick up":
-                    action.click(homePage.Button_Locator());
-                    action.click(homePage.Button_Locator());
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    action.click(Page_CustHome.TextBox_PickUpTextBox());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(),"6800 Zoo Drive");
+                   // action.click(homePage.Button_Locator());
+                   // action.click(homePage.Button_Locator());
                     Thread.sleep(3000);
                     break;
                 default:
@@ -478,7 +485,7 @@ public class HomeSteps extends DriverBase {
     public void the_eta_bar_is_seen_on_screen_with_less_then_something_mins(String strArg1)  {
         try {
             String minutes = homePage.Text_ETAvalue().getText();
-            minutes = minutes.replace(" minutes", "");
+            minutes = minutes.replace(" mins", "");
             int ETA = Integer.parseInt(minutes);
             if (ETA <= 30) {
                 testStepAssert.isElementDisplayed(homePage.Text_ETAvalue(), "Less than 30mins", "Less than 30mins", "More than 30mins");
@@ -503,9 +510,12 @@ public class HomeSteps extends DriverBase {
                         action.click(homePage.Button_ClearPickUp());
                     utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("current.location"));
                     Thread.sleep(2000);
+                    if(action.isElementPresent(homePage.Button_ETASet(true)))
+                        action.click(homePage.Button_ETASet());
                     utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
                     Thread.sleep(4000);
-                    action.click(homePage.Button_ETASet(true));
+                    if(action.isElementPresent(homePage.Button_ETASet(true)))
+                        action.click(homePage.Button_ETASet());
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     Thread.sleep(5000);
                     break;
@@ -514,9 +524,13 @@ public class HomeSteps extends DriverBase {
                     if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
                         action.click(homePage.Button_ClearPickUp());
                     utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.atlantaB"));
+                    if(action.isElementPresent(homePage.Button_ETASet(true)))
+                        action.click(homePage.Button_ETASet());
                     Thread.sleep(2000);
                     action.click(homePage.Button_ETASet(true));
                     utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.atlantaB"));
+                    if(action.isElementPresent(homePage.Button_ETASet(true)))
+                        action.click(homePage.Button_ETASet());
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(5000);
                     break;
@@ -525,7 +539,8 @@ public class HomeSteps extends DriverBase {
                     if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
                         action.click(homePage.Button_ClearPickUp());
                     utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.nongeofence"));
-                    //action.click(homePage.Button_ETASet(true));
+                    if(action.isElementPresent(homePage.Button_ETASet(true)))
+                        action.click(homePage.Button_ETASet());
                     Thread.sleep(5000);
                     break;
 
@@ -533,11 +548,22 @@ public class HomeSteps extends DriverBase {
                     if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
                         action.click(homePage.Button_ClearPickUp());
                     utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    if(action.isElementPresent(homePage.Button_ETASet(true)))
+                       action.click(homePage.Button_ETASet());
                     Thread.sleep(2000);
                     break;
-
+                case "Goa pickup location":
+                    if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
+                        action.click(homePage.Button_ClearPickUp());
+                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    //if(action.isElementPresent(homePage.Button_ETASet(true)))
+                    //  action.click(homePage.Button_ETASet());
+                    Thread.sleep(2000);
+                    break;
                 case "Goa Geofence dropoff location":
                     utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
+                    if(action.isElementPresent(homePage.Button_ETASet(true)))
+                        action.click(homePage.Button_ETASet());
                     Thread.sleep(2000);
                     break;
 
@@ -574,14 +600,16 @@ public class HomeSteps extends DriverBase {
     }
 
 
-    @Then("^I should see blank textbox$")
+    @Then("^I should see placeholder textbox$")
     public void i_should_see_blank_textbox() throws Throwable {
        String noText=action.getText(estimatePage.TextBox_DetailsNote());
-       if(noText.isEmpty()){
-           testStepAssert.isTrue(true,"TextBox is blank.","TextBox is contains text.");
+       String placeholder ="Apt #, door codes, special instructions, etc.\n\nIf you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
+       //String placeholder = "Apt #, door codes, special instruction, etc.\n\nIf you need 2 people for your delivery, double check that you selected the 2 people icon at the bottom right of the home screen.";
+       if(noText.contains(placeholder)){
+           testStepAssert.isTrue(true,"TextBox is showing placeholder ."+ noText,"TextBox doesnot have placeholder.");
        }
        else {
-           testStepAssert.isFail("TextBox is contains text.");
+           testStepAssert.isFail("TextBox is does not contain placeholder. placeholder is " + noText);
        }
     }
 
@@ -597,10 +625,13 @@ public class HomeSteps extends DriverBase {
                     action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("500.characters"));
                     break;
                 case "1 more character":
-                    action.sendKeys(estimatePage.TextBox_DetailsNote(),"A");
+                    action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("500.characters")+"A");
                     break;
                 case "special characters":
                     action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("special.characters"));
+                    break;
+                default:
+                    action.clearSendKeys(estimatePage.TextBox_DetailsNote(),textValue);
                     break;
             }
         }
@@ -637,10 +668,10 @@ public class HomeSteps extends DriverBase {
                      remainingChar=totalCharCount-charCount;
                      text=action.getText(estimatePage.Text_CharactersRemaining());
                     if(remainingChar == 0){
-                        testStepAssert.isTrue(true, "The remaining character count is 0.", "The remaining character count is not 0");
+                        testStepAssert.isTrue(true, "The remaining character count is 0.", "The remaining character count is not 0. Remaining characters are "+ remainingChar);
                     }
                     else{
-                        testStepAssert.isFail("The remaining character count is not 0.");
+                        testStepAssert.isFail("The remaining character count is not 0. Remaining characters are "+ remainingChar);
                     }
                     break;
             }
@@ -657,17 +688,20 @@ public class HomeSteps extends DriverBase {
     public void i_should_see_something_message_displayed(String strArg1) throws Throwable {
 
         try {
+            String expected ="";
             switch (strArg1) {
                 case "Scheduled info":
                     String actualText = action.getText(homePage.Text_ScheduledBungiisInfo());
-                    actualText = actualText.replace("\n", " ");
-                    testStepAssert.isEquals(actualText, PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed.");
+                    expected = "You don’t have any scheduled Bungiis at this time.";//.replace("�","'").replace("â??","'");
+                    actualText = actualText.replace("\n", " ").replace("�","'");
+                    testStepAssert.isEquals(actualText,expected, "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
                     break;
 
                 case "Past info":
                     actualText = action.getText(homePage.Text_PastBungiisInfo());
-                    actualText = actualText.replace("\n", " ");
-                    testStepAssert.isEquals(actualText, PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed.");
+                     expected = "You don’t have any completed Bungiis at this time.";// PropertyUtility.getMessage("no.scheduled.bungiis").replace("�","'").replace("â??","'");
+                    actualText = actualText.replace("\n", " ").replace("�","'");
+                    testStepAssert.isEquals(actualText, expected, "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
                     break;
 
                 default:
@@ -691,13 +725,13 @@ public class HomeSteps extends DriverBase {
 
                 case "SET PICKUP LOCATION BUTTON":
                     String actualBtnText=homePage.Button_ETASet(true).getText();
-                    String expectedBtnText="Set Pickup Location";
+                    String expectedBtnText="SET PICKUP LOCATION";
                     testStepAssert.isEquals(actualBtnText, expectedBtnText,"SET PICKUP LOCATION should be displayed.","SET PICKUP LOCATION is displayed.","SET PICKUP LOCATION is not displayed.");
                     break;
 
                 case "SET DROP OFF LOCATION BUTTON":
                     actualBtnText=homePage.Button_ETASet(true).getText();
-                    expectedBtnText="Set Drop Off Location";
+                    expectedBtnText="SET DROP OFF LOCATION";
                     testStepAssert.isEquals(actualBtnText, expectedBtnText,"SET DROP OFF LOCATION should be displayed.","SET DROP OFF LOCATION is displayed.","SET DROP OFF LOCATION is not displayed.");
                     break;
 
@@ -710,7 +744,8 @@ public class HomeSteps extends DriverBase {
                     break;
 
                 case "SET PICKUP TIME PAGE":
-                    testStepAssert.isElementDisplayed(setPickupTimePage.Text_SetPickupTimeTitle(), "SET PICKUP TIME page title should be displayed.", "SET PICKUP TIME page title is displayed.","SET PICKUP TIME page title is not displayed.");
+                    testStepAssert.isElementDisplayed(setPickupTimePage.Text_DriversBusyMessage(),"Driver Busy message should be shown","Driver Busy message is shown","Driver Busy message is not shown");
+                    testStepAssert.isElementTextEquals(setPickupTimePage.Text_SetPickupTimeTitle(),"SET PICKUP TIME", "SET PICKUP TIME page title should be displayed.", "SET PICKUP TIME page title is displayed.","SET PICKUP TIME page title is not displayed.");
                     break;
 
                 case "DRIVERS NOT AVAILABLE":
@@ -726,7 +761,11 @@ public class HomeSteps extends DriverBase {
                     String expectedMessage= PropertyUtility.getMessage("customer.info.cancel.ondemand.bungii");
                     testStepAssert.isEquals(actualMessage,expectedMessage,expectedMessage+" is displayed.",expectedMessage+" is displayed.",expectedMessage+" is not displayed.");
                     break;
-
+                case "Pickup Message Popup":
+                    String actual=setPickupTimePage.Icon_PickupTimeInfoMessage().getText();
+                    String expected= PropertyUtility.getMessage("customer.info.time");
+                    testStepAssert.isEquals(actual,expected,expected+" is displayed.",expected+" is displayed.",expected+" is not displayed.");
+                    break;
                 case "Four Reasons":
                     testStepAssert.isElementDisplayed(setPickupTimePage.Text_FirstCancellationReason(),"First cancellation reason should be displayed.","First cancellation reason is displayed.", "First cancellation reason is not displayed.");
                     testStepAssert.isElementDisplayed(setPickupTimePage.Text_SecondCancellationReason(),"Second cancellation reason should be displayed.","Second cancellation reason is displayed.", "Second cancellation reason is not displayed.");
@@ -737,6 +776,7 @@ public class HomeSteps extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
             }
+            pass("I verify that "+strArg1 +" is displayed",strArg1 +" is displayed");
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -35,8 +35,8 @@ public class InvitePage  extends PageBase {
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 	public WebElement Button_Facebook() { return findElement("Share on Facebook", PageBase.LocatorType.AccessibilityId);}
 	public WebElement Button_Twitter() { return findElement("Share on Twitter", PageBase.LocatorType.AccessibilityId);}
-	public WebElement Button_Email() { return findElement("Share by Email", PageBase.LocatorType.AccessibilityId);}
-	public WebElement Button_TextMessage() { return findElement("Share by Text Message", PageBase.LocatorType.AccessibilityId);}
+	public WebElement Button_Email() { return findElement("Mail", PageBase.LocatorType.Name);}
+	public WebElement Button_TextMessage() { return findElement("Message", LocatorType.Name);}
 	public WebElement Button_CancelApp() { return findElement("Cancel", PageBase.LocatorType.AccessibilityId);}
 	public WebElement Text_SMS() { return findElement("messageBodyField", LocatorType.Name);}
 	public WebElement Text_EmailSubject() { return findElement("subjectField", LocatorType.Name);}

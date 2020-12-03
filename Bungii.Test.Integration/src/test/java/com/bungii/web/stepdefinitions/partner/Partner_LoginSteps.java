@@ -227,6 +227,7 @@ public class Partner_LoginSteps extends DriverBase {
                 char ch = PickupDateTime.charAt(4);
 
                 if (PickupDateTime.charAt(4) == '0') {
+
                     StringBuilder sb = new StringBuilder(PickupDateTime);
                     sb.deleteCharAt(4);
                     PickupDateTime = sb.toString();
@@ -236,6 +237,7 @@ public class Partner_LoginSteps extends DriverBase {
 
 
                 cucumberContextManager.setScenarioContext("PickupDateTime", PickupDateTime);
+
                 break;
             case "see Done screen":
                 String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
@@ -255,6 +257,7 @@ public class Partner_LoginSteps extends DriverBase {
                // String DeliveryDace = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
                 String Delivery_Date = (String) cucumberContextManager.getScenarioContext("ActualPickupDateTime");
                 //String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
+
                 String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
 
                 String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", Delivery_Date, DeliveryAddress);

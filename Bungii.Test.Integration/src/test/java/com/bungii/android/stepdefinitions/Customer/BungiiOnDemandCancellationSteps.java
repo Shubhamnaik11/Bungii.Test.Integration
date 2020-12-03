@@ -4,6 +4,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.AccountPage;
 import com.bungii.android.pages.customer.SearchingPage;
 import com.bungii.android.pages.customer.SetPickupTimePage;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -14,6 +15,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.warning;
 
 public class BungiiOnDemandCancellationSteps extends DriverBase {
 
@@ -21,13 +23,16 @@ public class BungiiOnDemandCancellationSteps extends DriverBase {
     ActionManager actionManager = new ActionManager();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     SearchingPage searchingPage = new SearchingPage();
+    DbUtility dbutility = new DbUtility();
 
     @Then("^A popup with \"([^\"]*)\" should appear$")
     public void a_popup_with_something_should_appear(String option) {
         try{
             switch (option){
-                case "Cancel Reason":
-                    setPickupTimePage.Popup_CancelReasonTitle();
+                case "Cancel Reasons":
+                    //setPickupTimePage.Button_Ok()
+                    actionManager.isElementPresent(setPickupTimePage.Popup_CancelReasonTitle());
+
                     break;
 
                 default:
@@ -53,9 +58,9 @@ public class BungiiOnDemandCancellationSteps extends DriverBase {
                     actionManager.click(setPickupTimePage.Text_SecondCancellationReason());
                     break;
 
-                case "I don't need it anymore":
+                case "I don’t need it anymore.":
                     actionManager.click(setPickupTimePage.Text_ThirdCancellationReason());
-
+                     break;
                 case "Other...":
                     actionManager.click(setPickupTimePage.Text_FourthCancellationReason());
                     break;
@@ -111,16 +116,14 @@ public class BungiiOnDemandCancellationSteps extends DriverBase {
     }
 
     @Then("^I check if a \"([^\"]*)\" is shown in the table$")
-    public void i_check_if_a_something_is_shown_in_the_table(String reason, String strArg1) throws Throwable {
+    public void i_check_if_a_something_is_shown_in_the_table(String expectedReason) throws Throwable {
         try{
-            switch (reason){
-                case "I needed it right away.":
-
-                    break;
-
-                default:
-                    error("Implemented Step", "UnImplemented Step");
-            }
+            Thread.sleep(10000);
+            String customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE") ;
+            if(customerPhone=="")
+                customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE") ;
+            String actualNote = dbutility.getPickupNoteOfLastPickupOf(customerPhone);
+            testStepAssert.isEquals(actualNote,expectedReason,expectedReason + "should be displayed", actualNote + " is displayed", actualNote + " is displayed instead of "+expectedReason);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

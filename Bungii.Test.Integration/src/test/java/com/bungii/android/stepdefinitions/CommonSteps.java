@@ -2,16 +2,14 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.DashBoardPage;
+import com.bungii.android.pages.admin.LogInPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.LocationPage;
-import com.bungii.android.pages.driver.BungiiRequest;
-import com.bungii.android.pages.driver.DriverHomePage;
-import com.bungii.android.pages.driver.*;
-import com.bungii.android.utilityfunctions.*;
-import com.bungii.android.pages.driver.BungiiRequest;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
@@ -23,6 +21,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -43,6 +43,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.*;
 
 public class CommonSteps extends DriverBase {
@@ -63,6 +64,9 @@ public class CommonSteps extends DriverBase {
     SignupPage Page_Signup= new SignupPage();
     private DbUtility dbUtility = new DbUtility();
     com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
+    LogInPage logInPage=  new LogInPage();
+    DashBoardPage dashBoardPage=new DashBoardPage();
+    PhonePage phonePage = new PhonePage();
 
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
@@ -89,6 +93,12 @@ public class CommonSteps extends DriverBase {
         boolean isApplicationIsInForeground = false;
 
         try {
+            if(action.isElementPresent(phonePage.Container_Notification(true)))
+            {
+                ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                logger.detail("Attempted to hide container");
+
+            }
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
                 Thread.sleep(5000);
@@ -100,6 +110,7 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                     //  utility.launchDriverApplication();
+                    Thread.sleep(10000);
                     isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
                 case "CUSTOMER":
@@ -107,7 +118,7 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-
+                    Thread.sleep(10000);
                     isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                     break;
                 default:
@@ -124,6 +135,7 @@ public class CommonSteps extends DriverBase {
                     case "DRIVER":
                         utility.launchDriverApplication();
                         //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
+                        Thread.sleep(5000);
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
                         if (!isApplicationIsInForeground) {
                             action.click(new Point(0, 0));
@@ -133,6 +145,7 @@ public class CommonSteps extends DriverBase {
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
                         // SetupManager.getObject().restartApp();
+                        Thread.sleep(4000);
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                         if (!isApplicationIsInForeground) {
                             action.click(new Point(0, 0));
@@ -147,6 +160,12 @@ public class CommonSteps extends DriverBase {
             Thread.sleep(2000);
             if (!isApplicationIsInForeground)
                 warning("Switch to " + appName + " application", "Not able to currently verify if " + appName + " application was not successfull");
+            if(action.isElementPresent(phonePage.Container_Notification(true)))
+            {
+                ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                logger.detail("Attempted to hide container");
+
+            }
             else
                 pass("Switch to " + appName + " application", "Switch to " + appName + " application is successful");
 
@@ -175,12 +194,13 @@ public class CommonSteps extends DriverBase {
                     //  ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                     utility.launchDriverApplication();
+                    Thread.sleep(4000);
                     isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
                 case "CUSTOMER":
                     utility.launchCustomerApplication();
                     // ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-
+                    Thread.sleep(4000);
                     isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                     break;
                 default:
@@ -307,14 +327,77 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @And("^I open Admin portal and navigate to \"([^\"]*)\" page$")
+    public void i_open_admin_portal_and_navigate_to_something_page(String option) throws Throwable {
+        try {
+        i_open_new_something_browser_for_something_instance("CHROME","ADMIN");
+        SetupManager.getDriver().get(utility.GetAdminUrl());
+        logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
+        logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
+        logInPage.Button_LogIn().click();
+            switch (option.toLowerCase()) {
+                case "scheduled deliveries":
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
+
+                    //action.click(dashBoardPage.Button_Trips());
+                    //action.click(dashBoardPage.Button_ScheduledTrips());
+                    break;
+                case "live deliveries":
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=False");
+
+                    //action.click(dashBoardPage.Button_Trips());
+                    //action.click(dashBoardPage.Button_LiveTrips());
+                    break;
+                case "promo code":
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/PromoCodes");
+                    //action.click(dashBoardPage.Button_PromoCode());
+                   // action.click(dashBoardPage.Link_StandardCodes());
+                    break;
+                case "referral source":
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ReferralSource");
+
+                   // action.click(dashBoardPage.Button_Marketing());
+                    //action.click(dashBoardPage.Button_ReferralSource());
+                    break;
+                case "customers":
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Customers");
+
+                   // action.click(dashBoardPage.Button_Customers());
+                    break;
+                case "deliveries":
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=True");
+                    //action.click(dashBoardPage.Button_Trips());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            log("I open Admin portal and navigate to "+option+ " page","I am on admin "+ option+" page" ,true );
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in navigating to admin portal ",
+                    true);
+        }
+    }
+
     @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
         try {
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") || PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
+                String currentKey = DriverManager.getCurrentKey();
+                if(DriverManager.driverArray.size()>1) {
+                    for (Map.Entry<String, WebDriver> entry : DriverManager.driverArray.entrySet()) {
+                        entry.getValue().getPageSource();
+                        logger.detail("Pinging : "+ entry.getKey());
+                    }
+                    DriverManager.driverArray.get(currentKey).getPageSource();
+                    //Ping all instances to keep them running in browserstack, used in duo scenarioss
+                }
+            }
             SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
             SetupManager.getObject().useDriverInstance(instanceName);
             log(
-                    "I open new " + browser + " browser for " + instanceName + " instance$",
-                    "I open new " + browser + " browser for " + instanceName + " instance$", true);
+                    "I open new " + browser + " browser for " + instanceName + " instance",
+                    "I open new " + browser + " browser for " + instanceName + " instance", true);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -330,7 +413,7 @@ public class CommonSteps extends DriverBase {
             SetupManager.getObject().createNewAndroidInstance(instanceName, deviceId);
             SetupManager.getObject().useDriverInstance(instanceName);
             log("I should be connected to " + deviceId,
-                    "I connected to " + deviceId + " device and assigned session name " + instanceName, true);
+                    "I am connected to " + deviceId + " device and assigned session name " + instanceName, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -356,6 +439,12 @@ public class CommonSteps extends DriverBase {
     @Then("^\"([^\"]*)\" page should be opened$")
     public void ThenPageShouldBeOpened(String page) {
         try {
+            switch(page)
+            {
+                case "bungii.com":
+                    action.click(locationPage.Option_Chrome());
+                    action.click(locationPage.Button_Always());
+            }
             boolean isCorrectPage = utility.isCorrectPage(page);
             testStepAssert.isTrue(isCorrectPage, page + " should be displayed", page + " is displayed correctly  ", page + " is not displayed correct");
         } catch (Exception e) {
@@ -534,10 +623,11 @@ public class CommonSteps extends DriverBase {
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
             String actualMessage = "";
+            Thread.sleep(10000);
             if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
             } else if (actualMessage.equals("")) {
-                actualMessage = action.getText(driverHomePage.Alert_NewBungii(true));
+                actualMessage = action.getText(driverHomePage.Alert_NewBungii());
             } else {
                 actualMessage = bungiiRequest.Alert_Msg(true).getText();
             }
@@ -707,21 +797,25 @@ public class CommonSteps extends DriverBase {
     @Then("^User should see message \"([^\"]*)\" text on the screen$")
     public void user_should_see_message_something_text_on_the_screen(String message) throws Throwable {
         try {
-            String actualMessage = utility.getSnackBarMessage();
+            String actualMessage = "";//utility.getSnackBarMessage();
             String expectedMessage;
             switch (message.toUpperCase()) {
                 case "OUTSIDE BUISSNESS HOUR":
-                    expectedMessage = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
+                    actualMessage = utility.getCustomerSnackBarMessage();
+                    expectedMessage = "We’re only able to schedule Bungii’s between 12:15 AM - 11:30 PM. Please choose a time in that range."; //PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
                     action.click(estimatePage.Samsung_Time_Cancel());
                     break;
 
                 case "DELETE WARNING":
+                    actualMessage = utility.getCustomerSnackBarMessage();
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
                 case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    actualMessage = utility.getDriverSnackBarMessage();
                     expectedMessage=PropertyUtility.getMessage("driver.start.60.mins.before");
                     break;
                 case "Please install a browser in order to access this link.":
+                    actualMessage = utility.getCustomerSnackBarMessage();
                     expectedMessage = PropertyUtility.getMessage("browser.uninstalled.message");
                     action.click(inProgressBungiiPages.Button_Cancel_Yes());
                     break;
@@ -893,6 +987,8 @@ public class CommonSteps extends DriverBase {
     @And("^I tap on \"([^\"]*)\" button of android mobile$")
     public void i_tap_on_something_button_of_android_mobile(String strArg1) throws Throwable {
         action.NavigateBack();
+        log("I tap back button "  ,"I tapped back button",
+                true);
     }
 
     @And("^I tap on \"([^\"]*)\" icon of page$")
@@ -902,6 +998,8 @@ public class CommonSteps extends DriverBase {
         } else {
             action.click(estimatePage.Button_Back(true));
         }
+        log("I tap back button "  ,"I tapped back button",
+                 true);
     }
 
     @Then("^I wait for \"([^\"]*)\" mins$")
@@ -986,7 +1084,7 @@ public class CommonSteps extends DriverBase {
             boolean isCorrectPage = false;
             isCorrectPage = utility.isCorrectPage(screen);
             testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
-                    "I should be navigated to " + screen, "I was not navigated to " + screen + "screen ");
+                    "I should be navigated to " + screen, "I was not navigated to " + screen + " screen ");
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1115,20 +1213,15 @@ public class CommonSteps extends DriverBase {
             GeneralUtility utility = new GeneralUtility();
             String pageName = utility.getPageHeader();
             if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
-                action.click(driverHomePage.Button_Sure(true));
-                //action.clickAlertButton("ALLOW");
-             //  if (currentPage.equals("LOCATION")) {
-                    action.click(driverLoginPage.Button_Sure());
+                action.click(driverLoginPage.Button_Sure());
                     action.click(driverLoginPage.Button_Allow());
-                // pageName = utility.getPageHeader();
+                Thread.sleep(15000);
             }
-            Thread.sleep(3000);
+
             pageName = utility.getPageHeader();
             if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
-                //action.click(driverHomePage.Button_Sure(true));
                 action.click(driverLoginPage.Button_Sure());
                 action.click(driverLoginPage.Button_Allow());
-                //pageName = utility.getPageHeader();
             }
 
         } catch (Exception e) {

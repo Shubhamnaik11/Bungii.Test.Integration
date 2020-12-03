@@ -12,6 +12,7 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
 
@@ -49,7 +50,15 @@ public class ActionManager {
             //  Assert.fail("Following element is not displayed : " + element);
         }
     }
-
+    public static void waitUntilIsElementClickable(WebElement element) {
+        try {
+            IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            wait.until((ExpectedConditions.elementToBeClickable(element)));
+        } catch (Exception Ex) {
+            //  Assert.fail("Following element is not displayed : " + element);
+        }
+    }
     /**
      * @param element , locator of field
      * @param text    , Text value that is to be sent
@@ -131,9 +140,25 @@ public class ActionManager {
         }
         catch(Exception ex)
         {
-            logger.error("ACTION FAILED | Error in getting Screen Header", ExceptionUtils.getStackTrace(ex));
-            error("Get name for element by locator -> " + getElementDetails(element), "Unable to get name for element by locator -> " + getElementDetails(element),
-                    true);
+           // logger.error("ACTION FAILED | Error in getting Screen Header", ExceptionUtils.getStackTrace(ex));
+            //error("Get name for element by locator -> " + getElementDetails(element), "Unable to get name for element by locator -> " + getElementDetails(element),
+                  //  true);
+        }
+        return value;
+
+    }
+    public String getAppName(WebElement element) {
+        String value = "";
+        try {
+            value = element.getAttribute("name");
+
+            logger.detail("GET | App Name is " + value);
+        }
+        catch(Exception ex)
+        {
+            // logger.error("ACTION FAILED | Error in getting Screen Header", ExceptionUtils.getStackTrace(ex));
+            //error("Get name for element by locator -> " + getElementDetails(element), "Unable to get name for element by locator -> " + getElementDetails(element),
+            //  true);
         }
         return value;
 
@@ -142,6 +167,12 @@ public class ActionManager {
         try{
         element.click();
         logger.detail("ACTION | Click on element by locator -> " + getElementDetails(element));
+
+    }
+    catch(ElementClickInterceptedException ex)
+    {
+        waitUntilIsElementClickable(element);
+        element.click();
 
     }
          catch(Exception ex)
@@ -161,7 +192,13 @@ public class ActionManager {
         new TouchAction(driver).tap(point(endX, startY)).perform();
         logger.detail("ACTION | Tap element by locator -> " + getElementDetails(element));
     }
-
+    public void doubleTapByElement(WebElement element) {
+        AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
+        TouchActions action = new TouchActions(driver);
+        action.doubleTap(element);
+        action.perform();
+        logger.detail("ACTION | Tap element by locator -> " + getElementDetails(element));
+    }
     public void clickMiddlePoint(WebElement element) {
         Point elementLocation = element.getLocation();
         Dimension elementSize = element.getSize();
@@ -316,10 +353,15 @@ public class ActionManager {
         if(!meridiem.equals("")) {
             if (!Columns.get(3).getAttribute("value").equals(meridiem))
                 Columns.get(3).sendKeys(meridiem);
+            logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
+                    + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value") + " "
+                    + Columns.get(3).getAttribute("value"));
         }
-        logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
-                + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value") + " "
-                + Columns.get(3).getAttribute("value"));
+        else{
+            logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
+                    + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value"));
+        }
+
 
     }
 
@@ -573,30 +615,35 @@ public class ActionManager {
      * @param show
      */
     private void manageNotifications(Boolean show) {
+try {
+    Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
+    int yMargin = 5;
+    int xMid = screenSize.width / 2;
+    PointOption top = point(xMid, yMargin);
+    PointOption bottom = point(xMid, screenSize.height - yMargin);
 
-        Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
-        int yMargin = 5;
-        int xMid = screenSize.width / 2;
-        PointOption top = point(xMid, yMargin);
-        PointOption bottom = point(xMid, screenSize.height - yMargin);
+    TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
+    if (show) {
+        action.press(top);
+        logger.detail("ACTION | Open notification tray ");
+    } else {
+        action.press(bottom);
+        logger.detail("ACTION | Close notification tray ");
+    }
+    action.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
+    if (show) {
+        action.moveTo(bottom);
+        // logger.detail("ACTION | Open notification tray ");
+    } else {
+        action.moveTo(top);
+        //logger.detail("ACTION | Close notification tray ");
+    }
+    action.perform();
+}
+        catch(Exception ex)
+    {
 
-        TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
-        if (show) {
-            action.press(top);
-            logger.detail("ACTION | Open notification tray ");
-        } else {
-            action.press(bottom);
-            logger.detail("ACTION | Close notification tray ");
-        }
-        action.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
-        if (show) {
-            action.moveTo(bottom);
-           // logger.detail("ACTION | Open notification tray ");
-        } else {
-            action.moveTo(top);
-            //logger.detail("ACTION | Close notification tray ");
-        }
-        action.perform();
+    }
     }
 
     /**
@@ -658,13 +705,7 @@ public class ActionManager {
         else {
             HashMap<String, String> params = new HashMap<>();
             JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
-
-           // params.put("action", "accept");
-           // params.put("buttonLabel", buttonLabel);
-          //  js.executeScript("mobile: alert", params);
              SetupManager.getDriver().findElement(By.id(label)).click();
-           // Alert alert = SetupManager.getDriver().switchTo().alert();
-           // alert.accept();
             logger.detail("ACTION | Accept Alert button : "+ label);
 
             return true;

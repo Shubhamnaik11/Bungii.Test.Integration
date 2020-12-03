@@ -11,7 +11,7 @@ Feature: Customer Home screen
     When I click "Pick Up Clear Text" button on "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
 
-  @regression
+  @ready
   Scenario: Verify ETA And Location Textbox Header - Also Verify Clear Text Button Is Enabled Once Location Is Selected
     When I logged in Customer application using  "existing" user
 
@@ -100,7 +100,7 @@ Feature: Customer Home screen
     Then user is alerted for "LONG HAUL"
 
 
-  @ready
+  @regression
   Scenario: Verify ETA Box When Geofence Is Not Active
     Given I am on Customer logged in Home page
 

@@ -4,7 +4,17 @@ Feature: CustomerSignup
 
   Background:
     Given I am on Sign up page
-
+  
+  
+  @regression
+  Scenario: Verify Signup With Existing Phone Number
+    When I enter "existing" customer phone number on Signup Page
+    And I enter "valid" data in mandatory fields on Signup Page
+    And I tap on the "Sign Up" button on Signup Page
+  #  And I tap on the "No, Continue" button on Signup Page
+    Then the new user should see "snackbar validation message for existing user"
+    And the new user should see "Signup page"
+    
   @regression
   Scenario: Verify Referral Source Count Upon Customer Signup
     When I open new "Chrome" browser for "ADMIN_PORTAL"
@@ -40,7 +50,7 @@ Feature: CustomerSignup
     Then the new user should see "validations for all fields"
 
   @email
-  @regression
+  @ready
   Scenario: Verify Customer Signup With Valid Promo Code
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
@@ -49,8 +59,8 @@ Feature: CustomerSignup
     And I tap on the "Sign Up" button on Signup Page
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
-    Then The user should be logged in
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    Then The user should be logged in
     When I tap on "Menu" > "Promos" link
     Then "ValidPercent" promo code should be displayed
     When I click on "i" icon
@@ -67,16 +77,8 @@ Feature: CustomerSignup
     Then the new user should see "Signup page"
 
 
-  @regression
-  Scenario: Verify Signup With Existing Phone Number
-    When I enter "existing" customer phone number on Signup Page
-    And I enter "valid" data in mandatory fields on Signup Page
-    And I tap on the "Sign Up" button on Signup Page
-  #  And I tap on the "No, Continue" button on Signup Page
-    Then the new user should see "snackbar validation message for existing user"
-    And the new user should see "Signup page"
 
-  @regression
+  @knownissue
   Scenario: Verify Signup With Promo Code To Be Active In Future
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
@@ -92,6 +94,8 @@ Feature: CustomerSignup
     And I tap on the "Sign Up" button on Signup Page
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then The user should be logged in
     When I tap on "Menu" > "Promos" link
     Then "ValidPercent" promo code should be displayed
@@ -100,17 +104,16 @@ Feature: CustomerSignup
     Then The "This code is only available for your first Bungii." is displayed
     When I click on "i" icon
     Then The "Info" is displayed
-
-
-  @regression
-  @ready
+    
+  @knownissue
   Scenario Outline: Verify Trip completed Count On Admin Portal Is Updated When Customer Completes A Bungii.
       When I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
       And I am logged in as "valid" driver
-      And I Select "HOME" from driver App menu
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
+    And I Select "HOME" from driver App menu
       And I Switch to "customer" application on "same" devices
-      #create new customer
     
       When I enter "unique" customer phone number on Signup Page
       And I enter "valid" data in mandatory fields on Signup Page
@@ -118,8 +121,10 @@ Feature: CustomerSignup
       And I tap on the "Sign Up" button on Signup Page
       And I enter "valid" Verification code
       And I tap on the "Verification Continue" Link
-      Then The user should be logged in
-
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    Then The user should be logged in
+    
       #creates bungii
       And I enter "kansas pickup and dropoff locations" on Bungii estimate
       And I tap on "Get Estimate button" on Bungii estimate
@@ -157,43 +162,12 @@ Feature: CustomerSignup
 
       And Bungii Driver "Start Schedule Bungii" request
       Then Bungii driver should see "Enroute screen"
+      And Bungii Driver "slides to the next state"
+      And Bungii Driver "slides to the next state"
+      And Bungii Driver "slides to the next state"
+      And Bungii Driver "slides to the next state"
+      And Bungii Driver "slides to the next state"
 
-#      When I Switch to "customer" application on "same" devices
-#      Then for a Bungii I should see "Enroute screen"
-#
-#      When I Switch to "driver" application on "same" devices
-      And Bungii Driver "slides to the next state"
-#      Then Bungii driver should see "Arrived screen"
-#
-#      When I Switch to "customer" application on "same" devices
-#      Then for a Bungii I should see "Arrived screen"
-#
-#      When I Switch to "driver" application on "same" devices
-      And Bungii Driver "slides to the next state"
-#      Then Bungii driver should see "Loading Item screen"
-#
-#      When I Switch to "customer" application on "same" devices
-#      Then for a Bungii I should see "Loading Item screen"
-#
-#      When I Switch to "driver" application on "same" devices
-      And Bungii Driver "slides to the next state"
-#      Then Bungii driver should see "Driving to DropOff screen"
-#
-#      When I Switch to "customer" application on "same" devices
-#      Then for a Bungii I should see "Driving to DropOff screen"
-#
-#      When I Switch to "driver" application on "same" devices
-      And Bungii Driver "slides to the next state"
-#      Then Bungii driver should see "Unloading Item screen"
-#
-#      When I Switch to "customer" application on "same" devices
-#      Then for a Bungii I should see "Unloading Item screen"
-#
-#      When I Switch to "driver" application on "same" devices
-      And Bungii Driver "slides to the next state"
-      #And I Switch to "customer" application on "same" devices
-      #And I tap on "OK on complete" on Bungii estimate
-      #And I tap on "No free money" on Bungii estimate
       And I Switch to "driver" application on "same" devices
       Then Bungii Driver "completes Bungii"
       And I Select "HOME" from driver App menu
@@ -211,17 +185,20 @@ Feature: CustomerSignup
 
   #used one off
   #Know issue, no alert
-  @regression
+  @knownissue
   Scenario: Verify That Validation Message Is Displayed On Signing Up With Invalid Or Used One off Promocode
     When I Switch to "customer" application on "same" devices
     And I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I Enter "Referral Code" value in "Referral code" field in "SIGN UP" Page
       | Referral Code |
-      | R1D2          |
+      | R1D2INVALID   |
     And I Select Referral source
     And I tap on the "Sign Up" button on Signup Page
-    And the new user should see "Signup page"
+    Then the new user should see "Invalid Promo Code message"
+    
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then The user should be logged in

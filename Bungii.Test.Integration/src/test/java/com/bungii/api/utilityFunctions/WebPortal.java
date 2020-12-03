@@ -20,12 +20,14 @@ import static io.restassured.RestAssured.given;
 
 
 public class WebPortal {
-    private static Cookies adminCookies;
+    private static Cookies adminCookies,adminCookies2 ;
     private static String CUSTOMER_CANCELPICKUP = "/BungiiReports/CustomerCancelPickup";
     private static String CAN_EDIT_PICKUP = "/BungiiReports/CanEditPickup";
     private static String CALCULATE_COST = "/BungiiReports/CalculateCost";
     private static String MANUALLY_END = "/BungiiReports/ManuallyEndPickup";
     private static String SCHEDULED_DELIVERY = "/BungiiReports/ScheduledTrips";
+    private static String LIVE_DELIVERY_DETAIL="/BungiiReports/TripDetails?tripRef=";
+
 
     private static LogUtility logger = new LogUtility(AuthServices.class);
 
@@ -33,7 +35,7 @@ public class WebPortal {
     public Response AdminLogin() {
         logger.detail("API REQUEST : Admin Login " + PropertyUtility.getDataProperties("admin.user"));
         String loginURL = new GeneralUtility().GetAdminUrl();
-        Response responseGet = given().log().body()
+        Response responseGet = given()
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
@@ -41,45 +43,48 @@ public class WebPortal {
                 .header("Accept-Encoding", "gzip, deflate")
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-                .when().
+                .when().redirects().follow(false).
                         get(loginURL);
+        String responseData = responseGet.asString();
+        adminCookies = responseGet.then().extract().response().getDetailedCookies();
+       // logger.detail("Admin Cookie : "+ adminCookies);
         String verificationToken = "";//responseGet.htmlPath().getString("html.body.span.input.@value");
         String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
         Pattern pattern = Pattern.compile("return '(.+?)'");
-        Matcher matcher = pattern.matcher(responseGet.htmlPath().toString());
+        Matcher matcher = pattern.matcher(responseData);
         if (matcher.find())
         {
             csrfToken =matcher.group(1);
+           // logger.detail("CSRF Token : "+csrfToken) ;
         }
-        pattern = Pattern.compile("\"__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
-        matcher = pattern.matcher(responseGet.htmlPath().toString());
+         pattern = Pattern.compile("__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
+         matcher = pattern.matcher(responseData);
         if (matcher.find())
         {
-            verificationToken =matcher.group(1);
+            verificationToken=matcher.group(1);
+           // logger.detail("Verification Token POST Parameter : "+ verificationToken);
         }
-        Response response = given().log().body()
+        Response response = given().cookies(adminCookies).contentType("application/x-www-form-urlencoded; charset=UTF-8").urlEncodingEnabled(false)
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
-                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                //.header("Content-Type", "application/x-www-form-urlencoded")
                 .header("Accept-Encoding", "gzip, deflate")
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
-                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/81.0")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
                 .header("__requestverificationtoken",csrfToken)
-                .formParams("PhoneNo", PropertyUtility.getDataProperties("admin.user"), "Password", PropertyUtility.getDataProperties("admin.password"), "__RequestVerificationToken",verificationToken)
-                .when().
+                .queryParams("__RequestVerificationToken",verificationToken,"PhoneNo",PropertyUtility.getDataProperties("admin.user"), "Password",PropertyUtility.getDataProperties("admin.password"))
+                .when().redirects().follow(true).
                         post(loginURL);
-
-        //response.then().log().all();
-        adminCookies = response.then().extract().response().getDetailedCookies();
-        //  ApiHelper.genericResponseValidation(response);
+        adminCookies2 = response.then().extract().response().getDetailedCookies();
+        //logger.detail("Admin Cookie : "+adminCookies2);
         return response;
     }
 
     public void cancelScheduledBungii(String pickupRequestId) {
         logger.detail("API REQUEST : Cancel Scheduled Bungii " + pickupRequestId);
         String scheduledDelivery = UrlBuilder.createApiUrl("web core", SCHEDULED_DELIVERY);
-        Response responseGet = given().log().body()
+        String responseGet = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
@@ -87,32 +92,31 @@ public class WebPortal {
                 .header("Accept-Encoding", "gzip, deflate")
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-                .when().
-                        get(scheduledDelivery);
+                .when().redirects().follow(false).
+                        get(scheduledDelivery).asString();
         String verificationToken = "";//responseGet.htmlPath().getString("html.body.span.input.@value");
         String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
-        Pattern pattern = Pattern.compile("return '(.+?)'");
-        Matcher matcher = pattern.matcher(responseGet.htmlPath().toString());
+        Pattern pattern = Pattern.compile("return '(.+?')");
+        Matcher matcher = pattern.matcher(responseGet);
         if (matcher.find())
         {
             csrfToken =matcher.group(1);
         }
-        pattern = Pattern.compile("\"__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
-        matcher = pattern.matcher(responseGet.htmlPath().toString());
+
+        pattern = Pattern.compile("__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
+        matcher = pattern.matcher(responseGet);
         if (matcher.find())
         {
             verificationToken =matcher.group(1);
         }
         String cancelBungii = UrlBuilder.createApiUrl("web core", CUSTOMER_CANCELPICKUP);
-        Response response = given().cookies(adminCookies)
+
+        Response response = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("__requestverificationtoken",csrfToken)
                 .formParams("PickupRequestID", pickupRequestId, "CancellationFee", "6", "CancelComments", "test","__RequestVerificationToken",verificationToken)
-
-                /*.log().body()*/.
-                        when().
+                .when().redirects().follow(false).
                         post(cancelBungii);
         // response.then().log().body();
-        //  ApiHelper.genericResponseValidation(response);
     }
 
     public void cancelBungiiAsAdmin(String pickupRequestId) {
@@ -137,7 +141,8 @@ public class WebPortal {
     public void canEditPickup(String pickupRequestId) {
         logger.detail("API REQUEST : Edit Pickup " + pickupRequestId);
         String scheduledDelivery = UrlBuilder.createApiUrl("web core", SCHEDULED_DELIVERY);
-        Response responseGet = given().log().body()
+
+        String responseGet = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
@@ -145,29 +150,24 @@ public class WebPortal {
                 .header("Accept-Encoding", "gzip, deflate")
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-                .when().
-                        get(scheduledDelivery);
+                .when().redirects().follow(false).
+                        get(scheduledDelivery).asString();
         String verificationToken = "";//responseGet.htmlPath().getString("html.body.span.input.@value");
         String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
         Pattern pattern = Pattern.compile("return '(.+?)'");
-        Matcher matcher = pattern.matcher(responseGet.htmlPath().toString());
+        Matcher matcher = pattern.matcher(responseGet);
         if (matcher.find())
         {
             csrfToken =matcher.group(1);
         }
-        pattern = Pattern.compile("\"__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
-        matcher = pattern.matcher(responseGet.htmlPath().toString());
-        if (matcher.find())
-        {
-            verificationToken =matcher.group(1);
-        }
+
 
         String cancelBungii = UrlBuilder.createApiUrl("web core", CAN_EDIT_PICKUP);
-        Response response = given().cookies(adminCookies)
+        Response response = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("__requestverificationtoken",csrfToken)
-                .param("pickupRequestID", pickupRequestId,"__RequestVerificationToken",verificationToken)
-                /*.log().body()*/.
-                        when().
+                .param("pickupRequestID", pickupRequestId)
+                /*.log().body()*/
+                .when().redirects().follow(false).
                         get(cancelBungii);
         // response.then().log().body();
         //  ApiHelper.genericResponseValidation(response);
@@ -182,8 +182,9 @@ public class WebPortal {
 
     public void calculateManuallyEndCost(String pickupRequestId,String bungiiEndTime,String bungiiTimeZoneLabel) {
         logger.detail("API REQUEST : Calculate Manually End Cost : " + pickupRequestId);
-        String scheduledDelivery = UrlBuilder.createApiUrl("web core", SCHEDULED_DELIVERY);
-        Response responseGet = given().log().body()
+
+        String scheduledDelivery = UrlBuilder.createApiUrl("web core", LIVE_DELIVERY_DETAIL+pickupRequestId+"&isComplete=False&caller=1&userType=1");
+        Response responseGet = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
@@ -193,7 +194,7 @@ public class WebPortal {
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                 .when().
                         get(scheduledDelivery);
-        String verificationToken = "";//responseGet.htmlPath().getString("html.body.span.input.@value");
+
         String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
         Pattern pattern = Pattern.compile("return '(.+?)'");
         Matcher matcher = pattern.matcher(responseGet.htmlPath().toString());
@@ -201,19 +202,13 @@ public class WebPortal {
         {
             csrfToken =matcher.group(1);
         }
-        pattern = Pattern.compile("\"__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
-        matcher = pattern.matcher(responseGet.htmlPath().toString());
-        if (matcher.find())
-        {
-            verificationToken =matcher.group(1);
-        }
-        String cancelBungii = UrlBuilder.createApiUrl("web core", CALCULATE_COST);
-        Response response = given().cookies(adminCookies)
+        String endBungii = UrlBuilder.createApiUrl("web core", CALCULATE_COST);
+        Response response = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("__requestverificationtoken",csrfToken)
-                .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel,"__RequestVerificationToken",verificationToken)
-                /*.log().body()*/.
-                        when().
-                        post(cancelBungii);
+                .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel)
+                /*.log().body()*/
+                .when().redirects().follow(false).
+                        post(endBungii);
         //   response.then().log().body();
         //   ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
@@ -224,8 +219,10 @@ public class WebPortal {
 
     public void calculateManuallyBungii(String pickupRequestId,String bungiiEndTime,String bungiiTimeZoneLabel) {
         logger.detail("API REQUEST : Calculate Manually Bungii : " + pickupRequestId);
-        String scheduledDelivery = UrlBuilder.createApiUrl("web core", SCHEDULED_DELIVERY);
-        Response responseGet = given().log().body()
+
+       // String scheduledDelivery = UrlBuilder.createApiUrl("web core", SCHEDULED_DELIVERY);
+        String scheduledDelivery = UrlBuilder.createApiUrl("web core", LIVE_DELIVERY_DETAIL+pickupRequestId+"&isComplete=False&caller=1&userType=1");
+        Response responseGet = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
@@ -243,20 +240,14 @@ public class WebPortal {
         {
             csrfToken =matcher.group(1);
         }
-        pattern = Pattern.compile("\"__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
-        matcher = pattern.matcher(responseGet.htmlPath().toString());
-        if (matcher.find())
-        {
-            verificationToken =matcher.group(1);
-        }
 
-        String cancelBungii = UrlBuilder.createApiUrl("web core", MANUALLY_END);
-        Response response = given().cookies(adminCookies)
+        String endBungii = UrlBuilder.createApiUrl("web core", MANUALLY_END);
+        Response response = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("__requestverificationtoken",csrfToken)
-                .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel,"__RequestVerificationToken",verificationToken)
-                /*.log().body()*/.
-                        when().
-                        post(cancelBungii);
+                .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel)
+                /*.log().body()*/
+                .when().redirects().follow(false).
+                post(endBungii);
         // response.then().log().body();
         //  ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();

@@ -2,6 +2,7 @@ package com.bungii.ios.utilityfunctions;
 
 import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
+import com.bungii.api.utilityFunctions.AuthServices;
 import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
@@ -25,6 +26,7 @@ import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.ios.stepdefinitions.admin.*;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.appmanagement.ApplicationState;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -61,6 +63,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+
+import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.pass;
 
 public class GeneralUtility extends DriverBase {
     private static LogUtility logger = new LogUtility(GeneralUtility.class);
@@ -174,6 +180,11 @@ public class GeneralUtility extends DriverBase {
                         action.clickAlertButton("Done");
                     }
                 }
+                else if (alertMessage.contains("Enabling location services allows you to connect with Bungii customers")) {
+                    if (getListOfAlertButton.contains("OK")) {
+                        action.clickAlertButton("OK");
+                    }
+                }
 
             }
         }catch( Exception e){
@@ -223,12 +234,29 @@ public class GeneralUtility extends DriverBase {
     public void hideNotifications() {
     action.hideNotifications();
     }
+    public void resetDriverAppsStateToInital()
+    {
+        String driverPhoneCode="1";
+        String driverPhoneNum=((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")) ;
+        if(driverPhoneNum!= "") {
+            String driverPassword =(String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
+            new AuthServices().driverLogin(driverPhoneCode, driverPhoneNum, driverPassword);
+        }
+        String driverPhoneNum2=((String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE")) ;
+        if(driverPhoneNum2!= "") {
+            String driverPassword = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PASSWORD");
+           new AuthServices().driverLogin(driverPhoneCode, driverPhoneNum2, driverPassword);
+        }
+    }
     public void recoverScenario() {
         logger.detail("***** RECOVERING CUSTOMER AND DRIVER STATE : UI ACTIONS *****");
 
         try {
     if (action.isElementPresent(customerHomePage.Application_Name(true))) {
         //do nothing
+       // if(action.getScreenHeader(customerHomePage.Application_Name()).equalsIgnoreCase("BUNGII DRIVER"));
+       // SetupManager.getObject().restartApp();
+
     } else if (action.isElementPresent(customerHomePage.AppIcon_Phone(true))) {
         //if app is closed and just phone screen is present then restart app
         SetupManager.getObject().restartApp();
@@ -367,7 +395,7 @@ public class GeneralUtility extends DriverBase {
      catch(Exception e){}
     }
 
-    public void navigateFromTermToHomeScreen() {
+    public void navigateFromTermToHomeScreen() throws InterruptedException {
         action.click(termsAndConditionPage.Button_CheckOff());
         action.click(termsAndConditionPage.Button_Continue());
         if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
@@ -377,12 +405,12 @@ public class GeneralUtility extends DriverBase {
 
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Allow"); // Added for customer App changes  Krishna
+            action.clickAlertButton("Always Allow"); // Added for customer App changes  Krishna
         }
-
+        Thread.sleep(5000);
         action.click(tutorialPage.Button_Close());
 
-        logger.detail("***** RECOVERING STATE : UI ACTIONS COMPLETE *****");
+       // logger.detail("***** RECOVERING STATE : UI ACTIONS COMPLETE *****");
 
     }
 
@@ -474,7 +502,7 @@ public class GeneralUtility extends DriverBase {
 
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
         if(TimeZone.getTimeZone(getGeofenceTimeZone).inDaylightTime( new Date() ))
-            getGeofenceTimeZone = getGeofenceTimeZone.replace("S","D");
+            getGeofenceTimeZone = getGeofenceTimeZone.replace("ST","DT");
         return getGeofenceTimeZone;
     }
 
@@ -583,6 +611,7 @@ public class GeneralUtility extends DriverBase {
                     isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("AVAILABLE BUNGIIS");
                     break;
                 }
+            case "DRIVER HOME":
             case "HOME":
                 if (currentApplication.equals("DRIVER")) {
                     String naviagationBar = action.getScreenHeader(driverHomePage.Text_NavigationBar());
@@ -614,7 +643,7 @@ public class GeneralUtility extends DriverBase {
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {
                     if (!action.isElementPresent(driverHomePage.Text_NavigationBar(true))) {
-                        Thread.sleep(9000);
+                        Thread.sleep(25000);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -766,11 +795,15 @@ public class GeneralUtility extends DriverBase {
     }
 
 
-    public void grantPermissionToDriverApp() {
+    public void grantPermissionToDriverApp() throws InterruptedException {
         action.click(enableNotificationPage.Button_Sure());
         action.clickAlertButton("Allow");
+        Thread.sleep(5000);
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
+            action.clickAlertButton("Always Allow");
+        }
+        else if(action.isAlertPresent()){
             action.clickAlertButton("Always Allow");
         }
     }
@@ -789,31 +822,160 @@ public class GeneralUtility extends DriverBase {
                 action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);
                 action.sendKeys(driverLoginPage.Textfield_Password(), password);
                 action.click(driverLoginPage.Button_Login());
-                Thread.sleep(2500);
+                Thread.sleep(5000);
+                cucumberContextManager.setScenarioContext("DRIVER_PHONE_PUSH", phone);
+                cucumberContextManager.setScenarioContext("DRIVER_PWD_PUSH", password);
+try {
+    navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status(true));
 
-                navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
-                if(navigationBarName != null && !navigationBarName.isEmpty())
-                    if (navigationBarName.equals("NOTIFICATIONS")) {
-                    grantPermissionToDriverApp();
-                    Thread.sleep(3000);
-                        if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
-                            action.click(enableLocationPage.Button_Sure());
-                            action.clickAlertButton("Always Allow");
-                        }
-                }
-/*                else if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
-                    action.click(enableNotificationPage.Button_Sure());
-                    action.clickAlertButton("Allow");
-                }
+    if (navigationBarName != null && !navigationBarName.isEmpty())
+        if (navigationBarName.equals("NOTIFICATIONS")) {
+            grantPermissionToDriverApp();
+            Thread.sleep(3000);
+            if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Always Allow");
+            }
 
-                else
-                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
-                    action.click(enableLocationPage.Button_Sure());
-                    action.clickAlertButton("Always Allow");
-                }*/
+        }
+}
+catch(Exception ex)
+{
+    //Ignore exception
+}
             } else {
                 //Not on Login page
             }
+        }
+    }
+
+    public void switchToApp(String appName, String device) {
+        try {
+            logger.detail ("*** Switching to : " + appName + " application ****");
+            String appHeader = "";
+            if (!device.equalsIgnoreCase("same")) {
+                try {
+                    SetupManager.getObject().useDriverInstance(device);
+                    log("I switch to " + device + " device instance",
+                            "I switch to  " + device + " device instance", false);
+
+                } catch (Exception e) {
+                    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                    error("Step should be successful",
+                            "Error in switching to second device", true);
+                }
+                Thread.sleep(1000);
+            }
+            switch (appName.toUpperCase()) {
+                case "DRIVER":
+                    //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+                    //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    int retry = 3;
+                    String appstate = "";
+                    while(retry>0) {
+                        //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        appHeader = "Bungii Driver QAAuto";
+                        ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
+                        appstate = state.toString();
+                        logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
+                        state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Customer"));
+                        appstate = state.toString();
+                        logger.detail("State of other App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate);
+                         if(appstate.equalsIgnoreCase("RUNNING_IN_BACKGROUND_SUSPENDED"))
+                         {
+                            // ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                             ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                             ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                         }
+                        Thread.sleep(10000);
+                        String pageSource = SetupManager.getDriver().getPageSource();
+                        //logger.detail(" After switching Page Source : " + pageSource);
+                        if(pageSource.contains("XCUIElementTypeApplication")) {
+                           String appTitle = action.getAppName(driverHomePage.Application_Name(true));
+                            if (appTitle!=null) {
+                                if (!appTitle.equals(" ")) {
+                                    // if(SetupManager.getDriver().getPageSource().contains(appHeader)){
+                                    logger.detail("Actual App Header After Switching : " + appTitle);
+                                    break;
+                                }} else {
+                                    if (action.isAlertPresent()) {
+                                        String alertMessage = action.getAlertMessage();
+                                        logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                                        List<String> getListOfAlertButton = action.getListOfAlertButton();
+                                        if (alertMessage.contains("Apple ID Verification"))
+                                            action.clickAlertButton("Not Now");
+                                    }
+                                }
+                        }
+                        else
+                        { int getPageCount =3;
+                            while (getPageCount > 0){
+                                 pageSource = SetupManager.getDriver().getPageSource();
+                                if(pageSource.contains("XCUIElementTypeApplication")) {
+                                    logger.detail("Driver App is running");
+                                    break;
+                                }
+                                getPageCount--;
+                            }
+
+                        }
+                        retry--;
+                    }
+                    break;
+                case "CUSTOMER":
+                    //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    int retry1 = 3;
+                    String appstate1 = "";
+                    while(retry1>0) {
+                       // ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    appHeader = "Bungii QAAuto";
+                        ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Customer"));
+                        appstate = state.toString();
+                        logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate1);
+                        Thread.sleep(5000);
+                        String pageSource = SetupManager.getDriver().getPageSource();
+                        if(pageSource.contains("XCUIElementTypeApplication")) {
+                            String appTitle = action.getAppName(customerHomePage.Application_Name());
+                            if (appTitle != null) {
+                                if (appTitle.equals(appHeader)) {
+                                    //if(SetupManager.getDriver().getPageSource().contains(appHeader)){
+                                    logger.detail("Actual App Header After Switching : " + appHeader);
+                                    break;
+                                } else {
+                                    if (action.isAlertPresent()) {
+                                        String alertMessage = action.getAlertMessage();
+                                        logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                                        List<String> getListOfAlertButton = action.getListOfAlertButton();
+                                        if (alertMessage.contains("Apple ID Verification"))
+                                            action.clickAlertButton("Not Now");
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            logger.detail("Customer App is not running");
+                        }
+                        retry1--;
+                    }
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }        //temp fixed
+           // logger.detail("Expected App Header After Switching : "+ appHeader);
+            Thread.sleep(5000);
+
+            pass("Switch to : " + appName + " application on device instance",
+                    "Switched to : " + appName + " application on device instance", true);
+            cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
+        } catch (Throwable e) {
+            logger.error("Error in switching to app "+ appName, ExceptionUtils.getStackTrace(e));
+            //  logger.error("Page source", SetupManager.getDriver().getPageSource());
+            error("Step should be successful",
+                    "Error in switching to app "+ appName, true);
+
         }
     }
 
@@ -1211,7 +1373,7 @@ public class GeneralUtility extends DriverBase {
         String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String estimateTime = com.bungii.android.utilityfunctions.DbUtility.getEstimateTime(custRef);
         long totalEstimateDuration = Integer.parseInt(loadtime) + Integer.parseInt(estimateTime);
-        double timeToBeAdded = (totalEstimateDuration * 1.5) + 30;
+        double timeToBeAdded = (totalEstimateDuration * 1.5) +45;//+ 30;
         Date telet = DateUtils.addMinutes(bungiiDate, (int) timeToBeAdded);
 
         //int year=currentDate.getYear()+1900;
@@ -1529,4 +1691,26 @@ catch (Exception e)
             logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
     }
+    public String getGmtTime(String time)
+    {
+        String gmtTime="";
+        if(time.contains("MDT")||time.contains("MST"))
+            gmtTime = time.replace("MDT","GMT-6").replace("MST","GMT-6");
+        if(time.contains("CST")||time.contains("CDT")) {
+            String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+            if(currentGeofence.equalsIgnoreCase("Chicago")||currentGeofence.equalsIgnoreCase("Nashville"))
+            gmtTime = time.replace("CST", "GMT-6").replace("CDT", "GMT-6");
+            else
+                gmtTime = time.replace("CST", "GMT-5").replace("CDT", "GMT-5");
+        }
+        if(time.contains("EST")||time.contains("EDT"))
+            gmtTime = time.replace("EST","GMT-4").replace("EDT","GMT-4");
+        if(time.contains("PST")||time.contains("PDT"))
+            gmtTime = time.replace("PST","GMT-7").replace("PDT","GMT-7");
+        if(time.contains("IST"))
+            gmtTime = time.replace("IST","GMT+5:30");
+        return gmtTime;
+
+    }
+
 }

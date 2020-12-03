@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
+import io.restassured.path.json.exception.JsonPathException;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -293,7 +294,7 @@ public class ApiHelper {
         return gson;
     }
 
-    public static void genericResponseValidation(Response response) {
+    public static void genericResponseValidation(Response response, String RequestText) {
         JsonPath jsonPathEvaluator;
         try {
             jsonPathEvaluator = response.jsonPath();
@@ -301,13 +302,19 @@ public class ApiHelper {
 
         if (error == null) {
           //  logger.detail(response.then().log().body()); //temporary checkin
-            logger.detail("VERIFIED | API call response - Success ");
+            logger.detail(RequestText + " | Response - Success ");
         }
         else
-        {
+        {   logger.detail(RequestText + " | Response - Failure ");
             logger.detail(response.then().log().body());
         }
             response.then().statusCode(200);
+        }
+        catch (JsonPathException ex) {
+            logger.error("Lexical error in JSON response " + response.then().log().body());
+            error("Step should be successful", "Failed due to :  Lexical error in JSON response " +response.then().log().body(),
+                    false);
+
         }
         catch (AssertionError ex)
         {
@@ -316,13 +323,13 @@ public class ApiHelper {
             if (error.size()!=0) {
                 logger.error("API Call failed : ", " Failed due to : " + error.get("Message").toString());
                 error("Step should be successful", "Failed due to :  " + error.get("Message").toString(),
-                        true);
+                        false);
             }
             else
             {
                 logger.error("API Call failed : ", " API Response is empty. It seems to be queue error. Please reset the queue and try again.");
                 error("Step should be successful", "API Response is empty. It see seems to be queue error. Please reset the queue and try again.",
-                        true);
+                        false);
             }
         }
 

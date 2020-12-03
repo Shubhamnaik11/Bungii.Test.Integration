@@ -22,10 +22,10 @@ Scenario: Verify Correct Data Is Displayed In Trip And Sms Alert Settings Upon S
 When I Select "ALERT SETTINGS" from driver App menu
 And I save "DELIVERY ALERT" settings data
 When I click "SMS ALERT" button on "ALERT SETTINGS" screen on driverApp
-And I update sms setting of "sunday" to "09:00 AM" to "12:00 PM"
+And I update sms setting of "sunday" to "09:00 a.m." to "12:00 p.m."
 And I save "SMS ALERT" settings data
 When I click "DELIVERY ALERT" button on "ALERT SETTINGS" screen on driverApp
 Then previous "DELIVERY ALERT" data should be retained
-And I update trip setting of "sunday" to "05:00 AM" to "12:00 PM"
+And I update trip setting of "sunday" to "05:00 a.m." to "12:00 p.m."
 When I click "SMS ALERT" button on "ALERT SETTINGS" screen on driverApp
 Then previous "SMS ALERT" data should be retained

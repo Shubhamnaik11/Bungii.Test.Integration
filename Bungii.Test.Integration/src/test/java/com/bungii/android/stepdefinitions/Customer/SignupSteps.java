@@ -12,6 +12,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -45,7 +46,12 @@ public class SignupSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            action.enterText(Page_Signup.TextField_Phonenumber(), customerPhone);
+            if (StringUtils.isNumeric(customerPhone)) {
+                //element.sendKeys();
+                Page_Signup.TextField_Phonenumber().click();
+                utility.inputOnNumberKeyBoard(customerPhone);
+            }
+            //action.enterText(Page_Signup.TextField_Phonenumber(), customerPhone);
             cucumberContextManager.setScenarioContext("CustomerPhoneNum", customerPhone);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -209,19 +215,23 @@ public class SignupSteps extends DriverBase {
                 break;
 
             case "snackbar validation message for existing user":
-                testStepVerify.isEquals(utility.getSnackBarMessage(), PropertyUtility.getMessage("customer.signup.existinguser"), "Warning message for Existing message should be displayed", "Snackbar message is displayed", "Snackbar message is not displayed");
+                testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.signup.existinguser"), "Warning message for Existing message should be displayed", "Snackbar message is displayed", "Snackbar message is not displayed");
                 break;
             case "Inactive Promo Code message":
                 testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message for Inactive Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
                 break;
+            case "Invalid Promo Code message":
+                testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.promos.invalid"), "Alert message for Invalid Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
+                action.click(Page_Signup.Button_Yes());
 
+                break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+        error("Step  Should be successful", "Validation message not displayed ",
                 true);
     }
     }
@@ -259,6 +269,7 @@ public class SignupSteps extends DriverBase {
         }
 
         action.enterText(Page_Signup.TextField_Referral(), strPromoCode);
+        action.hideKeyboard();
         log("I should able to enter Promo code in signup Page ",
                 "I entered  " + strPromoCode + " as " + strArg1 + "promoCode", true);
     } catch (Exception e) {

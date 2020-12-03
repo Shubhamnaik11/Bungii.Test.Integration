@@ -71,13 +71,14 @@ public class $className extends AbstractTestNGCucumberTests {
                          }
                          }
                          else{
-                          System.out.println("*** Searching device for class "+ClassName+ " - Found Device : "+ device);
+
                             }
                          if(device!=null){
                              if(!device.isEmpty()){
                                  String[] deviceList = device.split(",");
                                  String deviceToBeUsed=deviceList[0];
                                  System.setProperty("DEVICE", deviceToBeUsed);
+                                 System.out.println("*** Searching device for class "+ClassName);
                                  System.out.println("*** Found device for class : "+ClassName+ " | Device : "+deviceToBeUsed);
                                  deviceList = ArrayUtils.remove(deviceList, 0);
                                  String strDeviceList = String.join(",", deviceList);

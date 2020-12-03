@@ -15,5 +15,9 @@ public class LocationPage extends PageBase {
     public WebElement Button_Allow(boolean ...ignoreException) {        return findElement("com.android.packageinstaller:id/permission_allow_button", LocatorType.Id,ignoreException);}
     public WebElement Button_Deny(boolean ...ignoreException) {        return findElement("com.android.packageinstaller:id/permission_deny_button", LocatorType.Id,ignoreException);}
     public WebElement Subheader_FAQPage(boolean...ignoreException) { return findElement("//android.widget.TextView[@text='Where to?']", LocatorType.XPath,ignoreException); }
+    public WebElement Option_Chrome(boolean...ignoreException) { return findElement("//android.widget.TextView[@text='Chrome']", LocatorType.XPath,ignoreException); }
+    public WebElement Button_Always(boolean ...ignoreException) {        return findElement("android:id/button_always", LocatorType.Id,ignoreException);}
+
+
 
 }
