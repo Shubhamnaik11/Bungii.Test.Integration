@@ -45,10 +45,11 @@ public class TripDetailsSteps extends DriverBase {
             String[] actualDetails = getTripDetails();
             cucumberContextManager.setScenarioContext("BUNGII_DRIVER_ESTIMATE", actualDetails[1]);
 
-            String expectedTripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+            String expectedTripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_FORMATTED")); ///Added to compare formatted time and not BUNGII_TIME
             //expectedTripTime="Apr 09 , 01:45 PM GMT+5:30";
             String expectedTripDistance = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
             //Leading zero is not present in time, Check if zero is present and delete it
+
             String timeValue = expectedTripTime.split(",")[1].trim().replace("am","AM").replace("pm","PM");
            // timeValue = timeValue.substring(0, 1).equals("0") ? timeValue.substring(1) : timeValue;
             String expectedDate = expectedTripTime.split(",")[0].trim();
@@ -58,12 +59,13 @@ public class TripDetailsSteps extends DriverBase {
               //  expectedDate = expectedDate.substring(0, leadingZero) + expectedDate.substring(leadingZero + 1);
             boolean isDateCorrect = actualDetails[2].split("\\|")[0].trim().contains(expectedDate.trim());
             boolean isTimeCorrect = timeValue.trim().equals(actualDetails[2].split("\\|")[1].trim());
+
             boolean isDistanceCorrect = expectedTripDistance.equals(actualDetails[0]);
 
             testStepVerify.isTrue(isTimeCorrect,
                     "Driver Trip Information should be correctly displayed on BUNGII DETAILS screen",
                     "Driver Time should be correctly displayed ",
-                    "Driver Time is not displayed correctly displayed ,Expected trip time:" + timeValue + "actual trip time" + actualDetails[2].trim());
+                    "Driver Time is not displayed correctly displayed ,Expected trip time:" + timeValue + " actual trip time " + actualDetails[2].trim());
 
             testStepVerify.isTrue(isDateCorrect,
                     "Driver Information should be correctly displayed on BUNGII DETAILS screen",
