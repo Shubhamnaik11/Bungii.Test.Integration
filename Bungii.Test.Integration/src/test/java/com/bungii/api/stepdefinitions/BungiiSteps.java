@@ -236,7 +236,7 @@ public class BungiiSteps extends DriverBase {
                     if (bungiiType.equalsIgnoreCase("SOLO ONDEMAND")) {
                         Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
                         if (!isDriverEligible)
-                            error("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
+                            logger.detail("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list. Continue.");
 
                         //for on demand enroute and accepted are same
                         if (driver1State.equalsIgnoreCase("Stacked Pickup Accepted")) {
