@@ -46,7 +46,7 @@ public class ActionManager {
             String strCmdText;
             strCmdText = "cmd /C adb shell input keyevent " + eventNumber;
             Process myProcess = new ProcessBuilder("CMD.exe", strCmdText).start();
-            logger.detail("Performed Keyboard Event : " + eventNumber);
+            logger.detail("ACTION | Performed Keyboard Event : " + eventNumber);
 
 
         } catch (Exception ex) {
@@ -56,7 +56,7 @@ public class ActionManager {
     public void clear(WebElement element) {
         try {
             element.clear();
-            logger.detail("Clear element by locator -> " + getElementDetails(element));
+            logger.detail("ACTION | Clear element by locator -> " + getElementDetails(element));
         }
         catch(Exception ex)
         {
@@ -71,7 +71,7 @@ public class ActionManager {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
         driver.navigate().back();
-        logger.detail("Navigated back");
+        logger.detail("ACTION | Navigated back");
         }
         catch(Exception ex)
         {
@@ -187,13 +187,13 @@ public class ActionManager {
 
     public String getValueAttribute(WebElement element) {
         String value = element.getAttribute("value");
-        logger.detail("'value' attribute for element ->" + getElementDetails(element) + " is " + value);
+        logger.detail("GET | 'value' attribute for element ->" + getElementDetails(element) + " is " + value);
         return value;
     }
 
     public String getAttribute(WebElement element, String attribute) {
         String value = element.getAttribute(attribute);
-        logger.detail(attribute + " attribute for element -> " + getElementDetails(element) + " is " + value);
+        logger.detail("GET | "+ attribute + " attribute for element -> " + getElementDetails(element) + " is " + value);
         return value;
     }
 
@@ -207,7 +207,7 @@ public class ActionManager {
         element.sendKeys(text);
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
         hideKeyboard();
-        logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+        logger.detail("ACTION | Send  " + text + " in element -> " + getElementDetails(element));
         }
         catch(Exception ex)
         {
@@ -243,7 +243,7 @@ public class ActionManager {
 
     public String getText(WebElement element) {
         String text = element.getText();
-        logger.detail("Text Value is  " + text + " for element -> " + getElementDetails(element));
+        logger.detail("ACTION | Value is  " + text + " for element -> " + getElementDetails(element));
 
         return text;
     }
@@ -264,7 +264,7 @@ public class ActionManager {
                             ExpectedConditions.textToBePresentInElement(element,text2)
                     )
             );        } catch (Exception e) {
-            logger.detail("Wait failed for : " + text1 + " or "+ text2);
+            logger.detail("GET | Wait failed for : " + text1 + " or "+ text2);
         }
     }
     /**
@@ -291,7 +291,7 @@ public class ActionManager {
         element.clear();
         element.sendKeys(text);
         hideKeyboard();
-        logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+        logger.detail("ACTION | Send  " + text + " in element -> " + getElementDetails(element));
     }
         catch(Exception ex)
     {
@@ -309,7 +309,7 @@ public class ActionManager {
             params.put("text", text);
             params.put("element", ((RemoteWebElement) element).getId());
             js.executeScript("mobile:type", params);
-                 logger.detail("Send  " + text + " in element [Mobile Type] -> " + getElementDetails(element));
+                 logger.detail("ACTION | Send  " + text + " in element [Mobile Type] -> " + getElementDetails(element));
 
             }
         catch(Exception ex)
@@ -342,10 +342,10 @@ public class ActionManager {
         try {
             Thread.sleep(1000);
             SetupManager.getDriver().switchTo().alert();
-            logger.detail("Alert is present");
+            logger.detail("GET | Alert is Displayed : "+ SetupManager.getDriver().switchTo().alert().getText());
             return true;
         } catch (NoAlertPresentException | InterruptedException Ex) {
-            logger.detail("Alert is not present");
+            logger.detail("GET | No Alert is Displayed");
             return false;
         }
     }
@@ -370,7 +370,7 @@ public class ActionManager {
     public void click(WebElement element) {
         try{
         element.click();
-        logger.detail(" Click on element by locator -> " + getElementDetails(element));
+        logger.detail("ACTION | Click on element by locator -> " + getElementDetails(element));
     }
         catch(Exception ex)
     {
@@ -384,7 +384,7 @@ public class ActionManager {
             TouchActions action = new TouchActions(driver);
             action.singleTap(element);
             action.perform();
-            logger.detail(" Tap on element by locator -> " + getElementDetails(element));
+            logger.detail("ACTION |Tap on element by locator -> " + getElementDetails(element));
         }
         catch(Exception ex)
         {
@@ -411,7 +411,7 @@ public class ActionManager {
             TouchAction touchAction = new TouchAction((AndroidDriver<MobileElement>) SetupManager.getDriver());
             PointOption top = PointOption.point(p.getX(), p.getY());
             touchAction.tap(top).perform();
-            logger.detail("Clicked point at , (" + p.getX() + "," + p.getY() + ")");
+            logger.detail("ACTION | Clicked point at , (" + p.getX() + "," + p.getY() + ")");
         }
           catch(Exception ex)
         {
@@ -589,7 +589,7 @@ public class ActionManager {
             action.moveTo(top);
             //((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
             ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
-            logger.detail("Pressed HOME Button to Remove Push notification tray");
+            logger.detail("ACTION | Pressed HOME Button to Remove Push notification tray");
 
 
         }
@@ -599,7 +599,7 @@ public class ActionManager {
 
     public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {
         for (int i = minutes; i > 0; i--) {
-            logger.detail("Inside Hard wait , wait for " + i + " minutes");
+            logger.detail("Waiting for " + i + " minutes");
             Thread.sleep(30000);
             scrollToTop();
             Thread.sleep(30000);

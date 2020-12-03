@@ -22,6 +22,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.PageLoadStrategy;
 import java.io.File;
@@ -113,8 +115,13 @@ public class SetupManager extends EventFiringWebDriver {
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
 
         if (driver != null)
-        { driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-
+        {
+            if (!TARGET_PLATFORM.equalsIgnoreCase("WEB")) {
+                SessionId sessionid = ((RemoteWebDriver) driver).getSessionId();
+                logger.detail(" BROWSERSTACK SESSION ID : " + sessionid);
+                CucumberContextManager.getObject().setScenarioContext("SESSION", sessionid);
+            }
+            driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
 
         DriverManager.getObject().setPrimaryInstanceKey("ORIGINAL");
         DriverManager.getObject().storeDriverInstance("ORIGINAL", driver);
