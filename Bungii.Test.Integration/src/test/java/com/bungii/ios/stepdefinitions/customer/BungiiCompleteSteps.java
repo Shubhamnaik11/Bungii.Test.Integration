@@ -147,7 +147,7 @@ public class BungiiCompleteSteps extends DriverBase {
         }
     }
 
-    @Then("^\"([^\"]*)\" stars should be highlighted for Driver 1$")
+    @Then("^\"([^\"]*)\" stars should be highlighted for Driver1$")
     public void something_stars_should_be_highlighted(String strArg1) throws Throwable {
         try {
             List<WebElement> star = bungiiCompletePage.Button_Driver1Filled();
@@ -169,7 +169,7 @@ public class BungiiCompleteSteps extends DriverBase {
         }
     }
 
-    @Then("^\"([^\"]*)\" stars should be highlighted for solo Driver 1$")
+    @Then("^\"([^\"]*)\" stars should be highlighted for solo Driver1$")
     public void something_stars_should_be_solohighlighted(String strArg1) throws Throwable {
         try {
             List<WebElement> star = bungiiCompletePage.Button_DriverSoloFilled();
@@ -191,7 +191,7 @@ public class BungiiCompleteSteps extends DriverBase {
         }
     }
 
-    @Then("^\"([^\"]*)\" starts should be highlighted for Driver 2$")
+    @Then("^\"([^\"]*)\" stars should be highlighted for Driver2$")
     public void something_starts_should_be_highlightedDriver2(String strArg1) throws Throwable {
         try {
             List<WebElement> star = bungiiCompletePage.Button_Driver2Filled();

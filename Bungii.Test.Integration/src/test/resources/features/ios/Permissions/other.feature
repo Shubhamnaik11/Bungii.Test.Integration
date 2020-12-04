@@ -7,7 +7,7 @@ Feature: Share Code
   Background:
 	Given I am on Customer logged in Home page
 	
-@ready
+@knownissue
 Scenario: Verify Referral Invite When Facebook App Is Already Installed
 Given I have "facebook" app "installed"
 When I Select "PROMOS" from Customer App menu
@@ -25,7 +25,7 @@ And I tap "POST" button on Overlay Facebook screen
 Then I should be navigated to "Invite" screen
   
   
-  @ready
+  @knownissue
   Scenario: Verify Customer Is Alerted When He Tries To Share Invite Code Using Twitter Application
 	Given I have "twitter" app "installed"
 	When I Select "Home" from Customer App menu

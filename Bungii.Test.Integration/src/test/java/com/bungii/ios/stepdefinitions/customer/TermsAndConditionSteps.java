@@ -51,7 +51,7 @@ public class TermsAndConditionSteps extends DriverBase {
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
                 Thread.sleep(3000);
-                action.clickAlertButton("Allow");  //Customer App alert for ios 12 and below
+                action.clickAlertButton("Always Allow");  //Customer App alert for ios 12 and below
                 Thread.sleep(3000);
                // pageHeader = utility.getPageHeader();
             }

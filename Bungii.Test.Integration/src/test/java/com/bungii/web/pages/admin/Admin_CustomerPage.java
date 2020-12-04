@@ -30,5 +30,6 @@ public class Admin_CustomerPage extends PageBase {
 
     public WebElement Header_Spent(){ return findElement("//span[@id='span-AmountSpent']", LocatorType.XPath);}
 
+    public WebElement Label_NoCustomerFound(){return findElement("//h5[contains(text(),'No Customers found.')]", LocatorType.XPath);}
 
 }

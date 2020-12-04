@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class DriverManager  {
     private static DriverManager driverManager;
-    private static Map<String, WebDriver> driverArray = new ConcurrentHashMap<>();
+    public static Map<String, WebDriver> driverArray = new ConcurrentHashMap<>();
     private static LogUtility logger = new LogUtility(DriverManager.class);
     protected static WebDriver driver;
     private static String primaryInstanceKey;

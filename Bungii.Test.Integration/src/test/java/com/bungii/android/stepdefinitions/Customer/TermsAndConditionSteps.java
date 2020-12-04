@@ -69,9 +69,9 @@ public class TermsAndConditionSteps extends DriverBase {
         try {
             GeneralUtility utility = new GeneralUtility();
             Thread.sleep(3000);
-            String pageHeader = utility.getPageHeader();
+           // String pageHeader = utility.getPageHeader();
 
-            if(action.isElementPresent(termsAndConditionPage.Checkbox_Agree())) {
+            if(action.isElementPresent(termsAndConditionPage.Checkbox_Agree(true))) {
                 action.click(termsAndConditionPage.Checkbox_Agree());
                 action.click(termsAndConditionPage.Button_Continue());
                 Thread.sleep(3000);
@@ -79,12 +79,12 @@ public class TermsAndConditionSteps extends DriverBase {
             }
             //if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
                // action.click(driverHomePage.Button_Sure(true));
-                if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure()) ){
+                if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure(true)) ){
                     action.click(Page_CustTerms.Button_PermissionsSure());
                     action.click(Page_CustTerms.Button_PermissionsAllow());
                 }
                 Thread.sleep(3000);
-            if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure()) ){
+            if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure(true)) ){
                 action.click(Page_CustTerms.Button_PermissionsSure());
                 action.click(Page_CustTerms.Button_PermissionsAllow());
             }
@@ -106,7 +106,7 @@ public class TermsAndConditionSteps extends DriverBase {
     @Then("^I close \"([^\"]*)\" if exist$")
     public void i_close_tutorial_page(String Tutorial) throws Throwable {
         try {
-            if(action.isElementPresent(homePage.Button_Closetutorials())) {
+            if(action.isElementPresent(homePage.Button_Closetutorials(true))) {
                 List<WebElement> xpath = homePage.Button_PdfPages();
                 int xpathCount = xpath.size();
                 boolean isClicked = false, isSwiped = false;

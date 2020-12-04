@@ -20,7 +20,7 @@ Feature: Admin_DriverApplicationVerification
     And I confirm the "Driver Application Approval" action
     Then the status of the driver application should be marked as "Active"
     And I should receive "BUNGII: Time to Hit the Road!" email
-    
+
   @ready
     #test data created in base
   @email

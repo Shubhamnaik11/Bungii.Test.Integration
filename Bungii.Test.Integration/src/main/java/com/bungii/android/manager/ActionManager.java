@@ -8,10 +8,13 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
@@ -22,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.error;
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
@@ -42,7 +46,7 @@ public class ActionManager {
             String strCmdText;
             strCmdText = "cmd /C adb shell input keyevent " + eventNumber;
             Process myProcess = new ProcessBuilder("CMD.exe", strCmdText).start();
-            logger.detail("Performed Keyboard Event : " + eventNumber);
+            logger.detail("ACTION | Performed Keyboard Event : " + eventNumber);
 
 
         } catch (Exception ex) {
@@ -52,7 +56,7 @@ public class ActionManager {
     public void clear(WebElement element) {
         try {
             element.clear();
-            logger.detail("Clear element by locator -> " + getElementDetails(element));
+            logger.detail("ACTION | Clear element by locator -> " + getElementDetails(element));
         }
         catch(Exception ex)
         {
@@ -67,7 +71,7 @@ public class ActionManager {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
         driver.navigate().back();
-        logger.detail("Navigated back");
+        logger.detail("ACTION | Navigated back");
         }
         catch(Exception ex)
         {
@@ -113,8 +117,12 @@ public class ActionManager {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, 10);
+            if(element!= null)
             wait.until((ExpectedConditions.visibilityOf(element)));
-        } catch (Exception ex) {
+        } catch (StaleElementReferenceException ex) {
+
+        }
+        catch (Exception ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Following element is not displayed -> " + getElementDetails(element),
                     true);
@@ -126,7 +134,11 @@ public class ActionManager {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, waitTime);
             wait.until((ExpectedConditions.visibilityOf(element)));
-        } catch (Exception ex) {
+        }
+        catch (StaleElementReferenceException ex) {
+
+        }
+        catch (Exception ex) {
             Assert.fail("Following element is not displayed : " + element);
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Following element is not displayed : " + getElementDetails(element),
@@ -175,13 +187,13 @@ public class ActionManager {
 
     public String getValueAttribute(WebElement element) {
         String value = element.getAttribute("value");
-        logger.detail("'value' attribute for element ->" + getElementDetails(element) + " is " + value);
+        logger.detail("GET | 'value' attribute for element ->" + getElementDetails(element) + " is " + value);
         return value;
     }
 
     public String getAttribute(WebElement element, String attribute) {
         String value = element.getAttribute(attribute);
-        logger.detail(attribute + " attribute for element -> " + getElementDetails(element) + " is " + value);
+        logger.detail("GET | "+ attribute + " attribute for element -> " + getElementDetails(element) + " is " + value);
         return value;
     }
 
@@ -195,7 +207,7 @@ public class ActionManager {
         element.sendKeys(text);
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
         hideKeyboard();
-        logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+        logger.detail("ACTION | Send  " + text + " in element -> " + getElementDetails(element));
         }
         catch(Exception ex)
         {
@@ -231,7 +243,7 @@ public class ActionManager {
 
     public String getText(WebElement element) {
         String text = element.getText();
-        logger.detail("Text Value is  " + text + " for element -> " + getElementDetails(element));
+        logger.detail("ACTION | Value is  " + text + " for element -> " + getElementDetails(element));
 
         return text;
     }
@@ -252,7 +264,7 @@ public class ActionManager {
                             ExpectedConditions.textToBePresentInElement(element,text2)
                     )
             );        } catch (Exception e) {
-            logger.detail("Wait failed");
+            logger.detail("GET | Wait failed for : " + text1 + " or "+ text2);
         }
     }
     /**
@@ -279,7 +291,7 @@ public class ActionManager {
         element.clear();
         element.sendKeys(text);
         hideKeyboard();
-        logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+        logger.detail("ACTION | Send  " + text + " in element -> " + getElementDetails(element));
     }
         catch(Exception ex)
     {
@@ -297,7 +309,8 @@ public class ActionManager {
             params.put("text", text);
             params.put("element", ((RemoteWebElement) element).getId());
             js.executeScript("mobile:type", params);
-                 logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+                 logger.detail("ACTION | Send  " + text + " in element [Mobile Type] -> " + getElementDetails(element));
+
             }
         catch(Exception ex)
                 {
@@ -329,10 +342,10 @@ public class ActionManager {
         try {
             Thread.sleep(1000);
             SetupManager.getDriver().switchTo().alert();
-            logger.detail("Alert is present");
+            logger.detail("GET | Alert is Displayed : "+ SetupManager.getDriver().switchTo().alert().getText());
             return true;
         } catch (NoAlertPresentException | InterruptedException Ex) {
-            logger.detail("Alert is not present");
+            logger.detail("GET | No Alert is Displayed");
             return false;
         }
     }
@@ -357,7 +370,7 @@ public class ActionManager {
     public void click(WebElement element) {
         try{
         element.click();
-        logger.detail(" Click on element by locator -> " + getElementDetails(element));
+        logger.detail("ACTION | Click on element by locator -> " + getElementDetails(element));
     }
         catch(Exception ex)
     {
@@ -366,6 +379,23 @@ public class ActionManager {
                 true);
     }
     }
+    public void tap(WebElement element) {
+        try{
+            TouchActions action = new TouchActions(driver);
+            action.singleTap(element);
+            action.perform();
+            logger.detail("ACTION |Tap on element by locator -> " + getElementDetails(element));
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to Tap on  element -> " + getElementDetails(element),
+                    true);
+        }
+    }
+
+
+
     /**
      * @param element ,locator that is to be clicked
      */
@@ -381,7 +411,7 @@ public class ActionManager {
             TouchAction touchAction = new TouchAction((AndroidDriver<MobileElement>) SetupManager.getDriver());
             PointOption top = PointOption.point(p.getX(), p.getY());
             touchAction.tap(top).perform();
-            logger.detail("Clicked point at , (" + p.getX() + "," + p.getY() + ")");
+            logger.detail("ACTION | Clicked point at , (" + p.getX() + "," + p.getY() + ")");
         }
           catch(Exception ex)
         {
@@ -549,19 +579,27 @@ public class ActionManager {
             action.press(top);
         } else {
             action.press(bottom);
+            ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
+
         }
         action.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
         if (show) {
             action.moveTo(bottom);
         } else {
             action.moveTo(top);
+            //((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
+            ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+            logger.detail("ACTION | Pressed HOME Button to Remove Push notification tray");
+
+
         }
         action.perform();
+        //SetupManager.getDriver().getPageSource();
     }
 
     public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {
         for (int i = minutes; i > 0; i--) {
-            logger.detail("Inside Hard wait , wait for " + i + " minutes");
+            logger.detail("Waiting for " + i + " minutes");
             Thread.sleep(30000);
             scrollToTop();
             Thread.sleep(30000);

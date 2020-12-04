@@ -45,8 +45,10 @@ public class AvailableTripsSteps extends DriverBase {
 
 			log( "I Select Trip from available trip", "I selected trip for customer " +customerName + " of "+ numberOfDriver +" type",true);
 		} catch (Exception e) {
+			String customerName=(String) cucumberContextManager.getScenarioContext("CUSTOMER");
+			String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+			error( "Trip Should be listed in Available Bungiis", "Trip is not displayed in available Bungii for customer " + customerName + " of "+ numberOfDriver +" type", true);
 		}
 	}
 	@Then("^I should able to see \"([^\"]*)\" available trip$")

@@ -35,7 +35,7 @@ Feature: Admin_Promocodes
     When I click on the "Save" Button
     Then the edited promocode is displayed in the Promocodes grid
 
-  @regression
+  @ready
   Scenario: Verify Add New Promocode of Type Delivery By Partner
     When I click on the "New Code" Button
     And I enter following values in fields
@@ -174,3 +174,9 @@ Feature: Admin_Promocodes
     And I uncheck "Hide Expired"
     And I click on the "Apply" Button
     Then the promocode grid shows the both "Active & Expired" promocodes
+    
+  @regression
+  Scenario: Verify search by XSS script on Standard Codes grid
+    When I search by string "<script>alert('hello')</script>"
+    Then the "No promo codes found." message is displayed
+

@@ -42,7 +42,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.bungii.SetupManager.getDriver;
+import static com.bungii.SetupManager.*;
 import static com.bungii.common.manager.ResultManager.*;
 
 
@@ -265,6 +265,26 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @When("^I select a new time$")
+    public void i_select_a_new_time() throws Throwable {
+        action.click(estimatePage.Label_TimeSelect());
+        action.dateTimePicker(estimatePage.DatePicker_BungiiTime, estimatePage.DateWheel_BungiiTime,1, "11", "45", "" );
+        //  action.click(estimatePage.Row_TimeSelect());
+        action.click(estimatePage.Button_Set());
+
+    }
+
+    @Then("^If time is already passed then i should see \"([^\"]*)\" message$")
+    public void if_time_is_already_passed_then_i_should_see_something_message(String list1) throws Throwable {
+
+        Thread.sleep(5000);
+
+        if (action.isAlertPresent()) {
+            testStepAssert.isEquals(action.getAlertMessage(),list1,list1 + " should be displayed",list1 + " is displayed", list1 + " is not displayed");
+           action.clickAlertButton("OK");
+        }
+
+    }
 
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void iClickButtonOnScreen(String button, String screen) {
@@ -298,7 +318,7 @@ public class CommonSteps extends DriverBase {
                 case "LOG IN":
                     if (screen.equalsIgnoreCase("log in")) {
                         action.click(loginPage.Button_Login());
-                        new GeneralUtility().logCustomerDeviceToken((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA"));
+                       // new GeneralUtility().logCustomerDeviceToken((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA"));
                     }
                     else if (screen.equalsIgnoreCase("sign up"))
                         action.click(signupPage.Button_Login());
@@ -511,10 +531,19 @@ public class CommonSteps extends DriverBase {
 
             GeneralUtility utility = new GeneralUtility();
 
-            if (screen.equalsIgnoreCase("Home"))
-                screen = "BUNGII";
 
-            isCorrectPage = utility.verifyPageHeader(screen);
+            if (screen.equalsIgnoreCase("Home")) {
+                screen = "BUNGII";
+                Thread.sleep(5000);
+                isCorrectPage = utility.verifyPageHeader(screen);
+            }
+            if (screen.equalsIgnoreCase("Driver Home")) {
+                Thread.sleep(5000);
+                isCorrectPage = utility.verifyPageHeader(screen);
+            }
+            else
+                isCorrectPage = utility.verifyPageHeader(screen);
+
             testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I should be navigated to " + screen, "I was not navigated to " + screen + " screen ");
 
@@ -522,7 +551,7 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "I was not navigated to " + screen + " screen ", true);
         }
     }
 
@@ -561,7 +590,63 @@ public class CommonSteps extends DriverBase {
     public void i_login_as_something_customer_and_on_home_page(String key) throws Throwable {
         i_am_on_the_something_page("LOG IN");
         i_logged_in_customer_application_using_something_user(key);
+        acceptCustomerPermissions("TERMS & CONDITIONS" , "ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
+        closeTutorial("Tutorial");
         iAmOnCustomerLoggedInHomePage();
+    }
+    public void acceptCustomerPermissions(String terms, String notification, String location) {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            Thread.sleep(3000);
+            String pageHeader = utility.getPageHeader();
+
+            if(action.isElementPresent(termsAndConditionPage.Button_CheckOff())) {
+                action.click(termsAndConditionPage.Button_CheckOff());
+                action.click(termsAndConditionPage.Button_Continue());
+                Thread.sleep(3000);
+                // pageHeader = utility.getPageHeader();
+            }
+            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
+                action.click(enableNotificationPage.Button_Sure());
+                Thread.sleep(3000);
+                action.clickAlertButton("Allow");
+                Thread.sleep(3000);
+                // pageHeader = utility.getPageHeader();
+            }
+            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+                action.click(enableLocationPage.Button_Sure());
+                Thread.sleep(3000);
+                action.clickAlertButton("Always Allow");  //Customer App alert for ios 12 and below
+                Thread.sleep(3000);
+                // pageHeader = utility.getPageHeader();
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
+    public void closeTutorial(String Tutorial) throws Throwable {
+        try {
+            if(action.isElementPresent(tutorialPage.Button_Close())) {
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.click(tutorialPage.Button_Start());
+                if (action.isAlertPresent()) {
+                    String alertMessage = action.getAlertMessage();
+                    List<String> getListOfAlertButton = action.getListOfAlertButton();
+                    if (alertMessage.contains("we are not operating in your area")) {
+                        if (getListOfAlertButton.contains("Done")) {
+                            action.clickAlertButton("Done");
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+        }
+
     }
 
     @Given("^I am on the \"([^\"]*)\" page$")
@@ -625,8 +710,9 @@ public class CommonSteps extends DriverBase {
                 action.clickAlertButton("Allow");
                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
-                    action.clickAlertButton("Allow");
+                    action.clickAlertButton("Always Allow");
                 }
+
                 homeSteps.i_selectlogout();
             /*}else if (navigationBarName.equalsIgnoreCase("LOCATION")) {
                 action.click(enableLocationPage.Button_Sure());
@@ -666,13 +752,10 @@ public class CommonSteps extends DriverBase {
             }
         }
     }
-    @And("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")
-    public void i_login_as_something_driver_on_something_device_and_make_driver_status_something_as(String user, String device, String driverStatus) throws Throwable {
-        try {
+    private List<String> getDriverCredentials(String user) throws Throwable
+    {
+        List<String> credentials =  new ArrayList<String>();
 
-            i_switch_to_something_application_on_something_devices("driver",device);
-        String navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
-        goToDriverLogInPage(navigationBarName);
         String phone, password;
         boolean shouldLoginSucessful;
         switch (user.toLowerCase()) {
@@ -736,39 +819,82 @@ public class CommonSteps extends DriverBase {
             default:
                 throw new Exception("Please specify valid input");
         }
-        utility.loginToDriverApp(phone, password);
-        if (shouldLoginSucessful) {
-            //   utility.isDriverLoginSucessful();
-        }
-        else {
-            //TODO: specify failure here
-        }
-        new GeneralUtility().logDriverDeviceToken(phone);
-            switch (driverStatus.toUpperCase()) {
-                case "ONLINE":
-                    goOnline();
-                    break;
-                case "OFFLINE":
-                    goOffline();
-                    break;
+        credentials.add(phone);
+        credentials.add(password);
+        logger.detail("Driver Credentials : " + credentials.get(0) +" / "+ credentials.get(1));
+        return credentials;
+    }
+    @And("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")
+    public void i_login_as_something_driver_on_something_device_and_make_driver_status_something_as(String user, String device, String driverStatus) throws Throwable {
+        try {
+            String navigationBarName = "";
+          //  utility.switchToApp("driver",device);
+            int retry =2;
+            while(retry>0) {
+                if (action.isElementPresent(driverHomePage.Text_NavigationBar(true)))
+                 navigationBarName = action.getScreenHeader(driverHomePage.Text_NavigationBar(true));
+                else
+                    Thread.sleep(5000);
+                retry--;
+            }
+            goToDriverLogInPage(navigationBarName);
+
+            List<String> credentials =  getDriverCredentials(user);
+            utility.loginToDriverApp(credentials.get(0), credentials.get(1));
+            Thread.sleep(5000);
+
+            acceptDriverPermissions("ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
+           // navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
+            // new GeneralUtility().logDriverDeviceToken(credentials.get(0));
+                    switch (driverStatus.toUpperCase()) {
+                        case "ONLINE":
+                            goOnline();
+                             break;
+                        case "OFFLINE":
+                            goOffline();
+                             break;
             }
 
-        log("I am logged in as "+user+" driver"," I am loggedin as driver using ["+phone+" / "+password+"]",true);
+        log("I log in as driver "+user+" and make driver status as "+ driverStatus," I am loggedin as driver using ["+credentials.get(0)+" / "+credentials.get(1)+"] and make driver status as "+ driverStatus,true);
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        error( "Step should be successful", "Error in login as driver and updating driver status", true);
     }
+    }
+    public void acceptDriverPermissions(String Notification, String Location) throws Throwable {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            String pageName = utility.getPageHeader();
+            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
+                action.click(enableNotificationPage.Button_Sure());
+                action.clickAlertButton("Allow");
+                // pageName = utility.getPageHeader();
+            }
+            Thread.sleep(3000);
+            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Always Allow");
+                //pageName = utility.getPageHeader();
+            }
+
+        } catch (Exception e) {
+
+        }
+
     }
     /**
      * driver goes online
      */
     public void goOnline() {
+        String navigationHeaderName = "";
+        try{
+         navigationHeaderName = action.getScreenHeader(driverhomepage.NavigationBar_Status(true));
+        } catch (Exception e) {
 
-        String navigationHeaderName = action.getScreenHeader(driverhomepage.NavigationBar_Status());
-
+        }
         if (navigationHeaderName.equals("ONLINE"))
             logger.warning("driver Status is already Online");
-        else if (navigationHeaderName.equals("OFFLINE")) {
+        else if (navigationHeaderName.equals("OFFLINE") || navigationHeaderName.equals("")) {
             action.click(driverhomepage.Button_GoOnline());
         } else if (action.isElementPresent(driverhomepage.Button_GoOnline(true)))
             action.click(driverhomepage.Button_GoOnline());
@@ -780,11 +906,15 @@ public class CommonSteps extends DriverBase {
      * driver goes offline
      */
     public void goOffline() {
-        String navigationHeaderName = action.getScreenHeader(driverhomepage.NavigationBar_Status());
+        String navigationHeaderName = "";
+        try{
+            navigationHeaderName = action.getScreenHeader(driverhomepage.NavigationBar_Status(true));
+        } catch (Exception e) {
 
+        }
         if (navigationHeaderName.equals("OFFLINE")) {
             logger.warning("driver Status is already offline");
-        } else if (navigationHeaderName.equals("ONLINE")) {
+        } else if (navigationHeaderName.equals("ONLINE") || navigationHeaderName.equals("")) {
             action.click(driverhomepage.Button_GoOffline());
         } else if (action.isElementPresent(driverhomepage.Button_GoOffline(true)))
             action.click(driverhomepage.Button_GoOffline());
@@ -815,7 +945,10 @@ public class CommonSteps extends DriverBase {
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Always Allow");
             }
+            if (!navigationBarName.equals("SIGN UP"))
             homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
+            else if (navigationBarName.equals("SIGN UP"))
+                action.click(signupPage.Button_Login());
         }
 
 
@@ -829,19 +962,22 @@ public class CommonSteps extends DriverBase {
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
                 Thread.sleep(1000);
+                logger.detail ("Switched To : " + device + " device");
             }
             //Vishal[20092019]: added terminate before switching the app, works faster
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
-                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                   ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    appHeader = "Bungii Driver";
+                    appHeader = "Bungii Driver QAAuto";
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader = "Bungii";
+                    appHeader = "Bungii QAAuto";
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
                     break;
                 default:
@@ -850,7 +986,10 @@ public class CommonSteps extends DriverBase {
             }        //temp fixed
             new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
-            if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
+            WebElement element = homePage.Application_Name(true);
+            if(element != null){
+            if (!action.getAppName(element).equals(appHeader)) {
+                logger.detail("Retrying to start app 2nd time ");//:Page source:", SetupManager.getDriver().getPageSource());
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
                         ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
@@ -862,10 +1001,25 @@ public class CommonSteps extends DriverBase {
                         break;
                 }
             }
+            }
+            else
+            {
+                switch (appName.toUpperCase()) {
+                    case "DRIVER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        break;
+                    case "CUSTOMER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        break;
+                }
+
+            }
             new GeneralUtility().handleIosUpdateMessage();
             new GeneralUtility().handleAppleIDVerification();
             if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
-                logger.error("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
+                logger.detail("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
 
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
@@ -885,7 +1039,7 @@ public class CommonSteps extends DriverBase {
             logger.error("Error in switching to app "+ appName, ExceptionUtils.getStackTrace(e));
           //  logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step should be successful",
-                    "Error in switching tp app "+ appName, true);
+                    "Error in switching to app "+ appName, true);
 
         }
     }
@@ -902,11 +1056,11 @@ public class CommonSteps extends DriverBase {
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    appHeader = "Bungii Driver";
+                    appHeader = "Bungii Driver QAAuto";
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader = "Bungii";
+                    appHeader = "Bungii QAAuto";
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -1173,12 +1327,13 @@ public class CommonSteps extends DriverBase {
             logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
             iClickButtonOnScreen("Log In", "Log In");
             Thread.sleep(2000);
-            NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
+
+            NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar(true));
 
             if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
                 new GeneralUtility().navigateFromTermToHomeScreen();
             }
-            new GeneralUtility().logCustomerDeviceToken(userName);
+          //  new GeneralUtility().logCustomerDeviceToken(userName);
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1381,6 +1536,13 @@ public class CommonSteps extends DriverBase {
                 tripTime=tripTime.replace("st","dt").replace("ST","DT");
                 logger.detail("Daylight Savings is ON");
             }
+
+            if(BrowserStackLocal().equalsIgnoreCase("true")) {
+                tripTime = tripTime.replace("am","a.m.").replace("pm","p.m.").replace("AM","a.m.").replace("PM","p.m.");
+                tripTime = utility.getGmtTime(tripTime);
+                //testStepVerify.isEquals(displayedTime, strTime);
+            }
+
             logger.detail("TRIP TIME [According to Daylight Savings]: "+tripTime);
 
             if (currentApplication.equalsIgnoreCase("CUSTOMER")) {
@@ -1482,7 +1644,9 @@ public class CommonSteps extends DriverBase {
                 logInSteps.i_enter_valid_and_as_per_below_table(PropertyUtility.getDataProperties("customer.user"),
                         PropertyUtility.getDataProperties("customer.password"));
                 // cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
-                //cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer.user"));
+                cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer.user"));
+                cucumberContextManager.setScenarioContext("CUSTOMER_PUSH_PHONE", PropertyUtility.getDataProperties("customer.user"));
+                cucumberContextManager.setScenarioContext("CUSTOMER_PUSH_PWD", PropertyUtility.getDataProperties("customer.password"));
 
                 iClickButtonOnScreen("Log In", "Log In");
                 Thread.sleep(2000);
@@ -1507,7 +1671,7 @@ public class CommonSteps extends DriverBase {
                 action.clickAlertButton("Allow");
                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
-                    action.clickAlertButton("Allow");
+                    action.clickAlertButton("Always Allow");
                 }
             }else if (NavigationBarName.equalsIgnoreCase("WANT $5?")){
                 takeActionOnPromotion("REJECT");
@@ -1572,7 +1736,7 @@ public class CommonSteps extends DriverBase {
                 action.clickAlertButton("Allow");
                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
-                    action.clickAlertButton("Allow");
+                    action.clickAlertButton("Always Allow");
                 }
             }else if (NavigationBarName.equalsIgnoreCase("WANT $5?")){
                 takeActionOnPromotion("REJECT");
@@ -2203,5 +2367,48 @@ public class CommonSteps extends DriverBase {
         }
 
         return containedUrls;
+    }
+
+    @And("^I open Admin portal and navigate to \"([^\"]*)\" page$")
+    public void i_open_admin_portal_and_navigate_to_something_page(String option) throws Throwable {
+        try {
+            i_open_new_something_browser_for_something_instance("CHROME","ADMIN");
+            SetupManager.getDriver().get(utility.GetAdminUrl());
+            logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
+            logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
+            logInPage.Button_LogIn().click();
+
+            switch (option.toLowerCase()) {
+                case "scheduled deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_ScheduledTrips());
+                    break;
+                case "live deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_LiveTrips());
+                    break;
+                case "promo code":
+                    action.click(dashBoardPage.Button_PromoCode());
+                    action.click(dashBoardPage.Link_StandardCodes());
+                    break;
+                case "referral source":
+                    action.click(dashBoardPage.Button_Marketing());
+                    action.click(dashBoardPage.Button_ReferralSource());
+                    break;
+                case "customers":
+                    action.click(dashBoardPage.Button_Customers());
+                    break;
+                case "deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            log("I open Admin portal and navigate to "+option+ " page","I am on admin "+ option+" page" ,true );
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in navigating to admin portal ",
+                    true);
+        }
     }
 }

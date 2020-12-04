@@ -14,19 +14,19 @@ public class DriverServices {
 
 
     public Response driverProfile(String authToken) {
-        logger.detail("API REQUEST : Get Driver Profile by authToken " + authToken);
+        String RequestText="API REQUEST : Get Driver Profile by authToken " + authToken;
         String loginURL = null;
         loginURL = UrlBuilder.createApiUrl("driver", DRIVER_PROFILE);
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(loginURL, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
     }
 
     public String getDriverRef(String authToken) {
-        logger.detail("API REQUEST : Get Driver Reference by authToken " + authToken);
+        String RequestText="API REQUEST : Get Driver Reference by authToken " + authToken;
         Response response = driverProfile(authToken);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         JsonPath jsonPathEvaluator = response.jsonPath();
         return jsonPathEvaluator.get("DriverProfile.DriverRef");
     }

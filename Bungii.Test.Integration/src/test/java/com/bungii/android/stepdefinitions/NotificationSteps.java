@@ -42,7 +42,7 @@ public class NotificationSteps extends DriverBase {
             action.showNotifications();
             Thread.sleep(90000);
             log("Checking notifications", "Checking notifications", true);
-            switch (expectedNotification) {
+            switch (expectedNotification.toUpperCase()) {
                 case "TIP RECEIVED 5 DOLLAR":
                     String text = null;
                     String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
@@ -56,6 +56,7 @@ public class NotificationSteps extends DriverBase {
                     break;
 
                 case "DRIVERS ARE ENROUTE":
+                    Thread.sleep(180000);
                     if (action.isElementPresent(otherAppsPage.Notification_DriverEnroute(true))) {
                         action.click(otherAppsPage.Notification_DriverEnroute(true));
                         notificationClick = true;
@@ -79,10 +80,10 @@ public class NotificationSteps extends DriverBase {
 
 
             if (notificationClick == false) {
-                fail("I should able to click notification for" + expectedNotification, "I was not clicked on notifications with text" + getExpectedNotification(expectedNotification), true);
                 action.hideNotifications();
+                fail("I should able to click notification for " + expectedNotification, "Push notification not received : " + getExpectedNotification(expectedNotification), true);
             } else {
-                pass("I should able to click notification for" + expectedNotification, "I clicked on notifications with text" + getExpectedNotification(expectedNotification), true);
+                pass("I should able to click notification for" + expectedNotification, "Push notification not received : " + getExpectedNotification(expectedNotification), true);
 
             }
 
@@ -163,7 +164,7 @@ public class NotificationSteps extends DriverBase {
 
     @When("^I clear all notification$")
     public void i_clear_all_notification() {
-        String bunddleId = getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
+       /* String bunddleId = getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
         try {
             boolean cleared = false;
             ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
@@ -178,6 +179,7 @@ public class NotificationSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+        */
     }
 
 

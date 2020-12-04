@@ -64,7 +64,7 @@
       Then I should see "Estimated Cost"
       And I should logout from Partner Portal
 
-    @ready
+    @regression
     @sanity
     Scenario: Verify Cancellation of Solo Scheduled Trips
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence

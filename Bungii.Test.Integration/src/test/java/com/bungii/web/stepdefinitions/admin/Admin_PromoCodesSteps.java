@@ -147,6 +147,14 @@ public class Admin_PromoCodesSteps extends DriverBase {
         log("I search "+ Code + "prmocode" ,
                 "I have on searched "+Code+" prmocode", true);
     }
+
+    @When("^I search by string \"([^\"]*)\"$")
+    public void i_search_by_string_something(String strArg1) throws Throwable {
+
+        action.sendKeys(admin_PromoCodesPage.TextBox_Search(), strArg1 + Keys.ENTER);
+        log("I search "+ strArg1 + " string" ,
+                "I have on searched "+strArg1+" string", true);
+    }
     @When("^I search by first code generated for above promocode$")
     public void i_search_by_any_code_generated_for_above_promocode() throws Throwable {
         action.click(admin_PromoCodesPage.Button_Filter());
@@ -399,6 +407,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
         CreatedDate = dateFormat.format(today1).toString();
 
         xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']", Name, CreatedDate, Expires, Code, Type, Status, Discount, Entered, Used);
+        action.waitUntilIsElementExistsAndDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),30L);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath", xpath);
     }
@@ -510,7 +519,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
             case "No promo codes found.":
                 testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_NoPromoCodesFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
-
+            case "No Customers found.":
+                testStepAssert.isEquals(action.getText(admin_customerPage.Label_NoCustomerFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                break;
             case "Payment details added successfully for Business User.":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_PaymentMethodSavedMessage()), message,message+ " should be displayed", message + " is displayed", message + " is not displayed");
                 break;

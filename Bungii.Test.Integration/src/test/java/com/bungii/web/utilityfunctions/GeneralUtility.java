@@ -692,7 +692,7 @@ public class GeneralUtility extends DriverBase {
         //get timezone value of Geofence
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
         if(TimeZone.getTimeZone(getGeofenceTimeZone).inDaylightTime( new Date() ))
-            getGeofenceTimeZone = getGeofenceTimeZone.replace("S","D");
+            getGeofenceTimeZone = getGeofenceTimeZone.replace("ST","DT");
         return getGeofenceTimeZone;
     }
     /**

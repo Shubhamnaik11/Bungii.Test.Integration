@@ -6,7 +6,6 @@ Feature: Driver_ViewDetails
     When I click "LOG IN link" on driver portal
     Then I should be directed to "LOG IN tab" on Driver portal
 
-  @sanity
   @regression
     @failed
   Scenario: Verify My Stats Section Populated Data on Driver Dashboard

@@ -56,7 +56,7 @@ public class EstimatePage extends PageBase {
     //------Date and Time------------------------------------------------------------------------
     public WebElement Time () { return findElement("com.bungii.customer:id/date_time_picker_textview_selectedtime", LocatorType.Id); }
     public WebElement Text_TimeZoneLabel () { return findElement("com.bungii.customer:id/date_time_picker_textview_timezone_label", LocatorType.Id); }
-    public WebElement Button_Later () { return findElement("com.bungii.customer:id/alert_schedule_bungii_textview_later", LocatorType.Id); }
+    public WebElement Button_Later (boolean ...ignoreException) { return findElement("com.bungii.customer:id/alert_schedule_bungii_textview_later", LocatorType.Id, ignoreException); }
     public WebElement Button_DateConfirm () { return findElement("android:id/button1", LocatorType.Id); }
     public WebElement Button_TimeConfirm () { return findElement("com.bungii.customer:id/timepicker_okay", LocatorType.Id); }
 
@@ -102,8 +102,8 @@ public class EstimatePage extends PageBase {
 
     public WebElement Option_Gallery () { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Gallery']", LocatorType.XPath); }
     public WebElement Option_OverLayPhotos () { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Photos']", LocatorType.XPath); }
-    public WebElement Option_LARGEIMAGEFOLDER() { return findElement("//android.widget.TextView[@resource-id='com.google.android.apps.photos:id/title' and @text='ALARGE_IMAGE']", LocatorType.XPath); }
-    public WebElement IMAGE_LOCATOR() { return findElement("//android.view.View[contains(@content-desc,\"Photo taken on \")]", LocatorType.XPath); }
+    public WebElement Option_LARGEIMAGEFOLDER() { return findElement("//android.widget.TextView[@resource-id='com.google.android.apps.photos:id/title' and @text='Pictures']", LocatorType.XPath); }
+    public WebElement IMAGE_LOCATOR() { return findElement("//android.view.ViewGroup[contains(@content-desc,\"Photo taken on\")][1]", LocatorType.XPath); }
 
     public WebElement Button_Camera_ClickAlternate () { return findElement("com.sec.android.app.camera:id/camera_preview", LocatorType.Id); }
 
@@ -114,6 +114,7 @@ public class EstimatePage extends PageBase {
     public WebElement Button_Review (boolean ...ignoreException) { return findElement("com.motorola.camera:id/review_approve", LocatorType.Id,ignoreException); }
     public WebElement Button_SelectedImage (boolean ...ignoreException) { return findElement("com.bungii.customer:id/selected_image", LocatorType.Id,ignoreException); }
 
+  public WebElement Button_CameraIcon (boolean ...ignoreException) { return findElement("com.motorola.camera2:id/preview_surface", LocatorType.Id,ignoreException); }
 
 
     //------Confirmations---------------------------------------------------------------------------
@@ -128,7 +129,7 @@ public class EstimatePage extends PageBase {
     public WebElement Button_RequestConfirmCancel () { return findElement("android:id/button2", LocatorType.Id); }
 
     public WebElement Button_OK (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath,ignoreException); }
-    public WebElement Button_Cancel (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button2' and @text='Cancel']", LocatorType.XPath,ignoreException); }
+    public WebElement Button_Cancel (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button2' and @text='CANCEL']", LocatorType.XPath,ignoreException); }
       public WebElement Button_Proceed (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='PROCEED']", LocatorType.XPath,ignoreException); }
 
 
@@ -166,7 +167,7 @@ public class EstimatePage extends PageBase {
   public WebElement Link_PromoValue(boolean ignoreException) { return findElement("//*[@resource-id='com.bungii.customer:id/estimate_promocode_container']/child::android.widget.ImageView", LocatorType.XPath,ignoreException);}
   public WebElement Text_GetDistance() {return findElements("//*[@resource-id='com.bungii.customer:id/estimate_ll_distance_container']/child::android.widget.TextView", LocatorType.XPath).get(1);}
   public WebElement Text_GetCost() {return findElements("//*[@resource-id='com.bungii.customer:id/estimate_ll_estimated_cost_container']/child::android.widget.TextView", LocatorType.XPath).get(1);}
-  public WebElement Button_Back(boolean ignoreException) {return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]", LocatorType.XPath,ignoreException);}
+  public WebElement Button_Back(boolean ignoreException) {return findElement("//android.widget.ImageButton[contains(@content-desc,\"Navigate up\")]", LocatorType.XPath,ignoreException);}
 
   public WebElement Button_AcceptRequestScheduledBungii() {return  findElements("//android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button']", LocatorType.XPath).get(1);}
   public WebElement Button_RejectRequestScheduledBungii() {return  findElements("//android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button", LocatorType.XPath).get(0);}
@@ -182,6 +183,8 @@ public class EstimatePage extends PageBase {
   public WebElement Text_DetailsNote(){return findElement("com.bungii.customer:id/pickup_estimate_tv_pickup_note", LocatorType.Id);}
   public WebElement Button_OkDriverNotAvailable(){return findElement("com.bungii.customer:id/driver_unavailaible_button_ok", LocatorType.Id);}
   public WebElement Button_ScheduleBungii(){return findElement("android:id/button1", LocatorType.Id);}
+  public WebElement Button_Schedule(){return findElement("com.bungii.customer:id/fragment_pickup_searching_driver_btn_schedule", LocatorType.Id);}
+
 
   public WebElement TextBox_CurrentBungiiHour(){return findElements("//android.widget.EditText[@resource-id='android:id/numberpicker_input' and @index=1]", LocatorType.XPath).get(0);}
   public WebElement TextBox_CurrentBungiiMinutes(){return findElements("//android.widget.EditText[@resource-id='android:id/numberpicker_input' and @index=1]", LocatorType.XPath).get(1);}

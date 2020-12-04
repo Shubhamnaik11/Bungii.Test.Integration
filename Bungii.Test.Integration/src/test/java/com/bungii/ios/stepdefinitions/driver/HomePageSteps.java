@@ -419,14 +419,22 @@ public class HomePageSteps extends DriverBase {
 
             //Add Code to handle daylight
             if(TimeZone.getTimeZone("CST6CDT").inDaylightTime(new Date()))
-                timeRange = timeRange.replace("S","D");
+                timeRange = timeRange.replace("ST","DT");
+            String bsTimeRangeA = "07:00 a.m. - 09:00 p.m.";
+            String bsTimeRangeB = "07:00 AM - 09:00 PM";
 
+            //Add Code to handle daylight
+            if(TimeZone.getTimeZone("CST6CDT").inDaylightTime(new Date()))
+                timeRange = timeRange.replace("ST","DT");
             switch (strArg1) {
                 case "DELIVERY ALERT":
                     List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
                     for (WebElement row : timeData) {
                         String currentRowData = action.getNameAttribute(row);
-                        testStepAssert.isEquals(currentRowData, timeRange, "default trip "+timeRange+" should be displayed", "default trip data s is displayed", "default trip data is not displayed");
+                        if(currentRowData.contains("CST")||currentRowData.contains("CDT"))
+                        testStepAssert.isEquals(currentRowData, timeRange, "default trip "+timeRange+" should be displayed", "default trip data is displayed", "default trip data is not displayed");
+                        else
+                        testStepAssert.isEquals(currentRowData, bsTimeRangeA, "default trip "+bsTimeRangeA+" should be displayed", "default trip data is displayed", "default trip data is not displayed");
                     }
                     testStepAssert.isElementNameEquals(tripAlertSettingsPage.Text_ScheduledInfo(), PropertyUtility.getMessage("driver.trip.alert.settings"), "TRIP Alerts info is displayed", "TRIP Alerts info is displayed", "TRIP Alerts info is not displayed");
                     break;
@@ -434,7 +442,14 @@ public class HomePageSteps extends DriverBase {
                     List<WebElement> timeDataSms = tripAlertSettingsPage.Row_TripTime();
                     for (WebElement row : timeDataSms) {
                         String currentRowData = action.getNameAttribute(row);
-                        testStepAssert.isEquals(currentRowData, timeRange, "default trip "+timeRange+" should be displayed", "default trip data s is displayed", "default trip data  is not displayed");
+                        if(currentRowData.contains("CST")||currentRowData.contains("CDT"))
+                        testStepAssert.isEquals(currentRowData, timeRange, "default trip "+timeRange+" should be displayed", "default trip data s is displayed", "default trip data  is not displayed Actual : "+currentRowData);
+                    else
+                        if(currentRowData.contains("a.m.")||currentRowData.contains("p.m."))
+                        testStepAssert.isTrue(currentRowData.contains(bsTimeRangeA),"default trip data should be displayed","default trip data is not displayed Actual : "+currentRowData);
+                     else
+                         testStepAssert.isTrue(currentRowData.contains(bsTimeRangeB),"default trip data should be displayed","default trip data is not displayed. Actual : "+currentRowData);
+
                     }
                     testStepAssert.isElementNameEquals(tripAlertSettingsPage.Text_ScheduledInfo(), PropertyUtility.getMessage("driver.sms.alert.settings"), PropertyUtility.getMessage("driver.sms.alert.settings") + "should be displayed", "SMS Alerts info is displayed", "SMS Alerts info is not displayed");
                     break;
@@ -530,7 +545,8 @@ public class HomePageSteps extends DriverBase {
             action.click(tripAlertSettingsPage.Text_CurrentFromTime());
             action.sendKeys(tripAlertSettingsPage.Scroll_Hour(), from);
             action.sendKeys(tripAlertSettingsPage.Scroll_Min(), ((strArg1.split(" ")[0]).split(":")[1]).trim());
-            action.sendKeys(tripAlertSettingsPage.Scroll_Marid(), (strArg1.split(" ")[1]).trim());
+
+           // action.sendKeys(tripAlertSettingsPage.Scroll_Marid(), (strArg1.split(" ")[1]).trim());
             action.click(tripAlertSettingsPage.Button_Done());
 
             String toHour = (strArg2.split(":")[0]);
@@ -538,7 +554,7 @@ public class HomePageSteps extends DriverBase {
             action.click(tripAlertSettingsPage.Text_CurrentToTime());
             action.sendKeys(tripAlertSettingsPage.Scroll_Hour(), toHour);
             action.sendKeys(tripAlertSettingsPage.Scroll_Min(), ((strArg2.split(" ")[0]).split(":")[1]).trim());
-            action.sendKeys(tripAlertSettingsPage.Scroll_Marid(), (strArg2.split(" ")[1]).trim());
+           // action.sendKeys(tripAlertSettingsPage.Scroll_Marid(), (strArg2.split(" ")[1]).trim());
             action.click(tripAlertSettingsPage.Button_Done());
             action.click(tripAlertSettingsPage.Button_Save());
             log("Updated setting of" + strArg0 + " , to " + strArg1 + "-" + strArg2, " update trip settings", true);

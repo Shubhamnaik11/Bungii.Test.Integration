@@ -51,3 +51,12 @@ Feature: Admin_CustomersPage
     Then I should see "customer first name" listed on the "Live Deliveries" page
     When I enter "customers" "last name" in the "Live Deliveries search" box
     Then I should see "customer last name" listed on the "Live Deliveries" page
+  
+  
+  @regression
+  Scenario: Verify search by XSS script on Customers Grid
+    When I navigate to following pages one by one
+      |Page |
+      | Dashboard |
+    And I enter "<script>alert('hello')</script>" in the "Dashboard search" box
+    Then the "No Customers found." message is displayed

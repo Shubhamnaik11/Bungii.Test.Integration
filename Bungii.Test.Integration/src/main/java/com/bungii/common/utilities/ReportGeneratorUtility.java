@@ -97,7 +97,11 @@ public class ReportGeneratorUtility extends DriverBase {
 			    totalStr += s;	        
 			}
 	        totalStr = totalStr.replaceAll("<!--LOGO.PATH-->",logoPath);
-            totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
+			String session = (String) cucumberContextManager.getScenarioContext("SESSION");
+			if(session =="")
+				totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
+            else
+			totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName+" | Session ID : "+session);
 	        totalStr = totalStr.replaceAll("<!--SUMARRY-->", Matcher.quoteReplacement(getLogDetails(summaryArray)));
 			totalStr = totalStr.replaceAll("<!--DETAILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
 	        totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->",passed+"");
@@ -138,7 +142,7 @@ public class ReportGeneratorUtility extends DriverBase {
 		detailsArray.add(str);
 		stackTraceArray.clear();
         this.reason="";
-		logger.detail("Scenario: "+testCases+" of Feature: "+ featureName);
+		logger.detail("SCENARIO : "+testCases+" OF FEATURE : "+ featureName);
 	}
 
 	/**
@@ -212,10 +216,10 @@ public class ReportGeneratorUtility extends DriverBase {
 		}
 
 		String path = sDumpFile.replace('\\', '/');
-		logger.detail("Screenshot Path :  "+ downloadPath );
+		logger.detail("Screenshot Path :  "+ path );
 		return message +" <div style='color:red; font-weight: bold'> " +
 				" <img src='./"+downloadPath+"' alt='' onclick=\"showImage('"+path+"')\"/> Download screenshot here" +
-				"</div>";
+				"</div><div><a href='" + path+"'> Link </a></div>";
 		//return "<a href='" + sDumpFile.replace("\\", "/") + "'>" + message + "</a>";
 	}
 
@@ -248,9 +252,11 @@ public class ReportGeneratorUtility extends DriverBase {
 			String reason = this.reason;
              //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
 			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
+			if(reason=="")
+				CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+			else
+				failed++;
 			detailsArray.add(st);
-			failed++;
-
 			status = "<td style='background-color:pink;'>Fail</td>";
 			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
 			failureArray.add(str2);
@@ -268,7 +274,7 @@ public class ReportGeneratorUtility extends DriverBase {
 
 		summaryArray.add(str1);
 		int totalExecuted = passed + failed;
-		logger.trace("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | TOTAL EXECUTED : " + totalExecuted );
+		logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | TOTAL EXECUTED : " + totalExecuted);
 
 	}
 
@@ -346,8 +352,10 @@ public class ReportGeneratorUtility extends DriverBase {
 	public boolean isScenarioFailed(){
 		return this.isTcVerifyFailed;
 	}
+
 	public int skipped(){
 		inconclusive++;
+
 		return inconclusive;
 	}
 

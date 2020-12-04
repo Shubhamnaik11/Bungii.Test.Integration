@@ -15,6 +15,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class TripDetailsSteps extends DriverBase {
 
@@ -26,7 +27,7 @@ public class TripDetailsSteps extends DriverBase {
     AvailableTripsPage availableTripsPage=new AvailableTripsPage();
     ScheduledBungiiPage scheduledBungiiPage=new ScheduledBungiiPage();
 
-    @When("I tap on {string} on driver Trip details Page")
+    @When("I tap on \"([^\"]*)\" on driver Trip details Page")
     public void iTapOnOnDriverTripDetailsPage(String arg0) throws InterruptedException {
         try {
             switch (arg0.toUpperCase()) {
@@ -41,6 +42,9 @@ public class TripDetailsSteps extends DriverBase {
                 default:
                         error("UnImplemented Step or incorrect button name", "UnImplemented Step");break;
             }
+            log("I tap on "+arg0+" from driver available trip","I tap on "+arg0+" from driver available trip");
+
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

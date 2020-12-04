@@ -16,6 +16,7 @@ Feature: CustomerForgotPassword
 #    And I tap on the "Continue" Link
     Then The user should see "snackbar validation message for success once I click continue" on forgot password page
     And The user should be logged in
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I tap on "Menu" > "Logout" link
 
   @regression
@@ -51,7 +52,7 @@ Feature: CustomerForgotPassword
   Scenario: Verify Customer Forgot Password With Resend SMS Code Functionality
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
-    And I tap on the "Resend Code" Link
+    #And I tap on the "Resend Code" Link
     And I enter "valid" SMS code
     And I enter customers new "valid" Password
     And I tap on the "Continue" Link

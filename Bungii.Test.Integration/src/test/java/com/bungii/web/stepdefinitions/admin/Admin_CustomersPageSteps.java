@@ -6,6 +6,8 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
@@ -21,6 +23,12 @@ public class Admin_CustomersPageSteps extends DriverBase {
     Admin_DashboardPage admin_dashboardPage = new Admin_DashboardPage();
     Admin_LiveTripsPage admin_liveTripsPage = new Admin_LiveTripsPage();
     Admin_ScheduledTripsPage admin_scheduledTripsPage = new Admin_ScheduledTripsPage();
+
+    @And("^I enter \"([^\"]*)\" in the \"([^\"]*)\" box$")
+    public void i_enter_something_in_the_something_box(String script, String strArg2) throws Throwable {
+        action.clearSendKeys(admin_dashboardPage.TextBox_SearchCustomer(),script + Keys.ENTER);
+    }
+
 
     @When("^I enter \"([^\"]*)\" \"([^\"]*)\" in the \"([^\"]*)\" box$")
     public void i_enter_something_something_in_the_something_box(String strArg1, String strArg2, String strArg3) throws Throwable {

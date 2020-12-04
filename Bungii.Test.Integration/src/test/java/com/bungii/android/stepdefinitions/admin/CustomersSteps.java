@@ -41,8 +41,9 @@ public class CustomersSteps extends DriverBase {
     public void i_verify_the_trip_count() throws Throwable {
         try {
             String firstName= (String) cucumberContextManager.getScenarioContext("FIRST_NAME");
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM dd, yyyy");
-            LocalDateTime now = LocalDateTime.now();
+            //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+            //LocalDateTime now = LocalDateTime.now();
+            String now="Today";
             int count=1;
             String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')][1]",firstName,now,count);
             testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)), Xpath + "Element should be displayed", Xpath + "Element is displayed", Xpath + "Element is not displayed");

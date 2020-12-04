@@ -4,6 +4,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.DashBoardPage;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import static com.bungii.common.manager.ResultManager.*;
@@ -31,6 +32,7 @@ public class DashBoardSteps extends DriverBase {
                     action.click(dashBoardPage.Button_PromoCode());
                     break;
                 case "referral source":
+
                     action.click(dashBoardPage.Button_Marketing());
                     action.click(dashBoardPage.Button_ReferralSource());
                     break;
@@ -60,6 +62,11 @@ public class DashBoardSteps extends DriverBase {
                     true);
         }
     }
-
+    @And("^I uncheck the Active Geofences Only$")
+    public void i_uncheck_the_active_geofence_only() throws InterruptedException {
+        action.click(dashBoardPage.Checkbox_Active_geofence());
+        Thread.sleep(1000);
+    }
 
 }
+

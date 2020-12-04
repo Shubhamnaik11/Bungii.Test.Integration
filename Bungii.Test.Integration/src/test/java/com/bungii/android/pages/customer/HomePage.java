@@ -37,6 +37,9 @@ public class HomePage extends PageBase {
     public WebElement MapPanningArea () { return findElement("android.widget.FrameLayout",LocatorType.ClassName); }
 
     public WebElement Button_ETASet (boolean ... ignoreException) { return findElement("com.bungii.customer:id/eta_bar_button_set",LocatorType.Id,ignoreException); }
+    public WebElement Button_ETAPickupSet (boolean ... ignoreException) { return findElement("//eta_bar_button_set[]",LocatorType.XPath,ignoreException); }
+    public WebElement Button_ETADropoffSet (boolean ... ignoreException) { return findElement("//eta_bar_button_set[]",LocatorType.XPath,ignoreException); }
+
     public WebElement Text_ETAHeader(){return findElement("com.bungii.customer:id/eta_bar_title",LocatorType.Id);}
     public WebElement Header_HomePage (boolean ... ignoreException) { return findElement("//android.widget.TextView[@text='BUNGII']",LocatorType.XPath,ignoreException); }
 
@@ -52,6 +55,7 @@ public class HomePage extends PageBase {
     public WebElement Image_Tick () { return findElement("//android.widget.FrameLayout[@id='android:id/content']/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.ImageView",LocatorType.XPath); }
 
     public WebElement Button_Done (boolean ... ignoreException) { return findElement("com.bungii.customer:id/bungii_posted_button_done",LocatorType.Id,ignoreException); }
+    public WebElement Button_AlertDone (boolean ... ignoreException) { return findElement("android:id/button2",LocatorType.Id,ignoreException); }
 
     public WebElement Button_NavHome() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(0); }
     public WebElement Button_NavFAQ() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(1); }
@@ -81,14 +85,19 @@ public class HomePage extends PageBase {
     public WebElement Text_ErrorNonGeofence() { return findElement("//*[@resource-id='com.bungii.customer:id/fragment_home_not_operating_container']/android.widget.TextView[2]", LocatorType.XPath);}
 
     //Tutuorial
-    public List<WebElement> Button_PdfPages(){return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath);}
-    public WebElement Text_TutorialPdfPage1() { return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath).get(0);}
+   // public List<WebElement> Button_PdfPages(){return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath);}
+   // public WebElement Text_TutorialPdfPage1() { return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath).get(0);}
+
+    //Tutorial Moto 9.0
+    public List<WebElement> Button_PdfPages(){return findElements("//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout", LocatorType.XPath);}
+    public WebElement Text_TutorialPdfPage1() { return findElements("//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout", LocatorType.XPath).get(0);}
+
     public WebElement Button_StartApp() { return findElement("com.bungii.customer:id/tutorials_screen_five_btn_start",LocatorType.Id); }
-    public WebElement Button_BackOfPage() {return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]", LocatorType.XPath);}
+    public WebElement Button_BackOfPage() {return findElement("//android.widget.ImageButton[contains(@content-desc,\"Navigate up\")]", LocatorType.XPath);}
 
 
     public WebElement Tab_MyBungiisScheduled() {return findElement("com.bungii.customer:id/my_bungii_radio_upcoming_trips",  LocatorType.Id);}
-    public WebElement Tab_MyBungiisPast() {return findElement("com.bungii.customer:id/my_bungii_radio_upcoming_trips",  LocatorType.Id);}
+    public WebElement Tab_MyBungiisPast() {return findElement("com.bungii.customer:id/my_bungii_radio_past_trips",  LocatorType.Id);}
     public WebElement Text_ScheduledBungiisInfo(){return findElement("com.bungii.customer:id/my_bungii_tv_no_bungiis_info", LocatorType.Id);}
     public WebElement Text_PastBungiisInfo(){return findElement("com.bungii.customer:id/my_bungii_tv_no_bungiis_info", LocatorType.Id);}
 
@@ -97,7 +106,7 @@ public class HomePage extends PageBase {
     public WebElement TextBox_CancellationReason(){return findElement("com.bungii.customer:id/alert_cancellation_reason_et", LocatorType.Id);}
     public WebElement TextBox_ETAContainer(){return findElement("com.bungii.customer:id/home_eta_container", LocatorType.Id);}
 
-    public WebElement Label_ETAContainer(){ return findElement("com.bungii.customer:id/home_eta_container", LocatorType.Id);}
+    public WebElement Label_ETAContainer(boolean ...ignoreexception){ return findElement("com.bungii.customer:id/home_eta_container", LocatorType.Id,ignoreexception);}
     //public WebElement Tab_MyBungiisScheduled() {return findElement("com.bungii.customer:id/my_bungii_radio_upcoming_trips",  LocatorType.Id);}
     //public WebElement Tab_MyBungiisPast() {return findElement("com.bungii.customer:id/my_bungii_radio_upcoming_trips",  LocatorType.Id);}
     //public WebElement Text_ScheduledBungiisInfo(){return findElement("com.bungii.customer:id/my_bungii_tv_no_bungiis_info", LocatorType.Id);}

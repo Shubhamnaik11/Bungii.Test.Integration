@@ -66,7 +66,7 @@ public class BungiiDetailsSteps extends DriverBase {
 
     @When("^I wait for Minimum duration for Bungii Start Time$")
     public void i_wait_for_minimum_duration_for_bungii_start_time() {
-        try {
+       /* try {
             String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
             //    bungiiTime="Aug 09, 12:45 AM CDT";
             int mininumWaitTime = Integer.parseInt(PropertyUtility.getProp("scheduled.min.start.time"));
@@ -98,6 +98,8 @@ public class BungiiDetailsSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+        */
+       //Need to rework on this
     }
 
     @Then("^I wait for \"([^\"]*)\" mins$")

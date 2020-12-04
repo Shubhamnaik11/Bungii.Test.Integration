@@ -92,6 +92,7 @@ public class LiveTripsSteps extends DriverBase {
     @Then("^I select trip from trips$")
     public void i_select_trip_from_trips() throws Throwable {
         try {
+            Thread.sleep(10000);
             String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
             action.click(liveTripsPage.Button_Search());
@@ -131,9 +132,27 @@ public class LiveTripsSteps extends DriverBase {
             String truncValue = new DecimalFormat("#.00").format(dblDiscountValue);truncValue=truncValue.replace(".00", "");
             //decimal formating
             bungiiCostCustomer=new DecimalFormat("#.##").format(Double.parseDouble(bungiiCostCustomer.replace("$","")));
-            bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");bungiiCostCustomer="$"+bungiiCostCustomer;
+            Double price = Double.parseDouble(bungiiCostCustomer);//-Double.parseDouble(discountValue);
+            String str = String.format("%1.2f", price);
+            bungiiCostCustomer = str.toString();
+            bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
+
+            bungiiCostCustomer="$"+bungiiCostCustomer;
             switch (strArg1.toLowerCase()) {
                 case "promo":
+                    //recalculate
+                    bungiiCostCustomer=new DecimalFormat("#.##").format(Double.parseDouble(bungiiCostCustomer.replace("$","")));
+                     price = Double.parseDouble(bungiiCostCustomer);//-Double.parseDouble(discountValue);
+                     Double calc = price * 100;
+                     if (calc%10==0)
+                     str = String.format("%1.1f", price);
+                     else
+                         str = String.format("%1.2f", price);
+
+                    bungiiCostCustomer = str.toString();
+                    bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
+
+                    bungiiCostCustomer="$"+bungiiCostCustomer;
                     bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "Promo");

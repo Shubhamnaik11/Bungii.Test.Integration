@@ -14,17 +14,19 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
-
-    When I am on the "LOG IN" page
+  
+	When I Switch to "customer" application on "same" devices
+	When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I wait for "2" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "live trips" from admin sidebar
+    And I open Admin portal and navigate to "Live Deliveries" page
     And I select trip from live trips
 
     When I switch to "ADMIN" instance
@@ -69,13 +71,17 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
-
+	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
    # And I am on Customer logged in Home page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     Then correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
@@ -155,13 +161,16 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
-
+	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
    # And I am on Customer logged in Home page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     When I Switch to "customer" application on "same" devices
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
@@ -170,15 +179,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I slide update button on "EN ROUTE" Screen
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
-
     When I Switch to "customer" application on "same" devices
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
-
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
-
 
     When I Switch to "customer" application on "same" devices
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
@@ -222,9 +228,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then ratting should be correctly displayed on Bungii progress page
     
     Then I cancel all bungiis of customer
@@ -236,19 +245,22 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | UNLOADING ITEM      |
-    
-    When I am on the "LOG IN" page
+	When I Switch to "customer" application on "same" devices
+	When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
     
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
     And Bungii customer should see "correct rating detail for solo" on Bungii completed page
     When I select "3" Ratting star for solo Driver 1
-    Then "3" starts should be highlighted for solo Driver 1
+    Then "3" stars should be highlighted for solo Driver1
     When I click "OK" button on "BUNGII COMPLETE" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then poor driver ratting should be sent to customer
@@ -257,13 +269,18 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @ready
 
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
+  
+    #And I Switch to "driver" application on "same" devices
+   # And I am logged in as "valid nashville" driver
+   # And I Select "HOME" from driver App menu
+  #  Then I change driver status to "Online"
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+  
+    When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
-    And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    Then I change driver status to "Online"
-    When I Switch to "customer" application on "same" devices
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
@@ -282,17 +299,19 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
 
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click on notification for "Driver" for "on demand trip"
+    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+   # When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
+  
+  
+    #And I Switch to "customer" application on "same" devices
+    #Then I should be navigated to "BUNGII ACCEPTED" screen
+    #When I click "Ok" button on "BUNGII ACCEPTED" screen
 
-    And I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
@@ -328,13 +347,18 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
   @regression
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code : Promoter Type Promocode
-    Given I am on the "LOG IN" page
-    When I logged in Customer application using  "<User>" user
-    And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    Then I change driver status to "Online"
+
+    #And I Switch to "driver" application on "same" devices
+    #And I am logged in as "valid nashville" driver
+    #And I Select "HOME" from driver App menu
+    #Then I change driver status to "Online"
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+  
     When I Switch to "customer" application on "same" devices
+    Given I am on the "LOG IN" page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    When I logged in Customer application using  "<User>" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
@@ -353,19 +377,20 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
 
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click on notification for "Driver" for "on demand trip"
+    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
 
-    Then I click on notification for "Customer" for "DRIVER ENROUTE"
+   # Then I click on notification for "Customer" for "DRIVER ENROUTE"
  #   And I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    Then ratting should be correctly displayed on Bungii accepted page
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
+    #Then I should be navigated to "BUNGII ACCEPTED" screen
+    #Then ratting should be correctly displayed on Bungii accepted page
+    #When I click "Ok" button on "BUNGII ACCEPTED" screen
 
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
@@ -402,12 +427,15 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
       | nashville | UNLOADING ITEM |
-
+	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
     And I should be navigated to "Bungii Completed" screen
     And I click "On To The Next One" button on "Bungii Completed" screen
@@ -437,17 +465,18 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
 
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #When I click on notification for "Driver" for "on demand trip"
+    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #Then I should be navigated to "BUNGII REQUEST" screen
+    #When I click "ACCEPT" button on "Bungii Request" screen
+    And I view and accept virtual notification for "Driver" for "on demand trip"
 
-    And I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
+    #And I Switch to "customer" application on "same" devices
+    #Then I should be navigated to "BUNGII ACCEPTED" screen
+    #When I click "Ok" button on "BUNGII ACCEPTED" screen
 
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
@@ -474,6 +503,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I click "Invite referrals" button on "HOME" screen
     Then I should be navigated to "Invite" screen
     When I get Invite Code
@@ -511,14 +542,18 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @ready
   Scenario: Verify Requesting Of Ondemand Bungii With Referral Code
     Given I have customer with referral code
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    Then I change driver status to "Online"
+    #And I Switch to "driver" application on "same" devices
+    #And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid nashville" driver
+    #And I Select "HOME" from driver App menu
+    #Then I change driver status to "Online"
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+  
     When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "newly created user" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
@@ -533,18 +568,14 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       |          |           |              | Now  | Default     |
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
+    
+    And I view and accept virtual notification for "Driver" for "on demand trip"
 
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #And I Switch to "customer" application on "same" devices
+    #Then I should be navigated to "BUNGII ACCEPTED" screen
+    #When I click "Ok" button on "BUNGII ACCEPTED" screen
 
-    And I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
@@ -567,14 +598,13 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   @ready
   Scenario: Verify Requesting Of Ondemand Bungii With Received Referred Code
     Given I have customer with referral code received
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    Then I change driver status to "Online"
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+    
     When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
@@ -590,18 +620,14 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       |          |           |              | Now  | Default     |
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
+    
+    And I view and accept virtual notification for "Driver" for "on demand trip"
 
-    When I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #And I Switch to "customer" application on "same" devices
+    #Then I should be navigated to "BUNGII ACCEPTED" screen
+    #When I click "Ok" button on "BUNGII ACCEPTED" screen
 
-    And I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-
-    And I Switch to "driver" application on "same" devices
+    #And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
@@ -627,12 +653,16 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | UNLOADING ITEM      |
+	When I Switch to "customer" application on "same" devices
 
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
     And I click on notification for "customer" for "BUNGII FINISHED -RATE DRIVER"
 
@@ -642,20 +672,20 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
 
     And I click "On To The Next One" button on "Bungii Completed" screen
-  
+    
   @sanity
   @regression
   @ondemand
   Scenario: Verify Ondemand Bungii Flow Till Completion
+    When I Switch to "driver" application on "same" devices
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+	
+    And I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page
     When I logged in Customer application using  "valid nashville" user
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    And I change driver status to "Online"
-    And I Switch to "customer" application on "same" devices
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                      | geofence  |
       | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |
@@ -665,19 +695,17 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 15       |           |              | Now  | Default     |
     Then I should be navigated to "SEARCHING" screen
-    And I click on notification for "Driver" for "on demand trip"
-    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
-    Then I should be navigated to "EN ROUTE" trip status screen
-    
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-    Then Customer should be navigated to "EN ROUTE" trip status screen
     
     When I Switch to "driver" application on "same" devices
+    And I view and accept virtual notification for "Driver" for "on demand trip"
+    
+    #When I Switch to "customer" application on "same" devices
+    #Then I should be navigated to "BUNGII ACCEPTED" screen
+    #When I click "Ok" button on "BUNGII ACCEPTED" screen
+    #Then Customer should be navigated to "EN ROUTE" trip status screen
+    
+    #When I Switch to "driver" application on "same" devices
+	Then I should be navigated to "EN ROUTE" trip status screen
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen
     
@@ -716,4 +744,4 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-
+  
