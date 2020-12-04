@@ -243,7 +243,7 @@ public class EstimateSteps extends DriverBase {
     @When("^I try to schedule bungii for \"([^\"]*)\"$")
     public void i_try_to_schedule_bungii_for_something(String strArg1) throws Throwable {
         try {
-            String browserstack=SetupManager.BrowserStackLocal();
+            String browserstack= BrowserStackLocal();
             switch (strArg1.toLowerCase()) {
                 case "today - after working hour":
                     //selectBungiiTime(0, "11", "45", "PM");
@@ -340,6 +340,11 @@ public class EstimateSteps extends DriverBase {
             String[] dateScroll = bungiiTimeForScroll(teletTimeInLocal);
             strTime = bungiiTimeDisplayInTextArea(teletTimeInLocal);
             action.click(estimatePage.Row_TimeSelect());
+            //BrowserStack Changes for not display of AM and PM
+            String bs = BrowserStackLocal();
+            if(bs.equalsIgnoreCase("True")){
+                dateScroll[3] ="";
+            }
             selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
 
         } else if (time.equalsIgnoreCase("<START TIME WITHIN TELET OF CUSTOMER 1>")) {
@@ -441,13 +446,38 @@ public class EstimateSteps extends DriverBase {
             strTime = bungiiTimeDisplayInTextArea(date);
             selectBungiiTime();
         } else if (time.equalsIgnoreCase("Today+1 1:00 PM")) {
-            selectBungiiTime(1, "1", "00", "PM");
+            //BrowserStack Changes for not display of AM and PM
+            String bs = BrowserStackLocal();
+            if(bs.equalsIgnoreCase("True")){
+                selectBungiiTime(1, "1", "00", "");
+            }
+            else {
+                selectBungiiTime(1, "1", "00", "PM");
+            }
         } else if (time.equalsIgnoreCase("Today+2 1:00 PM")) {
-            selectBungiiTime(2, "1", "00", "PM");
+            //BrowserStack Changes for not display of AM and PM
+            String bs = BrowserStackLocal();
+            if(bs.equalsIgnoreCase("True")){
+                selectBungiiTime(2, "1", "00", "");
+            }else {
+                selectBungiiTime(2, "1", "00", "PM");
+            }
         } else if (time.equalsIgnoreCase("Today+3 1:00 PM")) {
-            selectBungiiTime(3, "1", "00", "PM");
+            //BrowserStack Changes for not display of AM and PMse
+            String bs = BrowserStackLocal();
+            if(bs.equalsIgnoreCase("True")){
+                selectBungiiTime(3, "1", "00", "");
+            }else {
+                selectBungiiTime(3, "1", "00", "PM");
+            }
         } else if (time.equalsIgnoreCase("Today+4 1:00 PM")) {
-            selectBungiiTime(4, "1", "00", "PM");
+            //BrowserStack Changes for not display of AM and PM
+            String bs = BrowserStackLocal();
+            if(bs.equalsIgnoreCase("True")){
+                selectBungiiTime(4, "1", "00", "");
+            }else {
+                selectBungiiTime(4, "1", "00", "PM");
+            }
         } else {
             selectBungiiTime(0, "", "", "");
             strTime = "Now";
@@ -1259,6 +1289,7 @@ public class EstimateSteps extends DriverBase {
      * @param meridiem    AM/PM
      */
     public void selectBungiiTime(int forwordDate, String hour, String minutes, String meridiem) {
+
         action.click(estimatePage.Row_TimeSelect());
         action.dateTimePicker(estimatePage.DatePicker_BungiiTime, estimatePage.DateWheel_BungiiTime, forwordDate, hour, minutes, meridiem);
         //  action.click(estimatePage.Row_TimeSelect());

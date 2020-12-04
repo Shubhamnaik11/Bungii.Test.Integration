@@ -151,7 +151,8 @@ public class HomeSteps extends DriverBase {
                     action.clickAlertButton("Not Now");
             }
             if (action.isElementPresent(homePage.Button_ClearPickup(true))) {
-                action.tapByElement(homePage.Button_ClearPickup());
+                action.click(homePage.Button_ClearPickup());
+                //action.tapByElement(homePage.Button_ClearPickup());
                 logger.detail("CLEARED PICKUP ADDRESS FROM FIELD ");
             }
 

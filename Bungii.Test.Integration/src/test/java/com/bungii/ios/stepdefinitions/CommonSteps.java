@@ -318,6 +318,9 @@ public class CommonSteps extends DriverBase {
                 case "LOG IN":
                     if (screen.equalsIgnoreCase("log in")) {
                         action.click(loginPage.Button_Login());
+                        acceptCustomerPermissions("TERMS & CONDITIONS" , "ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
+                        closeTutorial("Tutorial");
+                        iAmOnCustomerLoggedInHomePage();
                        // new GeneralUtility().logCustomerDeviceToken((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA"));
                     }
                     else if (screen.equalsIgnoreCase("sign up"))
