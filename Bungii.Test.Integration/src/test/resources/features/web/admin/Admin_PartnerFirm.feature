@@ -295,8 +295,8 @@ Feature: Admin_PartnerFirm
   @ready
   Scenario: Verify that Point of interests are getting populated for the newer clusters
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      |
-      | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android|
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android| Cci12345 |
     And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state     |
       | Accepted         |
@@ -344,8 +344,8 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
   @ready
   Scenario: Verify that Admin does not get "Customer has ongoing trip " alert when he edits an already edited schedule bungii
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      |
-      | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android|
+      | Bungii Time   | Customer Phone | Customer Name                      |Customer Password|
+      | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android|Cci12345         |
     And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state     |
       | Accepted         |
