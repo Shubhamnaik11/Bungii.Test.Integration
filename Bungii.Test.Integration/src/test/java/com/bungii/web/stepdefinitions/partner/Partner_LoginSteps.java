@@ -214,7 +214,7 @@ public class Partner_LoginSteps extends DriverBase {
                 String Month = splitDate[0].substring(0, 3);
                 splitDate[0] = Month + " ";
                 PickupDateTime = splitDate[0] + splitDate[1];
-                cucumberContextManager.setScenarioContext("ActualPickupDateTime", PickupDateTime); //This will be used in Track Delivery List
+                cucumberContextManager.setScenarioContext("ActualPickupDateTime",  PickupDateTime.replaceAll("[()]", "")); //This will be used in Track Delivery List
 
                 char ch = PickupDateTime.charAt(4);
                 if (PickupDateTime.charAt(4) == '0') {
