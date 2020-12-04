@@ -208,7 +208,7 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Service_Delivery_Details_Header"));
                 }
                     String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
-                   cucumberContextManager.setScenarioContext("ActualPickupDateTime", PickupDateTime);
+                   cucumberContextManager.setScenarioContext("ActualPickupDateTime", PickupDateTime.replaceAll("[()]", ""));
 
                 //StringBuilder sb = new StringBuilder(PickupDateTime);
                 //sb.setCharAt(3,'(');
