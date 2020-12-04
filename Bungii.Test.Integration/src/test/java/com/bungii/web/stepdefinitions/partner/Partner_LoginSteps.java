@@ -247,7 +247,7 @@ public class Partner_LoginSteps extends DriverBase {
 
                 String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
 
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", Delivery_Date, DeliveryAddress);
+                String XPath = String.format("//div[contains(.,'%s')]/ancestor::tr/td[contains(.,'%s')] ", Delivery_Date, DeliveryAddress);
                 testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
                 /*
                 try {
