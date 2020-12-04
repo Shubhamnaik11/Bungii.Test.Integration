@@ -208,35 +208,22 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Service_Delivery_Details_Header"));
                 }
                     String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
-                   cucumberContextManager.setScenarioContext("ActualPickupDateTime", PickupDateTime.replaceAll("[()]", ""));
-
-                //StringBuilder sb = new StringBuilder(PickupDateTime);
-                //sb.setCharAt(3,'(');
-
-                //PickupDateTime = sb.toString();
-                     // December 03, 2020 at 7:15 AM (EST)
-                String[] S2 = PickupDateTime.split(" ", 2);
-
-                String Month = S2[0].substring(0, 3);
-                String space = " ";
-                S2[0] = Month + space;
 
 
-                PickupDateTime = S2[0] + S2[1];
+                String[] splitDate = PickupDateTime.split(" ", 2);
+                String Month = splitDate[0].substring(0, 3);
+                splitDate[0] = Month + " ";
+                PickupDateTime = splitDate[0] + splitDate[1];
+                cucumberContextManager.setScenarioContext("ActualPickupDateTime", PickupDateTime); //This will be used in Track Delivery List
 
                 char ch = PickupDateTime.charAt(4);
-
                 if (PickupDateTime.charAt(4) == '0') {
-
                     StringBuilder sb = new StringBuilder(PickupDateTime);
                     sb.deleteCharAt(4);
                     PickupDateTime = sb.toString();
                 }
-
                 PickupDateTime = PickupDateTime.replaceAll("[()]", "");
-
-
-                cucumberContextManager.setScenarioContext("PickupDateTime", PickupDateTime);
+                cucumberContextManager.setScenarioContext("PickupDateTime", PickupDateTime); //This will be used further
 
                 break;
             case "see Done screen":
