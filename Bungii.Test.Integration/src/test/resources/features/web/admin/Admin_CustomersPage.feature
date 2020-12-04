@@ -15,7 +15,7 @@ Feature: Admin_CustomersPage
     When I enter "customers" "last name" in the "Customers search" box
     Then I should see "customer last name" listed on the "Customers" page
 
-  @ready
+  @knownissue
   Scenario: Verify Customer Search On Various Pages
     When I navigate to following pages one by one
       |Page |

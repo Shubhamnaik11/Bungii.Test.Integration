@@ -5,7 +5,7 @@ Feature: Admin_DriverApplicationVerification
     Given I am logged in as Admin
     And there is a pending application for driver verification
 
-  @ready
+  @knownissue
   @email
   @failed
       #test data created in base
@@ -21,7 +21,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Active"
     And I should receive "BUNGII: Time to Hit the Road!" email
 
-  @ready
+  @knownissue
     #test data created in base
   @email
   @failed
@@ -39,7 +39,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Rejected"
     And I should receive "Your application has been rejected." email
     
-  @ready
+  @knownissue
   @email
     #test data created in base
   Scenario: Verify Driver Application Resend Application - NonFountain
