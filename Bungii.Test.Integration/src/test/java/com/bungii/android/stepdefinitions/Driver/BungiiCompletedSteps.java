@@ -88,6 +88,6 @@ public class BungiiCompletedSteps extends DriverBase {
             testStepVerify.isTrue(totalTime.equalsIgnoreCase(tripTime+" mins") ||totalTime.equalsIgnoreCase(tripTime+" min"),"Total time should contains "+tripTime+" minute");
            // testStepVerify.isTrue(actualTotalDistance.equalsIgnoreCase(tripDistance),"Total Distance should be"+tripDistance);
             testStepVerify.isEquals(actualTotalDistance,tripDistance);*/
-            testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning be "+truncValue);
+            testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning be $"+truncValue);
         }
 }

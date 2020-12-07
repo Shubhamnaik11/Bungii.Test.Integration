@@ -199,7 +199,7 @@ public class BungiiCompleteSteps extends DriverBase {
         String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 
         Double expectedTotalCost = utility.bungiiCustomerCost(totalDistance, totalTime, promoValue, numberOfDriver);
-        String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
+        String truncValue = new DecimalFormat("0.00").format(expectedTotalCost);
         if (!truncValue.contains(".")) truncValue = truncValue + ".00";
         testStepVerify.isEquals(totalCost, "$" + String.valueOf(truncValue));
 

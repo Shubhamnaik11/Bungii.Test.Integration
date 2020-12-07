@@ -527,8 +527,9 @@ Feature: On Demand Bungii
     And Bungii Driver "completes Bungii"
     
   @ready
+    @ad6
       # Also Case Covered, Verify that the Estimated cost on the grey bar is updated on updating load/unload time and promo code
-  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
+  Scenario Outline: Verify Create and Complete ondemand bungii with Promo code :<Scenario>
     When I am on customer Log in page
     And I am logged in as "valid baltimore" customer
     And I Switch to "driver" application on "same" devices
@@ -566,7 +567,7 @@ Feature: On Demand Bungii
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And I Switch to "customer" application on "same" devices
-    Then Bungii customer should see "correct details with promoter" on Bungii completed page
+    Then Bungii customer should see "correct details with promo" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
     
