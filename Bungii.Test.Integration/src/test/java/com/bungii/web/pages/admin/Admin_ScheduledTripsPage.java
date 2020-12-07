@@ -7,6 +7,8 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Menu_ScheduledTrips () { return findElement("adminmenu-scheduledtrips", LocatorType.Id); }
 
+    public WebElement Menu_AllTrips () { return findElement("adminmenu-completedtrips", LocatorType.Id); }
+
     public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement Button_Submit () { return findElement("CustomerCancel", LocatorType.Name); }

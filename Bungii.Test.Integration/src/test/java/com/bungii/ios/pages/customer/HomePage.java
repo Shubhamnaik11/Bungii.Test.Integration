@@ -16,7 +16,8 @@ public class HomePage extends PageBase {
   //  public WebElement Button_ClearPickup(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following-sibling::XCUIElementTypeTextField/XCUIElementTypeButton", PageBase.LocatorType.XPath,ignoreException); }
 // public WebElement Button_ClearDrop() {return findElement("//XCUIElementTypeStaticText[@name=\"DROP OFF LOCATION\"]/following-sibling::XCUIElementTypeTextField/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
     //Sprint 29
-    public WebElement Button_ClearPickup(boolean ...ignoreException) {return findElement("input icon cancel", LocatorType.AccessibilityId,ignoreException); }
+    //public WebElement Button_ClearPickup(boolean ...ignoreException) {return findElement("input icon cancel", LocatorType.AccessibilityId,ignoreException); }
+    public WebElement Button_ClearPickup(boolean ...ignoreException) {return findElement("(//XCUIElementTypeButton[@name='input icon cancel'])[1]", PageBase.LocatorType.XPath,ignoreException); }
     public WebElement Button_ClearDrop() {return findElement("(//XCUIElementTypeButton[@name=\"input icon cancel\"])[2]", PageBase.LocatorType.XPath); }
 
 
