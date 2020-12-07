@@ -44,6 +44,7 @@ public class Admin_DriverRejectSteps extends DriverBase {
     @When("^I do not enter the reject reason$")
     public void i_do_not_enter_the_reject_reason() throws Throwable {
         admin_DriverVerificationPage.Textinput_ReasonforRejectDriverApplication().clear();
+        Thread.sleep(5000);
     }
 
     @And("^I check if \"([^\"]*)\" confirm action is shown$")
