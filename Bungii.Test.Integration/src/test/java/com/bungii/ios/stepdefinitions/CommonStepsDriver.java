@@ -8,6 +8,7 @@ import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.customer.EnableLocationPage;
+import com.bungii.ios.pages.customer.EnableNotificationPage;
 import com.bungii.ios.pages.driver.*;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
@@ -27,6 +28,7 @@ import static com.bungii.common.manager.ResultManager.*;
 public class CommonStepsDriver extends DriverBase {
     private static LogUtility logger = new LogUtility(CommonSteps.class);
     ActionManager action = new ActionManager();
+
     String Image_Solo = "bungii_type-solo", Image_Duo = "bungii_type-duo";
     private TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
     private BungiiCompletedPage driverBungiiCompletedPage= new BungiiCompletedPage();
@@ -35,21 +37,23 @@ public class CommonStepsDriver extends DriverBase {
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
     private ScheduledTripsPage scheduledTripsPage;
     private com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage;
-    private EnableLocationPage enableLocationPage;
+    //private EnableLocationPage enableLocationPage;
+    EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
+    EnableLocationPage enableLocationPage = new EnableLocationPage();
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
                        ScheduledTripsPage scheduledTripsPage,
                        BungiiRequestPage bungiiRequestPage,
                         com.bungii.ios.pages.driver.HomePage driverHomePage,
-                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage, com.bungii.ios.pages.customer.EnableLocationPage enableLocationPage) {
+                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage) {
 
         this.driverUpdateStatusPage = updateStatusPage;
         this.scheduledTripsPage = scheduledTripsPage;
         this.driverHomePage = driverHomePage;
         this.driverLoginPage=driverLoginPage;
         this.driverForgotPasswordPage=driverForgotPasswordPage;
-        this.enableLocationPage=enableLocationPage;
+        //this.enableLocationPage=enableLocationPage;
 
     }
 
@@ -354,11 +358,25 @@ public class CommonStepsDriver extends DriverBase {
         }
         navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
         if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
-            if (navigationBarName.equals("LOCATION"))
-            {
-                action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Always Allow");
+            try {
+                GeneralUtility utility = new GeneralUtility();
+                String pageName = utility.getPageHeader();
+                if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
+                    action.click(enableNotificationPage.Button_Sure());
+                    action.clickAlertButton("Allow");
+                    // pageName = utility.getPageHeader();
+                }
+                Thread.sleep(3000);
+                if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+                    action.click(enableLocationPage.Button_Sure());
+                    action.clickAlertButton("Always Allow");
+                    //pageName = utility.getPageHeader();
+                }
+
+            } catch (Exception e) {
+
             }
+
                 homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
         }
 

@@ -540,7 +540,7 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
             }
-            if (screen.equalsIgnoreCase("Driver Home")) {
+            else if (screen.equalsIgnoreCase("Driver Home")) {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
             }
