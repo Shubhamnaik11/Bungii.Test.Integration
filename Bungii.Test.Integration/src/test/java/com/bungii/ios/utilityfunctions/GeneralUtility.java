@@ -57,6 +57,8 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -1694,8 +1696,14 @@ catch (Exception e)
     public String getGmtTime(String time)
     {
         String gmtTime="";
-        if(time.contains("MDT")||time.contains("MST"))
-            gmtTime = time.replace("MDT","GMT-6").replace("MST","GMT-6");
+        if(time.contains("MDT")||time.contains("MST")) {
+            String Geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+            if (Geofence.equalsIgnoreCase("Denver")) {
+                gmtTime = time.replace("MDT", "GMT-7").replace("MST", "GMT-7");
+            } else {
+                gmtTime = time.replace("MDT", "GMT-6").replace("MST", "GMT-6");
+            }
+        }
         if(time.contains("CST")||time.contains("CDT")) {
             String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
             if(currentGeofence.equalsIgnoreCase("Chicago")||currentGeofence.equalsIgnoreCase("Nashville"))

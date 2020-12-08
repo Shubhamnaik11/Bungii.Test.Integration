@@ -29,6 +29,7 @@ Feature: Solo Scheduled Bungii Part II
     And I am on the "LOG IN" page on driverApp
     And I enter phoneNumber :9999998086 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii

@@ -10,6 +10,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
   
   @regression
+    #move to end
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -240,7 +241,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
   
-  @regression
+  @knownissue
   Scenario: Verify Customer Is Allowed To Rate Driver For Solo Trip
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -498,7 +499,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
 
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
-  @regression
+  #this scenario is move to knownissue from regression due to SSL error while adding the Credit card.
+  #@regression
+    @knownissue
   Scenario Outline: Verify Sign up of Customer With Referral Code
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
