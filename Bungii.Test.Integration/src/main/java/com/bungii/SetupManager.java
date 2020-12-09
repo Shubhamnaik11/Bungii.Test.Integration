@@ -406,13 +406,13 @@ public class SetupManager extends EventFiringWebDriver {
         }
 
         if(TARGET_PLATFORM.equalsIgnoreCase("IOS")){
-            capabilities.setCapability("app", PropertyUtility.getDataProperties("ios.driver.primary.app.key"));
-            String[] Arrary = new String[]{PropertyUtility.getDataProperties("ios.customer.secondary.app.key")};
+            capabilities.setCapability("app", PropertyUtility.getDataProperties("ios.primary.app.key"));
+            String[] Arrary = new String[]{PropertyUtility.getDataProperties("ios.secondary.app.key")};
             capabilities.setCapability("otherApps", Arrary );
 
         }else if(TARGET_PLATFORM.equalsIgnoreCase("ANDROID")){
-            capabilities.setCapability("app", PropertyUtility.getDataProperties("android.driver.primary.app.key"));
-            String[] Arrary = new String[]{PropertyUtility.getDataProperties("android.customer.secondary.app.key")};
+            capabilities.setCapability("app", PropertyUtility.getDataProperties("android.primary.app.key"));
+            String[] Arrary = new String[]{PropertyUtility.getDataProperties("android.secondary.app.key")};
             capabilities.setCapability("otherApps", Arrary );
         }
 
