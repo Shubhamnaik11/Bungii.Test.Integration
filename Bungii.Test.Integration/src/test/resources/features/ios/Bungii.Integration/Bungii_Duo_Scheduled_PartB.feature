@@ -78,7 +78,7 @@ Feature: Solo Scheduled Bungii Part II
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
-    Then I should be navigated to "HOME" screen
+    Then I should be navigated to "Driver Home" screen
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
@@ -102,7 +102,7 @@ Feature: Solo Scheduled Bungii Part II
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
-    Then I should be navigated to "HOME" screen
+    Then I should be navigated to "Driver Home" screen
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
@@ -127,7 +127,7 @@ Feature: Solo Scheduled Bungii Part II
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
-    Then I should be navigated to "HOME" screen
+    Then I should be navigated to "Driver Home" screen
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
@@ -153,7 +153,7 @@ Feature: Solo Scheduled Bungii Part II
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
-    Then I should be navigated to "HOME" screen
+    Then I should be navigated to "Driver Home" screen
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
