@@ -19,8 +19,8 @@ Feature: Service Level
     And I click "GET ESTIMATE" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "service level" on partner screen
-      |Items_To_Deliver|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
-      |Furniture       |Handle with care   |TestPP Customer |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
+      |Items_To_Deliver|Special_Instruction|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
+      |Furniture       |Handle with care   |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
