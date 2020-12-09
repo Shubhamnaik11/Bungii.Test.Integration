@@ -169,7 +169,7 @@ public class Partner_LoginSteps extends DriverBase {
                         String Db_Service_Name = Service_name.get(i).values().toString();
                         Db_Service_Name = Db_Service_Name.substring(1, Db_Service_Name.length() - 1);
                         String Xpath = "//span[contains(text(),'"+Db_Service_Name+"')]";
-                        String Display_Service_name= action.getElementByXPath(Xpath).getText();
+//                        String Display_Service_name= action.getElementByXPath(Xpath).getText();
                         testStepAssert.isElementDisplayed(action.getElementByXPath(Xpath),"Service Name:-"+Db_Service_Name+" should be shown","Service Name:-"+Db_Service_Name+" is shown","Service Name-"+Db_Service_Name+" is not shown");
                         //testStepVerify.isEquals(Display_Service_name, Db_Service_Name);
 
