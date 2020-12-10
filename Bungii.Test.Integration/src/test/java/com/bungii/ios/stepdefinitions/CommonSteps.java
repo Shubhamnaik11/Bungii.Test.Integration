@@ -974,13 +974,15 @@ public class CommonSteps extends DriverBase {
                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                     Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    appHeader = "Bungii Driver QAAuto";
+                    //appHeader = "Bungii Driver QAAuto";
+                    appHeader = PropertyUtility.getDataProperties("driver.app.name");
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader = "Bungii QAAuto";
+                    //appHeader = "Bungii QAAuto";
+                    appHeader = PropertyUtility.getDataProperties("customer.app.name");
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
                     break;
                 default:
@@ -1059,11 +1061,13 @@ public class CommonSteps extends DriverBase {
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    appHeader = "Bungii Driver QAAuto";
+                    //appHeader = "Bungii Driver QAAuto";
+                    appHeader = PropertyUtility.getDataProperties("driver.app.name");
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader = "Bungii QAAuto";
+                    //appHeader = "Bungii QAAuto";
+                    appHeader = PropertyUtility.getDataProperties("customer.app.name");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
