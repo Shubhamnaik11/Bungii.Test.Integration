@@ -68,6 +68,10 @@ public class EstimateSteps extends DriverBase {
             } else {
                 actualTime = action.getValueAttribute(estimatePage.Text_TimeValue());
                 isCorrectTime = actualTime.equals(strTime);
+                logger.detail("Expected Time is :"+strTime +" ||| Actual time is :"+actualTime);
+                testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
+                        "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
+                                + strTime + " | " + actualTime + " not matching with entered time ");
             }
 
             clickRequestBungii();
@@ -97,13 +101,9 @@ public class EstimateSteps extends DriverBase {
                     isAlertCorrect = verifyAndAcceptAlert(loadTime);
                 }
             }
-            logger.detail("Expected Time is :"+strTime +" ||| Actual time is :"+actualTime);
             testStepAssert.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
                     "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
 
-            testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
-                    "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
-                            + strTime + " | " + actualTime + " not matching with entered time ");
             utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

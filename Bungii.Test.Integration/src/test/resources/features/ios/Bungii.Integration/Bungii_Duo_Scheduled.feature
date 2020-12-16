@@ -8,7 +8,7 @@ Feature: To Test Duo - Scheduled Bungii
     #this scenario also include large image test case
 
   @sanity
-  Scenario: Verify Scheduling Of Duo Bungii As An iOS Customer and trip completion
+  Scenario: Verify Scheduled Duo Bungii completion As An iOS User
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -1075,7 +1075,6 @@ Feature: To Test Duo - Scheduled Bungii
       |                | CUSTOMER2_PHONE |
     
   @ready
-  @sanity
   Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request
 
     Given that duo schedule bungii is in progress
