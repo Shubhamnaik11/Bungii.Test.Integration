@@ -123,8 +123,8 @@ public class Admin_TripsSteps extends DriverBase {
         String oldtripEstimatedCount = (String)cucumberContextManager.getScenarioContext("TRIP_ESTIMATEDCOUNT");
 
         int reqCount = Integer.parseInt(oldtripRequestedCount) + 1;
-        testStepAssert.isEquals(tripRequestedCount, String.valueOf(reqCount), "Newer trip should reflect in Requested count", "Newer trip is reflected in Requested count", "Newer trip is not reflected in Requested count");
-        testStepAssert.isEquals(tripEstimatedCount, oldtripEstimatedCount, "Newer trip should reflect in Requested count", "Newer trip is reflected in Requested count", "Newer trip is not reflected in Requested count");
+        testStepAssert.isEquals(tripRequestedCount, String.valueOf(reqCount), "Newer trip should reflect in Requested count", "Newer trip is reflected in Requested count", "DATA SYNCH ISSUE | Newer trip is not reflected in Requested count");
+        testStepAssert.isEquals(tripEstimatedCount, oldtripEstimatedCount, "Newer trip should reflect in Requested count", "Newer trip is reflected in Requested count", "DATA SYNCH ISSUE | Newer trip is not reflected in Requested count");
         cucumberContextManager.setScenarioContext("XPATH", XPath);
     }
 
@@ -156,7 +156,7 @@ public class Admin_TripsSteps extends DriverBase {
         action.selectElementByText(admin_CustomerPage.Dropdown_TimeFrame(), "The Beginning of Time");
         Thread.sleep(5000);
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", tripType, customer, status);
-        testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed", "Trip is displayed", "Trip is not displayed");
+        testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed", "Trip is displayed", "DATA SYNCH ISSUE | Trip is not displayed");
     }
 
     @Then("^I should be able to see the business user requested bungii with the below status$")
@@ -325,7 +325,7 @@ public class Admin_TripsSteps extends DriverBase {
         catch(Exception e)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "DATA SYNCH ISSUE | Bungii is not displayed in Scheduled Delivery List",
                     true);
 
         }

@@ -14,14 +14,16 @@ Feature: Driver_RegistrationCompletion
     And I click Next on "Bank Details" page
 
   #@ready
-  @knownissue
+  #knownissue fixed
+  @regression
   Scenario: Verify Driver Application Terms And Conditions Form - Uncheck Terms On Exisiting Non Fountain Application
     When I uncheck "agree to the Terms and Conditions." checkbox
     And I click Next on "Terms & Conditions" page
     Then I should see blank fields validation on "Terms & Conditions" page
 
   #@ready
-  @knownissue
+  # knownissue fixed
+  @regression
   Scenario: Verify Driver Application Terms And Conditions Form - Check Terms On Exisiting Non Fountain Application
     When I click "I agree to the Terms and Conditions" on driver portal
     And I check "agree to the Terms and Conditions." checkbox

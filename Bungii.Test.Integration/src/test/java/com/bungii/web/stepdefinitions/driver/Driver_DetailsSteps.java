@@ -318,7 +318,7 @@ public class Driver_DetailsSteps extends DriverBase {
         int new_count = old_count + 1 ;
         String xpath = String.format("//p[contains(text(),'Total Trips')]/following-sibling::h3[contains(text(),'%s')]",new_count);
         Boolean isCountIncremented = action.waitForElement(xpath);
-        testStepAssert.isTrue(isCountIncremented == true,"Total Trip count should be incremented", "Total trip count is incremented", "Total trip count is not incremented");
+        testStepAssert.isTrue(isCountIncremented == true,"Total Trip count should be incremented", "Total trip count is incremented", "DATA SYNCH ISSUE | Total trip count is not incremented");
     }
 
     @When("^I click on calendar to select date range$")
