@@ -158,6 +158,7 @@ Feature: Customer Estimate screen
       And I request for  bungii for given pickup and drop location
         | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
         | Duo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
+    And I wait for 15 minutes slot overlap period if occurs
     And I click "Get Estimate" button on "Home" screen
     Then correct details next available scheduled time should be displayed
 

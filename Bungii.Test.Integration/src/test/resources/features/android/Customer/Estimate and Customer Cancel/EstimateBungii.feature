@@ -86,16 +86,17 @@ Feature: EstimateBungii
   #@regression
   @regression
   Scenario: Verify Next Available Scheduled Time In Correct Timezone Is Selected On Estimate Screen For Duo Scheduled Bungii
-    Given I am on customer Log in page
-    When I enter customers "8805368840" Phone Number
-    And I enter customers "valid" Password
-    And I tap on the "Log in" Button on Login screen
+    #Given I am on customer Log in page
+    #When I enter customers "8805368840" Phone Number
+    #And I enter customers "valid" Password
+    #And I tap on the "Log in" Button on Login screen
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
+    And I wait for 15 minutes slot overlap period if occursAnd
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened
     Then correct details next available scheduled time should be displayed
 
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 8805368840      |                 |
+    #Then I cancel all bungiis of customer
+    #  | Customer Phone  | Customer2 Phone |
+    #  | 8805368840      |                 |
