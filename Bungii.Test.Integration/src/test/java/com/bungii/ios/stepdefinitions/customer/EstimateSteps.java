@@ -922,6 +922,24 @@ public class EstimateSteps extends DriverBase {
         }
     }
 
+    @And("^I wait for 15 minutes slot overlap period if occurs$")
+    public void i_wait_for_15_minutes_slot_overlap_period_if_occurs() throws Throwable {
+        //throw new PendingException();
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        //int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        //calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        if(unroundedMinutes%15<=1);
+        {
+            Thread.sleep(120000);
+        }
+
+
+    }
+
     @Then("^correct details next available scheduled time should be displayed$")
     public void correct_details_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
