@@ -260,7 +260,7 @@ public class DbUtility extends DbContextManager {
 
 
         Max_Value_Min_Milenge = getDataFromMySqlMgmtServer(queryString);
-        logger.detail("Estimate Distance=  " + Max_Value_Min_Milenge + " of latest trip" );
+        logger.detail("Max Value Min Mileage =  " + Max_Value_Min_Milenge + " of latest trip" );
         return Max_Value_Min_Milenge;
 
     }

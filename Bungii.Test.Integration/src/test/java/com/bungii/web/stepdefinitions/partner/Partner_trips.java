@@ -223,7 +223,7 @@ public class Partner_trips extends DriverBase {
                 strTime = action.getText(Page_Partner_Dashboard.Pickup_Date());
                 break;
             case "Today+1":
-                action.click(Page_Partner_Dashboard.Pickup_date_Today_1());
+                action.click(Page_Partner_Dashboard.Pickup_date_Tomorrow());
                 strTime = action.getText(Page_Partner_Dashboard.Pickup_Date());
                 break;
             case "Today+2":

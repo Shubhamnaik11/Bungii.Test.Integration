@@ -34,7 +34,7 @@ Feature: Kiosk Mode
     And I click on "Continue" button on Kiosk Partner Portal
     Then I should "see validations message for blank password field" on Kiosk Partner Portal
 
-     @ready
+     @regression
   Scenario: Verify login to Partner portal configured with Kiosk mode can scheduled solo trip
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -69,7 +69,7 @@ Feature: Kiosk Mode
     And I should logout from Partner Portal
     #And I should logout from Kiosk Partner Portal
 
-    @ready
+    @regression
   Scenario: Verify login to Partner portal configured with Kiosk mode can scheduled duo trip
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
