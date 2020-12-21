@@ -92,7 +92,7 @@ Feature: EstimateBungii
     #And I tap on the "Log in" Button on Login screen
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
-    And I wait for 15 minutes slot overlap period if occursAnd
+    And I wait for 15 minutes slot overlap period if occurs
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened
     Then correct details next available scheduled time should be displayed
