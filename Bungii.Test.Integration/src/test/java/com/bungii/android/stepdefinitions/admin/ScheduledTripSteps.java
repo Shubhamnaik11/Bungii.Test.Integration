@@ -5,6 +5,7 @@ package com.bungii.android.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.web.manager.*;
@@ -16,6 +17,7 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.text.DateFormat;
@@ -359,11 +361,23 @@ public class ScheduledTripSteps extends DriverBase {
 
 			int rowNumber = getTripRowNumber(tripDetails);
 			// it takes max 2.5 mins to appear
-			for (int i = 0; i < 5 && rowNumber == 999; i++) {
+			for (int i = 0; i < 3 && rowNumber == 999; i++) {
 				Thread.sleep(30000);
 				SetupManager.getDriver().navigate().refresh();
                 scheduledTripsPage.waitForPageLoad();
 				rowNumber = getTripRowNumber(tripDetails);
+
+				if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") || PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
+					String currentKey = DriverManager.getCurrentKey();
+					if(DriverManager.driverArray.size()>1) {
+						for (Map.Entry<String, WebDriver> entry : DriverManager.driverArray.entrySet()) {
+							entry.getValue().getPageSource();
+							logger.detail("Pinging : "+ entry.getKey());
+						}
+						DriverManager.driverArray.get(currentKey).getPageSource();
+						//Ping all instances to keep them running in browserstack, used in duo scenarioss
+					}
+				}
 			}
 			String pickupRequestOld = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
 			WebElement editButton;
@@ -953,7 +967,7 @@ public class ScheduledTripSteps extends DriverBase {
 				int t=Integer.parseInt(time);
 				int t1=01;
 				t=t-t1;
-				if(t>0 && t<10){
+				if(t>=0 && t<10){
 					t2="0"+t;
 				}
 				newTime=t2+newTime.substring(2,8);
