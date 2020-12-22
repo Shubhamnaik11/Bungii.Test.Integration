@@ -5,8 +5,7 @@ Feature: Admin_OndemandTrips
     Given I am logged in as Admin
 
   @sanity
-  @regression
-    @failed
+  @ready
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
@@ -32,7 +31,7 @@ Feature: Admin_OndemandTrips
     Then The Delivery List page should display the trip in "Payment Successful" state
 
   @sanity
-  @regression
+  @ready
     @failed
     #test data created in base
     #changed to "Solo Ondemand" from "Solo Scheduled"

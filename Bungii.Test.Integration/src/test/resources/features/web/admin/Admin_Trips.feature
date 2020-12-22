@@ -5,8 +5,7 @@ Feature: Admin_Trips
     Given I am logged in as Admin
 
   @sanity
-  @regression
-    @failed
+  @ready
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -33,8 +32,7 @@ Feature: Admin_Trips
     Then The Delivery List page should display the delivery in "Payment Successful" state
 
   @sanity
-  @regression
-    @failed
+  @ready
   Scenario: Verify Cancellation of Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                  |
@@ -102,9 +100,7 @@ Feature: Admin_Trips
     And The first time promo code should get released
 
   @sanity
-  @regression
-  @email
-    @failed
+  @ready
     #test data created in base
   Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -168,7 +164,7 @@ Feature: Admin_Trips
     And Customer should receive "Your Bungii Receipt" email
 
   @sanity
-  @regression
+  @ready
         #test data created in base (need to update driver geofence)
   Scenario: Verify Editing and Removal of driver from Duo Scheduled Trip Started By Non Controlled Driver
     When I request "duo" Bungii as a customer in "washingtondc" geofence
@@ -198,7 +194,7 @@ Feature: Admin_Trips
       |  Status |
       | Driver Removed|
 
-  @regression
+  @ready
     #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Solo Scheduled Trip
     And I note the Trip Requested count of Customer "Jerome Seinfield"
@@ -210,7 +206,7 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Jerome Seinfield"
     Then Trip should be listed in the grid
 
-  @regression
+  @ready
       #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Duo Scheduled Trip
     And I note the Trip Requested count of Customer "Krishna Hoderker"

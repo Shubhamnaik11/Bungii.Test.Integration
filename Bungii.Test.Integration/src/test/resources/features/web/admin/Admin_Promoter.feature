@@ -19,8 +19,7 @@ Feature: Admin_Promoter
     Then the promoter "PT<<Unique>>" is displayed in the Promocodes grid
 
   @sanity
-  @regression
-  @failedT
+  @ready
   Scenario: Verify Adding Promotion To Promoter And Adding Promocodes to Promotion
     When I click on the "New Partners" Button
     And I enter following values in fields in "Add New Partner" popup
