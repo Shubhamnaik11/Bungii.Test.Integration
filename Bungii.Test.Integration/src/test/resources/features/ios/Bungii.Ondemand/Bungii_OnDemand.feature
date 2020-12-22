@@ -232,7 +232,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid nashville" user
+#   And I logged in Customer application using  "valid nashville" user
+    And I logged in as "valid nashville" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     Then ratting should be correctly displayed on Bungii progress page
