@@ -56,6 +56,7 @@ public class SetupManager extends EventFiringWebDriver {
     private static String TARGET_PLATFORM;
     private static AppiumDriverLocalService service = null;
     private static String BrowserStackLocal;
+    private static String browserStackOSVersion;
 
     static {
         TARGET_PLATFORM = PropertyUtility.getProp("target.platform");
@@ -393,6 +394,9 @@ public class SetupManager extends EventFiringWebDriver {
                         BrowserStackLocal = "false";
                     }
                 }
+                if (key.toString().equalsIgnoreCase("os_version")) {
+                    browserStackOSVersion = jsonCaps.get(key).toString();
+                }
                 if (key.toString().equalsIgnoreCase("deviceName")) {
                     phoneDetails += " " + jsonCaps.get(key).toString();
                 }
@@ -454,6 +458,10 @@ public class SetupManager extends EventFiringWebDriver {
 
     public static String BrowserStackLocal(){
         return BrowserStackLocal;
+    }
+
+    public static String getBrowserStackOSVersion() {
+        return browserStackOSVersion;
     }
 
     public void restartApp() {
