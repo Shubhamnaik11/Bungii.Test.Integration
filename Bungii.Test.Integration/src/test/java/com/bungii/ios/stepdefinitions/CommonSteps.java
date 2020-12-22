@@ -1232,7 +1232,14 @@ public class CommonSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-
+    @And("^I accept Alert message if exist$")
+    public void iAcceptAlertMessageIfExist() {
+        try {
+            if(action.isAlertPresent())
+            SetupManager.getDriver().switchTo().alert().accept();
+        } catch (Throwable e) {
+        }
+    }
     @And("^I reject Alert message$")
     public void iRejectAlertMessage() {
         try {

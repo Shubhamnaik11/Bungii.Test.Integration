@@ -1232,13 +1232,13 @@ public class EstimateSteps extends DriverBase {
 
         List<WebElement> genericStaticText = estimatePage.Text_GenericStaticText();
 
-        details[0] = action.getValueAttribute(genericStaticText.get(1)); //miles
+        details[0] = action.getValueAttribute(estimatePage.Text_DistValue()); //action.getValueAttribute(genericStaticText.get(1)); //miles
         //  details[0] = action.getValueAttribute(estimatePage.Text_DistanceValue());//2
-        details[1] = action.getValueAttribute(genericStaticText.get(13));//Now
+        details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());//action.getValueAttribute(genericStaticText.get(10));//Now  from 13 index moved to 10
         //   details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());//11
-        details[2] = action.getValueAttribute(genericStaticText.get(5));//amount
+        details[2] = action.getValueAttribute(estimatePage.Text_AmountValue()); //action.getValueAttribute(genericStaticText.get(5));//amount
         //    details[2] = action.getValueAttribute(estimatePage.Text_EstimateValue());//6
-        details[3] = action.getValueAttribute(genericStaticText.get(14));//mins
+        details[3] = action.getValueAttribute(estimatePage.Text_DurationValue()); //action.getValueAttribute(genericStaticText.get(12));//mins from 14 index moved to 12
         //   details[3] = action.getValueAttribute(estimatePage.Text_LoadUnLoadTimeValue());//10
         return details;
     }

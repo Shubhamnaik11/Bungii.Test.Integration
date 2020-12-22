@@ -90,13 +90,24 @@ public class EstimatePage extends PageBase {
 
     public WebElement Text_TimeValue() {
      //   return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
-        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[14]", LocatorType.ClassChain);
+        return findElement("//XCUIElementTypeStaticText[@value='Pickup Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
     }
+
+    public WebElement Text_DistValue() {
+        return findElement("//XCUIElementTypeStaticText[@value='DISTANCE']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+    }
+    public WebElement Text_AmountValue() {
+        return findElement("//XCUIElementTypeStaticText[@value='ESTIMATED COST']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+    }
+
+
+
 
     public List<WebElement> Text_GenericStaticText() {
         //   return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
         return findElements("**/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.ClassChain);
     }
+
 
     public WebElement Button_InfoLoadingTime() {
         return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
@@ -119,7 +130,7 @@ public class EstimatePage extends PageBase {
         return findElement("//XCUIElementTypeButton[contains(@name,'check box')]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
     }
     public WebElement Text_DurationValue() {
-        return findElement("//XCUIElementTypeStaticText[@name=\"ESTIMATED DURATION\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='ESTIMATED DURATION']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
     }
 //XCUIElementTypeStaticText[@name="ESTIMATED DURATION"]
 
