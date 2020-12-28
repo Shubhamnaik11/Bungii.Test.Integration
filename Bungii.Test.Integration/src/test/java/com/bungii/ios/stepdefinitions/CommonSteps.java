@@ -2419,6 +2419,9 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    /*
+    This method is rewritten for using in some scenarios for logging in as particular geofence customer.
+     */
     @And("^I logged in as \"([^\"]*)\" customer$")
     public void i_logged_in_as_something_customer(String key) throws Throwable {
         try {

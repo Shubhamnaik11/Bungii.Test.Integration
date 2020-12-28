@@ -792,7 +792,7 @@ public class HomeSteps extends DriverBase {
      *
      * @param location : Location value that is to be entered in textbox
      */
-    public void selectPickUpLocation(String location) {
+    public void selectPickUpLocation(String location) throws InterruptedException {
 
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
@@ -804,6 +804,7 @@ public class HomeSteps extends DriverBase {
 
         action.tapByElement(homePage.TextBox_Pickup());
         action.clearEnterText(homePage.TextBox_Pickup(), location);
+        Thread.sleep(5000);
         action.click(homePage.Link_PickUpSuggestion());
         //  action.hideKeyboard();
         try {
@@ -830,11 +831,12 @@ public class HomeSteps extends DriverBase {
      *
      * @param location Location value that is to be entered in textbox
      */
-    public void selectDropLocation(String location) {
+    public void selectDropLocation(String location) throws InterruptedException {
 
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
         action.clearEnterText(homePage.TextBox_Drop(), location);
+        Thread.sleep(5000);
         action.click(homePage.Link_DropSuggestion());
         //	hideKeyboard();
         // Click(BUTTON_SET);

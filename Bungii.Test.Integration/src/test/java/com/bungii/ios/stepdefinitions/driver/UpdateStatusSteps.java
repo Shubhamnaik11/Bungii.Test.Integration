@@ -348,7 +348,8 @@ public class UpdateStatusSteps extends DriverBase {
     private void validateCallButtonAction() {
         String iosVersion ="";
         if(SetupManager.BrowserStackLocal().equalsIgnoreCase("true")){
-            iosVersion = SetupManager.getBrowserStackOSVersion();
+//            iosVersion = SetupManager.getBrowserStackOSVersion();
+            iosVersion =  ((IOSDriver) SetupManager.getDriver()).getCapabilities().getCapability("os_version").toString();
             action.waitForAlert();
         } else {
             iosVersion = ((IOSDriver) SetupManager.getDriver()).getCapabilities().getCapability("platformVersion").toString();
