@@ -34,7 +34,8 @@ Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually End
 
 When I Switch to "customer" application on "same" devices
 And I am on the "LOG IN" page
-And I logged in Customer application using  "valid miami 2" user
+#And I logged in Customer application using  "valid miami 2" user
+And I logged in as "valid miami 2" customer
   And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   And I close "Tutorial" if exist
   
@@ -171,8 +172,8 @@ And I click "On To The Next One" button on "Bungii Completed" screen
   Scenario: Verify Promo Type Promocode Is Correctly Applied After Manually Ending Bungii
 	
 	And I am on the "LOG IN" page
-	And I logged in Customer application using  "valid miami" user
-	
+#	And I logged in Customer application using  "valid miami" user
+    And I logged in as "valid miami" customer
 	And I Switch to "driver" application on "same" devices
 	And I am on the "LOG IN" page on driverApp
 	And I am logged in as "valid miami" driver
@@ -250,8 +251,9 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	
 	When I Switch to "customer" application on "same" devices
 	And I am on the "LOG IN" page
-	And I logged in Customer application using  "valid miami" user
-	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+#	And I logged in Customer application using  "valid miami" user
+    And I logged in as "valid miami" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I close "Tutorial" if exist
 	
 	And I Switch to "driver" application on "same" devices

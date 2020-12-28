@@ -253,18 +253,20 @@ public class PromoSteps extends DriverBase {
      */
     public String addUniquePromoCode(List<String> newCode) {
         List<String> availableCode = getListOfAvailablePromoCode();
-
-        ArrayList<String> uniques = new ArrayList<String>(newCode);
-        uniques.removeAll(availableCode);
         String validCode = "";
-        validCode = uniques.get(0);
+        ArrayList<String> uniques = new ArrayList<String>(newCode);
+        if(uniques.contains(availableCode)) {
+            uniques.removeAll(availableCode);
+
+            validCode = uniques.get(0);
 /*        promosPage.TextBox_EnterCode().clear();
         promosPage.TextBox_EnterCode().clearSendKeys(validCode);*/
 
-        action.clearEnterText(promosPage.TextBox_EnterCode(), validCode);
-
+            action.clearEnterText(promosPage.TextBox_EnterCode(), validCode);
+        } else {
+            validCode = uniques.get(0);
+        }
         return validCode;
-
     }
 
     /**

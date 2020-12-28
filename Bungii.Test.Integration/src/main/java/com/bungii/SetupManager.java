@@ -394,9 +394,9 @@ public class SetupManager extends EventFiringWebDriver {
                         BrowserStackLocal = "false";
                     }
                 }
-                if (key.toString().equalsIgnoreCase("os_version")) {
-                    browserStackOSVersion = jsonCaps.get(key).toString();
-                }
+//                if (key.toString().equalsIgnoreCase("os_version")) {
+//                    browserStackOSVersion = jsonCaps.get(key).toString();
+//                }
                 if (key.toString().equalsIgnoreCase("deviceName")) {
                     phoneDetails += " " + jsonCaps.get(key).toString();
                 }
@@ -458,10 +458,6 @@ public class SetupManager extends EventFiringWebDriver {
 
     public static String BrowserStackLocal(){
         return BrowserStackLocal;
-    }
-
-    public static String getBrowserStackOSVersion() {
-        return browserStackOSVersion;
     }
 
     public void restartApp() {

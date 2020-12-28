@@ -474,7 +474,7 @@ Feature: Solo Scheduled Bungii Part II
     Then user is alerted for "OUTSIDE BUISSNESS HOUR"
 
   @regression
-  Scenario: Verify Customer Doesnt Receives Notification When Duo Scheduled Bungii Is Requested At A Time Outside Working Hours
+  Scenario: Verify Customer Receives Alert When Duo Scheduled Bungii Is Requested At A Time Outside Working Hours
     #When I am on the "LOG IN" page
     #And I logged in Customer application using  "valid denver" user
     Given I login as "valid denver" customer and on Home page
