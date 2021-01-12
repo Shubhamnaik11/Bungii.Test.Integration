@@ -132,7 +132,7 @@ public class GeneralUtility extends DriverBase {
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))
             adminURL = PropertyUtility.getDataProperties("dev.admin.url");
-        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO"))
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")|| environment.equalsIgnoreCase("QA_AUTO_AWS"))
             adminURL = PropertyUtility.getDataProperties("qa.admin.url");
         if (environment.equalsIgnoreCase("STAGE"))
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");
@@ -877,7 +877,8 @@ catch(Exception ex)
                     while(retry>0) {
                         //((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                        appHeader = "Bungii Driver QAAuto";
+                        //appHeader = "Bungii Driver QAAuto";
+                        appHeader = PropertyUtility.getDataProperties("driver.app.name");
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Driver"));
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Driver") + " | App State : " + appstate);
@@ -932,7 +933,8 @@ catch(Exception ex)
                     while(retry1>0) {
                        // ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader = "Bungii QAAuto";
+                    //appHeader = "Bungii QAAuto";
+                    appHeader = PropertyUtility.getDataProperties("customer.app.name");
                         ApplicationState state = ((IOSDriver) SetupManager.getDriver()).queryAppState(PropertyUtility.getProp("bundleId_Customer"));
                         appstate = state.toString();
                         logger.detail("Switched To App : " + PropertyUtility.getProp("bundleId_Customer") + " | App State : " + appstate1);

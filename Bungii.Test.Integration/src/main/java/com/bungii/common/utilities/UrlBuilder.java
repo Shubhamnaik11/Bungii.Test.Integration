@@ -40,7 +40,12 @@ public class UrlBuilder {
                     basePort = PropertyUtility.getDataProperties("WEBCORE_PORT");
                     break;
             }
-            String urlString = protocol + "://" + baseUrl + ":" + basePort+endpoint;
+            String urlString="";
+            if(basePort.equalsIgnoreCase("0000")) {
+                urlString = protocol + "://" + baseUrl + ":" + endpoint;
+            }else{
+                urlString = protocol + "://" + baseUrl + ":" + basePort + endpoint;
+            }
             return urlString;
         } catch (Exception e) {
             throw new RuntimeException(e);

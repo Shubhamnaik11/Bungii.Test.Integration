@@ -1940,7 +1940,7 @@ Thread.sleep(5000);
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))
             adminURL = PropertyUtility.getDataProperties("dev.admin.url");
-        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO"))
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")|| environment.equalsIgnoreCase("QA_AUTO_AWS"))
             adminURL = PropertyUtility.getDataProperties("qa.admin.url");
         if (environment.equalsIgnoreCase("STAGE"))
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");

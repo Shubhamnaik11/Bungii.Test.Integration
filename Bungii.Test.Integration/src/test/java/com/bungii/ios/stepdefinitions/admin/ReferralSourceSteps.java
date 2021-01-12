@@ -53,7 +53,7 @@ public class ReferralSourceSteps extends DriverBase {
             switch (expected.toLowerCase()) {
                 case "increase by 1":
 
-                    testStepVerify.isTrue(Integer.parseInt(referralInfo[0]) == (Integer.parseInt(numberOfAccount) + 1), "account created info for " + source + " should be :" + referralInfo[0], "Previous account created info for " + source + "was :" + numberOfAccount + " and new is :" + referralInfo[0], "Previous account created info for " + source + "was :" + numberOfAccount + " and new is :" + referralInfo[0]);
+                    testStepVerify.isTrue(Integer.parseInt(referralInfo[0]) == (Integer.parseInt(numberOfAccount) + 1), "account created info for " + source + " should be :" + referralInfo[0], "Previous account created info for " + source + "was :" + numberOfAccount + " and new is :" + referralInfo[0], "DATA SYNCH ISSUE | Previous account created info for " + source + "was :" + numberOfAccount + " and new is :" + referralInfo[0]);
                     testStepVerify.isFalse(referralInfo[1].equalsIgnoreCase(percentageOfAccount), "Percentage of account created info for " + source + " should not be :" + percentageOfAccount, "Previous percentege account created info for " + source + "was :" + percentageOfAccount + " and new is :" + referralInfo[1], "Previous percentage account created info for " + source + "was :" + percentageOfAccount + " and new is :" + referralInfo[1]);
                     break;
 

@@ -7,7 +7,7 @@ Feature: Partner Duo Scheduled Trips
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
 
-  @regression
+  @ready
   Scenario: Verify that Partner portal can scheduled Duo bungii Trip
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -65,7 +65,7 @@ Feature: Partner Duo Scheduled Trips
     Then I should see "Estimated Cost"
     And I should logout from Partner Portal
 
-  @regression
+  @ready
   Scenario: Verify Cancellation of Duo Scheduled Trips
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

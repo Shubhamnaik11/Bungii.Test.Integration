@@ -56,6 +56,7 @@ public class SetupManager extends EventFiringWebDriver {
     private static String TARGET_PLATFORM;
     private static AppiumDriverLocalService service = null;
     private static String BrowserStackLocal;
+    private static String browserStackOSVersion;
 
     static {
         TARGET_PLATFORM = PropertyUtility.getProp("target.platform");
@@ -393,6 +394,9 @@ public class SetupManager extends EventFiringWebDriver {
                         BrowserStackLocal = "false";
                     }
                 }
+//                if (key.toString().equalsIgnoreCase("os_version")) {
+//                    browserStackOSVersion = jsonCaps.get(key).toString();
+//                }
                 if (key.toString().equalsIgnoreCase("deviceName")) {
                     phoneDetails += " " + jsonCaps.get(key).toString();
                 }
@@ -404,6 +408,18 @@ public class SetupManager extends EventFiringWebDriver {
                 }
             }
         }
+
+        if(TARGET_PLATFORM.equalsIgnoreCase("IOS")){
+            capabilities.setCapability("app", PropertyUtility.getDataProperties("ios.primary.app.key"));
+            String[] Arrary = new String[]{PropertyUtility.getDataProperties("ios.secondary.app.key")};
+            capabilities.setCapability("otherApps", Arrary );
+
+        }else if(TARGET_PLATFORM.equalsIgnoreCase("ANDROID")){
+            capabilities.setCapability("app", PropertyUtility.getDataProperties("android.primary.app.key"));
+            String[] Arrary = new String[]{PropertyUtility.getDataProperties("android.secondary.app.key")};
+            capabilities.setCapability("otherApps", Arrary );
+        }
+
         if (!System.getProperty("remoteAdbHost").trim().equals("") && TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())) {
             capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort", REMOTE_ADB_PORT);

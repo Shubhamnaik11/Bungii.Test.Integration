@@ -7,7 +7,7 @@ Feature: Admin_Promocodes
     Then I should be directed to "Standard Codes Page"
 
   @sanity
-  @regression
+  @ready
   Scenario: Verify Add New Promocode of Type Promo
     When I click on the "New Code" Button
     And I enter following values in fields

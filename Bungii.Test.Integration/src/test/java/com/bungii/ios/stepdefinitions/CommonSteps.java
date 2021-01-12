@@ -974,13 +974,15 @@ public class CommonSteps extends DriverBase {
                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                     Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    appHeader = "Bungii Driver QAAuto";
+                    //appHeader = "Bungii Driver QAAuto";
+                    appHeader = PropertyUtility.getDataProperties("driver.app.name");
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     Thread.sleep(5000);
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader = "Bungii QAAuto";
+                    //appHeader = "Bungii QAAuto";
+                    appHeader = PropertyUtility.getDataProperties("customer.app.name");
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
                     break;
                 default:
@@ -1059,11 +1061,13 @@ public class CommonSteps extends DriverBase {
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    appHeader = "Bungii Driver QAAuto";
+                    //appHeader = "Bungii Driver QAAuto";
+                    appHeader = PropertyUtility.getDataProperties("driver.app.name");
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader = "Bungii QAAuto";
+                    //appHeader = "Bungii QAAuto";
+                    appHeader = PropertyUtility.getDataProperties("customer.app.name");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -1228,7 +1232,14 @@ public class CommonSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-
+    @And("^I accept Alert message if exist$")
+    public void iAcceptAlertMessageIfExist() {
+        try {
+            if(action.isAlertPresent())
+            SetupManager.getDriver().switchTo().alert().accept();
+        } catch (Throwable e) {
+        }
+    }
     @And("^I reject Alert message$")
     public void iRejectAlertMessage() {
         try {
@@ -2412,6 +2423,114 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error in navigating to admin portal ",
                     true);
+        }
+    }
+
+    /*
+    This method is rewritten for using in some scenarios for logging in as particular geofence customer.
+     */
+    @And("^I logged in as \"([^\"]*)\" customer$")
+    public void i_logged_in_as_something_customer(String key) throws Throwable {
+        try {
+            String NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
+            String userName = "", password = "";
+            switch (key.toLowerCase()) {
+                case "existing":
+                    userName = PropertyUtility.getDataProperties("customer.user");
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "existing app user":
+                    userName = PropertyUtility.getDataProperties("customer.user.hasTrip");
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name.hasTrip"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case"newly created user":
+                    userName = (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "new":
+                    userName = PropertyUtility.getDataProperties("new.customer.user");
+                    password = PropertyUtility.getDataProperties("new.customer.password");
+                    break;
+                case "referral":
+                    userName = PropertyUtility.getDataProperties("referral.customer.phone");
+                    password = PropertyUtility.getDataProperties("referral.customer.password");
+                    break;
+                case "customer-duo":
+                    userName = PropertyUtility.getDataProperties("customer.phone.usedin.duo");
+                    password = PropertyUtility.getDataProperties("customer.password.usedin.duo");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid miami":
+                    userName = PropertyUtility.getDataProperties("miami.customer.phone");
+                    password = PropertyUtility.getDataProperties("miami.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("miami.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid miami 2":
+                    userName = PropertyUtility.getDataProperties("miami.customer2.phone");
+                    password = PropertyUtility.getDataProperties("miami.customer2.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("miami.customer2.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid nashville":
+                    userName = PropertyUtility.getDataProperties("nashville.customer.phone");
+                    password = PropertyUtility.getDataProperties("nashville.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid nashville first time":
+                    userName = PropertyUtility.getDataProperties("nashville.common.customer.phone");
+                    password = PropertyUtility.getDataProperties("nashville.common.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.common.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver":
+                    userName = PropertyUtility.getDataProperties("denver.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid customer2":
+                    userName = PropertyUtility.getDataProperties("customer.phone.usedin.duo");
+                    password = PropertyUtility.getDataProperties("customer.password.usedin.duo");
+                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", userName);
+                    break;
+                case "valid chicago":
+                    userName = PropertyUtility.getDataProperties("chicago.customer.phone");
+                    password = PropertyUtility.getDataProperties("chicago.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("chicago.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+            goToLogInPage(NavigationBarName);
+
+            LogInSteps logInSteps = new LogInSteps(loginPage);
+            logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
+            action.click(loginPage.Button_Login());
+
+            Thread.sleep(2000);
+
+            NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar(true));
+
+            if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+                new GeneralUtility().navigateFromTermToHomeScreen();
+            }
+            //  new GeneralUtility().logCustomerDeviceToken(userName);
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 }

@@ -187,7 +187,7 @@ Feature: Admin_Geofence
     And I click on the "Save" Button on "GeofenceAttributes" Screen
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
 
-    @regression
+    @ready
     Scenario:Verify setting driver-bungii cuts for geofence
       When I click on the geofence "Boston"
       And I click on the "Settings" Button on "Geofence" Screen

@@ -13,7 +13,7 @@ Feature: Driver_BankDetails
     And I click Next on "Documentation" page
 
 
-  @ready
+  @regression
   Scenario: Verify Driver Application Bank Details Form - Invalid Data Validations On Exisiting Non Fountain Application
     When I click Next on "Bank Details" page
     Then I should see blank fields validation on "Bank Details" page

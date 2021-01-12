@@ -4,6 +4,7 @@ Feature: Customer Login
 
   Background:
     Given I am on the "LOG IN" page
+    And I accept Alert message if exist
 
   @regression
   Scenario Outline: Verify Customer Cannot Login To Application Using Invalid Details - Scenario:<Scenario>

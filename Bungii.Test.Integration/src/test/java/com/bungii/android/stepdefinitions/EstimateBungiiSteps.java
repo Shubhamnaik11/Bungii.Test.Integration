@@ -64,6 +64,24 @@ public class EstimateBungiiSteps extends DriverBase {
     ScheduledBungiisPage scheduledBungiisPage = new ScheduledBungiisPage();
     private String[] loadTimeValue = {"15 mins", "30 mins", "45 mins", "60 mins", "75 mins", "90+ mins"};
 
+    @And("^I wait for 15 minutes slot overlap period if occurs$")
+    public void i_wait_for_15_minutes_slot_overlap_period_if_occurs() throws Throwable {
+        //throw new PendingException();
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        //int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        //calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        if(unroundedMinutes%15<=1);
+        {
+            Thread.sleep(120000);
+        }
+
+
+    }
+
     @When("^I tap on \"([^\"]*)\" on Bungii estimate$")
     public void iTapOnOnBungiiEstimate(String arg0) throws Throwable {
         try {
@@ -1314,7 +1332,7 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
                         "I should able to to select " + loadTimeValue[i] + " as load time",
                         "I was able to to select " + loadTimeValue[i] + " as load time",
                         "I was not able to to select " + loadTimeValue[i] + " as load time");
-
+                Thread.sleep(1000);
                 String newEstimateValue = action.getText(bungiiEstimatePage.Text_TotalEstimate());
                 Thread.sleep(2000);
 /*                if (i == 0)

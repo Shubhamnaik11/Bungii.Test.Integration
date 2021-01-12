@@ -56,7 +56,7 @@ public class GeneralUtility extends DriverBase {
         String partnerURL = null;
         cucumberContextManager.setScenarioContext("SiteUrl",PP_Site);
         String environment =PropertyUtility.getProp("environment");
-        if(environment.equalsIgnoreCase("QA_AUTO")){
+        if(environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS")){
             if(PP_Site.equalsIgnoreCase("normal")){
                 partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
             }else if(PP_Site.equalsIgnoreCase("service level")){
@@ -73,7 +73,7 @@ public class GeneralUtility extends DriverBase {
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))
             driverURL = PropertyUtility.getDataProperties("dev.driver.url");
-        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO"))
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS"))
             driverURL = PropertyUtility.getDataProperties("qa.driver.url");
         if (environment.equalsIgnoreCase("STAGE"))
             driverURL = PropertyUtility.getDataProperties("stage.driver.url");
@@ -85,7 +85,7 @@ public class GeneralUtility extends DriverBase {
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))
             adminURL = PropertyUtility.getDataProperties("dev.admin.url");
-        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO"))
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS"))
             adminURL = PropertyUtility.getDataProperties("qa.admin.url");
         if (environment.equalsIgnoreCase("STAGE"))
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");

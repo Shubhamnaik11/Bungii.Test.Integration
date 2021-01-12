@@ -68,6 +68,10 @@ public class EstimateSteps extends DriverBase {
             } else {
                 actualTime = action.getValueAttribute(estimatePage.Text_TimeValue());
                 isCorrectTime = actualTime.equals(strTime);
+                logger.detail("Expected Time is :"+strTime +" ||| Actual time is :"+actualTime);
+                testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
+                        "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
+                                + strTime + " | " + actualTime + " not matching with entered time ");
             }
 
             clickRequestBungii();
@@ -97,13 +101,9 @@ public class EstimateSteps extends DriverBase {
                     isAlertCorrect = verifyAndAcceptAlert(loadTime);
                 }
             }
-            logger.detail("Expected Time is :"+strTime +" ||| Actual time is :"+actualTime);
             testStepAssert.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
                     "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
 
-            testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
-                    "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
-                            + strTime + " | " + actualTime + " not matching with entered time ");
             utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -922,6 +922,24 @@ public class EstimateSteps extends DriverBase {
         }
     }
 
+    @And("^I wait for 15 minutes slot overlap period if occurs$")
+    public void i_wait_for_15_minutes_slot_overlap_period_if_occurs() throws Throwable {
+        //throw new PendingException();
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        //int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        //calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        if(unroundedMinutes%15<=1);
+        {
+            Thread.sleep(120000);
+        }
+
+
+    }
+
     @Then("^correct details next available scheduled time should be displayed$")
     public void correct_details_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
@@ -1214,13 +1232,13 @@ public class EstimateSteps extends DriverBase {
 
         List<WebElement> genericStaticText = estimatePage.Text_GenericStaticText();
 
-        details[0] = action.getValueAttribute(genericStaticText.get(1)); //miles
+        details[0] = action.getValueAttribute(estimatePage.Text_DistValue()); //action.getValueAttribute(genericStaticText.get(1)); //miles
         //  details[0] = action.getValueAttribute(estimatePage.Text_DistanceValue());//2
-        details[1] = action.getValueAttribute(genericStaticText.get(13));//Now
+        details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());//action.getValueAttribute(genericStaticText.get(10));//Now  from 13 index moved to 10
         //   details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());//11
-        details[2] = action.getValueAttribute(genericStaticText.get(5));//amount
+        details[2] = action.getValueAttribute(estimatePage.Text_AmountValue()); //action.getValueAttribute(genericStaticText.get(5));//amount
         //    details[2] = action.getValueAttribute(estimatePage.Text_EstimateValue());//6
-        details[3] = action.getValueAttribute(genericStaticText.get(14));//mins
+        details[3] = action.getValueAttribute(estimatePage.Text_DurationValue()); //action.getValueAttribute(genericStaticText.get(12));//mins from 14 index moved to 12
         //   details[3] = action.getValueAttribute(estimatePage.Text_LoadUnLoadTimeValue());//10
         return details;
     }

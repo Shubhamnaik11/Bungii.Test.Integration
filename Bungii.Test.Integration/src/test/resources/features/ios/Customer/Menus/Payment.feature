@@ -40,7 +40,7 @@ Feature: Payment page
       | ValidCard Discover | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
       #| ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
     
-  @ready
+  @regression
   Scenario: Verify Customer Can Change Default Payment Card
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen

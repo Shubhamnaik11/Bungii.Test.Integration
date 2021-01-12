@@ -652,6 +652,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                      DiscountValue = dataMap.get("Discount Value").trim();
                      DiscountCategory = dataMap.get("Discount Category").trim();
                     Date today = new Date();
+                    
                     Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
                     DateFormat dateFormatFetch = new SimpleDateFormat("MMM dd, yyyy");
                     DateFormat dateFormatInput = new SimpleDateFormat("MM/dd/yyyy");

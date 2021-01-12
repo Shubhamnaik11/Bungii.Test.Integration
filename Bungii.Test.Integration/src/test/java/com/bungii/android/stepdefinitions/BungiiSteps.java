@@ -1114,9 +1114,9 @@ public class BungiiSteps extends DriverBase {
         try {
             long initialTime;
             if (strArg1.equalsIgnoreCase("current"))
-                initialTime = Long.parseLong((String)cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME"));
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME");
             else
-                initialTime = Long.parseLong((String) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1));
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
             long currentTime = System.currentTimeMillis() / 1000L;
             long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
             if (diffInMinutes > 5) {

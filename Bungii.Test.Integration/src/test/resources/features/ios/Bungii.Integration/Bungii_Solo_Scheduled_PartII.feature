@@ -6,10 +6,85 @@ Feature: Solo Scheduled Bungii Part II
   Background:
     #When I clear all notification
     When I Switch to "customer" application on "same" devices
-
-  @FAILED2702
-  @regression
+  
   @sanity
+  Scenario: Verify Scheduled Solo Bungii completion As An iOS User
+    
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Accepted     | NEXT_POSSIBLE |
+    
+    Given I login as "valid denver" customer and on Home page
+    And I login as "valid denver" driver on "same" device and make driver status as "Online"
+    
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I should be navigated to "BUNGII DETAILS" screen
+    When I wait for Minimum duration for Bungii Start Time
+    
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" trip status screen
+    And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+    
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "EN ROUTE" trip status screen
+    And Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "ARRIVED" trip status screen
+    And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+    
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "ARRIVED" trip status screen
+    And Trip Information should be correctly displayed on "ARRIVED" status screen for customer
+   
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "ARRIVED" Screen
+    Then I should be navigated to "LOADING ITEM" trip status screen
+    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
+   
+    
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "LOADING ITEM" trip status screen
+    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "LOADING ITEM" Screen
+    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
+    
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
+   
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    Then I should be navigated to "UNLOADING ITEM" trip status screen
+    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
+   
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I should be navigated to "Bungii Completed" screen
+    
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details" on Bungii completed page
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+    
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+    
+  @regression
   Scenario: Verify Details Of Solo Schedule Bungii
 
     Given that solo schedule bungii is in progress
@@ -399,7 +474,7 @@ Feature: Solo Scheduled Bungii Part II
     Then user is alerted for "OUTSIDE BUISSNESS HOUR"
 
   @regression
-  Scenario: Verify Customer Doesnt Receives Notification When Duo Scheduled Bungii Is Requested At A Time Outside Working Hours
+  Scenario: Verify Customer Receives Alert When Duo Scheduled Bungii Is Requested At A Time Outside Working Hours
     #When I am on the "LOG IN" page
     #And I logged in Customer application using  "valid denver" user
     Given I login as "valid denver" customer and on Home page

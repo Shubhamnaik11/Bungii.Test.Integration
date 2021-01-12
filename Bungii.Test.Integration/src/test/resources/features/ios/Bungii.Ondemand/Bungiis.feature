@@ -7,8 +7,7 @@ Feature: Bungiis
  
 @sanity
 @regression
-@ondemand
-Scenario: Verify Ondemand Bungii Completion
+Scenario: Verify Ondemand Bungii completion As An iOS User
 When I Switch to "driver" application on "same" devices
 And I login as "valid nashville" driver on "same" device and make driver status as "Online"
 

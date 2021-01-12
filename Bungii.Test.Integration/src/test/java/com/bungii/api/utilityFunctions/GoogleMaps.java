@@ -20,7 +20,9 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class GoogleMaps {
-    private static String DISTANCE_MATRIX_API = "https://maps.googleapis.com/maps/api/distancematrix/json";
+    //Move this hard coded value in the Data properties(during AWS environment)
+    //private static String DISTANCE_MATRIX_API = "https://maps.googleapis.com/maps/api/distancematrix/json";
+    private static String DISTANCE_MATRIX_API = PropertyUtility.getDataProperties("GOOGLE_DISTANCE_BASE_URL");
     private static LogUtility logger = new LogUtility(AuthServices.class);
 
     public int[] getDurationInTraffic(String[] driverCoordinate, String[] dropCoordinate, String[] stackPickupCoordinate) {
