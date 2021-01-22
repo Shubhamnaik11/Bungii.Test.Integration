@@ -346,9 +346,14 @@ public class UpdateStatusSteps extends DriverBase {
     }
 
     private void validateCallButtonAction() {
-
-        String iosVersion = ((IOSDriver) SetupManager.getDriver()).getCapabilities().getCapability("platformVersion").toString();
-
+        String iosVersion ="";
+        if(SetupManager.BrowserStackLocal().equalsIgnoreCase("true")){
+//            iosVersion = SetupManager.getBrowserStackOSVersion();
+            iosVersion =  ((IOSDriver) SetupManager.getDriver()).getCapabilities().getCapability("os_version").toString();
+            action.waitForAlert();
+        } else {
+            iosVersion = ((IOSDriver) SetupManager.getDriver()).getCapabilities().getCapability("platformVersion").toString();
+        }
         if (!iosVersion.startsWith("10.")) {
             action.waitForAlert();
             String actualMessage = action.getAlertMessage().replace("(", "").replace(")", "").replace(" ", "").replace("-", "")

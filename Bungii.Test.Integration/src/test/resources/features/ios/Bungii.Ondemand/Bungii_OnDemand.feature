@@ -18,7 +18,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
 	When I Switch to "customer" application on "same" devices
 	When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid nashville" user
+#    And I logged in Customer application using  "valid nashville" user
+    And I logged in as "valid nashville" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
 
@@ -75,7 +76,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
    # And I am on Customer logged in Home page
-    And I logged in Customer application using  "valid nashville" user
+#    And I logged in Customer application using  "valid nashville" user
+    And I logged in as "valid nashville" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
 
@@ -165,7 +167,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
    # And I am on Customer logged in Home page
-    And I logged in Customer application using  "valid nashville" user
+#    And I logged in Customer application using  "valid nashville" user
+    And I logged in as "valid nashville" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
@@ -232,7 +235,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid nashville" user
+#   And I logged in Customer application using  "valid nashville" user
+    And I logged in as "valid nashville" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     Then ratting should be correctly displayed on Bungii progress page
@@ -248,7 +252,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       | nashville | UNLOADING ITEM      |
 	When I Switch to "customer" application on "same" devices
 	When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid nashville" user
+#    And I logged in Customer application using  "valid nashville" user
+    And I logged in as "valid nashville" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
@@ -268,7 +273,6 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     
   @failed
   @ready
-
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
   
     #And I Switch to "driver" application on "same" devices
@@ -279,7 +283,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
-    When I logged in Customer application using  "<User>" user
+#    When I logged in Customer application using  "<User>" user
+    And I logged in as "<User>" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
