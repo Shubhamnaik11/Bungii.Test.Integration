@@ -670,6 +670,7 @@ public class GeneralUtility extends DriverBase {
 
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%DriverName%", driverName);
+                    s = s.replaceAll("ā€™", "'");
                     emailMessage += s;
                 }
 
