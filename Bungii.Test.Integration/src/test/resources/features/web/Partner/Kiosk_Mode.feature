@@ -72,7 +72,7 @@ Feature: Kiosk Mode
     And I should logout from Partner Portal
     #And I should logout from Kiosk Partner Portal
 
-    @ready
+    @regression
   Scenario: Verify login to Partner portal configured with Kiosk mode can scheduled duo trip
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal

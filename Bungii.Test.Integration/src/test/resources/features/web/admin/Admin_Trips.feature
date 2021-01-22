@@ -32,7 +32,7 @@ Feature: Admin_Trips
     Then The Delivery List page should display the delivery in "Payment Successful" state
 
   @sanity
-  @ready
+  @regression
   Scenario: Verify Cancellation of Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                  |
@@ -100,7 +100,7 @@ Feature: Admin_Trips
     And The first time promo code should get released
 
   @sanity
-  @ready
+  @regression
     #test data created in base
   Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -194,7 +194,7 @@ Feature: Admin_Trips
       |  Status |
       | Driver Removed|
 
-  @ready
+  @regression
     #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Solo Scheduled Trip
     And I note the Trip Requested count of Customer "Jerome Seinfield"
@@ -206,7 +206,7 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Jerome Seinfield"
     Then Trip should be listed in the grid
 
-  @ready
+  @regression
       #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Duo Scheduled Trip
     And I note the Trip Requested count of Customer "Krishna Hoderker"

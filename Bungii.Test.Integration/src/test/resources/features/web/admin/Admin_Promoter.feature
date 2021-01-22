@@ -19,7 +19,7 @@ Feature: Admin_Promoter
     Then the promoter "PT<<Unique>>" is displayed in the Promocodes grid
 
   @sanity
-  @ready
+  @regression
   Scenario: Verify Adding Promotion To Promoter And Adding Promocodes to Promotion
     When I click on the "New Partners" Button
     And I enter following values in fields in "Add New Partner" popup
@@ -80,7 +80,7 @@ Feature: Admin_Promoter
     Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed
     
 
-  @regression
+  @ready
   Scenario: Verify Promoter Grid Sort ASC DESC
     When I click on "Name" header "Ascending" on "Promoter" grid
     Then the "Partners" list should be sorted by "Ascending" order of "Name"

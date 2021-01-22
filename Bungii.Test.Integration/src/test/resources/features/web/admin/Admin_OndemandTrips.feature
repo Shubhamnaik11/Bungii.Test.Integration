@@ -31,8 +31,7 @@ Feature: Admin_OndemandTrips
     Then The Delivery List page should display the trip in "Payment Successful" state
 
   @sanity
-  @ready
-    @failed
+  @regression
     #test data created in base
     #changed to "Solo Ondemand" from "Solo Scheduled"
   Scenario: Verify Delivery List Status Updation For Solo Ondemand Pickup
