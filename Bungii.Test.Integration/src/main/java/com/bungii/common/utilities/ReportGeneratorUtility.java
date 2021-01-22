@@ -51,6 +51,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	private String tcName;
 	private String featureName;
     private String reason;
+	private String tags;
 	private boolean isTcVerifyFailed;
 
 	public ReportGeneratorUtility(String detailsFolderPath, String screenshotFolder, String miscFolder, String logFolder){
@@ -99,7 +100,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	        totalStr = totalStr.replaceAll("<!--LOGO.PATH-->",logoPath);
 			String session = (String) cucumberContextManager.getScenarioContext("SESSION");
 			if(session =="")
-				totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
+				totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName+" - Tags : "+tags+"");
             else
 			totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName+" | Session ID : "+session);
 	        totalStr = totalStr.replaceAll("<!--SUMARRY-->", Matcher.quoteReplacement(getLogDetails(summaryArray)));
@@ -122,13 +123,14 @@ public class ReportGeneratorUtility extends DriverBase {
 	 * Method that will be called before start of test case
 	 * @param tcName Name of test case 
 	 */
-	public void startTestCase(String tcName , String featureName) {
+	public void startTestCase(String tcName , String featureName , String tags) {
 		this.tcName = tcName.replace(",","");
 		this.featureName = featureName;
 		this.startTime = new Date();
 		this.isTcVerifyFailed=false;
 		this.testStepCount=0;
 		this.reason="";
+		this.tags= tags;
 		addTestCaseEntryInDetailsTable(tcName, featureName);
 		ThreadLocalStepDefinitionMatch.resetNumberOfSteps();
 	}

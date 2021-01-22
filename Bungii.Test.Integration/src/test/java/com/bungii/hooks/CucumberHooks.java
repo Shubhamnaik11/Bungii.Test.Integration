@@ -59,14 +59,14 @@ public class CucumberHooks {
 
     @Before
     public void beforeTest(Scenario scenario) throws InterruptedException {
-
+          scenario.getSourceTagNames().contains("web");
         logger.detail("**********************************************************************************");
         String[] rawFeature = scenario.getId().split("features/")[1].split("/");
         String[] rawFeatureName = rawFeature[rawFeature.length - 1].split(":");
-
-        logger.detail("FEATURE : " + rawFeatureName[0]);
+        String tags = scenario.getSourceTagNames().toString();
+        logger.detail("FEATURE : " + rawFeatureName[0]+ " | Tags : " + scenario.getSourceTagNames()+"");
         logger.detail("STARTING SCENARIO : " + scenario.getName());
-        this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0]);
+        this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0], tags);
         SetupManager.getObject().useDriverInstance("ORIGINAL");
            // Thread.sleep(2000);
         if (!isFirstTestCase) {
@@ -100,7 +100,7 @@ public class CucumberHooks {
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
                 try {
                     logger.detail("FAILED TEST SCENARIO : " + scenario.getName());
-                    logger.warning("PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
+                    logger.debug("PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
                 } catch (Exception e) { }
                 if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
                     new BungiiSteps().recoveryScenario();
