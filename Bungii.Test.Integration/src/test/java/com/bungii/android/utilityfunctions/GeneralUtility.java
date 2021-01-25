@@ -1803,7 +1803,7 @@ Thread.sleep(5000);
                     if (listF1.get(i).equals(listF2.get(i))) {
 
                     } else {
-                        logger.detail("EMAIL MISMACTH |||" + i + "|||" + listF1.get(i) + "|||" + listF2.get(i));
+                        logger.detail("EMAIL MISMATCH |||" + i + "|||" + listF1.get(i) + "|||" + listF2.get(i));
                         //  System.out.println(listF1.get(i));
                         //  System.out.println(listF2.get(i));
 

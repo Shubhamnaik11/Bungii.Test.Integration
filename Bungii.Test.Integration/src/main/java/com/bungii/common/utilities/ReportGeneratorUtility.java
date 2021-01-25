@@ -36,6 +36,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	private final static String SUMMARY_TITLE="TEST SUMMARY REPORT";
 	private final static String logoPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("LOGO_FILENAME");
 	private final static String downloadPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("DOWNLOAD_LOGO");
+
 	private final static String passPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("PASS_lOGO");
 	private final static String failPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("FAIL_lOGO");
 
@@ -100,7 +101,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	        totalStr = totalStr.replaceAll("<!--LOGO.PATH-->",logoPath);
 			String session = (String) cucumberContextManager.getScenarioContext("SESSION");
 			if(session =="")
-				totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName+" - Tags : "+tags+"");
+				totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
             else
 			totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName+" | Session ID : "+session);
 	        totalStr = totalStr.replaceAll("<!--SUMARRY-->", Matcher.quoteReplacement(getLogDetails(summaryArray)));
@@ -140,7 +141,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	 */
 	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
 	    name= name.replace(",","");
-		String str = "<tr class='header'><td colspan='5' align='left'>Scenario : "+ name + "</td></tr>"; ;
+		String str = "<tr class='header'><td colspan='5' align='left'>Scenario : "+ name +" - Tags : "+tags+"</td></tr>"; ;
 		detailsArray.add(str);
 		stackTraceArray.clear();
         this.reason="";
@@ -254,12 +255,15 @@ public class ReportGeneratorUtility extends DriverBase {
 			String reason = this.reason;
              //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
 			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
-			if(reason=="")
+			if(reason=="") {
 				CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
-			else
+				status = "<td style='background-color:skyblue;'>Inconclusive</td>";
+			}
+			else {
 				failed++;
-			detailsArray.add(st);
-			status = "<td style='background-color:pink;'>Fail</td>";
+				status = "<td style='background-color:pink;'>Fail</td>";
+			}
+				detailsArray.add(st);
 			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
 			failureArray.add(str2);
             failureArray.addAll(stackTraceArray);
@@ -275,9 +279,15 @@ public class ReportGeneratorUtility extends DriverBase {
 
 
 		summaryArray.add(str1);
-		int totalExecuted = passed + failed;
-		logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | TOTAL EXECUTED : " + totalExecuted);
+		//int totalExecuted = passed + failed + inconclusive;
+		//logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | TOTAL EXECUTED : " + totalExecuted);
 
+	}
+
+	public void getFeatureExecutionStatus()
+	{
+		int totalExecuted = passed + failed + inconclusive;
+		logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | TOTAL EXECUTED : " + totalExecuted);
 	}
 
 	/**

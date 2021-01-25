@@ -123,6 +123,7 @@ public class CucumberHooks {
                 js.executeScript(String.format("window.sessionStorage.clear();"));
             }
             //clear scenario context
+            this.reportManager.getFeatureExecutionStatus();
             CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
             logger.error("Error in After Test Block ", ExceptionUtils.getStackTrace(e));

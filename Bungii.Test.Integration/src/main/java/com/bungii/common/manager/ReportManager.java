@@ -34,7 +34,7 @@ public class ReportManager {
 		//removed detail files path as npew
 		//this.detailFilepath=this.detailsFolderPath+PropertyUtility.getFileLocations("SUMMARY_FILE");
 		htmlReportManager= new ReportGeneratorUtility(this.detailsFolderPath,this.screenshotFolder,this.miscFolder,this.logFolder);
-		/*this.testResultManager= */new ResultManager(this);
+		new ResultManager(this);
 		createInitialFolder();
 		htmlReportManager.startSuiteFile();
 	}
@@ -102,6 +102,10 @@ public class ReportManager {
 	public void endTestCase(boolean isFailed){
 		htmlReportManager.endTestCase(isFailed);
 	}
+
+	public void getFeatureExecutionStatus(){
+		htmlReportManager.getFeatureExecutionStatus();
+	}
 	/**
 	 * Set test case failed flag to true
 	 */
@@ -145,7 +149,7 @@ public class ReportManager {
 	 */
 	public void copyLogFile(){
 		FileUtility.makeFolder(this.logFolder);
-		FileUtility.copyFile(FileUtility.getSuiteResource(logger.getLogFileName(), ""), this.logFolder + "/Testlogs.log");
+		FileUtility.copyFile(FileUtility.getSuiteResource(logger.getLogFileName(), ""), this.logFolder + "/ConsoleLog.log");
 
 	}
 	

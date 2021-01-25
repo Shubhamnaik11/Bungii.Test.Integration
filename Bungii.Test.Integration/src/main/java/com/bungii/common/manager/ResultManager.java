@@ -136,7 +136,7 @@ public class ResultManager {
             }
 
         } catch (IOException e) {
-            logger.error("Error while capturing/coping screenshot" + e.getMessage());
+            logger.error("Error while capturing/copying screenshot" + e.getMessage());
         }
 
 

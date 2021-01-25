@@ -121,7 +121,6 @@ public class GenerateSummaryReport {
                 {
                     createResultFileFromFailedSummaryTemplate(platform, category, environment);
                     CopyScreenshotsToDirectory();
-
                     System.out.println("Generated failedsummary.html");
 
                 }
