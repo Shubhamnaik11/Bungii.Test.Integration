@@ -1,5 +1,6 @@
 package com.bungii.web.stepdefinitions.partner;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -15,6 +16,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import java.text.DateFormat;
@@ -326,6 +328,36 @@ public class Partner_LoginSteps extends DriverBase {
         //action.getElementByXPath(Page_Partner_Login.Button_Sign_In())
         log("I should be logged out from Partner Portal ","I clicked ", true);
     }
+
+    @Then("^I should be navigated to Login screen$")
+    public void i_should_be_navigated_to_login_screen() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(action.getElementByXPath("//button[@id='login']"), "SIGN IN button should be displayed on partner portal", "SIGN IN button is displayed on partner portal", "SIGN IN button is not displayed on partner portal");
+            //action.getElementByXPath(Page_Partner_Login.Button_Sign_In())
+            log("I should be on Partner Portal login page","I should be on Partner Portal login page.", true);
+        }
+        catch (Exception e){
+            logger.error("Error performing step navigate to login screen", ExceptionUtils.getStackTrace(e));
+            error("I should be on Partner Portal login page", "I am not on Partner Portal login page",
+                    true);
+        }
+    }
+
+    @And("^I Clear the browser local storage and refresh the Page$")
+    public void i_clear_the_browser_local_storage_and_refresh_the_page() throws Throwable {
+        try{
+            JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+            js.executeScript(String.format("window.localStorage.clear();"));
+            //js.executeScript(String.format("window.sessionStorage.clear();"));
+            SetupManager.getDriver().navigate().refresh();
+        }
+        catch (Exception e){
+            logger.error("Error performing step clearing local storag", ExceptionUtils.getStackTrace(e));
+            error("Browser local storage should get clear.", "Browser local storage is not get cleared.",
+                    true);
+        }
+    }
+
 
 }
 
