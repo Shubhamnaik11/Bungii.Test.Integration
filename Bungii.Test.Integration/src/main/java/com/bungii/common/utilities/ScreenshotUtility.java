@@ -29,7 +29,7 @@ public class ScreenshotUtility {
 	    String filename=UUID.randomUUID().toString(); 
 	    File targetFile=new File(path_screenshot+"/" + filename +".jpg");
 			FileUtils.copyFile(srcFile,targetFile);
-			return targetFile.getPath();
+			return targetFile.getName();
 		}catch (Exception e){
 			logger.detail("Problem capturing screenshot");
 			return "";
