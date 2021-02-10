@@ -38,6 +38,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.bungii.web.utilityfunctions.DbUtility.*;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.CREATE;
 
@@ -63,6 +64,8 @@ public class GeneralUtility extends DriverBase {
                 partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
             }else if(PP_Site.equalsIgnoreCase("kiosk mode")){
                 partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
+            }else if(PP_Site.equalsIgnoreCase("BestBuy service level")){
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.url");
             }
         }
         return  partnerURL;
@@ -842,6 +845,100 @@ public class GeneralUtility extends DriverBase {
         estimateCost = estimateCost > minCost ? estimateCost : minCost;
 
         return estimateCost;
+    }
+
+    public String calDriverEstEarning(){
+        String CalculatedDriverValue="";
+        //Driver Cut used for calculation
+        double DSE;
+
+        String geofence= (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        if(geofence.equalsIgnoreCase("washingtondc")){
+            geofence = "washington dc";
+        }
+
+        String Bungii_rate = getBungiiRate(geofence);
+
+        int Driver_rate = 100-Integer.parseInt(Bungii_rate);
+
+        String PickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        Double Customer_Price_After_Discount= Double.parseDouble(getEstPrice(PickupRequest));
+
+        String Bungii_Type= (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        int num_Of_Driver;
+        if(Bungii_Type.equalsIgnoreCase("Solo Scheduled")||Bungii_Type.equalsIgnoreCase("Solo")){
+            num_Of_Driver=1;
+        }
+        else {
+            num_Of_Driver=2;
+        }
+
+        Double Transaction_Fees = (Customer_Price_After_Discount*(0.029))+(0.3*num_Of_Driver);
+
+        DSE = (Customer_Price_After_Discount*(Driver_rate*0.01))-(Transaction_Fees);
+
+
+        int Last_Zero_Digit =(int) ((DSE*100)%10);
+        if(Last_Zero_Digit==0){
+            CalculatedDriverValue = String.valueOf(String.format("%.1f", DSE));
+        }else {
+            CalculatedDriverValue = String.valueOf(String.format("%.2f", DSE));
+        }
+        return CalculatedDriverValue;
+    }
+
+    public String calDriverEarning(){
+        String CalculatedDriverValue="";
+        //Driver Cut used for calculation
+        double DSE;
+
+        String geofence= (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        if(geofence.equalsIgnoreCase("washingtondc")){
+            geofence = "washington dc";
+        }
+
+        String Bungii_rate = getBungiiRate(geofence);
+
+        int Driver_rate = 100-Integer.parseInt(Bungii_rate);
+
+        String PickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        Double Customer_Price_After_Discount= Double.parseDouble(getActualPrice(PickupRequest));
+
+        String Bungii_Type= (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        int num_Of_Driver;
+        if(Bungii_Type.equalsIgnoreCase("Solo Scheduled")||Bungii_Type.equalsIgnoreCase("Solo")){
+            num_Of_Driver=1;
+        }
+        else {
+            num_Of_Driver=2;
+        }
+
+        Double Transaction_Fees = (Customer_Price_After_Discount*(0.029))+(0.3*num_Of_Driver);
+
+        DSE = (Customer_Price_After_Discount*(Driver_rate*0.01))-(Transaction_Fees);
+
+
+        int Last_Zero_Digit =(int) ((DSE*100)%10);
+        if(Last_Zero_Digit==0){
+            CalculatedDriverValue = String.valueOf(String.format("%.1f", DSE));
+        }else {
+            CalculatedDriverValue = String.valueOf(String.format("%.2f", DSE));
+        }
+        return CalculatedDriverValue;
+    }
+
+    public String getTimeZoneBasedOnGeofenceId() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        // currentGeofence="kansas";
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone.id");
+        return getGeofenceTimeZone;
+    }
+
+    public long Milliseconds_To_Minutes(long milliseconds){
+        long minutes = (milliseconds / 1000) / 60;
+        return minutes;
     }
 
 }

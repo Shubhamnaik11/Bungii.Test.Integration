@@ -20,6 +20,12 @@ public class Partner_DeliveryPage extends PageBase {
     //Items to Deliver
     public WebElement TextBox_Item_To_Deliver() { return findElement("pickUpNote",LocatorType.Name);}
 
+    //SKU Text fiels
+    public WebElement TextBox_SKU() { return findElement("skuNumber",LocatorType.Name);}
+
+    //SKU Add
+    public WebElement Button_SKU_Add() { return findElement("SKU",LocatorType.Id);}
+
     //Blank Item to deliver message
     public WebElement Message_Black_Item_To_Deliver() { return findElement("//div[contains(text(),'Items to deliver is required.')]",LocatorType.XPath);}
 
@@ -66,6 +72,12 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Receipt Number
     public WebElement TextBox_Receipt_Number() { return findElement("f2bd91b2-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+
+    //Order Number
+    public WebElement TextBox_Order_Number() { return findElement("//input[@data-field='Order Number']",LocatorType.XPath);}
+
+    //Sold Buy
+    public WebElement TextBox_SoldBuy() { return findElement("//input[@data-field='Sold By (Store Associate)']",LocatorType.XPath);}
 
     //Customer Card Payment
     public WebElement Radio_Button_Customer_Card() { return findElement("//label[contains(text(),'Customer Card')]",LocatorType.XPath);}
@@ -116,4 +128,6 @@ public class Partner_DeliveryPage extends PageBase {
     //Estimated cost in summary
     public WebElement Text_Estiated_Cost() { return findElement("//h2[@class='estimate-label']/span",LocatorType.XPath);}
 
+    //Delivery Cost
+    public WebElement Label_Delivery_Cost() { return findElement("//h2[contains(text(),'Delivery Cost')]",LocatorType.XPath);}
 }

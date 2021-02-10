@@ -151,4 +151,6 @@ public class Partner_DashboardPage extends PageBase {
     //Selected service name
     public WebElement Text_Service_Name() { return findElement("//span[@class='service-title']",LocatorType.XPath);}
 
+    //Delivery Cost
+    public WebElement Label_Delivery_Cost() { return findElement("//div/label[contains(text(),'Delivery Cost:')]",LocatorType.XPath);}
 }

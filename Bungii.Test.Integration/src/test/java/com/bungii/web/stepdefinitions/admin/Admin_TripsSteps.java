@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
+import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -26,6 +27,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -47,6 +49,7 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+    LiveTripsPage liveTripsPage = new LiveTripsPage();
 
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
     ActionManager action = new ActionManager();
@@ -75,7 +78,10 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_view_the_live_trips_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_LiveTripsPage.Menu_LiveTrips());
+        String Pickup_Ref = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
+        action.clearSendKeys(admin_LiveTripsPage.TextBox_Search_Field(),Pickup_Ref);
+        action.click(admin_LiveTripsPage.Button_Search());
         //  SetupManager.getDriver().navigate().refresh();
         log("I view the Live Trips list on the admin portal",
                 "I viewed the Live Trips list on the admin portal", true);
@@ -332,11 +338,117 @@ public class Admin_TripsSteps extends DriverBase {
 
     }
 
+    @And("^I select the scheduled trip on scheduled delivery$")
+    public void i_select_the_scheduled_trip_on_scheduled_delivery(){
+        //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
+        String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
+        String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        BT = BT.replace("Solo Scheduled","SOLO");
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST);
+
+        action.getElementByXPath(XPath).click();
+    }
+
+
+    @And("^I select the partner portal scheduled trip on scheduled delivery$")
+    public void i_select_the_parter_portal_scheduled_trip_on_scheduled_delivery() throws ParseException {
+        //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
+        String ST = (String) cucumberContextManager.getScenarioContext("ActualPickupDateTime");
+        ST = ST.replace("at","");
+        DateFormat dft = new SimpleDateFormat("MMM dd, yyyy hh:mm a z");
+       // String geoLabel = utility.getTimeZoneBasedOnGeofenceId();
+        String geoLabel = utility.getTimeZoneBasedOnGeofence();
+        dft.setTimeZone(TimeZone.getTimeZone(geoLabel));
+        Date dt2 = dft.parse(ST);
+
+        String Schedule_Time = dft.format(dt2);
+
+        cucumberContextManager.setScenarioContext("Scheduled_Time",Schedule_Time);
+
+        //DateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy hh:mm a z");
+       // Date date1 = dateFormat.parse(ST);
+        //Date date1 = new SimpleDateFormat("EEEE, MMMM dd, yyyy hh:mm a z").parse(ST);
+
+        //ST = dateFormat.format(date1);
+
+        String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        BT = BT.replace("Solo Scheduled","SOLO");
+        BT = BT.replace("Solo","SOLO");
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, Schedule_Time);
+
+        action.getElementByXPath(XPath).click();
+    }
+
+    @And("^I select the scheduled trip on live delivery$")
+    public void i_select_the_scheduled_trip_on_live_delivery(){
+        //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
+        String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
+        String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        BT = BT.replace("Solo Scheduled","Solo");
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client);
+
+        action.getElementByXPath(XPath).click();
+    }
+
+    @And("^I select the scheduled trip on live delivery for customer$")
+    public void i_select_the_scheduled_trip_on_live_delivery_for_customer(){
+        //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
+        String ST = (String) cucumberContextManager.getScenarioContext("BUNGII_INITIAL_SCH_TIME");
+        String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        BT = BT.replace("Solo Scheduled","Solo");
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client);
+
+        action.getElementByXPath(XPath).click();
+    }
+
+    @And("^I view All Deliveries list on the admin portal$")
+    public void i_view_all_deliveries_list_on_the_admin_portal() throws Throwable {
+        try{
+            //Thread.sleep(120000);
+            action.click(liveTripsPage.Menu_AllDeliveries());
+            //action.click(admin_LiveTripsPage.Menu_LiveTrips());
+            SetupManager.getDriver().navigate().refresh();
+            action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
+            log("I view All Deliveries on the admin portal",
+                    "I viewed All Deliveries on the admin portal", true);
+        }
+        catch (Throwable e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Delivery should be shown on All Deliveries", "Delivery is not shown on All Deliveries",
+                    true);
+
+        }
+    }
+
+    @And("^I select the scheduled trip on All Deliveries$")
+    public void i_select_the_scheduled_trip_on_all_deliveries() throws Throwable {
+        try {
+            //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
+            String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
+            String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+            String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            BT = BT.replace("Solo Scheduled", "Solo");
+            String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT, Client);
+
+            action.getElementByXPath(XPath).click();
+        }
+        catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Delivery should get selected.", "Delivery should not get selected.",
+                    true);
+        }
+    }
+
     @When("^I view the delivery details$")
     public void i_view_the_trip_details() throws Throwable {
 
         String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
-        action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        if(action.isElementPresent(action.getElementByXPath(xpath))){
+            action.click(admin_TripDetailsPage.Schedule_Date_Row());
+        }
+        //action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
 
     }
 
@@ -402,6 +514,7 @@ public class Admin_TripsSteps extends DriverBase {
         String status = (String) cucumberContextManager.getScenarioContext("STATUS");
         String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
         String timezone = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String Bunggi_Type = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
 
         if(!scheduled_time.equalsIgnoreCase("NOW")) {
             TimeZone.setDefault(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofence()));
@@ -425,9 +538,16 @@ public class Admin_TripsSteps extends DriverBase {
         testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Status"), status, "Status " + status + " should be updated", "Status " + status + " is updated", "Status " + status + " is not updated");
         // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Trip Distance"), customer, "Trip Distance " + customer + " should be updated", "Trip Distance " + customer + " is updated", "Trip Distance " + customer + " is not updated");
         // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Loading + Unloading Time"), customer, "Loading + Unloading Time " + customer + " should be updated", "Loading + Unloading Time " + customer + " is updated", "Loading + Unloading Time " + customer + " is not updated");
-        String xpath = String.format("option[text()='%s']", driver1);
-        testStepAssert.isElementDisplayed(admin_TripDetailsPage.Dropdown_Drivers().findElement(By.xpath(xpath)), " Driver " + driver1 + " should be displayed", " Driver " + driver1 + " is displayed", " Driver " + driver1 + " is not displayed");
 
+        Bunggi_Type = Bunggi_Type.replace("Solo Ondemand","Solo").replace("Duo Ondemand","Duo");
+        if(Bunggi_Type.equalsIgnoreCase("Solo")){
+            String xpath = String.format("//td/strong[contains(text(),'%s')]",driver1);
+            testStepAssert.isElementDisplayed(action.getElementByXPath(xpath)," Driver " + driver1 + " should be displayed", " Driver " + driver1 + " is displayed", " Driver " + driver1 + " is not displayed");
+        }
+        else {
+            String xpath = String.format("option[text()='%s']", driver1);
+            testStepAssert.isElementDisplayed(admin_TripDetailsPage.Dropdown_Drivers().findElement(By.xpath(xpath)), " Driver " + driver1 + " should be displayed", " Driver " + driver1 + " is displayed", " Driver " + driver1 + " is not displayed");
+        }
 
     }
 

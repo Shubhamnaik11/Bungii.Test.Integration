@@ -217,3 +217,33 @@ Feature: Admin_Trips
     Then I should be able to see the Trip Requested count incremented in Customers Grid
     When I view the customer details page of Customer "Krishna Hoderker"
     Then Trip should be listed in the grid
+
+    @ready
+  Scenario: Verify Driver Est. Earnings for for Customer Trip
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      |Accepted |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
+    #And I view the all Scheduled Deliveries list on the admin portal
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Unloading Items |
+    #And I select the scheduled trip on live delivery for customer
+    And I select the scheduled trip on live delivery
+    Then I view the correct Driver Est. Earnings for geofence based pricing model
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
+        | driver1 state|
+        | Bungii Completed |
+    #And I view the Trips list on the admin portal
+    And I view All Deliveries list on the admin portal
+    Then The Delivery List page should display the delivery in "Payment Successful" state
+    And I select the scheduled trip on All Deliveries
+    Then I view the correct Driver Earnings for geofence based pricing model

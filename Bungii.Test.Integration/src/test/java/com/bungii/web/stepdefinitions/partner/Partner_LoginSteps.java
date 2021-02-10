@@ -181,7 +181,32 @@ public class Partner_LoginSteps extends DriverBase {
                     log("All service for "+Alias+" should be listed ","All service for "+Alias+" are listed ", true);
                 }
                 break;
-            default:
+             case "see correct Estimation Duration":
+                 long total_Estimation_Duration;
+                 String subDomain = Alias;
+                 String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                 String service_name= (String) cucumberContextManager.getScenarioContext("Selected_service") ;
+                 long db_EST_Time = dbUtility.getEstimateTimeforPickup(pickupRequest);
+                 long default_Pickup_Time =dbUtility.getDefaultPickupTime(service_name,subDomain);
+                 default_Pickup_Time=utility.Milliseconds_To_Minutes(default_Pickup_Time);
+                 long default_Dropoff_time =dbUtility.getDefaultDropoffTime(service_name,subDomain);
+                 default_Dropoff_time = utility.Milliseconds_To_Minutes(default_Dropoff_time);
+
+                 total_Estimation_Duration = db_EST_Time+default_Pickup_Time+default_Dropoff_time;
+
+                 String display_Estimation_Duration = action.getText(Page_Partner_Delivery_List.Text_Estimated_Duration());
+                 String estimated_Duration[] = display_Estimation_Duration.split(":");
+                 String hours = estimated_Duration[0];
+                 String minutes = estimated_Duration[1];
+
+                 long hrs = Long.parseLong(hours);
+                 long mins = hrs * 60;
+
+                 long total_Display_Estimated_Duration = mins + Long.parseLong(minutes);
+                 testStepVerify.isEquals(String.valueOf(total_Display_Estimated_Duration),String.valueOf(total_Estimation_Duration),"Correct Total estimated duration is shown.","Wrong Total estimated duration is shown");
+
+                break;
+             default:
                 break;
         }
     }
@@ -230,7 +255,15 @@ public class Partner_LoginSteps extends DriverBase {
 
                     break;
                 case "see Done screen":
-                    String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
+                    String Customer_Phone="";
+                    String site = (String) cucumberContextManager.getScenarioContext("Site");
+                    if(site.equalsIgnoreCase("service level")){
+                        Customer_Phone = (String) cucumberContextManager.getScenarioContext("Customer_Mobile");
+                    }
+                    else {
+                        Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
+                    }
+
                     testStepVerify.isEquals(action.getText(Page_Partner_Done.Text_Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
                     String PickupRequest = new DbUtility().getPickupRef(Customer_Phone);
                     //String ScheduledTime = new DbUtility().getScheduledTime(Customer_Phone);
@@ -239,31 +272,30 @@ public class Partner_LoginSteps extends DriverBase {
                     //String date = utility.GetDateInFormat(ScheduledTime,FromFormat,ToFormat);
                     //String ST = DateFormat("MMM dd, YYYY at HH:mm aa z",ScheduledTime);
                     //cucumberContextManager.setScenarioContext("Scheduled_Time",date);
-                    cucumberContextManager.setScenarioContext("pickupRequest", PickupRequest);
-                    // cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
+                    cucumberContextManager.setScenarioContext("pickupRequestPartner", PickupRequest);
+                    cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
                     break;
                 case "see the trip in the Delivery List":
-                    //String Customer_Name = null;
-                    // String DeliveryDace = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
-                    String Delivery_Date = (String) cucumberContextManager.getScenarioContext("ActualPickupDateTime");
-                    //String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
+                    String scheduled_time =(String) cucumberContextManager.getScenarioContext("Schedule_Date_Time");
+                    scheduled_time =scheduled_time.replace("at","").replace("(","").replace(")","");
+                    DateFormat dft = new SimpleDateFormat("MMMM dd, yyyy h:mm a z");
+                    DateFormat dft1 = new SimpleDateFormat("MMM dd, yyyy h:mm a z");
+                    String geoLabel = utility.getTimeZoneBasedOnGeofenceId();
+                    dft1.setTimeZone(TimeZone.getTimeZone(geoLabel));
+                    Date dt2 = dft.parse(scheduled_time);
 
-                    String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
 
-                    String XPath = String.format("//div[contains(.,'%s')]/ancestor::tr/td[contains(.,'%s')] ", Delivery_Date, DeliveryAddress);
+                    scheduled_time = dft1.format(dt2);
+                    StringBuilder sb = new StringBuilder(scheduled_time);
+                    sb.insert(13, "at ");
+
+                    scheduled_time = sb.toString();
+
+                    cucumberContextManager.setScenarioContext("Partner_Schedule_Time",scheduled_time);
+                    String customer =(String) cucumberContextManager.getScenarioContext("Customer_Name");
+                    String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer);
                     testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
-                /*
-                try {
-                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Delivery_Date()), Delivery_Date);
-                }
-                catch (org.openqa.selenium.StaleElementReferenceException ex){
-                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Delivery_Date()), Delivery_Date);
-                }
 
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Customer()),CustomerName);
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Delivery_Address()),DeliveryAddress);
-
-                 */
                     break;
                 case "see the trip details":
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Delivery_Details_Dashboard()), PropertyUtility.getMessage("Delivery_Details_Dashboard"));
@@ -305,6 +337,16 @@ public class Partner_LoginSteps extends DriverBase {
                     action.JavaScriptScrolldown();
                     String Display_Service_name = action.getText(Page_Partner_Delivery_List.Text_Selected_Service());
                     testStepVerify.isEquals(Display_Service_name, Service_Name1);
+                    break;
+                case "see Delivery Cost: N/A":
+                    String Display_Delivery_Cost = "Delivery Cost: N/A";
+                    String NA_Delivery_Cost = action.getText(Page_Partner_Dashboard.Label_Delivery_Cost());
+                    testStepVerify.isEquals(NA_Delivery_Cost,Display_Delivery_Cost);
+                    break;
+                case "see Delivery Cost: N/A on Delivery Details screen":
+                    String Shown_Delivery_Cost = "Delivery Cost\nN/A";
+                    String NA_Delivery_cost = action.getText(Page_Partner_Delivery.Label_Delivery_Cost());
+                    testStepVerify.isEquals(NA_Delivery_cost,Shown_Delivery_Cost);
                     break;
                 default:
                     break;

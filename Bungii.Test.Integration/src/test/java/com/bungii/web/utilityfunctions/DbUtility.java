@@ -99,6 +99,33 @@ public class DbUtility extends DbContextManager {
         return ondemandStartTime;
     }
 
+    public static String getBungiiRate(String Geofence){
+        String bungiiRate="";
+        String queryString = "select Value from geofencesettings where GeofenceAttributeID=11 and GeofenceVersionID   in (select GeofenceSettingVersionID  from geofencesettingsversions where Geofenceid in (select id from geofence where name='" + Geofence+"') and IsActive = 1)";
+        bungiiRate =getDataFromMySqlServer(queryString);
+        logger.detail("Bungii Rate for  " + Geofence + " Geofence is " + bungiiRate );
+        return bungiiRate;
+    }
+
+    public static String getEstPrice(String PickupRequest){
+        String ActualPriceAfterDiscount="";
+        String queryString = "SELECT ActualEstCostAfterDiscount  FROM pickupdetails where PickupRef='"+PickupRequest+"'";
+        ActualPriceAfterDiscount =getDataFromMySqlServer(queryString);
+        logger.detail("Actual Cost after discount for  " + PickupRequest + " is " + ActualPriceAfterDiscount );
+        return ActualPriceAfterDiscount;
+    }
+
+    public static String getActualPrice(String PickupRequest){
+        String ActualPriceAfterDiscount="";
+        Integer PickupId;
+        Integer TRID;
+        String queryString ="select ActualCostAfterDiscount from trippaymentdetails where trid in(select TRID from triprequest where Pickupid in(SELECT PickupID  FROM pickupdetails where PickupRef='"+PickupRequest+"'))";
+
+        ActualPriceAfterDiscount = getDataFromMySqlServer(queryString);
+        logger.detail("Actual Cost after discount for  " + PickupRequest + " is " + ActualPriceAfterDiscount );
+        return ActualPriceAfterDiscount;
+    }
+
     public static List<HashMap<String,Object>> getListOfGeoFenceIds() {
         List<HashMap<String,Object>> listOfGeofenceIds = new ArrayList<>();
         String queryString = "select gsv.geofenceID from geofence gf\n" +
@@ -272,6 +299,56 @@ public class DbUtility extends DbContextManager {
         logger.detail("Estimate Time=  " + Estimate_time + " of latest trip" );
         return Estimate_time;
 
+    }
+
+    public static long getEstimateTimeforPickup(String Pickup_Reference) {
+        long Estimate_time;
+        String queryString = "SELECT EstTime FROM pickupdetails where PickupRef='"+Pickup_Reference+"'";
+        Estimate_time = Long.parseLong(getDataFromMySqlServer(queryString));
+        logger.detail("Estimate Time=  " + Estimate_time + " of latest trip" );
+        return Estimate_time;
+
+    }
+
+    public static long getDefaultPickupTime(String Service_Name,String SubDomain){
+        long default_Pickup_Time=0;
+        String queryString ="select ss.default_pickup_time\n" +
+                "from bp_supplementary_service ss\n"+
+                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =ss.business_partner_location_config_version_id\n" +
+                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
+                "where c.IsActive = 1 and service_name='"+Service_Name+"' and subdomainname like '%"+SubDomain+"%'";
+
+        String default_Pickup_Time_Db = getDataFromMySqlMgmtServer(queryString);
+        if(default_Pickup_Time_Db!=null){
+            default_Pickup_Time = Long.parseLong(default_Pickup_Time_Db);
+            logger.detail("Default Pickup Time=  " + default_Pickup_Time + " for Service: "+Service_Name);
+        }
+        else{
+            logger.error("Default pickup time is not fetch for service "+Service_Name+" for SubDomain "+SubDomain);
+        }
+
+
+        return default_Pickup_Time;
+    }
+
+    public static long getDefaultDropoffTime(String Service_Name,String SubDomain){
+        long default_Dropoff_Time=0;
+        String queryString ="select ss.default_dropoff_time\n" +
+                "from bp_supplementary_service ss\n"+
+                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =ss.business_partner_location_config_version_id\n" +
+                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
+                "where c.IsActive = 1 and service_name='"+Service_Name+"' and subdomainname like '%"+SubDomain+"%'";
+
+        String default_Dropoff_Time_Db = getDataFromMySqlMgmtServer(queryString);
+        if(default_Dropoff_Time_Db!=null){
+            default_Dropoff_Time = Long.parseLong(default_Dropoff_Time_Db);
+            logger.detail("Default Dropoff Time=  " + default_Dropoff_Time + " for Service: "+Service_Name);
+        }
+        else{
+            logger.error("Default Dropoff time is not fetch for service "+Service_Name+" for SubDomain "+SubDomain);
+        }
+
+        return default_Dropoff_Time;
     }
 
     public static List<HashMap<String,Object>> getListOfService(String Alias_Name){

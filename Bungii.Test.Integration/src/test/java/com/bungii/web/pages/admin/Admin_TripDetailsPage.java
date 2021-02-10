@@ -25,4 +25,5 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Label_ScheduledTime(String xpath_scheduled_time) { return findElement( xpath_scheduled_time, LocatorType.XPath);}
 
+    public WebElement Schedule_Date_Row() {return findElement("//td[3]/a",LocatorType.XPath);}
 }

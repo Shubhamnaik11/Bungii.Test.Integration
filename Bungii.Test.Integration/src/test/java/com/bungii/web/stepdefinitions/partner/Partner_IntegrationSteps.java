@@ -1,6 +1,5 @@
 package com.bungii.web.stepdefinitions.partner;
 
-
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -15,7 +14,6 @@ import com.bungii.web.utilityfunctions.DbUtility;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.Keys;
-
 import java.util.Map;
 
 public class Partner_IntegrationSteps extends DriverBase {
@@ -38,12 +36,13 @@ public class Partner_IntegrationSteps extends DriverBase {
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
 
     @When("^I request \"([^\"]*)\" Bungii trip in partner portal configured for \"([^\"]*)\" in \"([^\"]*)\" geofence$")
-    public void i_request_something_bungii_trip_in_partner_portal_for_some_geofence(String Type,String Site,String geofence, DataTable data) throws InterruptedException {
+    public void i_request_something_bungii_trip_in_partner_portal_for_some_geofence(String Type,String Site,String geofence, DataTable data) throws InterruptedException{
+
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String Pickup_Address;
         String Delivery_Address;
 
-        //cucumberContextManager.setScenarioContext("BUNGII_TYPE", Type);
+        cucumberContextManager.setScenarioContext("Bungii_Type", Type);
         cucumberContextManager.setScenarioContext("Partner_Bungii_type",Type);
 
         Pickup_Address = dataMap.get("Pickup_Address");
@@ -60,6 +59,7 @@ public class Partner_IntegrationSteps extends DriverBase {
         //int numberOf_Driver = dataMap.get("Driver").trim().equalsIgnoreCase("duo") ? 2 :1;
 
         cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
         cucumberContextManager.setScenarioContext("PP_Site",Site);
 
         if(Site.equalsIgnoreCase("normal")) {
@@ -321,8 +321,48 @@ public class Partner_IntegrationSteps extends DriverBase {
             }
 
         }
+        else if(Site.equalsIgnoreCase("BestBuy service level")){
+            switch (Type) {
+                case "Solo":
+                    //action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                    //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
+                    //action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                    //Thread.sleep(1000);
+                    //action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                    //Thread.sleep(2000);
+                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                    action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                    //Thread.sleep(1000);
+                    action.click(Page_Partner_Dashboard.List_Delivery_Address());
+
+                    //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                    break;
+                case "Duo":
+
+                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                    //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
+                    action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                    Thread.sleep(1000);
+                    action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                    Thread.sleep(2000);
+                    action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                    action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                    //Thread.sleep(1000);
+                    action.click(Page_Partner_Dashboard.List_Delivery_Address());
+
+                    //Clicking on duo radio button
+                    action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+                    Thread.sleep(2000);
+
+                    //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                    break;
+                default:
+                    break;
+            }
+
+        }
     }
-
-
 
 }

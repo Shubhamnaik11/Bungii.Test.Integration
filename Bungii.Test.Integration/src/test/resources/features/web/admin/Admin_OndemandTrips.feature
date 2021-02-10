@@ -28,7 +28,8 @@ Feature: Admin_OndemandTrips
     Then the amount is calculated and shown to admin
     And Click on "Confirm" button
     And I view the Deliveries list on the admin portal
-    Then The Delivery List page should display the trip in "Payment Successful" state
+    #Then The Delivery List page should display the trip in "Payment Successful" state
+    Then The Delivery List page should display the delivery in "Payment Successful" state
 
   @sanity
   @ready
