@@ -138,7 +138,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
+       // action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverBirthday());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake());
@@ -317,7 +317,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
+       // action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
         action.click(admin_DriverVerificationPage.Verify_Reject_Birthday());
         action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(),"Invalid DOB");
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages());

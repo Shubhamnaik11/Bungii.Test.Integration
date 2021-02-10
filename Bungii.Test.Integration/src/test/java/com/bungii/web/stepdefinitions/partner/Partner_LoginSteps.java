@@ -311,7 +311,7 @@ public class Partner_LoginSteps extends DriverBase {
         catch(Exception e)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,I Should "+ str,
+            error("Step  Should be successful", "Error performing step , I Should "+ str,
                     true);
         }
     }

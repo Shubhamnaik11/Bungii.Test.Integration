@@ -78,7 +78,7 @@ public class Driver_DetailsSteps extends DriverBase {
                 action.clearSendKeys(Page_Driver_Details.TextArea_Other(), PropertyUtility.getDataProperties("DriverOther"));
 
                 action.clearSendKeys(Page_Driver_Details.TextArea_Occupation(), PropertyUtility.getDataProperties("DriverOccupation"));
-                action.clearSendKeys(Page_Driver_Details.TextBox_SSN(), PropertyUtility.getDataProperties("DriverSSN"));
+               // action.clearSendKeys(Page_Driver_Details.TextBox_SSN(), PropertyUtility.getDataProperties("DriverSSN"));
                 action.clearSendKeys(Page_Driver_Details.TextBox_Birthday(), PropertyUtility.getDataProperties("DriverBirthday"));
                 action.selectRandomDropdown(Page_Driver_Details.DropDown_Info());
                 utility.addImageInDropZone(Page_Driver_Details.DropZoneHiddenFileTag_ProfileImage(), driverImagePath);
@@ -108,7 +108,7 @@ public class Driver_DetailsSteps extends DriverBase {
 
                 action.click(Page_Driver_Details.Link_RemoveFile());
 
-                action.clearSendKeys(Page_Driver_Details.TextBox_SSN(), PropertyUtility.getDataProperties("DriverSSN_Invalid"));
+                //action.clearSendKeys(Page_Driver_Details.TextBox_SSN(), PropertyUtility.getDataProperties("DriverSSN_Invalid"));
 
                 action.clearSendKeys(Page_Driver_Details.TextBox_Birthday(), PropertyUtility.getDataProperties("Date_Invalid"));
 
@@ -127,7 +127,7 @@ public class Driver_DetailsSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(Page_Driver_Details.Err_ZipCode(), PropertyUtility.getMessage("Err_DriverDetails_ZipCode"));
                     testStepVerify.isElementTextEquals(Page_Driver_Details.Err_Other(), PropertyUtility.getMessage("Err_DriverDetails_Other"));
                     testStepVerify.isElementEnabled(Page_Driver_Details.Link_DriverPicture(), "driver Picture should be displayed", "driver Picture is displayed", "driver picture was not displayed");
-                    testStepVerify.isElementTextEquals(Page_Driver_Details.Err_SSN(), PropertyUtility.getMessage("Err_DriverDetails_SSN"));
+                   // testStepVerify.isElementTextEquals(Page_Driver_Details.Err_SSN(), PropertyUtility.getMessage("Err_DriverDetails_SSN"));
                     testStepVerify.isElementTextEquals(Page_Driver_Details.Err_Birthday(), PropertyUtility.getMessage("Err_DriverDetails_Birthday"));
                     break;
 
@@ -257,10 +257,10 @@ public class Driver_DetailsSteps extends DriverBase {
 
     @And("^I update the accepted \"([^\"]*)\" field$")
     public void i_update_the_accepted_something_field(String str){
-        action.JavaScriptClear(Page_Driver_Details.Textbox_DriverDetails_SSN());
-        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_SSN(),"1111111111");
+        //action.JavaScriptClear(Page_Driver_Details.Textbox_DriverDetails_SSN());
+       // action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_SSN(),"1111111111");
         log("I update the approved SSN field" ,
-                "I have updated teh approved SSN field");
+                "As a part of CORE-1453, SSN field cannot be viewed or edited");
     }
 
 

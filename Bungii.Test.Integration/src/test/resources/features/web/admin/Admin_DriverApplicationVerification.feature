@@ -7,7 +7,6 @@ Feature: Admin_DriverApplicationVerification
 
   @knownissue
   @email
-  @failed
       #test data created in base
   Scenario: Verify Driver Application Approval - NonFountain
     When I click "Verify" button against the "John MwrB" applicant
@@ -24,8 +23,6 @@ Feature: Admin_DriverApplicationVerification
   @knownissue
     #test data created in base
   @email
-  @failed
-
   Scenario: Verify Driver Application Rejection - NonFountain
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
@@ -113,7 +110,7 @@ Feature: Admin_DriverApplicationVerification
     And I am logged in as Admin
     Then there is a pending application for driver verification
     When I click "Verify" button against the "Melvin Johnson" applicant
-    Then The accepted tick is removed for "Social Security Number" field previously accepted by admin
+    Then The accepted tick is removed for "Date Of Birth" field previously accepted by admin
 
   @regression
     #test data created in base

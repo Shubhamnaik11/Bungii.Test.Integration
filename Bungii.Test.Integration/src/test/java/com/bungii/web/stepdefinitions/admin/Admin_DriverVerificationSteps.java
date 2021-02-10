@@ -32,7 +32,7 @@ public class Admin_DriverVerificationSteps extends DriverBase {
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverCity(),"I accept Driver city","I accepted Driver city","Error in accepting Driver city");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverState(),"I accept Driver State","I accepted Driver State","Error in accepting Driver State");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverZip(),"I accept Driver ZIP","I accepted Driver ZIP","Error in accepting Driver ZIP");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverSSN(),"I accept Driver SSN","I accepted Driver SSN","Error in accepting Driver SSN");
+               // testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverSSN(),"I accept Driver SSN","I accepted Driver SSN","Error in accepting Driver SSN");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverBirthday(),"I accept Driver birthday","I accepted Driver birthday","Error in accepting Driver birthday");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages(),"I accept Driver pickup images","I accepted Driver pickup images","Error in accepting Driver pickup images");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake(),"I accept Driver pickup make","I accepted Driver pickup make","Error in accepting Driver pickup make");
@@ -56,7 +56,7 @@ public class Admin_DriverVerificationSteps extends DriverBase {
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_City(),"I reject Driver city","I rejected Driver city","Error in rejecting Driver city");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_State(),"I reject Driver State","I rejected Driver State","Error in rejecting Driver State");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_ZipCode(),"I reject Driver ZIP","I rejected Driver ZIP","Error in rejecting Driver ZIP");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_SSN(),"I reject Driver SSN","I rejected Driver SSN","Error in rejecting Driver SSN");
+               // testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_SSN(),"I reject Driver SSN","I rejected Driver SSN","Error in rejecting Driver SSN");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_Birthday(),"I reject Driver birthday","I rejected Driver birthday","Error in rejecting Driver birthday");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_DriverPickupImages(),"I reject Driver pickup images","I rejected Driver pickup images","Error in rejecting Driver pickup images");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupMake(),"I reject Driver pickup make","I rejected Driver pickup make","Error in rejecting Driver pickup make");
@@ -146,9 +146,8 @@ public class Admin_DriverVerificationSteps extends DriverBase {
 
     @Then("^The accepted tick is removed for \"([^\"]*)\" field previously accepted by admin$")
     public void the_accepted_tick_is_removed_for_something_field_previously_accepted_by_admin(String strArg1) throws Throwable {
-        String s = admin_DriverVerificationPage.Button_VerifySSN().getAttribute("class");
-        testStepAssert.isTrue(admin_DriverVerificationPage.Button_VerifySSN().getAttribute("class").equalsIgnoreCase("btn btn-default ok"),"Pass","Fail");
-        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Textbox_SSNComment(),"Comment box for SSN should be hidden","Comment box for SSN is hidden","Comment box for SSN is visible");
+        String s = admin_DriverVerificationPage.Button_VerifyDOB().getAttribute("class");
+        testStepAssert.isTrue(admin_DriverVerificationPage.Button_VerifyDOB().getAttribute("class").equalsIgnoreCase("btn btn-default ok"),"DOB field is not highligted ","DOB field is  highligted ");
     }
 
     @Then("^I check if driver SSN is masked$")

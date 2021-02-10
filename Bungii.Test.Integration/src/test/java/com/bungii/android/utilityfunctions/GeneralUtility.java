@@ -180,7 +180,7 @@ public class GeneralUtility extends DriverBase {
         if (action.isElementPresent(driverHomePage.Generic_Element(true)))
             return true;
         else {
-            logger.detail(SetupManager.getDriver().getPageSource());
+            //logger.detail(SetupManager.getDriver().getPageSource());
             //Thread.sleep(5000);
             return false;
             //return action.isElementPresent(driverHomePage.Generic_Element(true));

@@ -21,7 +21,7 @@ public class Admin_DriverResendApplicationSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
+      //  action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
 
         action.click(admin_DriverVerificationPage.Verify_Reject_Birthday());
         action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(),"Invalid DOB");

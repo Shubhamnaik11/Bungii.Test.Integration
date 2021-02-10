@@ -376,7 +376,7 @@ public class DriverRegistrationSteps extends DriverBase {
         switch (emailSubject)
         {
             case "New driver registration complete!":
-                driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME") +" "+(String) cucumberContextManager.getScenarioContext("LASTTNAME");
+                driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME") +" "+(String) cucumberContextManager.getScenarioContext("LASTNAME");
                 driverPhone = (String) cucumberContextManager.getScenarioContext("DriverPhone");
                 message = utility.getExpectedDriverRegistrationCompleteEmailContent(driverName, driverPhone);
                 break;
