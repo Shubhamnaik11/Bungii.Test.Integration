@@ -17,7 +17,8 @@ Feature: CustomerForgotPassword
     Then The user should see "snackbar validation message for success once I click continue" on forgot password page
     And The user should be logged in
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I tap on "Menu" > "Logout" link
+    #And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
 
   @regression
   Scenario: Verify Customer Forgot Password With Incorrect Phone Number

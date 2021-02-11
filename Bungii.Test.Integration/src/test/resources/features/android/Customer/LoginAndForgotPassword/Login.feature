@@ -20,7 +20,8 @@ Feature: Login
     Then "Tutorial" page should be opened
     When I close tutorial Page
     Then The user should be logged in
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
     
   @sanity
   @regression
@@ -31,7 +32,8 @@ Feature: Login
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     Then The user should be logged in
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Verify Customer Login With Invalid Credentials
@@ -108,7 +110,8 @@ Feature: Login
     When I verify and allow access of Location from Bungii application
     When I close tutorial Page
     Then The user should be logged in
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
     And I am on customer Log in page
     And I enter customers "valid" Phone Number
     And I enter customers "valid" Password

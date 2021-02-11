@@ -599,15 +599,18 @@ Thread.sleep(5000);
                 action.click(homePage.Button_NavSchBungii());
                 break;
             case "PAYMENT":
+                action.click(homePage.Button_NavAccount());
                 action.click(homePage.Button_NavPayment());
                 break;
             case "SUPPORT":
                 action.click(homePage.Button_NavSupport());
                 break;
-            case "PROMOS":
+            case "ACCOUNT>PROMOS":
+                action.click(homePage.Button_NavAccount());
                 action.click(homePage.Button_NavPromos());
                 break;
-            case "LOGOUT":
+            case "ACCOUNT>LOGOUT":
+                action.click(homePage.Button_NavAccount());
                 action.click(homePage.Button_Navlogout());
                 break;
             case "SIGN UP TO DRIVE":
