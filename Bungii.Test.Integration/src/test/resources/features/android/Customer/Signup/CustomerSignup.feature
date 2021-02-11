@@ -61,7 +61,8 @@ Feature: CustomerSignup
     And I tap on the "Verification Continue" Link
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then The user should be logged in
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     Then "ValidPercent" promo code should be displayed
     When I click on "i" icon
     Then The "Info Message" is displayed
@@ -97,8 +98,9 @@ Feature: CustomerSignup
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     Then The user should be logged in
-    When I tap on "Menu" > "Promos" link
-    Then "ValidPercent" promo code should be displayed
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
+    #Then "ValidPercent" promo code should be displayed
     When I enter "PROMO1" promo code
     And I click on "ADD" button
     Then The "This code is only available for your first Bungii." is displayed

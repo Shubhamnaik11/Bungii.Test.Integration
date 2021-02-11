@@ -665,6 +665,7 @@ public class CoreServices extends DriverBase {
 
         String[] nextAvailableBungii = getScheduledBungiiTime();
         Date date = new EstimateSteps().getNextScheduledBungiiTime();
+        String strTimeDriverEarnings = new EstimateSteps().bungiiTimeDisplayDriverEarning(date);
         String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         cucumberContextManager.setScenarioContext("TIME",strTime);
@@ -677,6 +678,7 @@ public class CoreServices extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_TIME"+label, strTime.replace("am", "AM").replace("pm","PM"));
         cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
 
+        cucumberContextManager.setScenarioContext("Scheduled_Time",strTimeDriverEarnings.replace("am", "AM").replace("pm","PM"));
         //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
         //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 

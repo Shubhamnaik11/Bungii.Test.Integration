@@ -5,12 +5,14 @@ Feature: Menu_SaveMoney
     Given I am logged in as "existing" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    When I tap on "Menu" > "Promos" link
+   # When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     And I add "first time" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar stating first time code is for new users" on Save Money page
   #  And I should see the "first time" PromoCode selected by default
-    And I tap on "Menu" > "Logout" link
+    #And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
 
   @sanity
   @regression
@@ -18,75 +20,88 @@ Feature: Menu_SaveMoney
     Given I am logged in as "existing" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     And I add "valid" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "promocode added" on Save Money page
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Verify Addition Of New Promocode With Invalid Promocode
     Given I am logged in as "existing" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     And I add "invalid" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar message for invalid code" on Save Money page
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Verify Addition Of New Promocode With Expired Promocode
     Given I am logged in as "existing" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     And I add "expired" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar message for expired code" on Save Money page
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Verify Addition Of New Promocode With Already Added Promocode
     Given I am logged in as "existing" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     And I add "valid" PromoCode
     And I tap "Add" on Save Money page
     And I add "valid" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar message for already added code" on Save Money page
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario:  Verify Referral Are For New Users Notification for Newly Registered Customer
     Given I am logged in as "newly registered" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     And I add "referral" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar stating referrals are only for new users" on Save Money page
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Verify Used One Off Code Notification When Promocode Is Already Utilized
     Given I am logged in as "existing" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     And I add "used one off" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar message for used one off code" on Save Money page
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Verify First Time Promo User Who Has Referral Code Behavior
     Given I am logged in as "having referral code" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I tap on "Menu" > "Promos" link
+    #And I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     And I add "referral" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar message stating referral already exists" on Save Money page
@@ -96,7 +111,8 @@ Feature: Menu_SaveMoney
     And I tap "Add" on Save Money page
     And I select "different promo code when first time promo code is present" on the Promos page
     Then I should see "First time promo code not used" message on the Promos page
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Verify Referral Invite When Facebook App Is Already Installed
@@ -104,7 +120,8 @@ Feature: Menu_SaveMoney
     When I am logged in as "existing" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I tap on "Menu" > "Promos" link
+    #And I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     And I tap "Get More Money" on Save Money page
     Then I should see "all elements" on Invite Page
     When I tap "Share" on Invite page
@@ -118,7 +135,8 @@ Feature: Menu_SaveMoney
     Given I am logged in as "existing" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     And I tap "Get More Money" on Save Money page
     Then I should see "Referral Code" on Invite Page
     When I tap "Share" on Invite page
@@ -145,7 +163,8 @@ Feature: Menu_SaveMoney
     Then for a Bungii I should see "Bungii search screen"
     When I tap on "Cancel during search" on Bungii estimate
     Then for a Bungii I should see "Bungii Home page with locations"
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     Then I should see the unused promo code
 
   @regression

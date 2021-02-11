@@ -14,7 +14,8 @@ Scenarios on Payment Methods
     And I tap on "Set as default payment mode" on Payment page
     And I tap on "Save" on Payment page
     Then I should see "default payment set" on Payment page
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Verify Customer Payment Screen With No Payment Method Exists
@@ -24,7 +25,8 @@ Scenarios on Payment Methods
     And I close "Tutorial" if exist
     When I tap on "Menu" > "Payment" link
     Then I should see "message when no payment methods exist" on Payment page
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   #commented this due to base to auto data issue
   @knownissue
@@ -55,7 +57,8 @@ Scenarios on Payment Methods
     When I swipe "default" card on the payment page
     And I tap on "Delete" on Payment page
     Then I should see "message when no payment methods exist" on Payment page
-    And I tap on "Menu" > "Logout" link
+    #And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
     Examples:
       | Scenario       | Card Detail                | Card Expiry       |CVV|Postal Code|
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
@@ -76,7 +79,8 @@ Scenarios on Payment Methods
 
     And I tap on "Add Card" on Payment page
     Then I should see "the card has been added" on Payment page
-    And I tap on "Menu" > "Logout" link
+    #And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
     Examples:
       | Scenario       | Card Detail                | Card Expiry       |CVV|Postal Code|
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|

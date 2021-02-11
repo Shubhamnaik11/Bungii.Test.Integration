@@ -32,6 +32,8 @@ public class Partner_Delivery_Details extends DriverBase {
         String CustomerName = dataMap.get("Customer_Name").trim();
         //String SpecialInstruction = dataMap.get("Special_Instruction").trim();
         cucumberContextManager.setScenarioContext("Customer_Name", CustomerName);
+        //for admin trips step on admin portal
+        cucumberContextManager.setScenarioContext("CUSTOMER",CustomerName);
         //cucumberContextManager.setScenarioContext("Customer", CustomerName);
         String CustomerMobile = dataMap.get("Customer_Mobile").trim();
         cucumberContextManager.setScenarioContext("CustomerPhone", CustomerMobile);
@@ -65,8 +67,12 @@ public class Partner_Delivery_Details extends DriverBase {
     @When("^I enter all details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
     public void i_enter_all_details_on_some_partner_screen(String str,String Site, DataTable data){
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+        cucumberContextManager.setScenarioContext("Site",Site);
         String CustomerName = "";
         String CustomerMobile = "";
+        String ReceiptNumber = "";
+        String OrderNumber = "";
+        String SoldBuy = "";
         String Items_deliver = dataMap.get("Items_To_Deliver").trim();
         if(dataMap.containsKey("Customer_Name")) {
             CustomerName =  dataMap.get("Customer_Name").trim();
@@ -75,6 +81,15 @@ public class Partner_Delivery_Details extends DriverBase {
         if(dataMap.containsKey("Customer_Mobile")) {
             CustomerMobile = dataMap.get("Customer_Mobile").trim();
             cucumberContextManager.setScenarioContext("CustomerPhone", CustomerMobile);
+        }
+        if(dataMap.containsKey("Receipt_Number")){
+            ReceiptNumber = dataMap.get("Receipt_Number").trim();
+        }
+        if(dataMap.containsKey("Order_Number")){
+            OrderNumber = dataMap.get("Order_Number").trim();
+        }
+        if(dataMap.containsKey("SoldBuy")){
+            SoldBuy = dataMap.get("SoldBuy").trim();
         }
 
         //cucumberContextManager.setScenarioContext("Customer", CustomerName);
@@ -85,7 +100,8 @@ public class Partner_Delivery_Details extends DriverBase {
 
         String DropOffContactName = dataMap.get("Drop_Off_Contact_Name").trim();
         String DropOffContactPhone = dataMap.get("Drop_Contact_Phone").trim();
-        String ReceiptNumber = dataMap.get("Receipt_Number").trim();
+        //String ReceiptNumber = dataMap.get("Receipt_Number").trim();
+
 
         if(Site.equalsIgnoreCase("normal")) {
         switch(str) {
@@ -149,7 +165,9 @@ public class Partner_Delivery_Details extends DriverBase {
                     String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
                     cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
                     cucumberContextManager.setScenarioContext("Customer_Name", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
-                    cucumberContextManager.setScenarioContext("Customer_Mobile", Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value"));
+                    String Mobile_number = Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value");
+                    Mobile_number=Mobile_number.replace("(","").replace(")","").replace("-","").replace(" ","");
+                    cucumberContextManager.setScenarioContext("Customer_Mobile", Mobile_number);
                     action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
                     action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
                     action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
@@ -160,6 +178,35 @@ public class Partner_Delivery_Details extends DriverBase {
                     break;
             }
 
+        }else if(Site.equalsIgnoreCase("BestBuy service level")) {
+            switch (str) {
+                case "Delivery Details":
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_SKU(), Items_deliver);
+                    action.click(Page_Partner_Delivery.Button_SKU_Add());
+                    //action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                    //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                    action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                    action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+
+                    String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                    cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
+                    cucumberContextManager.setScenarioContext("Customer_Name", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
+                    cucumberContextManager.setScenarioContext("Customer_Mobile", Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value"));
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
+                    action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Order_Number(),OrderNumber);
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBuy(), SoldBuy);
+
+                    break;
+                default:
+                    break;
+            }
         }
 
     }

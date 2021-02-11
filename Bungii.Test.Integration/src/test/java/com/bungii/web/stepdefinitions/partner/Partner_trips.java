@@ -1,7 +1,7 @@
 package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.web.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
@@ -38,6 +38,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.*;
+import static com.bungii.web.utilityfunctions.DbUtility.getActualPrice;
+import static com.bungii.web.utilityfunctions.DbUtility.getBungiiRate;
 
 public class Partner_trips extends DriverBase {
     private static LogUtility logger = new LogUtility(DashBoardSteps.class);
@@ -46,6 +48,7 @@ public class Partner_trips extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     com.bungii.web.utilityfunctions.DbUtility dbUtility = new DbUtility();
+    com.bungii.web.utilityfunctions.GeneralUtility webUtility = new com.bungii.web.utilityfunctions.GeneralUtility();
 
     Admin_DashboardPage admin_DashboardPage = new Admin_DashboardPage();
     Admin_CustomerPage admin_CustomerPage = new Admin_CustomerPage();
@@ -335,8 +338,12 @@ public class Partner_trips extends DriverBase {
 
     @And("^I select the Scheduled Bungii from Delivery List$")
     public void i_select_scheduled_bungii_from_delivery_list(){
+        String scheduled_time =(String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");;
+        String customer =(String) cucumberContextManager.getScenarioContext("Customer_Name");
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer);
 
-        action.click(Page_Partner_Delivery_List.Record1());
+        action.getElementByXPath(XPath).click();
+        //action.click(Page_Partner_Delivery_List.Record1());
     }
 
     @And("^I close the Trip Delivery Details page$")
@@ -625,6 +632,36 @@ public class Partner_trips extends DriverBase {
 
     }
 
+    @Then("^I should be able to see the respective partner portal trip with \"([^\"]*)\" state$")
+    public void i_should_be_able_to_see_the_respective_partner_portal_trip_with_something_state(String strArg1) throws Throwable {
+        String status = strArg1;
+        String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
+        String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        BT = BT.replace("Solo Scheduled","Solo");
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client,status);
+
+        int retrycount = 12;
+
+        boolean retry = true;
+        while (retry == true && retrycount > 0) {
+            try {
+                WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPath)));
+                retry = false;
+
+            } catch (Exception ex) {
+                SetupManager.getDriver().navigate().refresh();
+                retrycount--;
+                retry = true;
+            }
+
+        }
+
+        testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+
+    }
+
     @Then("^I should be able to see the respective bungii partner portal trip with the below status$")
     public void i_should_be_able_to_see_the_respective_bungii_partner_portal_trip_with_the_below_status(DataTable data) throws Throwable {
         try {
@@ -633,7 +670,7 @@ public class Partner_trips extends DriverBase {
             String tripType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
             String customer = (String) cucumberContextManager.getScenarioContext("Customer_Name");
             String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-            String pickupRef = (String) cucumberContextManager.getScenarioContext("pickupRequest");
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("pickupRequestPartner");
 
 
             String geofenceName = getGeofence(geofence);
@@ -721,6 +758,33 @@ public class Partner_trips extends DriverBase {
         }
 
     }
+
+    @Then("^I view the correct Driver Est. Earnings for geofence based pricing model$")
+    public void i_view_the_correct_Driver_Est_Earnings(){
+        String DriverEstEarning= action.getElementByXPath("//td[text()='Driver Est. Earnings']/following::td[1]").getText();
+        //DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
+        DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
+
+        String ExpectedDriverEstEarning= webUtility.calDriverEstEarning();
+
+        testStepVerify.isEquals(ExpectedDriverEstEarning, DriverEstEarning.trim(), "Driver Est. Earning value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Driver Est. Value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning + ",(Truncate to single float point)", "Expected Est. Earning value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning);
+        action.getElementByXPath("//div[@id='btnOk']").click();
+
+    }
+
+    @Then("^I view the correct Driver Earnings for geofence based pricing model$")
+    public void i_view_the_correct_Driver_Earnings(){
+        String DriverEarning= action.getElementByXPath("//td[text()='Driver Earnings']/following::td[1]").getText();
+        //To remove $ sign
+        DriverEarning=DriverEarning.substring(1,DriverEarning.length());
+
+        String ExpectedDriverEarning= utility.calDriverEarning();
+
+        testStepVerify.isEquals(ExpectedDriverEarning, DriverEarning.trim(), "Driver Est. Earning value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Driver Est. Value for bungii is" + ExpectedDriverEarning + " and Actual value is" + DriverEarning + ",(Truncate to single float point)", "Expected Est. Earning value for bungii is" + ExpectedDriverEarning + " and Actual value is" + DriverEarning);
+        action.click(Page_Partner_Delivery_List.Button_OK_Admin_Portal());
+
+    }
+
 
     @And("^I navigate to partner portal$")
     public void i_navigate_to_partner_portal(){

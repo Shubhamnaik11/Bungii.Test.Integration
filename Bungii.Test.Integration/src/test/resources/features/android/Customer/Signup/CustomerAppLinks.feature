@@ -21,7 +21,8 @@ Feature: CustomerApplicationLinks
     And I check that "5" pages of turotial are present
     And I check that if i can swipe the pages
     And I tap the "START" button is present on last page
-    When I tap on "Menu" > "Logout" link
+    #When I tap on "Menu" > "Logout" link
+    When I tap on the "ACCOUNT>LOGOUT" link
     And I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen

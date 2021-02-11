@@ -58,6 +58,21 @@ public class HomeSteps extends DriverBase {
             error("Step  Should be successful", "Error in tapping on menu item : "+ strArg2, true);
         }
     }
+
+    @When("^I tap on the \"([^\"]*)\" link$")
+    public void i_tap_on_the_something_link(String strArg1) throws Throwable {
+        try {
+            utility.clickCustomerMenuItem(strArg1);
+            Thread.sleep(2000);
+            action.scrollToBottom();
+
+            log(" I should able to tap on " + strArg1, " I tapped on " + strArg1, true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in tapping on menu item : "+ strArg1, true);
+        }
+    }
+
     @Then("^Customer active flag should be \"([^\"]*)\"$")
     public void i_driveractive_flag_should_be_something(String strArg1) throws Throwable {
         try {

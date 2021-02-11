@@ -551,6 +551,22 @@ public class EstimateSteps extends DriverBase {
         return formattedDate;
     }
 
+    public String bungiiTimeDisplayDriverEarning(Date date) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy hh:mm a");
+        String formattedDate = sdf.format(date);
+        //After sprint 27 /26 IST is being added in scheduled page
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+            formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
+        else
+            formattedDate = formattedDate + " " + utility.getTimeZoneBasedOnGeofence();
+
+        cucumberContextManager.setScenarioContext("BUNGII_FORMATTED", formattedDate);
+        return formattedDate;
+    }
+
     /**
      * Format input date and return in required format
      *

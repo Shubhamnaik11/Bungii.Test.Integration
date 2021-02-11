@@ -13,7 +13,8 @@ Feature: CustomerMenu
   #@regression
   Scenario: Verify Device Token De-Registration On Customer Logout
     Then Customer active flag should be "1"
-    And I tap on "Menu" > "Logout" link
+    #And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
     Then Customer active flag should be "0"
     
     ################
@@ -38,7 +39,8 @@ Feature: CustomerMenu
     Then "Payment" page should be opened
     When I tap on "Menu" > "Support" link
     Then "Support" page should be opened
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     Then "Promos" page should be opened
     When I tap on "Menu" > "My Bungiis" link
     Then "MY BUNGIIS" page should be opened
@@ -51,7 +53,8 @@ Feature: CustomerMenu
     Then "bungii.com" page should be opened
     
     When I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "Logout" link
+    #And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
     Then "Login" page should be opened
 
   
@@ -86,7 +89,8 @@ Feature: CustomerMenu
   
   
   Scenario:Verify Customer Promos Menu
-    When I tap on "Menu" > "Promos" link
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
     Then "Promos" page should be opened
     
   Scenario: Verify My Bungiis Menu
