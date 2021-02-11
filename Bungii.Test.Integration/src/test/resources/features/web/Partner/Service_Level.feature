@@ -142,7 +142,6 @@ Feature: Service Level
 
   #CORE-1541
   @ready
-    @done
   Scenario: Verify that correct Estimate duration for service level partner portal trip is shown in Admin portal
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -181,7 +180,7 @@ Feature: Service Level
     Then I should "see correct Estimation Duration" for "Biglots" Alias
 
 #CORE-1862 secnario
-  @Inprogress
+  @ready
   Scenario Outline: Verify driver earning calculated service level options display on configured Partner portal <Type>-<ServiceName> for <Distance> distance
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
