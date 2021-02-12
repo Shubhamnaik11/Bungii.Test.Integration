@@ -80,7 +80,9 @@ public class HomePage extends PageBase {
 
   public WebElement AppMenu_FAQ() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FAQ'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Account() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ACCOUNT'", PageBase.LocatorType.Predicate); }
-    public WebElement AppMenu_Support() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SUPPORT'", PageBase.LocatorType.Predicate); }
+    public WebElement AppMenu_AccountInfo() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ACCOUNT INFO'", PageBase.LocatorType.Predicate); }
+
+  public WebElement AppMenu_Support() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SUPPORT'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Promos() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'PROMOS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_DriveWithBungii() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SIGN UP TO DRIVE'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Payment() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'PAYMENT'", LocatorType.Predicate); }

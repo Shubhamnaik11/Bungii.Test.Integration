@@ -11,7 +11,7 @@ Feature: Trip Alert Settings
 	  When I Switch to "driver" application on "same" devices
 	  And I am on the "LOG IN" page on driverApp
 	  And I am logged in as "valid denver" driver
-	  When I Select "ALERT SETTINGS" from driver App menu
+	  When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
 	  And I update denvers driver todays trip alert setting to outside current time
 	  #When I Switch to "customer" application on "same" devices
 	  When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
@@ -23,7 +23,7 @@ Feature: Trip Alert Settings
 	  And I Select "AVAILABLE BUNGIIS" from driver App menu
 	  Then I should be navigated to "AVAILABLE BUNGIIS" screen
 	  And I should able to see "zero" available trip
-	  And I Select "ALERT SETTINGS" from driver App menu
+	  And I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
 	  And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
 	  Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |

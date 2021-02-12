@@ -1513,7 +1513,7 @@ Feature: Solo Scheduled Bungii Part II
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
     Then I should be navigated to "Home" screen
-    When I Select "PAYMENT" from Customer App menu
+    When I Select "ACCOUNT > PAYMENT" from Customer App menu
     When I click "ADD" button on "PAYMENT" screen
     And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
     And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
@@ -1525,7 +1525,7 @@ Feature: Solo Scheduled Bungii Part II
       | NEXT_POSSIBLE | NEW_USER_NUMBER | VishalIHHnZkrz Test | Cci12345          |
     When I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "newly created user" user
-    When I Select "PAYMENT" from Customer App menu
+    When I Select "ACCOUNT > PAYMENT" from Customer App menu
     When I swipe "other" card on the payment page
     And I tap on "Delete" on Payment page
     Then Alert message with Delete Warning text should be displayed
@@ -1536,7 +1536,7 @@ Feature: Solo Scheduled Bungii Part II
       | NEW_USER_NUMBER |                 |
     When I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "newly created user" user
-    When I Select "PAYMENT" from Customer App menu
+    When I Select "ACCOUNT > PAYMENT" from Customer App menu
     When I swipe "other" card on the payment page
     And I tap on "Delete" on Payment page
     Then Alert message with Delete Warning text should be displayed

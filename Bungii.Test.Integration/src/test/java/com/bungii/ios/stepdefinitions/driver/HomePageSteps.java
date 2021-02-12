@@ -62,6 +62,11 @@ public class HomePageSteps extends DriverBase {
                 Thread.sleep(1000);
             }
             Thread.sleep(1000);
+            String header = action.getScreenHeader(homepage.NavigationBar_Status());
+            if (header.equalsIgnoreCase("ACCOUNT INFO")||header.equalsIgnoreCase("ALERT SETTINGS"))
+            {
+                action.click(homepage.Button_MenuBack());
+            }
             goToAppMenu();
             Thread.sleep(1000);
             boolean flag = clickAppMenu(menuItem);
@@ -166,8 +171,9 @@ public class HomePageSteps extends DriverBase {
                 case "HOME":
                     action.click(homepage.AppMenu_Home());
                     break;
-                case "ACCOUNT":
+                case "ACCOUNT > ACCOUNT INFO":
                     action.click(homepage.AppMenu_Account());
+                    action.click(homepage.AppMenu_AccountInfo());
                     break;
                 case "SCHEDULED BUNGIIS":
                     action.click(homepage.AppMenu_ScheduledTrip());
@@ -178,21 +184,23 @@ public class HomePageSteps extends DriverBase {
                 case "EARNINGS":
                     action.click(homepage.AppMenu_EARNINGS());
                     break;
-                case "ALERT SETTINGS":
+                case "ACCOUNT > ALERT SETTINGS":
+                    action.click(homepage.AppMenu_Account());
                     action.click(homepage.AppMenu_TripAlertSettings());
                     break;
                 case "FEEDBACK":
                     action.click(homepage.AppMenu_Feedback());
                     break;
-                case "STORE":
+                case "BUNGII STORE":
                     action.click(homepage.AppMenu_Store());
                     break;
                 case "LEADERBOARD":
                     action.click(homepage.AppMenu_LEADERBOARD());
                     break;
-                case "LOGOUT":
+                case "ACCOUNT > LOGOUT":
                     action.swipeUP();
                     Thread.sleep(1000);
+                    action.click(homepage.AppMenu_Account());
                     action.click(homepage.AppMenu_LogOut1());
                     if (action.isElementPresent(homepage.AppMenu_LogOut1(true)))
                         action.tapByElement(homepage.AppMenu_LogOut1());
@@ -381,7 +389,7 @@ public class HomePageSteps extends DriverBase {
                     testStepVerify.isElementEnabled(homepage.Text_Total_Tips(),"Total Earnings should be displayed");
                     testStepVerify.isElementEnabled(homepage.Text_My_Rating(),"My Rating should be displayed");
                     break;
-                case "ACCOUNT":
+                case "ACCOUNT INFO":
                     String accountName=action.getNameAttribute(accountPage.Text_Name());
                     testStepAssert.isEquals(accountName.replace("  "," "), (String) cucumberContextManager.getScenarioContext("DRIVER_1"), " is displayed", " is displayed", " is not displayed");
                     break;
@@ -395,7 +403,7 @@ public class HomePageSteps extends DriverBase {
                     testStepAssert.isElementNameEquals(homepage.Text_Feedback(), "Send us your feedback", "Send us your feedback is displayed", "Send us your feedback is displayed", "Send us your feedback is not displayed");
                     break;
 
-                case "STORE":
+                case "BUNGII STORE":
                     testStepAssert.isElementNameEquals(homepage.Text_Store(), "BUNGII STORE", "BUNGII STORE is displayed", "BUNGII STORE is displayed", "BUNGII STORE is not displayed");
                     break;
 

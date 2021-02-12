@@ -68,7 +68,7 @@ Feature: Permissions
 	Then I should be navigated to "ALLOW LOCATION" screen
 	And I should see "all details" on allow location driver screen
 	When I verify and allow access of Location from Bungii driver application
-	When I Select "LOGOUT" from driver App menu
+	When I Select "ACCOUNT > LOGOUT" from driver App menu
 	When I enter phoneNumber :{VALID} and  Password :Cci12345
 	And I click "Log In" button on "Log In" screen on driverApp
 	Then I should be navigated to "Home" screen
@@ -96,7 +96,7 @@ Feature: Permissions
 	Then I should able to see "tutorials page 5" on Tutorials screen
 	And I close tutorial Page by using Start button
 	Then User should be successfully logged in to the application
-	When I Select "LOGOUT" from Customer App menu
+	When I Select "ACCOUNT > LOGOUT" from Customer App menu
 	When I am on the "LOG IN" page
 	And I enter Username :{VALID1} and  Password :{VALID}
 	And I click "Log In" button on "Log In" screen

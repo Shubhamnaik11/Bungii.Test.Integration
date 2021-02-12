@@ -157,7 +157,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
     When I Switch to "driver" application on "same" devices
     And I click "On To The Next One" button on "Bungii Completed" screen
-    And I Select "Logout" from driver App menu
+    And I Select "ACCOUNT > LOGOUT" from driver App menu
 
   @regression
   Scenario: Verify Trip information/Bungii completed page For Ongoing Ondemand Bungii
@@ -222,7 +222,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-    And I Select "Logout" from driver App menu
+    And I Select "ACCOUNT > LOGOUT" from driver App menu
   
   @regression
   Scenario: Verify Driver Rating Details Is Correctly Shown On Customer App When Bungii Is In Progress
@@ -516,7 +516,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I click "Invite referrals" button on "HOME" screen
     Then I should be navigated to "Invite" screen
     When I get Invite Code
-    When I Select "LOGOUT" from Customer App menu
+    When I Select "ACCOUNT > LOGOUT" from Customer App menu
     Given I am on the "SIGN UP" page
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
@@ -530,7 +530,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
     Then I should be navigated to "Home" screen
-    When I Select "PROMOS" from Customer App menu
+    When I Select "ACCOUNT > PROMOS" from Customer App menu
     And I should able to see expected promo code in available promo code
     Then I should see "first time code subtext" on Promos page
     When I Select "PAYMENT" from Customer App menu
@@ -540,7 +540,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
     And I click "ADD PAYMENT METHOD" button on "PAYMENT" screen
     Then I should see "new card" on Payment page
-    When I Select "LOGOUT" from Customer App menu
+    When I Select "ACCOUNT > LOGOUT" from Customer App menu
     Then I save customer phone and referral code in feature context
 
     Examples:

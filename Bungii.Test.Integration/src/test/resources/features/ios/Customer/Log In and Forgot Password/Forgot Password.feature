@@ -80,7 +80,7 @@ Feature: FORGOT PASSWORD
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I should be navigated to "Home" screen
-    And I Select "LOGOUT" from Customer App menu
+    And I Select "ACCOUNT > LOGOUT" from Customer App menu
 
     Examples:
       | Scenario    | Value        | New Password | Expected Message        |
@@ -123,4 +123,4 @@ Feature: FORGOT PASSWORD
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I should be navigated to "Home" screen
-    And I Select "LOGOUT" from Customer App menu
+    And I Select "ACCOUNT > LOGOUT" from Customer App menu

@@ -11,12 +11,12 @@ Feature: Promos
   @regression
   Scenario Outline:Verify Existing Customer Is Not Allowed To Use First Time Only Promocode
     When I logged in Customer application using  "existing app user" user
-    And I Select "PROMOS" from Customer App menu
+    And I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen for first time promocode
     Then user is alerted for "<Expected Message>"
-    And I Select "LOGOUT" from Customer App menu
+    And I Select "ACCOUNT > LOGOUT" from Customer App menu
 
 #added promo code in
     Examples:
@@ -25,7 +25,7 @@ Feature: Promos
 
   @regression
   Scenario Outline: Verify Customer Is Alerted While Adding Invalid Promocode
-    When I Select "PROMOS" from Customer App menu
+    When I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
@@ -47,12 +47,12 @@ Feature: Promos
     And I switch to "ORIGINAL" instance
 
     And I logged in Customer application using  "<User Type>" user
-    And I Select "PROMOS" from Customer App menu
+    And I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     And I Enter "Referral" value in "Promo Code" field in "Promo" Page
     When I click "ADD" button on "PROMOS" screen
     Then user is alerted for "<Expected Message>"
-    And I Select "LOGOUT" from Customer App menu
+    And I Select "ACCOUNT > LOGOUT" from Customer App menu
     Examples:
       | Scenario                           | User Type | Expected Message      |
       | User already having REFERRAL code | referral  | REFERRAL FOR NEW USER |
@@ -66,7 +66,7 @@ Feature: Promos
   #  When I Select "Promo Code" from admin sidebar
   #  Then I get promo code for "USED ONE OFF"
   #  When I switch to "ORIGINAL" instance
-    When I Select "PROMOS" from Customer App menu
+    When I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I Enter "USED ONE OFF" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
@@ -80,7 +80,7 @@ Feature: Promos
     And I Select "Promo Code" from admin sidebar
     Then I get promo code for "VALID"
     And I switch to "ORIGINAL" instance
-    And I Select "PROMOS" from Customer App menu
+    And I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     And I add "VALID" PromoCode
     And I click "ADD" button on "PROMOS" screen
@@ -97,7 +97,7 @@ Feature: Promos
     And I Select "Promo Code" from admin sidebar
     Then I get promo code for "expired"
     When I switch to "ORIGINAL" instance
-    And I Select "PROMOS" from Customer App menu
+    And I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I Enter "expired" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
@@ -106,7 +106,7 @@ Feature: Promos
  # @regression
   Scenario: Verify When Customer Tries To Share His Promocode Via Twitter But There Is No Twitter App Installed Then He Gets An Alert For No Twitter Installed
     Given I have "twitter" app "not installed"
-    When I Select "PROMOS" from Customer App menu
+    When I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I click "GET MORE MONEY" button on "PROMOS" screen
     Then I should be navigated to "Invite" screen
@@ -128,7 +128,7 @@ Feature: Promos
 #    When I enter Username :8888889917 and  Password :{VALID}
     When I enter Username :9999999923 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
-    And I Select "PROMOS" from Customer App menu
+    And I Select "ACCOUNT > PROMOS" from Customer App menu
     And I add "VALID" PromoCode
     And I click "ADD" button on "PROMOS" screen
     When I click "INFO" button on "PROMOS" screen
@@ -146,7 +146,7 @@ Feature: Promos
  #   When I enter Username :8877995502 and  Password :{VALID}
     When I enter Username :9999990015 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
-    And I Select "PROMOS" from Customer App menu
+    And I Select "ACCOUNT > PROMOS" from Customer App menu
     When I Enter "first time only" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
     When I click "INFO" button on "PROMOS" screen
@@ -167,7 +167,7 @@ Feature: Promos
     When I enter Username :8877995508 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     
-    And I Select "PROMOS" from Customer App menu
+    And I Select "ACCOUNT > PROMOS" from Customer App menu
     When I Enter "first time only" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
     And I add "VALID" PromoCode
@@ -203,7 +203,7 @@ Feature: Promos
     And I am on the "LOG IN" page
     When I enter Username :8877995512 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
-    And I Select "PROMOS" from Customer App menu
+    And I Select "ACCOUNT > PROMOS" from Customer App menu
     When I Enter "one off" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
 
@@ -223,7 +223,7 @@ Feature: Promos
 
     When I tap "Back" on Promos screen
     And I click "Cancel" button on "Estimate" screen
-    And I Select "PROMOS" from Customer App menu
+    And I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
   @regression
@@ -250,7 +250,7 @@ Feature: Promos
     And I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
-    And I Select "PROMOS" from Customer App menu
+    And I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
   @ready

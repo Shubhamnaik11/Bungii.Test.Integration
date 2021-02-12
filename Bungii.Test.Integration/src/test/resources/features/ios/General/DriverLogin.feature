@@ -87,6 +87,6 @@ Feature: Driver Login
     When I click "Go Online" button on "Home" screen on driverApp
     Then Alert message with HICCUP MESSAGE text should be displayed on driverApp
     And I accept Alert message on driverApp
-    When I Select "LOGOUT" from driver App menu
+    When I Select "ACCOUNT > LOGOUT" from driver App menu
 
 

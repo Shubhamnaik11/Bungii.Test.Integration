@@ -133,7 +133,7 @@ Feature: Customer Estimate screen
     And "Add Image" should be present in "PAYMENT" screen
     And "ADD" should be present in "PAYMENT" screen
     When I Switch to "customer" application on "same" devices
-    And I Select "LOGOUT" from Customer App menu
+    And I Select "ACCOUNT > LOGOUT" from Customer App menu
     
     @regression
     Scenario:Verify Customer Can Add Atleast One And Maximum Of Four Images Of Items On Estimate Screen

@@ -35,7 +35,7 @@ When I verify and allow access of Notification from Bungii driver application
 Then I should be navigated to "ALLOW LOCATION" screen
 And I should see "all details" on allow location driver screen
 When I verify and allow access of Location from Bungii driver application
-When I Select "LOGOUT" from driver App menu
+When I Select "ACCOUNT > LOGOUT" from driver App menu
 When I enter phoneNumber :{VALID} and  Password :Cci12345
 And I click "Log In" button on "Log In" screen on driverApp
 Then I should be navigated to "Home" screen

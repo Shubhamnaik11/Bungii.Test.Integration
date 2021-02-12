@@ -684,7 +684,7 @@ public class GeneralUtility extends DriverBase {
             case "FAQ":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.faq");
                 break;
-            case "ACCOUNT":
+            case "ACCOUNT INFO":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.account");
                 break;
             case "SCHEDULED BUNGII":
@@ -702,7 +702,7 @@ public class GeneralUtility extends DriverBase {
             case "ALERT SETTINGS":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.trip.alert.settings");
                 break;
-            case "STORE":
+            case "BUNGII STORE":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.store");
                 break;
             case "SCHEDULED BUNGIIS":

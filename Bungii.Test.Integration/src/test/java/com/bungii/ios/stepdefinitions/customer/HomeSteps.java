@@ -5,6 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.customer.AccountPage;
 import com.bungii.ios.pages.customer.HomePage;
 import com.bungii.ios.pages.customer.InvitePage;
 import com.bungii.ios.utilityfunctions.DbUtility;
@@ -28,6 +29,7 @@ public class HomeSteps extends DriverBase {
     ActionManager action = new ActionManager();
     private HomePage homePage;
     private InvitePage invitePage = new InvitePage();
+    private AccountPage accountPage = new AccountPage();
 
     DbUtility dbUtility= new DbUtility();
     public HomeSteps(HomePage homePage) {
@@ -445,6 +447,10 @@ public class HomeSteps extends DriverBase {
             {
                 action.click(invitePage.Button_Done());
             }
+            if (header.equalsIgnoreCase("ACCOUNT INFO")||header.equalsIgnoreCase("PROMOS")||header.equalsIgnoreCase("PAYMENT"))
+            {
+                action.click(accountPage.Button_MenuBack());
+            }
             goToAppMenu();
             clickAppMenu(menuItem);
             log(menuItem + " must be selected sucessfully",
@@ -681,25 +687,30 @@ public class HomeSteps extends DriverBase {
             case "FAQ":
                 action.click(homePage.AppMenu_FAQ());
                 break;
-            case "ACCOUNT":
+            case "ACCOUNT > ACCOUNT INFO":
                 action.click(homePage.AppMenu_Account());
+                action.click(homePage.AppMenu_AccountInfo());
+
                 break;
             case "MY BUNGIIS":
                 action.click(homePage.AppMenu_MyBungiisTrip());
                 break;
-            case "PAYMENT":
+            case "ACCOUNT > PAYMENT":
+                action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_Payment());
                 break;
             case "SUPPORT":
                 action.click(homePage.AppMenu_Support());
                 break;
-            case "PROMOS":
+            case "ACCOUNT > PROMOS":
+                action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_Promos());
                 break;
             case "DRIVE WITH BUNGII":
                 action.click(homePage.AppMenu_DriveWithBungii());
                 break;
-            case "LOGOUT":
+            case "ACCOUNT > LOGOUT":
+                action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_LogOut());
                 break;
             default:

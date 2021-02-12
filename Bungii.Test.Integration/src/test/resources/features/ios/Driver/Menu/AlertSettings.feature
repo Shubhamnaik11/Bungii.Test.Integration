@@ -12,14 +12,14 @@ Feature: AlertSettings
 	
 @regression
 Scenario: Verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
-When I Select "ALERT SETTINGS" from driver App menu
+When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
 When I click "SMS ALERT" button on "ALERT SETTINGS" screen on driverApp
 Then I should be able to see default data on "SMS ALERT" page
 
 
 @regression
 Scenario: Verify Correct Data Is Displayed In Trip And Sms Alert Settings Upon Switching Between Trip And SMS Alerts Tabs
-When I Select "ALERT SETTINGS" from driver App menu
+When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
 And I save "DELIVERY ALERT" settings data
 When I click "SMS ALERT" button on "ALERT SETTINGS" screen on driverApp
 And I update sms setting of "sunday" to "09:00 a.m." to "12:00 p.m."

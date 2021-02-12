@@ -61,7 +61,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       And I close "Tutorial" if exist
     Then I should be navigated to "Home" screen
-    When I Select "PROMOS" from Customer App menu
+    When I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     And I should able to see expected promo code in available promo code
     And I click "INFO" button on "PROMOS" screen
@@ -192,7 +192,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     Then I should be navigated to "Home" screen
-    When I Select "PROMOS" from Customer App menu
+    When I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     And I should able to see expected promo code in available promo code
     Then I should see "first time code subtext" on Promos page

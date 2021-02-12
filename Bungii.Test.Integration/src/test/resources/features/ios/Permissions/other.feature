@@ -10,7 +10,7 @@ Feature: Share Code
 @knownissue
 Scenario: Verify Referral Invite When Facebook App Is Already Installed
 Given I have "facebook" app "installed"
-When I Select "PROMOS" from Customer App menu
+When I Select "ACCOUNT > PROMOS" from Customer App menu
 Then I should be navigated to "PROMOS" screen
 When I click "GET MORE MONEY" button on "PROMOS" screen
 Then I should be navigated to "Invite" screen

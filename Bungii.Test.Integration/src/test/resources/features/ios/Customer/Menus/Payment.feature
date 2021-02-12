@@ -9,7 +9,7 @@ Feature: Payment page
 
   @knownissue
   Scenario Outline: Verify Customer Cannot Add Invalid Card - <Scenario> Scenario
-    When I Select "PAYMENT" from Customer App menu
+    When I Select "ACCOUNT > PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     When I click "Add new" button on "PAYMENT" screen
     And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
@@ -26,7 +26,7 @@ Feature: Payment page
   
   @knownissue
   Scenario Outline: Verify Customer Can Add New Payment Card -  <Scenario> Scenario
-    When I Select "PAYMENT" from Customer App menu
+    When I Select "ACCOUNT > PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     And PAYMENT page should be properly displayed
     When I click "Add new" button on "PAYMENT" screen
@@ -42,7 +42,7 @@ Feature: Payment page
     
   @regression
   Scenario: Verify Customer Can Change Default Payment Card
-    When I Select "PAYMENT" from Customer App menu
+    When I Select "ACCOUNT > PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     When I get "current" default card
     And I tap on "Other card" on Payment page
@@ -67,7 +67,7 @@ Feature: Payment page
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
     Then I should be navigated to "Home" screen
-    When I Select "PAYMENT" from Customer App menu
+    When I Select "ACCOUNT > PAYMENT" from Customer App menu
     When I click "ADD" button on "PAYMENT" screen
     And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
     And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
@@ -86,16 +86,16 @@ Feature: Payment page
 
   @regression
   Scenario Outline:  Verify Customer Without Payment Card Should See Add Payment Card Message
-    When I Select "LOGOUT" from Customer App menu
+    When I Select "ACCOUNT > LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
     When I enter Username :<Username> and  Password :<Password>
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
-    When I Select "PAYMENT" from Customer App menu
+    When I Select "ACCOUNT > PAYMENT" from Customer App menu
     Then "Add New Card" message should be displayed on "PAYMENT" page
     And "Add Image" should be present in "PAYMENT" screen
     And "ADD" should be present in "PAYMENT" screen
-    And I Select "LOGOUT" from Customer App menu
+    And I Select "ACCOUNT > LOGOUT" from Customer App menu
 
     Examples:
       | Scenario          | Username       | Password       |

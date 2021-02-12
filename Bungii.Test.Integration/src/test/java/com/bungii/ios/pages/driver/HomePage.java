@@ -53,14 +53,20 @@ public class HomePage extends PageBase {
     public WebElement AppMenu_AvailableTrip() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'AVAILABLE BUNGIIS'", LocatorType.Predicate); }
     public WebElement AppMenu_Home() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'HOME'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Account() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ACCOUNT'", PageBase.LocatorType.Predicate); }
+    public WebElement AppMenu_AccountInfo() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ACCOUNT INFO'", PageBase.LocatorType.Predicate); }
 
+    public WebElement Button_MenuBack() {
+        //  return findElement("//XCUIElementTypeButton[@name='LOG IN']", LocatorType.XPath);
+        return findElement("type == 'XCUIElementTypeButton' AND name == 'Back'", LocatorType.Predicate);
+
+    }
 
     public WebElement AppMenu_ScheduledTrip() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SCHEDULED BUNGIIS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_FAQ() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FAQ'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_EARNINGS() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'EARNINGS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_TripAlertSettings() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ALERT SETTINGS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Feedback() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FEEDBACK'", PageBase.LocatorType.Predicate); }
-    public WebElement AppMenu_Store() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'STORE'", PageBase.LocatorType.Predicate); }
+    public WebElement AppMenu_Store() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'BUNGII STORE'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_LEADERBOARD() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'LEADERBOARD'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_LogOut1(boolean ...ignoreException) { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'LOGOUT'", PageBase.LocatorType.Predicate,ignoreException); }
   //  public WebElement AppMenu_LogOut() { return findElement("//XCUIElementTypeStaticText[@name=\"LOGOUT\"]", PageBase.LocatorType.XPath); }

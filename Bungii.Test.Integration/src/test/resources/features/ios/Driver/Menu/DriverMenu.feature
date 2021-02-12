@@ -12,10 +12,11 @@ Feature: DriverMenu
     
   @sanity
   @regression
+  @menu
   Scenario: Verify Driver App Menu Option Navigation - ACCOUNT | LEADERBOARD | SCHEDULED BUNGIIS | AVAILABLE BUNGIIS | EARNINGS | ALERT SETTINGS | STORE | FEEDBACK | LOGOUT
-    When I Select "ACCOUNT" from driver App menu
-    Then I should be navigated to "ACCOUNT" screen
-    Then I should be able to see data on "ACCOUNT" page
+    When I Select "ACCOUNT > ACCOUNT INFO" from driver App menu
+    Then I should be navigated to "ACCOUNT INFO" screen
+    Then I should be able to see data on "ACCOUNT INFO" page
     When I Select "LEADERBOARD" from driver App menu
     Then I should be navigated to "LEADERBOARD" screen
     Then I should be able to see data on "LEADERBOARD" page
@@ -28,16 +29,16 @@ Feature: DriverMenu
     When I Select "EARNINGS" from driver App menu
     Then I should be navigated to "EARNINGS" screen
     Then I should be able to see data on "EARNINGS" page
-    When I Select "ALERT SETTINGS" from driver App menu
+    When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
     Then I should be navigated to "ALERT SETTINGS" screen
     Then I should be able to see data on "ALERT SETTINGS" page
-    When I Select "STORE" from driver App menu
-    Then I should be navigated to "STORE" screen
-    Then I should be able to see data on "STORE" page
+    When I Select "BUNGII STORE" from driver App menu
+    Then I should be navigated to "BUNGII STORE" screen
+    Then I should be able to see data on "BUNGII STORE" page
     When I Select "FEEDBACK" from driver App menu
     Then I should be navigated to "FEEDBACK" screen
     Then I should be able to see data on "FEEDBACK" page
-    When I Select "LOGOUT" from driver App menu
+    When I Select "ACCOUNT > LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
   
@@ -46,7 +47,7 @@ Feature: DriverMenu
     When I Select "FAQ" from driver App menu
     Then I should be navigated to "FAQ" screen
     Then I should be able to see data on "FAQ" page
-    When I Select "LOGOUT" from driver App menu
+    When I Select "ACCOUNT > LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
     
@@ -85,22 +86,22 @@ Feature: DriverMenu
     Then I should be able to see data on "ITEMIZED EARNINGS" page
     
   Scenario: Verify Driver ACCOUNT Menu
-    When I Select "ACCOUNT" from driver App menu
+    When I Select "ACCOUNT > ACCOUNT INFO" from driver App menu
     Then I should be navigated to "ACCOUNT" screen
     Then I should be able to see data on "ACCOUNT" page
     
   Scenario: Verify Driver ALERT SETTINGS Menu
-    When I Select "ALERT SETTINGS" from driver App menu
+    When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
     Then I should be navigated to "ALERT SETTINGS" screen
     Then I should be able to see data on "ALERT SETTINGS" page
     
   Scenario:Verify Driver LOGOUT Menu
-    When I Select "LOGOUT" from driver App menu
+    When I Select "ACCOUNT > LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
     
   Scenario: Verify Driver STORE Menu
-    When I Select "STORE" from driver App menu
+    When I Select "BUNGII STORE" from driver App menu
     Then I should be navigated to "STORE" screen
     Then I should be able to see data on "STORE" page
     
