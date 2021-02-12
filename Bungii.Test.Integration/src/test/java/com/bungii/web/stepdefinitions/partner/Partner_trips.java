@@ -67,6 +67,7 @@ public class Partner_trips extends DriverBase {
 
     @When("^I request for \"([^\"]*)\" Bungii trip in partner portal$")
     public void i_request_something_bungii_trip_in_partner_portal(String Type, DataTable data) throws InterruptedException {
+        try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
         String Pickup_Address = dataMap.get("Pickup_Address");
@@ -162,6 +163,10 @@ public class Partner_trips extends DriverBase {
              break;
             default: break;
         }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in selecting pickup and drop off address.", true);
+        }
 
     }
 
@@ -211,7 +216,7 @@ public class Partner_trips extends DriverBase {
 
     @And("^I select Pickup Date and Pickup Time on partner portal$")
     public  void i_select_pickupdate_time_on_partner_portal(DataTable data) throws Throwable {
-
+        try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String PickupDate =dataMap.get("PickUp_Date");
         String PickUpTime =dataMap.get("PickUp_Time");
@@ -250,6 +255,10 @@ public class Partner_trips extends DriverBase {
         if(!PickUpTime.equalsIgnoreCase("")) {
             Thread.sleep(2000);
             action.getElementByXPath("//li[contains(text(),'"+PickUpTime+"')]").click();
+        }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in selecting pickup and drop off address.", true);
         }
 
     }
@@ -310,6 +319,7 @@ public class Partner_trips extends DriverBase {
 
     @Then("^I should see \"([^\"]*)\"$")
     public void i_should_see_something_on_screen(String str){
+        try{
         switch (str)
         {
             case "Estimated Cost":
@@ -334,6 +344,10 @@ public class Partner_trips extends DriverBase {
                 break;
             default: break;
         }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in selecting pickup and drop off address.", true);
+        }
     }
 
     @And("^I select the Scheduled Bungii from Delivery List$")
@@ -344,15 +358,18 @@ public class Partner_trips extends DriverBase {
 
         action.getElementByXPath(XPath).click();
         //action.click(Page_Partner_Delivery_List.Record1());
+        log("I should able to select the Scheduled Bungii from Delivery List","Scheduled Bungii from Delivery List get selected.",true);
     }
 
     @And("^I close the Trip Delivery Details page$")
     public void i_close_the_trip_delivery_details_page(){
         action.click(Page_Partner_Delivery_List.Button_Close());
+        log("I should able to close the Trip Delivery Details page.","I am able to closed the Trip Delivery Details page.", true);
     }
 
     @When("^I request for \"([^\"]*)\" Bungii trip in partner portal in \"([^\"]*)\" $")
     public void i_request_something_bungii_trip_in_partner_portal_for_some_geofence(String Type,String geofence, DataTable data) throws InterruptedException {
+        try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String Pickup_Address;
         String Delivery_Address;
@@ -471,7 +488,10 @@ public class Partner_trips extends DriverBase {
                 break;
             default: break;
         }
-
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in selecting pickup and drop off address.", true);
+        }
     }
 
     @When("^I click on \"([^\"]*)\" information icon and verify its text contents$")
@@ -513,6 +533,7 @@ public class Partner_trips extends DriverBase {
 
     @And("^I change the \"([^\"]*)\" and click on Get Estimate button$")
     public void i_change_something_and_click_on_get_estimate_button(String str,DataTable data) throws InterruptedException {
+        try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String Load_Unload = dataMap.get("Load_Unload_Time");
 
@@ -558,7 +579,11 @@ public class Partner_trips extends DriverBase {
 
         }
         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
-
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in selecting pickup and drop off address.", true);
+        }
     }
 
     @And("^I clear the Pickup Address on Get Estimate screen of Partner Portal$")
@@ -769,7 +794,7 @@ public class Partner_trips extends DriverBase {
 
         testStepVerify.isEquals(ExpectedDriverEstEarning, DriverEstEarning.trim(), "Driver Est. Earning value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Driver Est. Value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning + ",(Truncate to single float point)", "Expected Est. Earning value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning);
         action.getElementByXPath("//div[@id='btnOk']").click();
-
+        log("I should able to view the correct Driver Est. Earnings for geofence based pricing model","I am able to viewed the correct Driver Est. Earnings for geofence based pricing model", true);
     }
 
     @Then("^I view the correct Driver Earnings for geofence based pricing model$")
@@ -783,6 +808,7 @@ public class Partner_trips extends DriverBase {
         testStepVerify.isEquals(ExpectedDriverEarning, DriverEarning.trim(), "Driver Est. Earning value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Driver Est. Value for bungii is" + ExpectedDriverEarning + " and Actual value is" + DriverEarning + ",(Truncate to single float point)", "Expected Est. Earning value for bungii is" + ExpectedDriverEarning + " and Actual value is" + DriverEarning);
         action.click(Page_Partner_Delivery_List.Button_OK_Admin_Portal());
 
+        log("I should able to view the correct Driver Earnings for geofence based pricing model.","I am able to viewed the correct Driver Earnings for geofence based pricing model", true);
     }
 
 
@@ -791,6 +817,7 @@ public class Partner_trips extends DriverBase {
         ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
         SetupManager.getDriver().switchTo().window(tabs.get(0));
         action.refreshPage();
+        log("I should able to navigate to partner portal.","I am able to navigate to partner portal.", true);
     }
 
     @And("^I navigate to partner portal and view the Trip status with below status$")
@@ -832,7 +859,7 @@ public class Partner_trips extends DriverBase {
                     SetupManager.getDriver().switchTo().window(tabs.get(1));
                 }
             }
-
+        log("I should able to navigate to partner portal and view the Trip status with status as "+Partner_Status,"I get navigate to partner portal and viewed the Trip status with status as "+Partner_Status, true);
     }
 
     public String getGeofence(String geofence) {

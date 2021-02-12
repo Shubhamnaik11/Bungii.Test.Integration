@@ -111,8 +111,8 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
 
-        log("I view the Scheduled Trips list on the admin portal",
-                "I viewed the Scheduled Trips list on the admin portal", true);
+        log("I view the Partner portal Scheduled Trips list on the admin portal",
+                "I viewed the Partner portal Scheduled Trips list on the admin portal", true);
     }
 
     @Then("^I should be able to see the Trip Requested count incremented in Customers Grid$")
@@ -365,11 +365,6 @@ public class Admin_TripsSteps extends DriverBase {
 
         cucumberContextManager.setScenarioContext("Scheduled_Time",Schedule_Time);
 
-        //DateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy hh:mm a z");
-       // Date date1 = dateFormat.parse(ST);
-        //Date date1 = new SimpleDateFormat("EEEE, MMMM dd, yyyy hh:mm a z").parse(ST);
-
-        //ST = dateFormat.format(date1);
 
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         BT = BT.replace("Solo Scheduled","SOLO");
@@ -377,6 +372,9 @@ public class Admin_TripsSteps extends DriverBase {
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, Schedule_Time);
 
         action.getElementByXPath(XPath).click();
+
+        log("I should able to select the partner portal scheduled trip on scheduled delivery",
+                "I am able to select the partner portal scheduled trip on scheduled delivery", true);
     }
 
     @And("^I select the scheduled trip on live delivery$")
@@ -389,6 +387,8 @@ public class Admin_TripsSteps extends DriverBase {
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client);
 
         action.getElementByXPath(XPath).click();
+        log("I should able to select the scheduled trip on live delivery",
+                "I am able to select the scheduled trip on live delivery", true);
     }
 
     @And("^I select the scheduled trip on live delivery for customer$")
@@ -401,6 +401,9 @@ public class Admin_TripsSteps extends DriverBase {
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client);
 
         action.getElementByXPath(XPath).click();
+
+        log("I should able to select the scheduled trip on live delivery for customer",
+                "I am able to select the scheduled trip on live delivery for customer", true);
     }
 
     @And("^I view All Deliveries list on the admin portal$")
@@ -448,8 +451,8 @@ public class Admin_TripsSteps extends DriverBase {
         if(action.isElementPresent(action.getElementByXPath(xpath))){
             action.click(admin_TripDetailsPage.Schedule_Date_Row());
         }
-        //action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
-
+        log("I should able to view the delivery details",
+                "I am able to viewed the delivery details", true);
     }
 
     @Then("^the amount is calculated and shown to admin$")
