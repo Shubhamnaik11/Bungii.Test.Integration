@@ -87,8 +87,8 @@ Feature: DriverMenu
     
   Scenario: Verify Driver ACCOUNT Menu
     When I Select "ACCOUNT > ACCOUNT INFO" from driver App menu
-    Then I should be navigated to "ACCOUNT" screen
-    Then I should be able to see data on "ACCOUNT" page
+    Then I should be navigated to "ACCOUNT INFO" screen
+    Then I should be able to see data on "ACCOUNT INFO" page
     
   Scenario: Verify Driver ALERT SETTINGS Menu
     When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
@@ -102,8 +102,8 @@ Feature: DriverMenu
     
   Scenario: Verify Driver STORE Menu
     When I Select "BUNGII STORE" from driver App menu
-    Then I should be navigated to "STORE" screen
-    Then I should be able to see data on "STORE" page
+    Then I should be navigated to "BUNGII STORE" screen
+    Then I should be able to see data on "BUNGII STORE" page
     
   Scenario: Verify Driver FEEDBACK Menu
     When I Select "FEEDBACK" from driver App menu
