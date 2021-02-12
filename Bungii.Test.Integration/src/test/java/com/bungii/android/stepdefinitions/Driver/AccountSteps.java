@@ -45,6 +45,25 @@ public class AccountSteps extends DriverBase {
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @Then("^I click on \"([^\"]*)\" button on the \"([^\"]*)\" page$")
+    public void i_click_on_something_button_on_the_something_page(String strArg1, String strArg2) throws Throwable {
+        try{
+            switch (strArg2){
+                case "ACCOUNT INFO":
+                case "ALERT SETTINGS":
+                    action.click(accountPage.Button_Navigate_Up());
+                    break;
+                default:
+                    break;
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     /**
      * Get driver details from account page
      * @return String array containing driver name , Phone number anad email id

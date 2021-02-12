@@ -12,7 +12,7 @@ public class DriverHomePage extends PageBase {
 
     public WebElement Generic_DriverCustomerApp(boolean ignoreException){return findElement("//*[contains(@resource-id,'com.bungii.driver')] | //*[contains(@resource-id,'com.bungii.customer')]", LocatorType.XPath,ignoreException);}
     // public WebElement Title_Status (boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar_main_title' or 'com.bungii.driver:id/toolbar_title']", LocatorType.XPath ,ignoreException    ); }
-    public WebElement Title_Status (boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar_main_title'] | //*[@resource-id='com.bungii.driver:id/toolbar_title']", LocatorType.XPath ,ignoreException    ); }
+    public WebElement Title_Status (boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar_main_title'] | //*[@resource-id='com.bungii.driver:id/toolbar_title'] | //android.widget.TextView[@text='ALERT SETTINGS']", LocatorType.XPath ,ignoreException    ); }
 
     public WebElement Button_NavigationBar () { return findElement("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]", LocatorType.XPath); }
     public List<WebElement> Button_NavigationBarText () { return findElements("//*[@resource-id='com.bungii.driver:id/design_menu_item_text']", LocatorType.XPath); }
