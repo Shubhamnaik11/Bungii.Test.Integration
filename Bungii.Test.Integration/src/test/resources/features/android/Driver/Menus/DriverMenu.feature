@@ -26,14 +26,21 @@ Feature: DriverMenu
     Then I should be able to see data on "EARNINGS" page
     When I Select "ACCOUNT" from driver App menu
     And the "ACCOUNT" page is opened
-    Then I should be able to see data on "ACCOUNT" page
-    When I Select "ALERT SETTINGS" from driver App menu
+    When I Select "ACCOUNT INFO" from ACCOUNT menu
+    Then I should be able to see data on "ACCOUNT INFO" page
+    Then I click on "Navigate Back" button on the "ACCOUNT INFO" page
+    And I Select "ALERT SETTINGS" from ACCOUNT menu
+    #When I Select "ALERT SETTINGS" from driver App menu
     And the "ALERT SETTINGS" page is opened
     Then I should be able to see data on "ALERT SETTINGS" page
-    When I Select "STORE" from driver App menu
+    Then I click on "Navigate Back" button on the "ALERT SETTINGS" page
+    When I Select "BUNGII STORE" from driver App menu
     And the "STORE" page is opened
-    Then I should be able to see data on "STORE" page
-    When I Select "LOGOUT" from driver App menu
+    Then I should be able to see data on "BUNGII STORE" page
+    When I Select "ACCOUNT" from driver App menu
+    And the "ACCOUNT" page is opened
+    When I Select "LOGOUT" from ACCOUNT menu
+    #When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
   
   @knownissue
@@ -41,14 +48,20 @@ Feature: DriverMenu
     When I Select "FAQ" from driver App menu
     And the "FAQ" page is opened
     Then I should be able to see data on "FAQ" page
-    When I Select "LOGOUT" from driver App menu
+    When I Select "ACCOUNT" from driver App menu
+    And the "ACCOUNT" page is opened
+    When I Select "LOGOUT" from ACCOUNT menu
+    #When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     
 #failing due to BCKD-1103
   #@regression
   Scenario: Verify Device Token De-registration Upon Driver Logout
     Then Driver active flag should be "1"
-    When I Select "LOGOUT" from driver App menu
+    When I Select "ACCOUNT" from driver App menu
+    And the "ACCOUNT" page is opened
+    When I Select "LOGOUT" from ACCOUNT menu
+    #When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then Driver active flag should be "0"
 
@@ -89,19 +102,26 @@ Feature: DriverMenu
   Scenario: Verify Driver ACCOUNT Menu
     When I Select "ACCOUNT" from driver App menu
     And the "ACCOUNT" page is opened
-    Then I should be able to see data on "ACCOUNT" page
-  
+    When I Select "ACCOUNT INFO" from ACCOUNT menu
+    Then I should be able to see data on "ACCOUNT INFO" page
+
   Scenario:  Verify Driver ALERT SETTINGS Menu
-    When I Select "ALERT SETTINGS" from driver App menu
+    When I Select "ACCOUNT" from driver App menu
+    And the "ACCOUNT" page is opened
+    And I Select "ALERT SETTINGS" from ACCOUNT menu
+    #When I Select "ALERT SETTINGS" from driver App menu
     And the "ALERT SETTINGS" page is opened
     Then I should be able to see data on "ALERT SETTINGS" page
   
   Scenario:  Verify Driver STORE Menu
-    When I Select "STORE" from driver App menu
+    When I Select "BUNGII STORE" from driver App menu
     And the "STORE" page is opened
-    Then I should be able to see data on "STORE" page
+    Then I should be able to see data on "BUNGII STORE" page
   
   Scenario:  Verify Driver LOGOUT Menu
-    When I Select "LOGOUT" from driver App menu
+    When I Select "ACCOUNT" from driver App menu
+    And the "ACCOUNT" page is opened
+    When I Select "LOGOUT" from ACCOUNT menu
+    #When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     

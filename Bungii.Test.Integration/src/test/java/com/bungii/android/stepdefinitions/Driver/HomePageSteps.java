@@ -30,6 +30,7 @@ public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomePageSteps.class);
     ActionManager action = new ActionManager();
     DriverHomePage driverHomePage = new DriverHomePage();
+    AccountsPage driverAccountPage = new AccountsPage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility = new GeneralUtility();
     TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
@@ -83,6 +84,31 @@ public class HomePageSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I Select \"([^\"]*)\" from ACCOUNT menu$")
+    public void i_select_something_from_account_menu(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "ACCOUNT INFO":
+                    action.click(driverAccountPage.Link_Account_Info());
+                    break;
+                case "ALERT SETTINGS":
+                    action.click(driverAccountPage.Link_Account_Settings());
+                    break;
+                case "PRIVACY POLICY":
+                    action.click(driverAccountPage.Link_Privarcy_Policy());
+                    break;
+                case "LOGOUT":
+                    action.click(driverAccountPage.Link_Logout());
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 
