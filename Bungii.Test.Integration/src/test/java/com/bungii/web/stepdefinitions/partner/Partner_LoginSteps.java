@@ -80,6 +80,7 @@ public class Partner_LoginSteps extends DriverBase {
     @And("^I click on close button on service level$")
     public void i_click_on_close_button_on_service_level(){
         action.click(Page_Partner_Dashboard.Button_close());
+        log("I should able to click on close button on service level.","Service level should get close on clicked on close button." , true);
     }
 
     @And("^I change the service level to \"([^\"]*)\"$")
@@ -91,123 +92,127 @@ public class Partner_LoginSteps extends DriverBase {
         action.click(Xpath1);
 
         cucumberContextManager.setScenarioContext("Selected_service",Service_Name);
-        //String alias = (String) cucumberContextManager.getScenarioContext("Alias");
-        /*if(alias.equalsIgnoreCase("Brandsmart - Kansas")){
-            switch (Service_Name){
-                case "Curbside":
-                    action.click(Page_Partner_Dashboard.Radio_Button_Curbside());
-                    break;
-                case "Threshold":
-                    action.click(Page_Partner_Dashboard.Radio_Button_Threshold());
-                    break;
-                default:break;
 
-            }
-        }*/
+        log("I should able to change the service level to "+Service_Name,"Service name should get changed to "+Service_Name , true);
 
     }
 
     @And("^I click \"([^\"]*)\" button on Partner Portal$")
     public void I_Click_Some_Button_On_Partner_Portal(String str) throws InterruptedException {
-        switch(str)
-        {
-            case "SIGN IN":
-                action.click(Page_Partner_Login.Button_Sign_In());
-                break;
-            case "GET ESTIMATE":
-                action.click(Page_Partner_Dashboard.Button_Get_Estimate());
-                break;
-            case "Continue":
-                String Partner_Portal_Site = (String) cucumberContextManager.getScenarioContext("PP_Site");
-                if(Partner_Portal_Site.equalsIgnoreCase("service level")){
-                    String Price_Estimated_Page = action.getElementByXPath("//label[contains(text(),'Delivery Cost:')]//following::strong").getText();
-                    Price_Estimated_Page = Price_Estimated_Page.substring(1);
-                    cucumberContextManager.setScenarioContext("Price_Estimate_Page",Price_Estimated_Page);
+        try {
+            switch (str) {
+                case "SIGN IN":
+                    action.click(Page_Partner_Login.Button_Sign_In());
+                    break;
+                case "GET ESTIMATE":
                     action.click(Page_Partner_Dashboard.Button_Get_Estimate());
-                }else {
-                    action.click(Page_Partner_Dashboard.Button_Continue());
-                }
-                break;
-            case "Schedule Bungii":
-                action.JavaScriptScrolldown();
-                action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
-                break;
-            case "Track Deliveries":
-                action.click(Page_Partner_Done.Dropdown_Setting());
-                action.click(Page_Partner_Done.Button_Track_Deliveries());
-                break;
-            case "Back to Estimate":
-                action.click(Page_Partner_Delivery.Link_Back_To_Estimate());
-                break;
-            case "Cancel Delivery link":
-                action.click(Page_Partner_Delivery_List.Link_Cancel_Delivery());
-                break;
-            case "OK":
-                action.click(Page_Partner_Delivery_List.Button_OK());
-                break;
-            case "OK on Delivery Cancellation Failed":
-                action.click(Page_Partner_Delivery_List.Button_Ok__On_Delivery_Cancellation_Failed());
-                break;
-            case "Cancel Delivery":
-                action.click(Page_Partner_Delivery_List.Button_Cancel_Delivery());
-                break;
-            case "Service Level List":
-                action.click(Page_Partner_Dashboard.Dropdown_Service_Level());
-                break;
-            default: break;
+                    break;
+                case "Continue":
+                    String Partner_Portal_Site = (String) cucumberContextManager.getScenarioContext("PP_Site");
+                    if (Partner_Portal_Site.equalsIgnoreCase("service level")) {
+                        String Price_Estimated_Page = action.getElementByXPath("//label[contains(text(),'Delivery Cost:')]//following::strong").getText();
+                        Price_Estimated_Page = Price_Estimated_Page.substring(1);
+                        cucumberContextManager.setScenarioContext("Price_Estimate_Page", Price_Estimated_Page);
+                        action.click(Page_Partner_Dashboard.Button_Get_Estimate());
+                    } else {
+                        action.click(Page_Partner_Dashboard.Button_Continue());
+                    }
+                    break;
+                case "Schedule Bungii":
+                    action.JavaScriptScrolldown();
+                    action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
+                    break;
+                case "Track Deliveries":
+                    action.click(Page_Partner_Done.Dropdown_Setting());
+                    action.click(Page_Partner_Done.Button_Track_Deliveries());
+                    break;
+                case "Back to Estimate":
+                    action.click(Page_Partner_Delivery.Link_Back_To_Estimate());
+                    break;
+                case "Cancel Delivery link":
+                    action.click(Page_Partner_Delivery_List.Link_Cancel_Delivery());
+                    break;
+                case "OK":
+                    action.click(Page_Partner_Delivery_List.Button_OK());
+                    break;
+                case "OK on Delivery Cancellation Failed":
+                    action.click(Page_Partner_Delivery_List.Button_Ok__On_Delivery_Cancellation_Failed());
+                    break;
+                case "Cancel Delivery":
+                    action.click(Page_Partner_Delivery_List.Button_Cancel_Delivery());
+                    break;
+                case "Service Level List":
+                    action.click(Page_Partner_Dashboard.Dropdown_Service_Level());
+                    break;
+                default:
+                    break;
 
+            }
+        }
+        catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step , I Should "+ str,
+                    true);
         }
     }
 
     @Then("^I should \"([^\"]*)\" for \"([^\"]*)\" Alias$")
     public void i_should_something_for_something_alias(String str,String Alias){
-        cucumberContextManager.setScenarioContext("Alias",Alias);
-        //List Service_name = new DbUtility().getServiceName(Alias);
-        List<HashMap<String,Object>> Service_name = getListOfService(Alias);
-        switch (str)
-        {
-             case "see all the Service Level":
-                if(Alias.equalsIgnoreCase("Biglots")){
+        try {
+            cucumberContextManager.setScenarioContext("Alias", Alias);
+            //List Service_name = new DbUtility().getServiceName(Alias);
+            List<HashMap<String, Object>> Service_name = getListOfService(Alias);
+            switch (str) {
+                case "see all the Service Level":
+                    if (Alias.equalsIgnoreCase("Biglots")) {
 
-                    for(int i=0;i<Service_name.size();i++) {
-                        String Db_Service_Name = Service_name.get(i).values().toString();
-                        Db_Service_Name = Db_Service_Name.substring(1, Db_Service_Name.length() - 1);
-                        String Xpath = "//span[contains(text(),'"+Db_Service_Name+"')]";
+                        for (int i = 0; i < Service_name.size(); i++) {
+                            String Db_Service_Name = Service_name.get(i).values().toString();
+                            Db_Service_Name = Db_Service_Name.substring(1, Db_Service_Name.length() - 1);
+                            String Xpath = "//span[contains(text(),'" + Db_Service_Name + "')]";
 //                        String Display_Service_name= action.getElementByXPath(Xpath).getText();
-                        testStepAssert.isElementDisplayed(action.getElementByXPath(Xpath),"Service Name:-"+Db_Service_Name+" should be shown","Service Name:-"+Db_Service_Name+" is shown","Service Name-"+Db_Service_Name+" is not shown");
-                        //testStepVerify.isEquals(Display_Service_name, Db_Service_Name);
+                            testStepAssert.isElementDisplayed(action.getElementByXPath(Xpath), "Service Name:-" + Db_Service_Name + " should be shown", "Service Name:-" + Db_Service_Name + " is shown", "Service Name-" + Db_Service_Name + " is not shown");
+                            //testStepVerify.isEquals(Display_Service_name, Db_Service_Name);
 
+                        }
+                        log("All service for " + Alias + " should be listed ", "All service for " + Alias + " are listed ", true);
                     }
-                    log("All service for "+Alias+" should be listed ","All service for "+Alias+" are listed ", true);
-                }
-                break;
-             case "see correct Estimation Duration":
-                 long total_Estimation_Duration;
-                 String subDomain = Alias;
-                 String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-                 String service_name= (String) cucumberContextManager.getScenarioContext("Selected_service") ;
-                 long db_EST_Time = dbUtility.getEstimateTimeforPickup(pickupRequest);
-                 long default_Pickup_Time =dbUtility.getDefaultPickupTime(service_name,subDomain);
-                 default_Pickup_Time=utility.Milliseconds_To_Minutes(default_Pickup_Time);
-                 long default_Dropoff_time =dbUtility.getDefaultDropoffTime(service_name,subDomain);
-                 default_Dropoff_time = utility.Milliseconds_To_Minutes(default_Dropoff_time);
+                    break;
+                case "see correct Estimation Duration":
+                    long total_Estimation_Duration;
+                    String subDomain = Alias;
+                    String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String service_name = (String) cucumberContextManager.getScenarioContext("Selected_service");
+                    long db_EST_Time = dbUtility.getEstimateTimeforPickup(pickupRequest);
+                    long default_Pickup_Time = dbUtility.getDefaultPickupTime(service_name, subDomain);
+                    default_Pickup_Time = utility.Milliseconds_To_Minutes(default_Pickup_Time);
+                    long default_Dropoff_time = dbUtility.getDefaultDropoffTime(service_name, subDomain);
+                    default_Dropoff_time = utility.Milliseconds_To_Minutes(default_Dropoff_time);
 
-                 total_Estimation_Duration = db_EST_Time+default_Pickup_Time+default_Dropoff_time;
+                    total_Estimation_Duration = db_EST_Time + default_Pickup_Time + default_Dropoff_time;
 
-                 String display_Estimation_Duration = action.getText(Page_Partner_Delivery_List.Text_Estimated_Duration());
-                 String estimated_Duration[] = display_Estimation_Duration.split(":");
-                 String hours = estimated_Duration[0];
-                 String minutes = estimated_Duration[1];
+                    String display_Estimation_Duration = action.getText(Page_Partner_Delivery_List.Text_Estimated_Duration());
+                    String estimated_Duration[] = display_Estimation_Duration.split(":");
+                    String hours = estimated_Duration[0];
+                    String minutes = estimated_Duration[1];
 
-                 long hrs = Long.parseLong(hours);
-                 long mins = hrs * 60;
+                    long hrs = Long.parseLong(hours);
+                    long mins = hrs * 60;
 
-                 long total_Display_Estimated_Duration = mins + Long.parseLong(minutes);
-                 testStepVerify.isEquals(String.valueOf(total_Display_Estimated_Duration),String.valueOf(total_Estimation_Duration),"Correct Total estimated duration is shown.","Wrong Total estimated duration is shown");
-
-                break;
-             default:
-                break;
+                    long total_Display_Estimated_Duration = mins + Long.parseLong(minutes);
+                    testStepVerify.isEquals(String.valueOf(total_Display_Estimated_Duration), String.valueOf(total_Estimation_Duration), "Correct Total estimated duration is shown.", "Wrong Total estimated duration is shown");
+                    log("Expected Estimated Duration= " + total_Estimation_Duration, "Actual Estimated Duration= " + total_Display_Estimated_Duration, true);
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step , I Should "+ str,
+                    true);
         }
     }
 
