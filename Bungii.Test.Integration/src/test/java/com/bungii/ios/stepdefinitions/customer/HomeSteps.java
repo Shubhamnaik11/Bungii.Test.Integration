@@ -709,6 +709,7 @@ public class HomeSteps extends DriverBase {
             case "DRIVE WITH BUNGII":
                 action.click(homePage.AppMenu_DriveWithBungii());
                 break;
+            case "LOGOUT":
             case "ACCOUNT > LOGOUT":
                 action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_LogOut());

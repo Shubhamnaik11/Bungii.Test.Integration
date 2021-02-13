@@ -197,6 +197,7 @@ public class HomePageSteps extends DriverBase {
                 case "LEADERBOARD":
                     action.click(homepage.AppMenu_LEADERBOARD());
                     break;
+                case "LOGOUT":
                 case "ACCOUNT > LOGOUT":
                     action.swipeUP();
                     Thread.sleep(1000);
