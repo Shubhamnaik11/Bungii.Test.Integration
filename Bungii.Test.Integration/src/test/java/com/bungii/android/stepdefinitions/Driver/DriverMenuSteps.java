@@ -99,7 +99,7 @@ public class DriverMenuSteps extends DriverBase {
                     testStepAssert.isElementTextEquals(homePage.Text_Earnings(), "DRIVER INFO", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
-                case "ACCOUNT":
+                case "ACCOUNT INFO":
                     data = action.getText(homePage.Text_Account()).toString();
                     testStepAssert.isElementTextEquals(homePage.Text_Account(), PropertyUtility.getDataProperties("driver.login.name1"), data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
@@ -114,7 +114,7 @@ public class DriverMenuSteps extends DriverBase {
                     testStepAssert.isElementTextEquals(homePage.Text_Feedback(), "Send us your feedback", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
-                case "STORE":
+                case "BUNGII STORE":
                     data = action.getText(homePage.Text_Store()).toString();
                     testStepAssert.isElementTextEquals(homePage.Text_Store(), "BUNGII STORE", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
