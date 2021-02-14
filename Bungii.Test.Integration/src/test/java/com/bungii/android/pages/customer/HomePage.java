@@ -60,7 +60,7 @@ public class HomePage extends PageBase {
     public WebElement Button_NavHome() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(0); }
     public WebElement Button_NavFAQ() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(1); }
     //public WebElement Button_NavAccount() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(2); }
-    public WebElement Button_NavAccount() { return findElement("//*[@resource-id='com.bungii.customer:id/nav_account_info']",LocatorType.XPath); }
+    public WebElement Button_NavAccount(boolean... ignoreException) { return findElement("//*[@resource-id='com.bungii.customer:id/nav_account_info']",LocatorType.XPath, ignoreException); }
     public WebElement Button_NavSchBungii() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(2); }
     //public WebElement Button_NavPayment() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(4); }
     public WebElement Button_NavAccountInfo() { return findElements("//*[@resource-id='com.bungii.customer:id/layout_account_settings_constraint_layout']",LocatorType.XPath).get(0); }

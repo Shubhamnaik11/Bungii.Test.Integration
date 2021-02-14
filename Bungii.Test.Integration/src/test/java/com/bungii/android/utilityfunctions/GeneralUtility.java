@@ -618,10 +618,15 @@ Thread.sleep(5000);
                 if(action.isElementPresent(accountPage.Button_Navigate_Up(true)))
                 {
                     action.click(accountPage.Button_Navigate_Up());
-                }
-                    action.click(homePage.Button_NavAccount());
                     action.click(homePage.Button_Navlogout());
 
+                }
+                else if(action.isElementPresent(homePage.Button_NavAccount(true))){
+                    action.click(homePage.Button_NavAccount());
+                    action.click(homePage.Button_Navlogout());
+                }
+                else
+                    action.click(homePage.Button_Navlogout());
                 break;
             case "SIGN UP TO DRIVE":
                 action.click(homePage.Button_NavDrives());
