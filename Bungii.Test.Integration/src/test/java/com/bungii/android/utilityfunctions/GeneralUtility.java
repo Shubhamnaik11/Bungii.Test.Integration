@@ -613,8 +613,9 @@ Thread.sleep(5000);
                 action.click(homePage.Button_NavPromos());
                 break;
             case "ACCOUNT>LOGOUT":
-                String currentPage = action.getText(Page_Signup.GenericHeader(true));
-                if (currentPage.equalsIgnoreCase("ACCOUNT INFO")||currentPage.equalsIgnoreCase("PROMOS")||currentPage.equalsIgnoreCase("PAYMENT"))
+                //String currentPage = action.getText(Page_Signup.GenericHeader(true));
+               // if (currentPage.equalsIgnoreCase("ACCOUNT INFO")||currentPage.equalsIgnoreCase("PROMOS")||currentPage.equalsIgnoreCase("PAYMENT"))
+                if(action.isElementPresent(accountPage.Button_Navigate_Up(true)))
                 {
                     action.click(accountPage.Button_Navigate_Up());
                 }

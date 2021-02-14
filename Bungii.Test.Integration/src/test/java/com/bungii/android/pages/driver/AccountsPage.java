@@ -20,7 +20,7 @@ public class AccountsPage extends PageBase{
 
     public WebElement Link_Logout() { return findElement("//android.view.ViewGroup[@resource-id='com.bungii.driver:id/layout_account_settings_constraint_layout'][4]",LocatorType.XPath);}
 
-    public WebElement Button_Navigate_Up() { return findElement("//android.widget.ImageButton[contains(@content-desc,'Navigate up')]",LocatorType.XPath);}
+    public WebElement Button_Navigate_Up(boolean...ignoreException) { return findElement("//android.widget.ImageButton[contains(@content-desc,'Navigate up')]",LocatorType.XPath,ignoreException);}
 
     //public WebElement Button_Navigate_Up() { return findElement("Navigate up",LocatorType.AccessibilityId);}
 
