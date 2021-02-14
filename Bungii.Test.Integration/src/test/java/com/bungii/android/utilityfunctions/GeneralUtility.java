@@ -93,6 +93,7 @@ public class GeneralUtility extends DriverBase {
     DbUtility dbUtility=new DbUtility();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiProgressPage Page_CustomerBungiiProgress = new BungiiProgressPage();
+    AccountsPage accountPage = new AccountsPage();
 
     EmailUtility emailUtility = new EmailUtility();
     /**
@@ -585,6 +586,7 @@ Thread.sleep(5000);
                 action.click(new Point(xAxisStartPoint, yAxis));
             }
         }
+
         switch (menuItem.toUpperCase()) {
             case "HOME":
                 action.click(homePage.Button_NavHome());
@@ -594,6 +596,7 @@ Thread.sleep(5000);
                 break;
             case "ACCOUNT":
                 action.click(homePage.Button_NavAccount());
+                action.click(homePage.Button_NavAccountInfo());
                 break;
             case "MY BUNGIIS":
                 action.click(homePage.Button_NavSchBungii());
@@ -610,8 +613,14 @@ Thread.sleep(5000);
                 action.click(homePage.Button_NavPromos());
                 break;
             case "ACCOUNT>LOGOUT":
-                action.click(homePage.Button_NavAccount());
-                action.click(homePage.Button_Navlogout());
+                String currentPage = action.getText(Page_Signup.GenericHeader(true));
+                if (currentPage.equalsIgnoreCase("ACCOUNT INFO")||currentPage.equalsIgnoreCase("PROMOS")||currentPage.equalsIgnoreCase("PAYMENT"))
+                {
+                    action.click(accountPage.Button_Navigate_Up());
+                }
+                    action.click(homePage.Button_NavAccount());
+                    action.click(homePage.Button_Navlogout());
+
                 break;
             case "SIGN UP TO DRIVE":
                 action.click(homePage.Button_NavDrives());
