@@ -61,13 +61,13 @@ public class HomePage extends PageBase {
     public WebElement Button_NavFAQ() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(1); }
     //public WebElement Button_NavAccount() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(2); }
     public WebElement Button_NavAccount() { return findElement("//*[@resource-id='com.bungii.customer:id/nav_account_info']",LocatorType.XPath); }
-    public WebElement Button_NavSchBungii() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(3); }
+    public WebElement Button_NavSchBungii() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(2); }
     //public WebElement Button_NavPayment() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(4); }
     public WebElement Button_NavPayment() { return findElements("//*[@resource-id='com.bungii.customer:id/layout_account_settings_constraint_layout']",LocatorType.XPath).get(2); }
-    public WebElement Button_NavSupport() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(5); }
+    public WebElement Button_NavSupport() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(4); }
     //public WebElement Button_NavPromos() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(6); }
     public WebElement Button_NavPromos() { return findElements("//*[@resource-id='com.bungii.customer:id/layout_account_settings_constraint_layout']",LocatorType.XPath).get(1); }
-    public WebElement Button_NavDrives() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(7); }
+    public WebElement Button_NavDrives() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(5); }
     //public WebElement Button_Navlogout() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(8); }
     public WebElement Button_Navlogout() { return findElements("//*[@resource-id='com.bungii.customer:id/layout_account_settings_constraint_layout']",LocatorType.XPath).get(4); }
 
