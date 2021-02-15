@@ -203,6 +203,9 @@ public class GeneralUtility extends DriverBase {
             case "Account":
                 isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountPage(true));
                 break;
+            case "ACCOUNT INFO":
+                isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountInfoPage(true));
+                break;
             case "MY BUNGIIS":
                 isCorrectPage = action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
                 break;
@@ -569,11 +572,13 @@ Thread.sleep(5000);
     public void clickCustomerMenuItem(String menuItem) {
         try {
           /* */
+
             action.click(homePage.Button_NavigationBar());
             if(action.isElementPresent(Page_CustomerBungiiProgress.Alert_Message(true)))
             {
                 action.click(homePage.Button_AlertDone());
             }
+
         } catch (org.openqa.selenium.NoSuchElementException e) {
             if (action.isElementPresent(homePage.Button_NavigationBarCompleter(true))) {
                 if(action.isElementPresent(Page_CustomerBungiiProgress.Alert_Message(true)))
@@ -602,8 +607,14 @@ Thread.sleep(5000);
                 action.click(homePage.Button_NavSchBungii());
                 break;
             case "PAYMENT":
-                action.click(homePage.Button_NavAccount());
-                action.click(homePage.Button_NavPayment());
+                String currentPage = action.getText(Page_Signup.GenericHeader(true));
+                if(currentPage.equalsIgnoreCase("ACCOUNT")){
+                    action.click(homePage.Button_NavPayment());
+                }
+                else {
+                    action.click(homePage.Button_NavAccount());
+                    action.click(homePage.Button_NavPayment());
+                }
                 break;
             case "SUPPORT":
                 action.click(homePage.Button_NavSupport());
