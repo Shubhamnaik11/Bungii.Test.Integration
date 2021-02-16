@@ -258,10 +258,9 @@ public class ApiHelper {
         if ((Boolean) data.get("IsScheduledPickup")) {
             response = givenCustConfig().header(authToken).param("WalletRef", data.get("WalletRef")).param("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds")).param("PickupRequestID", data.get("PickupRequestID")).param("Description", data.get("Description")).param("PaymentMethodID", data.get("PaymentMethodID")).param("IsScheduledPickup", data.get("IsScheduledPickup"))
                     .contentType("multipart/form-data")
-                    //.multiPart(new File("C:\\Users\\vishal.bagi\\Pictures\\ItemImage2.jpg"))
-                    .multiPart("ItemImage1", new File(pickupImage))
-                    .multiPart("Content-Type", "image/jpeg")
-                    .multiPart("filename", "ItemImage1")
+                    .multiPart("ItemImage1",new File(pickupImage),"image/jpeg") //new File(pickupImage)
+                    .multiPart("Content-Type", "image/jpeg" )
+                    .multiPart("filename", "ItemImage1","multipart/form-data")
                     .multiPart("WalletRef", data.get("WalletRef"))
                     .multiPart("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds"))
                     .multiPart("PickupRequestID", data.get("PickupRequestID"))
@@ -273,8 +272,7 @@ public class ApiHelper {
         } else {
             response = givenCustConfig().header(authToken).param("WalletRef", data.get("WalletRef")).param("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds")).param("PickupRequestID", data.get("PickupRequestID")).param("Description", data.get("Description")).param("PaymentMethodID", data.get("PaymentMethodID")).param("IsScheduledPickup", data.get("IsScheduledPickup"))
                     .contentType("multipart/form-data")
-                    //.multiPart(new File("C:\\Users\\vishal.bagi\\Pictures\\ItemImage2.jpg"))
-                    .multiPart("ItemImage1", new File(pickupImage))
+                    .multiPart("ItemImage1", new File(pickupImage),"image/jpeg")
                     .multiPart("Content-Type", "image/jpeg")
                     .multiPart("filename", "ItemImage1")
                     .multiPart("WalletRef", data.get("WalletRef"))

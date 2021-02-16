@@ -12,6 +12,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.java.eo.Se;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -29,6 +30,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_ReferralSourceSteps extends DriverBase {
@@ -361,11 +363,17 @@ public class Admin_ReferralSourceSteps extends DriverBase {
     }
     @When("^I enter \"([^\"]*)\" less than the \"([^\"]*)\"$")
     public void i_enter_something_less_than_the_something(String strArg1, String strArg2) throws Throwable {
-        action.sendKeys(admin_ReferralSourcePage.TextBox_FromDate(),"11/11/2019");
-        action.sendKeys(admin_ReferralSourcePage.TextBox_ToDate(),"10/11/2015");
-        log("I enter From and To date on Referral source page",
-                "I have entered From and To date on Referral source page", true);
-
+        try {
+            action.sendKeys(admin_ReferralSourcePage.TextBox_FromDate(), "11/11/2019");
+            action.sendKeys(admin_ReferralSourcePage.TextBox_ToDate(), "10/11/2015");
+            log("I enter From and To date on Referral source page",
+                    "I have entered From and To date on Referral source page", true);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Delivery should get selected.", "Unable to send from and to date in referral source filter.",
+                    true);
+        }
     }
 
     List<List<String>> getGridData( List<List<String>> Grid, int columncount)
