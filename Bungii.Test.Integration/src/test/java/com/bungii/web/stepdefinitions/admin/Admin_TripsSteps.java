@@ -355,7 +355,7 @@ public class Admin_TripsSteps extends DriverBase {
         //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         String ST = (String) cucumberContextManager.getScenarioContext("ActualPickupDateTime");
         ST = ST.replace("at","");
-        DateFormat dft = new SimpleDateFormat("MMM dd, yyyy hh:mm a z");
+        DateFormat dft = new SimpleDateFormat("MMM dd, yyyy hh:mm a z",Locale.ENGLISH);
        // String geoLabel = utility.getTimeZoneBasedOnGeofenceId();
         String geoLabel = utility.getTimeZoneBasedOnGeofence();
         dft.setTimeZone(TimeZone.getTimeZone(geoLabel));
