@@ -315,7 +315,8 @@ public class LoginSteps extends DriverBase {
                     break;
 
                 case "It looks like we ran into a hiccup. Please contact support@bungii.com for more information.":
-                    testStepVerify.isEquals(action.getText(driverHomePage.Text_ErrorMessage()),"It looks like we ran into a hiccup. Please contact support@bungii.com for more information.");
+                    //testStepVerify.isEquals(action.getText(driverHomePage.Text_ErrorMessage()),"It looks like we ran into a hiccup. Please contact support@bungii.com for more information.");
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(),"It looks like we ran into a hiccup. Please contact support@bungii.com for more information.");
                     break;
 
                 case "Your account registration is still under process.":
@@ -356,8 +357,9 @@ public class LoginSteps extends DriverBase {
                     action.sendKeys(driverLogInPage.TextField_Password(), password);
 
                     for (int i = 0; i < 5; i++) {
-                        action.click(driverLogInPage.Button_Login());
                         Thread.sleep(5000);
+                        action.click(driverLogInPage.Button_Login());
+
                     }
                     break;
 
@@ -366,15 +368,17 @@ public class LoginSteps extends DriverBase {
                 action.sendKeys(driverLogInPage.TextField_Password(), password);
 
                 for (int i = 0; i < 3; i++) {
-                    action.click(driverLogInPage.Button_Login());
                     Thread.sleep(5000);
+                    action.click(driverLogInPage.Button_Login());
+
                 }
                 break;
 
             case "2":
                 for (int i = 0; i < 2; i++) {
-                    action.click(driverLogInPage.Button_Login());
                     Thread.sleep(5000);
+                    action.click(driverLogInPage.Button_Login());
+
                 }
                 break;
             }

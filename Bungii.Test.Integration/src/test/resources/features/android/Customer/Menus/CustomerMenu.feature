@@ -31,7 +31,7 @@ Feature: CustomerMenu
     When I tap on "expanded first question" on FAQ page
     Then I should see "first answer dropdown close" on FAQ page
     And I should see "last question" on FAQ page
-    When I tap on "Menu" > "Account" link
+    When I tap on "Menu" > "ACCOUNT" link
     #Then "Account" page should be opened
     Then "ACCOUNT INFO" page should be opened
     And logged in Customer details should be displayed

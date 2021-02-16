@@ -600,28 +600,52 @@ Thread.sleep(5000);
                 action.click(homePage.Button_NavFAQ());
                 break;
             case "ACCOUNT":
-                action.click(homePage.Button_NavAccount());
-                action.click(homePage.Button_NavAccountInfo());
+                if(action.isElementPresent(accountPage.Button_Navigate_Up(true)))
+                {
+                    action.click(accountPage.Button_Navigate_Up());
+                    action.click(homePage.Button_NavAccountInfo());
+
+                }
+                else if(action.isElementPresent(homePage.Button_NavAccount(true))){
+                    action.click(homePage.Button_NavAccount());
+                    action.click(homePage.Button_NavAccountInfo());
+                }
+                else
+                    action.click(homePage.Button_NavAccountInfo());
                 break;
             case "MY BUNGIIS":
                 action.click(homePage.Button_NavSchBungii());
                 break;
             case "PAYMENT":
-                String currentPage = action.getText(Page_Signup.GenericHeader(true));
-                if(currentPage.equalsIgnoreCase("ACCOUNT")){
+                if(action.isElementPresent(accountPage.Button_Navigate_Up(true)))
+                {
+                    action.click(accountPage.Button_Navigate_Up());
                     action.click(homePage.Button_NavPayment());
+
                 }
-                else {
+                else if(action.isElementPresent(homePage.Button_NavAccount(true))){
                     action.click(homePage.Button_NavAccount());
                     action.click(homePage.Button_NavPayment());
                 }
+                else
+                    action.click(homePage.Button_NavPayment());
                 break;
             case "SUPPORT":
                 action.click(homePage.Button_NavSupport());
                 break;
             case "ACCOUNT>PROMOS":
-                action.click(homePage.Button_NavAccount());
-                action.click(homePage.Button_NavPromos());
+                if(action.isElementPresent(accountPage.Button_Navigate_Up(true)))
+                {
+                    action.click(accountPage.Button_Navigate_Up());
+                    action.click(homePage.Button_NavPromos());
+
+                }
+                else if(action.isElementPresent(homePage.Button_NavAccount(true))){
+                    action.click(homePage.Button_NavAccount());
+                    action.click(homePage.Button_NavPromos());
+                }
+                else
+                    action.click(homePage.Button_NavPromos());
                 break;
             case "ACCOUNT>LOGOUT":
                 //String currentPage = action.getText(Page_Signup.GenericHeader(true));
