@@ -274,7 +274,7 @@ public class ApiHelper {
                     .contentType("multipart/form-data")
                     .multiPart("ItemImage1", new File(pickupImage),"image/jpeg")
                     .multiPart("Content-Type", "image/jpeg")
-                    .multiPart("filename", "ItemImage1")
+                    .multiPart("filename", "ItemImage1","multipart/form-data")
                     .multiPart("WalletRef", data.get("WalletRef"))
                     .multiPart("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds"))
                     .multiPart("PickupRequestID", data.get("PickupRequestID"))
