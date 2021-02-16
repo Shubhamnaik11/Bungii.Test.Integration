@@ -578,39 +578,47 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @Then("^I click on the error link and download the file with error$")
     public void i_click_on_the_error_link_and_download_the_file_with_error() throws Throwable {
-        String errorFileName=cucumberContextManager.getScenarioContext("CSVFILE").toString();
-        errorFileName=utility.GetFormattedString(errorFileName,".csv");
-        errorFileName=errorFileName+"_errors";
-        String home = System.getProperty("user.home");
-        File file = new File(home+"/Downloads/" + errorFileName + ".csv");
         try {
-            if (file.exists()) {
-                file.delete();
+            String errorFileName = cucumberContextManager.getScenarioContext("CSVFILE").toString();
+            errorFileName = utility.GetFormattedString(errorFileName, ".csv");
+            errorFileName = errorFileName + "_errors";
+            String home = System.getProperty("user.home");
+            File file = new File(home + "/Downloads/" + errorFileName + ".csv");
+            try {
+                if (file.exists()) {
+                    file.delete();
+                }
+            } catch (Exception ex) {
             }
+            action.click(admin_BusinessUsersPage.Link_DownloadFailedCSVFile());
+            Thread.sleep(2000);
+            String dirPath = home + "/Downloads/";
+
+            cucumberContextManager.setScenarioContext("DIR_PATH", dirPath);
+            String fileName = "";
+            File getLatestFile;
+            do {
+                getLatestFile = GetLatestFilefromDir(dirPath);
+                fileName = getLatestFile.getName();
+                if (fileName.equalsIgnoreCase(errorFileName))
+                    break;
+            }
+            while (!fileName.equalsIgnoreCase(errorFileName + ".csv"));
+
+            String filePath = getLatestFile.getAbsolutePath();
+
+            cucumberContextManager.setScenarioContext("FILE_PATH", filePath);
+            testStepAssert.isTrue(fileName.equals(errorFileName + ".csv"), errorFileName + ".csv", "Downloaded (" + fileName + ") file name matches with expected (" + errorFileName + ".csv)file name", "Downloaded (" + fileName + ") file name is not matching with expected (" + errorFileName + ".csv) file name");
+
+            log("The " + errorFileName + " file should get downloaded.",
+                    "I am able to download the " + errorFileName, true);
         }
-        catch (Exception ex){}
-        action.click(admin_BusinessUsersPage.Link_DownloadFailedCSVFile());
-        Thread.sleep(2000);
-        String dirPath= home+"/Downloads/";
-
-        cucumberContextManager.setScenarioContext("DIR_PATH",dirPath);
-        String fileName = "";
-        File getLatestFile;
-        do {
-           getLatestFile = GetLatestFilefromDir(dirPath);
-           fileName = getLatestFile.getName();
-           if(fileName.equalsIgnoreCase(errorFileName))
-               break;
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to download or read from the downloads folder of VM",
+                    true);
         }
-        while (!fileName.equalsIgnoreCase(errorFileName + ".csv"));
-
-        String filePath= getLatestFile.getAbsolutePath();
-
-        cucumberContextManager.setScenarioContext("FILE_PATH",filePath);
-        testStepAssert.isTrue(fileName.equals(errorFileName+".csv"),errorFileName+".csv","Downloaded ("+ fileName +") file name matches with expected ("+errorFileName+".csv)file name","Downloaded ("+ fileName +") file name is not matching with expected ("+errorFileName+".csv) file name");
-
-        log("The "+errorFileName+" file should get downloaded.",
-                "I am able to download the "+errorFileName, true);
     }
     @Then("^the error \"([^\"]*)\" is displayed$")
     public void the_error_something_is_displayed(String message) throws Throwable {

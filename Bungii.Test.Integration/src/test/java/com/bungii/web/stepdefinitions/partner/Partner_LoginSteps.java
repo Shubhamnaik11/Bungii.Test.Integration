@@ -284,10 +284,11 @@ public class Partner_LoginSteps extends DriverBase {
                 case "see the trip in the Delivery List":
                     String scheduled_time =(String) cucumberContextManager.getScenarioContext("Schedule_Date_Time");
                     scheduled_time =scheduled_time.replace("at","").replace("(","").replace(")","");
-                    DateFormat dft = new SimpleDateFormat("MMMM dd, yyyy h:mm a z");
-                    DateFormat dft1 = new SimpleDateFormat("MMM dd, yyyy h:mm a z");
+                    DateFormat dft = new SimpleDateFormat("MMMM dd, yyyy h:mm a z", Locale.ENGLISH);
+                    DateFormat dft1 = new SimpleDateFormat("MMM dd, yyyy h:mm a z", Locale.ENGLISH);
                     String geoLabel = utility.getTimeZoneBasedOnGeofenceId();
                     dft1.setTimeZone(TimeZone.getTimeZone(geoLabel));
+                    dft.setTimeZone(TimeZone.getTimeZone(geoLabel));
                     Date dt2 = dft.parse(scheduled_time);
 
 
@@ -299,8 +300,9 @@ public class Partner_LoginSteps extends DriverBase {
 
                     cucumberContextManager.setScenarioContext("Partner_Schedule_Time",scheduled_time);
                     String customer =(String) cucumberContextManager.getScenarioContext("Customer_Name");
-                    String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer);
-                    testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
+                    //String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer);
+
+                    testStepAssert.isElementDisplayed(Page_Partner_Delivery_List.Row_DeliveryList(scheduled_time,customer), "Trip should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
 
                     break;
                 case "see the trip details":

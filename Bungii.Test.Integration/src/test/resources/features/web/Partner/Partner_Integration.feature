@@ -22,7 +22,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner A      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -118,7 +118,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner B      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -157,7 +157,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner C      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -213,7 +213,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner D     |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -270,7 +270,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner E      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -327,7 +327,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner F      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -383,7 +383,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner G      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -447,7 +447,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name      |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Test Customer      |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner H      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |

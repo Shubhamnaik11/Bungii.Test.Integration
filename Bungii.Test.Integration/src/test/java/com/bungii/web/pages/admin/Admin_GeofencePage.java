@@ -90,4 +90,7 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement TextError_General() { return findElement("//p[contains(text(),'Oops! It looks like you missed something. Please fill out all fields before proceeding.')]",LocatorType.XPath);}
 
     public WebElement Checkbox_Active_Geofences() { return findElement("activeGeofenceOnly",LocatorType.Id);}
+
+    public WebElement Row_geofenceList(String Name,String Status,String Timezone) {return  findElement(String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",Name,Status,Timezone), LocatorType.XPath);}
+
 }

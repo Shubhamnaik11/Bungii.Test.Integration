@@ -111,8 +111,9 @@ public class Admin_GeofenceSteps extends DriverBase {
         String Status = (String) cucumberContextManager.getScenarioContext("GF_STATUS");
 
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",Name,Status,Timezone);
-        cucumberContextManager.setScenarioContext("XPATH", Xpath );
-        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Geofence should be listed in grid", "Geofence is listed in grid","Geofence is not listed in grid");
+        cucumberContextManager.setScenarioContext("XPATH", Xpath);
+        ;
+        testStepAssert.isElementDisplayed(admin_GeofencePage.Row_geofenceList(Name,Status,Timezone),"Geofence should be listed in grid", "Geofence is listed in grid","Geofence is not listed in grid");
 
     }
 
