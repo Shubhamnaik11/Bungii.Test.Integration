@@ -55,7 +55,7 @@ public class Partner_LoginSteps extends DriverBase {
             default:break;
         }
         pass("I should be navigate to " + page,
-                "I am navigate to " + page, true);
+                "I am navigated to " + page, true);
     }
 
 

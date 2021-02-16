@@ -92,7 +92,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     int i = now.intValue() / 1000;
                     String Primary = dataMap.get("Primary").trim();
                     String Secondary = dataMap.get("Secondary").trim();
-                    String GeofenceName = dataMap.get("Geo-Name").trim().replace("-<UniqueNumber>", Integer.toString(i));
+                    String GeofenceName = dataMap.get("Geo-Name").trim().replace("-<<UniqueNo>>", Integer.toString(i));
                     String GeoTimeZone = dataMap.get("Geo-TimeZone").trim();
                     String GeoStatus = dataMap.get("Geo-Status").trim();
 

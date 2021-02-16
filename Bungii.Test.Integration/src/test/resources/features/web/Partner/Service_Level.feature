@@ -118,7 +118,7 @@ Feature: Service Level
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "service level" on partner screen
       |Items_To_Deliver|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
-      |Furniture       |Handle with care   |TestPP Customer |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
+      |Furniture       |Handle with care   |Testartner T |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -158,7 +158,7 @@ Feature: Service Level
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "service level" on partner screen
       |Items_To_Deliver|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
-      |Furniture       |Handle with care   |TestPP Customer |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
+      |Furniture       |Handle with care   |Testpartner S |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -179,7 +179,7 @@ Feature: Service Level
     And I select the partner portal scheduled trip on scheduled delivery
     Then I should "see correct Estimation Duration" for "Biglots" Alias
 
-#CORE-1862 secnario
+#CORE-1862 scenario
   @ready
   Scenario Outline: Verify driver earning calculated service level options display on configured Partner portal <Type>-<ServiceName> for <Distance> distance
     When I enter "valid" password on Partner Portal
@@ -194,7 +194,7 @@ Feature: Service Level
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "service level" on partner screen
       |Items_To_Deliver|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
-      |Furniture       |Handle with care   |TestPP Customer |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
+      |Furniture       |Handle with care   |Testpartner R |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |

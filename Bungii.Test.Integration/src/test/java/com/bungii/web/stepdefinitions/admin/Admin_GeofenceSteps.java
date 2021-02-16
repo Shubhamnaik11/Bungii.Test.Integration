@@ -630,7 +630,7 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @Then("I check that correct Driver cut calculated based on Bungii Cut Per Delivery")
     public void I_check_that_correct_Driver_cut_calculated_based_on_Bungii_Cut_Per_Delivery(){
-        int bungii_cut = (int)cucumberContextManager.getScenarioContext("Bungii_cut");
+        int bungii_cut = Integer.parseInt((String)cucumberContextManager.getScenarioContext("Bungii_cut"));
         int driver_cut = 100-bungii_cut;
         String dc = Integer.toString(driver_cut);
 

@@ -22,7 +22,7 @@
       Then I confirm details show in summary
       When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-        |Furniture       |TestPP Customer |9998881111     |Test Pickup        |9999999359          |
+        |Furniture       |Testpartner I |9998881111     |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -45,7 +45,7 @@
       Then I should "see Delivery Details screen"
       When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-        |                |TestPP Customer |9998881111     |Test Pickup        |9999999359          |
+        |                |Testpartner K|9998881111     |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -91,7 +91,7 @@
       Then I should "see Delivery Details screen"
       When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name     |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-        |Furniture       |TestPP Customer   |               |Test Pickup        |9999999359          |
+        |Furniture       |Testpartner L   |               |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -114,7 +114,7 @@
       Then I should "see Delivery Details screen"
       When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name    |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-        |Furniture       |TestPP Customer  |9998881111     |                   |9999999359          |
+        |Furniture       |Testpartner M  |9998881111     |                   |9999999359          |
       And I Select "Customer Card" as Payment Method
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -137,7 +137,7 @@
       Then I should "see Delivery Details screen"
       When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name    |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-        |Furniture       |TestPP Customer  |9998881111     |Test Pickup        |                    |
+        |Furniture       |Testpartner O  |9998881111     |Test Pickup        |                    |
       And I Select "Customer Card" as Payment Method
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |

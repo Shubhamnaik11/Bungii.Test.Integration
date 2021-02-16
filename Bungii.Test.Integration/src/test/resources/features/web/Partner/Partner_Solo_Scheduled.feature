@@ -23,7 +23,7 @@
       #And I confirm the trip details from Get Estimate
       When I enter all details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
-        |Furniture       |Handle with care   |TestPP Customer |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
+        |Furniture       |Handle with care   |Testpartner A |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
       And I Select "Customer Card" as Payment Method
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -55,7 +55,7 @@
       Then I should "see Delivery Details screen"
       When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name     |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-        |Furniture       |TestPP Customer   |9998881111     |Test Pickup        |9999999359          |
+        |Furniture       |Testpartner B   |9998881111     |Test Pickup        |9999999359          |
       And I click "Back to Estimate" button on Partner Portal
       And I select Pickup Date and Pickup Time on partner portal
         |PickUp_Date  |PickUp_Time          |
@@ -79,7 +79,7 @@
       Then I should "see Delivery Details screen"
       When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-        |Furniture       |TestPP Customer |9998881111     |Test Pickup        |9999999359          |
+        |Furniture       |Testpartner C |9998881111     |Test Pickup        |9999999359          |
       And I Select "Customer Card" as Payment Method
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |

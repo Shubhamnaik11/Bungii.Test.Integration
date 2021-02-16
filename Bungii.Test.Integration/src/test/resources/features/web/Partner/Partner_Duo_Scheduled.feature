@@ -22,7 +22,7 @@ Feature: Partner Duo Scheduled Trips
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name  |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |TestPP Customer|9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner M|9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -56,7 +56,7 @@ Feature: Partner Duo Scheduled Trips
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name  |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |TestPP Customer|9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner N|9998881111     |Test Pickup        |9999999359          |
     And I click "Back to Estimate" button on Partner Portal
     And I select Pickup Date and Pickup Time on partner portal
       |PickUp_Date  |PickUp_Time          |
@@ -79,7 +79,7 @@ Feature: Partner Duo Scheduled Trips
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name  |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |TestPP Customer|9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner L|9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
