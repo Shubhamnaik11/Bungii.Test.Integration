@@ -86,10 +86,11 @@ public class Partner_LoginSteps extends DriverBase {
     @And("^I change the service level to \"([^\"]*)\"$")
     public void i_change_the_service_level(String Service_Name) throws InterruptedException {
 
-        String Xpath = "//span[@class='service-title' and @data-name='"+Service_Name+"']";
+       // String Xpath = "//span[@class='service-title' and @data-name='"+Service_Name+"']";
 
-        WebElement Xpath1 = action.getElementByXPath(Xpath);
-        action.click(Xpath1);
+      //  WebElement Xpath1 = action.getElementByXPath(Xpath);
+
+        action.click(Page_Partner_Dashboard.Dropdown_ServiceLevel(Service_Name));
 
         cucumberContextManager.setScenarioContext("Selected_service",Service_Name);
 
