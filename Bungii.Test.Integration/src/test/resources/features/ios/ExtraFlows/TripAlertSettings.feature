@@ -11,7 +11,8 @@ Feature: Trip Alert Settings
 	  When I Switch to "driver" application on "same" devices
 	  And I am on the "LOG IN" page on driverApp
 	  And I am logged in as "valid denver" driver
-	  When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
+		And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+		When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
 	  And I update denvers driver todays trip alert setting to outside current time
 	  #When I Switch to "customer" application on "same" devices
 	  When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
