@@ -80,7 +80,7 @@ Feature: Admin_Promoter
     Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed
     
 
-  @ready
+  @regression
   Scenario: Verify Promoter Grid Sort ASC DESC
     When I click on "Name" header "Ascending" on "Promoter" grid
     Then the "Partners" list should be sorted by "Ascending" order of "Name"

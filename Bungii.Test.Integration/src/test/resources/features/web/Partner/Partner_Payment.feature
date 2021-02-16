@@ -7,7 +7,7 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
-    @ready
+    @regression
     @sanity
     Scenario: Verify Customer Payment method with Valid card details for Bungii trip
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
