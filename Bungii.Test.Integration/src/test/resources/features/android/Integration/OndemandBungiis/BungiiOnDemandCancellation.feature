@@ -80,7 +80,8 @@
       And I click "OK" on the alert message
       Then Alert message with DRIVER CANCELLED text should be displayed
       When I click "OK" on alert message
-      And I tap on "Menu" > "Promos" link
+      #And I tap on "Menu" > "Promos" link
+      When I tap on the "ACCOUNT>PROMOS" link
       Then I should see unused promo code
   
     @regression
@@ -114,6 +115,7 @@
       And I click "OK" on the alert message
       Then Alert message with DRIVER CANCELLED text should be displayed
       When I click "OK" on alert message
-      And I tap on "Menu" > "Promos" link
+      #And I tap on "Menu" > "Promos" link
+      When I tap on the "ACCOUNT>PROMOS" link
       Then I should see unused promo code
 
