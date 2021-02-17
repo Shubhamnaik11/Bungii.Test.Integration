@@ -31,16 +31,19 @@ Feature: CustomerMenu
     When I tap on "expanded first question" on FAQ page
     Then I should see "first answer dropdown close" on FAQ page
     And I should see "last question" on FAQ page
-    When I tap on "Menu" > "Account" link
-    Then "Account" page should be opened
+    When I tap on "Menu" > "ACCOUNT" link
+    #Then "Account" page should be opened
+    Then "ACCOUNT INFO" page should be opened
     And logged in Customer details should be displayed
-  
+    Then I click on "Navigate Back" button on the "ACCOUNT INFO" page of customer app
     When I tap on "Menu" > "Payment" link
     Then "Payment" page should be opened
+    Then I click on "Navigate Back" button on the "PAYMENT" page of customer app
     When I tap on "Menu" > "Support" link
     Then "Support" page should be opened
     #When I tap on "Menu" > "Promos" link
     When I tap on the "ACCOUNT>PROMOS" link
+    Then I click on "Navigate Back" button on the "PROMOS" page of customer app
     Then "Promos" page should be opened
     When I tap on "Menu" > "My Bungiis" link
     Then "MY BUNGIIS" page should be opened

@@ -203,6 +203,9 @@ public class GeneralUtility extends DriverBase {
             case "Account":
                 isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountPage(true));
                 break;
+            case "ACCOUNT INFO":
+                isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountInfoPage(true));
+                break;
             case "MY BUNGIIS":
                 isCorrectPage = action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
                 break;
@@ -569,11 +572,13 @@ Thread.sleep(5000);
     public void clickCustomerMenuItem(String menuItem) {
         try {
           /* */
+
             action.click(homePage.Button_NavigationBar());
             if(action.isElementPresent(Page_CustomerBungiiProgress.Alert_Message(true)))
             {
                 action.click(homePage.Button_AlertDone());
             }
+
         } catch (org.openqa.selenium.NoSuchElementException e) {
             if (action.isElementPresent(homePage.Button_NavigationBarCompleter(true))) {
                 if(action.isElementPresent(Page_CustomerBungiiProgress.Alert_Message(true)))
@@ -595,22 +600,52 @@ Thread.sleep(5000);
                 action.click(homePage.Button_NavFAQ());
                 break;
             case "ACCOUNT":
-                action.click(homePage.Button_NavAccount());
-                action.click(homePage.Button_NavAccountInfo());
+                if(action.isElementPresent(accountPage.Button_Navigate_Up(true)))
+                {
+                    action.click(accountPage.Button_Navigate_Up());
+                    action.click(homePage.Button_NavAccountInfo());
+
+                }
+                else if(action.isElementPresent(homePage.Button_NavAccount(true))){
+                    action.click(homePage.Button_NavAccount());
+                    action.click(homePage.Button_NavAccountInfo());
+                }
+                else
+                    action.click(homePage.Button_NavAccountInfo());
                 break;
             case "MY BUNGIIS":
                 action.click(homePage.Button_NavSchBungii());
                 break;
             case "PAYMENT":
-                action.click(homePage.Button_NavAccount());
-                action.click(homePage.Button_NavPayment());
+                if(action.isElementPresent(accountPage.Button_Navigate_Up(true)))
+                {
+                    action.click(accountPage.Button_Navigate_Up());
+                    action.click(homePage.Button_NavPayment());
+
+                }
+                else if(action.isElementPresent(homePage.Button_NavAccount(true))){
+                    action.click(homePage.Button_NavAccount());
+                    action.click(homePage.Button_NavPayment());
+                }
+                else
+                    action.click(homePage.Button_NavPayment());
                 break;
             case "SUPPORT":
                 action.click(homePage.Button_NavSupport());
                 break;
             case "ACCOUNT>PROMOS":
-                action.click(homePage.Button_NavAccount());
-                action.click(homePage.Button_NavPromos());
+                if(action.isElementPresent(accountPage.Button_Navigate_Up(true)))
+                {
+                    action.click(accountPage.Button_Navigate_Up());
+                    action.click(homePage.Button_NavPromos());
+
+                }
+                else if(action.isElementPresent(homePage.Button_NavAccount(true))){
+                    action.click(homePage.Button_NavAccount());
+                    action.click(homePage.Button_NavPromos());
+                }
+                else
+                    action.click(homePage.Button_NavPromos());
                 break;
             case "ACCOUNT>LOGOUT":
                 //String currentPage = action.getText(Page_Signup.GenericHeader(true));
