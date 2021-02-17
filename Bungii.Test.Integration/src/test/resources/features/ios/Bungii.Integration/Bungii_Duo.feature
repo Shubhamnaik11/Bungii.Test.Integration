@@ -1,64 +1,115 @@
-#Created new feature of it Bungii_Duo
-Feature: To Test Duo - Scheduled Bungii
+@ios
+@DUO
+@scheduled
+@bungii
+Feature: Scheduled DUO Bungii
   I want  request Scheduled Bungii with Duo type
 
-    #this scenario also include large image test case
+  Background:
+  When I Switch to "customer" application on "same" devices
+  
   @sanity
-  Scenario: Verify Scheduled Duo Bungii completion As An iOS User
-
-    When I Switch to "driver" application on "same" devices
+  @regression
+	#Stable
+  Scenario: Verify Scheduled Duo Bungii Can Be Requested As An iOS Customer in Goa Geofence [1 Device]
+    And I logged in Customer application using  "customer-duo" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Duo    | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
+    And I click "Get Estimate" button on "Home" screen
+    
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
+      | 30       |           |              | NEXT_POSSIBLE | Default | Yes            |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+  
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 9403960188      |                 |
+  
+  @sanity
+  @regression
+    #stable
+    @io
+  Scenario: Verify Scheduled Duo Bungii can be accepted by drivers and they are shown under displayed under Scheduled List upon accepting [1 Device]
+    Given I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   
+    And that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | Requested     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+  
+    Given I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+    
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Trip from available trip
+    Then I should be navigated to "BUNGII DETAILS" screen
+    And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
+    When I accept selected Bungii
+	
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select delivery "1" from scheduled deliveries
+    Then I should be navigated to "BUNGII DETAILS" screen
+  
+    When I Select "ACCOUNT > LOGOUT" from driver App menu
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid driver 2" driver
+    
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Trip from available trip
+    Then Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
+    When I accept selected Bungii
+	
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select delivery "1" from scheduled deliveries
+    Then I should be navigated to "BUNGII DETAILS" screen
+  
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 9403960188      |                 |
+    
+    
+  @sanity
+  Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+  
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    Then I should be navigated to "BUNGII DETAILS" screen
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" screen
+    
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
+    
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select delivery "1" from scheduled deliveries
+    Then I should be navigated to "BUNGII DETAILS" screen
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" screen
+
     And I Switch to "customer" application on "ORIGINAL" devices
     And I logged in Customer application using  "customer-duo" user
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Duo    | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
-      | 30       |           |              | NEXT_POSSIBLE | Default | Yes            |
-    Then I should be navigated to "Success" screen
-    When I click "Done" button on "Success" screen
-    And I Select "Home" from Customer App menu
-    And I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    Then I should be navigated to "BUNGII DETAILS" screen
-    And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
-    
-    When I accept selected Bungii
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Switch to "driver" application on "Driver2" devices
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    Then Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
-    When I accept selected Bungii
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
-    Then I should be navigated to "BUNGII DETAILS" screen
-    And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
-    And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" screen
-
-    When I Switch to "customer" application on "same" devices
     Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "driver" application on "same" devices
@@ -67,9 +118,6 @@ Feature: To Test Duo - Scheduled Bungii
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" screen
-
-    When I Switch to "customer" application on "ORIGINAL" devices
     Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "same" devices
@@ -93,18 +141,12 @@ Feature: To Test Duo - Scheduled Bungii
     And I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" screen
 
-    When I Switch to "customer" application on "ORIGINAL" devices
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "customer" application on "ORIGINAL" devices
     Then I should be navigated to "UNLOADING ITEM" screen
 
     When I Switch to "driver" application on "same" devices
@@ -114,7 +156,6 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
-
 
     And I Switch to "customer" application on "ORIGINAL" devices
     Then I should be navigated to "Bungii Complete" screen
@@ -128,15 +169,16 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-
-
+    And I Select "HOME" from driver App menu
+  
     When I Switch to "driver" application on "Driver2" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
+    
 
   @ready
-  Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
+  Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver [1 Device]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
       | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
@@ -146,53 +188,26 @@ Feature: To Test Duo - Scheduled Bungii
     And I am logged in as "valid duo driver 1" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
+    And I Select delivery "1" from scheduled deliveries
     And I start selected Bungii
     Then I should be navigated to "EN ROUTE" screen
     Then I check ETA of "control driver"
 
     And I Switch to "customer" application on "same" devices
-    #And I Switch to "customer" application on "same" devices
     When I logged in Customer application using  "customer-duo" user
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    
     Then I should be navigated to "EN ROUTE" screen
     Then "control driver" eta should be displayed to customer
-
-    And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid driver 2" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
-    And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" screen
-
+    
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "ARRIVED" screen
-
-    And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "EN ROUTE" Screen
-
-
-    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "ARRIVED" Screen
     Then I accept Alert message for "Reminder: both driver at pickup"
     Then I should be navigated to "LOADING ITEM" screen
 
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "LOADING ITEM" screen
-
-    And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
     Then I should be navigated to "LOADING ITEM" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
@@ -203,22 +218,10 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "DRIVING TO DROP OFF" screen
     Then "control driver" eta should be displayed to customer
-
-    And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "LOADING ITEM" Screen
-
-
+    
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "UNLOADING ITEM" screen
-
-    And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     Then I should be navigated to "Bungii Completed" screen
@@ -230,142 +233,8 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "BUNGII COMPLETE" screen
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+################################################################################################
 
-    And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I accept Alert message for "Reminder: both driver at drop off"
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    
-  @FAILED2702
-  @ready
-  Scenario Outline: Verify Customer Amount Calculation For Scheduled Duo Bungii With Promo Code
-
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
-    And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid driver 2" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
-    And I Switch to "customer" application on "ORIGINAL" devices
-    And I logged in Customer application using  "customer-duo" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location           |
-      | Duo    | Margao Railway Overbridge  | peerbaugh Rd, Peer wadi |
-    And I click "Get Estimate" button on "Home" screen
-
-    When I select load time as "15" mins
-    And I tap "Promo code" on Estimate screen
-    And I should be navigated to "PROMOS" screen
-    And I add "<PROMO CODE>" PromoCode
-    And I click "ADD" button on "PROMOS" screen
-    Then I should able to see expected promo code in available promo code
-    #When I tap "Back" on Promos screen
-    And I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      |          |           |              | NEXT_POSSIBLE | Default     |
-    And I request for bungii using Request Bungii Button
-
-
-    When I click "Done" button on "Success" screen
-    And I Select "Home" from Customer App menu
-    And I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    When I accept selected Bungii
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Switch to "driver" application on "Driver2" devices
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-  #  Then Trip Information should be correctly displayed on BUNGII DETAILS screen
-    When I accept selected Bungii
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
-  #  Then I should be navigated to "BUNGII DETAILS" screen
-  #  When I wait for Minimum duration for Bungii Start Time
-    And I start selected Bungii
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
-    And I start selected Bungii
-    And I slide update button on "EN ROUTE" Screen
-
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "EN ROUTE" Screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    When I Switch to "driver" application on "ORIGINAL" devices
-
-    And I slide update button on "LOADING ITEM" Screen
-
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "LOADING ITEM" Screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-
-    And I Switch to "customer" application on "ORIGINAL" devices
-    Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "driver" application on "same" devices
-
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I accept Alert message for "Reminder: both driver at drop off"
-
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I accept Alert message for "Reminder: both driver at drop off"
-
-    And I Switch to "customer" application on "ORIGINAL" devices
-    Then I should be navigated to "Bungii Complete" screen
-    And Bungii customer should see "correct details with promo" on Bungii completed page
-    When I rate Bungii Driver  with following details and Press "CLOSE" Button
-      | Ratting | Tip |
-      | 5       | 5   |
-    And I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-    Then I should be navigated to "Home" screen
-
-    And I Switch to "driver" application on "ORIGINAL" devices
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
-
-
-    When I Switch to "driver" application on "Driver2" devices
-    Then Bungii driver should see "correct details" on Bungii completed page
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    And I Select "HOME" from driver App menu
-    Then I wait for "3" mins
-
-    And I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "trips" from admin sidebar
-    And I select "The Beginning of Time" from search peroid
-    And I select trip from trips
-    Then On admin trip details page "promo" should be displayed
-
-    Examples:
-      | PROMO CODE        |
-      | PROMO DOLLAR OFF  |
-      | PROMO PERCENT OFF |
 
   @FAILED2702
   @ready
@@ -395,14 +264,14 @@ Feature: To Test Duo - Scheduled Bungii
 
     And I Switch to "driver" application on "Driver2" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
+    And I Select delivery "1" from scheduled deliveries
     Then I should be navigated to "BUNGII DETAILS" screen
 #    When I wait for Minimum duration for Bungii Start Time
     And I start selected Bungii
 
     And I Switch to "driver" application on "ORIGINAL" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
+    And I Select delivery "1" from scheduled deliveries
     And I start selected Bungii
 
     And I Switch to "customer" application on "same" devices
@@ -601,14 +470,8 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "SEARCHING" screen
     When I Switch to "customer" application on "ORIGINAL" devices
 
-  #  When I open "customer" application on "ORIGINAL" devices
     And I view and accept virtual notification for "Driver" for "stack trip"
-    #And I click on notification for "Driver" for "stack trip"
-    #And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    #When I click "View" on alert message
-    #When I click "ACCEPT" button on "Bungii Request" screen
-    #And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
-    #When I click "OK" on alert message
+  
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
 
@@ -737,12 +600,6 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "SEARCHING" screen
 
     When I open "customer" application on "ORIGINAL" devices
-    #And I click on notification for "Driver" for "stack trip"
-    #And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    #When I click "View" on alert message
-    #When I click "ACCEPT" button on "Bungii Request" screen
-    #And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
-    #When I click "OK" on alert message
     And I view and accept virtual notification for "Driver" for "stack trip"
   
     And try to finish time should be correctly displayed for long stack trip
@@ -864,10 +721,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "SEARCHING" screen
 
     When I open "customer" application on "ORIGINAL" devices
-    #And I click on notification for "Driver" for "stack trip"
-    #And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    #When I click "View" on alert message
-    #When I click "ACCEPT" button on "Bungii Request" screen
+ 
     And I view and accept virtual notification for "Driver" for "stack trip"
     Then I calculate projected driver arrival time
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
@@ -941,7 +795,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     @failed
   @ready
-  Scenario:Verify Driver Can Receive Long Stack Request And Can Cancel Existing Bungii On Loading Item State
+  Scenario:Verify Driver Can Receive Long Stack Request And Can Cancel Existing Bungii On Loading Item State [2 Devices]
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | goa      | LOADING ITEM |
@@ -954,10 +808,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    #And I click on notification for "Driver" for "stack trip"
-    #When I click "View" on alert message
-    #When I click "ACCEPT" button on "Bungii Request" screen
-    #When I click "OK" on alert message
+
       And I view and accept virtual notification for "Driver" for "stack trip"
       And stack trip information should be displayed on deck
     When I Switch to "customer" application on "same" devices
@@ -989,7 +840,7 @@ Feature: To Test Duo - Scheduled Bungii
     #need to do in atlanta
   @failed
   @ready
-  Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Long Stack Request
+  Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Long Stack Request [2 Devices]
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1016,10 +867,7 @@ Feature: To Test Duo - Scheduled Bungii
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
 
     And I open "driver" application on "Driver2" devices
-   # And I click on notification for "Driver" for "stack trip"
-    #When I click "View" on alert message
-    #When I click "ACCEPT" button on "Bungii Request" screen
-    #When I click "OK" on alert message
+
     And I view and accept virtual notification for "Driver" for "stack trip"
     And stack trip information should be displayed on deck
     And I slide update button on "EN ROUTE" Screen
@@ -1050,7 +898,7 @@ Feature: To Test Duo - Scheduled Bungii
       |                | CUSTOMER2_PHONE |
     
   @ready
-  Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request
+  Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request [2 Devices]
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State       | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1077,10 +925,6 @@ Feature: To Test Duo - Scheduled Bungii
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
 
     And I open "customer" application on "ORIGINAL" devices
-    #And I click on notification for "Driver" for "stack trip"
-    #When I click "View" on alert message
-    #When I click "ACCEPT" button on "Bungii Request" screen
-    #When I click "OK" on alert message
     And I view and accept virtual notification for "Driver" for "stack trip"
   
     And stack trip information should be displayed on deck
@@ -1089,9 +933,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I accept Alert message for "Reminder: both driver at drop off"
 
     And I Switch to "driver" application on "Driver2" devices
-  #  And I slide update button on "DRIVING TO DROP OFF" Screen
-  #  And I slide update button on "UNLOADING ITEM" Screen
- #   And I accept Alert message for "Reminder: both driver at drop off"
+
     When I click "On To The Next One" button on "Bungii Completed" screen
 
     And I open "driver" application on "ORIGINAL" devices
@@ -1116,7 +958,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
+    And I Select delivery "1" from scheduled deliveries
  #   When I wait for Minimum duration for Bungii Start Time
     And I start selected Bungii
 
@@ -1137,7 +979,7 @@ Feature: To Test Duo - Scheduled Bungii
 
   @failed
   @ready
-  Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground
+  Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
       | goa      | Scheduled    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
@@ -1172,7 +1014,7 @@ Feature: To Test Duo - Scheduled Bungii
 
   @failed
   @ready
-  Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Background
+  Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Background [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
       | goa      | Scheduled    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
@@ -1208,7 +1050,7 @@ Feature: To Test Duo - Scheduled Bungii
 
   @failed
   @ready
-  Scenario: Verify Customer And Other Driver Is Notified When One Of The Driver Cancels The Scheduled Duo Bungii
+  Scenario: Verify Customer And Other Driver Is Notified When One Of The Driver Cancels The Scheduled Duo Bungii [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
       | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
@@ -1245,7 +1087,7 @@ Feature: To Test Duo - Scheduled Bungii
 
   @failed
   @ready
-  Scenario: Verify Other Driver Notification In Background When One Of The Driver Cancels Duo Scheduled Bungii
+  Scenario: Verify Other Driver Notification In Background When One Of The Driver Cancels Duo Scheduled Bungii [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
       | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
@@ -1388,19 +1230,13 @@ Feature: To Test Duo - Scheduled Bungii
     Given I am on the "LOG IN" page
     When I enter Username :9403960183 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
-
-    #And I click on notification for "Driver" for "stack trip"
-    #When I click "View" on alert message
-    #When I click "ACCEPT" button on "Bungii Request" screen
-    #When I click "OK" on alert message
+    
     And I view and accept virtual notification for "Driver" for "stack trip"
-    #And I click on notification for "Customer" for "Driver accepted stack Bungii"
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii Completed" screen
-    #And I click on notification for "Customer" for "DRIVER STARTED STACK BUNGII"
-    #When I click "Ok" button on "BUNGII ACCEPTED" screen
+  
     Then I should be navigated to "EN ROUTE" screen
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
@@ -1408,7 +1244,7 @@ Feature: To Test Duo - Scheduled Bungii
 
   
   @ready
-  Scenario: Verify Manually Ending Bungii For A Driver That Has Stacked Bungii Should See Summary And Start Screen Of The Stacked Bungii
+  Scenario: Verify Manually Ending Bungii For A Driver That Has Stacked Bungii Should See Summary And Start Screen Of The Stacked Bungii [1 Device]
     Given that ondemand bungii is in progress
       | geofence | Bungii State        |
       | goa      | DRIVING TO DROP OFF |
@@ -1421,10 +1257,6 @@ Feature: To Test Duo - Scheduled Bungii
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-   # And I click on notification for "Driver" for "stack trip"
-   # When I click "View" on alert message
-   # When I click "ACCEPT" button on "Bungii Request" screen
-   # When I click "OK" on alert message
     And I view and accept virtual notification for "Driver" for "stack trip"
     And stack trip information should be displayed on deck
     When I Switch to "customer" application on "same" devices
@@ -1447,7 +1279,7 @@ Feature: To Test Duo - Scheduled Bungii
 
   @ready
     @push
-  Scenario:Verify Driver Can Receive Short Stack Request And Can Cancel Bungii On Unloading Item State
+  Scenario:Verify Driver Can Receive Short Stack Request And Can Cancel Bungii On Unloading Item State [1 Device]
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
       | goa      | UNLOADING ITEM |
@@ -1460,12 +1292,10 @@ Feature: To Test Duo - Scheduled Bungii
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    #And I click on notification for "Driver" for "stack trip"
-   # When I click "View" on alert message
-   # When I click "ACCEPT" button on "Bungii Request" screen
-   # When I click "OK" on alert message
+
     And I view and accept virtual notification for "Driver" for "stack trip"
     And stack trip information should be displayed on deck
+    
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I enter Username :9403960183 and  Password :{VALID}
@@ -1490,7 +1320,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE |                 |
 
   @regression
-  Scenario:Verify Driver Can Receive Long Stack Request On Arrived State
+  Scenario:Verify Driver Can Receive Long Stack Request On Arrived State [1 Device]
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | goa      | ARRIVED      |
@@ -1505,12 +1335,104 @@ Feature: To Test Duo - Scheduled Bungii
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     
    And I view and accept virtual notification for "Driver" for "stack trip"
-   # And I click on notification for "Driver" for "stack trip"
-   # When I click "View" on alert message
-   # Then "correct stack trip details" should be displayed on Bungii request screen
-   # When I click "ACCEPT" button on "Bungii Request" screen
-   # When I click "OK" on alert message
     And stack trip information should be displayed on deck
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+  
+  
+  @FAILED2702
+  @ready
+  Scenario Outline: Verify Customer Amount Calculation For Scheduled Duo Bungii With Promo Code
+    
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    
+    And I connect to "extra1" using "Driver2" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    
+    And I Switch to "customer" application on "ORIGINAL" devices
+    And I logged in Customer application using  "customer-duo" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location           |
+      | Duo    | Margao Railway Overbridge  | peerbaugh Rd, Peer wadi |
+    And I click "Get Estimate" button on "Home" screen
+    
+    When I select load time as "15" mins
+    And I tap "Promo code" on Estimate screen
+    And I should be navigated to "PROMOS" screen
+    And I add "<PROMO CODE>" PromoCode
+    And I click "ADD" button on "PROMOS" screen
+    Then I should able to see expected promo code in available promo code
+    #When I tap "Back" on Promos screen
+    And I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
+      |          |           |              | NEXT_POSSIBLE | Default     |
+    And I request for bungii using Request Bungii Button
+    
+    
+    When I click "Done" button on "Success" screen
+    And I Select "Home" from Customer App menu
+    
+    And I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Trip from available trip
+    When I accept selected Bungii
+    
+    And I Switch to "driver" application on "Driver2" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Trip from available trip
+    When I accept selected Bungii
+    
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select delivery "1" from scheduled deliveries
+    And I start selected Bungii
+    And I slide update button on "EN ROUTE" Screen
+    
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "EN ROUTE" Screen
+    
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    
+    And I Switch to "customer" application on "ORIGINAL" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    When I rate Bungii Driver  with following details and Press "CLOSE" Button
+      | Ratting | Tip |
+      | 5       | 5   |
+    And I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+    
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+    
+    Then I wait for "3" mins
+    
+    And I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "trips" from admin sidebar
+    And I select "The Beginning of Time" from search peroid
+    And I select trip from trips
+    Then On admin trip details page "promo" should be displayed
+    
+    Examples:
+      | PROMO CODE        |
+      | PROMO DOLLAR OFF  |
+      | PROMO PERCENT OFF |

@@ -22,9 +22,11 @@ public class LogInSteps extends DriverBase {
 
     @And("^I enter Username :(.+) and  Password :(.+)$")
     public void i_enter_valid_and_as_per_below_table(String username, String password) {
+        String strUserName = "";
+        String strPassWord ="";
         try {
-            String strUserName = username.equals("<BLANK>") ? "" : username.trim().equals("{VALID1}")? PropertyUtility.getDataProperties("customer.NonBungiiFlow.UserA"):username;
-            String strPassWord = password.equals("<BLANK>") ? "" : password.equals("{VALID}")? PropertyUtility.getDataProperties("customer.password"):password;
+             strUserName = username.equals("<BLANK>") ? "" : username.trim().equals("{VALID1}")? PropertyUtility.getDataProperties("customer.NonBungiiFlow.UserA"):username;
+             strPassWord = password.equals("<BLANK>") ? "" : password.equals("{VALID}")? PropertyUtility.getDataProperties("customer.password"):password;
             strUserName =username.equalsIgnoreCase("{with no card}")? PropertyUtility.getDataProperties("no.payment.card.customer.user"):strUserName;
             strPassWord = password.equals("{with no card}") ?  PropertyUtility.getDataProperties("no.payment.card.customer.password"):strPassWord;
 
@@ -37,7 +39,7 @@ public class LogInSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error( "Step Should be successful", "Error in login to customer app as ["+ strUserName+" /"+strPassWord+"]", true);
         }
     }
 }

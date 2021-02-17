@@ -320,8 +320,22 @@ public class CommonSteps extends DriverBase {
                         action.click(loginPage.Button_Login());
                         acceptCustomerPermissions("TERMS & CONDITIONS" , "ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
                         closeTutorial("Tutorial");
-                        iAmOnCustomerLoggedInHomePage();
+                      //  iAmOnCustomerLoggedInHomePage(); //Commented purposely for customers having active pickup
                        // new GeneralUtility().logCustomerDeviceToken((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA"));
+                    }
+                    else if (screen.equalsIgnoreCase("sign up"))
+                        action.click(signupPage.Button_Login());
+                    else
+                        System.err.println("test");
+                    // none, error
+                    break;
+                case "LOGIN":
+                    if (screen.equalsIgnoreCase("log in")) {
+                        action.click(loginPage.Button_Login());
+                        acceptCustomerPermissions("TERMS & CONDITIONS" , "ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
+                        closeTutorial("Tutorial");
+                        iAmOnCustomerLoggedInHomePage();
+                        // new GeneralUtility().logCustomerDeviceToken((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA"));
                     }
                     else if (screen.equalsIgnoreCase("sign up"))
                         action.click(signupPage.Button_Login());
@@ -957,6 +971,7 @@ public class CommonSteps extends DriverBase {
 
     }
 
+
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
         try {
@@ -1526,7 +1541,55 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I Select delivery \"([^\"]*)\" from scheduled deliveries$")
+    public void i_select_first_delivery_from_scheduled_trip(String count) {
+        try {
+            String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
+            Thread.sleep(3000);
+            if (action.isAlertPresent()) {
+                SetupManager.getDriver().switchTo().alert().dismiss();
+                Thread.sleep(1000);
+            }
+            if (currentApplication.equalsIgnoreCase("CUSTOMER")) {
+                action.swipeDown();
+                List<WebElement> deliveries = scheduledBungiiPage.List_SchBungii();
+                int deliveryCount = deliveries.size()-1;
 
+                if(deliveryCount==0)
+                {
+                    testStepAssert.isFail("Scheduled deliveries of a customer is not displayed in Scheduled list");
+                }
+                else
+                   action.click(deliveries.get(Integer.parseInt(count)));
+            } else {
+
+                if (!action.isAlertPresent()) {
+
+                    action.swipeDown();
+                    Thread.sleep(2000);
+                    List<WebElement> deliveries = scheduledBungiiPage.List_SchBungii();
+                    int deliveryCount = deliveries.size()-1;
+
+                    if(deliveryCount==0)
+                    {
+                        testStepAssert.isFail("Scheduled deliveries of a Driver is not displayed in Scheduled list");
+                    }
+                    else
+                        action.click(deliveries.get(Integer.parseInt(count)));
+                } else {
+                    //If alert is present accept it , it will automatically select Bungii
+                    SetupManager.getDriver().switchTo().alert().accept();
+                }
+            }
+            log("I Select first delivery from scheduled deliveries ",
+                    "I Selected first delivery from scheduled deliveries", true);
+
+        } catch (Exception e) {
+            logger.error("Error performing  step" +  ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @And("^I Select Trip from scheduled trip$")
     public void i_select_trip_from_scheduled_trip() {
         try {

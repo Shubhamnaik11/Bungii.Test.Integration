@@ -282,7 +282,7 @@ public class EstimateSteps extends DriverBase {
         }
     }
 
-    public String enterTime(String time) throws ParseException {
+    public String enterTime(String time) throws ParseException, InterruptedException {
         String strTime = "";
         if (time.equalsIgnoreCase("NOW")) {
             //    selectBungiiTimeNow();
@@ -291,7 +291,11 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTime();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
+            Thread.sleep(3000);
             action.click(estimatePage.Row_TimeSelect());
+            if(!action.isElementPresent(estimatePage.Button_Set(true))) {
+                action.click(estimatePage.Row_TimeSelect()); //Retry to select time - workaround for duo cases
+            }
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
         }else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
