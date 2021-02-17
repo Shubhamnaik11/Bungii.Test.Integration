@@ -29,7 +29,9 @@ Feature: EstimateBungii
   @regression
   Scenario: Verify All Fields Of Estimate Screen
     When I Select "ACCOUNT" from customer app menu list
+    Then "ACCOUNT INFO" page should be opened
     Then I get customer account details
+    Then I click on "Navigate Back" button on the "ACCOUNT INFO" page of customer app
     When I Select "HOME" from customer app menu list
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
