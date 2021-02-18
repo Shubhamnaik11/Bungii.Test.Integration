@@ -41,10 +41,10 @@ public class OtherAppsPage extends PageBase {
     public WebElement Text_TweeterPost() { return findElement("com.twitter.android:id/tweet_text", LocatorType.Id); }
     public WebElement Button_Tweet() { return findElement("com.twitter.android:id/button_tweet", LocatorType.Id); }
     public WebElement Notification_OnDemand(boolean... ignoreException) { return findElement("//*[@text=\"You’re receiving a Bungii request.\"]", LocatorType.XPath,ignoreException); }
-    public WebElement Notification_Stack(boolean... ignoreException) { return findElement("//*[@text=\"We have another trip lined up for you when your current one ends. Tap to view details.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_Stack(boolean... ignoreException) { return findElement("//*[@text=\"We have another delivery lined up for you when your current one ends. Tap to view details.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackCustomerCancel(boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriverAccepted(boolean... ignoreException) { return findElement("//*[@text=\"Your Bungii has been accepted\"]", LocatorType.XPath,ignoreException); }
-    public WebElement Notification_StackDriverAccepted1(boolean... ignoreException) { return findElement("//*[@text=\"Scheduled trip accepted! This Bungii now lives in your Scheduled Bungiis page.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_StackDriverAccepted1(boolean... ignoreException) { return findElement("//*[@text=\"Scheduled delivery accepted! This Bungii now lives in your Scheduled Bungiis page.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriverStarted(boolean... ignoreException) { return findElement("//*[@text=\"Your Bungii driver is on his way!\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriver (boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
 

@@ -644,12 +644,13 @@ public class CommonSteps extends DriverBase {
 
     public void closeTutorial(String Tutorial) throws Throwable {
         try {
-            if(action.isElementPresent(tutorialPage.Button_Close())) {
-                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
-                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
-                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
-                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
-                action.click(tutorialPage.Button_Start());
+            if(action.isElementPresent(tutorialPage.Button_Close(true))) {
+                //action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                //action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+               // action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                //action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+               // action.click(tutorialPage.Button_Start());
+                action.click(tutorialPage.Button_Close());
                 if (action.isAlertPresent()) {
                     String alertMessage = action.getAlertMessage();
                     List<String> getListOfAlertButton = action.getListOfAlertButton();
@@ -1350,6 +1351,7 @@ public class CommonSteps extends DriverBase {
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }
+            cucumberContextManager.setScenarioContext("LATEST_LOGGEDIN_CUSTOMER_PHONE", userName);
             goToLogInPage(NavigationBarName);
 
             LogInSteps logInSteps = new LogInSteps(loginPage);

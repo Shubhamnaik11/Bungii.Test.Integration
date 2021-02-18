@@ -68,7 +68,8 @@ public class CucumberHooks {
         logger.detail("STARTING SCENARIO : " + scenario.getName());
         this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0], tags);
         SetupManager.getObject().useDriverInstance("ORIGINAL");
-           // Thread.sleep(2000);
+        new CucumberContextManager().setScenarioContext("PASS_WITH_OBSERVATIONS","FALSE");
+        // Thread.sleep(2000);
         if (!isFirstTestCase) {
             SetupManager.getObject().restartApp();
         }
@@ -90,9 +91,13 @@ public class CucumberHooks {
                 if (Failure.equals("TRUE")) {
                     logger.detail("SKIPPED TEST SCENARIO : " + scenario.getName()+" | Skipped Count : "+this.reportManager.skipped());
                 }
+                else if(((String) CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE"))
+                    logger.detail("PASSING TEST SCENARIO WITH OBSERVATIONS : " + scenario.getName());
                 else
                     logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
                     CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
+                     CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","FALSE");
+
             }
             else if (scenario.isFailed() || this.reportManager.isVerificationFailed()) {
                 //if consecutive two case failed then create new instance

@@ -96,17 +96,32 @@ public class NotificationSteps extends DriverBase {
     }
     @And("^I view and accept virtual notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_view_and_accept_virtual_notification_for_something_for_something(String strArg1, String expectedNotification) throws Throwable {
-        acceptVirtualNotificationAsDriver((String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_PUSH"),(String) cucumberContextManager.getScenarioContext("DRIVER_PWD_PUSH"),expectedNotification);
+        acceptVirtualNotificationAsDriver("first",(String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_PUSH"),(String) cucumberContextManager.getScenarioContext("DRIVER_PWD_PUSH"),expectedNotification);
     }
     @And("^I view and reject virtual notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_view_and_reject_virtual_notification_for_something_for_something(String strArg1, String expectedNotification) throws Throwable {
         //rejectVirtualNotificationAsDriver((String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_PUSH"),(String) cucumberContextManager.getScenarioContext("DRIVER_PWD_PUSH"),expectedNotification);
     }
+    @And("^I view and accept virtual notification for \"([^\"]*)\" delivery of \"([^\"]*)\" for \"([^\"]*)\"$")
+    public void i_view_and_accept_virtual_notification_delivery_for_something_for_something(String trip, String strArg1, String expectedNotification) throws Throwable {
+        acceptVirtualNotificationAsDriver(trip,(String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_PUSH"),(String) cucumberContextManager.getScenarioContext("DRIVER_PWD_PUSH"),expectedNotification);
+    }
 
-
-    public void acceptVirtualNotificationAsDriver(String driverPhoneNum, String driverPassword, String expectedNotification) throws InterruptedException{
+    public void acceptVirtualNotificationAsDriver(String trip, String driverPhoneNum, String driverPassword, String expectedNotification) throws InterruptedException{
         String driverPhoneCode="1";
-        String pickupRequestID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String pickupRequestID = "";
+       switch (trip.toLowerCase())
+        {
+            case "second":
+            pickupRequestID= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST2");
+            break;
+            default:
+            case "first":
+                pickupRequestID= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+               break;
+
+        }
+
         if(pickupRequestID== "")
         {   pickupRequestID =  dbUtility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA"));
         }
@@ -118,21 +133,21 @@ public class NotificationSteps extends DriverBase {
                 String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
                 String expectedNotificationData = getExpectedNotification(expectedNotification);
                 if(pushNotificationContent!= null)
-                testStepAssert.isTrue(pushNotificationContent.contains(expectedNotificationData),"VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" +expectedNotificationData, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" +expectedNotificationData +" | Actual : "+ pushNotificationContent);
+                testStepVerify.isTrue(pushNotificationContent.contains(expectedNotificationData),"VIRTUAL PUSH NOTIFICATIONS RECEIVED for Driver "+ driverPhoneNum +" : notifications with text :" +expectedNotificationData, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED for Driver "+ driverPhoneNum +"  notifications with text :" +expectedNotificationData +" | Actual : "+ pushNotificationContent);
                 else
                 {
-                    fail("I should be able to click on push notification [Virtual] : " + expectedNotificationData, "Driver has not received push notification " + expectedNotificationData+" | Actual : "+ pushNotificationContent, true);
+                    fail("I should be able to view push notification [Virtual] : " + expectedNotificationData, "Driver "+driverPhoneNum+" has not received push notification " + expectedNotificationData+" | Actual : "+ pushNotificationContent, true);
 
                 }
                 String driverAccessToken = new DbUtility().getDriverCurrentToken(driverPhoneNum);
                 if(expectedNotification.equalsIgnoreCase("stack trip")) {
-                    logger.detail("Accept stack pickup " + pickupRequestID +" as driver " + driverPhoneNum );
-                    Thread.sleep(90000);
+                    logger.detail("Accept stack pickup  " + pickupRequestID +" as driver " + driverPhoneNum +" through API Call");
+                    Thread.sleep(5000);
                     Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID);
                     if (!isDriverEligible)
                         error("Diver should be eligible for stacked trip", "Driver "+driverPhoneNum+" is not eligible for stacked pickup : "+ pickupRequestID, false);
                     new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
-                    logger.detail("Accepted stack pickup" + pickupRequestID +" as driver " + driverPhoneNum );
+                    logger.detail("Accepted stack pickup " + pickupRequestID +" as driver " + driverPhoneNum +" through api call [As Driver is eligible for the trip]");
                 }
                 else {
                     logger.detail("Accept pickup " + pickupRequestID +" as driver " + driverPhoneNum );
@@ -144,7 +159,7 @@ public class NotificationSteps extends DriverBase {
                     new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
                    // if(expectedNotification.equalsIgnoreCase("on demand trip"))
                        // new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 23);
-                    logger.detail("Accepted pickup " + pickupRequestID +" as driver " + driverPhoneNum );
+                    logger.detail("Accepted pickup " + pickupRequestID +" as driver " + driverPhoneNum +" through api call [As Driver is eligible for the trip]");
                 }
                 // Switch and login on same device
                 utility.switchToApp("driver","same");
@@ -164,12 +179,12 @@ public class NotificationSteps extends DriverBase {
             }
             else
             {
-                fail("I should be able to click on push notification [Virtual] : " + getExpectedNotification(expectedNotification), "PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
+                fail("I should be able to view push notification [Virtual] : " + getExpectedNotification(expectedNotification), "PUSH NOTIFICATIONS NOT RECEIVED for driver "+driverPhoneNum+" : notifications with text : " + getExpectedNotification(expectedNotification), true);
             }
         }
         else
         {
-            fail("I should be able to accept virtual push notification : " + getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
+            fail("I should be able to accept virtual push notification : " + getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED for driver "+driverPhoneNum+" : notifications with text : " + getExpectedNotification(expectedNotification), true);
 
         }
     }

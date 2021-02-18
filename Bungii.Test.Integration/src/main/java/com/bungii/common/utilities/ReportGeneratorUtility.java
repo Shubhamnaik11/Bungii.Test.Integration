@@ -254,7 +254,7 @@ public class ReportGeneratorUtility extends DriverBase {
             catch(Exception ex){}
 			String reason = this.reason;
              //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
-			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
+			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped/Not passed due to above error. Please refer to logs for more details</td>";
 			if(reason=="") {
 				CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
 				status = "<td style='background-color:skyblue;'>Inconclusive</td>";

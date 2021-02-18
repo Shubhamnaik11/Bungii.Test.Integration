@@ -1689,8 +1689,11 @@ catch (Exception e)
     }
     public void logCustomerRecentTrip(String phoneNumber){
         try {
+            String pickupref = com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber);
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Most recent trip of customer ["+phoneNumber+"] is with pickup ref "+com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber));
+                logger.detail("Most recent trip of customer ["+phoneNumber+"] is with pickup ref "+pickupref);
+                  cucumberContextManager.setScenarioContext("REQUESTED_PICKUPREF",pickupref);
+
         }catch (Exception e){
             logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
