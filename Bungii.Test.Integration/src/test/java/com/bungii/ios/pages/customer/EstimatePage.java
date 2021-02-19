@@ -156,7 +156,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Row_TimeSelect() {
         return findElement(
-                "//XCUIElementTypeStaticText[@name='Pickup Time']/parent::XCUIElementTypeOther", LocatorType.XPath);
+                "//XCUIElementTypeStaticText[@name='Pickup Time']/parent::XCUIElementTypeOther/XCUIElementTypeButton[1]", LocatorType.XPath);
     }
 
     public WebElement Label_TimeSelect() {
@@ -240,7 +240,7 @@ public class EstimatePage extends PageBase {
     public WebElement Text_Distance() {
         return findElement("DISTANCE", LocatorType.AccessibilityId);
     }
-    public WebElement Button_Set() {return findElement("Set", LocatorType.AccessibilityId); }
+    public WebElement Button_Set(boolean... ignoreException) {return findElement("Set", LocatorType.AccessibilityId, ignoreException); }
     public WebElement Button_RequestBungii() {
         return findElement("REQUEST BUNGII", LocatorType.AccessibilityId);
     }

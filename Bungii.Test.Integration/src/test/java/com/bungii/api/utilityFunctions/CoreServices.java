@@ -649,6 +649,7 @@ public class CoreServices extends DriverBase {
             if(strTime.contains(timeLabel))
                 strTime=strTime.replace(timeLabel,"");
         }
+
         cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
         cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
 

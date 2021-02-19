@@ -63,7 +63,7 @@ public class HomePageSteps extends DriverBase {
             }
             Thread.sleep(1000);
             String header = action.getScreenHeader(homepage.NavigationBar_Status());
-            if (header.equalsIgnoreCase("ACCOUNT INFO")||header.equalsIgnoreCase("ALERT SETTINGS"))
+            if (header.equalsIgnoreCase("ACCOUNT INFO")||header.equalsIgnoreCase("ALERT SETTINGS")||header.equalsIgnoreCase("BUNGII DETAILS"))
             {
                 action.click(homepage.Button_MenuBack());
             }

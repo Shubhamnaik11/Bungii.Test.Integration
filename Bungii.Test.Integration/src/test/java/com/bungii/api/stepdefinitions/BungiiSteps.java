@@ -1520,8 +1520,12 @@ public class BungiiSteps extends DriverBase {
 
             String state = dataMap.get("Bungii State").trim();
             String customer = dataMap.get("Customer").trim();
-            String driver1 = dataMap.get("Driver1").trim();
-            String driver2 = dataMap.get("Driver2").trim();
+            String driver1 = "";
+            String driver2 ="";
+            if (!state.equalsIgnoreCase("Requested")) {
+                 driver1 = dataMap.get("Driver1").trim();
+                 driver2 = dataMap.get("Driver2").trim();
+            }
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
 
             if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
@@ -1605,6 +1609,7 @@ public class BungiiSteps extends DriverBase {
             }
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+
             String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
             cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PUSH", driverPhoneNum);
@@ -1691,8 +1696,10 @@ else
           //  coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
            // coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_2") + "(" + driver2PhoneNum + ")", driver2AccessToken, pickupRequest);
 
-
-            if (state.equalsIgnoreCase("Accepted")) {
+            if (state.equalsIgnoreCase("Requested")) {
+                //do nothing
+            }
+            else if (state.equalsIgnoreCase("Accepted")) {
                 coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                 coreServices.pickupdetails(pickupRequest, driver2AccessToken, geofence);
@@ -1820,7 +1827,7 @@ else
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0, driver2Ref, driver2PaymentMethod);
                 System.out.println(pickupRequest);
             }
-            pass("Precondition: Given that duo schedule bungii is in progress ", "Duo Schedule Bungii [ "+pickupRequest+" ]  by customer " +custPhoneNum+" is in " + state);
+            pass("Precondition: Given that duo schedule bungii is in progress ", "Duo Schedule Bungii [ "+pickupRequest+" ]  by customer " +custPhoneNum+" is in " + state +" state ");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
