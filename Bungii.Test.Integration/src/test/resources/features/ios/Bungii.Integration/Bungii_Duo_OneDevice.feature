@@ -42,7 +42,7 @@ Feature: Scheduled Bungii on one device
   
     And that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Requested     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Requested     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
   
     Given I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -81,7 +81,7 @@ Feature: Scheduled Bungii on one device
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver [1 Device]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Accepted     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
     
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -250,7 +250,6 @@ Feature: Scheduled Bungii on one device
   
   @regression
      #stable
-  @io
   Scenario: STACKING | Verify Driver Can Receive Long Stack Ondemand Request When Ongoing Ondemand Bungii is On Arrived State - Goa Geofence [1 Device]
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -272,7 +271,6 @@ Feature: Scheduled Bungii on one device
     
   @regression
  #stable
-  @io
   Scenario: STACKING | Verify Driver Can Receive Short Stack Ondemand Request when Ongoing Ondemand Bungii is On Unloading Item State - Goa Geofence [1 Device]
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |

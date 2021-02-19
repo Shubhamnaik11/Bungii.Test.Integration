@@ -12,7 +12,7 @@ Feature: Scheduled DUO Bungii
   Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Accepted     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
   
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -245,7 +245,7 @@ Feature: Scheduled DUO Bungii
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | goa      | enroute      | NEXT_POSSIBLE |
+      | goa      | enroute      | 0.5 hour ahead |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -396,9 +396,9 @@ Feature: Scheduled DUO Bungii
     When I open "customer" application on "ORIGINAL" devices
  
     And I view and accept virtual notification for "Driver" for "stack trip"
-    Then I calculate projected driver arrival time
-    And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
-    When I click "OK" on alert message
+    #Then I calculate projected driver arrival time
+    #And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
+    #When I click "OK" on alert message
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for short stack trip
     When  I switch to "Customer2" instance
@@ -517,7 +517,7 @@ Feature: Scheduled DUO Bungii
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | enroute      | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -575,7 +575,7 @@ Feature: Scheduled DUO Bungii
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State       | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Driving To Dropoff | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Driving To Dropoff | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -622,7 +622,7 @@ Feature: Scheduled DUO Bungii
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | goa      | Accepted     | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+      | goa      | Accepted     | 0.5 hour ahead | valid    | valid   | valid driver 2 |
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
@@ -655,7 +655,7 @@ Feature: Scheduled DUO Bungii
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Scheduled    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Scheduled    | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
@@ -690,7 +690,7 @@ Feature: Scheduled DUO Bungii
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Background [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Scheduled    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Scheduled    | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
@@ -726,7 +726,7 @@ Feature: Scheduled DUO Bungii
   Scenario: DUO DELIVERY CANCELLATION | Verify Customer And Other Driver Is Notified When One Of The Driver Cancels The Scheduled Duo Bungii [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | enroute      | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 	
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
@@ -760,7 +760,7 @@ Feature: Scheduled DUO Bungii
   Scenario: Verify Other Driver Notification In Background When One Of The Driver Cancels Duo Scheduled Bungii [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | enroute      | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -787,10 +787,11 @@ Feature: Scheduled DUO Bungii
 
   @failed
   @ready
+    @io
   Scenario: Verify Other Driver Alert In Foreground When One Of The Driver Cancels Duo Scheduled Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | enroute      | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -982,7 +983,7 @@ Feature: Scheduled DUO Bungii
     
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Accepted     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
     
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
