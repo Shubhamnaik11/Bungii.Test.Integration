@@ -163,15 +163,15 @@ public class ReportGeneratorUtility extends DriverBase {
 		if (eventData.get("type").toString() == "PASSED") {
 			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
 		}
+		else if (eventData.get("type").toString() == "WARNING") {
+			str = str + "<td style='background-color:orange;'>" + eventData.get("type").toString() + "</td>";
+		}
 		else {
 			str = str + "<td style='background-color:pink;'>" + eventData.get("type").toString() + "</td>";
 		}
 
 		str = str + "<td align='left'>" + eventData.get("expected").toString() + "</td>";
 		str = str + "<td align='left'>" + reason + "</td>";
-		//str = str + "<td>" + testStepStart + "</td>";
-		//str = str + "<td>" + testStepEnd + "</td>";
-		//str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
 		str = str + "</tr>";
 
 		detailsArray.add(str);
@@ -259,10 +259,16 @@ public class ReportGeneratorUtility extends DriverBase {
 				CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
 				status = "<td style='background-color:skyblue;'>Inconclusive</td>";
 			}
-			else {
+			else if(((String)CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE"))
+			{
+					passed++;
+					status = "<td style='background-color:orange;'>Pass With Observations</td>";
+			}
+				else
+					{
 				failed++;
 				status = "<td style='background-color:pink;'>Fail</td>";
-			}
+				}
 				detailsArray.add(st);
 			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
 			failureArray.add(str2);
