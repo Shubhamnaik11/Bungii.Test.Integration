@@ -132,7 +132,7 @@ public class NotificationSteps extends DriverBase {
             if(driverPhoneNum!= null) {
                 String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
                 String expectedNotificationData = getExpectedNotification(expectedNotification);
-                if(pushNotificationContent!= null)
+                if(pushNotificationContent!= "")
                 testStepVerify.isTrue(pushNotificationContent.contains(expectedNotificationData),"VIRTUAL PUSH NOTIFICATIONS RECEIVED for Driver "+ driverPhoneNum +" : notifications with text :" +expectedNotificationData, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED for Driver "+ driverPhoneNum +"  notifications with text :" +expectedNotificationData +" | Actual : "+ pushNotificationContent);
                 else
                 {
@@ -203,15 +203,17 @@ public class NotificationSteps extends DriverBase {
             }
             if(driverPhoneNum!= null) {
                 String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
-                if (pushNotificationContent == null)
-                    testStepAssert.isTrue(true, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" + getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" + pushNotificationContent);
+                if (pushNotificationContent == "") {
+                    if (new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID))
+                        error("Diver should not be eligible for trip", "Driver " + driverPhoneNum + " is eligible for pickup : " + pickupRequestID, false);
+                    testStepVerify.isTrue(true, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" + getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" + pushNotificationContent);
+                }
                 else {
                     fail("I should be not receive push notification [Virtual] : " + getExpectedNotification(expectedNotification), "Driver has received push notification " + getExpectedNotification(expectedNotification), true);
-
                 }
 
                 log("I should not be able to get trip notification",
-                        "I do not get the virtual push notification");
+                        "Driver doesnot get the virtual push notification and also driver " + driverPhoneNum + " is not eligible for the pickuprequest : "+ pickupRequestID);
             }
         }
        /* //Thread.sleep(20000);

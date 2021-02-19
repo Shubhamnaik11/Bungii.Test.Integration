@@ -785,9 +785,8 @@ Feature: Scheduled DUO Bungii
     Then I click on notification for "driver" for "OTHER DRIVER CANCELLED BUNGII"
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
-  @failed
-  @ready
-    @io
+  @regression
+    #Stable
   Scenario: Verify Other Driver Alert In Foreground When One Of The Driver Cancels Duo Scheduled Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -813,6 +812,7 @@ Feature: Scheduled DUO Bungii
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   @regression
+    #stable
   Scenario: Verify Driver Doesnt Receive Short Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip [2 Devices]
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -846,7 +846,8 @@ Feature: Scheduled DUO Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @ready
+  @regression
+    #stable
   Scenario: Verify Driver Doesnt Receive Long Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip [2 Devices]
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -884,7 +885,6 @@ Feature: Scheduled DUO Bungii
   @FAILED2702
   @ready
   Scenario Outline: Verify Customer Amount Calculation For Scheduled Duo Bungii With Promo Code
-    
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
@@ -980,7 +980,6 @@ Feature: Scheduled DUO Bungii
   @FAILED2702
   @ready
   Scenario: Verify Driver Can Contact Customer Of A Requested Scheduled Duo Bungii
-    
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
       | goa      | Accepted     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
