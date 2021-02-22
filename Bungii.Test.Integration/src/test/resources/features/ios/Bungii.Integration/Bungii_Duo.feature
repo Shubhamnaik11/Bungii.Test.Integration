@@ -9,6 +9,7 @@ Feature: Scheduled DUO Bungii
   When I Switch to "customer" application on "same" devices
 	
   @sanity
+    @pp
   Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -51,7 +52,7 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
 
-    When I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "ARRIVED" Screen
     Then I accept Alert message for "Reminder: both driver at pickup"
     Then I should be navigated to "LOADING ITEM" screen
@@ -72,7 +73,7 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" screen
 
-    When I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
 
@@ -80,7 +81,7 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
 
-    When I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 

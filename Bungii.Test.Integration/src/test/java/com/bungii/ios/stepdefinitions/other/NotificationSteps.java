@@ -18,6 +18,7 @@ import cucumber.api.java.en.When;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
+import io.restassured.path.json.JsonPath;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
@@ -26,10 +27,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -136,13 +134,10 @@ public class NotificationSteps extends DriverBase {
             if(driverPhoneNum!= null) {
                 String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
                 String expectedNotificationData = getExpectedNotification(expectedNotification);
-                if(pushNotificationContent!= "")
+                if(pushNotificationContent!= null)
                     testStepVerify.isTrue(pushNotificationContent.contains(expectedNotificationData),"VIRTUAL PUSH NOTIFICATIONS RECEIVED for Driver "+ driverPhoneNum +" : notifications with text :" +expectedNotificationData, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED for Driver "+ driverPhoneNum +"  notifications with text :" +expectedNotificationData +" | Actual : "+ pushNotificationContent);
-                else
-                {
-                    fail("I should be able to view push notification [Virtual] : " + expectedNotificationData, "Driver "+driverPhoneNum+" has not received push notification " + expectedNotificationData+" | Actual : "+ pushNotificationContent, true);
 
-                }
+                String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
                 String driverAccessToken = new DbUtility().getDriverCurrentToken(driverPhoneNum);
                 if(expectedNotification.equalsIgnoreCase("stack trip")) {
                     logger.detail("View stack pickup  " + pickupRequestID +" as driver " + driverPhoneNum +" through API Call");
@@ -150,7 +145,8 @@ public class NotificationSteps extends DriverBase {
                     Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID);
                     if (!isDriverEligible)
                         error("Diver should be eligible for stacked trip", "Driver "+driverPhoneNum+" is not eligible for stacked pickup : "+ pickupRequestID, false);
-                   // new CoreServices().pickupdetails(pickupRequestID, driverAccessToken);
+                    JsonPath jsonPathEvaluator = new CoreServices().getPickupdetails(pickupRequestID, driverAccessToken, geofence);
+                    pushNotificationContentVerification(jsonPathEvaluator, "stack");
                     logger.detail("Viewed stack pickup " + pickupRequestID +" as driver " + driverPhoneNum +" through api call [As Driver is eligible for the trip]");
                 }
                 else {
@@ -160,9 +156,8 @@ public class NotificationSteps extends DriverBase {
                     new GeneralUtility().logDriverDeviceToken(driverPhoneNum);
                     if (!isDriverEligible)
                         error("Diver should be eligible for trip", "Driver "+driverPhoneNum+" is not eligible for pickup : "+ pickupRequestID, false);
-                    //new CoreServices().pickupdetails(pickupRequestID, driverAccessToken, 21);
-                    // if(expectedNotification.equalsIgnoreCase("on demand trip"))
-                    // new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 23);
+                    JsonPath jsonPathEvaluator = new CoreServices().getPickupdetails(pickupRequestID, driverAccessToken, geofence);
+                    pushNotificationContentVerification(jsonPathEvaluator,"normal");
                     logger.detail("Viewed pickup " + pickupRequestID +" as driver " + driverPhoneNum +" through api call [As Driver is eligible for the trip]");
                 }
                 // Switch and login on same device
@@ -192,6 +187,49 @@ public class NotificationSteps extends DriverBase {
 
         }
     }
+
+    public void pushNotificationContentVerification(JsonPath jsonPathEvaluator, String tripType)
+    {
+ switch (tripType)
+ {
+     case "normal":
+
+         String expectedPickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
+         String expectedPickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
+        String expectedDropLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
+        String expectedDropLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
+        String expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO") ? "DUO" : "SOLO";
+
+        String pickUpLocationLine1 = jsonPathEvaluator.get("PickupDetails.PickupAddress.Address1");
+        String pickUpLocationLine2= jsonPathEvaluator.get("PickupDetails.PickupAddress.Address2");
+        String dropUpLocationLine1 = jsonPathEvaluator.get("PickupDetails.DropOffAddress.Address1");
+        String dropUpLocationLine2 = jsonPathEvaluator.get("PickupDetails.DropOffAddress.Address2");
+        testStepVerify.isTrue(pickUpLocationLine1.equals(expectedPickUpLocationLineOne) && pickUpLocationLine2.equals(expectedPickUpLocationLineTwo),
+
+                "Pick up address should be " + expectedPickUpLocationLineOne +expectedPickUpLocationLineTwo, "Pick up address is " + pickUpLocationLine1+pickUpLocationLine2,
+                "Expected pickup address is " + expectedPickUpLocationLineOne +expectedPickUpLocationLineTwo + ", but actual is" + pickUpLocationLine1+pickUpLocationLine2);
+        testStepVerify.isTrue(dropUpLocationLine1.equals(expectedDropLocationLineOne) &&  dropUpLocationLine2.equals(expectedDropLocationLineTwo),
+
+                "Drop address should be " + expectedDropLocationLineOne +expectedDropLocationLineTwo, "Drop address is " + dropUpLocationLine1 +dropUpLocationLine2,
+                "Expected Drop address is " + expectedDropLocationLineOne +expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 +dropUpLocationLine2);
+
+        testStepVerify.isElementTextEquals(jsonPathEvaluator.get("Estimate.DistancePickupToDropOff"),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
+        String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+        Double flestimate=Double.valueOf(estimate.replace("~$","").trim());
+        Double transactionFee=(flestimate*0.029)+0.3;
+        Double estimatedDriverCut=(0.7*flestimate)-transactionFee;
+        String truncValue = new DecimalFormat("#.00").format(estimatedDriverCut);
+        testStepVerify.isElementTextEquals(jsonPathEvaluator.get("Estimate.DriverCost"),"~$"+truncValue);
+        String tripTime =(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME");
+        if(tripTime.equalsIgnoreCase(""))
+            tripTime =(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME");
+        tripTime= tripTime.replaceAll("  "," ");
+        testStepVerify.isElementTextEquals(jsonPathEvaluator.get("Estimate.TimePickupToDropOff"),tripTime);
+        break;
+ }
+
+
+    }
     public void acceptVirtualNotificationAsDriver(String trip, String driverPhoneNum, String driverPassword, String expectedNotification) throws InterruptedException{
         String driverPhoneCode="1";
         String pickupRequestID = "";
@@ -219,11 +257,7 @@ public class NotificationSteps extends DriverBase {
                 String expectedNotificationData = getExpectedNotification(expectedNotification);
                 if(pushNotificationContent!=null)
                 testStepVerify.isTrue(pushNotificationContent.contains(expectedNotificationData),"VIRTUAL PUSH NOTIFICATIONS RECEIVED for Driver "+ driverPhoneNum +" : notifications with text :" +expectedNotificationData, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED for Driver "+ driverPhoneNum +"  notifications with text :" +expectedNotificationData +" | Actual : "+ pushNotificationContent);
-                else
-                {
-                    fail("I should be able to view push notification [Virtual] : " + expectedNotificationData, "Driver "+driverPhoneNum+" has not received push notification " + expectedNotificationData+" | Actual : "+ pushNotificationContent, true);
 
-                }
                 String driverAccessToken = new DbUtility().getDriverCurrentToken(driverPhoneNum);
                 if(expectedNotification.equalsIgnoreCase("stack trip")) {
                     logger.detail("Accept stack pickup  " + pickupRequestID +" as driver " + driverPhoneNum +" through API Call");
