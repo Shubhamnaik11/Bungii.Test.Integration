@@ -163,15 +163,15 @@ public class ReportGeneratorUtility extends DriverBase {
 		if (eventData.get("type").toString() == "PASSED") {
 			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
 		}
+		else if (eventData.get("type").toString() == "WARNING") {
+			str = str + "<td style='background-color:orange;'>" + eventData.get("type").toString() + "</td>";
+		}
 		else {
 			str = str + "<td style='background-color:pink;'>" + eventData.get("type").toString() + "</td>";
 		}
 
 		str = str + "<td align='left'>" + eventData.get("expected").toString() + "</td>";
 		str = str + "<td align='left'>" + reason + "</td>";
-		//str = str + "<td>" + testStepStart + "</td>";
-		//str = str + "<td>" + testStepEnd + "</td>";
-		//str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
 		str = str + "</tr>";
 
 		detailsArray.add(str);
@@ -254,15 +254,21 @@ public class ReportGeneratorUtility extends DriverBase {
             catch(Exception ex){}
 			String reason = this.reason;
              //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
-			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
+			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped/Not passed due to above error. Please refer to logs for more details</td>";
 			if(reason=="") {
 				CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
 				status = "<td style='background-color:skyblue;'>Inconclusive</td>";
 			}
-			else {
+			else if(((String)CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE"))
+			{
+					passed++;
+					status = "<td style='background-color:orange;'>Pass With Observations</td>";
+			}
+				else
+					{
 				failed++;
 				status = "<td style='background-color:pink;'>Fail</td>";
-			}
+				}
 				detailsArray.add(st);
 			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
 			failureArray.add(str2);

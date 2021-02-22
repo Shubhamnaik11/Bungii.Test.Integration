@@ -927,6 +927,105 @@ public class BungiiSteps extends DriverBase {
             }
         }
     }
+    @When("^I request another \"([^\"]*)\" Bungii as a customer in \"([^\"]*)\" geofence$")
+    public void i_request_another_something_bungii_as_a_customer_in_something_geofence(String bungiiType, String geofence, DataTable data) {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String customerLabel = "";
+            try {
+                customerLabel = dataMap.get("Customer label").trim();
+                logger.detail("customerLabel is specified as input" + customerLabel);
+            } catch (Exception e) {
+            }
+
+            String bungiiTime = dataMap.get("Bungii Time").trim();
+            String customer = dataMap.get("Customer Phone").trim();
+            String customerName = dataMap.get("Customer Name").trim();
+
+            cucumberContextManager.setScenarioContext("Bungii_Type",bungiiType);
+            String customerPasswordLabel = "";
+            try {
+                customerPasswordLabel = dataMap.get("Customer Password").trim();
+            } catch (Exception e) {
+            }
+
+            int numberOfDriver = bungiiType.trim().equalsIgnoreCase("duo") ? 2 : 1;
+            String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
+
+            custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");
+            if (custPhoneNum.equalsIgnoreCase("NEW_USER_NUMBER"))
+                custPhoneNum = (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
+
+            if (customerPasswordLabel.equals(""))
+                custPassword = PropertyUtility.getDataProperties("web.customer.password");
+            else
+                custPassword = customerPasswordLabel;
+
+/*            cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);*/
+
+
+            if (customerLabel.equalsIgnoreCase("")) {
+                cucumberContextManager.setScenarioContext("CUSTOMER2", customerName);
+                cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", custPhoneNum);
+            } else {
+                cucumberContextManager.setScenarioContext("CUSTOMER" + customerLabel, customerName);
+                cucumberContextManager.setScenarioContext("CUSTOMER" + customerLabel + "_PHONE", custPhoneNum);
+            }
+            cucumberContextManager.setScenarioContext("CUSTOMER2_PUSH", custPhoneNum);
+
+            cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
+            logger.detail("*** Requesting second " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence + " ***");
+
+            //LOGIN
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+            String custRef = customerServices.getCustomerRef(custAccessToken);
+
+            //CUSTOMER& DRIVER VIEW
+            coreServices.customerView("", custAccessToken);
+            cucumberContextManager.setScenarioContext("CUSTOMER_TOKEN", custAccessToken);
+
+            //request Bungii
+            coreServices.validatePickupRequest(custAccessToken, geofence);
+            String pickupRequest = coreServices.getPickupRequest(custAccessToken, numberOfDriver, geofence);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST2", pickupRequest);
+            String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
+            if (customerLabel.equalsIgnoreCase(""))
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+            else
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken, customerLabel);
+
+            if (bungiiType.equalsIgnoreCase("Solo Ondemand")) {
+                coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
+            }
+            else if(bungiiTime.equalsIgnoreCase("TELET SAME TIME")
+                    || bungiiTime.equalsIgnoreCase("TELET OVERLAP")){
+                String teletTime=(String)cucumberContextManager.getScenarioContext("TELET");
+                cucumberContextManager.setScenarioContext("TELET_TYPE",bungiiTime);
+                coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, teletTime);
+            }
+            else{
+                int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
+                cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START", wait);
+            }
+            cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME", System.currentTimeMillis() / 1000L);
+
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            pass("I should be able to request bungii ", "Requested second " + bungiiType + " trip as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence +" Pickup Reference : "+ pickupRequest);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
     @When("^I request \"([^\"]*)\" Bungii as a customer in \"([^\"]*)\" geofence$")
     public void i_request_something_bungii_as_a_customer_in_something_geofence(String bungiiType, String geofence, DataTable data) {
         try {
@@ -2661,7 +2760,7 @@ else
 
             if (!cust2PhoneNum.equalsIgnoreCase("")) {
                 //Thread.sleep(10000);
-                String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+                String custAccessToken = authServices.getCustomerToken(custPhoneCode, cust2PhoneNum, cust2Password);
                 handleOngoingBungii(custAccessToken);
                 cancelScheduledBungii(custAccessToken);
             }

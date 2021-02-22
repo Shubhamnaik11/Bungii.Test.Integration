@@ -103,8 +103,8 @@ public class EstimateSteps extends DriverBase {
             }
             testStepAssert.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
                     "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
+            utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("LATEST_LOGGEDIN_CUSTOMER_PHONE"));
 
-            utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

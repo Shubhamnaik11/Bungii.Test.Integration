@@ -7,82 +7,13 @@ Feature: Scheduled DUO Bungii
 
   Background:
   When I Switch to "customer" application on "same" devices
-  
-  @sanity
-  @regression
-	#Stable
-  Scenario: Verify Scheduled Duo Bungii Can Be Requested As An iOS Customer in Goa Geofence [1 Device]
-    And I logged in Customer application using  "customer-duo" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Duo    | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
-    And I click "Get Estimate" button on "Home" screen
-    
-    Then I should be navigated to "Estimate" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
-      | 30       |           |              | NEXT_POSSIBLE | Default | Yes            |
-    Then I should be navigated to "Success" screen
-    And I click "Done" button on "Success" screen
-  
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 9403960188      |                 |
-  
-  @sanity
-  @regression
-    #stable
-    @io
-  Scenario: Verify Scheduled Duo Bungii can be accepted by drivers and they are shown under displayed under Scheduled List upon accepting [1 Device]
-    Given I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    And that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Requested     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
-  
-    Given I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    Then I should be navigated to "BUNGII DETAILS" screen
-    And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
-    When I accept selected Bungii
 	
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select delivery "1" from scheduled deliveries
-    Then I should be navigated to "BUNGII DETAILS" screen
-  
-    When I Select "ACCOUNT > LOGOUT" from driver App menu
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid driver 2" driver
-    
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    Then Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
-    When I accept selected Bungii
-	
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select delivery "1" from scheduled deliveries
-    Then I should be navigated to "BUNGII DETAILS" screen
-  
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 9403960188      |                 |
-    
-    
   @sanity
+    @pp
   Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Accepted     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
   
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -90,6 +21,7 @@ Feature: Scheduled DUO Bungii
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
     And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select delivery "1" from scheduled deliveries
     Then I should be navigated to "BUNGII DETAILS" screen
     And I start selected Bungii
     Then I should be navigated to "EN ROUTE" screen
@@ -120,7 +52,7 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
 
-    When I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "ARRIVED" Screen
     Then I accept Alert message for "Reminder: both driver at pickup"
     Then I should be navigated to "LOADING ITEM" screen
@@ -141,7 +73,7 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" screen
 
-    When I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
 
@@ -149,7 +81,7 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
 
-    When I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
@@ -175,270 +107,14 @@ Feature: Scheduled DUO Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
-    
-
-  @ready
-  Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver [1 Device]
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
-    
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select delivery "1" from scheduled deliveries
-    And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" screen
-    Then I check ETA of "control driver"
-
-    And I Switch to "customer" application on "same" devices
-    When I logged in Customer application using  "customer-duo" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    Then I should be navigated to "EN ROUTE" screen
-    Then "control driver" eta should be displayed to customer
-    
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" screen
-    And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    Then I should be navigated to "LOADING ITEM" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "LOADING ITEM" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-    Then I check ETA of "control driver"
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-    Then "control driver" eta should be displayed to customer
-    
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" screen
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I accept Alert message for "Reminder: both driver at drop off"
-    Then I should be navigated to "Bungii Completed" screen
-    Then I wait for "1" mins
-    When I click "On To The Next One" button on "Bungii Completed" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I wait for "2" mins
-    Then I should be navigated to "BUNGII COMPLETE" screen
-    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+	
 ################################################################################################
 
-
-  @FAILED2702
-  @ready
-  Scenario: Verify Driver Can Contact Customer Of A Requested Scheduled Duo Bungii
-
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
-
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
-    And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid driver 2" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
-    And I Switch to "customer" application on "ORIGINAL" devices
-    When I logged in Customer application using  "customer-duo" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-
-    And I Switch to "driver" application on "Driver2" devices
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select delivery "1" from scheduled deliveries
-    Then I should be navigated to "BUNGII DETAILS" screen
-#    When I wait for Minimum duration for Bungii Start Time
-    And I start selected Bungii
-
-    And I Switch to "driver" application on "ORIGINAL" devices
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select delivery "1" from scheduled deliveries
-    And I start selected Bungii
-
-    And I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "EN ROUTE" trip status screen
-    Then correct details should be displayed to customer for "DUO DRIVER 1-CALL DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 1-TEXT DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 2-CALL DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 2-TEXT DRIVER"
-
-    When I Switch to "driver" application on "same" devices
-    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
-    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
-    And correct details should be displayed to driver for "DUO DRIVER 2-CALL DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER 2-TEXT DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-    And I slide update button on "EN ROUTE" Screen
-
-    When I Switch to "driver" application on "Driver2" devices
-    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
-    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
-    Then correct details should be displayed to driver for "DUO DRIVER 1-CALL DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER 1-TEXT DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-    When I slide update button on "EN ROUTE" Screen
-
-    And I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "ARRIVED" trip status screen
-    Then correct details should be displayed to customer for "DUO DRIVER 1-CALL DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 1-TEXT DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 2-CALL DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 2-TEXT DRIVER"
-
-    When I Switch to "driver" application on "same" devices
-    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
-    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
-    And correct details should be displayed to driver for "DUO DRIVER 2-CALL DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER 2-TEXT DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-    When I slide update button on "ARRIVED" Screen
-    And I accept Alert message for "Reminder: both driver at pickup"
-
-    And I Switch to "driver" application on "Driver2" devices
-    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
-    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
-    Then correct details should be displayed to driver for "DUO DRIVER 1-CALL DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER 1-TEXT DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-
-    When I slide update button on "ARRIVED" Screen
-    And I accept Alert message for "Reminder: both driver at pickup"
-
-    And I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "LOADING ITEM" trip status screen
-    Then correct details should be displayed to customer for "DUO DRIVER 1-CALL DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 1-TEXT DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 2-CALL DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 2-TEXT DRIVER"
-
-    When I Switch to "driver" application on "same" devices
-    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
-    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
-    And correct details should be displayed to driver for "DUO DRIVER 2-CALL DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER 2-TEXT DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-
-    When I slide update button on "LOADING ITEM" Screen
-
-    And I Switch to "driver" application on "Driver2" devices
-    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
-    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
-    Then correct details should be displayed to driver for "DUO DRIVER 1-CALL DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER 1-TEXT DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-    When I slide update button on "LOADING ITEM" Screen
-
-    And I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
-    Then correct details should be displayed to customer for "DUO DRIVER 1-CALL DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 1-TEXT DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 2-CALL DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 2-TEXT DRIVER"
-
-    When I Switch to "driver" application on "same" devices
-    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
-    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
-    And correct details should be displayed to driver for "DUO DRIVER 2-CALL DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER 2-TEXT DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-    When I slide update button on "DRIVING TO DROP OFF" Screen
-
-    And I Switch to "driver" application on "Driver2" devices
-    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
-    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
-    Then correct details should be displayed to driver for "DUO DRIVER 1-CALL DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER 1-TEXT DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-
-    When I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
-    Then correct details should be displayed to customer for "DUO DRIVER 1-CALL DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 1-TEXT DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 2-CALL DRIVER"
-    And correct details should be displayed to customer for "DUO DRIVER 2-TEXT DRIVER"
-
-
-    When I Switch to "driver" application on "same" devices
-    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
-    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
-    And correct details should be displayed to driver for "DUO DRIVER 2-CALL DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER 2-TEXT DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-
-    When I Switch to "driver" application on "Driver2" devices
-    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
-    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
-    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
-    Then correct details should be displayed to driver for "DUO DRIVER 1-CALL DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER 1-TEXT DRIVER"
-    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-
-    When I slide update button on "UNLOADING ITEM" Screen
-    Then I accept Alert message for "Reminder: both driver at drop off"
-
-
-    And I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I accept Alert message for "Reminder: both driver at drop off"
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    And I Select "HOME" from driver App menu
-
-    And I Switch to "customer" application on "same" devices
-    Then I should be navigated to "Bungii Complete" screen
-    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
-
-    Then I should be navigated to "Promotion" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-    Then I should be navigated to "Home" screen
-
-    When I Switch to "driver" application on "Driver2" devices
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    And I Select "HOME" from driver App menu
 #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @failed
   @regression
-  Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Long Stacked Bungii
-
+  
+  Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Long Stacked Bungii [2 Devices]
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | goa      | Enroute      |
@@ -446,19 +122,18 @@ Feature: Scheduled DUO Bungii
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
+    
     And I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "existing" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
+    #And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    #And I close "Tutorial" if exist
 
     And I connect to "extra1" using "Customer2" instance
     And I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid customer2" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
+    #And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    #And I close "Tutorial" if exist
     
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
@@ -468,10 +143,9 @@ Feature: Scheduled DUO Bungii
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
       | 15       |           |              | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
+    
     When I Switch to "customer" application on "ORIGINAL" devices
-
     And I view and accept virtual notification for "Driver" for "stack trip"
-  
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
 
@@ -568,11 +242,11 @@ Feature: Scheduled DUO Bungii
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @failed
   @regression
-  Scenario: Verify Decked Alert Status And Messages Of Current Scheduled Bungii And Long Stacked Bungii
+  Scenario: Verify Decked Alert Status And Messages Of Current Scheduled Bungii And Long Stacked Bungii [2 Devices]
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | goa      | enroute      | NEXT_POSSIBLE |
+      | goa      | enroute      | 0.5 hour ahead |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -690,7 +364,7 @@ Feature: Scheduled DUO Bungii
 
   @failed
   @ready
-  Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Short Stacked Bungii
+  Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Short Stacked Bungii [2 Devices]
 
     Given that ondemand bungii is in progress
       | geofence | Bungii State        |
@@ -723,9 +397,9 @@ Feature: Scheduled DUO Bungii
     When I open "customer" application on "ORIGINAL" devices
  
     And I view and accept virtual notification for "Driver" for "stack trip"
-    Then I calculate projected driver arrival time
-    And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
-    When I click "OK" on alert message
+    #Then I calculate projected driver arrival time
+    #And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
+    #When I click "OK" on alert message
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for short stack trip
     When  I switch to "Customer2" instance
@@ -844,7 +518,7 @@ Feature: Scheduled DUO Bungii
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | enroute      | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -902,7 +576,7 @@ Feature: Scheduled DUO Bungii
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State       | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Driving To Dropoff | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Driving To Dropoff | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -945,11 +619,11 @@ Feature: Scheduled DUO Bungii
 
   @failed
   @ready
-  Scenario: Verify Non Control Driver Doesnt Receive Long Stack Request If Started Before The Control Driver Also Non Control Driver Cannot Cancel Bungii If Control Driver Has Not Started The Bungii
+  Scenario: Verify Non Control Driver Doesnt Receive Long Stack Request If Started Before The Control Driver Also Non Control Driver Cannot Cancel Bungii If Control Driver Has Not Started The Bungii [2 Devices]
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | goa      | Accepted     | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+      | goa      | Accepted     | 0.5 hour ahead | valid    | valid   | valid driver 2 |
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
@@ -982,7 +656,7 @@ Feature: Scheduled DUO Bungii
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Scheduled    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Scheduled    | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
@@ -1017,7 +691,7 @@ Feature: Scheduled DUO Bungii
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Background [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Scheduled    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | Scheduled    | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
@@ -1050,12 +724,11 @@ Feature: Scheduled DUO Bungii
 
   @failed
   @ready
-  Scenario: Verify Customer And Other Driver Is Notified When One Of The Driver Cancels The Scheduled Duo Bungii [2 Devices]
+  Scenario: DUO DELIVERY CANCELLATION | Verify Customer And Other Driver Is Notified When One Of The Driver Cancels The Scheduled Duo Bungii [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
-
-
+      | goa      | enroute      | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
+	
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "customer-duo" user
@@ -1066,15 +739,13 @@ Feature: Scheduled DUO Bungii
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
+	
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
+	
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
@@ -1090,7 +761,7 @@ Feature: Scheduled DUO Bungii
   Scenario: Verify Other Driver Notification In Background When One Of The Driver Cancels Duo Scheduled Bungii [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | enroute      | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -1098,14 +769,13 @@ Feature: Scheduled DUO Bungii
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   
     When I Switch to "customer" application on "same" devices
-  #driver1 in background
+
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
+	
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
@@ -1116,12 +786,12 @@ Feature: Scheduled DUO Bungii
     Then I click on notification for "driver" for "OTHER DRIVER CANCELLED BUNGII"
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
-  @failed
-  @ready
+  @regression
+    #Stable
   Scenario: Verify Other Driver Alert In Foreground When One Of The Driver Cancels Duo Scheduled Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | enroute      | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -1135,7 +805,6 @@ Feature: Scheduled DUO Bungii
     And I am logged in as "valid driver 2" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   
-  
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
@@ -1144,7 +813,8 @@ Feature: Scheduled DUO Bungii
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   @regression
-  Scenario: Verify Driver Doesnt Receive Short Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip
+    #stable
+  Scenario: Verify Driver Doesnt Receive Short Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip [2 Devices]
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
       | goa      | UNLOADING ITEM |
@@ -1177,8 +847,9 @@ Feature: Scheduled DUO Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @ready
-  Scenario: Verify Driver Doesnt Receive Long Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip
+  @regression
+    #stable
+  Scenario: Verify Driver Doesnt Receive Long Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip [2 Devices]
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | goa      | LOADING ITEM |
@@ -1210,141 +881,11 @@ Feature: Scheduled DUO Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+	
 
-
-  @ready
-  Scenario:Verify Customer Notification For Stack Bungii Accepted And Stack Driver Started
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State   |
-      | goa      | UNLOADING ITEM |
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-
-    Given I am on the "LOG IN" page
-    When I enter Username :9403960183 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    
-    And I view and accept virtual notification for "Driver" for "stack trip"
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
-  
-    Then I should be navigated to "EN ROUTE" screen
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 9403960183     |                 |
-
-  
-  @ready
-  Scenario: Verify Manually Ending Bungii For A Driver That Has Stacked Bungii Should See Summary And Start Screen Of The Stacked Bungii [1 Device]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State        |
-      | goa      | DRIVING TO DROP OFF |
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    And I view and accept virtual notification for "Driver" for "stack trip"
-    And stack trip information should be displayed on deck
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    When I enter Username :9403960183 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I Switch to "driver" application on "same" devices
-
-    When bungii admin manually end bungii created by "CUSTOMER1"
-
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    Then I should be navigated to "EN ROUTE" screen
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "EN ROUTE" screen
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      |                | CUSTOMER2_PHONE |
-
-  @ready
-    @push
-  Scenario:Verify Driver Can Receive Short Stack Request And Can Cancel Bungii On Unloading Item State [1 Device]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State   |
-      | goa      | UNLOADING ITEM |
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-
-    And I view and accept virtual notification for "Driver" for "stack trip"
-    And stack trip information should be displayed on deck
-    
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    When I enter Username :9403960183 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "CANCEL BUNGII" on bungii accepted screen
-    Then I see "Alert: Bungii cancel confirmation" on bungii accepted screen
-    When I click "Dismiss on Alert message" on bungii accepted screen
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "CANCEL BUNGII" on bungii accepted screen
-    When I click "Cantact Support on Alert message" on bungii accepted screen
-    And correct details should be displayed to customer for "customer support-SMS"
-    When I click "CANCEL BUNGII" on bungii accepted screen
-    When I click "CANCEL BUNGII on Alert message" on bungii accepted screen
-    Then I see "Alert: Bungii cancel sucessfully" on bungii accepted screen
-    When I click "OK" on alert message
-    Then I should be navigated to "HOME" screen
-    And I click on notification for "Driver" for "CUSTOMER CANCEL STACK TRIP"
-    And stack trip information should not be displayed on deck
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-
-  @regression
-  Scenario:Verify Driver Can Receive Long Stack Request On Arrived State [1 Device]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State |
-      | goa      | ARRIVED      |
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    
-   And I view and accept virtual notification for "Driver" for "stack trip"
-    And stack trip information should be displayed on deck
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-  
-  
   @FAILED2702
   @ready
   Scenario Outline: Verify Customer Amount Calculation For Scheduled Duo Bungii With Promo Code
-    
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
@@ -1436,3 +977,71 @@ Feature: Scheduled DUO Bungii
       | PROMO CODE        |
       | PROMO DOLLAR OFF  |
       | PROMO PERCENT OFF |
+  
+  @FAILED2702
+  @ready
+  Scenario: Verify Driver Can Contact Customer Of A Requested Scheduled Duo Bungii
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | Accepted     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
+    
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I connect to "extra1" using "Driver2" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I Switch to "customer" application on "ORIGINAL" devices
+    When I logged in Customer application using  "customer-duo" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
+    And I Switch to "driver" application on "Driver2" devices
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select delivery "1" from scheduled deliveries
+    Then I should be navigated to "BUNGII DETAILS" screen
+    And I start selected Bungii
+    
+    And I Switch to "driver" application on "ORIGINAL" devices
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select delivery "1" from scheduled deliveries
+    And I start selected Bungii
+    
+    And I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "EN ROUTE" trip status screen
+    Then correct details should be displayed to customer for "DUO DRIVER 1-CALL DRIVER"
+    And correct details should be displayed to customer for "DUO DRIVER 1-TEXT DRIVER"
+    And correct details should be displayed to customer for "DUO DRIVER 2-CALL DRIVER"
+    And correct details should be displayed to customer for "DUO DRIVER 2-TEXT DRIVER"
+    
+    When I Switch to "driver" application on "same" devices
+    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
+    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
+    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
+    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
+    And correct details should be displayed to driver for "DUO DRIVER 2-CALL DRIVER"
+    And correct details should be displayed to driver for "DUO DRIVER 2-TEXT DRIVER"
+    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
+    And I slide update button on "EN ROUTE" Screen
+    
+    When I Switch to "driver" application on "Driver2" devices
+    Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
+    And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
+    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
+    And correct details should be displayed to driver for "DUO CUSTOMER-TEXT BUNGII SUPPORT"
+    Then correct details should be displayed to driver for "DUO DRIVER 1-CALL DRIVER"
+    And correct details should be displayed to driver for "DUO DRIVER 1-TEXT DRIVER"
+    And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
+    When I slide update button on "EN ROUTE" Screen
+  
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 9403960188      |                 |
+    
+    
+   

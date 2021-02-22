@@ -707,12 +707,12 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I Switch to "driver" application on "same" devices
     And I view and accept virtual notification for "Driver" for "on demand trip"
     
-    #When I Switch to "customer" application on "same" devices
-    #Then I should be navigated to "BUNGII ACCEPTED" screen
-    #When I click "Ok" button on "BUNGII ACCEPTED" screen
-    #Then Customer should be navigated to "EN ROUTE" trip status screen
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "BUNGII ACCEPTED" screen
+    When I click "Ok" button on "BUNGII ACCEPTED" screen
+    Then Customer should be navigated to "EN ROUTE" trip status screen
     
-    #When I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "same" devices
 	Then I should be navigated to "EN ROUTE" trip status screen
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen
