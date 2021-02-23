@@ -73,6 +73,7 @@ Feature: Solo Scheduled Bungii Part II
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
     Given I Switch to "customer" application on "same" devices
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -87,7 +88,8 @@ Feature: Solo Scheduled Bungii Part II
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
     When I accept selected Bungii
-    And I Switch to "customer" application on "same" devices
+    
+    And I Switch to "driver" application on "same" devices
 	And I view and try accepting virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
     Then user is virtually alerted for "PICKUP ALREADY ACCEPTED BY YOU"
     And I cancel all bungiis of customer
