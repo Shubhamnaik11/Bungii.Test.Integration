@@ -847,7 +847,37 @@ public class CoreServices extends DriverBase {
 
     }
 
+    public Response AcceptBungii(String pickupID, String authToken) {
+        Response response = null;
+        try {
+            String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ 21;
+            JSONObject jsonObj = new JSONObject();
+            JSONObject status = new JSONObject();
+            JSONArray statusArray = new JSONArray();
+            status.put("PickupId", pickupID);
+            status.put("PickupStatusId", pickupID);
+            status.put("synced", false);
+            status.put("StatusTimestamp", utility.getCurrentUTCTime());
+            status.put("Status", 21);
+            statusArray.put(status);
+            jsonObj.put("Statuses", statusArray);
 
+            //make status online
+            jsonObj.put("PickupRequestID", pickupID);
+            Header header = new Header("AuthorizationToken", authToken);
+
+            String apiURL = null;
+
+            apiURL = UrlBuilder.createApiUrl("core", UPDATE_PICKUP_STATUS);
+            response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+          //  ApiHelper.genericResponseValidation(response,RequestText);
+
+
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+      return response ;
+    }
     public void pickupdetails(String pickupID, String authToken, String geofence) {
         try {
             String RequestText = "API REQUEST : Get Pickup Details of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Geofence : "+ geofence;
@@ -888,9 +918,6 @@ public class CoreServices extends DriverBase {
 
             driverCordinate.put("Latitude", driverLocations[0]);
             driverCordinate.put("Longitude", driverLocations[1]);
-            //        driverCordinate.put("Latitude", 15.36773730);
-            //       driverCordinate.put("Longitude", 73.936542900);
-            //make status online
             jsonObj.put("Location", driverCordinate);
             jsonObj.put("PickupRequestID", pickupID);
             Header header = new Header("AuthorizationToken", authToken);
@@ -900,9 +927,7 @@ public class CoreServices extends DriverBase {
             apiURL = UrlBuilder.createApiUrl("core", PICKUP_DETAILS);
             Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
             jsonPathEvaluator = response.jsonPath();
-            //HashMap error = jsonPathEvaluator.get("Error");
-            //ApiHelper.genericResponseValidation(response, RequestText);
-
+            ApiHelper.genericResponseValidation(response, RequestText);
 
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());

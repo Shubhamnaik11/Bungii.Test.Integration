@@ -9,8 +9,9 @@ Feature: Solo Scheduled Bungii Part II
     When I Switch to "customer" application on "same" devices
     
   @regression
-    @io
+   #stable
   Scenario:Verify Scheduled Bungii Notification Informantion of Estimated Earnings Date etc
+    When I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "Online"
     When I Switch to "customer" application on "same" devices
 
@@ -19,36 +20,21 @@ Feature: Solo Scheduled Bungii Part II
       | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark |
     
     And I view and check virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
   @regression
+    #stable
   Scenario:Verify If Driver Receives Scheduled Bungii Request While In Offline State
+    When I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "OFFLINE"
 
-    When I Switch to "customer" application on "same" devices
-    And I request "Solo Scheduled" Bungii as a customer in "denver" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                      |
-      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark |
-    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-    When I click "View" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "REJECT" button on "Bungii Request" screen
-    When I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
     And I Switch to "customer" application on "same" devices
     And I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      |
       | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark |
-    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-    When I click "View" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "REJECT" button on "Bungii Request" screen
+    And I view and check virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
@@ -87,6 +73,7 @@ Feature: Solo Scheduled Bungii Part II
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
     Given I Switch to "customer" application on "same" devices
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -101,11 +88,10 @@ Feature: Solo Scheduled Bungii Part II
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
     When I accept selected Bungii
-    And I Switch to "customer" application on "same" devices
-    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-    When I click "View" on alert message
-    Then user is alerted for "PICKUP ALREADY ACCEPTED BY YOU"
+    
+    And I Switch to "driver" application on "same" devices
+	And I view and try accepting virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    Then user is virtually alerted for "PICKUP ALREADY ACCEPTED BY YOU"
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
@@ -184,7 +170,6 @@ Feature: Solo Scheduled Bungii Part II
   @FAILED2702
   @regression
   Scenario: Verify Driver Doesnt Receive Scheduled Trip Request If His Home Is Over 30 Mins Away From Pickup Location
-    When I clear all notification
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
@@ -237,9 +222,6 @@ Feature: Solo Scheduled Bungii Part II
       | denver   | Accepted     | 1 hour ahead |
     
     Given I login as "valid denver" customer and on Home page
-    #And I Switch to "customer" application on "same" devices
-   # When I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     When I try to contact driver using "sms driver1"

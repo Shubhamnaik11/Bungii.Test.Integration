@@ -2081,7 +2081,23 @@ public class CommonSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^user is virtually alerted for \"([^\"]*)\"$")
+    public void user_is_virtually_alerted_for_something(String key) {
+        try {
+            String expectedText = "";
+            switch (key.toUpperCase()) {
+                case "ALREADY SCHEDULED BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.alert.alreadyscheduled");
+                    break;
 
+            }
+            String alertText = (String)cucumberContextManager.getScenarioContext("API_RESPONSE");
+            testStepVerify.isEquals(alertText, expectedText);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details [Virtual Alert]", true);
+        }
+    }
     @Then("^user is alerted for \"([^\"]*)\"$")
     public void user_is_alerted_for_something(String key) {
         try {
