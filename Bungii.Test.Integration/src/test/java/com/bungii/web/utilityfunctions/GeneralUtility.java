@@ -943,5 +943,15 @@ public class GeneralUtility extends DriverBase {
         return minutes;
     }
 
+    public String getbungiiDayLightTimeValue(String bungiiTime){
+        String time=null;
+
+        if(bungiiTime.contains("CDT")) { time=bungiiTime.replace("CST","CST").replace("CDT","CST"); }
+        else if(bungiiTime.contains("EST")){ time=bungiiTime.replace("EST","EDT").replace("EDT","EDT"); }
+        else if(bungiiTime.contains("MST")){ time=bungiiTime.replace("MST","MDT"); }
+        else if(bungiiTime.contains("IST")){ time=bungiiTime; }
+        return time;
+    }
+
 }
 

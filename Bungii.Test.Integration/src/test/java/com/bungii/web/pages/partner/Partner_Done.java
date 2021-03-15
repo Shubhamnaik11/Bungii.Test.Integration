@@ -14,6 +14,13 @@ public class Partner_Done extends PageBase {
     //Track Deliveries button
     public WebElement Button_Track_Deliveries() { return findElement("track-deliveries",LocatorType.Id);}
 
+    //Filter
+    public WebElement Dropdown_Filter() { return findElement("//span[contains(text(),'Filter:')]",LocatorType.XPath);}
 
+    //Checked/Unchecked radio button
+    public WebElement Checkbox_Check_UnCheck_All() { return findElement("//label[contains(text(),'Check / uncheck all')]",LocatorType.XPath);}
+
+    //Apply button
+    public WebElement Button_Apply() { return findElement("//button[contains(text(),'Apply')]",LocatorType.XPath);}
 }
 
