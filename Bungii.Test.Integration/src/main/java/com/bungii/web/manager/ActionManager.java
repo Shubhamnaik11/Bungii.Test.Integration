@@ -142,6 +142,34 @@ public class ActionManager {
             return null;
         }
     }
+
+    public String getAttributeValue(WebElement element) {
+        try {
+
+            Long  DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+            Thread.sleep(3000);
+            //  new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until((JavascriptExecutor)DriverManager.getObject().getDriver()).executeScript("return document.readyState").equals("complete") }
+            waitForJStoLoad();
+            // new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+            String value = element.getAttribute("value");
+            logger.detail("Attribute value is  " + value + " for element -> " + getElementDetails(element));
+
+            return value;
+        }
+        catch(StaleElementReferenceException ex)
+        {
+            String value = element.getAttribute("value");
+            logger.detail("Attribute value is  " + value + " for element -> " + getElementDetails(element));
+            return value;
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to get value from element -> " + getElementDetails(element) ,
+                    true);
+            return null;
+        }
+    }
     /**
      * @param element ,locator that is to be clicked
      */

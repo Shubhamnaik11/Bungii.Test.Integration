@@ -37,6 +37,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
     Driver_DashboardPage driver_DashboardPage = new  Driver_DashboardPage();
     Driver_PickUpInfoPage Page_Driver_PickupInfo = new Driver_PickUpInfoPage();
+    Admin_PartnerPortalPage admin_partnerPortalPage = new Admin_PartnerPortalPage();
     private static LogUtility logger = new LogUtility(Admin_DriverApprovalSteps.class);
 
     GeneralUtility utility = new GeneralUtility();
@@ -126,6 +127,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Drivers Page":
                 testStepAssert.isElementDisplayed(admin_DriverPage.Label_DriversPageHeader(),"I should be navigated to "+screen, "I am navigated to "+ screen, "I am not navigates to "+ screen);
                 break;
+            case "Partner Portal Page":
+                testStepAssert.isElementDisplayed(admin_partnerPortalPage.Label_PartnerListHeader(),"I should be navigated to "+screen, "I am navigated to "+ screen, "I am not navigates to "+ screen);
+                break;
         }
     }
 
@@ -194,7 +198,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "New Partners":
                 action.click(admin_PromoterPage.Button_NewPromoter());
                 break;
-
+            case "New Portal Parter":
+                action.click(admin_partnerPortalPage.Button_NewPartner());
+                break;
             case "Edit":
                 Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
                 xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);

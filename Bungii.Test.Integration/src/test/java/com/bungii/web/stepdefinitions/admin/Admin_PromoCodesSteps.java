@@ -46,7 +46,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
     GeneralUtility utility = new GeneralUtility();
     Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
-
+    Admin_PartnerPortalPage admin_partnerPortalPage = new Admin_PartnerPortalPage();
 
     @When("^I click on \"([^\"]*)\" Menu$")
     public void i_click_something_menu(String link) throws Throwable {
@@ -122,8 +122,16 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_paymentMethodsPage.Menu_PaymentMethodsSubMenu());
                action.click(admin_paymentMethodsPage.Menu_BungiiCards());
                break;
-
-
+           case "Partner Portal  > Partners":
+               Thread.sleep(5000);
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_PartnersSubMenu());
+               break;
+           case "Partner Portal  > Locations":
+               Thread.sleep(5000);
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_LocationsSubMenu());
+               break;
        }
         log("I click on "+link+" menu link" ,
                 "I have clicked on "+link+" menu link", true);
@@ -624,6 +632,16 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 }
                 break;
                 //EOC
+            case "Add Partner":
+                switch(button) {
+                    case "Cancel":
+                        action.click(admin_partnerPortalPage.Button_Cancel());
+                        break;
+                    case "Save":
+                        action.click(admin_partnerPortalPage.Button_Save());
+                        break;
+                }
+                break;
         }
         log("I click on "+button+" on "+ popup ,
                 "I have clicked on "+button+" on "+ popup, true);
