@@ -22,6 +22,10 @@ import org.openqa.selenium.WebElement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -283,16 +287,24 @@ public class Partner_LoginSteps extends DriverBase {
                     break;
                 case "see the trip in the Delivery List":
                     String scheduled_time =(String) cucumberContextManager.getScenarioContext("Schedule_Date_Time");
-                    scheduled_time =scheduled_time.replace("at","").replace("(","").replace(")","");
-                    DateFormat dft = new SimpleDateFormat("MMMM dd, yyyy h:mm a z", Locale.ENGLISH);
-                    DateFormat dft1 = new SimpleDateFormat("MMM dd, yyyy h:mm a z", Locale.ENGLISH);
+                    scheduled_time =scheduled_time.replace("at","").replace("(","").replace(")","").replace("  "," ");
+                    //DateFormat dft = new SimpleDateFormat("MMMM dd, yyyy h:mm a z", Locale.ENGLISH);
+                    DateTimeFormatter dft = DateTimeFormatter.ofPattern("MMMM dd, yyyy h:mm a z");//for checking the MMMM month format
+                    DateTimeFormatter dft1 = DateTimeFormatter.ofPattern("MMM dd, yyyy h:mm a z");//for converting to MMM month format
+
+
+                    //DateFormat dft1 = new SimpleDateFormat("MMM dd, yyyy h:mm a z", Locale.ENGLISH);
                     String geoLabel = utility.getTimeZoneBasedOnGeofenceId();
-                    dft1.setTimeZone(TimeZone.getTimeZone(geoLabel));
-                    dft.setTimeZone(TimeZone.getTimeZone(geoLabel));
-                    Date dt2 = dft.parse(scheduled_time);
+                   // dft1.setTimeZone(TimeZone.getTimeZone(geoLabel));
+                    //dft.setTimeZone(TimeZone.getTimeZone(geoLabel));
+                    TimeZone zone = TimeZone.getTimeZone(geoLabel);
+                    ZonedDateTime abc = LocalDateTime.parse(scheduled_time,dft).atZone(zone.toZoneId());
+
+                   // Date dt2 = dft.parse(scheduled_time);
 
 
-                    scheduled_time = dft1.format(dt2);
+                    scheduled_time = dft1.format(abc);
+                    scheduled_time = utility.getbungiiDayLightTimeValue(scheduled_time);
                     StringBuilder sb = new StringBuilder(scheduled_time);
                     sb.insert(13, "at ");
 
@@ -408,6 +420,28 @@ public class Partner_LoginSteps extends DriverBase {
         }
     }
 
+    @And("^I click on Filter and select check/unchecked all checkbox$")
+    public void i_click_on_filter() throws Throwable {
+        //throw new PendingException();
+        action.click(Page_Partner_Done.Dropdown_Filter());
+        action.click(Page_Partner_Done.Checkbox_Check_UnCheck_All());
+
+
+    }
+
+    @And("^I click on Apply button on Filter$")
+    public void i_click_on_apply_button_on_filter() throws Throwable {
+        //throw new PendingException();
+        action.click(Page_Partner_Done.Button_Apply());
+
+    }
+
+    @Then("^I should not able to see Filter screen$")
+    public void i_should_not_be_able_to_see_filter_screen() throws Throwable {
+        //throw new PendingException();
+        testStepAssert.isNotElementDisplayed(Page_Partner_Done.Button_Apply(),"Filter window should close and Apply button shouldn't be shown","Filter window is close and Apply button is not shown","Filter window is not close and Apply button is shown");
+
+    }
 
 }
 
