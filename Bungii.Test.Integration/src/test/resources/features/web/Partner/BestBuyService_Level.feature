@@ -26,6 +26,9 @@ Feature: Service Level
     Then I should "see Done screen"
     And I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
+    And I click on Filter and select check/unchecked all checkbox
+    And I click on Apply button on Filter
+    Then I should not able to see Filter screen
     And I select the Scheduled Bungii from Delivery List
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
 
