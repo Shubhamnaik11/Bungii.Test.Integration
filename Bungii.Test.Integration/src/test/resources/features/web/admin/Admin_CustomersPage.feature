@@ -73,7 +73,7 @@ Feature: Admin_CustomersPage
     When I edit "Phone" to "9800000004" and save it
     And I edit "Email" to "bungiiauto585@gmail.com" and save it
     When I navigate to Customer List
-    And updated Phone is displayed for the customer in the Customer List
+    Then updated Phone is displayed for the customer in the Customer List
     When I view the searched customer
     Then updated Phone and Email is displayed for the customer
   
@@ -88,7 +88,7 @@ Feature: Admin_CustomersPage
     When I edit "Phone" to "9800000048" and Cancel it
     And I edit "Email" to "bungiiauto48@gmail.com" and Cancel it
     When I navigate to Customer List
-    And old Phone is displayed for the customer in the Customer List
+    Then old Phone is displayed for the customer in the Customer List
     When I view the searched customer
     Then old Phone and Email is displayed for the customer
 
@@ -103,7 +103,7 @@ Feature: Admin_CustomersPage
     When I edit "Phone" to "9800000048" and Cancel on Comments popup
     And I edit "Email" to "bungiiauto48@gmail.com" and Cancel on Comments popup
     When I navigate to Customer List
-    And old Phone is displayed for the customer in the Customer List
+    Then old Phone is displayed for the customer in the Customer List
     When I view the searched customer
     Then old Phone and Email is displayed for the customer
      

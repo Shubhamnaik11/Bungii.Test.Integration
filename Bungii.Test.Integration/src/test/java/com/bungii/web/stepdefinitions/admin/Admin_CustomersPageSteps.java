@@ -381,7 +381,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
         testStepAssert.isEquals(actualEmail,email,actualEmail+" should be displayed",actualEmail+" is displayed",actualEmail+" is not displayed");
 
     }
-    @And("^old Phone is displayed for the customer in the Customer List$")
+    @Then("^old Phone is displayed for the customer in the Customer List$")
     public void old_phone_is_displayed_for_the_customer_in_the_customer_list() throws Throwable {
         String custFirstName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME");
         String phone = (String)  cucumberContextManager.getScenarioContext("OLDPHONE");
