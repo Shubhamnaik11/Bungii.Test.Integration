@@ -83,7 +83,7 @@ public class GeneralUtility extends DriverBase {
         return driverURL;
     }
 
-    private String GetAdminUrl() {
+    public String GetAdminUrl() {
         String adminURL = null;
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))

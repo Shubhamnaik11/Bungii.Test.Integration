@@ -63,7 +63,6 @@ Feature: Admin_Partners_Business_And_EAPI
     Then the partner "RMart_<<Unique>>" gets saved successfully and it is displayed in the Partners grid
     
   @regression
-  @testing
   Scenario: Verify Add New Partner in Inactive state
 	When I click on the "New Portal Parter" Button
 	And I enter following values in fields in "Add Partner" screen
@@ -82,7 +81,6 @@ Feature: Admin_Partners_Business_And_EAPI
     Then the partner "RMart_<<Unique>>_Edited" gets saved successfully and it is displayed in the Partners grid
     
   @regression
-  @testing
   Scenario: Verify Add New Enterprise Partner in Inactive state
 	When I click on the "New Portal Parter" Button
 	And I enter following values in fields in "Add Partner" screen
