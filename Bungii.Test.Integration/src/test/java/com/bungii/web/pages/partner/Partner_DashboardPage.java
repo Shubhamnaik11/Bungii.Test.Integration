@@ -87,7 +87,8 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Estimated Cost: ')]",LocatorType.XPath);}
 
     //Continue button
-    public  WebElement Button_Continue() { return findElement("//a[@class='btn']",LocatorType.XPath);}
+    //public  WebElement Button_Continue() { return findElement("//a[@class='btn']",LocatorType.XPath);}
+    public  WebElement Button_Continue() { return findElement("//button[@class='btn']",LocatorType.XPath);}
 
     //Blank message for pickup address
     public WebElement Message_Blank_Pickup() { return findElement("//div[contains(text(),'Pickup Address is required.')]",LocatorType.XPath);}
@@ -117,7 +118,8 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement InnerText_Information_Icon() { return findElement("//div[@class='tooltip-inner']",LocatorType.XPath);}
 
     //Partner Logout button
-    public WebElement Button_Partner_Logout() { return findElement("//a[@class='header-menu-btn logout-btn']",LocatorType.XPath);}
+    //public WebElement Button_Partner_Logout() { return findElement("//a[@class='header-menu-btn logout-btn']",LocatorType.XPath);}
+    public WebElement Button_Partner_Logout() { return findElement("//span[contains(text(),'Log Out')]",LocatorType.XPath);}
 
     //Service Level information icon
     public WebElement Information_Icon__Service_Level() { return findElement("//label[contains(text(),'Service Level')]//a",LocatorType.XPath);}
