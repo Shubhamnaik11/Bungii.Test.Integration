@@ -13,7 +13,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Label_Start_Over() { return findElement("//span[contains(text(),'Start Over')]",LocatorType.XPath);}
 
     //Logout button
-    public WebElement Button_Partner_LogOut(){ return findElement("//a[@class='header-btn logout-btn']", LocatorType.XPath); }
+    public WebElement Button_Partner_LogOut(){ return findElement("//span[text()='Log Out']", LocatorType.XPath); }
 
     //Solo Radio Button
     public WebElement RadioButton_Partner_Solo() {return findElement("solo",LocatorType.Id);}
@@ -103,16 +103,16 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Message_Highlighted_Fields() { return findElement("//div[contains(text(),'Please verify the highlighted fields above.')]",LocatorType.XPath);}
 
     //Information Icon What’s needed?
-    public  WebElement Information_Icon_Whats_Needed() { return findElement("//label[contains(text(),'What’s needed?')]/a",LocatorType.XPath);}
+    public  WebElement Information_Icon_Whats_Needed() { return findElement("//label[contains(text(),'What’s needed?')]/i",LocatorType.XPath);}
 
     //Information Icon Delivery Address
-    public  WebElement Information_Icon_Delivery_Address() { return findElement("//label[contains(text(),'Delivery Address')]/a",LocatorType.XPath);}
+    public  WebElement Information_Icon_Delivery_Address() { return findElement("//label[contains(text(),'Delivery Address')]/i",LocatorType.XPath);}
 
     //Information Icon Load + Unload Time
-    public  WebElement Information_Icon_LoadUpload() { return findElement("//label[contains(text(),'Load + Unload Time')]/a",LocatorType.XPath);}
+    public  WebElement Information_Icon_LoadUpload() { return findElement("//label[contains(text(),'Load + Unload Time')]/i",LocatorType.XPath);}
 
     //Information Icon Pickup Date
-    public  WebElement Information_Icon_Pickup_Date() { return findElement("//label[contains(text(),'Pickup Date')]/a",LocatorType.XPath);}
+    public  WebElement Information_Icon_Pickup_Date() { return findElement("//label[contains(text(),'Pickup Date')]/i",LocatorType.XPath);}
 
     //Inner text of each Information Icon
     public WebElement InnerText_Information_Icon() { return findElement("//div[@class='tooltip-inner']",LocatorType.XPath);}
@@ -122,7 +122,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Button_Partner_Logout() { return findElement("//span[contains(text(),'Log Out')]",LocatorType.XPath);}
 
     //Service Level information icon
-    public WebElement Information_Icon__Service_Level() { return findElement("//label[contains(text(),'Service Level')]//a",LocatorType.XPath);}
+    public WebElement Information_Icon__Service_Level() { return findElement("//label[contains(text(),'Service Level')]//i",LocatorType.XPath);}
 
     //Service Level dropdown button
     public WebElement Dropdown_Service_Level() { return findElement("//div[@id='service-level-menu']",LocatorType.XPath);}

@@ -61,7 +61,7 @@ public class Partner_IntegrationSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
         cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
         cucumberContextManager.setScenarioContext("PP_Site",Site);
-
+         Thread.sleep(10000);
         if(Site.equalsIgnoreCase("normal")) {
             switch (Type) {
                 case "Solo":
@@ -288,7 +288,7 @@ public class Partner_IntegrationSteps extends DriverBase {
                     Thread.sleep(1000);
                     action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                     //Thread.sleep(1000);
@@ -304,7 +304,7 @@ public class Partner_IntegrationSteps extends DriverBase {
                     Thread.sleep(1000);
                     action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                     //Thread.sleep(1000);

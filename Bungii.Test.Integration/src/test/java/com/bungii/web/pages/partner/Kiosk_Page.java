@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 public class Kiosk_Page extends PageBase {
     //Setting link
-    public WebElement Link_Setting() { return findElement("//a[@class='header-btn logout-btn']", LocatorType.XPath); }
+    public WebElement Link_Setting() { return findElement("//i[@title='Settings']", LocatorType.XPath); }
 
     //Admin Access Password
     public WebElement Textbox_Password() { return findElement("//input[@id='name']",LocatorType.XPath);}

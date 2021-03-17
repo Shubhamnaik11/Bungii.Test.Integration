@@ -70,4 +70,6 @@ public class Partner_DeliveryList extends PageBase {
 
     public WebElement Row_DeliveryList(String scheduled_time, String customer) { return findElements(String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer),LocatorType.XPath).get(0);}
 
+    public WebElement Textbox_Search() { return findElement("searchText",LocatorType.Name);}
+
 }

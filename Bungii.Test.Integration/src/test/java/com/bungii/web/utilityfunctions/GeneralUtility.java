@@ -112,11 +112,12 @@ public class GeneralUtility extends DriverBase {
         action.navigateTo(driverURL);
     }
 
-    public void NavigateToPartnerLogin(String Site){
+    public String NavigateToPartnerLogin(String Site){
 
         String partnerURL = GetPartnerUrl(Site);
         action.deleteAllCookies();
         action.navigateTo(partnerURL);
+        return partnerURL;
     }
 
     public void AdminLogin() throws InterruptedException {
@@ -944,11 +945,11 @@ public class GeneralUtility extends DriverBase {
     }
 
     public String getbungiiDayLightTimeValue(String bungiiTime){
-        String time=null;
-
-        if(bungiiTime.contains("CDT")) { time=bungiiTime.replace("CST","CST").replace("CDT","CST"); }
-        else if(bungiiTime.contains("EST")){ time=bungiiTime.replace("EST","EDT").replace("EDT","EDT"); }
-        else if(bungiiTime.contains("MST")){ time=bungiiTime.replace("MST","MDT"); }
+        String time=bungiiTime;
+        if(bungiiTime.contains("CDT")) { time=bungiiTime.replace("CDT","CST"); }
+        else if(bungiiTime.contains("EDT")){ time=bungiiTime.replace("EDT","EST"); }
+        else if(bungiiTime.contains("MDT")){ time=bungiiTime.replace("MDT","MST"); }
+        else if(bungiiTime.contains("PDT")){ time=bungiiTime.replace("PDT","PST"); }
         else if(bungiiTime.contains("IST")){ time=bungiiTime; }
         return time;
     }

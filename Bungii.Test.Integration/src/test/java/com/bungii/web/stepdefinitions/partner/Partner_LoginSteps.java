@@ -51,15 +51,18 @@ public class Partner_LoginSteps extends DriverBase {
         switch (page)
         {
             case "Partner":
-                utility.NavigateToPartnerLogin(url);
+               String partnerUrl =  utility.NavigateToPartnerLogin(url);
+                pass("I should be navigate to " + page + " portal configured for "+ url ,
+                        "I navigated to " + page + " portal configured for "+ url +" ["+partnerUrl+"]", true);
                 break;
             case "Admin":
                 utility.AdminLoginFromPartner();
+                pass("I should be navigate to " + page  ,
+                        "I navigated to " + page , true);
                 break;
             default:break;
         }
-        pass("I should be navigate to " + page,
-                "I am navigated to " + page, true);
+
     }
 
 
@@ -288,34 +291,23 @@ public class Partner_LoginSteps extends DriverBase {
                 case "see the trip in the Delivery List":
                     String scheduled_time =(String) cucumberContextManager.getScenarioContext("Schedule_Date_Time");
                     scheduled_time =scheduled_time.replace("at","").replace("(","").replace(")","").replace("  "," ");
-                    //DateFormat dft = new SimpleDateFormat("MMMM dd, yyyy h:mm a z", Locale.ENGLISH);
-                    DateTimeFormatter dft = DateTimeFormatter.ofPattern("MMMM dd, yyyy h:mm a z");//for checking the MMMM month format
-                    DateTimeFormatter dft1 = DateTimeFormatter.ofPattern("MMM dd, yyyy h:mm a z");//for converting to MMM month format
-
-
-                    //DateFormat dft1 = new SimpleDateFormat("MMM dd, yyyy h:mm a z", Locale.ENGLISH);
+                    DateTimeFormatter dft = DateTimeFormatter.ofPattern("MMMM dd, yyyy h:mm a z", Locale.ENGLISH);//for checking the MMMM month format
+                    DateTimeFormatter dft1 = DateTimeFormatter.ofPattern("MMM dd, yyyy h:mm a z",Locale.ENGLISH);//for converting to MMM month format
                     String geoLabel = utility.getTimeZoneBasedOnGeofenceId();
-                   // dft1.setTimeZone(TimeZone.getTimeZone(geoLabel));
-                    //dft.setTimeZone(TimeZone.getTimeZone(geoLabel));
                     TimeZone zone = TimeZone.getTimeZone(geoLabel);
                     ZonedDateTime abc = LocalDateTime.parse(scheduled_time,dft).atZone(zone.toZoneId());
-
-                   // Date dt2 = dft.parse(scheduled_time);
-
-
                     scheduled_time = dft1.format(abc);
                     scheduled_time = utility.getbungiiDayLightTimeValue(scheduled_time);
+
                     StringBuilder sb = new StringBuilder(scheduled_time);
                     sb.insert(13, "at ");
-
                     scheduled_time = sb.toString();
-
+                    logger.detail("ScheduledTime : "+scheduled_time);
                     cucumberContextManager.setScenarioContext("Partner_Schedule_Time",scheduled_time);
                     String customer =(String) cucumberContextManager.getScenarioContext("Customer_Name");
-                    //String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer);
-
-                    testStepAssert.isElementDisplayed(Page_Partner_Delivery_List.Row_DeliveryList(scheduled_time,customer), "Trip should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
-
+                    action.clear(Page_Partner_Delivery_List.Textbox_Search());
+                    logger.detail("Xpath : "+String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer));
+                    testStepAssert.isElementDisplayed(Page_Partner_Delivery_List.Row_DeliveryList(scheduled_time,customer), "Trip for "+ customer +"[Scheduled Time :"+scheduled_time+"] should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
                     break;
                 case "see the trip details":
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Delivery_Details_Dashboard()), PropertyUtility.getMessage("Delivery_Details_Dashboard"));
