@@ -82,7 +82,7 @@ public class CucumberHooks {
             if (isFirstTestCase) isFirstTestCase = false;
             DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
             SetupManager.getObject().useDriverInstance("ORIGINAL");
-            this.reportManager.endTestCase(scenario.isFailed());
+            this.reportManager.endTestCase(scenario.isFailed(),false);
 
             if (!scenario.isFailed() || !this.reportManager.isVerificationFailed())
             {
@@ -92,7 +92,7 @@ public class CucumberHooks {
                     logger.detail("SKIPPED TEST SCENARIO : " + scenario.getName()+" | Skipped Count : "+this.reportManager.skipped());
                 }
                 else if(((String) CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE"))
-                    logger.detail("PASSING TEST SCENARIO WITH OBSERVATIONS : " + scenario.getName());
+                    logger.detail("TEST SCENARIO WITH OBSERVATIONS : " + scenario.getName());
                 else
                     logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
                     CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
@@ -131,8 +131,8 @@ public class CucumberHooks {
             this.reportManager.getFeatureExecutionStatus();
             CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
-            logger.error("Error in After Test Block ", ExceptionUtils.getStackTrace(e));
-
+            logger.error("Error in After Test Block");
+            this.reportManager.endTestCase(scenario.isFailed(),true);
         }
     }
 

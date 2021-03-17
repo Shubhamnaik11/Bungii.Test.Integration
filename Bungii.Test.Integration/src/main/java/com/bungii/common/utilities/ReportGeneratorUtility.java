@@ -45,6 +45,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	private int failed = 0;
 	private int passed = 0;
 	private int inconclusive=0;
+	private int skipped =0;
 	private int testStepCount=0;
 	private Date  testFinish, startTime = null;
 
@@ -109,7 +110,8 @@ public class ReportGeneratorUtility extends DriverBase {
 	        totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->",passed+"");
 	        totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->",failed+"");
 	        totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->",inconclusive+"");
-            totalStr = totalStr.replaceAll("<!--FAILURE.DETAILS-->",Matcher.quoteReplacement(getLogFailureData(failureArray)));
+			totalStr = totalStr.replaceAll("<!--SKIPPED.COUNT-->",skipped+"");
+			totalStr = totalStr.replaceAll("<!--FAILURE.DETAILS-->",Matcher.quoteReplacement(getLogFailureData(failureArray)));
 
 	        FileWriter fw = new FileWriter(result);
 	    fw.write(totalStr);
@@ -229,71 +231,76 @@ public class ReportGeneratorUtility extends DriverBase {
 	/**
 	 * @param isFailed boolean flag set by testng assert statements
 	 */
-	public void endTestCase(boolean isFailed) {
+	public void endTestCase(boolean isFailed, boolean isSkipped) {
 		String str1;
 		//String str2;
 		testCases++;
 		testFinish = new Date();
 		String str = "";
 		String status = "";
-		//check testng assert and local flag as well
-		if (!isFailed &&!isTcVerifyFailed){
-			status = "<td style='background-color:MediumSeaGreen;'>Pass</td>";
-			passed++;
+		if(isSkipped)
+		{
+			skipped++;
+			status = "<td style='background-color:skyblue;'>Skipped</td>";
+			str = "<td>" + ThreadLocalStepDefinitionMatch.getNumberOfSteps() + "</td>" + "<td>" + this.startTime
+					+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);
+			str1 = "<td cursor:'pointer;' style='text-align:left;'>" + tcName + "</td>" + status + str;
+			summaryArray.add(str1);
 		}
 		else {
-            try {
-				if (this.reason.equalsIgnoreCase( "")) {
-                    String cause = (String) cucumberContextManager.getScenarioContext("ERROR");
-					String step = (String) cucumberContextManager.getScenarioContext("STEP");
-                    this.reason = cause;
-					if(cause!="")
-						failureStep(step, "Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
+			//check testng assert and local flag as well
+			if (!isFailed && !isTcVerifyFailed) {
+				status = "<td style='background-color:MediumSeaGreen;'>Pass</td>";
+				passed++;
+			} else {
+				try {
+					if (this.reason.equalsIgnoreCase("")) {
+						String cause = (String) cucumberContextManager.getScenarioContext("ERROR");
+						String step = (String) cucumberContextManager.getScenarioContext("STEP");
+						this.reason = cause;
+						if (cause != "")
+							failureStep(step, "Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
+					}
+				} catch (Exception ex) {
 				}
-				}
-            catch(Exception ex){}
-			String reason = this.reason;
-             //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
-			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped/Not passed due to above error. Please refer to logs for more details</td>";
-			if(reason=="") {
-				CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
-				status = "<td style='background-color:skyblue;'>Inconclusive</td>";
-			}
-			else if(((String)CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE"))
-			{
+				String reason = this.reason;
+				//"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
+				String st = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped/Not passed due to above error. Please refer to logs for more details</td>";
+				if (reason == "") {
+					CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+					status = "<td style='background-color:skyblue;'>Inconclusive</td>";
+				} else if (((String) CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE")) {
 					passed++;
 					status = "<td style='background-color:orange;'>Pass With Observations</td>";
-			}
-				else
-					{
-				failed++;
-				status = "<td style='background-color:pink;'>Fail</td>";
+				} else {
+					failed++;
+					status = "<td style='background-color:pink;'>Fail</td>";
 				}
 				detailsArray.add(st);
-			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
-			failureArray.add(str2);
-            failureArray.addAll(stackTraceArray);
+				String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status + "<td align='left'>" + reason + "</td>";
+				failureArray.add(str2);
+				failureArray.addAll(stackTraceArray);
 
-		}
+			}
 
-		str = "<td>" + ThreadLocalStepDefinitionMatch.getNumberOfSteps() + "</td>" + "<td>" + this.startTime
-				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);
+			str = "<td>" + ThreadLocalStepDefinitionMatch.getNumberOfSteps() + "</td>" + "<td>" + this.startTime
+					+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);
 /*		str = "<td>" + this.testStepCount + "</td>" + "<td>" + this.startTime
 				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);*/
 
-		str1 = "<td cursor:'pointer;' style='text-align:left;'>" + tcName + "</td>" + status  + str;
+			str1 = "<td cursor:'pointer;' style='text-align:left;'>" + tcName + "</td>" + status + str;
 
 
-		summaryArray.add(str1);
-		//int totalExecuted = passed + failed + inconclusive;
-		//logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | TOTAL EXECUTED : " + totalExecuted);
-
+			summaryArray.add(str1);
+			//int totalExecuted = passed + failed + inconclusive;
+			//logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | TOTAL EXECUTED : " + totalExecuted);
+		}
 	}
 
 	public void getFeatureExecutionStatus()
 	{
-		int totalExecuted = passed + failed + inconclusive;
-		logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | TOTAL EXECUTED : " + totalExecuted);
+		int totalExecuted = passed + failed + inconclusive+ skipped;
+		logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | SKIPPED : " + skipped+" | TOTAL EXECUTED : " + totalExecuted);
 	}
 
 	/**

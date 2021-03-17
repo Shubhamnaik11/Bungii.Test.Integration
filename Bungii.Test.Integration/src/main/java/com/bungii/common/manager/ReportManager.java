@@ -99,8 +99,8 @@ public class ReportManager {
 	 * Method that will be called end of test case
 	 * @param isFailed
 	 */
-	public void endTestCase(boolean isFailed){
-		htmlReportManager.endTestCase(isFailed);
+	public void endTestCase(boolean isFailed, boolean isSkipped){
+		htmlReportManager.endTestCase(isFailed,isSkipped);
 	}
 
 	public void getFeatureExecutionStatus(){
