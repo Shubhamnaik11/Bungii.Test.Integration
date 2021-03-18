@@ -74,7 +74,7 @@ public class CommonStepsDriver extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            testStepVerify.isTrue(messageDisplayed,
+            testStepAssert.isTrue(messageDisplayed,
                     messageElement + " should be displayed", messageElement + " Message is Displayed",
                     messageElement + " Message is not Displayed");
         } catch (Throwable e) {
@@ -120,6 +120,7 @@ public class CommonStepsDriver extends DriverBase {
                     action.click(driverForgotPasswordPage.Button_Back());
                     break;
                 case "GO ONLINE":
+                    Thread.sleep(2000);
                     action.click(driverHomePage.GoOnline_Btn());
                     break;
                 case "GO OFFLINE":
@@ -293,15 +294,15 @@ public class CommonStepsDriver extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-            testStepVerify.isEquals(actualMessage, expectedMessage,
-                    "Alert : " + expectedMessage + "should be displayed",
+            testStepAssert.isEquals(actualMessage, expectedMessage,
+                    "Alert : " + expectedMessage + " should be displayed",
                     "Alert : " + actualMessage + " is displayed",
                     "Alert is not displayed | Actual Message " + actualMessage + " Expected is "
                             + expectedMessage);
         } catch (Throwable e) {
             logger.error("Invalid Password Alert Not Displayed", ExceptionUtils.getStackTrace(e));
             fail("Step should be successful",
-                    "Invalid Password Alert Not Displayed", true);
+                    "Expected Alert Not Displayed", true);
         }
     }
 

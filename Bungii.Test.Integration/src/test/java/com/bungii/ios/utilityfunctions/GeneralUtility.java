@@ -1698,32 +1698,58 @@ catch (Exception e)
             logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
     }
-    public String getGmtTime(String time)
-    {
-        String gmtTime="";
-        if(time.contains("MDT")||time.contains("MST")) {
-            String Geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
-            if (Geofence.equalsIgnoreCase("Denver")) {
-                gmtTime = time.replace("MDT", "GMT-7").replace("MST", "GMT-7");
-            } else {
-                gmtTime = time.replace("MDT", "GMT-6").replace("MST", "GMT-6");
+    public String getGmtTime(String time) {
+        String gmtTime = "";
+        if (TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date())) {
+            if (time.contains("MDT") || time.contains("MST")) {
+                String Geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+                if (Geofence.equalsIgnoreCase("Denver")) {
+                    gmtTime = time.replace("MDT", "GMT-6").replace("MST", "GMT-6");
+                } else {
+                    gmtTime = time.replace("MDT", "GMT-6").replace("MST", "GMT-6");
+                }
             }
-        }
-        if(time.contains("CST")||time.contains("CDT")) {
-            String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
-            if(currentGeofence.equalsIgnoreCase("Chicago")||currentGeofence.equalsIgnoreCase("Nashville"))
-            gmtTime = time.replace("CST", "GMT-6").replace("CDT", "GMT-6");
-            else
-                gmtTime = time.replace("CST", "GMT-5").replace("CDT", "GMT-5");
-        }
-        if(time.contains("EST")||time.contains("EDT"))
-            gmtTime = time.replace("EST","GMT-4").replace("EDT","GMT-4");
-        if(time.contains("PST")||time.contains("PDT"))
-            gmtTime = time.replace("PST","GMT-7").replace("PDT","GMT-7");
-        if(time.contains("IST"))
-            gmtTime = time.replace("IST","GMT+5:30");
-        return gmtTime;
+            if (time.contains("CST") || time.contains("CDT")) {
+                String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+                if (currentGeofence.equalsIgnoreCase("Chicago") || currentGeofence.equalsIgnoreCase("Nashville"))
 
+                    gmtTime = time.replace("CST", "GMT-5").replace("CDT", "GMT-5");
+                else
+                    gmtTime = time.replace("CST", "GMT-5").replace("CDT", "GMT-5");
+            }
+            if (time.contains("EST") || time.contains("EDT"))
+                gmtTime = time.replace("EST", "GMT-4").replace("EDT", "GMT-4");
+            if (time.contains("PST") || time.contains("PDT"))
+                gmtTime = time.replace("PST", "GMT-7").replace("PDT", "GMT-7");
+            if (time.contains("IST"))
+                gmtTime = time.replace("IST", "GMT+5:30");
+        } else {
+            if (time.contains("MDT") || time.contains("MST")) {
+                String Geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+                if (Geofence.equalsIgnoreCase("Denver")) {
+                    gmtTime = time.replace("MDT", "GMT-7").replace("MST", "GMT-7");
+                } else {
+                    gmtTime = time.replace("MDT", "GMT-6").replace("MST", "GMT-6");
+                }
+            }
+            if (time.contains("CST") || time.contains("CDT")) {
+                String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+                if (currentGeofence.equalsIgnoreCase("Chicago") || currentGeofence.equalsIgnoreCase("Nashville"))
+
+                    gmtTime = time.replace("CST", "GMT-6").replace("CDT", "GMT-6");
+                else
+                    gmtTime = time.replace("CST", "GMT-5").replace("CDT", "GMT-5");
+            }
+            if (time.contains("EST") || time.contains("EDT"))
+                gmtTime = time.replace("EST", "GMT-4").replace("EDT", "GMT-4");
+            if (time.contains("PST") || time.contains("PDT"))
+                gmtTime = time.replace("PST", "GMT-7").replace("PDT", "GMT-7");
+            if (time.contains("IST"))
+                gmtTime = time.replace("IST", "GMT+5:30");
+
+
+        }
+        return gmtTime;
     }
 
 }

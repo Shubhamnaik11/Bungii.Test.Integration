@@ -135,9 +135,9 @@ public class EstimatePage extends PageBase {
 //XCUIElementTypeStaticText[@name="ESTIMATED DURATION"]
 
 
-/*    public WebElement Text_LoadTime() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/parent::XCUIElementTypeOther", LocatorType.XPath);
-    }*/
+   public WebElement Value_LoadTime() {
+        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/parent::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
+    }
 
     public WebElement Text_LoadTime() {
         return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeButton", LocatorType.XPath);

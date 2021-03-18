@@ -77,10 +77,10 @@ public class HomePage extends PageBase {
     public List<WebElement> UnselectedStars() {return findElements("//*[contains(@name, 'rating unselected star icon')]", LocatorType.XPath);}
 
     public WebElement Text_CommonQuestions() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'COMMON QUESTIONS'", PageBase.LocatorType.Predicate); }
-    public WebElement Text_Leaderboard() { return findElement("//XCUIElementTypeOther[@name=\"Driver of the Month\"]/following-sibling::XCUIElementTypeOther", LocatorType.XPath); }
+    public WebElement Text_Leaderboard() { return findElement("//XCUIElementTypeOther[@name=\"Driver Of The Month\"]/following-sibling::XCUIElementTypeOther", LocatorType.XPath); }
     public WebElement Text_ScheduledBungiis() { return findElement("//XCUIElementTypeTable[@name=\"No Bungiis, You don't have any scheduled\u2028Bungiis at this time.\"]", LocatorType.XPath); }
     public WebElement Text_AvailableTripsData() { return findElement("//XCUIElementTypeStaticText[@name=\"No Bungiis Available\"]", LocatorType.XPath); }
-    public WebElement Text_Earnings() { return findElement("//XCUIElementTypeStaticText[@name=\"DRIVER INFO\"]", LocatorType.XPath); }
+    public WebElement Text_Earnings() { return findElement("//XCUIElementTypeStaticText[@name=\"Disbursement info\"]", LocatorType.XPath); }
     public WebElement Text_TripAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"Delivery Alerts\"]", LocatorType.XPath); }
     public WebElement Text_SMSAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"SMS Alerts\"]", LocatorType.XPath); }
     public WebElement Text_Feedback() { return findElement("//XCUIElementTypeStaticText[@name=\"Send us your feedback\"]", LocatorType.XPath); }

@@ -94,7 +94,7 @@ Feature: Admin_DriverApplicationVerification
 
   #@ready
   #@failedT
-  @knownissue
+  @regression
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
     When I click "Verify" button against the "Melvin Johnson" applicant

@@ -208,10 +208,10 @@ public class EstimateSteps extends DriverBase {
             String actualValue = estimate.substring(0, estimate.length() - 1);
             String truncValue = new DecimalFormat("#.00").format(expectedValue);
             //  String truncValue = new DecimalFormat("#.##").format(expectedValue);
-            testStepVerify.isEquals(estimate.trim(), truncValue.trim(), "Estimate value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + actualValue + ",(Truncate to single float point)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + estimate);
+            testStepAssert.isEquals(estimate.trim(), truncValue.trim(), "Estimate value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + actualValue + ",(Truncate to single float point)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + estimate);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in getting Estimate value for trip",
                     true);
         }
     }
@@ -594,14 +594,26 @@ public class EstimateSteps extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime + 15); //15 added to eliminate there is deplay in requeting bungii
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime + 15); //15 added to eliminate there is delay in requeting bungii
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
 
         String strdate = formatter.format(calendar.getTime());
         return strdate;
     }
+    public String getDateForTimeZoneToMatch() {
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time.nashville"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime); //15 added to eliminate there is delay in requeting bungii
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
 
+        String strdate = formatter.format(calendar.getTime());
+        return strdate;
+    }
     public String getDateForTimeZone(int minuteDifferance) {
         String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
         int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
@@ -647,6 +659,16 @@ public class EstimateSteps extends DriverBase {
 
         return date1;
     }
+    public Date getFormatedTimeToMatch() {
+        Date date1 = Calendar.getInstance().getTime();
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZoneToMatch());
+            //System.out.println("\t" + date1);
+        } catch (Exception e) {
+        }
+
+        return date1;
+    }
 
     public Date getFormatedTimeForGeofence() {
         Date date1 = Calendar.getInstance().getTime();
@@ -677,6 +699,9 @@ public class EstimateSteps extends DriverBase {
      */
     public Date getNextScheduledBungiiTime() {
         return getFormatedTime();
+    }
+    public Date getNextScheduledBungiiTimeToMatch() {
+        return getFormatedTimeToMatch();
     }
 
     public Date getNextScheduledBungiiTimeForGeofence(){
@@ -866,7 +891,7 @@ public class EstimateSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in verifying elements on estimate screen", true);
         }
     }
 
@@ -964,16 +989,17 @@ public class EstimateSteps extends DriverBase {
     public void correct_details_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
             String displayedTime = getElementValue("TIME");
-            Date date = getNextScheduledBungiiTime();
+            Date date = getNextScheduledBungiiTimeToMatch();
             String strTime = bungiiTimeDisplayInTextArea(date);
             if(BrowserStackLocal().equalsIgnoreCase("true")) {
-                strTime = strTime.replace("am","a.m.").replace("pm","p.m.").replace("AM","a.m.").replace("PM","p.m.");
                 strTime = utility.getGmtTime(strTime);
+                strTime = strTime.replace("am","a.m.").replace("pm","p.m.").replace("AM","a.m.").replace("PM","p.m.");
 
-                testStepVerify.isEquals(displayedTime, strTime);
+                testStepAssert.isEquals(displayedTime, strTime,"Default Pickup Time should be calculated properly","Default Pickup Time is displayed properly : "+ displayedTime,"Default Pickup Time is not displayed properly : "+ displayedTime);
             }
             else
-                testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"),strTime.replace("am","AM").replace("pm","PM"));
+                testStepAssert.isEquals(displayedTime.replace("am","AM").replace("pm","PM"),strTime.replace("am","AM").replace("pm","PM"),"Default Pickup Time should be calculated properly","Default Pickup Time is displayed properly : "+ displayedTime,"Default Pickup Time is not displayed properly : "+ displayedTime);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -1056,7 +1082,7 @@ public class EstimateSteps extends DriverBase {
             isElementPresent = checkIfElementIsPresent("TERMS ON");
         }
         String value = getElementValue("TERMS AND CONDITION");
-        String expectedMsg = PropertyUtility.getMessage("customer.text.terms");
+        String expectedMsg = PropertyUtility.getMessage("customer.terms.checkbox.text");
         boolean isValueCorrect = value.equals(expectedMsg);
 
         testStepVerify.isTrue(isElementPresent,
@@ -1064,9 +1090,9 @@ public class EstimateSteps extends DriverBase {
                 "Verify Terms & Condition checkBox is " + expectedValue,
                 "Verify Terms & Condition checkBox is not " + expectedValue);
         testStepVerify.isTrue(isValueCorrect,
-                " Terms & Condition value Should be " + PropertyUtility.getMessage("customer.text.terms"),
-                " Terms & Condition value is " + PropertyUtility.getMessage("customer.text.terms") + "as expected",
-                "'Terms & Condition' value is not matching ,expected is" + PropertyUtility.getMessage("customer.text.terms")
+                " Terms & Condition value Should be " + PropertyUtility.getMessage("customer.terms.checkbox.text"),
+                " Terms & Condition value is " + PropertyUtility.getMessage("customer.terms.checkbox.text") + "as expected",
+                "'Terms & Condition' value is not matching ,expected is " + PropertyUtility.getMessage("customer.terms.checkbox.text")
                         + "but actual is" + value);
 
     }
@@ -1258,7 +1284,7 @@ public class EstimateSteps extends DriverBase {
         //   details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());//11
         details[2] = action.getValueAttribute(estimatePage.Text_AmountValue()); //action.getValueAttribute(genericStaticText.get(5));//amount
         //    details[2] = action.getValueAttribute(estimatePage.Text_EstimateValue());//6
-        details[3] = action.getValueAttribute(estimatePage.Text_DurationValue()); //action.getValueAttribute(genericStaticText.get(12));//mins from 14 index moved to 12
+        details[3] = action.getValueAttribute(estimatePage.Value_LoadTime()); //action.getValueAttribute(genericStaticText.get(12));//mins from 14 index moved to 12
         //   details[3] = action.getValueAttribute(estimatePage.Text_LoadUnLoadTimeValue());//10
         return details;
     }

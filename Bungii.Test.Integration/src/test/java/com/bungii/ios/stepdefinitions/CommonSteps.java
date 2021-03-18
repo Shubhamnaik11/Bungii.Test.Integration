@@ -186,7 +186,7 @@ public class CommonSteps extends DriverBase {
     public void something_should_be_present_in_something_screen(String button, String screen) {
 
         try {
-            boolean isFound = false;
+            boolean isFound = false , isFound2 = false;
             switch (button.toUpperCase()) {
                 case "GET ESTIMATE":
                     // homePage.clickEstimateButton();
@@ -198,7 +198,9 @@ public class CommonSteps extends DriverBase {
                     isFound = supportPage.isElementEnabled(supportPage.Image_CustLogo());
                     break;
                 case "SUPPORT QUESTION":
-                    isFound = action.getValueAttribute(supportPage.Text_SupportQuestion()).equals(PropertyUtility.getMessage("customer.support.question")) && action.getValueAttribute(supportPage.Text_SupportLabelQuestion()).equals(PropertyUtility.getMessage("customer.support.question.label"));
+                    isFound = action.getValueAttribute(supportPage.Text_SupportQuestion()).equals(PropertyUtility.getMessage("customer.support.question")) ;
+                    isFound2 = action.getValueAttribute(supportPage.Text_SupportLabelQuestion()).equals(PropertyUtility.getMessage("customer.support.question.label"))||action.getValueAttribute(supportPage.Text_SupportLabelQuestion()).equals(PropertyUtility.getMessage("customer.support.question.label.android")); //Times are shown as AM or a.m.
+                    isFound = isFound && isFound2;
                     break;
                 case "ADD IMAGE":
                     isFound = paymentPage.isElementEnabled(paymentPage.Image_Add());
@@ -214,7 +216,7 @@ public class CommonSteps extends DriverBase {
 
             testStepVerify.isTrue(isFound,
                     button + "should be present in " + screen + " screen",
-                    button + "is present in " + screen + " screen", button + "is not present in " + screen + " screen");
+                    button + " is present in " + screen + " screen", button + " is not present in " + screen + " screen");
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -1175,7 +1177,7 @@ public class CommonSteps extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-            testStepVerify.isEquals(actualMessage, expectedMessage,
+            testStepAssert.isEquals(actualMessage, expectedMessage,
                     "Alert with text" + expectedMessage + "should be displayed",
                     "Alert with text ," + expectedMessage + " should be displayed",
                     "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
@@ -1435,7 +1437,7 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in opening admin portal on browser", true);
         }
     }
 

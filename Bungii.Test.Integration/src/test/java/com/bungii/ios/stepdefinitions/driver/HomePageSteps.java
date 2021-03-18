@@ -377,7 +377,7 @@ public class HomePageSteps extends DriverBase {
                     break;
 
                 case "EARNINGS":
-                    testStepAssert.isElementNameEquals(homepage.Text_Earnings(), "DRIVER INFO", "DRIVER INFO is displayed", "DRIVER INFO is displayed", "DRIVER INFO is not displayed");
+                    testStepAssert.isElementNameEquals(homepage.Text_Earnings(), "Disbursement info", "Disbursement Info is displayed", "Disbursement Info is displayed", "Disbursement Info is not displayed");
                     break;
                 case "ITEMIZED EARNINGS":
                     testStepVerify.isFalse(action.isElementPresent(homepage.Text_ApplicationError(true))," Application error should not be displayed","Application error is not displayed","Application error is displayed");
