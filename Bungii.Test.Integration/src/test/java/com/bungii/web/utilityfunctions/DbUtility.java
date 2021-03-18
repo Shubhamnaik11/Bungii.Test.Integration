@@ -174,15 +174,24 @@ public class DbUtility extends DbContextManager {
         return listOfGeofences;
     }
 
-    public static String getEstimateDistance() {
+    public static String getEstimateDistance(String alias) {
     String Estimate_distance;
-    String queryString = "SELECT EstDistance FROM pickupdetails order by  pickupid desc limit 1";
-    Estimate_distance = getDataFromMySqlServer(queryString);
-        logger.detail("Estimate Distance =  " + Estimate_distance + " of latest trip" );
+   // String queryString = "SELECT EstDistance FROM pickupdetails where customerRef='"+customerReference+"'order by  pickupid desc limit 1";
+        String queryString = "SELECT EstDistance FROM pickupdetails where customerRef in (select customerRef from customer where Id in (select customer_id from business_partner_location where alias like '"+alias+"')) order by  pickupid  desc limit 1";
+
+        Estimate_distance = getDataFromMySqlServer(queryString);
+        logger.detail("Estimate Distance =  " + Estimate_distance + " of latest delivery" );
         return Estimate_distance;
 
     }
+    public static String getEstimateDistance() {
+        String Estimate_distance;
+        String queryString = "SELECT EstDistance FROM pickupdetails order by  pickupid desc limit 1";
+        Estimate_distance = getDataFromMySqlServer(queryString);
+        logger.detail("Estimate Distance =  " + Estimate_distance + " of latest delivery" );
+        return Estimate_distance;
 
+    }
     public static String getServicePrice(String Alias,int No_of_Driver,String Trip_Estimate_Distance,String Service_name) {
         String Trip_Price;
 
@@ -195,10 +204,8 @@ public class DbUtility extends DbContextManager {
                 "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  "+Trip_Estimate_Distance+" BETWEEN mile_range_min and mile_range_max\n" +
                 "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
 
-        //Trip_Price = getDataFromMySqlServer(queryString);
-        logger.detail("QUERY : " +queryString);
         Trip_Price = getDataFromMySqlMgmtServer(queryString);
-        logger.detail("Estimate amount =  " + Trip_Price + " of latest trip" );
+        logger.detail("Estimate Service Price  =  " + Trip_Price + " of "+ Service_name +"[ Alias :"+Alias+" ]" + "Drivers : "+No_of_Driver+" | Trip Distance : "+ Trip_Estimate_Distance);
         return Trip_Price;
 
     }

@@ -5,6 +5,7 @@ Feature: Service Level
     Given I navigate to "Partner" portal configured for "service level" URL
 
   @regression
+    @testing
   Scenario: Verify that service level options display on configured Partner portal site.
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -24,7 +25,7 @@ Feature: Service Level
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
-      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      |VISA CARD2|12/23  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     And I click "Track Deliveries" button on Partner Portal

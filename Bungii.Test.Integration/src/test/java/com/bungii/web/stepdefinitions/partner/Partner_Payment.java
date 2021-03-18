@@ -58,6 +58,9 @@ public class Partner_Payment extends DriverBase {
                 case "VISA CARD":
                     cardNumber = PropertyUtility.getDataProperties("payment.valid.card.visa");
                     break;
+                case "VISA CARD2":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.visa2");
+                    break;
                 case "DISCOVER CARD":
                     cardNumber = PropertyUtility.getDataProperties("payment.valid.card.discover");
                     break;

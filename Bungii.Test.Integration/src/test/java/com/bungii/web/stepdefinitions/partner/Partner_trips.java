@@ -295,7 +295,7 @@ public class Partner_trips extends DriverBase {
                 //action.getElementByXPath("//h2[text()='Delivery Cost']//following::span/strong").getText();
         Display_Price = Display_Price.substring(1);
 
-        String Estimate_distance = dbUtility.getEstimateDistance();
+        String Estimate_distance = dbUtility.getEstimateDistance(Alias_Name);
         double Estimate_distance_value = Double.parseDouble(Estimate_distance);
 
         String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Selected_Service);
@@ -628,7 +628,7 @@ public class Partner_trips extends DriverBase {
     @Then("^I check correct estimated price calculated on Partner Portal$")
     public void i_should_see_correct_estimated_price(){
         try {
-
+           // String Alias_Name= (String) cucumberContextManager.getScenarioContext("Alias");
             String estimate = (String)cucumberContextManager.getScenarioContext("Estimated_Cost");
             //estimate = estimate.replace("~$", "");
             //String LT = (String)cucumberContextManager.getScenarioContext("LoadUnload_Time");
