@@ -86,7 +86,7 @@ public class Kiosk_Steps extends DriverBase {
         {
             case "ON":
                 action.click(Page_Kiosk.Button_Admin_Access());
-                action.click(Page_Kiosk.Link_Setting());
+                action.click(Page_Kiosk.Link_SettingClose());
                 break;
         }
     }

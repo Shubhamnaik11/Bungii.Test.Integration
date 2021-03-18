@@ -45,6 +45,7 @@ Feature: Service Level
     Then I should "see Service Level"
 
     @regression
+    @servicelevelcalculation
   Scenario Outline: Verify changing the service level options display on configured Partner portal <Type>-<ServiceName> for <Distance> distance
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal

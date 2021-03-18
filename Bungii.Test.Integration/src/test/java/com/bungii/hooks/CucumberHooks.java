@@ -89,7 +89,7 @@ public class CucumberHooks {
                 String Failure = (String) CucumberContextManager.getObject().getScenarioContext("FAILURE");
 
                 if (Failure.equals("TRUE")) {
-                    logger.detail("SKIPPED TEST SCENARIO : " + scenario.getName()+" | Skipped Count : "+this.reportManager.skipped());
+                    logger.detail("SKIPPED TEST SCENARIO : " + scenario.getName()+" | Inconclusive Count : "+this.reportManager.inconclusive());
                 }
                 else if(((String) CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE"))
                     logger.detail("TEST SCENARIO WITH OBSERVATIONS : " + scenario.getName());
@@ -133,6 +133,8 @@ public class CucumberHooks {
         } catch (Exception e) {
             logger.error("Error in After Test Block");
             this.reportManager.endTestCase(scenario.isFailed(),true);
+            logger.detail("SKIPPED TEST SCENARIO : " + scenario.getName()+" | Skipped Count : "+this.reportManager.skipped());
+
         }
     }
 

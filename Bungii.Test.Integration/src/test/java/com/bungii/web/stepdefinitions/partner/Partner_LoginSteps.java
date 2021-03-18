@@ -118,9 +118,12 @@ public class Partner_LoginSteps extends DriverBase {
                 case "Continue":
                     String Partner_Portal_Site = (String) cucumberContextManager.getScenarioContext("PP_Site");
                     if (Partner_Portal_Site.equalsIgnoreCase("service level")) {
-                        String Price_Estimated_Page = action.getElementByXPath("//label[contains(text(),'Delivery Cost:')]//following::strong").getText();
+
+                        String Price_Estimated_Page = action.getText(Page_Partner_Dashboard.Label_DeliveryCostEstimate());
+                                //action.getElementByXPath("//label[contains(text(),'Delivery Cost:')]//following::strong").getText();
                         Price_Estimated_Page = Price_Estimated_Page.substring(1);
                         cucumberContextManager.setScenarioContext("Price_Estimate_Page", Price_Estimated_Page);
+
                         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                     } else {
                         action.click(Page_Partner_Dashboard.Button_Continue());

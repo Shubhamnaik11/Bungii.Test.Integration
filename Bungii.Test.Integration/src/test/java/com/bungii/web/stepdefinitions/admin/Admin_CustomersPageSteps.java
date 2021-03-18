@@ -395,6 +395,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
     @When("^I navigate to Customer List$")
     public void i_navigate_to_customer_list() throws Throwable {
         action.navigateTo(utility.GetAdminUrl().replace("Admin/Login","")+"/BungiiReports/Customers");
+        action.isElementPresent(admin_customerPage.TextBox_SearchCustomer());
         log("I navigate to Customer List" ,
                 "I navigated to Customer List");
     }

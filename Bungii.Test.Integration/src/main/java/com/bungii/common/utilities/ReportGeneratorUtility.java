@@ -378,12 +378,14 @@ public class ReportGeneratorUtility extends DriverBase {
 		return this.isTcVerifyFailed;
 	}
 
-	public int skipped(){
+	public int inconclusive(){
 		inconclusive++;
 
 		return inconclusive;
 	}
-
+	public int skipped(){
+		return skipped;
+	}
 	private String getLogDetails(ArrayList<String> strArray) {
 		String strDetails = "";
 		for (String str : strArray)

@@ -291,7 +291,8 @@ public class Partner_trips extends DriverBase {
             Driver_Number=2;
         }
 
-        String Display_Price = action.getElementByXPath("//h2[text()='Delivery Cost']//following::span/strong").getText();
+        String Display_Price = action.getText(Page_Partner_Dashboard.Label_DeliveryCostDelivery());
+                //action.getElementByXPath("//h2[text()='Delivery Cost']//following::span/strong").getText();
         Display_Price = Display_Price.substring(1);
 
         String Estimate_distance = dbUtility.getEstimateDistance();

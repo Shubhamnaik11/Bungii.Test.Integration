@@ -114,6 +114,7 @@ public class ReportManager {
 	}
 
 	public boolean isVerificationFailed(){return htmlReportManager.isScenarioFailed();}
+	public int inconclusive(){return htmlReportManager.inconclusive();}
 	public int skipped(){return htmlReportManager.skipped();}
 
 	/**
