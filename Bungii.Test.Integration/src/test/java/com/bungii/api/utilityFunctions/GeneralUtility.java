@@ -70,9 +70,11 @@ public class GeneralUtility {
         return driverCordinate;
     }
 
-    public static String getCurrentUTCTime() {
+    public static String getCurrentUTCTime() throws InterruptedException {
         // Get formatted UTC time
+        Thread.sleep(2000); //Added purposely to delay status update by 2 seconds - OPS-476 changes
         Calendar calendar = Calendar.getInstance();
+       // calendar.add(Calendar.SECOND, 2);
         Date dateTime = calendar.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         sdf.setTimeZone(TimeZone.getTimeZone("GTM"));
