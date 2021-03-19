@@ -269,25 +269,27 @@ Feature: Scheduled Bungii on one device
     When I enter Username :9403960183 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-  
-    #And I Select "MY BUNGIIS" from Customer App menu
-    #And I select already scheduled bungii
-    #Then I Cancel selected Bungii
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "CANCEL BUNGII" on bungii accepted screen
-    Then I see "Alert: Bungii cancel confirmation" on bungii accepted screen
-    When I click "Dismiss on Alert message" on bungii accepted screen
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-   When I click "CANCEL BUNGII" on bungii accepted screen
-    When I click "Cantact Support on Alert message" on bungii accepted screen
-   And correct details should be displayed to customer for "customer support-SMS"
+    And I close "Tutorial" if exist
     
-    When I click "CANCEL BUNGII" on bungii accepted screen
-    When I click "CANCEL BUNGII on Alert message" on bungii accepted screen
-    Then I see "Alert: Bungii cancel sucessfully" on bungii accepted screen
-    When I click "OK" on alert message
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    Then I Cancel selected Bungii
+   
+  
+   # Then I should be navigated to "BUNGII ACCEPTED" screen
+   # When I click "CANCEL BUNGII" on bungii accepted screen
+   # Then I see "Alert: Bungii cancel confirmation" on bungii accepted screen
+   # When I click "Dismiss on Alert message" on bungii accepted screen
+  #  Then I should be navigated to "BUNGII ACCEPTED" screen
+  # When I click "CANCEL BUNGII" on bungii accepted screen
+ #   When I click "Cantact Support on Alert message" on bungii accepted screen
+  # And correct details should be displayed to customer for "customer support-SMS"
+    
+  #  When I click "CANCEL BUNGII" on bungii accepted screen
+  #  When I click "CANCEL BUNGII on Alert message" on bungii accepted screen
+  #  Then I see "Alert: Bungii cancel sucessfully" on bungii accepted screen
+  #  When I click "OK" on alert message
     
     Then I should be navigated to "HOME" screen
     
