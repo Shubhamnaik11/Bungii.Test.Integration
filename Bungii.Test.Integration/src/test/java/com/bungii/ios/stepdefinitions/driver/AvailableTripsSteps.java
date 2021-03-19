@@ -57,13 +57,14 @@ public class AvailableTripsSteps extends DriverBase {
 			List<WebElement> listOfBungii=availableTripsPage.Image_SelectBungiis();
 			switch (strArg1) {
 				case "two":
-					testStepVerify.isTrue(listOfBungii.size()==2,"There should be two available trip");
+					testStepAssert.isTrue(listOfBungii.size()==3,"There should be two available deliveries","There are two available deliveries", "There are no two available deliveries");
 					break;
 				case "zero":
-					testStepVerify.isTrue(listOfBungii.size()==0,"There should be two available trip");
+					testStepAssert.isTrue(listOfBungii.size()==1,"There should be zero available deliveries","There are zero available deliveries", "There are no zero available deliveries");
 					break;
 				default:
 					throw new Exception(" UNIMPLEMENTED STEP");
+					//NOTE: COUNT = 3 if delivery is 2 and 1 if delivery is 0 since Account tab hass arrow next to it.
 			}
 		} catch (Throwable e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

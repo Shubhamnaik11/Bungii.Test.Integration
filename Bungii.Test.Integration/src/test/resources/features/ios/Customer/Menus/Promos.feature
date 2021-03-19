@@ -217,6 +217,7 @@ Feature: Promos
       | 30       |           |              | Now  | Default     |
     And I click "PROMO CODE LINE" button on "Estimate" screen
     Then I should able to see expected promo code in available promo code
+    When I click "PROMO CODE LINE" button on "Estimate" screen
 
     When I Enter "VALID" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen

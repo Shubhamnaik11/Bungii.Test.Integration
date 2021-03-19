@@ -286,7 +286,7 @@ public class HomeSteps extends DriverBase {
             switch (actionToDo.toUpperCase()) {
                 case "DROP":
                     Thread.sleep(5000);
-                    selectPickUpLocation("9351 Todd Road");
+                    selectDropLocation("9351 Todd Road");
                     //selectDropLocation(1);
                     break;
                 case "PICK UP":
@@ -308,7 +308,34 @@ public class HomeSteps extends DriverBase {
                     true);
         }
     }
-
+    @When("^I select \"([^\"]*)\" location from customer home screen$")
+    public void i_select_something_locationFromCustomerHome(String actionToDo) {
+        try {
+            switch (actionToDo.toUpperCase()) {
+                case "DROP":
+                    Thread.sleep(5000);
+                    selectDropLocation("9351 Todd Road");
+                    //selectDropLocation(1);
+                    break;
+                case "PICK UP":
+                    selectPickUpLocationValue("6800 Zoo Drive");
+                    // selectPickUpLocation(1);
+                    //   action.click(homePage.BUTTON_SET());
+                    break;
+                case "CURRENT PICK UP":
+                    action.click(homePage.BUTTON_SET());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP ");
+            }
+            pass(actionToDo + " location should be selected",
+                    actionToDo + " location is selected", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @Then("^current location should be present as pickup location$")
     public void current_location_should_be_present_as_pickup_location() {
         try {
@@ -837,7 +864,43 @@ public class HomeSteps extends DriverBase {
         } catch (Exception e) {
         }
     }
+    public void selectPickUpLocationValue(String location) throws InterruptedException {
 
+        try {Thread.sleep(5000);}catch (Exception e){}
+
+        if (action.isElementPresent(homePage.BUTTON_Set_DropOff(true))) {
+            action.tapByElement(homePage.TextBox_Pickup());
+            action.tapByElement(homePage.Button_ClearPickup());
+            try {Thread.sleep(5000);}catch (Exception e){}
+        }
+
+
+        if (action.isElementPresent(homePage.Button_ClearPickup(true)))
+            action.click(homePage.Button_ClearPickup());
+
+     //   action.tapByElement(homePage.TextBox_Pickup());
+        action.clearEnterText(homePage.TextBox_Pickup(), location);
+        Thread.sleep(5000);
+        action.click(homePage.Link_PickUpSuggestion());
+        //  action.hideKeyboard();
+        try {
+            // wait for loading to disappear
+/*            if (action.isElementPresent(homePage.Image_Loading(true))) {
+                action.invisibilityOfElementLocated(homePage.Image_Loading(true));
+            }*/
+            Thread.sleep(3000);
+
+
+            action.click(homePage.BUTTON_Set_PickupOff());
+            if (!action.isElementPresent(homePage.TextBox_Pickup_LineTwo(true))) {
+                Point initial = homePage.Image_eta_bar().getLocation();
+                action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + 80, 1);
+                //action.dragFromToForDuration(82, 262, 82, 300, 2);
+                action.click(homePage.BUTTON_Set_PickupOff());
+            }
+        } catch (Exception e) {
+        }
+    }
     /**
      * Select drop location by entering value in textbox
      *

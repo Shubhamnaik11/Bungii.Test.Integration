@@ -18,11 +18,14 @@ Feature: Customer Home screen
     Then current location should be present as pickup location
     And "Invite referrals" should be present in "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
-    When I select "Pick up" location
+    
+    When I select "Pick up" location from customer home screen
     Then "Pick up" address should be displayed in text box
+    
     And "Drop" box header and ETA bar header should be correctly displayed
     And Clear Button should be enabled for "Pick up" box
-    When I select "Drop" location
+	
+    When I select "Drop" location from customer home screen
     Then "Drop" address should be displayed in text box
     And Clear Button should be enabled for "Drop" box
 

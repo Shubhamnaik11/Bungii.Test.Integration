@@ -85,6 +85,31 @@ public class GeofenceSteps extends DriverBase {
                 true);
     }
     }
+    @And("^I get the value of \"([^\"]*)\"$")
+    public void i_get_the_value_of_something(String type) throws Throwable {
+        try{
+            String timeValue = "";
+            switch(type){
+
+                case "Minimum scheduled time for Duo trip":
+         timeValue = action.getValueAttribute(geofencePage.TextBox_MinimumScheduledtimeforduo());
+        cucumberContextManager.setScenarioContext("MIN_TIME_DUO", timeValue);
+        break;
+
+        case "Minimum scheduled time for Solo trip":
+            timeValue = action.getValueAttribute(geofencePage.TextBox_MinimumScheduledtimeforsolo());
+            action.clearEnterText(geofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
+           cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", timeValue);
+        break;
+            }
+            log("I should get the value of "+type +" : "+timeValue,
+                    "I get the value of "+ type +" : "+timeValue,true);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in getting value of "+type,
+                    true);
+        }
+    }
 
     @And("^I change the value of \"([^\"]*)\" to \"([^\"]*)\" minutes$")
     public void i_change_the_value_of_something_to_something_minutes(String type, String timeValue) throws Throwable {

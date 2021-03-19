@@ -111,7 +111,7 @@ public class PromoSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in tapping back button", true);
         }    }
 
     @Then("^I should see \"([^\"]*)\" on Promos page$")

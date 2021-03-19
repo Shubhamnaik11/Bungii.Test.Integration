@@ -18,7 +18,7 @@ public class PromosPage extends PageBase {
         return findElement("GET MORE MONEY", PageBase.LocatorType.Name);
     }
 
-    public WebElement Button_NavigationBack(){return findElement("//XCUIElementTypeButton[@name=\"ESTIMATE\"]",LocatorType.XPath);}
+    public WebElement Button_NavigationBack(){return findElement("//XCUIElementTypeButton[@name=\"Back\"]",LocatorType.XPath);}
     public WebElement Text_FirstTimeSubtext(boolean ignoreException){return findElement("//XCUIElementTypeStaticText[@name=\"This code is only available for your first Bungii.\"]",LocatorType.XPath,ignoreException);}
     public WebElement Text_FirstTag(boolean ignoreException){return findElement("//XCUIElementTypeStaticText[@name=\" FIRST \"]",LocatorType.XPath,ignoreException);}
 
