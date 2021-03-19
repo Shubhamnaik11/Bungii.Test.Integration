@@ -8,6 +8,46 @@ Feature: Scheduled Bungii on one device
   Background:
   When I Switch to "customer" application on "same" devices
   
+  @regression
+     #stable
+  Scenario: STACKING | Verify Driver Can Receive Long Stack Ondemand Request When Ongoing Ondemand Bungii is On Arrived State - Goa Geofence [1 Device]
+	Given that ondemand bungii is in progress
+	  | geofence | Bungii State |
+	  | goa      | ARRIVED      |
+	When I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid" driver
+	
+	When I request another "Solo Ondemand" Bungii as a customer in "goa" geofence
+	  | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
+	  | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
+	
+	And I view and accept virtual notification for "second" delivery of "Driver" for "stack trip"
+	And stack trip information should be displayed on deck
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE      | CUSTOMER2_PHONE      |
+  
+  @regression
+ #stable
+  Scenario: STACKING | Verify Driver Can Receive Short Stack Ondemand Request when Ongoing Ondemand Bungii is On Unloading Item State - Goa Geofence [1 Device]
+	Given that ondemand bungii is in progress
+	  | geofence | Bungii State   |
+	  | goa      | UNLOADING ITEM |
+	When I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid" driver
+	When I request another "Solo Ondemand" Bungii as a customer in "goa" geofence
+	  | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
+	  | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
+	And I view and accept virtual notification for "second" delivery of "Driver" for "stack trip"
+	And stack trip information should be displayed on deck
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE  |
+	
   @sanity
   @regression
 	#Stable
@@ -148,12 +188,15 @@ Feature: Scheduled Bungii on one device
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    
+  
+    And I view and accept virtual notification for "Driver" for "stack trip"
+  
     Given I am on the "LOG IN" page
     When I enter Username :9403960183 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     
-    And I view and accept virtual notification for "Driver" for "stack trip"
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
@@ -175,7 +218,6 @@ Feature: Scheduled Bungii on one device
     And I am logged in as "valid" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
-    When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
@@ -186,10 +228,12 @@ Feature: Scheduled Bungii on one device
     Given I am on the "LOG IN" page
     When I enter Username :9403960183 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
-    Then I should be navigated to "BUNGII ACCEPTED" screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
+    When bungii admin manually end bungii created by "CUSTOMER1"
     
     When I Switch to "driver" application on "same" devices
-    When bungii admin manually end bungii created by "CUSTOMER1"
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii Completed" screen
     Then I should be navigated to "EN ROUTE" screen
@@ -207,12 +251,13 @@ Feature: Scheduled Bungii on one device
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
       | goa      | UNLOADING ITEM |
+	
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
-    When I Switch to "customer" application on "same" devices
+   # When I Switch to "customer" application on "same" devices
     When I request another "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
@@ -223,16 +268,21 @@ Feature: Scheduled Bungii on one device
     Given I am on the "LOG IN" page
     When I enter Username :9403960183 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
-    
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+  
+    #And I Select "MY BUNGIIS" from Customer App menu
+    #And I select already scheduled bungii
+    #Then I Cancel selected Bungii
+    When I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
     When I click "CANCEL BUNGII" on bungii accepted screen
     Then I see "Alert: Bungii cancel confirmation" on bungii accepted screen
     When I click "Dismiss on Alert message" on bungii accepted screen
     Then I should be navigated to "BUNGII ACCEPTED" screen
-    
-    When I click "CANCEL BUNGII" on bungii accepted screen
+   When I click "CANCEL BUNGII" on bungii accepted screen
     When I click "Cantact Support on Alert message" on bungii accepted screen
-    And correct details should be displayed to customer for "customer support-SMS"
+   And correct details should be displayed to customer for "customer support-SMS"
     
     When I click "CANCEL BUNGII" on bungii accepted screen
     When I click "CANCEL BUNGII on Alert message" on bungii accepted screen
@@ -241,6 +291,7 @@ Feature: Scheduled Bungii on one device
     
     Then I should be navigated to "HOME" screen
     
+    When I Switch to "driver" application on "same" devices
     And I click on notification for "Driver" for "CUSTOMER CANCEL STACK TRIP"
     And stack trip information should not be displayed on deck
     
@@ -248,42 +299,4 @@ Feature: Scheduled Bungii on one device
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
   
-  @regression
-     #stable
-  Scenario: STACKING | Verify Driver Can Receive Long Stack Ondemand Request When Ongoing Ondemand Bungii is On Arrived State - Goa Geofence [1 Device]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State |
-      | goa      | ARRIVED      |
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    
-    When I request another "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
   
-	And I view and accept virtual notification for "second" delivery of "Driver" for "stack trip"
-    And stack trip information should be displayed on deck
-    
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE      | CUSTOMER2_PHONE      |
-    
-  @regression
- #stable
-  Scenario: STACKING | Verify Driver Can Receive Short Stack Ondemand Request when Ongoing Ondemand Bungii is On Unloading Item State - Goa Geofence [1 Device]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State   |
-      | goa      | UNLOADING ITEM |
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    When I request another "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
-    And I view and accept virtual notification for "second" delivery of "Driver" for "stack trip"
-    And stack trip information should be displayed on deck
-  
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE  |

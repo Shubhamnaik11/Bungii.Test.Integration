@@ -16,7 +16,7 @@ Feature: DriverMenu
   Scenario: Verify Driver App Menu Option Navigation - ACCOUNT | LEADERBOARD | SCHEDULED BUNGIIS | AVAILABLE BUNGIIS | EARNINGS | ALERT SETTINGS | STORE | FEEDBACK | LOGOUT
     When I Select "ACCOUNT > ACCOUNT INFO" from driver App menu
     Then I should be navigated to "ACCOUNT INFO" screen
-    Then I should be able to see data on "ACCOUNT INFO" page
+   Then I should be able to see data on "ACCOUNT INFO" page
     When I Select "LEADERBOARD" from driver App menu
     Then I should be navigated to "LEADERBOARD" screen
     Then I should be able to see data on "LEADERBOARD" page
