@@ -125,8 +125,11 @@ public class DbUtility extends DbContextManager {
     }
 
     public static String getPickupRef(String customerPhone){
-        String custRef=getCustomerRefference(customerPhone);
-        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
+        String pickupRef="";
+        if(customerPhone!="") {
+            String custRef = getCustomerRefference(customerPhone);
+             pickupRef = getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
+        }
         return pickupRef;
     }
 
