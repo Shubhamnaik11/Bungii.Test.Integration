@@ -368,7 +368,7 @@ public class TripStatusSteps extends DriverBase {
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in clicking button "+button, true);
 
         }    }
 

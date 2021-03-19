@@ -485,7 +485,7 @@ public class HomeSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in selecting menu ", true);
         }
     }
 

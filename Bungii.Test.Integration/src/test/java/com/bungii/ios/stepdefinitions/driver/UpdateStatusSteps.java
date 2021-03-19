@@ -640,11 +640,12 @@ public class UpdateStatusSteps extends DriverBase {
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String expectedTime="";
         if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
-            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + "  " + PropertyUtility.getDataProperties("time.label");
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + "  "; //+ PropertyUtility.getDataProperties("browserstack.time.label");
         else
             expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + "  " + utility.getTimeZoneBasedOnGeofence();
         expectedTime=expectedTime.replace("am", "AM").replace("pm","PM");
-        testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+expectedTime);
+        String actualValue= action.getText(updateStatusPage.Text_StackInfo());
+        testStepAssert.isTrue(actualValue.contains(expectedTime), "Try to finish by should be displayed","Try to finish by "+expectedTime+" is displayed", "Try to finish by "+expectedTime+ " is not displayed. instead "+ actualValue +"is displayed");
     }
 
     @Then("^try to finish time should be correctly displayed for short stack trip$")
@@ -652,13 +653,13 @@ public class UpdateStatusSteps extends DriverBase {
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String expectedTime="";
         if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
-            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + PropertyUtility.getDataProperties("time.label");
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " ;//+ PropertyUtility.getDataProperties("browserstack.time.label");
         else
             expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + utility.getTimeZoneBasedOnGeofence();
         expectedTime=expectedTime.replace("am", "AM").replace("pm","PM");
         String elementText=updateStatusPage.Text_StackInfo().getText();elementText=elementText.replace("  "," ");
         logger.detail("Element Text"+elementText);
-        testStepVerify.isEquals(elementText,"Try to finish by "+expectedTime);
+        testStepAssert.isTrue(elementText.contains(expectedTime), "Try to finish by should be displayed","Try to finish by "+expectedTime+" is displayed", "Try to finish by "+expectedTime+ " is not displayed");
 
     }
     @Then("^I calculate projected driver arrival time$")

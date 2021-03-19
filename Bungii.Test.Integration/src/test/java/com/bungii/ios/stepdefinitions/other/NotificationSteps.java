@@ -253,6 +253,9 @@ public class NotificationSteps extends DriverBase {
         if(pickupRequestID== "")
         {   pickupRequestID =  dbUtility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA"));
         }
+        if(pickupRequestID== "")
+        {   pickupRequestID =  dbUtility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER2_PUSH"));
+        }
         if(pickupRequestID!= "") {
             if(driverPhoneNum== null) {
                 driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
@@ -266,10 +269,12 @@ public class NotificationSteps extends DriverBase {
                 String driverAccessToken = new DbUtility().getDriverCurrentToken(driverPhoneNum);
                 if(expectedNotification.equalsIgnoreCase("stack trip")) {
                     logger.detail("Accept stack pickup  " + pickupRequestID +" as driver " + driverPhoneNum +" through API Call");
-                    Thread.sleep(5000);
+                    Thread.sleep(15000);
                     Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID);
-                    if (!isDriverEligible)
-                        error("Diver should be eligible for stacked trip", "Driver "+driverPhoneNum+" is not eligible for stacked pickup : "+ pickupRequestID, false);
+                    if (!isDriverEligible) {
+                        error("Diver should be eligible for stacked trip", "Driver " + driverPhoneNum + " is not eligible for stacked pickup : " + pickupRequestID, false);
+                        Thread.sleep(10000);
+                    }
                     new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
                     logger.detail("Accepted stack pickup " + pickupRequestID +" as driver " + driverPhoneNum +" through api call [As Driver is eligible for the trip]");
                 }

@@ -623,6 +623,7 @@ public class CommonSteps extends DriverBase {
                 action.click(termsAndConditionPage.Button_CheckOff());
                 action.click(termsAndConditionPage.Button_Continue());
                 Thread.sleep(3000);
+                pageHeader = utility.getPageHeader();
                 // pageHeader = utility.getPageHeader();
             }
             if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
@@ -630,6 +631,7 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(3000);
                 action.clickAlertButton("Allow");
                 Thread.sleep(3000);
+                pageHeader = utility.getPageHeader();
                 // pageHeader = utility.getPageHeader();
             }
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
@@ -637,6 +639,7 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(3000);
                 action.clickAlertButton("Always Allow");  //Customer App alert for ios 12 and below
                 Thread.sleep(3000);
+                pageHeader = utility.getPageHeader();
                 // pageHeader = utility.getPageHeader();
             }
 

@@ -377,7 +377,12 @@ public class CommonStepsDriver extends DriverBase {
             } catch (Exception e) {
 
             }
-
+            navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
+            if (navigationBarName.equals("ARRIVED")||navigationBarName.equals("ARRIVED")||navigationBarName.equals("EN ROUTE")||navigationBarName.equals("LOADING ITEM")||navigationBarName.equals("UNLOADING ITEM")||navigationBarName.equals("DRIVING TO DROPOFF"))
+            {
+                //Do nothing - Its fresh Bungii requested as precondition step
+            }
+                else
                 homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
         }
 
