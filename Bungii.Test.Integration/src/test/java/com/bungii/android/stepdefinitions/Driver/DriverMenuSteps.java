@@ -96,7 +96,7 @@ public class DriverMenuSteps extends DriverBase {
                 case "EARNINGS":
                     Thread.sleep(10000);
                     data = action.getText(homePage.Text_Earnings()).toString();
-                    testStepAssert.isElementTextEquals(homePage.Text_Earnings(), "DRIVER INFO", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    testStepAssert.isElementTextEquals(homePage.Text_Earnings(), "EARNINGS", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "ACCOUNT INFO":
@@ -116,7 +116,7 @@ public class DriverMenuSteps extends DriverBase {
 
                 case "BUNGII STORE":
                     data = action.getText(homePage.Text_Store()).toString();
-                    testStepAssert.isElementTextEquals(homePage.Text_Store(), "BUNGII STORE", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    testStepAssert.isElementTextEquals(homePage.Text_Store(), "STORE", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "LOGOUT":
@@ -148,6 +148,7 @@ public class DriverMenuSteps extends DriverBase {
     @Then("^I am redirected to \"([^\"]*)\"$")
     public void i_am_redirected_to_something(String strArg1) throws Throwable {
         try {
+            Thread.sleep(2000);
             testStepAssert.isTrue(action.getText(earningsPage.Text_HistoryDataTotalEarnings()).contains(PropertyUtility.getMessage("history.data")),
                     PropertyUtility.getMessage("history.data") + " is displayed",
                     PropertyUtility.getMessage("history.data") + " is displayed",
