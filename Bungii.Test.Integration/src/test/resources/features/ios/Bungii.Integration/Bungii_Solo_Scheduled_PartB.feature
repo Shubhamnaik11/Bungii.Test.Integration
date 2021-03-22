@@ -10,7 +10,7 @@ Feature: Solo Scheduled Bungii Part II
     
   @regression
    #stable
-  Scenario:Verify Scheduled Bungii Notification Informantion of Estimated Earnings Date etc
+  Scenario:Verify Scheduled Bungii Notification Information of Estimated Earnings Date etc
     When I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "Online"
     When I Switch to "customer" application on "same" devices
@@ -97,7 +97,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @ready
-  @failed1
+  #stable
   Scenario: Verify Status Of Scheduled Bungii In The Scheduled Trip Page When Only One Driver Accepts It
 
     And I request "duo" Bungii as a customer in "denver" geofence
@@ -123,7 +123,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @ready
-  @failed1
+  #stable
   Scenario:Verify Details In The Bungii Details Screen When Required Number Of Drivers Accepts Trip
 
     And I request "duo" Bungii as a customer in "denver" geofence

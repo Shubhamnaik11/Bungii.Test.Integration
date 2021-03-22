@@ -245,8 +245,7 @@ Feature: Scheduled Bungii on one device
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
   
-  @ready
-  @push
+  @regression
   Scenario:Verify Customer Can Cancel Stacked Ondemand Bungii Accepted By a Driver [1 Device]
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |

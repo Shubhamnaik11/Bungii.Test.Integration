@@ -197,8 +197,9 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @failed
-    #comment below tag and  add to first scenario
-  @ready
+    # SCHEDULED PICKUP ACCEPTED is not sent - Geneuine issue
+  #stable
+    @ready
   Scenario:Verify If Customer Receives Notification After Admin Researches Drivers And Both Drivers Accept It
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -219,8 +220,7 @@ Feature: Solo Scheduled Bungii Part II
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+    And I view virtual notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |

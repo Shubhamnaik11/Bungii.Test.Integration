@@ -46,16 +46,16 @@ public class BungiiDetailsSteps extends DriverBase {
 
     @Then("^trips status should be \"([^\"]*)\"$")
     public void trips_status_should_be_something(String key) throws Throwable {
-        try {
+
             String tripStatus = "";
             switch (key.toLowerCase()) {
                 case "contacting drivers":
                     tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
-                    testStepVerify.isEquals(tripStatus, "Contacting Drivers");
+                    testStepAssert.isEquals(tripStatus, "Contacting Drivers", "Contacting Drivers should be displayed","Contacting Drivers is displayed","Contacting Drivers is not displayed");
                     break;
                 case "estimated cost":
                     tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
-                    testStepVerify.isEquals(tripStatus, (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    testStepAssert.isEquals(tripStatus, (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"),"Estimated cost should be displayed","Estimated cost is displayed","Estimated cost is not displayed");
                     break;
                 case "estimated cost of duo trip":
                     String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
@@ -66,19 +66,15 @@ public class BungiiDetailsSteps extends DriverBase {
                     //divide by 2 for individual driver value
                     String truncValue = new DecimalFormat("#.00").format(estimatedDriverCut/2);
                     tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
-                    testStepVerify.isEquals(tripStatus,"~$"+truncValue);
+                    testStepAssert.isEquals(tripStatus,"~$"+truncValue,"Estimated cost should be displayed","Estimated cost is displayed","Estimated cost is not displayed");
                     break;
                 case "contacting other driver":
                     tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
-                    testStepVerify.isEquals(tripStatus, "Contacting Other Driver");
+                    testStepAssert.isEquals(tripStatus, "Contacting Other Driver", "Contacting Other Driver should be displayed","Contacting Other Driver is displayed","Contacting Other Driver is not displayed");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-        } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
-        }
     }
 
     @When("^I try to contact driver using \"([^\"]*)\"$")

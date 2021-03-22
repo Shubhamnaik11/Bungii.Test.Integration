@@ -1609,8 +1609,9 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(1000);
             }
             //   tripNoOfDriver="DUO";tripTime="Jan 10, 07:15 PM GMT+5:30";currentApplication="DRIVER";
+            tripTime = tripTime.substring(0,13).trim();
 
-            if (tripTime.contains(PropertyUtility.getDataProperties("time.label")))
+            /*if (tripTime.contains(PropertyUtility.getDataProperties("time.label")))
                 tripTime = tripTime.replace(PropertyUtility.getDataProperties("time.label"), "").trim();
 
             tripTime=tripTime.replace("am","AM").replace("pm","PM");
@@ -1626,7 +1627,7 @@ public class CommonSteps extends DriverBase {
                 tripTime = utility.getGmtTime(tripTime);
                 //testStepVerify.isEquals(displayedTime, strTime);
             }
-
+*/
             logger.detail("TRIP TIME [According to Daylight Savings]: "+tripTime);
 
             if (currentApplication.equalsIgnoreCase("CUSTOMER")) {
@@ -1640,7 +1641,7 @@ public class CommonSteps extends DriverBase {
 
                 action.swipeDown();
 
-                WebElement Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + tripTime + "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+                WebElement Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
                 action.click(Image_SelectBungii);
             } else {
                 //driverScheduledBungiiPage.selectBungiiFromList(tripNoOfDriver, tripTime);

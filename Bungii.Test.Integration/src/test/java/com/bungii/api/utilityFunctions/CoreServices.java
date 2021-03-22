@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.runner.Request;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -391,8 +392,9 @@ public class CoreServices extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "~$" +truncValue);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", "15 mins");
             int estimateTripDuration=jsonPathEvaluator.get("Estimate.TimePickupToDropOff");
-            estimateTripDuration=estimateTripDuration/60000;int estimateDurationWithLoadUnload=estimateTripDuration+15;
-            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME", "~"+estimateTripDuration+"  mins");
+            Double estimateDuration=Double.valueOf(estimateTripDuration)/60000;
+            Long estimateDurationWithLoadUnload=Math.round(estimateDuration)+15;
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME", "~"+Math.round(estimateDuration)+"  mins");
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME", "~"+estimateDurationWithLoadUnload+"  mins");
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
@@ -635,12 +637,13 @@ public class CoreServices extends DriverBase {
         customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
         return waitDuraton;
     }
-    public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken,int minDiff) {
+    public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken,int minDiff) throws ParseException {
         //get utc time and time for bungii to start
         logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken +" | Minute Difference "+ minDiff);
 
         String[] nextAvailableBungii = getScheduledBungiiTime(minDiff);
-        Date date = new EstimateSteps().getNextScheduledBungiiTime(minDiff);
+
+        Date date = new EstimateSteps().getNextScheduledBungiiTimeDependingOn(minDiff);
         String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 

@@ -111,7 +111,6 @@ Feature: Scheduled DUO Bungii
 ################################################################################################
 
 #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
-  @failed
   @regression
   
   Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Long Stacked Bungii [2 Devices]
@@ -125,15 +124,11 @@ Feature: Scheduled DUO Bungii
     
     And I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "existing" user
-    #And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    #And I close "Tutorial" if exist
-
+    
     And I connect to "extra1" using "Customer2" instance
     And I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid customer2" user
-    #And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    #And I close "Tutorial" if exist
     
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |

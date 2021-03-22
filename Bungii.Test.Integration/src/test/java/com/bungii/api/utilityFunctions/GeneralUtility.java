@@ -72,7 +72,7 @@ public class GeneralUtility {
 
     public static String getCurrentUTCTime() throws InterruptedException {
         // Get formatted UTC time
-        Thread.sleep(2000); //Added purposely to delay status update by 2 seconds - OPS-476 changes
+        Thread.sleep(5000); //Added purposely to delay status update by 2 seconds - OPS-476 changes
         Calendar calendar = Calendar.getInstance();
        // calendar.add(Calendar.SECOND, 2);
         Date dateTime = calendar.getTime();

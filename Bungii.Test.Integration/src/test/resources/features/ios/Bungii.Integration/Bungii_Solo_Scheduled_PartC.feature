@@ -10,24 +10,22 @@ Feature: Solo Scheduled Bungii Part II
     When I Switch to "customer" application on "same" devices
 
   @ready
-  @failed
+ #stable
+    @testing
   Scenario: Verify Re-searched Trip Request Doesnt Show Urgent Notification Text If Is More Than One Hour From The Scheduled Trip Time
-    When I clear all notification
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | denver   | Accepted     | 2 hour ahead |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
-    When I Switch to "customer" application on "same" devices
     Then I wait for "1" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-
     And I remove current driver and researches Bungii
-    When I switch to "ORIGINAL" instance
+    
     And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
-    When I Switch to "customer" application on "same" devices
-    And Notification for "driver" for "SCHEDULED PICKUP AVAILABLE" should be displayed
+    And I should get virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+  
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |

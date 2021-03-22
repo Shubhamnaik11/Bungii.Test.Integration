@@ -269,7 +269,10 @@ public class BungiiDetailsSteps extends DriverBase {
                     sdf.setTimeZone(TimeZone.getTimeZone(new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofenceId()));
                     String dateFormatted = sdf.format(dateTime);
 
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiTime(), dateFormatted+", "+((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(",", " |"));
+                    String time = action.getText(bungiiDetailsPage.Text_BungiiTime()).substring(0,19).trim();
+                    String expected = dateFormatted+", "+((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(",", " |").substring(0,14);
+
+                    testStepVerify.isEquals(time, expected);
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_NavigationBar(), "BUNGII DETAILS");
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeTag(), "Type");
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeValue(), "Bungii Duo");

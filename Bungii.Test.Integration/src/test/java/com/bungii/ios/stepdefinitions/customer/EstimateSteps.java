@@ -107,7 +107,7 @@ public class EstimateSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in requesting Delivery",
                     true);
         }
 
@@ -164,7 +164,7 @@ public class EstimateSteps extends DriverBase {
             utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in requesting delivery",
                     true);
         }
 
@@ -627,6 +627,19 @@ public class EstimateSteps extends DriverBase {
         String strdate = formatter.format(calendar.getTime());
         return strdate;
     }
+    public String getDateForTimeZoneDependingOn(int minuteDifferance) {
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + minuteDifferance);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
+
+        String strdate = formatter.format(calendar.getTime());
+        return strdate;
+    }
     public String getDateForTimeZoneForGeofence() {
         String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
         int nextTripTime=0;
@@ -691,6 +704,16 @@ public class EstimateSteps extends DriverBase {
 
         return date1;
     }
+    public Date getFormatedTimeDependingOn(int minuteDifferance) {
+        Date date1 = Calendar.getInstance().getTime();
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZoneDependingOn(minuteDifferance));
+            //System.out.println("\t" + date1);
+        } catch (Exception e) {
+        }
+
+        return date1;
+    }
 
     /**
      * Read property file for minimum difference for next bunii time
@@ -715,7 +738,9 @@ public class EstimateSteps extends DriverBase {
     public Date getNextScheduledBungiiTime(int minuteDifferance) {
         return getFormatedTime(minuteDifferance);
     }
-
+    public Date getNextScheduledBungiiTimeDependingOn(int minuteDifferance) {
+        return getFormatedTimeDependingOn(minuteDifferance);
+    }
     public Date getScheduledBungiiTime(int minuteDifferance) {
         int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
         Calendar calendar = Calendar.getInstance();

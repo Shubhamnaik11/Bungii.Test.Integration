@@ -382,21 +382,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       |          |           |              | Now  | Default     |
     And I request for bungii using Request Bungii Button
     Then I should be navigated to "SEARCHING" screen
-
-    #When I click on notification for "Driver" for "on demand trip"
-    #Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    #When I click "YES" on alert message
-    #Then I should be navigated to "BUNGII REQUEST" screen
-    #When I click "ACCEPT" button on "Bungii Request" screen
+    
     And I view and accept virtual notification for "Driver" for "on demand trip"
 
-   # Then I click on notification for "Customer" for "DRIVER ENROUTE"
- #   And I Switch to "customer" application on "same" devices
-    #Then I should be navigated to "BUNGII ACCEPTED" screen
-    #Then ratting should be correctly displayed on Bungii accepted page
-    #When I click "Ok" button on "BUNGII ACCEPTED" screen
-
-    #And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
