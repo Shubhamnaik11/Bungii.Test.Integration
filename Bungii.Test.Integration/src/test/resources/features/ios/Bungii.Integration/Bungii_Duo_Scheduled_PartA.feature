@@ -80,6 +80,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @regression
+  @failures
   Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Duo Scheduled Bungii
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -115,10 +116,8 @@ Feature: Solo Scheduled Bungii Part II
     Then user is alerted for "OUTSIDE BUISSNESS HOUR"
 
   @regression
+    @failures
   Scenario:  Verify Customer Can Schedule Duo Bungii Only 5 Days Ahead Including Current Date
-    #When I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
-    #And I Select "Home" from Customer App menu
     Given I login as "valid denver" customer and on Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
@@ -173,9 +172,9 @@ Feature: Solo Scheduled Bungii Part II
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
-  @FAILED2802
+    
   @regression
+  @failures
   Scenario:  Verify Customer Cannot Schedule Duo Bungii That Overlaps With Another Scheduled Trip TELET Time
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -196,7 +195,7 @@ Feature: Solo Scheduled Bungii Part II
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @failed
+  @failures
     # SCHEDULED PICKUP ACCEPTED is not sent - Geneuine issue
   #stable
     @ready
@@ -280,6 +279,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE | 8888889917      |
 
   @regression
+    @failures
   Scenario: Verify Customer Receives Notification When Control Driver Starts Duo Scheduled Bungii
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -300,7 +300,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @ready
-  @failed
+  @failures
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Duo Scheduled Trip
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |

@@ -246,6 +246,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       | CUSTOMER1_PHONE |                 |
   
   @knownissue
+    @failures
   Scenario: Verify Customer Is Allowed To Rate Driver For Solo Trip
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |

@@ -46,10 +46,10 @@ public class HomePageSteps extends DriverBase {
         try {
             GeneralUtility utility = new GeneralUtility();
             boolean isHomePage = utility.verifyPageHeader("HOME");
-            testStepVerify.isTrue(isHomePage, "User should be loggind in", " Home screen is displayed", "User was not logged in");
+            testStepVerify.isTrue(isHomePage, "Driver should be loggind in", " Home screen is displayed", "Driver was not logged in");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in logging in as driver", true);
         }
 
     }
@@ -94,7 +94,7 @@ public class HomePageSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in updating driver status Online/Offline", true);
         }
     }
 
@@ -215,7 +215,7 @@ public class HomePageSteps extends DriverBase {
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in selecting menu items", true);
         }
         return !notClicked;
 

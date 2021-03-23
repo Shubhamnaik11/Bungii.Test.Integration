@@ -43,6 +43,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @regression
+    @failures
   Scenario:Verify Driver Cannot Cancel Scheduled Bungii From App When Bungii Is Not Started And He Should Send SMS To Cancel Duo Scheduled Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -62,6 +63,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE |                 |
 
   @regression
+    @failures
   Scenario: Verify Control Driver Can Cancel Scheduled Duo Bungii From The App In The Enroute State
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -86,6 +88,7 @@ Feature: Solo Scheduled Bungii Part II
     Then I should be navigated to "Home" screen
 
   @regression
+    @failures
   Scenario: Verify Control Driver Can Cancel Scheduled Duo Bungii From The App In The Arrived State
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -135,7 +138,7 @@ Feature: Solo Scheduled Bungii Part II
     Then I should be navigated to "Home" screen
 
   @regression
-  @failed
+  @failures
   Scenario: Verify Non Control Driver Can Cancel Scheduled Duo Bungii From The App In The Arrived State
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -161,7 +164,7 @@ Feature: Solo Scheduled Bungii Part II
     Then I should be navigated to "Home" screen
 
   @ready
-  @failed
+  @failures
   Scenario: Verify Customer Can Cancel Duo Scheduled Bungii Through SMS To Admin If Required Number Of Drivers Have Accepted
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
@@ -188,7 +191,7 @@ Feature: Solo Scheduled Bungii Part II
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @ready
-  @failed
+  @failures
   Scenario: Verify Customer Can Request Cancel Scheduled Duo Bungii Through SMS To Admin If No Driver Accepts But Processing Is Over
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -218,7 +221,7 @@ Feature: Solo Scheduled Bungii Part II
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @ready
-  @failed
+  @failures
   Scenario: Verify Customer Can Request Cancel Scheduled Duo Bungii Through SMS To Admin If One Driver Accepts And Processing Is Over
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -250,6 +253,7 @@ Feature: Solo Scheduled Bungii Part II
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @regression
+    @failures
   Scenario: Verify If Customer Is Allowed To Rate Driver For Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -271,7 +275,7 @@ Feature: Solo Scheduled Bungii Part II
 
 #its scheduled time not initial request time
   @regression
-
+@failures
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Scheduled Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

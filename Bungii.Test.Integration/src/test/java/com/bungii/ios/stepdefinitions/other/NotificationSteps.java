@@ -54,7 +54,7 @@ public class NotificationSteps extends DriverBase {
        String customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH") ;
        String pickupRequestID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") ;
        String pushNotificationContent = new DbUtility().getCustomerPushNotificationContent(customerPhone, pickupRequestID, notificationText);
-       testStepAssert.isTrue(pushNotificationContent.contains(notificationText),notificationType + " virtual notification should be received",notificationType + " virtual notification is received",notificationType + " virtual notification is not received");
+       testStepAssert.isTrue(pushNotificationContent.contains(notificationText),notificationText + " virtual notification should be received",notificationText + " virtual notification is received",notificationText + " virtual notification is not received");
 
 
 
@@ -257,17 +257,9 @@ public class NotificationSteps extends DriverBase {
                     logger.detail("Viewed pickup " + pickupRequestID +" as driver " + driverPhoneNum +" through api call [As Driver is eligible for the trip]");
                 }
                 // Switch and login on same device
-                utility.switchToApp("driver","same");
-                String navigationBarName = action.getScreenHeader(homepage.Text_NavigationBar());
-                if(navigationBarName.equalsIgnoreCase("ONLINE")) {
-                    action.click(homepage.Button_AppMenu());
-                    Thread.sleep(1000);
-                    action.click(homepage.AppMenu_ScheduledTrip());
-                    Thread.sleep(1000);
-                }
 
-                log("I should able to accept trip through virtual notification",
-                        "I accept trip through virtual notification");
+                log("I should able to view trip through virtual notification",
+                        "I viewed trip through virtual notification");
             }
             else
             {
@@ -319,7 +311,7 @@ public class NotificationSteps extends DriverBase {
         // int totalMinutes = totalSeconds / 60;
         // int actualTripTime = totalMinutes / 60;
 
-        testStepVerify.isEquals("~"+String.valueOf(time)+" mins",tripTime);
+        testStepVerify.isEquals("~"+String.valueOf(time)+" mins",tripTime.replace("  "," "));
         break;
  }
 
@@ -439,14 +431,16 @@ public class NotificationSteps extends DriverBase {
 
                 String driverAccessToken = new DbUtility().getDriverCurrentToken(driverPhoneNum);
 
-                    logger.detail("Accept pickup " + pickupRequestID +" as driver " + driverPhoneNum );
+                    logger.detail("View pickup details of " + pickupRequestID +" as driver " + driverPhoneNum );
                     Thread.sleep(10000);
                     Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID);
                     new GeneralUtility().logDriverDeviceToken(driverPhoneNum);
                     if (!isDriverEligible)
                         error("Diver should be eligible for trip", "Driver "+driverPhoneNum+" is not eligible for pickup : "+ pickupRequestID, false);
-                    response = new CoreServices().AcceptBungii(pickupRequestID, driverAccessToken);
-                    JsonPath jsonpathevaluator = response.jsonPath();
+                    //response = new CoreServices().getPickupdetails(pickupRequestID, driverAccessToken,"");
+                String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+                JsonPath jsonpathevaluator = new CoreServices().getPickupdetailsFromPushNotification(pickupRequestID, driverAccessToken,geofence);
+                    logger.detail("ERROR MESSAGE "+jsonpathevaluator.get("Error.Message"));
                     cucumberContextManager.setScenarioContext("API_RESPONSE",jsonpathevaluator.get("Error.Message"));
 
                 // Switch and login on same device
@@ -495,6 +489,7 @@ public class NotificationSteps extends DriverBase {
                 String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
                 if (pushNotificationContent == "") {
                     if (new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID))
+                        if(!expectedNotification.contains("URGENT"))
                         error("Diver should not be eligible for trip", "Driver " + driverPhoneNum + " is eligible for pickup : " + pickupRequestID, false);
                     testStepVerify.isTrue(true, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" + getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" + pushNotificationContent);
                 }

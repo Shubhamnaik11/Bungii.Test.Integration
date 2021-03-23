@@ -10,6 +10,7 @@ Feature: Solo Scheduled Bungii Part I
 	When I Switch to "customer" application on "same" devices
   
   @regression
+	@failures
     # negative scenario is handle in long haul message scenario . In this scenario verify trip >140 but less than 150 go through
   Scenario: Verify Trip limit (150 miles) For Solo Scheduled Bungii
     #When I am on the "LOG IN" page
@@ -28,7 +29,7 @@ Feature: Solo Scheduled Bungii Part I
 	  | 8888889917     |                 |
 	
 	
-@failed
+@failures
 @ready
 Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually Ending Bungii
 
@@ -113,11 +114,10 @@ When I Switch to "driver" application on "same" devices
 Then Bungii driver should see "correct details" on Bungii completed page
 And I click "On To The Next One" button on "Bungii Completed" screen
   
-  @failed
+  @failures
   @ready
-
     #this test case is from customer signup module. but as this require bungii to be created , moved to this feature file
-  Scenario Outline: Verify If Trip Completed Count On Admin Portal Is Updated When Customer Completes A Bungii
+  Scenario Outline: Verify If Trip Completed Count On Admin Portal Is Updated When Customer Completes A Bungii - SSL ISSUE
 	When I Switch to "customer" application on "same" devices
 	
 	Given I am on the "SIGN UP" page
@@ -167,7 +167,7 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	  | First Name | Last Name       | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
 	  | Donaldd    | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
   
-  @failed
+  @failures
   @ready
   Scenario: Verify Promo Type Promocode Is Correctly Applied After Manually Ending Bungii
 	
@@ -202,12 +202,6 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I request for bungii using Request Bungii Button
 	Then I click "Done" button on "Success" screen
 	
-	#When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-	#And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-	#When I click "View" on alert message
-	#Then I should be navigated to "BUNGII REQUEST" screen
-	#When I accept selected Bungii
-	#Then I should be navigated to "SCHEDULED BUNGII" screen
 	And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
 	When I Select "SCHEDULED BUNGIIS" from driver App menu
 	Then I should be navigated to "SCHEDULED BUNGII" screen
@@ -245,7 +239,7 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	Then Bungii driver should see "correct details" on Bungii completed page
 	And I click "On To The Next One" button on "Bungii Completed" screen
   
-  @failed
+  @failures
   @ready
   Scenario: Verify One Off Type Promocode Is Correctly Applied After Manually Ending Bungii
 	

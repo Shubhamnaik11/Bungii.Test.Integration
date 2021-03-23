@@ -148,8 +148,8 @@ public class ScheduledBungiiSteps extends DriverBase {
 		}
 		catch(Exception ex)
 		{
-			error("Element with [Locator : "+browserStackTime+" ] by type [ "+"XPath"+" ] should be displayed in Driver Scheduled List", "Element with [Locator : "+browserStackTime+" ] by type [ "+"XPath"+" ] is not displayed in Driver Scheduled List. Please refer error logs for more details.",
-					true);
+			//error("Element with [Locator : "+browserStackTime+" ] by type [ "+"XPath"+" ] should be displayed in Driver Scheduled List", "Element with [Locator : "+browserStackTime+" ] by type [ "+"XPath"+" ] is not displayed in Driver Scheduled List. Please refer error logs for more details.",
+			//		true);
 		}
 		return Image_SelectBungii;
 	}

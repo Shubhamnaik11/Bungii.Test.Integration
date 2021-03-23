@@ -871,6 +871,7 @@ public class EstimateSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_TIME", details[1]);
 
             String value = getElementValue("Promo Code");
+            logger.detail("Requested Field Values : "+ details[0]+", "+ details[1]+", "+ details[2]+", "+ details[3]);
 
             cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", value);
             if (!time.equals("")) {
@@ -879,7 +880,7 @@ public class EstimateSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in requesting delivery ",
                     true);
         }
     }

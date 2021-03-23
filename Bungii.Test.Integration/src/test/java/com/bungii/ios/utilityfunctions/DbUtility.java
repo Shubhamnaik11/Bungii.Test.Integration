@@ -224,15 +224,17 @@ public class DbUtility extends DbContextManager {
     }
     public static String getPushNotificationContent(String phoneNumber, String pickupRef){
         String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+phoneNumber+"') and Payload Like '%"+pickupRef+"%'";
-        String deviceToken = getDataFromMySqlServer(queryString2);
-        return deviceToken;
+        String Payload = getDataFromMySqlServer(queryString2);
+        logger.detail("Query : "+ queryString2 +" | Payload : "+ Payload);
+        return Payload;
     }
 
     public static String getCustomerPushNotificationContent(String customerPhoneNum, String pickupRef, String content)
     {
         String queryString2= "select Payload from pushnotification where userid in (select Id from customer where phone = '"+customerPhoneNum+"') and Payload Like '%"+pickupRef+"%'and Payload Like '%"+content+"%'";
-        String deviceToken = getDataFromMySqlServer(queryString2);
-        return deviceToken;
+        String Payload = getDataFromMySqlServer(queryString2);
+        logger.detail("Query : "+ queryString2 +" | Payload : "+ Payload);
+        return Payload;
 
     }
 

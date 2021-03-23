@@ -162,7 +162,7 @@ public class ScheduledTripSteps extends DriverBase {
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-			error( "Step  Should be successful", "Error performing step,Please check logs for more details",
+			error( "Step  Should be successful", "Error in removing current driver and researching Bungii",
 					true);
 		}	}
 	private String getCstTime(String bungiiTime) throws ParseException {

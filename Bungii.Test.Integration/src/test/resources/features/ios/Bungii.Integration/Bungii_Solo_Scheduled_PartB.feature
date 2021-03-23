@@ -9,8 +9,9 @@ Feature: Solo Scheduled Bungii Part II
     When I Switch to "customer" application on "same" devices
     
   @regression
+    @failures
    #stable
-  Scenario:Verify Scheduled Bungii Notification Information of Estimated Earnings Date etc
+  Scenario: Verify Scheduled Bungii Notification Information of Estimated Earnings Date etc
     When I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "Online"
     When I Switch to "customer" application on "same" devices
@@ -25,6 +26,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @regression
+  @failures
     #stable
   Scenario:Verify If Driver Receives Scheduled Bungii Request While In Offline State
     When I Switch to "driver" application on "same" devices
@@ -40,7 +42,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @regression
-  @failed
+  @failures
   Scenario: Verify If Driver Receives More Than One Requests Then He Cant Accept The Bungii whos TELET time overlaps With Already accepted Solo Scheduled Bungiis
     Given I Switch to "customer" application on "same" devices
 
@@ -68,28 +70,24 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE | 8888889917      |
 
   @regression
+    @failures
+    @testing
   Scenario: Verify Driver Receives Alert Stating That The Trip Has Already Been Accepted By Him If He Receives Request Notification After Accepting The Trip From Available Trips
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
-    Given I Switch to "customer" application on "same" devices
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-
     Given I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                      |
       | NEXT_POSSIBLE | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark |
-
-    Then I wait for "2" mins
+    
     And I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
     When I accept selected Bungii
     
-    And I Switch to "driver" application on "same" devices
 	And I view and try accepting virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
     Then user is virtually alerted for "PICKUP ALREADY ACCEPTED BY YOU"
     And I cancel all bungiis of customer
@@ -97,6 +95,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @ready
+    @failures
   #stable
   Scenario: Verify Status Of Scheduled Bungii In The Scheduled Trip Page When Only One Driver Accepts It
 
@@ -123,6 +122,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @ready
+    @failures
   #stable
   Scenario:Verify Details In The Bungii Details Screen When Required Number Of Drivers Accepts Trip
 
@@ -149,6 +149,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @regression
+    @failures
   Scenario: Verify Customer Receives Notification When Driver Starts Solo Scheduled Bungii
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -191,7 +192,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE |                 |
 
   @ready
-  @failed
+  @failures
   Scenario: Verify Re-searched Trip Request Show Urgent Notification Text If Admin Re-searches Bungii Less Than Hour From Scheduled Trip Time Or For Trip Time Between 24 Hours Prior To Current Time
     When I clear all notification
     Given that solo schedule bungii is in progress
@@ -215,7 +216,7 @@ Feature: Solo Scheduled Bungii Part II
   
   
   @regression
-  @failed
+  @failures
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -235,7 +236,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE |                 |
   
   @regression
-  @test
+    @failures
   Scenario: Verify Customer Can Contact Control Driver When Non-control Driver Starts The Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

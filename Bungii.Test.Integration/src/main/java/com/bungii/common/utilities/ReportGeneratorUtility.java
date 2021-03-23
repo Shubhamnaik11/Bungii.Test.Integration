@@ -271,7 +271,7 @@ public class ReportGeneratorUtility extends DriverBase {
 					status = "<td style='background-color:skyblue;'>Inconclusive</td>";
 				} else if (((String) CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE")) {
 					passed++;
-					status = "<td style='background-color:orange;'>Pass With Observations</td>";
+					status = "<td style='background-color:orange;'>Observations</td>";
 				} else {
 					failed++;
 					status = "<td style='background-color:pink;'>Fail</td>";

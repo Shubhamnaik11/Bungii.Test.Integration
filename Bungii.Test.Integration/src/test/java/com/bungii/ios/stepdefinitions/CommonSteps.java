@@ -2095,6 +2095,9 @@ public class CommonSteps extends DriverBase {
                 case "ALREADY SCHEDULED BUNGII":
                     expectedText = PropertyUtility.getMessage("customer.alert.alreadyscheduled");
                     break;
+                case "PICKUP ALREADY ACCEPTED BY YOU":
+                    expectedText = PropertyUtility.getMessage("customer.alert.alreadyaccepted");
+                    break;
 
             }
             String alertText = (String)cucumberContextManager.getScenarioContext("API_RESPONSE");
@@ -2280,8 +2283,10 @@ public class CommonSteps extends DriverBase {
     public void telet_time_of_current_trip_should_be_correctly_calculated() throws Throwable {
         try{
         GeneralUtility utility= new GeneralUtility();
-        String teletTimeLocal =utility.calculateTeletTime();
-        String teletTimeDB = (String) cucumberContextManager.getScenarioContext("TELET");
+       // String teletTimeLocal =utility.calculateTeletTime();
+            String teletTimeLocal =utility.calculateTeletTimeValue();
+
+            String teletTimeDB = (String) cucumberContextManager.getScenarioContext("TELET");
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         //By default data is in UTC
@@ -2301,7 +2306,7 @@ public class CommonSteps extends DriverBase {
         } catch (Throwable e) {
             logger.error("Error performing step" + e);
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in calculating in Telet time of current trip", true);
         }
     }
     @Then("^Telet time of research trip should be not be same as previous trips$")

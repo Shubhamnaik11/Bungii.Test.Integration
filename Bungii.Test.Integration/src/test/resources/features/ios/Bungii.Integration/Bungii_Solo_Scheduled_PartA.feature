@@ -9,7 +9,7 @@ Feature: Solo Scheduled Bungii Part II
     #When I clear all notification
     When I Switch to "customer" application on "same" devices
 
-  @FAILED2702
+  @failures
   @regression
   @sanity
   Scenario: Verify Details Of Solo Schedule Bungii
@@ -127,6 +127,7 @@ Feature: Solo Scheduled Bungii Part II
     And I click "On To The Next One" button on "Bungii Completed" screen
 
   @regression
+    @failures
   Scenario: Verify Customer Can Create And Complete Schedule Solo Bungii
     #Given I am on the "LOG IN" page
     #And I logged in Customer application using  "valid denver" user
@@ -200,6 +201,7 @@ Feature: Solo Scheduled Bungii Part II
     Then I should be navigated to "Home" screen
 
   @regression
+    @failures
   Scenario: Verify Customer Cannot Schedule Bungii At Same Time As That Of Already Scheduled Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -222,7 +224,7 @@ Feature: Solo Scheduled Bungii Part II
     Then I Cancel selected Bungii
 
   @ready
-  @shacky
+  @failures
   Scenario: Verify Customer Can Cancel Solo Scheduled Bungii Also Verify Trip Details In Bungii Details
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -237,7 +239,7 @@ Feature: Solo Scheduled Bungii Part II
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @ready
-  @testingCard
+  @failures
   Scenario: Verify When Admin Cancels Bungii Then Trip Is Removed From The Scheduled Trip In App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -276,6 +278,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE |                 |
 
   @regression
+    @failures
   Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Solo Scheduled Bungii
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -299,6 +302,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @regression
+    @failures
   Scenario: Verify Customer Doesnt Receives Notification When Solo Scheduled Bungii Is Requested At A Time Outside Working Hours
 
     #When I am on the "LOG IN" page
@@ -379,7 +383,7 @@ Feature: Solo Scheduled Bungii Part II
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @FAILED2702
+  @failures
   @regression
   Scenario:  Verify Customer Cannot Schedule Solo Bungii That Overlaps With Another Scheduled Trip TELET Time
     Given that solo schedule bungii is in progress
@@ -413,6 +417,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE | 8888889917      |
 
   @regression
+    @failures
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has Bungii In Progress
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |

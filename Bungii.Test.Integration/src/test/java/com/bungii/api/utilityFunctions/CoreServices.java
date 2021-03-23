@@ -937,6 +937,35 @@ public class CoreServices extends DriverBase {
         }
         return jsonPathEvaluator;
     }
+
+    public JsonPath getPickupdetailsFromPushNotification(String pickupID, String authToken, String geofence) {
+        JsonPath jsonPathEvaluator= null;
+        try {
+
+            String RequestText = "API REQUEST : Get Pickup Details of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Geofence : "+ geofence;
+            JSONObject jsonObj = new JSONObject();
+            JSONObject driverCordinate = new JSONObject();
+            Float[] driverLocations = utility.getDriverLocation(geofence);
+
+            driverCordinate.put("Latitude", driverLocations[0]);
+            driverCordinate.put("Longitude", driverLocations[1]);
+            jsonObj.put("Location", driverCordinate);
+            jsonObj.put("PickupRequestID", pickupID);
+            Header header = new Header("AuthorizationToken", authToken);
+
+            String apiURL = null;
+
+            apiURL = UrlBuilder.createApiUrl("core", PICKUP_DETAILS);
+            Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+            jsonPathEvaluator = response.jsonPath();
+           // ApiHelper.genericResponseValidation(response, RequestText);
+
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+        return jsonPathEvaluator;
+    }
+
     public void rateAndTip(String pickupRef, String authToken, String driverRef, String tipPaymentMethod, Double
             rating, Double tipAmount) {
         try {

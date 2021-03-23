@@ -1393,6 +1393,38 @@ catch(Exception ex)
 
 
     }
+    public String calculateTeletTimeValue() throws ParseException {
+
+        String scheduledTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+
+        // scheduledTime = "Dec 21, 11:15 AM GMT+5:30";
+
+        Date bungiiDate = new SimpleDateFormat("MMM d, h:mm a").parse(scheduledTime);
+        Date currentDate = new Date();
+
+
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189";
+        String loadtime = (String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME");//, "15 mins");
+        loadtime = loadtime.toLowerCase().replace("mins", "").replace("min", "").trim();
+        String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String estimateTime = com.bungii.android.utilityfunctions.DbUtility.getEstimateTime(custRef);
+        long totalEstimateDuration = Integer.parseInt(loadtime) + Integer.parseInt(estimateTime);
+        double timeToBeAdded = (totalEstimateDuration * 1.5) +30;//+ 30; TELET CALCULATION
+        Date telet = DateUtils.addMinutes(bungiiDate, (int) timeToBeAdded);
+
+        //int year=currentDate.getYear()+1900;
+        telet.setYear(currentDate.getYear());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        //By default data is in UTC
+        //   dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String teletTimeInUtc = null;
+
+        teletTimeInUtc = dateFormat.format(telet);
+        return teletTimeInUtc;
+
+
+    }
 
     public void calculateShortStack() throws ParseException {
 //        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");

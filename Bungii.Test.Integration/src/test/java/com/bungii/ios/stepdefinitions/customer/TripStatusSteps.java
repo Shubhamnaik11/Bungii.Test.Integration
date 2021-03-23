@@ -492,6 +492,7 @@ public class TripStatusSteps extends DriverBase {
         action.waitForAlert();
         String actualMessage = action.getAlertMessage().replace("(", "").replace(")", "").replace(" ", "").replace("-", "")
                 .replace("?", "").replace("+", "").trim();
+        logger.detail("Number : "+ actualMessage );
         actualMessage = actualMessage.substring(1, actualMessage.length() - 1);
         String expectedMessage = expectedNumber.replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "").replace("+", "").trim();

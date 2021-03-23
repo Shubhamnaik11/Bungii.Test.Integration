@@ -10,7 +10,7 @@ Feature: Solo Scheduled Bungii Part II
     When I Switch to "customer" application on "same" devices
 
   @ready
-  @failed
+  @failures
   Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
@@ -45,6 +45,7 @@ Feature: Solo Scheduled Bungii Part II
 
     #its scheduled time not initial request time
   @regression
+    @failures
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Solo Scheduled Trip
 
     Given that solo schedule bungii is in progress
@@ -57,7 +58,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE |                 |
 
   @regression
-  @failed
+  @failures
   Scenario: Verify Customer Is Not Allowed To Request Bungii If TELET Time Of The New Bungii Overlaps With Already Scheduled Bungii
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -82,6 +83,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE |                 |
 
   @regression
+    @failures
   Scenario: Verify If Incoming Scheduled Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -138,7 +140,7 @@ Feature: Solo Scheduled Bungii Part II
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @failed
+  @failures
   @regression
   Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip TELET Then Request Should Not Be Sent To Driver
     Given that solo schedule bungii is in progress
@@ -161,7 +163,7 @@ Feature: Solo Scheduled Bungii Part II
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @failed
+  @failures
   #KNOWN ISSUE , TELET TIME IS NOT RECALCULATED
   @ready
   Scenario: Verify TELET Of Re-searched Trip Should Not Be Same As That Of Previous Trip - KNOWN ISSUE
@@ -182,7 +184,7 @@ Feature: Solo Scheduled Bungii Part II
     Then Telet time of research trip should be not be same as previous trips
 
   @regression
-  @nonstable
+  @failures
   Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked request (Trip 2) Then Driver Doesnt Receive Scheduled Notification Or Offline SMS
 
     Given that ondemand bungii is in progress
@@ -228,7 +230,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE | 8888889917      |
 
   @ready
-  @failed
+  @failures
   Scenario:Verify Driver Notification Received For 30 Mins Before Scheduled Trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
