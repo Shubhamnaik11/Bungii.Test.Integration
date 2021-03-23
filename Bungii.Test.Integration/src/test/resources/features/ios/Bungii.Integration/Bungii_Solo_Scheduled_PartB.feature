@@ -71,7 +71,6 @@ Feature: Solo Scheduled Bungii Part II
 
   @regression
     @failures
-    @testing
   Scenario: Verify Driver Receives Alert Stating That The Trip Has Already Been Accepted By Him If He Receives Request Notification After Accepting The Trip From Available Trips
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp

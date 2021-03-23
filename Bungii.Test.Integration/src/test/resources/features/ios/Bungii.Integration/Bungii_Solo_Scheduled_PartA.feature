@@ -283,20 +283,19 @@ Feature: Solo Scheduled Bungii Part II
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I Select "MY BUNGIIS" from Customer App menu
-    When I Switch to "driver" application on "same" devices
+    And I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
+    
     And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
-    And I Select "MY BUNGIIS" from Customer App menu
-    And I select already scheduled bungii
-    Then message stating contact driver should be "displayed"
+    
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
