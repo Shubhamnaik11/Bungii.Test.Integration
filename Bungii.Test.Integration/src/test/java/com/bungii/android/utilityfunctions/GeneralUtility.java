@@ -967,20 +967,20 @@ Thread.sleep(5000);
         if (currentPage.equals("LOGIN")) {
         } else if (currentPage.equals("ONLINE") || currentPage.equals("OFFLINE")) {
             clickDriverMenuItem("ACCOUNT");
-            clickDriverMenuItem("LOGOUT");
+            clickDriverSubMenuItem("LOGOUT");
         } else if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {
         }
         else if (currentPage.equals("LOCATION")) {
             action.click(driverLoginPage.Button_Sure());
             action.click(driverLoginPage.Button_Allow());
             clickDriverMenuItem("ACCOUNT");
-            clickDriverMenuItem("LOGOUT");
+            clickDriverSubMenuItem("LOGOUT");
 
         } else if (action.isElementPresent(driverLoginPage.Header_Location(true))) {
             action.click(driverLoginPage.Button_Sure());
             action.click(driverLoginPage.Button_Allow());
             clickDriverMenuItem("ACCOUNT");
-            clickDriverMenuItem("LOGOUT");
+            clickDriverSubMenuItem("LOGOUT");
         }
         else if (action.isNotificationAlertDisplayed()) {
             if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
@@ -992,7 +992,7 @@ Thread.sleep(5000);
         }
         else {
             clickDriverMenuItem("ACCOUNT");
-            clickDriverMenuItem("LOGOUT");
+            clickDriverSubMenuItem("LOGOUT");
         }
 
     }
@@ -1012,6 +1012,17 @@ Thread.sleep(5000);
 
     public void clickDriverMenuItem(String menuItem) {
         action.click(driverHomePage.Button_NavigationBar());
+        boolean isClicked = clickDriverMenu(menuItem);
+
+        if (!isClicked) {
+            action.scrollToBottom();
+            isClicked = clickDriverMenu(menuItem);
+        }
+        testStepAssert.isTrue(isClicked, "I should able to click " + menuItem, "Not able to select " + menuItem + " from App menu");
+    }
+
+    public void clickDriverSubMenuItem(String menuItem) {
+        //action.click(driverHomePage.Button_NavigationBar());
         boolean isClicked = clickDriverMenu(menuItem);
 
         if (!isClicked) {
