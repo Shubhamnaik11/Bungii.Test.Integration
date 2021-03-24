@@ -64,8 +64,9 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | miami    | ARRIVED      |
-    
-    When I am on the "LOG IN" page
+  
+    When I Switch to "customer" application on "same" devices
+    #When I am on the "LOG IN" page
     When I logged in Customer application using  "valid miami" user
     Then Customer should be navigated to "ARRIVED" trip status screen
 
@@ -112,10 +113,10 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     
     And I view and accept virtual notification for "Driver" for "on demand trip"
 
-    #And I Switch to "customer" application on "same" devices
-    #And I click "Ok" button on "BUNGII ACCEPTED" screen
+    And I Switch to "customer" application on "same" devices
+    And I click "Ok" button on "BUNGII ACCEPTED" screen
 
-    #And I Switch to "driver" application on "same" devices
+    And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
     When I click "Cancel" button on "update" screen

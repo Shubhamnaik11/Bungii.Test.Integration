@@ -343,6 +343,7 @@ public class ActionManager {
         for (int row = 0; row < forwordDate; row++)
             js.executeScript("mobile: selectPickerWheelValue", hp);}catch (Exception e){}
         if(!meridiem.equals(""))
+            if(Columns.size()==4)
             Columns.get(3).sendKeys(meridiem);
 
         if(!minutes.equals(""))
@@ -351,8 +352,10 @@ public class ActionManager {
         if(!hour.equals(""))
             Columns.get(1).sendKeys(hour);
         if(!meridiem.equals("")) {
-            if (!Columns.get(3).getAttribute("value").equals(meridiem))
-                Columns.get(3).sendKeys(meridiem);
+            if(Columns.size()==4) {
+                if (!Columns.get(3).getAttribute("value").equals(meridiem))
+                    Columns.get(3).sendKeys(meridiem);
+            }
             logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
                     + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value") + " "
                     + Columns.get(3).getAttribute("value"));

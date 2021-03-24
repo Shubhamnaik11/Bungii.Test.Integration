@@ -417,32 +417,20 @@ Feature: Solo Scheduled Bungii Part II
 
   @regression
     @failures
+#stable
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has Bungii In Progress
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | denver   | Accepted     | 0.75 hour ahead |
-    Given I login as "valid denver" customer and on Home page
+      | denver   | Accepted     | 1 hour ahead |
     And I login as "valid denver" driver on "same" device and make driver status as "Online"
-    #And I Switch to "customer" application on "same" devices
-    #When I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
-   # And I Switch to "driver" application on "same" devices
-   # And I am on the "LOG IN" page on driverApp
-    #And I am logged in as "valid denver" driver
-    #Then I change driver status to "Online"
-
-    And I Switch to "customer" application on "same" devices
-
-    When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
+  
+    When I request "Solo Ondemand" Bungii as a customer in "denver" geofence with minimum possible distance
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
       | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
-    #And I click on notification for "Driver" for "on demand trip"
-    #And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    #When I click "YES" on alert message
-   # When I click "ACCEPT" button on "Bungii Request" screen
     And I view and accept virtual notification for "Driver" for "on demand trip"
-
+  
     And I Switch to "customer" application on "same" devices
+    Given I login as "valid denver" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     And I select 1st trip from scheduled bungii
     When I wait for 1 hour for Bungii Schedule Time
@@ -451,4 +439,3 @@ Feature: Solo Scheduled Bungii Part II
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
-

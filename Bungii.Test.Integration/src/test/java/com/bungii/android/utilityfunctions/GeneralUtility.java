@@ -960,7 +960,7 @@ Thread.sleep(5000);
         }
     }
 
-    public void goToDriverLoginPage() {
+    public void goToDriverLoginPage() throws InterruptedException {
 
         String currentPage = action.getText(driverHomePage.Generic_HeaderElement());
 
@@ -1021,8 +1021,9 @@ Thread.sleep(5000);
         testStepAssert.isTrue(isClicked, "I should able to click " + menuItem, "Not able to select " + menuItem + " from App menu");
     }
 
-    public void clickDriverSubMenuItem(String menuItem) {
+    public void clickDriverSubMenuItem(String menuItem) throws InterruptedException {
         //action.click(driverHomePage.Button_NavigationBar());
+        Thread.sleep(3000);
         boolean isClicked = clickDriverMenu(menuItem);
 
         if (!isClicked) {

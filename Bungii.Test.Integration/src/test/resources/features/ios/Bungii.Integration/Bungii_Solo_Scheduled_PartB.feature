@@ -28,7 +28,7 @@ Feature: Solo Scheduled Bungii Part II
   @regression
   @failures
     #stable
-  Scenario:Verify If Driver Receives Scheduled Bungii Request While In Offline State
+  Scenario:Verify If Driver Receives Scheduled Duo Bungii Request While In Offline State
     When I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "OFFLINE"
 

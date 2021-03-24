@@ -155,7 +155,7 @@ public class BungiiDetailsSteps extends DriverBase {
                 } else {
                     diffInMinutes = 1;
                 }
-                action.hardWaitWithSwipeUp((int) diffInMinutes);
+               /* action.hardWaitWithSwipeUp((int) diffInMinutes);*/ //Commented not to wait
                 log("I wait for " + diffInMinutes + " Minutes for Bungii Start Time ", "I waited for " + diffInMinutes + " (with Extra buffer)", true);
             }
         } catch (Exception e) {
@@ -261,7 +261,7 @@ public class BungiiDetailsSteps extends DriverBase {
                     //divide by 2 for individual driver value
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut / 2);
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_EstimatedEarningValue(), "~$" + truncValue);
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(), ((String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME").toString().replace(" ","  ")));
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(), ((String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME").toString()/*.replace(" "," ")*/));
 
                     Calendar calendar = Calendar.getInstance();
                     Date dateTime = calendar.getTime();
@@ -271,7 +271,7 @@ public class BungiiDetailsSteps extends DriverBase {
 
                     String time = action.getText(bungiiDetailsPage.Text_BungiiTime()).substring(0,19).trim();
                     String expected = dateFormatted+", "+((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(",", " |").substring(0,14);
-
+                    logger.detail("Expected Time"+expected);
                     testStepVerify.isEquals(time, expected);
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_NavigationBar(), "BUNGII DETAILS");
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeTag(), "Type");

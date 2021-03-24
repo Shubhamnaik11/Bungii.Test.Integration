@@ -276,7 +276,56 @@ public class CoreServices extends DriverBase {
 
 
     }
+    public Response pickupRequestWithZeroDistance(String authToken, int numberOfDriver, String geoFence) {
+        String RequestText ="API REQUEST : Pickpup Request " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence;
 
+        JSONObject jsonObj = new JSONObject();
+        JSONObject dropOffAddress = new JSONObject();
+        JSONObject dropOffCordinate = new JSONObject();
+        JSONObject pickUpAddress = new JSONObject();
+        JSONObject pickUpCordinate = new JSONObject();
+        if (geoFence.equalsIgnoreCase("nashville")||geoFence.equalsIgnoreCase("goa")||geoFence.equalsIgnoreCase("kansas")||geoFence.equalsIgnoreCase("boston")||geoFence.contains("atlanta")||geoFence.equalsIgnoreCase("baltimore") ||geoFence.equalsIgnoreCase("miami")||geoFence.equalsIgnoreCase("denver")||geoFence.equalsIgnoreCase("washingtondc")) {
+            dropOffAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address1"));
+            dropOffAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address2"));
+            dropOffAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.city"));
+            dropOffAddress.put("Country", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.country"));
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.longitude")));
+            dropOffAddress.put("Location", dropOffCordinate);
+            dropOffAddress.put("State", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.state"));
+            dropOffAddress.put("ZipPostalCode", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.zipcode"));
+
+            pickUpAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address1"));
+            pickUpAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address2"));
+            pickUpAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.city"));
+            pickUpAddress.put("Country", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.country"));
+            pickUpCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.latitude")));
+            pickUpCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.longitude")));
+            pickUpAddress.put("Location", pickUpCordinate);
+            pickUpAddress.put("State", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.state"));
+            pickUpAddress.put("ZipPostalCode", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.zipcode"));
+
+            jsonObj.put("DropOffAddress", dropOffAddress);
+            jsonObj.put("PickupAddress", pickUpAddress);
+            jsonObj.put("NoOfDrivers", numberOfDriver);
+
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address1") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address2"));
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.city") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.state"));
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address1") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address2"));
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.city") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.state"));
+            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", numberOfDriver == 1 ? "SOLO" : "DUO");
+        } else {
+            logger.detail("Specify valid geofence");
+        }
+        Header header = new Header("AuthorizationToken", authToken);
+
+        String apiURL = UrlBuilder.createApiUrl("core", PICKUP_REQUEST);
+        Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return response;
+
+
+    }
     public Response pickupRequestPartnerFirm(String authToken, int numberOfDriver, String geoFence) {
         String RequestText ="API REQUEST : Pickpup Request of Partner Firm " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence;
 
@@ -328,6 +377,7 @@ public class CoreServices extends DriverBase {
 
     }
 
+
     public String getPickupRequest(String authToken, int numberOfDriver, String geoFence) {
         logger.detail("API REQUEST : Get Pickpup Request " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
         Response response = pickupRequest(authToken, numberOfDriver, geoFence);
@@ -336,7 +386,14 @@ public class CoreServices extends DriverBase {
         return jsonPathEvaluator.get("PickupRequestID");
 
     }
+    public String getPickupRequestWithZeroDistance(String authToken, int numberOfDriver, String geoFence) {
+        logger.detail("API REQUEST : Get Pickpup Request " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
+        Response response = pickupRequestWithZeroDistance(authToken, numberOfDriver, geoFence);
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        saveAppliedPromoCode(response);
+        return jsonPathEvaluator.get("PickupRequestID");
 
+    }
     public String getPickupRequestOfPartnerFirm(String authToken, int numberOfDriver, String geoFence) {
         logger.detail("API REQUEST : Get Pickpup Request Of Partner Firm" + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
         Response response = pickupRequestPartnerFirm(authToken, numberOfDriver, geoFence);
@@ -392,6 +449,7 @@ public class CoreServices extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "~$" +truncValue);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", "15 mins");
             int estimateTripDuration=jsonPathEvaluator.get("Estimate.TimePickupToDropOff");
+            logger.detail("estimateTripDuration "+ estimateTripDuration);
             Double estimateDuration=Double.valueOf(estimateTripDuration)/60000;
             Long estimateDurationWithLoadUnload=Math.round(estimateDuration)+15;
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME", "~"+Math.round(estimateDuration)+"  mins");

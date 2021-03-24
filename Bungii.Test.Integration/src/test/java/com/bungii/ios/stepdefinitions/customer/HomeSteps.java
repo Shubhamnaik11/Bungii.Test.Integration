@@ -489,7 +489,7 @@ public class HomeSteps extends DriverBase {
         }
     }
 
-    public void i_selectlogout() {
+    public void i_selectlogout() throws InterruptedException {
             goToAppMenu();
             clickAppMenu("LOGOUT");
     }
@@ -706,7 +706,7 @@ public class HomeSteps extends DriverBase {
      *
      * @param appMenuItem : Identifier for app menu
      */
-    public void clickAppMenu(String appMenuItem) {
+    public void clickAppMenu(String appMenuItem) throws InterruptedException {
         switch (appMenuItem.toUpperCase()) {
             case "HOME":
                 action.click(homePage.AppMenu_Home());
@@ -740,6 +740,7 @@ public class HomeSteps extends DriverBase {
             case "ACCOUNT > LOGOUT":
                 action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_LogOut());
+                Thread.sleep(5000);
                 break;
             default:
                 logger.error("Please specify valid application menu item");

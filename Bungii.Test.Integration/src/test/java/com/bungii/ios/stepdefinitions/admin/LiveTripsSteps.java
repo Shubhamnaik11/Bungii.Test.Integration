@@ -236,7 +236,7 @@ public class LiveTripsSteps extends DriverBase {
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in clicking "+ link,
                     true);
         }
     }
@@ -381,13 +381,17 @@ public class LiveTripsSteps extends DriverBase {
                     retryCount++;
                     SetupManager.getDriver().navigate().refresh();
                 }
-                cucumberContextManager.setScenarioContext("XPATH",XPath);
-                logger.detail("XPATH is"+XPath);
+                //cucumberContextManager.setScenarioContext("XPATH",XPath);
+                //logger.detail("XPATH is"+XPath);
+                String XPath2= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]/parent::tr/td[3]/a", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
+                cucumberContextManager.setScenarioContext("XPATH",XPath2);
+                logger.detail("XPATH is"+XPath2);
+
                 testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in vieweing status of the delivery in admin portal",
                     true);
         }
 

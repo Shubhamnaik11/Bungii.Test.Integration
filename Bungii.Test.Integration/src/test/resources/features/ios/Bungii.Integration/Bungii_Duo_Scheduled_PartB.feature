@@ -64,7 +64,7 @@ Feature: Solo Scheduled Bungii Part II
 
   @regression
     @failures
-  Scenario: Verify Control Driver Can Cancel Scheduled Duo Bungii From The App In The Enroute State
+  Scenario: Verify Control Driver Can Cancel Scheduled Duo Bungii From The App In The Enroute State - iOS Case
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
       | denver   | enroute      | NEXT_POSSIBLE | denver customer | denver driver 1 | denver driver 2 |

@@ -458,6 +458,7 @@ public class CommonSteps extends DriverBase {
                 case "OK":
                     if (screen.equalsIgnoreCase("BUNGII ACCEPTED"))
                         //bungiiAcceptedPage.clickOkButton();
+                        if(action.getScreenHeader(homePage.Text_NavigationBar()).equals("BUNGII ACCEPTED"))
                         bungiiAcceptedPage.Button_Ok().click();
                     else
                         action.click(driverNotAvailablePage.Button_OK());
@@ -498,7 +499,7 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in clicking button " +button + " on "+screen+" screen", true);
         }
     }
 
@@ -749,7 +750,6 @@ public class CommonSteps extends DriverBase {
                 takeActionOnPromotion("REJECT");
                 homeSteps.i_selectlogout();
             }
-
             else {
                 homeSteps.i_selectlogout();
 
@@ -1640,7 +1640,7 @@ public class CommonSteps extends DriverBase {
                 }
 
                 action.swipeDown();
-
+                logger.detail("SCHEDULED DELIVERY "+ "//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
                 WebElement Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
                 action.click(Image_SelectBungii);
             } else {
@@ -1669,10 +1669,11 @@ public class CommonSteps extends DriverBase {
                         Thread.sleep(1000);
                     }
                     if (Image_SelectBungii == null) {
-                        Thread.sleep(30000);
+                        //Thread.sleep(30000);
                         action.swipeDown();
                         Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath, true);
                     }
+                    logger.detail("SCHEDULED DELIVERY "+ "//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell");
                     action.click(Image_SelectBungii);
                 } else {
                     //If alert is present accept it , it will automatically select Bungii
@@ -1680,15 +1681,13 @@ public class CommonSteps extends DriverBase {
                 }
 
             }
-            log("I Select Trip from scheduled trip ",
-                    "I Selected Trip from scheduled trip", true);
+            log("I Select Trip from scheduled trips ",
+                    "I Selected Trip scheduled for "+tripTime+" from driver's scheduled trips", true);
 
         } catch (Exception e) {
             logger.error("Error performing  step" +  ExceptionUtils.getStackTrace(e));
-            e.printStackTrace();
-            //logger.error("Error performing step" + e.printStackTrace());
-
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+            error("Step  Should be successful", "Error in selecting delivery scheduled for "+ tripTime +" on app",
                     true);
         }
     }
@@ -2317,7 +2316,7 @@ public class CommonSteps extends DriverBase {
         //    phoneNumber="8888889907";
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String newTeletTime = dbUtility.getTELETfromDb(custRef);
-        testStepVerify.isTrue(!previousTelet.equalsIgnoreCase(newTeletTime),"TELET TIME SHOULD ot be equal");
+        testStepAssert.isTrue(!previousTelet.equalsIgnoreCase(newTeletTime),"TELET TIME should not be equal to old pickup TELET time", newTeletTime +" is different than old pickups TELET"+ previousTelet,newTeletTime +" is same as old pickups TELET"+ previousTelet);
         } catch (Throwable e) {
             logger.error("Error performing step" + e);
             error("Step  Should be successful",
@@ -2444,16 +2443,21 @@ public class CommonSteps extends DriverBase {
         String customerName=(String)cucumberContextManager.getScenarioContext("CUSTOMER");/*customerName="Testcustomertywd_appleZTDafc Stark";*/
         String ratingValue=(String)cucumberContextManager.getScenarioContext("RATING_VALUE");/*ratingValue="3";*/
         String tripDetailsLink=extractUrls(emailBody).get(0);
-        if(emailBody== "")
+        if(emailBody!= null) {
+            if (emailBody == "") {
+                testStepAssert.isFail("Email : " + emailSubject + " email is not received");
+            }
+        }
+        else
         {
-            testStepAssert.isFail("Email : "+ emailSubject + " is not received");
+            testStepAssert.isFail("Email : " + emailSubject + " email is not received");
         }
         String message = null;
         message = utility.getExpectedPoorRatingMail(driverName, customerName, ratingValue, tripDetailsLink);
         testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        error("Step  Should be successful", "Error in fetching poor rating email", true);
     }
     }
     /**

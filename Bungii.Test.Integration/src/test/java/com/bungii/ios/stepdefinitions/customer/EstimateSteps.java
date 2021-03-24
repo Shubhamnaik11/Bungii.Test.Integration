@@ -288,7 +288,7 @@ public class EstimateSteps extends DriverBase {
             //    selectBungiiTimeNow();
             strTime = "Now";
         } else if (time.equalsIgnoreCase("NEXT_POSSIBLE")) {
-            Date date = getNextScheduledBungiiTime();
+            Date date = getNextScheduledBungiiTimeForGeofence();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
             Thread.sleep(3000);
@@ -299,7 +299,7 @@ public class EstimateSteps extends DriverBase {
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
         }else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
-            Date date = getNextScheduledBungiiTime();
+            Date date = getNextScheduledBungiiTimeForGeofence();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
             //action.click(estimatePage.Row_TimeSelect());
@@ -392,7 +392,7 @@ public class EstimateSteps extends DriverBase {
             selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
 
         } else if (time.equals("<TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1>")) {
-            Date date = getNextScheduledBungiiTime();
+            Date date = getNextScheduledBungiiTimeForGeofence();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
             action.click(estimatePage.Row_TimeSelect());
@@ -874,10 +874,18 @@ public class EstimateSteps extends DriverBase {
             logger.detail("Requested Field Values : "+ details[0]+", "+ details[1]+", "+ details[2]+", "+ details[3]);
 
             cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", value);
+            String fieldValues = details[0]+", "+ details[1]+", "+ details[2]+", "+ details[3];
             if (!time.equals("")) {
                 String strTime = enterTime(time);
-                cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+                String[] redetails = getEstimateDetails();
+                cucumberContextManager.setScenarioContext("BUNGII_TIME", redetails[1]);
+                logger.detail("Requested Field Values : "+ redetails[1]);
+                fieldValues =  redetails[0]+", "+ redetails[1]+", "+ redetails[2]+", "+ redetails[3];
             }
+
+            log("I enter details on Estimate screen", "I was able to add "+ fieldValues+" on estimate screen", true);
+
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error in requesting delivery ",
@@ -1475,6 +1483,7 @@ public class EstimateSteps extends DriverBase {
      * Click request bungii
      */
     public void clickRequestBungii() {
+        action.swipeUP();
         action.swipeUP();
         action.click(estimatePage.Button_RequestBungii());
     }

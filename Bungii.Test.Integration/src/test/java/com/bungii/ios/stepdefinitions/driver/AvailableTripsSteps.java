@@ -54,6 +54,7 @@ public class AvailableTripsSteps extends DriverBase {
 	@Then("^I should able to see \"([^\"]*)\" available trip$")
 	public void i_should_able_to_see_something_available_trip(String strArg1) throws Throwable {
 		try {
+			Thread.sleep(5000);
 			List<WebElement> listOfBungii=availableTripsPage.Image_SelectBungiis();
 			switch (strArg1) {
 				case "two":

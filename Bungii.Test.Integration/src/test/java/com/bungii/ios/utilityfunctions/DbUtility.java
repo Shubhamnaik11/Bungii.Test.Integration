@@ -111,7 +111,7 @@ public class DbUtility extends DbContextManager {
             String queryString2 = "select DriverID from eligibletripdriver where pickupid IN (select PickupID from pickupdetails where pickupRef ='" + pickupRequest + "' )";
             boolean isDriverEligible =false;/* checkIfExpectedDataFromMySqlServer(queryString2,driverID);*/
 
-            for(int i=0;i<30 && !isDriverEligible;i++){
+            for(int i=0;i<8 && !isDriverEligible;i++){
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {

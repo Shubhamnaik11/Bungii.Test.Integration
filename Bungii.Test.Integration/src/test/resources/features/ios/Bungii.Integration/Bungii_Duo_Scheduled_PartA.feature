@@ -304,8 +304,8 @@ Feature: Solo Scheduled Bungii Part II
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Duo Scheduled Trip
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
-      | denver   | Accepted     | 0.75 hour ahead | denver customer | denver driver 1 | denver driver 2 |
-    Given that ondemand bungii is in progress
+      | denver   | Accepted     | 1 hour ahead | denver customer | denver driver 1 | denver driver 2 |
+    Given that ondemand bungii is in progress for the minimum distance chosen
       | geofence | Bungii State | Driver label | Trip Label |
       | denver   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices

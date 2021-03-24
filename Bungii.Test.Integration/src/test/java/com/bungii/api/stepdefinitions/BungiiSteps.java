@@ -13,8 +13,10 @@ import io.cucumber.datatable.DataTable;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.joda.time.DateTime;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -1103,6 +1105,112 @@ public class BungiiSteps extends DriverBase {
                 String teletTime=(String)cucumberContextManager.getScenarioContext("TELET");
                 cucumberContextManager.setScenarioContext("TELET_TYPE",bungiiTime);
                 coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, teletTime);
+            }
+            else if(bungiiTime.equalsIgnoreCase("7_DAY_LATER"))
+            {
+                coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, getSevenDaysLaterTime().toString());
+            }
+            else{
+                int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
+                cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START", wait);
+            }
+            cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME", System.currentTimeMillis() / 1000L);
+
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            pass("I should be able to request bungii ", "Requested " + bungiiType + " trip as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence +" Pickup Reference : "+ pickupRequest);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+    @When("^I request \"([^\"]*)\" Bungii as a customer in \"([^\"]*)\" geofence with minimum possible distance$")
+    public void i_request_something_bungii_as_a_customer_in_something_geofence_with_minimum_possible_distance(String bungiiType, String geofence, DataTable data) {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String customerLabel = "";
+            try {
+                customerLabel = dataMap.get("Customer label").trim();
+                logger.detail("customerLabel is specified as input" + customerLabel);
+            } catch (Exception e) {
+            }
+
+            String bungiiTime = dataMap.get("Bungii Time").trim();
+            String customer = dataMap.get("Customer Phone").trim();
+            String customerName = dataMap.get("Customer Name").trim();
+
+            cucumberContextManager.setScenarioContext("Bungii_Type",bungiiType);
+            String customerPasswordLabel = "";
+            try {
+                customerPasswordLabel = dataMap.get("Customer Password").trim();
+            } catch (Exception e) {
+            }
+
+            int numberOfDriver = bungiiType.trim().equalsIgnoreCase("duo") ? 2 : 1;
+            String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
+
+            custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");
+            if (custPhoneNum.equalsIgnoreCase("NEW_USER_NUMBER"))
+                custPhoneNum = (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
+
+            if (customerPasswordLabel.equals(""))
+                custPassword = PropertyUtility.getDataProperties("web.customer.password");
+            else
+                custPassword = customerPasswordLabel;
+
+/*            cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);*/
+
+
+            if (customerLabel.equalsIgnoreCase("")) {
+                cucumberContextManager.setScenarioContext("CUSTOMER", customerName);
+                cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+            } else {
+                cucumberContextManager.setScenarioContext("CUSTOMER" + customerLabel, customerName);
+                cucumberContextManager.setScenarioContext("CUSTOMER" + customerLabel + "_PHONE", custPhoneNum);
+            }
+            cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
+
+            cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
+            logger.detail("*** Requesting " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence + " ***");
+
+            //LOGIN
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+            String custRef = customerServices.getCustomerRef(custAccessToken);
+
+            //CUSTOMER& DRIVER VIEW
+            coreServices.customerView("", custAccessToken);
+            cucumberContextManager.setScenarioContext("CUSTOMER_TOKEN", custAccessToken);
+
+            //request Bungii
+            coreServices.validatePickupRequest(custAccessToken, geofence);
+            String pickupRequest = coreServices.getPickupRequestWithZeroDistance(custAccessToken, numberOfDriver, geofence);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
+            if (customerLabel.equalsIgnoreCase(""))
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+            else
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken, customerLabel);
+
+            if (bungiiType.equalsIgnoreCase("Solo Ondemand")) {
+                coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
+            }
+            else if(bungiiTime.equalsIgnoreCase("TELET SAME TIME")
+                    || bungiiTime.equalsIgnoreCase("TELET OVERLAP")){
+                String teletTime=(String)cucumberContextManager.getScenarioContext("TELET");
+                cucumberContextManager.setScenarioContext("TELET_TYPE",bungiiTime);
+                coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, teletTime);
+            }
+            else if(bungiiTime.equalsIgnoreCase("7_DAY_LATER"))
+            {
+                coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, getSevenDaysLaterTime().toString());
             }
             else{
                 int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
@@ -2490,6 +2598,224 @@ else
                     true);
         }
     }
+    @Given("that ondemand bungii is in progress for the minimum distance chosen")
+    public void thatOndemandBungiiIsInProgressForTheMinimumDistance(DataTable data) {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String geofence = dataMap.get("geofence").trim();
+            String state = dataMap.get("Bungii State").trim();
+            String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
+            String driverLabel = "", tripLabel = "";
+            try {
+                driverLabel = dataMap.get("Driver label").trim();
+                logger.detail("Label is  specified as input" + driverLabel);
+            } catch (Exception e) {
+            }
+            try {
+                tripLabel = dataMap.get("Trip Label").trim();
+                logger.detail("Label is  specified as input" + driverLabel);
+            } catch (Exception e) {
+            }
+
+
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+                if (geofence.equalsIgnoreCase("miami")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("miami.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("miami.customer.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("miami.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("miami.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("miami.driver.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("miami.customer.name"));
+                } else if (geofence.equalsIgnoreCase("nashville")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("nashville.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("nashville.customer.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("nashville.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("nashville.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                } else if (geofence.equalsIgnoreCase("Kansas")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("Kansas.customer.password");
+                    if (driverLabel.equalsIgnoreCase("Kansas 2")) {
+                        driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver2.phone");
+                        driverPassword = PropertyUtility.getDataProperties("Kansas.driver2.password");
+                    } else {
+                        driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver.phone");
+                        driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
+                    }
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer.name"));
+                }
+
+                else if (geofence.equalsIgnoreCase("denver")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("denver.customer.password");
+                    if (driverLabel.equalsIgnoreCase("driver 2")) {
+                        driverPhoneNum = PropertyUtility.getDataProperties("denver.driver2.phone");
+                        driverPassword = PropertyUtility.getDataProperties("denver.driver2.password");
+                    } else {
+                        driverPhoneNum = PropertyUtility.getDataProperties("denver.driver.phone");
+                        driverPassword = PropertyUtility.getDataProperties("denver.driver.password");
+                    }
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                } else {
+                    custPhoneNum = PropertyUtility.getDataProperties("customer.user");
+                    custPassword = PropertyUtility.getDataProperties("customer.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("ios.valid.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("ios.valid.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+                }
+            } else {
+                if (geofence.equals("boston")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("boston.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("boston.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("boston.customer.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("boston.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("boston.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("boston.driver.name"));
+                } else if (geofence.equals("baltimore")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("baltimore.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("baltimore.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("baltimore.customer.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("baltimore.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("baltimore.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("baltimore.driver.name"));
+                } else if (geofence.contains("atlanta")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("atlanta.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
+                    if (driverLabel.equalsIgnoreCase("far away atlanta driver")) {
+                        driverPhoneNum = PropertyUtility.getDataProperties("atlanta.far.away.driver.phone");
+                        driverPassword = PropertyUtility.getDataProperties("atlanta.far.away.driver.password");
+                        cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.far.away.driver.name"));
+                    } else {
+                        driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
+                        driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
+                        cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
+                    }
+                } else if (geofence.equals("goa")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("customer.user");
+                    custPassword = PropertyUtility.getDataProperties("customer.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("ios.valid.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("ios.valid.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+                } else if (geofence.equalsIgnoreCase("Kansas")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("Kansas.customer.password");
+                    if (driverLabel.equalsIgnoreCase("Kansas 2")) {
+                        driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver2.phone");
+                        driverPassword = PropertyUtility.getDataProperties("Kansas.driver2.password");
+                    } else {
+                        driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver.phone");
+                        driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
+                    }
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer.name"));
+                }
+                else if (geofence.equalsIgnoreCase("kansas1")) {
+                    geofence = "kansas";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("kansas.customer1.phone");
+                    custPassword = PropertyUtility.getDataProperties("kansas.customer1.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("kansas.customer1.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver2.phone");
+                    driverPassword = PropertyUtility.getDataProperties("Kansas.driver2.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver2.name"));
+                }
+                else if (geofence.equalsIgnoreCase("same")){
+                    geofence = "kansas";
+                    custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
+                    custPassword = PropertyUtility.getDataProperties("customer_generic.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver2.phone");
+                    driverPassword = PropertyUtility.getDataProperties("Kansas.driver2.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver2.name"));
+                }
+                else {
+                    custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
+                    custPassword = PropertyUtility.getDataProperties("customer_generic.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                }
+
+            }
+
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+            cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+            cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
+            cucumberContextManager.setScenarioContext("DRIVER_1_PUSH", driverPhoneNum);
+            //LOGIN
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+            String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+            //CUSTOMER& DRIVER VIEW
+            coreServices.customerView("", custAccessToken);
+            coreServices.driverView("", driverAccessToken);
+            try{ coreServices.getDriverScheduledPickupList(driverAccessToken);}catch (Exception e){}
+
+            //update location and driver status
+            coreServices.updateDriverLocation(driverAccessToken, geofence);
+            coreServices.updateDriverStatus(driverAccessToken);
+
+            //request Bungii
+            coreServices.validatePickupRequest(custAccessToken, geofence);
+            String pickupRequest = coreServices.getPickupRequestWithZeroDistance(custAccessToken, 1, geofence);
+            String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
+            //In case of having default promo code  "ADDED_PROMOCODE_WALLETREF" hold value of wallet ref, else return empty string
+            if (tripLabel.trim().equalsIgnoreCase(""))
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+            else
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken, tripLabel);
+            coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
+            Boolean isDriverEligibel = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
+            if (!isDriverEligibel)
+                //    error("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
+                logger.detail("Diver should be eligible for on demand trip", " Warning Message :  Driver ID is not in eligibleDriver list", false);
+
+            coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+            if (state.equalsIgnoreCase("Requested")) {
+                //Do nothing
+            }
+            else if (state.equalsIgnoreCase("Enroute")) {
+            } else if (state.equalsIgnoreCase("ARRIVED")) {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+            } else if (state.equalsIgnoreCase("LOADING ITEM")) {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+            } else if (state.equalsIgnoreCase("DRIVING TO DROP OFF")) {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+            } else if (state.equalsIgnoreCase("UNLOADING ITEM")) {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+            } else {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
+            }
+            pass("Given that the Solo Ondemand Bungii is in progress", "Solo schedule bungii [ "+pickupRequest+" ] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum );
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @Given("that ondemand bungii is in progress as a second delivery")
     public void thatOndemandBungiiIsInProgressSecondDelivery(DataTable data) {
         try {
@@ -3528,6 +3854,34 @@ else
             //}
 
         }
-    }
 
+
+    }
+    private String getSevenDaysLaterTime()
+    {
+        String[] rtnArray = new String[2];
+        int bufferTimeToStartTrip = 0;
+        Calendar calendar = Calendar.getInstance();
+        int mnts = calendar.get(Calendar.MINUTE);
+
+        calendar.set(Calendar.MINUTE, mnts+ 45); // Always choose 2nd possible slot to avoid issues with delay in requesting bungii
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 15;
+        calendar.add(Calendar.MINUTE, (15 - mod));
+        calendar.set(Calendar.SECOND, 0);
+        Date nextQuatter = calendar.getTime();
+        calendar.add(Calendar.DATE, 7);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = sdf.format(nextQuatter);
+
+        String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
+        rtnArray[0] = formattedDate+".000";
+        rtnArray[1] = wait;
+
+        logger.detail("TIME CALC BLOCK3 : "+  rtnArray[0]);
+        cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
+
+        return rtnArray[0];
+    }
 }

@@ -300,9 +300,14 @@ public class NotificationSteps extends DriverBase {
         testStepVerify.isEquals(jsonPathEvaluator.get("PickupDetails.Estimate.DistancePickupToDropOff")+ " miles",(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
         String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
         Double flestimate=Double.valueOf(estimate.replace("~$","").trim());
+         if(expectedTripNoOfDriver.toString()=="DUO")
+             flestimate =flestimate/2;
+
         Double transactionFee=(flestimate*0.029)+0.3;
         Double estimatedDriverCut=(0.7*flestimate)-transactionFee;
+
         String truncValue = new DecimalFormat("#.00").format(estimatedDriverCut);
+
         testStepVerify.isEquals(jsonPathEvaluator.get("PickupDetails.Estimate.DriverCost").toString(),String.valueOf(truncValue));
         String tripTime =(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME");
         if(tripTime.equalsIgnoreCase(""))
@@ -312,6 +317,7 @@ public class NotificationSteps extends DriverBase {
         // int actualTripTime = totalMinutes / 60;
 
         testStepVerify.isEquals("~"+String.valueOf(time)+" mins",tripTime.replace("  "," "));
+        logger.detail("Push notification Content : "+jsonPathEvaluator.get("PickupDetails"));
         break;
  }
 
@@ -354,7 +360,7 @@ public class NotificationSteps extends DriverBase {
                     Thread.sleep(15000);
                     Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID);
                     if (!isDriverEligible) {
-                        error("Diver should be eligible for stacked trip", "Driver " + driverPhoneNum + " is not eligible for stacked pickup : " + pickupRequestID, false);
+                        warning("Diver should be eligible for stacked trip", "Driver " + driverPhoneNum + " is not eligible for stacked pickup : " + pickupRequestID, false);
                         Thread.sleep(10000);
                     }
                     new CoreServices().stackedPickupConfirmation(pickupRequestID, driverAccessToken);
@@ -366,7 +372,7 @@ public class NotificationSteps extends DriverBase {
                     Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID);
                     new GeneralUtility().logDriverDeviceToken(driverPhoneNum);
                     if (!isDriverEligible)
-                        error("Diver should be eligible for trip", "Driver "+driverPhoneNum+" is not eligible for pickup : "+ pickupRequestID, false);
+                        warning("Diver should be eligible for trip", "Driver "+driverPhoneNum+" is not eligible for pickup : "+ pickupRequestID, false);
                     new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 21);
                    // if(expectedNotification.equalsIgnoreCase("on demand trip"))
                        // new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 23);
@@ -600,16 +606,16 @@ public class NotificationSteps extends DriverBase {
                 text = PropertyUtility.getMessage("driver.notification.scheduled");
                 //	$<Day>, $<MONTH> <$Date>
 
-                String schDate = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+                String schDateTime = ((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace("a.m.","AM").replace("p.m.","PM");
                 String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
 
-
+                String [] schDate = schDateTime.split("'");
                 //	DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyyy", Locale.ENGLISH);
-                DateFormat format = new SimpleDateFormat("MMM dd, HH:mm a zzz", Locale.ENGLISH);
+                DateFormat format = new SimpleDateFormat("MMM dd", Locale.ENGLISH);
                 try {
                     format.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
 
-                    Date date = format.parse(schDate);
+                    Date date = format.parse(schDate[0]);
                     Date currentDate = new Date();
                     //int year=currentDate.getYear()+1900;
                     date.setYear(currentDate.getYear());

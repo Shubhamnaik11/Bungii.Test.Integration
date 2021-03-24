@@ -212,22 +212,19 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I slide update button on "EN ROUTE" Screen
 	And I slide update button on "ARRIVED" Screen
 	
-	And I wait for "3" mins
+	And I wait for "2" mins
 	And I open Admin portal and navigate to "Live Deliveries" page
 	Then I should be able to see the respective bungii with the below status
 	  | Status        |
 	  | Loading Items |
 	When I view the trip details
-	When I switch to "ORIGINAL" instance
-	And I Switch to "customer" application on "same" devices
-	And I switch to "ADMIN" instance
 	And I click on "Manually End Bungii" link
 	And Enter the End Date and Time
 	And Click on "Calculate Cost" button
 	And Click on "Confirm" button
- #   And I view the Trips list on the admin portal
 	
 	When I switch to "ORIGINAL" instance
+	When I Switch to "customer" application on "same" devices
 	Then I should be navigated to "Bungii Complete" screen
 	And Bungii customer should see "correct details with promo" on Bungii completed page
 	When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -245,7 +242,6 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	
 	When I Switch to "customer" application on "same" devices
 	And I am on the "LOG IN" page
-#	And I logged in Customer application using  "valid miami" user
     And I logged in as "valid miami" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I close "Tutorial" if exist
@@ -277,14 +273,11 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	
 	And I request for bungii using Request Bungii Button
 	Then I click "Done" button on "Success" screen
+	When I Select "Home" from Customer App menu
+	Then I should be navigated to "Home" screen
 	
-	#When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-	#And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-	#When I click "View" on alert message
-	#Then I should be navigated to "BUNGII REQUEST" screen
-	#When I accept selected Bungii
-	#Then I should be navigated to "SCHEDULED BUNGII" screen
 	And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+	And I Switch to "driver" application on "same" devices
 	When I Select "SCHEDULED BUNGIIS" from driver App menu
 	Then I should be navigated to "SCHEDULED BUNGII" screen
 	
@@ -294,32 +287,24 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I slide update button on "EN ROUTE" Screen
 	And I slide update button on "ARRIVED" Screen
 	And I slide update button on "LOADING ITEM" Screen
+	When I Switch to "customer" application on "same" devices
 	
-	And I wait for "3" mins
+	And I wait for "2" mins
 	And I open Admin portal and navigate to "Live Deliveries" page
 	Then I should be able to see the respective bungii with the below status
 	  | Status             |
 	  | Driving To Dropoff |
 	When I view the trip details
-	
-	When I switch to "ORIGINAL" instance
-	And I open "customer" application on "same" devices
-	And I switch to "ADMIN" instance
 	And I click on "Manually End Bungii" link
 	And Enter the End Date and Time
 	And Click on "Calculate Cost" button
 	And Click on "Confirm" button
-  #  And I view the Trips list on the admin portal
 	
 	When I switch to "ORIGINAL" instance
+	When I Switch to "customer" application on "same" devices
 	Then I should be navigated to "Bungii Complete" screen
 	And Bungii customer should see "correct details with promo" on Bungii completed page
-	When I click "CLOSE BUTTON" button on "Bungii Complete" screen
-	Then I should be navigated to "Promotion" screen
-	When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-	Then I should be navigated to "Home" screen
 	
 	When I Switch to "driver" application on "same" devices
 	Then Bungii driver should see "correct details" on Bungii completed page
-	And I click "On To The Next One" button on "Bungii Completed" screen
 
