@@ -104,6 +104,7 @@ Feature: SoloScheduled Part C
     
   
   @ready
+  @debug
   Scenario: Verify error message on android When Customer has two Bungiis scheduled, and the 1 hour prior start time of second Bungii overlaps with the TELET of the first Bungii
     When that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -164,6 +165,7 @@ Feature: SoloScheduled Part C
     
   @ready
     #stable
+    @debug
   Scenario: Verify driver is able to view pickup note entered in Details when a Solo scheduled bungii is in progress
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
