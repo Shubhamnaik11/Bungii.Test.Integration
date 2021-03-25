@@ -1001,12 +1001,31 @@ Thread.sleep(5000);
         Boolean isClicked = false;
         List<WebElement> elements = driverHomePage.Button_NavigationBarText();
         for (WebElement element : elements) {
+            logger.detail("Menu : "+ element.getText());
             if (element.getText().equalsIgnoreCase(menuItem)) {
+                logger.detail("Clicked on menu : "+ element.getText());
                 action.click(element);
                 isClicked = true;
                 break;
             }
         }
+        logger.detail("Value of isClicked : "+ isClicked);
+        return isClicked;
+    }
+
+    public boolean clickDriverSubMenu(String menuItem) {
+        Boolean isClicked = false;
+        List<WebElement> elements = driverHomePage.Label_SubMenuText();
+        for (WebElement element : elements) {
+            logger.detail("Menu : "+ element.getText());
+            if (element.getText().equalsIgnoreCase(menuItem)) {
+                logger.detail("Clicked on menu : "+ element.getText());
+                action.click(element);
+                isClicked = true;
+                break;
+            }
+        }
+        logger.detail("Value of isClicked : "+ isClicked);
         return isClicked;
     }
 
@@ -1023,8 +1042,7 @@ Thread.sleep(5000);
 
     public void clickDriverSubMenuItem(String menuItem) throws InterruptedException {
         //action.click(driverHomePage.Button_NavigationBar());
-        Thread.sleep(3000);
-        boolean isClicked = clickDriverMenu(menuItem);
+        boolean isClicked = clickDriverSubMenu(menuItem);
 
         if (!isClicked) {
             action.scrollToBottom();

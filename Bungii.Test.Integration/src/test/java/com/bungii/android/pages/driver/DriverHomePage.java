@@ -16,6 +16,7 @@ public class DriverHomePage extends PageBase {
 
     public WebElement Button_NavigationBar () { return findElement("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]", LocatorType.XPath); }
     public List<WebElement> Button_NavigationBarText () { return findElements("//*[@resource-id='com.bungii.driver:id/design_menu_item_text']", LocatorType.XPath); }
+    public List<WebElement> Label_SubMenuText () { return findElements("//*[@resource-id='com.bungii.driver:id/layout_account_settings_tv_submenu']", LocatorType.XPath); }
 
 
 
