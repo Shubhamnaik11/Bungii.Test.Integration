@@ -104,6 +104,7 @@ Feature: SoloScheduled Part C
     
   
   @ready
+  @debug
   Scenario: Verify error message on android When Customer has two Bungiis scheduled, and the 1 hour prior start time of second Bungii overlaps with the TELET of the first Bungii
     When that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
