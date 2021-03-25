@@ -169,7 +169,53 @@ public class EstimateSteps extends DriverBase {
         }
 
     }
+    @When("^I try to confirm trip with following detail$")
+    public void itryEnterTripInformations(DataTable tripInformation) throws Throwable {
+        try {
+            Map<String, String> data = tripInformation.transpose().asMap(String.class, String.class);
+            String loadTime = data.get("LoadTime"), promoCode = data.get("PromoCode"), time = data.get("Time"),
+                    pickUpImage = data.get("PickUpImage");
+            //Vishal[21/12]: added this to save time , It takes time to read trip value from estimate page
+            boolean saveDetails = true;
+            try {
+                String save_trip_info = data.get("Save Trip Info");
+                saveDetails = save_trip_info.equalsIgnoreCase("No") ? false : true;
+            } catch (Exception e) {
+            }
+            boolean isCorrectTime = false;
+            String strTime = "";
 
+            enterLoadingTime(loadTime);
+            //  addPromoCode(promoCode);
+            addBungiiPickUpImage(pickUpImage);
+
+            action.swipeDown();
+            strTime = enterTime(time);
+
+            String[] details = new String[4];
+            if (saveDetails) {
+                details = getEstimateDetails();
+            }
+            action.swipeUP();
+            action.swipeUP();
+            clickAcceptTerms();
+            action.click(estimatePage.Button_RequestBungii());
+            // SAVE required values in scenario context
+            cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+            cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", details[0]);
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", details[2]);
+            cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
+
+
+            log("I try confirming trip with following details", "I tried requesting bungii ");
+            utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in trying to request delivery",
+                    true);
+        }
+
+    }
     @When("^I request for bungii using Request Bungii Button$")
     public void i_request_for_bungii_using_request_bungii_button() throws Throwable {
         clickRequestBungii();

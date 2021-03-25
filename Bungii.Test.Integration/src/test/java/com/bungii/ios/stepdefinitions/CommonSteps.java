@@ -2176,6 +2176,9 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "OUTSIDE BUISSNESS HOUR":
                     expectedText = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
+                    String alertText = SetupManager.getDriver().switchTo().alert().getText();
+                    if(alertText.contains("AM")||alertText.contains("PM"))
+                        expectedText = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android"); // fix to handle AM vs a.m.
                     break;
                 case "SCHEDULED ONLY 5 DAYS":
                     expectedText = PropertyUtility.getMessage("customer.alert.six.day.ahead");

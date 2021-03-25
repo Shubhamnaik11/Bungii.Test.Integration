@@ -355,10 +355,12 @@ public class ActionManager {
             if(Columns.size()==4) {
                 if (!Columns.get(3).getAttribute("value").equals(meridiem))
                     Columns.get(3).sendKeys(meridiem);
+                logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
+                        + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value") + " "
+                        + Columns.get(3).getAttribute("value"));
             }
             logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
-                    + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value") + " "
-                    + Columns.get(3).getAttribute("value"));
+                    + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value"));
         }
         else{
             logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "

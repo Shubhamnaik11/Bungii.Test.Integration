@@ -202,19 +202,18 @@ Feature: Solo Scheduled Bungii Part II
 
   @regression
     @failures
+    @testing
   Scenario: Verify Customer Cannot Schedule Bungii At Same Time As That Of Already Scheduled Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
-    #When I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
+
     Given I login as "valid denver" customer and on Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
     And I click "Get Estimate" button on "Home" screen
-   # Then I should be navigated to "Estimate" screen
-    And I confirm trip with following details
+    When I try to confirm trip with following detail
       | LoadTime | PromoCode | Payment Card | Time              | PickUpImage | Save Trip Info |
       | 30       |           |              | <OLD BUNGII TIME> | Default     | No             |
     Then user is alerted for "already scheduled bungii"
@@ -283,19 +282,11 @@ Feature: Solo Scheduled Bungii Part II
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    
-    Given I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
-    
     And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
-    
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
@@ -384,14 +375,13 @@ Feature: Solo Scheduled Bungii Part II
 
   @failures
   @regression
+    @testing
   Scenario:  Verify Customer Cannot Schedule Solo Bungii That Overlaps With Another Scheduled Trip TELET Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
 
     And I get TELET time of of the current trip
-    #And I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
     Given I login as "valid denver" customer and on Home page
 
     And I request for  bungii for given pickup and drop location
@@ -400,11 +390,12 @@ Feature: Solo Scheduled Bungii Part II
 
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-    When I confirm trip with following detail
+    When I try to confirm trip with following detail
       | LoadTime | PromoCode | Payment Card | Time                | PickUpImage | Save Trip Info |
       | 30       |           |              | <TIME WITHIN TELET> | Default     | No             |
     Then user is alerted for "already scheduled bungii"
     And I click "Cancel" button on "Estimate" screen
+    
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following detail
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |

@@ -2,7 +2,7 @@
 @scheduled
 @bungii
     # this will run in denver
-Feature: Solo Scheduled Bungii Part II
+Feature: DUO Scheduled Bungii Part B
   I want to use request Scheduling Bungii with Solo type
 
   Background:
