@@ -1001,12 +1001,15 @@ Thread.sleep(5000);
         Boolean isClicked = false;
         List<WebElement> elements = driverHomePage.Button_NavigationBarText();
         for (WebElement element : elements) {
+            logger.detail("Submenu : "+ element.getText());
             if (element.getText().equalsIgnoreCase(menuItem)) {
                 action.click(element);
+                logger.detail("Clicked on Submenu : "+ element.getText());
                 isClicked = true;
                 break;
             }
         }
+        logger.detail("Value of isClicked : "+ isClicked);
         return isClicked;
     }
 
