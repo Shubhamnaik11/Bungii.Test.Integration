@@ -202,6 +202,7 @@ Feature: Bungii Duo Scheduled
   
   
   @ready
+    @gs
   Scenario: STACK BUNGII: Long Stack : Verify Status Of Current Ondemand Bungii And Stacked pickup And Stack Request Alert Message And Decked Request
     ##############################
     Given I am on customer Log in page
@@ -230,23 +231,24 @@ Feature: Bungii Duo Scheduled
     When I Switch to "customer" application on "same" devices
     And I tap "OK on Driver Accepted screen" during a Bungii
     Then "Enroute screen" page should be opened
-    
+
+    And I connect to "extra1" using "customer2" instance
+    And I Open "customer" application on "same" devices
+    When I Switch to "customer" application on "customer2" devices
+    And I am logged in as "valid customer 2" customer
+
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
       | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-    
+
     And I Open "driver" application on "ORIGINAL" devices
     Then Bungii Driver "verify stack message" request
     And Bungii Driver "accepts stack message" request
     And I accept Alert message for "Alert: Display Stack trip after current trip"
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
-    
-    And I connect to "extra1" using "customer2" instance
-    And I Open "customer" application on "same" devices
+
     When I Switch to "customer" application on "customer2" devices
-    And I am logged in as "valid customer 2" customer
-    
    # When  I switch to "customer2" instance
     Then for a Bungii I should see "BUNGII ACCEPTED for Stack screen"
     When I tap "OK on Driver Accepted screen" during a Bungii
