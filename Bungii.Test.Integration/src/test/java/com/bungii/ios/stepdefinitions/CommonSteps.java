@@ -2490,7 +2490,8 @@ public class CommonSteps extends DriverBase {
     }
     @When("^I cancel Bungii as Admin$")
     public void i_cancel_bungii_as_admin() throws Throwable {
-        String custPhoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        try {
+            String custPhoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         String custPassword = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PASSWORD");
         custPassword = custPassword.equalsIgnoreCase("") ? "Cci12345" : custPassword;
 
@@ -2498,7 +2499,14 @@ public class CommonSteps extends DriverBase {
             String custAccessToken = authServices.getCustomerToken("1", custPhoneNum, custPassword);
             coreServices.cancelAllScheduledBungiis(custAccessToken);
         }
+        log("I cancel Bungii as Admin","I canceled Bungii as Admin" ,true );
+    } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error in canceling Bungii as admin ",
+                true);
     }
+}
+
 
     @And("^I open Admin portal and navigate to \"([^\"]*)\" page$")
     public void i_open_admin_portal_and_navigate_to_something_page(String option) throws Throwable {
