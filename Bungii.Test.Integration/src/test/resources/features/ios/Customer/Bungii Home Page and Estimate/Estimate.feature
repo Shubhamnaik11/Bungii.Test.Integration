@@ -8,7 +8,8 @@ Feature: Customer Estimate screen
   Background:
     Given I am on Customer logged in Home page
  
-  @ready
+  @regression
+    #stable
   Scenario: Verify If Customer Cancels Ondemand Bungii While It Is In Searching driver State Then He Is Navigated To Home Screen - Also Pickup And Dropoff Location Of Previous Trip Is Not Reset
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -164,6 +165,7 @@ Feature: Customer Estimate screen
 
 
   @regression
+	@testing1
   Scenario: Verify When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To SET PICKUP TIME Screen With Prefilled Date
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |

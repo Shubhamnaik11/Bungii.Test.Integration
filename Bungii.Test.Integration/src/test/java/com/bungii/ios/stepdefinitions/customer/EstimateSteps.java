@@ -200,12 +200,14 @@ public class EstimateSteps extends DriverBase {
             action.swipeUP();
             clickAcceptTerms();
             action.click(estimatePage.Button_RequestBungii());
+
             // SAVE required values in scenario context
             cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", details[0]);
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", details[2]);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
-
+            String actualText = getDriver().switchTo().alert().getText();
+            getDriver().switchTo().alert().accept();
 
             log("I try confirming trip with following details", "I tried requesting bungii ");
             utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));

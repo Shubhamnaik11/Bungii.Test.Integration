@@ -81,6 +81,7 @@ public class EnabledNotificationSteps extends DriverBase {
            // Thread.sleep(6000);
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
+                Thread.sleep(3000);
                 action.clickAlertButton("Always Allow");
                 //pageName = utility.getPageHeader();
             }

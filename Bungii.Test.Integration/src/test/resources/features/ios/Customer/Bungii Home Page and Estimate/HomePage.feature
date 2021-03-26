@@ -11,7 +11,8 @@ Feature: Customer Home screen
     When I click "Pick Up Clear Text" button on "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
 
-  @ready
+  @regression
+    #stable
   Scenario: Verify ETA And Location Textbox Header - Also Verify Clear Text Button Is Enabled Once Location Is Selected
     When I logged in Customer application using  "existing" user
 

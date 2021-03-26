@@ -46,8 +46,8 @@ Feature: Bungii Geofence Based Calculation
 	  And I select "Chicago" geofence
 	  And I click on the "Settings" Button on "Geofence" Screen
       And I get the value of "Minimum scheduled time for Duo trip"
-    #And I change the value of "Minimum scheduled time for Duo trip" to "45" minutes
-    #And I click on the "Save" Button on "GeofenceSettings" Screen
+      And I change the value of "Minimum scheduled time for Duo trip" to "30" minutes
+      And I click on the "Save" Button on "GeofenceSettings" Screen
 
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices

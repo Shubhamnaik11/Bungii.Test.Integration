@@ -170,14 +170,13 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should be navigated to "SCHEDULED BUNGII" screen
     
     Then I wait for "2" mins
-  
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-  
-    And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
-    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-    And Bungii must be removed from the List
+    When I cancel Bungii as Admin
+    #And I open Admin portal and navigate to "Scheduled Deliveries" page
+    #And I Cancel Bungii with following details
+    #  | Charge | Comments |
+    #  | 0      | TEST     |
+    #Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    #And Bungii must be removed from the List
 
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices

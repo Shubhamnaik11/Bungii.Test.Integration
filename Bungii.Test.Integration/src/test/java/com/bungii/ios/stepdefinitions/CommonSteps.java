@@ -1,6 +1,8 @@
 package com.bungii.ios.stepdefinitions;
 
 import com.bungii.SetupManager;
+import com.bungii.api.utilityFunctions.AuthServices;
+import com.bungii.api.utilityFunctions.CoreServices;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.AssertManager;
@@ -93,7 +95,8 @@ public class CommonSteps extends DriverBase {
     private BungiiDetails bungiiDetails = new BungiiDetails();
     private GeneralUtility utility = new GeneralUtility();
     private com.bungii.ios.pages.driver.HomePage driverhomepage;
-
+    AuthServices authServices = new AuthServices();
+    CoreServices coreServices = new CoreServices();
     public CommonSteps(com.bungii.ios.pages.driver.HomePage driverhomepage, DashBoardPage dashBoardPage, LogInPage logInPage, PromoCodePage promosCodePage, FaqPage faqPage, ScheduledBungiiPage scheduledBungiiPage, AccountPage accountPage,
                        PaymentPage paymentPage, SupportPage supportPage, PromosPage promosPage, EstimatePage estimatePage,
                        HomePage homePage, LoginPage loginPage, SignupPage signupPage,
@@ -456,10 +459,14 @@ public class CommonSteps extends DriverBase {
                     action.click(estimatePage.Button_RequestBungii());
                     break;
                 case "OK":
-                    if (screen.equalsIgnoreCase("BUNGII ACCEPTED"))
+                    if (screen.equalsIgnoreCase("BUNGII ACCEPTED")) {
                         //bungiiAcceptedPage.clickOkButton();
-                        if(action.getScreenHeader(homePage.Text_NavigationBar()).equals("BUNGII ACCEPTED"))
-                        bungiiAcceptedPage.Button_Ok().click();
+                        if (action.getScreenHeader(homePage.Text_NavigationBar()).equals("BUNGII ACCEPTED"))
+                            bungiiAcceptedPage.Button_Ok().click();
+                        if (screen.equalsIgnoreCase("ENROUTE")) {
+                            //Do nothing as  BUNGII ACCEPTED screen is not displayed and directly enrotue screen is displayed
+                        }
+                    }
                     else
                         action.click(driverNotAvailablePage.Button_OK());
                     break;
@@ -564,7 +571,7 @@ public class CommonSteps extends DriverBase {
             else
                 isCorrectPage = utility.verifyPageHeader(screen);
 
-            testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+            testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I should be navigated to " + screen, "I was not navigated to " + screen + " screen ");
 
         } catch (Throwable e) {
@@ -2480,6 +2487,17 @@ public class CommonSteps extends DriverBase {
         }
 
         return containedUrls;
+    }
+    @When("^I cancel Bungii as Admin$")
+    public void i_cancel_bungii_as_admin() throws Throwable {
+        String custPhoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        String custPassword = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PASSWORD");
+        custPassword = custPassword.equalsIgnoreCase("") ? "Cci12345" : custPassword;
+
+        if (!custPhoneNum.equalsIgnoreCase("")) {
+            String custAccessToken = authServices.getCustomerToken("1", custPhoneNum, custPassword);
+            coreServices.cancelAllScheduledBungiis(custAccessToken);
+        }
     }
 
     @And("^I open Admin portal and navigate to \"([^\"]*)\" page$")

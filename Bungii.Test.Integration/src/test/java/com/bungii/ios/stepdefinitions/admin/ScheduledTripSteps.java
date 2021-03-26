@@ -193,7 +193,7 @@ public class ScheduledTripSteps extends DriverBase {
 			formattedDate = bungiiTime.substring(0, 7)+" "+intYear+ bungiiTime.substring(7, 8)+hour+ bungiiTime.substring(11, 14) + ":00" + bungiiTime.substring(14, bungiiTime.length());
 		}
 		else*/
-		 formattedDate = bungiiTime.substring(0, 7)+" "+intYear+ bungiiTime.substring(7, 13) + ":00" + bungiiTime.substring(13, bungiiTime.length());
+		 formattedDate = bungiiTime.substring(0, 7)+" "+intYear+ bungiiTime.substring(7, 13) + ":00" ;//+ bungiiTime.substring(13, bungiiTime.length()); commented since some trips give GMT format
 
 		return formattedDate;
 	}
@@ -274,7 +274,7 @@ public class ScheduledTripSteps extends DriverBase {
 		//	String rowEstimatedDistance=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
 			String rowSrNumber=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[1]"));
 
-			if(rowCustName.equals(custName) &&scheduledDate.equalsIgnoreCase(rowSchduledTime)){
+			if(rowCustName.equals(custName) &&rowSchduledTime.contains(scheduledDate)){
 				rowNumber=Integer.parseInt(rowSrNumber);
 			}
 
