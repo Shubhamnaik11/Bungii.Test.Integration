@@ -202,7 +202,6 @@ Feature: Bungii Duo Scheduled
   
   
   @ready
-    @gs
   Scenario: STACK BUNGII: Long Stack : Verify Status Of Current Ondemand Bungii And Stacked pickup And Stack Request Alert Message And Decked Request
     ##############################
     Given I am on customer Log in page
