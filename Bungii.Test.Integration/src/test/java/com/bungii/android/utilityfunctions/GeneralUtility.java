@@ -1002,11 +1002,9 @@ Thread.sleep(5000);
         List<WebElement> elements = driverHomePage.Button_NavigationBarText();
         for (WebElement element : elements) {
             logger.detail("Menu : "+ element.getText());
-
             if (element.getText().equalsIgnoreCase(menuItem)) {
                 logger.detail("Clicked on menu : "+ element.getText());
                 action.click(element);
-                logger.detail("Clicked on Submenu : "+ element.getText());
                 isClicked = true;
                 break;
             }
