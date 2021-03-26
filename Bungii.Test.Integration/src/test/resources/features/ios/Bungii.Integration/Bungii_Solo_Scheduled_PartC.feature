@@ -31,7 +31,6 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE |                 |
 
   @regression
-    @failures
     #stable
   Scenario: Verify Validation Message Shown If Driver Tries To Start A Bungii More Than 60 Mins Before The Scheduled Time
     Given that solo schedule bungii is in progress
@@ -93,7 +92,7 @@ Feature: Solo Scheduled Bungii Part II
 
 
   @regression
-    @failures
+    #stable
   Scenario:  Verify If Control Driver Is Allowed To Complete The Trip And Proper Summary Detail Is Shown
     Given that duo schedule bungii is in progress
       | geofence | Bungii State    | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -158,8 +157,8 @@ Feature: Solo Scheduled Bungii Part II
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-  @ready
-  @failures
+  @regression
+  #stable
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting Solo Scheduled Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -287,8 +286,8 @@ Feature: Solo Scheduled Bungii Part II
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @failures
-  @ready
+  @regression
+    #stable
   Scenario: Verify Customer Can Request Cancel Scheduled Trip Via Admin SMS After 2 Hour (5 mins in QA Auto) Processing Is Over
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

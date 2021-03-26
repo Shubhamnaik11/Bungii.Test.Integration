@@ -115,7 +115,6 @@ Feature: DUO Scheduled Bungii Part A
     Then user is alerted for "OUTSIDE BUISSNESS HOUR"
   
   @regression
-  @failures
     #stable
   Scenario:  Verify Customer Can Schedule Duo Bungii Only 5 Days Ahead Including Current Date
 	Given I login as "valid denver" customer and on Home page
@@ -301,8 +300,8 @@ Feature: DUO Scheduled Bungii Part A
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @ready
-  @failures
+  @regression
+    #stable
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Duo Scheduled Trip
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |

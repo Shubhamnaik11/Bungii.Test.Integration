@@ -407,7 +407,6 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE | 8888889917      |
 
   @regression
-    @failures
 #stable
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has Bungii In Progress
     Given that solo schedule bungii is in progress

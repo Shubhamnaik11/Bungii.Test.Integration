@@ -42,7 +42,7 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @regression
-  @failures
+  #stable
   Scenario: Verify If Driver Receives More Than One Requests Then He Cant Accept The Bungii whos TELET time overlaps With Already accepted Solo Scheduled Bungiis
     Given I Switch to "customer" application on "same" devices
 
@@ -70,7 +70,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE | 8888889917      |
 
   @regression
-    @failures
+    #stable
   Scenario: Verify Driver Receives Alert Stating That The Trip Has Already Been Accepted By Him If He Receives Request Notification After Accepting The Trip From Available Trips
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -93,8 +93,7 @@ Feature: Solo Scheduled Bungii Part II
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @ready
-    @failures
+  @regression
   #stable
   Scenario: Verify Status Of Scheduled Bungii In The Scheduled Trip Page When Only One Driver Accepts It
 
@@ -120,8 +119,7 @@ Feature: Solo Scheduled Bungii Part II
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @ready
-    @failures
+  @regression
   #stable
   Scenario:Verify Details In The Bungii Details Screen When Required Number Of Drivers Accepts Trip
 

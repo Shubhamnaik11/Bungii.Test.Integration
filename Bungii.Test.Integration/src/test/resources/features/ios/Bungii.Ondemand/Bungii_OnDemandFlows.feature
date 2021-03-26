@@ -29,9 +29,10 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
-    
-  @ready
-    @failures
+  
+  @sanity
+  @regression
+    #stable
   Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Enroute State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -56,8 +57,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
  #   And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
-
-  @sanity
+  
   @ready
     @failures
   Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Arrived State
@@ -65,8 +65,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | geofence | Bungii State |
       | miami    | ARRIVED      |
   
-    When I Switch to "customer" application on "same" devices
-    #When I am on the "LOG IN" page
+    When I am on the "LOG IN" page
     When I logged in Customer application using  "valid miami" user
     Then Customer should be navigated to "ARRIVED" trip status screen
 

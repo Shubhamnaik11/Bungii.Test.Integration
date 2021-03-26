@@ -63,7 +63,7 @@ Feature: DUO Scheduled Bungii Part B
       | CUSTOMER1_PHONE |                 |
 
   @regression
-    @failures
+    #stable
   Scenario: Verify Control Driver Can Cancel Scheduled Duo Bungii From The App In The Enroute State - iOS Case
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -163,8 +163,8 @@ Feature: DUO Scheduled Bungii Part B
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
 
-  @ready
-  @failures
+  @regression
+  #stable
   Scenario: Verify Customer Can Cancel Duo Scheduled Bungii Through SMS To Admin If Required Number Of Drivers Have Accepted
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
@@ -253,7 +253,7 @@ Feature: DUO Scheduled Bungii Part B
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @regression
-    @failures
+    #stable
   Scenario: Verify If Customer Is Allowed To Rate Driver For Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -275,7 +275,7 @@ Feature: DUO Scheduled Bungii Part B
 
 #its scheduled time not initial request time
   @regression
-@failures
+ #stable
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Scheduled Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
