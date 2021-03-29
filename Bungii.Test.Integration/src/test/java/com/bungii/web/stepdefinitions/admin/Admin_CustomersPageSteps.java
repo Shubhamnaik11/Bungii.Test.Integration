@@ -15,6 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.Select;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_CustomersPageSteps extends DriverBase {
@@ -393,12 +394,21 @@ public class Admin_CustomersPageSteps extends DriverBase {
                 "Customer's updated phone is not listed in grid.");
     }
     @When("^I navigate to Customer List$")
-    public void i_navigate_to_customer_list() throws Throwable {
-        action.navigateTo(utility.GetAdminUrl().replace("Admin/Login","")+"/BungiiReports/Customers");
-        action.isElementPresent(admin_customerPage.TextBox_SearchCustomer());
-        Thread.sleep(5000);
-        log("I navigate to Customer List" ,
-                "I navigated to Customer List");
+    public void i_navigate_to_customer_list() {
+        try {
+            String url = utility.GetAdminUrl().replace("/Admin/Login", "") + "/BungiiReports/Customers";
+            action.navigateTo(url);
+            action.isElementPresent(admin_customerPage.TextBox_SearchCustomer());
+            Thread.sleep(5000);
+            log("I navigate to Customer List",
+                    "I navigated to Customer List");
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step" + ex);
+            error("Step  Should be successful",
+                    "Error in navigating to Customer List", true);
+        }
     }
 
     @When("^I edit \"([^\"]*)\" to \"([^\"]*)\" and Cancel on Comments popup$")

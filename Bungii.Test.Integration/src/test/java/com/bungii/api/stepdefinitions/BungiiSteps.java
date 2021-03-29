@@ -659,15 +659,13 @@ public class BungiiSteps extends DriverBase {
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
 
                         }
-                        if (driver2State.equalsIgnoreCase("Accepted")) {
-                            coreServices.pickupdetails(pickupRequest, driver2AccessToken, geofence);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
-                        }
+
                        boolean  waitedForMinTime = false;
                         if (driver1State.equalsIgnoreCase("Enroute")) {
                             //int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
                             int wait = Integer.parseInt((String)cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START"));
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+                            Thread.sleep(5000); //hardwait for driver2AccessToken to be non control driver
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
                             try {
@@ -677,6 +675,13 @@ public class BungiiSteps extends DriverBase {
                             }
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                        }
+                        if (driver2State.equalsIgnoreCase("Accepted")) {
+                            if (!driver1State.equalsIgnoreCase("Enroute")) {
+                                coreServices.pickupdetails(pickupRequest, driver2AccessToken, geofence);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+                            }
                         }
                         if (driver2State.equalsIgnoreCase("Enroute")) {
                             if (!driver1State.equalsIgnoreCase("Enroute")) {

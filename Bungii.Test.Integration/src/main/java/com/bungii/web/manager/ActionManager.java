@@ -181,7 +181,7 @@ public class ActionManager {
         }catch (StaleElementReferenceException ex){
             //Retry
             try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
                    element.click();
             }
             catch (Exception ex1) {

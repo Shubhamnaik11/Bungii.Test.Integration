@@ -1139,14 +1139,14 @@ public class CoreServices extends DriverBase {
                 String pickupRequest = (String) pickupDetails.get("PickupRef");
                 boolean CanBeCancelled = (boolean) pickupDetails.get("CanBeCancelled");
                 getScheduledPickupDetails(pickupRequest,authToken);
-                if(CanBeCancelled) {
+               /* if(CanBeCancelled) {
                     cancelBungiiAsCustomer(pickupRequest, authToken);
                     logger.detail("***Cancelled Pickup Request as Customer | Pickup Request : "+ pickupRequest+"***");
                 }
-                else {
+                else {*/
                     new WebPortal().cancelBungiiAsAdmin(pickupRequest);
                     logger.detail("***Cancelled Pickup Request as Admin | Pickup Request : "+ pickupRequest+"***");
-                }
+                //}
             }
         }
         else

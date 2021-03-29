@@ -79,17 +79,14 @@ Feature: DUO Scheduled Bungii Part A
       | 8888889917     |                 |
 
   @regression
-  @failures
-  Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Duo Scheduled Bungii
+  #stable
+  Scenario: Notification : Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Duo Scheduled Bungii
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I Select "MY BUNGIIS" from Customer App menu
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -175,7 +172,7 @@ Feature: DUO Scheduled Bungii Part A
   @regression
   @failures
     #stable
-	@testing
+	@testing1
   Scenario: TELET - Verify Customer Cannot Schedule Duo Bungii That Overlaps With Another Scheduled Trip TELET Time
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -196,34 +193,7 @@ Feature: DUO Scheduled Bungii Part A
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @failures
-    # SCHEDULED PICKUP ACCEPTED is not sent - Geneuine issue
-  #stable
-    @ready
-  Scenario:Verify If Customer Receives Notification After Admin Researches Drivers And Both Drivers Accept It
-    When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    Given I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    And I Select "Home" from Customer App menu
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-    Then I wait for "3" mins
-    When I Switch to "driver" application on "same" devices
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
 
-    And I verify status and researches Bungii with following details
-      | label                | Status of Trip      |
-      | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found |
-
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
-    And I view virtual notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
 
 #change login
   @failed
@@ -281,7 +251,8 @@ Feature: DUO Scheduled Bungii Part A
 
   @regression
     @failures
-  Scenario: Verify Customer Receives Notification When Control Driver Starts Duo Scheduled Bungii
+    @testing
+  Scenario: Notification : Verify Customer Receives Notification When Control Driver Starts Duo Scheduled Bungii
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
@@ -290,7 +261,6 @@ Feature: DUO Scheduled Bungii Part A
     And I click "Log In" button on "Log In" screen
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I Select "MY BUNGIIS" from Customer App menu
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -320,6 +290,39 @@ Feature: DUO Scheduled Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 9999993015      |
+  
+  
+  @failures
+  #stable
+    #Run at last as lot of wait time is required [15 mins]
+  Scenario: Notification : Verify If Customer Receives Notification After Admin Researches Drivers And Both Drivers Accept It
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    Given I am on the "LOG IN" page
+    Then I wait for "3" mins
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    Then I wait for "3" mins
+    And I Select "Home" from Customer App menu
+    Then I wait for "3" mins
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    
+    When I Switch to "driver" application on "same" devices
+    #Then I wait for "3" mins
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+    
+    And I verify status and researches Bungii with following details
+      | label                | Status of Trip      |
+      | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found |
+    
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    And I view virtual notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
 
 
 
