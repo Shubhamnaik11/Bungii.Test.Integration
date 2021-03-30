@@ -612,40 +612,7 @@ Feature: Scheduled DUO Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @failed
-  @ready
-  Scenario: Verify Non Control Driver Doesnt Receive Long Stack Request If Started Before The Control Driver Also Non Control Driver Cannot Cancel Bungii If Control Driver Has Not Started The Bungii [2 Devices]
-
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | goa      | Accepted     | 0.5 hour ahead | valid    | valid   | valid driver 2 |
-
-    And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid driver 2" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select delivery "1" from scheduled deliveries
- #   When I wait for Minimum duration for Bungii Start Time
-    And I start selected Bungii
-
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    And I should not get notification for "driver" for "stack trip"
-    And I Switch to "driver" application on "same" devices
-    And I click "Cancel" button on "update" screen
-    When I click "YES" on alert message
-    Then Alert message with TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED text should be displayed
-    Then Alert should have "cancel,proceed" button
-    When I click "Cancel" on alert message
-    Then I should be navigated to "EN ROUTE" screen
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-
+    
   @failed
   @ready
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground [2 Devices]
@@ -806,77 +773,6 @@ Feature: Scheduled DUO Bungii
 
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
-
-  @regression
-    #stable
-  Scenario: Verify Driver Doesnt Receive Short Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip [2 Devices]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State   |
-      | goa      | UNLOADING ITEM |
-
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
-    When I Switch to "customer" application on "same" devices
-    And I am on the "LOG IN" page
-    When I logged in Customer application using  "valid customer2" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    When I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location          | Drop Location  |
-      | Solo   | St mary paralytic centre | froggyland Goa |
-
-    And I click "Get Estimate" button on "Home" screen
-    And I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 15       |           |              | Now  | Default     |
-    Then I should be navigated to "SEARCHING" screen
-
-    When I Switch to "driver" application on "same" devices
-    When I verify that driver to pickup time is greater than 100 mins for second trip
-    And I should not get notification for "driver" for "stack trip"
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-
-  @regression
-    #stable
-  Scenario: Verify Driver Doesnt Receive Long Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip [2 Devices]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State |
-      | goa      | LOADING ITEM |
-
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
-    When I Switch to "customer" application on "same" devices
-    And I am on the "LOG IN" page
-    When I logged in Customer application using  "valid customer2" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    When I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location          | Drop Location  |
-      | Solo   | St mary paralytic centre | froggyland Goa |
-
-    And I click "Get Estimate" button on "Home" screen
-    And I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 15       |           |              | Now  | Default     |
-    Then I should be navigated to "SEARCHING" screen
-
-    When I Switch to "driver" application on "same" devices
-    When I verify that driver to pickup time is greater than 100 mins for second trip
-    And I should not get notification for "driver" for "stack trip"
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-	
 
   @FAILED2702
   @ready
