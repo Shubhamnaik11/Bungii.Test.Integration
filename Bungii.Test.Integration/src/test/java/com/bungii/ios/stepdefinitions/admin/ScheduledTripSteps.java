@@ -265,7 +265,7 @@ public class ScheduledTripSteps extends DriverBase {
 		String custName = tripDetails.get("CUSTOMER");
 		String scheduledDate= tripDetails.get("SCHEDULED_DATE"),estimatedDistance=tripDetails.get("BUNGII_DISTANCE");
 		//Temp fix 25022019
-		scheduledDate=scheduledDate.replace(":00 "," ").replace("GMT+5:30","IST");
+		scheduledDate=scheduledDate.replace(":00 "," ").replace(":00","").replace("GMT+5:30","IST").trim();
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){

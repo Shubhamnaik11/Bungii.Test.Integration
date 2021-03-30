@@ -2,7 +2,7 @@
 @scheduled
 @bungii
     # this will run in denver
-Feature: Solo Scheduled Bungii Part II
+Feature: Solo Scheduled Bungii Part A
   I want to use request Scheduling Bungii with Solo type
 
   Background:
@@ -201,8 +201,7 @@ Feature: Solo Scheduled Bungii Part II
     Then I should be navigated to "Home" screen
 
   @regression
-    @failures
-    @testing
+    #stable
   Scenario: Verify Customer Cannot Schedule Bungii At Same Time As That Of Already Scheduled Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -375,7 +374,7 @@ Feature: Solo Scheduled Bungii Part II
 
   @failures
   @regression
-    @testing
+    @testing1
   Scenario:  Verify Customer Cannot Schedule Solo Bungii That Overlaps With Another Scheduled Trip TELET Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
