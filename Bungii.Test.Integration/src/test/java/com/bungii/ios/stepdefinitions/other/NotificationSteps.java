@@ -495,9 +495,9 @@ public class NotificationSteps extends DriverBase {
             if(driverPhoneNum!= null) {
                 String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
                 if (pushNotificationContent == "") {
-                    if (new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID))
-                        if(!expectedNotification.contains("URGENT"))
-                        error("Diver should not be eligible for trip", "Driver " + driverPhoneNum + " is eligible for pickup : " + pickupRequestID, false);
+                   // if (new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID))
+                        //if(!expectedNotification.contains("URGENT"))
+                       // error("Diver should not be eligible for trip", "Driver " + driverPhoneNum + " is eligible for pickup : " + pickupRequestID, false);
                     testStepVerify.isTrue(true, "VIRTUAL PUSH NOTIFICATIONS NOT RECEIVED : notifications with text :" + getExpectedNotification(expectedNotification), "VIRTUAL PUSH NOTIFICATIONS RECEIVED : notifications with text :" + pushNotificationContent);
                 }
                 else {
