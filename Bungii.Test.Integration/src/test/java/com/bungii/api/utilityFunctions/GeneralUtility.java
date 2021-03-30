@@ -77,7 +77,7 @@ public class GeneralUtility {
        // calendar.add(Calendar.SECOND, 2);
         Date dateTime = calendar.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        sdf.setTimeZone(TimeZone.getTimeZone("GTM"));
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         String dateFormatted = sdf.format(dateTime);
         return dateFormatted;
     }

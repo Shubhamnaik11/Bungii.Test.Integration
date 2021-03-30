@@ -51,12 +51,20 @@ public class NotificationSteps extends DriverBase {
     public void i_view_virtual_notification_for_something_for_something(String app, String notificationType) throws Throwable {
 
         String notificationText = getExpectedNotification(notificationType);
-       String customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH") ;
-       String pickupRequestID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") ;
-       String pushNotificationContent = new DbUtility().getCustomerPushNotificationContent(customerPhone, pickupRequestID, notificationText);
-       testStepAssert.isTrue(pushNotificationContent.contains(notificationText),notificationText + " virtual notification should be received",notificationText + " virtual notification is received",notificationText + " virtual notification is not received");
+        String pickupRequestID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String pushNotificationContent ="";
+        switch (app.toUpperCase()) {
+            case "CUSTOMER":
+                String customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH");
+                 pushNotificationContent = new DbUtility().getCustomerPushNotificationContent(customerPhone, pickupRequestID, notificationText);
+                testStepAssert.isTrue(pushNotificationContent.contains(notificationText), notificationText + " virtual notification should be received", notificationText + " virtual notification is received", notificationText + " virtual notification is not received");
 
-
+            case "DRIVER":
+                String driverPhone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+                 pushNotificationContent = new DbUtility().getDriverPushNotificationContent(driverPhone, pickupRequestID, notificationText);
+                testStepAssert.isTrue(pushNotificationContent.contains(notificationText), notificationText + " virtual notification should be received", notificationText + " virtual notification is received", notificationText + " virtual notification is not received");
+                break;
+        }
 
     }
 
@@ -65,7 +73,8 @@ public class NotificationSteps extends DriverBase {
 
         Thread.sleep(10000);
         try {
-        i_view_virtual_notification_for_something_for_something( appName,  expectedNotification);
+                    i_view_virtual_notification_for_something_for_something(appName, expectedNotification);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

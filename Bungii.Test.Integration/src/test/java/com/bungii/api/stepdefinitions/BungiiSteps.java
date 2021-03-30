@@ -1904,7 +1904,7 @@ else
             }
             try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
             try{ coreServices.getDriverScheduledPickupList(driver2AccessToken);coreServices.driverView("",driver2AccessToken);}catch (Exception e){}
-
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest) ;
           //  coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
            // coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_2") + "(" + driver2PhoneNum + ")", driver2AccessToken, pickupRequest);
 
