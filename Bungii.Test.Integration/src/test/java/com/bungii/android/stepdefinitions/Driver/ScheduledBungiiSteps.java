@@ -130,7 +130,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 
     @When("^I wait for Minimum duration for Bungii Start Time$")
     public void i_wait_for_minimum_duration_for_bungii_start_time() {
-        try {
+        /*try {
             Date currentDate = new Date();
 
             String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
@@ -161,5 +161,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+        */
+        logger.detail("Temparory Commented since it is taking longer time.");
     }
 }
