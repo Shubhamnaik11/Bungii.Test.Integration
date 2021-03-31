@@ -17,7 +17,7 @@
         <ResultFolder>Results/${NameWithtimestamp}/</ResultFolder>
         <cucumber.version>3.0.2</cucumber.version>
         <testng.version>6.14.3</testng.version>
-        <surefire.maven.plugin.version>2.22.0</surefire.maven.plugin.version>
+        <surefire.maven.plugin.version>3.0.0-M5</surefire.maven.plugin.version>
         <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
         <!--<acceptance.test.parallel.count>5</acceptance.test.parallel.count> -->
         <cucumber.jvm.parallel.version>5.0.0</cucumber.jvm.parallel.version>
@@ -181,6 +181,11 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.12.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.browserstack</groupId>
+            <artifactId>browserstack-local-java</artifactId>
+            <version>1.0.3</version>
         </dependency>
     </dependencies>
 
