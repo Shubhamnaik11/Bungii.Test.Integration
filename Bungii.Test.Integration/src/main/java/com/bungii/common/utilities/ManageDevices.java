@@ -70,9 +70,9 @@ public class ManageDevices {
         String ClassName=System.getProperty("runner.class");
         String curentThreadNumber = ClassName.substring(2, 4);
        // System.out.println("***Thread Number : "+curentThreadNumber+" Available devices "+ManageDevices.readFile());
-        if(curentThreadNumber.equals("01")){
+        /*if(curentThreadNumber.equals("01")){
             ManageDevices.write(System.getProperty("ALL_DEVICES"));
-        }else {
+        }else*/ {
             try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
             if(ManageDevices.readFile().trim().equals("")) {
                 ManageDevices.write(System.getProperty("DEVICE"));
