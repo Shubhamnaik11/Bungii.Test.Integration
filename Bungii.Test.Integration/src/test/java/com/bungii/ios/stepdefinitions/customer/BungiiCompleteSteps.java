@@ -223,6 +223,7 @@ public class BungiiCompleteSteps extends DriverBase {
         String totalTime = action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()), totalDistance = action.getValueAttribute(bungiiCompletePage.Text_Distance());
         int tripActualTime = Integer.parseInt(utility.getActualTime());
         String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+        tripDistance= tripDistance.replace(" miles","");
         tripDistance = new DecimalFormat("#.00").format(tripDistance);
         if (tripActualTime == 1)
             testStepVerify.isTrue(totalTime.contains(tripActualTime + "  min") || totalTime.contains(tripActualTime + " min"), "Total time should contains" + tripActualTime + " minute");

@@ -878,7 +878,8 @@ public class CoreServices extends DriverBase {
 
     public void updateStatus(String pickupID, String authToken, int statusID) {
         try {
-            String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID;
+            String utcTime= utility.getCurrentUTCTime();
+            String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID +" at "+ utcTime;
 
             JSONObject jsonObj = new JSONObject();
             JSONObject status = new JSONObject();
@@ -886,7 +887,7 @@ public class CoreServices extends DriverBase {
             status.put("PickupId", pickupID);
             status.put("PickupStatusId", pickupID);
             status.put("synced", false);
-            status.put("StatusTimestamp", utility.getCurrentUTCTime());
+            status.put("StatusTimestamp", utcTime);
             status.put("Status", statusID);
             statusArray.put(status);
             jsonObj.put("Statuses", statusArray);
@@ -1155,6 +1156,7 @@ public class CoreServices extends DriverBase {
 
     }
     public void cancelOrCompleteOngoingBungii(String custAccessToken){
+        logger.detail("***Checking Ongoing Bungiis of Customer***");
         Response response= customerView("", custAccessToken);
 
 

@@ -237,5 +237,12 @@ public class DbUtility extends DbContextManager {
         return Payload;
 
     }
+    public static String getDriverPushNotificationContent(String driverPhoneNum, String pickupRef, String content)
+    {
+        String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+driverPhoneNum+"') and Payload Like '%"+pickupRef+"%'and Payload Like '%"+content+"%'";
+        String Payload = getDataFromMySqlServer(queryString2);
+        logger.detail("Query : "+ queryString2 +" | Payload : "+ Payload);
+        return Payload;
 
+    }
 }

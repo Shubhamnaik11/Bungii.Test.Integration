@@ -135,10 +135,13 @@ public class ScheduledBungiiSteps extends DriverBase {
 			justTime = justTime.replace("PST","").replace("PDT","");
 		if(justTime.contains("IST"))
 			justTime = justTime.replace("IST","");
+		if(justTime.contains("GMT"))
+			justTime = justTime.substring(0,12);
 
 		String browserStackTime = "//XCUIElementTypeStaticText[contains(@name,'"+gmtTime+"') or contains(@name,'" + bungiiTime + "') or contains(@name,'"+ justTime.trim()+"')]/parent::XCUIElementTypeCell";
 		//By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
 		WebElement Image_SelectBungii =null;
+		logger.detail("Trip xpath : "+ browserStackTime);
 		try {
 			//	WebElement Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
 			if (action.isElementPresent(scheduledBungiiPage.findElement(browserStackTime, PageBase.LocatorType.XPath, true)))
