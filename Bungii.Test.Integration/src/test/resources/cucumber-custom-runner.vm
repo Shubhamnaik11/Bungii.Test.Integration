@@ -102,9 +102,11 @@ public class $className extends AbstractTestNGCucumberTests {
                                  searchFreeDevice=false;
                              }
                          }
+                         if(searchFreeDevice==true)
                          try {Thread.sleep(20000);} catch (InterruptedException e) {e.printStackTrace();}
 
                      }while (searchFreeDevice);
+                     System.out.println("*** Starting Test for class "+ClassName);
                  }
              } else {
                  System.setProperty("DEVICE", device);
@@ -137,7 +139,9 @@ public class $className extends AbstractTestNGCucumberTests {
          PropertyUtility.environment=environment;
          PropertyUtility.targetPlatform=Platform;
          System.setProperty("remoteAdbHost",remoteAdbHost);
+         System.out.println("*** Start "+ClassName);
          this.hooks = new CucumberHooks();
+         System.out.println("*** End  "+ClassName);
 	}
 	
 
