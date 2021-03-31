@@ -177,11 +177,15 @@ public class PropertyUtility {
         String loginFileName = null;
         try {
             loginFileName = System.getProperty("LOGIN_FILE");
+            System.out.println("*** Login File Name 1 "+System.getProperty("LOGIN_FILE"));
+
         } catch (Exception e) {
             //do nothing
         }
         if (!(loginFileName == null)) {
             LOGIN_PROPERTY_FILE = LOGIN_PROPERTY_FOLDER.replace("{ENVT}",environment) + File.separator + loginFileName + ".properties";
+            System.out.println("*** Login File Name 2 "+LOGIN_PROPERTY_FILE);
+
         }
     }
 
