@@ -26,6 +26,7 @@ Feature: Customer	Referral Invite page
     And I click "Done" button on "Invite" screen
 
   @ready
+  @T1
   Scenario: Verify Customer Can Share Code Using Email
     When I Select "Home" from Customer App menu
     And I click "Invite referrals" button on "HOME" screen

@@ -92,6 +92,7 @@ Feature: Customer Home screen
     Then user is alerted for "CANCEL BUNGII"
 
   @regression
+  @T1
   Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance between Pickup And Dropoff Should Be >150 Miles)
     Given I am on Customer logged in Home page
 
