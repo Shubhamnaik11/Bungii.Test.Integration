@@ -650,12 +650,19 @@ public class GeneralUtility extends DriverBase {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
-                isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
-                if (!isCorrectPage) {
                     action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
                     isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
-                }
+                    if (!isCorrectPage) {
+                        if(expectedMessage.equalsIgnoreCase("BUNGII ACCEPTED") && action.getScreenHeader(driverHomePage.Text_NavigationBar()).equalsIgnoreCase("EN ROUTE"))
+                        {
+                            isCorrectPage= true;
+                            logger.detail("Bypassed BUNGII ACCEPTED screen and directly showing Enroute screen");
+                        }
+                        else {
+                            action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
+                            isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                        }
+                    }
         }
         return isCorrectPage;
     }
