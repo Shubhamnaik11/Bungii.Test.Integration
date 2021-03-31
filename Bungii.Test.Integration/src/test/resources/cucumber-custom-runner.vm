@@ -58,6 +58,7 @@ public class $className extends AbstractTestNGCucumberTests {
                      ManageDevices.write("");
                      System.setProperty("DEVICE", lstallDevice.split(",")[0]);
                  }else*/
+                 ManageDevices.write("");
                  boolean duoFirst = false;
                         if(category.equalsIgnoreCase("duo")){
                             if(curentThreadNumber.equals("01")){
