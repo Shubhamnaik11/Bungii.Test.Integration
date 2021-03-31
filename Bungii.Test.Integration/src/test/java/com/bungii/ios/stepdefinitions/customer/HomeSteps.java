@@ -729,6 +729,7 @@ public class HomeSteps extends DriverBase {
             case "SUPPORT":
                 action.click(homePage.AppMenu_Support());
                 break;
+            case "PROMOS":
             case "ACCOUNT > PROMOS":
                 action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_Promos());
