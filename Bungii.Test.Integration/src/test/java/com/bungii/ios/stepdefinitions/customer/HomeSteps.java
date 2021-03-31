@@ -714,6 +714,7 @@ public class HomeSteps extends DriverBase {
             case "FAQ":
                 action.click(homePage.AppMenu_FAQ());
                 break;
+            case "ACCOUNT INFO":
             case "ACCOUNT > ACCOUNT INFO":
                 action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_AccountInfo());
@@ -722,6 +723,7 @@ public class HomeSteps extends DriverBase {
             case "MY BUNGIIS":
                 action.click(homePage.AppMenu_MyBungiisTrip());
                 break;
+            case "PAYMENT":
             case "ACCOUNT > PAYMENT":
                 action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_Payment());
@@ -744,7 +746,7 @@ public class HomeSteps extends DriverBase {
                 Thread.sleep(5000);
                 break;
             default:
-                logger.error("Please specify valid application menu item");
+                logger.error("Please specify valid application menu item. You have specified : "+ appMenuItem);
                 break;
         }
     }
