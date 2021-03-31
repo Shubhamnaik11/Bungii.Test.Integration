@@ -133,7 +133,6 @@ public class $className extends AbstractTestNGCucumberTests {
                     System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_03");
                     break;
             }
-              System.out.println("*** Login File Name "+System.getProperty("LOGIN_FILE"));
          }
          System.setProperty("runner.class", ClassName);
          //this is to update values from config value
