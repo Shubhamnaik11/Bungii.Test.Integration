@@ -110,7 +110,7 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                     //  utility.launchDriverApplication();
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                     isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
                 case "CUSTOMER":
@@ -118,7 +118,7 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                     isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                     break;
                 default:
@@ -128,7 +128,7 @@ public class CommonSteps extends DriverBase {
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         }
-        try {
+       /* try {
             //if switch was unsucessfull, try to switch again
             if (!isApplicationIsInForeground) {
                 switch (appName.toUpperCase()) {
@@ -176,7 +176,7 @@ public class CommonSteps extends DriverBase {
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
-
+        */
     }
 
     //open app without restart

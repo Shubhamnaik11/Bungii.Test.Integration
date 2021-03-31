@@ -82,8 +82,8 @@ public class TermsAndConditionSteps extends DriverBase {
                 if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure(true)) ){
                     action.click(Page_CustTerms.Button_PermissionsSure());
                     action.click(Page_CustTerms.Button_PermissionsAllow());
+                    Thread.sleep(3000);
                 }
-                Thread.sleep(3000);
             if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure(true)) ){
                 action.click(Page_CustTerms.Button_PermissionsSure());
                 action.click(Page_CustTerms.Button_PermissionsAllow());
@@ -106,8 +106,9 @@ public class TermsAndConditionSteps extends DriverBase {
     @Then("^I close \"([^\"]*)\" if exist$")
     public void i_close_tutorial_page(String Tutorial) throws Throwable {
         try {
+            Thread.sleep(2000);
             if(action.isElementPresent(homePage.Button_Closetutorials(true))) {
-                List<WebElement> xpath = homePage.Button_PdfPages();
+                /*List<WebElement> xpath = homePage.Button_PdfPages();
                 int xpathCount = xpath.size();
                 boolean isClicked = false, isSwiped = false;
                 for (WebElement tutorialPage : xpath) {
@@ -119,6 +120,7 @@ public class TermsAndConditionSteps extends DriverBase {
                     action.swipeLeft(homePage.Text_TutorialPdf());
                     isSwiped = true;
                 }
+                */
                     action.click(homePage.Button_Closetutorials());
             }
 
