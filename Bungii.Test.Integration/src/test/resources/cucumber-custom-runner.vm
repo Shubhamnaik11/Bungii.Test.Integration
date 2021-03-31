@@ -52,12 +52,7 @@ public class $className extends AbstractTestNGCucumberTests {
          if (Platform.equalsIgnoreCase("ios") || Platform.equalsIgnoreCase("android")) {
              //if mutiple devices are pass from maven then get class number and use that device for running that class
              if (lstallDevice.split(",").length > 1) {
-
                  String curentThreadNumber = ClassName.substring(2, 4);
-                /* if(curentThreadNumber.equals("01")){
-                     ManageDevices.write("");
-                     System.setProperty("DEVICE", lstallDevice.split(",")[0]);
-                 }else*/
                  boolean duoFirst = false, soloFirst = false;
                 if(curentThreadNumber.equals("01")){
                  if(category.equalsIgnoreCase("duo")){
@@ -67,13 +62,11 @@ public class $className extends AbstractTestNGCucumberTests {
                     duoFirst = true;
                  }
                  else{
-                             ManageDevices.write(lstallDevice.split(",")[1]);
-                              System.setProperty("DEVICE", lstallDevice.split(",")[0]);
-                             System.out.println("*** Found device for class : "+ClassName+ " | Device: "+ lstallDevice.split(",")[0]);
-                             soloFirst = true;
-
-                             }
-
+                     ManageDevices.write(lstallDevice.split(",")[1]);
+                     System.setProperty("DEVICE", lstallDevice.split(",")[0]);
+                     System.out.println("*** Found device for class : "+ClassName+ " | Device: "+ lstallDevice.split(",")[0]);
+                      soloFirst = true;
+                     }
                   }
                          if(curentThreadNumber.equals("02")){
                             try {Thread.sleep((5000));} catch (InterruptedException e) {e.printStackTrace();}
