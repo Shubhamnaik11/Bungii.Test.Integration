@@ -147,72 +147,6 @@ Feature: On Demand Bungii
     #And Customer should receive "Your Bungii Receipt" email
 
   @regression
-  Scenario Outline: Verify Customer Can Create An Ondemand Bungii With Promocode - Case:<Scenario>
-    Given I Switch to "customer" application on "same" devices
-    When I am on customer Log in page
-    And I am logged in as "<User>" customer
-
-    And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid baltimore" driver
-    And I tap on "Go Online button" on Driver Home page
-    And I Switch to "customer" application on "same" devices
-
-    And I tap on "Menu" > "HOME" link
-    And I enter "baltimore pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add loading/unloading time of "30 mins"
-    And I tap on "Promo Code" on Bungii estimate
-    And I add "<Promo Code>" PromoCode
-    And I tap "Add" on Save Money page
-    And I tap on "desired Promo Code" on Bungii estimate
-    And I get Bungii details on Bungii Estimate
-    Then I should see "all elements" on Bungii estimate
-    When I add "1" photos to the Bungii
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    Then for a Bungii I should see "Bungii search screen"
-
-    When I Open "driver" application on "same" devices
-    And Bungii Driver "accepts On Demand Bungii" request
-    Then Bungii driver should see "Enroute screen"
-
-    When I Switch to "customer" application on "same" devices
-    And I tap "OK on Driver Accepted screen" during a Bungii
-    Then for a Bungii I should see "Enroute screen"
-
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Arrived screen"
-    And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Loading Item screen"
-    And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Driving to DropOff screen"
-    And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Unloading Item screen"
-    And Bungii Driver "slides to the next state"
-
-    When I Switch to "customer" application on "same" devices
-    Then Bungii customer should see "correct details with promo" on Bungii completed page
-    When I tap on "OK on complete" on Bungii estimate
-    And I tap on "No free money" on Bungii estimate
-    And I Switch to "driver" application on "same" devices
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on the "Bungii Completed" screen
-
-    And I wait for "2" mins
-    And I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "trips" from admin sidebar
-    And I select trip from trips
-    Then On admin trip details page "<Expected value in admin>" should be displayed
-    Examples:
-      | Scenario            | Promo Code    | User            |Expected value in admin |
-      | Promo fixed         | valid         | valid baltimore |promo                   |
-      | Promo percentage    | valid percent | valid baltimore |promo                   |
-      | valid one off fixed | valid one off | valid baltimore |oneoff                  |
-
-  @regression
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With First Time Promocode
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
@@ -692,5 +626,70 @@ Feature: On Demand Bungii
     Then poor driver ratting should be sent to customer
     And I Switch to "customer" application on "same" devices
     And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
-  
+
+  @regression
+  Scenario Outline: Verify Customer Can Create An Ondemand Bungii With Promocode - Case:<Scenario>
+    Given I Switch to "customer" application on "same" devices
+    When I am on customer Log in page
+    And I am logged in as "<User>" customer
+
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid baltimore" driver
+    And I tap on "Go Online button" on Driver Home page
+    And I Switch to "customer" application on "same" devices
+
+    And I tap on "Menu" > "HOME" link
+    And I enter "baltimore pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add loading/unloading time of "30 mins"
+    And I tap on "Promo Code" on Bungii estimate
+    And I add "<Promo Code>" PromoCode
+    And I tap "Add" on Save Money page
+    And I tap on "desired Promo Code" on Bungii estimate
+    And I get Bungii details on Bungii Estimate
+    Then I should see "all elements" on Bungii estimate
+    When I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then for a Bungii I should see "Bungii search screen"
+
+    When I Open "driver" application on "same" devices
+    And Bungii Driver "accepts On Demand Bungii" request
+    Then Bungii driver should see "Enroute screen"
+
+    When I Switch to "customer" application on "same" devices
+    And I tap "OK on Driver Accepted screen" during a Bungii
+    Then for a Bungii I should see "Enroute screen"
+
+    When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Arrived screen"
+    And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Loading Item screen"
+    And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Driving to DropOff screen"
+    And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Unloading Item screen"
+    And Bungii Driver "slides to the next state"
+
+    When I Switch to "customer" application on "same" devices
+    Then Bungii customer should see "correct details with promo" on Bungii completed page
+    When I tap on "OK on complete" on Bungii estimate
+    And I tap on "No free money" on Bungii estimate
+    And I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on the "Bungii Completed" screen
+
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "trips" from admin sidebar
+    And I select trip from trips
+    Then On admin trip details page "<Expected value in admin>" should be displayed
+    Examples:
+      | Scenario            | Promo Code    | User            |Expected value in admin |
+      | Promo fixed         | valid         | valid baltimore |promo                   |
+      | Promo percentage    | valid percent | valid baltimore |promo                   |
+      | valid one off fixed | valid one off | valid baltimore |oneoff                  |
 
