@@ -233,50 +233,7 @@ Feature: SoloScheduled Part E
       | 8805368840     |                 |
   
   
-  @regression
-    #stable
-  Scenario: Verify Driver Doesnt Receive Scheduled Trip Request If His Home Is Over 30 Mins Away From Pickup Location
-    When I clear all notification
-    When I Switch to "customer" application on "same" devices
-    And I login as customer "8805368840" and is on Home Page
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881019 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I Switch to "customer" application on "same" devices
-    
-    And I enter "kansas pickup and dropoff locations greater than 30mins" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    Then I should be navigated to "Estimate" screen
-    And I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "next possible scheduled"
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I check if the customer is on success screen
-    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
-    And I Switch to "customer" application on "same" devices
-    When  I am on customer Log in page
-    And I enter customers "8805368840" Phone Number
-    And I enter customers "valid" Password
-    And I tap on the "Log in" Button on Login screen
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I tap on "Menu" > "MY BUNGIIS" link
-    Then Bungii must be removed from "MY BUNGIIS" screen
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 8805368840 |                 |
-    
-      #@regression
+  #@regression
   @ready
     @ad1
   Scenario: Verify Validation Message Is Shown If Driver Tries To Start Bungii More Than 60 Mins Before The Scheduled Time
@@ -449,6 +406,48 @@ Feature: SoloScheduled Part E
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details for duo trip" on Bungii completed page
     And I click "On To The Next One" button on the "Bungii Completed" screen
-  
+
+  @regression
+    #stable
+  Scenario: Verify Driver Doesnt Receive Scheduled Trip Request If His Home Is Over 30 Mins Away From Pickup Location
+    When I clear all notification
+    When I Switch to "customer" application on "same" devices
+    And I login as customer "8805368840" and is on Home Page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :8888881019 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I Switch to "customer" application on "same" devices
+
+    And I enter "kansas pickup and dropoff locations greater than 30mins" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then I should be navigated to "Estimate" screen
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I select Bungii Time as "next possible scheduled"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
+    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+    And I Switch to "customer" application on "same" devices
+    When  I am on customer Log in page
+    And I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "MY BUNGIIS" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |                 |
 
  

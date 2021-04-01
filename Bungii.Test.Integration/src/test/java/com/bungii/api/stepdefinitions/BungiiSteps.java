@@ -2324,6 +2324,8 @@ else
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 60);
             else if (scheduleTime.equalsIgnoreCase("2 hour ahead"))
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 120);
+            else if (scheduleTime.equalsIgnoreCase("3 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 180);
             else if (scheduleTime.equalsIgnoreCase("0.75 hour ahead"))
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 45);
             else if (scheduleTime.equalsIgnoreCase("0.5 hour ahead"))
