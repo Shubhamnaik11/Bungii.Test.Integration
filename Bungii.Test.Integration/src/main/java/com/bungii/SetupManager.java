@@ -58,6 +58,7 @@ public class SetupManager extends EventFiringWebDriver {
     private static String BrowserStackLocal;
     private static String browserStackOSVersion;
 
+
     static {
         TARGET_PLATFORM = PropertyUtility.getProp("target.platform");
         logger.detail("PLATFORM : " + TARGET_PLATFORM);
@@ -209,10 +210,17 @@ public class SetupManager extends EventFiringWebDriver {
      * @return Appium server url
      */
     public static String getAppiumServerURL(String portNumber) {
+       // String browserlocal ="false";
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost") || APPIUM_SERVER_IP.equals("") || APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP = "127.0.0.1";
-      // return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
-       return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
+
+        if(!APPIUM_SERVER_IP.equalsIgnoreCase("127.0.0.1")){
+            return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
+        }
+        else {
+            return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
+        }
+       //return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
     }
 
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber) {
@@ -361,7 +369,7 @@ public class SetupManager extends EventFiringWebDriver {
     public static DesiredCapabilities getCapabilities(String deviceId) {
         String deviceInfoFileKey = "";
         String phoneDetails ="";
-        String browserlocal ="";
+        String browserlocal ="false";
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS"))
             deviceInfoFileKey = "ios.capabilities.file";
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
@@ -409,15 +417,17 @@ public class SetupManager extends EventFiringWebDriver {
             }
         }
 
-        if(TARGET_PLATFORM.equalsIgnoreCase("IOS")){
-            capabilities.setCapability("app", PropertyUtility.getDataProperties("ios.primary.app.key"));
-            String[] Arrary = new String[]{PropertyUtility.getDataProperties("ios.secondary.app.key")};
-            capabilities.setCapability("otherApps", Arrary );
+        if(browserlocal.equalsIgnoreCase("true")) {
+            if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
+                capabilities.setCapability("app", PropertyUtility.getDataProperties("ios.primary.app.key"));
+                String[] Arrary = new String[]{PropertyUtility.getDataProperties("ios.secondary.app.key")};
+                capabilities.setCapability("otherApps", Arrary);
 
-        }else if(TARGET_PLATFORM.equalsIgnoreCase("ANDROID")){
-            capabilities.setCapability("app", PropertyUtility.getDataProperties("android.primary.app.key"));
-            String[] Arrary = new String[]{PropertyUtility.getDataProperties("android.secondary.app.key")};
-            capabilities.setCapability("otherApps", Arrary );
+            } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
+                capabilities.setCapability("app", PropertyUtility.getDataProperties("android.primary.app.key"));
+                String[] Arrary = new String[]{PropertyUtility.getDataProperties("android.secondary.app.key")};
+                capabilities.setCapability("otherApps", Arrary);
+            }
         }
 
         if (!System.getProperty("remoteAdbHost").trim().equals("") && TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())) {
