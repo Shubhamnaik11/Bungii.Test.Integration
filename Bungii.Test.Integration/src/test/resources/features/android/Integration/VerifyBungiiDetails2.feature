@@ -60,7 +60,7 @@ Feature: Bungii Details
     And I save the Bungii Time
     And that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time    |
-      | goa   | Scheduled       | 1.5 hour ahead |
+      | goa   | Accepted       | 3 hour ahead |
     And I wait for "2" mins
     When I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
@@ -81,9 +81,10 @@ Feature: Bungii Details
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time     |
       | goa      | Accepted     | 0.5 hour ahead  |
+    And I save the Bungii Time
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time     |
-      | goa      | Accepted     | 2 hour ahead  |
+      | goa      | Accepted     | 3 hour ahead  |
     And I wait for "2" mins
     When I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
@@ -91,7 +92,8 @@ Feature: Bungii Details
     And I Select "Scheduled Trip" from admin sidebar
     And I open the trip for "Testcustomertywd_appleand_F Android" customer
     And I Select "Edit Trip Details" option
-    And I change the "1.5 hour ahead" to future time
+    #And I change the "3 hour ahead" to future time
+    And I change the "particular trip time" to future time
     And I click on "VERIFY" button
     Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
     And I cancel all bungiis of customer
