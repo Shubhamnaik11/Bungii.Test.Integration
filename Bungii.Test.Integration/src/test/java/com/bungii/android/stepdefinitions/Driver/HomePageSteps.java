@@ -305,7 +305,7 @@ public class HomePageSteps extends DriverBase {
             toHour = toHour.startsWith("0") ? toHour.substring(1) : toHour;
             String tohour1=((strArg2.split(" ")[0]).split(":")[1]).trim();
             String tohour2=(strArg2.split(" ")[1]).trim();
-            log("Updated setting of" + strArg0 + " , to " + strArg1 + "-" + strArg2, " update trip settings", true);
+            log("Updated setting of" + strArg0 + " , to " + strArg1 + "-" + strArg2, "Updated settings of" + strArg0 + " , to " + strArg1 + "-" + strArg2, true);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

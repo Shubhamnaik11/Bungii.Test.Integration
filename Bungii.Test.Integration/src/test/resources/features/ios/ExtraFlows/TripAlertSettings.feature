@@ -1,11 +1,11 @@
 @ios
-@scheduled
     # this will run in denver
 Feature: Trip Alert Settings
   I want to use request Scheduling Bungii with Solo type
   
 	  #Always Last scenario from this feature file since it changes settings for the driver
-	  @ready
+	  @regression
+		@testing
 	  Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of Time That Is Set In Trip Alert Settings
 	  When I Switch to "driver" application on "same" devices
 	  And I am on the "LOG IN" page on driverApp
@@ -13,6 +13,7 @@ Feature: Trip Alert Settings
 		And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 		When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
 	  And I update denvers driver todays trip alert setting to outside current time
+		
 	  When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
 	  | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |

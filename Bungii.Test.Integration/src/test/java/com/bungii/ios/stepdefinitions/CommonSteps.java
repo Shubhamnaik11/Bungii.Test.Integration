@@ -2452,7 +2452,8 @@ public class CommonSteps extends DriverBase {
         String driverName=(String) cucumberContextManager.getScenarioContext("DRIVER_1");/*driverName="Testdrivertywd_appledv_b_matt Stark_dvOnE";*/
         String customerName=(String)cucumberContextManager.getScenarioContext("CUSTOMER");/*customerName="Testcustomertywd_appleZTDafc Stark";*/
         String ratingValue=(String)cucumberContextManager.getScenarioContext("RATING_VALUE");/*ratingValue="3";*/
-        String tripDetailsLink=extractUrls(emailBody).get(0);
+            List<String> tripDetailsLinks=extractUrls(emailBody);
+            String tripDetailsLink=tripDetailsLinks.size()>=1?tripDetailsLinks.get(0):"";
         if(emailBody!= null) {
             if (emailBody == "") {
                 testStepAssert.isFail("Email : " + emailSubject + " email is not received");

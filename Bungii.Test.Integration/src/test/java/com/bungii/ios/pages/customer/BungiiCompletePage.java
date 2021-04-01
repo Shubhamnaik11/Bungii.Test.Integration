@@ -70,7 +70,11 @@ public class BungiiCompletePage extends PageBase {
 	public WebElement Text_TabStarToRate() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Tap a star to rate your driver.'", LocatorType.Predicate); }
 	public WebElement Text_Rate1Driver() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Tap a star to rate your driver.'", LocatorType.Predicate); }
 	public WebElement Text_DriversoloName() {return findElements("//XCUIElementTypeImage/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath).get(0); }
+	public WebElement Button_Solo1Star() {return findElements("//XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath).get(0); }
+	public WebElement Button_Solo2Star() {return findElements("//XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath).get(1); }
 	public WebElement Button_Solo3Star() {return findElements("//XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath).get(2); }
+	public WebElement Button_Solo4Star() {return findElements("//XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath).get(3); }
+	public WebElement Button_Solo5Star() {return findElements("//XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath).get(4); }
 
 
 	public List<WebElement> Button_DriverSoloFilled() {return findElements("//XCUIElementTypeButton[@name=\"rating filled star icon\"]", LocatorType.XPath); }

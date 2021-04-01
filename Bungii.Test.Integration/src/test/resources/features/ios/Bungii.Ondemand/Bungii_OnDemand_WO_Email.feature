@@ -23,6 +23,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence(Without Email)
     And I am logged in as "valid nashville" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
+    Then I should be navigated to "Bungii Completed" screen
+    When I click "On To The Next One" button on "Bungii Completed" screen
     
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
@@ -31,5 +33,3 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence(Without Email)
     Then "3" stars should be highlighted for solo Driver1
     When I click "OK" button on "BUNGII COMPLETE" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-    #Email check step has been removed since actaul email is not received on QA_Auto
-    #Then poor driver ratting should be sent to customer

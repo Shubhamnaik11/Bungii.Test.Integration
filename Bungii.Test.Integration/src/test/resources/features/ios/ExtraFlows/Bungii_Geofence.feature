@@ -16,8 +16,8 @@ Feature: Bungii Geofence Based Calculation
 	And I select "Chicago" geofence
 	And I click on the "Settings" Button on "Geofence" Screen
 	And I get the value of "Minimum scheduled time for Solo trip"
-	#And I change the value of "Minimum scheduled time for Solo trip" to "30" minutes
-    #And I click on the "Save" Button on "GeofenceSettings" Screen
+	And I change the value of "Minimum scheduled time for Solo trip" to "30" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
 
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
@@ -32,7 +32,7 @@ Feature: Bungii Geofence Based Calculation
     And I select pickup time
     Then correct next available scheduled time should be displayed
     
-  @ready
+  @regression
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Duo Is Selected By Customer
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid chicago" user

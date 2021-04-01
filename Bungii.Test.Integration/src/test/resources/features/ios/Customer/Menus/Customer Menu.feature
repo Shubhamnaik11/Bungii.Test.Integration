@@ -66,14 +66,13 @@ Feature: Customer	Menu
     Then I should see "first answer dropdown close" on FAQ page
  #   And I should see "social media links" on FAQ page
   @regression
-    @T1
   Scenario: Verify Get More Money Link Redirects To Invite Screen
     When I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I click "GET MORE MONEY" button on "PROMOS" screen
     Then I should be navigated to "Invite" screen
 
-  @ready
+  @regression
   Scenario: Verify Save Money Button Redirects To Invite Screen
     When I Select "MY BUNGIIS" from Customer App menu
     When I click "SAVE MONEY" button on "MY BUNGIIS" screen

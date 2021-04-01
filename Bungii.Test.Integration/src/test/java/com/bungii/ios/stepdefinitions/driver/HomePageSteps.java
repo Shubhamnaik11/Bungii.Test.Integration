@@ -566,7 +566,7 @@ public class HomePageSteps extends DriverBase {
            // action.sendKeys(tripAlertSettingsPage.Scroll_Marid(), (strArg2.split(" ")[1]).trim());
             action.click(tripAlertSettingsPage.Button_Done());
             action.click(tripAlertSettingsPage.Button_Save());
-            log("Updated setting of" + strArg0 + " , to " + strArg1 + "-" + strArg2, " update trip settings", true);
+            log("Updated setting of" + strArg0 + " , to " + strArg1 + "-" + strArg2, "Updated settings of " + strArg0 + " , to " + strArg1 + "-" + strArg2, true);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -585,15 +585,17 @@ public class HomePageSteps extends DriverBase {
         String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
         Calendar calendar = Calendar.getInstance();
         //current time plus 60 mins
-        calendar.add(Calendar.MINUTE, +60);
+        calendar.add(Calendar.MINUTE, -2);
         DateFormat formatter = new SimpleDateFormat("hh:mm aa");
         formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
         String strdate = formatter.format(calendar.getTime());
+        calendar.add(Calendar.MINUTE, -1);
+        String enddate = formatter.format(calendar.getTime());
         SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
         simpleDateformat.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
 
         String dayOfWeek=simpleDateformat.format(calendar.getTime());
-        i_update_sms_setting_of_sunday_to_something_to_something(dayOfWeek,strdate,"11:59 PM");
+        i_update_sms_setting_of_sunday_to_something_to_something(dayOfWeek,strdate,enddate);
         Thread.sleep(5000);
     }
 

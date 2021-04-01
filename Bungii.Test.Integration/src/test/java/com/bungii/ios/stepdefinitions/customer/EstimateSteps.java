@@ -1100,6 +1100,9 @@ public class EstimateSteps extends DriverBase {
             action.click(estimatePage.Button_Set());
            // action.click(estimatePage.Text_TimeValue());
             String time=action.getValueAttribute(estimatePage.Text_TimeValue());
+            Date date = getNextScheduledBungiiTimeForGeofence();
+            String strTime = bungiiTimeDisplayInTextArea(date);
+            cucumberContextManager.setScenarioContext("CALCULATED_TIME",strTime);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -1112,11 +1115,13 @@ public class EstimateSteps extends DriverBase {
         try {
 
             String displayedTime = getElementValue("TIME");
-            Date date = getNextScheduledBungiiTimeForGeofence();
-            String strTime = bungiiTimeDisplayInTextArea(date);
+            //Date date = getNextScheduledBungiiTimeForGeofence();
+            String strTime =(String)cucumberContextManager.getScenarioContext("CALCULATED_TIME");
 
             if(BrowserStackLocal().equalsIgnoreCase("true")) {
-                strTime = strTime.replace("am","a.m.").replace("pm","p.m.").replace("AM","a.m.").replace("PM","p.m.");
+                if(displayedTime.contains("a.m.")||displayedTime.contains("p.m.")) {
+                    strTime = strTime.replace("am", "a.m.").replace("pm", "p.m.").replace("AM", "a.m.").replace("PM", "p.m.");
+                }
                 strTime = utility.getGmtTime(strTime);
               testStepVerify.isEquals(displayedTime, strTime);
             }
