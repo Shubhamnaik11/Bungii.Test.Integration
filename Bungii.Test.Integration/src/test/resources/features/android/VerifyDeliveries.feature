@@ -199,31 +199,6 @@ Feature: Delivery Details
       | 8888889916      | 8805368840      |
 
   @regression
-  Scenario: Verify Driver Can Reject Ondemand Bungii Request
-    Given I am on customer Log in page
-    When I am logged in as "valid boston" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid boston" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I tap on "Go Online button" on Driver Home page
-    And I Switch to "customer" application on "same" devices
-    And I enter "boston pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add "2" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    
-    And I Open "driver" application on "same" devices
-    And Bungii Driver "rejects On Demand Bungii" request
-    Then Bungii driver should see "Home screen"
-  
-  
-  
-  @regression
   Scenario: TELET : Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Case:DUO
     #trip 1
     Given I request "duo" Bungii as a customer in "kansas" geofence
@@ -394,3 +369,26 @@ Feature: Delivery Details
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
+
+  @regression
+  Scenario: Verify Driver Can Reject Ondemand Bungii Request
+    Given I am on customer Log in page
+    When I am logged in as "valid boston" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid boston" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I tap on "Go Online button" on Driver Home page
+    And I Switch to "customer" application on "same" devices
+    And I enter "boston pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "2" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+
+    And I Open "driver" application on "same" devices
+    And Bungii Driver "rejects On Demand Bungii" request
+    Then Bungii driver should see "Home screen"
