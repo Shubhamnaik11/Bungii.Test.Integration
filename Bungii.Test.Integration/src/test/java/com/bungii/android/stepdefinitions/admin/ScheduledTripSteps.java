@@ -948,12 +948,21 @@ public class ScheduledTripSteps extends DriverBase {
 
 			case "particular trip time":
 				newTime = (String)cucumberContextManager.getScenarioContext("OLD_BUNGII_TIME");
+				Date d1=new SimpleDateFormat("hh:mm aa").parse(newTime);
+				Calendar c = Calendar.getInstance();
+				c.setTime(d1);
+				c.add(Calendar.HOUR,1);
+				Date d2 = c.getTime();
+
+				SimpleDateFormat formatter1 = new SimpleDateFormat("hh:mm aa");
+				newTime = formatter1.format(d2);
 				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
 				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
 				action.click(selectTime);
 				break;
 			case "1.5 hour ahead":
+			case "3 hour ahead":
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
 				String firstTime = scheduledTripsPage.Time_FirstAvailable().getText();
 				selectTime = scheduledTripsPage.Time_FirstAvailable().findElement(By.xpath("//following::li[3]"));
@@ -1046,7 +1055,7 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_save_the_bungii_time() throws Throwable {
 		try{
 		String time=(String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-		String saveTime= time.substring(8,13);
+		String saveTime= time.substring(8,16);
 		cucumberContextManager.setScenarioContext("OLD_BUNGII_TIME", saveTime);
 		}catch (Throwable e) {
 			logger.error("Error performing step" + e);
