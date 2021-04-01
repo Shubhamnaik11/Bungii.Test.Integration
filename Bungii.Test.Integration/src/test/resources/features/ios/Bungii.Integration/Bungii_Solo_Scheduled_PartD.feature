@@ -200,11 +200,7 @@ Feature: Solo Scheduled Bungii Part II
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
       | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
-
-    #And I click on notification for "Driver" for "stack trip"
-    #When I click "View" on alert message
-    #When I click "ACCEPT" button on "Bungii Request" screen
-    #When I click "OK" on alert message
+    
     And I view and accept virtual notification for "Driver" for "stack trip"
 
     And I get TELET time of currrent trip of customer 2

@@ -8,26 +8,6 @@ Feature: Solo Scheduled Bungii Part I
   Background:
 	#When I clear all notification
 	When I Switch to "customer" application on "same" devices
-  
-  @regression
-	@failures
-    # negative scenario is handle in long haul message scenario . In this scenario verify trip >140 but less than 150 go through
-  Scenario: Verify Trip limit (150 miles) For Solo Scheduled Bungii
-    #When I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
-	Given I login as "valid miami 2" customer and on Home page
-	And I enter pickup location
-	  | Driver | Pickup Location |
-	  | Solo   | Margao Railway Overbridge  |
-	And I enter drop location
-	  | Driver | Drop Location       |
-	  | Solo   | Devghali Beach road |
-	And I click "Get Estimate" button on "Home" screen
-	Then I should be navigated to "Estimate" screen
-	Then I cancel all bungiis of customer
-	  | Customer Phone | Customer2 Phone |
-	  | 8888889917     |                 |
-	
 	
 @failures
 @ready
@@ -66,18 +46,13 @@ And I should be navigated to "Estimate" screen
 Then I save bungii trip time details
 And I request for bungii using Request Bungii Button
 Then I click "Done" button on "Success" screen
+  When I Select "Home" from Customer App menu
+  Then I should be navigated to "Home" screen
   
   And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
   When I Select "SCHEDULED BUNGIIS" from driver App menu
   Then I should be navigated to "SCHEDULED BUNGII" screen
   
-  #When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-#And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-#When I click "View" on alert message
-#Then I should be navigated to "BUNGII REQUEST" screen
-#When I accept selected Bungii
-#Then I should be navigated to "SCHEDULED BUNGII" screen
-
 And I Select Trip from scheduled trip
 And I start selected Bungii
 Then I should be navigated to "EN ROUTE" screen
@@ -85,6 +60,7 @@ And I slide update button on "EN ROUTE" Screen
 And I slide update button on "ARRIVED" Screen
 And I slide update button on "LOADING ITEM" Screen
 And I slide update button on "DRIVING TO DROP OFF" Screen
+  When I Switch to "customer" application on "same" devices
 
 And I wait for "3" mins
   And I open Admin portal and navigate to "Live Deliveries" page
@@ -100,10 +76,11 @@ And I click on "Manually End Bungii" link
 And Enter the End Date and Time
 And Click on "Calculate Cost" button
 And Click on "Confirm" button
-  #  And I view the Trips list on the admin portal
 
 When I switch to "ORIGINAL" instance
-Then I should be navigated to "Bungii Complete" screen
+  When I Switch to "customer" application on "same" devices
+  
+  Then I should be navigated to "Bungii Complete" screen
 And Bungii customer should see "correct details with promo" on Bungii completed page
 When I click "CLOSE BUTTON" button on "Bungii Complete" screen
 Then I should be navigated to "Promotion" screen
@@ -201,6 +178,8 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	Then I save bungii trip time details
 	And I request for bungii using Request Bungii Button
 	Then I click "Done" button on "Success" screen
+	When I Select "Home" from Customer App menu
+	Then I should be navigated to "Home" screen
 	
 	And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
 	When I Select "SCHEDULED BUNGIIS" from driver App menu
@@ -212,6 +191,7 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	And I slide update button on "EN ROUTE" Screen
 	And I slide update button on "ARRIVED" Screen
 	
+	When I Switch to "customer" application on "same" devices
 	And I wait for "2" mins
 	And I open Admin portal and navigate to "Live Deliveries" page
 	Then I should be able to see the respective bungii with the below status

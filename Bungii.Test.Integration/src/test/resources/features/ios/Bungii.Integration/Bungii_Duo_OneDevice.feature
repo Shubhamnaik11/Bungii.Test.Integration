@@ -330,7 +330,6 @@ Feature: Scheduled Bungii on one device
   
   @regression
     #stable
-	@testing
   Scenario: Verify Driver Doesnt Receive Long Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip [1 Device]
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State |
@@ -391,21 +390,7 @@ Feature: Scheduled Bungii on one device
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then I Cancel selected Bungii
-   
-  
-   # Then I should be navigated to "BUNGII ACCEPTED" screen
-   # When I click "CANCEL BUNGII" on bungii accepted screen
-   # Then I see "Alert: Bungii cancel confirmation" on bungii accepted screen
-   # When I click "Dismiss on Alert message" on bungii accepted screen
-  #  Then I should be navigated to "BUNGII ACCEPTED" screen
-  # When I click "CANCEL BUNGII" on bungii accepted screen
- #   When I click "Cantact Support on Alert message" on bungii accepted screen
-  # And correct details should be displayed to customer for "customer support-SMS"
-    
-  #  When I click "CANCEL BUNGII" on bungii accepted screen
-  #  When I click "CANCEL BUNGII on Alert message" on bungii accepted screen
-  #  Then I see "Alert: Bungii cancel sucessfully" on bungii accepted screen
-  #  When I click "OK" on alert message
+	
     
     Then I should be navigated to "HOME" screen
     

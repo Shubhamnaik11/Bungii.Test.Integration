@@ -222,6 +222,8 @@ Feature: Solo Scheduled Bungii Part II
     Then I should be navigated to "VERIFICATION" screen
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Then I should be navigated to "Home" screen
     When I Select "PAYMENT" from Customer App menu
     When I click "ADD" button on "PAYMENT" screen
@@ -288,6 +290,7 @@ Feature: Solo Scheduled Bungii Part II
 
   @regression
     #stable
+	@testing1
   Scenario: Verify Customer Can Request Cancel Scheduled Trip Via Admin SMS After 2 Hour (5 mins in QA Auto) Processing Is Over
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

@@ -1472,7 +1472,7 @@ public class EstimateSteps extends DriverBase {
         } else if (option.equalsIgnoreCase("No image")) {
             addImage(0);
         } else if (option.equalsIgnoreCase("large image")) {
-            addLargeImage();
+            addImage(1);
         } else
             addImage(1);
 

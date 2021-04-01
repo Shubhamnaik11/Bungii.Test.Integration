@@ -81,7 +81,7 @@ public class BungiiCompleteSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in comparing values shown on Bungii completed page",
                     true);
         }
     }
@@ -225,7 +225,8 @@ public class BungiiCompleteSteps extends DriverBase {
         String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
         tripDistance= tripDistance.replace(" miles","").trim();
         logger.detail("Distance : "+tripDistance);
-        tripDistance = new DecimalFormat("#.00").format(tripDistance);
+        Double value = Double.valueOf(tripDistance);
+        tripDistance = new DecimalFormat("#.00").format(value);
         if (tripActualTime == 1)
             testStepVerify.isTrue(totalTime.contains(tripActualTime + "  min") || totalTime.contains(tripActualTime + " min"), "Total time should contains" + tripActualTime + " minute");
         else

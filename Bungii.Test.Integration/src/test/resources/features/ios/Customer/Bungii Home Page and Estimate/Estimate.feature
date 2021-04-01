@@ -7,7 +7,17 @@ Feature: Customer Estimate screen
   
   Background:
     Given I am on Customer logged in Home page
- 
+  
+  @regression
+     #stable
+  Scenario: Verify Trip limit [150 miles] For Solo Bungii
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+  
+    
   @regression
     #stable
   Scenario: Verify If Customer Cancels Ondemand Bungii While It Is In Searching driver State Then He Is Navigated To Home Screen - Also Pickup And Dropoff Location Of Previous Trip Is Not Reset

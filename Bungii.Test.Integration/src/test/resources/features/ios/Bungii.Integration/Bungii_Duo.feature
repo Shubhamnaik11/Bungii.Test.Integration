@@ -281,32 +281,12 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "ARRIVED" screen
-
-    When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "LOADING ITEM" screen
-
-    When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-
-    When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii Completed" screen
@@ -322,32 +302,12 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
-
-    When I Switch to "customer" application on "Customer2" devices
-    Then I should be navigated to "ARRIVED" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" screen
-
-    When I Switch to "customer" application on "Customer2" devices
-    Then I should be navigated to "LOADING ITEM" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" screen
-
-    When I Switch to "customer" application on "Customer2" devices
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "customer" application on "Customer2" devices
-    Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii Completed" screen
@@ -427,32 +387,12 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
-
-    When I Switch to "customer" application on "Customer2" devices
-    Then I should be navigated to "ARRIVED" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" screen
-
-    When I Switch to "customer" application on "Customer2" devices
-    Then I should be navigated to "LOADING ITEM" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" screen
-
-    When I Switch to "customer" application on "Customer2" devices
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "customer" application on "Customer2" devices
-    Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii Completed" screen
