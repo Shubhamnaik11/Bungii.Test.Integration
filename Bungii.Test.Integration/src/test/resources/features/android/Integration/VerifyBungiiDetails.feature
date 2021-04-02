@@ -319,8 +319,7 @@
 
 #need to rework for deliveries details and club them in single case
  @ready
-    Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned
-              to another scheduled trip at same time
+    Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip at same time
       
       When I request "duo" Bungii as a customer in "goa" geofence
         | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -461,8 +460,7 @@
 
 #need to rework for deliveries details and club them in single case
  @ready
-      Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned
-      to another scheduled trip at same time
+      Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip at same time
        
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |

@@ -1,5 +1,5 @@
     @android
-    @bungii
+      #Let this feature run with non critical features
     #These feature will run in Goa geofence
     Feature: Admin God Mode Feature
   # Customer  Testcustomertywd_appleand_A Android - 9393939393
@@ -192,6 +192,7 @@
   
       @ready
         #web
+        @test
       Scenario: Verify if admin can update date_time for a solo trip for which no driver has accepted
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time  |
@@ -200,6 +201,7 @@
         When I open new "Chrome" browser for "ADMIN"
         And I navigate to admin portal
         And I log in to admin portal
+        Then I wait for "2" mins
         And I Select "Scheduled Trip" from admin sidebar
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
@@ -214,9 +216,81 @@
         And I Select "Scheduled Trip" from admin sidebar
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         When I Select "Research Driver" option
+        When I close "Edit Trip Details" popup
+        And I wait for "2" mins
+  
+        And I Select "Scheduled Trip" from admin sidebar
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
         Then I verify that time change is saved
     
         Then I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
-        
+  
+      @regression
+        #web
+      Scenario: Verify the DUO trip started by non controller driver and controller driver is removed and new driver is added to the same trip
+        When I request "duo" Bungii as a customer in "goa" geofence
+          | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
+          | TELET SAME TIME  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+        And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "Duo Scheduled" trip
+          | driver1 state  |  driver2 state  |
+          | Accepted       |  Enroute       |
+    
+        Then I wait for "2" mins
+        When I open new "Chrome" browser for "ADMIN"
+        And I navigate to admin portal
+        And I log in to admin portal
+        And I Select "Scheduled Trip" from admin sidebar
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
+        Then I remove "control" driver and researches Bungii
+    
+        Then I wait for "2" mins
+        And I Select "Scheduled Trip" from admin sidebar
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
+    
+        When I Select "Edit Trip Details" option
+        And I assign driver "Testdriver_goa_c Android_test" for the trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | 9393939393      |                 |
+  
+      @regression
+      @test
+        #web
+      Scenario: Verify if admin can update date_time for a solo trip for which a driver has accepted and Customer has no conflicting trips at the new time
+        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+          | geofence | Bungii State | Bungii Time  |
+          | goa  | Accepted | NEXT_POSSIBLE |
+    
+        And I wait for "2" mins
+        When I open new "Chrome" browser for "ADMIN"
+        And I navigate to admin portal
+        And I log in to admin portal
+        And I Select "Scheduled Trip" from admin sidebar
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
+        And I Select "Edit Trip Details" option
+        And I change the "trip time" to future time
+        And I click on "VERIFY" button
+        Then the "Your changes are good to be saved." message is displayed
+        And I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+        When I close "Edit Trip Details" popup
+    
+        And I wait for "2" mins
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
+        When I Select "Research Driver" option
+        When I close "Edit Trip Details" popup
+        And I wait for "2" mins
+        And I Select "Scheduled Trip" from admin sidebar
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
+        Then I verify that time change is saved
+    
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | 9393939393 |                 |
+    

@@ -1,5 +1,6 @@
 @android
 @bungii
+@SoloScheduled
 #These feature will run in kansas geofence
 Feature: SoloScheduled Part B
    # With 8805368840 - 11 cases

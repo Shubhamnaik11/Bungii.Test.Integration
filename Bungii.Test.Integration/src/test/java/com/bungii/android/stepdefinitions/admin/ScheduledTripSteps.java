@@ -932,7 +932,8 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_change_the_something_to_future_time(String strArg1) throws Throwable {
 		try{
 		Thread.sleep(2000);
-		String currentTime=scheduledTripsPage.Time_EditTripDetailsTime().getAttribute("value");
+			String newTime ="";
+			String currentTime=scheduledTripsPage.Time_EditTripDetailsTime().getAttribute("value");
 		switch (strArg1) {
 			case "trip time":
 				action.click(scheduledTripsPage.Calendar_EditTripDetailsScheduledDate());
@@ -940,12 +941,11 @@ public class ScheduledTripSteps extends DriverBase {
 				action.click(scheduledTripsPage.Calendar_NextDate());
 				//String newTime = GetNewScheduledTime(currentTime);
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
-				String newTime = scheduledTripsPage.Time_FirstAvailable().getText();
+				newTime = scheduledTripsPage.Time_FirstAvailable().getText();
 				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
 				WebElement selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
 				action.click(selectTime);
 				break;
-
 			case "particular trip time":
 				newTime = (String)cucumberContextManager.getScenarioContext("OLD_BUNGII_TIME");
 				Date d1=new SimpleDateFormat("hh:mm aa").parse(newTime);
@@ -999,17 +999,18 @@ public class ScheduledTripSteps extends DriverBase {
 		try{
 		Thread.sleep(1000);
 		action.click(scheduledTripsPage.Button_ClosePopUp());
-			SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=True");
+		//	SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=True");
 			//SetupManager.getDriver().navigate().refresh();
-			Thread.sleep(120000);
+			//Thread.sleep(120000);
 			//SetupManager.getDriver().navigate().refresh();
-			SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
+			//SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
 
-			action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")),30L);
-		scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")).click();
+			//action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")),30L);
+		//scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")).click();
 
 		String expectedTime=(String) cucumberContextManager.getScenarioContext("NEW_TIME");
-		String actualTime=action.getText(scheduledTripsPage.Label_ChangedScheduledTime());
+
+			String actualTime=action.getText(scheduledTripsPage.Label_ChangedScheduledTime());
 
 		System.out.println("Expected Time: "+expectedTime);
 		System.out.println("Actual Time: "+actualTime);

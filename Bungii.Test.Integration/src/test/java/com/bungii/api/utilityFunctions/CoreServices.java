@@ -227,7 +227,7 @@ public class CoreServices extends DriverBase {
     }
 
     public Response pickupRequest(String authToken, int numberOfDriver, String geoFence) {
-        String RequestText ="API REQUEST : Pickpup Request " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence;
+        String RequestText ="API REQUEST : Pickup Request for Authtoken " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence;
 
         JSONObject jsonObj = new JSONObject();
         JSONObject dropOffAddress = new JSONObject();

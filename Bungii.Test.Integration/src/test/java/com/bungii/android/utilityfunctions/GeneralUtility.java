@@ -2035,5 +2035,26 @@ Thread.sleep(5000);
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");
         return adminURL;
     }
+    public String getTripTimezone(String geofence)
+    {
+        geofence= geofence.toLowerCase();
+        String timezone = null;
+        switch (geofence)
+        {
+            case "Washington DC":
+            case "washingtondc":
+                timezone = "EST";
+                break;
+            case "goa":
+                timezone = "IST";
+                break;
+            default:
+            case "Kansas City":
+                timezone = "CST";
+                break;
 
+        }
+        return timezone;
+
+    }
 }
