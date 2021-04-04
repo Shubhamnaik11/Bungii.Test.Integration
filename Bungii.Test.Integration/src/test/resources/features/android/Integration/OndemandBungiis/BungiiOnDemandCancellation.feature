@@ -1,4 +1,6 @@
 @android
+@ondemand
+@general
     @bungii
    #These feature will run in boston geofence
     Feature: OnDemandBungii_Cancellation

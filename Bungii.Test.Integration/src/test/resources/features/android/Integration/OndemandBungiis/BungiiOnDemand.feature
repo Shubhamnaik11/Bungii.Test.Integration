@@ -1,5 +1,6 @@
 @android
 @bungii
+  @general
   @ondemand
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii
