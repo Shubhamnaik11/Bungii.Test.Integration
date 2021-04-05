@@ -263,7 +263,7 @@ public class Partner_LoginSteps extends DriverBase {
                     char ch = PickupDateTime.charAt(4);
                     if (PickupDateTime.charAt(4) == '0') {
                         StringBuilder sb = new StringBuilder(PickupDateTime);
-                        sb.deleteCharAt(4);
+                       // sb.deleteCharAt(4); this is not required as day is displayed in xx format
                         PickupDateTime = sb.toString();
                     }
                     PickupDateTime = PickupDateTime.replaceAll("[()]", "");
