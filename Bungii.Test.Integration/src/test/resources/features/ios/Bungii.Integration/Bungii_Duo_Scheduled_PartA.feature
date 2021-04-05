@@ -83,24 +83,7 @@ Feature: Scheduled DUO Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
-
-  @regression
-  #stable
-  Scenario: Notification : Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Duo Scheduled Bungii
-    When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    Given I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    When I Switch to "driver" application on "same" devices
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
-    And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+    
     
   @regression
   @failures
@@ -179,27 +162,7 @@ Feature: Scheduled DUO Bungii Part A
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
-
-  @regression
-    @failures
-    @testing1
-  Scenario: Notification : Verify Customer Receives Notification When Control Driver Starts Duo Scheduled Bungii
-    When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    Given I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    When I Switch to "driver" application on "same" devices
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Enroute       | Accepted      |
-    And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+    
 
   @regression
     #stable
@@ -213,8 +176,9 @@ Feature: Scheduled DUO Bungii Part A
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
+    Then I wait for "3" mins
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    When I wait for 1 hour for Bungii Schedule Time
+    Then I wait for "3" mins
     And I Select Trip from scheduled trip
     And I start selected Bungii
     Then user is alerted for "CUSTOMER HAS ONGOING BUNGII"
@@ -286,6 +250,27 @@ Feature: Scheduled DUO Bungii Part A
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
   
+  @regression
+    #stable
+  Scenario: Verify If Customer Is Allowed To Rate Driver For Scheduled Duo Trip
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state    | driver2 state    |
+      | Bungii Completed | Bungii Completed |
+    When I Switch to "customer" application on "same" devices
+    And Bungii customer should see "correct rating detail for duo" on Bungii completed page
+    When I select "3" Ratting star for duo Driver 1
+    Then "3" stars should be highlighted for Driver1
+    When I select "4" Ratting star for duo Driver 2
+    Then "4" stars should be highlighted for Driver2
+    When I click "DONE" button on "BUNGII COMPLETE" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    
   @ready
   @failures
   Scenario: Verify Customer Can Request Cancel Scheduled Duo Bungii Through SMS To Admin If One Driver Accepts And Processing Is Over
@@ -317,44 +302,11 @@ Feature: Scheduled DUO Bungii Part A
     And I Switch to "customer" application on "same" devices
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-  
-  @regression
-    #stable
-  Scenario: Verify If Customer Is Allowed To Rate Driver For Scheduled Duo Trip
-    When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    And I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state    | driver2 state    |
-      | Bungii Completed | Bungii Completed |
-    When I Switch to "customer" application on "same" devices
-    And Bungii customer should see "correct rating detail for duo" on Bungii completed page
-    When I select "3" Ratting star for duo Driver 1
-    Then "3" stars should be highlighted for Driver1
-    When I select "4" Ratting star for duo Driver 2
-    Then "4" stars should be highlighted for Driver2
-    When I click "DONE" button on "BUNGII COMPLETE" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-
-#its scheduled time not initial request time
-  @regression
- #stable
-  Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Scheduled Trip
-    When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    And I get TELET time of of the current trip
-    Then Telet time of current trip should be correctly calculated
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-  
+    
   @failed
   @ready
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting Duo Scheduled Bungii
+    When I switch to "ORIGINAL" instance
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
@@ -384,5 +336,59 @@ Feature: Scheduled DUO Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
+  
+  
+  @regression
+  #stable
+  Scenario: Notification : Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Duo Scheduled Bungii
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    When I Switch to "driver" application on "same" devices
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
+  
+  @regression
+  @failures
+  @testing1
+  Scenario: Notification : Verify Customer Receives Notification When Control Driver Starts Duo Scheduled Bungii
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    When I Switch to "driver" application on "same" devices
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Enroute       | Accepted      |
+    And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
+    
+    #its scheduled time not initial request time
+  @regression
+ #stable
+  Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Scheduled Trip
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And I get TELET time of of the current trip
+    Then Telet time of current trip should be correctly calculated
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+  
   
   

@@ -481,4 +481,20 @@ Feature: Scheduled Bungii on one device
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
-  
+  @regression
+    #stable
+  Scenario: Verify Driver see minutes from pickup address in avaliable trips for Duo Bungii [1 Device]
+	Given that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
+	  | goa      | Scheduled     | 0.5 hour ahead | valid    | valid   | valid driver 2 |
+	
+	And I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid duo driver 1" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+ 
+	And I Select "AVAILABLE BUNGIIS" from driver App menu
+	Then I should see minutes to pickup address
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE |                 |
