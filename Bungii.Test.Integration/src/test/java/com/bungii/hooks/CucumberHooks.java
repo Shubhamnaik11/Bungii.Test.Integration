@@ -77,6 +77,7 @@ public class CucumberHooks {
 
     @After
     public void afterTest(Scenario scenario) {
+        boolean bit= false;
         try {
             //if first test case flag is ste to true then change it to false
             if (isFirstTestCase) isFirstTestCase = false;
@@ -90,11 +91,14 @@ public class CucumberHooks {
 
                 if (Failure.equals("TRUE")) {
                     logger.detail("SKIPPED TEST SCENARIO : " + scenario.getName()+" | Inconclusive Count : "+this.reportManager.inconclusive());
+                    bit= true;
                 }
-                else if(((String) CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE"))
+                else if(((String) CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE")){
                     logger.detail("TEST SCENARIO WITH OBSERVATIONS : " + scenario.getName());
+                bit= true;}
                 else
-                    logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
+                {logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
+                    bit= true;}
                     CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
                      CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","FALSE");
 
@@ -106,6 +110,7 @@ public class CucumberHooks {
                 try {
                     logger.detail("FAILED TEST SCENARIO : " + scenario.getName());
                     logger.debug("PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
+                    bit= true;
                 } catch (Exception e) { }
                 if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
                     new BungiiSteps().recoveryScenario();
@@ -121,8 +126,10 @@ public class CucumberHooks {
             } else if (!PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {
                 SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                 SetupManager.getObject().restartApp();
+                bit= true;
             }
             if(PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")){
+                bit=true;
                 JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
                 //js.executeScript(String.format("window.localStorage.clear();"));
                 js.executeScript(String.format("window.sessionStorage.clear();"));
@@ -132,8 +139,10 @@ public class CucumberHooks {
             CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
             logger.error("Error in After Test Block");
-            this.reportManager.endTestCase(scenario.isFailed(),true);
-            logger.detail("SKIPPED TEST SCENARIO : " + scenario.getName()+" | Skipped Count : "+this.reportManager.skipped());
+            if(bit==false) {
+                this.reportManager.endTestCase(scenario.isFailed(), true);
+                logger.detail("SKIPPED TEST SCENARIO : " + scenario.getName() + " | Skipped Count : " + this.reportManager.skipped());
+            }
 
         }
     }
