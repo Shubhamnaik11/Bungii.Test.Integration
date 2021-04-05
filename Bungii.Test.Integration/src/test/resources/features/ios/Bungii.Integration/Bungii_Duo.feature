@@ -400,51 +400,7 @@ Feature: Scheduled DUO Bungii
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-
-
-    @failed
-  @ready
-  Scenario:Verify Driver Can Receive Long Stack Request And Can Cancel Existing Bungii On Loading Item State [2 Devices]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State |
-      | goa      | LOADING ITEM |
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-      When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-
-      And I view and accept virtual notification for "Driver" for "stack trip"
-      And stack trip information should be displayed on deck
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    When I enter Username :9403960183 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "CANCEL BUNGII" on bungii accepted screen
-    Then I see "Alert: Bungii cancel confirmation" on bungii accepted screen
-    When I click "Dismiss on Alert message" on bungii accepted screen
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "CANCEL BUNGII" on bungii accepted screen
-    When I click "Cantact Support on Alert message" on bungii accepted screen
-    And correct details should be displayed to customer for "customer support-SMS"
-    When I click "CANCEL BUNGII" on bungii accepted screen
-    When I click "CANCEL BUNGII on Alert message" on bungii accepted screen
-    Then I see "Alert: Bungii cancel sucessfully" on bungii accepted screen
-    When I click "OK" on alert message
-    Then I should be navigated to "HOME" screen
-    Then I wait for "1" mins
-    And I click on notification for "Driver" for "CUSTOMER CANCEL STACK TRIP"
-    And stack trip information should not be displayed on deck
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | 9403960183      |
-
-
+    
     #move to top
     #need to do in atlanta
   @failed
@@ -505,89 +461,7 @@ Feature: Scheduled DUO Bungii
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
-    
-  @ready
-  Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request [2 Devices]
-
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State       | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Driving To Dropoff | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
-
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   
-  
-    And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid driver 2" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    And I Switch to "customer" application on "same" devices
-
-    And I Switch to "customer" application on "ORIGINAL" devices
-
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-
-    And I open "customer" application on "ORIGINAL" devices
-    And I view and accept virtual notification for "Driver" for "stack trip"
-  
-    And stack trip information should be displayed on deck
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    And I slide update button on "UNLOADING ITEM" Screen
-    And I accept Alert message for "Reminder: both driver at drop off"
-
-    And I Switch to "driver" application on "Driver2" devices
-
-    When I click "On To The Next One" button on "Bungii Completed" screen
-
-    And I open "driver" application on "ORIGINAL" devices
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    Then I should be navigated to "EN ROUTE" screen
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      |                | CUSTOMER2_PHONE |
-
-    
-  @failed
-  @ready
-  Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground [2 Devices]
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Scheduled    | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
-
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    When I logged in Customer application using  "customer-duo" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-
-    And I connect to "extra1" using "Driver1" instance
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    When I accept selected Bungii
-
-    When I Switch to "customer" application on "ORIGINAL" devices
-    And I Select "MY BUNGIIS" from Customer App menu
-    And I select already scheduled bungii
-    When I Cancel selected Bungii
-
-    When I switch to "Driver1" instance
-    Then Alert message with CUSTOMER CANCELLED SCHEDULED BUNGII text should be displayed
-    When I click "OK" on alert message
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-
   @failed
   @ready
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Background [2 Devices]
@@ -873,9 +747,7 @@ Feature: Scheduled DUO Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 9403960188      |                 |
-  
-  
-  
+    
   @ready
   Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request [2 Devices]
     
@@ -923,37 +795,4 @@ Feature: Scheduled DUO Bungii
       |                | CUSTOMER2_PHONE |
   
   
-  @failed
-  @ready
-  Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground [2 Devices]
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Scheduled    | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
-    
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    When I logged in Customer application using  "customer-duo" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    
-    And I connect to "extra1" using "Driver1" instance
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    When I accept selected Bungii
-    
-    When I Switch to "customer" application on "ORIGINAL" devices
-    And I Select "MY BUNGIIS" from Customer App menu
-    And I select already scheduled bungii
-    When I Cancel selected Bungii
-    
-    When I switch to "Driver1" instance
-    Then Alert message with CUSTOMER CANCELLED SCHEDULED BUNGII text should be displayed
-    When I click "OK" on alert message
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
+ 
