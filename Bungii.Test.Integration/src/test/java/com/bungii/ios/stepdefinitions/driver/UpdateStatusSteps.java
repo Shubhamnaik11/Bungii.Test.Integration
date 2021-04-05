@@ -651,6 +651,13 @@ public class UpdateStatusSteps extends DriverBase {
 
     @Then("^try to finish time should be correctly displayed for short stack trip$")
     public void try_to_finish_time_should_be_correctly_displayed_ShortStack() throws Throwable {
+        if(((String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")).equalsIgnoreCase(""))
+        {
+            String[] calculatedTime=utility.getTeletTimeinLocalTimeZone();
+            cucumberContextManager.setScenarioContext("DRIVER_TELET",calculatedTime[0]);
+            cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL",calculatedTime[1]);
+            cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",calculatedTime[2]);
+        }
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String expectedTime="";
         if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
@@ -659,7 +666,7 @@ public class UpdateStatusSteps extends DriverBase {
             expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + utility.getTimeZoneBasedOnGeofence();
        // expectedTime=expectedTime.replace("am", "AM").replace("pm","PM");
         expectedTime=expectedTime.replace("am", "").replace("pm","");
-        String elementText=updateStatusPage.Text_StackInfo().getText();elementText=elementText.replace("  "," ");
+        String elementText=updateStatusPage.Text_StackInfo().getText();elementText=elementText.replace("  ","").trim();
         logger.detail("Element Text"+elementText);
         testStepAssert.isTrue(elementText.contains(expectedTime), "Try to finish by should be displayed","Try to finish by "+expectedTime+" is displayed", "Try to finish by "+expectedTime+ " is not displayed");
 
