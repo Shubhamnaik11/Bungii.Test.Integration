@@ -339,7 +339,7 @@ public class BungiiSteps extends DriverBase {
             while (i < DataList.size()) {
                 try {
                     String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
-                    String pickupRequest = (String) cucumberContextManager.getScenarioContext("pickupRequest");
+                    String pickupRequest = (String) cucumberContextManager.getScenarioContext("pickupRequestPartner");
 
                     cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
                     cucumberContextManager.setScenarioContext("DRIVER_1", driverName);

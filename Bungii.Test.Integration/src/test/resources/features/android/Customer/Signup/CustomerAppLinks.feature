@@ -37,7 +37,7 @@ Feature: CustomerApplicationLinks
       When I click on "SAVE MONEY" button
       Then "INVITE" page should be opened
       When I tap on "back page" on Bungii estimate
-      And I tap on "Menu" > "PROMOS" link
+      When I tap on the "ACCOUNT>PROMOS" link
       Then "Promos" page should be opened
       When I click on "GET MORE MONEY" button
       Then "INVITE" page should be opened
