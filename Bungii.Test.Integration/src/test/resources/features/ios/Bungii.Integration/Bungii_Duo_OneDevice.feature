@@ -28,25 +28,6 @@ Feature: Scheduled Bungii on one device
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE      | CUSTOMER2_PHONE      |
-  
-  @regression
- #stable
-  Scenario: STACKING | Verify Driver Can Receive Short Stack Ondemand Request when Ongoing Ondemand Bungii is On Unloading Item State - Goa Geofence [1 Device]
-	Given that ondemand bungii is in progress
-	  | geofence | Bungii State   |
-	  | goa      | UNLOADING ITEM |
-	When I Switch to "driver" application on "same" devices
-	And I am on the "LOG IN" page on driverApp
-	And I am logged in as "valid" driver
-	When I request another "Solo Ondemand" Bungii as a customer in "goa" geofence
-	  | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-	  | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
-	And I view and accept virtual notification for "second" delivery of "Driver" for "stack trip"
-	And stack trip information should be displayed on deck
-	
-	Then I cancel all bungiis of customer
-	  | Customer Phone  | Customer2 Phone |
-	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE  |
 	
   @sanity
   @regression
@@ -72,51 +53,7 @@ Feature: Scheduled Bungii on one device
       | Customer Phone  | Customer2 Phone |
       | 9403960188      |                 |
     
-  @regression
-    #stable
-  Scenario: Verify Scheduled Duo Bungii can be accepted by drivers and they are shown under displayed under Scheduled List upon accepting [1 Device]
-    Given I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    And that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Requested     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
-  
-    Given I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    Then I should be navigated to "BUNGII DETAILS" screen
-    And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
-    When I accept selected Bungii
 	
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select delivery "1" from scheduled deliveries
-    Then I should be navigated to "BUNGII DETAILS" screen
-  
-    When I Select "ACCOUNT > LOGOUT" from driver App menu
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid driver 2" driver
-    
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    Then Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
-    When I accept selected Bungii
-	
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select delivery "1" from scheduled deliveries
-    Then I should be navigated to "BUNGII DETAILS" screen
-  
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 9403960188      |                 |
-    
-    
-  
   @ready
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver [1 Device]
     Given that duo schedule bungii is in progress
@@ -173,78 +110,7 @@ Feature: Scheduled Bungii on one device
     Then I should be navigated to "BUNGII COMPLETE" screen
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-  
-  @ready
-  Scenario:STACKING | Verify Driver can start the Stack Bungii [1 Device]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State   |
-      | goa      | UNLOADING ITEM |
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-  
-    And I view and accept virtual notification for "Driver" for "stack trip"
-  
-    Given I am on the "LOG IN" page
-    When I enter Username :9403960183 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    Then I should be navigated to "EN ROUTE" screen
-    
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 9403960183     |                 |
-  
-  
-  @ready
-  Scenario: STACKING | Verify Manually Ending Bungii For A Driver That Has Stacked Bungii Should See Summary And Start Screen Of The Stacked Bungii [1 Device]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State        |
-      | goa      | DRIVING TO DROP OFF |
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    And I view and accept virtual notification for "Driver" for "stack trip"
-    And stack trip information should be displayed on deck
-    
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    When I enter Username :9403960183 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    
-    When bungii admin manually end bungii created by "CUSTOMER1"
-    
-    When I Switch to "driver" application on "same" devices
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    Then I should be navigated to "EN ROUTE" screen
-    
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "EN ROUTE" screen
-    
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      |                | CUSTOMER2_PHONE |
-  
+	
   
   @regression
     #stable
@@ -360,49 +226,69 @@ Feature: Scheduled Bungii on one device
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-	
+  
   @regression
-  Scenario:Verify Customer Can Cancel Stacked Ondemand Bungii Accepted By a Driver [1 Device]
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State   |
-      | goa      | UNLOADING ITEM |
+    #stable
+  Scenario: Verify Scheduled Duo Bungii can be accepted by drivers and they are shown under displayed under Scheduled List upon accepting [1 Device]
+	Given I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid duo driver 1" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-   # When I Switch to "customer" application on "same" devices
-    When I request another "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
-    
-    And I view and accept virtual notification for "Driver" for "stack trip"
-    
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    When I enter Username :9403960183 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    When I Switch to "customer" application on "same" devices
-    And I close "Tutorial" if exist
-    
-    And I Select "MY BUNGIIS" from Customer App menu
-    And I select already scheduled bungii
-    Then I Cancel selected Bungii
+	And that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+	  | goa      | Requested     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
 	
-    
-    Then I should be navigated to "HOME" screen
-    
-    When I Switch to "driver" application on "same" devices
-    And I click on notification for "Driver" for "CUSTOMER CANCEL STACK TRIP"
-    And stack trip information should not be displayed on deck
-    
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
+	Given I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid duo driver 1" driver
+	
+	And I Select "AVAILABLE BUNGIIS" from driver App menu
+	And I Select Trip from available trip
+	Then I should be navigated to "BUNGII DETAILS" screen
+	And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
+	When I accept selected Bungii
+	
+	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I Select delivery "1" from scheduled deliveries
+	Then I should be navigated to "BUNGII DETAILS" screen
+	
+	When I Select "ACCOUNT > LOGOUT" from driver App menu
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid driver 2" driver
+	
+	And I Select "AVAILABLE BUNGIIS" from driver App menu
+	And I Select Trip from available trip
+	Then Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
+	When I accept selected Bungii
+	
+	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I Select delivery "1" from scheduled deliveries
+	Then I should be navigated to "BUNGII DETAILS" screen
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | 9403960188      |                 |
   
-  
+  @regression
+ #stable
+  Scenario: STACKING | Verify Driver Can Receive Short Stack Ondemand Request when Ongoing Ondemand Bungii is On Unloading Item State - Goa Geofence [1 Device]
+	Given that ondemand bungii is in progress
+	  | geofence | Bungii State   |
+	  | goa      | UNLOADING ITEM |
+	When I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid" driver
+	When I request another "Solo Ondemand" Bungii as a customer in "goa" geofence
+	  | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
+	  | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
+	And I view and accept virtual notification for "second" delivery of "Driver" for "stack trip"
+	And stack trip information should be displayed on deck
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE  |
+	
   @failed
   @ready
   Scenario:Verify Driver Can Receive Long Stack Request And Can Cancel Existing Bungii On Loading Item State [1 Devices]
@@ -481,6 +367,118 @@ Feature: Scheduled Bungii on one device
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
+  @regression
+  Scenario:Verify Customer Can Cancel Stacked Ondemand Bungii Accepted By a Driver [1 Device]
+	Given that ondemand bungii is in progress
+	  | geofence | Bungii State   |
+	  | goa      | UNLOADING ITEM |
+	
+	When I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+   
+   # When I Switch to "customer" application on "same" devices
+	When I request another "Solo Ondemand" Bungii as a customer in "goa" geofence
+	  | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
+	  | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
+	
+	And I view and accept virtual notification for "Driver" for "stack trip"
+	
+	When I Switch to "customer" application on "same" devices
+	Given I am on the "LOG IN" page
+	When I enter Username :9403960183 and  Password :{VALID}
+	And I click "Log In" button on "Log In" screen
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	When I Switch to "customer" application on "same" devices
+	And I close "Tutorial" if exist
+	
+	And I Select "MY BUNGIIS" from Customer App menu
+	And I select already scheduled bungii
+	Then I Cancel selected Bungii
+	
+	
+	Then I should be navigated to "HOME" screen
+	
+	When I Switch to "driver" application on "same" devices
+	And I click on notification for "Driver" for "CUSTOMER CANCEL STACK TRIP"
+	And stack trip information should not be displayed on deck
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE |                 |
+  
+  @ready
+  Scenario: STACKING | Verify Manually Ending Bungii For A Driver That Has Stacked Bungii Should See Summary And Start Screen Of The Stacked Bungii [1 Device]
+	Given that ondemand bungii is in progress
+	  | geofence | Bungii State        |
+	  | goa      | DRIVING TO DROP OFF |
+	When I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	
+	When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
+	  | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
+	  | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
+	And I view and accept virtual notification for "Driver" for "stack trip"
+	And stack trip information should be displayed on deck
+	
+	When I Switch to "customer" application on "same" devices
+	Given I am on the "LOG IN" page
+	When I enter Username :9403960183 and  Password :{VALID}
+	And I click "Log In" button on "Log In" screen
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	
+	When bungii admin manually end bungii created by "CUSTOMER1"
+	
+	When I Switch to "driver" application on "same" devices
+	Then I should be navigated to "Bungii Completed" screen
+	When I click "On To The Next One" button on "Bungii Completed" screen
+	Then I should be navigated to "EN ROUTE" screen
+	
+	When I Switch to "customer" application on "same" devices
+	Then I should be navigated to "EN ROUTE" screen
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone | Customer2 Phone |
+	  |                | CUSTOMER2_PHONE |
+  
+  @ready
+  Scenario:STACKING | Verify Driver can start the Stack Bungii [1 Device]
+	Given that ondemand bungii is in progress
+	  | geofence | Bungii State   |
+	  | goa      | UNLOADING ITEM |
+	When I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	
+	When I Switch to "customer" application on "same" devices
+	When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
+	  | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
+	  | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
+	
+	And I view and accept virtual notification for "Driver" for "stack trip"
+	
+	Given I am on the "LOG IN" page
+	When I enter Username :9403960183 and  Password :{VALID}
+	And I click "Log In" button on "Log In" screen
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	
+	When I Switch to "driver" application on "ORIGINAL" devices
+	And I slide update button on "UNLOADING ITEM" Screen
+	Then I should be navigated to "Bungii Completed" screen
+	When I click "On To The Next One" button on "Bungii Completed" screen
+	Then I should be navigated to "EN ROUTE" screen
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone | Customer2 Phone |
+	  | 9403960183     |                 |
+  
+	
   @regression
     #stable
   Scenario: Verify Driver see minutes from pickup address in avaliable trips for Duo Bungii [1 Device]
