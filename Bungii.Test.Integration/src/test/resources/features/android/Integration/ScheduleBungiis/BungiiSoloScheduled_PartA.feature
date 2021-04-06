@@ -16,40 +16,6 @@ Feature: SoloScheduled
     Then I should see the minimum scheduled time for Solo Bungii displayed on the Estimate page
   
   @regression
-  Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :enroute
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
-      | kansas   | enroute      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
-    When I Switch to "customer" application on "same" devices
-    Given I am on customer Log in page
-    And I am logged in as "valid kansas 2" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    Then for a Bungii I should see "Enroute screen"
-    
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "Kansas driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    Then Bungii driver should see "Enroute screen"
-    
-    And I click the "Cancel" button on "update" screen
-    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "YES" on the alert message
-    And I Select "HOME" from driver App menu
-    Then Bungii driver should see "Home screen"
-    
-    When I Switch to "customer" application on "same" devices
-    Then Alert message with DRIVER CANCELLED text should be displayed
-    When I click "OK" on alert message
-    Then "Home" page should be opened
-    
-    And I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-  
-  @regression
     #stable
   Scenario: Verify Customer Can Cancel Through SMS To Admin If Only One Driver Accepts And Processing Gets Over
     When I request "duo" Bungii as a customer in "kansas" geofence
@@ -256,4 +222,37 @@ Feature: SoloScheduled
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
 
+  @regression
+  Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :enroute
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+      | kansas   | enroute      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas 2" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    Then for a Bungii I should see "Enroute screen"
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    Then Bungii driver should see "Enroute screen"
+
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+    And I Select "HOME" from driver App menu
+    Then Bungii driver should see "Home screen"
+
+    When I Switch to "customer" application on "same" devices
+    Then Alert message with DRIVER CANCELLED text should be displayed
+    When I click "OK" on alert message
+    Then "Home" page should be opened
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 

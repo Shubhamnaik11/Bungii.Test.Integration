@@ -115,38 +115,8 @@ Feature: SoloScheduled Part B
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
-    
-   #@regression
-  @ready
-	@ad1
-  Scenario: Verify Customer Can Contact Controlled Driver When Noncontrol Driver Starts the trip
-    
-    When I request "duo" Bungii as a customer in "Kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_five Test" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      | Enroute      |
-    
-    And I login as customer "8805368840" and is on Home Page
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    
-    And I tap on "Menu" > "MY BUNGIIS" link
-    And I select already scheduled bungii
-    When I try to contact driver using "sms driver1"
-    Then correct details should be displayed to driver on "SMS" app
-    When I try to contact driver using "sms driver2"
-    Then correct details should be displayed to driver on "SMS" app
-	When I try to contact driver using "call driver2"
-	Then correct details should be displayed to driver on "Calling" app
-	When I try to contact driver using "call driver1"
-	Then correct details should be displayed to driver on "Calling" app
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
-  
-  @regression
+
+    @regression
    #stable
   Scenario: Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours :SOLO
     And I login as customer "8805368840" and is on Home Page
@@ -175,7 +145,35 @@ Feature: SoloScheduled Part B
     When I try to schedule bungii for "tommorow - before working hour" for "DUO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
   
-    
+  #@regression
+  @ready
+  @ad1
+  Scenario: Verify Customer Can Contact Controlled Driver When Noncontrol Driver Starts the trip
+
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_five Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Enroute      |
+
+    And I login as customer "8805368840" and is on Home Page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I select already scheduled bungii
+    When I try to contact driver using "sms driver1"
+    Then correct details should be displayed to driver on "SMS" app
+    When I try to contact driver using "sms driver2"
+    Then correct details should be displayed to driver on "SMS" app
+    When I try to contact driver using "call driver2"
+    Then correct details should be displayed to driver on "Calling" app
+    When I try to contact driver using "call driver1"
+    Then correct details should be displayed to driver on "Calling" app
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
   
     
   
