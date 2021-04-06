@@ -128,7 +128,7 @@ public class CommonSteps extends DriverBase {
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         }
-       /* try {
+        try {
             //if switch was unsucessfull, try to switch again
             if (!isApplicationIsInForeground) {
                 switch (appName.toUpperCase()) {
@@ -176,7 +176,7 @@ public class CommonSteps extends DriverBase {
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
-        */
+
     }
 
     //open app without restart
