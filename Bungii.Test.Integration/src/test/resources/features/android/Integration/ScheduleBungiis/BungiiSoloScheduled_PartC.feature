@@ -29,13 +29,17 @@ Feature: SoloScheduled Part C
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I wait for "2" mins
     And I Select Trip from driver available trip
-    And I wait for "2" mins
+    #And I wait for "2" mins
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
     Then Bungii driver should see "Enroute screen"
-    When Bungii Driver "slides to the next state"
+    When I Switch to "customer" application on "same" devices
+    Then for a Bungii I should see "Enroute screen"
+
+    When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
@@ -66,11 +70,17 @@ Feature: SoloScheduled Part C
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
+
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
     Then Bungii driver should see "Enroute screen"
-    When Bungii Driver "slides to the next state"
+
+    When I Switch to "customer" application on "same" devices
+    Then for a Bungii I should see "Enroute screen"
+
+    When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
