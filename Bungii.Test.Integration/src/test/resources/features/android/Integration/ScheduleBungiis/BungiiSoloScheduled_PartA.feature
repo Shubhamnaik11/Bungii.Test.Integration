@@ -160,34 +160,7 @@ Feature: SoloScheduled
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
-  
-  
-  @regression
-  Scenario: Rate: Verify If Customer Can Rate Driver For The Duo Trip
-    When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
-    
-    Given I am on customer Log in page
-    And I am logged in as "valid kansas" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    
-    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state    | driver2 state    |
-      | Bungii Completed | Bungii Completed |
-    
-    When I Switch to "customer" application on "same" devices
-    And Bungii customer should see "correct rating detail for duo" on Bungii completed page
-    When I select "3" Ratting star for duo "Driver 1"
-    And I select "5" Ratting star for duo "Driver 2"
-    Then I tap on "OK" on Bungii Complete
-    
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 8888888881 |                 |
-  
-  
+
   @regression
   Scenario:Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - case :Solo
     Given that solo schedule bungii is in progress
@@ -256,3 +229,28 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
+
+  @regression
+  Scenario: Rate: Verify If Customer Can Rate Driver For The Duo Trip
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
+
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state    | driver2 state    |
+      | Bungii Completed | Bungii Completed |
+
+    When I Switch to "customer" application on "same" devices
+    And Bungii customer should see "correct rating detail for duo" on Bungii completed page
+    When I select "3" Ratting star for duo "Driver 1"
+    And I select "5" Ratting star for duo "Driver 2"
+    Then I tap on "OK" on Bungii Complete
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8888888881 |                 |
