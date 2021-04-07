@@ -1214,16 +1214,22 @@ public class CommonSteps extends DriverBase {
         try {
             GeneralUtility utility = new GeneralUtility();
             String pageName = utility.getPageHeader();
-            if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
-                action.click(driverLoginPage.Button_Sure());
-                    action.click(driverLoginPage.Button_Allow());
-                Thread.sleep(15000);
+            if(pageName.equalsIgnoreCase("OFFLINE")|| pageName.equalsIgnoreCase("ONLINE")) {
+                //do nothing
+                logger.detail("Driver app is on Home Screen");
             }
+            else{
+                if (action.isElementPresent(driverHomePage.Button_Sure(true))) {
+                    action.click(driverLoginPage.Button_Sure());
+                    action.click(driverLoginPage.Button_Allow());
+                    Thread.sleep(15000);
+                }
 
-            pageName = utility.getPageHeader();
-            if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
-                action.click(driverLoginPage.Button_Sure());
-                action.click(driverLoginPage.Button_Allow());
+                pageName = utility.getPageHeader();
+                if (action.isElementPresent(driverHomePage.Button_Sure(true))) {
+                    action.click(driverLoginPage.Button_Sure());
+                    action.click(driverLoginPage.Button_Allow());
+                }
             }
 
         } catch (Exception e) {

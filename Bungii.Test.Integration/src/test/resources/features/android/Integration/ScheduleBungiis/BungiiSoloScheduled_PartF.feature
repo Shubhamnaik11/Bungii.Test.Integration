@@ -60,22 +60,16 @@ Feature: SoloScheduled Part F
   Scenario:Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip - Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | Kansas   | Accepted     | 1.25 hour ahead |
-    And I wait for "3" mins
-    Given that ondemand bungii is in progress
+      | Kansas   | Accepted     | 1 hour ahead |
+    Given that ondemand bungii is in progress for the minimum distance chosen
       | geofence | Bungii State | Driver label | Trip Label |
       | same   | Enroute      | driver 2     | 2          |
     
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I wait for "3" mins
     And I am logged in as "valid" driver
-    And I wait for "3" mins
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I wait for "3" mins
-  
-    When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from driver scheduled trip
     And I start selected Bungii
     Then I should see "CUSTOMER HAS ONGOING BUNGII" on screen
@@ -83,20 +77,20 @@ Feature: SoloScheduled Part F
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  #@regression
-  @ready
+  @regression
+  @test
+    #stable
   Scenario:Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip - Duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  | Customer        | Driver1         | Driver2         |
-      | Kansas   | Accepted     | 0.5 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |
-    Given that ondemand bungii is in progress
+      | Kansas   | Accepted     | 1 hour ahead | Kansas customer B | Kansas driver 1 | Kansas driver 2 |
+    Given that ondemand bungii is in progress for the minimum distance chosen
       | geofence | Bungii State | Driver label | Trip Label |
       | Kansas   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Kansas driver 1" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from driver scheduled trip
     And I start selected Bungii
     Then I should see "CUSTOMER HAS ONGOING BUNGII" on screen

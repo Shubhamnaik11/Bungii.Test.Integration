@@ -1778,6 +1778,11 @@ public class BungiiSteps extends DriverBase {
                 custPassword = PropertyUtility.getDataProperties("Kansas.customer2.password");
                 cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer2.name"));
                 cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+            } else if (customer.equalsIgnoreCase("Kansas customer B")) {
+                custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer.phone");
+                custPassword = PropertyUtility.getDataProperties("Kansas.customer.password");
+                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer.name"));
+                cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             } else {
                 custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
                 custPassword = PropertyUtility.getDataProperties("atlanta.customer.password");
