@@ -116,20 +116,6 @@ Feature: SoloScheduled Part B
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-    @regression
-   #stable
-  Scenario: Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours :SOLO
-    And I login as customer "8805368840" and is on Home Page
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    When I try to schedule bungii for "today - after working hour" for "SOLO"
-    Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
-    When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
-    Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
-  
   @regression
 	#stable
   Scenario: Verify Customer Cannot Schedule Bungii For A Time That Is Outside Working Hours :DUO
@@ -174,6 +160,19 @@ Feature: SoloScheduled Part B
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
-  
-    
+
+  @regression
+   #stable
+  Scenario: Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours :SOLO
+    And I login as customer "8805368840" and is on Home Page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    When I try to schedule bungii for "today - after working hour" for "SOLO"
+    Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+    When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
+    Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+
   
