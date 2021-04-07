@@ -518,8 +518,9 @@ public class EstimateBungiiSteps extends DriverBase {
             if(action.isAlertPresent())
             {
                 action.click(homePage.Button_AlertDone());
+                action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
             }
-            action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
+
             String screen =   action.getText(Page_Signup.GenericHeader());
 
             logger.detail("Customer is on Screen : "+screen);
@@ -528,7 +529,7 @@ public class EstimateBungiiSteps extends DriverBase {
                 fail("Customer should be on Home screen", "Customer is on "+ screen +" screen");
             }
 
-            Thread.sleep(2000);
+           // Thread.sleep(2000);
             switch (arg0) {
                 case "valid pickup and dropoff locations":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
@@ -705,14 +706,14 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.more.150"));
-                    Thread.sleep(4000);
+                   // Thread.sleep(4000);
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.more.150"));
 
-                    Thread.sleep(4000);
+                    //Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
-                    Thread.sleep(2000);
+                    //Thread.sleep(2000);
                     break;
 
                 case "San Francisco pickup and dropoff locations":

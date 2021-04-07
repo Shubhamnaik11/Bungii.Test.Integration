@@ -1432,7 +1432,7 @@ Thread.sleep(5000);
 
     public void selectAddress(WebElement element, String searchstring) throws InterruptedException {
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-        Thread.sleep(4000);
+        //Thread.sleep(4000);
         action.clear(element);
         action.click(element);
         element.sendKeys(searchstring);

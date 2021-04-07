@@ -937,6 +937,7 @@ public class CommonSteps extends DriverBase {
         String teletTime = dbUtility.getTELETfromDb(custRef);
 
         cucumberContextManager.setScenarioContext("TELET", teletTime);
+        logger.detail("TELET Time of Trip of customer : "+ phoneNumber + " is " + teletTime );
     }
 
     @And("^I get TELET time of currrent trip of customer 2$")
@@ -947,6 +948,7 @@ public class CommonSteps extends DriverBase {
         String teletTime = dbUtility.getTELETfromDb(custRef);
 
         cucumberContextManager.setScenarioContext("TELET", teletTime);
+        logger.detail("TELET Time of Trip of customer 2 : "+ phoneNumber + " is " + teletTime );
     }
 
     @Then("^Telet time of current trip should be correctly calculated$")
