@@ -182,120 +182,7 @@ Feature: SoloScheduled Part D
     Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
-  
-  
-  @ready
-  Scenario: Verify Customer cannot Schedule A Bungii At A Same Time Equaling The Already Scheduled Bungii
-    
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | kansas   | Scheduled    | 15 min ahead |
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I tap on "Menu" > "Home" link
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "OLD BUNGII TIME"
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    Then I tap on "ok on already scheduled bungii message" on Bungii estimate
-    When I tap on "back" on Bungii estimate
-    And I tap on "Menu" > "MY BUNGIIS" link
-    And I select already scheduled bungii
-    Then I Cancel selected Bungii
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
 
-  @sanity
-  @regression
-  #@regression
-  Scenario: Verify Customer Can Create Scheduled Bungii
-    Given I am logged in as "valid" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I Select "HOME" from driver App menu
-    And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "Home" link
-    
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "next possible scheduled"
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I check if the customer is on success screen
-    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-    
-    And I Switch to "driver" application on "same" devices
-    And I tap on "Available Trips link" on Driver Home page
-    
-    And I Select Trip from driver available trip
-    And I tap on "ACCEPT" on driver Trip details Page
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-  #  And I wait for Minimum duration for Bungii Start Time
-    
-    And Bungii Driver "Start Schedule Bungii" request
-    Then Bungii driver should see "Enroute screen"
-    
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Enroute screen"
-    
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Arrived screen"
-    
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Arrived screen"
-    
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Loading Item screen"
-    
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Loading Item screen"
-    
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Driving to DropOff screen"
-    
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Driving to DropOff screen"
-    
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Unloading Item screen"
-    
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Unloading Item screen"
-    
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver "slides to the next state"
-    And I Switch to "customer" application on "same" devices
-    And I tap on "OK on complete" on Bungii estimate
-    And I tap on "No free money" on Bungii estimate
-    And I Switch to "driver" application on "same" devices
-    Then Bungii Driver "completes Bungii"
-    And I Select "HOME" from driver App menu
-	
-	
-	   
   #@regression
   @ready
   Scenario: Verify If Incoming Scheduled Trip Request Start Time (Trip A) Overlaps TELET Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or offline SMS
@@ -356,3 +243,113 @@ Feature: SoloScheduled Part D
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
+
+  @ready
+  Scenario: Verify Customer cannot Schedule A Bungii At A Same Time Equaling The Already Scheduled Bungii
+
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas   | Scheduled    | 15 min ahead |
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I select Bungii Time as "OLD BUNGII TIME"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then I tap on "ok on already scheduled bungii message" on Bungii estimate
+    When I tap on "back" on Bungii estimate
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I select already scheduled bungii
+    Then I Cancel selected Bungii
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @sanity
+  @regression
+  #@regression
+  Scenario: Verify Customer Can Create Scheduled Bungii
+    Given I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I Select "HOME" from driver App menu
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "Home" link
+
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I select Bungii Time as "next possible scheduled"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
+    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+
+    And I Switch to "driver" application on "same" devices
+    And I tap on "Available Trips link" on Driver Home page
+
+    And I Select Trip from driver available trip
+    And I tap on "ACCEPT" on driver Trip details Page
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+  #  And I wait for Minimum duration for Bungii Start Time
+
+    And Bungii Driver "Start Schedule Bungii" request
+    Then Bungii driver should see "Enroute screen"
+
+    When I Switch to "customer" application on "same" devices
+    Then for a Bungii I should see "Enroute screen"
+
+    When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Arrived screen"
+
+    When I Switch to "customer" application on "same" devices
+    Then for a Bungii I should see "Arrived screen"
+
+    When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Loading Item screen"
+
+    When I Switch to "customer" application on "same" devices
+    Then for a Bungii I should see "Loading Item screen"
+
+    When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Driving to DropOff screen"
+
+    When I Switch to "customer" application on "same" devices
+    Then for a Bungii I should see "Driving to DropOff screen"
+
+    When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Unloading Item screen"
+
+    When I Switch to "customer" application on "same" devices
+    Then for a Bungii I should see "Unloading Item screen"
+
+    When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    And I Switch to "customer" application on "same" devices
+    And I tap on "OK on complete" on Bungii estimate
+    And I tap on "No free money" on Bungii estimate
+    And I Switch to "driver" application on "same" devices
+    Then Bungii Driver "completes Bungii"
+    And I Select "HOME" from driver App menu

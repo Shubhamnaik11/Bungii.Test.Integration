@@ -252,36 +252,6 @@ Feature: SoloScheduled Part E
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
     
-    
-  #@regression
-  @ready
-  Scenario: Verify Driver Receives Alert Stating That The Trip Has Already Been Accepted By Him If He Receives Request Notification After Accepting The Trip From Available Trips
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881019 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    Given I Switch to "customer" application on "same" devices
-    
-    Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
-      | NEXT_POSSIBLE | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
-    
-    And I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    When I click "ACCEPT" button on Bungii Request screen
-    Then I wait for "1" mins
-    And I Switch to "customer" application on "same" devices
-    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-    When I click "View" on alert message
-    Then user is alerted for "PICKUP ALREADY ACCEPTED BY YOU"
-    And I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
-  
       #@regression
   @ready
   Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked Request (Trip 2) Then Driver Doesn't Receive Scheduled Notification Or offline SMS
@@ -324,29 +294,7 @@ Feature: SoloScheduled Part E
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8805368840      |
-  
-  
-  @regression
-  Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip Telet Then Request Should Not Be Sent To driver.
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time    |
-      | kansas   | Accepted     | 0.5 hour ahead |
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I tap on "Go Online button" on Driver Home page
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
-      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
-    
-    Then I should not get notification for ON DEMAND TRIP
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-  
-  
+
   @regression
   Scenario: Verify If Incoming On-demend Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or offline SMS
     Given that solo schedule bungii is in progress
@@ -450,4 +398,52 @@ Feature: SoloScheduled Part E
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |                 |
 
- 
+
+  #@regression
+  @ready
+  Scenario: Verify Driver Receives Alert Stating That The Trip Has Already Been Accepted By Him If He Receives Request Notification After Accepting The Trip From Available Trips
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :8888881019 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    Given I Switch to "customer" application on "same" devices
+
+    Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
+      | NEXT_POSSIBLE | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
+
+    And I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Trip from available trip
+    When I click "ACCEPT" button on Bungii Request screen
+    Then I wait for "1" mins
+    And I Switch to "customer" application on "same" devices
+    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then user is alerted for "PICKUP ALREADY ACCEPTED BY YOU"
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+
+  @regression
+  Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip Telet Then Request Should Not Be Sent To driver.
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time    |
+      | kansas   | Accepted     | 0.5 hour ahead |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I tap on "Go Online button" on Driver Home page
+    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
+
+    Then I should not get notification for ON DEMAND TRIP
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
