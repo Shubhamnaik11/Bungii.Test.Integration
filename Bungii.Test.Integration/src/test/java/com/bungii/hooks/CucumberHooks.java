@@ -108,9 +108,10 @@ public class CucumberHooks {
                 if (isTestcaseFailed)
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
                 try {
+                    bit= true;
                     logger.detail("FAILED TEST SCENARIO : " + scenario.getName());
                     logger.debug("PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
-                    bit= true;
+
                 } catch (Exception e) { }
                 if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
                     new BungiiSteps().recoveryScenario();
