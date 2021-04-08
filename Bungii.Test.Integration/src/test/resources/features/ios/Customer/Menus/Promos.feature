@@ -257,6 +257,7 @@ Feature: Promos
 
   @ready
     @failed
+    @test
   Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching Trip Having Promocode Applied To It
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
