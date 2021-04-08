@@ -253,19 +253,42 @@ public class PromoSteps extends DriverBase {
      */
     public String addUniquePromoCode(List<String> newCode) {
         List<String> availableCode = getListOfAvailablePromoCode();
-        String validCode = "";
         ArrayList<String> uniques = new ArrayList<String>(newCode);
-        if(uniques.contains(availableCode)) {
-            uniques.removeAll(availableCode);
+        String validCode = "";
+        for (int i = 0; i<uniques.size();i++)
+        {
+            String codeFromAdminPortal = uniques.get(0);
+            if(availableCode.size()>0) {
+                if (!availableCode.contains(codeFromAdminPortal)) {
+                    validCode = codeFromAdminPortal;
+                    action.clearEnterText(promosPage.TextBox_EnterCode(), validCode);
 
-            validCode = uniques.get(0);
-/*        promosPage.TextBox_EnterCode().clear();
-        promosPage.TextBox_EnterCode().clearSendKeys(validCode);*/
-
-            action.clearEnterText(promosPage.TextBox_EnterCode(), validCode);
-        } else {
-            validCode = uniques.get(0);
+                } else {
+                    validCode = codeFromAdminPortal;
+                }
+            }
+            else
+            {
+                validCode = codeFromAdminPortal;
+                action.clearEnterText(promosPage.TextBox_EnterCode(), validCode);
+            }
         }
+       /* String validCode = "";
+        ArrayList<String> uniques = new ArrayList<String>(newCode);
+        if(availableCode.size()>0) {
+            if (availableCode.contains(uniques)) {
+                uniques.removeAll(availableCode);
+
+                validCode = uniques.get(0);
+
+
+                action.clearEnterText(promosPage.TextBox_EnterCode(), validCode);
+
+            } else {
+                validCode = uniques.get(0);
+            }
+
+       */
         return validCode;
     }
 
