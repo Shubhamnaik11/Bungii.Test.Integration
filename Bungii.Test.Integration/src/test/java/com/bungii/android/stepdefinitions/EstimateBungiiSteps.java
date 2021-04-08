@@ -250,7 +250,7 @@ public class EstimateBungiiSteps extends DriverBase {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
         String expectedTime = zonedDateTime.format(formatter);
         System.out.println("Original Time "+ expectedTime);
-        //zonedDateTime = zonedDateTime.plusMinutes(45);--commenting this out since the  addition extra 45 minutes not needed
+        zonedDateTime = zonedDateTime.plusMinutes(45);//uncommenting this step since San Francisco used min 45 minutes
             expectedTime = zonedDateTime.format(formatter);
         System.out.println("Plus 45 Original Time "+ expectedTime);
         int minutes = zonedDateTime.getMinute();

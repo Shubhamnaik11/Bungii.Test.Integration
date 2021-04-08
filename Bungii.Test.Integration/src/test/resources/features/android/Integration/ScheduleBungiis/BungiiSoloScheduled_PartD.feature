@@ -224,27 +224,7 @@ Feature: SoloScheduled Part D
 	  | Customer Phone  | Customer2 Phone      |
 	  | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
     
-   #@regression
-  #need to work on automation cannot wait for 2 hours
-  Scenario:Verify Customer Notification - 2 hours before scheduled trip [Not to be executed]
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time    |
-      | kansas   | Accepted     | 1.5 hour ahead |
-    And I Switch to "customer" application on "same" devices
-    Given I am on customer Log in page
-    And I am logged in as "valid" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I wait for Minimum duration for current Bungii to be T-2 hours
-    And I Switch to "driver" application on "same" devices
-    Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
-
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-
-
-  @ready
+    @ready
   Scenario: Verify Customer cannot Schedule A Bungii At A Same Time Equaling The Already Scheduled Bungii
 
     Given that solo schedule bungii is in progress
@@ -353,3 +333,22 @@ Feature: SoloScheduled Part D
     And I Switch to "driver" application on "same" devices
     Then Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
+
+     #@regression
+  #need to work on automation cannot wait for 2 hours
+  Scenario:Verify Customer Notification - 2 hours before scheduled trip [Not to be executed]
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time    |
+      | kansas   | Accepted     | 1.5 hour ahead |
+    And I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I wait for Minimum duration for current Bungii to be T-2 hours
+    And I Switch to "driver" application on "same" devices
+    Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
