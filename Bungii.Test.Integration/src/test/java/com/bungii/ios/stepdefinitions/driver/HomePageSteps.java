@@ -7,6 +7,7 @@ import com.bungii.common.manager.ResultManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.customer.ScheduledBungiiPage;
 import com.bungii.ios.pages.driver.AccountPage;
 import com.bungii.ios.pages.driver.HomePage;
 import com.bungii.ios.pages.driver.TripAlertSettingsPage;
@@ -35,6 +36,7 @@ public class HomePageSteps extends DriverBase {
     ActionManager action = new ActionManager();
     private HomePage homepage;
     private AccountPage accountPage = new AccountPage();
+    private ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
     private TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
     GeneralUtility utility= new GeneralUtility();
     public HomePageSteps(HomePage homepage) {
@@ -78,7 +80,26 @@ public class HomePageSteps extends DriverBase {
                     "Not able to select " + menuItem + " from App menu" , true);
         }
     }
+    @Then("^I should see driver minutes to pickup address of \"([^\"]*)\" delivery$")
+    public void i_should_see_minutes_to_pickup_address(String triptype) throws Throwable {
+        String actualValue = "";
+        String expectedValue = "0 minutes"; //temporary check as google api straightline distance is needed to be calculated at runtime
+        boolean condition;
+        switch (triptype.toUpperCase()) {
 
+            case "DUO" :
+                actualValue = action.getText(scheduledBungiiPage.Label_MinutesDuo());
+                  condition = actualValue.equals(expectedValue) ? false: true;
+                testStepAssert.isTrue(condition, expectedValue + "should be displayed",expectedValue + "is displayed",expectedValue + " is not displayed. instead "+actualValue);
+                break;
+            case "SOLO" :
+                actualValue = action.getText(scheduledBungiiPage.Label_MinutesSolo());
+                 condition = actualValue.equals(expectedValue) ? false: true;
+                testStepAssert.isTrue(condition, expectedValue + "should be displayed",expectedValue + "is displayed",expectedValue + " is not displayed. instead "+actualValue);
+                break;
+
+        }
+    }
     @Then("^I change driver status to \"([^\"]*)\"$")
     public void i_change_driver_status_to_something(String status) throws Throwable {
         try {

@@ -492,7 +492,7 @@ Feature: Scheduled Bungii on one device
 	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
  
 	And I Select "AVAILABLE BUNGIIS" from driver App menu
-	Then I should see minutes to pickup address
+	Then I should see driver minutes to pickup address of "Duo" delivery
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
