@@ -314,46 +314,6 @@ Feature: SoloScheduled Part E
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-  
-  
-  
-  @regression
-  Scenario: Verify If Non control Driver Completes The Trip First Then He Is Shown With Waiting Screen Till The Control Driver Completes And The Correct Summary Is Shown Thereafter
-    When I request "duo" Bungii as a customer in "Kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state  | driver2 state  |
-      | Unloading Item | Unloading Item |
-    
-    And I Switch to "customer" application on "same" devices
-    Given I login as customer "8805368840" and is on Home Page
-    
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I enter phoneNumber :9999999991 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And Bungii Driver "slides to the next state"
-    Then I accept Alert message for "Reminder: both driver at drop off"
-    Then non control driver should see "waiting for other driver" screen
-    
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Unloading Item screen"
-	#control driver complete bungii
-    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" trip
-      | driver1 state    |
-      | Bungii Completed |
-    Then Bungii customer should see "correct details for duo trip" on Bungii completed page
-    And I tap on "OK on complete" on Bungii estimate
-    And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
-    
-    When I Switch to "driver" application on "same" devices
-    Then Bungii driver should see "correct details for duo trip" on Bungii completed page
-    And I click "On To The Next One" button on the "Bungii Completed" screen
 
   @regression
     #stable
@@ -447,3 +407,41 @@ Feature: SoloScheduled Part E
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+
+  @regression
+  Scenario: Verify If Non control Driver Completes The Trip First Then He Is Shown With Waiting Screen Till The Control Driver Completes And The Correct Summary Is Shown Thereafter
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state  | driver2 state  |
+      | Unloading Item | Unloading Item |
+
+    And I Switch to "customer" application on "same" devices
+    Given I login as customer "8805368840" and is on Home Page
+
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :9999999991 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And Bungii Driver "slides to the next state"
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    Then non control driver should see "waiting for other driver" screen
+
+    When I Switch to "customer" application on "same" devices
+    Then for a Bungii I should see "Unloading Item screen"
+	#control driver complete bungii
+    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" trip
+      | driver1 state    |
+      | Bungii Completed |
+    Then Bungii customer should see "correct details for duo trip" on Bungii completed page
+    And I tap on "OK on complete" on Bungii estimate
+    And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details for duo trip" on Bungii completed page
+    And I click "On To The Next One" button on the "Bungii Completed" screen
