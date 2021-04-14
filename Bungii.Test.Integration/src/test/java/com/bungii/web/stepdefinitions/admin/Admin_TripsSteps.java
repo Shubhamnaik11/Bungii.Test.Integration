@@ -74,6 +74,8 @@ public class Admin_TripsSteps extends DriverBase {
                 "I viewed the Trips list on the admin portal", true);
 
     }
+
+
     @And("^I view the Live Deliveries list on the admin portal$")
     public void i_view_the_live_trips_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
@@ -105,6 +107,15 @@ public class Admin_TripsSteps extends DriverBase {
         log("I view the Scheduled Trips list on the admin portal",
                 "I viewed the Scheduled Trips list on the admin portal", true);
     }
+    @When("^I change filter to \"([^\"]*)\" on Scheduled deliveries$")
+    public void i_change_filter_to_something_on_scheduled_deliveries(String filter) throws Throwable {
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), filter);
+        Thread.sleep(5000);
+        log("I select filter from the Scheduled Trips list on the admin portal",
+                "I selected filter "+filter+" from the  Scheduled Trips list on the admin portal", true);
+
+    }
+
     @And("^I view the partner portal Scheduled Trips list on the admin portal$")
     public void i_view_the_partner_portal_trips_on_the_admin_portal() throws Throwable{
         action.click(admin_TripsPage.Menu_Trips());
@@ -331,7 +342,7 @@ public class Admin_TripsSteps extends DriverBase {
         catch(Exception e)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "DATA SYNCH ISSUE | Bungii is not displayed in Scheduled Delivery List",
+            error("Step  Should be successful", "PROBABLY DATA SYNCH ISSUE | Bungii is not displayed in Scheduled Delivery List",
                     true);
 
         }
@@ -424,7 +435,13 @@ public class Admin_TripsSteps extends DriverBase {
 
         }
     }
-
+    @When("^I change filter to \"([^\"]*)\" on All deliveries$")
+    public void i_change_filter_to_something_on_all_deliveries(String filter) throws Throwable {
+        action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),filter);
+        Thread.sleep(5000);
+        log("I select filter from All Deliveries on the admin portal",
+                "I selected filter "+filter+" from All Deliveries on the admin portal", true);
+    }
     @And("^I select the scheduled trip on All Deliveries$")
     public void i_select_the_scheduled_trip_on_all_deliveries() throws Throwable {
         try {

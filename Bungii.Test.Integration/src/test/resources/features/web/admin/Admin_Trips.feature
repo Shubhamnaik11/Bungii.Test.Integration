@@ -28,7 +28,7 @@ Feature: Admin_Trips
     And Click on "Calculate Cost" button
     Then the amount is calculated and shown to admin
     And Click on "Confirm" button
-    And I view the Trips list on the admin portal
+    And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
 
   @sanity
