@@ -340,9 +340,9 @@ public class HomeSteps extends DriverBase {
     public void current_location_should_be_present_as_pickup_location() {
         try {
 
-            String addressValue = action.getValueAttribute(homePage.TextBox_Pickup_LineOne());
+            String addressValue = action.getValueAttribute(homePage.TextBox_Pickup_LineOne(true));
 
-            testStepVerify.isTrue(!addressValue.isEmpty() && !addressValue.equals(""),
+            testStepAssert.isTrue(!addressValue.isEmpty() && !addressValue.equals(""),
                     "Pickup location value should be non empty", "Pickup location value is" + addressValue,
                     "Pickup location value should be non empty");
 
@@ -351,7 +351,7 @@ public class HomeSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in getting current address from pickup location", true);
         }
     }
 

@@ -39,7 +39,7 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement DropDown_BusinessUser( ) { return findElement("Reference", LocatorType.Id); }
 
-    public WebElement DropDown_AddBusinessUserPayment( ) { return findElement("AddBusinessUserPaymentRequestModel_Reference", LocatorType.Id); }
+    public WebElement DropDown_AddBusinessUserPayment( ) { return findElement("BusinessUserPaymentRequestModel_Reference", LocatorType.Id); }
 
     public WebElement Button_RequestPayment( ) { return findElement("btnRequestPayment", LocatorType.Id); }
 

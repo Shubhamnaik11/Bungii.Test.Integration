@@ -246,10 +246,10 @@ public class ScheduledTripSteps extends DriverBase {
 		boolean isFound=false;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(WebElement row:rows){
-			String rowCustName=row.findElement(By.xpath("//td[6]")).getText(),rowSchduledTime=row.findElement(By.xpath("//td[5]")).getText(),rowEstimatedDistance=row.findElement(By.xpath("//td[8]")).getText();
-
+			String rowCustName=row.findElement(By.xpath("//td[6]")).getText(),rowSchduledTime=row.findElement(By.xpath("//td[4]")).getText(),rowEstimatedDistance=row.findElement(By.xpath("//td[8]")).getText();
+			rowEstimatedDistance = rowEstimatedDistance.split("/")[0].trim(); // new change sprint 44
 			if(rowCustName.equals(custName) && rowEstimatedDistance.equals(estimatedDistance)){
-				WebElement tripDetailsLink=row.findElement(By.xpath("//td[5]/a"));
+				WebElement tripDetailsLink=row.findElement(By.xpath("//td[4]/a"));  //new change sprint 44
 				action.click(tripDetailsLink);
 				isFound=true;
 			}
@@ -270,7 +270,7 @@ public class ScheduledTripSteps extends DriverBase {
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){
 			String rowCustName= action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]"));
-			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]"));
+			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[4]"));
 		//	String rowEstimatedDistance=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
 			String rowSrNumber=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[1]"));
 
@@ -363,7 +363,7 @@ public class ScheduledTripSteps extends DriverBase {
 		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber,"Admin Portal:  I was not able to find bungii with details "+tripDetails);
 		WebElement tripStatus;
 
-		tripStatus=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td[11]"));
+		tripStatus=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td[10]")); //Changed from 11 sprint 44
 		testStepVerify.isElementTextEquals(tripStatus,status);
 	}
 //tr[@id='row1']/td[9]

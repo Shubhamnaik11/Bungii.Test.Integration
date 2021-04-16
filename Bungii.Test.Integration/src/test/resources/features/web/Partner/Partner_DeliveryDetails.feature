@@ -11,7 +11,7 @@
     Scenario: Verify all the fields on Delivery Details Screen
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                                    |Load_Unload_Time|
-        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, United States, District of Columbia, 20002   |30 minutes      |
+        | 601 13th Street Northwest, Washington, D.C., United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, D.C., United States, District of Columbia, 20002   |30 minutes      |
       And I select Next Possible Pickup Date and Pickup Time
         |Trip_Time            |
         |NEXT_POSSIBLE        |
