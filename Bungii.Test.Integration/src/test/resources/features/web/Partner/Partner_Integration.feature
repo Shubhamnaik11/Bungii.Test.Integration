@@ -99,7 +99,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Bungii Completed |
-    And I view the Trips list on the admin portal
+    And I view the Deliveries list on the admin portal
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed    |
@@ -138,7 +138,7 @@ Feature: Partner Integration with Admin and Driver
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     #And I view the Scheduled Trips list on the admin portal
-    And I view the Trips list on the admin portal
+    And I view the Deliveries list on the admin portal
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Canceled       |
@@ -194,7 +194,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state   |
       | Driver Canceled |
-    And I view the Trips list on the admin portal
+    And I view the Deliveries list on the admin portal
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status    |
       | Canceled       |
@@ -251,7 +251,7 @@ Feature: Partner Integration with Admin and Driver
     When As a driver "Testdrivertywd_appledc_a_ronny James" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state   |
       | Driver Canceled |
-    And I view the Trips list on the admin portal
+    And I view the Deliveries list on the admin portal
     And I navigate to partner portal and view the Trip status with below status
         | Partner_Status |
         | Canceled       |
@@ -308,7 +308,7 @@ Feature: Partner Integration with Admin and Driver
      When As a driver "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state   |
       | Driver Canceled |
-    And I view the Trips list on the admin portal
+    And I view the Deliveries list on the admin portal
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Canceled       |
@@ -362,7 +362,7 @@ Feature: Partner Integration with Admin and Driver
     And Click on "Calculate Cost" button
     Then the amount is calculated and shown to admin
     And Click on "Confirm" button
-    And I view the Trips list on the admin portal
+    And I view the Deliveries list on the admin portal
     Then The Trip List page should display the partner portal trip in "Payment Successful" state
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |

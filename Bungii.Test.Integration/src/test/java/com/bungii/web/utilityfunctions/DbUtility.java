@@ -313,7 +313,14 @@ public class DbUtility extends DbContextManager {
         return Estimate_time;
 
     }
+    public static String getAccessorialCharge(String pickupref) {
+        String accessorial_Charge;
+        String queryString = "SELECT accessorial_fee_amount FROM triprequest WHERE pickupid IN (SELECT  pickupid FROM pickupdetails WHERE pickupref='"+pickupref+"');";
+        accessorial_Charge = getDataFromMySqlServer(queryString);
+        logger.detail("Total Accessorial Charge =  " + accessorial_Charge + " of delivery "+ pickupref );
+        return accessorial_Charge;
 
+    }
     public static long getEstimateTimeforPickup(String Pickup_Reference) {
         long Estimate_time;
         String queryString = "SELECT EstTime FROM pickupdetails where PickupRef='"+Pickup_Reference+"'";
