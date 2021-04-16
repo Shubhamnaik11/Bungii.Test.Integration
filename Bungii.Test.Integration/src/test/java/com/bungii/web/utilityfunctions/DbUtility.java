@@ -184,14 +184,24 @@ public class DbUtility extends DbContextManager {
         return Estimate_distance;
 
     }
-    public static String getEstimateDistance() {
+    public static String getEstimateDistanceByPartnerReference(String partnerRef) {
         String Estimate_distance;
-        String queryString = "SELECT EstDistance FROM pickupdetails order by  pickupid desc limit 1";
+        String queryString = "SELECT EstDistance FROM pickupdetails where customerRef in (select CustomerRef from business_partner_location bpl join customer c on c.id = bpl.customer_id where business_partner_location_ref = '"+partnerRef+"')order by  pickupid desc limit 1";
         Estimate_distance = getDataFromMySqlServer(queryString);
-        logger.detail("Estimate Distance =  " + Estimate_distance + " of latest delivery" );
+        logger.detail("Estimate Distance =  " + Estimate_distance + " of Partner Location Reference " );
         return Estimate_distance;
 
     }
+
+    public static String getEstimateTimeByPartnerReference(String partnerRef) {
+        String Estimate_time;
+        String queryString = "SELECT EstTime FROM pickupdetails where customerRef in (select CustomerRef from business_partner_location bpl join customer c on c.id = bpl.customer_id where business_partner_location_ref = '"+partnerRef+"')order by  pickupid desc limit 1";
+        Estimate_time = getDataFromMySqlServer(queryString);
+        logger.detail("Estimate Time =  " + Estimate_time + " of latest trip of Partner Location Reference " + partnerRef );
+        return Estimate_time;
+
+    }
+
     public static String getServicePrice(String Alias,int No_of_Driver,String Trip_Estimate_Distance,String Service_name) {
         String Trip_Price;
 
@@ -305,14 +315,7 @@ public class DbUtility extends DbContextManager {
 
     }
 
-    public static String getEstimateTime() {
-        String Estimate_time;
-        String queryString = "SELECT EstTime FROM pickupdetails order by  pickupid desc limit 1";
-        Estimate_time = getDataFromMySqlServer(queryString);
-        logger.detail("Estimate Time =  " + Estimate_time + " of latest trip" );
-        return Estimate_time;
 
-    }
     public static String getAccessorialCharge(String pickupref) {
         String accessorial_Charge;
         String queryString = "SELECT accessorial_fee_amount FROM triprequest WHERE pickupid IN (SELECT  pickupid FROM pickupdetails WHERE pickupref='"+pickupref+"');";
