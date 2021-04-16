@@ -609,8 +609,9 @@ public class HomePageSteps extends DriverBase {
         calendar.add(Calendar.MINUTE, -2);
         DateFormat formatter = new SimpleDateFormat("hh:mm aa");
         formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.add(Calendar.MINUTE, 10);
         String strdate = formatter.format(calendar.getTime());
-        calendar.add(Calendar.MINUTE, -1);
+        calendar.add(Calendar.MINUTE, 1);
         String enddate = formatter.format(calendar.getTime());
         SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
         simpleDateformat.setTimeZone(TimeZone.getTimeZone(geofenceLabel));

@@ -325,7 +325,7 @@ public class DbUtility extends DbContextManager {
         long Estimate_time;
         String queryString = "SELECT EstTime FROM pickupdetails where PickupRef='"+Pickup_Reference+"'";
         Estimate_time = Long.parseLong(getDataFromMySqlServer(queryString));
-        logger.detail("Estimate Time=  " + Estimate_time + " of latest trip" );
+        logger.detail("Estimate Time=  " + Estimate_time + " of PickupRef="+Pickup_Reference);
         return Estimate_time;
 
     }

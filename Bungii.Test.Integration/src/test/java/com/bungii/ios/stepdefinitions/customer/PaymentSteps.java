@@ -208,7 +208,7 @@ public class PaymentSteps extends DriverBase {
             } else if (key.equalsIgnoreCase("Other card")) {
                 String defaultCard = (String) cucumberContextManager.getScenarioContext("DEFAULT_CARD");
                 boolean clicked = clickOtherCard(defaultCard);
-                testStepVerify.isTrue(clicked, "I should able to click on card having different last 4 digit then default one",
+                testStepAssert.isTrue(clicked, "I should able to click on card having different last 4 digit then default one",
                         "I was able to click Other card not having card number " + defaultCard,
                         "I was not able to click Other card not having card number " + defaultCard);
             } else if (key.equalsIgnoreCase("Checkbox")) {

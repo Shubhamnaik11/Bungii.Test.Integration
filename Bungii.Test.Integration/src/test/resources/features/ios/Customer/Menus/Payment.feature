@@ -40,15 +40,7 @@ Feature: Payment page
       | ValidCard Discover | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
       #| ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
     
-  @regression
-  Scenario: Verify Customer Can Change Default Payment Card
-    When I Select "ACCOUNT > PAYMENT" from Customer App menu
-    Then I should be navigated to "PAYMENT" screen
-    When I get "current" default card
-    And I tap on "Other card" on Payment page
-    And I tap on "Checkbox" on Payment page
-    When I click "SAVE" button on "PAYMENT" screen
-    Then I should see "new default card" on Payment page
+
 
   #commented this due to base to auto data issue
     #From sprint30 , we can delete the default card

@@ -1103,13 +1103,31 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTimeForGeofence();
             String strTime = bungiiTimeDisplayInTextArea(date);
             cucumberContextManager.setScenarioContext("CALCULATED_TIME",strTime);
+            cucumberContextManager.setScenarioContext("DISPLAYED_TIME",time);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I calculate the schedule time$")
+    public void I_calculate_the_schedule_time() throws Throwable {
+        try {
+            cucumberContextManager.setScenarioContext("MIN_TIME_DUO","30");
+            cucumberContextManager.setScenarioContext("MIN_TIME_SOLO","30");
+            String time=action.getValueAttribute(estimatePage.Text_TimeValue());
+            Date date = getNextScheduledBungiiTimeForGeofence();
+            String strTime = bungiiTimeDisplayInTextArea(date);
+            cucumberContextManager.setScenarioContext("CALCULATED_TIME",strTime);
+            cucumberContextManager.setScenarioContext("DISPLAYED_TIME",time);
 
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^correct next available scheduled time should be displayed$")
     public void correct_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
@@ -1123,11 +1141,11 @@ public class EstimateSteps extends DriverBase {
                     strTime = strTime.replace("am", "a.m.").replace("pm", "p.m.").replace("AM", "a.m.").replace("PM", "p.m.");
                 }
                 strTime = utility.getGmtTime(strTime);
-              testStepVerify.isEquals(displayedTime, strTime);
+                testStepAssert.isEquals(displayedTime, strTime,strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
             }
             else
 
-            testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"));
+            testStepAssert.isEquals(displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"),strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
 
 
         } catch (Exception e) {

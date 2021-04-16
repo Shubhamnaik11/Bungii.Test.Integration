@@ -604,6 +604,14 @@ public class CoreServices extends DriverBase {
         String[] rtnArray = new String[2];
         int bufferTimeToStartTrip = 0;
         Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date = null;
+        try {
+            date = sdfd.parse(teletTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        calendar.setTime(date);
         int mnts = calendar.get(Calendar.MINUTE);
         String teletType=(String)cucumberContextManager.getScenarioContext("TELET_TYPE");
             if(teletType.equalsIgnoreCase("TELET SAME TIME")) {

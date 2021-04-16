@@ -203,33 +203,35 @@ public class BungiiSteps extends DriverBase {
         {
             //Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             List<Map<String, String>> DataList = data.asMaps();
+
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+
+            if (bungiiType.equalsIgnoreCase("Solo Scheduled Researched") || bungiiType.equalsIgnoreCase("Duo Scheduled Researched")) {
+                pickupRequest = new DbUtility().getResarchedPickupReference(pickupRequest); //researched pickup ref
+                cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+                bungiiType = bungiiType.replace(" Researched", "");
+            }
+            cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
+            cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
+
+            String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
+            String driverAccessToken = "", driver2AccessToken = "";
+            //get geofence and pickup request from context
+            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+
+            driverPhoneNum = getDriverPhone(driverName);
+            driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
+            //cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("web.valid.driver.name"));
+            cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+            authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword); //Force login dunno why
+            driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+            coreServices.updateDriverLocation(driverAccessToken, geofence); //to uncomment
+            coreServices.updateDriverStatus(driverAccessToken);
+
             int i = 0;
             while (i < DataList.size()) {
                 try {
                     String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
-                    String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-
-                    if (bungiiType.equalsIgnoreCase("Solo Scheduled Researched") || bungiiType.equalsIgnoreCase("Duo Scheduled Researched")) {
-                        pickupRequest = new DbUtility().getResarchedPickupReference(pickupRequest); //researched pickup ref
-                        cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
-                        bungiiType = bungiiType.replace(" Researched", "");
-                    }
-                    cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
-                    cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
-
-                    String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
-                    String driverAccessToken = "", driver2AccessToken = "";
-                    //get geofence and pickup request from context
-                    String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-
-                    driverPhoneNum = getDriverPhone(driverName);
-                    driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
-                    //cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("web.valid.driver.name"));
-                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
-                    authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword); //Force login dunno why
-                    driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
-                    coreServices.updateDriverLocation(driverAccessToken, geofence); //to uncomment
-                    coreServices.updateDriverStatus(driverAccessToken);
                     logger.detail("*** As a driver " + driverName + "(" + driverPhoneNum + ") " + bungiiType + "(" + pickupRequest + ") is being " + driver1State);
                     try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
 
@@ -274,20 +276,6 @@ public class BungiiSteps extends DriverBase {
                             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                         } else if (driver1State.equalsIgnoreCase("Enroute")) {
-                            // coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
-                            // coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
-                            //logger.detail("Wait="+cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START"));
-                            //int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
-/*                            try {
-                                while (wait > 1) {
-                                    logger.detail("Waiting for " + wait / (60000 * 4) + " minute(s) before Scheduled trip can be started");
-                                    Thread.sleep(60000);
-                                    wait = wait - 60000 * 4;
-                                }
-
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }*/
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                         } else if (driver1State.equalsIgnoreCase("Arrived")) {
@@ -1111,9 +1099,9 @@ public class BungiiSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("TELET_TYPE",bungiiTime);
                 coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, teletTime);
             }
-            else if(bungiiTime.equalsIgnoreCase("7_DAY_LATER"))
+            else if(bungiiTime.equalsIgnoreCase("3_DAY_LATER"))
             {
-                coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, getSevenDaysLaterTime().toString());
+                coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, getDaysLaterTime(3).toString());
             }
             else{
                 int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
@@ -1213,9 +1201,9 @@ public class BungiiSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("TELET_TYPE",bungiiTime);
                 coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, teletTime);
             }
-            else if(bungiiTime.equalsIgnoreCase("7_DAY_LATER"))
+            else if(bungiiTime.equalsIgnoreCase("3_DAY_LATER"))
             {
-                coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, getSevenDaysLaterTime().toString());
+                coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, getDaysLaterTime(3).toString());
             }
             else{
                 int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
@@ -3869,20 +3857,19 @@ else
 
 
     }
-    private String getSevenDaysLaterTime()
+    private String getDaysLaterTime(int days)
     {
         String[] rtnArray = new String[2];
         int bufferTimeToStartTrip = 0;
         Calendar calendar = Calendar.getInstance();
         int mnts = calendar.get(Calendar.MINUTE);
-
-        calendar.set(Calendar.MINUTE, mnts+ 45); // Always choose 2nd possible slot to avoid issues with delay in requesting bungii
+        calendar.add(Calendar.DATE, days);
+        calendar.set(Calendar.MINUTE, mnts+ 45);
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));
         calendar.set(Calendar.SECOND, 0);
         Date nextQuatter = calendar.getTime();
-        calendar.add(Calendar.DATE, 7);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         String formattedDate = sdf.format(nextQuatter);
@@ -3896,4 +3883,6 @@ else
 
         return rtnArray[0];
     }
+
+
 }

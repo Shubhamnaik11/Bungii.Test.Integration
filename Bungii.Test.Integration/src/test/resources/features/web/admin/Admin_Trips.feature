@@ -6,6 +6,7 @@ Feature: Admin_Trips
 
   @sanity
   @ready
+    @we
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -30,31 +31,7 @@ Feature: Admin_Trips
     And Click on "Confirm" button
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
-
-  @sanity
-  @regression
-  Scenario: Verify Cancellation of Scheduled Bungii As An Admin
-    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-      | Bungii Time   | Customer Phone | Customer Name                  |
-      | NEXT_POSSIBLE | 9284000005     | Testcustomertywd_appleweb CustE|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
-      | driver1 state|
-      | Accepted  |
-    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
-    #And I view the Scheduled Trips list on the admin portal
-    And I view the all Scheduled Deliveries list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      |  Status |
-      | Scheduled |
-      When I click on "Edit" link beside scheduled bungii
-      And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
-      And I enter cancellation fee and Comments
-      And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
-      And I click on "Submit" button
-    Then The "Pick up has been successfully cancelled." message should be displayed
-    When I view the Trips list on the admin portal
-    Then The Delivery List page should display the delivery in "Admin Canceled" state
-
+    
 
   @sanity
   @regression
@@ -159,7 +136,7 @@ Feature: Admin_Trips
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Bungii Completed |
-    And I view the Trips list on the admin portal
+    And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And Customer should receive "Your Bungii Receipt" email
 
@@ -247,3 +224,40 @@ Feature: Admin_Trips
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I select the scheduled trip on All Deliveries
     Then I view the correct Driver Earnings for geofence based pricing model
+  
+  
+  @regression
+  Scenario: Verify Filters shows future deliveries in All deliveries page
+	When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence
+	  | Bungii Time   | Customer Phone | Customer Name |
+	  | 3_DAY_LATER | 9284174823       | Krishna Hoderker|
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Searching Drivers|
+    When I change filter to "This Week" on Scheduled deliveries
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Searching Drivers|
+    When I change filter to "This Month" on Scheduled deliveries
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Searching Drivers|
+    And I click on "Edit" link beside scheduled bungii
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+	And I view All Deliveries list on the admin portal
+	Then The Delivery List page should display the delivery in "Admin Cancelled" state
+    When I change filter to "The Past Day" on All deliveries
+    Then The Delivery List page should display the delivery in "Admin Cancelled" state
+    When I change filter to "The Past Week" on All deliveries
+    Then The Delivery List page should display the delivery in "Admin Cancelled" state
+    When I change filter to "The Past 4 Weeks" on All deliveries
+    Then The Delivery List page should display the delivery in "Admin Cancelled" state
+    When I change filter to "The Past 3 Months" on All deliveries
+    Then The Delivery List page should display the delivery in "Admin Cancelled" state
+    When I change filter to "The Beginning Of Time" on All deliveries
+    Then The Delivery List page should display the delivery in "Admin Cancelled" state
+  
+  
+
+  

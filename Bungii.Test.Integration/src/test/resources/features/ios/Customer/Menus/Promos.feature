@@ -255,8 +255,8 @@ Feature: Promos
     And I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @ready
-    @failed
+  @regression
+    #stable
     @test
   Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching Trip Having Promocode Applied To It
     Given I am on the "LOG IN" page
@@ -327,8 +327,7 @@ Feature: Promos
       Then I should be navigated to "Promotion" screen
       When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
       Then I should be navigated to "Home" screen
-
-
+    
   @regression
   Scenario Outline: Verify Already Applied Expired Promocode Is Removed From The Promos Screen
     And I am on the "LOG IN" page
