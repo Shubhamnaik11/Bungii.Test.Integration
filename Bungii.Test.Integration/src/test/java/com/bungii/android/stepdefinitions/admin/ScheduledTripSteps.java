@@ -971,18 +971,33 @@ public class ScheduledTripSteps extends DriverBase {
 				break;
 			case "trip time to past":
 				newTime = currentTime;
+				DateFormat formatter = new SimpleDateFormat("hh:mm a");
+				Date NT = formatter.parse(newTime);
+
+				Calendar CL = Calendar.getInstance();
+				CL.setTime(NT);
+				CL.add(Calendar.MINUTE,-60);
+
+				Date NT1 = CL.getTime();
+				String newTime1 = formatter.format(NT1);
+
+				/*
 				String t2 = null;
 				String time=newTime.substring(0,2);
 				int t=Integer.parseInt(time);
+				t2= String.valueOf(t-1);
 				int t1=01;
 				t=t-t1;
 				if(t>=0 && t<10){
 					t2="0"+t;
 				}
+
 				newTime=t2+newTime.substring(2,8);
-				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
+
+				 */
+				cucumberContextManager.setScenarioContext("NEW_TIME", newTime1);
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
-				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
+				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime1 + "')]"));
 				action.click(selectTime);
 				break;
 		}
