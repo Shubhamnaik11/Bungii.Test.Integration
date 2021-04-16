@@ -1,18 +1,22 @@
 package com.bungii.api.utilityFunctions;
 
 import com.bungii.android.utilityfunctions.DbUtility;
+import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.ApiHelper;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.commons.collections.map.HashedMap;
+import org.json.JSONObject;
 
 import java.util.Map;
 
-public class AuthServices {
+public class AuthServices extends DriverBase {
     private static String CUST_LOGIN_ENDPOINT = "/api/customer/login";
     private static String DRIVER_LOGIN_ENDPOINT = "/api/driver/login";
+    private static String BUSINESSPARTNER_LOGIN = "/api/businesspartner/login";
     private static LogUtility logger = new LogUtility(AuthServices.class);
 
     /**
@@ -63,5 +67,35 @@ public class AuthServices {
        // ApiHelper.genericResponseValidation(response, RequestText);
         JsonPath jsonPathEvaluator = response.jsonPath();
         return jsonPathEvaluator.get("AccessToken");
+    }
+
+    public String partnerLogin(String Partner_Portal){
+        String RequestText ="API REQUEST : Partner Login(Post) |  : "+ Partner_Portal;
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("auth",BUSINESSPARTNER_LOGIN);
+        String Partner_Location_Reference = "";
+
+        if(Partner_Portal.equalsIgnoreCase("MRFM")){
+            Partner_Location_Reference = PropertyUtility.getDataProperties("partner.location.reference.MRFM");
+            cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
+            logger.detail("PartnerLocationReference="+Partner_Location_Reference);
+        }
+        else{
+            logger.detail("Please provide proper partner portal alias.");
+        }
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("PartnerLocationReference", Partner_Location_Reference);
+        String Pwd = PropertyUtility.getDataProperties("PartnerPassword");
+        jsonObj.put("Password", Pwd);
+        //Header header = new Header("AuthorizationToken",);
+
+        Response response = ApiHelper.givenPartnerConfig().body(jsonObj.toString()).when().post(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return jsonPathEvaluator.get("AccessToken");
+        //return response;
+
     }
 }

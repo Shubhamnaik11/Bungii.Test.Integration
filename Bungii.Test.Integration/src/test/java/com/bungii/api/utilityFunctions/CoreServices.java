@@ -7,7 +7,9 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
 import com.bungii.ios.stepdefinitions.customer.*;
 import com.bungii.api.utilityFunctions.DbUtility;
+import com.google.gson.Gson;
 import cucumber.api.junit.Cucumber;
+import cucumber.deps.com.thoughtworks.xstream.mapper.Mapper;
 import io.restassured.http.Header;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -23,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.utilities.ApiHelper.gson;
 
 public class CoreServices extends DriverBase {
     private static LogUtility logger = new LogUtility(CoreServices.class);
@@ -45,6 +48,10 @@ public class CoreServices extends DriverBase {
     private static String GET_PROMOCODE = "/api/customer/getpromocodes";
     private static String DRIVER_CANCELPICKUPLIST = "/api/driver/cancelpickup";
     private static String STACKED_PICKUP_CONFIRMATION = "/api/driver/stackedpickupconfirmation";
+    private static String PARTNER_PICKUPESTIMATE = "/api/partner/pickupestimate";
+    private static String PARTNER_PICKUPDETAILS ="/api/partner/pickupdetails?pickuprequestid=";
+    private static String PARTNER_DELIVERYINFOMATION ="/api/partner/deliveryinformation";
+
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
 
@@ -1266,6 +1273,235 @@ public class CoreServices extends DriverBase {
         ApiHelper.genericResponseValidation(response, RequestText);
         return response;
      }
+
+    public String partnerPickupEstimate(String Partner_Portal,String Geofence,String Bungii_Time){
+        String RequestText ="API REQUEST : Partner Estimate Cost(Post) |  : "+ Partner_Portal;
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("core",PARTNER_PICKUPESTIMATE);
+        String PartnerLocationConfigVersion = (String) cucumberContextManager.getScenarioContext("PartnerLocationReference");
+        String[] nextAvailableBungii = new String[0];
+        int No_of_Driver;
+        Response response = null;
+
+        String BungiiType = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        if(BungiiType.equalsIgnoreCase("SOLO")){
+            No_of_Driver=1;
+        }else {
+            No_of_Driver=2;
+        }
+
+        if(Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE")){
+            nextAvailableBungii = getScheduledBungiiTime();
+        }
+
+        if(Geofence.equalsIgnoreCase("Kansas")) {
+
+            String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+            String Load_Unload = PropertyUtility.getDataProperties("partner.load.unload.time");
+
+            String Pickup_Address_Id = PropertyUtility.getDataProperties("partner.kansas.pickup_address_id");
+            String Pickup_Address1 = PropertyUtility.getDataProperties("partner.kansas.pickup_address1");
+            String Pickup_Address2 = PropertyUtility.getDataProperties("partner.kansas.pickup_address2");
+            String Pickup_City = PropertyUtility.getDataProperties("partner.kansas.pickup_city");
+            String Pickup_Country = PropertyUtility.getDataProperties("partner.kansas.pickup_country");
+            String Pickup_Latitude = PropertyUtility.getDataProperties("partner.kansas.pickup_latitude");
+            String Pickup_Longitude = PropertyUtility.getDataProperties("partner.kansas.pickup_longitude");
+            String Pickup_State = PropertyUtility.getDataProperties("partner.kansas.pickup_state");
+            String Pickup_ZipPostalCode = PropertyUtility.getDataProperties("partner.kansas.pickup_zippostalcode");
+
+            String DropOff_Address_Id = PropertyUtility.getDataProperties("partner.kansas.dropoff_address_id");
+            String DropOff_Address1 = PropertyUtility.getDataProperties("partner.kansas.dropoff_address1");
+            String DropOff_Address2 = PropertyUtility.getDataProperties("partner.kansas.dropoff_address2");
+            String DropOff_City = PropertyUtility.getDataProperties("partner.kansas.dropoff_city");
+            String DropOff_Country = PropertyUtility.getDataProperties("partner.kansas.dropoff_country");
+            String DropOff_Latitude = PropertyUtility.getDataProperties("partner.kansas.dropoff_latitude");
+            String DropOff_Longitude = PropertyUtility.getDataProperties("partner.kansas.dropoff_longitude");
+            String DropOff_State = PropertyUtility.getDataProperties("partner.kansas.dropoff_state");
+            String DropOff_ZipPostalCode = PropertyUtility.getDataProperties("partner.kansas.dropoff_zippostalcode");
+
+            //for Pickup Location
+            JSONObject jsonPickupLocation = new JSONObject();
+            jsonPickupLocation.put("Latitude", Pickup_Latitude);
+            jsonPickupLocation.put("Longitude", Pickup_Longitude);
+
+            //JSONObject jsonPickup =  new JSONObject();
+            //jsonPickup.put("Location",jsonPickupLocation);
+
+            //for Pickup Address:
+            JSONObject jsonPickupAddress = new JSONObject();
+            jsonPickupAddress.put("AddressId", Pickup_Address_Id);
+            jsonPickupAddress.put("Address1", Pickup_Address1);
+            jsonPickupAddress.put("Address2", Pickup_Address2);
+            jsonPickupAddress.put("City", Pickup_City);
+            jsonPickupAddress.put("Country", Pickup_Country);
+            jsonPickupAddress.put("Location", jsonPickupLocation);
+            jsonPickupAddress.put("State", Pickup_State);
+            jsonPickupAddress.put("ZipPostalCode", Pickup_ZipPostalCode);
+
+            //for Dropoff location
+            JSONObject jsonDropOffLocation = new JSONObject();
+            jsonDropOffLocation.put("Latitude", DropOff_Latitude);
+            jsonDropOffLocation.put("Longitude", DropOff_Longitude);
+
+            //JSONArray jsonDrop=  new JSONArray();
+            //jsonDrop.put(jsonDropOffLocation);
+
+            //for Dropoff Address:
+            JSONObject jsonDropoffAddress = new JSONObject();
+            jsonDropoffAddress.put("AddressId", DropOff_Address_Id);
+            jsonDropoffAddress.put("Address1", DropOff_Address1);
+            jsonDropoffAddress.put("Address2", DropOff_Address2);
+            jsonDropoffAddress.put("City", DropOff_City);
+            jsonDropoffAddress.put("Country", DropOff_Country);
+            jsonDropoffAddress.put("Location", jsonDropOffLocation);
+            jsonDropoffAddress.put("State", DropOff_State);
+            jsonDropoffAddress.put("ZipPostalCode", DropOff_ZipPostalCode);
+
+            JSONArray jsonCompletePickup= new JSONArray();
+            jsonCompletePickup.put(jsonPickupAddress);
+            JSONArray jsonCompleteDropOff= new JSONArray();
+            jsonCompleteDropOff.put(jsonDropoffAddress);
+
+            //final main json for request payload
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("PickupAddress", jsonPickupAddress);
+            jsonObj.put("DropOffAddress", jsonDropoffAddress);
+            jsonObj.put("DeliveryDateTime", nextAvailableBungii[0]);
+            jsonObj.put("EstLoadUnloadTimeInMilliseconds", Load_Unload);
+            jsonObj.put("IsScheduledPickup", true);
+            jsonObj.put("PartnerLocationConfigVersion", PartnerLocationConfigVersion);
+            jsonObj.put("PickupRequestID",JSONObject.NULL);
+            jsonObj.put("ServiceLevelRef", JSONObject.NULL);
+            jsonObj.put("NoOfDrivers",No_of_Driver);
+            jsonObj.put("BusinessPartnerDefaultAddressRef", dbUtility.BusinessPartnerDefaultAddressRef(PartnerLocationConfigVersion));
+
+            //Header header = new Header("AuthorizationToken", AccessToken);
+            response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);//body(jsonObj.toString()).
+            // response.then().log().body();
+            JsonPath jsonPathEvaluator = response.jsonPath();
+            ApiHelper.genericResponseValidation(response, RequestText);
+        }
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return jsonPathEvaluator.get("PickupRequestID");
+            //return response;
+
+    }
+
+    public String partnerPickupDetails(String PickupRequest){
+        String RequestText ="API REQUEST : Partner PickupDetails(Get) |PICKUP REQUEST  : "+ PickupRequest;
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("reporting",PARTNER_PICKUPDETAILS+PickupRequest);
+        String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+
+        /*if(Partner_Portal.equalsIgnoreCase("MRFM")){
+            Partner_Location_Reference = PropertyUtility.getDataProperties("partner.location.reference.MRFM");
+            cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
+            logger.detail("PartnerLocationReference="+Partner_Location_Reference);
+        }
+        else{
+            logger.detail("Please provide proper partner portal alias.");
+        }
+
+
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("PartnerLocationReference", PickupRequest);
+        String Pwd = PropertyUtility.getDataProperties("PartnerPassword");
+        jsonObj.put("Password", Pwd);
+        //Header header = new Header("AuthorizationToken",);
+
+         */
+
+        Response response = ApiHelper.givenPartnerAccess(AccessToken).when().get(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return jsonPathEvaluator.get("AccessToken");
+        //return response;
+
+    }
+
+    public String partnerDeliveryInformation(String PickupRequest){
+        String RequestText ="API REQUEST : Partner PickupDetails(PATCH) |PICKUP REQUEST  : "+ PickupRequest;
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("core",PARTNER_DELIVERYINFOMATION);
+        String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+
+        /*if(Partner_Portal.equalsIgnoreCase("MRFM")){
+            Partner_Location_Reference = PropertyUtility.getDataProperties("partner.location.reference.MRFM");
+            cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
+            logger.detail("PartnerLocationReference="+Partner_Location_Reference);
+        }
+        else{
+            logger.detail("Please provide proper partner portal alias.");
+        }
+
+         */
+        //Pickup Name
+        JSONObject jsonFiled1 = new JSONObject();
+        jsonFiled1.put("FieldRef","f2bd9004-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled1.put("FieldValue","Test Pickup");
+
+        //Pickup contact
+        JSONObject jsonFiled2 = new JSONObject();
+        jsonFiled2.put("FieldRef","f2bd908c-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled2.put("FieldValue","3456765435");
+
+        //Drop Name
+        JSONObject jsonFiled3 = new JSONObject();
+        jsonFiled3.put("FieldRef","f2bd90b3-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled3.put("FieldValue","Test Drop");
+
+        //Drop Contact
+        JSONObject jsonFiled4 = new JSONObject();
+        jsonFiled4.put("FieldRef","f2bd90b3-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled4.put("FieldValue","4567898765");
+
+        //Drop Contact
+        JSONObject jsonFiled5 = new JSONObject();
+        jsonFiled5.put("FieldRef","f2bd90b3-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled5.put("FieldValue","RN01");
+
+        JSONArray SF = new JSONArray();
+        SF.put(jsonFiled1);
+        SF.put(jsonFiled2);
+        SF.put(jsonFiled3);
+        SF.put(jsonFiled4);
+        SF.put(jsonFiled5);
+
+        //JSONObject jsonStaticFields = new JSONObject();
+        //jsonStaticFields.put("StaticFields",SF);
+        JSONArray CF = new JSONArray();
+        JSONArray ITD = new JSONArray();
+
+
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("PickupRequestID", PickupRequest);
+        jsonObj.put("CustomerName","Test Customer");
+        jsonObj.put("CustomerMobile","4578766787");
+        jsonObj.put("PickupNote","Test Automation Script");
+        jsonObj.put("SpecialInstructions","SPL from QA script");
+        jsonObj.put("StaticFields",SF);
+        jsonObj.put("CustomFields",CF);
+        jsonObj.put("PaymentOption","CC");
+        jsonObj.put("PaymentMethodNonce","tokencc_bh_v4jyj9_7j3kn9_qxtvgf_39kh3z_5x3");
+        jsonObj.put("ItemsToDeliver",ITD);
+        //Header header = new Header("AuthorizationToken",);
+
+
+
+        Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return jsonPathEvaluator.get("AccessToken");
+        //return response;
+
+    }
+
 }
 
 

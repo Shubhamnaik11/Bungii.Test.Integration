@@ -40,6 +40,50 @@ public class ApiHelper {
     }
 
     /**
+     * Given config for Partner Config
+     *
+     * @return
+     */
+    public static RequestSpecification givenPartnerConfig(){
+
+        return given().log().all()
+                //.header("authority", PropertyUtility.getDataProperties("AUTH_URL"))
+                .header("accept","application/json, text/plain, */*")
+                .header("accept-encoding", "gzip, deflate, br")
+                .header("accept-language", "en-US,en;q=0.9")
+                .header("content-type", "application/json")
+                .header("Accept-Encoding", "gzip, deflate, br")
+                .header("sec-fetch-dest","empty")
+                .header("sec-fetch-mode","cors")
+                .header("sec-fetch-site","same-site")
+                .header("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36")//PropertyUtility.getDataProperties("DEVICE_ID"))
+                .auth().preemptive().basic(PropertyUtility.getDataProperties("partner.auth.username"), PropertyUtility.getDataProperties("partner.auth.password"));
+    }
+
+    /**
+     * Given config for Partner Access with AccessToken
+     *
+     * @return
+     */
+    public static RequestSpecification givenPartnerAccess(String AccessToken){
+
+        return given().log().all()
+                //.header("authority", PropertyUtility.getDataProperties("AUTH_URL"))
+                .header("accept","application/json, text/plain, */*")
+                .header("accept-encoding", "gzip, deflate, br")
+                .header("accept-language", "en-US,en;q=0.9")
+                .header("appversion",4)
+                .header("authorizationtoken",AccessToken)
+                .header("content-type", "application/json")
+                .header("accept-Encoding", "gzip, deflate, br")
+                .header("sec-fetch-dest","empty")
+                .header("sec-fetch-mode","cors")
+                .header("sec-fetch-site","same-site")
+                .header("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36")//PropertyUtility.getDataProperties("DEVICE_ID"))
+                .auth().preemptive().basic(PropertyUtility.getDataProperties("partner.auth.username"), PropertyUtility.getDataProperties("partner.auth.password"));
+    }
+
+    /**
      * Given config for driver app
      *
      * @return

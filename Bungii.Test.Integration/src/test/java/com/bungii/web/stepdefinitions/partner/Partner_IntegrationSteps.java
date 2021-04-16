@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.api.utilityFunctions.CoreServices;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -32,6 +33,7 @@ public class Partner_IntegrationSteps extends DriverBase {
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+    CoreServices coreServices = new CoreServices();
 
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
 
@@ -364,5 +366,6 @@ public class Partner_IntegrationSteps extends DriverBase {
 
         }
     }
+
 
 }

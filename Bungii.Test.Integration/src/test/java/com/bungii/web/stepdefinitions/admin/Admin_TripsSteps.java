@@ -3,6 +3,7 @@ package com.bungii.web.stepdefinitions.admin;
 import com.bungii.SetupManager;
 import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.*;
@@ -562,6 +563,15 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have clicked on Edit link besides the scheduled bungii", true);
     }
 
+    @Then("^I confirm the change drop off address on delivery details page$")
+    public void i_confirm_the_change_drop_off_address_on_delivery_details_page() throws Throwable {
+        String Expected_Change_DropOff = (String)cucumberContextManager.getScenarioContext("Change_Drop_Off");
+        String Display_Change_DropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
+        testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
+        log(" I confirm the change drop off address on delivery details page",
+                "I have confirm the change drop off address on delivery details page", true);
+    }
+
     @And("^I click on \"([^\"]*)\" radiobutton$")
     public void i_click_on_something_radiobutton(String radiobutton) throws Throwable {
 
@@ -574,10 +584,42 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
             case "Edit Trip Details":
                 action.click(admin_EditScheduledBungiiPage.RadioButton_EditTripDetails());
+                Thread.sleep(3000);
                 break;
         }
         log("I click on Remove driver(s) and re-search radio button",
                 "I have clicked on Remove driver(s) and re-search radio button", true);
+    }
+
+    @And("^I edit the drop off address$")
+    public void i_edit_the_drop_off_address() throws Throwable {
+        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
+        action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
+
+    }
+
+    @Then("^I change the drop off address to \"([^\"]*)\"$")
+    public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
+        cucumberContextManager.setScenarioContext("Change_Drop_Off",arg1);
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
+        Thread.sleep(1000);
+        action.click(admin_ScheduledTripsPage.FirstAddressDropdownResult());
+
+    }
+
+    @When("^I view the trip details in admin portal$")
+    public void i_view_the_trip_detailsin_admin() throws Throwable {
+        try{
+            SetupManager.getDriver().navigate().refresh();
+            String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String xpath = String.format("//td[contains(.,'')]/following-sibling::td[contains(.,'%s')]/preceding::td[1]", customer);
+            //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+            action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I enter cancellation fee and Comments$")
@@ -1142,12 +1184,12 @@ public class Admin_TripsSteps extends DriverBase {
     }
 
     @And("^I click on \"([^\"]*)\" button on Edit Scheduled bungii popup$")
-    public void i_click_on_something_button_on_edit_scheduled_bungii_popup(String button) {
+    public void i_click_on_something_button_on_edit_scheduled_bungii_popup(String button) throws InterruptedException {
 
         switch (button) {
             case "Save":
-            action.click(admin_EditScheduledBungiiPage.Button_Save());
-            break;
+                action.click(admin_EditScheduledBungiiPage.Button_Save());
+                break;
             case "Verify":
                 action.click(admin_EditScheduledBungiiPage.Button_Verify());
                 break;
