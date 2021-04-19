@@ -6,7 +6,6 @@ Feature: Admin_Trips
 
   @sanity
   @ready
-    @we
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -22,7 +21,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Loading Items |
-    When I view the trip details
+    When I view the delivery details
     Then the Bungii details is displayed successfully
     And I click on "Manually End Bungii" link
     And Enter the End Date and Time

@@ -706,7 +706,7 @@ public class Partner_trips extends DriverBase {
             cucumberContextManager.setScenarioContext("STATUS", status);
 
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
-                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType.toUpperCase(), customer);
+                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType.toUpperCase(), customer);
                 int retrycount = 10;
 
                 boolean retry = true;
@@ -742,7 +742,7 @@ public class Partner_trips extends DriverBase {
 
         } else {
 
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", tripType, customer);
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", tripType, customer);
                 int retrycount = 10;
 
                 boolean retry = true;
