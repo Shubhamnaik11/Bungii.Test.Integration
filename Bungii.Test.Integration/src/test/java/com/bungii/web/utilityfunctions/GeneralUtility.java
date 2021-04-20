@@ -60,12 +60,17 @@ public class GeneralUtility extends DriverBase {
         if(environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS")){
             if(PP_Site.equalsIgnoreCase("normal")){
                 partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.partner.ref"));
             }else if(PP_Site.equalsIgnoreCase("service level")){
                 partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.service_level_partner.ref"));
             }else if(PP_Site.equalsIgnoreCase("kiosk mode")){
                 partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
             }else if(PP_Site.equalsIgnoreCase("BestBuy service level")){
                 partnerURL = PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.ref"));
+
             }
         }
         return  partnerURL;

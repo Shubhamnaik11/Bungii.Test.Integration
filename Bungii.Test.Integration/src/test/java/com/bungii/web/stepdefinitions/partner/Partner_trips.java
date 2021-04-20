@@ -636,10 +636,11 @@ public class Partner_trips extends DriverBase {
             String loadTime = String.valueOf(cucumberContextManager.getScenarioContext("LoadUnload_Time"));
 
             com.bungii.web.utilityfunctions.GeneralUtility utility = new com.bungii.web.utilityfunctions.GeneralUtility();
+            String partnerRef = (String)cucumberContextManager.getScenarioContext("PARTNERREF");
 
             //TODO: verify DB and phone value
-            String totalDistance = dbUtility.getEstimateDistance();
-            String totalEstimateTime = dbUtility.getEstimateTime();
+            String totalDistance = dbUtility.getEstimateDistanceByPartnerReference(partnerRef);
+            String totalEstimateTime = dbUtility.getEstimateTimeByPartnerReference(partnerRef);
 
             double expectedValue = utility.bungiiEstimate(totalDistance, loadTime, totalEstimateTime, "");
 
