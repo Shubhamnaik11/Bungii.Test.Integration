@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -40,6 +41,7 @@ public class LiveTripsSteps extends DriverBase {
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);
             action.click(liveTripsPage.Button_StartDateSort());Thread.sleep(2000);
+
             action.click(liveTripsPage.Button_RowOne());
         }
         catch (Throwable e) {
@@ -256,11 +258,18 @@ public class LiveTripsSteps extends DriverBase {
                 hours = hours + 1;
                 minutes = minutes -20;
             }
-
+            TimeZone.setDefault(TimeZone.getTimeZone("EST"));
+            String endDate = dtf.format(now);
+            String endTime = formatter.format(hours)+":"+formatter.format(minutes);
             // ZonedDateTime zonedNZ = ZonedDateTime.of(now,ZoneId.of("5:00"));
-            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),dtf.format(now));
-            action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),formatter.format(hours)+":"+formatter.format(minutes));
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),endDate);
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),endTime);
             action.selectElementByText(liveTripsPage.Dropdown_ddlpickupEndTime(),splitedDate[3]);
+            logger.detail("Selected End Date is : "+ endDate);
+            logger.detail("Selected End Time is : "+ endTime);
+            logger.detail("Selected End Time Dropdown is : "+ splitedDate[3]);
+
+
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

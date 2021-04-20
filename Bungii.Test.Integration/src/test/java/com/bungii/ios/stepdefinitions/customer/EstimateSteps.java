@@ -1540,14 +1540,14 @@ public class EstimateSteps extends DriverBase {
      */
     public void clickAcceptTerms() {
         action.swipeUP();
-        estimatePage.CheckBoxOff_Terms().click();
+        action.click(estimatePage.CheckBoxOff_Terms());
     }
 
     /**
      * Click cancel button on Navigation bar
      */
     public void clickCancel() {
-        estimatePage.Button_Cancel().click();
+        action.click(estimatePage.Button_Cancel());
     }
 
     /**
