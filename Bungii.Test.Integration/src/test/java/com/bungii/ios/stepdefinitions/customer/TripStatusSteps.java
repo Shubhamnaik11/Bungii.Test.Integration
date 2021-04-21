@@ -39,6 +39,16 @@ public class TripStatusSteps extends DriverBase {
         try {
             int activeStatus=0;
 
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if (alertMessage.contains("we are not operating in your area")) {
+                    if (getListOfAlertButton.contains("Done")) {
+                        action.clickAlertButton("Done");
+                    }
+                }
+            }
+
             boolean pageFlag = false;
             if (screen.equalsIgnoreCase(Status.ARRIVED.toString())){
                 pageFlag = isUpdatePage(Status.ARRIVED.toString());activeStatus=1;}
@@ -291,7 +301,7 @@ public class TripStatusSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in viewing SMS/Call on ios app ", true);
         }
     }
     @Then("^correct details should be displayed to customer for \"([^\"]*)\"$")

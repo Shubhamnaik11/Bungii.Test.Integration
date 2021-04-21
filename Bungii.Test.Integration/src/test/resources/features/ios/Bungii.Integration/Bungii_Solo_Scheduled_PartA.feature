@@ -8,8 +8,7 @@ Feature: Solo Scheduled Bungii Part A
   Background:
     #When I clear all notification
     When I Switch to "customer" application on "same" devices
-
-  @failures
+    
   @regression
   @sanity
   Scenario: Verify Solo Schedule Bungii Till Completion
@@ -299,14 +298,12 @@ Feature: Solo Scheduled Bungii Part A
     And I select already scheduled bungii
     Then I Cancel selected Bungii
 
-  @ready
-  @failures
+  @regression
+    #stable
   Scenario: Verify Customer Can Cancel Solo Scheduled Bungii Also Verify Trip Details In Bungii Details
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
-    #When I am on the "LOG IN" page
-   # And I logged in Customer application using  "valid denver" user
     Given I login as "valid denver" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
