@@ -54,6 +54,7 @@ When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 Then I should be navigated to "Home" screen
   
   @regression
+   #stable
   Scenario:Verify Driver Notification For The Tip Amount Received From Customer
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -69,13 +70,15 @@ Then I should be navigated to "Home" screen
     And I am logged in as "valid nashville" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
-    And I click on notification for "customer" for "BUNGII FINISHED -RATE DRIVER"
     
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    #And I click on notification for "customer" for "BUNGII FINISHED -RATE DRIVER"
     When I rate Bungii Driver  with following details and Press "OK" Button
       | Ratting | Tip |
       | 5       | 5   |
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
-    
+    And I Switch to "driver" application on "same" devices
     And I click "On To The Next One" button on "Bungii Completed" screen
   
   @sanity

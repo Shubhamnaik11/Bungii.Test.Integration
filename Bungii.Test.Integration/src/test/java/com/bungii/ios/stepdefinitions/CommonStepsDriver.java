@@ -337,7 +337,7 @@ public class CommonStepsDriver extends DriverBase {
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in navigating to "+ screen + " screen on driver app ", true);
 
         }
     }
@@ -366,8 +366,8 @@ public class CommonStepsDriver extends DriverBase {
                     action.click(enableNotificationPage.Button_Sure());
                     action.clickAlertButton("Allow");
                     // pageName = utility.getPageHeader();
+                    Thread.sleep(3000);
                 }
-                Thread.sleep(3000);
                 if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                     action.click(enableLocationPage.Button_Sure());
                     action.clickAlertButton("Always Allow");

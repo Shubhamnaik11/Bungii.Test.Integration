@@ -20,6 +20,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.TimeZone;
@@ -46,7 +48,7 @@ public class LiveTripsSteps extends DriverBase {
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in viewing delivery from live deliveries",
                     true);
         }
     }
@@ -62,7 +64,7 @@ public class LiveTripsSteps extends DriverBase {
             action.click(liveTripsPage.Button_RowOne());
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in selecting trip from All deliveries",
                     true);
         }
     }
@@ -258,8 +260,19 @@ public class LiveTripsSteps extends DriverBase {
                 hours = hours + 1;
                 minutes = minutes -20;
             }
+            ZoneId fromTimeZone = ZoneId.of("Asia/Kolkata");    //Source timezone
+            ZoneId toTimeZone = ZoneId.of("America/New_York");  //Target timezone
+
+            LocalDateTime today = LocalDateTime.now();          //Current time
+
+            //Zoned date time at source timezone
+            ZonedDateTime currentISTime = today.atZone(fromTimeZone);
+
+            //Zoned date time at target timezone
+            ZonedDateTime currentETime = currentISTime.withZoneSameInstant(toTimeZone);
+
             TimeZone.setDefault(TimeZone.getTimeZone("EST"));
-            String endDate = dtf.format(now);
+            String endDate = dtf.format(currentETime);
             String endTime = formatter.format(hours)+":"+formatter.format(minutes);
             // ZonedDateTime zonedNZ = ZonedDateTime.of(now,ZoneId.of("5:00"));
             action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),endDate);

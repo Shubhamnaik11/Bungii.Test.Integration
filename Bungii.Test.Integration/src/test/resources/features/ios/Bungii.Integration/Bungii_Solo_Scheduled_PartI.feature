@@ -12,7 +12,6 @@ Feature: Solo Scheduled Bungii Part I
 @failures
 @ready
 Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually Ending Bungii
-
 When I Switch to "customer" application on "same" devices
 And I am on the "LOG IN" page
 And I logged in as "valid miami 2" customer

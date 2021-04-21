@@ -485,7 +485,7 @@ public class HomeSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error in selecting menu ", true);
+                    "Error in selecting menu : "+ menuItem, true);
         }
     }
 
