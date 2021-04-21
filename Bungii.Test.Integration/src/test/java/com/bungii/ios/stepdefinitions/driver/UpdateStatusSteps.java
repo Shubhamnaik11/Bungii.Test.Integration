@@ -112,7 +112,7 @@ public class UpdateStatusSteps extends DriverBase {
 				"Slider value should be" + expectedMessage + "and actual is" + actualValue);*/
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in sliding on " + screen + " screen in driver app", true);
         }
     }
     @Then("^non control driver should see \"([^\"]*)\" screen$")
@@ -223,7 +223,7 @@ public class UpdateStatusSteps extends DriverBase {
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in tapping on call/sms icons", true);
         }
     }
 

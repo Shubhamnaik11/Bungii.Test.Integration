@@ -842,10 +842,19 @@ try {
             grantPermissionToDriverApp();
             Thread.sleep(3000);
             if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                Thread.sleep(3000);
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Always Allow");
             }
 
+        }
+        else
+        {
+            if (navigationBarName.equals("LOCATION")) {
+                Thread.sleep(3000);
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Always Allow");
+            }
         }
 }
 catch(Exception ex)
@@ -1728,10 +1737,12 @@ catch (Exception e)
     }
     public void logCustomerRecentTrip(String phoneNumber){
         try {
-            String pickupref = com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber);
-            if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Most recent trip of customer ["+phoneNumber+"] is with pickup ref "+pickupref);
-                  cucumberContextManager.setScenarioContext("REQUESTED_PICKUPREF",pickupref);
+            if(!phoneNumber.trim().equalsIgnoreCase("")) {
+                String pickupref = com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber);
+                logger.detail("Most recent trip of customer [" + phoneNumber + "] is with pickup ref " + pickupref);
+                cucumberContextManager.setScenarioContext("REQUESTED_PICKUPREF", pickupref);
+                cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupref);
+            }
 
         }catch (Exception e){
             logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));

@@ -572,13 +572,13 @@ public class CommonSteps extends DriverBase {
                 isCorrectPage = utility.verifyPageHeader(screen);
 
             testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
-                    "I should be navigated to " + screen, "I was not navigated to " + screen + " screen ");
+                    "I should be navigated to " + screen, "Error in navigating to " + screen + " screen ");
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
             error("Step  Should be successful",
-                    "I was not navigated to " + screen + " screen ", true);
+                    "Error in navigating to " + screen + " screen ", true);
         }
     }
 

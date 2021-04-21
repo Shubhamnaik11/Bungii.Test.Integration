@@ -705,8 +705,10 @@ try {
                 break;
             }
         }
-        if (buttonLabel.equals(""))
+        if (buttonLabel.equals("")) {
+            logger.detail("ACTION | No Alert button : " + label);
             return false;
+        }
         else {
             HashMap<String, String> params = new HashMap<>();
             JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();

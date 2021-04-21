@@ -2201,6 +2201,8 @@ else
 
             if (scheduleTime.equalsIgnoreCase("1 hour ahead"))
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 60);
+            else if (scheduleTime.equalsIgnoreCase("2.25 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 135);
             else if (scheduleTime.equalsIgnoreCase("2 hour ahead"))
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 120);
             else if (scheduleTime.equalsIgnoreCase("0.75 hour ahead"))
@@ -2258,6 +2260,8 @@ else
 
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0);
             }
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
+
             pass("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ pickupRequest +" - " + scheduleTime+"] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum );
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

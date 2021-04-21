@@ -2,7 +2,7 @@
 @scheduled
 @bungii
     # this will run in denver
-Feature: Solo Scheduled Bungii Part II
+Feature: Solo Scheduled Bungii Part C
   I want to use request Scheduling Bungii with Solo type
 
   Background:
@@ -39,6 +39,7 @@ Feature: Solo Scheduled Bungii Part II
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
+    
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
@@ -61,6 +62,8 @@ Feature: Solo Scheduled Bungii Part II
     And I enter phoneNumber :9955112208 and  Password :Cci12345
     #And I enter phoneNumber :9999998086 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
@@ -69,20 +72,19 @@ Feature: Solo Scheduled Bungii Part II
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @ready
-    @failures
+  @regression
+    #stable
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Solo Scheduled Trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | denver   | Accepted     | 0.75 hour ahead |
-    Given that ondemand bungii is in progress
+      | denver   | Accepted     | 1 hour ahead |
+    Given that ondemand bungii is in progress for the minimum distance chosen
       | geofence | Bungii State | Driver label | Trip Label |
       | denver   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from scheduled trip
     And I start selected Bungii
     Then user is alerted for "CUSTOMER HAS ONGOING BUNGII"
@@ -135,6 +137,7 @@ Feature: Solo Scheduled Bungii Part II
     And I am on the "LOG IN" page on driverApp
     And I enter phoneNumber :9955112208 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
+    
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     Then non control driver should see "waiting for other driver" screen
@@ -219,12 +222,13 @@ Feature: Solo Scheduled Bungii Part II
     Then I wait for "3" mins
     And I logged in Customer application using  "valid denver" user
     Then I wait for "3" mins
-    And I Select "MY BUNGIIS" from Customer App menu
+    When I Switch to "customer" application on "same" devices
     Then I wait for "3" mins
     When I Switch to "customer" application on "same" devices
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     Then I wait for "3" mins
     When I Switch to "customer" application on "same" devices
+    And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app
