@@ -666,7 +666,7 @@ public class Partner_trips extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client,status);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST,Client,status);
 
         int retrycount = 12;
 
@@ -708,7 +708,7 @@ public class Partner_trips extends DriverBase {
 
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType.toUpperCase(), customer);
-                int retrycount = 10;
+                int retrycount = 13;
 
                 boolean retry = true;
                 while (retry == true && retrycount > 0) {
@@ -719,6 +719,7 @@ public class Partner_trips extends DriverBase {
 
                     } catch (Exception ex) {
                         SetupManager.getDriver().navigate().refresh();
+                        Thread.sleep(10000); //Wait for 10 seconds
                         retrycount--;
                         retry = true;
                     }
@@ -848,7 +849,7 @@ public class Partner_trips extends DriverBase {
 
         }
 
-        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", Delivery_Date, CustomerName);
+        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", Delivery_Date, CustomerName);
         if(!Partner_Status.equalsIgnoreCase("Canceled")) {
             if(!Partner_Status.equalsIgnoreCase("Completed")) {
                 action.refreshPage();

@@ -395,7 +395,7 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST,Client);
 
         action.getElementByXPath(XPath).click();
         log("I should able to select the scheduled trip on live delivery",
@@ -409,7 +409,7 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST,Client);
 
         action.getElementByXPath(XPath).click();
 
@@ -421,6 +421,7 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_view_all_deliveries_list_on_the_admin_portal() throws Throwable {
         try{
             //Thread.sleep(120000);
+            action.click(admin_TripsPage.Menu_Trips());
             action.click(liveTripsPage.Menu_AllDeliveries());
             //action.click(admin_LiveTripsPage.Menu_LiveTrips());
             SetupManager.getDriver().navigate().refresh();
@@ -450,7 +451,7 @@ public class Admin_TripsSteps extends DriverBase {
             String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
             String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             BT = BT.replace("Solo Scheduled", "Solo");
-            String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT, Client);
+            String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST, Client);
 
             action.getElementByXPath(XPath).click();
         }
