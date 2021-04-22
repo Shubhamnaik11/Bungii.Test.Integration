@@ -355,6 +355,7 @@ public class Admin_TripsSteps extends DriverBase {
         String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         BT = BT.replace("Solo Scheduled","SOLO");
+        BT = BT.toUpperCase();
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST);
 
         action.getElementByXPath(XPath).click();
@@ -379,7 +380,7 @@ public class Admin_TripsSteps extends DriverBase {
 
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         BT = BT.replace("Solo Scheduled","SOLO");
-        BT = BT.replace("Solo","SOLO");
+        BT = BT.toUpperCase();
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, Schedule_Time);
 
         action.getElementByXPath(XPath).click();
@@ -395,7 +396,7 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST,Client);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td/a", BT, ST,Client);
 
         action.getElementByXPath(XPath).click();
         log("I should able to select the scheduled trip on live delivery",
@@ -409,7 +410,7 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST,Client);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td/a", BT, ST,Client);
 
         action.getElementByXPath(XPath).click();
 

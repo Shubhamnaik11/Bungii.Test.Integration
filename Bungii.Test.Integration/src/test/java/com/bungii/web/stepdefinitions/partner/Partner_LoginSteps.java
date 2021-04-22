@@ -134,7 +134,9 @@ public class Partner_LoginSteps extends DriverBase {
                     action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
                     break;
                 case "Track Deliveries":
+                    Thread.sleep(5000);
                     action.click(Page_Partner_Done.Dropdown_Setting());
+                    Thread.sleep(5000);
                     action.click(Page_Partner_Done.Button_Track_Deliveries());
                     break;
                 case "Back to Estimate":
@@ -159,6 +161,8 @@ public class Partner_LoginSteps extends DriverBase {
                     break;
 
             }
+            log("I click on "+str+ " button ", "I clicked on "+str+ " button ", true);
+
         }
         catch(Exception e)
         {
@@ -405,7 +409,6 @@ public class Partner_LoginSteps extends DriverBase {
         try{
             JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
             js.executeScript(String.format("window.localStorage.clear();"));
-            //js.executeScript(String.format("window.sessionStorage.clear();"));
             SetupManager.getDriver().navigate().refresh();
         }
         catch (Exception e){
