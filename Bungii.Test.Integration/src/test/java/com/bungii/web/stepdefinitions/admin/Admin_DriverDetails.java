@@ -93,7 +93,7 @@ public class Admin_DriverDetails extends DriverBase{
             }*/
             }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
-            XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
+            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]", formattedDate, status);
         }
         else
         {
@@ -144,7 +144,7 @@ public class Admin_DriverDetails extends DriverBase{
                     inputdate.setHours(inputdate.getHours()+1);
             }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate);
-            XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
+            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]", formattedDate, status);
         }
         else
         {
