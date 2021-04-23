@@ -409,6 +409,7 @@ public class Partner_LoginSteps extends DriverBase {
         try{
             JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
             js.executeScript(String.format("window.localStorage.clear();"));
+            Thread.sleep(5000);
             SetupManager.getDriver().navigate().refresh();
         }
         catch (Exception e){
