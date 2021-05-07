@@ -272,7 +272,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	And I search the delivery of Customer and view it
 	  Then The "Issue Refund" button should not be displayed
   
-  @test
+  @regression
   Scenario: Verify Issue Refund button is not displayed for Admin Canceled Delivery
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
