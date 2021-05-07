@@ -68,8 +68,8 @@
     @sanity
     Scenario: Verify Cancellation of Solo Scheduled Trips
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
-        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+        | Pickup_Address                          | Delivery_Address                        |Load_Unload_Time|
+        | 601 13th Street Northwest, Washington   | 234 13th Street Northeast, Washington   |30 minutes      |
       And I select Pickup Date and Pickup Time on partner portal
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |11:30 AM             |

@@ -6,6 +6,7 @@ Feature: Admin_OndemandTrips
 
   @sanity
   @ready
+    #stable
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence

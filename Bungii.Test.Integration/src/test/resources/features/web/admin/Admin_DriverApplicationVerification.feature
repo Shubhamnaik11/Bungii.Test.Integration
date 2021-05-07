@@ -58,7 +58,8 @@ Feature: Admin_DriverApplicationVerification
     And I verify and approve all the verification fields
     Then the "Resend Application" button is not visible
 
-  @ready
+  @knownissue
+    #cancel button doesnt work
     #test data created in base
   Scenario: Verify Driver Application Rejection Cancellation - NonFountain
     When I click "Verify" button against the "John Johnie" applicant

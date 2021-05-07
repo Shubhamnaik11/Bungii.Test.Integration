@@ -562,7 +562,7 @@ public class Admin_TripsSteps extends DriverBase {
         // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Loading + Unloading Time"), customer, "Loading + Unloading Time " + customer + " should be updated", "Loading + Unloading Time " + customer + " is updated", "Loading + Unloading Time " + customer + " is not updated");
 
         Bunggi_Type = Bunggi_Type.replace("Solo Ondemand","Solo").replace("Duo Ondemand","Duo");
-        if(Bunggi_Type.equalsIgnoreCase("Solo")){
+        if(Bunggi_Type.equalsIgnoreCase("Solo")|| Bunggi_Type.equalsIgnoreCase("Solo Scheduled")){
             String xpath = String.format("//td/strong[contains(text(),'%s')]",driver1);
             testStepAssert.isElementDisplayed(action.getElementByXPath(xpath)," Driver " + driver1 + " should be displayed", " Driver " + driver1 + " is displayed", " Driver " + driver1 + " is not displayed");
         }

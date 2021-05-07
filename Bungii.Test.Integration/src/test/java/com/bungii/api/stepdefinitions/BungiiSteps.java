@@ -227,11 +227,11 @@ public class BungiiSteps extends DriverBase {
             driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
             coreServices.updateDriverLocation(driverAccessToken, geofence); //to uncomment
             coreServices.updateDriverStatus(driverAccessToken);
-
+            String driver1State = "";
             int i = 0;
             while (i < DataList.size()) {
                 try {
-                    String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
+                    driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
                     logger.detail("*** As a driver " + driverName + "(" + driverPhoneNum + ") " + bungiiType + "(" + pickupRequest + ") is being " + driver1State);
                     try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
 
@@ -306,6 +306,8 @@ public class BungiiSteps extends DriverBase {
 
                     }
                     i++;
+                    pass("As a driver, perform  action on Delivery", "As a driver "+driverName+" perform "+ driver1State+" action on "+bungiiType+" Delivery : "+ pickupRequest);
+
                 } catch (Exception e) {
 
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
