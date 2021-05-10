@@ -40,4 +40,12 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement TickMarkDriver (String driverName) { return findElement("//td[text()='"+driverName+"']/ancestor::tr/td/i[@class='fa fa-check text-green-alt']", LocatorType.XPath); }
 
     public WebElement  Button_Edit() {return findElement("//p[@id='btnEdit']",LocatorType.XPath);}
+
+    public WebElement Button_Close() { return findElement("//button[@class='close']/span",LocatorType.XPath);}
+
+    public WebElement Text_Estimated_Price() { return findElement("//td[text()='Estimated Charge']/following-sibling::td",LocatorType.XPath);}
+
+    public WebElement Text_Pickup_Note() { return findElement("//td[text()='Pickup Note']/following-sibling::td",LocatorType.XPath);}
+
+    public WebElement Text_Additional_Note() { return findElement("PickupDetails_PickupNote",LocatorType.Id);}
 }

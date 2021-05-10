@@ -53,4 +53,6 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Label_DriverRemovalSuccessMessage () { return findElement( "//p/i[text()='Driver(s) removed successfully']" , LocatorType.XPath); }
 
     public WebElement Button_Close () { return findElement("//button[@class='close']", LocatorType.XPath);}
+
+    public WebElement Estimated_Distance_Cost () { return findElement("",LocatorType.XPath);}
 }

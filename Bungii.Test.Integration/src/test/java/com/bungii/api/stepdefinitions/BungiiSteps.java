@@ -1049,6 +1049,7 @@ public class BungiiSteps extends DriverBase {
             String customerName = dataMap.get("Customer Name").trim();
 
             cucumberContextManager.setScenarioContext("Bungii_Type",bungiiType);
+            cucumberContextManager.setScenarioContext("BUNGII_TYPE",bungiiType);
             String customerPasswordLabel = "";
             try {
                 customerPasswordLabel = dataMap.get("Customer Password").trim();

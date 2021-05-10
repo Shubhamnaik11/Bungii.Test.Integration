@@ -136,6 +136,23 @@ public class VerificationManager  {
 		}
 		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 	}
+
+	/**
+	 * @param expectedValue Expected value
+	 * @param actualValue Actual value
+	 */
+	public void isNotEquals(String actualValue, String expectedValue) {
+		try {
+			Assert.assertNotEquals(expectedValue, actualValue);
+			ResultManager.pass( expectedValue+" should not be displayed", actualValue+" is displayed", true);
+		} catch (AssertionError e) {
+			//mark test case fail and continue test
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(), expectedValue+" should not be displayed", expectedValue+ " is matching with Actual : "+actualValue, true);
+		}
+		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
+	}
+
 	/**
 	 * @param expectedValue Expected value
 	 * @param actualValue Actual value

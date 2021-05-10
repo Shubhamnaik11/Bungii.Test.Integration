@@ -267,7 +267,7 @@ public class Admin_TripsSteps extends DriverBase {
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
-                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType[0].toUpperCase(), customer);
+                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
                 int retrycount = 10;
 
                 boolean retry = true;
@@ -572,6 +572,13 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have confirm the change drop off address on delivery details page", true);
     }
 
+    @Then("^I confirm Pickup note is updated$")
+    public void i_confirm_pickup_note_is_updated() throws Throwable {
+        String Change_Pickup_Note = (String) cucumberContextManager.getScenarioContext("Change_Pickup_Note");
+        String Display_Pickup_Note = action.getText(admin_EditScheduledBungiiPage.Text_Pickup_Note());
+        testStepVerify.isEquals(Change_Pickup_Note,Display_Pickup_Note);
+    }
+
     @And("^I click on \"([^\"]*)\" radiobutton$")
     public void i_click_on_something_radiobutton(String radiobutton) throws Throwable {
 
@@ -607,12 +614,18 @@ public class Admin_TripsSteps extends DriverBase {
 
     }
 
+    @And("^I change the customer note to \"([^\"]*)\"$")
+    public void i_change_the_customer_note(String arg1) throws Throwable {
+        cucumberContextManager.setScenarioContext("Change_Pickup_Note",arg1);
+        action.clearSendKeys(admin_EditScheduledBungiiPage.Text_Additional_Note(),arg1);
+    }
+
     @When("^I view the trip details in admin portal$")
     public void i_view_the_trip_detailsin_admin() throws Throwable {
         try{
             SetupManager.getDriver().navigate().refresh();
             String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-            String xpath = String.format("//td[contains(.,'')]/following-sibling::td[contains(.,'%s')]/preceding::td[1]", customer);
+            String xpath = String.format("//td[contains(.,'')]/following-sibling::td[contains(.,'%s')]/preceding::td[2]", customer);
             //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
             action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
         } catch (Throwable e) {
@@ -620,6 +633,28 @@ public class Admin_TripsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @Then("^I check the price for trip$")
+    public void i_check_the_price_for_trip() throws Throwable {
+        String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String xpath = String.format("//td[contains(.,'')]/following-sibling::td[contains(.,'%s')]/preceding::td[1]", customer);
+        String trip_Price = action.getText(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        String[] splited_price =trip_Price.split("/",2);
+        String actual_price = splited_price[1];
+        actual_price = actual_price.replace(" ","");
+        cucumberContextManager.setScenarioContext("Price_Before",actual_price);
+    }
+
+    @Then("^I confirm trip price is also change$")
+    public void i_confirm_trip_price_is_also_change() throws Throwable {
+        String new_Price = action.getText(admin_EditScheduledBungiiPage.Text_Estimated_Price());
+        new_Price = new_Price.replace("$","");
+        new_Price = new_Price.replace(" ","");
+        String old_Price = (String) cucumberContextManager.getScenarioContext("Price_Before");
+        old_Price = old_Price.replace("$","");
+        testStepVerify.isNotEquals(new_Price,old_Price);
+
     }
 
     @And("^I enter cancellation fee and Comments$")
@@ -666,6 +701,9 @@ public class Admin_TripsSteps extends DriverBase {
         switch (geofence) {
             case "washingtondc":
                 geofenceName = "Washington DC";
+                break;
+            case "Kansas":
+                geofenceName = "Kansas";
                 break;
 
         }
@@ -1154,14 +1192,19 @@ public class Admin_TripsSteps extends DriverBase {
             case "Your changes are good to be saved.":
             testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifiedMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
             break;
-            case "Bungii Saved!":
+            case "Bungii Saved":
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_SuccessMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
                 break;
             case "Pickup request is being processed. You may have to refresh the page.":
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_InfoMessage(), message,message +" should be displayed", message +" is displayed",message +" is not displayed");
                 break;
-            case "":
+            case "Bungii Saved!":
+                testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_SuccessMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
+                action.click(admin_EditScheduledBungiiPage.Button_Close());
+                break;
+            case "Oops! It looks like this trip is a little outside our scope.":
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifyError(), message,message +" should be displayed", message +" is displayed",message +" is not displayed");
+                action.click(admin_EditScheduledBungiiPage.Button_Close());
                 break;
         }
 

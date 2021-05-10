@@ -46,7 +46,7 @@ public class ApiHelper {
      */
     public static RequestSpecification givenPartnerConfig(){
 
-        return given().log().all()
+        return given()//.log().all()
                 //.header("authority", PropertyUtility.getDataProperties("AUTH_URL"))
                 .header("accept","application/json, text/plain, */*")
                 .header("accept-encoding", "gzip, deflate, br")
@@ -67,7 +67,7 @@ public class ApiHelper {
      */
     public static RequestSpecification givenPartnerAccess(String AccessToken){
 
-        return given().log().all()
+        return given()//.log().all()
                 //.header("authority", PropertyUtility.getDataProperties("AUTH_URL"))
                 .header("accept","application/json, text/plain, */*")
                 .header("accept-encoding", "gzip, deflate, br")
@@ -75,12 +75,35 @@ public class ApiHelper {
                 .header("appversion",4)
                 .header("authorizationtoken",AccessToken)
                 .header("content-type", "application/json")
-                .header("accept-Encoding", "gzip, deflate, br")
                 .header("sec-fetch-dest","empty")
                 .header("sec-fetch-mode","cors")
                 .header("sec-fetch-site","same-site")
                 .header("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36")//PropertyUtility.getDataProperties("DEVICE_ID"))
                 .auth().preemptive().basic(PropertyUtility.getDataProperties("partner.auth.username"), PropertyUtility.getDataProperties("partner.auth.password"));
+    }
+
+    /**
+     * Given config for Partner Braintree with Authorization
+     *
+     * @return
+     */
+    public static RequestSpecification givenPartnerBraintree(String Auth){
+
+        return given()//.log().all()
+                //.header("authority", PropertyUtility.getDataProperties("AUTH_URL"))
+                .header("accept","*/*")
+                .header("accept-encoding", "gzip, deflate, br")
+                .header("accept-language", "en-US,en;q=0.9")
+                .header("Braintree-Version","2018-05-10")
+                .header("Authorization",Auth)
+                .header("Connection","keep-alive")
+                .header("content-type", "application/json")
+                .header("accept-Encoding", "gzip, deflate, br")
+                .header("sec-fetch-dest","empty")
+                .header("sec-fetch-mode","cors")
+                .header("sec-fetch-site","same-site")
+                .header("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0");//PropertyUtility.getDataProperties("DEVICE_ID"))
+
     }
 
     /**
@@ -312,6 +335,7 @@ public class ApiHelper {
                     .multiPart("PaymentMethodID", data.get("PaymentMethodID"))
                     .multiPart("IsScheduledPickup", data.get("IsScheduledPickup"))
                     .multiPart("ScheduledDateTime", data.get("ScheduledDateTime"))
+                    .multiPart("PickupNote",data.get("PickupNote"))
                     .when().post(Path);
         } else {
             response = givenCustConfig().header(authToken).param("WalletRef", data.get("WalletRef")).param("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds")).param("PickupRequestID", data.get("PickupRequestID")).param("Description", data.get("Description")).param("PaymentMethodID", data.get("PaymentMethodID")).param("IsScheduledPickup", data.get("IsScheduledPickup"))
@@ -325,6 +349,7 @@ public class ApiHelper {
                     .multiPart("Description", data.get("Description"))
                     .multiPart("PaymentMethodID", data.get("PaymentMethodID"))
                     .multiPart("IsScheduledPickup", data.get("IsScheduledPickup"))
+                    .multiPart("PickupNote",data.get("PickupNote"))
                     .when().post(Path);
         }
         return response;

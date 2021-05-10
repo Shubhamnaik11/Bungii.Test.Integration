@@ -22,30 +22,33 @@ public class PartnerSteps extends DriverBase {
     @When("^I request Partner Portal \"([^\"]*)\" Trip for \"([^\"]*)\" partner$")
     public void i_request_partner_portal_something_trip_for_something(String Trip_Type, String Partner_Portal, DataTable data) throws Throwable {
 
-        cucumberContextManager.setScenarioContext("Bungii_Type",Trip_Type);
+        cucumberContextManager.setScenarioContext("BUNGII_TYPE",Trip_Type);
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+        String customerName = dataMap.get("Customer Name").trim();
+        cucumberContextManager.setScenarioContext("CUSTOMER",customerName);
+        String customerPhone = dataMap.get("Customer Phone").trim();
+        cucumberContextManager.setScenarioContext("Phone",customerPhone);
         String geofence = dataMap.get("Geofence").trim();
+        cucumberContextManager.setScenarioContext("GEOFENCE",geofence);
         String bungii_time = dataMap.get("Bungii Time").trim();
 
-        if(Partner_Portal.equalsIgnoreCase("MRFM")){
+        String Access_Token = authServices.partnerLogin(Partner_Portal);
 
-            //String auth ="";
-            String Access_Token = authServices.partnerLogin(Partner_Portal);
+        cucumberContextManager.setScenarioContext("Partner_Access_Token",Access_Token);
 
-            cucumberContextManager.setScenarioContext("Partner_Access_Token",Access_Token);
+        String[] PartnerSettings = authServices.partnerSettings(Access_Token);
 
-            String PickupRequestID = coreServices.partnerPickupEstimate(Partner_Portal,geofence,bungii_time);
-            cucumberContextManager.setScenarioContext("Pickup_Request",PickupRequestID);
+        cucumberContextManager.setScenarioContext("Partner_Location_Config_VersionRef",PartnerSettings[0]);
 
-            coreServices.partnerPickupDetails(PickupRequestID);
+        String PickupRequestID = coreServices.partnerPickupEstimate(Partner_Portal,geofence,bungii_time,PartnerSettings[0],PartnerSettings[1]);
+        cucumberContextManager.setScenarioContext("Pickup_Request",PickupRequestID);
 
-            String ClientToken = paymentServices.GetTokenForPartner(Access_Token);
+        coreServices.partnerPickupDetails(PickupRequestID);
 
-            coreServices.partnerDeliveryInformation(PickupRequestID);
-
-
-
-        }
+        String ClientToken = paymentServices.GetTokenForPartner(Access_Token);
+            //String token = coreServices.partner_graphql();
+        coreServices.partnerDeliveryInformation(PickupRequestID);
+        coreServices.partnerConfirmPickup(PickupRequestID);
 
     }
 }
