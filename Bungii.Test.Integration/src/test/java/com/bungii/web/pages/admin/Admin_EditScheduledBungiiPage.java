@@ -31,7 +31,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_InfoMessage() { return findElement("info-message", LocatorType.Id); }
 
-    public WebElement RadioButton_EditTripDetails() { return findElement("tripEdit", LocatorType.Name); }
+    public WebElement RadioButton_EditTripDetails() { return findElement("//span[text()='Edit Delivery Details']", LocatorType.XPath); }
 
     public WebElement List_DriverSearchResult (String driverName) { return findElement("//div[@id='divDriversResult']/div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
 

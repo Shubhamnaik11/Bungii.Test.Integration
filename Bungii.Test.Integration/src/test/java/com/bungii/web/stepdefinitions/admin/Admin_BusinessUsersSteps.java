@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -36,6 +37,7 @@ import static com.bungii.common.manager.ResultManager.log;
 public class Admin_BusinessUsersSteps extends DriverBase {
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_BusinessUsersSteps.class);
+    Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
@@ -853,6 +855,13 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
                 case "Close icon":
                     action.click(admin_refundsPage.Button_Close());
+                    break;
+                case "Revive":
+                    String reviveLink = (String) cucumberContextManager.getScenarioContext("REVIVE_LINK");
+                    action.click(admin_TripsPage.findElement(reviveLink,PageBase.LocatorType.XPath));
+                    break;
+                case "Confirm":
+                    action.click(admin_revivalPage.Button_Confirm());
                     break;
             }
             log("I click on the "+Name+" button",
