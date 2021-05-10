@@ -48,7 +48,7 @@ public class Partner_DeliveryList extends PageBase {
     public WebElement Message_Delivery_Cancellation_Failed() { return findElement("//h2[contains(text(),'Delivery cancellation failed!')]/following::p",LocatorType.XPath);}
 
     //Status Filter dropdown
-    public WebElement Dropdown_Partner_Status() { return findElement("//a[@class='caret']",LocatorType.XPath);}
+    public WebElement Dropdown_Partner_Status() { return findElement("//div[contains(@class,'caret')]",LocatorType.XPath);}
 
     //Completed Status Checkbox
     public WebElement Checkbox_Completed_Status() { return findElement("//label[contains(text(),'Completed')]",LocatorType.XPath);}

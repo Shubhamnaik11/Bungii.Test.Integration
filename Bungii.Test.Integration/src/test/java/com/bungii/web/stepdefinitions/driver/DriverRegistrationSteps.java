@@ -268,6 +268,9 @@ public class DriverRegistrationSteps extends DriverBase {
             case "validation for incorrect verification code":
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_VerifiCode_Invlid()), PropertyUtility.getMessage("VerifCode_Err_Invalid"),  PropertyUtility.getMessage("VerifCode_Err_Invalid")+" should be displayed", PropertyUtility.getMessage("VerifCode_Err_Invalid")+" is displayed", PropertyUtility.getMessage("VerifCode_Err_Invalid")+" is not displayed");
                 break;
+            case "Verification Successful":
+                testStepAssert.isEquals(action.getText(Page_Driver_Reg.Label_Success()), p0,  p0+" should be displayed", p0+" is displayed", p0+" is not displayed");
+                break;
             default:
                 break;
         }

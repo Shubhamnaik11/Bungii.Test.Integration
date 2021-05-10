@@ -20,8 +20,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -40,11 +43,12 @@ public class LiveTripsSteps extends DriverBase {
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);
             action.click(liveTripsPage.Button_StartDateSort());Thread.sleep(2000);
+
             action.click(liveTripsPage.Button_RowOne());
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in viewing delivery from live deliveries",
                     true);
         }
     }
@@ -60,7 +64,7 @@ public class LiveTripsSteps extends DriverBase {
             action.click(liveTripsPage.Button_RowOne());
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in selecting trip from All deliveries",
                     true);
         }
     }
@@ -256,11 +260,29 @@ public class LiveTripsSteps extends DriverBase {
                 hours = hours + 1;
                 minutes = minutes -20;
             }
+            ZoneId fromTimeZone = ZoneId.of("Asia/Kolkata");    //Source timezone
+            ZoneId toTimeZone = ZoneId.of("America/New_York");  //Target timezone
 
+            LocalDateTime today = LocalDateTime.now();          //Current time
+
+            //Zoned date time at source timezone
+            ZonedDateTime currentISTime = today.atZone(fromTimeZone);
+
+            //Zoned date time at target timezone
+            ZonedDateTime currentETime = currentISTime.withZoneSameInstant(toTimeZone);
+
+            TimeZone.setDefault(TimeZone.getTimeZone("EST"));
+            String endDate = dtf.format(currentETime);
+            String endTime = formatter.format(hours)+":"+formatter.format(minutes);
             // ZonedDateTime zonedNZ = ZonedDateTime.of(now,ZoneId.of("5:00"));
-            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),dtf.format(now));
-            action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),formatter.format(hours)+":"+formatter.format(minutes));
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),endDate);
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),endTime);
             action.selectElementByText(liveTripsPage.Dropdown_ddlpickupEndTime(),splitedDate[3]);
+            logger.detail("Selected End Date is : "+ endDate);
+            logger.detail("Selected End Time is : "+ endTime);
+            logger.detail("Selected End Time Dropdown is : "+ splitedDate[3]);
+
+
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -327,7 +349,7 @@ public class LiveTripsSteps extends DriverBase {
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
             if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
-                String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType[0].toUpperCase(), customer);
+                String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
 
                 int retrycount =10;
                 boolean retry = true;
@@ -357,7 +379,7 @@ public class LiveTripsSteps extends DriverBase {
                 testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
-                String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
+                String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
                 int retrycount =10;
                 boolean retry = true;
                 while (retry == true && retrycount >0) {

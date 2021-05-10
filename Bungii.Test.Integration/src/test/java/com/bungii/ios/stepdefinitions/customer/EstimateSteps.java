@@ -133,7 +133,7 @@ public class EstimateSteps extends DriverBase {
             enterLoadingTime(loadTime);
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
-            clickAcceptTerms();
+            //clickAcceptTerms();
             action.swipeDown();
             strTime = enterTime(time);
 
@@ -141,7 +141,9 @@ public class EstimateSteps extends DriverBase {
             if (saveDetails) {
                 details = getEstimateDetails();
             }
-
+            action.swipeUP();
+            action.swipeUP();
+            clickAcceptTerms();
             i_request_for_bungii_using_request_bungii_button();
 
             // SAVE required values in scenario context
@@ -463,7 +465,7 @@ public class EstimateSteps extends DriverBase {
             calendar.setTime(teletTimeInUtc);
             int mnts = calendar.get(Calendar.MINUTE);
 
-            calendar.set(Calendar.MINUTE, mnts);
+            calendar.set(Calendar.MINUTE, mnts+45);
             int unroundedMinutes = calendar.get(Calendar.MINUTE);
             int mod = unroundedMinutes % 15;
             calendar.add(Calendar.MINUTE, (15 - mod));
@@ -1103,13 +1105,31 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTimeForGeofence();
             String strTime = bungiiTimeDisplayInTextArea(date);
             cucumberContextManager.setScenarioContext("CALCULATED_TIME",strTime);
+            cucumberContextManager.setScenarioContext("DISPLAYED_TIME",time);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I calculate the schedule time$")
+    public void I_calculate_the_schedule_time() throws Throwable {
+        try {
+            cucumberContextManager.setScenarioContext("MIN_TIME_DUO","30");
+            cucumberContextManager.setScenarioContext("MIN_TIME_SOLO","30");
+            String time=action.getValueAttribute(estimatePage.Text_TimeValue());
+            Date date = getNextScheduledBungiiTimeForGeofence();
+            String strTime = bungiiTimeDisplayInTextArea(date);
+            cucumberContextManager.setScenarioContext("CALCULATED_TIME",strTime);
+            cucumberContextManager.setScenarioContext("DISPLAYED_TIME",time);
 
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^correct next available scheduled time should be displayed$")
     public void correct_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
@@ -1123,11 +1143,11 @@ public class EstimateSteps extends DriverBase {
                     strTime = strTime.replace("am", "a.m.").replace("pm", "p.m.").replace("AM", "a.m.").replace("PM", "p.m.");
                 }
                 strTime = utility.getGmtTime(strTime);
-              testStepVerify.isEquals(displayedTime, strTime);
+                testStepAssert.isEquals(displayedTime, strTime,strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
             }
             else
 
-            testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"));
+            testStepAssert.isEquals(displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"),strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
 
 
         } catch (Exception e) {
@@ -1522,14 +1542,15 @@ public class EstimateSteps extends DriverBase {
      */
     public void clickAcceptTerms() {
         action.swipeUP();
-        estimatePage.CheckBoxOff_Terms().click();
+        if(!estimatePage.CheckBoxOff_Terms().isSelected())
+        action.click(estimatePage.CheckBoxOff_Terms());
     }
 
     /**
      * Click cancel button on Navigation bar
      */
     public void clickCancel() {
-        estimatePage.Button_Cancel().click();
+        action.click(estimatePage.Button_Cancel());
     }
 
     /**

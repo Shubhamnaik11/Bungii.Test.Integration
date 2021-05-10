@@ -55,6 +55,8 @@ public class Driver_RegistrationPage extends PageBase {
     //ERROR - Blank fields
     public WebElement ERR_BlankFields () { return findElement("summary", LocatorType.Id); }
 
+    public WebElement Label_Success () { return findElement("//h3", LocatorType.XPath); }
+
     //------------------------------SMS Verification Page---------------------------------------------------------------
 
     //driver Registration - Success message on verify phone page

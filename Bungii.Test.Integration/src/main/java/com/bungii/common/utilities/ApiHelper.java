@@ -2,6 +2,9 @@ package com.bungii.common.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.restassured.config.DecoderConfig;
+import io.restassured.config.RestAssuredConfig;
+import io.restassured.config.SSLConfig;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
@@ -29,7 +32,7 @@ public class ApiHelper {
      * @return
      */
     public static RequestSpecification givenCustConfig() {
-        return given()//.log().body()
+        return given().config(RestAssuredConfig.config().decoderConfig(DecoderConfig.decoderConfig().defaultContentCharset("UTF-8")).and().sslConfig(new SSLConfig().relaxedHTTPSValidation()))//.log().body()
                 .header("MobileAppVersion", PropertyUtility.getDataProperties("CUST_MOBILE_APP_VERSION"))
                 .header("AppVersion", PropertyUtility.getDataProperties("CUST_APP_VERSION"))
                 .header("User-Agent", "okhttp/3.4.1")
@@ -112,7 +115,7 @@ public class ApiHelper {
      * @return
      */
     public static RequestSpecification givenDriverConfig() {
-        return given()//.log().body()
+        return given().config(RestAssuredConfig.config().decoderConfig(DecoderConfig.decoderConfig().defaultContentCharset("UTF-8")).and().sslConfig(new SSLConfig().relaxedHTTPSValidation()))//.log().body()
                 .header("MobileAppVersion", PropertyUtility.getDataProperties("DRIVER_MOBILE_APP_VERSION"))
                 .header("AppVersion", PropertyUtility.getDataProperties("DRIVER_APP_VERSION"))
                 .header("User-Agent", "okhttp/3.4.1")
@@ -232,7 +235,6 @@ public class ApiHelper {
             Response response = givenDriverConfig().
                     when().
                     get(path);
-
           //  response.then().log().body();
             return response;
         }

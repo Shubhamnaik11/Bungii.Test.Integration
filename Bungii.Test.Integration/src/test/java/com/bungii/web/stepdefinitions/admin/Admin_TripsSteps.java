@@ -75,6 +75,8 @@ public class Admin_TripsSteps extends DriverBase {
                 "I viewed the Trips list on the admin portal", true);
 
     }
+
+
     @And("^I view the Live Deliveries list on the admin portal$")
     public void i_view_the_live_trips_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
@@ -106,6 +108,15 @@ public class Admin_TripsSteps extends DriverBase {
         log("I view the Scheduled Trips list on the admin portal",
                 "I viewed the Scheduled Trips list on the admin portal", true);
     }
+    @When("^I change filter to \"([^\"]*)\" on Scheduled deliveries$")
+    public void i_change_filter_to_something_on_scheduled_deliveries(String filter) throws Throwable {
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), filter);
+        Thread.sleep(5000);
+        log("I select filter from the Scheduled Trips list on the admin portal",
+                "I selected filter "+filter+" from the  Scheduled Trips list on the admin portal", true);
+
+    }
+
     @And("^I view the partner portal Scheduled Trips list on the admin portal$")
     public void i_view_the_partner_portal_trips_on_the_admin_portal() throws Throwable{
         action.click(admin_TripsPage.Menu_Trips());
@@ -298,7 +309,7 @@ public class Admin_TripsSteps extends DriverBase {
 
             } else {
                 //String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
 
                 int retrycount = 10;
 
@@ -332,7 +343,7 @@ public class Admin_TripsSteps extends DriverBase {
         catch(Exception e)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "DATA SYNCH ISSUE | Bungii is not displayed in Scheduled Delivery List",
+            error("Step  Should be successful", "PROBABLY DATA SYNCH ISSUE | Bungii is not displayed in Scheduled Delivery List",
                     true);
 
         }
@@ -345,6 +356,7 @@ public class Admin_TripsSteps extends DriverBase {
         String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         BT = BT.replace("Solo Scheduled","SOLO");
+        BT = BT.toUpperCase();
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST);
 
         action.getElementByXPath(XPath).click();
@@ -369,7 +381,7 @@ public class Admin_TripsSteps extends DriverBase {
 
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         BT = BT.replace("Solo Scheduled","SOLO");
-        BT = BT.replace("Solo","SOLO");
+        BT = BT.toUpperCase();
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, Schedule_Time);
 
         action.getElementByXPath(XPath).click();
@@ -385,7 +397,7 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td/a", BT, ST,Client);
 
         action.getElementByXPath(XPath).click();
         log("I should able to select the scheduled trip on live delivery",
@@ -399,7 +411,7 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td/a", BT, ST,Client);
 
         action.getElementByXPath(XPath).click();
 
@@ -411,6 +423,7 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_view_all_deliveries_list_on_the_admin_portal() throws Throwable {
         try{
             //Thread.sleep(120000);
+            action.click(admin_TripsPage.Menu_Trips());
             action.click(liveTripsPage.Menu_AllDeliveries());
             //action.click(admin_LiveTripsPage.Menu_LiveTrips());
             SetupManager.getDriver().navigate().refresh();
@@ -425,7 +438,13 @@ public class Admin_TripsSteps extends DriverBase {
 
         }
     }
-
+    @When("^I change filter to \"([^\"]*)\" on All deliveries$")
+    public void i_change_filter_to_something_on_all_deliveries(String filter) throws Throwable {
+        action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),filter);
+        Thread.sleep(5000);
+        log("I select filter from All Deliveries on the admin portal",
+                "I selected filter "+filter+" from All Deliveries on the admin portal", true);
+    }
     @And("^I select the scheduled trip on All Deliveries$")
     public void i_select_the_scheduled_trip_on_all_deliveries() throws Throwable {
         try {
@@ -434,7 +453,7 @@ public class Admin_TripsSteps extends DriverBase {
             String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
             String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             BT = BT.replace("Solo Scheduled", "Solo");
-            String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT, Client);
+            String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST, Client);
 
             action.getElementByXPath(XPath).click();
         }
@@ -544,7 +563,7 @@ public class Admin_TripsSteps extends DriverBase {
         // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Loading + Unloading Time"), customer, "Loading + Unloading Time " + customer + " should be updated", "Loading + Unloading Time " + customer + " is updated", "Loading + Unloading Time " + customer + " is not updated");
 
         Bunggi_Type = Bunggi_Type.replace("Solo Ondemand","Solo").replace("Duo Ondemand","Duo");
-        if(Bunggi_Type.equalsIgnoreCase("Solo")){
+        if(Bunggi_Type.equalsIgnoreCase("Solo")|| Bunggi_Type.equalsIgnoreCase("Solo Scheduled")){
             String xpath = String.format("//td/strong[contains(text(),'%s')]",driver1);
             testStepAssert.isElementDisplayed(action.getElementByXPath(xpath)," Driver " + driver1 + " should be displayed", " Driver " + driver1 + " is displayed", " Driver " + driver1 + " is not displayed");
         }

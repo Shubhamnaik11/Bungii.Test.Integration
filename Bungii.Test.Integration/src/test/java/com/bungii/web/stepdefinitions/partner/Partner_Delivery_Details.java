@@ -213,7 +213,9 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Order_Number(), OrderNumber);
-                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBuy(), SoldBuy);
+                        action.click(Page_Partner_Delivery.Dropdown_SoldBuy());
+                        action.click(Page_Partner_Delivery.List_StoreAssociate("Krishna"));
+
 
                         break;
                     default:

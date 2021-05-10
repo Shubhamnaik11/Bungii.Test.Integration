@@ -58,8 +58,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should be navigated to "Home" screen
  #   And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
   
-  @ready
-    @failures
+  @regression
+    #Stable
   Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -128,7 +128,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @ready
+  @regression
     @failures
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -138,15 +138,12 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I get promo code for "VALID"
     And I Select "Promo Code" from admin sidebar
     Then I get promo code for "one off"
-    
-
     When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
-
     And I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid miami" user
-    
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location          | Drop Location           | Geofence |
       | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
@@ -163,20 +160,11 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I save bungii trip time details
     And I request for bungii using Request Bungii Button
     When I click "Done" button on "Success" screen
-    
     And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
     When I Select "SCHEDULED BUNGIIS" from driver App menu
     Then I should be navigated to "SCHEDULED BUNGII" screen
-    
     Then I wait for "2" mins
     When I cancel Bungii as Admin
-    #And I open Admin portal and navigate to "Scheduled Deliveries" page
-    #And I Cancel Bungii with following details
-    #  | Charge | Comments |
-    #  | 0      | TEST     |
-    #Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-    #And Bungii must be removed from the List
-
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
     And I Select "PROMOS" from Customer App menu
@@ -210,9 +198,9 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "driver" application on "same" devices
     And I view and accept virtual notification for "Driver" for "on demand trip"
     
-    #And I Switch to "customer" application on "same" devices
-    #And I click "Ok" button on "BUNGII ACCEPTED" screen
-    
+    And I Switch to "customer" application on "same" devices
+    And I click "Ok" button on "BUNGII ACCEPTED" screen
+    #uncommented above
     And I Switch to "driver" application on "same" devices
     Then I should be navigated to "EN ROUTE" screen
     When I click "Cancel" button on "update" screen

@@ -143,6 +143,7 @@ Feature: Service Level
 
   #CORE-1541
   @ready
+    #stable
   Scenario: Verify that correct Estimate duration for service level partner portal trip is shown in Admin portal
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal

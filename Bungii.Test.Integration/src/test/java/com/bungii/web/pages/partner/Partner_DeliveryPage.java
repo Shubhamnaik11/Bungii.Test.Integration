@@ -77,7 +77,9 @@ public class Partner_DeliveryPage extends PageBase {
     public WebElement TextBox_Order_Number() { return findElement("//input[@data-field='Order Number']",LocatorType.XPath);}
 
     //Sold Buy
-    public WebElement TextBox_SoldBuy() { return findElement("//input[@data-field='Sold By (Store Associate)']",LocatorType.XPath);}
+    public WebElement Dropdown_SoldBuy() { return findElement("//div[@class='MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl']",LocatorType.XPath);}
+
+    public WebElement List_StoreAssociate(String storeAssociate) { return findElement(String.format("//li[text()='%s']",storeAssociate),LocatorType.XPath);}
 
     //Customer Card Payment
     public WebElement Radio_Button_Customer_Card() { return findElement("//label[contains(text(),'Customer Card')]",LocatorType.XPath);}

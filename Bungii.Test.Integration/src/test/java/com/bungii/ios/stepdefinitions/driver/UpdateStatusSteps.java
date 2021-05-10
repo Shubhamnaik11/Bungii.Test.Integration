@@ -112,7 +112,7 @@ public class UpdateStatusSteps extends DriverBase {
 				"Slider value should be" + expectedMessage + "and actual is" + actualValue);*/
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in sliding on " + screen + " screen in driver app", true);
         }
     }
     @Then("^non control driver should see \"([^\"]*)\" screen$")
@@ -223,7 +223,7 @@ public class UpdateStatusSteps extends DriverBase {
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in tapping on call/sms icons", true);
         }
     }
 
@@ -644,7 +644,7 @@ public class UpdateStatusSteps extends DriverBase {
         else
             expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + "  " + utility.getTimeZoneBasedOnGeofence();
        // expectedTime=expectedTime.replace("am", "AM").replace("pm","PM");
-        expectedTime=expectedTime.replace("am", "").replace("pm","");
+        expectedTime=expectedTime.replace("am", "").replace("pm","").replace("AM", "").replace("PM","").trim();
         String actualValue= action.getText(updateStatusPage.Text_StackInfo());
         testStepAssert.isTrue(actualValue.contains(expectedTime), "Try to finish by should be displayed","Try to finish by "+expectedTime+" is displayed", "Try to finish by "+expectedTime+ " is not displayed. instead "+ actualValue +"is displayed");
     }
@@ -665,7 +665,7 @@ public class UpdateStatusSteps extends DriverBase {
         else
             expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + utility.getTimeZoneBasedOnGeofence();
        // expectedTime=expectedTime.replace("am", "AM").replace("pm","PM");
-        expectedTime=expectedTime.replace("am", "").replace("pm","");
+        expectedTime=expectedTime.replace("am", "").replace("pm","").replace("AM", "").replace("PM","").trim();
         String elementText=updateStatusPage.Text_StackInfo().getText();elementText=elementText.replace("  ","").trim();
         logger.detail("Element Text"+elementText);
         testStepAssert.isTrue(elementText.contains(expectedTime), "Try to finish by should be displayed","Try to finish by "+expectedTime+" is displayed", "Try to finish by "+expectedTime+ " is not displayed");

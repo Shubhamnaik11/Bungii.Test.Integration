@@ -636,10 +636,11 @@ public class Partner_trips extends DriverBase {
             String loadTime = String.valueOf(cucumberContextManager.getScenarioContext("LoadUnload_Time"));
 
             com.bungii.web.utilityfunctions.GeneralUtility utility = new com.bungii.web.utilityfunctions.GeneralUtility();
+            String partnerRef = (String)cucumberContextManager.getScenarioContext("PARTNERREF");
 
             //TODO: verify DB and phone value
-            String totalDistance = dbUtility.getEstimateDistance();
-            String totalEstimateTime = dbUtility.getEstimateTime();
+            String totalDistance = dbUtility.getEstimateDistanceByPartnerReference(partnerRef);
+            String totalEstimateTime = dbUtility.getEstimateTimeByPartnerReference(partnerRef);
 
             double expectedValue = utility.bungiiEstimate(totalDistance, loadTime, totalEstimateTime, "");
 
@@ -665,7 +666,7 @@ public class Partner_trips extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", ST, BT,Client,status);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST,Client,status);
 
         int retrycount = 12;
 
@@ -706,8 +707,8 @@ public class Partner_trips extends DriverBase {
             cucumberContextManager.setScenarioContext("STATUS", status);
 
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
-                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType.toUpperCase(), customer);
-                int retrycount = 10;
+                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType.toUpperCase(), customer);
+                int retrycount = 13;
 
                 boolean retry = true;
                 while (retry == true && retrycount > 0) {
@@ -718,6 +719,7 @@ public class Partner_trips extends DriverBase {
 
                     } catch (Exception ex) {
                         SetupManager.getDriver().navigate().refresh();
+                        Thread.sleep(10000); //Wait for 10 seconds
                         retrycount--;
                         retry = true;
                     }
@@ -742,7 +744,7 @@ public class Partner_trips extends DriverBase {
 
         } else {
 
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", tripType, customer);
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", tripType, customer);
                 int retrycount = 10;
 
                 boolean retry = true;
@@ -847,7 +849,7 @@ public class Partner_trips extends DriverBase {
 
         }
 
-        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", Delivery_Date, CustomerName);
+        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", Delivery_Date, CustomerName);
         if(!Partner_Status.equalsIgnoreCase("Canceled")) {
             if(!Partner_Status.equalsIgnoreCase("Completed")) {
                 action.refreshPage();

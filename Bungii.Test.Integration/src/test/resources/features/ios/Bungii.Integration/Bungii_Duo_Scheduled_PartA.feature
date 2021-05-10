@@ -167,6 +167,7 @@ Feature: Scheduled DUO Bungii Part A
   @regression
     #stable
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Duo Scheduled Trip
+    Given I Switch to "customer" application on "same" devices
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
       | denver   | Accepted     | 1 hour ahead | denver customer | denver driver 1 | denver driver 2 |
@@ -187,37 +188,7 @@ Feature: Scheduled DUO Bungii Part A
       | CUSTOMER1_PHONE | 9999993015      |
   
   
-  @failures
-  #stable
-    #Run at last as lot of wait time is required [15 mins]
-  Scenario: Notification : Verify If Customer Receives Notification After Admin Researches Drivers And Both Drivers Accept It
-    When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    Given I am on the "LOG IN" page
-    Then I wait for "3" mins
-    When I enter Username :8888889917 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    Then I wait for "3" mins
-    And I Select "Home" from Customer App menu
-    Then I wait for "3" mins
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-    
-    When I Switch to "driver" application on "same" devices
-    #Then I wait for "3" mins
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
-    And I verify status and researches Bungii with following details
-      | label                | Status of Trip      |
-      | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found |
-    
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
-    And I view virtual notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+ 
     
   
   @regression
@@ -391,4 +362,30 @@ Feature: Scheduled DUO Bungii Part A
       | CUSTOMER1_PHONE |                 |
   
   
-  
+  @failures
+  @test
+  #stable
+    #Run at last as lot of wait time is required [15 mins]
+  Scenario: Notification : Verify If Customer Receives Notification After Admin Researches Drivers And Then Both Drivers Accept It
+	When I request "duo" Bungii as a customer in "denver" geofence
+	  | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+	  | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+	Given I am on the "LOG IN" page
+	When I enter Username :8888889917 and  Password :{VALID}
+	And I click "Log In" button on "Log In" screen
+	And I Select "Home" from Customer App menu
+	And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+	When I Switch to "driver" application on "same" devices
+	And I open Admin portal and navigate to "Scheduled Deliveries" page
+	
+	And I verify status and researches Bungii with following details
+	  | label                | Status of Trip      |
+	  | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found |
+	
+	And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+	  | driver1 state | driver2 state |
+	  | Accepted      | Accepted      |
+	And I view virtual notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+	Then I cancel all bungiis of customer
+	  | Customer Phone | Customer2 Phone |
+	  | 8888889917     |                 |

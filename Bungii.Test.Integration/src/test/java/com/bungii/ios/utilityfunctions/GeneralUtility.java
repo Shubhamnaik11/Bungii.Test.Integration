@@ -842,10 +842,19 @@ try {
             grantPermissionToDriverApp();
             Thread.sleep(3000);
             if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                Thread.sleep(3000);
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Always Allow");
             }
 
+        }
+        else
+        {
+            if (navigationBarName.equals("LOCATION")) {
+                Thread.sleep(3000);
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Always Allow");
+            }
         }
 }
 catch(Exception ex)
@@ -1340,7 +1349,7 @@ catch(Exception ex)
         String[] calculatedTime = new String[3];
         try {
             String geofenceLabel = getTimeZoneBasedOnGeofenceId();
-            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189";
+            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE"); //phoneNumber="9403960189"; c/// Stacked trip will be 2 customer
             String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
             String teletTime = com.bungii.android.utilityfunctions.DbUtility.getTELETfromDb(custRef);
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -1728,10 +1737,12 @@ catch (Exception e)
     }
     public void logCustomerRecentTrip(String phoneNumber){
         try {
-            String pickupref = com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber);
-            if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Most recent trip of customer ["+phoneNumber+"] is with pickup ref "+pickupref);
-                  cucumberContextManager.setScenarioContext("REQUESTED_PICKUPREF",pickupref);
+            if(!phoneNumber.trim().equalsIgnoreCase("")) {
+                String pickupref = com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber);
+                logger.detail("Most recent trip of customer [" + phoneNumber + "] is with pickup ref " + pickupref);
+                cucumberContextManager.setScenarioContext("REQUESTED_PICKUPREF", pickupref);
+                cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupref);
+            }
 
         }catch (Exception e){
             logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
