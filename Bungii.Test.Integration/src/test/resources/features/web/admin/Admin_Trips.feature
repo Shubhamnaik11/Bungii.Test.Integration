@@ -217,18 +217,65 @@ Feature: Admin_Trips
     And I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
 	And I view All Deliveries list on the admin portal
-	Then The Delivery List page should display the delivery in "Admin Cancelled" state
+	Then The Delivery List page should display the delivery in "Admin Canceled" state
     When I change filter to "The Past Day" on All deliveries
-    Then The Delivery List page should display the delivery in "Admin Cancelled" state
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
     When I change filter to "The Past Week" on All deliveries
-    Then The Delivery List page should display the delivery in "Admin Cancelled" state
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
     When I change filter to "The Past 4 Weeks" on All deliveries
-    Then The Delivery List page should display the delivery in "Admin Cancelled" state
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
     When I change filter to "The Past 3 Months" on All deliveries
-    Then The Delivery List page should display the delivery in "Admin Cancelled" state
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
     When I change filter to "The Beginning Of Time" on All deliveries
-    Then The Delivery List page should display the delivery in "Admin Cancelled" state
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
   
+  @sanity
+  @regression
+  Scenario: Verify Cancellation of Scheduled Bungii As An Admin
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name                  |
+      | NEXT_POSSIBLE | 9284000005     | Testcustomertywd_appleweb CustE|
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted  |
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled |
+    When I click on "Edit" link beside scheduled bungii
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
+    And I click on "Submit" button
+    Then The "Pick up has been successfully cancelled." message should be displayed
+    And I view the Deliveries list on the admin portal
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
   
+  @sanity
+  @ready
+    #test data created in base
+  Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      |Accepted |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Loading Items |
+    When I view the delivery details
+    Then the Bungii details is displayed successfully
+    And I click on "Manually End Bungii" link
+    And Enter the End Date and Time
+    And Click on "Calculate Cost" button
+    Then the amount is calculated and shown to admin
+    And Click on "Confirm" button
+    And I view the Deliveries list on the admin portal
+    Then The Delivery List page should display the delivery in "Payment Successful" state
 
   

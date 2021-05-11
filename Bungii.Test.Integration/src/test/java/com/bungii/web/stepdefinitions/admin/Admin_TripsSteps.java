@@ -70,8 +70,8 @@ public class Admin_TripsSteps extends DriverBase {
         Thread.sleep(5000);
         SetupManager.getDriver().navigate().refresh();
         action.selectElementByText(admin_TripsPage.Dropdown_SearchForPeriod(), "The Beginning of Time");
-        log("I view the Trips list on the admin portal",
-                "I viewed the Trips list on the admin portal", true);
+        log("I view the Deliveries list on the admin portal",
+                "I viewed the Deliveries list on the admin portal", true);
 
     }
 
@@ -595,8 +595,8 @@ public class Admin_TripsSteps extends DriverBase {
                 action.click(admin_EditScheduledBungiiPage.RadioButton_EditTripDetails());
                 break;
         }
-        log("I click on Remove driver(s) and re-search radio button",
-                "I have clicked on Remove driver(s) and re-search radio button", true);
+        log("I click "+ radiobutton,
+                "I have clicked on "+ radiobutton, true);
     }
 
     @And("^I enter cancellation fee and Comments$")
@@ -854,9 +854,9 @@ public class Admin_TripsSteps extends DriverBase {
     public void all_statuses_except_something_are_selected(String status) throws Throwable {
         testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().isSelected(), "Checkbox Status Payment Successful should be selected", "Checkbox Status Payment Successful is selected", "Checkbox Status Payment Successful is NOT selected");
         testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterPaymentSuccessful().isSelected(), "Checkbox Status Payment Unsuccessful should be selected", "Checkbox Status Payment Unsuccessful is selected", "Checkbox Status Payment Unsuccessful is NOT selected");
-        testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterCustomerCancelled().isSelected(), "Checkbox Status Customer Cancelled should be selected", "Checkbox Status Customer Cancelled is selected", "Checkbox Status Customer Cancelled is NOT selected");
-        testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterDriverCancelled().isSelected(), "Checkbox Status Driver Cancelled should be selected", "Checkbox Status Driver Cancelled is selected", "Checkbox Status Driver Cancelled is NOT selected");
-        testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterAdminCancelled().isSelected(), "Checkbox Status Admin Cancelled should be selected", "Checkbox Status Admin Cancelled is selected", "Checkbox Status Admin Cancelled is NOT selected");
+        testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterCustomerCancelled().isSelected(), "Checkbox Status Customer Canceled should be selected", "Checkbox Status Customer Canceled is selected", "Checkbox Status Customer Canceled is NOT selected");
+        testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterDriverCancelled().isSelected(), "Checkbox Status Driver Canceled should be selected", "Checkbox Status Driver Canceled is selected", "Checkbox Status Driver Canceled is NOT selected");
+        testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterAdminCancelled().isSelected(), "Checkbox Status Admin Canceled should be selected", "Checkbox Status Admin Canceled is selected", "Checkbox Status Admin Canceled is NOT selected");
         testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterPickupWithError().isSelected(), "Checkbox Status Pickup With Error should be selected", "Checkbox Status Pickup With Error is selected", "Checkbox Status Pickup With Error is NOT selected");
         testStepAssert.isFalse(admin_TripsPage.CheckBox_FilterPriceEstimated().isSelected(), "Checkbox Status Price Estimated should NOT be selected", "Checkbox Status Price Estimated is NOT selected", "Checkbox Status Price Estimated is selected");
         testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterDriversNotFound().isSelected(), "Checkbox Status Drivers Not Found should be selected", "Checkbox Status Drivers Not Found is selected", "Checkbox Status Drivers Not Found is NOT selected");
@@ -919,17 +919,17 @@ public class Admin_TripsSteps extends DriverBase {
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterPaymentSuccessful());
                         break;
-                    case ("Customer Cancelled"):
+                    case ("Customer Canceled"):
                         action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterCustomerCancelled());
                         break;
-                    case ("Driver Cancelled"):
+                    case ("Driver Canceled"):
                         action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterDriverCancelled());
                         break;
-                    case "Admin Cancelled":
+                    case "Admin Canceled":
                         action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterAdminCancelled());
@@ -1025,19 +1025,19 @@ public class Admin_TripsSteps extends DriverBase {
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
-                case "Customer Cancelled Status":
+                case "Customer Canceled Status":
                     xpath = String.format("//td[text()='Customer Canceled']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
-                case "Driver Cancelled Status":
+                case "Driver Canceled Status":
                     xpath = String.format("//td[text()='Driver Canceled']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
-                case "Admin Cancelled Status":
+                case "Admin Canceled Status":
                     xpath = String.format("//td[text()='Admin Canceled']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));

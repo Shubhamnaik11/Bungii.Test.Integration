@@ -4,33 +4,10 @@ Feature: Admin_Refund
   
   Background:
 	Given I am logged in as Admin
-  
-  @sanity
-  @regression
-	@test
-  Scenario: Verify Cancellation of Scheduled Bungii As An Admin
-	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-	  | Bungii Time   | Customer Phone | Customer Name                  |
-	  | NEXT_POSSIBLE | 9284000005     | Testcustomertywd_appleweb CustE|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
-	  | driver1 state|
-	  | Accepted  |
-	And I view the all Scheduled Deliveries list on the admin portal
-	Then I should be able to see the respective bungii with the below status
-	  |  Status |
-	  | Scheduled |
-	When I click on "Edit" link beside scheduled bungii
-	And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
-	And I enter cancellation fee and Comments
-	And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
-	And I click on "Submit" button
-	Then The "Pick up has been successfully cancelled." message should be displayed
-	And I view the Deliveries list on the admin portal
-	Then The Delivery List page should display the delivery in "Admin Canceled" state
 	
 @regression
-  @test
 Scenario: Verify Partial Refund Calculations of Solo Scheduled Delivery
+  And I wait for 1 minutes
 When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 | Bungii Time   | Customer Phone | Customer Name                  |
 | NEXT_POSSIBLE | 9999999601     | Testcustomertywd_appleNewA Customer|
@@ -183,7 +160,6 @@ And As a driver "Testdrivertywd_appledc_a_drvd Driver" perform below action with
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
 	
-  
   @regression
   Scenario: Verify Close, Reset and Go Back on Issue Refund Popup
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -434,3 +410,5 @@ And As a driver "Testdrivertywd_appledc_a_drvd Driver" perform below action with
 	When I click on "OK" button
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
+	
+ 

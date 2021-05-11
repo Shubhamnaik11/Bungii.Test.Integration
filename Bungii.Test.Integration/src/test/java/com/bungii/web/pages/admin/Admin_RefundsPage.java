@@ -87,7 +87,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Button_ReattemptPayment() { return findElement("btnReattempt", LocatorType.Id); }
 
-    public WebElement Button_Close() { return findElement("//h5[text()='Issue Refund ']/parent::div/button[@class='close']", LocatorType.XPath); }
+    public WebElement Button_Close() { return findElement("//h5[contains(text(),'Issue Refund')]/following-sibling::button[@class='close']", LocatorType.XPath); }
 
     public WebElement Checkbox_same() { return findElement("chkReplicateData", LocatorType.Id); }
 
