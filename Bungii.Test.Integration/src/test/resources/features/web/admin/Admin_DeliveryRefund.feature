@@ -1,4 +1,5 @@
 @web
+@new
 Feature: Admin_Refund
   
   Background:
@@ -6,6 +7,7 @@ Feature: Admin_Refund
   
   @sanity
   @regression
+	@test
   Scenario: Verify Cancellation of Scheduled Bungii As An Admin
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
@@ -23,15 +25,16 @@ Feature: Admin_Refund
 	And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
 	And I click on "Submit" button
 	Then The "Pick up has been successfully cancelled." message should be displayed
-	When I view the Trips list on the admin portal
+	And I view the Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
 	
 @regression
+  @test
 Scenario: Verify Partial Refund Calculations of Solo Scheduled Delivery
 When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 | Bungii Time   | Customer Phone | Customer Name                  |
 | NEXT_POSSIBLE | 9999999601     | Testcustomertywd_appleNewA Customer|
-And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+And As a driver "Testdrivertywd_appledc_a_drvd Driver" perform below action with respective "Solo Scheduled" Delivery
 	| driver1 state|
 	|Accepted |
 	| Enroute  |
@@ -80,7 +83,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999602     | Testcustomertywd_appleNewB Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drve Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -114,7 +117,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999603     | Testcustomertywd_appleNewC Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvf Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -148,7 +151,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999604     | Testcustomertywd_appleNewD Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvg Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -179,7 +182,6 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I click on "OK" button
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
-	And The "Reattempt Payment" button should be displayed
 	
   
   @regression
@@ -187,7 +189,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999605     | Testcustomertywd_appleNewE Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvh Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -217,7 +219,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999606     | Testcustomertywd_appleNewF Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvi Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -255,7 +257,6 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I click on "OK" button
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
-	And The "Reattempt Payment" button should be displayed
   
   @regression
   Scenario: Verify Issue Refund button is not displayed for Customer Canceled Delivery
@@ -298,11 +299,11 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 		  | Bungii Time   | Customer Phone | Customer Name                  |
 		  | NEXT_POSSIBLE | 9999999609     | Testcustomertywd_appleNewI Customer|
-		And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+		And As a driver "Testdrivertywd_appledc_a_drvj Driver" perform below action with respective "Solo Scheduled" Delivery
 		  | driver1 state|
 		  |Accepted |
 		  | Enroute  |
-		When I cancel bungii as a driver "Testdrivertywd_appledc_a_web TestdriverF"
+		When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvj Driver"
 	    And I view the Deliveries list on the admin portal
 	And I wait for 2 minutes
 	And I search the delivery of Customer and view it
@@ -313,7 +314,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999990     | Testcustomertywd_appleNewJ Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Ondemand" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvk Driver" perform below action with respective "Solo Ondemand" Delivery
 	  | driver1 state|
 	  | Enroute  |
 	  | Arrived |
@@ -343,4 +344,93 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I click on "OK" button
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
-	And The "Reattempt Payment" button should be displayed
+  
+  @regression
+  Scenario: Verify Complete Refund for Duo Delivery and partial Driver payment
+	When I request "duo" Bungii as a customer in "washingtondc" geofence
+	  | Bungii Time   | Customer Phone | Customer Name |
+	  | NEXT_POSSIBLE | 9999999991 | Testcustomertywd_appleNewK Customer|
+	When As a driver "Testdrivertywd_appledc_a_drvl Driver" and "Testdrivertywd_appledc_a_drvm Driver" perform below action with respective "Duo Scheduled" trip
+	  | driver1 state | driver2 state |
+	  | Bungii Completed      | Bungii Completed      |
+	And I view the Deliveries list on the admin portal
+	And I wait for 2 minutes
+	And I search the delivery of Customer and view it
+	When I click on "ISSUE REFUND" button
+	Then The "Issue Refund" section should be displayed
+	When I select "Complete Refund" radio button
+	When I update "Earnings" as "10.00" dollars
+	And I check "Same for 2nd driver"
+	Then I should see Customer Refund Amount and Driver Earnings
+	When I enter "Bungii Internal Notes" as "Internal Note"
+	When I enter "Notes" as "Driver Note" for both drivers
+	And I click on "Continue" button on Issue Refund popup
+	Then I should see "Issue Refund - Confirm Details" popup
+	And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
+	And I should see breakdown of Before and After Refund earnings for both driver
+	And I should see Bungii Internal Note
+	And I should see Bungii Driver Note for both drivers
+	When I select "Are you sure you want to proceed with refund request ?" checkbox
+	And I click on "Process Refund" button on Issue Refund popup
+	Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+	When I click on "OK" button
+	And I search the delivery of Customer and view it
+	Then The "Issue Refund" button should not be displayed
+ 
+	@regression
+  Scenario: Verify Complete Refund for Duo Delivery and complete Driver payment
+	When I request "duo" Bungii as a customer in "washingtondc" geofence
+	  | Bungii Time   | Customer Phone | Customer Name |
+	  | NEXT_POSSIBLE | 9999999992 | Testcustomertywd_appleNewL Customer|
+	When As a driver "Testdrivertywd_appledc_a_drvn Driver" and "Testdrivertywd_appledc_a_drvo Driver" perform below action with respective "Duo Scheduled" trip
+	  | driver1 state | driver2 state |
+	  | Bungii Completed      | Bungii Completed      |
+	And I view the Deliveries list on the admin portal
+	And I wait for 2 minutes
+	And I search the delivery of Customer and view it
+	When I click on "ISSUE REFUND" button
+	Then The "Issue Refund" section should be displayed
+	When I select "Complete Refund" radio button
+	And I check "Same for 2nd driver"
+	Then I should see Customer Refund Amount and Driver Earnings
+	When I enter "Bungii Internal Notes" as "Internal Note"
+	And I click on "Continue" button on Issue Refund popup
+	Then I should see "Issue Refund - Confirm Details" popup
+	And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
+	And I should see breakdown of Before and After Refund earnings for both driver
+	And I should see Bungii Internal Note
+	When I select "Are you sure you want to proceed with refund request ?" checkbox
+	And I click on "Process Refund" button on Issue Refund popup
+	Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+	When I click on "OK" button
+	And I search the delivery of Customer and view it
+	Then The "Issue Refund" button should not be displayed
+  
+  @regression
+  Scenario: Verify Partial Refund for Duo Delivery and complete Driver payment
+	When I request "duo" Bungii as a customer in "washingtondc" geofence
+	  | Bungii Time   | Customer Phone | Customer Name |
+	  | NEXT_POSSIBLE | 9999999992 | Testcustomertywd_appleNewL Customer|
+	When As a driver "Testdrivertywd_appledc_a_drvp Driver" and "Testdrivertywd_appledc_a_drvq Driver" perform below action with respective "Duo Scheduled" trip
+	  | driver1 state | driver2 state |
+	  | Bungii Completed      | Bungii Completed      |
+	And I view the Deliveries list on the admin portal
+	And I wait for 2 minutes
+	And I search the delivery of Customer and view it
+	When I click on "ISSUE REFUND" button
+	Then The "Issue Refund" section should be displayed
+	When I select "Partial Refund" radio button
+	And I enter "Customer Refund Amount" as "5.01" dollars
+	And I enter "Customer Refund Amount" as "15.01" dollars from second driver
+	When I enter "Bungii Internal Notes" as "Internal Note"
+	And I click on "Continue" button on Issue Refund popup
+	Then I should see "Issue Refund - Confirm Details" popup
+	And I should see Original Delivery Charge & Customer Refund & Total Customer Charge for duo delivery
+	And I should see breakdown of Before and After Refund earnings for both driver
+	And I should see Bungii Internal Note
+	When I select "Are you sure you want to proceed with refund request ?" checkbox
+	And I click on "Process Refund" button on Issue Refund popup
+	Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+	When I click on "OK" button
+	And I search the delivery of Customer and view it
+	Then The "Issue Refund" button should not be displayed

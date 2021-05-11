@@ -97,7 +97,7 @@ Feature: Admin_Schedule_Trip_Edit
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
       | NEXT_POSSIBLE | 9999999204     | Testcustomertywd_appleNewQ Customer|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_webaa Testdriveraa" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I view the all Scheduled Deliveries list on the admin portal

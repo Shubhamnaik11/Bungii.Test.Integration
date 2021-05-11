@@ -3,35 +3,7 @@ Feature: Admin_Trips
 
   Background:
     Given I am logged in as Admin
-
-  @sanity
-  @ready
-    #test data created in base
-  Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
-    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-      | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
-      | driver1 state|
-      |Accepted |
-      | Enroute  |
-      | Arrived |
-      | Loading Item |
-    And I view the Live Deliveries list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      |  Status |
-      | Loading Items |
-    When I view the delivery details
-    Then the Bungii details is displayed successfully
-    And I click on "Manually End Bungii" link
-    And Enter the End Date and Time
-    And Click on "Calculate Cost" button
-    Then the amount is calculated and shown to admin
-    And Click on "Confirm" button
-    And I view the Deliveries list on the admin portal
-    Then The Delivery List page should display the delivery in "Payment Successful" state
     
-
   @sanity
   @regression
     @failed

@@ -253,6 +253,18 @@ public class Admin_RefundSteps extends DriverBase {
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_TotalCustomerCharge()),"$"+df.format(totalCustomerCharge), "Total Customer Charge should be displayed", "Total Customer Charge is displayed","Total Customer Charge is not displayed");
 
     }
+    @And("^I should see Original Delivery Charge & Customer Refund & Total Customer Charge for duo delivery$")
+    public void i_should_see_original_delivery_charge_customer_refund_total_customer_charge_for_duodelivery() throws Throwable {
+        DecimalFormat df = new DecimalFormat("0.00");
+        Double refundPercentage =  (Double.valueOf((String)  cucumberContextManager.getScenarioContext("REFUND_PERCENTAGE"))+  Double.valueOf((String)  cucumberContextManager.getScenarioContext("REFUND_PERCENTAGE2")))/2;
+        Double refundAmount = Double.valueOf((String)cucumberContextManager.getScenarioContext("REFUND_AMOUNT"))+Double.valueOf((String)cucumberContextManager.getScenarioContext("REFUND_AMOUNT2"));
+        Double totalCustomerCharge = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")))-Double.parseDouble(String.valueOf((cucumberContextManager.getScenarioContext("REFUND_AMOUNT"))))-Double.parseDouble(String.valueOf((cucumberContextManager.getScenarioContext("REFUND_AMOUNT2"))));
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_OriginalDeliveryCharge()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")), "Origional Delivery Charge should be displayed", "Origional Delivery Charge is displayed","Origional Delivery Charge is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundPercentage()),"(- "+String.valueOf(refundPercentage)+" % )", "Customer Refund Percentage should be displayed", "Customer Refund Percentage is displayed","Customer Refund Percentage is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundAmount()),"-$"+df.format(refundAmount), "Customer Refund Amount should be displayed", "Customer Refund Amount is displayed","Customer Refund Amount is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_TotalCustomerCharge()),"$"+df.format(totalCustomerCharge), "Total Customer Charge should be displayed", "Total Customer Charge is displayed","Total Customer Charge is not displayed");
+
+    }
 
     @And("^I should see breakdown of Before and After Refund earnings$")
     public void i_should_see_breakdown_of_before_and_after_refund_earnings() throws Throwable {
@@ -313,6 +325,72 @@ public class Admin_RefundSteps extends DriverBase {
         testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()),String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS")), "Driver Earnings should be displayed", "Driver Earnings  is displayed","Driver Earnings  is not displayed");
 
     }
+    @And("^I check \"([^\"]*)\"$")
+    public void i_check_something(String strArg1) throws Throwable {
+        action.click(admin_refundsPage.Checkbox_same());
+        cucumberContextManager.setScenarioContext("DRIVER2_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings2()).trim());
+        cucumberContextManager.setScenarioContext("DRIVER_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim());
 
+    }
+    @When("^I enter \"([^\"]*)\" as \"([^\"]*)\" for both drivers$")
+    public void i_enter_something_as_something_for_both_drivers(String field, String value) throws Throwable {
+        switch (field)
+        {
+            case "Bungii Internal Notes":
+                action.clearSendKeys(admin_refundsPage.TextBox_BusinessNotes(),value);
+                cucumberContextManager.setScenarioContext("BUNGII_INTERNAL_NOTE",value);
+                break;
+            case "Notes":
+                action.clearSendKeys(admin_refundsPage.TextBox_Notes(),value);
+                cucumberContextManager.setScenarioContext("BUNGII_DRIVER_NOTE",value);
+                action.clearSendKeys(admin_refundsPage.TextBox_Notes2(),value);
+                cucumberContextManager.setScenarioContext("BUNGII_DRIVER_NOTE2",value);
+                break;
+        }
+        log("I enter value in "+field +" for both drivers","I entered  "+value+" in field "+field+" on Refund popup for both drivers" ,true );
+    }
+
+    @And("^I should see breakdown of Before and After Refund earnings for both driver$")
+    public void i_should_see_breakdown_of_before_and_after_refund_earnings_for_both_driver() throws Throwable {
+        DecimalFormat df = new DecimalFormat("0.00");
+        String driverEarningsBefore = String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS_BEFORE"));
+        Double eachDriverEarning = Double.parseDouble(driverEarningsBefore) / 2;
+        Double bungiiEarnings = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS")))+Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS2")));
+       // bungiiEarnings = bungiiEarnings*2;
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverBeforeRefund()),"$"+df.format(eachDriverEarning), "Driver 1 Earnings Before should be displayed", "Driver Earnings Before is displayed","Driver Earnings Before is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverAfterRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS")), "Driver 1 Earnings After should be displayed", "Driver Earnings After is displayed","Driver Earnings Aftere is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_Driver2BeforeRefund()),"$"+df.format(eachDriverEarning), "Driver 2 Earnings Before should be displayed", "Driver Earnings Before is displayed","Driver Earnings Before is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_Driver2AfterRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER2_EARNINGS")), "Driver 2 Earnings After should be displayed", "Driver Earnings After is displayed","Driver Earnings Aftere is not displayed");
+
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiBeforeRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS_BEFORE")), "Bungii Earnings Before should be displayed", "Bungii Earnings Before is displayed","Bungii Earnings Before is not displayed");
+        if(bungiiEarnings>=0)
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiAfterRefund()),"$"+df.format(bungiiEarnings), "Bungii Earnings After should be displayed", "Bungii Earnings After is displayed","Bungii Earnings After is not displayed");
+        else
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiAfterRefund()),"- ($"+df.format(bungiiEarnings).toString().replace("-","")+")", "Bungii Earnings After should be displayed", "Bungii Earnings After is displayed","Bungii Earnings After is not displayed");
+
+
+    }
+    @And("^I should see Bungii Driver Note for both drivers$")
+    public void i_should_see_bungii_driver_note_for_both_drivers() throws Throwable {
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_NoteDriver()), (String)cucumberContextManager.getScenarioContext("BUNGII_DRIVER_NOTE"), "Bungii Driver1 Note should be displayed", "Bungii Driver Note is displayed","Bungii Driver Note is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_NoteDriver2()), (String)cucumberContextManager.getScenarioContext("BUNGII_DRIVER_NOTE2"), "Bungii Driver2 Note should be displayed", "Bungii Driver Note is displayed","Bungii Driver Note is not displayed");
+
+    }
+    @And("^I enter \"([^\"]*)\" as \"([^\"]*)\" dollars from second driver$")
+    public void i_enter_something_as_something_dollars_from_second_driver(String field, String value) throws Throwable {
+        switch (field)
+        {
+            case "Customer Refund Amount":
+                action.clearSendKeys(admin_refundsPage.TextBox_RefundAmount2(),value+Keys.TAB);
+                break;
+        }
+        cucumberContextManager.setScenarioContext("DELIVERY_TOTAL",action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$",""));
+        cucumberContextManager.setScenarioContext("REFUND_AMOUNT2",action.getAttributeValue(admin_refundsPage.TextBox_RefundAmount2()).trim());
+        cucumberContextManager.setScenarioContext("REFUND_PERCENTAGE2",action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage2()).trim());
+        cucumberContextManager.setScenarioContext("DRIVER2_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings2()).trim());
+        cucumberContextManager.setScenarioContext("BUNGII_EARNINGS2",action.getAttributeValue(admin_refundsPage.TextBox_BungiiEarnings2()).trim());
+
+        log("I enter value in "+field,"I entered  "+value+" in field "+field+" from second driver on Refund popup" ,true );
+    }
 
 }
