@@ -276,7 +276,7 @@ public class Admin_TripsSteps extends DriverBase {
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
-            if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
+            if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
                 int retrycount = 10;
 
@@ -295,7 +295,7 @@ public class Admin_TripsSteps extends DriverBase {
                     }
 
                 }
-                Thread.sleep(3000);
+                Thread.sleep(5000);
                 int retryCount = 1;
                 while (!action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))).equalsIgnoreCase(status)) {
                     if (retryCount >= 20) break;
@@ -562,7 +562,7 @@ public class Admin_TripsSteps extends DriverBase {
         // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Loading + Unloading Time"), customer, "Loading + Unloading Time " + customer + " should be updated", "Loading + Unloading Time " + customer + " is updated", "Loading + Unloading Time " + customer + " is not updated");
 
         Bunggi_Type = Bunggi_Type.replace("Solo Ondemand","Solo").replace("Duo Ondemand","Duo");
-        if(Bunggi_Type.equalsIgnoreCase("Solo")){
+        if(Bunggi_Type.equalsIgnoreCase("Solo")|| Bunggi_Type.equalsIgnoreCase("Solo Scheduled")){
             String xpath = String.format("//td/strong[contains(text(),'%s')]",driver1);
             testStepAssert.isElementDisplayed(action.getElementByXPath(xpath)," Driver " + driver1 + " should be displayed", " Driver " + driver1 + " is displayed", " Driver " + driver1 + " is not displayed");
         }

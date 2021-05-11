@@ -81,6 +81,20 @@ public class DbUtility extends DbContextManager {
         logger.detail("Pickupid  " + pickupid + " of pickupref " + pickupRef );
         return pickupid;
     }
+    public static String getPickupIdFromFactPickup(String pickupRef) {
+        String pickupid = "";
+        String queryString = "SELECT id FROM factpickup WHERE pickupref ='" + pickupRef+"'";
+        pickupid =getDataFromMySqlReportServer(queryString);
+        logger.detail("Pickupid  " + pickupid + " of pickupref " + pickupRef );
+        return pickupid;
+    }
+    public static String getLinkedPickupRef(String pickupRef) {
+        String linkedpickupref = "";
+        String queryString = "SELECT PICKUPREF FROM pickupdetails WHERE LINKEDPICKUPID in (SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef+"' )";
+        linkedpickupref =getDataFromMySqlServer(queryString);
+        logger.detail("Linked Pickupref " + linkedpickupref + " of pickupref " + pickupRef );
+        return linkedpickupref;
+    }
     public static String getPickupLocation(String pickupId) {
         String pickupLat, pickupLong, location = "";
         String queryString = "SELECT concat(ifnull(pickuplat,''),',',ifnull(pickuplong,'')) FROM pickupdropaddress WHERE pickupId =" + pickupId;

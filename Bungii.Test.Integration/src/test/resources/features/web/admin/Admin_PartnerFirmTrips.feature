@@ -4,7 +4,36 @@ Feature: Admin_PartnerFirmTrips
 
   Background:
     Given I am logged in as TestAdmin
-    
+  
+  @sanity
+  @ready
+      #test data created in base
+  Scenario: Verify Partner Firm Upon Driver Acceptance And Removal Research - Duo Scheduled
+    When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999999355 | Testcustomertywd_appleWashA Shah|
+    And As a driver "Testdrivertywd_appledc_a_web Sundara" perform below action with respective "Duo Scheduled" Delivery
+      | driver1 state|
+      |Accepted |
+    And As a driver "Testdrivertywd_appledc_a_web Sundarb" perform below action with respective "Duo Scheduled" Delivery
+      | driver1 state|
+      |Accepted |
+    #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
+    And I view the Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled |
+    When I click on "Edit" link beside scheduled bungii
+    And I click on "Remove driver(s) and re-search" radiobutton
+    And I select the first driver
+    And I click on "Remove Driver" button
+    And I click on "Research" button
+    Then Pickup should be unassigned from the driver
+    And As a driver "Testdrivertywd_appledc_a_web Sundarc" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted  |
+    #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
+  
   @regression
   Scenario: Verify Partner Firm Scheduled  - Ondemand Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
@@ -34,34 +63,7 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
     #And Admin receives "Failed Scheduled Trips" trip email for "Driver Cancelled" status
 
-  @sanity
-  @ready
-      #test data created in base
-  Scenario: Verify Partner Firm Upon Driver Acceptance And Removal Research - Duo Scheduled
-    When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
-      | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999355 | Testcustomertywd_appleWashA Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundara" perform below action with respective "Duo Scheduled" Delivery
-      | driver1 state|
-      |Accepted |
-    And As a driver "Testdrivertywd_appledc_a_web Sundarb" perform below action with respective "Duo Scheduled" Delivery
-      | driver1 state|
-      |Accepted |
-    #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
-    And I view the Scheduled Deliveries list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      |  Status |
-      | Scheduled |
-    When I click on "Edit" link beside scheduled bungii
-    And I click on "Remove driver(s) and re-search" radiobutton
-    And I select the first driver
-    And I click on "Remove Driver" button
-    And I click on "Research" button
-    Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web Sundarc" perform below action with respective "Solo Scheduled" Delivery
-      | driver1 state|
-      | Accepted  |
-    #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
+ 
     
   @ready
       #test data created in base

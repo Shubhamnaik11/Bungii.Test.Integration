@@ -193,6 +193,66 @@ public class BungiiSteps extends DriverBase {
             case "Driver_goa_f Android_test":
                 phone = PropertyUtility.getDataProperties("driverF.phone.number");
                 break;
+            case "Testdrivertywd_appledc_a_drva Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver200.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvb Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver201.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvc Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver202.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvd Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver203.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drve Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver204.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvf Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver205.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvg Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver206.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvh Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver207.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvi Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver208.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvj Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver209.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvk Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver210.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvl Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver211.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvm Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver212.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvn Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver213.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvo Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver214.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvp Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver215.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvq Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver216.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvr Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver217.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvs Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver218.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvt Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver219.phone");
+                break;
         }
 
         return phone;
@@ -227,11 +287,11 @@ public class BungiiSteps extends DriverBase {
             driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
             coreServices.updateDriverLocation(driverAccessToken, geofence); //to uncomment
             coreServices.updateDriverStatus(driverAccessToken);
-
+            String driver1State = "";
             int i = 0;
             while (i < DataList.size()) {
                 try {
-                    String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
+                    driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
                     logger.detail("*** As a driver " + driverName + "(" + driverPhoneNum + ") " + bungiiType + "(" + pickupRequest + ") is being " + driver1State);
                     try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
 
@@ -306,6 +366,8 @@ public class BungiiSteps extends DriverBase {
 
                     }
                     i++;
+                    pass("As a driver, perform  action on Delivery", "As a driver "+driverName+" perform "+ driver1State+" action on "+bungiiType+" Delivery : "+ pickupRequest);
+
                 } catch (Exception e) {
 
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
