@@ -253,6 +253,9 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_drvt Driver":
                 phone = PropertyUtility.getDataProperties("web.valid.driver219.phone");
                 break;
+            case "Testdrivertywd_appledc_a_webaa Testdriveraa":
+                phone = PropertyUtility.getDataProperties("web.valid.driver1000.phone");
+                break;
         }
 
         return phone;
@@ -1099,6 +1102,7 @@ public class BungiiSteps extends DriverBase {
             String customerName = dataMap.get("Customer Name").trim();
 
             cucumberContextManager.setScenarioContext("Bungii_Type",bungiiType);
+            cucumberContextManager.setScenarioContext("BUNGII_TYPE",bungiiType);
             String customerPasswordLabel = "";
             try {
                 customerPasswordLabel = dataMap.get("Customer Password").trim();

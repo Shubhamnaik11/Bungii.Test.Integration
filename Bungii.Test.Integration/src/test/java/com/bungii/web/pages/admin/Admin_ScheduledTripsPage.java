@@ -15,6 +15,14 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Textbox_CancellationFee () { return findElement("txtCancellationFee", LocatorType.Id); }
 
+    public WebElement Label_Drop_Off_Location () { return findElement("//p[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
+
+    public WebElement Button_Edit_Drop_Off_Address () { return findElement("//img[@title='Edit drop off location']",LocatorType.XPath);}
+
+    public WebElement Textbox_Drop_Off_Location () { return findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
+
+    public WebElement FirstAddressDropdownResult () { return findElement("//div[@id='divPlacesResult']/div[1]",LocatorType.XPath);}
+
     public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
 
     public WebElement Dropdown_CancellationReason () { return findElement("txtCancellationRemark", LocatorType.Id); }
@@ -45,4 +53,6 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Label_DriverRemovalSuccessMessage () { return findElement( "//p/i[text()='Driver(s) removed successfully']" , LocatorType.XPath); }
 
     public WebElement Button_Close () { return findElement("//button[@class='close']", LocatorType.XPath);}
+
+    public WebElement Estimated_Distance_Cost () { return findElement("",LocatorType.XPath);}
 }

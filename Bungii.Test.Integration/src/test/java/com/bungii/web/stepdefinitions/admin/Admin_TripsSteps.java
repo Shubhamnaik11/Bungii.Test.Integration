@@ -3,6 +3,7 @@ package com.bungii.web.stepdefinitions.admin;
 import com.bungii.SetupManager;
 import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.*;
@@ -581,6 +582,22 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have clicked on Edit link besides the scheduled bungii", true);
     }
 
+    @Then("^I confirm the change drop off address on delivery details page$")
+    public void i_confirm_the_change_drop_off_address_on_delivery_details_page() throws Throwable {
+        String Expected_Change_DropOff = (String)cucumberContextManager.getScenarioContext("Change_Drop_Off");
+        String Display_Change_DropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
+        testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
+        log(" I confirm the change drop off address on delivery details page",
+                "I have confirm the change drop off address on delivery details page", true);
+    }
+
+    @Then("^I confirm Pickup note is updated$")
+    public void i_confirm_pickup_note_is_updated() throws Throwable {
+        String Change_Pickup_Note = (String) cucumberContextManager.getScenarioContext("Change_Pickup_Note");
+        String Display_Pickup_Note = action.getText(admin_EditScheduledBungiiPage.Text_Pickup_Note());
+        testStepVerify.isEquals(Change_Pickup_Note,Display_Pickup_Note);
+    }
+
     @And("^I click on \"([^\"]*)\" radiobutton$")
     public void i_click_on_something_radiobutton(String radiobutton) throws Throwable {
 
@@ -593,10 +610,71 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
             case "Edit Trip Details":
                 action.click(admin_EditScheduledBungiiPage.RadioButton_EditTripDetails());
+                Thread.sleep(3000);
                 break;
         }
         log("I click "+ radiobutton,
                 "I have clicked on "+ radiobutton, true);
+    }
+
+    @And("^I edit the drop off address$")
+    public void i_edit_the_drop_off_address() throws Throwable {
+        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
+        action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
+
+    }
+
+    @Then("^I change the drop off address to \"([^\"]*)\"$")
+    public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
+        cucumberContextManager.setScenarioContext("Change_Drop_Off",arg1);
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
+        Thread.sleep(1000);
+        action.click(admin_ScheduledTripsPage.FirstAddressDropdownResult());
+        Thread.sleep(1000);
+
+    }
+
+    @And("^I change the customer note to \"([^\"]*)\"$")
+    public void i_change_the_customer_note(String arg1) throws Throwable {
+        cucumberContextManager.setScenarioContext("Change_Pickup_Note",arg1);
+        action.clearSendKeys(admin_EditScheduledBungiiPage.Text_Additional_Note(),arg1);
+    }
+
+    @When("^I view the trip details in admin portal$")
+    public void i_view_the_trip_detailsin_admin() throws Throwable {
+        try{
+            SetupManager.getDriver().navigate().refresh();
+            String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String xpath = String.format("//td[contains(.,'')]/following-sibling::td[contains(.,'%s')]/preceding::td[2]", customer);
+            //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+            action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I check the price for trip$")
+    public void i_check_the_price_for_trip() throws Throwable {
+        String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String xpath = String.format("//td[contains(.,'')]/following-sibling::td[contains(.,'%s')]/preceding::td[1]", customer);
+        String trip_Price = action.getText(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        String[] splited_price =trip_Price.split("/",2);
+        String actual_price = splited_price[1];
+        actual_price = actual_price.replace(" ","");
+        cucumberContextManager.setScenarioContext("Price_Before",actual_price);
+    }
+
+    @Then("^I confirm trip price is also change$")
+    public void i_confirm_trip_price_is_also_change() throws Throwable {
+        String new_Price = action.getText(admin_EditScheduledBungiiPage.Text_Estimated_Price());
+        new_Price = new_Price.replace("$","");
+        new_Price = new_Price.replace(" ","");
+        String old_Price = (String) cucumberContextManager.getScenarioContext("Price_Before");
+        old_Price = old_Price.replace("$","");
+        testStepVerify.isNotEquals(new_Price,old_Price);
+
     }
 
     @And("^I enter cancellation fee and Comments$")
@@ -643,6 +721,9 @@ public class Admin_TripsSteps extends DriverBase {
         switch (geofence) {
             case "washingtondc":
                 geofenceName = "Washington DC";
+                break;
+            case "Kansas":
+                geofenceName = "Kansas";
                 break;
 
         }
@@ -1131,14 +1212,19 @@ public class Admin_TripsSteps extends DriverBase {
             case "Your changes are good to be saved.":
             testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifiedMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
             break;
-            case "Bungii Saved!":
+            case "Bungii Saved":
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_SuccessMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
                 break;
             case "Pickup request is being processed. You may have to refresh the page.":
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_InfoMessage(), message,message +" should be displayed", message +" is displayed",message +" is not displayed");
                 break;
-            case "":
+            case "Bungii Saved!":
+                testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_SuccessMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
+                action.click(admin_EditScheduledBungiiPage.Button_Close());
+                break;
+            case "Oops! It looks like this trip is a little outside our scope.":
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifyError(), message,message +" should be displayed", message +" is displayed",message +" is not displayed");
+                action.click(admin_EditScheduledBungiiPage.Button_Close());
                 break;
         }
 
@@ -1161,12 +1247,12 @@ public class Admin_TripsSteps extends DriverBase {
     }
 
     @And("^I click on \"([^\"]*)\" button on Edit Scheduled bungii popup$")
-    public void i_click_on_something_button_on_edit_scheduled_bungii_popup(String button) {
+    public void i_click_on_something_button_on_edit_scheduled_bungii_popup(String button) throws InterruptedException {
 
         switch (button) {
             case "Save":
-            action.click(admin_EditScheduledBungiiPage.Button_Save());
-            break;
+                action.click(admin_EditScheduledBungiiPage.Button_Save());
+                break;
             case "Verify":
                 action.click(admin_EditScheduledBungiiPage.Button_Verify());
                 break;

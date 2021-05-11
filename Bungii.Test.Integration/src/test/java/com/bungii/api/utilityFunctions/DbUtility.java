@@ -211,4 +211,12 @@ public class DbUtility extends DbContextManager {
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
+
+    public static String BusinessPartnerDefaultAddressRef(String businessPartnerLocationRef ){
+
+        String queryString2 = "select business_partner_default_address_ref from business_partner_default_address where business_partner_location_config_version_id in (select business_partner_location_config_version_id from business_partner_location_config_version where business_partner_location_id in (select business_partner_location_id from business_partner_location where business_partner_location_ref ='"+businessPartnerLocationRef+"'));";
+        //String businessPartnerDefaultAddressRef  = getDataFromMySqlServer(queryString2);
+        String businessPartnerDefaultAddressRef  = getDataFromMySqlMgmtServer(queryString2);
+        return businessPartnerDefaultAddressRef;
+    }
 }
