@@ -14,7 +14,9 @@ import java.util.List;
 public class PaymentServices {
 
     private static String GET_PAYMENT_METHOD = "/api/payment/getpaymentmethods";
+    private static String PARTNER_TOKEN ="/api/payment/gettokenforpartner";
     private static LogUtility logger = new LogUtility(AuthServices.class);
+
 
 
     public Response getGetPaymentMethod(String authToken) {
@@ -58,4 +60,21 @@ public class PaymentServices {
 
         return paymentRef;
     }
+
+    public String GetTokenForPartner(String AccessToken){
+        String RequestText ="API REQUEST : GetTokenFor Partner(Get)";
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("payment",PARTNER_TOKEN);
+       // String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+
+        Response response = ApiHelper.givenPartnerAccess(AccessToken).when().get(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return jsonPathEvaluator.get("ClientToken");
+        //return response;
+
+    }
+
 }

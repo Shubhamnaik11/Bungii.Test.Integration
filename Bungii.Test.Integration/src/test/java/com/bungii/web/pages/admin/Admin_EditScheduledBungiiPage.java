@@ -17,7 +17,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Button_Verify() { return findElement("//button[text()='VERIFY']", LocatorType.XPath); }
 
-    public WebElement Button_Save() { return findElement("//button[text()='SAVE']", LocatorType.Id); }
+    public WebElement Button_Save() { return findElement("//button[text()='SAVE']", LocatorType.XPath); }
 
     public WebElement Button_Undo() { return findElement("//button[@onclick='UndoTripChanges()']", LocatorType.Id); }
 
@@ -31,7 +31,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_InfoMessage() { return findElement("info-message", LocatorType.Id); }
 
-    public WebElement RadioButton_EditTripDetails() { return findElement("//span[text()='Edit Delivery Details']", LocatorType.XPath); }
+    public WebElement RadioButton_EditTripDetails() { return findElement("//span[text()='Edit Delivery Details']/preceding-sibling::span", LocatorType.XPath); }
 
     public WebElement List_DriverSearchResult (String driverName) { return findElement("//div[@id='divDriversResult']/div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
 
@@ -40,4 +40,12 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement TickMarkDriver (String driverName) { return findElement("//td[text()='"+driverName+"']/ancestor::tr/td/i[@class='fa fa-check text-green-alt']", LocatorType.XPath); }
 
     public WebElement  Button_Edit() {return findElement("//p[@id='btnEdit']",LocatorType.XPath);}
+
+    public WebElement Button_Close() { return findElement("//button[@class='close']/span",LocatorType.XPath);}
+
+    public WebElement Text_Estimated_Price() { return findElement("//td[text()='Estimated Charge']/following-sibling::td",LocatorType.XPath);}
+
+    public WebElement Text_Pickup_Note() { return findElement("//td[text()='Pickup Note']/following-sibling::td",LocatorType.XPath);}
+
+    public WebElement Text_Additional_Note() { return findElement("PickupDetails_PickupNote",LocatorType.Id);}
 }
