@@ -1,4 +1,5 @@
 @web
+@new
 Feature: Admin_Refund
   
   Background:
@@ -6,6 +7,7 @@ Feature: Admin_Refund
   
   @sanity
   @regression
+	@test
   Scenario: Verify Cancellation of Scheduled Bungii As An Admin
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
@@ -23,15 +25,16 @@ Feature: Admin_Refund
 	And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
 	And I click on "Submit" button
 	Then The "Pick up has been successfully cancelled." message should be displayed
-	When I view the Trips list on the admin portal
+	And I view the Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
 	
 @regression
+  @test
 Scenario: Verify Partial Refund Calculations of Solo Scheduled Delivery
 When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 | Bungii Time   | Customer Phone | Customer Name                  |
 | NEXT_POSSIBLE | 9999999601     | Testcustomertywd_appleNewA Customer|
-And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+And As a driver "Testdrivertywd_appledc_a_drvd Driver" perform below action with respective "Solo Scheduled" Delivery
 	| driver1 state|
 	|Accepted |
 	| Enroute  |
@@ -80,7 +83,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999602     | Testcustomertywd_appleNewB Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drve Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -114,7 +117,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999603     | Testcustomertywd_appleNewC Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvf Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -148,7 +151,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999604     | Testcustomertywd_appleNewD Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvg Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -186,7 +189,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999605     | Testcustomertywd_appleNewE Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvh Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -216,7 +219,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999606     | Testcustomertywd_appleNewF Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvi Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -296,11 +299,11 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 		  | Bungii Time   | Customer Phone | Customer Name                  |
 		  | NEXT_POSSIBLE | 9999999609     | Testcustomertywd_appleNewI Customer|
-		And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" Delivery
+		And As a driver "Testdrivertywd_appledc_a_drvj Driver" perform below action with respective "Solo Scheduled" Delivery
 		  | driver1 state|
 		  |Accepted |
 		  | Enroute  |
-		When I cancel bungii as a driver "Testdrivertywd_appledc_a_web TestdriverF"
+		When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvj Driver"
 	    And I view the Deliveries list on the admin portal
 	And I wait for 2 minutes
 	And I search the delivery of Customer and view it
@@ -311,7 +314,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999990     | Testcustomertywd_appleNewJ Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Ondemand" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvk Driver" perform below action with respective "Solo Ondemand" Delivery
 	  | driver1 state|
 	  | Enroute  |
 	  | Arrived |
@@ -347,7 +350,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
 	  | NEXT_POSSIBLE | 9999999991 | Testcustomertywd_appleNewK Customer|
-	When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" trip
+	When As a driver "Testdrivertywd_appledc_a_drvl Driver" and "Testdrivertywd_appledc_a_drvm Driver" perform below action with respective "Duo Scheduled" trip
 	  | driver1 state | driver2 state |
 	  | Bungii Completed      | Bungii Completed      |
 	And I view the Deliveries list on the admin portal
@@ -379,7 +382,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
 	  | NEXT_POSSIBLE | 9999999992 | Testcustomertywd_appleNewL Customer|
-	When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" trip
+	When As a driver "Testdrivertywd_appledc_a_drvn Driver" and "Testdrivertywd_appledc_a_drvo Driver" perform below action with respective "Duo Scheduled" trip
 	  | driver1 state | driver2 state |
 	  | Bungii Completed      | Bungii Completed      |
 	And I view the Deliveries list on the admin portal
@@ -408,7 +411,7 @@ And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action 
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
 	  | NEXT_POSSIBLE | 9999999992 | Testcustomertywd_appleNewL Customer|
-	When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" trip
+	When As a driver "Testdrivertywd_appledc_a_drvp Driver" and "Testdrivertywd_appledc_a_drvq Driver" perform below action with respective "Duo Scheduled" trip
 	  | driver1 state | driver2 state |
 	  | Bungii Completed      | Bungii Completed      |
 	And I view the Deliveries list on the admin portal

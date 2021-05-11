@@ -1,4 +1,5 @@
 @web
+  @new
 Feature: Admin_Revival
   
   Background:
@@ -36,11 +37,11 @@ Feature: Admin_Revival
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999227     | Testcustomertywd_appleNewMN Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvr Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
-	When I cancel bungii as a driver "Testdrivertywd_appledc_a_web TestdriverB"
+	When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvr Driver"
 	And I wait for 2 minutes
 	And I view the Deliveries list on the admin portal
 	And I search the delivery of Customer
@@ -68,11 +69,11 @@ Feature: Admin_Revival
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999225     | Testcustomertywd_appleNewML Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvs Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
-	When I cancel bungii as a driver "Testdrivertywd_appledc_a_web TestdriverB"
+	When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvs Driver"
 	And I wait for 2 minutes
 	And I view the Deliveries list on the admin portal
 	And I search the delivery of Customer
@@ -88,14 +89,14 @@ Feature: Admin_Revival
 	  | Driver(s) Not Found |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
-	And I assign driver "Testdrivertywd_appledc_a_web TestdriverB" for the trip
+	And I assign driver "Testdrivertywd_appledc_a_drvs Driver" for the trip
 	And I click on "VERIFY" button
 	And the "Your changes are good to be saved." message is displayed
 	Then I click on "SAVE CHANGES" button
 	And the "Bungii Saved!" message is displayed
 	When I click on "Close" button
 	And I refresh the page
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled Researched" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvs Driver" perform below action with respective "Solo Scheduled Researched" Delivery
 	  | driver1 state|
 	  | Enroute  |
 	  | Arrived |
@@ -112,11 +113,11 @@ Feature: Admin_Revival
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999226     | Testcustomertywd_appleNewMM Customer|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvt Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
-	When I cancel bungii as a driver "Testdrivertywd_appledc_a_web TestdriverB"
+	When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvt Driver"
 	And I wait for 2 minutes
 	And I view the Deliveries list on the admin portal
 	And I search the delivery of Customer
@@ -132,14 +133,14 @@ Feature: Admin_Revival
 	  | Driver(s) Not Found |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
-	And I assign driver "Testdrivertywd_appledc_a_web TestdriverB" for the trip
+	And I assign driver "Testdrivertywd_appledc_a_drvt Driver" for the trip
 	And I click on "VERIFY" button
 	And the "Your changes are good to be saved." message is displayed
 	Then I click on "SAVE CHANGES" button
 	And the "Bungii Saved!" message is displayed
 	When I click on "Close" button
 	And I refresh the page
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled Researched" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvt Driver" perform below action with respective "Solo Scheduled Researched" Delivery
 	  | driver1 state|
 	  | Enroute  |
 	  | Arrived |
