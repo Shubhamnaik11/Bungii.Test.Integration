@@ -172,7 +172,7 @@ Feature: Admin_Revival
 	  | Enroute  |
 	  | Arrived |
 	When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvt Driver"
-	And I wait for 2 minutes
 	And I view the Deliveries list on the admin portal
+	And I wait for 2 minutes
 	And I search the delivery of Customer
 	Then Revive button should be displayed beside the trip
