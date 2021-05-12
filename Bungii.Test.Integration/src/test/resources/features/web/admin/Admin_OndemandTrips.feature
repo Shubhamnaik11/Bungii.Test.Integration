@@ -5,7 +5,7 @@ Feature: Admin_OndemandTrips
     Given I am logged in as Admin
 
   @sanity
-  @ready
+  @regression
     #stable
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Ondemand Pickup

@@ -6,7 +6,6 @@ Feature: Admin_Trips
     
   @sanity
   @regression
-    @failed
     #test data created in base
     #changed driver name
     #First time promo code added
@@ -17,9 +16,7 @@ Feature: Admin_Trips
     And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted  |
-   #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
-    #And I view the Scheduled Trips list on the admin portal
-    And I view the all Scheduled Trips list on the admin portal
+    And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -112,7 +109,7 @@ Feature: Admin_Trips
     And Customer should receive "Your Bungii Receipt" email
 
   @sanity
-  @ready
+  @regression
         #test data created in base (need to update driver geofence)
   Scenario: Verify Editing and Removal of driver from Duo Scheduled Trip Started By Non Controlled Driver
     When I request "duo" Bungii as a customer in "washingtondc" geofence
@@ -166,7 +163,7 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Krishna Hoderker"
     Then Trip should be listed in the grid
 
-    @ready
+    @regression
   Scenario: Verify Driver Est. Earnings for for Customer Trip
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -199,7 +196,7 @@ Feature: Admin_Trips
   
   @regression
   Scenario: Verify Filters shows future deliveries in All deliveries page
-	When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence
+	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
 	  | 3_DAY_LATER | 9284174823       | Krishna Hoderker|
     And I view the all Scheduled Deliveries list on the admin portal
@@ -252,7 +249,7 @@ Feature: Admin_Trips
     Then The Delivery List page should display the delivery in "Admin Canceled" state
   
   @sanity
-  @ready
+  @regression
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence

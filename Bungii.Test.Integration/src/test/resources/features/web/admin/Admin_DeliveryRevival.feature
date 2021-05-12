@@ -135,7 +135,6 @@ Feature: Admin_Revival
 	Then The Delivery List page should display the delivery in "Payment Successful" state
 	
   @regression
-	@test
   Scenario: Verify Revived button is displayed against the Driver canceled Revived Delivery
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
