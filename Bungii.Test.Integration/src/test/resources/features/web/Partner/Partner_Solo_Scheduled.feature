@@ -7,7 +7,7 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
-    @regression
+    @ready
     @sanity
       Scenario: Verify that Partner can scheduled Solo bungii Trip
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence

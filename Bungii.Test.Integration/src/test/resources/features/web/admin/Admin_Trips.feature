@@ -45,7 +45,7 @@ Feature: Admin_Trips
     And The first time promo code should get released
 
   @sanity
-  @regression
+  @ready
     #test data created in base
   Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -151,11 +151,11 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Jerome Seinfield"
     Then Trip should be listed in the grid
 
-  @regression
+  @ready
       #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Duo Scheduled Trip
     And I note the Trip Requested count of Customer "Krishna Hoderker"
-    When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence
+    When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284174823| Krishna Hoderker|
     And I view the Customer list on the admin portal
@@ -163,7 +163,7 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Krishna Hoderker"
     Then Trip should be listed in the grid
 
-    @regression
+    @ready
   Scenario: Verify Driver Est. Earnings for for Customer Trip
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -194,7 +194,7 @@ Feature: Admin_Trips
     Then I view the correct Driver Earnings for geofence based pricing model
   
   
-  @regression
+  @ready
   Scenario: Verify Filters shows future deliveries in All deliveries page
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
@@ -214,7 +214,8 @@ Feature: Admin_Trips
     And I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
 	And I view All Deliveries list on the admin portal
-	Then The Delivery List page should display the delivery in "Admin Canceled" state
+    And I search the delivery of Customer
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
     When I change filter to "The Past Day" on All deliveries
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     When I change filter to "The Past Week" on All deliveries

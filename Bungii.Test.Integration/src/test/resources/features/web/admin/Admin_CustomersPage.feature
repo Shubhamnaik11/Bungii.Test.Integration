@@ -63,7 +63,7 @@ Feature: Admin_CustomersPage
     Then the "No Customers found." message is displayed
   
   #CORE-2024
-  @regression
+  @ready
   Scenario: Verify Edit Customer Phone and Email
     When I click on "Customers" Menu
     Then I should be directed to "Customers Page"
@@ -78,7 +78,7 @@ Feature: Admin_CustomersPage
     Then updated Phone and Email is displayed for the customer
   
     #CORE-2024
-  @regression
+  @ready
   Scenario: Verify Cancel With Cancel icon beside Customer Phone and Email
     When I click on "Customers" Menu
     Then I should be directed to "Customers Page"

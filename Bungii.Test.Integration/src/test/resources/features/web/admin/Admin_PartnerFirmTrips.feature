@@ -119,7 +119,7 @@ Feature: Admin_PartnerFirmTrips
       | Accepted  |
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
 
-  @ready
+  @regression
     #test data created in base
   Scenario: Verify Partner When Cancel Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location

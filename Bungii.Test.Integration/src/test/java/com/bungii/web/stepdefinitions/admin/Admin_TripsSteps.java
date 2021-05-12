@@ -122,6 +122,7 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
+        action.clear(admin_ScheduledTripsPage.Textbox_Search());
 
         log("I view the Partner portal Scheduled Trips list on the admin portal",
                 "I viewed the Partner portal Scheduled Trips list on the admin portal", true);
@@ -851,11 +852,17 @@ public class Admin_TripsSteps extends DriverBase {
        if(emailBody.equals("")){
            testStepAssert.isFail("Email "+ emailSubject +" with link is not received.");
        }
-        action.navigateTo(emailBody);
-        String url = action.getCurrentURL();
-        String survey_link =  PropertyUtility.getDataProperties("washington.survey.email.link");
-        testStepAssert.isTrue(url.contains(survey_link),"Survey Email link should be "+survey_link,"Survey email link is "+ survey_link,"Survey email link is "+ url);
-    }
+       else {
+           action.navigateTo(emailBody);
+           String url = action.getCurrentURL();
+           String survey_link = PropertyUtility.getDataProperties("washington.survey.email.link");
+           testStepAssert.isTrue(url.contains(survey_link), "Survey Email link should be " + survey_link, "Survey email link is " + survey_link, "Survey email link is " + url);
+           log("Customer should receive "+emailSubject+" email",
+                   "Customer received "+emailSubject+" email", true);
+       }
+
+
+       }
 
     @And("^I note the Pickupref of trip$")
     public void i_note_the_pickupref_of_trip() throws Throwable {

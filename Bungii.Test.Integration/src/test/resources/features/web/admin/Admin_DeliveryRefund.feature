@@ -161,7 +161,7 @@ And As a driver "Testdrivertywd_appledc_a_drvd Driver" perform below action with
 	Then The "Issue Refund" button should not be displayed
 	
   @regression
-  Scenario: Verify Close, Reset and Go Back on Issue Refund Popup
+  Scenario: Verify Close Reset and Go Back on Issue Refund Popup
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999605     | Testcustomertywd_appleNewE Customer|
@@ -190,7 +190,7 @@ And As a driver "Testdrivertywd_appledc_a_drvd Driver" perform below action with
 	And I click on "Close icon" button
 	Then The "Issue Refund" section should not be displayed
   
-@regression
+@ready
   Scenario: Verify Complete Refund for manually ended solo scheduled bungii and partial payment for driver
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
@@ -382,7 +382,7 @@ And As a driver "Testdrivertywd_appledc_a_drvd Driver" perform below action with
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
   
-  @regression
+  @ready
   Scenario: Verify Partial Refund for Duo Delivery and complete Driver payment
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
