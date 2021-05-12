@@ -9,7 +9,7 @@ Feature: Admin_PartnerFirmTrips
   @ready
       #test data created in base
   Scenario: Verify Partner Firm Upon Driver Acceptance And Removal Research - Duo Scheduled
-    When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+    When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999355 | Testcustomertywd_appleWashA Shah|
     And As a driver "Testdrivertywd_appledc_a_web Sundara" perform below action with respective "Duo Scheduled" Delivery
@@ -29,7 +29,7 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web Sundarc" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_web Sundarc" perform below action with respective "Duo Scheduled Researched " Delivery
       | driver1 state|
       | Accepted  |
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
