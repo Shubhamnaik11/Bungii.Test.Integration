@@ -587,8 +587,10 @@ public class Admin_TripsSteps extends DriverBase {
     @Then("^I confirm the change drop off address on delivery details page$")
     public void i_confirm_the_change_drop_off_address_on_delivery_details_page() throws Throwable {
         String Expected_Change_DropOff = (String)cucumberContextManager.getScenarioContext("Change_Drop_Off");
+        Expected_Change_DropOff = Expected_Change_DropOff.replace(",","");
         String Display_Change_DropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
-        testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
+        //testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
+        testStepAssert.isTrue(Display_Change_DropOff.contains(Expected_Change_DropOff),"Correct address need to display","Correct address is display","Incorrect address is displayed");
         log(" I confirm the change drop off address on delivery details page",
                 "I have confirm the change drop off address on delivery details page", true);
     }
@@ -628,11 +630,16 @@ public class Admin_TripsSteps extends DriverBase {
 
     @Then("^I change the drop off address to \"([^\"]*)\"$")
     public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
-        cucumberContextManager.setScenarioContext("Change_Drop_Off",arg1);
+
         action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
+        //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
         Thread.sleep(1000);
-        action.click(admin_ScheduledTripsPage.FirstAddressDropdownResult());
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
+        action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
+        //action.click(admin_ScheduledTripsPage.FirstAddressDropdownResult());
         Thread.sleep(1000);
+        String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
+        cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
 
     }
 

@@ -21,7 +21,11 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Textbox_Drop_Off_Location () { return findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
 
-    public WebElement FirstAddressDropdownResult () { return findElement("//div[@id='divPlacesResult']/div[1]",LocatorType.XPath);}
+    //public WebElement FirstAddressDropdownResult () { return findElement("//div[@id='divPlacesResult']/div[1]",LocatorType.XPath);}
+
+    public WebElement DropdownResult (String address) { return findElement(String.format("//div[@id='divPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
+
+    public WebElement DropOff_Address() { return findElement("//label[@id='lblDestinationAddress']",LocatorType.XPath);}
 
     public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
 

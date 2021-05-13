@@ -17,7 +17,8 @@ Feature: Admin_Schedule_Trip_Edit
       When I click on "Edit" link beside scheduled bungii
       And I click on "Edit Trip Details" radiobutton
       And I edit the drop off address
-      Then I change the drop off address to "4400 Massachusetts Ave NW, Washington"
+      Then I change the drop off address to "4400 Massachusetts Avenue Northwest"
+      #4400 Massachusetts Avenue Northwest
       And I change the customer note to "PickupNote edited successfully."
       And I click on "Verify" button on Edit Scheduled bungii popup
       When I click on "Save" button on Edit Scheduled bungii popup
@@ -41,7 +42,7 @@ Feature: Admin_Schedule_Trip_Edit
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
-    Then I change the drop off address to "4400 Massachusetts Ave NW, Washington"
+    Then I change the drop off address to "4400 Massachusetts Avenue Northwest"
     And I click on "Verify" button on Edit Scheduled bungii popup
       #Then Tick mark should be displayed beside driver and scheduled date
     When I click on "Save" button on Edit Scheduled bungii popup
@@ -63,7 +64,7 @@ Feature: Admin_Schedule_Trip_Edit
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
-    And I change the drop off address to "8500 Santa Monica Boulevard Central LA, West Hollywood, California, 90069"
+    And I change the drop off address to "8500 Scudder Avenue"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
 
@@ -79,7 +80,7 @@ Feature: Admin_Schedule_Trip_Edit
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
-    And I change the drop off address to "8500 Santa Monica Boulevard Central LA, West Hollywood, California, 90069"
+    And I change the drop off address to "8500 Scudder Avenue"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
 
@@ -98,7 +99,7 @@ Feature: Admin_Schedule_Trip_Edit
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
-    Then I change the drop off address to "4400 Massachusetts Ave NW, Washington"
+    Then I change the drop off address to "4400 Massachusetts Avenue Northwest"
     #And I change the customer note to "PickupNote edited successfully."
     And I click on "Verify" button on Edit Scheduled bungii popup
     When I click on "Save" button on Edit Scheduled bungii popup
@@ -113,7 +114,7 @@ Feature: Admin_Schedule_Trip_Edit
      Scenario: Verify editing drop off address for the Partner Portal Solo Scheduled trip.
        When I request Partner Portal "SOLO" Trip for "MRFM" partner
          |Geofence| Bungii Time   | Customer Phone | Customer Name |
-         |Kansas| NEXT_POSSIBLE | 9999999205 | Testcustomertywd_appleNewQ Customer|
+         |Kansas| NEXT_POSSIBLE | 9999999205 | Testcustomertywd_appleNewR Customer|
        And I view the all Scheduled Deliveries list on the admin portal
        Then I should be able to see the respective bungii with the below status
          |  Status |
@@ -122,7 +123,7 @@ Feature: Admin_Schedule_Trip_Edit
         When I click on "Edit" link beside scheduled bungii
        And I click on "Edit Trip Details" radiobutton
        And I edit the drop off address
-       Then I change the drop off address to "400 Speedway Boulevard, Kansas City"
+       Then I change the drop off address to "400 Speedway Boulevard"
        And I click on "Verify" button on Edit Scheduled bungii popup
        When I click on "Save" button on Edit Scheduled bungii popup
        Then "Bungii Saved!" message should be displayed
