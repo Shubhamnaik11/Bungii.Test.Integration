@@ -20,10 +20,7 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.text.DateFormat;
@@ -582,6 +579,14 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have clicked on Edit link besides the scheduled bungii", true);
     }
 
+    @When("^I click on \"([^\"]*)\" link beside live bungii$")
+    public void i_click_on_something_link_beside_live_bungii(String link) throws Throwable {
+        Thread.sleep(4000);
+        action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnLiveEdit']")));
+        log(" I click on Edit link besides the live bungii",
+                "I have clicked on Edit link besides the live bungii", true);
+    }
+
     @Then("^I confirm the change drop off address on delivery details page$")
     public void i_confirm_the_change_drop_off_address_on_delivery_details_page() throws Throwable {
         String Expected_Change_DropOff = (String)cucumberContextManager.getScenarioContext("Change_Drop_Off");
@@ -589,6 +594,17 @@ public class Admin_TripsSteps extends DriverBase {
         String Display_Change_DropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
         //testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
         testStepAssert.isTrue(Display_Change_DropOff.contains(Expected_Change_DropOff),"Correct address need to display","Correct address is display","Incorrect address is displayed");
+        log(" I confirm the change drop off address on delivery details page",
+                "I have confirm the change drop off address on delivery details page", true);
+    }
+
+    @Then("^I confirm the change pickup address on delivery details page$")
+    public void i_confirm_the_change_pickup_address_on_delivery_details_page() throws Throwable {
+        String Expected_Change_Pickup = (String)cucumberContextManager.getScenarioContext("Change_Pickup");
+        Expected_Change_Pickup = Expected_Change_Pickup.replace(",","");
+        String Display_Change_Pickup = action.getText(admin_TripDetailsPage.Text_Pickup_Location());
+        //testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
+        testStepAssert.isTrue(Display_Change_Pickup.contains(Expected_Change_Pickup),"Correct address need to display","Correct address is display","Incorrect address is displayed");
         log(" I confirm the change drop off address on delivery details page",
                 "I have confirm the change drop off address on delivery details page", true);
     }
@@ -626,6 +642,13 @@ public class Admin_TripsSteps extends DriverBase {
 
     }
 
+    @And("^I edit the pickup address$")
+    public void i_edit_the_pickup_address() throws Throwable {
+        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Pickup_Location(),"Pickup location should display","Pickup location is display","Pickup location is not display");
+        action.click(admin_ScheduledTripsPage.Button_Edit_Pickup_Address());
+
+    }
+
     @Then("^I change the drop off address to \"([^\"]*)\"$")
     public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
 
@@ -633,11 +656,28 @@ public class Admin_TripsSteps extends DriverBase {
         //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
         Thread.sleep(1000);
         action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
-        action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-        //action.click(admin_ScheduledTripsPage.FirstAddressDropdownResult());
+
+        //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
+        action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
         Thread.sleep(1000);
         String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
         cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
+
+    }
+
+    @Then("^I change the pickup address to \"([^\"]*)\"$")
+    public void i_change_the_pickup_address_to_something(String arg1) throws Throwable {
+
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location(),arg1);
+        //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
+        Thread.sleep(1000);
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location()," ");
+
+        //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
+        action.JavaScriptClick(admin_ScheduledTripsPage.DropdownPickupResult(arg1));
+        Thread.sleep(1000);
+        String Change_Address = action.getText(admin_ScheduledTripsPage.Pickup_Address());
+        cucumberContextManager.setScenarioContext("Change_Pickup",Change_Address);
 
     }
 
@@ -653,6 +693,22 @@ public class Admin_TripsSteps extends DriverBase {
             SetupManager.getDriver().navigate().refresh();
             String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             String xpath = String.format("//td[contains(.,'')]/following-sibling::td[contains(.,'%s')]/preceding::td[2]", customer);
+            //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+            action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @When("^I open the live trip details in admin portal$")
+    public void i_open_the_live_trip_details_in_admin() throws Throwable {
+        try{
+            SetupManager.getDriver().navigate().refresh();
+            String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding::td[4]", driver,customer);
             //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
             action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
         } catch (Throwable e) {
