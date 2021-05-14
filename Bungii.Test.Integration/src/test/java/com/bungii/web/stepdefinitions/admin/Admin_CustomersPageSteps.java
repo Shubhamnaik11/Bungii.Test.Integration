@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
@@ -388,7 +389,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
         String phone = (String)  cucumberContextManager.getScenarioContext("OLDPHONE");
 
         String xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custFirstName,phone);
-        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),
+        testStepAssert.isElementDisplayed(admin_customerPage.findElement(xpath,PageBase.LocatorType.XPath),
                 "Customer's updated phone should be listed in grid.",
                 "Customer's updated phone is listed in grid.",
                 "Customer's updated phone is not listed in grid.");
@@ -398,6 +399,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
         try {
             String url = utility.GetAdminUrl().replace("/Admin/Login", "") + "/BungiiReports/Customers";
             action.navigateTo(url);
+            Thread.sleep(5000);
             action.isElementPresent(admin_customerPage.TextBox_SearchCustomer());
             Thread.sleep(5000);
             log("I navigate to Customer List",

@@ -7,7 +7,7 @@ Feature: Partner Integration with Admin and Driver
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
 
-  @ready
+  @regression
   @sanity
     #stable
   Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup on Partner Portal
@@ -27,7 +27,7 @@ Feature: Partner Integration with Admin and Driver
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
-      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      |VISA CARD3|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal
@@ -124,7 +124,7 @@ Feature: Partner Integration with Admin and Driver
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
-      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      |VISA CARD4|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal
@@ -164,7 +164,7 @@ Feature: Partner Integration with Admin and Driver
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
-      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      |VISA CARD3|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal
@@ -220,7 +220,7 @@ Feature: Partner Integration with Admin and Driver
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
-      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      |VISA CARD4|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal
@@ -277,7 +277,7 @@ Feature: Partner Integration with Admin and Driver
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
-      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      |VISA CARD3|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal
@@ -334,7 +334,7 @@ Feature: Partner Integration with Admin and Driver
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
-      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      |MASTER CARD2|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal
@@ -372,7 +372,7 @@ Feature: Partner Integration with Admin and Driver
       | Completed      |
 
 
-  @regression
+  @ready
   Scenario: Verify Solo Scheduled trip cannot cancel in Partner portal once the Trip started
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -390,7 +390,7 @@ Feature: Partner Integration with Admin and Driver
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
-      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      |VISA CARD4|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal
@@ -454,7 +454,7 @@ Feature: Partner Integration with Admin and Driver
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
-      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      |VISA CARD3|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal

@@ -63,7 +63,7 @@ public class Partner_DeliveryList extends PageBase {
     public WebElement Text_Selected_Service() { return findElement("//label[contains(text(),'Service Level')]//following::p/span",LocatorType.XPath);}
 
     //OK button on delivery details page in Admin Portal
-    public WebElement Button_OK_Admin_Portal() { return findElement("",LocatorType.XPath);}
+    public WebElement Button_OK_Admin_Portal() { return findElement("btnOk",LocatorType.Id);}
 
     //Estimated Duration on Admin Portal
     public WebElement Text_Estimated_Duration() { return findElement("//td[contains(text(),'Estimated Duration')]/following-sibling::td[1]",LocatorType.XPath);}

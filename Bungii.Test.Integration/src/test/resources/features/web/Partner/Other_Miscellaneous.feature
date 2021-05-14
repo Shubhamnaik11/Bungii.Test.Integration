@@ -4,7 +4,7 @@ Feature: Other Miscellaneous
   Background:
     Given I navigate to "Partner" portal configured for "normal" URL
 
-  @ready
+  @regression
     #stable
   Scenario: Verify Partner portal logout after clearing local storage
   When I enter "valid" password on Partner Portal

@@ -111,7 +111,7 @@ public class Driver_LoginSteps extends DriverBase {
         }
         catch(Exception ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Driver should log in to driver portal", "Driver is not logged in due to error. [Probable root cause : encryption decryption in local environment]", true);
+            error("Driver should log in to driver portal", "Driver is not signed in due to error.", true);
         }
     }
 

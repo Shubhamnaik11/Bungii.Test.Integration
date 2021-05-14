@@ -36,7 +36,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Rejected"
     And I should receive "Your application has been rejected." email
     
-  @regression
+  @ready
     #test data created in base
   Scenario: Verify Driver Application Resend Application - NonFountain
     When I click "Verify" button against the "John PxLK" applicant

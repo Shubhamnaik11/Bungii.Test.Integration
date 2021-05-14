@@ -99,9 +99,9 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     public void i_search_the_delivery_of_customerAndView() throws Throwable {
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        Thread.sleep(10000);
+        Thread.sleep(15000);
         action.clearSendKeys(admin_TripsPage.TextBox_Search(),pickuprequest+Keys.ENTER);
-        Thread.sleep(10000);
+        Thread.sleep(5000);
         //String status = "Payment Successful";
         action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]", customerName),PageBase.LocatorType.XPath));
         log("I search the delivery of Customer and view it","I searched the delivery of Customer and viewed it",false);

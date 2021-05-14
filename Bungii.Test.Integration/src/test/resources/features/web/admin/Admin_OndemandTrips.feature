@@ -5,7 +5,7 @@ Feature: Admin_OndemandTrips
     Given I am logged in as Admin
 
   @sanity
-  @ready
+  @regression
     #stable
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Ondemand Pickup
@@ -120,15 +120,15 @@ Feature: Admin_OndemandTrips
     When I select filter "Statuses" as "Payment Successful"
     And I click on "Apply" button on "All Deliveries" page
     Then the triplist grid shows the results by type "Payment Successful Status"
-    When I select filter "Statuses" as "Customer Cancelled"
+    When I select filter "Statuses" as "Customer Canceled"
     And I click on "Apply" button on "All Deliveries" page
-    Then the triplist grid shows the results by type "Customer Cancelled Status"
-    When I select filter "Statuses" as "Driver Cancelled"
+    Then the triplist grid shows the results by type "Customer Canceled Status"
+    When I select filter "Statuses" as "Driver Canceled"
     And I click on "Apply" button on "All Deliveries" page
-    Then the triplist grid shows the results by type "Driver Cancelled Status"
-    When I select filter "Statuses" as "Admin Cancelled"
+    Then the triplist grid shows the results by type "Driver Canceled Status"
+    When I select filter "Statuses" as "Admin Canceled"
     And I click on "Apply" button on "All Deliveries" page
-    Then the triplist grid shows the results by type "Admin Cancelled Status"
+    Then the triplist grid shows the results by type "Admin Canceled Status"
     When I select filter "Statuses" as "Pickup with Error"
     And I click on "Apply" button on "All Deliveries" page
     Then the triplist grid shows the results by type "Pickup with Error Status"

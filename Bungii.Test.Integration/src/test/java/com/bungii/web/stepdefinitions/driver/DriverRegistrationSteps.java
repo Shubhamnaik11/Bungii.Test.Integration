@@ -81,7 +81,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
                 cucumberContextManager.setFeatureContextContext("LASTNAME", Lastname);
 
-                action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), PropertyUtility.getDataProperties("DriverEmail"));
+                action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), "bungiiauto"+Lastname+"@cci.com"); //PropertyUtility.getDataProperties("DriverEmail"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_CreatePassword(), PropertyUtility.getDataProperties("DriverPassword"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_ConfirmPassword(), PropertyUtility.getDataProperties("DriverPassword"));
                 action.selectElementByText(Page_Driver_Reg.Dropdown_Location(),PropertyUtility.getDataProperties("DriverLocation"));
@@ -190,7 +190,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 }
                 catch(Exception ex) {
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-                    error("Driver should log in to driver portal", "Driver is not logged in due to error. [Probable root cause : encryption decryption in local environment]", true);
+                    error("Driver should log in to driver portal", "Driver is not signed in due to error.", true);
                 }
                 break;
             case "Verification Successful page":

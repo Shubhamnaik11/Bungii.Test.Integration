@@ -6,7 +6,7 @@ Feature: Driver_ViewDetails
     When I click "LOG IN link" on driver portal
     Then I should be directed to "LOG IN tab" on Driver portal
 
-  @ready
+  @regression
     #stable
   Scenario: Verify My Stats Section Populated Data on Driver Dashboard
     When I enter driver Phone number as "8888881014" and valid password

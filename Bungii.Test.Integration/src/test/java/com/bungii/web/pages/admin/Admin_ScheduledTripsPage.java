@@ -68,4 +68,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Button_Close () { return findElement("//button[@class='close']", LocatorType.XPath);}
 
     public WebElement Estimated_Distance_Cost () { return findElement("",LocatorType.XPath);}
+
+    public WebElement Textbox_Search () { return findElement("SearchCriteria", LocatorType.Id); }
+
 }

@@ -855,6 +855,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
                 case "Close icon":
                     action.click(admin_refundsPage.Button_Close());
+                    Thread.sleep(5000);
                     break;
                 case "Revive":
                     String reviveLink = (String) cucumberContextManager.getScenarioContext("REVIVE_LINK");

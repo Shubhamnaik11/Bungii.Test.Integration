@@ -39,7 +39,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Label_Driver() { return findElement("//div[contains(text(),'Driver :')]/following-sibling::div", LocatorType.XPath); }
 
-    public WebElement Header_popup(boolean... ignoreException) { return findElement("//*[text()='Issue Refund']", LocatorType.XPath, ignoreException); }
+    public WebElement Header_popup(boolean... ignoreException) { return findElement("//h5[text()='Issue Refund ']", LocatorType.XPath, ignoreException); }
 
     public WebElement Checkbox_Confirm() { return findElement("//span[text()='Are you sure you want to proceed with refund request ?']", LocatorType.XPath); }
 
@@ -87,7 +87,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Button_ReattemptPayment() { return findElement("btnReattempt", LocatorType.Id); }
 
-    public WebElement Button_Close() { return findElement("//h5[text()='Issue Refund ']/parent::div/button[@class='close']", LocatorType.XPath); }
+    public WebElement Button_Close() { return findElement("//h5[contains(text(),'Issue Refund')]/following-sibling::button[@class='close']", LocatorType.XPath); }
 
     public WebElement Checkbox_same() { return findElement("chkReplicateData", LocatorType.Id); }
 

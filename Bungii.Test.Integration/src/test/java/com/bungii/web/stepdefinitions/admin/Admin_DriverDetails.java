@@ -92,6 +92,7 @@ public class Admin_DriverDetails extends DriverBase{
                      inputdate.setHours(inputdate.getHours() + 1);
             }*/
             }
+
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate); // removed ss
             XPath = String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]", formattedDate, status);
         }
