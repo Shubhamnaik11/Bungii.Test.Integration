@@ -1,9 +1,8 @@
 @web
-Feature: Admin_Schedule_Trip_Edit
+Feature: Admin_Live_Trip_Edit
 
   Background:
     Given I am logged in as Admin
-
 
   @ready
   Scenario: Verify editing drop off address for the Solo live trip.
