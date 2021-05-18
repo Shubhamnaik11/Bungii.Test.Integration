@@ -589,8 +589,8 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have clicked on Edit link besides the live delivery", true);
     }
 
-    @Then("^I confirm the change drop off address on delivery details page$")
-    public void i_confirm_the_change_drop_off_address_on_delivery_details_page() throws Throwable {
+    @Then("^the updated drop off address should be displayed on delivery details page$")
+    public void the_updated_drop_off_address_should_be_displayed_on_delivery_details_page() throws Throwable {
         String Expected_Change_DropOff = (String)cucumberContextManager.getScenarioContext("Change_Drop_Off");
         Expected_Change_DropOff = Expected_Change_DropOff.replace(",","");
         String Display_Change_DropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
@@ -725,6 +725,10 @@ public class Admin_TripsSteps extends DriverBase {
             String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding::td[4]", driver,customer);
             //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
             action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+
+            log("I open the live delivery details in admin portal",
+                    "I have opened the live delivery details in admin portal");
+
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -746,8 +750,8 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have checked the price for delivery");
     }
 
-    @Then("^I confirm that delivery price is change$")
-    public void i_confirm_that_delivery_price_is_also_change() throws Throwable {
+    @Then("^Delivery price is recalculated based on updated value of drop off address$")
+    public void delivery_price_is_recalculated_based_on_updated_value_of_drop_off_address() throws Throwable {
         String new_Price = action.getText(admin_EditScheduledBungiiPage.Text_Estimated_Price());
         new_Price = new_Price.replace("$","");
         new_Price = new_Price.replace(" ","");

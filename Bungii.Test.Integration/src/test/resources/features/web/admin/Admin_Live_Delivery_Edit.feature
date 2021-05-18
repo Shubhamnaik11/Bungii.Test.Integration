@@ -28,8 +28,8 @@ Feature: Admin_Live_Delivery_Edit
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
     When I open the live delivery details in admin portal
-    Then I confirm the change drop off address on delivery details page
-    And I confirm that delivery price is change
+    Then the updated drop off address should be displayed on delivery details page
+    And Delivery price is recalculated based on updated value of drop off address
 
   @ready
     Scenario: Verify editing pickup address for the Solo live delivery.
@@ -55,8 +55,8 @@ Feature: Admin_Live_Delivery_Edit
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
     When I open the live delivery details in admin portal
-    Then I confirm the change pickup address on delivery details page
-    And I confirm that delivery price is change
+    Then the updated drop off address should be displayed on delivery details page
+    And Delivery price is recalculated based on updated value of drop off address
 
     @ready
      Scenario: Verify editing drop off address for the Partner Portal Solo live delivery.
@@ -82,5 +82,5 @@ Feature: Admin_Live_Delivery_Edit
       Then "Bungii Saved!" message should be displayed
       And I wait for "2" mins
       When I open the live delivery details in admin portal
-      Then I confirm the change drop off address on delivery details page
-      And I confirm that delivery price is change
+      Then the updated drop off address should be displayed on delivery details page
+      And Delivery price is recalculated based on updated value of drop off address
