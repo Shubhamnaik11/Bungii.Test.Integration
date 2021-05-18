@@ -42,6 +42,7 @@ public class PartnerSteps extends DriverBase {
 
         String PickupRequestID = coreServices.partnerPickupEstimate(Partner_Portal,geofence,bungii_time,PartnerSettings[0],PartnerSettings[1]);
         cucumberContextManager.setScenarioContext("Pickup_Request",PickupRequestID);
+        cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequestID);
 
         coreServices.partnerPickupDetails(PickupRequestID);
 
