@@ -525,7 +525,7 @@ public class Partner_trips extends DriverBase {
                 break;
             default:break;
         }
-        testStepVerify.isEquals(expectedMessage,actualMessage);
+        testStepAssert.isEquals(expectedMessage,actualMessage,expectedMessage+" should be displayed ", expectedMessage+" is displayed ", actualMessage+" is displayed ");
         //SetupManager.getDriver().switchTo().alert().accept();
         log("I click on Information Icon "+ Information_Icon +"and verify it text contents",
                 "I have clicked on Information Icon "+ Information_Icon +" and verified its test contents",true);
