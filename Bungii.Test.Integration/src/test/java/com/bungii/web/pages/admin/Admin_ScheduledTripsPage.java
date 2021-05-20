@@ -48,7 +48,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
 
-    public WebElement Checkbox_NonControlDriver () { return findElement( "//div[@id='tripDriverDetails']//div[1]//label[1]//span[1]", LocatorType.XPath);}
+    public WebElement Checkbox_NonControlDriver () { return findElement( "//div[@id='tripDriverDetails']/div[1]/label[1]/input", LocatorType.XPath);}
+
+    public WebElement Checkbox_ControlDriver () { return findElement( "//div[@id='tripDriverDetails']/div[2]/label[1]/input", LocatorType.XPath);}
 
     public WebElement Label_DriverRemovalSuccessMessage () { return findElement( "//p/i[text()='Driver(s) removed successfully']" , LocatorType.XPath); }
 

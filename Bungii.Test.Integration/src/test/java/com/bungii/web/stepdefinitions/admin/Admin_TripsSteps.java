@@ -56,6 +56,7 @@ public class Admin_TripsSteps extends DriverBase {
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
     GeneralUtility utility = new GeneralUtility();
+    DbUtility dbUtility = new DbUtility();
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -281,6 +282,8 @@ public class Admin_TripsSteps extends DriverBase {
                 driver = driver1 + "," + driver2;
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
+                String costPath =  String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td[1]/span", tripType[0].toUpperCase(), customer);
+
                 int retrycount = 10;
 
                 boolean retry = true;
@@ -307,6 +310,8 @@ public class Admin_TripsSteps extends DriverBase {
                     retryCount++;
                 }
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
+                cucumberContextManager.setScenarioContext("COSTPATH", costPath);
+                cucumberContextManager.setScenarioContext("COST", action.getText(action.getElementByXPath(xpath)).replace("/ $",""));
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
@@ -351,7 +356,36 @@ public class Admin_TripsSteps extends DriverBase {
         }
 
     }
+    @Then("^I should be able to see the respective bungii with the below Delivery Type$")
+    public void i_should_be_able_to_see_the_respective_bungii_with_the_below_delivery_type(DataTable data) throws Throwable {
 
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String type = dataMap.get("Type").trim().toUpperCase();
+            String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+            String tripType[] = tripTypeAndCategory.split(" ");
+            String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+
+            String geofenceName = getGeofence(geofence);
+            action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+            action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+
+            String xpath = String.format("//td[contains(.,'%s')]/preceding-sibling::td[contains(.,'%s')]",  customer,type);
+                cucumberContextManager.setScenarioContext("XPATH", xpath);
+                testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), type, "Delivery Type " + type + " should be updated", "Delivery Type " + type + " is updated", "Delivery Type " + type + " is not updated");
+
+
+        }
+        catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "PROBABLY DATA SYNCH ISSUE | Bungii is not displayed in Scheduled Delivery List",
+                    true);
+
+        }
+
+    }
     @And("^I select the scheduled trip on scheduled delivery$")
     public void i_select_the_scheduled_trip_on_scheduled_delivery(){
         //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
@@ -617,6 +651,28 @@ public class Admin_TripsSteps extends DriverBase {
         }
         log("I click "+ radiobutton,
                 "I have clicked on "+ radiobutton, true);
+    }
+    @And("^I change delivery type from \"([^\"]*)\"")
+    public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
+
+        switch (radiobutton) {
+            case "Solo to Duo":
+                action.click(admin_EditScheduledBungiiPage.RadioButton_Duo());
+                cucumberContextManager.setScenarioContext("BUNGII_TYPE","DUO");
+                break;
+            case "Duo to Solo":
+                action.click(admin_EditScheduledBungiiPage.RadioButton_Solo());
+                cucumberContextManager.setScenarioContext("BUNGII_TYPE","SOLO");
+                break;
+        }
+        log("I change delivery type from  "+ radiobutton,
+                "I changed delivery type from "+ radiobutton, true);
+    }
+    @And("^I get the new pickup reference generated$")
+    public void i_get_the_new_pickup_reference_generated() throws Throwable {
+        String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        pickupRequest =  getLinkedPickupRef(pickupRequest);
+        cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
     }
 
     @And("^I edit the drop off address$")
@@ -887,7 +943,13 @@ public class Admin_TripsSteps extends DriverBase {
         log("I remove non control driver",
                 "I have removed non control driver", true);
     }
-
+    @And("^I remove control driver \"([^\"]*)\"$")
+    public void i_remove_control_driver_something(String driver) throws Throwable {
+        action.click(admin_ScheduledTripsPage.Checkbox_ControlDriver());
+        action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
+        log("I remove control driver",
+                "I have removed control driver", true);
+    }
     @Then("^The driver should get removed successfully$")
     public void the_driver_should_get_removed_successfully() throws Throwable {
         testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(), "Driver(s) removed successfully", "Pass", "Fail");
@@ -1272,5 +1334,96 @@ public class Admin_TripsSteps extends DriverBase {
                 action.click(admin_EditScheduledBungiiPage.Link_RemoveDriver());
                 break;
         }
+    }
+
+    @Then("^Under Drivers: for both Driver 1 and 2 : \"([^\"]*)\" should be displayed$")
+    public void under_drivers_for_both_driver_1_and_2_something_should_be_displayed(String scenario) throws Throwable {
+        testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.Label_Driver1MessageOnResearch(), "Driver 1: Bungii driver is being searched should be displayed","Driver 1: Bungii driver is being searched is displayed", "Driver 1: Bungii driver is being searched is not displayed");
+        testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.Label_Driver2MessageOnResearch(), "Driver 2: Bungii driver is being searched should be displayed","Driver 2: Bungii driver is being searched is displayed", "Driver 2: Bungii driver is being searched is not displayed");
+
+
+    }
+    @Then("^Under Drivers: for both Driver 1 : \"([^\"]*)\" and 2 : \"([^\"]*)\" should be displayed$")
+    public void under_drivers_for_both_driver_1_aand_2_asomething_should_be_displayed(String scenario1, String scenario2) throws Throwable {
+            testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_Driver1NameOnResearch(),scenario1, "Driver 1: "+scenario1+" should be displayed","Driver 1: "+scenario1+" is displayed", "Driver 1: "+scenario1+" is not displayed");
+            testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_Driver2NameOnResearch(),scenario2, "Driver 1: "+scenario2+" should be displayed","Driver 1: "+scenario2+" is displayed", "Driver 1: "+scenario2+" is not displayed");
+    }
+    @Then("^Under Drivers: for Driver 1: \"([^\"]*)\" should be displayed$")
+    public void under_drivers_for_both_driver_1_something_should_be_displayed(String scenario) throws Throwable {
+        if (scenario.equalsIgnoreCase("Bungii driver is being searched")) {
+            testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.Label_Driver1MessageOnResearch(), "Driver 1: Bungii driver is being searched should be displayed", "Driver 1: Bungii driver is being searched is displayed", "Driver 1: Bungii driver is being searched is not displayed");
+            testStepAssert.isFalse(action.isElementPresent(admin_EditScheduledBungiiPage.Label_Driver2MessageOnResearch(true)), "Driver 2: Bungii driver is being searched should not be displayed", "Driver 2: Bungii driver is being searched is not displayed", "Driver 2: Bungii driver is being searched is displayed");
+        }
+           else
+        {
+                testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_Driver1NameOnResearch(),scenario, "Driver 1: "+scenario+" should be displayed","Driver 1: "+scenario+" is displayed", "Driver 1: "+scenario+" is not displayed");
+        }
+    }
+    @Then("^I should see Bungii Type as \"([^\"]*)\" in \"([^\"]*)\" section$")
+    public void i_should_see_bungii_type_as_something_in_something_section(String type, String section) throws Throwable {
+        switch (section) {
+            case "Research Scheduled Bungii":
+                testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_DeliveryTypeOnResearch(), type,type +" should be displayed in Research Scheduled Bungii section",type +" is displayed in Research Scheduled Bungii section", type +" is not displayed in Research Scheduled Bungii section");
+                break;
+            case "Cancel entire Bungii and notify driver(s)":
+                testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_DeliveryTypeOnCancel(), type,type +" should be displayed in Cancel entire Bungii and notify driver(s) section",type +" is displayed in Cancel entire Bungii and notify driver(s) section", type +" is not displayed in Cancel entire Bungii and notify driver(s) section");
+                break;
+        }
+    }
+
+    @Then("^Under Driver Details: for both Driver 1 and 2 : \"([^\"]*)\" should be displayed$")
+    public void under_driver_details_for_both_driver_1_and_2_something_should_be_displayed(String strArg1) throws Throwable {
+        testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.Label_Driver1MessageOnEdit(), "Driver 1: Add driver below or Bungii driver search will continue should be displayed","Driver 1: Add driver below or Bungii driver search will continue is displayed", "Driver 1: Add driver below or Bungii driver search will continue is not displayed");
+        testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.Label_Driver2MessageOnEdit(), "Driver 2: Add driver below or Bungii driver search will continue should be displayed","Driver 2: Add driver below or Bungii driver search will continue is displayed", "Driver 2: Add driver below or Bungii driver search will continue is not displayed");
+
+    }
+
+    @Then("^Under Driver Details: for both Driver 1 : \"([^\"]*)\" and 2 : \"([^\"]*)\" should be displayed$")
+    public void under_driver_details_for_both_driver_1_aand_2_asomething_should_be_displayed(String scenario1, String scenario2) throws Throwable {
+        testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_Driver1NameOnEdit(),scenario1, "Driver 1: "+scenario1+" should be displayed","Driver 1: "+scenario1+" is displayed", "Driver 1: "+scenario1+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_Driver2NameOnEdit(),scenario2, "Driver 1: "+scenario2+" should be displayed","Driver 1: "+scenario2+" is displayed", "Driver 1: "+scenario2+" is not displayed");
+
+    }
+
+    @Then("^Under Driver Details: for Driver 1: \"([^\"]*)\" should be displayed$")
+    public void under_driver_details_for_both_driver_1something_should_be_displayed(String scenario) throws Throwable {
+
+        if (scenario.equalsIgnoreCase("Add driver below or Bungii driver search will continue")) {
+            testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.Label_Driver1MessageOnEdit(), "Driver 1: Add driver below or Bungii driver search will continue should be displayed","Driver 1: Add driver below or Bungii driver search will continue is displayed", "Driver 1: Add driver below or Bungii driver search will continue is not displayed");
+           testStepAssert.isFalse(action.isElementPresent(admin_EditScheduledBungiiPage.Label_Driver2MessageOnEdit(true)), "Driver 2: Add driver below or Bungii driver search will continue should not be displayed","Driver 2: Add driver below or Bungii driver search will continue is not displayed", "Driver 2: Add driver below or Bungii driver search will continue is displayed");
+    }
+           else
+    {
+        testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_Driver1NameOnEdit(),scenario, "Driver 1: "+scenario+" should be displayed","Driver 1: "+scenario+" is displayed", "Driver 1: "+scenario+" is not displayed");
+    }
+    }
+
+    @Then("^I should see \"([^\"]*)\" message on edit popup$")
+    public void i_should_see_something_message_on_edit_popup(String message) throws Throwable {
+        testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_ErrorMessage(),message, message+" should be displayed",message+" is displayed", message+" is not displayed");
+    }
+
+
+    @And("^the cost of the delivery should be doubled$")
+    public void the_cost_of_the_delivery_should_be_doubled() throws Throwable {
+       String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
+        String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
+        DecimalFormat df = new DecimalFormat("0.00");
+        Double orgcost = Double.parseDouble((String) cucumberContextManager.getScenarioContext("COST"));
+        orgcost= orgcost*2;
+
+        testStepAssert.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
+
+    }
+    @And("^the cost of the delivery should be halved$")
+    public void the_cost_of_the_delivery_should_be_halved() throws Throwable {
+        String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
+        String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
+        DecimalFormat df = new DecimalFormat("0.00");
+        Double orgcost = Double.parseDouble((String) cucumberContextManager.getScenarioContext("COST"));
+        orgcost= orgcost/2;
+
+        testStepAssert.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
+
     }
 }

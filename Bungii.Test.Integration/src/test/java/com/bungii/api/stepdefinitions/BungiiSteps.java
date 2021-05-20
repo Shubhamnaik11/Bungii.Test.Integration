@@ -5,6 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.utilityfunctions.DbUtility;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -256,9 +257,29 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_webaa Testdriveraa":
                 phone = PropertyUtility.getDataProperties("web.valid.driver1000.phone");
                 break;
+            case "Testdrivertywd_appledc_a_webkk Testdriverkk":
+                phone = PropertyUtility.getDataProperties("web.valid.driver301.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webll Testdriverll":
+                phone = PropertyUtility.getDataProperties("web.valid.driver302.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webmm Testdrivermm":
+                phone = PropertyUtility.getDataProperties("web.valid.driver303.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webnn Testdrivernn":
+                phone = PropertyUtility.getDataProperties("web.valid.driver304.phone");
+                break;
+            case "Testdrivertywd_appledc_a_weboo Testdriveroo":
+                phone = PropertyUtility.getDataProperties("web.valid.driver305.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webpp Testdriverpp":
+                phone = PropertyUtility.getDataProperties("web.valid.driver306.phone");
+                break;
+            default:
+                throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
         }
 
-        return phone;
+                return phone;
     }
 
     @And("^As a driver \"([^\"]*)\" perform below action with respective \"([^\"]*)\" Delivery$")
@@ -728,7 +749,9 @@ public class BungiiSteps extends DriverBase {
                             }
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                            if (!driver2State.equalsIgnoreCase("Accepted")) { // new addition
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                            }
                         }
                         if (driver2State.equalsIgnoreCase("Accepted")) {
                             if (!driver1State.equalsIgnoreCase("Enroute")) {
@@ -3282,7 +3305,10 @@ else
     public void i_wait_for_2_minutes() throws Throwable {
         Thread.sleep(120000);
     }
-
+    @When("^I wait for 1 minutes$")
+    public void i_wait_for_1_minutes() throws Throwable {
+        Thread.sleep(60000);
+    }
 
     @When("^I request \"([^\"]*)\" Bungii as a customer in \"([^\"]*)\" geofence from a partner location$")
     public void i_request_something_bungii_as_a_customer_in_something_geofence_from_a_partner_location(String bungiiType, String geofence, DataTable data) throws Throwable {
@@ -3347,6 +3373,7 @@ else
         String custAccessToken = authServices.getCustomerToken(customerPhoneCode, customerPhone, customerPassword);
 
         coreServices.cancelBungiiAsCustomer(pickupRequest, custAccessToken);
+        log("I cancel bungii as a Customer ","I canceled bungii "+pickupRequest+" as a customer  "+customerName  ,true );
 
     }
 
@@ -3358,6 +3385,8 @@ else
         String driverPhone = getDriverPhone(driverName);
         String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhone, driverPassword);
         coreServices.updateStatus(pickupRequest, driverAccessToken, 66);
+        log("I cancel bungii as a driver","I canceled bungii "+pickupRequest+" as a driver "+driverName  ,true );
+
     }
 
     @Given("^that duo schedule bungii is in progress for customer \"([^\"]*)\"$")

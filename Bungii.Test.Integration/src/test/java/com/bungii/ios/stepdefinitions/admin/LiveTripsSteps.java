@@ -348,7 +348,7 @@ public class LiveTripsSteps extends DriverBase {
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
-            if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
+            if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Canceled"))) {
                 String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
 
                 int retrycount =10;
