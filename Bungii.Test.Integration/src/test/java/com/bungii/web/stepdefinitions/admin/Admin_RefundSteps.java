@@ -152,7 +152,7 @@ public class Admin_RefundSteps extends DriverBase {
 
     @Then("^The \"([^\"]*)\" section should be displayed$")
     public void the_something_section_should_be_displayed(String header) throws Throwable {
-       testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header.toUpperCase(), "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
+       testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header, "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
         String driverEarning = action.getText(admin_refundsPage.Label_Driver()).trim().replace("$","");
         String bungiiEarning = action.getText(admin_refundsPage.Label_Bungii()).trim().replace("$","");
         cucumberContextManager.setScenarioContext("DRIVER_EARNINGS_BEFORE",driverEarning);
