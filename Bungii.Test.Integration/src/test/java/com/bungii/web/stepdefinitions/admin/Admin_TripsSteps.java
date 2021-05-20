@@ -20,10 +20,7 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.text.DateFormat;
@@ -79,7 +76,7 @@ public class Admin_TripsSteps extends DriverBase {
 
 
     @And("^I view the Live Deliveries list on the admin portal$")
-    public void i_view_the_live_trips_list_on_the_admin_portal() throws Throwable {
+    public void i_view_the_live_deliveries_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_LiveTripsPage.Menu_LiveTrips());
         String Pickup_Ref = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
@@ -87,18 +84,18 @@ public class Admin_TripsSteps extends DriverBase {
         action.clearSendKeys(admin_LiveTripsPage.TextBox_Search_Field(),Pickup_Ref);
         action.click(admin_LiveTripsPage.Button_Search());
         //  SetupManager.getDriver().navigate().refresh();
-        log("I view the Live Trips list on the admin portal",
-                "I viewed the Live Trips list on the admin portal", true);
+        log("I view the Live Deliveries list on the admin portal",
+                "I have viewed the Live Deliveries list on the admin portal", true);
     }
     @And("^I view the Scheduled Deliveries list on the admin portal$")
-    public void i_view_the_scheduled_trips_list_on_the_admin_portal() throws Throwable {
+    public void i_view_the_scheduled_deliveries_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "Today");
         //action.click(admin_ScheduledTripsPage.Order_Initial_Request());//change by gopal for partner portal
         // SetupManager.getDriver().navigate().refresh();
-        log("I view the Scheduled Trips list on the admin portal",
-                "I viewed the Scheduled Trips list on the admin portal", true);
+        log("I view the Scheduled Deliveries list on the admin portal",
+                "I have viewed the Scheduled Deliveries list on the admin portal", true);
     }
     @And("^I view the all Scheduled Deliveries list on the admin portal$")
     public void i_view_the_all_scheduled_trips_list_on_the_admin_portal() throws Throwable {
@@ -106,8 +103,8 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
 
-        log("I view the Scheduled Trips list on the admin portal",
-                "I viewed the Scheduled Trips list on the admin portal", true);
+        log("I view the Scheduled Deliveries list on the admin portal",
+                "I have viewed the Scheduled Deliveries list on the admin portal", true);
     }
     @When("^I change filter to \"([^\"]*)\" on Scheduled deliveries$")
     public void i_change_filter_to_something_on_scheduled_deliveries(String filter) throws Throwable {
@@ -618,11 +615,32 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have clicked on Edit link besides the scheduled bungii", true);
     }
 
-    @Then("^I confirm the change drop off address on delivery details page$")
-    public void i_confirm_the_change_drop_off_address_on_delivery_details_page() throws Throwable {
+    @When("^I click on \"([^\"]*)\" link beside live delivery$")
+    public void i_click_on_something_link_beside_live_delivery(String link) throws Throwable {
+        Thread.sleep(4000);
+        action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnLiveEdit']")));
+        log(" I click on Edit link besides the live delivery",
+                "I have clicked on Edit link besides the live delivery", true);
+    }
+
+    @Then("^the updated drop off address should be displayed on delivery details page$")
+    public void the_updated_drop_off_address_should_be_displayed_on_delivery_details_page() throws Throwable {
         String Expected_Change_DropOff = (String)cucumberContextManager.getScenarioContext("Change_Drop_Off");
+        Expected_Change_DropOff = Expected_Change_DropOff.replace(",","");
         String Display_Change_DropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
-        testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
+        //testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
+        testStepAssert.isTrue(Display_Change_DropOff.contains(Expected_Change_DropOff),"Correct address need to display","Correct address is display","Incorrect address is displayed");
+        log(" I confirm the change drop off address on delivery details page",
+                "I have confirmed the change drop off address on delivery details page", true);
+    }
+
+    @Then("^I confirm the change pickup address on delivery details page$")
+    public void i_confirm_the_change_pickup_address_on_delivery_details_page() throws Throwable {
+        String Expected_Change_Pickup = (String)cucumberContextManager.getScenarioContext("Change_Pickup");
+        Expected_Change_Pickup = Expected_Change_Pickup.replace(",","");
+        String Display_Change_Pickup = action.getText(admin_TripDetailsPage.Text_Pickup_Location());
+        //testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
+        testStepAssert.isTrue(Display_Change_Pickup.contains(Expected_Change_Pickup),"Correct address need to display","Correct address is display","Incorrect address is displayed");
         log(" I confirm the change drop off address on delivery details page",
                 "I have confirm the change drop off address on delivery details page", true);
     }
@@ -680,26 +698,67 @@ public class Admin_TripsSteps extends DriverBase {
         testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
         action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
 
+        log("I edit the drop off address ",
+                "I have edited the dropoff address ");
+    }
+
+    @And("^I edit the pickup address$")
+    public void i_edit_the_pickup_address() throws Throwable {
+        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Pickup_Location(),"Pickup location should display","Pickup location is display","Pickup location is not display");
+        action.click(admin_ScheduledTripsPage.Button_Edit_Pickup_Address());
+        log("I edit the pickup address.",
+                "I have edited the pickup address.");
+
     }
 
     @Then("^I change the drop off address to \"([^\"]*)\"$")
     public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
-        cucumberContextManager.setScenarioContext("Change_Drop_Off",arg1);
-        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
-        Thread.sleep(1000);
-        action.click(admin_ScheduledTripsPage.FirstAddressDropdownResult());
-        Thread.sleep(1000);
 
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
+        //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
+        Thread.sleep(1000);
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
+
+        //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
+        action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
+        Thread.sleep(1000);
+        String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
+        cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
+
+        log("I change the dropoff address to "+arg1,
+                "I have changed the dropoff address to "+arg1);
+
+    }
+
+    @Then("^I change the pickup address to \"([^\"]*)\"$")
+    public void i_change_the_pickup_address_to_something(String arg1) throws Throwable {
+
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location(),arg1);
+        //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
+        Thread.sleep(1000);
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location()," ");
+
+        //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
+        action.JavaScriptClick(admin_ScheduledTripsPage.DropdownPickupResult(arg1));
+        Thread.sleep(1000);
+        String Change_Address = action.getText(admin_ScheduledTripsPage.Pickup_Address());
+        cucumberContextManager.setScenarioContext("Change_Pickup",Change_Address);
+
+        log("I change the pickup address to "+arg1,
+                "I have changed the pickup address to "+arg1);
     }
 
     @And("^I change the customer note to \"([^\"]*)\"$")
     public void i_change_the_customer_note(String arg1) throws Throwable {
         cucumberContextManager.setScenarioContext("Change_Pickup_Note",arg1);
         action.clearSendKeys(admin_EditScheduledBungiiPage.Text_Additional_Note(),arg1);
+
+        log("I change the customer note to"+arg1,
+                "I have changed the customer note to "+arg1);
     }
 
-    @When("^I view the trip details in admin portal$")
-    public void i_view_the_trip_detailsin_admin() throws Throwable {
+    @When("^I view the delivery details in admin portal$")
+    public void i_view_the_delivery_details_in_admin() throws Throwable {
         try{
             SetupManager.getDriver().navigate().refresh();
             String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
@@ -713,8 +772,28 @@ public class Admin_TripsSteps extends DriverBase {
         }
     }
 
-    @Then("^I check the price for trip$")
-    public void i_check_the_price_for_trip() throws Throwable {
+    @When("^I open the live delivery details in admin portal$")
+    public void i_open_the_live_delivery_details_in_admin() throws Throwable {
+        try{
+            SetupManager.getDriver().navigate().refresh();
+            String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding::td[4]", driver,customer);
+            //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+            action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+
+            log("I open the live delivery details in admin portal",
+                    "I have opened the live delivery details in admin portal");
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I check the price for delivery$")
+    public void i_check_the_price_for_delivery() throws Throwable {
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String xpath = String.format("//td[contains(.,'')]/following-sibling::td[contains(.,'%s')]/preceding::td[1]", customer);
         String trip_Price = action.getText(SetupManager.getDriver().findElement(By.xpath(xpath)));
@@ -722,10 +801,13 @@ public class Admin_TripsSteps extends DriverBase {
         String actual_price = splited_price[1];
         actual_price = actual_price.replace(" ","");
         cucumberContextManager.setScenarioContext("Price_Before",actual_price);
+
+        log("I check the price for delivery",
+                "I have checked the price for delivery");
     }
 
-    @Then("^I confirm trip price is also change$")
-    public void i_confirm_trip_price_is_also_change() throws Throwable {
+    @Then("^Delivery price is recalculated based on updated value of drop off address$")
+    public void delivery_price_is_recalculated_based_on_updated_value_of_drop_off_address() throws Throwable {
         String new_Price = action.getText(admin_EditScheduledBungiiPage.Text_Estimated_Price());
         new_Price = new_Price.replace("$","");
         new_Price = new_Price.replace(" ","");
