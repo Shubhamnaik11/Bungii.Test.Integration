@@ -278,7 +278,7 @@ public class Admin_GeofenceSteps extends DriverBase {
            String zone =  PropertyUtility.getDataProperties("active.geofence");
             //action.selectElementByText(admin_DashboardPage.Dropdown_Geofence(), zone);
             utility.selectGeofenceDropdown(zone);
-            testStepAssert.isElementDisplayed(admin_geofencePage.Checbox_Geofence(zone), zone + " should be displayed", zone + " is displayed", zone + " is not displayed");
+            testStepAssert.isElementDisplayed(admin_geofencePage.Checkbox_Geofence(zone), zone + " should be displayed", zone + " is displayed", zone + " is not displayed");
         }
     }
 
@@ -290,7 +290,7 @@ public class Admin_GeofenceSteps extends DriverBase {
             int i = 0;
             Boolean testStatus = false;
             utility.searchGeofenceDropdown(zone);
-            testStepVerify.isElementNotDisplayed(admin_geofencePage.Checbox_Geofence(zone, true), zone + " should not be displayed", zone + " is not displayed", zone + " is displayed");
+            testStepVerify.isElementNotDisplayed(admin_geofencePage.Checkbox_Geofence(zone, true), zone + " should not be displayed", zone + " is not displayed", zone + " is displayed");
 
           /*  List<WebElement> options = admin_DashboardPage.Dropdown_Geofence().findElements(By.tagName("option"));
                for (WebElement option : options)

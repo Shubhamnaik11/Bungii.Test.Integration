@@ -36,6 +36,6 @@ public class DashBoardPage extends PageBase {
     public WebElement List_Geofence() {return findElement("dropdownMenuButton" , LocatorType.Id);}
     public WebElement TextBox_SearchGeofence() {return findElement("myInput" , LocatorType.Id);}
     public WebElement Button_ApplyGeofence() {return findElement("btnApply" , LocatorType.Id);}
-    public WebElement Checbox_Geofence(String geofence) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.Id);}
+    public WebElement Checkbox_Geofence(String geofence) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath);}
 
 }

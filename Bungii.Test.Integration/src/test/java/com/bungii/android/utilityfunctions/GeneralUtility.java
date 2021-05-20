@@ -2063,7 +2063,7 @@ Thread.sleep(5000);
     public void selectGeofenceDropdown(String geofence){
         action.click(admin_dashboardPage.List_Geofence());
         action.clearSendKeys(admin_dashboardPage.TextBox_SearchGeofence(),geofence);
-        action.JavaScriptClick(admin_dashboardPage.Checbox_Geofence(geofence));
+        action.JavaScriptClick(admin_dashboardPage.Checkbox_Geofence(geofence));
         action.click(admin_dashboardPage.Button_ApplyGeofence());
     }
     public void reApplyGeofenceDropdown(){

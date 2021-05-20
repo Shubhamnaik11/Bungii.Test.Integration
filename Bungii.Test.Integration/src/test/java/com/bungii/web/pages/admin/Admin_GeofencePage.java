@@ -98,6 +98,6 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Button_ApplyGeofence() {return findElement("btnApply" , LocatorType.Id);}
     public WebElement Button_Clear() {return findElement("clearAll" , LocatorType.Id);}
 
-    public WebElement Checbox_Geofence(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.Id, ignoreException);}
+    public WebElement Checkbox_Geofence(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath, ignoreException);}
 
 }
