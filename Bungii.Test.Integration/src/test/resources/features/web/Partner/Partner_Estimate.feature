@@ -44,7 +44,8 @@
       Then I should "see Get Estimate screen"
       And I should logout from Partner Portal
 
-    @ready
+    @regression
+      #stable
     Scenario:Verify If Partner User Cancel OnDemand Bungii Before Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

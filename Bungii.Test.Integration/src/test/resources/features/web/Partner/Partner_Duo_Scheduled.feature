@@ -65,7 +65,8 @@ Feature: Partner Duo Scheduled Trips
     Then I should see "Estimated Cost"
     And I should logout from Partner Portal
 
-  @ready
+  @regression
+    #stable
   Scenario: Verify Cancellation of Duo Scheduled Trips
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

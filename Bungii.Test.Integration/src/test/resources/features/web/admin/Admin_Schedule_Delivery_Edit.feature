@@ -51,8 +51,9 @@ Feature: Admin_Schedule_Delivery_Edit
     When I view the delivery details in admin portal
     Then the updated drop off address should be displayed on delivery details page
     And Delivery price is recalculated based on updated value of drop off address
-
-  @ready
+  
+  @regression
+    #stable
   Scenario: Verify editing drop off address outside of scope for the Solo scheduled trip.
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -67,8 +68,9 @@ Feature: Admin_Schedule_Delivery_Edit
     And I change the drop off address to "8500 Scudder Avenue"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
-
-  @ready
+  
+  @regression
+    #stable
   Scenario: Verify editing drop off address outside of scope for the Duo scheduled trip.
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -83,8 +85,9 @@ Feature: Admin_Schedule_Delivery_Edit
     And I change the drop off address to "8500 Scudder Avenue"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
-
-  @ready
+  
+  @regression
+    #stable
   Scenario: Verify editing drop off address for the Solo scheduled delivery when driver is assigned.
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |

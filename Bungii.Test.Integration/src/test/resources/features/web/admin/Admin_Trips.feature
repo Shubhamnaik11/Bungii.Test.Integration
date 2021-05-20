@@ -151,7 +151,8 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Jerome Seinfield"
     Then Trip should be listed in the grid
 
-  @ready
+  @regression
+    #stable
       #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Duo Scheduled Trip
     And I note the Trip Requested count of Customer "Krishna Hoderker"
@@ -162,8 +163,9 @@ Feature: Admin_Trips
     Then I should be able to see the Trip Requested count incremented in Customers Grid
     When I view the customer details page of Customer "Krishna Hoderker"
     Then Trip should be listed in the grid
-
-    @ready
+  
+  @regression
+    #stable
   Scenario: Verify Driver Est. Earnings for for Customer Trip
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
