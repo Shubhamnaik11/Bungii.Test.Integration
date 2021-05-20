@@ -488,7 +488,10 @@ public class Partner_trips extends DriverBase {
                 }
                 break;
             default: break;
+
         }
+            log("I request for "+Type+" Bungii delivery in partner portal in "+ geofence + " geofence","I requested for "+Type+" Bungii delivery in partner portal in "+ geofence + " geofence", true);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error in selecting pickup and drop off address.", true);
@@ -580,6 +583,8 @@ public class Partner_trips extends DriverBase {
 
         }
         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
+            log("I update  "+str+" and click on estimate","I updated  "+str+" and click on estimate", true);
+
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -591,6 +596,7 @@ public class Partner_trips extends DriverBase {
     public void i_clear_the_pickup_address_on_get_estimate_screen(){
 
         action.click(Page_Partner_Dashboard.Button_PickupClear());
+        log("I clear pickup address ","I cleared pickup address ", true);
 
     }
 
@@ -598,7 +604,7 @@ public class Partner_trips extends DriverBase {
     public void i_check_that_Address_field_on_get_estimate_screen_get_clear(){
         try{
         String Delivery_Address = action.getText(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-        testStepVerify.isEquals(Delivery_Address, "", "Address field on estimate should be clear.", "Address field on estimate page is cleared.", "Address field on estimate is not cleared.");
+        testStepAssert.isEquals(Delivery_Address, "", "Address field on estimate should be clear.", "Address field on estimate page is cleared.", "Address field on estimate is not cleared.");
         } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -616,7 +622,7 @@ public class Partner_trips extends DriverBase {
         String New_Estimated_Cost = Split_Total_estimated_Cost[1];
         String Old_Estimated_Cost = (String)cucumberContextManager.getScenarioContext("Estimated_Cost");
 
-        testStepVerify
+        testStepAssert
                 .isFalse(New_Estimated_Cost.equals(Old_Estimated_Cost),
                         "total Estimated cost should be recalculated",
                         "Total Estimate cost is recalculated , previous cost is" + Old_Estimated_Cost + " , new cost is" + New_Estimated_Cost,
@@ -649,7 +655,7 @@ public class Partner_trips extends DriverBase {
             String actualValue = estimate.substring(0, estimate.length() - 1);
             String truncValue = new DecimalFormat("#.00").format(expectedValue);
 
-            testStepVerify.isEquals(expectedEstimatedCost,truncValue.trim(), "Estimate value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Estimate value for bungii is " + truncValue + " and Actual value is" + actualValue + ",(Truncate to single float point)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + estimate);
+            testStepAssert.isEquals(expectedEstimatedCost,truncValue.trim(), "Estimate value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Estimate value for bungii is " + truncValue + " and Actual value is" + actualValue + ",(Truncate to single float point)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + estimate);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -775,6 +781,7 @@ public class Partner_trips extends DriverBase {
                 testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             }
+            log("I should see the respective bungii partner portal trip with the status "+ status,"Partner portal delivery with the status "+ status +" is displayed", true);
             //tripType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
         }
         catch(Exception e)
