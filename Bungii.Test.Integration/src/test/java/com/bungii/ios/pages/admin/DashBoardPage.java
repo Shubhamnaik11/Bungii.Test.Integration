@@ -43,4 +43,10 @@ public class DashBoardPage extends PageBase {
     public WebElement Menu_Geofences(){return findElement("adminmenu-geofences",LocatorType.Id);}
 
     public WebElement Checkbox_Active_geofence() {return findElement("activeGeofenceOnly",LocatorType.Id);}
+
+    public WebElement List_Geofence() {return findElement("dropdownMenuButton" , LocatorType.Id);}
+    public WebElement TextBox_SearchGeofence() {return findElement("myInput" , LocatorType.Id);}
+    public WebElement Button_ApplyGeofence() {return findElement("btnApply" , LocatorType.Id);}
+    public WebElement Checbox_Geofence(String geofence) {return findElement(String.format("//span[text()='%s']/preceding-sibling::span/label/input",geofence) , LocatorType.Id);}
+
 }

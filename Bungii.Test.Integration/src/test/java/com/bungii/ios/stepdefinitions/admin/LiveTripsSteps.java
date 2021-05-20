@@ -6,6 +6,7 @@ import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.pages.admin.*;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import com.bungii.web.manager.ActionManager;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -34,6 +35,7 @@ public class LiveTripsSteps extends DriverBase {
     LiveTripsPage liveTripsPage = new LiveTripsPage();
     ActionManager action = new ActionManager();
     DriversPage driversPage = new DriversPage();
+    GeneralUtility utility = new GeneralUtility();
 
     @Then("^I select trip from live trips$")
     public void i_select_trip_from_live_trips() throws Throwable {
@@ -341,8 +343,9 @@ public class LiveTripsSteps extends DriverBase {
             String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
             String geofenceName = getGeofence(geofence);
-            action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
-            action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+            //action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
+           // action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+            utility.selectGeofenceDropdown(geofenceName);
 
             cucumberContextManager.setScenarioContext("STATUS",status);
             String driver = driver1;
@@ -361,8 +364,10 @@ public class LiveTripsSteps extends DriverBase {
                         retry = false;
                     } catch (Exception ex) {
                         SetupManager.getDriver().navigate().refresh();
-                        action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
-                        action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+                       // action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
+                        //action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+                        utility.reApplyGeofenceDropdown();
+
                         retrycount--;
                         retry = true;
                     }
@@ -389,8 +394,9 @@ public class LiveTripsSteps extends DriverBase {
                         retry = false;
                     } catch (Exception ex) {
                         SetupManager.getDriver().navigate().refresh();
-                        action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
-                        action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+                        //action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
+                        //action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+                        utility.reApplyGeofenceDropdown();
                         retrycount--;
                         retry = true;
                     }

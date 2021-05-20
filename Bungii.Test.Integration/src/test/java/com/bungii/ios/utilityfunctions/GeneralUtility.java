@@ -89,7 +89,7 @@ public class GeneralUtility extends DriverBase {
     com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new com.bungii.ios.pages.customer.UpdateStatusPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
     EmailUtility emailUtility = new EmailUtility();
-
+    DashBoardPage admin_dashboardPage = new DashBoardPage();
     int[][] rgb = {
             {238, 29, 55},
             {255, 169, 66},
@@ -1801,5 +1801,15 @@ catch (Exception e)
         }
         return gmtTime;
     }
+    public void selectGeofenceDropdown(String geofence){
+        action.click(admin_dashboardPage.List_Geofence());
+        action.clearSendKeys(admin_dashboardPage.TextBox_SearchGeofence(),geofence);
+        action.JavaScriptClick(admin_dashboardPage.Checbox_Geofence(geofence));
+        action.click(admin_dashboardPage.Button_ApplyGeofence());
+    }
 
+    public void reApplyGeofenceDropdown(){
+        action.click(admin_dashboardPage.List_Geofence());
+        action.click(admin_dashboardPage.Button_ApplyGeofence());
+    }
 }

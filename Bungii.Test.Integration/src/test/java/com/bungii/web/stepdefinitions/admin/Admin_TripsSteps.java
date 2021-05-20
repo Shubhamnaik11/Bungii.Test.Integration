@@ -189,8 +189,9 @@ public class Admin_TripsSteps extends DriverBase {
         String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
 
         String geofenceName = getGeofence(geofence);
-        action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
-        action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+        //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+        //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+        utility.selectGeofenceDropdown(geofenceName);
 
         cucumberContextManager.setScenarioContext("STATUS", status);
         String driver = driver1;
@@ -208,8 +209,10 @@ public class Admin_TripsSteps extends DriverBase {
                     retry = false;
                 } catch (Exception ex) {
                     SetupManager.getDriver().navigate().refresh();
-                    action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
-                    action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                    //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+                    //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                    utility.reApplyGeofenceDropdown();
+
                     retrycount--;
                     retry = true;
                 }
@@ -236,8 +239,9 @@ public class Admin_TripsSteps extends DriverBase {
                     retry = false;
                 } catch (Exception ex) {
                     SetupManager.getDriver().navigate().refresh();
-                    action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
-                    action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                   // action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+                    //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                    utility.reApplyGeofenceDropdown();
                     retrycount--;
                     retry = true;
                 }
@@ -269,8 +273,9 @@ public class Admin_TripsSteps extends DriverBase {
             String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
 
             String geofenceName = getGeofence(geofence);
-            action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
-            action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+            //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+            //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+            utility.selectGeofenceDropdown(geofenceName);
 
 
             cucumberContextManager.setScenarioContext("STATUS", status);
@@ -279,7 +284,7 @@ public class Admin_TripsSteps extends DriverBase {
                 driver = driver1 + "," + driver2;
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
-                String costPath =  String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td[1]/span", tripType[0].toUpperCase(), customer);
+                String costPath =  String.format("//td[contains(.,'%s')]/preceding-sibling::td[1]/span", customer);
 
                 int retrycount = 10;
 
@@ -291,8 +296,10 @@ public class Admin_TripsSteps extends DriverBase {
                         retry = false;
                     } catch (Exception ex) {
                         SetupManager.getDriver().navigate().refresh();
-                        action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
-                        action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                        //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+                        //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                        utility.reApplyGeofenceDropdown();
+
                         retrycount--;
                         retry = true;
                     }
@@ -308,7 +315,7 @@ public class Admin_TripsSteps extends DriverBase {
                 }
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
                 cucumberContextManager.setScenarioContext("COSTPATH", costPath);
-                cucumberContextManager.setScenarioContext("COST", action.getText(action.getElementByXPath(xpath)).replace("/ $",""));
+                cucumberContextManager.setScenarioContext("COST", action.getText(action.getElementByXPath(costPath)).replace("/ $",""));
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
@@ -325,8 +332,10 @@ public class Admin_TripsSteps extends DriverBase {
                         retry = false;
                     } catch (Exception ex) {
                         SetupManager.getDriver().navigate().refresh();
-                        action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
-                        action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                        //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+                       // action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                        utility.reApplyGeofenceDropdown();
+
                         retrycount--;
                         retry = true;
                     }
@@ -365,9 +374,9 @@ public class Admin_TripsSteps extends DriverBase {
             String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
 
             String geofenceName = getGeofence(geofence);
-            action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
-            action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
-
+            //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+            //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+              utility.selectGeofenceDropdown(geofenceName);
             String xpath = String.format("//td[contains(.,'%s')]/preceding-sibling::td[contains(.,'%s')]",  customer,type);
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), type, "Delivery Type " + type + " should be updated", "Delivery Type " + type + " is updated", "Delivery Type " + type + " is not updated");
@@ -1032,6 +1041,21 @@ public class Admin_TripsSteps extends DriverBase {
         log("I remove control driver",
                 "I have removed control driver", true);
     }
+
+    @And("^I remove non control driver \"([^\"]*)\" on edit popup$")
+    public void i_remove_non_control_driver_somethingOnEdit(String driver) throws Throwable {
+        action.click(admin_ScheduledTripsPage.Checkbox_NonControlDriverEdit());
+        action.click(admin_ScheduledTripsPage.Button_RemoveDriversEdit());
+        log("I remove non control driver on edit popup",
+                "I have removed non control driver on edit popup", true);
+    }
+    @And("^I remove control driver \"([^\"]*)\" on edit popup$")
+    public void i_remove_control_driver_somethingOnEdit(String driver) throws Throwable {
+        action.click(admin_ScheduledTripsPage.Checkbox_ControlDriverEdit());
+        action.click(admin_ScheduledTripsPage.Button_RemoveDriversEdit());
+        log("I remove control driver on edit popup",
+                "I have removed control driver on edit popup", true);
+    }
     @Then("^The driver should get removed successfully$")
     public void the_driver_should_get_removed_successfully() throws Throwable {
         testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(), "Driver(s) removed successfully", "Pass", "Fail");
@@ -1488,23 +1512,19 @@ public class Admin_TripsSteps extends DriverBase {
 
     @And("^the cost of the delivery should be doubled$")
     public void the_cost_of_the_delivery_should_be_doubled() throws Throwable {
-       String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
         DecimalFormat df = new DecimalFormat("0.00");
         Double orgcost = Double.parseDouble((String) cucumberContextManager.getScenarioContext("COST"));
         orgcost= orgcost*2;
-
         testStepAssert.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
 
     }
     @And("^the cost of the delivery should be halved$")
     public void the_cost_of_the_delivery_should_be_halved() throws Throwable {
-        String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
         DecimalFormat df = new DecimalFormat("0.00");
         Double orgcost = Double.parseDouble((String) cucumberContextManager.getScenarioContext("COST"));
         orgcost= orgcost/2;
-
         testStepAssert.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
 
     }

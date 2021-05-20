@@ -10,6 +10,7 @@ import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_RegistrationPage;
+import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -45,7 +46,7 @@ public class Admin_GeofenceSteps extends DriverBase {
     Admin_GeofencePage admin_geofencePage=new Admin_GeofencePage();
     Admin_PotentialPartnersPage admin_potentialPartnersPage = new Admin_PotentialPartnersPage();
     Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
-
+    GeneralUtility utility = new GeneralUtility();
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
 
     ActionManager action = new ActionManager();
@@ -251,12 +252,15 @@ public class Admin_GeofenceSteps extends DriverBase {
             switch (geofenceName) {
                 case "Kansas":
                    // action.click(admin_potentialPartnersPage.Dropdown_Geofence());
-                    action.selectElementByText(admin_potentialPartnersPage.Dropdown_Geofence(),"Kansas");
+                   // action.selectElementByText(admin_potentialPartnersPage.Dropdown_Geofence(),"Kansas");
+                    utility.selectGeofenceDropdown(geofenceName);
                     break;
 
                 case "Goa":
                    // action.click(admin_potentialPartnersPage.Dropdown_Geofence());
-                    action.selectElementByText(admin_potentialPartnersPage.Dropdown_Geofence(), "Goa");
+                    //action.selectElementByText(admin_potentialPartnersPage.Dropdown_Geofence(), "Goa");
+                    utility.selectGeofenceDropdown(geofenceName);
+
                     break;
 
             }
@@ -272,8 +276,9 @@ public class Admin_GeofenceSteps extends DriverBase {
         if(!page.equals("respective")) {
 
            String zone =  PropertyUtility.getDataProperties("active.geofence");
-            action.selectElementByText(admin_DashboardPage.Dropdown_Geofence(), zone);
-            testStepAssert.isElementDisplayed(admin_DashboardPage.Dropdown_Geofence().findElement(By.xpath(String.format("//option[text()='%s']", zone))), zone + " should be displayed", zone + " is displayed", zone + " is not displayed");
+            //action.selectElementByText(admin_DashboardPage.Dropdown_Geofence(), zone);
+            utility.selectGeofenceDropdown(zone);
+            testStepAssert.isElementDisplayed(admin_geofencePage.Checbox_Geofence(zone), zone + " should be displayed", zone + " is displayed", zone + " is not displayed");
         }
     }
 
@@ -284,13 +289,16 @@ public class Admin_GeofenceSteps extends DriverBase {
             String zone =  PropertyUtility.getDataProperties("inactive.geofence");
             int i = 0;
             Boolean testStatus = false;
-            List<WebElement> options = admin_DashboardPage.Dropdown_Geofence().findElements(By.tagName("option"));
+            utility.searchGeofenceDropdown(zone);
+            testStepVerify.isElementNotDisplayed(admin_geofencePage.Checbox_Geofence(zone, true), zone + " should not be displayed", zone + " is not displayed", zone + " is displayed");
+
+          /*  List<WebElement> options = admin_DashboardPage.Dropdown_Geofence().findElements(By.tagName("option"));
                for (WebElement option : options)
                {
                    if(option.getText().equals(zone)) {
                        testStepAssert.isTrue( !option.getText().equals(zone), zone + " should not be displayed", zone + " is not displayed", zone + " is displayed");
                    }
-               }
+               }*/
         }
     }
 

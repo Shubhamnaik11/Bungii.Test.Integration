@@ -9,7 +9,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Menu_AllTrips () { return findElement("adminmenu-completedtrips", LocatorType.Id); }
 
-    public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+    //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement Button_Submit () { return findElement("CustomerCancel", LocatorType.Name); }
 
@@ -64,6 +64,12 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Checkbox_NonControlDriver () { return findElement( "//div[@id='tripDriverDetails']/div[1]/label[1]/input", LocatorType.XPath);}
 
     public WebElement Checkbox_ControlDriver () { return findElement( "//div[@id='tripDriverDetails']/div[2]/label[1]/input", LocatorType.XPath);}
+
+    public WebElement Checkbox_ControlDriverEdit () { return findElement( "//*[@id='editTripDrivers']/tbody/tr[1]/td//input", LocatorType.XPath);}
+
+    public WebElement Checkbox_NonControlDriverEdit () { return findElement( "//*[@id='editTripDrivers']/tbody/tr[2]/td//input", LocatorType.XPath);}
+
+    public WebElement Button_RemoveDriversEdit () { return findElement("btnRemoveDriver", LocatorType.Id); }//Richa
 
     public WebElement Label_DriverRemovalSuccessMessage () { return findElement( "//p/i[text()='Driver(s) removed successfully']" , LocatorType.XPath); }
 

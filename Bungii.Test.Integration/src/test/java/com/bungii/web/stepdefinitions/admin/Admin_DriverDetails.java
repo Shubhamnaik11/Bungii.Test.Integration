@@ -34,7 +34,8 @@ public class Admin_DriverDetails extends DriverBase{
 
     @Then("^Set the Geofence dropdown to \"([^\"]*)\"$")
     public void set_the_geofence_dropdown_to_something(String strArg1) throws Throwable {
-        action.selectElementByText(admin_Driverspage.Dropdown_Geofence(), "-- All --");
+      //  action.selectElementByText(admin_Driverspage.Dropdown_Geofence(), "-- All --");
+        utility.resetGeofenceDropdown();
     }
 
     @When("^I search driver \"([^\"]*)\"$")

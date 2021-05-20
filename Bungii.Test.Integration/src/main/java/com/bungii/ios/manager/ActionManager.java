@@ -75,7 +75,23 @@ public class ActionManager {
                     true);
         }
     }
-
+    /**
+     * @param element , locator of field
+     * @param text    , Text value that is to be sent
+     */
+    public void clearSendKeys(WebElement element, String text) {
+        try {
+            element.clear();
+            element.sendKeys(text);
+            logger.detail("ACTION | Send  " + text + " in element -> " + getElementDetails(element));
+        }
+        catch(Exception ex)
+        {
+            logger.error("ACTION FAILED | Send  " + text + " in element -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Send  " + text + " in element -> " + getElementDetails(element), "Unable to send " + text + " in element -> " + getElementDetails(element),
+                    true);
+        }
+    }
     /**
      * @return boolean value according to alert existence
      */
@@ -181,6 +197,19 @@ public class ActionManager {
         error("Click on element by locator -> " + getElementDetails(element), "Unable to click on element -> " + getElementDetails(element),
                 true);
     }
+    }
+    public void JavaScriptClick(WebElement element) {
+        try{
+            JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+            executor.executeScript("arguments[0].click();", element);
+            logger.detail(" JS Click on element by locator" + getElementDetails(element));
+
+        }  catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to click on element -> " + getElementDetails(element) ,
+                    true);
+        }
     }
 
     public void tapByElement(WebElement element) {

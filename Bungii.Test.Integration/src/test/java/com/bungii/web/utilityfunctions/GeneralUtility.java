@@ -6,6 +6,7 @@ import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.*;
+import com.bungii.web.pages.admin.Admin_GeofencePage;
 import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
@@ -52,6 +53,7 @@ public class GeneralUtility extends DriverBase {
     Partner_LoginPage Page_PartnerLogin = new Partner_LoginPage();
     EmailUtility emailUtility = new EmailUtility();
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
+    Admin_GeofencePage admin_geofencePage = new Admin_GeofencePage();
 
     private String GetPartnerUrl(String PP_Site){
         String partnerURL = null;
@@ -958,6 +960,24 @@ public class GeneralUtility extends DriverBase {
         else if(bungiiTime.contains("IST")){ time=bungiiTime; }
         return time;
     }
+    public void searchGeofenceDropdown(String geofence){
+        action.click(admin_geofencePage.List_Geofence());
+        action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(),geofence);
+    }
 
+    public void resetGeofenceDropdown(){
+        action.click(admin_geofencePage.List_Geofence());
+        action.click(admin_geofencePage.Button_Clear());
+    }
+    public void selectGeofenceDropdown(String geofence){
+        action.click(admin_geofencePage.List_Geofence());
+        action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(),geofence);
+        action.JavaScriptClick(admin_geofencePage.Checbox_Geofence(geofence));
+        action.click(admin_geofencePage.Button_ApplyGeofence());
+    }
+    public void reApplyGeofenceDropdown(){
+        action.click(admin_geofencePage.List_Geofence());
+        action.click(admin_geofencePage.Button_ApplyGeofence());
+    }
 }
 

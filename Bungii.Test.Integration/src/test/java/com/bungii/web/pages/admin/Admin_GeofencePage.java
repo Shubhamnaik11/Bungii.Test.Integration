@@ -93,4 +93,11 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Row_geofenceList(String Name,String Status,String Timezone) {return  findElement(String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",Name,Status,Timezone), LocatorType.XPath);}
 
+    public WebElement List_Geofence() {return findElement("dropdownMenuButton" , LocatorType.Id);}
+    public WebElement TextBox_SearchGeofence() {return findElement("myInput" , LocatorType.Id);}
+    public WebElement Button_ApplyGeofence() {return findElement("btnApply" , LocatorType.Id);}
+    public WebElement Button_Clear() {return findElement("clearAll" , LocatorType.Id);}
+
+    public WebElement Checbox_Geofence(String geofence , boolean... ignoreException) {return findElement(String.format("//span[text()='%s']/preceding-sibling::span/label/input",geofence) , LocatorType.Id, ignoreException);}
+
 }

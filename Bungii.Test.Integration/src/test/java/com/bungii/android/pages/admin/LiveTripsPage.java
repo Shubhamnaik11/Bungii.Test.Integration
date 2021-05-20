@@ -38,7 +38,7 @@ public class LiveTripsPage extends PageBase {
 
     public WebElement Menu_AllDeliveries () { return findElement("adminmenu-completedtrips",LocatorType.Id);}
 
-    public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+   // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement Button_ApplyGeofenceFilter () { return findElement("btnApplyGeofence", LocatorType.Id); }
 }

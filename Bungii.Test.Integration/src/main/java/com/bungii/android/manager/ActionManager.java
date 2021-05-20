@@ -379,6 +379,19 @@ public class ActionManager {
                 true);
     }
     }
+    public void JavaScriptClick(WebElement element) {
+        try{
+            JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+            executor.executeScript("arguments[0].click();", element);
+            logger.detail(" JS Click on element by locator" + getElementDetails(element));
+
+        }  catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to click on element -> " + getElementDetails(element) ,
+                    true);
+        }
+    }
     public void tap(WebElement element) {
         try{
             TouchActions action = new TouchActions(driver);
