@@ -246,14 +246,15 @@ Feature: Solo Scheduled Bungii Part II
     And I click "Log In" button on "Log In" screen
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
+    #When I try to contact driver using "sms driver1"
+    #Then correct support details should be displayed to customer on "SMS" app
+    #When I try to contact driver using "sms driver2"
+    #Then correct support details should be displayed to customer on "SMS" app
+    #SMS app doesnt open on browserstack devices
     When I try to contact driver using "call driver2"
     Then correct support details should be displayed to customer on "call" app
     When I try to contact driver using "call driver1"
     Then correct support details should be displayed to customer on "call" app
-    When I try to contact driver using "sms driver1"
-    Then correct support details should be displayed to customer on "SMS" app
-    When I try to contact driver using "sms driver2"
-    Then correct support details should be displayed to customer on "SMS" app
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |

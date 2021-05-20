@@ -1,4 +1,5 @@
 @web
+@new
 Feature: Admin_Accessorial_Charges
   
   Background:
@@ -8,8 +9,8 @@ Feature: Admin_Accessorial_Charges
 Scenario: Verify Accessorial Charges Can be added to Payment Successful Solo Scheduled Deliveries
 When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 | Bungii Time   | Customer Phone | Customer Name |
-| NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
-And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
+| NEXT_POSSIBLE | 9999999221 | Testcustomertywd_appleNewMH Customer|
+And As a driver "Testdrivertywd_appledc_a_drva Driver" perform below action with respective "Solo Scheduled" Delivery
 | driver1 state|
 |Accepted |
 | Enroute  |
@@ -37,8 +38,8 @@ Then I should see following details in the Accessorial charges section
   Scenario: Verify Accessorial Charges Field Validations - Blank
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
-	  | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
+	  | NEXT_POSSIBLE | 9999999222 | Testcustomertywd_appleNewMI Customer|
+	And As a driver "Testdrivertywd_appledc_a_drvb Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
@@ -66,8 +67,8 @@ Then I should see following details in the Accessorial charges section
   Scenario: Verify Accessorial Charges Field Validations - invalid Data
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
-	  | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
-	And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
+	  | NEXT_POSSIBLE | 9999999223 | Testcustomertywd_appleNewMJ Customer|
+	And As a driver "Testdrivertywd_appledc_a_drvc Driver" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |

@@ -21,7 +21,7 @@ public class Admin_DashboardPage extends PageBase {
     public WebElement Menu_Dashboard () { return findElement("adminmenu-dashboard", LocatorType.Id); }
     public WebElement Icon_Search() { return findElement("btnSearchDriver']", LocatorType.Id); }
 
-    public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+   // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement TextBox_SearchCustomer() { return findElement("txtSearchCustomer", LocatorType.Id); }
 

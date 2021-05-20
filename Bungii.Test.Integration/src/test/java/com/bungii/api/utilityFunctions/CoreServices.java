@@ -49,8 +49,10 @@ public class CoreServices extends DriverBase {
     private static String DRIVER_CANCELPICKUPLIST = "/api/driver/cancelpickup";
     private static String STACKED_PICKUP_CONFIRMATION = "/api/driver/stackedpickupconfirmation";
     private static String PARTNER_PICKUPESTIMATE = "/api/partner/pickupestimate";
-    private static String PARTNER_PICKUPDETAILS ="/api/partner/pickupdetails?pickuprequestid=";
-    private static String PARTNER_DELIVERYINFOMATION ="/api/partner/deliveryinformation";
+    private static String PARTNER_PICKUPDETAILS = "/api/partner/pickupdetails?pickuprequestid=";
+    private static String PARTNER_DELIVERYINFOMATION = "/api/partner/deliveryinformation";
+    private static String PARTNER_GRAPHQL = "/graphql";
+    private static String PARTNER_CONFIRM_PICKUP = "/api/partner/confirmpickup";
 
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
@@ -531,16 +533,20 @@ public class CoreServices extends DriverBase {
         jsonObj.put("WalletRef", (String)cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"));
         jsonObj.put("EstLoadUnloadTimeInMilliseconds", 900000);
         jsonObj.put("PickupRequestID", pickRequestID);
-        jsonObj.put("Description", "");
         jsonObj.put("PaymentMethodID", paymentMethodID);
+        jsonObj.put("Description", "");
+        String str="";
         if (!scheduledDateTime.equals("")) {
             jsonObj.put("IsScheduledPickup", true);
             jsonObj.put("ScheduledDateTime", scheduledDateTime);
+            str= "TestNote for Scheduled "+pickRequestID;
         } else {
             jsonObj.put("IsScheduledPickup", false);
+            str= "TestNote for OnDemand "+pickRequestID;
 
         }
-
+        jsonObj.put("PickupNote",str);
+        cucumberContextManager.setScenarioContext("PICKUP_NOTE",str);
         Header header = new Header("AuthorizationToken", authToken);
 
         String apiURL = null;
@@ -1282,16 +1288,16 @@ public class CoreServices extends DriverBase {
         return response;
      }
 
-    public String partnerPickupEstimate(String Partner_Portal,String Geofence,String Bungii_Time){
+    public String partnerPickupEstimate(String Partner_Portal,String Geofence,String Bungii_Time,String PartnerLocationConfigurationVersionRef,String BusinessPartnerDefaultAddressRef){
         String RequestText ="API REQUEST : Partner Estimate Cost(Post) |  : "+ Partner_Portal;
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core",PARTNER_PICKUPESTIMATE);
-        String PartnerLocationConfigVersion = (String) cucumberContextManager.getScenarioContext("PartnerLocationReference");
+        //String PartnerLocationConfigVersion = (String) cucumberContextManager.getScenarioContext("PartnerLocationReference");
         String[] nextAvailableBungii = new String[0];
         int No_of_Driver;
         Response response = null;
 
-        String BungiiType = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        String BungiiType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
         if(BungiiType.equalsIgnoreCase("SOLO")){
             No_of_Driver=1;
         }else {
@@ -1377,11 +1383,11 @@ public class CoreServices extends DriverBase {
             jsonObj.put("DeliveryDateTime", nextAvailableBungii[0]);
             jsonObj.put("EstLoadUnloadTimeInMilliseconds", Load_Unload);
             jsonObj.put("IsScheduledPickup", true);
-            jsonObj.put("PartnerLocationConfigVersion", PartnerLocationConfigVersion);
+            jsonObj.put("PartnerLocationConfigVersion", PartnerLocationConfigurationVersionRef);
             jsonObj.put("PickupRequestID",JSONObject.NULL);
             jsonObj.put("ServiceLevelRef", JSONObject.NULL);
             jsonObj.put("NoOfDrivers",No_of_Driver);
-            jsonObj.put("BusinessPartnerDefaultAddressRef", dbUtility.BusinessPartnerDefaultAddressRef(PartnerLocationConfigVersion));
+            jsonObj.put("BusinessPartnerDefaultAddressRef", BusinessPartnerDefaultAddressRef);
 
             //Header header = new Header("AuthorizationToken", AccessToken);
             response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);//body(jsonObj.toString()).
@@ -1403,24 +1409,6 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("reporting",PARTNER_PICKUPDETAILS+PickupRequest);
         String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
 
-        /*if(Partner_Portal.equalsIgnoreCase("MRFM")){
-            Partner_Location_Reference = PropertyUtility.getDataProperties("partner.location.reference.MRFM");
-            cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
-            logger.detail("PartnerLocationReference="+Partner_Location_Reference);
-        }
-        else{
-            logger.detail("Please provide proper partner portal alias.");
-        }
-
-
-        JSONObject jsonObj = new JSONObject();
-        jsonObj.put("PartnerLocationReference", PickupRequest);
-        String Pwd = PropertyUtility.getDataProperties("PartnerPassword");
-        jsonObj.put("Password", Pwd);
-        //Header header = new Header("AuthorizationToken",);
-
-         */
-
         Response response = ApiHelper.givenPartnerAccess(AccessToken).when().get(apiURL);
         //response.then().log().all();
 
@@ -1436,18 +1424,9 @@ public class CoreServices extends DriverBase {
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core",PARTNER_DELIVERYINFOMATION);
         String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+        String Partner_Customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String Partner_Customer_Phone = (String) cucumberContextManager.getScenarioContext("Phone");
 
-        /*if(Partner_Portal.equalsIgnoreCase("MRFM")){
-            Partner_Location_Reference = PropertyUtility.getDataProperties("partner.location.reference.MRFM");
-            cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
-            logger.detail("PartnerLocationReference="+Partner_Location_Reference);
-        }
-        else{
-            logger.detail("Please provide proper partner portal alias.");
-        }
-
-         */
-        //Pickup Name
         JSONObject jsonFiled1 = new JSONObject();
         jsonFiled1.put("FieldRef","f2bd9004-6757-11ea-a4a3-00155d0a8706");
         jsonFiled1.put("FieldValue","Test Pickup");
@@ -1464,12 +1443,12 @@ public class CoreServices extends DriverBase {
 
         //Drop Contact
         JSONObject jsonFiled4 = new JSONObject();
-        jsonFiled4.put("FieldRef","f2bd90b3-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled4.put("FieldRef","f2bd90d3-6757-11ea-a4a3-00155d0a8706");
         jsonFiled4.put("FieldValue","4567898765");
 
         //Drop Contact
         JSONObject jsonFiled5 = new JSONObject();
-        jsonFiled5.put("FieldRef","f2bd90b3-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled5.put("FieldRef","f2bd91b2-6757-11ea-a4a3-00155d0a8706");
         jsonFiled5.put("FieldValue","RN01");
 
         JSONArray SF = new JSONArray();
@@ -1487,18 +1466,16 @@ public class CoreServices extends DriverBase {
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("PickupRequestID", PickupRequest);
-        jsonObj.put("CustomerName","Test Customer");
-        jsonObj.put("CustomerMobile","4578766787");
+        jsonObj.put("CustomerName",Partner_Customer);
+        jsonObj.put("CustomerMobile",Partner_Customer_Phone);
         jsonObj.put("PickupNote","Test Automation Script");
         jsonObj.put("SpecialInstructions","SPL from QA script");
         jsonObj.put("StaticFields",SF);
         jsonObj.put("CustomFields",CF);
         jsonObj.put("PaymentOption","CC");
-        jsonObj.put("PaymentMethodNonce","tokencc_bh_v4jyj9_7j3kn9_qxtvgf_39kh3z_5x3");
+        jsonObj.put("PaymentMethodNonce","fake-valid-nonce");
         jsonObj.put("ItemsToDeliver",ITD);
         //Header header = new Header("AuthorizationToken",);
-
-
 
         Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
         //response.then().log().all();
@@ -1506,6 +1483,77 @@ public class CoreServices extends DriverBase {
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response, RequestText);
         return jsonPathEvaluator.get("AccessToken");
+        //return response;
+
+    }
+
+    public String partner_graphql(){
+        String RequestText ="API REQUEST : Partner graphql braintree API)";
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("braintree",PARTNER_GRAPHQL);
+        //String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+        String Auth = PropertyUtility.getDataProperties("Braintree_Authorization");
+
+        JSONObject clientSdkMetadata = new JSONObject();
+        clientSdkMetadata.put("source","client");
+        clientSdkMetadata.put("integration","dropin2");
+        clientSdkMetadata.put("sessionId","126dfb9997-dedc-42a1-bef1-602376ff9b38");
+
+        JSONObject billing_Address = new JSONObject();
+        billing_Address.put("postalCode","xcs");
+
+        JSONObject CCVar = new JSONObject();
+        CCVar.put("number","4111111111111111");
+        CCVar.put("expirationMonth","12");
+        CCVar.put("expirationYear","2031");
+        CCVar.put("cvv","123");
+        CCVar.put("billingAddress",billing_Address);
+
+        JSONObject Credit_card = new JSONObject();
+        Credit_card.put("creditCard",CCVar);
+
+        JSONObject Validate = new JSONObject();
+        Validate.put("validate",false);
+
+        JSONObject variables = new JSONObject();
+        variables.put("input",Credit_card);
+        variables.put("options",Validate);
+
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("clientSdkMetadata",clientSdkMetadata);
+        jsonObj.put("query", "mutation TokenizeCreditCard($input: TokenizeCreditCardInput!) {   tokenizeCreditCard(input: $input) {     token     creditCard {       bin       brandCode       last4       cardholderName       expirationMonth      expirationYear      binData {         prepaid         healthcare         debit         durbinRegulated         commercial         payroll         issuingBank         countryOfIssuance         productId       }     }   } }");
+        jsonObj.put("variables",variables);
+        jsonObj.put("operationName","TokenizeCreditCard");
+        //Header header = new Header("AuthorizationToken",);
+
+
+        //Response response = ApiHelper.givenPartnerAccess(Auth).when().get(apiURL);
+        Response response = ApiHelper.givenPartnerBraintree(Auth).body(jsonObj.toString()).when().post(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        //String str = response.toString();
+        return jsonPathEvaluator.get("data.tokenizeCreditCard.token");
+        //return response;
+
+    }
+
+    public Response partnerConfirmPickup(String PickupRequest){
+        String RequestText ="API REQUEST : Partner Confirm Pickup(Post) |PICKUP REQUEST  : "+ PickupRequest;
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("core",PARTNER_CONFIRM_PICKUP);
+        String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("PickupRequestID",PickupRequest);
+
+        Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return response;
         //return response;
 
     }

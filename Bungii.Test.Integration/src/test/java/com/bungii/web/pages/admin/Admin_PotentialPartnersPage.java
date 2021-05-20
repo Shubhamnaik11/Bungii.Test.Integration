@@ -11,7 +11,7 @@ public class Admin_PotentialPartnersPage extends PageBase {
 
     public WebElement Menu_PartnerSearch() { return findElement("adminmenu-editcluster", LocatorType.Id); }
 
-    public WebElement Dropdown_Geofence () { return findElement("//select[@id='drpGeofence']", LocatorType.XPath); }
+   // public WebElement Dropdown_Geofence () { return findElement("//select[@id='drpGeofence']", LocatorType.XPath); }
 
     public WebElement Button_ApplyGeofenceFilter () { return findElement("btnApplyGeofence", LocatorType.Id); }
 

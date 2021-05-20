@@ -33,6 +33,7 @@ public class LogInSteps extends DriverBase {
             action.clearEnterText(loginPage.Textfield_PhoneNumber(),strUserName);
             action.clearEnterText(loginPage.Textfield_Password(),strPassWord);
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE_EXTRA", strUserName);
+            cucumberContextManager.setScenarioContext("LATEST_LOGGEDIN_CUSTOMER_PHONE",strUserName);
 
             pass( "Username and Password should be entered sucessfully",
             "Entered Customer Credentials ["+ strUserName+" / "+strPassWord+"] successfully");

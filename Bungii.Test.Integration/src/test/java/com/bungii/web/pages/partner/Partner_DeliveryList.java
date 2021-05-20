@@ -48,7 +48,7 @@ public class Partner_DeliveryList extends PageBase {
     public WebElement Message_Delivery_Cancellation_Failed() { return findElement("//h2[contains(text(),'Delivery cancellation failed!')]/following::p",LocatorType.XPath);}
 
     //Status Filter dropdown
-    public WebElement Dropdown_Partner_Status() { return findElement("//a[@class='caret']",LocatorType.XPath);}
+    public WebElement Dropdown_Partner_Status() { return findElement("//div[contains(@class,'caret')]",LocatorType.XPath);}
 
     //Completed Status Checkbox
     public WebElement Checkbox_Completed_Status() { return findElement("//label[contains(text(),'Completed')]",LocatorType.XPath);}
@@ -63,7 +63,7 @@ public class Partner_DeliveryList extends PageBase {
     public WebElement Text_Selected_Service() { return findElement("//label[contains(text(),'Service Level')]//following::p/span",LocatorType.XPath);}
 
     //OK button on delivery details page in Admin Portal
-    public WebElement Button_OK_Admin_Portal() { return findElement("",LocatorType.XPath);}
+    public WebElement Button_OK_Admin_Portal() { return findElement("btnOk",LocatorType.Id);}
 
     //Estimated Duration on Admin Portal
     public WebElement Text_Estimated_Duration() { return findElement("//td[contains(text(),'Estimated Duration')]/following-sibling::td[1]",LocatorType.XPath);}

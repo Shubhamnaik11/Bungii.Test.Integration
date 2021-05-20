@@ -5,6 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.utilityfunctions.DbUtility;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -193,9 +194,105 @@ public class BungiiSteps extends DriverBase {
             case "Driver_goa_f Android_test":
                 phone = PropertyUtility.getDataProperties("driverF.phone.number");
                 break;
+            case "Testdrivertywd_appledc_a_drva Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver200.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvb Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver201.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvc Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver202.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvd Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver203.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drve Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver204.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvf Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver205.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvg Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver206.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvh Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver207.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvi Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver208.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvj Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver209.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvk Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver210.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvl Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver211.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvm Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver212.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvn Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver213.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvo Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver214.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvp Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver215.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvq Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver216.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvr Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver217.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvs Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver218.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvt Driver":
+                phone = PropertyUtility.getDataProperties("web.valid.driver219.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webaa Testdriveraa":
+                phone = PropertyUtility.getDataProperties("web.valid.driver1000.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webkk Testdriverkk":
+                phone = PropertyUtility.getDataProperties("web.valid.driver301.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webll Testdriverll":
+                phone = PropertyUtility.getDataProperties("web.valid.driver302.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webmm Testdrivermm":
+                phone = PropertyUtility.getDataProperties("web.valid.driver303.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webnn Testdrivernn":
+                phone = PropertyUtility.getDataProperties("web.valid.driver304.phone");
+                break;
+            case "Testdrivertywd_appledc_a_weboo Testdriveroo":
+                phone = PropertyUtility.getDataProperties("web.valid.driver305.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webpp Testdriverpp":
+                phone = PropertyUtility.getDataProperties("web.valid.driver306.phone");
+                break;
+                case "Testdrivertywd_appledc_a_webcc Testdrivercc":
+                phone = PropertyUtility.getDataProperties("web.valid.driver1002.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webdd Testdriverdd":
+                phone = PropertyUtility.getDataProperties("web.valid.driver1003.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webee Testdriveree":
+                phone = PropertyUtility.getDataProperties("web.valid.driver1004.phone");
+                break;
+            case "Testdrivertywd_appledc_a_webff Testdriverff":
+                phone = PropertyUtility.getDataProperties("web.valid.driver1005.phone");
+                break;
+            default:
+                throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
+
         }
 
-        return phone;
+                return phone;
     }
 
     @And("^As a driver \"([^\"]*)\" perform below action with respective \"([^\"]*)\" Delivery$")
@@ -227,11 +324,11 @@ public class BungiiSteps extends DriverBase {
             driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
             coreServices.updateDriverLocation(driverAccessToken, geofence); //to uncomment
             coreServices.updateDriverStatus(driverAccessToken);
-
+            String driver1State = "";
             int i = 0;
             while (i < DataList.size()) {
                 try {
-                    String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
+                    driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
                     logger.detail("*** As a driver " + driverName + "(" + driverPhoneNum + ") " + bungiiType + "(" + pickupRequest + ") is being " + driver1State);
                     try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
 
@@ -306,6 +403,8 @@ public class BungiiSteps extends DriverBase {
 
                     }
                     i++;
+                    pass("As a driver, perform  action on Delivery", "As a driver "+driverName+" perform "+ driver1State+" action on "+bungiiType+" Delivery : "+ pickupRequest);
+
                 } catch (Exception e) {
 
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -663,7 +762,9 @@ public class BungiiSteps extends DriverBase {
                             }
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                            if (!driver2State.equalsIgnoreCase("Accepted")) { // new addition
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                            }
                         }
                         if (driver2State.equalsIgnoreCase("Accepted")) {
                             if (!driver1State.equalsIgnoreCase("Enroute")) {
@@ -1037,6 +1138,7 @@ public class BungiiSteps extends DriverBase {
             String customerName = dataMap.get("Customer Name").trim();
 
             cucumberContextManager.setScenarioContext("Bungii_Type",bungiiType);
+            cucumberContextManager.setScenarioContext("BUNGII_TYPE",bungiiType);
             String customerPasswordLabel = "";
             try {
                 customerPasswordLabel = dataMap.get("Customer Password").trim();
@@ -2201,6 +2303,8 @@ else
 
             if (scheduleTime.equalsIgnoreCase("1 hour ahead"))
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 60);
+            else if (scheduleTime.equalsIgnoreCase("2.25 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 135);
             else if (scheduleTime.equalsIgnoreCase("2 hour ahead"))
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 120);
             else if (scheduleTime.equalsIgnoreCase("0.75 hour ahead"))
@@ -2258,6 +2362,8 @@ else
 
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0);
             }
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
+
             pass("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ pickupRequest +" - " + scheduleTime+"] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum );
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -3212,7 +3318,10 @@ else
     public void i_wait_for_2_minutes() throws Throwable {
         Thread.sleep(120000);
     }
-
+    @When("^I wait for 1 minutes$")
+    public void i_wait_for_1_minutes() throws Throwable {
+        Thread.sleep(60000);
+    }
 
     @When("^I request \"([^\"]*)\" Bungii as a customer in \"([^\"]*)\" geofence from a partner location$")
     public void i_request_something_bungii_as_a_customer_in_something_geofence_from_a_partner_location(String bungiiType, String geofence, DataTable data) throws Throwable {
@@ -3277,6 +3386,7 @@ else
         String custAccessToken = authServices.getCustomerToken(customerPhoneCode, customerPhone, customerPassword);
 
         coreServices.cancelBungiiAsCustomer(pickupRequest, custAccessToken);
+        log("I cancel bungii as a Customer ","I canceled bungii "+pickupRequest+" as a customer  "+customerName  ,true );
 
     }
 
@@ -3288,6 +3398,8 @@ else
         String driverPhone = getDriverPhone(driverName);
         String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhone, driverPassword);
         coreServices.updateStatus(pickupRequest, driverAccessToken, 66);
+        log("I cancel bungii as a driver","I canceled bungii "+pickupRequest+" as a driver "+driverName  ,true );
+
     }
 
     @Given("^that duo schedule bungii is in progress for customer \"([^\"]*)\"$")

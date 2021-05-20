@@ -184,7 +184,7 @@ public class BungiiDetailsSteps extends DriverBase {
 
             boolean isPickUpAddressCorrect = tripInfo[0].equals(pickUpLocationLineOne) && tripInfo[1].equals(pickUpLocationLineTwo),
                     isDropAddressCorrect = tripInfo[5].equals(dropOffLocationLineOne) && tripInfo[6].equals(dropOffLocationLineTwo),
-                    isTimeCorrect = tripInfo[3].contains(tripTime.replace(",", " |")),
+                    isTimeCorrect = tripInfo[3].contains(tripTime.substring(0,13).replace(",", " |")),
                     isEstimateCorrect = tripInfo[4].equals(estimate);
 
             if (!tripNoOfDriver.toUpperCase().equals("SOLO")) {

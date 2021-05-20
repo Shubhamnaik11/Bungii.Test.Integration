@@ -17,6 +17,7 @@ public class AuthServices extends DriverBase {
     private static String CUST_LOGIN_ENDPOINT = "/api/customer/login";
     private static String DRIVER_LOGIN_ENDPOINT = "/api/driver/login";
     private static String BUSINESSPARTNER_LOGIN = "/api/businesspartner/login";
+    private static String PARTNER_SETTINGS = "/api/partner/settings";
     private static LogUtility logger = new LogUtility(AuthServices.class);
 
     /**
@@ -95,6 +96,27 @@ public class AuthServices extends DriverBase {
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response, RequestText);
         return jsonPathEvaluator.get("AccessToken");
+        //return response;
+
+    }
+
+    public String[] partnerSettings(String Auth_Token){
+        String RequestText ="API REQUEST : Partner Settings(GET) |  : for Authorization_Token:- "+ Auth_Token;
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("partner",PARTNER_SETTINGS);
+
+        //JSONObject jsonObj = new JSONObject();
+        //jsonObj.put("authorizationtoken", Auth_Token);
+        //Header header = new Header("AuthorizationToken",);
+
+        Response response = ApiHelper.givenPartnerAccess(Auth_Token).when().get(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+
+        String[] abc = {jsonPathEvaluator.get("PartnerLocationSettings.PartnerLocationConfigurationVersionRef").toString(),jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressRef[0]").toString()};
+        return abc;
         //return response;
 
     }

@@ -42,6 +42,7 @@ public class DashBoardSteps extends DriverBase {
                     break;
                 case "trips":
                     action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_Deliveries());
                     break;
                 case "customers":
                     action.click(dashBoardPage.Button_Customers());

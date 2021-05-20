@@ -34,7 +34,8 @@ public class Admin_DriverDetails extends DriverBase{
 
     @Then("^Set the Geofence dropdown to \"([^\"]*)\"$")
     public void set_the_geofence_dropdown_to_something(String strArg1) throws Throwable {
-        action.selectElementByText(admin_Driverspage.Dropdown_Geofence(), "-- All --");
+      //  action.selectElementByText(admin_Driverspage.Dropdown_Geofence(), "-- All --");
+        utility.resetGeofenceDropdown();
     }
 
     @When("^I search driver \"([^\"]*)\"$")
@@ -92,8 +93,9 @@ public class Admin_DriverDetails extends DriverBase{
                      inputdate.setHours(inputdate.getHours() + 1);
             }*/
             }
-            String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
-            XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
+
+            String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate); // removed ss
+            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]", formattedDate, status);
         }
         else
         {
@@ -144,7 +146,7 @@ public class Admin_DriverDetails extends DriverBase{
                     inputdate.setHours(inputdate.getHours()+1);
             }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate);
-            XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
+            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]", formattedDate, status);
         }
         else
         {

@@ -9,7 +9,7 @@ public class Admin_CustomerPage extends PageBase {
 
     public WebElement Menu_Customers () { return findElement("//li[@id='adminmenu-customers']/a", LocatorType.XPath); }
 
-    public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+   // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement Dropdown_TimeFrame () { return findElement("SearchForPeriod", LocatorType.Id); }
 

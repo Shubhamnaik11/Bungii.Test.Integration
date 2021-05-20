@@ -8,8 +8,7 @@ Feature: Solo Scheduled Bungii Part A
   Background:
     #When I clear all notification
     When I Switch to "customer" application on "same" devices
-
-  @failures
+    
   @regression
   @sanity
   Scenario: Verify Solo Schedule Bungii Till Completion
@@ -299,14 +298,12 @@ Feature: Solo Scheduled Bungii Part A
     And I select already scheduled bungii
     Then I Cancel selected Bungii
 
-  @ready
-  @failures
+  @regression
+    #stable
   Scenario: Verify Customer Can Cancel Solo Scheduled Bungii Also Verify Trip Details In Bungii Details
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
-    #When I am on the "LOG IN" page
-   # And I logged in Customer application using  "valid denver" user
     Given I login as "valid denver" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
@@ -369,7 +366,7 @@ Feature: Solo Scheduled Bungii Part A
       | 8888889917     |                 |
 
   @regression
-    @failures
+   #Stable
   Scenario: Verify Customer Doesnt Receives Notification When Solo Scheduled Bungii Is Requested At A Time Outside Working Hours
 
     #When I am on the "LOG IN" page
@@ -385,11 +382,8 @@ Feature: Solo Scheduled Bungii Part A
     Then user is alerted for "OUTSIDE BUISSNESS HOUR"
 
   @regression
-  @failed
+  #Stable
   Scenario:  Verify Customer Can Schedule Solo Bungii Only 5 Days Ahead Including Current Date
-    #When I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
-   # And I Select "Home" from Customer App menu
     Given I login as "valid denver" customer and on Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
@@ -449,11 +443,10 @@ Feature: Solo Scheduled Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
-  @failures
+    
   @regression
-    @testing1
-  Scenario:  Verify Customer Cannot Schedule Solo Bungii That Overlaps With Another Scheduled Trip TELET Time
+    #Stable
+  Scenario: Verify Customer Cannot Schedule Solo Bungii That Overlaps With Another Scheduled Deliveries TELET Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |

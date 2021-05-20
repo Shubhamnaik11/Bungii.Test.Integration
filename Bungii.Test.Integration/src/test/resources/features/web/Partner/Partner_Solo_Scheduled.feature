@@ -9,7 +9,8 @@
 
     @regression
     @sanity
-      Scenario: Verify that Partner can scheduled Solo bungii Trip
+      #stable
+      Scenario: Verify that Partner can schedule Solo bungii Trip
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
@@ -27,7 +28,7 @@
       And I Select "Customer Card" as Payment Method
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |
-        |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+        |VISA CARD6|12/23  |VALID POSTAL CODE|VALID CVV|
       And I click "Schedule Bungii" button on Partner Portal
       Then I should "see Done screen"
       When I click "Track Deliveries" button on Partner Portal
@@ -68,8 +69,8 @@
     @sanity
     Scenario: Verify Cancellation of Solo Scheduled Trips
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
-        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+        | Pickup_Address                          | Delivery_Address                        |Load_Unload_Time|
+        | 601 13th Street Northwest, Washington   | 234 13th Street Northeast, Washington   |30 minutes      |
       And I select Pickup Date and Pickup Time on partner portal
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |11:30 AM             |
@@ -83,7 +84,7 @@
       And I Select "Customer Card" as Payment Method
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |
-        |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+        |VISA CARD5|12/23  |VALID POSTAL CODE|VALID CVV|
       And I click "Schedule Bungii" button on Partner Portal
       Then I should "see Done screen"
       When I click "Track Deliveries" button on Partner Portal

@@ -2,30 +2,16 @@
 @scheduled
 @bungii
     # this will run in denver
-Feature: Solo Scheduled Bungii Part II
+Feature: Solo Scheduled Bungii Part D
   I want to use request Scheduling Bungii with Solo type
 
   Background:
     #When I clear all notification
     When I Switch to "customer" application on "same" devices
 
-  @ready
-  @failures
-  Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time    |
-      | denver   | Accepted     | 1.5 hour ahead |
-    And I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
-    When I Switch to "driver" application on "same" devices
-    And I wait for Minimum duration for current Bungii to be T-2 hours
-    And I click on notification for "customer" for "T-2 BEFORE SCHEDULED TRIP"
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
 
-  @FAILED2602
   @regression
+    #Stable
   Scenario:Verify If Driver Rating Is Shown To Customer On Bungii Details Page When Driver Accepts Scheduled Bungii
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -45,7 +31,7 @@ Feature: Solo Scheduled Bungii Part II
 
     #its scheduled time not initial request time
   @regression
-    @failures
+    #stable
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Solo Scheduled Trip
 
     Given that solo schedule bungii is in progress
@@ -184,13 +170,12 @@ Feature: Solo Scheduled Bungii Part II
     Then Telet time of research trip should be not be same as previous trips
 
   @regression
-  @failures
+  #stable
   Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked request (Trip 2) Then Driver Doesnt Receive Scheduled Notification Or Offline SMS
-
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | denver   | Enroute      |
-    When I clear all notification
+    #When I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
@@ -227,23 +212,35 @@ Feature: Solo Scheduled Bungii Part II
 
   @ready
   @failures
-  Scenario:Verify Driver Notification Received For 30 Mins Before Scheduled Trip
+  Scenario: Driver Notification : 30 Mins Before Scheduled Delivery
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
+      | denver   | Accepted    | 0.75 hour ahead |
 
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    When I accept selected Bungii
-    And I Switch to "customer" application on "same" devices
+    #And I Select "AVAILABLE BUNGIIS" from driver App menu
+    #And I Select Trip from available trip
+    #When I accept selected Bungii
     When I wait for Minimum duration for Bungii Start Time
     And I click on notification for "driver" for "TAP NOTIFICATION TO ACTIVATE BUNGII"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
-
+  
+  @ready
+  @failures
+  Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time    |
+      | denver   | Accepted     | 2 hour ahead |
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    #And I wait for Minimum duration for current Bungii to be T-2 hours
+    And I click on notification for "customer" for "T-2 BEFORE SCHEDULED TRIP"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+    
 

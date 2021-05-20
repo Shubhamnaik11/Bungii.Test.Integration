@@ -2,6 +2,7 @@ package com.bungii.android.utilityfunctions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.DashBoardPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.ForgotPasswordPage;
 import com.bungii.android.pages.customer.LocationPage;
@@ -15,6 +16,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.enums.Status;
+import com.bungii.web.pages.admin.Admin_DashboardPage;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.Activity;
@@ -94,6 +96,7 @@ public class GeneralUtility extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiProgressPage Page_CustomerBungiiProgress = new BungiiProgressPage();
     AccountsPage accountPage = new AccountsPage();
+    DashBoardPage admin_dashboardPage = new DashBoardPage();
 
     EmailUtility emailUtility = new EmailUtility();
     /**
@@ -2056,5 +2059,15 @@ Thread.sleep(5000);
         }
         return timezone;
 
+    }
+    public void selectGeofenceDropdown(String geofence){
+        action.click(admin_dashboardPage.List_Geofence());
+        action.clearSendKeys(admin_dashboardPage.TextBox_SearchGeofence(),geofence);
+        action.JavaScriptClick(admin_dashboardPage.Checkbox_Geofence(geofence));
+        action.click(admin_dashboardPage.Button_ApplyGeofence());
+    }
+    public void reApplyGeofenceDropdown(){
+        action.click(admin_dashboardPage.List_Geofence());
+        action.click(admin_dashboardPage.Button_ApplyGeofence());
     }
 }

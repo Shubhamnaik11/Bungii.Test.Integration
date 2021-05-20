@@ -133,7 +133,7 @@ public class EstimateSteps extends DriverBase {
             enterLoadingTime(loadTime);
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
-            clickAcceptTerms();
+            //clickAcceptTerms();
             action.swipeDown();
             strTime = enterTime(time);
 
@@ -141,7 +141,9 @@ public class EstimateSteps extends DriverBase {
             if (saveDetails) {
                 details = getEstimateDetails();
             }
-
+            action.swipeUP();
+            action.swipeUP();
+            clickAcceptTerms();
             i_request_for_bungii_using_request_bungii_button();
 
             // SAVE required values in scenario context
@@ -463,7 +465,7 @@ public class EstimateSteps extends DriverBase {
             calendar.setTime(teletTimeInUtc);
             int mnts = calendar.get(Calendar.MINUTE);
 
-            calendar.set(Calendar.MINUTE, mnts);
+            calendar.set(Calendar.MINUTE, mnts+45);
             int unroundedMinutes = calendar.get(Calendar.MINUTE);
             int mod = unroundedMinutes % 15;
             calendar.add(Calendar.MINUTE, (15 - mod));
@@ -1540,14 +1542,15 @@ public class EstimateSteps extends DriverBase {
      */
     public void clickAcceptTerms() {
         action.swipeUP();
-        estimatePage.CheckBoxOff_Terms().click();
+        if(!estimatePage.CheckBoxOff_Terms().isSelected())
+        action.click(estimatePage.CheckBoxOff_Terms());
     }
 
     /**
      * Click cancel button on Navigation bar
      */
     public void clickCancel() {
-        estimatePage.Button_Cancel().click();
+        action.click(estimatePage.Button_Cancel());
     }
 
     /**

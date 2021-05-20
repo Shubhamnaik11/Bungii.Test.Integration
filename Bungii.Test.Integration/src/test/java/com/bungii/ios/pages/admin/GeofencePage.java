@@ -25,4 +25,5 @@ public class GeofencePage extends PageBase {
     public WebElement Button_Cancel() { return findElement("btnCancel", LocatorType.Id);}
 
     public WebElement Button_Edit() { return findElement("btnEdit", LocatorType.Id); }
+
 }

@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -36,6 +37,7 @@ import static com.bungii.common.manager.ResultManager.log;
 public class Admin_BusinessUsersSteps extends DriverBase {
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_BusinessUsersSteps.class);
+    Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
@@ -51,6 +53,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Driver_DetailsPage driver_detailsPage = new Driver_DetailsPage();
     Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
     Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
+    Admin_RefundsPage admin_refundsPage = new Admin_RefundsPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -286,6 +289,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 //            case "Select Business User":
             case "Select Partner":
                  Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
+
                 action.selectElementByText(admin_BusinessUsersPage.DropDown_AddBusinessUserPayment(),Name);
                 log("I select element from Select Business User dropdown",
                         "I have selected element from Select Business User dropdown", true);
@@ -376,7 +380,6 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String CVV  = dataMap.get("CVV").trim();
         String PostalCode  = dataMap.get("Postal Code").trim();
         new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("braintree-hosted-field-postalCode")));
-        String pin = SetupManager.getDriver().getPageSource();
         action.sendKeys(admin_BusinessUsersPage.TextBox_PostalCode(),PostalCode);
 
 
@@ -833,6 +836,33 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
                 case "Close":
                     action.click(admin_potentialPartnersPage.Button_ClosePopUp());
+                    break;
+
+                case "ISSUE REFUND":
+                    action.click(admin_refundsPage.Button_IssueRefund());
+                    break;
+                case "OK":
+                    action.click(admin_refundsPage.Button_OK());
+                    break;
+
+                case "RESET":
+                    action.click(admin_refundsPage.Button_Reset());
+                    break;
+
+                case "GO BACK":
+                    action.click(admin_refundsPage.Button_GoBack());
+                    break;
+
+                case "Close icon":
+                    action.click(admin_refundsPage.Button_Close());
+                    Thread.sleep(5000);
+                    break;
+                case "Revive":
+                    String reviveLink = (String) cucumberContextManager.getScenarioContext("REVIVE_LINK");
+                    action.click(admin_TripsPage.findElement(reviveLink,PageBase.LocatorType.XPath));
+                    break;
+                case "Confirm":
+                    action.click(admin_revivalPage.Button_Confirm());
                     break;
             }
             log("I click on the "+Name+" button",

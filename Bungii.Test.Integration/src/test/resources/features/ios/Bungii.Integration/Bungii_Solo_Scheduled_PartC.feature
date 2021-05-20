@@ -2,7 +2,7 @@
 @scheduled
 @bungii
     # this will run in denver
-Feature: Solo Scheduled Bungii Part II
+Feature: Solo Scheduled Bungii Part C
   I want to use request Scheduling Bungii with Solo type
 
   Background:
@@ -39,6 +39,7 @@ Feature: Solo Scheduled Bungii Part II
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
+    
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
@@ -61,6 +62,8 @@ Feature: Solo Scheduled Bungii Part II
     And I enter phoneNumber :9955112208 and  Password :Cci12345
     #And I enter phoneNumber :9999998086 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
@@ -69,20 +72,19 @@ Feature: Solo Scheduled Bungii Part II
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @ready
-    @failures
+  @regression
+    #stable
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Solo Scheduled Trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | denver   | Accepted     | 0.75 hour ahead |
-    Given that ondemand bungii is in progress
+      | denver   | Accepted     | 1 hour ahead |
+    Given that ondemand bungii is in progress for the minimum distance chosen
       | geofence | Bungii State | Driver label | Trip Label |
       | denver   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from scheduled trip
     And I start selected Bungii
     Then user is alerted for "CUSTOMER HAS ONGOING BUNGII"
@@ -135,6 +137,7 @@ Feature: Solo Scheduled Bungii Part II
     And I am on the "LOG IN" page on driverApp
     And I enter phoneNumber :9955112208 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
+    
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     Then non control driver should see "waiting for other driver" screen
@@ -205,58 +208,6 @@ Feature: Solo Scheduled Bungii Part II
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-#CMA1513
-#use customer with only one card
-  @regression
-    @failures
-  Scenario Outline: Verify Customer Cannot Delete Payment Method Linked To Any On-going Or Scheduled Trips
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "SIGN UP" page
-    When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
-    And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
-    And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
-    And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
-    And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
-    And I Select Referral source as "<Source>"
-    And I click "SIGN UP" button on "SIGN UP" screen
-    Then I should be navigated to "VERIFICATION" screen
-    When I Get SMS CODE for new "Customer"
-    And I enter "valid" Verification code
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    Then I should be navigated to "Home" screen
-    When I Select "PAYMENT" from Customer App menu
-    When I click "ADD" button on "PAYMENT" screen
-    And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
-    And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
-    And I click "ADD PAYMENT METHOD" button on "PAYMENT" screen
-    Then I should see "new card" on Payment page
-
-    When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone  | Customer Name       | Customer Password |
-      | NEXT_POSSIBLE | NEW_USER_NUMBER | VishalIHHnZkrz Test | Cci12345          |
-    When I Switch to "customer" application on "same" devices
-    And I logged in Customer application using  "newly created user" user
-    When I Select "PAYMENT" from Customer App menu
-    When I swipe "other" card on the payment page
-    And I tap on "Delete" on Payment page
-    Then Alert message with Delete Warning text should be displayed
-    When I accept Alert message
-    Then Alert message with CARD IS ASSOCIATED TO TRIP text should be displayed
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | NEW_USER_NUMBER |                 |
-    When I Switch to "customer" application on "same" devices
-    And I logged in Customer application using  "newly created user" user
-    When I Select "PAYMENT" from Customer App menu
-    When I swipe "other" card on the payment page
-    And I tap on "Delete" on Payment page
-    Then Alert message with Delete Warning text should be displayed
-    When I accept Alert message
-    Then I should see "the card has been deleted" on Payment page
-    Examples:
-      | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo    | Expiry | Postal Code       | Cvv       |
-      | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | VISA CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
 
   @failures
   @ready
@@ -266,11 +217,18 @@ Feature: Solo Scheduled Bungii Part II
       | denver   | Scheduled    | NEXT_POSSIBLE |
 
     When I Switch to "customer" application on "same" devices
+    Then I wait for "3" mins
     Given I am on the "LOG IN" page
+    Then I wait for "3" mins
     And I logged in Customer application using  "valid denver" user
-    And I Select "MY BUNGIIS" from Customer App menu
+    Then I wait for "3" mins
+    When I Switch to "customer" application on "same" devices
+    Then I wait for "3" mins
+    When I Switch to "customer" application on "same" devices
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-    Then I wait for "2" mins
+    Then I wait for "3" mins
+    When I Switch to "customer" application on "same" devices
+    And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app

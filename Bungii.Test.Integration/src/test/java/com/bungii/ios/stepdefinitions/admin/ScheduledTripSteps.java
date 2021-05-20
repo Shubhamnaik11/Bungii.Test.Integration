@@ -113,7 +113,7 @@ public class ScheduledTripSteps extends DriverBase {
 			Thread.sleep(30000);
 			cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
 
-			log( "I should able to cancel bungii", "I was able to cancel bungii",
+			log( "I should be able to verify status and researches Bungii", "I verified status and researched Bungii",
 					true);
 
 		} catch (Exception e) {

@@ -6,6 +6,7 @@ import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.pages.admin.*;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import com.bungii.web.manager.ActionManager;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -20,8 +21,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -31,6 +35,7 @@ public class LiveTripsSteps extends DriverBase {
     LiveTripsPage liveTripsPage = new LiveTripsPage();
     ActionManager action = new ActionManager();
     DriversPage driversPage = new DriversPage();
+    GeneralUtility utility = new GeneralUtility();
 
     @Then("^I select trip from live trips$")
     public void i_select_trip_from_live_trips() throws Throwable {
@@ -40,11 +45,12 @@ public class LiveTripsSteps extends DriverBase {
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);
             action.click(liveTripsPage.Button_StartDateSort());Thread.sleep(2000);
+
             action.click(liveTripsPage.Button_RowOne());
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in viewing delivery from live deliveries",
                     true);
         }
     }
@@ -60,7 +66,7 @@ public class LiveTripsSteps extends DriverBase {
             action.click(liveTripsPage.Button_RowOne());
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in selecting trip from All deliveries",
                     true);
         }
     }
@@ -256,11 +262,29 @@ public class LiveTripsSteps extends DriverBase {
                 hours = hours + 1;
                 minutes = minutes -20;
             }
+            ZoneId fromTimeZone = ZoneId.of("Asia/Kolkata");    //Source timezone
+            ZoneId toTimeZone = ZoneId.of("America/New_York");  //Target timezone
 
+            LocalDateTime today = LocalDateTime.now();          //Current time
+
+            //Zoned date time at source timezone
+            ZonedDateTime currentISTime = today.atZone(fromTimeZone);
+
+            //Zoned date time at target timezone
+            ZonedDateTime currentETime = currentISTime.withZoneSameInstant(toTimeZone);
+
+            TimeZone.setDefault(TimeZone.getTimeZone("EST"));
+            String endDate = dtf.format(currentETime);
+            String endTime = formatter.format(hours)+":"+formatter.format(minutes);
             // ZonedDateTime zonedNZ = ZonedDateTime.of(now,ZoneId.of("5:00"));
-            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),dtf.format(now));
-            action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),formatter.format(hours)+":"+formatter.format(minutes));
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),endDate);
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),endTime);
             action.selectElementByText(liveTripsPage.Dropdown_ddlpickupEndTime(),splitedDate[3]);
+            logger.detail("Selected End Date is : "+ endDate);
+            logger.detail("Selected End Time is : "+ endTime);
+            logger.detail("Selected End Time Dropdown is : "+ splitedDate[3]);
+
+
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -319,14 +343,15 @@ public class LiveTripsSteps extends DriverBase {
             String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
             String geofenceName = getGeofence(geofence);
-            action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
-            action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+            //action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
+           // action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+            utility.selectGeofenceDropdown(geofenceName);
 
             cucumberContextManager.setScenarioContext("STATUS",status);
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
-            if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
+            if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Canceled"))) {
                 String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
 
                 int retrycount =10;
@@ -339,8 +364,10 @@ public class LiveTripsSteps extends DriverBase {
                         retry = false;
                     } catch (Exception ex) {
                         SetupManager.getDriver().navigate().refresh();
-                        action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
-                        action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+                       // action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
+                        //action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+                        utility.reApplyGeofenceDropdown();
+
                         retrycount--;
                         retry = true;
                     }
@@ -367,8 +394,9 @@ public class LiveTripsSteps extends DriverBase {
                         retry = false;
                     } catch (Exception ex) {
                         SetupManager.getDriver().navigate().refresh();
-                        action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
-                        action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+                        //action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
+                        //action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+                        utility.reApplyGeofenceDropdown();
                         retrycount--;
                         retry = true;
                     }
