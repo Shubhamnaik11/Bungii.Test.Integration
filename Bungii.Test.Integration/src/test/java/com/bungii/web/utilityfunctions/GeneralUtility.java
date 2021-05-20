@@ -979,5 +979,9 @@ public class GeneralUtility extends DriverBase {
         action.click(admin_geofencePage.List_Geofence());
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
+
+    public void closeGeofenceDropdown(){
+        action.click(admin_geofencePage.Button_ApplyGeofence());
+    }
 }
 
