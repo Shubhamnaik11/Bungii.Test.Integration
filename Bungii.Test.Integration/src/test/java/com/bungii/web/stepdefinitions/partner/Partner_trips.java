@@ -347,7 +347,7 @@ public class Partner_trips extends DriverBase {
         }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error in selecting pickup and drop off address.", true);
+            error("Step  Should be successful", "Error in viewing "+ str, true);
         }
     }
 
@@ -528,10 +528,9 @@ public class Partner_trips extends DriverBase {
                 break;
             default:break;
         }
-        testStepAssert.isEquals(expectedMessage,actualMessage,expectedMessage+" should be displayed ", expectedMessage+" is displayed ", actualMessage+" is displayed ");
-        //SetupManager.getDriver().switchTo().alert().accept();
         log("I click on Information Icon "+ Information_Icon +"and verify it text contents",
                 "I have clicked on Information Icon "+ Information_Icon +" and verified its test contents",true);
+        testStepAssert.isEquals(expectedMessage,actualMessage,expectedMessage+" should be displayed ", expectedMessage+" is displayed ", actualMessage+" is displayed ");
 
     }
 

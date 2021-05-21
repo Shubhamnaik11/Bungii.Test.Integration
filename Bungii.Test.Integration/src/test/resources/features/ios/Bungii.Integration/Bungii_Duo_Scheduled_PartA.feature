@@ -351,7 +351,7 @@ Feature: Scheduled DUO Bungii Part A
   
   @regression
  #stable
-  Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Scheduled Trip
+  Scenario: Verify TELET Is Calculated Correctly For Duo Scheduled Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |

@@ -20,14 +20,19 @@ Feature: Customer Home screen
     Then current location should be present as pickup location
     And "Invite referrals" should be present in "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
-    
-    When I select "Pick up" location from customer home screen
-    Then "Pick up" address should be displayed in text box
-    
+  
+    And I enter pickup location
+      | Driver | Pickup Location     |
+      | Solo   | cancona bus station |
     And "Drop" box header and ETA bar header should be correctly displayed
     And Clear Button should be enabled for "Pick up" box
-	
-    When I select "Drop" location from customer home screen
+  
+    And I enter drop location
+      | Driver | Drop Location  |
+      | Solo   | Margao Railway Overbridge |
+   # When I select "Pick up" location from customer home screen
+    #Then "Pick up" address should be displayed in text box
+    #When I select "Drop" location from customer home screen
     Then "Drop" address should be displayed in text box
     And Clear Button should be enabled for "Drop" box
 
@@ -94,7 +99,6 @@ Feature: Customer Home screen
     Then user is alerted for "CANCEL BUNGII"
 
   @regression
-  @T1
   Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance between Pickup And Dropoff Should Be >150 Miles)
     Given I am on Customer logged in Home page
 

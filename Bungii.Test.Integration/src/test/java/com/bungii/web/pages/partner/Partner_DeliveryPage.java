@@ -116,7 +116,7 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Schedule Bungii button
     //public WebElement Button_Schedule_Bungii() { return findElement("submit-details",LocatorType.Id);}
-    public WebElement Button_Schedule_Bungii() { return findElement("//button[@id='submit-details']//img",LocatorType.XPath);}
+    public WebElement Button_Schedule_Bungii() { return findElement("//button[@id='submit-details']",LocatorType.XPath);}
 
     //Driver and truck text in summary
     public WebElement Text_Driver_Truck() { return findElement("//label[contains(text(),'s needed:')]/following-sibling::p",LocatorType.XPath);}

@@ -178,18 +178,16 @@ Feature: Admin_Trips
       | Loading Item |
       | Driving To Dropoff |
       | Unloading Item |
-    #And I view the all Scheduled Deliveries list on the admin portal
     And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Unloading Items |
-    #And I select the scheduled trip on live delivery for customer
     And I select the scheduled trip on live delivery
     Then I view the correct Driver Est. Earnings for geofence based pricing model
     And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
         | driver1 state|
         | Bungii Completed |
-    #And I view the Trips list on the admin portal
+    And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I select the scheduled trip on All Deliveries

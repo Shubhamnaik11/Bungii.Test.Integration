@@ -148,7 +148,7 @@ public class Partner_DashboardPage extends PageBase {
     //White Glove
     public WebElement Text_White_Glove() { return findElement("//span[contains(text(),'White Glove')]",LocatorType.XPath);}
 
-    public WebElement Dropdown_ServiceLevel(String serviceLevel) { return findElement("//span[@class='service-title' and @data-name='"+serviceLevel+"']",LocatorType.XPath);}
+    public WebElement Dropdown_ServiceLevel(String serviceLevel) { return findElement("//li/div/div/span[@class='service-title' and @data-name='"+serviceLevel+"']",LocatorType.XPath);}
 
     //Close button on service level
     public WebElement Button_close() { return findElement("//span[@class='modal-close']",LocatorType.XPath);}

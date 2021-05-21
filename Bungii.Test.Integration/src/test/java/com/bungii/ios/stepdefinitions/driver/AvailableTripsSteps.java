@@ -70,7 +70,7 @@ public class AvailableTripsSteps extends DriverBase {
 		} catch (Throwable e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			fail("Step  Should be successful",
-					"Error performing step,Please check logs for more details", true);
+					"Error in viewing trips from available list. Count error", true);
 		}	}
 	/**
 	 * Select first bungii from the list

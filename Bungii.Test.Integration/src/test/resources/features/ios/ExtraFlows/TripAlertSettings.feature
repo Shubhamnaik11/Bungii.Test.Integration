@@ -26,7 +26,8 @@ Feature: Trip Alert Settings
 		
 	  And I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
 	  And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
-		
-	  Then I cancel all bungiis of customer
+		And I update trip setting of "TOMORROW" to "12:00 AM" to "11:59 PM"
+	 
+		Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
 	  | 8888889917     |                 |

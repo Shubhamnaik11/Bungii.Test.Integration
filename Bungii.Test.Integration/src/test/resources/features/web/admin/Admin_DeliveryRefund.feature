@@ -5,56 +5,7 @@ Feature: Admin_Refund
   Background:
 	Given I am logged in as Admin
 	
-@regression
-Scenario: Verify Partial Refund Calculations of Solo Scheduled Delivery
-  And I wait for 1 minutes
-When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-| Bungii Time   | Customer Phone | Customer Name                  |
-| NEXT_POSSIBLE | 9999999601     | Testcustomertywd_appleNewA Customer|
-And As a driver "Testdrivertywd_appledc_a_drvd Driver" perform below action with respective "Solo Scheduled" Delivery
-	| driver1 state|
-	|Accepted |
-	| Enroute  |
-	| Arrived |
-	| Loading Item |
-	| Driving To Dropoff |
-	| Unloading Item |
-	| Bungii Completed |
-  And I wait for 2 minutes
-  And I view the Deliveries list on the admin portal
-  And I search the delivery of Customer and view it
-  When I click on "ISSUE REFUND" button
-  Then The "Issue Refund" section should be displayed
-  When I select "Partial Refund" radio button
-  
-  And I enter "Customer Refund Amount" as "5.01" dollars
-  Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
-  And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
-  
-  When I enter "Customer Refund Amount" as "10" percentage
-  Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
-  And "Customer Refund Amount" field should be auto calculated based on Delivery Total and Driver Earnings
-  
-  When I update "Earnings" as "10.00" dollars
-  Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
-  And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
-  And Notes text area should be displayed
-  
-  When I update "Earnings" as origional value of amount
-  Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
-  And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
-  And Notes text area should not be displayed
-  
-  When I update "Earnings" as "5.01" percentage
-  Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
-  And "Customer Refund Amount" field should be auto calculated based on Delivery Total and Driver Earnings
-  And Notes text area should be displayed
-  
-  When I update "Earnings" as origional value of percentage
-  Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
-  And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
-  And Notes text area should not be displayed
-  
+
   @regression
   Scenario: Verify Partial Refund for Solo Scheduled Delivery
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -410,5 +361,54 @@ And As a driver "Testdrivertywd_appledc_a_drvd Driver" perform below action with
 	When I click on "OK" button
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
+  
+  @regression
+  Scenario: Verify Partial Refund Calculations of Solo Scheduled Delivery
+	And I wait for 1 minutes
+	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+	  | Bungii Time   | Customer Phone | Customer Name                  |
+	  | NEXT_POSSIBLE | 9999999601     | Testcustomertywd_appleNewA Customer|
+	And As a driver "Testdrivertywd_appledc_a_drvd Driver" perform below action with respective "Solo Scheduled" Delivery
+	  | driver1 state|
+	  |Accepted |
+	  | Enroute  |
+	  | Arrived |
+	  | Loading Item |
+	  | Driving To Dropoff |
+	  | Unloading Item |
+	  | Bungii Completed |
+	And I wait for 2 minutes
+	And I view the Deliveries list on the admin portal
+	And I search the delivery of Customer and view it
+	When I click on "ISSUE REFUND" button
+	Then The "Issue Refund" section should be displayed
+	When I select "Partial Refund" radio button
 	
+	And I enter "Customer Refund Amount" as "5.01" dollars
+	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
+	And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
+	
+	When I enter "Customer Refund Amount" as "10" percentage
+	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
+	And "Customer Refund Amount" field should be auto calculated based on Delivery Total and Driver Earnings
+	
+	When I update "Earnings" as "10.00" dollars
+	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
+	And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
+	And Notes text area should be displayed
+	
+	When I update "Earnings" as origional value of amount
+	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
+	And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
+	And Notes text area should not be displayed
+	
+	When I update "Earnings" as "5.01" percentage
+	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
+	And "Customer Refund Amount" field should be auto calculated based on Delivery Total and Driver Earnings
+	And Notes text area should be displayed
+	
+	When I update "Earnings" as origional value of percentage
+	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
+	And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
+	And Notes text area should not be displayed
  

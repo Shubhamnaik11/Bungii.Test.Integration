@@ -2,7 +2,8 @@
 Feature: Customer	Referral Invite page
   As a Bungii customer I Should able to share my referral code
 
-  Background: 
+  Background:
+    When I Switch to "customer" application on "same" devices
     Given I am on Customer logged in Home page
 
   @regression

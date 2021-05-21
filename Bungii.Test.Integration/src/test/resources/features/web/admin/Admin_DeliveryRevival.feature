@@ -1,5 +1,4 @@
 @web
-  @new
 Feature: Admin_Revival
   
   Background:

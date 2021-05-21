@@ -15,5 +15,8 @@ public class Admin_RevivalPage extends PageBase {
 
     public WebElement Label_PickupId() { return findElement("revive-pickup-id", LocatorType.Id); }
 
+    public WebElement Label_PickupCustomer() { return findElement("revive-pickup-customer", LocatorType.Id); }
+
+    public WebElement Label_PickupPartnerPortal() { return findElement("revive-pickup-partner-portal", LocatorType.Id); }
 
 }

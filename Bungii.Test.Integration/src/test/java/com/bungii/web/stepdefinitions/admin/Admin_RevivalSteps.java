@@ -42,8 +42,11 @@ public class Admin_RevivalSteps extends DriverBase {
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String pickupId = dbUtility.getPickupIdFromFactPickup(pickuprequest);
         String source = "Customer Delivery";
+        String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+
         testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupId(),pickupId, pickupId +" should be displayed", pickupId +" is displayed", pickupId+" is not displayed");
-        testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupOrigin(),source, source +" should be displayed", source +" is displayed", source+" is not displayed");
+        //testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupOrigin(),source, source +" should be displayed", source +" is displayed", source+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupCustomer(),customerName, customerName +" should be displayed", customerName +" is displayed", customerName+" is not displayed");
 
     }
     @When("^I click on \"([^\"]*)\" button on Revival Popup$")

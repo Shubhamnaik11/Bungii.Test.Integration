@@ -3,6 +3,7 @@ package com.bungii.web.stepdefinitions.admin;
 import com.bungii.SetupManager;
 import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -71,7 +72,6 @@ public class Admin_TripsSteps extends DriverBase {
         action.selectElementByText(admin_TripsPage.Dropdown_SearchForPeriod(), "The Beginning of Time");
         log("I view the Deliveries list on the admin portal",
                 "I viewed the Deliveries list on the admin portal", true);
-
     }
 
 
@@ -501,7 +501,7 @@ public class Admin_TripsSteps extends DriverBase {
         }
         catch (Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Delivery should get selected.", "Delivery should not get selected.",
+            error("Delivery should get selected.", "Delivery is not selected ",
                     true);
         }
     }
@@ -770,10 +770,13 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_view_the_delivery_details_in_admin() throws Throwable {
         try{
             SetupManager.getDriver().navigate().refresh();
+            Thread.sleep(5000);
             String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-            String xpath = String.format("//td[contains(.,'')]/following-sibling::td[contains(.,'%s')]/preceding::td[2]", customer);
+            String xpath = String.format("//td[contains(.,'%s')]/preceding::td[2]", customer);
             //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
-            action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+            action.click(admin_EditScheduledBungiiPage.findElement(xpath,PageBase.LocatorType.XPath));
+            log("I view the delivery details in admin portal",
+                    "I viewed delivery details in admin portal", false);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

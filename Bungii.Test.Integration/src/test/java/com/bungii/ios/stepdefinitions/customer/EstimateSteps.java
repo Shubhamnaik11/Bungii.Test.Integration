@@ -1542,8 +1542,14 @@ public class EstimateSteps extends DriverBase {
      */
     public void clickAcceptTerms() {
         action.swipeUP();
-        if(!estimatePage.CheckBoxOff_Terms().isSelected())
-        action.click(estimatePage.CheckBoxOff_Terms());
+        if(!estimatePage.CheckBoxOff_Terms().isSelected()) {
+            action.click(estimatePage.CheckBoxOff_Terms());
+            logger.detail("Checkbox Temrs Selected : " + estimatePage.CheckBoxOff_Terms().isSelected());
+        }
+        else
+        {
+            logger.detail("Checkbox Terms Selected [Existing] : " + estimatePage.CheckBoxOff_Terms().isSelected());
+        }
     }
 
     /**
