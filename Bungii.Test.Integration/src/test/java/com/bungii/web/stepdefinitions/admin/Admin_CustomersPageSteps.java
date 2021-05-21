@@ -284,6 +284,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                 break;
             case "Email":
                 action.click(admin_customerPage.Icon_EditEmail());
+                Thread.sleep(1000);
                 action.clearSendKeys(admin_customerPage.TextBox_Email(),value);
                 action.click(admin_customerPage.Button_SaveEmail());
                 action.clearSendKeys(admin_customerPage.TextBox_Comment(),"updated to "+ value);
