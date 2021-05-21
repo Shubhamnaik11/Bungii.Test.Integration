@@ -118,8 +118,10 @@ public class ActionManager {
     public String getValueAttribute(WebElement element) {
         String value = "";
         try {
-            value = element.getAttribute("value");
-            logger.detail("GET | Element -> " + getElementDetails(element) + " value is " + value);
+            if(element!= null) {
+                value = element.getAttribute("value");
+                logger.detail("GET | Element -> " + getElementDetails(element) + " value is " + value);
+            }
 
         }
            catch(Exception ex)
@@ -781,9 +783,13 @@ try {
         //    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
         //   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         try {
-            boolean isdisplayed = element.isDisplayed();
-            logger.detail("GET | Element -> "+ getElementDetails(element)+" is displayed : "+isdisplayed);
-            return isdisplayed;
+            if(element!= null) {
+                boolean isdisplayed = element.isDisplayed();
+                logger.detail("GET | Element -> " + getElementDetails(element) + " is displayed : " + isdisplayed);
+                return isdisplayed;
+            }
+            else
+                return false;
         } catch (Exception Ex) {
             return false;
         }

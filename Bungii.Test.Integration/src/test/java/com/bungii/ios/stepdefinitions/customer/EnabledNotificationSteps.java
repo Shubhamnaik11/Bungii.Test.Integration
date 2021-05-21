@@ -75,18 +75,28 @@ public class EnabledNotificationSteps extends DriverBase {
             String pageName = utility.getPageHeader();
             if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                 action.click(enableNotificationPage.Button_Sure());
+                logger.detail("On Notifications Popup");
                 action.clickAlertButton("Allow");
                 Thread.sleep(15000);
             }
            // Thread.sleep(6000);
-            if(action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+            if(action.isAlertPresent())
+            {
+                action.clickAlertButton("Always Allow");
+            }
+            else
+            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
+                logger.detail("On Locations Popup");
+
                 Thread.sleep(3000);
                 action.clickAlertButton("Always Allow");
                 //pageName = utility.getPageHeader();
             }
 
         } catch (Exception e) {
+           // action.clickAlertButton("Always Allow");
+           // action.clickAlertButton("Always Allow");
 
         }
 

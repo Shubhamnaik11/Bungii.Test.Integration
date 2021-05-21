@@ -190,19 +190,20 @@ public class ActionManager {
                         true);
 
             }
+            logger.detail("Click on element by locator" + getElementDetails(element));
             }
 
          catch(WebDriverException ex) {
                         //Chrome Retry if unable to click because of overlapping (Chrome NativeEvents is always on (Clicks via Co-ordinates))
                         JavaScriptClick(element);
             }
-        logger.detail("Click on element by locator" + getElementDetails(element));
+
     }
     public void JavaScriptClick(WebElement element) {
         try{
             JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
             executor.executeScript("arguments[0].click();", element);
-        logger.detail(" JS Click on element by locator" + getElementDetails(element));
+        logger.detail("JS Click on element by locator" + getElementDetails(element));
 
     }  catch(Exception ex)
     {

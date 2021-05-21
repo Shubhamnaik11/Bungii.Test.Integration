@@ -167,9 +167,8 @@ public class CommonStepsDriver extends DriverBase {
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            e.printStackTrace();
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in navigating to screen : "+ screen, true);
         }
     }
 
