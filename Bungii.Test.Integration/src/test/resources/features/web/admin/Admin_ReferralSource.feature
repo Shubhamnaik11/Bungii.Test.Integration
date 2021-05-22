@@ -37,7 +37,7 @@ Feature: Admin_ReferralSource
     Then the "Referral Source" list should be sorted by "Descending" order of "Percentage of total(Trips Completed)"
 
   @knownissue
-  Scenario: Verify Field Validations On Referral Source Grid
+  Scenario: Verify Field Validations On Referral Source Grid [CORE-1934]
     When I click on "Search" button with entering "From" and "To" date
     Then the "From date is required" message is displayed beside "From Date" field
     And the "To date is required" message is displayed beside "To Date" field

@@ -40,12 +40,12 @@ public class CustomersSteps extends DriverBase {
     @Then("^I verify the trip count$")
     public void i_verify_the_trip_count() throws Throwable {
         try {
-            String firstName= (String) cucumberContextManager.getScenarioContext("FIRST_NAME");
+            String name= (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM dd, yyyy");
             //LocalDateTime now = LocalDateTime.now();
             String now="Today";
             int count=1;
-            String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')][1]",firstName,now,count);
+            String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td[contains(.,'%s')][1]",name,now,count);
             testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)), Xpath + "Element should be displayed", Xpath + "Element is displayed", Xpath + "Element is not displayed");
             action.click(dashBoardPage.Button_Customers());
         }

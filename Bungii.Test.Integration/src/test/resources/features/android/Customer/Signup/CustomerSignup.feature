@@ -50,12 +50,11 @@ Feature: CustomerSignup
     Then the new user should see "validations for all fields"
 
   @email
-  @ready
+  @regression
   Scenario: Verify Customer Signup With Valid Promo Code
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I enter "ValidPercent" promo code on Signup Page
-  #  And I enter "Referral" promo code on Signup Page
     And I tap on the "Sign Up" button on Signup Page
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
@@ -106,84 +105,43 @@ Feature: CustomerSignup
     Then The "This code is only available for your first Bungii." is displayed
     When I click on "i" icon
     Then The "Info" is displayed
-    
-  @knownissue
-  Scenario Outline: Verify Trip completed Count On Admin Portal Is Updated When Customer Completes A Bungii.
-      When I Switch to "driver" application on "same" devices
-      And I am on the LOG IN page on driver app
-      And I am logged in as "valid" driver
-      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   
+  
+  @regression
+  #stable
+  Scenario: Verify Trip completed Count On Admin Portal Is Updated When Customer Completes A Bungii
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 9999999215     | Testcustomertywd_appleNewMB Customer | cci12345          |
+    
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "HOME" from driver App menu
-      And I Switch to "customer" application on "same" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Trip from driver available trip
+    And I tap on "ACCEPT" on driver Trip details Page
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
     
-      When I enter "unique" customer phone number on Signup Page
-      And I enter "valid" data in mandatory fields on Signup Page
-      And I enter "ValidPercent" promo code on Signup Page
-      And I tap on the "Sign Up" button on Signup Page
-      And I enter "valid" Verification code
-      And I tap on the "Verification Continue" Link
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    Then The user should be logged in
+    And Bungii Driver "Start Schedule Bungii" request
+    Then Bungii driver should see "Enroute screen"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    Then Bungii Driver "completes Bungii"
+    And I Select "HOME" from driver App menu
     
-      #creates bungii
-      And I enter "kansas pickup and dropoff locations" on Bungii estimate
-      And I tap on "Get Estimate button" on Bungii estimate
-      And I add "1" photos to the Bungii
-      And I add loading/unloading time of "30 mins"
-      And I select Bungii Time as "next possible scheduled"
-      And I tap on "Request Bungii" on Bungii estimate
-      And I click on "OK" button
-
-      #add new payment method
-      And I get the number of cards present
-      And I tap on "Add" on Payment page
-      And I tap on "Credit or Debit Card" on Payment page
-      And I enter "<Card Detail>" on Card Details page
-      And I enter "<Card Expiry>" on Card Details page
-      And I enter "<CVV>" on Card Details page
-      And I enter "<Postal Code>" on Card Details page
-      And I tap on "Add Card" on Payment page
-      Then I should see "the card has been added" on Payment page
-      And I tap on "Set as default payment mode" on Payment page
-      And I tap on "Save" on Payment page
-
-      And I tap on "Request Bungii" on Bungii estimate
-      And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-      And I check if the customer is on success screen
-      And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-
-      And I Switch to "driver" application on "same" devices
-      And I Select "AVAILABLE BUNGIIS" from driver App menu
-
-      And I Select Trip from driver available trip
-      And I tap on "ACCEPT" on driver Trip details Page
-      And I Select "SCHEDULED BUNGIIS" from driver App menu
-      And I Select Trip from driver scheduled trip
-
-      And Bungii Driver "Start Schedule Bungii" request
-      Then Bungii driver should see "Enroute screen"
-      And Bungii Driver "slides to the next state"
-      And Bungii Driver "slides to the next state"
-      And Bungii Driver "slides to the next state"
-      And Bungii Driver "slides to the next state"
-      And Bungii Driver "slides to the next state"
-
-      And I Switch to "driver" application on "same" devices
-      Then Bungii Driver "completes Bungii"
-      And I Select "HOME" from driver App menu
-
-      When I open new "Chrome" browser for "ADMIN_PORTAL"
-      And I navigate to admin portal
-      And I log in to admin portal
-      And I Select "Customers" from admin sidebar
-      And I Search for customer
-      Then I verify the trip count
-
-    Examples:
-      | Scenario       | Card Detail                | Card Expiry       |CVV|Postal Code|
-      | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
+    When I open new "Chrome" browser for "ADMIN_PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Customers" from admin sidebar
+    And I Search for customer
+    Then I verify the trip count
 
   #used one off
   #Know issue, no alert

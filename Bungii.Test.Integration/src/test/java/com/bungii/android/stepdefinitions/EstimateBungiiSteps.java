@@ -494,6 +494,12 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerF.phone.number"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerF.phone.name"));
                     break;
+                case "Testcustomertywd_appleNewMB Customer":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerMB.phone.number"), PropertyUtility.getDataProperties("customerMB.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerMB.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerMB.phone.name"));
+                    break;
+
                 case "valid goa customer":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone"),
                     PropertyUtility.getDataProperties("goa.customer.password"));

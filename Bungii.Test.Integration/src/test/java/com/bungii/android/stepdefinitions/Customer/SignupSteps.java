@@ -74,6 +74,7 @@ public class SignupSteps extends DriverBase {
                     action.click(Page_Signup.TextField_Email());
                     String emailAddress="bungiiauto+"+RandomGeneratorUtility.getData("{RANDOM_STRING}",4)+"@gmail.com";
                     cucumberContextManager.setScenarioContext("NEW_USER_EMAIL_ADDRESS",emailAddress);
+                    cucumberContextManager.setScenarioContext("NEW_USER_FIRST_NAME",firstName);
                     action.enterText(Page_Signup.TextField_Email(),emailAddress);
                     action.hideKeyboard();
                     //    action.clearsendKeys(Page_Signup.TextField_Email(), /*PropertyUtility.getDataProperties("customer.email")*/"@cc.com");
@@ -198,6 +199,7 @@ public class SignupSteps extends DriverBase {
     @And("^the new user should see \"([^\"]*)\"$")
     public void the_new_user_should_see_something(String strArg1) throws Throwable {
         try {
+            String actual = "";
         switch (strArg1) {
             case "sign up button disabled":
                 testStepVerify.isElementNotEnabled(Page_Signup.Button_Signup(true), "Signup button should be disabled", "Signup button is disabled", "Signup button is enabled");
@@ -210,18 +212,21 @@ public class SignupSteps extends DriverBase {
                 break;
 
             case "Signup page":
-                testStepVerify.isElementDisplayed(Page_Signup.Button_Signup(), "Signup button should be displayed", "Signup button is displayed ", "Signup button is not displayed");
-                testStepVerify.isTrue(utility.isCorrectPage("Signup"), "Signup should be displayed", "Signup page is displayed", "Signup page is not displayed");
+                testStepAssert.isElementDisplayed(Page_Signup.Button_Signup(), "Signup button should be displayed", "Signup button is displayed ", "Signup button is not displayed");
+                testStepAssert.isTrue(utility.isCorrectPage("Signup"), "Signup should be displayed", "Signup page is displayed", "Signup page is not displayed");
                 break;
 
             case "snackbar validation message for existing user":
                 testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.signup.existinguser"), "Warning message for Existing message should be displayed", "Snackbar message is displayed", "Snackbar message is not displayed");
                 break;
             case "Inactive Promo Code message":
-                testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message for Inactive Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
+                 actual = utility.getSignupAlertMessage();
+                testStepAssert.isEquals(actual, PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message for Inactive Promo Code should be displayed", "Alert message is displayed : " + PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message is not displayed : " + PropertyUtility.getMessage("customer.signup.inactivepromo.android") + " | Actual : "+ actual);
+                action.click(Page_Signup.Button_Yes());
                 break;
             case "Invalid Promo Code message":
-                testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.promos.invalid"), "Alert message for Invalid Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
+                 actual = utility.getSignupAlertMessage();
+                testStepAssert.isEquals(actual, PropertyUtility.getMessage("customer.promos.invalid"), "Alert message for Invalid Promo Code should be displayed", "Alert message is displayed : " + PropertyUtility.getMessage("customer.promos.invalid"), "Alert message is not displayed : " + PropertyUtility.getMessage("customer.promos.invalid") + " | Actual : "+ actual);
                 action.click(Page_Signup.Button_Yes());
 
                 break;

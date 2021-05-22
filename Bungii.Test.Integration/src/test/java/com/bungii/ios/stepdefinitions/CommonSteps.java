@@ -1128,12 +1128,18 @@ public class CommonSteps extends DriverBase {
 
     // TODO change catch to error
     @Then("^Alert message with (.+) text should be displayed$")
-    public void alert_message_with_text_should_be_displayed(String message) {
+    public void alert_message_with_text_should_be_displayed(String message) throws Exception {
+        String actualMessage = "";
         try {
             Thread.sleep(4000);
             action.waitForAlert();
-            String actualMessage = action.getAlertMessage();
+             actualMessage = action.getAlertMessage();
             if(actualMessage.equalsIgnoreCase("")){Thread.sleep(30000);actualMessage = action.getAlertMessage();}
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            fail("Step  Should be successful",
+                    "Alert not displayed", true);
+        }
             String expectedMessage;
             switch (message.toUpperCase()) {
                 case "INVALID_PASSWORD":
@@ -1185,18 +1191,14 @@ public class CommonSteps extends DriverBase {
                     expectedMessage=PropertyUtility.getMessage("customer.signup.inactivepromo.android");
                     break;
                 default:
-                    throw new Exception(" UNIMPLEMENTED STEP");
+                    throw new Exception("UNIMPLEMENTED STEP");
             }
             testStepAssert.isEquals(actualMessage, expectedMessage,
                     "Alert with text" + expectedMessage + "should be displayed",
                     "Alert with text ," + expectedMessage + " should be displayed",
                     "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
                             + expectedMessage);
-        } catch (Throwable e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            fail("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
-        }
+
     }
 
     @Then("^Alert should have \"([^\"]*)\" button$")
@@ -1980,6 +1982,11 @@ public class CommonSteps extends DriverBase {
         try {
             String inputValue = RandomGeneratorUtility.getData(value, 10);
 
+            if (value.equalsIgnoreCase("{RANDOM_EMAIL}")) {
+                String inputValue1 = RandomGeneratorUtility.getData(value, 5);
+                inputValue = "bungiiauto+"+inputValue1+"@gmail.com";
+            }
+            else
             if (!value.equalsIgnoreCase("{RANDOM_PHONE_NUM}")) {
                 inputValue = value.equalsIgnoreCase("{EMPTY}") ? "     " : inputValue;
                 inputValue = value.equalsIgnoreCase("{BLANK}") ? "" : inputValue;

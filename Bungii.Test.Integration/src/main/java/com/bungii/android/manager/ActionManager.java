@@ -205,7 +205,7 @@ public class ActionManager {
     public void sendKeys(WebElement element, String text) {
         try{
         element.sendKeys(text);
-        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+        //AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
         hideKeyboard();
         logger.detail("ACTION | Send  " + text + " in element -> " + getElementDetails(element));
         }

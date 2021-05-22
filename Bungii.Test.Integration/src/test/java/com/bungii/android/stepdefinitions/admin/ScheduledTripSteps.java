@@ -349,7 +349,7 @@ public class ScheduledTripSteps extends DriverBase {
 			//String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
 
-			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
 			action.click(scheduledTripsPage.Button_Search());
 			Thread.sleep(5000);
 			//On admin panel CST time use to show
@@ -357,7 +357,6 @@ public class ScheduledTripSteps extends DriverBase {
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
 			//tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
-
 
 			int rowNumber = getTripRowNumber(tripDetails);
 			// it takes max 2.5 mins to appear
@@ -1014,17 +1013,8 @@ public class ScheduledTripSteps extends DriverBase {
 		try{
 		Thread.sleep(1000);
 		action.click(scheduledTripsPage.Button_ClosePopUp());
-		//	SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=True");
-			//SetupManager.getDriver().navigate().refresh();
-			//Thread.sleep(120000);
-			//SetupManager.getDriver().navigate().refresh();
-			//SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
-
-			//action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")),30L);
-		//scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")).click();
 
 		String expectedTime=(String) cucumberContextManager.getScenarioContext("NEW_TIME");
-
 			String actualTime=action.getText(scheduledTripsPage.Label_ChangedScheduledTime());
 
 		System.out.println("Expected Time: "+expectedTime);
@@ -1043,7 +1033,30 @@ public class ScheduledTripSteps extends DriverBase {
 					"Error performing step,Please check logs for more details", true);
 		}
 	}
+	@Then("^I should see updated data time$")
+	public void i_verify_that_updateddate_is_saved() throws Throwable {
+		try{
+			Thread.sleep(1000);
 
+			String expectedTime=(String) cucumberContextManager.getScenarioContext("NEW_TIME");
+			String actualTime=action.getText(scheduledTripsPage.Label_ChangedScheduledTime());
+
+			System.out.println("Expected Time: "+expectedTime);
+			System.out.println("Actual Time: "+actualTime);
+
+			DateFormat formater = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+			Date date = formater.parse(expectedTime);
+			DateFormat format2 = new SimpleDateFormat("H:mm", Locale.ENGLISH);
+			expectedTime = format2.format(date);
+
+			testStepAssert.isTrue(actualTime.contains(expectedTime),"Expected time is displayed.", "Expected time is not displayed :" + expectedTime+" instead "+ actualTime +" is displayed");
+
+		}catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
 	@Then("^I verify that time change is saved correctly$")
 	public void i_verify_that_time_change_is_saved_correctly() throws Throwable {
 		try{

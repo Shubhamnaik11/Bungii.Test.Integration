@@ -7,7 +7,7 @@ Feature: Admin_BusinessUsers
     Then I should be directed to "Customers Page"
 
   @knownissue
-  Scenario: Verify Customer List - Sort ASC DESC
+  Scenario: Verify Customer List - Sort ASC DESC [CORE-1927]
     When I click on "Name" header for "Ascending" order in the "Customer List" table
     Then The column "Name" data gets sorted in "Ascending" order in the "Customer List" table
     When I click on "Name" header for "Descending" order in the "Customer List" table

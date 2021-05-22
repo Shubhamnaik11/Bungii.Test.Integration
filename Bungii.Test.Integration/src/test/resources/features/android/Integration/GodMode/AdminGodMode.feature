@@ -190,9 +190,9 @@
           | 9393939393      |                 |
   
   
-      @ready
+      @regression
+      #stable
         #web
-        @test
       Scenario: Verify if admin can update date_time for a solo trip for which no driver has accepted
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time  |
@@ -221,7 +221,8 @@
   
         And I Select "Scheduled Trip" from admin sidebar
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
-        Then I verify that time change is saved
+		And I Select "Research Driver" option
+        Then I should see updated data time
     
         Then I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
@@ -260,7 +261,6 @@
           | 9393939393      |                 |
   
       @regression
-      @test
         #web
       Scenario: Verify if admin can update date_time for a solo trip for which a driver has accepted and Customer has no conflicting trips at the new time
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"

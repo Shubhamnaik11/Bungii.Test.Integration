@@ -1162,7 +1162,7 @@ public class CommonSteps extends DriverBase {
         String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.welcome.from.address"), (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"), emailSubject);
         List<String> tripDetailsLinks=extractUrls(emailBody);
         utility.getCustomerSignupTemplate((String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"));
-        if (emailBody == null) {
+        if (emailBody == "") {
             testStepAssert.isFail("Email : " + emailSubject + " not received");
         }
         else{

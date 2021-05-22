@@ -752,7 +752,7 @@ public class BungiiSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in fetching correct details on "+ arg0 + "app", true);
         }
     }
 
@@ -778,7 +778,7 @@ public class BungiiSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in fetching correct details on "+ strArg1 + "app", true);
         }
     }
 

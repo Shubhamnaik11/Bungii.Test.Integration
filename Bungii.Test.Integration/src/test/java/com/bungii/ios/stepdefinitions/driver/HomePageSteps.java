@@ -382,7 +382,7 @@ public class HomePageSteps extends DriverBase {
             Thread.sleep(5000);
             switch (strArg1) {
                 case "FAQ":
-                    testStepAssert.isElementNameEquals(homepage.Text_CommonQuestions(), "COMMON QUESTIONS", "COMMON QUESTIONS is displayed", "COMMON QUESTIONS is displayed", "COMMON QUESTIONS is not displayed");
+                    testStepAssert.isElementNameEquals(homepage.Text_CommonQuestions(), "Common Questions", "COMMON QUESTIONS is displayed", "COMMON QUESTIONS is displayed", "COMMON QUESTIONS is not displayed");
                     break;
 
                 case "LEADERBOARD":

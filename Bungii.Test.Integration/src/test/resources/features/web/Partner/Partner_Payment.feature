@@ -13,9 +13,9 @@
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Next Possible Pickup Date and Pickup Time
-        |Trip_Time            |
-        |NEXT_POSSIBLE        |
+      And I select Pickup Date and Pickup Time on partner portal
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |09:30 AM             |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
@@ -38,9 +38,9 @@
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Next Possible Pickup Date and Pickup Time
-        |Trip_Time            |
-        |NEXT_POSSIBLE        |
+      And I select Pickup Date and Pickup Time on partner portal
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |09:30 AM             |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
@@ -60,9 +60,9 @@
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Next Possible Pickup Date and Pickup Time
-        |Trip_Time            |
-        |NEXT_POSSIBLE        |
+      And I select Pickup Date and Pickup Time on partner portal
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |09:30 AM             |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
@@ -82,9 +82,9 @@
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Next Possible Pickup Date and Pickup Time
-        |Trip_Time            |
-        |NEXT_POSSIBLE        |
+      And I select Pickup Date and Pickup Time on partner portal
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |09:30 AM             |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
@@ -105,9 +105,9 @@
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Next Possible Pickup Date and Pickup Time
-        |Trip_Time            |
-        |NEXT_POSSIBLE        |
+      And I select Pickup Date and Pickup Time on partner portal
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |09:30 AM             |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
@@ -123,13 +123,13 @@
       And I should logout from Partner Portal
 
     @knownissue
-    Scenario: Verify Partner Pay Payment method for Bungii Trip
+    Scenario: Verify Partner Pay Payment method for Bungii Trip {Partner Pay Setup Issue]
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Next Possible Pickup Date and Pickup Time
-        |Trip_Time            |
-        |NEXT_POSSIBLE        |
+      And I select Pickup Date and Pickup Time on partner portal
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |09:30 AM             |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
@@ -144,14 +144,14 @@
       Then I should "see the trip in the Delivery List"
       And I should logout from Partner Portal
   
-    @fraud
+    @regression
     Scenario: Verify Customer Payment method with Fraud Card Number for Bungii trip
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Next Possible Pickup Date and Pickup Time
-        |Trip_Time            |
-        |NEXT_POSSIBLE        |
+      And I select Pickup Date and Pickup Time on partner portal
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |09:30 AM             |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal

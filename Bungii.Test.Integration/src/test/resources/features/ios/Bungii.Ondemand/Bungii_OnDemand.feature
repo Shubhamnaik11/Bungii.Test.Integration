@@ -248,7 +248,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
   @knownissue
     @failures
-  Scenario: Verify Poor rating email for Driver For Solo Trip
+    @reg
+  Scenario: Email : Verify Poor rating email for Driver For Solo Trip
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | UNLOADING ITEM      |
