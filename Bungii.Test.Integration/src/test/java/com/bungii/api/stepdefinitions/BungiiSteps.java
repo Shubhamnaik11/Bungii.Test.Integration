@@ -3331,7 +3331,7 @@ else
             String customer = dataMap.get("Customer Phone").trim();
             String customerName = dataMap.get("Customer Name").trim();
 
-            int numberOfDriver = bungiiType.trim().equalsIgnoreCase("duo scheduled") ? 2 : 1;
+            int numberOfDriver = bungiiType.trim().equalsIgnoreCase("duo") ? 2 : 1;
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
 
             custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");

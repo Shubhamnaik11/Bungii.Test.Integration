@@ -9,6 +9,7 @@ Feature: Scheduled DUO Bungii
   When I Switch to "customer" application on "same" devices
 	
   @sanity
+    #Stable
   Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |

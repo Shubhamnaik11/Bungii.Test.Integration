@@ -55,6 +55,21 @@ public class LiveTripsSteps extends DriverBase {
         }
     }
 
+    @Then("^I select trip from all deliveries$")
+    public void i_select_trip_from_all_deliveries() throws Throwable {
+        try {
+            //Thread.sleep(120000);
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+            action.click(liveTripsPage.Button_Search());
+
+            action.click(liveTripsPage.Button_RowOneAll());
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in selecting trip from All deliveries",
+                    true);
+        }
+    }
     @Then("^I select trip from trips$")
     public void i_select_trip_from_trips() throws Throwable {
         try {

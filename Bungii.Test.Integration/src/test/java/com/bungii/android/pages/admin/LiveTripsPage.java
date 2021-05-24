@@ -11,6 +11,8 @@ public class LiveTripsPage extends PageBase {
     public WebElement Button_StartDateSort(){return  findElement("span-StartDate", PageBase.LocatorType.Id);}
     public WebElement Button_ManuallyEndBungii(boolean ...ignoreException){return  findElement("btnEndPickup", PageBase.LocatorType.Id,ignoreException);}
     public WebElement Button_RowOne(){return  findElement("//tr[1]/td/a", LocatorType.XPath);}
+    public WebElement Button_RowOneAll(){return  findElement("//tr[1]/td[3]", LocatorType.XPath);}
+
     public WebElement Text_TripStatus(){return  findElement("//td[text()='Status']/following-sibling::td", LocatorType.XPath);}
     public WebElement Text_Code(){return  findElement("//td[text()='Code']/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Text_CodeType(){return  findElement("//td[text()='Code Type']/following-sibling::td/strong", LocatorType.XPath);}

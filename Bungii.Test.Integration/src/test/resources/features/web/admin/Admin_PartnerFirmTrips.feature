@@ -12,12 +12,9 @@ Feature: Admin_PartnerFirmTrips
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999355 | Testcustomertywd_appleWashA Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundara" perform below action with respective "Duo Scheduled" Delivery
-      | driver1 state|
-      |Accepted |
-    And As a driver "Testdrivertywd_appledc_a_web Sundarb" perform below action with respective "Duo Scheduled" Delivery
-      | driver1 state|
-      |Accepted |
+    When As a driver "Testdrivertywd_appledc_a_web Sundara" and "Testdrivertywd_appledc_a_web Sundarb" perform below action with respective "Duo Scheduled" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status

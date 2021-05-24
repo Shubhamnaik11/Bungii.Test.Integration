@@ -82,8 +82,10 @@ Feature: Solo Scheduled Bungii Part C
       | geofence | Bungii State | Driver label | Trip Label |
       | denver   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices
+    And I wait for 2 minutes
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
+    And I wait for 2 minutes
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii

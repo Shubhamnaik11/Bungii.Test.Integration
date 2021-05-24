@@ -11,7 +11,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence With Promocode
 @failed
 @ready
 Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
-And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+  When I Switch to "driver" application on "same" devices
+  And I login as "valid nashville" driver on "same" device and make driver status as "Online"
 
 When I Switch to "customer" application on "same" devices
 Given I am on the "LOG IN" page
@@ -65,7 +66,7 @@ And I open new "Chrome" browser for "ADMIN PORTAL"
 And I navigate to admin portal
 And I log in to admin portal
 And I Select "trips" from admin sidebar
-And I select trip from trips
+  And I select trip from all deliveries
 Then On admin trip details page "<Expected value in admin>" should be displayed
 Examples:
 | Scenario         | Promo Code        | User                       | Expected Details           | Expected value in admin |
@@ -81,7 +82,8 @@ Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code 
     #And I am logged in as "valid nashville" driver
     #And I Select "HOME" from driver App menu
     #Then I change driver status to "Online"
-And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+  When I Switch to "driver" application on "same" devices
+  And I login as "valid nashville" driver on "same" device and make driver status as "Online"
 
 When I Switch to "customer" application on "same" devices
 Given I am on the "LOG IN" page

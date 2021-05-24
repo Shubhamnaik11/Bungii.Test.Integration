@@ -222,7 +222,7 @@ Feature: Scheduled DUO Bungii
     And I log in to admin portal
     And I Select "trips" from admin sidebar
     And I select "The Beginning of Time" from search peroid
-    And I select trip from trips
+    And I select trip from all deliveries
     Then On admin trip details page "promo" should be displayed
     
     Examples:

@@ -248,7 +248,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
   @knownissue
     @failures
-    @reg
+    #stable
   Scenario: Email : Verify Poor rating email for Driver For Solo Trip
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -381,13 +381,6 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I Select "ACCOUNT > PROMOS" from Customer App menu
     And I should able to see expected promo code in available promo code
     Then I should see "first time code subtext" on Promos page
-    When I Select "PAYMENT" from Customer App menu
-    Then I should be navigated to "PAYMENT" screen
-    When I click "Add-Button" button on "PAYMENT" screen
-    And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
-    And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
-    And I click "ADD PAYMENT METHOD" button on "PAYMENT" screen
-    Then I should see "new card" on Payment page
     When I Select "ACCOUNT > LOGOUT" from Customer App menu
     Then I save customer phone and referral code in feature context
 

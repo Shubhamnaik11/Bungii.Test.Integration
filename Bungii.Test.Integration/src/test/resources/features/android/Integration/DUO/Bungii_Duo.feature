@@ -272,7 +272,7 @@ Feature: Scheduled Duo Bungiis
 	Then I wait for "2" mins
 	And I open Admin portal and navigate to "Deliveries" page
 	And I select "The Beginning of Time" from search peroid
-	And I select trip from trips
+	And I select trip from all deliveries
 	Then On admin trip details page "promo" should be displayed
 	
 	Examples:
