@@ -58,7 +58,7 @@ public class DbUtility extends DbContextManager {
         String estTime = "";
         String queryString = "SELECT EstTime FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
         estTime = getDataFromMySqlServer(queryString);
-        logger.detail("For customer reference is " + custRef + " Extimate time is " + estTime);
+        logger.detail("For customer reference " + custRef + " Estimate time is " + estTime);
         return estTime;
     }
 
@@ -66,7 +66,7 @@ public class DbUtility extends DbContextManager {
         String estTime = "";
         String queryString = "SELECT EstDistance FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
         estTime = getDataFromMySqlServer(queryString);
-        logger.detail("For customer reference is " + custRef + " Extimate time is " + estTime);
+        logger.detail("For customer reference is " + custRef + " Estimate time is " + estTime);
         return estTime;
     }
 
@@ -75,7 +75,7 @@ public class DbUtility extends DbContextManager {
         String queryString = "SELECT PickupID FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
         PickupID = getDataFromMySqlServer(queryString);
 
-        logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
+        logger.detail("For customer reference is " + custRef + " Estimate time is " + PickupID);
         return PickupID;
     }
 

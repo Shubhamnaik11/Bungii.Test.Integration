@@ -212,38 +212,7 @@ Feature: Scheduled DUO Bungii Part A
     When I click "DONE" button on "BUNGII COMPLETE" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     
-  @ready
-  @failures
-  Scenario: Verify Customer Can Request Cancel Scheduled Duo Bungii Through SMS To Admin If One Driver Accepts And Processing Is Over
-    When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Duo Scheduled" trip
-      | driver1 state |
-      | Accepted      |
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    And I Select "MY BUNGIIS" from Customer App menu
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-    Then I wait for "4" mins
-    And I select already scheduled bungii
-    When I Cancel selected Bungii
-    Then correct support details should be displayed to customer on "ADMIN-SMS" app
-    
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
-    And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
-    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-    And Bungii must be removed from the List
-    When I switch to "ORIGINAL" instance
-    And I Switch to "customer" application on "same" devices
-    And I Select "MY BUNGIIS" from Customer App menu
-    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-    
+ 
   @failed
   @ready
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting Duo Scheduled Bungii
@@ -362,8 +331,7 @@ Feature: Scheduled DUO Bungii Part A
       | CUSTOMER1_PHONE |                 |
   
   
-  @failures
-  @test
+  @regression
   #stable
     #Run at last as lot of wait time is required [15 mins]
   Scenario: Notification : Verify If Customer Receives Notification After Admin Researches Drivers And Then Both Drivers Accept It
@@ -389,3 +357,37 @@ Feature: Scheduled DUO Bungii Part A
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
 	  | 8888889917     |                 |
+  
+  
+  @ready
+  @failures
+  Scenario: Verify Customer Can Request Cancel Scheduled Duo Bungii Through SMS To Admin If One Driver Accepts And Processing Is Over
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Duo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+    When I Switch to "customer" application on "same" devices
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "4" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct support details should be displayed to customer on "ADMIN-SMS" app
+    
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+    
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I Select "MY BUNGIIS" from Customer App menu
+    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+    

@@ -130,6 +130,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @regression
     @failures
+    @test333
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -165,6 +166,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should be navigated to "SCHEDULED BUNGII" screen
     Then I wait for "2" mins
     When I cancel Bungii as Admin
+    
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
     And I Select "PROMOS" from Customer App menu

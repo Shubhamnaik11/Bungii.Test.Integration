@@ -302,6 +302,7 @@ public class TripStatusSteps extends DriverBase {
                 default:
                     throw new Exception("UN IMPLEMENTED STEPS");
             }
+            log("correct support details should be displayed to customer on "+key+" app","correct support details is displayed to customer on "+key+" app", false );
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error in viewing SMS/Call on ios app ", true);
@@ -337,6 +338,8 @@ public class TripStatusSteps extends DriverBase {
                 default:
                     throw new Exception("UN IMPLEMENTED STEPS");
             }
+            log("correct support details should be displayed to customer on "+key+" app","correct support details is displayed to customer on "+key+" app", false );
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

@@ -5,7 +5,7 @@
     "deviceType": "MOTOROLA",
     "device": "Motorola Moto G7 Play",
     "os_version": "9.0",
-    "browserstack.appium_version": "1.18.0",
+    "browserstack.appium_version": "1.17.0",
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "15.36413,73.9455",
@@ -18,9 +18,7 @@
     "locale": "en_US",
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
-    "browserstack.acceptInsecureCerts": true,
-    "settings[trackScrollEvents]": false
-
+    "browserstack.acceptInsecureCerts": true
   },
   "extra3": {
     "platformName": "Android",
@@ -28,7 +26,7 @@
     "deviceType": "MOTOROLA",
     "device": "Motorola Moto G7 Play",
     "os_version": "9.0",
-    "browserstack.appium_version": "1.18.0",
+    "browserstack.appium_version": "1.17.0",
     "browserstack.networkLogs": true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "15.36413,73.9455",
@@ -41,9 +39,7 @@
     "locale": "en_US",
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
-    "browserstack.acceptInsecureCerts": true,
-    "settings[trackScrollEvents]": false
-
+    "browserstack.acceptInsecureCerts": true
   },
   "extra1": {
     "platformName": "Android",
@@ -51,7 +47,7 @@
     "deviceType": "MOTOROLA",
     "device": "Motorola Moto G7 Play",
     "os_version": "9.0",
-    "browserstack.appium_version": "1.18.0",
+    "browserstack.appium_version": "1.17.0",
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "15.36413,73.9455",
@@ -64,8 +60,7 @@
     "locale": "en_US",
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
-    "browserstack.acceptInsecureCerts": true,
-    "settings[trackScrollEvents]": false
+    "browserstack.acceptInsecureCerts": true
   },
   "extra2": {
     "platformName": "Android",
@@ -73,7 +68,7 @@
     "deviceType": "MOTOROLA",
     "device": "Motorola Moto G7 Play",
     "os_version": "9.0",
-    "browserstack.appium_version": "1.18.0",
+    "browserstack.appium_version": "1.17.0",
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "15.36413,73.9455",
@@ -86,8 +81,7 @@
     "locale": "en_US",
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
-    "browserstack.acceptInsecureCerts": true,
-    "settings[trackScrollEvents]": false
+    "browserstack.acceptInsecureCerts": true
   },
   "connection": {
     "device1": 0,

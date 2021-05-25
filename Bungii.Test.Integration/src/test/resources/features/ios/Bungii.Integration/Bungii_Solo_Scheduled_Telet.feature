@@ -2,14 +2,13 @@
 @scheduled
 @bungii
     # this will run in denver
-Feature: Solo Scheduled Bungii Part D
+Feature: Solo Scheduled Bungii - TELET
   I want to use request Scheduling Bungii with Solo type
 
   Background:
     #When I clear all notification
     When I Switch to "customer" application on "same" devices
-
-
+    
   @regression
     #Stable
   Scenario:Verify If Driver Rating Is Shown To Customer On Bungii Details Page When Driver Accepts Scheduled Bungii
@@ -29,19 +28,7 @@ Feature: Solo Scheduled Bungii Part D
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-    #its scheduled time not initial request time
-  @regression
-    #stable
-  Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Solo Scheduled Trip
-
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
-    And I get TELET time of of the current trip
-    Then Telet time of current trip should be correctly calculated
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
+ 
 
   @regression
   @failures
@@ -149,9 +136,10 @@ Feature: Solo Scheduled Bungii Part D
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @failures
+  @knownissue
   #KNOWN ISSUE , TELET TIME IS NOT RECALCULATED
   @ready
+    @reg
   Scenario: Verify TELET Of Re-searched Trip Should Not Be Same As That Of Previous Trip - KNOWN ISSUE
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -210,37 +198,18 @@ Feature: Solo Scheduled Bungii Part D
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
 
-  @ready
-  @failures
-  Scenario: Driver Notification : 30 Mins Before Scheduled Delivery
+ 
+       #its scheduled time not initial request time
+  @regression
+    #stable
+
+  Scenario: Verify TELET Is Calculated Correctly [Initial Request Time+Estimated Duration*1.5+30Minutes] For Solo Scheduled Delivery
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Accepted    | 0.75 hour ahead |
-
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
-    #And I Select "AVAILABLE BUNGIIS" from driver App menu
-    #And I Select Trip from available trip
-    #When I accept selected Bungii
-    When I wait for Minimum duration for Bungii Start Time
-    And I click on notification for "driver" for "TAP NOTIFICATION TO ACTIVATE BUNGII"
+      | denver   | Scheduled    | NEXT_POSSIBLE |
+    And I get TELET time of of the current trip
+    Then Telet time of current trip should be correctly calculated
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-  
-  @ready
-  @failures
-  Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time    |
-      | denver   | Accepted     | 2 hour ahead |
-    And I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
-    #And I wait for Minimum duration for current Bungii to be T-2 hours
-    And I click on notification for "customer" for "T-2 BEFORE SCHEDULED TRIP"
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-    
 

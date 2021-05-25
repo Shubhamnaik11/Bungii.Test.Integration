@@ -299,12 +299,12 @@ public class EstimateSteps extends DriverBase {
                     //selectBungiiTime(0, "11", "45", "PM");
 
                     if(browserstack=="true"){
-                        selectBungiiTime(0, "23", "45", "");
-                        log("I select time for trip as 23:45", "I selected time for trip as 23:45");
+                        selectBungiiTime(0, "23", "59", "");
+                        log("I select time for trip as 23:49", "I selected time for trip as 23:49");
                     }
                     else {
-                        selectBungiiTime(0, "11", "45", "PM");
-                        log("I select time for trip as 11:45  pm", "I selected time for trip as 11:45  pm");
+                        selectBungiiTime(0, "11", "59", "PM");
+                        log("I select time for trip as 11:49  pm", "I selected time for trip as 11:49  pm");
                     }
 
                     break;
@@ -343,6 +343,7 @@ public class EstimateSteps extends DriverBase {
             strTime = bungiiTimeDisplayInTextArea(date);
             Thread.sleep(3000);
             action.click(estimatePage.Row_TimeSelect());
+            Thread.sleep(6000);
             if(!action.isElementPresent(estimatePage.Button_Set(true))) {
                 action.click(estimatePage.Row_TimeSelect()); //Retry to select time - workaround for duo cases
             }

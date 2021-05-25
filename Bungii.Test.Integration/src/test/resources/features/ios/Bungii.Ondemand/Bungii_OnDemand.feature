@@ -67,98 +67,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I Switch to "customer" application on "same" devices
     And I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-
-  
-  @regression
-  Scenario: Verify SMS Call View Item Details For Ongoing Ondemand Bungii
-    Given that ondemand bungii is in progress
-      | geofence  | Bungii State |
-      | nashville | Enroute      |
-	When I Switch to "customer" application on "same" devices
-    When I am on the "LOG IN" page
-   # And I am on Customer logged in Home page
-#    And I logged in Customer application using  "valid nashville" user
-    And I logged in as "valid nashville" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-
-    Then correct details should be displayed to driver on "SMS" app
-    And correct details should be displayed to driver on "Call" app
-    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-    And correct details should be displayed to driver for "VIEW ITEMS"
-
-    When I Switch to "customer" application on "same" devices
-    Then correct details should be displayed to customer on "SMS" app
-    And correct details should be displayed to customer on "Call" app
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
-
-    Then correct details should be displayed to driver on "SMS" app
-    And correct details should be displayed to driver on "Call" app
-    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-    And correct details should be displayed to driver for "VIEW ITEMS"
-
-    When I Switch to "customer" application on "same" devices
-    Then correct details should be displayed to customer on "SMS" app
-    And correct details should be displayed to customer on "Call" app
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "ARRIVED" Screen
-
-    Then correct details should be displayed to driver on "SMS" app
-    And correct details should be displayed to driver on "Call" app
-    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-    And correct details should be displayed to driver for "VIEW ITEMS"
-
-    When I Switch to "customer" application on "same" devices
-    Then correct details should be displayed to customer on "SMS" app
-    And correct details should be displayed to customer on "Call" app
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEM" Screen
-
-    Then correct details should be displayed to driver on "SMS" app
-    And correct details should be displayed to driver on "Call" app
-    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-    And correct details should be displayed to driver for "VIEW ITEMS"
-
-    When I Switch to "customer" application on "same" devices
-    Then correct details should be displayed to customer on "SMS" app
-    And correct details should be displayed to customer on "Call" app
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then correct details should be displayed to driver on "SMS" app
-    And correct details should be displayed to driver on "Call" app
-    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-    And correct details should be displayed to driver for "VIEW ITEMS"
-
-    When I Switch to "customer" application on "same" devices
-    Then correct details should be displayed to customer on "SMS" app
-    And correct details should be displayed to customer on "Call" app
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "Bungii Complete" screen
-    When I rate Bungii Driver  with following details and Press "OK" Button
-      | Ratting | Tip |
-      | 5       | 5   |
-    Then I should be navigated to "Promotion" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-    Then I should be navigated to "Home" screen
-
-    When I Switch to "driver" application on "same" devices
-    And I click "On To The Next One" button on "Bungii Completed" screen
-    And I Select "ACCOUNT > LOGOUT" from driver App menu
+    
 
   @regression
   Scenario: Verify Trip information/Bungii completed page For Ongoing Ondemand Bungii
@@ -276,7 +185,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then poor driver ratting should be sent to customer
     
  
-  @regression
+  @knownissue
   Scenario: Verify Requesting An Ondemand Bungii With FB Share Code
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
@@ -354,7 +263,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   #this scenario is move to knownissue from regression due to SSL error while adding the Credit card.
   #@regression
-    @knownissue
+    @regression
   Scenario Outline: Verify Sign up of Customer With Referral Code
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
@@ -387,4 +296,95 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Examples:
       | First Name                 | Last Name       | Email ID                        | Phone Number       | Password | Promo Code    | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
       | Testcustomertywd_appleREFC | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | REFERRAL CODE | facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
-
+  
+  
+  @regression
+  Scenario: Verify SMS Call View Item Details For Ongoing Ondemand Bungii
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State |
+      | nashville | Enroute      |
+    When I Switch to "customer" application on "same" devices
+    When I am on the "LOG IN" page
+   # And I am on Customer logged in Home page
+#    And I logged in Customer application using  "valid nashville" user
+    And I logged in as "valid nashville" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    Then correct details should be displayed to driver on "SMS" app
+    And correct details should be displayed to driver on "Call" app
+    And correct details should be displayed to driver for "SMS FOR SUPPORT"
+    And correct details should be displayed to driver for "VIEW ITEMS"
+    
+    When I Switch to "customer" application on "same" devices
+    Then correct details should be displayed to customer on "SMS" app
+    And correct details should be displayed to customer on "Call" app
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    
+    Then correct details should be displayed to driver on "SMS" app
+    And correct details should be displayed to driver on "Call" app
+    And correct details should be displayed to driver for "SMS FOR SUPPORT"
+    And correct details should be displayed to driver for "VIEW ITEMS"
+    
+    When I Switch to "customer" application on "same" devices
+    Then correct details should be displayed to customer on "SMS" app
+    And correct details should be displayed to customer on "Call" app
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "ARRIVED" Screen
+    
+    Then correct details should be displayed to driver on "SMS" app
+    And correct details should be displayed to driver on "Call" app
+    And correct details should be displayed to driver for "SMS FOR SUPPORT"
+    And correct details should be displayed to driver for "VIEW ITEMS"
+    
+    When I Switch to "customer" application on "same" devices
+    Then correct details should be displayed to customer on "SMS" app
+    And correct details should be displayed to customer on "Call" app
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "LOADING ITEM" Screen
+    
+    Then correct details should be displayed to driver on "SMS" app
+    And correct details should be displayed to driver on "Call" app
+    And correct details should be displayed to driver for "SMS FOR SUPPORT"
+    And correct details should be displayed to driver for "VIEW ITEMS"
+    
+    When I Switch to "customer" application on "same" devices
+    Then correct details should be displayed to customer on "SMS" app
+    And correct details should be displayed to customer on "Call" app
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    Then correct details should be displayed to driver on "SMS" app
+    And correct details should be displayed to driver on "Call" app
+    And correct details should be displayed to driver for "SMS FOR SUPPORT"
+    And correct details should be displayed to driver for "VIEW ITEMS"
+    
+    When I Switch to "customer" application on "same" devices
+    Then correct details should be displayed to customer on "SMS" app
+    And correct details should be displayed to customer on "Call" app
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I should be navigated to "Bungii Completed" screen
+    
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    When I rate Bungii Driver  with following details and Press "OK" Button
+      | Ratting | Tip |
+      | 5       | 5   |
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+    
+    When I Switch to "driver" application on "same" devices
+    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I Select "ACCOUNT > LOGOUT" from driver App menu

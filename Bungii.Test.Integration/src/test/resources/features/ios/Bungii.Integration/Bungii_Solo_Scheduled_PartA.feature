@@ -94,14 +94,7 @@ Feature: Solo Scheduled Bungii Part A
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Accepted     | NEXT_POSSIBLE |
-    #When I Switch to "customer" application on "same" devices
-    #Given I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
-  #  And I am on Customer logged in Home page
-   #When I Switch to "driver" application on "same" devices
-    #And I am on the "LOG IN" page on driverApp
-    #And I am logged in as "valid denver" driver
-
+    
     Given I login as "valid denver" customer and on Home page
     When I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "Online"
@@ -206,12 +199,8 @@ Feature: Solo Scheduled Bungii Part A
   @regression
     @failures
   Scenario: Verify Customer Can Create And Complete Schedule Solo Bungii
-    #Given I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
-    #When I Switch to "driver" application on "same" devices
-    #And I am on the "LOG IN" page on driverApp
-    #And I am logged in as "valid denver" driver
     Given I login as "valid denver" customer and on Home page
+    When I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "Online"
     And I Switch to "customer" application on "ORIGINAL" devices
     And I request for  bungii for given pickup and drop location
@@ -220,29 +209,23 @@ Feature: Solo Scheduled Bungii Part A
 
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-#    Then Trip Information should be correctly displayed on Estimate screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
- #   Then Bungii Posted message should be displayed
     And I click "Done" button on "Success" screen
     Then I Select "Home" from Customer App menu
     When I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
-    #And Trip Information should be correctly displayed on BUNGII DETAILS screen
     And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
 
     When I accept selected Bungii
-#    When I Switch to "driver" application on "same" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
     When I wait for Minimum duration for Bungii Start Time
-    #TODO: verify bungii detail page
-   # Then If Alerted I ""
     And I start selected Bungii
     Then I should be navigated to "EN ROUTE" trip status screen
     When I slide update button on "EN ROUTE" Screen
@@ -356,6 +339,8 @@ Feature: Solo Scheduled Bungii Part A
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    Given I login as "valid denver" customer and on Home page
+    #above step to register token for push notification
     And I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
@@ -368,9 +353,6 @@ Feature: Solo Scheduled Bungii Part A
   @regression
    #Stable
   Scenario: Verify Customer Doesnt Receives Notification When Solo Scheduled Bungii Is Requested At A Time Outside Working Hours
-
-    #When I am on the "LOG IN" page
-   # And I logged in Customer application using  "valid denver" user
     Given I login as "valid denver" customer and on Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |

@@ -62,7 +62,7 @@ public class LiveTripsSteps extends DriverBase {
             String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
             action.click(liveTripsPage.Button_Search());
-
+            Thread.sleep(5000);
             action.click(liveTripsPage.Button_RowOneAll());
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

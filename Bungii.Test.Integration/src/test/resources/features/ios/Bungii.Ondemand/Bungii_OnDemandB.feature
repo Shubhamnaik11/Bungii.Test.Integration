@@ -1,7 +1,7 @@
 @ios
 @bungii
 
-Feature: Bungiis
+Feature: OndemandBungiis
   Background:
 	#When I Switch to "customer" application on "same" devices
  

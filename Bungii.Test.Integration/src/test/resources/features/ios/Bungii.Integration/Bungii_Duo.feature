@@ -112,7 +112,7 @@ Feature: Scheduled DUO Bungii
 
 #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @regression
-  
+  @testing1
   Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Long Stacked Bungii [2 Devices]
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -319,6 +319,7 @@ Feature: Scheduled DUO Bungii
 
   @failed
   @ready
+    @test
   Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Short Stacked Bungii [2 Devices]
 
     Given that ondemand bungii is in progress

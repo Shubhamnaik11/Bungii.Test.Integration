@@ -209,10 +209,10 @@ Feature: Solo Scheduled Bungii Part C
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
-
-  @failures
-  @ready
+  
+  
+  @regression
+    #stable
   Scenario: Verify Customer Can Request Cancel Solo Scheduled Bungii Through SMS To Admin If No Driver Accepts And Processing Gets Over
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -234,14 +234,11 @@ Feature: Solo Scheduled Bungii Part C
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app
- #   And I click "TOP BACK" button on "Bungii Details" screen
-
     And I open Admin portal and navigate to "Scheduled Deliveries" page
 
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |
-    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And Bungii must be removed from the List
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
@@ -250,8 +247,7 @@ Feature: Solo Scheduled Bungii Part C
 
   @regression
     #stable
-	@testing1
-  Scenario: Verify Customer Can Request Cancel Scheduled Trip Via Admin SMS After 2 Hour (5 mins in QA Auto) Processing Is Over
+  Scenario: Verify Customer Can Request Cancel Scheduled Trip Via Admin SMS After 2 Hour (15 mins in QA Auto) Processing Is Over
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
@@ -274,7 +270,6 @@ Feature: Solo Scheduled Bungii Part C
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |
-    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And Bungii must be removed from the List
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices

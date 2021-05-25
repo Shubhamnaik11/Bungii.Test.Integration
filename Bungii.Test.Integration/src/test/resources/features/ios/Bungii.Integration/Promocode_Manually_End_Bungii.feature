@@ -3,14 +3,14 @@
 @bungii
 @critical
     # this will run in miami and goa
-Feature: Solo Scheduled Bungii Part I
+Feature: Promocode_Manually_End_Bungii
   
   Background:
 	#When I clear all notification
 	When I Switch to "customer" application on "same" devices
 	
-@failures
-@ready
+@regression
+#stable
 Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually Ending Bungii
 When I Switch to "customer" application on "same" devices
 And I am on the "LOG IN" page
@@ -90,12 +90,11 @@ Then Bungii driver should see "correct details" on Bungii completed page
 And I click "On To The Next One" button on "Bungii Completed" screen
   
   
-  @failures
-  @ready
+  @regression
+#stable
   Scenario: Verify Promo Type Promocode Is Correctly Applied After Manually Ending Bungii
 	
 	And I am on the "LOG IN" page
-#	And I logged in Customer application using  "valid miami" user
     And I logged in as "valid miami" customer
 	And I Switch to "driver" application on "same" devices
 	And I am on the "LOG IN" page on driverApp
@@ -118,7 +117,7 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	
 	When I enter following details on "Estimate" screen
 	  | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-	  | 30       |           |              | NEXT_POSSIBLE | Default     |
+	  |        |           |              | NEXT_POSSIBLE | Default     |
 	
 	And I should be navigated to "Estimate" screen
 	Then I save bungii trip time details
@@ -162,8 +161,8 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	Then Bungii driver should see "correct details" on Bungii completed page
 	And I click "On To The Next One" button on "Bungii Completed" screen
   
-  @failures
-  @ready
+  @regression
+#stable
   Scenario: Verify One Off Type Promocode Is Correctly Applied After Manually Ending Bungii
 	
 	When I Switch to "customer" application on "same" devices
