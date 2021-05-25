@@ -2134,6 +2134,7 @@ else
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0, driver2Ref, driver2PaymentMethod);
                 System.out.println(pickupRequest);
             }
+            cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME", System.currentTimeMillis() / 1000L);
             pass("Precondition: Given that duo schedule bungii is in progress ", "Duo Schedule Bungii [ "+pickupRequest+" ]  by customer " +custPhoneNum+" is in " + state +" state ");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

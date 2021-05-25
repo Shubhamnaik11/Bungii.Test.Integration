@@ -31,7 +31,7 @@ public class BungiiDetailsSteps extends DriverBase {
     @When("I tap on \"([^\"]*)\" button$")
     public void i_tap_cancelbungii(String button) {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
             action.scrollToBottom();
             action.click(bungiiDetailsPage.Button_CancelBungii());
             Thread.sleep(2000);
