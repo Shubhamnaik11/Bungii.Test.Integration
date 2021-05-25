@@ -127,39 +127,7 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-    
-  
-  @regression
-  Scenario: Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over :Duo
-    When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-  
-    When I Switch to "customer" application on "same" devices
-    Given I am on customer Log in page
-    And I am logged in as "valid kansas" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I tap on "Menu" > "MY BUNGIIS" link
-    Then I wait for "2" mins
-    And I select already scheduled bungii
-   # When I Cancel selected Bungii
-    When I tap on "Cancel Bungii" button
-    Then correct details should be displayed on the "ADMIN-SMS" app
-    
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
-    And I Cancel Bungii with following details
-      | Charge | Comments | Reason                         |
-      | 0      | TEST     | Outside of delivery scope      |
-    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-    And I wait for "2" mins
-    And Bungii must be removed from the List
-    When I switch to "ORIGINAL" instance
-    And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "MY BUNGIIS" link
-    Then Bungii must be removed from "MY BUNGIIS" screen
+
 
   @regression
   Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :enroute
@@ -194,3 +162,39 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over :Duo
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+
+    When I Switch to "customer" application on "same" devices
+    Then I wait for "2" mins
+    Given I am on customer Log in page
+    Then I wait for "2" mins
+    And I am logged in as "valid kansas" customer
+    Then I wait for "2" mins
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    Then I wait for "2" mins
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then I wait for "2" mins
+    And I select already scheduled bungii
+   # When I Cancel selected Bungii
+    When I tap on "Cancel Bungii" button
+    Then correct details should be displayed on the "ADMIN-SMS" app
+
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+
+    And I Cancel Bungii with following details
+      | Charge | Comments | Reason                         |
+      | 0      | TEST     | Outside of delivery scope      |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And I wait for "2" mins
+    And Bungii must be removed from the List
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "MY BUNGIIS" screen
