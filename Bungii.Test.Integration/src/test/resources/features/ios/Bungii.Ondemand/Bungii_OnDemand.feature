@@ -76,8 +76,6 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       | nashville | Enroute      |
 	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
-   # And I am on Customer logged in Home page
-#    And I logged in Customer application using  "valid nashville" user
     And I logged in as "valid nashville" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist

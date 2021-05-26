@@ -333,36 +333,7 @@ Feature: Solo Scheduled Bungii Part A
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
-    @failures
-  Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Solo Scheduled Bungii
-    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    Given I login as "valid denver" customer and on Home page
-    #above step to register token for push notification
-    And I Switch to "driver" application on "same" devices
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" Delivery
-      | driver1 state |
-      | Accepted      |
-    And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
-
-  @regression
-   #Stable
-  Scenario: Verify Customer Doesnt Receives Notification When Solo Scheduled Bungii Is Requested At A Time Outside Working Hours
-    Given I login as "valid denver" customer and on Home page
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                    | Drop Location                    | Geofence |
-      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
-    And I click "Get Estimate" button on "Home" screen
-    When I try to schedule bungii for "today - after working hour"
-    Then user is alerted for "OUTSIDE BUISSNESS HOUR"
-    When I try to schedule bungii for "tommorow - before working hour"
-    Then user is alerted for "OUTSIDE BUISSNESS HOUR"
-
+  
   @regression
   #Stable
   Scenario:  Verify Customer Can Schedule Solo Bungii Only 5 Days Ahead Including Current Date
@@ -427,43 +398,13 @@ Feature: Solo Scheduled Bungii Part A
       | CUSTOMER1_PHONE |                 |
     
   @regression
-    #Stable
-  Scenario: Verify Customer Cannot Schedule Solo Bungii That Overlaps With Another Scheduled Deliveries TELET Time
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
-
-    And I get TELET time of of the current trip
-    Given I login as "valid denver" customer and on Home page
-
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                    | Drop Location                    | Geofence |
-      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
-
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    When I try to confirm trip with following detail
-      | LoadTime | PromoCode | Payment Card | Time                | PickUpImage | Save Trip Info |
-      | 30       |           |              | <TIME WITHIN TELET> | Default     | No             |
-    Then user is alerted for "already scheduled bungii"
-    And I click "Cancel" button on "Estimate" screen
-    
-    And I click "Get Estimate" button on "Home" screen
-    When I confirm trip with following detail
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
-      | 30       |           |              | <AFTER TELET> | Default     | No             |
-    Then I should be navigated to "Success" screen
-    And I click "Done" button on "Success" screen
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | 8888889917      |
-
-  @regression
 #stable
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has Bungii In Progress
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
       | denver   | Accepted     | 1 hour ahead |
+  
+    And I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "Online"
   
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence with minimum possible distance
@@ -481,3 +422,38 @@ Feature: Solo Scheduled Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
+  
+  @regression
+  @failures
+  @reg
+  Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Solo Scheduled Bungii
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    When I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+          #above step to register token for push notification
+    And I Switch to "driver" application on "same" devices
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+    And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
+  
+  @regression
+   #Stable
+  Scenario: Verify Customer Doesnt Receives Notification When Solo Scheduled Bungii Is Requested At A Time Outside Working Hours
+    Given I login as "valid denver" customer and on Home page
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I try to schedule bungii for "today - after working hour"
+    Then user is alerted for "OUTSIDE BUISSNESS HOUR"
+    When I try to schedule bungii for "tommorow - before working hour"
+    Then user is alerted for "OUTSIDE BUISSNESS HOUR"

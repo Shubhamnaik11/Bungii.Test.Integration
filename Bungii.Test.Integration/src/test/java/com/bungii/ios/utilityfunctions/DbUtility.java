@@ -5,6 +5,8 @@ import com.bungii.common.utilities.LogUtility;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
 
 public class DbUtility extends DbContextManager {
     private static LogUtility logger = new LogUtility(DbUtility.class);
@@ -231,7 +233,7 @@ public class DbUtility extends DbContextManager {
 
     public static String getCustomerPushNotificationContent(String customerPhoneNum, String pickupRef, String content)
     {
-        String queryString2= "select Payload from pushnotification where userid in (select Id from customer where phone = '"+customerPhoneNum+"') and Payload Like '%"+pickupRef+"%'and Payload Like '%"+content+"%'";
+        String queryString2= "select Payload from pushnotification where userid in (select Id from customer where phone = '"+customerPhoneNum+"') and Payload Like '%"+pickupRef+"%' and Payload Like '%"+content+"%'";
         String Payload = getDataFromMySqlServer(queryString2);
         logger.detail("Query : "+ queryString2 +" | Payload : "+ Payload);
         return Payload;
@@ -239,10 +241,11 @@ public class DbUtility extends DbContextManager {
     }
     public static String getDriverPushNotificationContent(String driverPhoneNum, String pickupRef, String content)
     {
-        String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+driverPhoneNum+"') and Payload Like '%"+pickupRef+"%'and Payload Like '%"+content+"%'";
+        String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+driverPhoneNum+"') and Payload Like '%"+pickupRef+"%' and Payload Like '%"+content+"%'";
         String Payload = getDataFromMySqlServer(queryString2);
         logger.detail("Query : "+ queryString2 +" | Payload : "+ Payload);
         return Payload;
 
     }
+
 }

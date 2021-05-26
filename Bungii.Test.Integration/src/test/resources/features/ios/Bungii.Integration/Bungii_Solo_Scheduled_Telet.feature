@@ -139,7 +139,6 @@ Feature: Solo Scheduled Bungii - TELET
   @knownissue
   #KNOWN ISSUE , TELET TIME IS NOT RECALCULATED
   @ready
-    @reg
   Scenario: Verify TELET Of Re-searched Trip Should Not Be Same As That Of Previous Trip - KNOWN ISSUE
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -212,4 +211,38 @@ Feature: Solo Scheduled Bungii - TELET
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+  
+  
+  @regression
+    #Stable
+  Scenario: Verify Customer Cannot Schedule Solo Bungii That Overlaps With Another Scheduled Deliveries TELET Time
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Scheduled    | NEXT_POSSIBLE |
+    
+    And I get TELET time of of the current trip
+    Given I login as "valid denver" customer and on Home page
+    
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I try to confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time                | PickUpImage | Save Trip Info |
+      | 30       |           |              | <TIME WITHIN TELET> | Default     | No             |
+    Then user is alerted for "already scheduled bungii"
+    And I click "Cancel" button on "Estimate" screen
+    
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
+      | 30       |           |              | <AFTER TELET> | Default     | No             |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | 8888889917      |
+
 

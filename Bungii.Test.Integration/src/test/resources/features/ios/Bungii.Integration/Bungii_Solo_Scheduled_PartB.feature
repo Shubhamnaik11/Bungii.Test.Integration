@@ -2,14 +2,13 @@
 @scheduled
 @bungii
     # this will run in denver
-Feature: Solo Scheduled Bungii Part II
+Feature: Solo Scheduled Bungii Part B
   I want to use request Scheduling Bungii with Solo type
 
   Background:
     When I Switch to "customer" application on "same" devices
     
   @regression
-    @failures
    #stable
   Scenario: Verify Scheduled Bungii Notification Information of Estimated Earnings Date etc
     When I Switch to "driver" application on "same" devices
@@ -26,7 +25,6 @@ Feature: Solo Scheduled Bungii Part II
       | 8888889917     |                 |
 
   @regression
-  @failures
     #stable
   Scenario:Verify If Driver Receives Scheduled Duo Bungii Request While In Offline State
     When I Switch to "driver" application on "same" devices
@@ -213,11 +211,11 @@ Feature: Solo Scheduled Bungii Part II
   
   
   @regression
-  @failures
+ #stable
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | denver   | Accepted     | 1 hour ahead |
+      | denver   | Accepted     | 1.25 hour ahead |
     
     Given I login as "valid denver" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
@@ -233,7 +231,7 @@ Feature: Solo Scheduled Bungii Part II
       | CUSTOMER1_PHONE |                 |
   
   @regression
-    @failures
+    #stable
   Scenario: Verify Customer Can Contact Control Driver When Non-control Driver Starts The Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -246,15 +244,15 @@ Feature: Solo Scheduled Bungii Part II
     And I click "Log In" button on "Log In" screen
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
-    #When I try to contact driver using "sms driver1"
-    #Then correct support details should be displayed to customer on "SMS" app
-    #When I try to contact driver using "sms driver2"
-    #Then correct support details should be displayed to customer on "SMS" app
-    #SMS app doesnt open on browserstack devices
-    When I try to contact driver using "call driver2"
-    Then correct support details should be displayed to customer on "call" app
-    When I try to contact driver using "call driver1"
-    Then correct support details should be displayed to customer on "call" app
+    When I try to contact driver using "sms driver1"
+    Then correct support details should be displayed to customer on "SMS" app
+    When I try to contact driver using "sms driver2"
+    Then correct support details should be displayed to customer on "SMS" app
+    #CAll app doesnt open on browserstack devices
+    #When I try to contact driver using "call driver2"
+    #Then correct support details should be displayed to customer on "call" app
+    #When I try to contact driver using "call driver1"
+    #Then correct support details should be displayed to customer on "call" app
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
