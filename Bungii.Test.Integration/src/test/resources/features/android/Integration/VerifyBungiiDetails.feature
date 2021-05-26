@@ -47,13 +47,13 @@
    
       Then I wait for "2" mins
       And I open Admin portal and navigate to "Scheduled Deliveries" page
-      And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+      And I open the trip for "Testcustomertywd_appleand_D android" the customer
       And I remove current driver and researches Bungii
-      And I click on "Close" button
+      #And I click on "Close" button
   
       Then I wait for "2" mins
-      And I open Admin portal and navigate to "Scheduled Deliveries" page
-      And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+      #And I open Admin portal and navigate to "Scheduled Deliveries" page
+      And I open the trip for "Testcustomertywd_appleand_D android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver for the "Solo" trip
       And I click on "VERIFY" button
@@ -84,15 +84,15 @@
       And As a driver "Testdriver_goa_d Android_test" and "Testdriver_goa_c Android_test" perform below action with respective "DUO SCHEDULED" trip
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
-  
+      Then I wait for "2" mins
       And I open Admin portal and navigate to "Scheduled Deliveries" page
-      And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+      And I open the trip for "Testcustomertywd_appleand_D android" the customer
       And I remove "control" driver and researches Bungii
-      And I click on "Close" button
+      #And I click on "Close" button
   
      Then I wait for "2" mins
-     And I open Admin portal and navigate to "Scheduled Deliveries" page
-     And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+     #And I open Admin portal and navigate to "Scheduled Deliveries" page
+     And I open the trip for "Testcustomertywd_appleand_D android" the customer
      And I Select "Edit Trip Details" option
       And I assign driver for the "control" trip
       And I click on "VERIFY" button
@@ -123,15 +123,15 @@
         | Accepted      | Accepted      |
   
       And I open Admin portal and navigate to "Scheduled Deliveries" page
-     And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+     And I open the trip for "Testcustomertywd_appleand_D android" the customer
       And I remove "noncontrol" driver and researches Bungii
-  And I click on "Close" button
+  #And I click on "Close" button
   
-  Then I wait for "2" mins
-  And I open Admin portal and navigate to "Scheduled Deliveries" page
-  And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+      Then I wait for "2" mins
+      #And I open Admin portal and navigate to "Scheduled Deliveries" page
+      And I open the trip for "Testcustomertywd_appleand_D android" the customer
   
-  And I Select "Edit Trip Details" option
+      And I Select "Edit Trip Details" option
       And I assign driver for the "noncontrol" trip
       And I click on "VERIFY" button
       And the "Your changes are good to be saved." message is displayed
@@ -158,15 +158,15 @@
       And As a driver "Testdriver_goa_d Android_test" and "Testdriver_goa_c Android_test" perform below action with respective "DUO SCHEDULED" trip
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
-  
+      Then I wait for "2" mins
       And I open Admin portal and navigate to "Scheduled Deliveries" page
-      And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+      And I open the trip for "Testcustomertywd_appleand_D android" the customer
       And I remove current driver and researches Bungii
-      And I click on "Close" button
+      #And I click on "Close" button
   
-     Then I wait for "2" mins
-     And I open Admin portal and navigate to "Scheduled Deliveries" page
-     And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+      Then I wait for "2" mins
+     #And I open Admin portal and navigate to "Scheduled Deliveries" page
+      And I open the trip for "Testcustomertywd_appleand_D android" the customer
   
       And I Select "Edit Trip Details" option
       And the "Adding a driver through this feature overrides driver assigning restrictions." message is displayed
