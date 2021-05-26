@@ -5,6 +5,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.LoginPage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -15,6 +16,7 @@ import static com.bungii.common.manager.ResultManager.pass;
 public class LogInSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LogInSteps.class);
     LoginPage loginPage;
+    DbUtility utility = new DbUtility();
     ActionManager action = new ActionManager();
     public LogInSteps(LoginPage loginPage){
         this.loginPage=loginPage;
@@ -34,6 +36,8 @@ public class LogInSteps extends DriverBase {
             action.clearEnterText(loginPage.Textfield_Password(),strPassWord);
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE_EXTRA", strUserName);
             cucumberContextManager.setScenarioContext("LATEST_LOGGEDIN_CUSTOMER_PHONE",strUserName);
+
+            cucumberContextManager.setScenarioContext("LATEST_LOGGEDIN_CUSTOMER_NAME",utility.getCustomerName(strUserName));
 
             pass( "Username and Password should be entered sucessfully",
             "Entered Customer Credentials ["+ strUserName+" / "+strPassWord+"] successfully");

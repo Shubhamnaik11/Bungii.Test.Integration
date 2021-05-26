@@ -2,7 +2,7 @@
 @DUO
 @scheduled
 @bungii
-Feature: Scheduled DUO Bungii
+Feature: Scheduled DUO Bungii in Goa Geofence
   I want  request Scheduled Bungii with Duo type
 
   Background:

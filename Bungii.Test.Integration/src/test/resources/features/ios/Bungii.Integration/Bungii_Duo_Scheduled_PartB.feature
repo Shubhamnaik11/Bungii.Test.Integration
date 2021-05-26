@@ -8,7 +8,7 @@
   # Denver | Customer denver customer Valid denver & denver customer - 9999993015
   # Denver | Driver valid denver & denver driver 1 - 8888884321 | denver driver 2 - 9955112208
   
-Feature: Scheduled DUO Bungii Part B
+Feature: Scheduled DUO Bungii Cancellation in Denver Geofence
   I want to use request Scheduling Bungii with duo type
 
   Background:

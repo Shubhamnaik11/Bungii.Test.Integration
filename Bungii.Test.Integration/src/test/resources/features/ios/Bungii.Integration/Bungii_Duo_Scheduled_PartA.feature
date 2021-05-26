@@ -86,9 +86,7 @@ Feature: Scheduled DUO Bungii Part A
     
     
   @regression
-  @failures
     #stable
-	@testing1
   Scenario: TELET - Verify Customer Cannot Schedule Duo Bungii That Overlaps With Another Scheduled Trip TELET Time
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

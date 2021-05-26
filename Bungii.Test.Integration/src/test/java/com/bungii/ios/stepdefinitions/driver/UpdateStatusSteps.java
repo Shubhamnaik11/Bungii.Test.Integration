@@ -605,7 +605,7 @@ public class UpdateStatusSteps extends DriverBase {
     @And("^stack trip information should be displayed on deck$")
     public void stack_trip_information_should_be_displayed_on_deck() {
         try {
-            String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER2");
+            String customerName = (String) cucumberContextManager.getScenarioContext("LATEST_LOGGEDIN_CUSTOMER_NAME");
             testStepVerify.isElementTextEquals(updateStatusPage.Text_NextLabel(), "NEXT","'NEXT' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
             testStepVerify.isElementTextEquals(updateStatusPage.Text_OnDeckLabel(), "ON DECK","'ON DECK' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
             testStepVerify.isElementTextEquals(updateStatusPage.Text_StackCustomer(), customerName.substring(0, customerName.indexOf(" ") + 2));

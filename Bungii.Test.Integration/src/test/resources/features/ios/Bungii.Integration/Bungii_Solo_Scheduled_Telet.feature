@@ -136,29 +136,10 @@ Feature: Solo Scheduled Bungii - TELET
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @knownissue
-  #KNOWN ISSUE , TELET TIME IS NOT RECALCULATED
-  @ready
-  Scenario: Verify TELET Of Re-searched Trip Should Not Be Same As That Of Previous Trip - KNOWN ISSUE
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | denver   | Accepted     | NEXT_POSSIBLE |
-    And I get TELET time of of the current trip
-    Then Telet time of current trip should be correctly calculated
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
-    When I Switch to "customer" application on "same" devices
-    Then I wait for "1" mins
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-    And I remove current driver and researches Bungii
-    When I switch to "ORIGINAL" instance
-    When I Switch to "driver" application on "same" devices
-    Then Telet time of research trip should be not be same as previous trips
-
+  
   @regression
   #stable
-  Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked request (Trip 2) Then Driver Doesnt Receive Scheduled Notification Or Offline SMS
+  Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked request (Trip 2) Then Driver Doesnt Receive Scheduled Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | denver   | Enroute      |
@@ -201,7 +182,6 @@ Feature: Solo Scheduled Bungii - TELET
        #its scheduled time not initial request time
   @regression
     #stable
-
   Scenario: Verify TELET Is Calculated Correctly [Initial Request Time+Estimated Duration*1.5+30Minutes] For Solo Scheduled Delivery
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -244,5 +224,24 @@ Feature: Solo Scheduled Bungii - TELET
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
-
+  
+  @knownissue
+  #KNOWN ISSUE , TELET TIME IS NOT RECALCULATED
+  @ready
+  Scenario: Verify TELET Of Re-searched Trip Should Not Be Same As That Of Previous Trip - KNOWN ISSUE
+	Given that solo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   |
+	  | denver   | Accepted     | NEXT_POSSIBLE |
+	And I get TELET time of of the current trip
+	Then Telet time of current trip should be correctly calculated
+	When I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid denver" driver
+	When I Switch to "customer" application on "same" devices
+	Then I wait for "1" mins
+	And I open Admin portal and navigate to "Scheduled Deliveries" page
+	And I remove current driver and researches Bungii
+	When I switch to "ORIGINAL" instance
+	When I Switch to "driver" application on "same" devices
+	Then Telet time of research trip should be not be same as previous trips
 

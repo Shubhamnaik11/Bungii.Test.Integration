@@ -247,5 +247,11 @@ public class DbUtility extends DbContextManager {
         return Payload;
 
     }
-
+    public static String getCustomerName(String phoneNumber) {
+        String fullname = "";
+        String queryString = "SELECT fullname FROM customer WHERE Phone = " + phoneNumber;
+        fullname = getDataFromMySqlServer(queryString);
+        logger.detail("Fullname is" + fullname + ", query, " + queryString);
+        return fullname;
+    }
 }

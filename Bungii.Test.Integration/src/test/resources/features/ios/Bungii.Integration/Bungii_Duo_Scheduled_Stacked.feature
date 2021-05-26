@@ -2,14 +2,14 @@
 @DUO
 @scheduled
 @bungii
-Feature: Scheduled Bungii on one device
+Feature: Scheduled Bungii STACKING
   I want  request Scheduled Bungii with Duo type
   
   Background:
 	When I Switch to "customer" application on "same" devices
 	
 @regression
-Scenario:Verify Customer Can Cancel Stacked Ondemand Bungii Accepted By a Driver [1 Device]
+Scenario: STACKING | Verify Customer Can Cancel Stacked Ondemand Bungii Accepted By a Driver [1 Device]
 Given that ondemand bungii is in progress
 | geofence | Bungii State   |
 | goa      | UNLOADING ITEM |
@@ -86,7 +86,8 @@ Then I cancel all bungiis of customer
 | Customer Phone | Customer2 Phone |
 |                | CUSTOMER2_PHONE |
 
-@ready
+@regression
+#stable
 Scenario:STACKING | Verify Driver can start the Stack Bungii [1 Device]
 Given that ondemand bungii is in progress
 | geofence | Bungii State   |
@@ -102,13 +103,6 @@ When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
 | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
 
 And I view and accept virtual notification for "Driver" for "stack trip"
-
-Given I am on the "LOG IN" page
-When I enter Username :9403960183 and  Password :{VALID}
-And I click "Log In" button on "Log In" screen
-And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-And I close "Tutorial" if exist
-
 When I Switch to "driver" application on "ORIGINAL" devices
 And I slide update button on "UNLOADING ITEM" Screen
 Then I should be navigated to "Bungii Completed" screen

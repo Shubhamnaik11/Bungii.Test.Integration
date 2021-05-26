@@ -425,7 +425,7 @@ Feature: Solo Scheduled Bungii Part A
   
   @regression
   @failures
-  @reg
+  
   Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Solo Scheduled Bungii
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
