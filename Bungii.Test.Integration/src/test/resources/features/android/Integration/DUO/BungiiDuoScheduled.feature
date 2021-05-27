@@ -18,7 +18,7 @@ Feature: Bungii Duo Scheduled
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I close "Tutorial" if exist
 	
-    And I connect to "extra1" using "Driver1" instance
+    #And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
 
     And I am on the LOG IN page on driver app
@@ -30,9 +30,11 @@ Feature: Bungii Duo Scheduled
     When I Switch to "customer" application on "ORIGINAL" devices
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
-    When I Cancel selected Bungii
+    Then I Cancel selected Bungii
 
-    When I Switch to "customer" application on "Driver1" devices
+   # When I Switch to "customer" application on "Driver1" devices
+    #And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
     And I click on notification for "CUSTOMER CANCELLED SCHEDULED BUNGII"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
