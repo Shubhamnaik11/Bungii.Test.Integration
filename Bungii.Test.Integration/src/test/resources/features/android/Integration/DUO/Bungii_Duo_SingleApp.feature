@@ -330,7 +330,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   @ready
 	@ad
   #Scenario:Verify If Driver Receieve Notification After Admin Researches For Drivers
-  Scenario: Verify If Customer Receives Notification After Admin Researches Drivers And Both Drivers Accept It
+  Scenario: Verify If Customer does not Receives Notification After Admin Researches Drivers And Both Drivers Assigned from Admin
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
 	  | atlanta  | Scheduled      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
@@ -359,11 +359,12 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	And the "Your changes are good to be saved." message is displayed
 	Then I click on "SAVE CHANGES" button
 	And the "Bungii Saved!" message is displayed
-	
+
+	#commenting below steps since push notification is not implemented for action carried out from Admin portal
 	#Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
-	And I switch to "ORIGINAL" instance
-	And I Switch to "customer" application on "same" devices
-	Then I should get "SCHEDULED PICKUP ACCEPTED" notification for customer
+	#And I switch to "ORIGINAL" instance
+	#And I Switch to "customer" application on "same" devices
+	#Then I should get "SCHEDULED PICKUP ACCEPTED" notification for customer
 	
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
