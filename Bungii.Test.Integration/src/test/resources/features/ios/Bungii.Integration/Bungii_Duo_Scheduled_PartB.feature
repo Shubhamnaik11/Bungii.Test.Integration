@@ -136,47 +136,7 @@ Feature: Scheduled DUO Bungii Cancellation in Denver Geofence
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
   
-  @regression
-  #stable
-  Scenario: Verify Customer Can Cancel Duo Scheduled Bungii Through SMS To Admin If Required Number Of Drivers Have Accepted
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
-      | denver   | Accepted     | 0.75 hour ahead | denver customer | denver driver 1 | denver driver 2 |
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
-    And I Select "MY BUNGIIS" from Customer App menu
-    #Then I wait for "1" mins
-    And I select already scheduled bungii
-    When I Cancel selected Bungii
-    Then correct support details should be displayed to customer on "ADMIN-SMS" app
     
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
-    And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
-    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-    And Bungii must be removed from the List
-    When I switch to "ORIGINAL" instance
-    And I Switch to "customer" application on "same" devices
-    And I Select "MY BUNGIIS" from Customer App menu
-    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-  
-  @regression
-   #stable
-  Scenario: Verify Customer Doesnt Receives Notification When Duo Scheduled Bungii Is Requested At A Time Outside Working Hours
-    #When I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
-    Given I login as "valid denver" customer and on Home page
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                    | Drop Location                    | Geofence |
-      | duo    | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
-    And I click "Get Estimate" button on "Home" screen
-    When I try to schedule bungii for "today - after working hour"
-    Then user is alerted for "OUTSIDE BUISSNESS HOUR"
-    When I try to schedule bungii for "tommorow - before working hour"
-    Then user is alerted for "OUTSIDE BUISSNESS HOUR"
   
   @regression
     #stable

@@ -86,12 +86,12 @@ public class DbUtility extends DbContextManager {
         return smsCode;
     }
     public static String getTELETfromDb(String custRef) {
-        String PickupID = "";
+        String telet = "";
         String queryString = "SELECT TELET FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
-        PickupID = getDataFromMySqlServer(queryString);
+        telet = getDataFromMySqlServer(queryString);
 
-        logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
-        return PickupID;
+        logger.detail("For customer reference is " + custRef + " TELET time is " + telet);
+        return telet;
     }
     public static String[] getLoadingTimeStamp(String customerPhone){
         String[] loadingTme= new String[2];

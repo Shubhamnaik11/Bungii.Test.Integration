@@ -61,6 +61,9 @@ public class BungiiSteps extends DriverBase {
     public static String getDriverPhone(String driverName) {
         String phone = null;
         switch (driverName) {
+            case "valid duo driver 1":
+                phone = PropertyUtility.getDataProperties("ios.valid.driver.duo.phone");
+                break;
             case "Testdrivertywd_appledc_a_web TestdriverA":
                 phone = PropertyUtility.getDataProperties("web.valid.driver1.phone");
                 break;
@@ -1060,7 +1063,7 @@ public class BungiiSteps extends DriverBase {
 /*            cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);*/
 
-
+            cucumberContextManager.setScenarioContext("LATEST_LOGGEDIN_CUSTOMER_NAME", customerName);
             if (customerLabel.equalsIgnoreCase("")) {
                 cucumberContextManager.setScenarioContext("CUSTOMER2", customerName);
                 cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", custPhoneNum);
@@ -1160,7 +1163,7 @@ public class BungiiSteps extends DriverBase {
 /*            cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);*/
 
-
+            cucumberContextManager.setScenarioContext("LATEST_LOGGEDIN_CUSTOMER_NAME", customerName);
             if (customerLabel.equalsIgnoreCase("")) {
                 cucumberContextManager.setScenarioContext("CUSTOMER", customerName);
                 cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
@@ -3139,6 +3142,9 @@ else
         }
         // remove driver 2 bungiis
         custPhoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
+        if (custPhoneNum.equalsIgnoreCase("")) {
+            custPhoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA");
+        }
         custPassword = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PASSWORD");
         custPassword = custPassword.equalsIgnoreCase("") ? "Cci12345" : custPassword;
         if (!custPhoneNum.equalsIgnoreCase("")) {

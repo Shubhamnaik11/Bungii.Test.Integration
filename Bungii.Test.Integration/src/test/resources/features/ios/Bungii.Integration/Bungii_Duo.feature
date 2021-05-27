@@ -353,7 +353,7 @@ Feature: Scheduled DUO Bungii
     When I open "customer" application on "ORIGINAL" devices
  
     And I view and accept virtual notification for "Driver" for "stack trip"
-    #Then I calculate projected driver arrival time
+    Then I calculate projected driver arrival time
     #And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
     #When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -402,65 +402,5 @@ Feature: Scheduled DUO Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     
-    #move to top
-    #need to do in atlanta
-  @failed
-  @ready
-  Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Long Stack Request [2 Devices]
-
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | enroute      | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
-
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-  
-    And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid driver 2" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-    And I Switch to "customer" application on "same" devices
-
-    And I Switch to "customer" application on "ORIGINAL" devices
-
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-
-    And I open "driver" application on "Driver2" devices
-
-    And I view and accept virtual notification for "Driver" for "stack trip"
-    And stack trip information should be displayed on deck
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
-    And I accept Alert message for "Reminder: both driver at pickup"
-    And I Switch to "driver" application on "ORIGINAL" devices
-
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
-    And I accept Alert message for "Reminder: both driver at pickup"
-    And I slide update button on "LOADING ITEM" Screen
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-
-    And I open "driver" application on "Driver2" devices
-    And I slide update button on "LOADING ITEM" Screen
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    And I slide update button on "UNLOADING ITEM" Screen
-    And I accept Alert message for "Reminder: both driver at drop off"
-    And I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    And I accept Alert message for "Reminder: both driver at drop off"
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    And I open "driver" application on "Driver2" devices
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    Then I should be navigated to "EN ROUTE" screen
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      |                | CUSTOMER2_PHONE |
-  
+   
   

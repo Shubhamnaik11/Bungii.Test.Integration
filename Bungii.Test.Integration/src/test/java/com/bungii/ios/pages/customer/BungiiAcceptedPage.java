@@ -19,15 +19,16 @@ public WebElement Button_Ok() {
 
 
     //STACK
-    public WebElement Text_StackInfo() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(2); }
-    public WebElement Text_BungiiAccepted() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(0); }
+    public WebElement Text_StackInfo() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(3); } //device handling
+    public WebElement Text_BungiiAccepted() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(1); } //device handling
     public WebElement Image_RattingBar() { return findElement("rating filled star icon", LocatorType.Name); }
-    public WebElement Label_DriverName(){ return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(1); }
+    public WebElement Label_DriverName(){ return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(2); } //device handling
 
-    public WebElement Textlabel_DriverNearby() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(0); }
-    public WebElement Textlabel_StackSubtitle() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(1); }
-    public WebElement Textlabel_ProjectedTimeValue(){ return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(3); }
-    public WebElement Textlabel_ProjectedTime() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(2); }
+    public WebElement Textlabel_DriverNearby() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(1); } //device handling
+    public WebElement Textlabel_StackSubtitle() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(2); } //device handling
+    public WebElement Textlabel_ProjectedTimeValue(){ return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(4); } //device handling
+    public WebElement Textlabel_ProjectedTime() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(3); } //device handling
+
     public WebElement Button_CancelBungii() { return findElement("Cancel Bungii", LocatorType.Name); }
     public List<WebElement> FilledStars() {return findElements("//*[contains(@name, 'rating filled star icon')]", LocatorType.XPath);}
     public List<WebElement> HalfFilledStar() {return findElements("//*[contains(@name, 'rating half filled star icon')]", LocatorType.XPath);}
