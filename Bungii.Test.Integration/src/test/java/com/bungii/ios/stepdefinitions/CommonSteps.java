@@ -461,7 +461,7 @@ public class CommonSteps extends DriverBase {
                 case "OK":
                     if (screen.equalsIgnoreCase("BUNGII ACCEPTED")) {
                         //bungiiAcceptedPage.clickOkButton();
-                        if (action.getScreenHeader(homePage.Text_NavigationBar()).equals("BUNGII ACCEPTED"))
+                        if (action.getScreenHeader(homePage.Text_NavigationBar()).equals("BUNGII ACCEPTED") && action.isElementPresent(bungiiAcceptedPage.Button_Ok(true)))
                             bungiiAcceptedPage.Button_Ok().click();
                         if (screen.equalsIgnoreCase("ENROUTE")) {
                             //Do nothing as  BUNGII ACCEPTED screen is not displayed and directly enrotue screen is displayed

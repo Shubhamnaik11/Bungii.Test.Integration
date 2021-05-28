@@ -13,8 +13,8 @@ public class BungiiAcceptedPage extends PageBase {
 /*    public WebElement Button_Ok() {
         return findElement("OK", LocatorType.Name);
     }*/
-public WebElement Button_Ok() {
-    return findElement("OK", LocatorType.AccessibilityId);
+public WebElement Button_Ok(boolean... ignoreExcetion) {
+    return findElement("OK", LocatorType.AccessibilityId, ignoreExcetion);
 }
 
 

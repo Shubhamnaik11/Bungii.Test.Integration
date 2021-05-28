@@ -21,8 +21,8 @@ import static io.restassured.RestAssured.given;
 
 public class GoogleMaps {
     //Move this hard coded value in the Data properties(during AWS environment)
-    //private static String DISTANCE_MATRIX_API = "https://maps.googleapis.com/maps/api/distancematrix/json";
-    private static String DISTANCE_MATRIX_API = PropertyUtility.getDataProperties("GOOGLE_DISTANCE_BASE_URL");
+    private static String DISTANCE_MATRIX_API = "https://maps.googleapis.com/maps/api/distancematrix/json";
+    //private static String DISTANCE_MATRIX_API = PropertyUtility.getDataProperties("GOOGLE_DISTANCE_BASE_URL");
     private static LogUtility logger = new LogUtility(AuthServices.class);
 
     public int[] getDurationInTraffic(String[] driverCoordinate, String[] dropCoordinate, String[] stackPickupCoordinate) {
@@ -33,10 +33,12 @@ public class GoogleMaps {
         Map<String, String> data = new HashedMap();
         String RequestText="API REQUEST : Get duration in Traffic";
 
-        Response response =given()//.log().body()
+        Response response =given()//.log().all()
                 .header("User-Agent", "okhttp/3.4.1")
-                .header("Content-Type", "application/json")
+                .header("Content-Type", "x-www-form-urlencoded")
                 .header("Accept-Encoding", "gzip")
+                .urlEncodingEnabled(true)
+                .contentType("x-www-form-urlencoded")
                 .param("units", "imperial")
                 .param("origins", strOrigins)
                 .param("destinations", strDestinations)
@@ -48,7 +50,7 @@ public class GoogleMaps {
                 .when()
                 .get(DISTANCE_MATRIX_API);
 
-      //  response.then().log().body();
+        //response.then().log().all();
         ApiHelper.genericResponseValidation(response,RequestText);
         return  getStackDuration(response);
     }

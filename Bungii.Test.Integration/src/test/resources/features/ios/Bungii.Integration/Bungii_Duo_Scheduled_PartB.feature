@@ -10,6 +10,7 @@
   
 Feature: Scheduled DUO Bungii Cancellation in Denver Geofence
   I want to use request Scheduling Bungii with duo type
+    #All Cases are stable in this feature
 
   Background:
     When I Switch to "customer" application on "same" devices

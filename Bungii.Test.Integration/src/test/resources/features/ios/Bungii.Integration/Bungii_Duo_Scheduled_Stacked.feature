@@ -22,6 +22,7 @@ Feature: Scheduled Bungii STACKING
 	  | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
 	  | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
 	
+	And I wait for 1 minutes
 	And I view and accept virtual notification for "second" delivery of "Driver" for "stack trip"
 	And stack trip information should be displayed on deck
 	
@@ -78,6 +79,8 @@ Then I cancel all bungiis of customer
 	When I request another "Solo Ondemand" Bungii as a customer in "goa" geofence
 	  | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
 	  | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
+  
+	And I wait for 2 minutes
 	And I view and accept virtual notification for "second" delivery of "Driver" for "stack trip"
 	And stack trip information should be displayed on deck
 	
@@ -101,7 +104,7 @@ When I Switch to "customer" application on "same" devices
 When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
 | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
 | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-
+	And I wait for 2 minutes
 And I view and accept virtual notification for "Driver" for "stack trip"
 When I Switch to "driver" application on "ORIGINAL" devices
 And I slide update button on "UNLOADING ITEM" Screen
@@ -233,20 +236,16 @@ Then I cancel all bungiis of customer
 	
 	When I Switch to "customer" application on "same" devices
 	Then I should be navigated to "BUNGII ACCEPTED" screen
-	
+	When I click "Ok" button on "BUNGII ACCEPTED" screen
 	When I click "CANCEL BUNGII" on bungii accepted screen
 	Then I see "Alert: Bungii cancel confirmation" on bungii accepted screen
 	When I click "Dismiss on Alert message" on bungii accepted screen
+	
+	When I Switch to "customer" application on "same" devices
 	Then I should be navigated to "BUNGII ACCEPTED" screen
-	
-	#When I click "CANCEL BUNGII" on bungii accepted screen
-	#When I click "Cantact Support on Alert message" on bungii accepted screen
-	#And correct details should be displayed to customer for "customer support-SMS"
-	
 	When I click "CANCEL BUNGII" on bungii accepted screen
 	When I click "CANCEL BUNGII on Alert message" on bungii accepted screen
-	Then I see "Alert: Bungii cancel sucessfully" on bungii accepted screen
-	When I click "OK" on alert message
+	When I Switch to "customer" application on "same" devices
 	Then I should be navigated to "HOME" screen
 	Then I wait for "1" mins
 	And I click on notification for "Driver" for "CUSTOMER CANCEL STACK TRIP"
@@ -257,6 +256,7 @@ Then I cancel all bungiis of customer
 	  | CUSTOMER1_PHONE | 9403960183      |
   
   @regression
+	@reg
   Scenario: STACKING | Verify Customer Can Cancel Stacked Ondemand Bungii Accepted By a Driver [1 Device]
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State   |
@@ -282,17 +282,18 @@ Then I cancel all bungiis of customer
 	  | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
 	  | 15       |           |              | Now  | Default     |
 	Then I should be navigated to "SEARCHING" screen
-	
-	And I wait for 2 minutes
+	And I wait for 1 minutes
 	And I view and accept virtual notification for "Driver" for "stack trip"
 	And stack trip information should be displayed on deck
 	
 	When I Switch to "customer" application on "same" devices
 	Then I should be navigated to "BUNGII ACCEPTED" screen
+	When I click "Ok" button on "BUNGII ACCEPTED" screen
 	When I click "CANCEL BUNGII" on bungii accepted screen
 	When I click "CANCEL BUNGII on Alert message" on bungii accepted screen
-	Then I see "Alert: Bungii cancel sucessfully" on bungii accepted screen
-	
+	When I Switch to "customer" application on "same" devices
+	Then I should be navigated to "Home" screen
+ 
 	When I Switch to "driver" application on "same" devices
 	And I click on notification for "Driver" for "CUSTOMER CANCEL STACK TRIP"
 	And stack trip information should not be displayed on deck

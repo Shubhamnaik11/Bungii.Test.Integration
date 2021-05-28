@@ -1349,7 +1349,7 @@ catch(Exception ex)
         String[] calculatedTime = new String[3];
         try {
             String geofenceLabel = getTimeZoneBasedOnGeofenceId();
-            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE"); //phoneNumber="9403960189"; c/// Stacked trip will be 2 customer
+            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189"; c/// Stacked trip will be 2 customer you need of first trip
             String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
             String teletTime = com.bungii.android.utilityfunctions.DbUtility.getTELETfromDb(custRef);
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -1370,6 +1370,7 @@ catch(Exception ex)
             calculatedTime[0] = teletInLocalTime;
             calculatedTime[1] = strMindate;
             calculatedTime[2] = strMaxdate;
+            logger.detail("[As Per calculation Of Long Stack for Trip of Customer "+phoneNumber+"] Driver to Finish By :"+ teletInLocalTime + "Range ["+strMindate+" : "+strMaxdate+"]");
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -1435,6 +1436,7 @@ catch(Exception ex)
     public void calculateShortStack() throws ParseException {
 //        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
 try {
+
     int FROM_RANGE_FROM = -10;
     int FROM_RANGE_TO = +20;
     long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
@@ -1466,12 +1468,16 @@ try {
     newPickupLocations[1] = pickup2Locations[1];
 
     int[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(driverLocation, dropLocation, newPickupLocations);
+    logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance);
     int FLUFF_TIME = 4;
     loadingTime = (loadingTime < 1 ? 10 : loadingTime);
     // loadingTime=10;
     long totalTimeETAtoPickup = loadingTime + timeToCoverDistance[0] + timeToCoverDistance[1] + FLUFF_TIME;
+    logger.detail("totalTimeETAtoPickup "+totalTimeETAtoPickup);
     long tripProjectedEndTime = loadingTime + timeToCoverDistance[0];
+    logger.detail("tripProjectedEndTime "+tripProjectedEndTime);
     String tripStartTime = com.bungii.android.utilityfunctions.DbUtility.getStatusTimeStampForStack(customer2PhoneNumber);
+    logger.detail("Status 40 Timestamp "+tripStartTime);
     Date tryToFinishTome_Temp = formatter.parse(tripStartTime);
     DateFormat formatterForLocalTimezone = new SimpleDateFormat("hh:mm a");
     formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
@@ -1490,6 +1496,8 @@ try {
     cucumberContextManager.setScenarioContext("DRIVER_FINISH_BY", driverTime);
     cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL", strMindate);
     cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL", strMaxdate);
+    logger.detail("[As Per calculation Of Short Stack for Trip of Customer "+customerPhoneNumber+" and "+customerPhoneNumber+"] Driver to Finish By :"+ driverTime + "Range "+FROM_RANGE_FROM+","+FROM_RANGE_TO+"["+strMindate+" : "+strMaxdate+"]");
+
 }
 catch (Exception e)
 {
