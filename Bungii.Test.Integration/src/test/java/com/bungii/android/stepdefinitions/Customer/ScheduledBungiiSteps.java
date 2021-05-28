@@ -85,6 +85,7 @@ public class ScheduledBungiiSteps extends DriverBase {
         try {
             String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+
             selectBungii(tripNoOfDriver, tripTime);
             pass("I select already scheduled bungii", "I selected already scheduled bungii of " + tripNoOfDriver + " type and at time: " + tripTime, true);
         } catch (Exception e) {
@@ -782,16 +783,22 @@ public class ScheduledBungiiSteps extends DriverBase {
      * @param bungiiTime Scheduled bungii time
      */
     public void selectBungii(String bungiiType, String bungiiTime) {
-        Date currentDate = new Date();
-        int year = currentDate.getYear() + 1900;
+        //Date currentDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        int year = ((GregorianCalendar) cal).getWeekYear();
+        //int year = currentDate.getYear() + 1900;
         String[] timeZones=utility.getDayLightTimeZoneBasedOnGeofence();
        // String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
 
-        if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]) || bungiiTime.contains("GMT+5:30")|| bungiiTime.contains("GMT+05:30"))
-            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -").replace("+5:30","+05:30")));
-        else
+        if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]) || bungiiTime.contains("GMT+5:30")|| bungiiTime.contains("GMT+05:30")) {
+            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"), bungiiTime.replace(",", ", " + year + " -").replace("+5:30", "+05:30").replace("ST", "DT")));
+            log("I should click on schedule delivery which display Timezones or GMT+05:30 for Time"+bungiiTime,"I clicked on schedule delivery which display Timezones or GMT+05:30 for Time"+bungiiTime);
+        }
+        else {
             action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[0],
                     bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[1]));
+            log("I should click on schedule delivery which does not display Timezone or GMT+05:30 for Time"+bungiiTime,"I clicked on schedule delivery which does not display Timezone or GMT+05:30 for Time"+bungiiTime);
+        }
     }
 
 
