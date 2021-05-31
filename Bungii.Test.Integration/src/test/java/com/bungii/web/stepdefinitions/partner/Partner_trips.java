@@ -878,7 +878,7 @@ public class Partner_trips extends DriverBase {
             }
         }
         Thread.sleep(1000);
-        testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), Partner_Status, "Trip Status " + Partner_Status + " should be updated", "Trip Status " + Partner_Status + " is updated", "Trip Status " + Partner_Status + " is not updated");
+        testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), Partner_Status, "Trip Status " + Partner_Status + " should be updated", "Trip Status " + Partner_Status + " is updated", "Trip Status " + Partner_Status + " is not updated. Expected : "+ xpath);
             if (!Partner_Status.equalsIgnoreCase("Canceled")) {
                 if (!Partner_Status.equalsIgnoreCase("Completed")) {
                     SetupManager.getDriver().switchTo().window(tabs.get(1));

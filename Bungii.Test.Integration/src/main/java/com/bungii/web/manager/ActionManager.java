@@ -178,11 +178,13 @@ public class ActionManager {
         try {
         new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
             element.click();
+            logger.detail("Click on element by locator" + getElementDetails(element));
         }catch (StaleElementReferenceException ex){
             //Retry
             try {
             Thread.sleep(5000);
                    element.click();
+                logger.detail("Click on element by locator [Attempt 2]" + getElementDetails(element));
             }
             catch (Exception ex1) {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(ex1));
@@ -190,7 +192,7 @@ public class ActionManager {
                         true);
 
             }
-            logger.detail("Click on element by locator" + getElementDetails(element));
+
             }
 
          catch(WebDriverException ex) {
@@ -270,6 +272,7 @@ public class ActionManager {
     }
 
     public WebElement getElementByXPath(String Locator) {
+        logger.detail("Find Element with Locator : ", Locator);
         return new PageBase().findElement(Locator, PageBase.LocatorType.XPath);
     }
     public void selectElementByText(WebElement element, String text)

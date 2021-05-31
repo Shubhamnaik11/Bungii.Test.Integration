@@ -24,7 +24,7 @@
       #And I confirm the trip details from Get Estimate
       When I enter all details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
-        |Furniture       |Handle with care   |Testpartner A |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
+        |Furniture       |Handle with care   |Testpartner X |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
       And I Select "Customer Card" as Payment Method
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -67,7 +67,7 @@
 
     @regression
     @sanity
-    Scenario: Verify Cancellation of Solo Scheduled Trips
+    Scenario: Verify Cancellation of Solo Scheduled Delivery
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                          | Delivery_Address                        |Load_Unload_Time|
         | 601 13th Street Northwest, Washington   | 234 13th Street Northeast, Washington   |30 minutes      |

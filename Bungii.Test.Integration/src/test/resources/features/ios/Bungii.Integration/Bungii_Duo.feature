@@ -9,7 +9,7 @@ Feature: Scheduled DUO Bungii
   Background:
   When I Switch to "customer" application on "same" devices
 	
-  @sanity
+  @regression
     #Stable
   Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
     Given that duo schedule bungii is in progress
@@ -108,8 +108,10 @@ Feature: Scheduled DUO Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
-	
+    
+    
   @regression
+    @sanity
   #stable
   Scenario: Verify Decked Alert Status And Projected Arrival Time and Time To Finish by Calculations Of Long Stacked Bungii Over Current Ondemand Bungii [2 Devices]
     Given that ondemand bungii is in progress

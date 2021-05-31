@@ -91,7 +91,7 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_view_the_scheduled_deliveries_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
-        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "Today");
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
         //action.click(admin_ScheduledTripsPage.Order_Initial_Request());//change by gopal for partner portal
         // SetupManager.getDriver().navigate().refresh();
         log("I view the Scheduled Deliveries list on the admin portal",
@@ -261,7 +261,7 @@ public class Admin_TripsSteps extends DriverBase {
 
     @Then("^I should be able to see the respective bungii with the below status$")
     public void i_should_be_able_to_see_the_respective_bungii_with_the_below_status(DataTable data) throws Throwable {
-
+       String TripPath = "";
         try {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String status = dataMap.get("Status").trim();
@@ -285,7 +285,7 @@ public class Admin_TripsSteps extends DriverBase {
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
                 String costPath =  String.format("//td[contains(.,'%s')]/preceding-sibling::td[1]/span", customer);
-
+                TripPath= xpath;
                 int retrycount = 10;
 
                 boolean retry = true;
@@ -321,7 +321,7 @@ public class Admin_TripsSteps extends DriverBase {
             } else {
                 //String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
                 String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
-
+                TripPath= XPath;
                 int retrycount = 10;
 
                 boolean retry = true;
@@ -356,7 +356,7 @@ public class Admin_TripsSteps extends DriverBase {
         catch(Exception e)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "PROBABLY DATA SYNCH ISSUE | Bungii is not displayed in Scheduled Delivery List",
+            error("Step  Should be successful", "Bungii is not displayed in Admin Scheduled Delivery List : "+ TripPath,
                     true);
 
         }
@@ -364,7 +364,7 @@ public class Admin_TripsSteps extends DriverBase {
     }
     @Then("^I should be able to see the respective bungii with the below Delivery Type$")
     public void i_should_be_able_to_see_the_respective_bungii_with_the_below_delivery_type(DataTable data) throws Throwable {
-
+          String TripPath = "";
         try {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String type = dataMap.get("Type").trim().toUpperCase();
@@ -378,6 +378,7 @@ public class Admin_TripsSteps extends DriverBase {
             //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
               utility.selectGeofenceDropdown(geofenceName);
             String xpath = String.format("//td[contains(.,'%s')]/preceding-sibling::td[contains(.,'%s')]",  customer,type);
+            TripPath = xpath;
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), type, "Delivery Type " + type + " should be updated", "Delivery Type " + type + " is updated", "Delivery Type " + type + " is not updated");
 
@@ -386,7 +387,7 @@ public class Admin_TripsSteps extends DriverBase {
         catch(Exception e)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "PROBABLY DATA SYNCH ISSUE | Bungii is not displayed in Scheduled Delivery List",
+            error("Step  Should be successful", "Bungii is not displayed in Admin Scheduled Delivery List : "+ TripPath,
                     true);
 
         }

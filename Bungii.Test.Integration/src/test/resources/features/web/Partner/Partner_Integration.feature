@@ -10,7 +10,7 @@ Feature: Partner Integration with Admin and Driver
   @regression
   @sanity
     #stable
-  Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup on Partner Portal
+  Scenario: Delivery List Status Updation For Solo Scheduled Pickup on Partner Portal
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |

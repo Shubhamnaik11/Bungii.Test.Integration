@@ -134,7 +134,7 @@ Feature: Admin_PartnerFirmTrips
     And I enter cancellation fee and Comments
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
-    When I view the Trips list on the admin portal
+    When I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     #And Partner firm should receive "Bungii Delivery Pickup Canceled" email
     #And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
@@ -227,6 +227,7 @@ Feature: Admin_PartnerFirmTrips
 
   @sanity
   @ready
+    @reg
     #test data created in base
     #changed driver name
   Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin
@@ -261,6 +262,6 @@ Feature: Admin_PartnerFirmTrips
     And I enter cancellation fee and Comments
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
-    When I view the Trips list on the admin portal
+    When I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     #And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
