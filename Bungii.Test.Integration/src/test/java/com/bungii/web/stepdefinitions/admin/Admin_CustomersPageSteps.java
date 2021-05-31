@@ -336,7 +336,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
         String phone = (String)  cucumberContextManager.getScenarioContext("PHONE");
 
         String xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custFirstName,phone);
-        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),
+        testStepAssert.isElementDisplayed(admin_customerPage.findElement(xpath,PageBase.LocatorType.XPath),
                 "Customer's updated phone should be listed in grid.",
                 "Customer's updated phone is listed in grid.",
                 "Customer's updated phone is not listed in grid.");
@@ -345,7 +345,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
     @When("^I view the searched customer$")
     public void i_view_the_searched_customer() throws Throwable {
        String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
-        action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        action.click(admin_customerPage.findElement(xpath,PageBase.LocatorType.XPath));
         log("I view searched Customer" ,
                 "I viewed searched Customer");
     }
