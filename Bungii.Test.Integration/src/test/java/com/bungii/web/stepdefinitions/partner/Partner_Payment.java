@@ -17,6 +17,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.fail;
+import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
 
 public class Partner_Payment extends DriverBase {
@@ -39,6 +40,8 @@ public class Partner_Payment extends DriverBase {
             default:break;
 
         }
+        log("I select "+str+" as Payment Method","I have selected "+str+" as Payment Method", false);
+
 
     }
 
@@ -181,7 +184,6 @@ public class Partner_Payment extends DriverBase {
         action.click(Page_Partner_Delivery.TextBox_CVV());
         action.sendKeys(Page_Partner_Delivery.TextBox_CVV(), cvv);
         action.switchToMainFrame();
-
 
         Thread.sleep(1000);
     }

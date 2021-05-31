@@ -97,11 +97,15 @@ public class Admin_GeofenceSteps extends DriverBase {
         String GeofenceName = (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
         String Xpath =String.format("//tr/td[contains(.,'%s')]",GeofenceName);
         action.click( SetupManager.getDriver().findElement(By.xpath(Xpath)));
+        log("I click on the geofence name "+ geofenceName ,
+                "I have clicked on the geofence name "+ geofenceName, false);
     }
 
     @When("^I edit the geofence \"([^\"]*)\"$")
     public void i_edit_the_geofence(String geofenceName) throws Throwable {
         action.click(admin_GeofencePage.Button_Edit());
+        log("I edit the geofence "+ geofenceName ,
+                "I have edited the geofence "+ geofenceName, false);
     }
 
     @Then("^the geofence gets saved successfully and it is displayed in the \"([^\"]*)\" grid$")
@@ -232,6 +236,8 @@ public class Admin_GeofenceSteps extends DriverBase {
                                 break;
 
                         }
+                        log("I navigate to "+Page+" page" ,
+                                "I have navigated to "+Page+" page", false);
 
                         i_should_see_something_in_the_dropdown_on_the_something_page(Page);
                         i_should_not_see_something_in_the_dropdown_on_the_something_page(Page);
@@ -264,6 +270,8 @@ public class Admin_GeofenceSteps extends DriverBase {
                     break;
 
             }
+            log("I select "+geofenceName+" geofence" ,
+                    "I have selected "+geofenceName+" geofence", false);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -280,6 +288,8 @@ public class Admin_GeofenceSteps extends DriverBase {
             utility.searchGeofenceDropdown(zone);
             testStepAssert.isElementDisplayed(admin_geofencePage.Checkbox_GeofenceLabel(zone), zone + " should be displayed", zone + " is displayed", zone + " is not displayed");
             utility.closeGeofenceDropdown();
+            log("I close geofence dropdown" ,
+                    "I have closed geofence dropdown", false);
 
         }
     }
@@ -294,7 +304,8 @@ public class Admin_GeofenceSteps extends DriverBase {
             utility.searchGeofenceDropdown(zone);
             testStepVerify.isElementNotDisplayed(admin_geofencePage.Checkbox_GeofenceLabel(zone, true), zone + " should not be displayed", zone + " is not displayed", zone + " is displayed");
             utility.closeGeofenceDropdown();
-
+            log("I close geofence dropdown" ,
+                    "I have closed geofence dropdown", false);
           /*  List<WebElement> options = admin_DashboardPage.Dropdown_Geofence().findElements(By.tagName("option"));
                for (WebElement option : options)
                {
@@ -391,11 +402,15 @@ public class Admin_GeofenceSteps extends DriverBase {
     public void i_can_deselect_something_option_for_scheduled_trip(String strArg1)  {
         testStepAssert.isElementEnabled(admin_GeofencePage.Checkbox_Solo(),"Solo is enabled","Solo is enabled","Solo is disbled");
         action.click(admin_GeofencePage.Checkbox_Solo());
+        log("I click option " + strArg1,
+                "I have clicked option "+ strArg1, false);
     }
 
     @When("^I check \"([^\"]*)\" option$")
     public void i_check_something_option(String strArg1) throws Throwable {
         action.click(admin_GeofencePage.Checkbox_Duo());
+        log("I click option " + strArg1,
+                "I have clicked option "+ strArg1, false);
     }
 
     @Then("^The \"([^\"]*)\" gets selected automatically$")
@@ -519,6 +534,8 @@ public class Admin_GeofenceSteps extends DriverBase {
 
         action.navigateTo(loadGeoFenceAttributesUrl);
         action.click(admin_geofenceAtrributesPage.Button_NewAttribute());
+        log("I load Geofence Attributes Page and Click on New Attributes button",
+                "I have loaded Geofence Attributes Page and Clicked on New Attributes button", false);
     }
 
     @Then("^the \"([^\"]*)\" message is displayed  in geofence popup")
@@ -636,6 +653,8 @@ public class Admin_GeofenceSteps extends DriverBase {
                 action.clear(admin_GeofencePage.TextBox_Bunggi_Cut_Rate());
                 break;
         }
+        log("I set "+BungiiRateData+" % Bungii Cut Per Delivery for the geofence",
+                "I have set "+BungiiRateData+" % Bungii Cut Per Delivery for the geofence", false);
 
     }
 
@@ -670,6 +689,8 @@ public class Admin_GeofenceSteps extends DriverBase {
     @And("^I uncheck the Active Geofences Only Checkbox$")
     public void I_uncheck_the_active_geofences_only_checkbox(){
         action.click(admin_GeofencePage.Checkbox_Active_Geofences());
+        log("I uncheck the Active Geofences Only Checkbox",
+                "I have uncheck the Active Geofences Only Checkbox", false);
         //Thread.sleep(2000);
     }
 

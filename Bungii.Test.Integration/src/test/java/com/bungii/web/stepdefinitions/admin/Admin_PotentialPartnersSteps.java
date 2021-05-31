@@ -50,6 +50,8 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
         try {
             String countTrips = admin_potentialPartnersPage.Text_PickupsNumberInCluster().getText();
             cucumberContextManager.setScenarioContext("TRIPSINCLUSTER", countTrips);
+            log("I get the count of" + strArg1 ,
+                    "I got the count of" + strArg1, false);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -87,6 +89,8 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
                     action.click(admin_potentialPartnersPage.Hyperlink_ViewTrips());
                     break;
             }
+            log("I click on " + strArg1 +" hyperlink" ,
+                    "I have clicked on " + strArg1 +" hyperlink", false);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -6,6 +6,7 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_DetailsPage;
@@ -908,6 +909,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     }
 
+    @And("^I get new pickuref$")
+    public void i_get_new_pickuref() throws Throwable {
+        String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        pickupRequest = new DbUtility().getResarchedPickupReference(pickupRequest); //researched pickup ref
+        cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+    }
 
 
 }

@@ -303,6 +303,8 @@ public class DriverRegistrationSteps extends DriverBase {
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), phone);
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("web.valid.common.driver.password"));
       //  action.click(Page_Driver_Login.Button_DriverLogin());
+        log("I enter driver Phone number as "+phone+" and valid password","I have entered driver Phone number as "+phone+" and valid password", false);
+
     }
     @And("^I enter \"([^\"]*)\" driver phone number on Signup page$")
     public void i_enter_something_driver_phone_number_on_signup_page(String p0) throws Throwable {

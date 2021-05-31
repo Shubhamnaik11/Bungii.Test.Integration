@@ -17,6 +17,8 @@ import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.Keys;
 import java.util.Map;
 
+import static com.bungii.common.manager.ResultManager.log;
+
 public class Partner_IntegrationSteps extends DriverBase {
 
     private static LogUtility logger = new LogUtility(DashBoardSteps.class);
@@ -365,6 +367,7 @@ public class Partner_IntegrationSteps extends DriverBase {
                 default:
                     break;
             }
+            log("I request "+Type+" Bungii trip in partner portal configured for "+Site+" in "+geofence+" geofence", "I have requested "+Type+" Bungii trip in partner portal configured for "+Site+" in "+geofence+" geofence", false);
 
         }
     }

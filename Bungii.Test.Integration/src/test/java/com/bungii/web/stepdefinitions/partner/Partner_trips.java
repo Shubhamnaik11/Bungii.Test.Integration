@@ -162,7 +162,10 @@ public class Partner_trips extends DriverBase {
                 }
              break;
             default: break;
+
+
         }
+            log("I request for "+Type+" Bungii trip in partner portal","I have requested for "+Type+" Bungii delivery in partner portal", false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error in selecting pickup and drop off address.", true);
@@ -175,13 +178,17 @@ public class Partner_trips extends DriverBase {
 
         action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
         action.click(Page_Partner_Dashboard.Button_PickupClear());
+        log("I clear the existing pickup address details","I have cleared the existing pickup address details", false);
+
     }
 
        @When("^I click on Pickup date$")
     public  void i_click_on_pickup_date(){
 
         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
-    }
+           log("I click on Pickup date","I have clicked on Pickup date", false);
+
+       }
 
     @Then("^I should see five future days including today$")
     public void i_should_see_five_future_days_including_today() {

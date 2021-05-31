@@ -12,6 +12,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.hamcrest.beans.PropertyUtil;
 
+import static com.bungii.common.manager.ResultManager.log;
+
 public class Admin_DriverVerificationSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
     Admin_MenuLinksPage admin_MenuLinksPage = new Admin_MenuLinksPage();
@@ -76,6 +78,8 @@ public class Admin_DriverVerificationSteps extends DriverBase {
     @And("^I verify and approve the \"([^\"]*)\" field$")
     public void i_verify_and_approve_the_something_field(String strArg1) throws Throwable {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
+        log("I verify and approve the "+strArg1+" field",
+                "I verified and approve the "+strArg1+" field", false);
     }
 
     @And("^I verify and reject the \"([^\"]*)\" field$")
@@ -88,7 +92,10 @@ public class Admin_DriverVerificationSteps extends DriverBase {
             case "Driver Picture":
                 action.click( admin_DriverVerificationPage.Verify_Reject_DriverPicture());
                 break;
-        }    }
+        }
+        log("I verify and reject the "+strArg1+" field",
+                "I verified and reject the "+strArg1+" field", false);
+    }
 
     @And("^I check if the status has been changed to \"([^\"]*)\"$")
     public void i_check_if_the_status_has_been_changed_to_something(String strArg1) throws Throwable {
@@ -100,6 +107,8 @@ public class Admin_DriverVerificationSteps extends DriverBase {
 
             case "rejected":
                 action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(),"Invalid DOB");
+                log("I enter rejection reason in field",
+                        "I have entered rejection reason in field", false);
                 break;
         }    }
 
@@ -107,16 +116,23 @@ public class Admin_DriverVerificationSteps extends DriverBase {
     @And("^I click and reset the status of \"([^\"]*)\" field$")
     public void i_click_and_reset_the_status_of_something_field(String strArg1) throws Throwable {
         action.click(admin_DriverVerificationPage.Verify_Reject_DriverPicture());
+        log("I click and reset the status of "+strArg1+" field",
+                "I clicked and reseted the status of "+strArg1+" field", false);
     }
 
     @And("^I check if the status of \"([^\"]*)\" field has been changed to rejected$")
     public void i_check_if_the_status_of_something_field_has_been_changed_to_rejected(String strArg1) throws Throwable {
         action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_DriverPicture(),"Clear picture needed");
+        log("I check if the status of "+strArg1+" field has been changed to rejected",
+                "I checked if the status of "+strArg1+" field has been changed to rejected", false);
     }
 
     @And("^I click and reset the Rejected status of \"([^\"]*)\" field$")
     public void i_click_and_reset_the_rejected_status_of_something_field(String strArg1) throws Throwable {
         action.click(admin_DriverVerificationPage.Verify_Reject_DriverPicture());
+        log("I click and reset the Rejected status of "+strArg1+" field",
+                "I clicked and reseted the Rejected status of "+strArg1+" field", false);
+
     }
 
     @And("^I verify that the status has been reset$")

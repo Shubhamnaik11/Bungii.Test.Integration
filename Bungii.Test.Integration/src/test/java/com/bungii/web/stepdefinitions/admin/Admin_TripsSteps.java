@@ -61,6 +61,8 @@ public class Admin_TripsSteps extends DriverBase {
         Thread.sleep(120000); //Wait for 2 minutes
         SetupManager.getDriver().navigate().refresh();
         //  action.click(admin_DashboardPage.Menu_Dashboard());
+        log("I view the Customer list on the admin portal",
+                "I viewed the Customer list on the admin portal", false);
     }
     @And("^I view the Deliveries list on the admin portal$")
     public void i_view_the_trips_list_on_the_admin_portal() throws Throwable {
@@ -164,6 +166,8 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_view_the_customer_details_page_of_customer_something(String strArg1) throws Throwable {
         String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        log("I view the customer details page of Customer",
+                "I viewed the customer details page of Customer "+strArg1, false);
     }
     @Then("^Trip should be listed in the grid$")
     public void trip_should_be_listed_in_the_grid() throws Throwable {
@@ -403,6 +407,8 @@ public class Admin_TripsSteps extends DriverBase {
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST);
 
         action.getElementByXPath(XPath).click();
+        log("I select the scheduled trip on scheduled delivery",
+                "I have selected the scheduled trip on scheduled delivery", false);
     }
 
 
@@ -499,6 +505,8 @@ public class Admin_TripsSteps extends DriverBase {
             String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST, Client);
 
             action.getElementByXPath(XPath).click();
+            log("I select the scheduled trip on All Deliveries",
+                    "I have selected the scheduled trip on All Deliveries", false);
         }
         catch (Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -547,7 +555,8 @@ public class Admin_TripsSteps extends DriverBase {
         action.clearSendKeys(admin_TripDetailsPage.Textbox_PickupEndDate(), dtf.format(now));
         action.clearSendKeys(admin_TripDetailsPage.Textbox_PickupEndTime(), formatter.format(hours) + ":" + formatter.format(minutes));
         action.selectElementByText(admin_TripDetailsPage.Dropdown_ddlpickupEndTime(), splitedDate[3]);
-
+        log("I enter the End Date and Time",
+                "I have entered the End Date and Time", false);
 
     }
 
@@ -569,7 +578,8 @@ public class Admin_TripsSteps extends DriverBase {
                 action.click(admin_EditScheduledBungiiPage.Button_Edit());
                 break;
         }
-
+        log("I click on " + button+" button",
+                "I have clicked on " + button+" button", false);
     }
 
     @Then("^the Bungii details is displayed successfully$")
@@ -701,6 +711,8 @@ public class Admin_TripsSteps extends DriverBase {
         String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         pickupRequest =  getLinkedPickupRef(pickupRequest);
         cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+        log("I get the new pickup reference generated",
+                "Pickupref is "+pickupRequest, false);
     }
 
     @And("^I edit the drop off address$")
@@ -1019,8 +1031,10 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_note_the_pickupref_of_trip() throws Throwable {
 
         String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
-        cucumberContextManager.setScenarioContext("PICKUP_REQUEST", new DbUtility().getLatestPickupRefOfCustomer(customerRef));
-
+        String pickupref= new DbUtility().getLatestPickupRefOfCustomer(customerRef);
+        cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupref);
+        log("I note the Pickupref of delivery",
+                "Pickupref is "+pickupref, false);
     }
 
     @Then("^Partner firm should not receive \"([^\"]*)\" email$")
@@ -1064,6 +1078,8 @@ public class Admin_TripsSteps extends DriverBase {
     public void the_driver_should_get_removed_successfully() throws Throwable {
         testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(), "Driver(s) removed successfully", "Pass", "Fail");
         action.click((admin_ScheduledTripsPage.Button_Close()));
+        log("I click close button",
+                "I have clicked close button ", false);
     }
 
     @When("^I search by client name \"([^\"]*)\"$")
@@ -1091,7 +1107,8 @@ public class Admin_TripsSteps extends DriverBase {
         }
         action.clear(admin_TripsPage.TextBox_Search());
 
-
+        log("I clear search box",
+                "I have cleared search box ", false);
     }
 
     @When("^I click on \"([^\"]*)\" icon on \"([^\"]*)\" Page$")
@@ -1376,6 +1393,8 @@ public class Admin_TripsSteps extends DriverBase {
     @And("^I refresh the page$")
     public void i_refresh_the_page() throws Throwable {
        action.refreshPage();
+        log("I refresh page",
+                "I have refreshed page ", false);
     }
 
     @Then("^Tick mark should be displayed beside driver and scheduled date$")
@@ -1417,6 +1436,8 @@ public class Admin_TripsSteps extends DriverBase {
         LocalTime time= LocalTime.parse(value, DateTimeFormatter.ofPattern("hh:mm a"));
         value = time.plusMinutes(15).format(DateTimeFormatter.ofPattern("hh:mm a")).toString();
         action.click(admin_EditScheduledBungiiPage.List_TimeFrame(value));
+        log("I update the Scheduled date of the trip by 15 minutes",
+                "I have updated the Scheduled date of the trip by 15 minutes", false);
     }
 
     @And("^I remove driver \"([^\"]*)\" and add the new driver \"([^\"]*)\"$")
@@ -1425,6 +1446,8 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_EditScheduledBungiiPage.Link_RemoveDriver());
         action.clearSendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch(),driverAdd);
         action.click(admin_EditScheduledBungiiPage.List_DriverSearchResult(driverAdd));
+        log("I remove driver "+driverRemove+" and add the new driver "+driverAdd,
+                "I have removed driver "+driverRemove+" and add the new driver "+driverAdd, false);
     }
 
     @And("^I click on \"([^\"]*)\" button on Edit Scheduled bungii popup$")
@@ -1444,6 +1467,8 @@ public class Admin_TripsSteps extends DriverBase {
                 action.click(admin_EditScheduledBungiiPage.Link_RemoveDriver());
                 break;
         }
+        log("I click on "+button+" button on Edit Scheduled bungii popup",
+                "I have clicked on "+button+" button on Edit Scheduled bungii popup", false);
     }
 
     @Then("^Under Drivers: for both Driver 1 and 2 : \"([^\"]*)\" should be displayed$")

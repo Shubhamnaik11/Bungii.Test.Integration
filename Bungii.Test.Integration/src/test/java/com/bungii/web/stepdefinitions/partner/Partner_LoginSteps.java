@@ -404,6 +404,8 @@ public class Partner_LoginSteps extends DriverBase {
             js.executeScript(String.format("window.localStorage.clear();"));
             Thread.sleep(5000);
             SetupManager.getDriver().navigate().refresh();
+            log("I Clear the browser local storage and refresh the Page","I have cleared the browser local storage and refresh the Page", false);
+
         }
         catch (Exception e){
             logger.error("Error performing step clearing local storag", ExceptionUtils.getStackTrace(e));
@@ -417,6 +419,7 @@ public class Partner_LoginSteps extends DriverBase {
         //throw new PendingException();
         action.click(Page_Partner_Done.Dropdown_Filter());
         action.click(Page_Partner_Done.Checkbox_Check_UnCheck_All());
+        log("I click on Filter and select check/unchecked all checkbox","I have clicked on Filter and select check/unchecked all checkbox", false);
 
 
     }
@@ -426,6 +429,7 @@ public class Partner_LoginSteps extends DriverBase {
         //throw new PendingException();
         action.click(Page_Partner_Done.Button_Apply());
 
+        log("I click on Apply button on Filter","I have clicked on Apply button on Filter", false);
     }
 
     @Then("^I should not able to see Filter screen$")

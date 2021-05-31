@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.web.utilityfunctions.DbUtility.*;
 
 public class Admin_PartnerFirmSteps extends DriverBase {
@@ -64,6 +65,8 @@ public class Admin_PartnerFirmSteps extends DriverBase {
     @And("^I ensure no driver accepts the trip$")
     public void i_ensure_no_driver_accepts_the_trip() throws Throwable {
       Thread.sleep(480000);
+        log("I ensure no driver accepts the trip" ,
+                "I have ensured no driver accepts the trip", false);
     }
 
 }

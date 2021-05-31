@@ -69,6 +69,7 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
             default:
                 break;
         }
+        log("I enter "+strArg1+" data on Pickup Information page","I have entered "+strArg1 +" data on Pickup Information page", true);
     }
 
     public String[] getTruckImages() {

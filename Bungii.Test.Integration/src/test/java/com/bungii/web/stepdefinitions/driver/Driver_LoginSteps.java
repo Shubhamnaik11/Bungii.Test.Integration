@@ -123,6 +123,7 @@ public class Driver_LoginSteps extends DriverBase {
         String driverAccessToken = authServices.getDriverToken("1", phoneNumber, "cci12345");
       //  coreServices.updateDriverLocation(driverAccessToken, geofence);
         coreServices.updateDriverStatus(driverAccessToken);
+        log("I Login as a driver with phone number "+phoneNumber+" and Make him online","I haved Logged in as a driver with phone number "+phoneNumber+" and Make him online", false);
 
     }
 }

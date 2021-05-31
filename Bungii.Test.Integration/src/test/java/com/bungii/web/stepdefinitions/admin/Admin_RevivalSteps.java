@@ -63,8 +63,8 @@ public class Admin_RevivalSteps extends DriverBase {
                 action.click(admin_revivalPage.Button_Cancel());
                 break;
         }
-        log("I click on the "+button+" button",
-                "I clicked the "+button+" button", true);
+        log("I click on the "+button+" button on Revival Popup",
+                "I have clicked the "+button+" button on Revival Popup", true);
     }
 
 }

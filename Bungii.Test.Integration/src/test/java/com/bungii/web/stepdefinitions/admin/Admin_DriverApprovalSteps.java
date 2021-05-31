@@ -74,6 +74,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(Lastname));
                 break;
         }
+        log("I click on "+button+" button against the applicant name",
+                "I have clicked on "+button+" button against the applicant name", false);
 
     }
     @When("^I click \"([^\"]*)\" button against the \"([^\"]*)\" applicant$")
@@ -155,7 +157,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());   }
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+        log("I verify and approve all the verification fields",
+                "I have verified and approved all the verification fields", false);
+    }
 
     @And("^I click on the \"([^\"]*)\" Button$")
     public void iClickOnTheButton(String arg0) throws Throwable {
@@ -294,6 +299,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @When("^I enter the reject reason$")
     public void iEnterTheRejectReason() throws Throwable {
         action.clearSendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejectDriverApplication(),"Invalid values found. Please review and resend the application");
+        log("I enter the reject reason" ,
+                "I have I entered the reject reason");
     }
 
     @Then("^the status of the field changes to \"([^\"]*)\"$")

@@ -67,6 +67,8 @@ public class Partner_Delivery_Details extends DriverBase {
                         break;
                 }
             }
+            log("I enter following details on  "+str+" for "+Site+" on partner screen", "I have entered following details on "+str+" for "+Site+" on partner screen", false);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -221,6 +223,8 @@ public class Partner_Delivery_Details extends DriverBase {
                     default:
                         break;
                 }
+                log("I enter all details on "+str+" for "+Site+" on partner screen", "I have entered all details on "+str+" for "+Site+" on partner screen", false);
+
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -117,6 +117,8 @@ public class Driver_DetailsSteps extends DriverBase {
             default:
                 break;
         }
+        log("I enter "+strArg1+" data on Driver Details page","I have entered "+strArg1 +" data on Driver Details page", false);
+
     }
 
     @Then("^I should see individual field validations on \"([^\"]*)\" page$")
@@ -172,12 +174,15 @@ public class Driver_DetailsSteps extends DriverBase {
     public void i_uncheck_something_checkbox(String strArg1) throws Throwable {
         if(Page_Driver_Terms.CheckBox_Agree().isSelected())
             action.click(Page_Driver_Terms.CheckBox_Agree());
+        log("I uncheck "+strArg1+" checkbox","I have uncheck "+strArg1 +" checkbox", false);
+
     }
 
     @And("^I check \"([^\"]*)\" checkbox$")
     public void i_check_something_checkbox(String strArg1) throws Throwable {
         if(!Page_Driver_Terms.CheckBox_Agree().isSelected())
             action.click(Page_Driver_Terms.CheckBox_Agree());
+        log("I check "+strArg1+" checkbox","I have check "+strArg1 +" checkbox", false);
     }
     @And("^I click Next on \"([^\"]*)\" page$")
     public void i_click_next_on_something_page(String strArg1) throws Throwable {
@@ -348,12 +353,15 @@ public class Driver_DetailsSteps extends DriverBase {
     @And("^I wait for data to synch$")
     public void i_wait_for_data_to_synch() throws Throwable {
         Thread.sleep(120000);
+        log("I wait for data to synch","I waited for data to synch", false);
+
     }
 
     @When("^I edit the Driver$")
     public void i_edit_the_Driver() throws Throwable {
         try{
             action.click(geofencePage.Button_Edit());
+            log("I edit the Driver","I have edited the Driver", false);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

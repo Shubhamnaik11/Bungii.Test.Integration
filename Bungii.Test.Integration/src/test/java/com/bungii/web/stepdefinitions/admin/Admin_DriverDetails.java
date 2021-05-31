@@ -36,6 +36,9 @@ public class Admin_DriverDetails extends DriverBase{
     public void set_the_geofence_dropdown_to_something(String strArg1) throws Throwable {
       //  action.selectElementByText(admin_Driverspage.Dropdown_Geofence(), "-- All --");
         utility.resetGeofenceDropdown();
+        log("I set the Geofence dropdown to" + strArg1,
+                "I have set the Geofence dropdown to" + strArg1, true);
+
     }
 
     @When("^I search driver \"([^\"]*)\"$")
@@ -70,6 +73,8 @@ public class Admin_DriverDetails extends DriverBase{
                 break;
 
         }
+        log("I click on "+Linkname+" Link",
+                "I have clicked on "+Linkname+" Link", false);
     }
 
     @Then("^The Delivery List page should display the delivery in \"([^\"]*)\" state$")

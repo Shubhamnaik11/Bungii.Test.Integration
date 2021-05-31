@@ -23,6 +23,7 @@ public class Kiosk_Steps extends DriverBase {
                 action.click(Page_Kiosk.Link_Setting());
                 break;
         }
+        log("I click on "+linkName+" Link on Kiosk Partner Portal","I have clicked on "+linkName+" Link on Kiosk Partner Portal", false);
 
     }
 
@@ -38,6 +39,8 @@ public class Kiosk_Steps extends DriverBase {
                 break;
 
         }
+        log("I enter "+value+" password for Admin access","I have entered "+value+" password for Admin access", false);
+
 
     }
 
@@ -66,6 +69,8 @@ public class Kiosk_Steps extends DriverBase {
                 Thread.sleep(2000);
                 break;
         }
+        log("I click on "+value+" button on Kiosk Partner Portal","I have clicked on "+value+" button on Kiosk Partner Portal", false);
+
 
     }
 
@@ -89,6 +94,8 @@ public class Kiosk_Steps extends DriverBase {
                 action.click(Page_Kiosk.Link_SettingClose());
                 break;
         }
+        log("I set the Admin Access mode "+value+" on partner portal","I have set the Admin Access mode "+value+" on partner portal", false);
+
     }
 
 

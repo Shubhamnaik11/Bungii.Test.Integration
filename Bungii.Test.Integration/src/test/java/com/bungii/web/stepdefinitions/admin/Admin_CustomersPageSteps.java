@@ -127,7 +127,9 @@ public class Admin_CustomersPageSteps extends DriverBase {
                 }
                 break;
                 }
-        }
+        log("I enter "+strArg1+" "+strArg2+" in the "+strArg3+" box" ,
+                "I have entered "+strArg1+" "+strArg2+" in the "+strArg3+" box");
+    }
 
 
     @Then("^I should see \"([^\"]*)\" listed on the \"([^\"]*)\" page$")

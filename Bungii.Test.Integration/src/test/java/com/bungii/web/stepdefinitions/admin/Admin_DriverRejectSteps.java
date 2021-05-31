@@ -8,6 +8,8 @@ import com.bungii.web.pages.driver.Driver_LoginPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 
+import static com.bungii.common.manager.ResultManager.log;
+
 public class Admin_DriverRejectSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
@@ -28,11 +30,15 @@ public class Admin_DriverRejectSteps extends DriverBase {
                 action.click(admin_TripDetailsPage.Link_ManuallyEndBungii());
                 break;
         }
+        log("I click on "+link+" link",
+                "I have clicked on "+link+" link", false);
     }
 
     @And("^I reject the \"([^\"]*)\"confirm action$")
     public void i_reject_the_somethingconfirm_action(String strArg1) throws Throwable {
         action.click(admin_DriverVerificationPage.Button_DriverConfirmReject_No());
+        log("I reject the "+strArg1+ " confirm action",
+                "I rejected the "+strArg1+ " confirm action", false);
     }
 
     @And("^I check if a validation message \"([^\"]*)\" is shown$")
@@ -45,6 +51,8 @@ public class Admin_DriverRejectSteps extends DriverBase {
     public void i_do_not_enter_the_reject_reason() throws Throwable {
         admin_DriverVerificationPage.Textinput_ReasonforRejectDriverApplication().clear();
         Thread.sleep(5000);
+        log("I do not enter the reject reason",
+                "^I did not enter the reject reason", false);
     }
 
     @And("^I check if \"([^\"]*)\" confirm action is shown$")

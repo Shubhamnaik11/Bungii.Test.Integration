@@ -7,6 +7,8 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 
+import static com.bungii.common.manager.ResultManager.log;
+
 public class Admin_DriverResendApplicationSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
     ActionManager action = new ActionManager();
@@ -39,5 +41,7 @@ public class Admin_DriverResendApplicationSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+        log("I verify and reject the invalid verification fields",
+                "I have verified and reject the invalid verification fields", false);
     }
 }
