@@ -1075,7 +1075,7 @@ public class Admin_TripsSteps extends DriverBase {
 
     @Then("^All the clients named \"([^\"]*)\" should be displayed on the delivery list grid$")
     public void all_the_clients_named_something_should_be_displayed_on_the_trip_list_grid(String searchString) throws Throwable {
-        Thread.sleep(4000);
+        Thread.sleep(10000);
         try {
             for (WebElement e : admin_TripsPage.Client_names()) {
                 testStepAssert.isTrue(e.getText().contains(searchString), "Client Name contains " + searchString, "Client Name is " + e.getText());
@@ -1518,7 +1518,13 @@ public class Admin_TripsSteps extends DriverBase {
         String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
         DecimalFormat df = new DecimalFormat("0.00");
         Double orgcost = Double.parseDouble((String) cucumberContextManager.getScenarioContext("COST"));
-        orgcost= orgcost*2;
+        try {
+            orgcost = orgcost * 2;
+        }
+        catch(Exception ex)
+        {
+            logger.detail("Exception "+ ex.getLocalizedMessage());
+        }
         testStepAssert.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
 
     }
@@ -1527,7 +1533,12 @@ public class Admin_TripsSteps extends DriverBase {
         String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
         DecimalFormat df = new DecimalFormat("0.00");
         Double orgcost = Double.parseDouble((String) cucumberContextManager.getScenarioContext("COST"));
-        orgcost= orgcost/2;
+        try { orgcost= orgcost/2;
+    }
+        catch(Exception ex)
+    {
+        logger.detail("Exception "+ ex.getLocalizedMessage());
+    }
         testStepAssert.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
 
     }

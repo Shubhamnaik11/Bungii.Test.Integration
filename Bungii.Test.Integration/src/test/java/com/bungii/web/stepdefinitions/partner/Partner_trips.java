@@ -279,7 +279,22 @@ public class Partner_trips extends DriverBase {
 
 
     }
+    @And("^I select Next Pickup Date and Pickup Time$")
+    public  void i_select_next_days_pickupdate_time(DataTable data) throws Throwable {
 
+        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+        //String PickupDate =dataMap.get("PickUp_Date");
+        String Next_PickUpTime =dataMap.get("Trip_Time");
+        String strTime = "";
+
+        //if (Next_PickUpTime.equalsIgnoreCase("NEXT_POSSIBLE")) {
+        strTime = enterTime(Next_PickUpTime);
+        strTime=strTime.replace("am","AM").replace("pm","PM");
+
+        cucumberContextManager.setScenarioContext("Scheduled_Time", strTime);
+
+
+    }
     @And("^I check correct price is shown for selected service$")
     public void i_check_correct_price_is_shown_for_selected_service(){
         String Alias_Name= (String) cucumberContextManager.getScenarioContext("Alias");
@@ -499,8 +514,9 @@ public class Partner_trips extends DriverBase {
     }
 
     @When("^I click on \"([^\"]*)\" information icon and verify its text contents$")
-    public void i_click_on_some_information_icon(String Information_Icon){
+    public void i_click_on_some_information_icon(String Information_Icon)throws Throwable{
         String expectedMessage = "", actualMessage = "";
+        Thread.sleep(3000);
         switch (Information_Icon){
             case "WHAT’S NEEDED?":
                 action.click(Page_Partner_Dashboard.Information_Icon_Whats_Needed());
@@ -835,7 +851,7 @@ public class Partner_trips extends DriverBase {
         String Partner_Status = dataMap.get("Partner_Status").trim();
         ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
         SetupManager.getDriver().switchTo().window(tabs.get(0));
-
+        SetupManager.getDriver().manage().window().maximize();
         String Delivery_Date = (String) cucumberContextManager.getScenarioContext("PickupDateTime");
         String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
         String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
@@ -895,6 +911,9 @@ public class Partner_trips extends DriverBase {
 
             //action.click(Page_Partner_Dashboard.Dropdown_Pickup_Time());
             //action.click(Page_Partner_Dashboard.Pickup_Time1());
+        }
+        if (time.equalsIgnoreCase("NEXT_DAY")) {
+
         }
         return strTime;
     }

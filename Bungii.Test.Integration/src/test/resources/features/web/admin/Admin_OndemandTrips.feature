@@ -100,7 +100,7 @@ Feature: Admin_OndemandTrips
 
 
   @regression
-  Scenario:  Verify Search On Trip List
+  Scenario:  Verify Search On Delivery List
     When I click on "Deliveries > All Deliveries" Menu
     And I search by client name "Vishal"
     Then All the clients named "Vishal" should be displayed on the delivery list grid

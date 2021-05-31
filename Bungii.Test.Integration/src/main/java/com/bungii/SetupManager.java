@@ -308,35 +308,20 @@ public class SetupManager extends EventFiringWebDriver {
     private static ChromeOptions getChromeDesiredCapabilities() {
 
         ChromeOptions chromeOptions = new ChromeOptions();
-        //Run in Headless mode for IOS
-        //vishal[2003]: checking chrome issue for Mac machine
         chromeOptions.addArguments("no-sandbox");
         if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
             chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("window-size=1920,1080");
         }
-
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
         chromeOptions.addArguments("--start-maximized");
-        //chromeOptions.addArguments("--disable-dev-shm-usage");
-      //  chromeOptions.addArguments("--log-level=3");
-       // chromeOptions.addArguments("--silent");
-
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
-        //capabilities.setCapability("chrome.binary", chromeDriverPath);
-        //chromeOptions.addArguments("--whitelisted-ips='192.168.10.101'");
-
-
         chromeOptions.addArguments("--disable-infobars");
-        //vishal[2003]: checking chrome issue for Mac machine
-        //  capabilities.setCapability("chrome.verbose", true);
-        //capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         return chromeOptions;
     }
 

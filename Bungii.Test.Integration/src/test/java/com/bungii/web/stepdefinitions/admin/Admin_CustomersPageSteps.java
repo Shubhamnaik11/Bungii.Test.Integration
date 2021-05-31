@@ -139,7 +139,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String custFirstName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME");
                     Xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]", custFirstName);
                     cucumberContextManager.setScenarioContext("XPATH",Xpath);
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Customer's first name should be listed in grid.",
                             "Customer's first name is listed in grid.",
                             "Customer's first name is not listed in grid.");
@@ -149,7 +149,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String custLastName = (String) cucumberContextManager.getScenarioContext("CUSTLASTNAME");
                     Xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]", custLastName);
                     cucumberContextManager.setScenarioContext("XPATH",Xpath);
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Customer's last name should be listed in grid.",
                             "Customer's last name is listed in grid.",
                             "Customer's last name is not listed in grid.");
@@ -163,7 +163,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String driverFirstName = (String) cucumberContextManager.getScenarioContext("DRIVERFIRSTNAME");
                     Xpath = String.format("//tr[1]/td[contains(.,'%s')]", driverFirstName);
 
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Driver's first name should be listed in grid.",
                             "Driver's first name is listed in grid.",
                             "Driver's first name is not listed in grid.");
@@ -173,7 +173,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String driverLastName = (String) cucumberContextManager.getScenarioContext("DRIVERLASTNAME");
                     Xpath = String.format("//tr[1]/td[contains(.,'%s')]", driverLastName);
 
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Driver's last name should be listed in grid.",
                             "Driver's last name is listed in grid.",
                             "Driver's last name is not listed in grid.");
@@ -188,7 +188,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String custFirstName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME");
                     Xpath = String.format("//tbody[@id='TripListsTBody']/tr[@class='clickable-row'][1]/td[contains(.,'%s')]", custFirstName);
 
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Customer's first name should be listed in grid.",
                             "Customer's first name is listed in grid.",
                             "Customer's first name is not listed in grid.");
@@ -198,7 +198,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String custLastName = (String) cucumberContextManager.getScenarioContext("CUSTLASTNAME");
                     Xpath = String.format("//tbody[@id='TripListsTBody']/tr[@class='clickable-row'][1]/td[contains(.,'%s')]", custLastName);
 
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Customer's last name should be listed in grid.",
                             "Customer's last name is listed in grid.",
                             "Customer's last name is not listed in grid.");
@@ -208,7 +208,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String driverFirstName = (String) cucumberContextManager.getScenarioContext("DRIVERFIRSTNAME");
                     Xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]", driverFirstName);
 
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Driver's first name should be listed in grid.",
                             "Driver's first name is listed in grid.",
                             "Driver's first name is not listed in grid.");
@@ -218,7 +218,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String driverLastName = (String) cucumberContextManager.getScenarioContext("DRIVERLASTNAME");
                     Xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]", driverLastName);
 
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Driver's last name should be listed in grid.",
                             "Driver's last name is listed in grid.",
                             "Driver's last name is not listed in grid.");
@@ -232,7 +232,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String custFirstName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME");
                     Xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]", custFirstName);
 
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Customer's first name should be listed in grid.",
                             "Customer's first name is listed in grid.",
                             "Customer's first name is not listed in grid.");
@@ -242,7 +242,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String custLastName = (String) cucumberContextManager.getScenarioContext("CUSTLASTNAME");
                     Xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]", custLastName);
 
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Customer's last name should be listed in grid.",
                             "Customer's last name is listed in grid.",
                             "Customer's last name is not listed in grid.");
@@ -252,7 +252,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String driverFirstName = (String) cucumberContextManager.getScenarioContext("DRIVERFIRSTNAME");
                     Xpath = String.format("//tr[1]/td[contains(.,'%s')]", driverFirstName);
 
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Driver's first name should be listed in grid.",
                             "Driver's first name is listed in grid.",
                             "Driver's first name is not listed in grid.");
@@ -262,7 +262,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     String driverLastName = (String) cucumberContextManager.getScenarioContext("DRIVERLASTNAME");
                     Xpath = String.format("//tr[1]/td[contains(.,'%s')]", driverLastName);
 
-                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),
+                    testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Driver's last name should be listed in grid.",
                             "Driver's last name is listed in grid.",
                             "Driver's last name is not listed in grid.");
