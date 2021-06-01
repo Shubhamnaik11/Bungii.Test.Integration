@@ -29,6 +29,7 @@ Feature: SoloScheduled Part D
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
+    #stable
  @regression
   Scenario: Verify Status Of Scheduled Bungii Trip In Scheduled Bungiis Menu Screen When Required Drivers Have Not Accepted It
     Given that solo schedule bungii is in progress
