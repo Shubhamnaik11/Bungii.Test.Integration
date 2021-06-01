@@ -18,7 +18,8 @@
     "locale": "en_US",
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
-    "browserstack.acceptInsecureCerts": true
+    "browserstack.acceptInsecureCerts": true,
+    "settings[waitForIdleTimeout]" : 3000
   },
   "extra3": {
     "platformName": "Android",
@@ -39,7 +40,8 @@
     "locale": "en_US",
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
-    "browserstack.acceptInsecureCerts": true
+    "browserstack.acceptInsecureCerts": true,
+    "settings[waitForIdleTimeout]" : 3000
   },
   "extra1": {
     "platformName": "Android",
@@ -60,7 +62,8 @@
     "locale": "en_US",
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
-    "browserstack.acceptInsecureCerts": true
+    "browserstack.acceptInsecureCerts": true,
+    "settings[waitForIdleTimeout]" : 3000
   },
   "extra2": {
     "platformName": "Android",
@@ -81,7 +84,8 @@
     "locale": "en_US",
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
-    "browserstack.acceptInsecureCerts": true
+    "browserstack.acceptInsecureCerts": true,
+    "settings[waitForIdleTimeout]" : 3000
   },
   "connection": {
     "device1": 0,

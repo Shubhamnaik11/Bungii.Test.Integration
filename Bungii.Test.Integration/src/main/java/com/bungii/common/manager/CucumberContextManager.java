@@ -43,8 +43,11 @@ public class CucumberContextManager {
             System.out.println("                  GET STORED VARIABLE: "+ key.toString() + " : "+value );
             return value;
         }
-        else
+        else {
+            System.out.println(" ALERT :          GET STORED VARIABLE: " + key.toString() + " Is Not Set ");
             return "";
+        }
+             
     }
 
 

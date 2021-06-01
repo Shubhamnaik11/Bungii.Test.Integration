@@ -238,7 +238,7 @@ public class ScheduledTripSteps extends DriverBase {
 			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
 
 			testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest), " Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
-			pass("I remove current driver and researches Bungii", "I removeed current driver and researches Bungii");
+			pass("I remove current driver and researches Bungii and verify pickup reference ", "I removeed current driver and researches Bungii and Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -283,7 +283,7 @@ public class ScheduledTripSteps extends DriverBase {
 			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
 
 			testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest), " Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
-			pass("I remove current driver", "I removed current driver");
+			pass("I remove current driver and verify new pickupref is generated", "I removed current driver and Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

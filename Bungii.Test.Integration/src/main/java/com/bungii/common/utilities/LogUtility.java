@@ -85,7 +85,6 @@ public class LogUtility {
     public void error(Object... varargs) {
         logger.error(CLASS+DELIM+((Class) owner).getSimpleName() + DELIM + toString(varargs));
         ResultManager.setStacktrace(toString(varargs));
-
     }
 
     //Need to update, throw exception after logging
