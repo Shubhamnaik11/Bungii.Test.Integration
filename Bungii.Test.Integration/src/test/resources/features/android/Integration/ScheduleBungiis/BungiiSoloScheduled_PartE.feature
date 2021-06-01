@@ -90,7 +90,7 @@ Feature: SoloScheduled Part E
     ##################################################################################################
  
     
-      #@regression
+      #stable
   @regression
   Scenario: Verify Customer Can Cancel Through SMS To Admin after 2 hour processing is over (Irrespective Of No. Of Required Drivers Have Accepted Or Not)
     When I Switch to "driver" application on "same" devices
@@ -106,10 +106,13 @@ Feature: SoloScheduled Part E
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
   
     When I Switch to "customer" application on "same" devices
+    Then I wait for "2" mins
     Given I login as customer "8805368840" and is on Home Page
-    
+    Then I wait for "2" mins
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    Then I wait for "2" mins
     And I close "Tutorial" if exist
+    Then I wait for "2" mins
     And I tap on "Menu" > "MY BUNGIIS" link
     Then I wait for "2" mins
     And I select already scheduled bungii
