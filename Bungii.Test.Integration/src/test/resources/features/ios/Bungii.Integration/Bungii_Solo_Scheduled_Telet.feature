@@ -225,6 +225,20 @@ Feature: Solo Scheduled Bungii - TELET
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
   
+  @regression
+   #Stable
+  Scenario: Verify Customer Doesnt Receives Notification When Solo Scheduled Bungii Is Requested At A Time Outside Working Hours
+    Given I login as "valid denver" customer and on Home page
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I try to schedule bungii for "today - after working hour"
+    Then user is alerted for "OUTSIDE BUISSNESS HOUR"
+    When I try to schedule bungii for "tommorow - before working hour"
+    Then user is alerted for "OUTSIDE BUISSNESS HOUR"
+  
+    
   @knownissue
   #KNOWN ISSUE , TELET TIME IS NOT RECALCULATED
   @ready

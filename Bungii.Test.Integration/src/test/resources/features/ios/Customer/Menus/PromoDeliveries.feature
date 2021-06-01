@@ -106,7 +106,11 @@ Then I should be navigated to "SEARCHING" screen
 And I view and accept virtual notification for "Driver" for "on demand trip"
 
 And I slide update button on "EN ROUTE" Screen
-And I slide update button on "ARRIVED" Screen
+  And I Switch to "customer" application on "same" devices
+  When I click "Ok" button on "BUNGII ACCEPTED" screen
+  
+  When I Switch to "driver" application on "same" devices
+  And I slide update button on "ARRIVED" Screen
 And I slide update button on "LOADING ITEM" Screen
 And I slide update button on "DRIVING TO DROP OFF" Screen
 And I slide update button on "UNLOADING ITEM" Screen

@@ -168,6 +168,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
   

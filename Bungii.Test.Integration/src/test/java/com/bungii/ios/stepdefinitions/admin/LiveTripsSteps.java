@@ -166,11 +166,12 @@ public class LiveTripsSteps extends DriverBase {
             String bungiiCostCustomer = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER"));
 
             double dblDiscountValue=Double.parseDouble((discountValue).replace("$",""));
-            String truncValue = new DecimalFormat("#.##").format(dblDiscountValue);truncValue=truncValue.replace(".00", "");
+            String truncValue = new DecimalFormat("#.##").format(dblDiscountValue); //truncValue=truncValue.replace(".00", "");//commented as 0.00 is not truncated
 
             //decimal formating
             bungiiCostCustomer=new DecimalFormat("#.##").format(Double.parseDouble(bungiiCostCustomer.replace("$","")));
-            bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");bungiiCostCustomer="$"+bungiiCostCustomer;
+           // bungiiCostCustomer = bungiiCostCustomer.replace(".00", ""); //commented as 0.00 is not truncated
+            bungiiCostCustomer="$"+bungiiCostCustomer;
             logger.detail("bungii cost to customer "+bungiiCostCustomer);
 
             String code = action.getText(liveTripsPage.Text_Code());
