@@ -19,7 +19,7 @@
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
-    "settings[waitForIdleTimeout]" : 3000
+    "settings[waitForIdleTimeout]" : 1000
   },
   "extra3": {
     "platformName": "Android",
@@ -41,7 +41,7 @@
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
-    "settings[waitForIdleTimeout]" : 3000
+    "settings[waitForIdleTimeout]" : 1000
   },
   "extra1": {
     "platformName": "Android",
@@ -63,7 +63,7 @@
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
-    "settings[waitForIdleTimeout]" : 3000
+    "settings[waitForIdleTimeout]" : 1000
   },
   "extra2": {
     "platformName": "Android",
@@ -85,7 +85,7 @@
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
-    "settings[waitForIdleTimeout]" : 3000
+    "settings[waitForIdleTimeout]" : 1000
   },
   "connection": {
     "device1": 0,
