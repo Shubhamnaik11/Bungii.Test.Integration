@@ -111,7 +111,7 @@ Feature: Bungii Details and Pickup Note
     And I am on the LOG IN page on driver app
     And I am logged in as "Driver_goa_f Android_test" driver
    And I tap on "Go Online button" on Driver Home page
-    
+   
    And I Switch to "customer" application on "same" devices
     And I enter "Goa pickup and dropoff location" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
