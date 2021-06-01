@@ -394,10 +394,10 @@ public class ActionManager {
     }
     public void tap(WebElement element) {
         try{
-            TouchActions action = new TouchActions(driver);
+            TouchActions action = new TouchActions(SetupManager.getDriver());
             action.singleTap(element);
             action.perform();
-            logger.detail("ACTION |Tap on element by locator -> " + getElementDetails(element));
+            logger.detail("ACTION | Tap on element by locator -> " + getElementDetails(element));
         }
         catch(Exception ex)
         {
