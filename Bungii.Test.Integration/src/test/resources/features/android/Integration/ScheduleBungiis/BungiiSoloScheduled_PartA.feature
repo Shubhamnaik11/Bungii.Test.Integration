@@ -163,6 +163,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
+    #stable
   @regression
   Scenario: Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over :Duo
     When I request "duo" Bungii as a customer in "kansas" geofence
