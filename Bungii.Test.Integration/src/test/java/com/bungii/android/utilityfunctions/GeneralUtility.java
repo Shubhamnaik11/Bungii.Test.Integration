@@ -1378,13 +1378,13 @@ Thread.sleep(5000);
         String myBungiiDateTime=month+" "+Day+", "+year+" - "+String.valueOf(currentHour)+":"+mins;
         cucumberContextManager.setScenarioContext("MY_BUNGII_DATE", myBungiiDateTime);
     }
-    public void selectTimeValue() {
+    public void selectTimeValue(int min) {
         action.scrollToTop();
         action.click(estimatePage.Time()); if(action.isElementPresent(estimatePage.Button_Later(true)))
             action.click(estimatePage.Button_Later());
         action.click(estimatePage.Button_DateConfirm());
         int currentMin= Integer.parseInt(setPickupTimePage.Text_SelectMinutes().getText());
-        currentMin=currentMin+30;
+        currentMin=currentMin+min;
         action.sendKeys(setPickupTimePage.Text_SelectMinutes(),String.valueOf(currentMin));
         String mins=setPickupTimePage.Text_SelectMinutes().getText();
         action.click(setPickupTimePage.Button_TimePickerOK());
