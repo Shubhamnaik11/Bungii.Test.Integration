@@ -649,7 +649,7 @@ public class CoreServices extends DriverBase {
         Date nextQuatter = calendar.getTime();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //sdf.setTimeZone(TimeZone.getTimeZone("UTC")); //Commeting TELET IS already in UTC
         String formattedDate = sdf.format(nextQuatter);
 
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
@@ -784,7 +784,7 @@ public class CoreServices extends DriverBase {
         logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken);
 
         String[] nextAvailableBungii = getScheduledBungiiTime(teletTime);
-        Date date = new EstimateSteps().getNextScheduledBungiiTime();
+       Date date = new EstimateSteps().getNextScheduledBungiiTime();
         String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         cucumberContextManager.setScenarioContext("TIME",strTime);
