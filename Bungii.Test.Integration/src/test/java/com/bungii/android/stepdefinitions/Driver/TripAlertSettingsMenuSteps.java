@@ -161,7 +161,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "No Note":
                     noteText=action.getText(estimatePage.Text_DetailsNote());
-                    enteredNoteText=(String)cucumberContextManager.getScenarioContext("NOTE_TEXT");
+                    enteredNoteText="";
                     if(noteText.equals(enteredNoteText)){
                         testStepAssert.isTrue(true, "The note text should match.", "The note text didn't match.");
                     }

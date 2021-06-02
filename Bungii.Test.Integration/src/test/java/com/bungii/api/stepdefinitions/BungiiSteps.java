@@ -2138,7 +2138,7 @@ else
                 System.out.println(pickupRequest);
             }
             cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME", System.currentTimeMillis() / 1000L);
-            pass("Precondition: Given that duo schedule bungii is in progress ", "Duo Schedule Bungii [ "+pickupRequest+" ]  by customer " +custPhoneNum+" is in " + state +" state ");
+            pass("Precondition: Given that duo schedule bungii is in progress ", "Duo Schedule Bungii [ "+pickupRequest+" ]  by customer " +custPhoneNum+" is in " + state +" state by driver "+ driverPhoneNum +" and " +  driver2PhoneNum);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -2368,7 +2368,7 @@ else
             }
             cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
 
-            pass("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ pickupRequest +" - " + scheduleTime+"] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum );
+            pass("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ pickupRequest +" - " + scheduleTime+"] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum +" and driver "+ driverPhoneNum );
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -2487,7 +2487,7 @@ else
 
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0);
             }
-            pass("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ pickupRequest+" - "+scheduleTime+"] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum);
+            pass("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ pickupRequest+" - "+scheduleTime+"] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum+" and driver "+ driverPhoneNum );
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

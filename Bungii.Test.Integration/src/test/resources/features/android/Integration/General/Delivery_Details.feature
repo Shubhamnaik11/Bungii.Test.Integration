@@ -43,21 +43,16 @@ Feature: Bungii Details and Pickup Note
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time     |
       | goa      | Unloading Items | 0.5 hour ahead  |
-    
-    Then I Switch to "customer" application on "same" devices
-    When I am on customer Log in page
-    And I am logged in as "Testcustomertywd_appleand_F Android" customer
-
     When bungii admin manually end bungii created by "CUSTOMER1"
-
-    When I Switch to "customer" application on "same" devices
+  
+	Then I Switch to "customer" application on "same" devices
+	When I am on customer Log in page
+	And I am logged in as "Testcustomertywd_appleand_F Android" customer
     And I tap on "Menu" > "MY BUNGIIS" link
     And "MY BUNGIIS" page should be opened
     And I click on "Past" tab
     And I open the trip for "Testdriver_goa_f Android_test" driver
     Then I verify the field "driver name"
-    And I verify the field "pickup address"
-    And I verify the field "dropoff address"
     And I verify the field "trip cost"
   
   
@@ -74,9 +69,6 @@ Feature: Bungii Details and Pickup Note
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "15 mins"
     Then I add "1" photos to the Bungii
-    When I tap on "Details" on Estimate screen
-    And I enter "text" in Additional Notes field
-    And I click on "ADD NOTE" button
     And I select Bungii Time as "1 HOUR DELAY"
     Then "Estimate" page should be opened
     When I tap on "Request Bungii" on Bungii estimate

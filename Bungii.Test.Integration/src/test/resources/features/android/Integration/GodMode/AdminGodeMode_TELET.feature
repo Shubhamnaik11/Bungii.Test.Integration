@@ -113,7 +113,7 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-   And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+      And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
