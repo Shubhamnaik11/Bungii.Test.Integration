@@ -74,8 +74,9 @@ Feature: Bungii Details and Pickup Note
     When I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I click "Done" button on "Success" screen
-    
-    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+	And I wait for "1" mins
+ 
+	And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
     When I click "View" on alert message
     Then I should be able to see "No Note" Text
@@ -111,7 +112,7 @@ Feature: Bungii Details and Pickup Note
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "YES" button on alert message
     Then I should be able to see "Customer Note" Text
-    And I wait for "1" mins
+    And I wait for "2" mins
     
     When I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal

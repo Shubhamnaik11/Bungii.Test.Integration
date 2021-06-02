@@ -193,6 +193,7 @@
 
     #need to rework for deliveries details and club them in single case
 @ready
+  @regg
     Scenario: Verify that TELET time of duo scheduled when trip is not started and both driver is assigned to another scheduled trip at same time
      
       When I request "duo" Bungii as a customer in "goa" geofence

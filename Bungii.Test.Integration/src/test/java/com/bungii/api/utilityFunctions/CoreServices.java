@@ -565,13 +565,15 @@ public class CoreServices extends DriverBase {
                  logger.detail("Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Requesting with 15 minutes later time.");
                  response = customerConfirmation(pickRequestID, paymentMethodID, authToken, scheduledDateTime);
              }
-            if (errorCode=="3004")
+            else if (errorCode=="3004")
             {
                 try{ Thread.sleep(30000);}catch (InterruptedException e){}
                 scheduledDateTime = getNextTime(scheduledDateTime);
                 logger.detail("There was a problem processing your credit card; please double check your payment information and try again. | Retrying in 30 Seconds");
                 response = customerConfirmation(pickRequestID, paymentMethodID, authToken, scheduledDateTime);
             }
+            else
+                 ApiHelper.genericResponseValidation(response, RequestText);
         }
         else
         ApiHelper.genericResponseValidation(response, RequestText);

@@ -1,5 +1,6 @@
 package com.bungii.api.utilityFunctions;
 
+import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.ApiHelper;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -19,7 +20,7 @@ import static com.bungii.common.manager.ResultManager.log;
 import static io.restassured.RestAssured.given;
 
 
-public class WebPortal {
+public class WebPortal extends DriverBase {
     private static Cookies adminCookies,adminCookies2 ;
     private static String CUSTOMER_CANCELPICKUP = "/BungiiReports/CustomerCancelPickup";
     private static String CAN_EDIT_PICKUP = "/BungiiReports/CanEditPickup";
@@ -130,7 +131,7 @@ public class WebPortal {
         String bungiiEndTime=utility.getBungiiEndTimeForManuallyEnd();
         String bungiiTimeZoneLabel=utility.getBungiiTimeZoneLanel();
         //canEditPickup(pickupRequestId);
-        //calculateManuallyEndCost(pickupRequestId,bungiiEndTime,bungiiTimeZoneLabel);
+        calculateManuallyEndCost(pickupRequestId,bungiiEndTime,bungiiTimeZoneLabel);
         calculateManuallyBungii(pickupRequestId,bungiiEndTime,bungiiTimeZoneLabel);
     }
 
@@ -209,6 +210,7 @@ public class WebPortal {
                         post(endBungii);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
+        cucumberContextManager.setScenarioContext("ACTUAL_COST",jsonPathEvaluator1.get("Cost"));
         if(!isSuccess)
             fail("I should able to get Bungii Cost "+pickupRequestId, "I was not able to get Bungii Cost "+pickupRequestId);
     }

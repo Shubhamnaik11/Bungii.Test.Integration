@@ -96,7 +96,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                     }
                     break;
                 case "trip cost":
-                    String expectedTripCost=(String)cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+                    String expectedTripCost="$"+(String)cucumberContextManager.getScenarioContext("ACTUAL_COST");
                     String actualTripCost=action.getText(myBungiisPage.Text_TripCost());
                     testStepAssert.isEquals(actualTripCost,expectedTripCost,"Trip cost expected is "+expectedTripCost,"Expected Trip Cost is displayed. ",expectedTripCost+" is not displayed.");
                     break;
