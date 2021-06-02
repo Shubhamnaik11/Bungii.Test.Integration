@@ -210,13 +210,14 @@ public class WebPortal extends DriverBase {
                         post(endBungii);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
-        cucumberContextManager.setScenarioContext("ACTUAL_COST",jsonPathEvaluator1.get("Cost"));
+        String cost =jsonPathEvaluator1.get("Cost").toString();
+        cucumberContextManager.setScenarioContext("ACTUAL_COST",cost);
         if(!isSuccess)
-            fail("I should able to get Bungii Cost "+pickupRequestId, "I was not able to get Bungii Cost "+pickupRequestId);
+            fail("I should able to get Bungii Cost "+pickupRequestId, "I was not able to get Bungii Cost "+pickupRequestId +" : Cost "+ cost);
     }
 
     public void calculateManuallyBungii(String pickupRequestId,String bungiiEndTime,String bungiiTimeZoneLabel) {
-        logger.detail("API REQUEST : Calculate Manually Bungii : " + pickupRequestId);
+        logger.detail("API REQUEST : Manually End Bungii : " + pickupRequestId);
 
        // String scheduledDelivery = UrlBuilder.createApiUrl("web core", SCHEDULED_DELIVERY);
         String scheduledDelivery = UrlBuilder.createApiUrl("web core", LIVE_DELIVERY_DETAIL+pickupRequestId+"&isComplete=False&caller=1&userType=1");

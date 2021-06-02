@@ -9,7 +9,7 @@ Feature: God Mode Feature
 
 @regression
  #stable
-Scenario: God Mode: Verify that admin can assign one or both drivers to a duo trip when it is in searching status
+Scenario: Admin God Mode: Verify that admin can assign one or both drivers to a duo trip when it is in searching status
 
 When I request "duo" Bungii as a customer in "goa" geofence
 | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -41,7 +41,7 @@ And I cancel all bungiis of customer
 
 @regression
     #stable
-Scenario: God Mode: Verify that admin can assign a driver to a Solo Scheduled trip when it has been re-searched
+Scenario: Admin God Mode: Verify that admin can assign a driver to a Solo Scheduled trip when it has been re-searched
 Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_B Android"
 | geofence | Bungii State | Bungii Time   |
 | goa   | Accepted     | NEXT_POSSIBLE |

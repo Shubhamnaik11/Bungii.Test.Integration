@@ -19,6 +19,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -96,7 +97,9 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                     }
                     break;
                 case "trip cost":
-                    String expectedTripCost="$"+(String)cucumberContextManager.getScenarioContext("ACTUAL_COST");
+                    String cost = (String)cucumberContextManager.getScenarioContext("ACTUAL_COST");
+                    String expectedTripCost = new DecimalFormat("0.00").format(Double.parseDouble(cost)).toString();
+                    expectedTripCost="$"+expectedTripCost;
                     String actualTripCost=action.getText(myBungiisPage.Text_TripCost());
                     testStepAssert.isEquals(actualTripCost,expectedTripCost,"Trip cost expected is "+expectedTripCost,"Expected Trip Cost is displayed. ",expectedTripCost+" is not displayed.");
                     break;
@@ -116,7 +119,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
 
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in verifying details under Past Bungiis", true);
         }
 
     }

@@ -160,15 +160,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "No Note":
-                    noteText=action.getText(estimatePage.Text_DetailsNote());
-                    enteredNoteText="";
-                    if(noteText.equals(enteredNoteText)){
-                        testStepAssert.isTrue(true, "The note text should match.", "The note text didn't match.");
-                    }
-                    else
-                    {
-                        testStepAssert.isFail("The note text didn't match.");
-                    }
+                        testStepAssert.isFalse(action.isElementPresent(estimatePage.Text_DetailsNote(true)), "The note section is not displayed.", "The note section is displayed.");
                     break;
 
                 case "Customer Entered":
