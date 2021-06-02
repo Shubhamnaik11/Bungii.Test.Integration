@@ -64,7 +64,7 @@ Feature: Bungii Details and Pickup Note
     And I tap on "Menu" > "MY BUNGIIS" link
     And "MY BUNGIIS" page should be opened
     And I click on "Past" tab
-    And I open the trip for "Testdriver_goa_a Android_test" driver
+    And I open the trip for "Testdriver_goa_f Android_test" driver
     Then I verify the field "driver name"
     And I verify the field "pickup address"
     And I verify the field "dropoff address"

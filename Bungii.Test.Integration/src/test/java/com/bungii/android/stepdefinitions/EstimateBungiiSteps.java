@@ -495,11 +495,20 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerF.phone.name"));
                     break;
                 case "Testcustomertywd_appleNewMB Customer":
-                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerMB.phone.number"), PropertyUtility.getDataProperties("customerMB.phone.password"));
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerMB.phonecustomerMB.phone.number.number"), PropertyUtility.getDataProperties("customerMB.phone.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerMB.phone.number"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerMB.phone.name"));
                     break;
-
+                case "Testcustomertywd_appleNewMA Customer":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerMA.phone.number"), PropertyUtility.getDataProperties("customerMA.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerMA.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerMA.phone.name"));
+                    break;
+                case "Testcustomertywd_appleNewZ Customer":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerZ.phone.number"), PropertyUtility.getDataProperties("customerZ.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerZ.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerZ.phone.name"));
+                    break;
                 case "valid goa customer":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone"),
                     PropertyUtility.getDataProperties("goa.customer.password"));

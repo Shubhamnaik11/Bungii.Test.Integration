@@ -1,6 +1,7 @@
     @android
     @general
     @bungii
+      @adminmode
     #These feature will run in Goa geofence
     Feature: Driver Assignments with TELET Overlap
       #Customer D and C - Testcustomertywd_appleand_D Android 9999990074 and Testcustomertywd_appleand_C Android 9999992222
@@ -434,7 +435,7 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-  And I open the trip for "Testcustomertywd_appleand_C Android" the customer
+        And I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I click on "VERIFY" button

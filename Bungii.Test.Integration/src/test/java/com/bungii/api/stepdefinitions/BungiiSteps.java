@@ -3733,7 +3733,15 @@ else
                 Details[4]=PropertyUtility.getDataProperties("Kansas.driver.password");
                 Details[5]=PropertyUtility.getDataProperties("Kansas.driver.name");
                 break;
+            case "Testcustomertywd_appleNewMA Customer":
+                Details[0]=PropertyUtility.getDataProperties("customerMA.phone.number");
+                Details[1]=PropertyUtility.getDataProperties("customerMA.phone.password");
+                Details[2]=PropertyUtility.getDataProperties("customerMA.phone.name");
 
+                Details[3]=PropertyUtility.getDataProperties("driverG.phone.number");
+                Details[4]=PropertyUtility.getDataProperties("driverG.phone.password");
+                Details[5]=PropertyUtility.getDataProperties("driverG.phone.name");
+                break;
             default:
                 throw new IllegalStateException("The entry for the customer with the name: " + custName +" is not present.");
         }
