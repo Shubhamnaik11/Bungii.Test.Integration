@@ -8,6 +8,74 @@ Feature: SoloScheduled Part G
   Background:
     
     ############################################################################################
+   @regression
+      #Stable
+  Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts The Scheduled Trip - Solo
+    And I Switch to "customer" application on "same" devices
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And I login as customer "8805368840" and is on Home Page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "Solo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+    Then I should get "SCHEDULED PICKUP ACCEPTED" notification for customer
+    
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+
+
+  @regression
+    #Stable
+  Scenario: Verify If Customer Receive Notification Once Required Number Of Drivers Accepts Scheduled Trip - DUO
+    When I Switch to "driver" application on "same" devices
+    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
+    
+    And I Switch to "customer" application on "same" devices
+    And I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And I login as customer "8805368840" and is on Home Page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I tap on "Menu" > "MY BUNGIIS" link
+    When I Switch to "driver" application on "same" devices
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+  
+  @regression
+    #Stable
+  Scenario:Verify Driver Is Not Able To Accept The Request If Trip Is Already Accepted By The Required Number Of Drivers
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Trip from available trip
+    
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    
+    And I click "ACCEPT" button on Bungii Request screen
+    Then user is alerted for "PICKUP REQUEST NO LONGER AVAILABLE"
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+    
   #@regression
   @ready
   Scenario: Verify Scheduled Bungii Notification Info Is Correct (Estimaged earnings - Date etc.)
@@ -69,31 +137,7 @@ Feature: SoloScheduled Part G
       | 8805368840     |                 |
   
   
-  @regression
-  Scenario:Verify Driver Is Not Able To Accept The Request If Trip Is Already Accepted By The Required Number Of Drivers
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I request "duo" Bungii as a customer in "Kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    
-    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
-    
-    And I click "ACCEPT" button on Bungii Request screen
-    Then user is alerted for "PICKUP REQUEST NO LONGER AVAILABLE"
-    And I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
-
-
+  
   #@regression
   @ready
   Scenario: Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Scenario:Solo
@@ -247,56 +291,6 @@ Feature: SoloScheduled Part G
       | 8805368840     |                 |
     
     
-    
-    
-    
-  #@regression
-  Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts The Scheduled Trip - Solo
-    #When I Switch to "driver" application on "same" devices
-   # Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
-    
-    And I Switch to "customer" application on "same" devices
-    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And I login as customer "8805368840" and is on Home Page
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-   # And I tap on "Menu" > "MY BUNGIIS" link
-   # When I Switch to "driver" application on "same" devices
-    And As a driver "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "Solo Scheduled" trip
-      | driver1 state |
-      | Accepted      |
-    #Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
-    Then I should get "SCHEDULED PICKUP ACCEPTED" notification for customer
-  
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
-
-
-  #@regression
-  Scenario: Verify If Customer Receive Notification Once Required Number Of Drivers Accepts Scheduled Trip - DUO
-    When I Switch to "driver" application on "same" devices
-    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
-    
-    And I Switch to "customer" application on "same" devices
-    And I request "duo" Bungii as a customer in "Kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And I login as customer "8805368840" and is on Home Page
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I tap on "Menu" > "MY BUNGIIS" link
-    When I Switch to "driver" application on "same" devices
-    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
-    Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
-  
   @ready
   Scenario: Verify Customer Can See Text Stating That Driver Can Be Contacted On The Bungii Details Screen Only When The Trip Has Been Accepted By Required Number Of Drivers
     When I request "duo" Bungii as a customer in "Kansas" geofence

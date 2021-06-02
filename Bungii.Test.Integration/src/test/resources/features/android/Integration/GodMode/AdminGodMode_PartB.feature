@@ -75,7 +75,7 @@ And I cancel all bungiis of customer
 
 @ready
 @ad1
-Scenario: God Mode: Verify admin can assign one [controlled] driver on DUO trip when it has been re-searched
+Scenario: Admin God Mode: Verify admin can assign one [controlled] driver on DUO trip when it has been re-searched
 When I request "duo" Bungii as a customer in "goa" geofence
 | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
 | NEXT_POSSIBLE | 9999991020     | Testcustomertywd_appleand_B Android | Cci12345         |
@@ -109,7 +109,7 @@ And I cancel all bungiis of customer
 
 
 @ready
-Scenario: God Mode: Verify if admin can assign one [non controlled] driver on duo trip when it has been re-searched
+Scenario: Admin God Mode: Verify if admin can assign one [non controlled] driver on duo trip when it has been re-searched
 When I request "duo" Bungii as a customer in "goa" geofence
 | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
 | NEXT_POSSIBLE | 9999991020     | Testcustomertywd_appleand_B Android | Cci12345         |
@@ -143,7 +143,7 @@ And I cancel all bungiis of customer
 
 
 @ready
-Scenario: God Mode: Verify if admin can assign both drivers on duo trip when it has been re-searched
+Scenario: Admin God Mode: Verify if admin can assign both drivers on duo trip when it has been re-searched
 When I request "duo" Bungii as a customer in "goa" geofence
 | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
 | NEXT_POSSIBLE | 9999991020     | Testcustomertywd_appleand_B Android | Cci12345         |
@@ -177,7 +177,7 @@ And I cancel all bungiis of customer
 | 9999991020      |                 |
 
 @ready
-Scenario:  God Mode: Verify that if admin can assign controlled driver on duo trip when non controlled driver has started the trip
+Scenario: Admin God Mode: Verify that if admin can assign controlled driver on duo trip when non controlled driver has started the trip
 When I request "duo" Bungii as a customer in "goa" geofence
 | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
 | NEXT_POSSIBLE | 9999991020     | Testcustomertywd_appleand_B Android | Cci12345         |

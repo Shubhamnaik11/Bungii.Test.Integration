@@ -2466,7 +2466,12 @@ else
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
             } else if (state.equalsIgnoreCase("Scheduled")) {
                 //do nothing, already in scheduled state
-            } else {
+            } else if (state.equalsIgnoreCase("Unloading Items")) {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+            }else {
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 24);

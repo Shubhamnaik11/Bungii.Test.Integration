@@ -1095,7 +1095,10 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
                     utility.selectTime();
                     break;
                 case "30 MIN DELAY":
-                    utility.selectTimeValue();
+                    utility.selectTimeValue(30);
+                    break;
+                case "1 HOUR DELAY":
+                    utility.selectTimeValue(60);
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

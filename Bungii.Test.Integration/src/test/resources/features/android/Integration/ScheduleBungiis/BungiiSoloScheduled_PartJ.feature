@@ -8,6 +8,40 @@ Feature: SoloScheduled Part B
   Background:
   
   @regression
+    #Stable
+  Scenario: Verify Customer cannot Schedule A Bungii At A Same Time Equaling The Already Scheduled Bungii
+    
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas   | Scheduled    | 15 min ahead |
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I select Bungii Time as "OLD BUNGII TIME"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then I tap on "ok on already scheduled bungii message" on Bungii estimate
+    When I tap on "back" on Bungii estimate
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I select already scheduled bungii
+    Then I Cancel selected Bungii
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+  
+    
+  @regression
 	#stable
   Scenario: Verify Customer Cannot Schedule Bungii For A Time That Is Outside Working Hours :DUO
     Given I login as customer "8805368840" and is on Home Page
@@ -22,6 +56,7 @@ Feature: SoloScheduled Part B
     When I try to schedule bungii for "tommorow - before working hour" for "DUO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
   
+    
   #@regression
   @ready
   @ad1
@@ -140,38 +175,7 @@ Feature: SoloScheduled Part B
       | Customer Phone  | Customer2 Phone      |
       | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
 
-  @ready
-  Scenario: Verify Customer cannot Schedule A Bungii At A Same Time Equaling The Already Scheduled Bungii
-
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | kansas   | Scheduled    | 15 min ahead |
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-
-    And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I tap on "Menu" > "Home" link
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "OLD BUNGII TIME"
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    Then I tap on "ok on already scheduled bungii message" on Bungii estimate
-    When I tap on "back" on Bungii estimate
-    And I tap on "Menu" > "MY BUNGIIS" link
-    And I select already scheduled bungii
-    Then I Cancel selected Bungii
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-
+ 
   @sanity
   @regression
   #@regression

@@ -8,6 +8,33 @@ Feature: SoloScheduled Part H
     #####################################################
   
   @regression
+    #Stable
+  Scenario: Verify that error message on android and iOS when driver accepts a trip1 through push notification and admin assign trip2 for another customer through portal such that trip1 TELET overlaps start time of trip2, then error message is shown to the driver when he starts either of the trips
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     |
+      | Kansas   | Accepted     | 0.75 hour ahead |
+    
+    When I Switch to "customer" application on "same" devices
+    And I am logged in as "valid kansas" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I select Bungii Time as "next possible scheduled"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
+    Then I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+  
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+    ########################################################################
+  
+  @regression
   Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -167,28 +194,7 @@ Feature: SoloScheduled Part H
   
   
   
-  @regression
-  Scenario: Verify that error message on android and iOS when driver accepts a trip1 through push notification and admin assign trip2 for another customer through portal such that trip1 TELET overlaps start time of trip2, then error message is shown to the driver when he starts either of the trips
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time     |
-      | Kansas   | Accepted     | 0.75 hour ahead |
-    
-    When I Switch to "customer" application on "same" devices
-    And I am logged in as "valid kansas" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I tap on "Menu" > "Home" link
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "next possible scheduled"
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I check if the customer is on success screen
-    Then I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-
-    ########################################################################
+  
 
     
  

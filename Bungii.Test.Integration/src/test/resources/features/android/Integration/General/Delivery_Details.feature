@@ -3,7 +3,6 @@
 @bungii
     #These feature will run in Goa geofence
 Feature: Bungii Details and Pickup Note
-     #Scenarios :; 7
      #Testcustomertywd_appleand_F Android 9999999999
       #driverF.phone.name=Driver_goa_f Android_test 9999999996
   
@@ -37,28 +36,19 @@ Feature: Bungii Details and Pickup Note
       | Customer Phone | Customer2 Phone |
       | 9999999999     |                 |
     
-    
-  @ready
+  @regression
+    @reg
+    #stable
   Scenario: Verify that the My Bungii Past trip is visible when admin manually ends bungii
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time     |
-      | goa      | enroute     | 0.5 hour ahead  |
-    
-    Given I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "Driver_goa_f Android_test" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      | goa      | Unloading Items | 0.5 hour ahead  |
     
     Then I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "Testcustomertywd_appleand_F Android" customer
 
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
     When bungii admin manually end bungii created by "CUSTOMER1"
-    Then Bungii driver should see "summary" on Bungii completed page
 
     When I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link
@@ -72,6 +62,7 @@ Feature: Bungii Details and Pickup Note
   
   
   @ready
+  @reg
   Scenario: Verify that the Pickup note is not displayed as NULL or undefined when customer does not add a pickup note
     When I am on the LOG IN page on driver app
     And I am logged in as "Testdriver_goa_f Android_test" driver
@@ -86,7 +77,7 @@ Feature: Bungii Details and Pickup Note
     When I tap on "Details" on Estimate screen
     And I enter "text" in Additional Notes field
     And I click on "ADD NOTE" button
-    And I select Bungii Time as "30 MIN DELAY"
+    And I select Bungii Time as "1 HOUR DELAY"
     Then "Estimate" page should be opened
     When I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate

@@ -647,8 +647,10 @@ public class HomeSteps extends DriverBase {
                     break;
                 default:
                     action.clearSendKeys(estimatePage.TextBox_DetailsNote(),textValue);
+                    cucumberContextManager.setScenarioContext("NOTE_TEXT",textValue);
                     break;
             }
+
         }
         catch (Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
