@@ -137,10 +137,15 @@ Feature: SoloScheduled
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
     
     When I Switch to "customer" application on "same" devices
+    And I wait for "2" mins
     Given I am on customer Log in page
+    And I wait for "2" mins
     And I am logged in as "valid kansas" customer
+    And I wait for "2" mins
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I wait for "2" mins
     And I close "Tutorial" if exist
+    And I wait for "2" mins
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     #When I Cancel selected Bungii
