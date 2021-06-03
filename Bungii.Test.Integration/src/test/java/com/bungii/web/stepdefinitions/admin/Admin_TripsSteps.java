@@ -1543,29 +1543,34 @@ public class Admin_TripsSteps extends DriverBase {
     public void the_cost_of_the_delivery_should_be_doubled() throws Throwable {
         String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
         DecimalFormat df = new DecimalFormat("0.00");
-        Double orgcost = Double.parseDouble((String) cucumberContextManager.getScenarioContext("COST"));
+        Double orgcost = 0.00;
         try {
+            String cost = (String) cucumberContextManager.getScenarioContext("COST");
+             orgcost = Double.parseDouble(cost);
             orgcost = orgcost * 2;
         }
         catch(Exception ex)
         {
             logger.detail("Exception "+ ex.getLocalizedMessage());
         }
-        testStepAssert.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
+        testStepVerify.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
 
     }
     @And("^the cost of the delivery should be halved$")
     public void the_cost_of_the_delivery_should_be_halved() throws Throwable {
         String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
         DecimalFormat df = new DecimalFormat("0.00");
-        Double orgcost = Double.parseDouble((String) cucumberContextManager.getScenarioContext("COST"));
-        try { orgcost= orgcost/2;
+        Double orgcost = 0.00;
+        try {
+            String cost = (String) cucumberContextManager.getScenarioContext("COST");
+            orgcost = Double.parseDouble(cost);
+            orgcost= orgcost/2;
     }
         catch(Exception ex)
     {
         logger.detail("Exception "+ ex.getLocalizedMessage());
     }
-        testStepAssert.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
+        testStepVerify.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
 
     }
 }
