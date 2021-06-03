@@ -324,7 +324,7 @@
 		When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
 		  | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
 		  | NEXT_POSSIBLE | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
-		When I request "duo" Bungii as a customer in "goa" geofence
+		When I request another "duo" Bungii as a customer in "goa" geofence
 		  | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
 		  | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
 		Then I wait for "2" mins

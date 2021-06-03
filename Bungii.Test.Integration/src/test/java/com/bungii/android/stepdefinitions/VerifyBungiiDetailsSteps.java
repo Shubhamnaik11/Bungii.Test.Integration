@@ -19,6 +19,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -63,6 +64,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
             switch (option){
                 case "driver name":
                     String expectedDriverName=(String)cucumberContextManager.getScenarioContext("DRIVER1NAME");
+                    expectedDriverName= expectedDriverName.replace(".","");
                     String actualDriverName=action.getText(myBungiisPage.Text_FirstDriverName());
                     testStepAssert.isEquals(actualDriverName,expectedDriverName,"Driver name expected is "+expectedDriverName,"Expected Driver name is displayed.",expectedDriverName+" driver name is not displayed.");
                     break;
@@ -83,8 +85,8 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                 case "dropoff address":
                     String expecteddropofflocation1=(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1");
                     String expecteddropofflocation2=(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2");
-                    String actualdropofflocation1=action.getText(myBungiisPage.Text_PickUp_Location1());
-                    String actualdropofflocation2=action.getText(myBungiisPage.Text_PickUp_Location2());
+                    String actualdropofflocation1=action.getText(myBungiisPage.Text_DropOff_Location1());
+                    String actualdropofflocation2=action.getText(myBungiisPage.Text_DropOff_Location2());
                     if(expecteddropofflocation1.equalsIgnoreCase(actualdropofflocation1) && expecteddropofflocation2.equalsIgnoreCase(actualdropofflocation2))
                     {
                         testStepAssert.isTrue(true,"DropOff Address is correct.", "DropOff Address does not match.");
@@ -95,7 +97,9 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                     }
                     break;
                 case "trip cost":
-                    String expectedTripCost=(String)cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+                    String cost = (String)cucumberContextManager.getScenarioContext("ACTUAL_COST");
+                    String expectedTripCost = new DecimalFormat("0.00").format(Double.parseDouble(cost)).toString();
+                    expectedTripCost="$"+expectedTripCost;
                     String actualTripCost=action.getText(myBungiisPage.Text_TripCost());
                     testStepAssert.isEquals(actualTripCost,expectedTripCost,"Trip cost expected is "+expectedTripCost,"Expected Trip Cost is displayed. ",expectedTripCost+" is not displayed.");
                     break;
@@ -115,7 +119,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
 
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in verifying details under Past Bungiis", true);
         }
 
     }

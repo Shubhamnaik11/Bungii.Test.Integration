@@ -3,7 +3,6 @@
 @bungii
     #These feature will run in Goa geofence
 Feature: Bungii Details and Pickup Note
-     #Scenarios :; 7
      #Testcustomertywd_appleand_F Android 9999999999
       #driverF.phone.name=Driver_goa_f Android_test 9999999996
   
@@ -37,42 +36,28 @@ Feature: Bungii Details and Pickup Note
       | Customer Phone | Customer2 Phone |
       | 9999999999     |                 |
     
-    
-  @ready
+  @regression
+    #stable
   Scenario: Verify that the My Bungii Past trip is visible when admin manually ends bungii
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time     |
-      | goa      | enroute     | 0.5 hour ahead  |
-    
-    Given I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "Driver_goa_f Android_test" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    Then I Switch to "customer" application on "same" devices
-    When I am on customer Log in page
-    And I am logged in as "Testcustomertywd_appleand_F Android" customer
-
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
+      | goa      | Unloading Items | 0.5 hour ahead  |
     When bungii admin manually end bungii created by "CUSTOMER1"
-    Then Bungii driver should see "summary" on Bungii completed page
-
-    When I Switch to "customer" application on "same" devices
+  
+	Then I Switch to "customer" application on "same" devices
+	When I am on customer Log in page
+	And I am logged in as "Testcustomertywd_appleand_F Android" customer
     And I tap on "Menu" > "MY BUNGIIS" link
     And "MY BUNGIIS" page should be opened
     And I click on "Past" tab
-    And I open the trip for "Testdriver_goa_a Android_test" driver
+    And I open the trip for "Testdriver_goa_f Android_test" driver
     Then I verify the field "driver name"
-    And I verify the field "pickup address"
-    And I verify the field "dropoff address"
     And I verify the field "trip cost"
   
   
-  @ready
-  Scenario: Verify that the Pickup note is not displayed as NULL or undefined when customer does not add a pickup note
+  @regression
+ #stable
+  Scenario: Blank Customer Note : Verify that the Pickup note is not displayed as NULL or undefined when customer does not add a pickup note
     When I am on the LOG IN page on driver app
     And I am logged in as "Testdriver_goa_f Android_test" driver
     And I tap on "Go Online button" on Driver Home page
@@ -83,27 +68,23 @@ Feature: Bungii Details and Pickup Note
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "15 mins"
     Then I add "1" photos to the Bungii
-    When I tap on "Details" on Estimate screen
-    And I enter "text" in Additional Notes field
-    And I click on "ADD NOTE" button
-    And I select Bungii Time as "30 MIN DELAY"
     Then "Estimate" page should be opened
     When I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I click "Done" button on "Success" screen
-    
-    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-    When I click "View" on alert message
+	And I wait for "1" mins
+  
+    When I click on notification for "on demand trip"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" button on alert message
     Then I should be able to see "No Note" Text
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 9999999999      |                 |
   
   
-  @ready
-    @reg
-  Scenario: Verify that application error is not thrown on re-search of trip with apostrophe in Customer notes
+  @regression
+    #Stable
+  Scenario: Apostrophe in Customer note : Verify that Customer notes is diplayed in driver ondemand push notification
     Given I am on customer Log in page
     And I am logged in as "Testcustomertywd_appleand_F Android" customer
     
@@ -123,22 +104,61 @@ Feature: Bungii Details and Pickup Note
     Then "Estimate" page should be opened
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    
+  
+    And I wait for "1" mins
     When I click on notification for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "YES" button on alert message
     Then I should be able to see "Customer Note" Text
-    And I wait for "1" mins
     
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 9999999999      |                 |
+  
+  @regression
+    #Stable
+  Scenario: Apostrophe in Customer note : Verify that application error is not thrown on re-search of delivery with apostrophe in Customer notes
+    Given I am on customer Log in page
+    And I am logged in as "Testcustomertywd_appleand_F Android" customer
+    
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Driver_goa_f Android_test" driver
+    And I tap on "Go Online button" on Driver Home page
+    
+    And I Switch to "customer" application on "same" devices
+    And I enter "Goa pickup and dropoff location" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add loading/unloading time of "15 mins"
+    Then I add "1" photos to the Bungii
+    When I tap on "Details" on Estimate screen
+    And I enter "Customer note should contain apostrophe in the note's." in Additional Notes field
+    And I click on "ADD NOTE" button
+    And I select Bungii Time as "1 HOUR DELAY"
+    Then "Estimate" page should be opened
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    
+    And I wait for "2" mins
     When I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I open the trip for "Testcustomertywd_appleand_F Android" the customer
+    And I Select "Edit Trip Details" option
+    And I assign driver for the "Solo" trip
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+    When I close "Edit Trip Details" popup
+  
+    And I wait for "2" mins
+    And I open the trip for "Testcustomertywd_appleand_F Android" the customer
+    And I Select "Edit Trip Details" option
+    And I assign driver for the "Solo" trip
     Then I remove current driver and researches Bungii
     
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 9999999999      |                 |
-
-  

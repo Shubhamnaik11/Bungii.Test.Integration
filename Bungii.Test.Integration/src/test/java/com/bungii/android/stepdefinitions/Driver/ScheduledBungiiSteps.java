@@ -108,9 +108,9 @@ public class ScheduledBungiiSteps extends DriverBase {
             }
         }
         if(skipNormalFlow)
-            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using alert for upcoming trip to driver ","I was not able to start Bungii");
+            testStepAssert.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using alert for upcoming trip to driver ","I was not able to select Bungii");
         else
-            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using list of Bungii's present in avialable bungii list","I was not able to start Bungii");
+            testStepAssert.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using list of Bungii's present in avialable bungii list","I was not able to select Bungii");
 
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -9,7 +9,50 @@ Feature: SoloScheduled Part I
  # With 8805368840 - 15 cases
   Background:
     ##################################################################################################
+  
+  @regression
+    #Stable
+  Scenario: Verify If Incoming On-demend Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or offline SMS
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas   | Accepted     | NEXT_POSSIBLE |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I tap on "Go Online button" on Driver Home page
+    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
+    
+    Then I should not get notification for ON DEMAND TRIP
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+  
+  @regression
+    #Stable
+  Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip Telet Then Request Should Not Be Sent To driver.
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time    |
+      | kansas   | Accepted     | 0.5 hour ahead |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I tap on "Go Online button" on Driver Home page
+    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
+    
+    Then I should not get notification for ON DEMAND TRIP
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
+    
   #@regression
   @failed123
   Scenario: Verify Status On Customers Scheduled Bungiis Screen When Both Drivers Have Accepted Trip
@@ -122,25 +165,7 @@ Feature: SoloScheduled Part I
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8805368840      |
 
-  @regression
-  Scenario: Verify If Incoming On-demend Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or offline SMS
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | kansas   | Accepted     | NEXT_POSSIBLE |
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I tap on "Go Online button" on Driver Home page
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
-      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
-    
-    Then I should not get notification for ON DEMAND TRIP
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+ 
 
   @regression
     #stable
@@ -215,26 +240,7 @@ Feature: SoloScheduled Part I
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  @regression
-  Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip Telet Then Request Should Not Be Sent To driver.
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time    |
-      | kansas   | Accepted     | 0.5 hour ahead |
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-
-    And I tap on "Go Online button" on Driver Home page
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
-      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
-
-    Then I should not get notification for ON DEMAND TRIP
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-
+  
   @regression
   Scenario: Verify If Non control Driver Completes The Trip First Then He Is Shown With Waiting Screen Till The Control Driver Completes And The Correct Summary Is Shown Thereafter
     When I request "duo" Bungii as a customer in "Kansas" geofence

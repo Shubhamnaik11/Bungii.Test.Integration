@@ -1,5 +1,6 @@
 package com.bungii.api.utilityFunctions;
 
+import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.ApiHelper;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -19,7 +20,7 @@ import static com.bungii.common.manager.ResultManager.log;
 import static io.restassured.RestAssured.given;
 
 
-public class WebPortal {
+public class WebPortal extends DriverBase {
     private static Cookies adminCookies,adminCookies2 ;
     private static String CUSTOMER_CANCELPICKUP = "/BungiiReports/CustomerCancelPickup";
     private static String CAN_EDIT_PICKUP = "/BungiiReports/CanEditPickup";
@@ -126,13 +127,10 @@ public class WebPortal {
 
     public void asAdminManuallyEndBungii(String pickupRequestId) {
         AdminLogin();
-        try {Thread.sleep(30000);} catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         com.bungii.api.utilityFunctions.GeneralUtility utility = new com.bungii.api.utilityFunctions.GeneralUtility();
         String bungiiEndTime=utility.getBungiiEndTimeForManuallyEnd();
         String bungiiTimeZoneLabel=utility.getBungiiTimeZoneLanel();
-        canEditPickup(pickupRequestId);
+        //canEditPickup(pickupRequestId);
         calculateManuallyEndCost(pickupRequestId,bungiiEndTime,bungiiTimeZoneLabel);
         calculateManuallyBungii(pickupRequestId,bungiiEndTime,bungiiTimeZoneLabel);
     }
@@ -166,16 +164,12 @@ public class WebPortal {
         Response response = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("__requestverificationtoken",csrfToken)
                 .param("pickupRequestID", pickupRequestId)
-                /*.log().body()*/
                 .when().redirects().follow(false).
                         get(cancelBungii);
-        // response.then().log().body();
-        //  ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
-
         boolean isSuccess = jsonPathEvaluator1.get("Success");
         if(!isSuccess)
-            fail("I should able to end bungii"+pickupRequestId, "I was not able to edit bungii"+pickupRequestId);
+            fail("I should able to get edit Bungii"+pickupRequestId, "I was not able to get edit Bungii  "+pickupRequestId);
 
 
     }
@@ -184,7 +178,7 @@ public class WebPortal {
         logger.detail("API REQUEST : Calculate Manually End Cost : " + pickupRequestId);
 
         String scheduledDelivery = UrlBuilder.createApiUrl("web core", LIVE_DELIVERY_DETAIL+pickupRequestId+"&isComplete=False&caller=1&userType=1");
-        Response responseGet = given().cookies(adminCookies).cookies(adminCookies2)
+        String responseGet = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
@@ -193,11 +187,11 @@ public class WebPortal {
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                 .when().
-                        get(scheduledDelivery);
+                        get(scheduledDelivery).asString();
 
         String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
         Pattern pattern = Pattern.compile("return '(.+?)'");
-        Matcher matcher = pattern.matcher(responseGet.htmlPath().toString());
+        Matcher matcher = pattern.matcher(responseGet);
         if (matcher.find())
         {
             csrfToken =matcher.group(1);
@@ -205,24 +199,29 @@ public class WebPortal {
         String endBungii = UrlBuilder.createApiUrl("web core", CALCULATE_COST);
         Response response = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("__requestverificationtoken",csrfToken)
-                .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel)
-                /*.log().body()*/
+                .header("Accept-Language", "en-US,en;q=0.5")
+                .header("X-Requested-With", "XMLHttpRequest")
+                .header("Upgrade-Insecure-Requests", "1")
+                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .header("Accept-Encoding", "gzip, deflate")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
+                .param("PickupRequestID", pickupRequestId).param( "PickupEndTime", bungiiEndTime).param( "PickupTimeZone", bungiiTimeZoneLabel)
                 .when().redirects().follow(false).
                         post(endBungii);
-        //   response.then().log().body();
-        //   ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
+        String cost =jsonPathEvaluator1.get("Cost").toString();
+        cucumberContextManager.setScenarioContext("ACTUAL_COST",cost);
         if(!isSuccess)
-            fail("I should able to end bungii"+pickupRequestId, "I was not able to edit bungii"+pickupRequestId);
+            fail("I should able to get Bungii Cost "+pickupRequestId, "I was not able to get Bungii Cost "+pickupRequestId +" : Cost "+ cost);
     }
 
     public void calculateManuallyBungii(String pickupRequestId,String bungiiEndTime,String bungiiTimeZoneLabel) {
-        logger.detail("API REQUEST : Calculate Manually Bungii : " + pickupRequestId);
+        logger.detail("API REQUEST : Manually End Bungii : " + pickupRequestId);
 
        // String scheduledDelivery = UrlBuilder.createApiUrl("web core", SCHEDULED_DELIVERY);
         String scheduledDelivery = UrlBuilder.createApiUrl("web core", LIVE_DELIVERY_DETAIL+pickupRequestId+"&isComplete=False&caller=1&userType=1");
-        Response responseGet = given().cookies(adminCookies).cookies(adminCookies2)
+        String responseGet = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
@@ -231,11 +230,11 @@ public class WebPortal {
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                 .when().
-                        get(scheduledDelivery);
+                        get(scheduledDelivery).asString();
         String verificationToken = "";//responseGet.htmlPath().getString("html.body.span.input.@value");
         String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
         Pattern pattern = Pattern.compile("return '(.+?)'");
-        Matcher matcher = pattern.matcher(responseGet.htmlPath().toString());
+        Matcher matcher = pattern.matcher(responseGet);
         if (matcher.find())
         {
             csrfToken =matcher.group(1);
@@ -244,16 +243,19 @@ public class WebPortal {
         String endBungii = UrlBuilder.createApiUrl("web core", MANUALLY_END);
         Response response = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("__requestverificationtoken",csrfToken)
+                .header("Accept-Language", "en-US,en;q=0.5")
+                .header("X-Requested-With", "XMLHttpRequest")
+                .header("Upgrade-Insecure-Requests", "1")
+                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .header("Accept-Encoding", "gzip, deflate")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
                 .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel)
-                /*.log().body()*/
                 .when().redirects().follow(false).
                 post(endBungii);
-        // response.then().log().body();
-        //  ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
         if(!isSuccess)
-            fail("I should able to end bungii"+pickupRequestId, "I was not able to edit bungii"+pickupRequestId);
+            fail("I should able to end Bungii "+pickupRequestId, "I was not able to manually end Bungii"+pickupRequestId);
 
     }
 }

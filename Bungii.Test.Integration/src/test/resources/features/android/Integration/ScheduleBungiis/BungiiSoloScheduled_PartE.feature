@@ -11,6 +11,7 @@ Feature: SoloScheduled Part E
 
 
   @regression
+     #Stable
   Scenario:Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Solo Trip
     When I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -25,6 +26,7 @@ Feature: SoloScheduled Part E
   
 
   @regression
+     #Stable
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Trip
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -35,8 +37,62 @@ Feature: SoloScheduled Part E
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-    
   
+  
+  @regression
+     #Stable
+  Scenario: Verify Status Of Scheduled Bungii Trip In Scheduled Bungiis Menu Page When Required Drivers Have Not Accepted It - DUO
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver 1 - contacting drivers"
+    Then trips status on bungii details should be "driver 2 - contacting drivers"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+  
+  
+  @regression
+    #Stable
+  Scenario:Verify Status In Scheduled Bungiis Screen When Only One Driver Accepts The Trip
+    When I Switch to "driver" application on "same" devices
+    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
+    
+    And I Switch to "customer" application on "same" devices
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |               |
+    
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver1 name"
+    Then trips status on bungii details should be "driver 2 - contacting drivers1"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+  
+    
   @regression
   Scenario: Verify Customer Cannot Schedule Bungii That Overlaps With Another Scheduled Trips TELET Time :Duo
     When I request "duo" Bungii as a customer in "Kansas" geofence
@@ -135,53 +191,4 @@ Feature: SoloScheduled Part E
     
   
   
-  @regression
-  Scenario: Verify Status Of Scheduled Bungii Trip In Scheduled Bungiis Menu Page When Required Drivers Have Not Accepted It - DUO
-    When I request "duo" Bungii as a customer in "Kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    Given I am on customer Log in page
-    When I enter customers "8805368840" Phone Number
-    And I enter customers "valid" Password
-    And I tap on the "Log in" Button on Login screen
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I tap on "Menu" > "MY BUNGIIS" link
-    Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
-    And I select already scheduled bungii
-    Then trips status on bungii details should be "driver 1 - contacting drivers"
-    Then trips status on bungii details should be "driver 2 - contacting drivers"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
-  
-  
-  @regression
-  Scenario:Verify Status In Scheduled Bungiis Screen When Only One Driver Accepts The Trip
-    When I Switch to "driver" application on "same" devices
-    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
-    
-    And I Switch to "customer" application on "same" devices
-    When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      |               |
-    
-    Given I am on customer Log in page
-    When I enter customers "8805368840" Phone Number
-    And I enter customers "valid" Password
-    And I tap on the "Log in" Button on Login screen
-    
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    
-    And I tap on "Menu" > "MY BUNGIIS" link
-    Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
-    And I select already scheduled bungii
-    Then trips status on bungii details should be "driver1 name"
-    Then trips status on bungii details should be "driver 2 - contacting drivers1"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
+ 

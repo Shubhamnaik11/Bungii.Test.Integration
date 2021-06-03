@@ -557,16 +557,25 @@ public class CoreServices extends DriverBase {
         Response response = ApiHelper.uploadImage(apiURL, jsonObj, header);
         JsonPath jsonPathEvaluator = response.jsonPath();
         HashMap error = jsonPathEvaluator.get("Error");
-        if (error != null) {
+        if (error != null && error.size()!=0) {
              String errorCode = jsonPathEvaluator.get("Error.Code").toString();
              if (errorCode=="20027")
              {
                  scheduledDateTime = getNextTime(scheduledDateTime);
                  logger.detail("Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Requesting with 15 minutes later time.");
-                 customerConfirmation(pickRequestID, paymentMethodID, authToken, scheduledDateTime);
+                 response = customerConfirmation(pickRequestID, paymentMethodID, authToken, scheduledDateTime);
              }
+            else if (errorCode=="3004")
+            {
+                try{ Thread.sleep(30000);}catch (InterruptedException e){}
+                scheduledDateTime = getNextTime(scheduledDateTime);
+                logger.detail("There was a problem processing your credit card; please double check your payment information and try again. | Retrying in 30 Seconds");
+                response = customerConfirmation(pickRequestID, paymentMethodID, authToken, scheduledDateTime);
+            }
+            else
+                 ApiHelper.genericResponseValidation(response, RequestText);
         }
-
+        else
         ApiHelper.genericResponseValidation(response, RequestText);
         return response;
     }
@@ -640,7 +649,7 @@ public class CoreServices extends DriverBase {
         Date nextQuatter = calendar.getTime();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //sdf.setTimeZone(TimeZone.getTimeZone("UTC")); //Commeting TELET IS already in UTC
         String formattedDate = sdf.format(nextQuatter);
 
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
@@ -775,7 +784,7 @@ public class CoreServices extends DriverBase {
         logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken);
 
         String[] nextAvailableBungii = getScheduledBungiiTime(teletTime);
-        Date date = new EstimateSteps().getNextScheduledBungiiTime();
+       Date date = new EstimateSteps().getNextScheduledBungiiTime();
         String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         cucumberContextManager.setScenarioContext("TIME",strTime);

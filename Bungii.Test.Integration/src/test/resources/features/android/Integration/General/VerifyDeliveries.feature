@@ -1,7 +1,9 @@
 @android
 @general
 @bungii
-    #These feature will run in Goa geofence and is STABLE
+    #These feature will run in Kansas geofence and is STABLE
+  # Customer 8805368840 Testcustomertywd_appleRicha Test 8888888881 Testcustomertywd_appleRicha1 Test 8888889916
+  #Driver 8888881019
 Feature: Delivery Flows
   
   @regression

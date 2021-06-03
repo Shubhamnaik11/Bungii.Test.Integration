@@ -415,11 +415,11 @@ public class ScheduledTripSteps extends DriverBase {
 			action.click(scheduledTripsPage.Button_Search());
 
 			Thread.sleep(5000);
-			List<WebElement> rows = SetupManager.getDriver().findElements(By.xpath(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",custName)));
+			List<WebElement> rows = SetupManager.getDriver().findElements(By.xpath(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0])));
 			if(rows.size()>0)
 			rows.get(0).click();
 			else {
-			    String xpath = String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",custName);
+			    String xpath = String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]);
                 error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
             }
 			pass("I should able to open trip", "I viewed scheduled delivery",
