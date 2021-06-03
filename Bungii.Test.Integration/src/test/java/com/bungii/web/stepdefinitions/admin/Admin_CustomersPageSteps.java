@@ -38,9 +38,9 @@ public class Admin_CustomersPageSteps extends DriverBase {
 
     @When("^I enter \"([^\"]*)\" \"([^\"]*)\" in the \"([^\"]*)\" box$")
     public void i_enter_something_something_in_the_something_box(String strArg1, String strArg2, String strArg3) throws Throwable {
-        String customerFirstName = PropertyUtility.getDataProperties("web.customer.firstname");
+        String customerFirstName = PropertyUtility.getDataProperties("change.customer.firstname");
         cucumberContextManager.setScenarioContext("CUSTFIRSTNAME", customerFirstName);
-        String customerLastName = PropertyUtility.getDataProperties("web.customer.lastname");
+        String customerLastName = PropertyUtility.getDataProperties("change.customer.lastname");
         cucumberContextManager.setScenarioContext("CUSTLASTNAME", customerLastName);
 
         String driverFirstName = PropertyUtility.getDataProperties("web.driver.firstname");
