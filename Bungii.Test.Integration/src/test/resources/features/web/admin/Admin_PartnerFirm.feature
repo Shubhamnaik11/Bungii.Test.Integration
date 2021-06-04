@@ -327,6 +327,7 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
     | driver1 state|
     | Accepted  |
   And I view the Scheduled Deliveries list on the admin portal
+  And I search the delivery of Customer
   Then I should be able to see the respective bungii with the below status
     |  Status |
     | Searching Drivers |
@@ -351,6 +352,7 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
       | Accepted         |
       | Enroute          |
     And I view the Scheduled Deliveries list on the admin portal
+    And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |

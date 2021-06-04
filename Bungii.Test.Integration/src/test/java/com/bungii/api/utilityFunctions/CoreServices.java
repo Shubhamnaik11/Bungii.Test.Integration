@@ -655,7 +655,7 @@ public class CoreServices extends DriverBase {
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
         rtnArray[0] = formattedDate+".000";
         rtnArray[1] = wait;
-        logger.detail("TIME CALC BLOCK TELET");
+        logger.detail("TIME CALC BLOCK TELET : "+ rtnArray[0]);
         cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
 
         return rtnArray;
@@ -805,6 +805,36 @@ public class CoreServices extends DriverBase {
         return waitDuraton;
     }
 
+    public int customerConfirmationScheduledForFuture(String pickRequestID, String paymentMethodID, String authToken,String futureTime) throws ParseException {
+        //get utc time and time for bungii to start
+        logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken);
+
+        String[] nextAvailableBungii = getScheduledBungiiTime(futureTime);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                sdf.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
+        Date date = sdf.parse(nextAvailableBungii[0]);
+        Calendar cal = new GregorianCalendar();
+        cal.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+        cal.setTime(date);
+       // LocalDateTime.parse(nextAvailableBungii[0], DateTimeFormatter.ofPattern( "yyyy-MM-dd HH:mm:ss.SSS" , Locale.US )).atZone( ZoneId.of( "America/New_York" ) );
+        String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(cal.getTime());
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        cucumberContextManager.setScenarioContext("TIME",strTime);
+        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID") &&currentGeofence.equalsIgnoreCase("goa")){
+            String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+            if(strTime.contains(timeLabel))
+                strTime=strTime.replace(timeLabel,"");
+        }
+        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+        cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+
+        //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
+        //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+        logger.detail("UTC TIME : "+ nextAvailableBungii[0] + " and geofence based time : "+ strTime);
+        int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
+        customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
+        return waitDuraton;
+    }
 
     public Response customerView(String pickuprequestid, String authToken) {
         String RequestText ="API REQUEST : Get Customer View "+ pickuprequestid +" | Auth Token : "+ authToken;

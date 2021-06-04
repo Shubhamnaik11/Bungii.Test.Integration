@@ -131,7 +131,7 @@ Feature: Admin_BusinessUsers
     Then the "Oops! The phone number is invalid." message is displayed for the "Phone Number" field
     And the "Oops! The email address is invalid." message is displayed for the "Email" field
 	
-  @ready
+  @knownissue
 	#Unable to download or read from the downloads folder of VM
   Scenario: Verify Add New Business User And Add Payment Method - Field validations In Uploaded CSV For Bulk Trips
     When I click on the "New Partner" Button

@@ -54,6 +54,7 @@ Feature: Admin_Trips
    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers|
@@ -195,11 +196,13 @@ Feature: Admin_Trips
   
   
   @ready
+    @reg
   Scenario: Verify Filters shows future deliveries in All deliveries page
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
 	  | 3_DAY_LATER | 9284174823       | Krishna Hoderker|
     And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers|

@@ -658,7 +658,7 @@ public class EstimateSteps extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime); //15 added to eliminate there is delay in requeting bungii
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
 

@@ -260,7 +260,6 @@ Feature: Partner Integration with Admin and Driver
         | Canceled       |
 
   @ready
-    @reg
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by Non control Driver
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
