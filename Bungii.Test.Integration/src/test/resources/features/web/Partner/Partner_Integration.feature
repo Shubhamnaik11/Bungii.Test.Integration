@@ -7,7 +7,7 @@ Feature: Partner Integration with Admin and Driver
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
 
-  @regression
+  @ready
   @sanity
     #stable
   Scenario: Delivery List Status Updation For Solo Scheduled Pickup on Partner Portal
@@ -105,7 +105,7 @@ Feature: Partner Integration with Admin and Driver
       | Partner_Status |
       | Completed    |
 
-  @ready
+  @regression
     #stable
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip from Admin Portal
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
@@ -260,6 +260,7 @@ Feature: Partner Integration with Admin and Driver
         | Canceled       |
 
   @ready
+    @reg
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by Non control Driver
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

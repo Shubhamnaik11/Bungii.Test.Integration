@@ -214,6 +214,7 @@ public class Admin_PromoterSteps extends DriverBase {
     }
     @And("^I enter following card details on \"([^\"]*)\" screen$")
     public void i_enter_following_card_details_on_something_screen(String page, DataTable data) throws Throwable {
+        try{
         switch (page) {
             case "Free Delivery Credit Card":
                 Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
@@ -280,7 +281,6 @@ public class Admin_PromoterSteps extends DriverBase {
                 String BungiiCVV  = dataMapForBungiiCard.get("CVV").trim();
                 String BungiiPostalCode  = dataMapForBungiiCard.get("Postal Code").trim();
                 new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("braintree-hosted-field-postalCode")));
-                String BungiiPin = SetupManager.getDriver().getPageSource();
                 action.sendKeys(admin_paymentMethodsPage.TextBox_PostalCode(),BungiiPostalCode);
 
 
@@ -303,7 +303,11 @@ public class Admin_PromoterSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("CARD_EXPIRY_DATE", BungiiExpirationDate);
                 break;
         }
-
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in entering card details on Bungii Cards screen",
+                    true);
+        }
     }
 
     @Then("^the card is added to the promoter \"([^\"]*)\"$")

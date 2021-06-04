@@ -164,7 +164,7 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Krishna Hoderker"
     Then Trip should be listed in the grid
   
-  @regression
+  @ready
     #stable
   Scenario: Verify Driver Est. Earnings for for Customer Trip
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -254,7 +254,7 @@ Feature: Admin_Trips
     Then The Delivery List page should display the delivery in "Admin Canceled" state
   
   @sanity
-  @regression
+  @ready
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence

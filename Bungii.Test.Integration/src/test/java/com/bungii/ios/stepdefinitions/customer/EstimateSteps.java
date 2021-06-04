@@ -1143,6 +1143,7 @@ public class EstimateSteps extends DriverBase {
                 if(displayedTime.contains("a.m.")||displayedTime.contains("p.m.")) {
                     strTime = strTime.replace("am", "a.m.").replace("pm", "p.m.").replace("AM", "a.m.").replace("PM", "p.m.");
                 }
+                if(strTime.contains("GMT"))
                 strTime = utility.getGmtTime(strTime);
                 testStepAssert.isEquals(displayedTime, strTime,strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
             }

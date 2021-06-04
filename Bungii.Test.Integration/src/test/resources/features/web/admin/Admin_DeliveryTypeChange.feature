@@ -4,7 +4,7 @@ Feature: Admin_Delivery_Type_Change
   Background:
 	Given I am logged in as Admin
 	
-  @regression
+  @ready
   Scenario: Verify Admin can Change delivery from Solo to Duo
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
@@ -45,7 +45,7 @@ Feature: Admin_Delivery_Type_Change
 	Then Under Driver Details: for both Driver 1 and 2 : "Add driver below or Bungii driver search will continue" should be displayed
 	And I should see Bungii Type as "DUO" in "Edit Trip Details" section
   
-  @regression
+  @ready
   Scenario: Verify Admin can Change delivery from Duo to Solo
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
@@ -86,7 +86,7 @@ Feature: Admin_Delivery_Type_Change
 	Then Under Driver Details: for Driver 1: "Add driver below or Bungii driver search will continue" should be displayed
 	And I should see Bungii Type as "SOLO" in "Edit Trip Details" section
   
-  @ready
+  @regression
   Scenario: Verify Admin can Change delivery from Duo to Solo when one driver accepts the delivery
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
@@ -130,7 +130,7 @@ Feature: Admin_Delivery_Type_Change
 	Then Under Driver Details: for Driver 1: "Testdrivertywd_appledc_a_webkk Testdriverkk" should be displayed
 	And I should see Bungii Type as "SOLO" in "Edit Trip Details" section
   
-@regression
+@ready
   Scenario: Verify Admin can Change delivery from Duo to Solo when both driver accepts the delivery and one driver is removed
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |

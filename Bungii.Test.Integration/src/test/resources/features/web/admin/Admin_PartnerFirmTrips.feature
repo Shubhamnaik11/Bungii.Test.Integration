@@ -6,7 +6,7 @@ Feature: Admin_PartnerFirmTrips
     Given I am logged in as TestAdmin
   
   @sanity
-  @ready
+  @regression
       #test data created in base
   Scenario: Verify Partner Firm Upon Driver Acceptance And Removal Research - Duo Scheduled
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -116,7 +116,7 @@ Feature: Admin_PartnerFirmTrips
       | Accepted  |
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
 
-  @regression
+  @ready
     #test data created in base
   Scenario: Verify Partner When Cancel Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -227,7 +227,6 @@ Feature: Admin_PartnerFirmTrips
 
   @sanity
   @ready
-    @reg
     #test data created in base
     #changed driver name
   Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin

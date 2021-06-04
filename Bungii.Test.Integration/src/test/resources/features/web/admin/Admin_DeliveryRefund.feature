@@ -141,7 +141,7 @@ Feature: Admin_Refund
 	And I click on "Close icon" button
 	Then The "Issue Refund" section should not be displayed
   
-@ready
+@regression
   Scenario: Verify Complete Refund for manually ended solo scheduled bungii and partial payment for driver
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
