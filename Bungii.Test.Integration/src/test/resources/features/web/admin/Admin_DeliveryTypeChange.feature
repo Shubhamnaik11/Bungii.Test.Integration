@@ -4,87 +4,6 @@ Feature: Admin_Delivery_Type_Change
   Background:
 	Given I am logged in as Admin
 	
-  @ready
-  Scenario: Verify Admin can Change delivery from Solo to Duo
-	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-	  | Bungii Time   | Customer Phone | Customer Name                  |
-	  | NEXT_POSSIBLE | 9999999219     | Testcustomertywd_appleNewMF Customer|
-  
-	And I view the all Scheduled Deliveries list on the admin portal
-	And I wait for 2 minutes
-	And I search the delivery of Customer
-	Then I should be able to see the respective bungii with the below status
-	  |  Status |
-	  | Searching Drivers |
-	And I click on "Edit" link beside scheduled bungii
-	When I click on "Edit Trip Details" radiobutton
-    And I change delivery type from "Solo to Duo"
-	And I click on "VERIFY" button
-	And the "Your changes are good to be saved." message is displayed
-	Then I click on "SAVE CHANGES" button
-	And the "Bungii Saved!" message is displayed
-	When I click on "Close" button
-	And I refresh the page
-	And I get the new pickup reference generated
-	And I view the all Scheduled Deliveries list on the admin portal
-	And I wait for 2 minutes
-	And I search the delivery of Customer
-	Then I should be able to see the respective bungii with the below Delivery Type
-	  | Type |
-	  | Duo |
-	And the cost of the delivery should be doubled
-	And I should be able to see the respective bungii with the below status
-	  |  Status |
-	  | Searching Drivers |
-	And I click on "Edit" link beside scheduled bungii
-	Then Under Drivers: for both Driver 1 and 2 : "Bungii driver is being searched" should be displayed
-	And I should see Bungii Type as "DUO" in "Research Scheduled Bungii" section
-	When I click on "Cancel entire Bungii and notify driver(s)" radiobutton
-	Then I should see Bungii Type as "DUO" in "Cancel entire Bungii and notify driver(s)" section
-	When I click on "Edit Trip Details" radiobutton
-	Then Under Driver Details: for both Driver 1 and 2 : "Add driver below or Bungii driver search will continue" should be displayed
-	And I should see Bungii Type as "DUO" in "Edit Trip Details" section
-  
-  @ready
-  Scenario: Verify Admin can Change delivery from Duo to Solo
-	When I request "duo" Bungii as a customer in "washingtondc" geofence
-	  | Bungii Time   | Customer Phone | Customer Name                  |
-	  | NEXT_POSSIBLE | 9999999220     | Testcustomertywd_appleNewMG Customer|
-	
-	And I view the all Scheduled Deliveries list on the admin portal
-	And I wait for 2 minutes
-	And I search the delivery of Customer
-	Then I should be able to see the respective bungii with the below status
-	  |  Status |
-	  | Searching Drivers |
-	And I click on "Edit" link beside scheduled bungii
-	When I click on "Edit Trip Details" radiobutton
-	And I change delivery type from "Duo to Solo"
-	And I click on "VERIFY" button
-	And the "Your changes are good to be saved." message is displayed
-	Then I click on "SAVE CHANGES" button
-	And the "Bungii Saved!" message is displayed
-	When I click on "Close" button
-	And I refresh the page
-	And I get the new pickup reference generated
-	And I view the all Scheduled Deliveries list on the admin portal
-	And I wait for 2 minutes
-	And I search the delivery of Customer
-	Then I should be able to see the respective bungii with the below Delivery Type
-	  | Type |
-	  | Solo |
-	And the cost of the delivery should be halved
-	And I should be able to see the respective bungii with the below status
-	  |  Status |
-	  | Searching Drivers |
-	And I click on "Edit" link beside scheduled bungii
-	Then Under Drivers: for Driver 1: "Bungii driver is being searched" should be displayed
-	And I should see Bungii Type as "SOLO" in "Research Scheduled Bungii" section
-	When I click on "Cancel entire Bungii and notify driver(s)" radiobutton
-	Then I should see Bungii Type as "SOLO" in "Cancel entire Bungii and notify driver(s)" section
-	When I click on "Edit Trip Details" radiobutton
-	Then Under Driver Details: for Driver 1: "Add driver below or Bungii driver search will continue" should be displayed
-	And I should see Bungii Type as "SOLO" in "Edit Trip Details" section
   
   @regression
   Scenario: Verify Admin can Change delivery from Duo to Solo when one driver accepts the delivery
@@ -213,3 +132,86 @@ Feature: Admin_Delivery_Type_Change
 	  | Bungii Completed |
 	And I view All Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Payment Successful" state
+  
+  @ready
+  Scenario: Verify Admin can Change delivery from Solo to Duo
+	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+	  | Bungii Time   | Customer Phone | Customer Name                  |
+	  | NEXT_POSSIBLE | 9999999219     | Testcustomertywd_appleNewMF Customer|
+	
+	And I view the all Scheduled Deliveries list on the admin portal
+	And I wait for 2 minutes
+	And I search the delivery of Customer
+	Then I should be able to see the respective bungii with the below status
+	  |  Status |
+	  | Searching Drivers |
+	And I click on "Edit" link beside scheduled bungii
+	When I click on "Edit Trip Details" radiobutton
+	And I change delivery type from "Solo to Duo"
+	And I click on "VERIFY" button
+	And the "Your changes are good to be saved." message is displayed
+	Then I click on "SAVE CHANGES" button
+	And the "Bungii Saved!" message is displayed
+	When I click on "Close" button
+	And I refresh the page
+	And I get the new pickup reference generated
+	And I view the all Scheduled Deliveries list on the admin portal
+	And I wait for 2 minutes
+	And I search the delivery of Customer
+	Then I should be able to see the respective bungii with the below Delivery Type
+	  | Type |
+	  | Duo |
+	And the cost of the delivery should be doubled
+	And I should be able to see the respective bungii with the below status
+	  |  Status |
+	  | Searching Drivers |
+	And I click on "Edit" link beside scheduled bungii
+	Then Under Drivers: for both Driver 1 and 2 : "Bungii driver is being searched" should be displayed
+	And I should see Bungii Type as "DUO" in "Research Scheduled Bungii" section
+	When I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+	Then I should see Bungii Type as "DUO" in "Cancel entire Bungii and notify driver(s)" section
+	When I click on "Edit Trip Details" radiobutton
+	Then Under Driver Details: for both Driver 1 and 2 : "Add driver below or Bungii driver search will continue" should be displayed
+	And I should see Bungii Type as "DUO" in "Edit Trip Details" section
+  
+  @ready
+  Scenario: Verify Admin can Change delivery from Duo to Solo
+	When I request "duo" Bungii as a customer in "washingtondc" geofence
+	  | Bungii Time   | Customer Phone | Customer Name                  |
+	  | NEXT_POSSIBLE | 9999999220     | Testcustomertywd_appleNewMG Customer|
+	
+	And I view the all Scheduled Deliveries list on the admin portal
+	And I wait for 2 minutes
+	And I search the delivery of Customer
+	Then I should be able to see the respective bungii with the below status
+	  |  Status |
+	  | Searching Drivers |
+	And I click on "Edit" link beside scheduled bungii
+	When I click on "Edit Trip Details" radiobutton
+	And I change delivery type from "Duo to Solo"
+	And I click on "VERIFY" button
+	And the "Your changes are good to be saved." message is displayed
+	Then I click on "SAVE CHANGES" button
+	And the "Bungii Saved!" message is displayed
+	When I click on "Close" button
+	And I refresh the page
+	And I get the new pickup reference generated
+	And I view the all Scheduled Deliveries list on the admin portal
+	And I wait for 2 minutes
+	And I search the delivery of Customer
+	Then I should be able to see the respective bungii with the below Delivery Type
+	  | Type |
+	  | Solo |
+	And the cost of the delivery should be halved
+	And I should be able to see the respective bungii with the below status
+	  |  Status |
+	  | Searching Drivers |
+	And I click on "Edit" link beside scheduled bungii
+	Then Under Drivers: for Driver 1: "Bungii driver is being searched" should be displayed
+	And I should see Bungii Type as "SOLO" in "Research Scheduled Bungii" section
+	When I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+	Then I should see Bungii Type as "SOLO" in "Cancel entire Bungii and notify driver(s)" section
+	When I click on "Edit Trip Details" radiobutton
+	Then Under Driver Details: for Driver 1: "Add driver below or Bungii driver search will continue" should be displayed
+	And I should see Bungii Type as "SOLO" in "Edit Trip Details" section
+ 

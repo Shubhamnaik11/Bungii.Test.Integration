@@ -332,36 +332,7 @@ Feature: Admin_Refund
 	When I click on "OK" button
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
-  
-  @ready
-  Scenario: Verify Partial Refund for Duo Delivery and complete Driver payment
-	When I request "duo" Bungii as a customer in "washingtondc" geofence
-	  | Bungii Time   | Customer Phone | Customer Name |
-	  | NEXT_POSSIBLE | 9999999992 | Testcustomertywd_appleNewL Customer|
-	When As a driver "Testdrivertywd_appledc_a_drvp Driver" and "Testdrivertywd_appledc_a_drvq Driver" perform below action with respective "Duo Scheduled" trip
-	  | driver1 state | driver2 state |
-	  | Bungii Completed      | Bungii Completed      |
-	And I view the Deliveries list on the admin portal
-	And I wait for 2 minutes
-	And I search the delivery of Customer and view it
-	When I click on "ISSUE REFUND" button
-	Then The "Issue Refund" section should be displayed
-	When I select "Partial Refund" radio button
-	And I enter "Customer Refund Amount" as "5.01" dollars
-	And I enter "Customer Refund Amount" as "15.01" dollars from second driver
-	When I enter "Bungii Internal Notes" as "Internal Note"
-	And I click on "Continue" button on Issue Refund popup
-	Then I should see "Issue Refund - Confirm Details" popup
-	And I should see Original Delivery Charge & Customer Refund & Total Customer Charge for duo delivery
-	And I should see breakdown of Before and After Refund earnings for both driver
-	And I should see Bungii Internal Note
-	When I select "Are you sure you want to proceed with refund request ?" checkbox
-	And I click on "Process Refund" button on Issue Refund popup
-	Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
-	When I click on "OK" button
-	And I search the delivery of Customer and view it
-	Then The "Issue Refund" button should not be displayed
-  
+	 
   @regression
   Scenario: Verify Partial Refund Calculations of Solo Scheduled Delivery
 	And I wait for 1 minutes
@@ -411,4 +382,33 @@ Feature: Admin_Refund
 	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
 	And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
 	And Notes text area should not be displayed
+  
+  @ready
+  Scenario: Verify Partial Refund for Duo Delivery and complete Driver payment
+	When I request "duo" Bungii as a customer in "washingtondc" geofence
+	  | Bungii Time   | Customer Phone | Customer Name |
+	  | NEXT_POSSIBLE | 9999999992 | Testcustomertywd_appleNewL Customer|
+	When As a driver "Testdrivertywd_appledc_a_drvp Driver" and "Testdrivertywd_appledc_a_drvq Driver" perform below action with respective "Duo Scheduled" trip
+	  | driver1 state | driver2 state |
+	  | Bungii Completed      | Bungii Completed      |
+	And I view the Deliveries list on the admin portal
+	And I wait for 2 minutes
+	And I search the delivery of Customer and view it
+	When I click on "ISSUE REFUND" button
+	Then The "Issue Refund" section should be displayed
+	When I select "Partial Refund" radio button
+	And I enter "Customer Refund Amount" as "5.01" dollars
+	And I enter "Customer Refund Amount" as "15.01" dollars from second driver
+	When I enter "Bungii Internal Notes" as "Internal Note"
+	And I click on "Continue" button on Issue Refund popup
+	Then I should see "Issue Refund - Confirm Details" popup
+	And I should see Original Delivery Charge & Customer Refund & Total Customer Charge for duo delivery
+	And I should see breakdown of Before and After Refund earnings for both driver
+	And I should see Bungii Internal Note
+	When I select "Are you sure you want to proceed with refund request ?" checkbox
+	And I click on "Process Refund" button on Issue Refund popup
+	Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+	When I click on "OK" button
+	And I search the delivery of Customer and view it
+	Then The "Issue Refund" button should not be displayed
  

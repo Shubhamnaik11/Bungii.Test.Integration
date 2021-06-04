@@ -107,6 +107,14 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         log("I search the delivery of Customer and view it","I searched the delivery of Customer and viewed it",false);
 
     }
+    @And("^I search the delivery of Customer \"([^\"]*)\"$")
+    public void i_search_the_delivery_of_customer_(String customer) throws Throwable {
+        Thread.sleep(10000);
+        action.clearSendKeys(admin_TripsPage.TextBox_Search(),customer+Keys.ENTER);
+        Thread.sleep(10000);
+        log("I search the delivery of Customer","I searched the delivery of Customer "+ customer,false);
+    }
+
     @And("^I search the delivery of Customer$")
     public void i_search_the_delivery_of_customer() throws Throwable {
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");

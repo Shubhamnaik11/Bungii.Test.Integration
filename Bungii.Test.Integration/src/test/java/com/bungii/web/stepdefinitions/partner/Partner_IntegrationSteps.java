@@ -1,5 +1,6 @@
 package com.bungii.web.stepdefinitions.partner;
 
+import com.bungii.SetupManager;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.api.utilityFunctions.CoreServices;
 import com.bungii.common.core.DriverBase;
@@ -45,6 +46,7 @@ public class Partner_IntegrationSteps extends DriverBase {
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String Pickup_Address;
         String Delivery_Address;
+        SetupManager.getDriver().manage().window().maximize();
 
         cucumberContextManager.setScenarioContext("Bungii_Type", Type);
         cucumberContextManager.setScenarioContext("Partner_Bungii_type",Type);

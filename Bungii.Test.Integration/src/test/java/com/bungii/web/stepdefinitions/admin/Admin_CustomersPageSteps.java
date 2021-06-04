@@ -334,10 +334,10 @@ public class Admin_CustomersPageSteps extends DriverBase {
 
     @Then("^updated Phone is displayed for the customer in the Customer List$")
     public void updated_phone_is_displayed_for_the_customer_in_the_customer_list() throws Throwable {
-        String custFirstName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME");
+        String custName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME") + " "+ (String) cucumberContextManager.getScenarioContext("CUSTLASTNAME");
         String phone = (String)  cucumberContextManager.getScenarioContext("PHONE");
 
-        String xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custFirstName,phone);
+        String xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custName,phone);
         testStepAssert.isElementDisplayed(admin_customerPage.findElement(xpath,PageBase.LocatorType.XPath),
                 "Customer's updated phone should be listed in grid.",
                 "Customer's updated phone is listed in grid.",

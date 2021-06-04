@@ -99,9 +99,8 @@ Feature: Delivery Flows
     And I wait for "3" mins
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I wait for "4" mins
+    And I wait for "3" mins
     And I tap on "Menu" > "MY BUNGIIS" link
-    And I wait for "4" mins
     And I select 1st trip from scheduled bungii
     When I wait for 1 hour for Bungii Schedule Time
     When I try to contact driver using "call driver1"

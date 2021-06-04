@@ -661,6 +661,47 @@ public class CoreServices extends DriverBase {
         return rtnArray;
 
     }
+    public String[] getScheduledBungiiTimeFurtureSlot(String teletTime) {
+        String[] rtnArray = new String[2];
+        int bufferTimeToStartTrip = 0;
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date = null;
+        try {
+            date = sdfd.parse(teletTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        calendar.setTime(date);
+        int mnts = calendar.get(Calendar.MINUTE);
+        String teletType=(String)cucumberContextManager.getScenarioContext("TELET_TYPE");
+        if(teletType.equalsIgnoreCase("TELET SAME TIME")) {
+            calendar.set(Calendar.MINUTE, mnts + 30);
+        }
+        else if(teletType.equalsIgnoreCase("TELET OVERLAP")){
+            calendar.set(Calendar.MINUTE, mnts + 45);
+        }
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 15;
+        if(mod!=0)
+            calendar.add(Calendar.MINUTE, (15 - mod));
+        calendar.set(Calendar.SECOND, 0);
+        Date nextQuatter = calendar.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
+        //sdf.setTimeZone(TimeZone.getTimeZone("UTC")); //Commeting TELET IS already in UTC
+        String formattedDate = sdf.format(nextQuatter);
+
+        String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
+        rtnArray[0] = formattedDate+".000";
+        rtnArray[1] = wait;
+        logger.detail("TIME CALC BLOCK TELET : "+ rtnArray[0]);
+        cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
+
+        return rtnArray;
+
+    }
+
     public String[] getScheduledBungiiTime(int minuteDifferance) {
         String[] rtnArray = new String[2];
         int bufferTimeToStartTrip = 0;
@@ -807,17 +848,21 @@ public class CoreServices extends DriverBase {
 
     public int customerConfirmationScheduledForFuture(String pickRequestID, String paymentMethodID, String authToken,String futureTime) throws ParseException {
         //get utc time and time for bungii to start
-        logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken);
+        logger.detail("Customer Confirmation of Scheduled pickup request [Future Date] "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken);
 
-        String[] nextAvailableBungii = getScheduledBungiiTime(futureTime);
+        String[] nextAvailableBungii = getScheduledBungiiTimeFurtureSlot(futureTime);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-                sdf.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
+                sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date = sdf.parse(nextAvailableBungii[0]);
         Calendar cal = new GregorianCalendar();
-        cal.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+        cal.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
+
         cal.setTime(date);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("MMM dd, HH:mm a z", Locale.US);
+        sdf1.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
+        System.out.println(sdf1.format(date));
        // LocalDateTime.parse(nextAvailableBungii[0], DateTimeFormatter.ofPattern( "yyyy-MM-dd HH:mm:ss.SSS" , Locale.US )).atZone( ZoneId.of( "America/New_York" ) );
-        String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(cal.getTime());
+        String strTime = sdf1.format(date);
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         cucumberContextManager.setScenarioContext("TIME",strTime);
         if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID") &&currentGeofence.equalsIgnoreCase("goa")){

@@ -489,6 +489,7 @@ public class Admin_TripsSteps extends DriverBase {
     }
     @When("^I change filter to \"([^\"]*)\" on All deliveries$")
     public void i_change_filter_to_something_on_all_deliveries(String filter) throws Throwable {
+        Thread.sleep(5000);
         action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),filter);
         Thread.sleep(5000);
         log("I select filter from All Deliveries on the admin portal",
