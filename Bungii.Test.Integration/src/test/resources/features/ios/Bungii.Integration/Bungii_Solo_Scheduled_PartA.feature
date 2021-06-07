@@ -123,19 +123,6 @@ Feature: Solo Scheduled Bungii Part A
  #   When I verify and slide update button on "EN ROUTE" Screen
 
     Then I should be navigated to "ARRIVED" trip status screen
-    And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
-    And correct details should be displayed to driver on "SMS" app
-    And correct details should be displayed to driver on "Call" app
-    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-    And correct details should be displayed to driver for "VIEW ITEMS"
-
-    When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "ARRIVED" trip status screen
-    And Trip Information should be correctly displayed on "ARRIVED" status screen for customer
-    And correct details should be displayed to customer on "SMS" app
-    And correct details should be displayed to customer on "Call" app
-
-    When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" trip status screen
     And Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
@@ -153,19 +140,6 @@ Feature: Solo Scheduled Bungii Part A
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
-    And correct details should be displayed to driver on "SMS" app
-    And correct details should be displayed to driver on "Call" app
-    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-    And correct details should be displayed to driver for "VIEW ITEMS"
-
-    When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
-    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
-    And correct details should be displayed to customer on "SMS" app
-    And correct details should be displayed to customer on "Call" app
-
-    When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" trip status screen
     And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
