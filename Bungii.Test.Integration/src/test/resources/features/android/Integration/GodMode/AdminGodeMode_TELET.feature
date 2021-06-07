@@ -437,7 +437,7 @@
       
         Given I Switch to "driver" application on "same" devices
         And I am on the LOG IN page on driver app
-        And I am logged in as "Testdriver_goa_d Android_test" driver
+        And I am logged in as "Testdriver_goa_c Android_test" driver
         
         Then I wait for "2" mins
         When I open new "Chrome" browser for "ADMIN"
@@ -446,7 +446,7 @@
         And I Select "Scheduled Trip" from admin sidebar
         And I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
-        And I assign driver "Testdriver_goa_d Android_test" for the trip
+        And I assign driver "Testdriver_goa_c Android_test" for the trip
         And I click on "VERIFY" button
         And the "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
@@ -454,8 +454,16 @@
 
         When I switch to "ORIGINAL" instance
         And I Switch to "driver" application on "same" devices
+        And I slide update button on "EN ROUTE" Screen
+        And I slide update button on "ARRIVED" Screen
+        Then I accept Alert message for "Reminder: both driver at pickup"
+        And I slide update button on "LOADING ITEM" Screen
+        And I slide update button on "DRIVING TO DROP OFF" Screen
+        And I slide update button on "UNLOADING ITEM" Screen
+        Then I accept Alert message for "Reminder: both driver at drop off"
+        Then Bungii Driver "tab On to Next"
         And I Select "SCHEDULED BUNGIIS" from driver App menu
-        Then I should able to see "two" scheduled trip
+        Then I should able to see "one" scheduled trip
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9999990074      | 9999992222      |
