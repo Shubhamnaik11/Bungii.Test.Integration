@@ -489,6 +489,7 @@ public class Admin_TripsSteps extends DriverBase {
     }
     @When("^I change filter to \"([^\"]*)\" on All deliveries$")
     public void i_change_filter_to_something_on_all_deliveries(String filter) throws Throwable {
+        Thread.sleep(5000);
         action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),filter);
         Thread.sleep(5000);
         log("I select filter from All Deliveries on the admin portal",
@@ -1011,19 +1012,25 @@ public class Admin_TripsSteps extends DriverBase {
 
     @And("^Customer should receive \"([^\"]*)\" email$")
     public void customer_should_receive_something_email(String emailSubject) throws Throwable {
-        String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
-       if(emailBody.equals("")){
-           testStepAssert.isFail("Email "+ emailSubject +" with link is not received.");
-       }
-       else {
-           action.navigateTo(emailBody);
-           String url = action.getCurrentURL();
-           String survey_link = PropertyUtility.getDataProperties("washington.survey.email.link");
-           testStepAssert.isTrue(url.contains(survey_link), "Survey Email link should be " + survey_link, "Survey email link is " + survey_link, "Survey email link is " + url);
-           log("Customer should receive "+emailSubject+" email",
-                   "Customer received "+emailSubject+" email", true);
-       }
-
+        try {
+            String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+            if (emailBody.equals("")) {
+                testStepAssert.isFail("Email " + emailSubject + " with link is not received.");
+            } else {
+                action.navigateTo(emailBody);
+                String url = action.getCurrentURL();
+                String survey_link = PropertyUtility.getDataProperties("washington.survey.email.link");
+                testStepAssert.isTrue(url.contains(survey_link), "Survey Email link should be " + survey_link, "Survey email link is " + survey_link, "Survey email link is " + url);
+                log("Customer should receive " + emailSubject + " email",
+                        "Customer received " + emailSubject + " email", true);
+            }
+        }
+        catch(Exception e)
+            {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step  Should be successful", "Error in fetching email",
+                        true);
+            }
 
        }
 

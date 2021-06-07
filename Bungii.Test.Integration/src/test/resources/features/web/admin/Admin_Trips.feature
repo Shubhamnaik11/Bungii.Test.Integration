@@ -54,6 +54,7 @@ Feature: Admin_Trips
    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers|
@@ -164,7 +165,7 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Krishna Hoderker"
     Then Trip should be listed in the grid
   
-  @regression
+  @ready
     #stable
   Scenario: Verify Driver Est. Earnings for for Customer Trip
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -195,11 +196,13 @@ Feature: Admin_Trips
   
   
   @ready
+ #stable
   Scenario: Verify Filters shows future deliveries in All deliveries page
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
 	  | 3_DAY_LATER | 9284174823       | Krishna Hoderker|
     And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers|
@@ -254,7 +257,7 @@ Feature: Admin_Trips
     Then The Delivery List page should display the delivery in "Admin Canceled" state
   
   @sanity
-  @regression
+  @ready
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence

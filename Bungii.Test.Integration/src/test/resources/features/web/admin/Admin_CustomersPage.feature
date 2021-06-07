@@ -61,24 +61,10 @@ Feature: Admin_CustomersPage
       | Dashboard |
     And I enter "<script>alert('hello')</script>" in the "Dashboard search" box
     Then the "No Customers found." message is displayed
-  
-  #CORE-2024
-  @ready
-  Scenario: Verify Edit Customer Phone and Email
-    When I click on "Customers" Menu
-    Then I should be directed to "Customers Page"
-    When I enter "customers" "first name" in the "Customers search" box
-    Then I should see "customer first name" listed on the "Customers" page
-    When I view the searched customer
-    When I edit "Phone" to "9800000004" and save it
-    And I edit "Email" to "bungiiauto585@gmail.com" and save it
-    When I navigate to Customer List
-    Then updated Phone is displayed for the customer in the Customer List
-    When I view the searched customer
-    Then updated Phone and Email is displayed for the customer
+    
   
     #CORE-2024
-  @ready
+  @regression
   Scenario: Verify Cancel With Cancel icon beside Customer Phone and Email
     When I click on "Customers" Menu
     Then I should be directed to "Customers Page"
@@ -120,3 +106,18 @@ Feature: Admin_CustomersPage
     And I edit "Email" to "" and try to save it
     Then I should see "Email address is required." message for "Email" field
     
+     #CORE-2024
+  @ready
+    #Stable
+  Scenario: Verify Edit Customer Phone and Email
+    When I click on "Customers" Menu
+    Then I should be directed to "Customers Page"
+    When I enter "customers" "first name" in the "Customers search" box
+    Then I should see "customer first name" listed on the "Customers" page
+    When I view the searched customer
+    When I edit "Phone" to "9800000004" and save it
+    And I edit "Email" to "bungiiauto585@gmail.com" and save it
+    When I navigate to Customer List
+    Then updated Phone is displayed for the customer in the Customer List
+    When I view the searched customer
+    Then updated Phone and Email is displayed for the customer

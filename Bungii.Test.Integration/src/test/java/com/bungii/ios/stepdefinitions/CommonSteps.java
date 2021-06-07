@@ -483,6 +483,7 @@ public class CommonSteps extends DriverBase {
                 case "SHARE ON TWITTER":
                 case "SHARE BY EMAIL":
                 case "SHARE BY TEXT MESSAGE":
+                    Thread.sleep(5000);
                     shareInviteCode(button);
                     break;
                 case "CLOSE BUTTON":

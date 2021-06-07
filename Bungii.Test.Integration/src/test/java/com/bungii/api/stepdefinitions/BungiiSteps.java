@@ -1339,7 +1339,7 @@ public class BungiiSteps extends DriverBase {
             }
             else if(bungiiTime.equalsIgnoreCase("3_DAY_LATER"))
             {
-                coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, getDaysLaterTime(3).toString());
+                coreServices.customerConfirmationScheduledForFuture(pickupRequest, paymentMethod, custAccessToken, getDaysLaterTime(3).toString());
             }
             else{
                 int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);

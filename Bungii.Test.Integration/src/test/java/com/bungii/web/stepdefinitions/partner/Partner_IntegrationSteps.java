@@ -1,5 +1,6 @@
 package com.bungii.web.stepdefinitions.partner;
 
+import com.bungii.SetupManager;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.api.utilityFunctions.CoreServices;
 import com.bungii.common.core.DriverBase;
@@ -45,6 +46,7 @@ public class Partner_IntegrationSteps extends DriverBase {
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String Pickup_Address;
         String Delivery_Address;
+        SetupManager.getDriver().manage().window().maximize();
 
         cucumberContextManager.setScenarioContext("Bungii_Type", Type);
         cucumberContextManager.setScenarioContext("Partner_Bungii_type",Type);
@@ -76,14 +78,14 @@ public class Partner_IntegrationSteps extends DriverBase {
                     action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                     action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                     Thread.sleep(2000);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                    //Thread.sleep(1000);
+                    Thread.sleep(2000);
                     action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                     Thread.sleep(5000);

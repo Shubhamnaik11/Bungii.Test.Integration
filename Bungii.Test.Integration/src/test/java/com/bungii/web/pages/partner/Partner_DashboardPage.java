@@ -82,7 +82,7 @@ public class Partner_DashboardPage extends PageBase {
 
     //Get Estimate Button
     public WebElement Button_Get_Estimate() { return findElement("get-estimate",LocatorType.Id);}
-    public WebElement Label_DeliveryCostEstimate() { return findElement("//label[contains(text(),'Delivery Cost:')]//following::strong",LocatorType.XPath);}
+    public WebElement Label_DeliveryCostEstimate() { return findElement("//label[contains(text(),'Delivery Cost:')]/strong",LocatorType.XPath);}
     public WebElement Label_DeliveryCostDelivery() { return findElement("//h2[text()='Delivery Cost']//following::span/strong",LocatorType.XPath);}
     //Estimated Cost label
     public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Estimated Cost: ')]",LocatorType.XPath);}

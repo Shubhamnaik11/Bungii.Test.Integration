@@ -42,7 +42,7 @@
       Then I should see five future days including today
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify changing the pickup date for scheduled Solo bungii Trip
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -65,7 +65,7 @@
       Then I should see "Estimated Cost"
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     @sanity
     Scenario: Verify Cancellation of Solo Scheduled Delivery
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence

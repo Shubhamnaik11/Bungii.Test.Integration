@@ -88,7 +88,7 @@ Feature: Admin_DriverDetails
       | Bungii Completed |
     Then The Driver Trip List page should display the trip in "Payment Successful" state
 
-  @regression
+  @ready
   Scenario: Verify Driver Search On Various Pages
     When I navigate to following pages one by one
       |Page |

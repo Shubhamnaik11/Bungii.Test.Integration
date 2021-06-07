@@ -21,7 +21,7 @@
       Then I check correct estimated price calculated on Partner Portal
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario:Verify If Partner User Cancel Solo Bungii After Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

@@ -319,14 +319,16 @@ Feature: Admin_PartnerFirm
       | 9999992222     |                 |
 
 @ready
-Scenario: Verify that same trip is shown for other driver under Trips section When admin adds driver to duo trip.
-  When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+#stable
+Scenario: Verify that same trip is shown for other driver under Trips section When admin adds driver to duo trip
+  When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
     | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|
   And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Duo Scheduled" Delivery
     | driver1 state|
     | Accepted  |
   And I view the Scheduled Deliveries list on the admin portal
+  And I search the delivery of Customer
   Then I should be able to see the respective bungii with the below status
     |  Status |
     | Searching Drivers |
@@ -338,19 +340,21 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
   Then I click on "SAVE CHANGES" button
   And the "Bungii Saved!" message is displayed
   When I click on "Close" button
+  Then I wait for "2" mins
   And I refresh the page
+  And I search the delivery of Customer "Testcustomertywd_applekrishna Hoderker"
   Then I verify that the "Testdrivertywd_appledc_a_web Sundarm" is displayed
-
+  
   @ready
-  Scenario: Verify that Admin does not get "Customer has ongoing trip " alert when he edits an already edited schedule bungii
+  Scenario: Verify that Admin does not get "Customer has ongoing trip" alert when he edits an already edited schedule bungii
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |Customer Password|
       | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android|Cci12345         |
     And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state     |
-      | Accepted         |
-      | Enroute          |
+      | Accepted          |
     And I view the Scheduled Deliveries list on the admin portal
+    And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |

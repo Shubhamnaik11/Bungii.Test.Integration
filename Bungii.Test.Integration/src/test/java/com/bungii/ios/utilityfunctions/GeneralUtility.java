@@ -603,6 +603,7 @@ public class GeneralUtility extends DriverBase {
         boolean isCorrectPage = false;
         switch (key.toUpperCase()) {
             case "BUNGII.COM":
+                Thread.sleep(5000);
                 // waitForExpectedElement(By.xpath("//XCUIElementTypeApplication[@name='Safari']"));
                 isCorrectPage = driverHomePage.isElementEnabled(driverHomePage.findElement("//XCUIElementTypeApplication[@name='Safari']", PageBase.LocatorType.XPath))
                         && action.getValueAttribute(driverHomePage.findElement("//*[@label='Address']", PageBase.LocatorType.XPath)).contains("bungii.com");

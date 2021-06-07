@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_PotentialPartnersPage;
@@ -122,9 +123,10 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
         try {
             switch (strArg1) {
                 case "Testdrivertywd_appledc_a_web Sundarm":
-                    String drivers= action.getText(admin_potentialPartnersPage.Text_DriversListScheduledTrips());
                     String driverName= (String)cucumberContextManager.getScenarioContext("DRIVER2_NAME");
-                    if(drivers.contains(driverName)){
+                    boolean condition= action.isElementPresent(admin_potentialPartnersPage.findElement(String.format("//tr[1]/td[contains(.,'%s')]",driverName),PageBase.LocatorType.XPath));
+
+                    if(condition){
                         testStepAssert.isTrue(true, "Driver is assigned.", "Driver is not assigned.");
                     }
                     else {
