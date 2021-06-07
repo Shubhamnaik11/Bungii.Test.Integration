@@ -256,7 +256,6 @@ Then I cancel all bungiis of customer
 	  | CUSTOMER1_PHONE | 9403960183      |
   
   @regression
-	@reg
   Scenario: STACKING | Verify Customer Can Cancel Stacked Ondemand Bungii Accepted By a Driver [1 Device]
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State   |

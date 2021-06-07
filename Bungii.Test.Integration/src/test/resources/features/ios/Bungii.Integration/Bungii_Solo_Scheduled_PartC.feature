@@ -192,7 +192,7 @@ Feature: Solo Scheduled Bungii Part C
       | CUSTOMER1_PHONE |                 |
 
   @regression
-@failures
+@reg
   Scenario:Verify Driver Cannot Cancel Scheduled Bungii From App When Bungii Is Not Started And He Should Send SMS To Cancel Solo Scheduled Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
