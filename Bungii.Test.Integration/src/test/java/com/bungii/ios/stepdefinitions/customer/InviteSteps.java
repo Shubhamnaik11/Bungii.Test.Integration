@@ -59,6 +59,7 @@ public class InviteSteps extends DriverBase {
     public void i_get_invite_code() {
         try {
             String inviteCode = getPromoCode();
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inviteCode);
             testStepVerify.isTrue(inviteCode.trim().length() > 4,
                     "Invite Code Should  more than 4 letter long", "Invite Code is " + inviteCode,
                     "Invite code is  " + inviteCode + ", less then 4 char");

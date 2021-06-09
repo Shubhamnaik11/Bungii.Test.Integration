@@ -46,7 +46,9 @@ And I slide update button on "LOADING ITEM" Screen
 And I slide update button on "DRIVING TO DROP OFF" Screen
 And I slide update button on "UNLOADING ITEM" Screen
 And I should be navigated to "Bungii Completed" screen
-
+  Then Bungii driver should see "correct details" on Bungii completed page
+  And I click "On To The Next One" button on "Bungii Completed" screen
+  
 And I Switch to "customer" application on "same" devices
 Then I should be navigated to "Bungii Complete" screen
 And Bungii customer should see "<Expected Details>" on Bungii completed page
@@ -54,11 +56,6 @@ And I click "CLOSE BUTTON" button on "Bungii Complete" screen
 Then I should be navigated to "Promotion" screen
 When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 Then I should be navigated to "Home" screen
-
-When I Switch to "driver" application on "same" devices
-Then Bungii driver should see "correct details" on Bungii completed page
-And I click "On To The Next One" button on "Bungii Completed" screen
-Then I wait for "3" mins
 
 And I open new "Chrome" browser for "ADMIN PORTAL"
 And I navigate to admin portal
@@ -115,7 +112,9 @@ And I slide update button on "LOADING ITEM" Screen
 And I slide update button on "DRIVING TO DROP OFF" Screen
 And I slide update button on "UNLOADING ITEM" Screen
 And I should be navigated to "Bungii Completed" screen
-
+  Then Bungii driver should see "correct details" on Bungii completed page
+  And I click "On To The Next One" button on "Bungii Completed" screen
+  
 And I Switch to "customer" application on "same" devices
 Then I should be navigated to "Bungii Complete" screen
 And Bungii customer should see "<Expected Details>" on Bungii completed page
@@ -123,11 +122,6 @@ And I click "CLOSE BUTTON" button on "Bungii Complete" screen
 Then I should be navigated to "Promotion" screen
 When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 Then I should be navigated to "Home" screen
-
-When I Switch to "driver" application on "same" devices
-Then Bungii driver should see "correct details" on Bungii completed page
-And I click "On To The Next One" button on "Bungii Completed" screen
-  #  Then I wait for "2" mins
 
 And I open new "Chrome" browser for "ADMIN PORTAL"
 And I navigate to admin portal

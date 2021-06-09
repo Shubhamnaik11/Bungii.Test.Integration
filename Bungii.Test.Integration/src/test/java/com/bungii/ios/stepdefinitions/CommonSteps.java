@@ -1913,7 +1913,7 @@ public class CommonSteps extends DriverBase {
     public void i_save_customer_phone_and_referral_code_iADDED_PROMO_CODEn_feature_context() throws Throwable {
         try {
 
-            String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
+            String refCode = "S2WG3"; //(String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
             String phoneNumber = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");//phoneNumber="9999992799";
             cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", refCode);
             cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", phoneNumber);
@@ -2268,7 +2268,7 @@ public class CommonSteps extends DriverBase {
             Thread.sleep(1000);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error performing step,User alert is not found : "+ key, true);
         }
     }
 

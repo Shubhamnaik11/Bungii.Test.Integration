@@ -4,8 +4,16 @@ Feature: Bungiis
   Background:
 	
 @ready
+  @fi
 Scenario: Verify Requesting Of Ondemand Bungii With Referral Code
-Given I have customer with referral code
+#Given I have customer with referral code
+  When I Switch to "customer" application on "same" devices
+  Given I am on Customer logged in Home page
+  When I Select "Home" from Customer App menu
+  And I click "Invite referrals" button on "HOME" screen
+  Then I should be navigated to "Invite" screen
+  When I get Invite Code
+  
 And I login as "valid nashville" driver on "same" device and make driver status as "Online"
 
 When I Switch to "customer" application on "same" devices
@@ -19,7 +27,10 @@ And I request for  bungii for given pickup and drop location
 And I click "Get Estimate" button on "Home" screen
 Then I should be navigated to "Estimate" screen
 When I select load time as "15" mins
-And I tap "Promo code" on Estimate screen
+  And I tap "Promo code" on Estimate screen
+  And I should be navigated to "PROMOS" screen
+  And I add "Referral" PromoCode
+  And I click "ADD" button on "PROMOS" screen
 Then I should able to see expected promo code in available promo code
     #When I tap "Back" on Promos screen
 And I enter following details on "Estimate" screen

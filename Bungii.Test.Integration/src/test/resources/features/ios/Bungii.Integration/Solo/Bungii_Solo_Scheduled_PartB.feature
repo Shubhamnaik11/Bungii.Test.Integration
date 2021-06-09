@@ -153,7 +153,6 @@ Feature: Solo Scheduled Bungii Part B
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I Select "MY BUNGIIS" from Customer App menu
-    When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" trip
       | driver1 state |
       | Accepted      |

@@ -76,6 +76,9 @@ public class PromoSteps extends DriverBase {
                 case "FIRST TIME":
                     codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.first.time"));
                     break;
+                case "REFERRAL":
+                    codeList = (List<String>)  cucumberContextManager.getFeatureContextContext("ADDED_PROMO_CODE");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

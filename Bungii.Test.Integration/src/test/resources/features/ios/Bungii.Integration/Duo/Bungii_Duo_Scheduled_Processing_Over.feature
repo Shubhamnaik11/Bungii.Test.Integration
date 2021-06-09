@@ -32,15 +32,14 @@ And I wait for Minimum duration for "current" Bungii to be in Driver not accepte
 Then I wait for "4" mins
 And I select already scheduled bungii
 When I Cancel selected Bungii
-Then correct support details should be displayed to customer on "ADMIN-SMS" app
+  When I Switch to "customer" application on "same" devices
+  Then correct support details should be displayed to customer on "ADMIN-SMS" app
 
 And I open Admin portal and navigate to "Scheduled Deliveries" page
 
 And I Cancel Bungii with following details
 | Charge | Comments |
 | 0      | TEST     |
-Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-And Bungii must be removed from the List
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
 And I Select "MY BUNGIIS" from Customer App menu
@@ -62,15 +61,14 @@ And I wait for Minimum duration for "current" Bungii to be in Driver not accepte
 Then I wait for "2" mins
 And I select already scheduled bungii
 When I Cancel selected Bungii
-Then correct support details should be displayed to customer on "ADMIN-SMS" app
+  When I Switch to "customer" application on "same" devices
+  Then correct support details should be displayed to customer on "ADMIN-SMS" app
 
 And I open Admin portal and navigate to "Scheduled Deliveries" page
 
 And I Cancel Bungii with following details
 | Charge | Comments |
 | 0      | TEST     |
-Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-And Bungii must be removed from the List
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
 And I Select "MY BUNGIIS" from Customer App menu

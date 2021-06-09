@@ -24,7 +24,6 @@ Feature: Scheduled DUO Bungii Trip Notifications
 	Given I am on the "LOG IN" page
 	When I enter Username :8888889917 and  Password :{VALID}
 	And I click "Log In" button on "Log In" screen
-	When I Switch to "driver" application on "same" devices
 	And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
 	  | driver1 state | driver2 state |
 	  | Accepted      | Accepted      |
@@ -45,7 +44,6 @@ Feature: Scheduled DUO Bungii Trip Notifications
 	And I click "Log In" button on "Log In" screen
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I close "Tutorial" if exist
-	When I Switch to "driver" application on "same" devices
 	And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
 	  | driver1 state | driver2 state |
 	  | Enroute       | Accepted      |

@@ -376,15 +376,15 @@ Feature: Solo Scheduled Bungii Part A
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
       | denver   | Accepted     | 1 hour ahead |
-  
+     And I wait for 2 minutes
     And I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "Online"
-  
+     And I wait for 2 minutes
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence with minimum possible distance
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
-      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
+      | now         | 8888889917      | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
     And I view and accept virtual notification for "Driver" for "on demand trip"
-  
+    And I wait for 2 minutes
     And I Switch to "customer" application on "same" devices
     Given I login as "valid denver" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu

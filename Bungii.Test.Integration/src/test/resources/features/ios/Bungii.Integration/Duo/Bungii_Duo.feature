@@ -287,6 +287,7 @@ Feature: Scheduled DUO Bungii
 	
   @regression
     #Stable
+    @d
   Scenario: Verify Decked Alert Status And Projected Arrival Time and Time To Finish by Calculations Of Short Stacked Bungii Over Current Ondemand Bungii  [2 Devices]
     Given that ondemand bungii is in progress
       | geofence | Bungii State        |
@@ -360,6 +361,7 @@ Feature: Scheduled DUO Bungii
   
   #######################################################Single Device###########################################################
   @regression
+    @d
   Scenario: Verify Decked Alert Status And Projected Arrival Time and Time To Finish by Calculations Of Short Stacked Bungii Over Current Scheduled Bungii [1 Device]
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |

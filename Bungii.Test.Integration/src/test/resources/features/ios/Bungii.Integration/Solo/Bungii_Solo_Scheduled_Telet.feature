@@ -56,16 +56,16 @@ Feature: Solo Scheduled Bungii - TELET
       | CUSTOMER1_PHONE |                 |
 
   @regression
-    @failures
+    #stable
   Scenario: Verify If Incoming Scheduled Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
-    When I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
+    
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}

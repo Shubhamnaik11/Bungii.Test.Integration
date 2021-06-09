@@ -232,20 +232,14 @@ Feature: Scheduled DUO Bungii in Goa Geofence
   
   @FAILED2702
   @ready
-  Scenario: Verify Driver Can Contact Customer Of A Requested Scheduled Duo Bungii
+  Scenario: Verify Control Driver Can Contact Customer Of A Requested Scheduled Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Accepted     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | enroute     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
     
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid driver 2" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
     And I Switch to "customer" application on "ORIGINAL" devices
@@ -253,18 +247,6 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     
-    And I Switch to "driver" application on "Driver2" devices
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select delivery "1" from scheduled deliveries
-    Then I should be navigated to "BUNGII DETAILS" screen
-    And I start selected Bungii
-    
-    And I Switch to "driver" application on "ORIGINAL" devices
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select delivery "1" from scheduled deliveries
-    And I start selected Bungii
-    
-    And I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "EN ROUTE" trip status screen
     Then correct details should be displayed to customer for "DUO DRIVER 1-CALL DRIVER"
     And correct details should be displayed to customer for "DUO DRIVER 1-TEXT DRIVER"
@@ -279,9 +261,36 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     And correct details should be displayed to driver for "DUO DRIVER 2-CALL DRIVER"
     And correct details should be displayed to driver for "DUO DRIVER 2-TEXT DRIVER"
     And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-    And I slide update button on "EN ROUTE" Screen
+  
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 9403960188      |                 |
+  
+  @FAILED2702
+  @ready
+  Scenario: Verify Non Control Driver Can Contact Customer Of A Requested Scheduled Duo Bungii
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | enroute     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
     
-    When I Switch to "driver" application on "Driver2" devices
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I Switch to "customer" application on "ORIGINAL" devices
+    When I logged in Customer application using  "customer-duo" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
+    And I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "EN ROUTE" trip status screen
+    Then correct details should be displayed to customer for "DUO DRIVER 1-CALL DRIVER"
+    And correct details should be displayed to customer for "DUO DRIVER 1-TEXT DRIVER"
+    And correct details should be displayed to customer for "DUO DRIVER 2-CALL DRIVER"
+    And correct details should be displayed to customer for "DUO DRIVER 2-TEXT DRIVER"
+    
+    When I Switch to "driver" application on "same" devices
     Then correct details should be displayed to driver for "DUO CUSTOMER-VIEW ITEM"
     And correct details should be displayed to driver for "DUO CUSTOMER-CALL CUSTOMER"
     And correct details should be displayed to driver for "DUO CUSTOMER-TEXT CUSTOMER"
@@ -289,12 +298,9 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     Then correct details should be displayed to driver for "DUO DRIVER 1-CALL DRIVER"
     And correct details should be displayed to driver for "DUO DRIVER 1-TEXT DRIVER"
     And correct details should be displayed to driver for "DUO DRIVER-TEXT BUNGII SUPPORT"
-    When I slide update button on "EN ROUTE" Screen
-  
+    
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 9403960188      |                 |
-    
-
   
  

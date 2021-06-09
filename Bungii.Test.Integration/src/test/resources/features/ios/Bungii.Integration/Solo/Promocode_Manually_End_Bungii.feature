@@ -135,8 +135,6 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	Then I should be navigated to "EN ROUTE" screen
 	And I slide update button on "EN ROUTE" Screen
 	And I slide update button on "ARRIVED" Screen
-	
-	When I Switch to "customer" application on "same" devices
 	And I wait for "2" mins
 	And I open Admin portal and navigate to "Live Deliveries" page
 	Then I should be able to see the respective bungii with the below status

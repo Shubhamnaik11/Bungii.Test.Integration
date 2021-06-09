@@ -354,13 +354,13 @@ public class CommonStepsDriver extends DriverBase {
          navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
         if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
             action.click(driverBungiiCompletedPage.Button_NextTrip());
-            //homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
+            navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
         }
-        navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
+
         if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
             try {
-                GeneralUtility utility = new GeneralUtility();
-                String pageName = utility.getPageHeader();
+               // GeneralUtility utility = new GeneralUtility();
+               // String pageName = utility.getPageHeader();
                 if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                     action.click(enableNotificationPage.Button_Sure());
                     action.clickAlertButton("Allow");
@@ -377,7 +377,7 @@ public class CommonStepsDriver extends DriverBase {
 
             }
             navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
-            if (navigationBarName.equals("ARRIVED")||navigationBarName.equals("ARRIVED")||navigationBarName.equals("EN ROUTE")||navigationBarName.equals("LOADING ITEM")||navigationBarName.equals("UNLOADING ITEM")||navigationBarName.equals("DRIVING TO DROPOFF"))
+            if (navigationBarName.equals("LOG IN")||navigationBarName.equals("ARRIVED")||navigationBarName.equals("ARRIVED")||navigationBarName.equals("EN ROUTE")||navigationBarName.equals("LOADING ITEM")||navigationBarName.equals("UNLOADING ITEM")||navigationBarName.equals("DRIVING TO DROPOFF"))
             {
                 //Do nothing - Its fresh Bungii requested as precondition step
             }

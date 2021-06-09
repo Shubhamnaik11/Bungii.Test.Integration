@@ -2,6 +2,7 @@
 @scheduled
 @DUO
 @bungii
+  @all
     # this will run in denver
   # Denver | Customer 8888889917, Valid denver - 9999993015
   # Denver | Driver Testdrivertywd_appledv_b_matt Stark_dvOnE -9999998086  , Testdrivertywd_appledv_b_seni Stark_dvThree -9955112208
@@ -165,7 +166,6 @@ Feature: Scheduled DUO Bungii Part A
   @regression
     #stable
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Duo Scheduled Trip
-    Given I Switch to "customer" application on "same" devices
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
       | denver   | Accepted     | 1 hour ahead | denver customer | denver driver 1 | denver driver 2 |
@@ -185,10 +185,7 @@ Feature: Scheduled DUO Bungii Part A
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 9999993015      |
   
-  
- 
     
-  
   @regression
     #stable
   Scenario: Verify If Customer Is Allowed To Rate Driver For Scheduled Duo Trip

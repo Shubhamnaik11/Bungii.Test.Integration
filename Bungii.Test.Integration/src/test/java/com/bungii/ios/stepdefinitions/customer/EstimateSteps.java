@@ -186,7 +186,6 @@ public class EstimateSteps extends DriverBase {
             }
             boolean isCorrectTime = false;
             String strTime = "";
-
             enterLoadingTime(loadTime);
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
@@ -299,12 +298,12 @@ public class EstimateSteps extends DriverBase {
                     //selectBungiiTime(0, "11", "45", "PM");
 
                     if(browserstack=="true"){
-                        selectBungiiTime(0, "23", "59", "");
-                        log("I select time for trip as 23:49", "I selected time for trip as 23:49");
+                        selectBungiiTime(0, "23", "45", "");
+                        log("I select time for trip as 23:45", "I selected time for trip as 23:45");
                     }
                     else {
-                        selectBungiiTime(0, "11", "59", "PM");
-                        log("I select time for trip as 11:49  pm", "I selected time for trip as 11:49  pm");
+                        selectBungiiTime(0, "11", "45", "PM");
+                        log("I select time for trip as 11:45  pm", "I selected time for trip as 11:45  pm");
                     }
 
                     break;
@@ -418,8 +417,10 @@ public class EstimateSteps extends DriverBase {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(teletTimeInUtc);
             int mnts = calendar.get(Calendar.MINUTE);
-
+             if(mnts>=30)
             calendar.set(Calendar.MINUTE, mnts - 30);
+             else
+                 calendar.set(Calendar.MINUTE, 0);
             int unroundedMinutes = calendar.get(Calendar.MINUTE);
             int mod = unroundedMinutes % 15;
             calendar.add(Calendar.MINUTE, (15 - mod));
@@ -439,7 +440,7 @@ public class EstimateSteps extends DriverBase {
 
             String[] dateScroll = bungiiTimeForScroll(teletTimeInLocal);
             strTime = bungiiTimeDisplayInTextArea(teletTimeInLocal);
-            action.click(estimatePage.Row_TimeSelect());
+            //action.click(estimatePage.Row_TimeSelect()); added inside so removing it
             selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
 
         } else if (time.equals("<TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1>")) {
@@ -466,7 +467,7 @@ public class EstimateSteps extends DriverBase {
             calendar.setTime(teletTimeInUtc);
             int mnts = calendar.get(Calendar.MINUTE);
 
-            calendar.set(Calendar.MINUTE, mnts+45);
+            calendar.set(Calendar.MINUTE, mnts+120);
             int unroundedMinutes = calendar.get(Calendar.MINUTE);
             int mod = unroundedMinutes % 15;
             calendar.add(Calendar.MINUTE, (15 - mod));

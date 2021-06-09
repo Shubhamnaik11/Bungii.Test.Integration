@@ -167,9 +167,10 @@ public class LiveTripsSteps extends DriverBase {
 
             double dblDiscountValue=Double.parseDouble((discountValue).replace("$",""));
             String truncValue = new DecimalFormat("#.##").format(dblDiscountValue); //truncValue=truncValue.replace(".00", "");//commented as 0.00 is not truncated
+            String displayValue = new DecimalFormat("0.00").format(dblDiscountValue); //truncValue=truncValue.replace(".00", "");//commented as 0.00 is not truncated
 
             //decimal formating
-            bungiiCostCustomer=new DecimalFormat("#.##").format(Double.parseDouble(bungiiCostCustomer.replace("$","")));
+            bungiiCostCustomer=new DecimalFormat("0.00").format(Double.parseDouble(bungiiCostCustomer.replace("$","")));
            // bungiiCostCustomer = bungiiCostCustomer.replace(".00", ""); //commented as 0.00 is not truncated
             bungiiCostCustomer="$"+bungiiCostCustomer;
             logger.detail("bungii cost to customer "+bungiiCostCustomer);
@@ -187,7 +188,7 @@ public class LiveTripsSteps extends DriverBase {
                     testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed", code+" is displayed",code +" is displayed instead of "+Promo);
                     testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "Promo","Promo should be displayed",codeType +" is displayed",codeType +" is displayed instead of Promo");
                     testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",codeValue +" is displayed",codeValue +" is displayed instead of "+PromoValue);
-                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",promoCode +" is displayed",promoCode +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + displayValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",promoCode +" is displayed",promoCode +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
                     testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer,bungiiCostCustomer+" should be displayed",tripPayment +" is displayed",tripPayment +" is displayed instead of "+bungiiCostCustomer);
                     break;
                 case "fbshare":
@@ -255,7 +256,10 @@ public class LiveTripsSteps extends DriverBase {
                 case "Manually End Bungii":
                     action.click(liveTripsPage.Link_ManuallyEndBungii());
                     break;
+
+
             }
+            log("I click on "+link+" link", "I clicked on "+link+" link", false);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error in clicking "+ link,
@@ -300,6 +304,7 @@ public class LiveTripsSteps extends DriverBase {
             logger.detail("Selected End Time is : "+ endTime);
             logger.detail("Selected End Time Dropdown is : "+ splitedDate[3]);
 
+            log("I Enter the End Date and Time", "I entered the End Date and Time : "+endDate +" "+ endTime+" "+splitedDate[3] , false);
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -323,6 +328,8 @@ public class LiveTripsSteps extends DriverBase {
                     action.click(liveTripsPage.Button_Cancel());
                     break;
             }
+            log("I click on "+button+" button", "I clicked on "+button+" button", true);
+
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -446,6 +453,7 @@ public class LiveTripsSteps extends DriverBase {
             SetupManager.getDriver().navigate().refresh();
             String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
             action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+            log("I view delivery details", "I viewed delivery details", false);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
