@@ -53,7 +53,7 @@ public class OtherAppsPage extends PageBase {
     public WebElement Notification_ScheduledBungiiAvailable(boolean... ignoreException) { return findElements("//*[@resource-id='android:id/status_bar_latest_event_content']", LocatorType.XPath).get(0); }
     public WebElement Notification_TMinus2(boolean... ignoreException) { return findElement("//*[@text=\"BUNGII: Heads up! T minus 2 hours till pickup.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_OtherDriverCancel(boolean... ignoreException) { return findElement("//*[@text=\"Looks like driver ran into a problem.\"]", LocatorType.XPath,ignoreException); }
-    public WebElement Notification_CustomerCancel(boolean... ignoreException) { return findElement("//*[@text=\"Due to an emergency, this trip has now been cancelled.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_CustomerCancel(boolean... ignoreException) { return findElement("//*[@text=\"Due to an emergency, this delivery has now been canceled\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_DriverEnroute(boolean... ignoreException){return findElement("//android.widget.TextView[@text='Your Bungii driver(s) are en route!']", LocatorType.XPath,ignoreException);}
     public WebElement Notification_ReceiveBungiiRequest(boolean... ignoreException) {return findElement("//*[@text='You’re receiving a Bungii request.']",LocatorType.XPath,ignoreException);}
     public WebElement Notification_ScheduledUrgent(boolean... ignoreException) { return findElement("//*[@text=\"URGENT: A Bungii driver had an emergency & needs coverage for their trip. Please accept if available.\"]", LocatorType.XPath,ignoreException); }
