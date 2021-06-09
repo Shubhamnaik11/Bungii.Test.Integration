@@ -15,26 +15,21 @@ Feature: Bungii Duo Scheduled
     When I Switch to "customer" application on "same" devices
     And I am on customer Log in page
     And I am logged in as "valid atlanta" customer
-	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	And I close "Tutorial" if exist
-	
-    #And I connect to "extra1" using "Driver1" instance
-    When I Switch to "driver" application on "same" devices
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
+    When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
-	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     #put driver on background
-    When I Open "customer" application on "same" devices
-    When I Switch to "customer" application on "ORIGINAL" devices
+    When I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     Then I Cancel selected Bungii
 
-   # When I Switch to "customer" application on "Driver1" devices
-    #And I connect to "extra1" using "Driver1" instance
-    When I Switch to "driver" application on "same" devices
+    #When I Switch to "driver" application on "same" devices
     And I click on notification for "CUSTOMER CANCELLED SCHEDULED BUNGII"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
@@ -342,7 +337,8 @@ Feature: Bungii Duo Scheduled
     And Bungii Driver "accepts stack message" request
     Then I calculate projected driver arrival time
     And I accept Alert message for "Alert: Display Stack trip after current trip"
-    
+
+    When I Switch to "customer" application on "same" devices
     Then I click on notification for "CUSTOMER -Driver accepted stack Bungii"
     When I tap "OK on Driver Accepted screen" during a Bungii
     

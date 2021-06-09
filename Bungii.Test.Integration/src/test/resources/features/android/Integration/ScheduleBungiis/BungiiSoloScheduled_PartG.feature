@@ -46,6 +46,7 @@ Feature: SoloScheduled Part G
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
+    When I Switch to "customer" application on "same" devices
     Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
@@ -306,15 +307,10 @@ Feature: SoloScheduled Part G
       | Accepted      | Accepted      |
     
     And I Switch to "customer" application on "same" devices
-    When I am on customer Log in page
-    And I enter customers "8805368840" Phone Number
-    And I enter customers "valid" Password
-    And I tap on the "Log in" Button on Login screen
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
-    Then I verify that text "You will have the ability to contact your drivers when the Bungii begins" is displayed
+    #Then I verify that text "You will have the ability to contact your drivers when the Bungii begins" is displayed
+    Then I verify that text "Your driver will contact you when they are en-route." is displayed
     Then I cancel all bungiis of customer
       
       | Customer Phone | Customer2 Phone |
