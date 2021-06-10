@@ -1139,6 +1139,9 @@ public class BungiiSteps extends DriverBase {
             switch(message)
             {
                 case "You will have the ability to contact your drivers when the Bungii begins":
+                    //testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ContactDriverMessage(),message,"Expected message is displayed.","Expected message is displayed.","Expected message is not displayed.");
+                    break;
+                case "Your driver will contact you when they are en-route.":
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ContactDriverMessage(),message,"Expected message is displayed.","Expected message is displayed.","Expected message is not displayed.");
                     break;
             }

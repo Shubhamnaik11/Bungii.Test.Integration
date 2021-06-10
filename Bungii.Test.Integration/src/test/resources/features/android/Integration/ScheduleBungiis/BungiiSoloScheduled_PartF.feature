@@ -86,7 +86,7 @@ Feature: SoloScheduled Part F
       | Kansas   | Accepted     | 1 hour ahead | Kansas customer B | Kansas driver 1 | Kansas driver 2 |
     Given that ondemand bungii is in progress for the minimum distance chosen
       | geofence | Bungii State | Driver label | Trip Label |
-      | Kansas   | Enroute      | driver 2     | 2          |
+      | Kansas   | Enroute      | Kansas 2     | 2          |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Kansas driver 1" driver
