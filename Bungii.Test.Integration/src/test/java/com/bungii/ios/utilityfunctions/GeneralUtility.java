@@ -1456,7 +1456,6 @@ try {
     long duration = loadingEtartTime.getTime() - loadingStartTime.getTime();
     long loadingTime = TimeUnit.MILLISECONDS.toMinutes(duration);
 
-
     String[] driverLocation = com.bungii.android.utilityfunctions.DbUtility.getDriverLocation(driverPhoneNumber);
     String[] pickup1Locations = com.bungii.android.utilityfunctions.DbUtility.getPickupAndDropLocation(customerPhoneNumber);
     String[] pickup2Locations = com.bungii.android.utilityfunctions.DbUtility.getPickupAndDropLocation(customer2PhoneNumber);
@@ -1467,7 +1466,6 @@ try {
     String[] newPickupLocations = new String[2];
     newPickupLocations[0] = pickup2Locations[0];
     newPickupLocations[1] = pickup2Locations[1];
-    logger.detail("Lat Long : Driver Current Location "+driverLocation+" "+dropLocation+" | New Pickup Location "+ newPickupLocations);
 
     long[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(driverLocation, dropLocation, newPickupLocations);
     logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance[0]+" and "+timeToCoverDistance[1]);
@@ -1485,10 +1483,10 @@ try {
     DateFormat formatterForLocalTimezone = new SimpleDateFormat("hh:mm a");
     formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
 
-    Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * new Double(tripProjectedEndTime).longValue()));
+    Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() +new Double(ONE_MINUTE_IN_MILLIS * new Double(tripProjectedEndTime)).longValue());
     String driverTime = formatterForLocalTimezone.format(tryToFinishTome);
 
-    Date timeStampToCalculateDate = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * new Double(totalTimeETAtoPickup).longValue()));
+    Date timeStampToCalculateDate = new Date(tryToFinishTome_Temp.getTime() + new Double(ONE_MINUTE_IN_MILLIS * new Double(totalTimeETAtoPickup)).longValue());
 
 
     Date minTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_FROM * ONE_MINUTE_IN_MILLIS));
