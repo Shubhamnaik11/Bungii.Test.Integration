@@ -13,7 +13,6 @@ Feature: SoloScheduled
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
       | kansas   | Accepted     | 0.75 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |
-    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
   
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
