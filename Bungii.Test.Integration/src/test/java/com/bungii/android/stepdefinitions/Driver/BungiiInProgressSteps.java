@@ -705,7 +705,7 @@ public class BungiiInProgressSteps extends DriverBase {
     public void i_should_not_be_able_to_see_something_on_screen(String option) throws Throwable {
         try {
             switch (option) {
-                case "Details From Home":
+                case "Details From Customer":
                     testStepAssert.isElementDisplayed(inProgressBungiiPages.Button_DetailsFromCustomer(true),"Option should not be present.", "Option is not present.", "Option is present.");
                     break;
             }

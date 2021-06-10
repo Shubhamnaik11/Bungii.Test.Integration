@@ -39,6 +39,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     ActionManager action = new ActionManager();
     ScheduledBungiisPage scheduledBungiisPage;
     GeneralUtility utility = new GeneralUtility();
+    DbUtility dbUtility = new DbUtility();
     CommonSteps commonSteps = new CommonSteps();
     InvitePage invitePage = new InvitePage();
 
@@ -354,6 +355,18 @@ public class ScheduledBungiiSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I get the pickupref$")
+    public void i_get_the_pickupref() throws Throwable {
+        try {
+           String phone =  (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST",dbUtility.getCustomersMostRecentBungii(phone));
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error Occured While fetching pickuprequest",
                     true);
         }
     }

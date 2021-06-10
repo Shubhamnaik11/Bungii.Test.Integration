@@ -818,7 +818,7 @@ public class Partner_trips extends DriverBase {
 
     @Then("^I view the correct Driver Est. Earnings for geofence based pricing model$")
     public void i_view_the_correct_Driver_Est_Earnings(){
-        String DriverEstEarning= action.getElementByXPath("//td[text()='Driver Est. Earnings']/following::td[1]").getText();
+        String DriverEstEarning= action.getElementByXPath("//td[text()='Driver Earnings']/following::td[1]").getText();
         //DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
         DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
 

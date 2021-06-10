@@ -6,6 +6,7 @@
   # Driver Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test
       
       @regression
+        #Stable
       Scenario: Verify that the driver can be assigned to a solo scheduled trip irrespective of drive time to pickup
         When I Switch to "customer" application on "same" devices
         Given I am on customer Log in page

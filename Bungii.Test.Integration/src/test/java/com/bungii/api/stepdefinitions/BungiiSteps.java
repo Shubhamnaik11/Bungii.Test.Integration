@@ -194,6 +194,9 @@ public class BungiiSteps extends DriverBase {
             case "Driver_goa_e Android_test":
                 phone = PropertyUtility.getDataProperties("driverE.phone.number");
                 break;
+            case "Testdriver_goa_e Android_test":
+                phone = PropertyUtility.getDataProperties("driverE.phone.number");
+                break;
             case "Driver_goa_f Android_test":
                 phone = PropertyUtility.getDataProperties("driverF.phone.number");
                 break;
@@ -2633,7 +2636,7 @@ else
                     true);
         }
     }
-
+   
     @Given("that ondemand bungii is in progress")
     public void thatOndemandBungiiIsInProgress(DataTable data) {
         try {
