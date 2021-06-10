@@ -430,8 +430,80 @@ public class BungiiInProgressSteps extends DriverBase {
         }
         return calculatedTime;
     }
-
     public void calculateShortStack() throws ParseException {
+//        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
+        try {
+
+            int FROM_RANGE_FROM = -10;
+            int FROM_RANGE_TO = +20;
+            long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
+
+            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+            String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");//customerPhoneNumber="9999991889";
+            String customer2PhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");//customer2PhoneNumber="9999991259";
+            String driverPhoneNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");//driverPhoneNumber="9955112208";
+
+            String[] loadingTimeStamp = com.bungii.android.utilityfunctions.DbUtility.getLoadingTimeStamp(customerPhoneNumber);
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //By default data is in UTC
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date loadingStartTime = formatter.parse(loadingTimeStamp[0]);
+            Date loadingEtartTime = formatter.parse(loadingTimeStamp[1]);
+            long duration = loadingEtartTime.getTime() - loadingStartTime.getTime();
+            long loadingTime = TimeUnit.MILLISECONDS.toMinutes(duration);
+
+            String[] driverLocation = com.bungii.android.utilityfunctions.DbUtility.getDriverLocation(driverPhoneNumber);
+            String[] pickup1Locations = com.bungii.android.utilityfunctions.DbUtility.getPickupAndDropLocation(customerPhoneNumber);
+            String[] pickup2Locations = com.bungii.android.utilityfunctions.DbUtility.getPickupAndDropLocation(customer2PhoneNumber);
+
+            String[] dropLocation = new String[2];
+            dropLocation[0] = pickup1Locations[2];
+            dropLocation[1] = pickup1Locations[3];
+            String[] newPickupLocations = new String[2];
+            newPickupLocations[0] = pickup2Locations[0];
+            newPickupLocations[1] = pickup2Locations[1];
+
+            long[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(driverLocation, dropLocation, newPickupLocations);
+            logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance[0]+" and "+timeToCoverDistance[1]);
+            int FLUFF_TIME = 4;
+            loadingTime = (loadingTime < 1 ? 10 : loadingTime);
+            // loadingTime=10;
+            logger.detail("loadingTime "+loadingTime);
+            Double totalTimeETAtoPickup = (double)loadingTime + (double)timeToCoverDistance[0] / 60 + (double)timeToCoverDistance[1] / 60 + FLUFF_TIME;
+            logger.detail("totalTimeETAtoPickup "+totalTimeETAtoPickup);
+            Double tripProjectedEndTime = (double)loadingTime + (double) timeToCoverDistance[0] / 60;
+            logger.detail("tripProjectedEndTime "+tripProjectedEndTime);
+            String tripStartTime = com.bungii.android.utilityfunctions.DbUtility.getStatusTimeStampForStack(customer2PhoneNumber);
+            logger.detail("Status Timestamp "+tripStartTime);
+            Date tryToFinishTome_Temp = formatter.parse(tripStartTime);
+            DateFormat formatterForLocalTimezone = new SimpleDateFormat("hh:mm a");
+            formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() +new Double(ONE_MINUTE_IN_MILLIS * new Double(tripProjectedEndTime)).longValue());
+            String driverTime = formatterForLocalTimezone.format(tryToFinishTome);
+
+            Date timeStampToCalculateDate = new Date(tryToFinishTome_Temp.getTime() + new Double(ONE_MINUTE_IN_MILLIS * new Double(totalTimeETAtoPickup)).longValue());
+
+
+            Date minTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_FROM * ONE_MINUTE_IN_MILLIS));
+            String strMindate = formatterForLocalTimezone.format(minTime);
+
+            Date maxTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_TO * ONE_MINUTE_IN_MILLIS));
+            String strMaxdate = formatterForLocalTimezone.format(maxTime);
+            cucumberContextManager.setScenarioContext("DRIVER_FINISH_BY", driverTime);
+            cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL", strMindate);
+            cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL", strMaxdate);
+            logger.detail("[As Per calculation Of Short Stack for Trip of Customer "+customer2PhoneNumber+"] Driver to Finish By :"+ driverTime + "Range "+FROM_RANGE_FROM+","+FROM_RANGE_TO+"["+strMindate+" : "+strMaxdate+"]");
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+   /* public void calculateShortStack() throws ParseException {
         int FROM_RANGE_FROM =-10;
         int FROM_RANGE_TO =+20;
 
@@ -488,7 +560,7 @@ public class BungiiInProgressSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",strMaxdate);
 
     }
-
+*/
     @When("^I click \"([^\"]*)\" on bungii accepted screen$")
     public void i_click_something_on_bungii_accepted_screen(String button) throws Throwable {
         try {
