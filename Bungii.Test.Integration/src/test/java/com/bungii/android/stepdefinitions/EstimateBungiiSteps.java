@@ -669,6 +669,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
+                    cucumberContextManager.setScenarioContext("GEOFENCE","goa");
+
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
