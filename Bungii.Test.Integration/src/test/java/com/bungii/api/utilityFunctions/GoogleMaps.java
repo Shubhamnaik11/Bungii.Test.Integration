@@ -25,13 +25,13 @@ public class GoogleMaps {
     //private static String DISTANCE_MATRIX_API = PropertyUtility.getDataProperties("GOOGLE_DISTANCE_BASE_URL");
     private static LogUtility logger = new LogUtility(AuthServices.class);
 
-    public int[] getDurationInTraffic(String[] driverCoordinate, String[] dropCoordinate, String[] stackPickupCoordinate) {
+    public long[] getDurationInTraffic(String[] driverCoordinate, String[] dropCoordinate, String[] stackPickupCoordinate) {
         Date date= new Date();
         long epoch = date.getTime();
         String strOrigins = driverCoordinate[0]+","+driverCoordinate[1]+"|"+dropCoordinate[0]+","+dropCoordinate[1];
         String strDestinations = dropCoordinate[0]+","+dropCoordinate[1]+"|"+stackPickupCoordinate[0]+","+stackPickupCoordinate[1];
         Map<String, String> data = new HashedMap();
-        String RequestText="API REQUEST : Get duration in Traffic";
+        String RequestText="API REQUEST : Get duration in Traffic : "+ DISTANCE_MATRIX_API;
 
         Response response =given()//.log().all()
                 .header("User-Agent", "okhttp/3.4.1")
@@ -55,8 +55,8 @@ public class GoogleMaps {
         return  getStackDuration(response);
     }
 
-    public int[] getStackDuration(Response response){
-        int [] timingInformation= new int[2];
+    public long[] getStackDuration(Response response){
+        long [] timingInformation= new long[2];
         JsonPath jsonPathEvaluator = response.jsonPath();
         ArrayList jsonArray = jsonPathEvaluator.getJsonObject("rows");
 
@@ -65,7 +65,7 @@ public class GoogleMaps {
         JSONArray elements = json.getJSONArray("elements");
         JSONObject elementZero = elements.getJSONObject(0);
         JSONObject distanceInTraffic =elementZero.getJSONObject("duration_in_traffic");
-        String timeToDropUp =distanceInTraffic.getString("text").toLowerCase();
+        String timeToDropUp =distanceInTraffic.get("value").toString();
 
         HashMap hashMapjsonEleFour = (HashMap) jsonArray.get(1);
         JSONObject jsonEleFour=new JSONObject(hashMapjsonEleFour);
@@ -73,9 +73,9 @@ public class GoogleMaps {
         JSONObject elementelementsjsonEleFourZero = elementsjsonEleFour.getJSONObject(1);
         JSONObject distanceInTraffic2 =elementelementsjsonEleFourZero.getJSONObject("duration_in_traffic");
 
-        String timeFromDropToNewPickup =distanceInTraffic2.getString("text").toLowerCase();
-        timingInformation[0]=Integer.valueOf(timeToDropUp.replace(" mins","").replace(" min",""));
-        timingInformation[1]=Integer.valueOf(timeFromDropToNewPickup.replace(" mins","").replace(" min",""));
+        String timeFromDropToNewPickup =distanceInTraffic2.get("value").toString();
+        timingInformation[0]=Long.valueOf(timeToDropUp.replace(" mins","").replace(" min",""));
+        timingInformation[1]=Long.valueOf(timeFromDropToNewPickup.replace(" mins","").replace(" min",""));
     return timingInformation;
     }
 }

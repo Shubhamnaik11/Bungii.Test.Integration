@@ -70,7 +70,7 @@ public class EstimateSteps extends DriverBase {
                 isCorrectTime = actualTime.equals(strTime);
                 logger.detail("Expected Time is :"+strTime +" ||| Actual time is :"+actualTime);
                 testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
-                        "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
+                        "I selected trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
                                 + strTime + " | " + actualTime + " not matching with entered time ");
             }
 
@@ -1547,7 +1547,7 @@ public class EstimateSteps extends DriverBase {
         action.swipeUP();
         if(!estimatePage.CheckBoxOff_Terms().isSelected()) {
             action.click(estimatePage.CheckBoxOff_Terms());
-            logger.detail("Checkbox Temrs Selected : true ");
+            logger.detail("Checkbox Terms Selected : true ");
         }
         else
         {

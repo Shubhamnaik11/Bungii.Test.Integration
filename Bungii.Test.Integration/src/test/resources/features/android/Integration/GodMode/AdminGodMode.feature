@@ -7,10 +7,10 @@
       
       @regression
       Scenario: Verify that the driver can be assigned to a solo scheduled trip irrespective of drive time to pickup
+        When I Switch to "customer" application on "same" devices
         Given I am on customer Log in page
         And I am logged in as "Testcustomertywd_appleand_A Android" customer
     
-        When I Switch to "customer" application on "same" devices
         And I enter "far off Goa pickup and dropoff locations" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
         And I add loading/unloading time of "30 mins"
@@ -37,7 +37,6 @@
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
-  
      
         
       @regression
@@ -202,7 +201,7 @@
       Scenario: Verify the DUO trip started by non controller driver and controller driver is removed and new driver is added to the same trip
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
-          | TELET SAME TIME  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+          | NEXT_POSSIBLE  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
         And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "Duo Scheduled" trip
           | driver1 state  |  driver2 state  |
           | Accepted       |  Enroute       |

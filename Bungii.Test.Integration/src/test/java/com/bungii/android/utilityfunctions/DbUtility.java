@@ -117,6 +117,7 @@ public class DbUtility extends DbContextManager {
 
         driverLocation[0]=    getDataFromMySqlServer("select Latitude from driverlocation where driverid = "+driverId);
         driverLocation[1]=    getDataFromMySqlServer("select Longitude from driverlocation where driverid = "+driverId);
+        logger.detail("For driverId " + driverId + " driver location is " + driverLocation[0]+","+driverLocation[1]);
 
         return driverLocation;
     }
@@ -130,6 +131,8 @@ public class DbUtility extends DbContextManager {
         tripLocation[1]=    getDataFromMySqlServer("select PickupLong from pickupdropaddress  where PickupID= "+pickupID);
         tripLocation[2]=    getDataFromMySqlServer("select DropOffLat from pickupdropaddress  where PickupID="+pickupID);
         tripLocation[3]=    getDataFromMySqlServer("select DropOffLong from pickupdropaddress  where PickupID= "+pickupID);
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]+","+tripLocation[1]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[2]+","+tripLocation[3]);
         return tripLocation;
     }
 
@@ -137,6 +140,7 @@ public class DbUtility extends DbContextManager {
         String custRef=getCustomerRefference(customerPhone);
         String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
         String statusTimeStamp=  getDataFromMySqlServer("select StatusTimestamp from tripevents te join pickupdetails pd on te.pickupid = pd.pickupid where pickupRef = '"+pickupRef+"' and te.TripStatus = 40");
+        logger.detail("For pickupRef " + pickupRef + " status 40 TimeStamp is " + statusTimeStamp);
         return statusTimeStamp;
     }
 

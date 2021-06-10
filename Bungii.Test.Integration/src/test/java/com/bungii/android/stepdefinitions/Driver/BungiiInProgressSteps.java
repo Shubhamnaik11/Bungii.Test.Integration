@@ -457,7 +457,7 @@ public class BungiiInProgressSteps extends DriverBase {
         String[] dropLocation = new String[2];dropLocation[0]=pickup1Locations[2];dropLocation[1]=pickup1Locations[3];
         String[] newPickupLocations = new String[2];newPickupLocations[0]=pickup2Locations[0];newPickupLocations[1]=pickup2Locations[1];
 
-        int[]  timeToCoverDistance=new GoogleMaps().getDurationInTraffic(driverLocation,dropLocation,newPickupLocations);
+        long[]  timeToCoverDistance=new GoogleMaps().getDurationInTraffic(driverLocation,dropLocation,newPickupLocations);
      //   String custRef = DbUtility.getCustomerRefference(phoneNumber);
 //
         //=if((C5<1),10,C5)+D5+E5+4

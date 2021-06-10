@@ -1467,26 +1467,28 @@ try {
     String[] newPickupLocations = new String[2];
     newPickupLocations[0] = pickup2Locations[0];
     newPickupLocations[1] = pickup2Locations[1];
+    logger.detail("Lat Long : Driver Current Location "+driverLocation+" "+dropLocation+" | New Pickup Location "+ newPickupLocations);
 
-    int[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(driverLocation, dropLocation, newPickupLocations);
-    logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance);
+    long[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(driverLocation, dropLocation, newPickupLocations);
+    logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance[0]+" and "+timeToCoverDistance[1]);
     int FLUFF_TIME = 4;
     loadingTime = (loadingTime < 1 ? 10 : loadingTime);
     // loadingTime=10;
-    long totalTimeETAtoPickup = loadingTime + timeToCoverDistance[0] + timeToCoverDistance[1] + FLUFF_TIME;
+    logger.detail("loadingTime "+loadingTime);
+    Double totalTimeETAtoPickup = (double)loadingTime + (double)timeToCoverDistance[0] / 60 + (double)timeToCoverDistance[1] / 60 + FLUFF_TIME;
     logger.detail("totalTimeETAtoPickup "+totalTimeETAtoPickup);
-    long tripProjectedEndTime = loadingTime + timeToCoverDistance[0];
+    Double tripProjectedEndTime = (double)loadingTime + (double) timeToCoverDistance[0] / 60;
     logger.detail("tripProjectedEndTime "+tripProjectedEndTime);
     String tripStartTime = com.bungii.android.utilityfunctions.DbUtility.getStatusTimeStampForStack(customer2PhoneNumber);
-    logger.detail("Status 40 Timestamp "+tripStartTime);
+    logger.detail("Status Timestamp "+tripStartTime);
     Date tryToFinishTome_Temp = formatter.parse(tripStartTime);
     DateFormat formatterForLocalTimezone = new SimpleDateFormat("hh:mm a");
     formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
 
-    Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * tripProjectedEndTime));
+    Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * new Double(tripProjectedEndTime).longValue()));
     String driverTime = formatterForLocalTimezone.format(tryToFinishTome);
 
-    Date timeStampToCalculateDate = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * totalTimeETAtoPickup));
+    Date timeStampToCalculateDate = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * new Double(totalTimeETAtoPickup).longValue()));
 
 
     Date minTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_FROM * ONE_MINUTE_IN_MILLIS));
@@ -1497,7 +1499,7 @@ try {
     cucumberContextManager.setScenarioContext("DRIVER_FINISH_BY", driverTime);
     cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL", strMindate);
     cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL", strMaxdate);
-    logger.detail("[As Per calculation Of Short Stack for Trip of Customer "+customerPhoneNumber+" and "+customerPhoneNumber+"] Driver to Finish By :"+ driverTime + "Range "+FROM_RANGE_FROM+","+FROM_RANGE_TO+"["+strMindate+" : "+strMaxdate+"]");
+    logger.detail("[As Per calculation Of Short Stack for Trip of Customer "+customer2PhoneNumber+"] Driver to Finish By :"+ driverTime + "Range "+FROM_RANGE_FROM+","+FROM_RANGE_TO+"["+strMindate+" : "+strMaxdate+"]");
 
 }
 catch (Exception e)
