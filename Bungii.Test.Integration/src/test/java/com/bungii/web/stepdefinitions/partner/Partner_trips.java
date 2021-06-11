@@ -34,6 +34,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -691,6 +692,16 @@ public class Partner_trips extends DriverBase {
     public void i_should_be_able_to_see_the_respective_partner_portal_trip_with_something_state(String strArg1) throws Throwable {
         String status = strArg1;
         String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
+        String geofence = (String)  cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        DateTimeFormatter dft = DateTimeFormatter.ofPattern("MMM dd, hh:mm a z", Locale.ENGLISH);//for checking the MMMM month format
+        DateTimeFormatter dft1 = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a z",Locale.ENGLISH);//for converting to MMM month format
+        //String geoLabel = utility.getTimeZoneBasedOnGeofenceId();
+        String geoLabel = utility.getTripTimezone(geofence);
+        TimeZone zone = TimeZone.getTimeZone(geoLabel);
+        ZonedDateTime abc = LocalDateTime.parse(ST,dft).atZone(zone.toZoneId());
+        ST = dft1.format(abc);
+        ST = utility.getbungiiDayLightTimeValue(ST);
+
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
