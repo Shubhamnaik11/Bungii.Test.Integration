@@ -178,7 +178,96 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+    @When("^I go to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
+    public void i_switch_to_application_on_something_devices(String appName, String device) {
+        boolean isApplicationIsInForeground = false;
 
+        try {
+            if(action.isElementPresent(phonePage.Container_Notification(true)))
+            {
+                ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                logger.detail("Attempted to hide container");
+
+            }
+            if (!device.equalsIgnoreCase("same")) {
+                i_switch_to_something_instance(device);
+                Thread.sleep(5000);
+            }
+            switch (appName.toUpperCase()) {
+                case "DRIVER":
+                   // ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+
+                    ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+
+                    //  utility.launchDriverApplication();
+                    Thread.sleep(5000);
+                    isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                    break;
+                case "CUSTOMER":
+                    //  utility.launchCustomerApplication();
+                   // ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+
+                    ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    Thread.sleep(5000);
+                    isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+        try {
+            //if switch was unsucessfull, try to switch again
+            if (!isApplicationIsInForeground) {
+                switch (appName.toUpperCase()) {
+                    case "DRIVER":
+                        utility.launchDriverApplication();
+                        //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
+                        Thread.sleep(5000);
+                        isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0, 0));
+                            isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        }
+                        break;
+                    case "CUSTOMER":
+                        utility.launchCustomerApplication();
+                        // SetupManager.getObject().restartApp();
+                        Thread.sleep(4000);
+                        isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0, 0));
+                            isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        }
+                        break;
+                    default:
+                        error("UnImplemented Step or in correct app", "UnImplemented Step");
+                        break;
+                }
+            }
+            Thread.sleep(2000);
+            if (!isApplicationIsInForeground)
+                warning("Switch to " + appName + " application", "Not able to currently verify if " + appName + " application was not successfull");
+            if(action.isElementPresent(phonePage.Container_Notification(true)))
+            {
+                ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                logger.detail("Attempted to hide container");
+
+            }
+            else
+                pass("Switch to " + appName + " application", "Switch to " + appName + " application is successful");
+
+            //    Thread.sleep(5000);
+            //     testStepVerify.isTrue(isApplicationIsInForeground, "Switch to " + appName + " application", "Switch to " + appName + " application is successful", "Switch to " + appName + " application was not successfull");
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+
+    }
     //open app without restart
     @When("^I Open \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_open_to_something_application_on_something_devices(String appName, String device) {

@@ -58,7 +58,7 @@ Feature: SoloScheduled Part H
     And I Select "HOME" from driver App menu
     Then Bungii driver should see "Home screen"
     
-    When I Switch to "customer" application on "same" devices
+    When I go to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then "Home" page should be opened
@@ -91,8 +91,8 @@ Feature: SoloScheduled Part H
     When I click "YES" on the alert message
     And I Select "HOME" from driver App menu
     Then Bungii driver should see "Home screen"
-    
-    When I Switch to "customer" application on "same" devices
+  
+    When I go to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then "Home" page should be opened
@@ -120,8 +120,8 @@ Feature: SoloScheduled Part H
     When I click "YES" on the alert message
     And I Select "HOME" from driver App menu
     Then Bungii driver should see "Home screen"
-    
-    When I Switch to "customer" application on "same" devices
+  
+    When I go to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then "Home" page should be opened
