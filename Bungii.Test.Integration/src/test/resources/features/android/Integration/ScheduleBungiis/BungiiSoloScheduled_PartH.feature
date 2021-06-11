@@ -166,31 +166,7 @@ Feature: SoloScheduled Part H
 
   
 
-  #@regression
-  #need to rework
-  @onetime
-  Scenario: Verify Driver Notification - 30 Mins Before Scheduled Trip
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | kansas   | Scheduled    | NEXT_POSSIBLE |
-    
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I tap on "Available Trips link" on Driver Home page
-    And I Select Trip from driver available trip
-    And I tap on "ACCEPT" on driver Trip details Page
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    When I Switch to "customer" application on "same" devices
-    
-    And I wait for Minimum duration for Bungii Start Time
-    Then I click on notification for "TAP NOTIFICATION TO ACTIVATE BUNGII"
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
+ 
   
   
   

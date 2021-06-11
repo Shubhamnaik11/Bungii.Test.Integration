@@ -203,3 +203,78 @@ Feature: SoloScheduled Part K
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
 	  | 8888889916     |                 |
+	
+	 #@regression
+  #need to rework
+  @rework
+  Scenario: Verify Driver Notification - 30 Mins Before Scheduled Trip
+	Given that solo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   |
+	  | kansas   | Scheduled    | NEXT_POSSIBLE |
+	
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "valid" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	
+	And I tap on "Available Trips link" on Driver Home page
+	And I Select Trip from driver available trip
+	And I tap on "ACCEPT" on driver Trip details Page
+	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I Select Trip from driver scheduled trip
+	When I Switch to "customer" application on "same" devices
+	
+	And I wait for Minimum duration for Bungii Start Time
+	Then I click on notification for "TAP NOTIFICATION TO ACTIVATE BUNGII"
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE |                 |
+  
+  
+  @rework
+  Scenario: Verify Customer Cannot Schedule Bungii For A Time That Is Outside Working Hours :DUO
+	Given I login as customer "8805368840" and is on Home Page
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	And I enter "kansas pickup and dropoff locations" on Bungii estimate
+	And I tap on "two drivers selector" on Bungii estimate
+	Then I should see "two drivers selected" on Bungii estimate
+	Then I tap on "Get Estimate button" on Bungii estimate
+	When I try to schedule bungii for "today - after working hour" for "DUO"
+	Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+	When I try to schedule bungii for "tommorow - before working hour" for "DUO"
+	Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+  
+	
+  @rework
+  Scenario: Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours :SOLO
+	And I login as customer "8805368840" and is on Home Page
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	
+	And I enter "kansas pickup and dropoff locations" on Bungii estimate
+	And I tap on "Get Estimate button" on Bungii estimate
+	When I try to schedule bungii for "today - after working hour" for "SOLO"
+	Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+	When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
+	Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+	
+    #@regression
+  @rework
+  #need to work on automation cannot wait for 2 hours
+  Scenario:Verify Customer Notification - 2 hours before scheduled trip [Not to be executed]
+	Given that solo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time    |
+	  | kansas   | Accepted     | 1.5 hour ahead |
+	And I Switch to "customer" application on "same" devices
+	Given I am on customer Log in page
+	And I am logged in as "valid" customer
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	And I wait for Minimum duration for current Bungii to be T-2 hours
+	And I Switch to "driver" application on "same" devices
+	Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
+	
+	Then I cancel all bungiis of customer
+	  | Customer Phone  | Customer2 Phone |
+	  | CUSTOMER1_PHONE |                 |
