@@ -1,8 +1,8 @@
 @android
-@SoloScheduled
+@duo
 @bungii
 #These feature will run in kansas geofence
-Feature: SoloScheduled Part E
+Feature: Bungii Duo Scheduled Part B
 
    # Customer 8805368840 Testcustomertywd_appleRicha Test
  # With 8805368840 - 15 cases
@@ -190,5 +190,5 @@ Feature: SoloScheduled Part E
     Then Bungii must be removed from "MY BUNGIIS" screen
     
   
-  
+
  
