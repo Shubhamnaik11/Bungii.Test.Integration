@@ -108,7 +108,7 @@ public class PageBase extends DriverBase {
     private void updateWaitTime(boolean... ignoreException) {
         if (ignoreException.length > 0)
             if (ignoreException[0] == true)
-                DRIVER_WAIT_TIME = 5L;
+                DRIVER_WAIT_TIME = 4L;
 
     }
 

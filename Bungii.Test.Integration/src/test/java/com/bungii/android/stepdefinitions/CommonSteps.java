@@ -678,7 +678,7 @@ public class CommonSteps extends DriverBase {
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             fail("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error performing step, error in fetching alert : "+ message, true);
         }
     }
 
@@ -982,7 +982,7 @@ public class CommonSteps extends DriverBase {
         //    phoneNumber="8888889907";
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String newTeletTime = dbUtility.getTELETfromDb(custRef);
-        testStepVerify.isTrue(!previousTelet.equals(newTeletTime), "Research trip time should not be same as Telet Time");
+        testStepAssert.isTrue(!previousTelet.equals(newTeletTime), "Research trip time should not be same as Telet Time", "Research trip time is same as Telet Time");
 
     }
 

@@ -279,7 +279,6 @@
           | 9889889888      |                 |
   
       @regression
-        @a
       Scenario: Verify that driver is not able to view  the text entered in Details field while solo bungii is in progress if text is not entered
         When I Switch to "customer" application on "same" devices
         Given I am on customer Log in page

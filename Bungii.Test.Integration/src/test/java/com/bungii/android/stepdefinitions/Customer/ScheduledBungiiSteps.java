@@ -364,6 +364,7 @@ public class ScheduledBungiiSteps extends DriverBase {
         try {
            String phone =  (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
             cucumberContextManager.setScenarioContext("PICKUP_REQUEST",dbUtility.getCustomersMostRecentBungii(phone));
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error Occured While fetching pickuprequest",

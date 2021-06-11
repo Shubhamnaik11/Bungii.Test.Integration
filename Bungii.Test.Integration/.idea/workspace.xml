@@ -2,13 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="62ba28db-0818-493c-b347-c77d79bcc0bf" name="Default" comment="QA checkin - ios case to handle SD tickets driver minutes 0">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Scripts/tunnel.ps1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartC.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartD.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/General/Bungii_Pickup_Note.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/Requests/Bungii_Requests.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartK.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/core/DriverBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/core/DriverBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/core/PageBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/core/PageBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Capabilities/iOSdeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Capabilities/iOSdeviceinformation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/CommonSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/CommonSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/LoginSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/LoginSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/ScheduledBungiiSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/ScheduledBungiiSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/TermsAndConditionSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/TermsAndConditionSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/BungiiRequestSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/BungiiRequestSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/TripDetailsSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/TripDetailsSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/api/stepdefinitions/BungiiSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/api/stepdefinitions/BungiiSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EnabledNotificationSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EnabledNotificationSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_BusinessUsersSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_BusinessUsersSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Customer/Estimate and Customer Cancel/BungiiEstimationsAndRequests.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Customer/Estimate and Customer Cancel/BungiiEstimationsAndRequests.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/BungiiDuoScheduled.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/BungiiSoloScheduled_PartE.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartA.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartA.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartB.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartB.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartC.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartC.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartD.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartD.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartF.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartF.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartG.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartG.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Duo/Bungii_Duo.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Duo/Bungii_Duo.feature" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,92 +43,92 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Bungii_Duo.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo.feature">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="340" column="35" selection-start-line="340" selection-end-line="341" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CommonSteps.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="467" column="25" selection-start-line="467" selection-start-column="25" selection-end-line="467" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BungiiAcceptedPage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/customer/BungiiAcceptedPage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="15" column="53" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BungiiSteps.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/api/stepdefinitions/BungiiSteps.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="2669" selection-start-line="2669" selection-end-line="2669" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CoreServices.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="43">
-              <caret line="559" selection-start-line="559" selection-end-line="559" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/io/cucumber/cucumber-core/3.0.2/cucumber-core-3.0.2-sources.jar!/cucumber/runtime/Utils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="30" selection-start-line="30" selection-end-line="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Bungii_Duo_Scheduled_TripNotifications.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_TripNotifications.feature">
+      <file leaf-file-name="Bungii_Duo_Scheduled_PartC.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartC.feature">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret selection-end-line="14" selection-end-column="61" />
+              <caret selection-end-line="6" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bungii_Duo_Scheduled_Stacked.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_Stacked.feature">
+      <file leaf-file-name="Bungii_Duo_SingleApp.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_SingleApp.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="290" column="25" selection-start-line="290" selection-start-column="25" selection-end-line="290" selection-end-column="25" />
+            <state relative-caret-position="578">
+              <caret line="110" column="42" selection-start-line="110" selection-end-line="111" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TripStatusSteps.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java">
+      <file leaf-file-name="Bungii_Duo_Scheduled_PartB.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartB.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-260">
-              <caret line="350" column="45" selection-start-line="350" selection-start-column="25" selection-end-line="350" selection-end-column="45" />
+            <state relative-caret-position="474">
+              <caret line="192" selection-start-line="192" selection-end-line="192" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActionManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/ios/manager/ActionManager.java">
+      <file leaf-file-name="BungiiSoloScheduled_PartD.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartD.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="754" column="7" selection-start-line="754" selection-start-column="7" selection-end-line="754" selection-end-column="7" />
+            <state relative-caret-position="85">
+              <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BungiiSoloScheduled_PartG.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartG.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="84" column="39" lean-forward="true" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BungiiRequestSteps.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/BungiiRequestSteps.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-473">
+              <caret line="54" selection-start-line="54" selection-end-line="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BungiiRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/pages/driver/BungiiRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="33" column="35" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TripDetailsSteps.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/TripDetailsSteps.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="54" column="16" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bungii_Duo_Scheduled_PartD.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartD.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BungiiSoloScheduled_PartF.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartF.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="124">
+              <caret line="78" column="43" selection-start-line="78" selection-start-column="43" selection-end-line="78" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -121,36 +144,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>erify Customer Can Cancel Solo Scheduled Bungii Also Verify Trip Details In Bungii Details</find>
-      <find>Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has Bungii In Progress</find>
-      <find>Verify Requesting of Ondemand Bungii Requests With Promo code</find>
-      <find>Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time</find>
-      <find>8888889906</find>
-      <find>erify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started</find>
-      <find>Verify If Incoming Scheduled Request Start Time</find>
-      <find>Verify Customer Cannot Schedule Duo Bungii That Overlaps With Another Scheduled Trip TELET Time</find>
-      <find>Verify If Re-searched Driver Can Cancel Trip After Starting Duo Scheduled Bungii</find>
-      <find>erify Driver can start the Stack Bungii</find>
-      <find>Verify Driver Can Receive Long Stack Request And Can Cancel Existing Bungii On Loading Item State</find>
-      <find>STACKING | Verify Driver can start the Stack Bungii [1 Device]</find>
-      <find>Verify Driver Can Receive Long Stack Request And Customer Can Cancel the stacked request when Drivers Existing Bungii is On Loading Item State</find>
-      <find>TELET - Verify Customer Cannot Schedule Duo Bungii That Overlaps With Another Scheduled Trip TELET Time</find>
-      <find>WaitTime</find>
-      <find>custom</find>
-      <find>customer.stack.cancel.confirm.alert</find>
-      <find>erify Driver Can Receive Long Stack Request And Customer Can Cancel the stacked request when Drivers Existing Bungii is On Loading Item State</find>
-      <find>Verify Driver Can Receive Long Stack Request</find>
-      <find>Verify admin can assign one</find>
-      <find>And I open the trip for &quot;Testcustomertywd_appleand_D Android&quot; the customer</find>
-      <find>?</find>
-      <find>I calculate projected driver arrival time</find>
-      <find>Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Long Stacked Bungii</find>
-      <find>Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Short Stacked Bungii</find>
-      <find>STACKING | Verify Driver can start the Stack Bungi</find>
-      <find>erify Driver Can Receive Short Stack Ondemand Request when Ongoing Ondemand Bungii is On Unloading Item State - Goa Geofence</find>
-      <find>Verify Driver Can Receive Long Stack Ondemand Request When Ongoing Ondemand Bungii is On Arrived State - Goa Geofence</find>
-      <find>I want  request Scheduled Bungii with Duo type</find>
-      <find>customer.stack.cancel.success.alert</find>
+      <find>Verify that driver is able to correctly view all the text entered in Details field while solo bungii is in progress</find>
+      <find>Button_GetEstimate</find>
+      <find>Verify Edit Customer Phone and Email</find>
+      <find>Driver Est. Earnings</find>
+      <find>The Delivery List page should display the delivery in &quot;Admin Canceled&quot; state</find>
+      <find>I request &quot;Duo&quot; Bungii trip in partner portal configured for &quot;kiosk mode&quot; in &quot;washingtondc&quot; geofence</find>
+      <find>Verify that correct trip details are displayed on the grey bar of the Estimate screen</find>
+      <find>Verify that driver is not able to  view  the text entered in Details field while solo bungii is in progress if text is not entered</find>
+      <find>Verify that the driver can be assigned to a solo scheduled trip irrespective of drive time to pickup</find>
+      <find>driverF.phone.number</find>
+      <find>uploadImage</find>
+      <find>Details From Home</find>
+      <find>Testdriver_goa_e Android_test</find>
+      <find>&quot;GEOFENCE&quot;</find>
+      <find>Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :enroute</find>
+      <find>Verify that driver is not able to view  the text entered in Details field while solo bungii is in progress if text is not entered</find>
+      <find>Verify When Bungii Is Not Started Driver Can Cancel Scheduled Bungii From The App :solo</find>
+      <find>Verify Customer Cannot Delete Payment Method Linked To Any Ongoing Or Scheduled Trip</find>
+      <find>Verify If TELET Of Re-searched Trip</find>
+      <find>Verify If Researched Driver Can Cancel Trip After Starting The Scheduled Duo Trip</find>
+      <find>This trip cannot be cancelled as of now since the other driver has not started the trip. Please text the driver support line for cancellation.</find>
+      <find>Driver should see</find>
+      <find>Verify Customer Receives Notification When Control Driver Starts Solo Bungii</find>
+      <find>Save Trip Info</find>
+      <find>I was not able to select Bungii</find>
+      <find>Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled start time</find>
+      <find>Verify driver is able to view pickup note entered in Details when a Solo scheduled bungii is in progress</find>
+      <find>Verify If Control Driver Is Allowed To Complete The Trip And Proper Summary Is Shown</find>
+      <find>Verify Customer Can Cancel Through SMS To Admin If Required Number Of Drivers Have Accepted The Trip</find>
+      <find>Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip - Duo</find>
     </findStrings>
     <dirStrings>
       <dir>D:\re\Bungii.Test.Integration\src\test\java\com\bungii\android\pages\otherApps</dir>
@@ -167,57 +190,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/resources/features/android/Customer/Estimate and Customer Cancel/EstimateBungii.feature" />
-        <option value="$PROJECT_DIR$/src/main/resources/Profiles/QA_AUTO_AWS/LoginProperties/login_qa_auto_aws_03.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/Profiles/QA_AUTO_AWS/LoginProperties/login_qa_auto_aws_02.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/Profiles/QA_AUTO_AWS/LoginProperties/login_qa_auto_aws_01.properties" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/EstimateBungiiSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_PartnerFirmTrips.feature" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/api/stepdefinitions/BungiiSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/OndemandBungiis/BungiiOnDemand.feature" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/admin/LiveTripsPage.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/LiveTripsSteps.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/Capabilities/androidDeviceinformation.json" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Solo_Scheduled_PartI.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Ondemand/Bungiis.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Rework.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Solo_Scheduled_PartD.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Solo_Scheduled_PartC.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Promocode_Manually_End_Bungii.feature" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/DbUtility.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Ondemand/Bungii_OnDemand.feature" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiDetailsSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/customer/BungiiDetails.java" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/PromoDeliveries.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Ondemand/Bungii_OnDemandFlows.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Solo_Scheduled_PartB.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Solo_Scheduled_PartA.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_PartA.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Solo_Scheduled_Telet.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_PartC.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_PartD.feature" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/LogInSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/utilityfunctions/DbUtility.java" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_OneDevice.feature" />
-        <option value="$PROJECT_DIR$/src/main/resources/Profiles/QA_AUTO_AWS/data.properties" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/utilityfunctions/GeneralUtility.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiAcceptedSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/GoogleMaps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EnabledNotificationSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_PartB.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Solo/Bungii_Solo_Scheduled_PartC.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Duo/Bungii_Duo_Scheduled_PartD.feature" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_TripNotifications.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_Processing_Over.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_Stacked.feature" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/customer/BungiiAcceptedPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Duo/Bungii_Duo_OneDevice.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Duo/Bungii_Duo_Scheduled_Stacked.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Solo/Bungii_Duo_Scheduled_TripNotifications.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Duo/Bungii_Duo_Scheduled_Processing_Over.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/PromoDeliveries.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Solo/Promocode_Manually_End_Bungii.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/LiveTripsSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Duo/Bungii_Duo_Scheduled_PartA.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonStepsDriver.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Solo/Bungii_Solo_Scheduled_PartA.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Solo/Bungii_Solo_Scheduled_Telet.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Solo/Bungii_Solo_Scheduled_PartB.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/GoogleMaps.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/DbUtility.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Duo/Bungii_Duo.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/utilityfunctions/GeneralUtility.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/Profiles/QA_AUTO_AWS/data.properties" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_DriverDetails.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_IntegrationSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/BungiiInProgressSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/GodMode/AdminGodMode.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/ScheduledBungiiSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/EstimateBungiiSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Customer/Estimate and Customer Cancel/BungiiEstimationsAndRequests.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/api/stepdefinitions/BungiiSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/TermsAndConditionSteps.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/core/PageBase.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/CommonSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/LoginSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartA.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartA.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartB.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartC.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartK.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartB.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartD.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartF.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartC.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartD.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/TripDetailsSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/BungiiRequestSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartG.feature" />
       </list>
     </option>
   </component>
@@ -250,8 +273,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="76" />
-    <option name="y" value="423" />
+    <option name="x" value="-13" />
+    <option name="y" value="15" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -261,6 +284,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -279,6 +304,69 @@
               <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="utilities" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -334,6 +422,38 @@
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
               <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="Scripts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="SystemProperties" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="Templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="UserProperties" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -379,7 +499,17 @@
               <item name="bungii" type="462c0819:PsiDirectoryNode" />
               <item name="android" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="customer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="stepdefinitions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -390,35 +520,6 @@
               <item name="bungii" type="462c0819:PsiDirectoryNode" />
               <item name="android" type="462c0819:PsiDirectoryNode" />
               <item name="utilityfunctions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="stepdefinitions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="utilityFunctions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -436,67 +537,6 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="stepdefinitions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="stepdefinitions" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="utilityfunctions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
               <item name="runner" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -504,67 +544,6 @@
               <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="stepdefinitions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="stepdefinitions" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="utilityfunctions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -582,7 +561,7 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -591,27 +570,7 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Bungii.Integration" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Bungii.Ondemand" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
               <item name="Customer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -621,9 +580,9 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
               <item name="Customer" type="462c0819:PsiDirectoryNode" />
-              <item name="Bungii Home Page and Estimate" type="462c0819:PsiDirectoryNode" />
+              <item name="Estimate and Customer Cancel" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -632,9 +591,8 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Customer" type="462c0819:PsiDirectoryNode" />
-              <item name="Log In and Forgot Password" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="Integration" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -643,9 +601,9 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Customer" type="462c0819:PsiDirectoryNode" />
-              <item name="Menus" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="DUO" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -654,50 +612,8 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Customer" type="462c0819:PsiDirectoryNode" />
-              <item name="Signup" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Driver" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Driver" type="462c0819:PsiDirectoryNode" />
-              <item name="Login and Forgot Password" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Driver" type="462c0819:PsiDirectoryNode" />
-              <item name="Menu" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="Integration" type="462c0819:PsiDirectoryNode" />
               <item name="General" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -707,7 +623,9 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="GodMode" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -716,8 +634,9 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="OndemandBungiis" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -726,15 +645,25 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="Partner" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="Requests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="features" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="ScheduleBungiis" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -747,7 +676,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\re\Bungii.Test.Integration\src\test\resources\features\android\Integration\GodMode" />
+      <recent name="D:\re\Bungii.Test.Integration\src\test\resources\features\android\Integration\DUO" />
+      <recent name="D:\re\Bungii.Test.Integration\src\test\resources\features\ios\Bungii.Integration" />
+      <recent name="D:\re\Bungii.Test.Integration\src\test\resources\features\ios\Bungii.Integration\Solo" />
+      <recent name="D:\re\Bungii.Test.Integration\src\test\resources\features\ios\Bungii.Integration\Duo" />
+      <recent name="D:\re\Bungii.Test.Integration\src\main\resources\Scripts" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.bungii.web.pages.admin" />
@@ -877,7 +810,7 @@
       <option name="USE_DEFAULT_REPORTERS" value="false" />
       <option name="PROPERTIES_FILE" value="" />
       <properties>
-        <property name="test.Platform" value="ios" />
+        <property name="test.Platform" value="android" />
         <property name="test.Environment" value="QA_AUTO_AWS" />
       </properties>
       <listeners />
@@ -1015,223 +948,6 @@
       <option name="presentableId" value="Default" />
       <updated>1600323768787</updated>
     </task>
-    <task id="LOCAL-00067" summary="QA checkin">
-      <created>1617605380851</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1617605380852</updated>
-    </task>
-    <task id="LOCAL-00068" summary="QA checkin">
-      <created>1617617134354</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1617617134354</updated>
-    </task>
-    <task id="LOCAL-00069" summary="QA checkin - ios duo fixes">
-      <created>1617618914004</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1617618914004</updated>
-    </task>
-    <task id="LOCAL-00070" summary="QA checkin">
-      <created>1617627994975</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1617627994975</updated>
-    </task>
-    <task id="LOCAL-00071" summary="QA checkin">
-      <created>1617629005355</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1617629005355</updated>
-    </task>
-    <task id="LOCAL-00072" summary="QA checkin  ios duo script movements">
-      <created>1617709672164</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1617709672165</updated>
-    </task>
-    <task id="LOCAL-00073" summary="QA checkin">
-      <created>1617712528592</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1617712528592</updated>
-    </task>
-    <task id="LOCAL-00074" summary="QA checkin">
-      <created>1617800022378</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1617800022379</updated>
-    </task>
-    <task id="LOCAL-00075" summary="QA checkin - cucumber hook fix">
-      <created>1617859870085</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1617859870087</updated>
-    </task>
-    <task id="LOCAL-00076" summary="QA checkin ios">
-      <created>1617862105282</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1617862105283</updated>
-    </task>
-    <task id="LOCAL-00077" summary="QA checkin">
-      <created>1617879529283</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1617879529283</updated>
-    </task>
-    <task id="LOCAL-00078" summary="QA checkin - ios case to handle SD tickets driver minutes 0">
-      <created>1617950699528</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1617950699530</updated>
-    </task>
-    <task id="LOCAL-00079" summary="QA checkin - Web accessorial feature and bug fixes checked in">
-      <created>1618404438083</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1618404438084</updated>
-    </task>
-    <task id="LOCAL-00080" summary="ios and web fixes sprint 44">
-      <created>1618581169972</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1618581169974</updated>
-    </task>
-    <task id="LOCAL-00081" summary="Web Fix for Getting customer ref by partner reference and then get pickupref for partner trips">
-      <created>1618582429369</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1618582429369</updated>
-    </task>
-    <task id="LOCAL-00082" summary="QA ios fixes checkin">
-      <created>1618927542001</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1618927542004</updated>
-    </task>
-    <task id="LOCAL-00083" summary="ios Fixes">
-      <created>1618980196273</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1618980196274</updated>
-    </task>
-    <task id="LOCAL-00084" summary="QA checkin - ios fixes">
-      <created>1619011885589</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1619011885589</updated>
-    </task>
-    <task id="LOCAL-00085" summary="QA checkin - SSL error with rest assured">
-      <created>1619066225443</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1619066225444</updated>
-    </task>
-    <task id="LOCAL-00086" summary="QA checkin - web fixes">
-      <created>1619090325928</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1619090325928</updated>
-    </task>
-    <task id="LOCAL-00087" summary="QA checkin - web fixes">
-      <created>1619100176511</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1619100176511</updated>
-    </task>
-    <task id="LOCAL-00088" summary="QA checkin - web fixes">
-      <created>1619100759527</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1619100759527</updated>
-    </task>
-    <task id="LOCAL-00089" summary="QA checkin - Web fixes + Refund Cases">
-      <created>1620393885883</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1620393885884</updated>
-    </task>
-    <task id="LOCAL-00090" summary="QA checkin - Admin refund">
-      <created>1620393930662</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1620393930662</updated>
-    </task>
-    <task id="LOCAL-00091" summary="QA checkin - Admin Revival Feature">
-      <created>1620656470217</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1620656470218</updated>
-    </task>
-    <task id="LOCAL-00092" summary="QA checkin - Web new features">
-      <created>1620728386300</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1620728386301</updated>
-    </task>
-    <task id="LOCAL-00093" summary="Web Fixes">
-      <created>1620741688197</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1620741688197</updated>
-    </task>
-    <task id="LOCAL-00094" summary="Web fixes">
-      <created>1620742359967</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1620742359967</updated>
-    </task>
-    <task id="LOCAL-00095" summary="QA checkin - web fixes">
-      <created>1620804614793</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1620804614794</updated>
-    </task>
-    <task id="LOCAL-00096" summary="QA checkin - Web Movement of scripts">
-      <created>1620820052817</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1620820052817</updated>
-    </task>
-    <task id="LOCAL-00097" summary="QA checkin - New Cards added for partner scripts">
-      <created>1620821255525</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1620821255526</updated>
-    </task>
     <task id="LOCAL-00098" summary="QA checkin - Web Cases">
       <created>1621486563398</created>
       <option name="number" value="00098" />
@@ -1358,38 +1074,255 @@
       <option name="project" value="LOCAL" />
       <updated>1622211364480</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="QA checkin - ios fixes">
+      <created>1622211410745</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1622211410745</updated>
+    </task>
+    <task id="LOCAL-00117" summary="QA checkin - web fixes">
+      <created>1622438648907</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1622438648909</updated>
+    </task>
+    <task id="LOCAL-00118" summary="QA checkin - web fixes 2">
+      <created>1622439548790</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1622439548791</updated>
+    </task>
+    <task id="LOCAL-00119" summary="QA checkin - ios and web sanity fixes">
+      <created>1622454379364</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1622454379364</updated>
+    </task>
+    <task id="LOCAL-00120" summary="QA checkin - Web Logger added for all the stepdefs">
+      <created>1622459459432</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1622459459432</updated>
+    </task>
+    <task id="LOCAL-00121" summary="QA checkin - ios fixes from bungii and not duo">
+      <created>1622524181363</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1622524181364</updated>
+    </task>
+    <task id="LOCAL-00122" summary="QA checkin - android optimizations">
+      <created>1622554613462</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1622554613462</updated>
+    </task>
+    <task id="LOCAL-00123" summary="QA checkin - android Device">
+      <created>1622556652154</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1622556652154</updated>
+    </task>
+    <task id="LOCAL-00124" summary="QA checkin - android checkins">
+      <created>1622556887536</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1622556887536</updated>
+    </task>
+    <task id="LOCAL-00125" summary="QA checkin - Android fixes">
+      <created>1622611198343</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1622611198344</updated>
+    </task>
+    <task id="LOCAL-00126" summary="QA checkin - android script fixes and alignment">
+      <created>1622625766364</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1622625766364</updated>
+    </task>
+    <task id="LOCAL-00127" summary="QA checkin - android time select">
+      <created>1622625891708</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1622625891708</updated>
+    </task>
+    <task id="LOCAL-00128" summary="QA checkin - android fixes">
+      <created>1622629022724</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1622629022725</updated>
+    </task>
+    <task id="LOCAL-00129" summary="QA checkin - android fixes">
+      <created>1622633732087</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1622633732087</updated>
+    </task>
+    <task id="LOCAL-00130" summary="QA checkin - android TELET Fixes">
+      <created>1622636338132</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1622636338133</updated>
+    </task>
+    <task id="LOCAL-00131" summary="QA checkin - android fixes">
+      <created>1622643838176</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1622643838176</updated>
+    </task>
+    <task id="LOCAL-00132" summary="QA checkin - web fixes">
+      <created>1622727189442</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1622727189443</updated>
+    </task>
+    <task id="LOCAL-00133" summary="QA checkin - Web Script movement - Regression 209 and ready 41">
+      <created>1622783565108</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1622783565109</updated>
+    </task>
+    <task id="LOCAL-00134" summary="QA checkin - web fixes">
+      <created>1622792063712</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1622792063712</updated>
+    </task>
+    <task id="LOCAL-00135" summary="QA checkin - Web fixes">
+      <created>1622812692158</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1622812692158</updated>
+    </task>
+    <task id="LOCAL-00136" summary="QA checkin - ios fix">
+      <created>1622812961063</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1622812961063</updated>
+    </task>
+    <task id="LOCAL-00137" summary="QA checkin - Macbook chromedriver updated">
+      <created>1622815901564</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1622815901564</updated>
+    </task>
+    <task id="LOCAL-00138" summary="QA checkin - ios fixes">
+      <created>1623074974982</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1623074974983</updated>
+    </task>
+    <task id="LOCAL-00139" summary="QA checkin - ios fixes">
+      <created>1623075187375</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1623075187375</updated>
+    </task>
+    <task id="LOCAL-00140" summary="QA checkin - ios fixes">
+      <created>1623251754181</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1623251754182</updated>
+    </task>
+    <task id="LOCAL-00141" summary="QA checkin - android and TELET fixes">
+      <created>1623316457533</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1623316457534</updated>
+    </task>
+    <task id="LOCAL-00142" summary="QA checkin - Finish by decimal rounding">
+      <created>1623318928521</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1623318928521</updated>
+    </task>
+    <task id="LOCAL-00143" summary="QA checkin - android driver finish by calculation">
+      <created>1623319160869</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1623319160869</updated>
+    </task>
+    <task id="LOCAL-00144" summary="QA checkin - android and web fixes">
+      <created>1623333982291</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1623333982291</updated>
+    </task>
+    <task id="LOCAL-00145" summary="QA checkin - android fix">
+      <created>1623334700230</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1623334700230</updated>
+    </task>
+    <task id="LOCAL-00146" summary="QA checkin - android case">
+      <created>1623336663486</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1623336663486</updated>
+    </task>
+    <option name="localTasksCounter" value="147" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RunAutoSuite - 2021.05.28 at 18h 02m 41s.xml">
+    <history-entry file="RunAutoSuite - 2021.06.11 at 16h 25m 28s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunAutoSuite - 2021.05.28 at 18h 04m 32s.xml">
+    <history-entry file="RunAutoSuite - 2021.06.11 at 16h 51m 14s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunAutoSuite - 2021.05.28 at 18h 07m 19s.xml">
+    <history-entry file="RunAutoSuite - 2021.06.11 at 16h 54m 01s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunAutoSuite - 2021.05.28 at 18h 11m 48s.xml">
+    <history-entry file="RunAutoSuite - 2021.06.11 at 17h 07m 19s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunAutoSuite - 2021.05.28 at 18h 15m 14s.xml">
+    <history-entry file="RunAutoSuite - 2021.06.11 at 17h 39m 05s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunAutoSuite - 2021.05.28 at 18h 33m 00s.xml">
+    <history-entry file="RunAutoSuite - 2021.06.11 at 17h 55m 13s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunAutoSuite - 2021.05.28 at 18h 51m 35s.xml">
+    <history-entry file="RunAutoSuite - 2021.06.11 at 17h 56m 40s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunAutoSuite - 2021.05.28 at 18h 56m 03s.xml">
+    <history-entry file="RunAutoSuite - 2021.06.11 at 18h 05m 15s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunAutoSuite - 2021.05.28 at 19h 00m 02s.xml">
+    <history-entry file="RunAutoSuite - 2021.06.11 at 18h 26m 08s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunAutoSuite - 2021.05.28 at 19h 07m 36s.xml">
+    <history-entry file="RunAutoSuite - 2021.06.11 at 18h 34m 54s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
   </component>
@@ -1404,28 +1337,29 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963374" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49093816" weight="0.26415095" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49093816" weight="0.09100999" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.19669509" side_tool="true" weight="0.3629301" />
-      <window_info anchor="right" id="Maven Projects" order="5" sideWeight="0.77880794" weight="0.14232409" />
+      <window_info anchor="right" id="Maven Projects" order="5" sideWeight="0.77880794" weight="0.015458422" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49946696" weight="0.21420644" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.75159913" weight="0.29078802" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.75159913" weight="0.4062153" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.17869034" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15884861" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22761194" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32963374" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="7" sideWeight="0.22119205" side_tool="true" weight="0.14232409" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="6" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.8033049" visible="true" weight="0.79800224" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.8033049" visible="true" weight="0.3107658" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1436,28 +1370,28 @@
       <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49946696" weight="0.21420644" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.75159913" weight="0.4062153" />
       <window_info anchor="right" id="Theme Preview" order="6" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32995737" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22761194" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="7" sideWeight="0.22119205" side_tool="true" weight="0.14232409" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963374" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.75159913" weight="0.5882353" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49946696" weight="0.21420644" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32963374" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.8033049" visible="true" weight="0.3629301" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8033049" visible="true" weight="0.44506106" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32963374" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.19669509" side_tool="true" visible="true" weight="0.3629301" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.17869034" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.19669509" side_tool="true" weight="0.3629301" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info id="Capture Tool" order="5" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49093816" weight="0.26415095" />
-      <window_info anchor="right" id="Maven Projects" order="5" sideWeight="0.77880794" visible="true" weight="0.14232409" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49093816" weight="0.09100999" />
+      <window_info anchor="right" id="Maven Projects" order="5" sideWeight="0.77880794" visible="true" weight="0.015458422" />
       <window_info id="Favorites" order="6" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -1493,32 +1427,32 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="ios Fixes" />
-    <MESSAGE value="QA checkin - SSL error with rest assured" />
-    <MESSAGE value="QA checkin - Web fixes + Refund Cases" />
-    <MESSAGE value="QA checkin - Admin refund" />
-    <MESSAGE value="QA checkin - Admin Revival Feature" />
-    <MESSAGE value="QA checkin - Web new features" />
-    <MESSAGE value="Web Fixes" />
-    <MESSAGE value="Web fixes" />
-    <MESSAGE value="QA checkin - web fixes" />
-    <MESSAGE value="QA checkin - Web Movement of scripts" />
-    <MESSAGE value="QA checkin - New Cards added for partner scripts" />
-    <MESSAGE value="QA checkin - Web Cases" />
-    <MESSAGE value="QA checkin - From Web Ready Moved 11 to Regression" />
-    <MESSAGE value="QA checkin - Web Issue refund fix" />
-    <MESSAGE value="QA checkin - Web inconclusive fix" />
-    <MESSAGE value="QA checkin - Web partner trip logging" />
-    <MESSAGE value="QA checkin - CORE-2556 changes sprint 45 + Solo to duo conversion cases" />
-    <MESSAGE value="QA checkin - Web fixes" />
-    <MESSAGE value="QA checkin - Web and android and ios fixes" />
-    <MESSAGE value="QA checkin - more fixes for android user" />
-    <MESSAGE value="QA checkin - Fixes" />
-    <MESSAGE value="QA checkin - ios new file changes" />
-    <MESSAGE value="QA checkin - ios bungii and not duo fixes" />
     <MESSAGE value="QA checkin - Chrome driver 91.0.4472.19" />
+    <MESSAGE value="QA checkin - web fixes 2" />
+    <MESSAGE value="QA checkin - ios and web sanity fixes" />
+    <MESSAGE value="QA checkin - Web Logger added for all the stepdefs" />
+    <MESSAGE value="QA checkin - ios fixes from bungii and not duo" />
+    <MESSAGE value="QA checkin - android optimizations" />
+    <MESSAGE value="QA checkin - android Device" />
+    <MESSAGE value="QA checkin - android checkins" />
+    <MESSAGE value="QA checkin - Android fixes" />
+    <MESSAGE value="QA checkin - android script fixes and alignment" />
+    <MESSAGE value="QA checkin - android time select" />
+    <MESSAGE value="QA checkin - android TELET Fixes" />
+    <MESSAGE value="QA checkin - android fixes" />
+    <MESSAGE value="QA checkin - Web Script movement - Regression 209 and ready 41" />
+    <MESSAGE value="QA checkin - web fixes" />
+    <MESSAGE value="QA checkin - Web fixes" />
+    <MESSAGE value="QA checkin - ios fix" />
+    <MESSAGE value="QA checkin - Macbook chromedriver updated" />
     <MESSAGE value="QA checkin - ios fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="QA checkin - ios fixes" />
+    <MESSAGE value="QA checkin - android and TELET fixes" />
+    <MESSAGE value="QA checkin - Finish by decimal rounding" />
+    <MESSAGE value="QA checkin - android driver finish by calculation" />
+    <MESSAGE value="QA checkin - android and web fixes" />
+    <MESSAGE value="QA checkin - android fix" />
+    <MESSAGE value="QA checkin - android case" />
+    <option name="LAST_COMMIT_MESSAGE" value="QA checkin - android case" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1543,7 +1477,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java</url>
-          <line>613</line>
+          <line>614</line>
           <properties />
           <option name="timeStamp" value="34" />
         </line-breakpoint>
@@ -1573,25 +1507,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Kiosk_Steps.java</url>
-          <line>88</line>
+          <line>93</line>
           <properties />
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>299</line>
+          <line>306</line>
           <properties />
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>319</line>
+          <line>326</line>
           <properties />
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>323</line>
+          <line>330</line>
           <properties />
           <option name="timeStamp" value="53" />
         </line-breakpoint>
@@ -1615,19 +1549,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java</url>
-          <line>1185</line>
+          <line>1187</line>
           <properties />
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java</url>
-          <line>1192</line>
+          <line>1194</line>
           <properties />
           <option name="timeStamp" value="77" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java</url>
-          <line>255</line>
+          <line>254</line>
           <properties />
           <option name="timeStamp" value="79" />
         </line-breakpoint>
@@ -1639,25 +1573,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/utilityfunctions/GeneralUtility.java</url>
-          <line>1783</line>
+          <line>1784</line>
           <properties />
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/utilityfunctions/GeneralUtility.java</url>
-          <line>1784</line>
+          <line>1785</line>
           <properties />
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java</url>
-          <line>1082</line>
+          <line>1083</line>
           <properties />
           <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java</url>
-          <line>1080</line>
+          <line>1081</line>
           <properties />
           <option name="timeStamp" value="101" />
         </line-breakpoint>
@@ -1687,33 +1621,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java</url>
-          <line>349</line>
-          <properties />
-          <option name="timeStamp" value="165" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java</url>
-          <line>378</line>
+          <line>411</line>
           <properties />
           <option name="timeStamp" value="166" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java</url>
-          <line>504</line>
-          <properties />
-          <option name="timeStamp" value="168" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java</url>
-          <line>511</line>
-          <properties />
-          <option name="timeStamp" value="169" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java</url>
-          <line>508</line>
-          <properties />
-          <option name="timeStamp" value="170" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/other/NotificationSteps.java</url>
@@ -1729,13 +1639,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java</url>
-          <line>1695</line>
+          <line>1696</line>
           <properties />
           <option name="timeStamp" value="177" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java</url>
-          <line>1652</line>
+          <line>1653</line>
           <properties />
           <option name="timeStamp" value="180" />
         </line-breakpoint>
@@ -1759,13 +1669,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java</url>
-          <line>1163</line>
+          <line>1247</line>
           <properties />
           <option name="timeStamp" value="192" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java</url>
-          <line>1164</line>
+          <line>1248</line>
           <properties />
           <option name="timeStamp" value="194" />
         </line-breakpoint>
@@ -1801,27 +1711,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java</url>
-          <line>243</line>
+          <line>252</line>
           <properties />
           <option name="timeStamp" value="281" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java</url>
-          <line>344</line>
-          <properties />
-          <option name="timeStamp" value="282" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java</url>
-          <line>331</line>
-          <properties />
-          <option name="timeStamp" value="283" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/EstimateBungiiSteps.java</url>
-          <line>711</line>
-          <properties />
-          <option name="timeStamp" value="293" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/PromoSteps.java</url>
@@ -1872,38 +1764,26 @@
           <option name="timeStamp" value="314" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java</url>
-          <line>1141</line>
-          <properties />
-          <option name="timeStamp" value="341" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/InviteSteps.java</url>
-          <line>80</line>
+          <line>81</line>
           <properties />
           <option name="timeStamp" value="344" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java</url>
-          <line>1125</line>
+          <line>1126</line>
           <properties />
           <option name="timeStamp" value="347" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java</url>
-          <line>713</line>
+          <line>714</line>
           <properties />
           <option name="timeStamp" value="348" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java</url>
-          <line>516</line>
-          <properties />
-          <option name="timeStamp" value="368" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java</url>
-          <line>299</line>
+          <line>304</line>
           <properties />
           <option name="timeStamp" value="369" />
         </line-breakpoint>
@@ -1921,51 +1801,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/LiveTripsSteps.java</url>
-          <line>302</line>
+          <line>308</line>
           <properties />
           <option name="timeStamp" value="374" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>757</line>
-          <properties />
-          <option name="timeStamp" value="390" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>802</line>
+          <line>810</line>
           <properties />
           <option name="timeStamp" value="391" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>803</line>
+          <line>811</line>
           <properties />
           <option name="timeStamp" value="392" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>734</line>
-          <properties />
-          <option name="timeStamp" value="393" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>733</line>
-          <properties />
-          <option name="timeStamp" value="394" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>739</line>
-          <properties />
-          <option name="timeStamp" value="395" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>760</line>
-          <properties />
-          <option name="timeStamp" value="396" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_RefundSteps.java</url>
@@ -1975,111 +1825,93 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1292</line>
+          <line>1317</line>
           <properties />
           <option name="timeStamp" value="473" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1286</line>
+          <line>1311</line>
           <properties />
           <option name="timeStamp" value="474" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1280</line>
+          <line>1305</line>
           <properties />
           <option name="timeStamp" value="475" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1298</line>
+          <line>1323</line>
           <properties />
           <option name="timeStamp" value="476" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1311</line>
+          <line>1336</line>
           <properties />
           <option name="timeStamp" value="477" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1317</line>
+          <line>1342</line>
           <properties />
           <option name="timeStamp" value="478" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1323</line>
+          <line>1348</line>
           <properties />
           <option name="timeStamp" value="479" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1328</line>
+          <line>1353</line>
           <properties />
           <option name="timeStamp" value="480" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1334</line>
+          <line>1359</line>
           <properties />
           <option name="timeStamp" value="481" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1340</line>
+          <line>1365</line>
           <properties />
           <option name="timeStamp" value="482" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1347</line>
+          <line>1372</line>
           <properties />
           <option name="timeStamp" value="483" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1354</line>
+          <line>1379</line>
           <properties />
           <option name="timeStamp" value="484" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1361</line>
+          <line>1386</line>
           <properties />
           <option name="timeStamp" value="485" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1368</line>
+          <line>1393</line>
           <properties />
           <option name="timeStamp" value="487" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1043</line>
-          <properties />
-          <option name="timeStamp" value="505" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1042</line>
-          <properties />
-          <option name="timeStamp" value="506" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1519</line>
+          <line>1555</line>
           <properties />
           <option name="timeStamp" value="507" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>1528</line>
-          <properties />
-          <option name="timeStamp" value="508" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_LoginSteps.java</url>
@@ -2089,27 +1921,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>443</line>
+          <line>450</line>
           <properties />
           <option name="timeStamp" value="519" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>500</line>
-          <properties />
-          <option name="timeStamp" value="520" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java</url>
-          <line>499</line>
-          <properties />
-          <option name="timeStamp" value="521" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/AvailableTripsSteps.java</url>
-          <line>56</line>
-          <properties />
-          <option name="timeStamp" value="538" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/RandomGeneratorUtility.java</url>
@@ -2119,7 +1933,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_trips.java</url>
-          <line>915</line>
+          <line>923</line>
           <properties />
           <option name="timeStamp" value="549" />
         </line-breakpoint>
@@ -2131,31 +1945,31 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java</url>
-          <line>1907</line>
+          <line>1905</line>
           <properties />
           <option name="timeStamp" value="556" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java</url>
-          <line>1753</line>
+          <line>1751</line>
           <properties />
           <option name="timeStamp" value="558" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java</url>
-          <line>1754</line>
+          <line>1752</line>
           <properties />
           <option name="timeStamp" value="559" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java</url>
-          <line>1750</line>
+          <line>1748</line>
           <properties />
           <option name="timeStamp" value="560" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java</url>
-          <line>1850</line>
+          <line>1848</line>
           <properties />
           <option name="timeStamp" value="561" />
         </line-breakpoint>
@@ -2185,30 +1999,144 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java</url>
-          <line>402</line>
+          <line>417</line>
           <properties />
           <option name="timeStamp" value="589" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java</url>
-          <line>367</line>
+          <line>382</line>
           <properties />
           <option name="timeStamp" value="591" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java</url>
-          <line>385</line>
+          <line>400</line>
           <properties />
           <option name="timeStamp" value="592" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java</url>
-          <line>567</line>
+          <line>576</line>
           <properties />
           <option name="timeStamp" value="595" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/EstimateBungiiSteps.java</url>
+          <line>615</line>
+          <properties />
+          <option name="timeStamp" value="629" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/EstimateBungiiSteps.java</url>
+          <line>616</line>
+          <properties />
+          <option name="timeStamp" value="630" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java</url>
+          <line>1458</line>
+          <properties />
+          <option name="timeStamp" value="631" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java</url>
+          <line>1147</line>
+          <properties />
+          <option name="timeStamp" value="659" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java</url>
+          <line>628</line>
+          <properties />
+          <option name="timeStamp" value="665" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java</url>
+          <line>648</line>
+          <properties />
+          <option name="timeStamp" value="666" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java</url>
+          <line>654</line>
+          <properties />
+          <option name="timeStamp" value="667" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_PotentialPartnersSteps.java</url>
+          <line>126</line>
+          <properties />
+          <option name="timeStamp" value="676" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_PotentialPartnersSteps.java</url>
+          <line>128</line>
+          <properties />
+          <option name="timeStamp" value="677" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java</url>
+          <line>246</line>
+          <properties />
+          <option name="timeStamp" value="682" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java</url>
+          <line>410</line>
+          <properties />
+          <option name="timeStamp" value="683" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/bungii/ios/manager/ActionManager.java</url>
+          <line>246</line>
+          <properties />
+          <option name="timeStamp" value="685" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java</url>
+          <line>787</line>
+          <properties />
+          <option name="timeStamp" value="687" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java</url>
+          <line>461</line>
+          <properties />
+          <option name="timeStamp" value="690" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java</url>
+          <line>69</line>
+          <properties />
+          <option name="timeStamp" value="692" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java</url>
+          <line>68</line>
+          <properties />
+          <option name="timeStamp" value="694" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java</url>
+          <line>2265</line>
+          <properties />
+          <option name="timeStamp" value="724" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/TripDetailsSteps.java</url>
+          <line>58</line>
+          <properties />
+          <option name="timeStamp" value="731" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/TripDetailsSteps.java</url>
+          <line>61</line>
+          <properties />
+          <option name="timeStamp" value="732" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="596" />
+      <option name="time" value="733" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="TestNG">
@@ -2258,6 +2186,16 @@
     </expressions>
     <expressions id="setValue">
       <expression>
+        <expression-string>23.55</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>41.9</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>&quot;317&quot;</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -2297,436 +2235,378 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>20.85</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;0 minutes&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp(&quot;bundleId_Customer&quot;))</expression-string>
-        <language-id>JAVA</language-id>
-        <custom-info>com.bungii.common.utilities.PropertyUtility,com.bungii.SetupManager,io.appium.java_client.ios.IOSDriver</custom-info>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp(&quot;bundleId_Customer&quot;));</expression-string>
-        <language-id>JAVA</language-id>
-        <custom-info>com.bungii.common.utilities.PropertyUtility,com.bungii.SetupManager,io.appium.java_client.ios.IOSDriver</custom-info>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp(&quot;bundleId_Customer&quot;));</expression-string>
+        <expression-string>Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * new Double(23.666666666666664));</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>action.waitForAlert();</expression-string>
+        <expression-string>formatterForLocalTimezone.format(new Date(tryToFinishTome_Temp.getTime() +1419600 ));</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>action.getAlertMessage()</expression-string>
+        <expression-string>formatterForLocalTimezone.format(new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * new Double(23.66).longValue())));</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>action.clickAlertButton(&quot;Cancel Bungii&quot;)</expression-string>
+        <expression-string>formatterForLocalTimezone.format(new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * new Double(23.666666666666664).longValue())));</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>action.click(updateStatusPage.Button_CancelBungii());</expression-string>
+        <expression-string>Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * new Double(23.666666666666664).longValue()));</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>Response response =given().log().all()
-                .header(&quot;User-Agent&quot;, &quot;okhttp/3.4.1&quot;)
-                .header(&quot;Content-Type&quot;, &quot;x-www-form-urlencoded&quot;)
-                .header(&quot;Accept-Encoding&quot;, &quot;gzip&quot;)
-                .urlEncodingEnabled(true)
-                .contentType(&quot;x-www-form-urlencoded&quot;)
-                .param(&quot;units&quot;, &quot;imperial&quot;)
-                .param(&quot;origins&quot;, strOrigins)
-                .param(&quot;destinations&quot;, strDestinations)
-
-                .param(&quot;key&quot;, &quot;AIzaSyD5z-ZpO46vNQIXTGeNYJSIy9vvlR-ViQI&quot;)
-                .param(&quot;departure_time&quot;, String.valueOf(epoch))
-                .param(&quot;traffic_model&quot;,&quot;best_guess&quot;)
-                .param(&quot;mode&quot;,&quot;driving&quot;)
-                .when()
-                .get(DISTANCE_MATRIX_API);</expression-string>
+        <expression-string>tryToFinishTome_Temp.getTime()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>response.then().log().all()</expression-string>
+        <expression-string>Date tryToFinishTome = new Date(1.623318728E12)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>Response response =given().log().all()                 .header(&quot;User-Agent&quot;, &quot;okhttp/3.4.1&quot;)                 .header(&quot;Content-Type&quot;, &quot;application/json&quot;)                 .header(&quot;Accept-Encoding&quot;, &quot;gzip&quot;)                 .urlEncodingEnabled(true)                 .param(&quot;units&quot;, &quot;imperial&quot;)                 .param(&quot;origins&quot;, strOrigins)                 .param(&quot;destinations&quot;, strDestinations)                  .param(&quot;key&quot;, &quot;AIzaSyD5z-ZpO46vNQIXTGeNYJSIy9vvlR-ViQI&quot;)                 .param(&quot;departure_time&quot;, String.valueOf(epoch))                 .param(&quot;traffic_model&quot;,&quot;best_guess&quot;) .contentType(&quot;x-www-form-urlencoded&quot;)                .param(&quot;mode&quot;,&quot;driving&quot;)                 .when()                 .get(DISTANCE_MATRIX_API+&quot;?&quot;);</expression-string>
+        <expression-string>tryToFinishTome_Temp.getTime() + 1419999.9999999998</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() + 1419999.9999999998)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/Forgot Password.feature">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/OndemandBungiis/Bungii_Ondemand.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="123" column="35" selection-start-line="122" selection-start-column="3" selection-end-line="123" selection-end-column="35" />
+        <state relative-caret-position="-2550" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/GodMode/AdminGodMode_PartB.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3319" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/GodMode/AdminGodeMode_TELET.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5712" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/GodMode/AdminGodMode.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="200" column="12" selection-start-line="200" selection-start-column="12" selection-end-line="200" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/cucumber/cucumber-testng/3.0.2/cucumber-testng-3.0.2-sources.jar!/cucumber/api/testng/AbstractTestNGCucumberTests.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/BungiiInProgressSteps.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+        <state relative-caret-position="268">
+          <caret line="708" column="93" selection-start-line="708" selection-start-column="76" selection-end-line="708" selection-end-column="102" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Ondemand/Bungii_OnDemandFlows.feature">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/pages/driver/InProgressBungiiPages.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="132" selection-start-line="132" selection-end-line="132" />
+        <state relative-caret-position="288">
+          <caret line="110" column="22" selection-start-line="110" selection-start-column="22" selection-end-line="110" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Solo_Scheduled_PartC.feature">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ApiHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1190">
-          <caret line="82" column="61" selection-start-line="82" selection-start-column="61" selection-end-line="82" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Solo_Scheduled_PartB.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-109">
-          <caret line="219" selection-start-line="219" selection-end-line="219" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Solo_Scheduled_PartA.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="425" column="13" selection-start-line="425" selection-start-column="13" selection-end-line="425" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Solo_Scheduled_Telet.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="237" column="34" selection-start-line="237" selection-start-column="34" selection-end-line="237" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Ondemand/Bungii_OnDemand.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4922">
-          <caret line="77" column="28" selection-start-line="77" selection-end-line="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Ondemand/Bungii_OnDemand_WO_Email.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-233" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Ondemand/Bungii_OnDemandB.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="96" column="3" selection-start-line="96" selection-start-column="3" selection-end-line="104" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/customer/HomePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="19" column="82" selection-start-line="19" selection-start-column="77" selection-end-line="19" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/core/PageBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="212" column="30" selection-start-line="212" selection-start-column="22" selection-end-line="212" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/driver/UpdateStatusPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="100" column="40" selection-start-line="100" selection-start-column="22" selection-end-line="100" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_PartD.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2720">
-          <caret line="160" column="54" selection-start-line="160" selection-start-column="54" selection-end-line="160" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/HomeSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="131" column="16" selection-start-line="131" selection-start-column="16" selection-end-line="131" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/LogInSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="39" column="99" selection-start-line="39" selection-start-column="55" selection-end-line="39" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/utilityfunctions/DbUtility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4233">
-          <caret line="255" column="5" selection-start-line="255" selection-start-column="5" selection-end-line="255" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_PartA.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3094">
-          <caret line="182" column="58" selection-start-line="182" selection-start-column="58" selection-end-line="182" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/messages.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4641">
-          <caret line="273" column="126" selection-start-line="273" selection-start-column="36" selection-end-line="273" selection-end-column="126" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_OneDevice.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3842">
-          <caret line="226" column="2" selection-start-line="226" selection-start-column="2" selection-end-line="226" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bungii.Test.Integration.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/VerifyBungiiDetails.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="786" column="79" selection-start-line="786" selection-start-column="79" selection-end-line="786" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/admin/ScheduledTripSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="418" column="19" selection-start-line="418" selection-start-column="19" selection-end-line="418" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/BungiiDuoScheduled.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="314" column="108" lean-forward="true" selection-start-line="314" selection-start-column="13" selection-end-line="314" selection-end-column="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/PropertyUtility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/other/NotificationSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="136" selection-start-line="136" selection-end-line="136" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/DbUtility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="138" column="79" selection-start-line="138" selection-start-column="64" selection-end-line="138" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="52" column="108" selection-start-line="52" selection-start-column="108" selection-end-line="52" selection-end-column="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/customer/EnableNotificationPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/customer/EnableLocationPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EnabledNotificationSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="94" column="13" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="672" selection-start-line="672" selection-end-line="672" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/utilityfunctions/GeneralUtility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="1469" column="63" selection-start-line="1469" selection-start-column="49" selection-end-line="1469" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/GoogleMaps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="51" selection-start-line="51" selection-end-line="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Profiles/QA_AUTO_AWS/data.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="556" column="61" selection-start-line="556" selection-start-column="61" selection-end-line="556" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_PartB.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiAcceptedSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="62" selection-start-line="62" selection-end-line="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_Processing_Over.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-759">
-          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="340" column="35" selection-start-line="340" selection-end-line="341" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_TripNotifications.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="14" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-260">
-          <caret line="350" column="45" selection-start-line="350" selection-start-column="25" selection-end-line="350" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Bungii_Duo_Scheduled_Stacked.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="290" column="25" selection-start-line="290" selection-start-column="25" selection-end-line="290" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/customer/BungiiAcceptedPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="15" column="53" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="467" column="25" selection-start-line="467" selection-start-column="25" selection-end-line="467" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/ios/manager/ActionManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="754" column="7" selection-start-line="754" selection-start-column="7" selection-end-line="754" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/api/stepdefinitions/BungiiSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="2669" selection-start-line="2669" selection-end-line="2669" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/cucumber/cucumber-core/3.0.2/cucumber-core-3.0.2-sources.jar!/cucumber/runtime/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="157">
+          <caret line="326" column="52" selection-start-line="326" selection-start-column="52" selection-end-line="326" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/api/utilityFunctions/CoreServices.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="43">
-          <caret line="559" selection-start-line="559" selection-end-line="559" />
+        <state relative-caret-position="211">
+          <caret line="773" lean-forward="true" selection-start-line="773" selection-end-line="773" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/General/Delivery_Details.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2418" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/BungiiDuoScheduled.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4641" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_TripsSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="710" column="16" selection-start-line="710" selection-start-column="16" selection-end-line="710" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/General/VerifyDeliveries.feature">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Customer/Estimate and Customer Cancel/FailedOndemandDelivery.feature">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/ScheduledBungiiSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5678">
+          <caret line="366" selection-start-line="366" selection-end-line="366" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/DbUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3587">
+          <caret line="212" column="46" selection-start-line="212" selection-start-column="18" selection-end-line="212" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Customer/Estimate and Customer Cancel/BungiiEstimationsAndRequests.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="290" column="53" selection-start-line="290" selection-start-column="53" selection-end-line="290" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo.feature">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/General/Bungii_Pickup_Note.feature">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="31" column="58" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/core/PageBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="111" selection-start-line="111" selection-end-line="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/HomePageSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/LoginSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/pages/customer/HomePage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/TermsAndConditionSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="110" column="65" selection-start-line="110" selection-start-column="48" selection-end-line="110" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="877" column="32" selection-start-line="877" selection-start-column="32" selection-end-line="877" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="1385" column="20" selection-start-line="1385" selection-start-column="20" selection-end-line="1385" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Bungii.Integration/Duo/Bungii_Duo_OneDevice.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/CommonSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="95" column="69" selection-start-line="95" selection-start-column="69" selection-end-line="95" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/api/stepdefinitions/BungiiSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1391">
+          <caret line="2353" column="16" selection-start-line="2353" selection-start-column="16" selection-end-line="2353" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/EstimateBungiiSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="410" column="27" selection-start-line="410" selection-start-column="22" selection-end-line="410" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/ScheduledBungiiSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="95" column="27" selection-start-line="95" selection-start-column="27" selection-end-line="95" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/BungiiSoloScheduled_PartE.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="181" column="29" selection-start-line="181" selection-start-column="29" selection-end-line="181" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartA.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="2" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/Requests/Bungii_Requests.feature">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartA.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartB.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1581">
+          <caret line="93" column="1" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartJ.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4065" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartI.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3654">
+          <caret line="69" column="47" selection-start-line="69" selection-start-column="47" selection-end-line="69" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartH.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartC.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="93" column="48" selection-start-line="93" selection-start-column="48" selection-end-line="93" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartK.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="559">
+          <caret line="146" column="4" selection-start-line="146" selection-start-column="4" selection-end-line="146" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartB.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="192" selection-start-line="192" selection-end-line="192" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartD.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartF.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="78" column="43" selection-start-line="78" selection-start-column="43" selection-end-line="78" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_SingleApp.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="110" column="42" selection-start-line="110" selection-end-line="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartC.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="6" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo_Scheduled_PartD.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/pages/driver/BungiiRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="33" column="35" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/BungiiRequestSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-473">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Integration/ScheduleBungiis/BungiiSoloScheduled_PartG.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="84" column="39" lean-forward="true" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/TripDetailsSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="54" column="16" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
         </state>
       </provider>
     </entry>

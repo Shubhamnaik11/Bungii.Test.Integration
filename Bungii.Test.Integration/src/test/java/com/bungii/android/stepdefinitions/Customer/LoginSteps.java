@@ -39,6 +39,7 @@ public class LoginSteps extends DriverBase {
         i_enter_customers_something_phone_number(strArg1);
         i_enter_customers_something_password("valid");
         i_tap_on_the_something_button("Log in");
+
         Thread.sleep(10000);
 
 
