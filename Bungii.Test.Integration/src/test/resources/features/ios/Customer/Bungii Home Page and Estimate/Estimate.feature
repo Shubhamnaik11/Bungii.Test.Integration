@@ -43,8 +43,8 @@ Feature: Customer Estimate screen
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 15       |           |              | Now  | Default     |
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |Save Trip Info |
+      | 15       |           |              | Now  | Default     |No             |
     And I store default card value
     And I click "REQUEST BUNGII" button on "Estimate" screen
     And I reject Alert message

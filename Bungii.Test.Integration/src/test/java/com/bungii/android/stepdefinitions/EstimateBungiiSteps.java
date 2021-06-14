@@ -210,7 +210,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error performing step, "+arg0+ " is not displayed", true);
         }
     }
 
@@ -669,6 +669,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
+                    cucumberContextManager.setScenarioContext("GEOFENCE","goa");
+
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -1255,13 +1257,8 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
             strTime[1]=strTime[1].replace("am ","").replace("pm ","");
 
             String displayedTime = getElementValue("TIME");
-            if(displayedTime.equalsIgnoreCase(strTime[0]) || displayedTime.equalsIgnoreCase(strTime[1]))
-            {
-                testStepAssert.isTrue(true,"The correct scheduled time is displayed.", "The correct scheduled time is not displayed. Actual : "+displayedTime + " |  Expected : "+ strTime[0] +" or " +strTime[1]);
-            }
-            else {
-             testStepAssert.isFail("The correct scheduled time is not displayed.");
-            }
+                testStepAssert.isTrue(displayedTime.equalsIgnoreCase(strTime[0]) || displayedTime.equalsIgnoreCase(strTime[1]),"The correct scheduled time is displayed.", "The correct scheduled time is not displayed. Actual : "+displayedTime + " |  Expected : "+ strTime[0] +" or " +strTime[1]);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",

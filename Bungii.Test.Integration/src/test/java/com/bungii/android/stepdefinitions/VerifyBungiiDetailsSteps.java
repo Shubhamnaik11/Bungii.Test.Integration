@@ -5,6 +5,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.pages.customer.MyBungiisPage;
 import com.bungii.android.stepdefinitions.Customer.LoginSteps;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
@@ -32,6 +33,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     ActionManager action = new ActionManager();
     LoginPage loginPage = new LoginPage();
     GeneralUtility utility = new GeneralUtility();
+    DbUtility dbUtility = new DbUtility();
     MyBungiisPage myBungiisPage = new MyBungiisPage();
 
     @Then("^I verify driver names and trip cost$")
@@ -57,7 +59,30 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
 
     }
 
+    @Then("^Driver names and trip cost is displayed correctly$")
+    public void i__driver_names_pickup_and_drop_off_address_and_trip_cost() throws Throwable {
+        String expectedDriverName=(String)cucumberContextManager.getScenarioContext("DRIVER_1");
+        String[] Name = expectedDriverName.split(" ");
+        expectedDriverName = Name[0]+" "+Name[1].charAt(0); //Last Name initial
+        String actualDriverName=action.getText(myBungiisPage.Text_FirstDriverName());
 
+        testStepAssert.isEquals(actualDriverName,expectedDriverName,"Driver name expected is "+expectedDriverName,"Expected Driver name is displayed.",expectedDriverName+" driver name is not displayed.");
+
+        expectedDriverName=(String)cucumberContextManager.getScenarioContext("DRIVER_2");
+        if(expectedDriverName!="") {
+            Name = expectedDriverName.split(" ");
+            expectedDriverName = Name[0] + " " + Name[1].charAt(0); //Last Name initial
+            actualDriverName = action.getText(myBungiisPage.Text_SecondDriverName());
+            testStepAssert.isEquals(actualDriverName, expectedDriverName, "Driver name expected is " + expectedDriverName, "Expected Driver name is displayed.", expectedDriverName + " driver name is not displayed.");
+        }
+       // String expectedTripCost=(String)cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+        String pickupref =  (String)cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String expectedTripCost = dbUtility.getFinalBungiiCost(pickupref);
+        expectedTripCost= expectedTripCost.replace("~","");
+        String actualTripCost=action.getText(myBungiisPage.Text_TripCost());
+        testStepAssert.isEquals(actualTripCost,expectedTripCost,"Trip cost expected is "+expectedTripCost,"Expected Trip Cost is displayed.",expectedTripCost+" is not displayed.");
+
+    }
     @Then("^I verify the field \"([^\"]*)\"$")
     public void i_verify_the_field_something(String option) throws Throwable {
         try{

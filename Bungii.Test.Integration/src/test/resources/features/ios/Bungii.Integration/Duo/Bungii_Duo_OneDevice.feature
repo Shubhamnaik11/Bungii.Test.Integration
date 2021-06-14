@@ -211,7 +211,7 @@ Feature: Scheduled Bungii on one device
 	And I Select Trip from available trip
 	When I accept selected Bungii
 	
-	When I Switch to "customer" application on "ORIGINAL" devices
+	When I Switch to "customer" application on "same" devices
 	And I Select "MY BUNGIIS" from Customer App menu
 	And I select already scheduled bungii
 	When I Cancel selected Bungii

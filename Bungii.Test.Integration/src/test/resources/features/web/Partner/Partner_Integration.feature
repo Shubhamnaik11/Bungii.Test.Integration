@@ -301,7 +301,7 @@ Feature: Partner Integration with Admin and Driver
      When As a driver "Testdrivertywd_appledc_a_ronny James" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state |
       | Enroute       |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status       |
       | Trip Started |
@@ -341,7 +341,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see the trip in the Delivery List"
     #When I navigate to "Bungii Admin Portal in new tab" URL
     When I navigate to "Admin" portal configured for "QA" URL
-    And I view the Scheduled Trips list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
@@ -351,22 +351,24 @@ Feature: Partner Integration with Admin and Driver
       | Enroute      |
       | Arrived      |
       | Loading Item |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       |  Status |
       | Loading Items |
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-    And I view the Live Trips list on the admin portal
-    And I click on Partner Portal Bungii trip
+    And I view the Live Deliveries list on the admin portal
+    #And I click on Partner Portal Bungii delivery
+    And I open the live delivery details in admin portal
     And I click on "Manually End Bungii" link
     And Enter the End Date and Time
     And Click on "Calculate Cost" button
     Then the amount is calculated and shown to admin
     And Click on "Confirm" button
     And I view the Deliveries list on the admin portal
-    Then The Trip List page should display the partner portal trip in "Payment Successful" state
+    #Then The Delivery List page should display the delivery in "Payment Successful" state
+    Then I should be able to see the respective partner portal trip with "Payment Successful" state
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed      |

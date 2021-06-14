@@ -52,7 +52,6 @@ public class BungiiRequestSteps extends DriverBase {
                     testStepVerify.isTrue(dropUpLocationLine1.equals(expectedDropLocationLineOne) &&  dropUpLocationLine2.equals(expectedDropLocationLineTwo),
                             "Drop address should be " + expectedDropLocationLineOne +expectedDropLocationLineTwo, "Drop address is " + dropUpLocationLine1 +dropUpLocationLine2,
                             "Expected Drop address is " + expectedDropLocationLineOne +expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 +dropUpLocationLine2);
-                    //testStepVerify.isElementEnabled(bungiiRequestPage.Text_Distance(),"TO PICKUP tag should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Text_Earning(),"Earning tag should be displayed");
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_DistanceValue(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
                     estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
@@ -82,7 +81,6 @@ public class BungiiRequestSteps extends DriverBase {
                     testStepVerify.isTrue(dropUpLocationLine1.equals(expectedDropLocationLineOne) &&  dropUpLocationLine2.equals(expectedDropLocationLineTwo),
                             "Drop address should be " + expectedDropLocationLineOne +expectedDropLocationLineTwo, "Drop address is " + dropUpLocationLine1 +dropUpLocationLine2,
                             "Expected Drop address is " + expectedDropLocationLineOne +expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 +dropUpLocationLine2);
-                    testStepVerify.isElementEnabled(bungiiRequestPage.Text_Distance(),"TO PICKUP tag should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Text_Earning(),"Earning tag should be displayed");
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueDistance(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
                     estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");

@@ -56,10 +56,10 @@ public class TripDetailsSteps extends DriverBase {
         List<WebElement> listOfBungii = availableTripsPage.Image_SelectBungiis();
         switch (strArg1) {
             case "two":
-                testStepVerify.isTrue(listOfBungii.size() == 2, "There should be two available trip");
+                testStepAssert.isTrue(listOfBungii.size() == 2, "There should be two available deliveries",listOfBungii.size()+" available deliveries are displayed");
                 break;
             case "zero":
-                testStepVerify.isTrue(listOfBungii.size() == 0, "There should be two available trip");
+                testStepAssert.isTrue(listOfBungii.size() == 0, "There should be zero available deliveries", listOfBungii.size()+" available deliveries are displayed");
                 break;
             default:
                 throw new Exception(" UNIMPLEMENTED STEP");

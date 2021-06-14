@@ -3,13 +3,10 @@
 @SoloScheduled
 #These feature will run in kansas geofence
 Feature: SoloScheduled Part B
-   # With 8805368840 - 11 cases
+   # All Stable 4 Cases
   
   Background:
   
-
-
-
   @regression
   Scenario: Verify Trip limit (150 miles) For Delivery
     Given I login as customer "8805368840" and is on Home Page
@@ -94,39 +91,4 @@ Feature: SoloScheduled Part B
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  @regression
-	 #stable
-        #new scenario added
-  Scenario: Verify Customer can Schedule Bungii for a time that doesnt overlap With Another Scheduled Trip TELET Time :Duo
-    When I request "duo" Bungii as a customer in "Kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And I get TELET time of of the current trip
-    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "SOLO SCHEDULED" trip
-      | driver1 state |
-      | Accepted      |
-  
-    And I login as customer "8805368840" and is on Home Page
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I enter "kansas pickup and dropoff locations less than 150 miles" on Bungii estimate
-    And I tap on "two drivers selector" on Bungii estimate
-    Then I should see "two drivers selected" on Bungii estimate
-  
-    And I tap on "Get Estimate button" on Bungii estimate
-    Then "Estimate" page should be opened
-
-    When I confirm trip with following details
-      | Day | Trip Type | Time          |
-      | 0   | DUO       | <AFTER TELET> |
-    And I add loading/unloading time of "30 mins"
-    And I get Bungii details on Bungii Estimate
-    And I add "1" photos to the Bungii
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I click "Done" button on "Success" screen
-
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
-
+ 

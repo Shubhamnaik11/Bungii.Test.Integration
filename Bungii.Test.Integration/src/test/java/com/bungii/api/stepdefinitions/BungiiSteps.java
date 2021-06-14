@@ -194,6 +194,9 @@ public class BungiiSteps extends DriverBase {
             case "Driver_goa_e Android_test":
                 phone = PropertyUtility.getDataProperties("driverE.phone.number");
                 break;
+            case "Testdriver_goa_e Android_test":
+                phone = PropertyUtility.getDataProperties("driverE.phone.number");
+                break;
             case "Driver_goa_f Android_test":
                 phone = PropertyUtility.getDataProperties("driverF.phone.number");
                 break;
@@ -2129,7 +2132,7 @@ else
         wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
 }
             try {
-                Thread.sleep(60000);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -2633,7 +2636,7 @@ else
                     true);
         }
     }
-
+   
     @Given("that ondemand bungii is in progress")
     public void thatOndemandBungiiIsInProgress(DataTable data) {
         try {
@@ -2844,6 +2847,7 @@ else
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
             }
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
             pass("Given that the Solo Ondemand Bungii is in progress", "Solo schedule bungii [ "+pickupRequest+" ] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum );
 
         } catch (Exception e) {

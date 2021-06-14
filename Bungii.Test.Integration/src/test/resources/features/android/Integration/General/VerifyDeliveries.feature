@@ -46,6 +46,35 @@ Feature: Delivery Flows
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
     
+  
+  @regression
+  #stable
+  Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has A Ongoing Bungii
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     |
+      | Kansas   | Accepted     | 1.25 hour ahead |
+    And I wait for "3" mins
+    Given that ondemand bungii is in progress as a second delivery
+      | geofence  | Bungii State |
+      | Same      | Enroute      |
+    
+    And I Open "customer" application on "same" devices
+    And I wait for "3" mins
+    When I am on customer Log in page
+    When I am logged in as "valid" customer
+    And I wait for "3" mins
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I wait for "3" mins
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I select 1st trip from scheduled bungii
+    When I wait for 1 hour for Bungii Schedule Time
+    When I try to contact driver using "call driver1"
+    Then user is alerted for "driver finishing current bungii"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8888889916      | 8805368840      |
+  
   @regression
     #stable
   Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of The Time That Is Set For Trip Alert Settings
@@ -80,35 +109,6 @@ Feature: Delivery Flows
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
     
-  
-  @regression
-  #stable
-  Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has A Ongoing Bungii
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time     |
-      | Kansas   | Accepted     | 1.25 hour ahead |
-    And I wait for "3" mins
-    Given that ondemand bungii is in progress as a second delivery
-      | geofence  | Bungii State |
-      | Same      | Enroute      |
-    
-    And I Open "customer" application on "same" devices
-    And I wait for "3" mins
-    When I am on customer Log in page
-    When I am logged in as "valid" customer
-    And I wait for "3" mins
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I wait for "3" mins
-    And I tap on "Menu" > "MY BUNGIIS" link
-    And I select 1st trip from scheduled bungii
-    When I wait for 1 hour for Bungii Schedule Time
-    When I try to contact driver using "call driver1"
-    Then user is alerted for "driver finishing current bungii"
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 8888889916      | 8805368840      |
-
   @regression
    #stable
   Scenario: TELET : Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Case:DUO

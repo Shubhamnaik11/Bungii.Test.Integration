@@ -50,6 +50,7 @@ Feature: CustomerForgotPassword
     Then The user should see "validation for incorrect password" on forgot password page
 
   @regression
+    #Stable
   Scenario: Verify Customer Forgot Password With Resend SMS Code Functionality
     When I enter "valid" Phone Number
     And I tap on the "Send" Link

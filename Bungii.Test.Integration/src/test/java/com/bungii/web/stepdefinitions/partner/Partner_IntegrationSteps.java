@@ -78,14 +78,15 @@ public class Partner_IntegrationSteps extends DriverBase {
                     action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                     action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                    Thread.sleep(3000);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                     action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                     Thread.sleep(5000);

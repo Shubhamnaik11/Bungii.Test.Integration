@@ -68,7 +68,7 @@ public class TermsAndConditionSteps extends DriverBase {
     public void i_accept_term_and_condition_agreement_and_rest(String terms, String notification, String location) {
         try {
             GeneralUtility utility = new GeneralUtility();
-            Thread.sleep(3000);
+            Thread.sleep(5000);
            // String pageHeader = utility.getPageHeader();
 
             if(action.isElementPresent(termsAndConditionPage.Checkbox_Agree(true))) {
@@ -83,11 +83,12 @@ public class TermsAndConditionSteps extends DriverBase {
                     action.click(Page_CustTerms.Button_PermissionsSure());
                     action.click(Page_CustTerms.Button_PermissionsAllow());
                     Thread.sleep(3000);
-                }
+
             if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure(true)) ){
                 action.click(Page_CustTerms.Button_PermissionsSure());
                 action.click(Page_CustTerms.Button_PermissionsAllow());
             }
+                }
 
 
            // }
@@ -108,19 +109,6 @@ public class TermsAndConditionSteps extends DriverBase {
         try {
             Thread.sleep(2000);
             if(action.isElementPresent(homePage.Button_Closetutorials(true))) {
-                /*List<WebElement> xpath = homePage.Button_PdfPages();
-                int xpathCount = xpath.size();
-                boolean isClicked = false, isSwiped = false;
-                for (WebElement tutorialPage : xpath) {
-                    action.click(tutorialPage);
-                    isClicked = true;
-                }
-                action.click(homePage.Text_TutorialPdfPage1());
-                for (int i = 0; i < xpathCount - 1; i++) {
-                    action.swipeLeft(homePage.Text_TutorialPdf());
-                    isSwiped = true;
-                }
-                */
                     action.click(homePage.Button_Closetutorials());
             }
 

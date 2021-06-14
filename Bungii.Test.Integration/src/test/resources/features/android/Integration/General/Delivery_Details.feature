@@ -156,6 +156,7 @@ Feature: Bungii Details and Pickup Note
     And I wait for "2" mins
     And I open the trip for "Testcustomertywd_appleand_F Android" the customer
     And I Select "Edit Trip Details" option
+    And I wait for "1" mins
     And I assign driver for the "Solo" trip
     Then I remove current driver and researches Bungii
     

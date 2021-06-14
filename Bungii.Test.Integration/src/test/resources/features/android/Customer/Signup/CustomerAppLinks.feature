@@ -29,6 +29,7 @@ Feature: CustomerApplicationLinks
     And I verify that the tutorial is displayed only once
 
     @regression
+      #stable
     Scenario: Verify Save Money Button Redirect To Invite Screen
       And I check that if i can swipe the pages
       And I tap the "START" button is present on last page

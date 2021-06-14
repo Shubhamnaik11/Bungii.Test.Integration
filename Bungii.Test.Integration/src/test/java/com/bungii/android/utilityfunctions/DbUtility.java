@@ -216,6 +216,13 @@ public class DbUtility extends DbContextManager {
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
+
+    public String getFinalBungiiCost(String pickupref){
+
+        String queryString2 = "SELECT ActualEstCost FROM pickupdetails WHERE pickupref='"+pickupref+"'";
+        String cost = getDataFromMySqlServer(queryString2);
+        return cost;
+    }
     public String getCustomersMostRecentBungiiPickupId(String phoneNumber){
         String queryString2 = "SELECT Pickupid FROM pickupdetails WHERE customerRef IN (SELECT CustomerRef FROM customer WHERE phone='"+phoneNumber+"') order by pickupid desc limit 1";
         String Pickupid = getDataFromMySqlServer(queryString2);
