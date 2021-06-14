@@ -39,7 +39,7 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     And I select already scheduled bungii
     When I Cancel selected Bungii
 
-    When I open "customer" application on "Driver1" devices
+    When I open "driver" application on "Driver1" devices
     And I click on notification for "Driver" for "CUSTOMER CANCELLED SCHEDULED BUNGII"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
