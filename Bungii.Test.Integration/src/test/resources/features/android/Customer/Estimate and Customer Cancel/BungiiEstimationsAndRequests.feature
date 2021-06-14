@@ -51,7 +51,8 @@
       Then the "remaining characters value= 0" should change
 
 @regression
-    Scenario: Verify that Bungii can be requested when special charaters have been entered in the Details field on Estimate screen.
+#Stable
+    Scenario: Verify that Bungii can be requested when special charaters have been entered in the Details field on Estimate screen
   When I Switch to "customer" application on "same" devices
   Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_E Android" customer
@@ -64,7 +65,7 @@
       And I enter "special characters" in Additional Notes field
       And I click on "ADD NOTE" button
       Then "Estimate" page should be opened
-      And I select Bungii Time as "next possible scheduled"
+      And I select Bungii Time as "30 MIN DELAY"
       When I tap on "Request Bungii" on Bungii estimate
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
       And I check if the customer is on success screen

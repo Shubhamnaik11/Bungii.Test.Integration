@@ -21,6 +21,7 @@ Feature: Driver Home screen
     And The "rating" for "valid" driver should be correctly displayed
 
   @regression
+    #stable
   Scenario: Verify Driver Go Online button And Available Trips Link On Driver Dashboard Screen
     When I click "Go Online" button on Home screen on driver app
     Then The title of button should change to "Go Offline" on driver app

@@ -86,7 +86,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             switch (tab) {
                 case "Delivery Alerts":
                     data = action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
-                    testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("trip.alert.android.text"));
+                    testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("trip.alert.android.text").trim());
                     //b = clickDriverMenu(time);
                     //testStepVerify.isEquals(b.toString(), "true");
                      count = getTimeRow();

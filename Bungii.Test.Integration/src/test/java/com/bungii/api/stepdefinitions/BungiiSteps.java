@@ -2847,6 +2847,7 @@ else
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
             }
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
             pass("Given that the Solo Ondemand Bungii is in progress", "Solo schedule bungii [ "+pickupRequest+" ] is in " + state +" for geofence "+ geofence +" by customer "+ custPhoneNum );
 
         } catch (Exception e) {

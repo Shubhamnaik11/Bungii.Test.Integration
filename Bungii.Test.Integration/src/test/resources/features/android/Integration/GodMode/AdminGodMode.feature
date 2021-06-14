@@ -254,10 +254,10 @@
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         When I Select "Research Driver" option
         When I close "Edit Trip Details" popup
-        And I wait for "2" mins
         And I Select "Scheduled Trip" from admin sidebar
+        And I wait for "2" mins
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
-        Then I verify that time change is saved
+        Then Updated time change is displayed
     
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
@@ -412,8 +412,13 @@
         And I Select "Scheduled Trip" from admin sidebar
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
-        Then I remove current driver
-    
+        Then I remove assigned driver
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        When I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+        Then new pickuref is generated
+        
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |

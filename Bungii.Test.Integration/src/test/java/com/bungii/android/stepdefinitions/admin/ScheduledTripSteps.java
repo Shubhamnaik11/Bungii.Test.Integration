@@ -291,7 +291,58 @@ public class ScheduledTripSteps extends DriverBase {
 					true);
 		}
 	}
+	@And("^I remove assigned driver$")
+	public void i_remove_assigned_driver() throws Throwable {
+		try {
+			Map<String, String> tripDetails = new HashMap<String, String>();
+			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+			String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+			String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+			tripDetails.put("CUSTOMER", custName);
+			Thread.sleep(5000);
+			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
+			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 
+			int rowNumber = getTripRowNumber(tripDetails);
+			// it takes max 2.5 mins to appear
+			for (int i = 0; i < 5 && rowNumber == 999; i++) {
+				Thread.sleep(30000);
+				SetupManager.getDriver().navigate().refresh();
+				scheduledTripsPage.waitForPageLoad();
+				rowNumber = getTripRowNumber(tripDetails);
+			}
+			String pickupRequestOld = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+
+			RemoveDriver(tripDetails);
+			cucumberContextManager.setScenarioContext("PICKUP_REQUEST_OLD", pickupRequestOld);
+			pass("I remove current driver", "I removed assigned driver");
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+
+
+	@Then("^new pickuref is generated$")
+	public void automatically_researched() throws Throwable {
+		try {
+
+			String pickupRequestOld = (String)cucumberContextManager.getScenarioContext("PICKUP_REQUEST_OLD");
+			Thread.sleep(5000);
+			String pickupRequest = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+
+			testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest), " Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
+			pass("I remove current driver and verify new pickupref is generated", "I removed current driver and Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
 	@And("^I remove \"([^\"]*)\" driver and researches Bungii$")
 	public void i_remove_something_driver_and_researches_bungii(String driverType) throws Throwable {
 		try {
@@ -1006,7 +1057,29 @@ public class ScheduledTripSteps extends DriverBase {
 					"Error performing step,Please check logs for more details", true);
 		}
 	}
+	@Then("^Updated time change is displayed$")
+	public void i_verify_change_is_saved() throws Throwable {
+		try{
+			Thread.sleep(1000);
+			String expectedTime=(String) cucumberContextManager.getScenarioContext("NEW_TIME");
+			String actualTime=action.getText(scheduledTripsPage.Label_ChangedScheduledTime());
 
+			System.out.println("Expected Time: "+expectedTime);
+			System.out.println("Actual Time: "+actualTime);
+
+			DateFormat formater = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+			Date date = formater.parse(expectedTime);
+			DateFormat format2 = new SimpleDateFormat("H:mm", Locale.ENGLISH);
+			expectedTime = format2.format(date);
+
+			testStepAssert.isTrue(actualTime.contains(expectedTime),"Expected time is displayed.", "Expected time is not displayed :" + expectedTime+" instead "+ actualTime +" is displayed");
+
+		}catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
 
 	@Then("^I verify that time change is saved$")
 	public void i_verify_that_time_change_is_saved() throws Throwable {

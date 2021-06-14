@@ -1579,6 +1579,9 @@ Thread.sleep(5000);
         }
 
         try {
+            if (action.isElementPresent(Page_BungiiRequest.Button_Reject(true))) {
+                action.click(Page_BungiiRequest.Button_Reject()); //Handle pushnotification
+            }
             //   if (action.isElementPresent(driverBungiiProgressPage.Title_Status(true))) {
             if (action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
                 String screen = action.getText(driverHomePage.Generic_HeaderElement());

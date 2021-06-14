@@ -1,5 +1,4 @@
 @android
-#These feature will run in kansas geofence
 Feature: SoloScheduled Part K
   
   Background:
@@ -278,3 +277,6 @@ Feature: SoloScheduled Part K
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
+  
+  
+  

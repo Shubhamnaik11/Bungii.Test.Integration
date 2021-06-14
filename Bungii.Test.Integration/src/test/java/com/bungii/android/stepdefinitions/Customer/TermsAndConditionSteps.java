@@ -68,7 +68,7 @@ public class TermsAndConditionSteps extends DriverBase {
     public void i_accept_term_and_condition_agreement_and_rest(String terms, String notification, String location) {
         try {
             GeneralUtility utility = new GeneralUtility();
-            Thread.sleep(3000);
+            Thread.sleep(5000);
            // String pageHeader = utility.getPageHeader();
 
             if(action.isElementPresent(termsAndConditionPage.Checkbox_Agree(true))) {
