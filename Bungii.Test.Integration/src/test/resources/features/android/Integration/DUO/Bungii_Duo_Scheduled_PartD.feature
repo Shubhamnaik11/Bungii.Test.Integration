@@ -138,15 +138,16 @@ Feature: Bungii Duo Scheduled Part D
 	  | Customer Phone | Customer2 Phone |
 	  | 8805368840     |                 |
 
-    ##################################################################################################
   
   @regression
+	@test
     #stable
-  Scenario: Verify If Researched Driver Can Cancel Trip After Starting The Scheduled Duo Trip
+  Scenario: Verify If Researched Driver Can Cancel Trip After Starting The Scheduled Duo Delivery When Other driver has not started the delivery
 	When I request "duo" Bungii as a customer in "kansas" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
 	  | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-	
+  
+	When I Switch to "driver" application on "ORIGINAL" devices
 	And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
 	  | driver1 state | driver2 state |
 	  | Accepted      | Accepted      |
@@ -155,20 +156,16 @@ Feature: Bungii Duo Scheduled Part D
 	And I open the trip for "Testcustomertywd_appleRicha Test" customer
 	And I remove current driver and researches Bungii
 	
-	And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" trip
+	When I Switch to "driver" application on "ORIGINAL" devices
+	And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled Researched" trip
 	  | driver1 state | driver2 state |
-	  | Accepted      | Accepted      |
+	  | Enroute      | Accepted      |
 	
-	When I switch to "ORIGINAL" instance
-	
-	When I Switch to "driver" application on "same" devices
+	When I Switch to "driver" application on "ORIGINAL" devices
 	And I am on the LOG IN page on driver app
 	And I am logged in as "Testdrivertywd_appleks_rathree Test" driver
 	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	
-	And I Select "SCHEDULED BUNGIIS" from driver App menu
-	And I Select Trip from driver scheduled trip
-	And Bungii Driver "Start Schedule Bungii" request
+	Then "Enroute screen" page should be opened
 	And I click the "Cancel" button on "update" screen
 	Then Alert message with DRIVER CANCEL BUNGII text should be displayed
 	When I click "YES" on the alert message

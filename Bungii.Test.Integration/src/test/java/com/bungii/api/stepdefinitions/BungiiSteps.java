@@ -884,7 +884,7 @@ public class BungiiSteps extends DriverBase {
 
                         }
                     }
-
+                  log("As a driver, update the bungii state ", "As a driver "+driverAName+" and "+driverBName+" delivery is moved to a state " +driver1State +" and "+ driver1State+ " respectively.", false);
                     i++;
                 } catch (Exception e) {
 

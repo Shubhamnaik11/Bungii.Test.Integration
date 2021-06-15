@@ -105,7 +105,7 @@ public class CommonSteps extends DriverBase {
             }
             switch (appName.toUpperCase()) {
                 case "DRIVER":
-                    ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    //((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
 
@@ -115,7 +115,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "CUSTOMER":
                     //  utility.launchCustomerApplication();
-                    ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    //((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                     Thread.sleep(5000);
@@ -1143,6 +1143,17 @@ public class CommonSteps extends DriverBase {
                     "I clicked " + strArg1 + "on Alert Message", true);
         }
     }
+
+    @Then("^Driver should see \"([^\"]*)\" message$")
+    public void driver_should_see_something_message(String strArg1) throws Throwable {
+        try {
+            testStepAssert.isEquals(action.getText(locationPage.Alert_Text()), strArg1, strArg1 +" should be displayed.", strArg1 +" is displayed.", strArg1 +" is not displayed.");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in viewing alert", true);
+        }
+    }
+
     @And("^I Enter \"([^\"]*)\" value in \"([^\"]*)\" field in \"([^\"]*)\" Page$")
     public void i_enter_something_value_in_something_field_in_something_page(String value, String field, String screen, DataTable data) throws Throwable {
         try {

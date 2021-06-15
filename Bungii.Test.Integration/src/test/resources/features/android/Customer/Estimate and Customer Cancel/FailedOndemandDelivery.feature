@@ -15,7 +15,8 @@ Feature: Failed Ondemand Delivery
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "2" mins
+    And I wait for "4" mins
+    
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     And I verify that "DRIVERS NOT AVAILABLE" is displayed
     When I click on "i info" icon
@@ -31,7 +32,7 @@ Feature: Failed Ondemand Delivery
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "2" mins
+    And I wait for "4" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "SCHEDULE BUNGII" button
     Then I click "Done" button on "Success" screen
@@ -50,7 +51,7 @@ Feature: Failed Ondemand Delivery
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "3" mins
+    And I wait for "4" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "BUNGII DATE TIME" icon on "SET PICKUP TIME" Page
     And I schedule Bungii at "Next Schedule" Time
@@ -72,7 +73,7 @@ Feature: Failed Ondemand Delivery
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "3" mins
+    And I wait for "4" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "CANCEL" button
     Then A popup with "Cancel Reasons" should appear
@@ -88,7 +89,7 @@ Feature: Failed Ondemand Delivery
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "3" mins
+    And I wait for "4" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "CANCEL" button
     Then A popup with "Cancel Reasons" should appear
@@ -106,7 +107,7 @@ Feature: Failed Ondemand Delivery
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "3" mins
+    And I wait for "4" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "CANCEL" button
     Then A popup with "Cancel Reasons" should appear
@@ -126,7 +127,7 @@ Feature: Failed Ondemand Delivery
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I wait for "3" mins
+    And I wait for "4" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "CANCEL" button
     Then A popup with "Cancel Reasons" should appear

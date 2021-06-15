@@ -29,8 +29,9 @@ Feature: Scheduled Duo Bungiis
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
-  @ready
+  @regression
   @sanity
+   #stable
   Scenario: Verify Duo Bungii Completion - Android [Kansas Geofence]
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -63,36 +64,38 @@ Feature: Scheduled Duo Bungiis
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
- 
-	When I Switch to "driver" application on "ORIGINAL" devices
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at pickup"
 	And Bungii driver should see "Loading Item screen"
-	
+ 
+	When I Switch to "driver" application on "ORIGINAL" devices
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at drop off"
-	Then Bungii driver should see "correct details" on Bungii completed page
-	Then Bungii Driver "completes Bungii"
 	
 	And I Switch to "driver" application on "Driver2" devices
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at drop off"
-	Then Bungii driver should see "correct details" on Bungii completed page
-	Then Bungii Driver "completes Bungii"
 	
-	When I Switch to "customer" application on "same" devices
+	When I Switch to "customer" application on "ORIGINAL" devices
 	And Bungii customer should see "correct details" on Bungii completed page
 	And I tap on "OK on complete" on Bungii estimate
 	And I tap on "No free money" on Bungii estimate
 	
- 
-  
-  @ready
+	When I Switch to "driver" application on "same" devices
+	Then Bungii driver should see "correct details" on Bungii completed page
+	Then Bungii Driver "completes Bungii"
+	
+	And I Switch to "driver" application on "Driver2" devices
+	Then Bungii driver should see "correct details" on Bungii completed page
+	Then Bungii Driver "completes Bungii"
+	
+  @regression
+	#stable
   Scenario: Verify that Duo scheduled Bungii can be started 1 hr before the scheduled Trip start time
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time    | Customer | Driver1 | Driver2        |
@@ -162,13 +165,11 @@ Feature: Scheduled Duo Bungiis
   Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
-	  #| atlanta  | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
-	  | Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+	  | Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1     | Kansas driver 2 |
   
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
 	And I am logged in as "Kansas driver 1" driver
-    #driver1 in foregroundground
 	
 	And I connect to "extra1" using "Driver1" instance
 	When I Switch to "driver" application on "same" devices
