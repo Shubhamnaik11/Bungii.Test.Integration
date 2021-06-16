@@ -81,6 +81,8 @@ Feature: Customer Home screen
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Goa driver_1" driver
+    When I click "Go Online" button on Home screen on driver app
+  
     Then I Switch to "customer" application on "same" devices
     When I tap on "Menu" > "Home" link
     And I enter "Goa Geofence pickup location" on Bungii estimate screen

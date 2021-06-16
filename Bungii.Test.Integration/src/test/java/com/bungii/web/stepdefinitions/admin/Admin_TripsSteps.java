@@ -1014,7 +1014,7 @@ public class Admin_TripsSteps extends DriverBase {
     public void customer_should_receive_something_email(String emailSubject) throws Throwable {
         try {
             String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
-            if (emailBody.equals("")) {
+            if (emailBody.equals("")||emailBody==null) {
                 testStepAssert.isFail("Email " + emailSubject + " with link is not received.");
             } else {
                 action.navigateTo(emailBody);
