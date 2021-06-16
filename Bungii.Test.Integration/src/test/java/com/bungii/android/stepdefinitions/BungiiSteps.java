@@ -615,7 +615,7 @@ public class BungiiSteps extends DriverBase {
                     Thread.sleep(5000);
                     action.textToBePresentInElementText(Page_DriverHome.Title_Status(), PropertyUtility.getMessage("driver.home.title.online"));
                     testStepVerify.isElementTextEquals(Page_DriverHome.Title_Status(), PropertyUtility.getMessage("driver.home.title.online"), "Driver status should be Online", "Driver status is Online", "Driver status is offline");
-                    testStepVerify.isElementTextEquals(Page_DriverHome.Button_OnlineOffline(), PropertyUtility.getMessage("driver.home.gooffline"), "Go offline button on driver should be enabled", "Go Offline button on driver home page is Enabled", "Go Offline button on driver home page is disabled");
+                   // testStepVerify.isElementTextEquals(Page_DriverHome.Button_OnlineOffline(), PropertyUtility.getMessage("driver.home.gooffline"), "Go offline button on driver should be enabled", "Go Offline button on driver home page is Enabled", "Go Offline button on driver home page is disabled");
                     break;
                 case "Enroute screen":
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should not be highlighted ", "Arrived icon is not highlighted", "Arrived icon is  highlighted");

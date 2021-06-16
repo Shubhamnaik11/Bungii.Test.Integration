@@ -55,7 +55,7 @@ public class BungiiInProgressSteps extends DriverBase {
                     isCustomerNameCorrect = action.getText(bungiiProgressPage.Text_DuoCustomer_Name()).equals(expectedCustName);
 
                     String driver2Name = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
-
+                    Thread.sleep(3000);
                     String driverName = action.getText(bungiiProgressPage.Text_DuoDriver_Name());
                     String expected2 = driver2Name.substring(0, driver2Name.indexOf(" ") + 2);
 
@@ -76,6 +76,7 @@ public class BungiiInProgressSteps extends DriverBase {
                     isCustomerNameCorrect = action.getText(bungiiProgressPage.Text_DuoCustomer_Name()).equals(expectedCustName);
 
                     String driver1Name = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                    Thread.sleep(3000);
 
                     String driverName = action.getText(bungiiProgressPage.Text_DuoDriver_Name());
                     String expected1 = driver1Name.substring(0, driver1Name.indexOf(" ") + 2);
