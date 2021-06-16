@@ -5,6 +5,7 @@ package com.bungii.android.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.android.utilityfunctions.*;
@@ -465,7 +466,7 @@ public class ScheduledTripSteps extends DriverBase {
 			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(), name[0]);
 			action.click(scheduledTripsPage.Button_Search());
 
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 			List<WebElement> rows = SetupManager.getDriver().findElements(By.xpath(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0])));
 			if(rows.size()>0)
 			rows.get(0).click();
@@ -479,6 +480,29 @@ public class ScheduledTripSteps extends DriverBase {
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error("Step  Should be successful", "Problem in selecting a Bungii Scheduled deliveries in admin portal for customer "+custName,
+					true);
+		}
+	}
+
+	@And("^I open the trip for customer using pickupref$")
+	public void i_open_the_trip_for_customer() throws Throwable {
+		String pickupref = "";
+		try {
+			 pickupref = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+
+			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(), pickupref);
+			action.click(scheduledTripsPage.Button_Search());
+
+			Thread.sleep(10000);
+			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//tr/td/p[@id='btnEdit']"),PageBase.LocatorType.XPath);
+			if(rows.size()>0)
+				rows.get(0).click();
+			pass("I should able to open trip", "I viewed scheduled delivery",
+					false);
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Problem in selecting a Bungii Scheduled deliveries in admin portal for customer with pickupref "+ pickupref,
 					true);
 		}
 	}
@@ -521,17 +545,7 @@ public class ScheduledTripSteps extends DriverBase {
 	 * @param tripDetails Trip information
 	 */
 	public void RemoveDriver(Map<String, String> tripDetails) {
-		/*int rowNumber = getTripRowNumber(tripDetails);
-		testStepAssert.isFalse(rowNumber == 999, "I should able to find bungii that is to be cancelled ", "I found bungii at row number " + rowNumber, " I was not able to find bungii");
-		WebElement editButton;
-		if (rowNumber == 0) {
-			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
-		} else
-			//vishal[1403] : Updated xpath
-			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/p[@id='btnEdit']"));
 
-		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
-		editButton.click();*/
 		action.click(scheduledTripsPage.CheckBox_Driver1());
 		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 		if (numberOfDriver.equalsIgnoreCase("duo"))

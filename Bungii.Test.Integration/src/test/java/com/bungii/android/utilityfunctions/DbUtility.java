@@ -219,7 +219,7 @@ public class DbUtility extends DbContextManager {
 
     public String getFinalBungiiCost(String pickupref){
 
-        String queryString2 = "SELECT ActualEstCost FROM pickupdetails WHERE pickupref='"+pickupref+"'";
+        String queryString2 = "SELECT pickup_revenue FROM pickupdetails WHERE pickupref='"+pickupref+"'";
         String cost = getDataFromMySqlServer(queryString2);
         return cost;
     }

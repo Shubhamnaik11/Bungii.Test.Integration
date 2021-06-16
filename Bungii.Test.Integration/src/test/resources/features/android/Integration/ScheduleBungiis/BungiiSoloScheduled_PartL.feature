@@ -76,20 +76,6 @@ Then The user should be logged in
 When I tap on the "ACCOUNT>PROMOS" link
 And I should able to see expected promo code in available promo code
 Then The "This code is only available for your first Bungii." is displayed
-    #When I tap on "Menu" > "Payment" link
-When I tap on the "ACCOUNT>PROMOS" link
-And I get the number of cards present
-And I tap on "Add" on Payment page
-And I tap on "Credit or Debit Card" on Payment page
-And I enter "<Card Detail>" on Card Details page
-And I enter "<Card Expiry>" on Card Details page
-And I enter "<CVV>" on Card Details page
-And I enter "<Postal Code>" on Card Details page
-
-And I tap on "Add Card" on Payment page
-Then I should see "the card has been added" on Payment page
-And I tap on the "ACCOUNT>LOGOUT" link
-    #And I tap on "Menu" > "Logout" link
 Then I save customer phone and referral code in feature context
 Examples:
 | Scenario       | Card Detail                | Card Expiry       |CVV      |Postal Code      |

@@ -28,7 +28,7 @@ public class BungiiCompletedSteps extends DriverBase {
                     verifyTripValue();
                     break;
                 case "correct details for duo trip":
-                    action.scrollToBottom();
+                    //action.scrollToBottom();
                     verifyTripValue();
                     break;
                 case "summary":

@@ -53,7 +53,7 @@ public class HomePageSteps extends DriverBase {
 
             }
             Thread.sleep(3000);
-            boolean isClicked = false;
+            boolean isClicked = false;  if (action.isAlertPresent()) { utility.acceptNotificationAlert(); }
             action.click(driverHomePage.Button_NavigationBar());
             List<WebElement> elements = driverHomePage.Button_NavigationBarText();
             if (action.isAlertPresent()) {

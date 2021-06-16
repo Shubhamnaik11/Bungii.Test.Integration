@@ -281,17 +281,19 @@ Feature: SoloScheduled Part I
 
 
   @regression
-  Scenario: Rate: Verify If Customer Can Rate Driver For The Duo Trip
+    @testing
+  Scenario: Rate: Verify If Customer Can Rate both Drivers For The Duo Delivery
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
-
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state    | driver2 state    |
+      | Unloading item   | Unloading item |
+    
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
 
-    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action one by one with respective "DUO SCHEDULED" delivery
       | driver1 state    | driver2 state    |
       | Bungii Completed | Bungii Completed |
 

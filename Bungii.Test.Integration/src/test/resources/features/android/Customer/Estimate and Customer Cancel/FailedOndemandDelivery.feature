@@ -54,7 +54,7 @@ Feature: Failed Ondemand Delivery
     And I wait for "4" mins
     Then I verify that "SET PICKUP TIME PAGE" is displayed
     When I click on "BUNGII DATE TIME" icon on "SET PICKUP TIME" Page
-    And I schedule Bungii at "Next Schedule" Time
+    And I schedule Bungii at "Future" Time
     And I click on "SCHEDULE BUNGII" button
     And I click "Done" button on "Success" screen
     Then the trip is displayed on "MY BUNGII" screen

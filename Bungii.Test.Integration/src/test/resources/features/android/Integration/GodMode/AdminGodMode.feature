@@ -391,7 +391,6 @@
         And I Select "Scheduled Trip" from admin sidebar
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
-    #And I change the "3 hour ahead" to future time
         And I change the "particular trip time" to future time
         And I click on "VERIFY" button
         Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed

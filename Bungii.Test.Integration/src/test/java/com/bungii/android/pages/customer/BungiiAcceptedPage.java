@@ -31,9 +31,9 @@ public class BungiiAcceptedPage extends PageBase {
     {
         return findElement("com.bungii.customer:id/bungii_accepted_driver_name", LocatorType.Id);
     }
-    public WebElement Button_OK()
+    public WebElement Button_OK(boolean...ignoreException)
     {
-        return findElement("com.bungii.customer:id/bungii_accepted_button_ok", LocatorType.Id);
+        return findElement("com.bungii.customer:id/bungii_accepted_button_ok", LocatorType.Id,ignoreException);
     }
 
     //STACK

@@ -379,9 +379,8 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | CUSTOMER1_PHONE |                 |
 	
 	
-  @ready
-	@nonstable
-  #Scenario:Verify If Driver Receieve Notification After Admin Researches For Drivers
+  @regression
+	#stable
   Scenario: Verify If Customer does not Receives Notification After Admin Researches Drivers And Both Drivers Assigned from Admin
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -393,18 +392,17 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I close "Tutorial" if exist
 	
-	#Then I wait for "2" mins
 	When I open new "Chrome" browser for "ADMIN"
 	And I navigate to admin portal
 	And I log in to admin portal
 	And I Select "Scheduled Trip" from admin sidebar
-	And I open the trip for "Testcustomertywd_applesDGJnr Stark" the customer
+	And I open the trip for customer using pickupref
 	And I researches Bungii
 	And I click on "Close" button
 	
 	Then I wait for "2" mins
 	And I open Admin portal and navigate to "Scheduled Deliveries" page
-	And I open the trip for "Testcustomertywd_applesDGJnr Stark" the customer
+	And I open the trip for customer using pickupref
 	And I Select "Edit Trip Details" option
 	And I assign driver for the "Duo" trip
 	And I click on "VERIFY" button

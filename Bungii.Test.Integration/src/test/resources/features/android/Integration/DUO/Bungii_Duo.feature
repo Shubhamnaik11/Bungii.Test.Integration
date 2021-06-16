@@ -7,7 +7,6 @@ Feature: Scheduled Duo Bungiis
 	
   @regression
   @sanity
-  @nonstable
 	#stable
   Scenario: Verify Customer can request Scheduled Duo Bungii [Kansas Geofence]
 	Given I am logged in as "valid atlanta" customer
@@ -129,7 +128,7 @@ Feature: Scheduled Duo Bungiis
 	  | CUSTOMER1_PHONE |                 |
   
   @regression
-	@nonstable
+	#Stable
   Scenario: Verify that Duo scheduled Bungii can be started 30 mins before the scheduled Trip start time
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time    | Customer | Driver1 | Driver2        |
@@ -190,11 +189,9 @@ Feature: Scheduled Duo Bungiis
   
   @regression
 	#stable
-	@nonstable
   Scenario: Verify Other Driver And Customer Are Notified When One Driver Cancels The Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-	  #| atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
 	  | Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
   
 	When I Switch to "customer" application on "same" devices

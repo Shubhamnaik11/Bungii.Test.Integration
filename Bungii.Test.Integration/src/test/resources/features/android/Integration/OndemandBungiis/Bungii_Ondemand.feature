@@ -148,8 +148,8 @@ Feature: On Demand Bungii
     #And Customer should receive "Your Bungii Receipt" email
   
     
-  @ready
-    @aa
+  @regression
+  #stable
   Scenario:Verify ondemand Trip is displayed in past trips after completion
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
@@ -165,7 +165,8 @@ Feature: On Demand Bungii
     
     
   @regression
-  Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount
+    #stable
+  Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount and Poor driver rating email
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
       | baltimore | UNLOADING ITEM |
@@ -188,7 +189,6 @@ Feature: On Demand Bungii
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
     And I click "On To The Next One" button on the "Bungii Completed" screen
     Then poor driver ratting should be sent to customer
-    And I Switch to "customer" application on "same" devices
-    And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
+   
 
  

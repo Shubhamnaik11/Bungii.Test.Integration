@@ -5,25 +5,12 @@
 Feature: Bungii Requests
 	  
 	  @regression
-		@reg1
+		#Stable
 	  Scenario:  Verify Customer Can Schedule Solo Bungii Only 5 Days Ahead Including Current Date
 	  Given I login as customer "8805368840" and is on Home Page
 	  And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	  And I close "Tutorial" if exist
-	  And I enter "boston pickup and dropoff locations" on Bungii estimate
-	  And I tap on "Get Estimate button" on Bungii estimate
-	  And I add loading/unloading time of "30 mins"
-	  And I get Bungii details on Bungii Estimate
-	  And I add "1" photos to the Bungii
-	  When I confirm trip with following detail
-	  | Day | Trip Type |
-	  | 1   | SOLO      |
-	  And I tap on "Request Bungii" on Bungii estimate
-	  And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-	  And I click "Done" button on "Success" screen
-	  
-	  And I tap on "Menu" > "Home" link
-	  And I enter "boston pickup and dropoff locations" on Bungii estimate
+		And I enter "boston pickup and dropoff locations" on Bungii estimate
 	  And I tap on "Get Estimate button" on Bungii estimate
 	  And I add loading/unloading time of "30 mins"
 	  And I get Bungii details on Bungii Estimate
@@ -34,20 +21,7 @@ Feature: Bungii Requests
 	  And I tap on "Request Bungii" on Bungii estimate
 	  And I tap on "Yes on HeadsUp pop up" on Bungii estimate
 	  And I click "Done" button on "Success" screen
-	  
-	  And I tap on "Menu" > "Home" link
-	  And I enter "boston pickup and dropoff locations" on Bungii estimate
-	  And I tap on "Get Estimate button" on Bungii estimate
-	  And I add loading/unloading time of "30 mins"
-	  And I get Bungii details on Bungii Estimate
-	  And I add "1" photos to the Bungii
-	  When I confirm trip with following detail
-	  | Day | Trip Type |
-	  | 3   | SOLO      |
-	  And I tap on "Request Bungii" on Bungii estimate
-	  And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-	  And I click "Done" button on "Success" screen
-	  
+		
 	  And I tap on "Menu" > "Home" link
 	  And I enter "boston pickup and dropoff locations" on Bungii estimate
 	  And I tap on "Get Estimate button" on Bungii estimate
@@ -77,21 +51,7 @@ Feature: Bungii Requests
 	  Given I login as customer "8805368840" and is on Home Page
 	  And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	  And I close "Tutorial" if exist
-	  And I enter "boston pickup and dropoff locations" on Bungii estimate
-	  And I tap on "two drivers selector" on Bungii estimate
-	  Then I should see "two drivers selected" on Bungii estimate
-	  When I tap on "Get Estimate button" on Bungii estimate
-	  And I confirm trip with following detail
-	  | Day | Trip Type |
-	  | 1   | DUO       |
-	  And I add loading/unloading time of "30 mins"
-	  And I get Bungii details on Bungii Estimate
-	  And I add "1" photos to the Bungii
-	  And I tap on "Request Bungii" on Bungii estimate
-	  And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-	  And I click "Done" button on "Success" screen
-	  
-	  And I tap on "Menu" > "Home" link
+		
 	  And I enter "boston pickup and dropoff locations" on Bungii estimate
 	  And I tap on "two drivers selector" on Bungii estimate
 	  Then I should see "two drivers selected" on Bungii estimate
@@ -114,21 +74,6 @@ Feature: Bungii Requests
 	  And I confirm trip with following detail
 	  | Day | Trip Type |
 	  | 3   | DUO       |
-	  And I add loading/unloading time of "30 mins"
-	  And I get Bungii details on Bungii Estimate
-	  And I add "1" photos to the Bungii
-	  And I tap on "Request Bungii" on Bungii estimate
-	  And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-	  And I click "Done" button on "Success" screen
-	  
-	  And I tap on "Menu" > "Home" link
-	  And I enter "boston pickup and dropoff locations" on Bungii estimate
-	  And I tap on "two drivers selector" on Bungii estimate
-	  Then I should see "two drivers selected" on Bungii estimate
-	  When I tap on "Get Estimate button" on Bungii estimate
-	  And I confirm trip with following detail
-	  | Day | Trip Type |
-	  | 4   | DUO       |
 	  And I add loading/unloading time of "30 mins"
 	  And I get Bungii details on Bungii Estimate
 	  And I add "1" photos to the Bungii

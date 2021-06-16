@@ -58,7 +58,7 @@ Feature: Bungii Duo Scheduled Part D
   
   
   @regression
-	@nonstable
+	#stable
   Scenario: Verify Status Of Scheduled Bungii In the Scheduled Trip Screen When Only One Driver Accepts The Trip
 	And I request "duo" Bungii as a customer in "kansas" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -85,7 +85,7 @@ Feature: Bungii Duo Scheduled Part D
   
   
   @regression
-  @nonstable
+ #stable
   Scenario:Verify Details In The Bungii Details Screen When Required Number Of Drivers Accept The Trip
 	
 	When I request "duo" Bungii as a customer in "kansas" geofence
@@ -111,34 +111,7 @@ Feature: Bungii Duo Scheduled Part D
 	  | Customer Phone | Customer2 Phone |
 	  | 8805368840     |                 |
 
-  #@regression
-  @ready
-  @nonstable
-  Scenario: Verify Customer Receives Notification When Control Driver Starts Duo Bungii
-	When I clear all notification
-	And I request "duo" Bungii as a customer in "kansas" geofence
-	  | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-	  | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-	Then I Switch to "customer" application on "same" devices
-	Given I am on customer Log in page
-	When I enter customers "8805368840" Phone Number
-	And I enter customers "valid" Password
-	And I tap on the "Log in" Button on Login screen
-	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	And I close "Tutorial" if exist
-	
-	When I Switch to "driver" application on "same" devices
-	And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
-	  | driver1 state | driver2 state |
-	  | Enroute       | Enroute      |
-	
-	When I Switch to "customer" application on "same" devices
-	And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
-	
-	Then I cancel all bungiis of customer
-	  | Customer Phone | Customer2 Phone |
-	  | 8805368840     |                 |
-
+ 
   
   @regression
 	@nonstable
@@ -177,8 +150,8 @@ Feature: Bungii Duo Scheduled Part D
 	  | 8805368840     |                 |
   
   
-  @ready
-	@nonstable
+  @regression
+	#stable
   Scenario: Verify Customer Can See Text Stating That Driver Can Be Contacted On The Bungii Details Screen Only When The Trip Has Been Accepted By Required Number Of Drivers
 	When I request "duo" Bungii as a customer in "Kansas" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -199,5 +172,33 @@ Feature: Bungii Duo Scheduled Part D
 	Then I verify that text "Your driver will contact you when they are en-route." is displayed
 	Then I cancel all bungiis of customer
 	  
+	  | Customer Phone | Customer2 Phone |
+	  | 8805368840     |                 |
+	
+	 #@regression
+  @ready
+  @nonstable
+  Scenario: Verify Customer Receives Notification When Control Driver Starts Duo Bungii
+	When I clear all notification
+	And I request "duo" Bungii as a customer in "kansas" geofence
+	  | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+	  | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+	Then I Switch to "customer" application on "same" devices
+	Given I am on customer Log in page
+	When I enter customers "8805368840" Phone Number
+	And I enter customers "valid" Password
+	And I tap on the "Log in" Button on Login screen
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	
+	When I Switch to "driver" application on "same" devices
+	And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+	  | driver1 state | driver2 state |
+	  | Enroute       | Enroute      |
+	
+	When I Switch to "customer" application on "same" devices
+	And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
+	
+	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
 	  | 8805368840     |                 |

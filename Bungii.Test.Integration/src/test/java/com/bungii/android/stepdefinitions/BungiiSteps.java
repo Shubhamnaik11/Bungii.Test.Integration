@@ -562,6 +562,7 @@ public class BungiiSteps extends DriverBase {
 
             switch (arg0) {
                 case "OK on Driver Accepted screen":
+                    if(action.isElementPresent(Page_BungiiAccepted.Button_OK(true)))
                     action.waitUntilIsElementExistsAndDisplayed(Page_BungiiAccepted.Button_OK());
                     action.click(Page_BungiiAccepted.Button_OK());
                     break;

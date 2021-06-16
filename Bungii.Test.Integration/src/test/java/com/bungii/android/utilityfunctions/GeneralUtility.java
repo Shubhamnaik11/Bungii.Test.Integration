@@ -1397,6 +1397,14 @@ Thread.sleep(5000);
         String mins=setPickupTimePage.Text_SelectMinutes().getText();
         action.click(setPickupTimePage.Button_TimePickerOK());
     }
+    public void selectFutureTime() {
+        action.click(estimatePage.Button_DateConfirm());
+        int currentHour= Integer.parseInt(setPickupTimePage.Text_SelectHours().getText());
+        currentHour=currentHour+2;
+        action.sendKeys(setPickupTimePage.Text_SelectHours(),String.valueOf(currentHour));
+        String mins=setPickupTimePage.Text_SelectMinutes().getText();
+        action.click(setPickupTimePage.Button_TimePickerOK());
+    }
     /*private void selectHour(String hour) throws InterruptedException {
         int hrs = Integer.parseInt(action.getText(setPickupTimePage.Text_SelectHours()));
         if (hrs == Integer.parseInt(hour)) {

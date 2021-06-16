@@ -91,7 +91,7 @@ Feature: On Demand Bungii
 	And I tap "Add" on Save Money page
 	Then I should able to see expected promo code in available promo code
 	And I tap on "Back" icon of page
-	And I should see "all elements" on Bungii estimate
+	
 	And I tap on "Request Bungii" on Bungii estimate
 	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
 	Then for a Bungii I should see "Bungii search screen"

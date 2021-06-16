@@ -515,6 +515,13 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("goa.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("goa.customer.phone"));
                     break;
+
+                case "Testcustomertywd_apple_AGQFCg Test":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone"),
+                            PropertyUtility.getDataProperties("goa.customer.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("goa.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("goa.customer.phone"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -1130,6 +1137,11 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
                    // utility.selectTime();
                     utility.selectNewerTime();
                     break;
+                case "Future":
+                    // utility.selectTime();
+                    utility.selectFutureTime();
+                    break;
+
 
                 default:
                     error("UnImplemented Step", "UnImplemented Step");

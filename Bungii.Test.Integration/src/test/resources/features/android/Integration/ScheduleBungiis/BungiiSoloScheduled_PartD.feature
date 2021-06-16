@@ -45,7 +45,7 @@ Feature: SoloScheduled Part D
   
   
   @regression
-  Scenario: Verify When Bungii Is Cancelled By Admin It Is Removed From The Scheduled Trip List On Drivers App
+  Scenario: Verify When Bungii Is Cancelled By Admin It Is Removed From The Scheduled Trip List On Customers App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas   | Accepted     | NEXT_POSSIBLE |
@@ -53,11 +53,6 @@ Feature: SoloScheduled Part D
     And I am logged in as "valid" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
     And I wait for "2" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page

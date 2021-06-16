@@ -562,7 +562,7 @@ public class HomeSteps extends DriverBase {
                 case "Goa Geofence pickup location":
                     if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
                         action.click(homePage.Button_ClearPickUp());
-                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Goa"));
                     if(action.isElementPresent(homePage.Button_ETASet(true)))
                        action.click(homePage.Button_ETASet());
                     Thread.sleep(2000);
@@ -570,13 +570,13 @@ public class HomeSteps extends DriverBase {
                 case "Goa pickup location":
                     if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
                         action.click(homePage.Button_ClearPickUp());
-                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Goa"));
                     //if(action.isElementPresent(homePage.Button_ETASet(true)))
                     //  action.click(homePage.Button_ETASet());
                     Thread.sleep(2000);
                     break;
                 case "Goa Geofence dropoff location":
-                    utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
+                    utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
                     if(action.isElementPresent(homePage.Button_ETASet(true)))
                         action.click(homePage.Button_ETASet());
                     Thread.sleep(2000);

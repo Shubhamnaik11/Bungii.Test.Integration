@@ -192,7 +192,6 @@ And I log in to admin portal
 And I Select "Scheduled Trip" from admin sidebar
 And I click on "Edit Trip1" button
 And I remove "control" driver and researches Bungii
-And I click on "Close" button
 
 Then I wait for "2" mins
 And I open Admin portal and navigate to "Scheduled Deliveries" page

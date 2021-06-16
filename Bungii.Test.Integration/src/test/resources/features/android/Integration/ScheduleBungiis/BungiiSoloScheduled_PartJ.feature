@@ -98,12 +98,12 @@ Feature: SoloScheduled Part B
     And I tap on "two drivers selector" on Bungii estimate
 
     And I tap on "Get Estimate button" on Bungii estimate
+    And I add loading/unloading time of "30 mins"
+    And I add "1" photos to the Bungii
     And I confirm trip with following details
       | Day | Trip Type | Time                                               |
       | 0   | DUO       | <TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1> |
-    And I add loading/unloading time of "30 mins"
     And I get Bungii details on Bungii Estimate
-    And I add "1" photos to the Bungii
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate

@@ -13,12 +13,15 @@ Feature: SoloScheduled Part C
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 1 hour ahead |
     When I Open "driver" application on "same" devices
+    And I wait for 2 minutes
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     And I wait for 2 minutes
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I wait for 2 minutes
     And I Select Trip from driver scheduled trip
+    And I wait for 2 minutes
     And Bungii Driver "Start Schedule Bungii" request
     Then Bungii driver should see "Enroute screen"
     Then I cancel all bungiis of customer
@@ -65,7 +68,7 @@ Feature: SoloScheduled Part C
     
   @regression
     #stable
-  Scenario: Verify driver is able to view pickup note entered in Details when a Solo scheduled bungii is in progress
+  Scenario: Verify driver is able to view pickup note entered in Details when a DUO scheduled bungii is in progress
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver

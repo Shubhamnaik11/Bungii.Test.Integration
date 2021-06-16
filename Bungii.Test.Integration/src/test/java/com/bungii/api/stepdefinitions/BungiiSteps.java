@@ -896,6 +896,174 @@ public class BungiiSteps extends DriverBase {
             }
         }
     }
+
+    @And("^As a driver \"([^\"]*)\" and \"([^\"]*)\" perform below action one by one with respective \"([^\"]*)\" delivery$")
+    public void as_a_driver_something_and_something_perform_below_action_one_by_one_with_respective_something_trip(String driverAName, String driverBName, String bungiiType, DataTable data) {
+        {
+            cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
+            cucumberContextManager.setScenarioContext("DRIVER_1", driverAName);
+            cucumberContextManager.setScenarioContext("DRIVER_2", driverBName);
+
+            String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
+            String driverAccessToken = "", driver2AccessToken = "";
+            //get geofence and pickup request from context
+            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+
+
+            driverPhoneNum = getDriverPhone(driverAName);
+            driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
+            //  cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("web.valid.driver.name"));
+            cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+            authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword); //Force login dunno why
+            driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+            coreServices.updateDriverLocation(driverAccessToken, geofence);
+            coreServices.updateDriverStatus(driverAccessToken);
+
+
+            driver2PhoneNum = getDriverPhone(driverBName);
+            driver2Password = PropertyUtility.getDataProperties("web.valid.common.driver.password");
+            // cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("web.valid.driver2.name"));
+            cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
+            authServices.driverLogin(driver2PhoneCode, driver2PhoneNum, driver2Password);
+            driver2AccessToken = authServices.getDriverToken(driver2PhoneCode, driver2PhoneNum, driver2Password);
+            coreServices.updateDriverLocation(driver2AccessToken, geofence);
+            coreServices.updateDriverStatus(driver2AccessToken);
+
+            List<Map<String, String>> DataList = data.asMaps();
+            int i = 0;
+            while (i < DataList.size()) {
+                try {
+                    String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
+                    String driver2State = DataList.get(i).get("driver2 state").trim();//status like accepted/enroute etc
+                    String tripLabel = "", pickupRequest = "";
+                    try {
+                        tripLabel = DataList.get(i).get("label").trim();
+                    } catch (Exception e) {
+                    }
+
+                    if (tripLabel.equals(""))
+                        pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    else
+                        pickupRequest = (String) cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST_" + tripLabel);
+                    if (bungiiType.equalsIgnoreCase("Solo Scheduled Researched") || bungiiType.equalsIgnoreCase("Duo Scheduled Researched")) {
+                        pickupRequest = new DbUtility().getResarchedPickupReference(pickupRequest); //researched pickup ref
+                        cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+                        bungiiType = bungiiType.replace("Researched", "");
+                    }
+
+                    logger.detail("*** As a driver " + driverAName + "(" + driverPhoneNum + ") " + bungiiType + "(" + pickupRequest + ") is being " + driver1State);
+
+                    if (bungiiType.equalsIgnoreCase("DUO SCHEDULED")) {
+
+                        if (driver1State.equalsIgnoreCase("Accepted")) {
+                            try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
+                            //  coreServices.waitForAvailableTrips(driverAName + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest); //temporary comment
+                        }
+                        logger.detail("*** As a driver " + driverBName + "(" + driver2PhoneNum + ") " + bungiiType + "(" + pickupRequest + ") is being " + driver2State);
+
+                        if (driver2State.equalsIgnoreCase("Accepted")){
+                            try{ coreServices.getDriverScheduledPickupList(driver2AccessToken);coreServices.driverView("",driver2AccessToken);}catch (Exception e){}
+                            //  coreServices.waitForAvailableTrips(driverBName + "(" + driver2PhoneNum + ")", driver2AccessToken, pickupRequest);
+                        }
+
+                        if (driver2State.equalsIgnoreCase("Accepted")) {
+                            try{ coreServices.getDriverScheduledPickupList(driver2AccessToken);coreServices.driverView("",driver2AccessToken);}catch (Exception e){}
+                            //  coreServices.waitForAvailableTrips(driverAName + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest); //temporary comment
+                        }
+                        if (driver1State.equalsIgnoreCase("Accepted")) {
+                            coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
+                            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+
+                        }
+
+                        boolean  waitedForMinTime = false;
+                        if (driver1State.equalsIgnoreCase("Enroute")) {
+                            //int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
+                            int wait = Integer.parseInt((String)cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START"));
+
+                            coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                            if (!driver2State.equalsIgnoreCase("Accepted")) { // new addition
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                            }
+                        }
+                        if (driver2State.equalsIgnoreCase("Accepted")) {
+                            if (!driver1State.equalsIgnoreCase("Enroute")) {
+                                coreServices.pickupdetails(pickupRequest, driver2AccessToken, geofence);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+                            }
+                        }
+                        if (driver2State.equalsIgnoreCase("Enroute")) {
+                            if (!driver1State.equalsIgnoreCase("Enroute")) {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+                                //If Driver 1 is accepted and Driver 2 starts trip
+                            }
+                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                        }
+                        if (driver1State.equalsIgnoreCase("Arrived")) {
+
+                            coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                        }
+                        if (driver2State.equalsIgnoreCase("Arrived")) {
+
+                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driver2AccessToken);
+                        }
+
+                        if (driver1State.equalsIgnoreCase("Loading Item")) {
+                            coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                        }
+                        if (driver2State.equalsIgnoreCase("Loading Item")) {
+
+                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driver2AccessToken);
+                        }
+
+
+                        if (driver1State.equalsIgnoreCase("Driving To Dropoff") ) {
+                            coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                        }
+                        if (driver2State.equalsIgnoreCase("Driving To Dropoff") ) {
+                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 26);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driver2AccessToken);
+                        }
+
+
+
+                        if (driver1State.equalsIgnoreCase("Unloading item")) {
+                            coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                        }
+                        if (driver2State.equalsIgnoreCase("Unloading item")) {
+                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 27);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driver2AccessToken);
+                        }
+
+                        if (driver1State.equalsIgnoreCase("Bungii Completed")) {
+                            coreServices.updateStatus(pickupRequest, driverAccessToken, 28);  //Control driver completing trip
+                        }
+                        if (driver2State.equalsIgnoreCase("Bungii Completed")) {
+
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 28);  //Control driver completing trip
+                        }
+
+                    }
+                    log("As a driver, update the bungii state ", "As a driver "+driverAName+" and "+driverBName+" delivery is moved to a state " +driver1State +" and "+ driver1State+ " respectively.", false);
+                    i++;
+                } catch (Exception e) {
+
+                    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                    error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                            true);
+
+                }
+            }
+        }
+    }
+
     @And("^As a driver \"([^\"]*)\" perform below action with respective \"([^\"]*)\" trip$")
     public void as_a_driver_something_and_something_perform_below_action_with_respective_something_trip(String driverAName, String bungiiType, DataTable data) {
         {

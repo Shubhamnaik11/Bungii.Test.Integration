@@ -258,7 +258,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             Map<String, String> data = tripInformation.transpose().asMap(String.class, String.class);
             String day = data.get("Day"),
                     tripType = data.get("Trip Type");
-
+            action.scrollToTop();
             selectBungiiTime(Integer.parseInt(day), "05", "30", "PM", tripType);
 
         } catch (Exception e) {
@@ -682,7 +682,8 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void selectBungiiTime(int nextDate, String hour, String minutes, String meridiem, String tripType) {
         try {
             if (nextDate == 0) {
-                action.click(estimatePage.Time());
+                    action.click(estimatePage.Time());
+
                 if (tripType.equals("SOLO")) {
                     action.click(estimatePage.Button_Later());
                 }

@@ -102,7 +102,7 @@ Feature: Bungii Duo Scheduled Part A
     Then "Enroute screen" page should be opened
 
     And I connect to "extra1" using "customer2" instance
-    And I Open "customer" application on "same" devices
+    And I Open "customer" application on "customer2" devices
     When I Switch to "customer" application on "customer2" devices
     And I am logged in as "valid customer 2" customer
 

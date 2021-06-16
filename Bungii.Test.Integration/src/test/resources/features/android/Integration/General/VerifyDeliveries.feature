@@ -75,39 +75,7 @@ Feature: Delivery Flows
       | Customer Phone  | Customer2 Phone |
       | 8888889916      | 8805368840      |
   
-  @regression
-    #stable
-  Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of The Time That Is Set For Trip Alert Settings
-    When I clear all notification
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881019 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    #When I Select "ALERT SETTINGS" from driver App menu
-    When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
-    When I Select "ALERT SETTINGS" from ACCOUNT menu
-    And I update kansas driver todays trip alert setting to outside current time
-    When I Switch to "customer" application on "same" devices
-    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-    
-    When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    Then I should be navigated to "AVAILABLE BUNGIIS" screen
-    And I should able to see "zero" available trip
-    #And I Select "ALERT SETTINGS" from driver App menu
-    When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
-    When I Select "ALERT SETTINGS" from ACCOUNT menu
-    And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
+  
     
   @regression
    #stable
@@ -138,4 +106,37 @@ Feature: Delivery Flows
       | Customer Phone  | Customer2 Phone |
       | 8805368840 | 8888888881      |
   
- 
+  @regression
+    #stable
+    #ALWAYS LAST TO BE EXECUTED
+  Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of The Time That Is Set For Trip Alert Settings
+    When I clear all notification
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :8888881019 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    When I Select "ACCOUNT" from driver App menu
+    And the "ACCOUNT" page is opened
+    When I Select "ALERT SETTINGS" from ACCOUNT menu
+    And I update trip setting of "TODAY" to "12:00 AM" to "12:05 AM"
+  
+    #And I update kansas driver todays trip alert setting to outside current time
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    
+    When I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    Then I should be navigated to "AVAILABLE BUNGIIS" screen
+    And I should able to see "zero" available trip
+    When I Select "ACCOUNT" from driver App menu
+    And the "ACCOUNT" page is opened
+    When I Select "ALERT SETTINGS" from ACCOUNT menu
+    And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |

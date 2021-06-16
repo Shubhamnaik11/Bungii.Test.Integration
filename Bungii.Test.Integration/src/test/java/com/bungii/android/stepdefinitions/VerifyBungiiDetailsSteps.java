@@ -8,6 +8,7 @@ import com.bungii.android.stepdefinitions.Customer.LoginSteps;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -80,7 +81,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
         String expectedTripCost = dbUtility.getFinalBungiiCost(pickupref);
         expectedTripCost= expectedTripCost.replace("~","");
         String actualTripCost=action.getText(myBungiisPage.Text_TripCost());
-        testStepAssert.isEquals(actualTripCost,expectedTripCost,"Trip cost expected is "+expectedTripCost,"Expected Trip Cost is displayed.",expectedTripCost+" is not displayed.");
+        testStepAssert.isEquals(actualTripCost,"$"+expectedTripCost,"Trip cost expected is "+expectedTripCost,"Expected Trip Cost is displayed.",expectedTripCost+" is not displayed.");
 
     }
     @Then("^I verify the field \"([^\"]*)\"$")
@@ -170,7 +171,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
         try{
 
             List<WebElement> selectDriver;
-            selectDriver= SetupManager.getDriver().findElements(By.xpath("//android.widget.ImageView[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow'][1]"));
+            selectDriver= myBungiisPage.findElements("//android.widget.ImageView[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow'][1]",PageBase.LocatorType.XPath);
             action.click(selectDriver.get(0));
             log("I open first trip from Past Bungiis ","I opened first trip from Past Bungiis ",true);
         }catch (Exception e) {
@@ -184,19 +185,25 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     public void i_open_the_trip_for_something_driver(String driverName) throws Throwable {
         try{
 
-            WebElement selectDriver;
             String[] Name = driverName.split(" ");
             driverName = Name[0]+" "+Name[1].charAt(0)+"."; //Last Name initial
              Thread.sleep(5000);
-            selectDriver= SetupManager.getDriver().findElement(By.xpath("//*[contains(@text, '"+driverName+"')]/following::android.widget.ImageView[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow'][1]"));
-            action.click(selectDriver);
-            log("I open trip from Past Bungiis ","I opened trip of "+driverName+" from Past Bungiis ",true);
+            List<WebElement> selectDriver;
+            selectDriver= myBungiisPage.findElements("//*[contains(@text, '"+driverName+"')]/following::android.widget.ImageView[@resource-id='com.bungii.customer:id/item_my_bungii_iv_arrow'][1]",PageBase.LocatorType.XPath);
+            if(selectDriver.size()>0) {
+                action.click(selectDriver.get(0));
+                log("I open trip from Past Bungiis ","I opened trip of customer of driver "+driverName+" from Past Bungiis ",true);
+            }
+            else
+            {
+                testStepAssert.isFail("Delivery of customer of driver "+driverName+" from Past Bungiis is not displayed");
+            }
 
             cucumberContextManager.setScenarioContext("DRIVER1NAME",driverName);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             //logger.error("Page source", SetupManager.getDriver().getPageSource());
-            error("Step  Should be successful", "Trip is not displayed in Past Trips", true);
+            error("Step  Should be successful", "Completed Delivery for customer of driver "+ driverName+" is not displayed in Past Trips", true);
         }
     }
 }

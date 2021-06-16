@@ -1137,7 +1137,9 @@ public class CommonSteps extends DriverBase {
                 case "YES":
                     action.click(inProgressBungiiPages.Button_Cancel_Yes());
                     break;
+
             }
+            log("I click "+strArg1+" on the alert message","I clicked "+strArg1+" on the alert message",false);
         } catch (Exception e) {
             log("I should able to click " + strArg1 + "on Alert Message",
                     "I clicked " + strArg1 + "on Alert Message", true);
@@ -1281,7 +1283,9 @@ public class CommonSteps extends DriverBase {
         String driverName=(String) cucumberContextManager.getScenarioContext("DRIVER_1");/*driverName="Testdrivertywd_appledv_b_matt Stark_dvOnE";*/
         String customerName=(String)cucumberContextManager.getScenarioContext("CUSTOMER");/*customerName="Testcustomertywd_appleZTDafc Stark";*/
         String ratingValue=(String)cucumberContextManager.getScenarioContext("RATING_VALUE");/*ratingValue="3";*/
-        String tripDetailsLink=extractUrls(emailBody).get(0);
+        String tripDetailsLink="";
+        if(emailBody!=null)
+            tripDetailsLink = extractUrls(emailBody).get(0);
         if(emailBody== null)
         {
             testStepAssert.isFail("Email : "+ emailSubject + " not received");

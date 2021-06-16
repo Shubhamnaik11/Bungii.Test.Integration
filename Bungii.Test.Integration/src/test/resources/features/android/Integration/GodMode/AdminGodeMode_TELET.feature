@@ -184,7 +184,7 @@
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
-      And I am logged in as "Testdriver_goa_c Android_test" driver
+      And I am logged in as "Testdriver_goa_d Android_test" driver
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       Then I should able to see "two" scheduled trip
    
@@ -240,7 +240,7 @@
   
 	  @regression
    #Stable
-      Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip at same time
+      Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip TELET overlap
        
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
