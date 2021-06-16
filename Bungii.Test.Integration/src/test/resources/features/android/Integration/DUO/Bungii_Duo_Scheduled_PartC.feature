@@ -8,6 +8,7 @@ Background:
 
 @regression
     #stable
+  @nonstable
 Scenario: Verify Customer Can Cancel Through SMS To Admin If Required Number Of Drivers Have Accepted The Trip  - case : duo
 Given that duo schedule bungii is in progress
 | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
@@ -43,6 +44,7 @@ Then Bungii must be removed from "MY BUNGIIS" screen
 
 @regression
     #stable
+  @nonstable
 Scenario: Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over :Duo
 When I request "duo" Bungii as a customer in "kansas" geofence
 | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -80,6 +82,7 @@ Then Bungii must be removed from "MY BUNGIIS" screen
 
 @regression
     #stable
+  @nonstable
 Scenario: Verify Customer Can Cancel Through SMS To Admin If Only One Driver Accepts And Processing Gets Over
 When I request "duo" Bungii as a customer in "kansas" geofence
 | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -240,6 +243,7 @@ And I cancel all bungiis of customer
   
   @regression
     #stable
+	@nonstable
   Scenario:Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip - Duo
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time  | Customer        | Driver1         | Driver2         |

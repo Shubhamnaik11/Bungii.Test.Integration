@@ -58,6 +58,7 @@ Feature: Bungii Duo Scheduled Part D
   
   
   @regression
+	@nonstable
   Scenario: Verify Status Of Scheduled Bungii In the Scheduled Trip Screen When Only One Driver Accepts The Trip
 	And I request "duo" Bungii as a customer in "kansas" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -84,7 +85,7 @@ Feature: Bungii Duo Scheduled Part D
   
   
   @regression
-  
+  @nonstable
   Scenario:Verify Details In The Bungii Details Screen When Required Number Of Drivers Accept The Trip
 	
 	When I request "duo" Bungii as a customer in "kansas" geofence
@@ -112,7 +113,7 @@ Feature: Bungii Duo Scheduled Part D
 
   #@regression
   @ready
-  @ad1
+  @nonstable
   Scenario: Verify Customer Receives Notification When Control Driver Starts Duo Bungii
 	When I clear all notification
 	And I request "duo" Bungii as a customer in "kansas" geofence
@@ -140,7 +141,7 @@ Feature: Bungii Duo Scheduled Part D
 
   
   @regression
-	@test
+	@nonstable
     #stable
   Scenario: Verify If Researched Driver Can Cancel Trip After Starting The Scheduled Duo Delivery When Other driver has not started the delivery
 	When I request "duo" Bungii as a customer in "kansas" geofence
@@ -157,7 +158,7 @@ Feature: Bungii Duo Scheduled Part D
 	And I remove current driver and researches Bungii
 	
 	When I Switch to "driver" application on "ORIGINAL" devices
-	And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled Researched" trip
+	And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "Duo Scheduled Researched" trip
 	  | driver1 state | driver2 state |
 	  | Enroute      | Accepted      |
 	
@@ -177,6 +178,7 @@ Feature: Bungii Duo Scheduled Part D
   
   
   @ready
+	@nonstable
   Scenario: Verify Customer Can See Text Stating That Driver Can Be Contacted On The Bungii Details Screen Only When The Trip Has Been Accepted By Required Number Of Drivers
 	When I request "duo" Bungii as a customer in "Kansas" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |

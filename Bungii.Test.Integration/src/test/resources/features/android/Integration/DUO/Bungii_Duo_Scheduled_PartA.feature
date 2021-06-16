@@ -37,7 +37,7 @@ Feature: Bungii Duo Scheduled Part A
 
   #@regression
   @ready
-    @test
+    @nonstable
   Scenario:Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification When The App Remains open
     Given that duo schedule bungii is in accepted by controlled driver
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2 |
@@ -71,6 +71,7 @@ Feature: Bungii Duo Scheduled Part A
  
   
   @ready
+    @nonstable
   Scenario: STACK BUNGII: Long Stack : Verify Status Of Current Ondemand Bungii And Stacked pickup And Stack Request Alert Message And Decked Request
     ##############################
     Given I am on customer Log in page
@@ -181,6 +182,7 @@ Feature: Bungii Duo Scheduled Part A
   
   
   @ready
+    @nonstable
   Scenario:  SHORT STACK BUNGII: Verify Driver can accept and complete short stack Bungii [Altanta Geofence]
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -192,6 +194,13 @@ Feature: Bungii Duo Scheduled Part A
     
     #switch to customer so that driver app is in background :Click by notification
     When I Switch to "customer" application on "same" devices
+    And I am on customer Log in page
+    And I enter customers "9871450107" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
       | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
@@ -201,8 +210,6 @@ Feature: Bungii Duo Scheduled Part A
     And I enter customers "9871450107" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
     
     And I Switch to "driver" application on "ORIGINAL" devices
     Then I click on notification for "STACK TRIP"
@@ -290,6 +297,7 @@ Feature: Bungii Duo Scheduled Part A
           #move to top
  
   @ready
+    @nonstable
   Scenario: Verify Short Stack Request Acceptance By Control Driver
     Given that duo schedule bungii is in progress
       | geofence | Bungii State       | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -343,6 +351,7 @@ Feature: Bungii Duo Scheduled Part A
   
   
   @ready
+    @nonstable
   Scenario: Verify Bungii Details - Call SMS
 	
 	Given that duo schedule bungii is in progress

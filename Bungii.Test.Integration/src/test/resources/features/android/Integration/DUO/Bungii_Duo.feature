@@ -7,6 +7,7 @@ Feature: Scheduled Duo Bungiis
 	
   @regression
   @sanity
+  @nonstable
 	#stable
   Scenario: Verify Customer can request Scheduled Duo Bungii [Kansas Geofence]
 	Given I am logged in as "valid atlanta" customer
@@ -31,6 +32,7 @@ Feature: Scheduled Duo Bungiis
   
   @regression
   @sanity
+	@nonstable
    #stable
   Scenario: Verify Duo Bungii Completion - Android [Kansas Geofence]
 	Given that duo schedule bungii is in progress
@@ -127,6 +129,7 @@ Feature: Scheduled Duo Bungiis
 	  | CUSTOMER1_PHONE |                 |
   
   @regression
+	@nonstable
   Scenario: Verify that Duo scheduled Bungii can be started 30 mins before the scheduled Trip start time
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time    | Customer | Driver1 | Driver2        |
@@ -162,6 +165,7 @@ Feature: Scheduled Duo Bungiis
   
   @regression
     #stable
+	@nonstable
   Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
@@ -186,6 +190,7 @@ Feature: Scheduled Duo Bungiis
   
   @regression
 	#stable
+	@nonstable
   Scenario: Verify Other Driver And Customer Are Notified When One Driver Cancels The Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -220,6 +225,7 @@ Feature: Scheduled Duo Bungiis
   
   @regression
    #stable
+	@nonstable
   Scenario: Verify Driver Notification When Other Driver Cancels Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
@@ -229,7 +235,6 @@ Feature: Scheduled Duo Bungiis
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
 	And I am logged in as "Kansas driver 1" driver
-	When I Switch to "customer" application on "same" devices
     
     #driver1 in background
 	And I connect to "extra1" using "Driver1" instance
@@ -246,6 +251,7 @@ Feature: Scheduled Duo Bungiis
   
   
   @regression
+	@nonstable
   Scenario Outline: Verify Customer Amount Calculation in Admin portal For The Scheduled Duo Bungii Having Promocode <PROMO CODE> Applied To It [Kansas Geofence]
 	Given I am logged in as "valid kansas" customer
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -281,45 +287,6 @@ Feature: Scheduled Duo Bungiis
 	  |PROMO DOLLAR OFF |
 	  |PROMO PERCENT OFF|
  
-	#And I Switch to "driver" application on "same" devices
-	#And I am on the LOG IN page on driver app
-	#And I am logged in as "valid atlanta" driver
-	#And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
- 
-	#And I tap on "Available Trips link" on Driver Home page
-	#And I Select Trip from driver available trip
-	#And I tap on "ACCEPT" on driver Trip details Page
-	#And I Select "SCHEDULED BUNGIIS" from driver App menu
-	#And I Select Trip from driver scheduled trip
 	
-	#And I connect to "extra1" using "Driver2" instance
-	#And I Open "driver" application on "same" devices
-	#And I am on the LOG IN page on driver app
-	#And I am logged in as "valid driver 2" driver
-	#And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
- 
-	#And I tap on "Available Trips link" on Driver Home page
-	#And I Select Trip from driver available trip
-	#And I tap on "ACCEPT" on driver Trip details Page
-	#And I Select "SCHEDULED BUNGIIS" from driver App menu
-	#And I Select Trip from driver scheduled trip
-	
-	#Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
-	#And I slide update button on "EN ROUTE" Screen
-	#And I slide update button on "ARRIVED" Screen
-	#And I slide update button on "LOADING ITEM" Screen
-	#And I slide update button on "DRIVING TO DROP OFF" Screen
-	#And I slide update button on "UNLOADING ITEM" Screen
-	#And I click "On To The Next One" button on the "Bungii Completed" screen
- 
-	#When I Switch to "driver" application on "ORIGINAL" devices
-	#Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
-	#And I slide update button on "EN ROUTE" Screen
-	#And I slide update button on "ARRIVED" Screen
-	#And I slide update button on "LOADING ITEM" Screen
-	#And I slide update button on "DRIVING TO DROP OFF" Screen
-	#And I slide update button on "UNLOADING ITEM" Screen
-	#And I click "On To The Next One" button on the "Bungii Completed" screen
-  
   
  

@@ -44,6 +44,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
   
   @ready
+	@nonstable
   Scenario: STACK BUNGII: Verify Driver Can Get Long Stack Request On Loading Item State And Cancellation
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State |
@@ -91,9 +92,9 @@ Feature: Scheduled Duo Bungiis - Single Phone
   
   @ready
   @sanity
-	@test
+	@nonstable
     #stable
-  Scenario: STACK BUNGII : Long Stack : Verify Driver receives Long Stack and accept and complete it [Complete Flow]
+  Scenario: STACK BUNGII : Long Stack : Verify Driver receives Long Stack and accept and complete it
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State |
 	  | atlanta  | ARRIVED      |
@@ -353,6 +354,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	
   @regression
 	#stable
+	@nonstable
   Scenario: Verify that that Past Trips page correctly displays completed Scheduled Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -378,7 +380,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	
 	
   @ready
-	@ad
+	@nonstable
   #Scenario:Verify If Driver Receieve Notification After Admin Researches For Drivers
   Scenario: Verify If Customer does not Receives Notification After Admin Researches Drivers And Both Drivers Assigned from Admin
 	Given that duo schedule bungii is in progress
@@ -423,7 +425,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   
   @sanity
   @ready
-	@test
+	@nonstable
   Scenario: Verify Long Stack Request Acceptance By Non Control Driver
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -445,11 +447,12 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
-	  |                | CUSTOMER2_PHONE |
+	  |CUSTOMER1_PHONE | CUSTOMER2_PHONE |
   
   
   
   @ready
+	@nonstable
   Scenario:Verify Driver Can Get Short Stack Request On Unloading Item State
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State   |
@@ -495,5 +498,5 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
-	  | CUSTOMER1_PHONE |                 |
+	  | CUSTOMER1_PHONE |  9871450107               |
   
