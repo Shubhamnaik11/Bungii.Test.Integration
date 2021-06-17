@@ -45,9 +45,9 @@ Feature: EstimateBungii
     And I tap on "Get Estimate button" on Bungii estimate
     Then check if I have ability to select different load time and Estimate cost is re calculated
 
-  #@regression
     @regression
-  Scenario: Verify When Customer Switches From Ondemand To Scheduled Bungii On Account Of Unavailibility Of Driver Then Customer Is Taken To Estimate Screen With Prepoulated Existing Fields
+      #stable
+  Scenario: Verify When Customer Switches From Ondemand To Scheduled Bungii On Account Of Unavailibility Of Driver Then Customer Is Taken To Schedule Bungii Screen
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
@@ -58,12 +58,11 @@ Feature: EstimateBungii
     Then for a Bungii I should see "Bungii search screen"
     When I wait for SEARCHING screen to disappear
     Then "SET PICKUP TIME" page should be opened
-    #When I tap "Ok" button on DRIVER NOT AVAILABLE screen
     And I should see "Schedule Bungii option" on DRIVER NOT AVAILABLE screen
+      Then I verify that "SET PICKUP TIME PAGE" is displayed
+      When I click on "BUNGII DATE TIME" icon on "SET PICKUP TIME" Page
+      And I schedule Bungii at "Future" Time
     When I tap "Schedule Bungii" button on DRIVER NOT AVAILABLE screen
-    #Then "Estimate" page should be opened
-    #When I add loading/unloading time of "30 mins"
-    #Then I should see "previous values" on Bungii estimate
     Then I should be navigated to "Success!" screen
     And I click "Done" button on "Success" screen
 

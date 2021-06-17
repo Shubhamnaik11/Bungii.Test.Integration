@@ -65,7 +65,7 @@
       And I enter "special characters" in Additional Notes field
       And I click on "ADD NOTE" button
       Then "Estimate" page should be opened
-      And I select Bungii Time as "30 MIN DELAY"
+      And I select Bungii Time as "1 HOUR DELAY"
       When I tap on "Request Bungii" on Bungii estimate
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
       And I check if the customer is on success screen
@@ -98,35 +98,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9889889888      |                 |
 
-    @regression
-    Scenario: Verify that driver is able to correctly view all the text entered in Details field in an On Demand Bungii request.
-      When I Switch to "customer" application on "same" devices
-      Given I am on customer Log in page
-      And I am logged in as "Testcustomertywd_appleand_E Android" customer
-
-      When I Switch to "driver" application on "same" devices
-      And I am on the LOG IN page on driver app
-      And I am logged in as "Testdriver_goa_e Android_test" driver
-      And I tap on "Go Online button" on Driver Home page
-      And I Switch to "customer" application on "same" devices
-      And I enter "Goa pickup and dropoff location" on Bungii estimate
-      And I tap on "Get Estimate button" on Bungii estimate
-      And I add loading/unloading time of "15 mins"
-      Then I add "1" photos to the Bungii
-      When I tap on "Details" on Estimate screen
-      And I enter "text" in Additional Notes field
-      And I click on "ADD NOTE" button
-      Then "Estimate" page should be opened
-      When I tap on "Request Bungii" on Bungii estimate
-      And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-      When I click on notification for "on demand trip"
-      Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-      When I click "YES" button on alert message
-      Then I should be able to see "Customer Note" Text
-      And I cancel all bungiis of customer
-        | Customer Phone  | Customer2 Phone |
-        | 9889889888      |                 |
-  
+   
   
       @regression
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request
@@ -378,4 +350,33 @@
           | Customer Phone  | Customer2 Phone |
           | 9889889888      |                 |
   
-
+  
+      @regression
+      Scenario: Verify that driver is able to correctly view all the text entered in Details field in an On Demand Bungii request.
+        When I Switch to "customer" application on "same" devices
+        Given I am on customer Log in page
+        And I am logged in as "Testcustomertywd_appleand_E Android" customer
+    
+        When I Switch to "driver" application on "same" devices
+        And I am on the LOG IN page on driver app
+        And I am logged in as "Testdriver_goa_e Android_test" driver
+        And I tap on "Go Online button" on Driver Home page
+        And I Switch to "customer" application on "same" devices
+        And I enter "Goa pickup and dropoff location" on Bungii estimate
+        And I tap on "Get Estimate button" on Bungii estimate
+        And I add loading/unloading time of "15 mins"
+        Then I add "1" photos to the Bungii
+        When I tap on "Details" on Estimate screen
+        And I enter "text" in Additional Notes field
+        And I click on "ADD NOTE" button
+        Then "Estimate" page should be opened
+        When I tap on "Request Bungii" on Bungii estimate
+        And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+        When I click on notification for "on demand trip"
+        Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+        When I click "YES" button on alert message
+        Then I should be able to see "Customer Note" Text
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | 9889889888      |                 |
+  

@@ -79,6 +79,25 @@ public class SupportSteps extends DriverBase {
                 true);
     }
     }
+    @Then("^The user should see \"([^\"]*)\" on tap of \"([^\"]*)\" on Support page$")
+    public void the_user_should_see_something_on_support_page(String strArg1, String button) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "snackbar validation":
+                    log("I should tap" + button + " ", "I tapped " + button + " in support field");
+                    action.click(supportPage.Button_Send());
+                    testStepAssert.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.support.submitted"), "Support message submitted should be displayed ", "Support message submitted is displayed", "Support message submitted is not displayed");
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Validation message not displayed : " +strArg1,
+                    true);
+        }
+    }
 
     @And("^I tap \"([^\"]*)\" on Support page$")
     public void i_tap_something_on_support_page(String strArg1) throws Throwable {

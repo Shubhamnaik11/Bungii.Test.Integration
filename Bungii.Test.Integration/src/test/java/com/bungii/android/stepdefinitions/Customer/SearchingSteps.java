@@ -19,7 +19,7 @@ public class SearchingSteps extends DriverBase {
     public void i_wait_for_searching_screen_to_disappear() {
         try{
             WaitForSearchingPageDisappear(Integer.parseInt(PropertyUtility.getProp("on.demand.search.time")));
-            Thread.sleep(20000);
+            //Thread.sleep(20000);
 
             //	testStepVerify.isFalse(isProgressBarVisible(),  "Progress bar should disappear", "Progress bar is not visible", "Progress bar is visible");
             log( "I wait for SEARCHING screen to disappear", "I waited on Searching screen", true);
@@ -38,7 +38,7 @@ public class SearchingSteps extends DriverBase {
      * @throws InterruptedException
      */
     public void WaitForSearchingPageDisappear(int searchTime) throws InterruptedException{
-        action.hardWait(searchTime+3);
+        action.hardWait(searchTime+2);
     }
 
 }

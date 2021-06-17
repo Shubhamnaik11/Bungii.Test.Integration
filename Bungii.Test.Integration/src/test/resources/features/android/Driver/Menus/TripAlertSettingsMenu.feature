@@ -10,7 +10,8 @@ Feature: Trip Alert Settings Menu
     
 
   @regression
-  Scenario Outline: Verify Trip Alert Settings On Trip Alerts Tab [Default7.00AM-9.00PM]
+   #stable
+  Scenario Outline: Verify Trip Alert Settings On Trip Alerts Tab
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist

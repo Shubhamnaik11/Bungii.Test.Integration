@@ -13,8 +13,7 @@ Feature: Menu_Support
     Then "Support" page should be opened
     And The user should see "support question" on Support page
     When I enter "valid" text in Support field
-    And I tap "Send" on Support page
-    Then The user should see "snackbar validation" on Support page
+    Then The user should see "snackbar validation" on tap of "Send" on Support page
 
   @regression
   Scenario: Verify Validation On Blank Question In Support Field

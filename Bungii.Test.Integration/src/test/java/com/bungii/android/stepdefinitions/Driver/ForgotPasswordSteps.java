@@ -30,7 +30,8 @@ public class ForgotPasswordSteps extends DriverBase  {
     GeneralUtility utility= new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
     private static LogUtility logger = new LogUtility(HomePageSteps.class);
-    @When("I click {string} button on FORGOT PASSWORD screen on driver app")
+
+    @When("^I click \"([^\"]*)\" button on FORGOT PASSWORD screen on driver app$")
     public void i_click_something_button_on_forgot_password_screen_on_driver_app(String option) {
         switch (option) {
             case"CONTINUE":

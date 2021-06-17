@@ -11,7 +11,7 @@ Feature: AlertSettings
 	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	
 @regression
-Scenario: Verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
+Scenario: Verify Trip Alert Settings On Trip Alerts Tab
 When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
 When I click "SMS ALERT" button on "ALERT SETTINGS" screen on driverApp
 Then I should be able to see default data on "SMS ALERT" page

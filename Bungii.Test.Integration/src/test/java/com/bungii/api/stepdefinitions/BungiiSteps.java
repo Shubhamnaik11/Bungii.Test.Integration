@@ -1121,16 +1121,16 @@ public class BungiiSteps extends DriverBase {
                         boolean waitedForMinTime = false;
                         if (driver1State.equalsIgnoreCase("Enroute")) {
                             //int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
-                            int wait = Integer.parseInt((String)cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START"));
+                          //  int wait = Integer.parseInt((String)cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START"));
                             try {
 
-                                logger.detail("Waiting for " + wait / 60000 + " minutes before Scheduled trip can be started");
+                               // logger.detail("Waiting for " + wait / 60000 + " minutes before Scheduled trip can be started");
                                 //from sprint 32 min time is changed to  1 hour
                                 //Thread.sleep(wait);
                                 Thread.sleep(1000);
                                 waitedForMinTime = true;
                             } catch (InterruptedException e) {
-                                e.printStackTrace();
+
                             }
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);

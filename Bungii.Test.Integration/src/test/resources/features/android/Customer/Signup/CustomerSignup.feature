@@ -11,7 +11,6 @@ Feature: CustomerSignup
     When I enter "existing" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I tap on the "Sign Up" button on Signup Page
-  #  And I tap on the "No, Continue" button on Signup Page
     Then the new user should see "snackbar validation message for existing user"
     And the new user should see "Signup page"
     

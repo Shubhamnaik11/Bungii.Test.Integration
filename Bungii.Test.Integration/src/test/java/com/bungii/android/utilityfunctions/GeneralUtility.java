@@ -1581,6 +1581,7 @@ Thread.sleep(5000);
         try {
             SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
            // logger.detail("Switched to Driver in recovery scenario");
+
             Thread.sleep(1000);
 
         } catch (Exception e) {

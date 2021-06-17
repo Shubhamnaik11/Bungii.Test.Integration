@@ -297,6 +297,18 @@ public class LoginSteps extends DriverBase {
         }
     }
 
+    @And("^I hit back button$")
+    public void i_hit_back() throws Throwable {
+        try {
+
+            SetupManager.getDriver().navigate().back();
+            log("I hit back button","I hit back button",true);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^I should see \"([^\"]*)\" on Log In screen on driver app$")
     public void i_should_see_something_on_log_in_screen_on_driver_app(String option) throws Throwable {
         try {
