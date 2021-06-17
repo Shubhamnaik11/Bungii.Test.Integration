@@ -351,27 +351,35 @@
       @regression
    #stable
         #web
-      Scenario: Verify that changing date_time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time
+      Scenario: Verify that changing date and time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time [Admin can Override]
         When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-          | NEXT_POSSIBLE | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+          | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
         And I save the Bungii Time
-        And that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
-          | geofence | Bungii State | Bungii Time    |
-          | goa   | Accepted       | 3 hour ahead |
+        And As a driver "Testdriver_goa_a Android_test" perform below action with respective "SOLO SCHEDULED" trip
+          | driver1 state |
+          | Accepted      |
+        When I request another "Solo Scheduled" Bungii as a customer in "goa" geofence
+          | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
+          | 3 hour ahead  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+        And As a driver "Testdriver_goa_a Android_test" perform below action with respective "SECOND SOLO SCHEDULED" trip
+          | driver1 state |
+          | Accepted      |
         And I wait for "2" mins
         When I open new "Chrome" browser for "ADMIN"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I click on "Edit Trip1" button
+        When I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
-        And I change the "particular trip time" to future time
+        And I change the "particular trip time 2 hours later" to future time
         And I click on "VERIFY" button
-        Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
         And I cancel all bungiis of customer
           | Customer Phone | Customer2 Phone |
-          | 9393939393     |                 |
+          | 9393939393     |  9999992222     |
   
       @regression
    #stable
@@ -391,7 +399,7 @@
         And I Select "Scheduled Trip" from admin sidebar
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
-        And I change the "particular trip time" to future time
+        And I change the "particular trip time 2 hours later" to future time
         And I click on "VERIFY" button
         Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
         And I cancel all bungiis of customer
@@ -408,14 +416,11 @@
         When I open new "Chrome" browser for "ADMIN"
         And I navigate to admin portal
         And I log in to admin portal
+        And I wait for "2" mins
         And I Select "Scheduled Trip" from admin sidebar
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
-        And I Select "Edit Trip Details" option
+        And I Select "Research Driver" option
         Then I remove assigned driver
-        And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
-        When I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
         Then new pickuref is generated
         
         And I cancel all bungiis of customer

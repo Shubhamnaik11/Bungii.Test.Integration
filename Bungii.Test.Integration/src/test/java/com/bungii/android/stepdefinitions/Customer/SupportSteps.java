@@ -83,7 +83,7 @@ public class SupportSteps extends DriverBase {
     public void the_user_should_see_something_on_support_page(String strArg1, String button) throws Throwable {
         try {
             switch (strArg1) {
-                case "snackbar validation":
+                case "snackbar message":
                     log("I should tap" + button + " ", "I tapped " + button + " in support field");
                     action.click(supportPage.Button_Send());
                     testStepAssert.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.support.submitted"), "Support message submitted should be displayed ", "Support message submitted is displayed", "Support message submitted is not displayed");

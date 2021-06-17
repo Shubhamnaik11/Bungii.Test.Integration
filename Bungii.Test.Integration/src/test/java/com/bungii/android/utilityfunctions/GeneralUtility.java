@@ -1515,12 +1515,18 @@ Thread.sleep(5000);
     public String getCustomerSnackBarMessage() {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
-        String snackbarMessage = wait.ignoring(StaleElementReferenceException.class)
+        String snackbarMessage = wait.ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.customer:id/snackbar_text"))).getText();
         //String snackbarMessage = action.getText(element);
         return snackbarMessage;
     }
+    public Boolean matchSnackBarMessage(String message) {
 
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
+        Boolean snackbarMessageDisplayed = wait.ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//snackbar_text[@text='"+message+"']"))).isDisplayed();
+        return snackbarMessageDisplayed;
+    }
     public String getCustomerPromoInfoMessage() {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));

@@ -7,6 +7,7 @@ Feature: CustomerSignup
   
   
   @regression
+ #stable
   Scenario: Verify Signup With Existing Phone Number
     When I enter "existing" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page

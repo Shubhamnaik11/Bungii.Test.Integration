@@ -1087,6 +1087,11 @@ public class BungiiSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
                         bungiiType = bungiiType.replace("Researched", "");
                     }
+                    if (bungiiType.equalsIgnoreCase("Second Solo Scheduled") || bungiiType.equalsIgnoreCase("Second Duo Scheduled")) {
+                        pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST2");
+                        bungiiType = bungiiType.replace("SECOND ", "");
+
+                    }
                     cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
                     cucumberContextManager.setScenarioContext("DRIVER_1", driverAName);
 
@@ -1408,6 +1413,8 @@ public class BungiiSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("TELET_TYPE",bungiiTime);
                 coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, teletTime);
             }
+            else if (bungiiTime.equalsIgnoreCase("3 hour ahead"))
+                coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, 180);
             else{
                 int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
                 cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START", wait);

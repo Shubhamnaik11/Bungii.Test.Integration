@@ -369,8 +369,8 @@ public class ActionManager {
      */
     public void click(WebElement element) {
         try{
-        element.click();
-        logger.detail("ACTION | Click on element by locator -> " + getElementDetails(element));
+            logger.detail("ACTION | Click on element by locator -> " + getElementDetails(element)); //logged prior so that snackbar doesnt disappear before viewing
+            element.click();
     }
         catch(Exception ex)
     {
@@ -447,7 +447,7 @@ public class ActionManager {
             //scroll with TouchAction by itself
             scroll(pressX, bottomY, pressX, topY);
         } catch (Exception e) {
-            logger.detail(ExceptionUtils.getStackTrace(e)+"Not able to scroll to botton");
+           // logger.detail(ExceptionUtils.getStackTrace(e)+"Not able to scroll to botton"); //Scrolling if fails it should not mark testcase inconclusive
           //  error("Step should be successful", "Unable to scroll to bottom",
               //      true);
         }
@@ -601,7 +601,7 @@ public class ActionManager {
         } else {
             action.moveTo(top);
             //((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
-            ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+            ///((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK)); Back button is not needed so commented out on browserstack
             logger.detail("ACTION | Pressed HOME Button to Remove Push notification tray");
 
 

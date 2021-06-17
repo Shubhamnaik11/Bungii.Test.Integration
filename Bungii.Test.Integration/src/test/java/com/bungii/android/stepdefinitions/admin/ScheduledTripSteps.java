@@ -336,7 +336,7 @@ public class ScheduledTripSteps extends DriverBase {
 			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
 
 			testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest), " Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
-			pass("I remove current driver and verify new pickupref is generated", "I removed current driver and Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
+			pass("I verify new pickupref is generated", "Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1020,6 +1020,21 @@ public class ScheduledTripSteps extends DriverBase {
 
 				SimpleDateFormat formatter1 = new SimpleDateFormat("hh:mm aa");
 				newTime = formatter1.format(d2);
+				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
+				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
+				action.click(selectTime);
+				break;
+			case "particular trip time 2 hours later":
+				newTime = (String)cucumberContextManager.getScenarioContext("OLD_BUNGII_TIME");
+				Date d3=new SimpleDateFormat("hh:mm aa").parse(newTime);
+				Calendar c3 = Calendar.getInstance();
+				c3.setTime(d3);
+				c3.add(Calendar.HOUR,2);
+				Date d4 = c3.getTime();
+
+				SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm aa");
+				newTime = formatter2.format(d4);
 				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
 				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTime + "')]"));
