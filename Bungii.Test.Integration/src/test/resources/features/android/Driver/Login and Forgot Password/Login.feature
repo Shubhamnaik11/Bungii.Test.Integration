@@ -77,7 +77,6 @@ Feature: Log In
       | PENDING PAYMENT | 9999991009 | Cci12345 | Your account registration is still under process. | LOGIN BUTTON ENABLED |
 
   @regression
-
   Scenario Outline: Verify Driver Is Locked When He Enters Incorrect Password Five Times Second Case
     When I enter phoneNumber
     And I enter invalid password and click on "Log In" button for "5" times on Log In screen on driver app

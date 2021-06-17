@@ -108,34 +108,23 @@ Feature: CustomerSignup
   
   
   @regression
+    #web
   #stable
-  Scenario: Verify Trip completed Count On Admin Portal Is Updated When Customer Completes A Bungii
-    When I Switch to "customer" application on "same" devices
+
+  Scenario: Verify Trip completed Count On Admin Portal Is Updated When Driver Completes A Bungii
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 9999999215     | Testcustomertywd_appleNewMB Customer | cci12345          |
-    
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I Select "HOME" from driver App menu
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from driver available trip
-    And I tap on "ACCEPT" on driver Trip details Page
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    
-    And Bungii Driver "Start Schedule Bungii" request
-    Then Bungii driver should see "Enroute screen"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    Then Bungii Driver "completes Bungii"
-    And I Select "HOME" from driver App menu
-    
+    And As a driver "Testdrivertywd_appleks_a_kay Stark_ksThreE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | enroute       |
+      |Arrived         |
+      |Loading Item     |
+      |Driving To Dropoff |
+      |Unloading item    |
+      |Completed         |
+    And I wait for 2 minutes
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     And I navigate to admin portal
     And I log in to admin portal

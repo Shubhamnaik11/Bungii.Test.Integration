@@ -376,11 +376,8 @@ public class LoginSteps extends DriverBase {
                     action.sendKeys(driverLogInPage.TextField_Password(), password);
 
                     for (int i = 0; i < 5; i++) {
-                        Thread.sleep(5000);
+                        Thread.sleep(20000);
                         action.click(driverLogInPage.Button_Login());
-                        Thread.sleep(10000);
-
-
                     }
                     break;
 
@@ -389,19 +386,15 @@ public class LoginSteps extends DriverBase {
                 action.sendKeys(driverLogInPage.TextField_Password(), password);
 
                 for (int i = 0; i < 3; i++) {
-                    Thread.sleep(5000);
+                    Thread.sleep(20000);
                     action.click(driverLogInPage.Button_Login());
-                    Thread.sleep(10000);
-
                 }
                 break;
 
             case "2":
                 for (int i = 0; i < 2; i++) {
-                    Thread.sleep(5000);
+                    Thread.sleep(20000);
                     action.click(driverLogInPage.Button_Login());
-                    Thread.sleep(10000);
-
                 }
                 break;
             }
