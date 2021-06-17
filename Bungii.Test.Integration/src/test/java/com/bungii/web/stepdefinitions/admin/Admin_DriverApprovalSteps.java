@@ -95,6 +95,52 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         log("I should be able to click "+strArg1+" against " + applicantName,"I click "+strArg1+ " against "+ applicantName, true);
     }
 
+    @And("^I click \"([^\"]*)\" button for the \"([^\"]*)\" driver$")
+    public void i_click_something_button_for_the_something_driver(String strArg1, String applicantName) throws Throwable {
+        switch (strArg1) {
+            case "Profile":
+                action.click(admin_GetAllBungiiDriversPage.Driver_Profile(applicantName));
+                break;
+            case "Edit":
+                action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Edit());
+                break;
+            case "Save":
+                action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Save());
+                break;
+            case "Cancel":
+                action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Cancel());
+                break;
+
+        }
+        log("I should be able to click "+strArg1+" against " + applicantName,"I click "+strArg1+ " against "+ applicantName, true);
+    }
+
+    @And("^I change the \"([^\"]*)\" phone number$")
+    public void i_enter_confirm_comment_for_edited_phone_and_something_it(String strArg1) throws Throwable {
+
+        action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Phone(),PropertyUtility.getDataProperties("driver.mobile.change"));
+        //action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Save());
+    }
+
+    @And("^I enter confirm comment for edited phone and \"([^\"]*)\" it$")
+    public void i_confirm_the_edited_phone(String State) throws Throwable {
+        //action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_updated_comment());
+        switch (State) {
+            case "Save":
+                action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment(), "Driver phone updated");
+                action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment_Save());
+                break;
+            case "Cancel":
+                action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment(), "Driver phone updated");
+                action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment_Cancel());
+        }
+    }
+
+    @And("^I cancel the edited phone number$")
+    public void i_cancel_the_edited_phone_number() throws Throwable {
+        action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Cancel());
+    }
+
     @Then("^I should be directed to \"([^\"]*)\"$")
     public void i_should_be_directed_to_something(String screen) throws Throwable {
         switch (screen) {
