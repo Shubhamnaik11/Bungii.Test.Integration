@@ -293,6 +293,9 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_webff Testdriverff":
                 phone = PropertyUtility.getDataProperties("web.valid.driver1005.phone");
                 break;
+            case "Testdrivertywd_appleks_a_kay Stark_ksThreE":
+                phone = PropertyUtility.getDataProperties("valid.driver.phone");
+                break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
 
@@ -1483,6 +1486,7 @@ public class BungiiSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("CUSTOMER" + customerLabel + "_PHONE", custPhoneNum);
             }
             cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
+            cucumberContextManager.setScenarioContext("CUSTOMER_PASSWORD", custPassword);
 
             cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
