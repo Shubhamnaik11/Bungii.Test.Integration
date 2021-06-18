@@ -28,7 +28,7 @@ public class Driver_VerifyPhonePage extends PageBase {
     public WebElement Textfield_ConfirmPassword () { return findElement("confirm-password", LocatorType.Id); }
 
     //Verify Your Phone - Password - Passwords dont match -error
-    public WebElement Button_ResetPassword () { return findElement("//form[@id='ResetPassword']/button[contains(text(),'Reset')]", LocatorType.XPath); }
+    public WebElement Button_ResetPassword () { return findElement("//form[@id='ResetPassword']/div/button[contains(text(),'Reset')]", LocatorType.XPath); }
 
     //Verify Your Phone - Blank field validation error
     public WebElement Err_VerifyPhone_BlankPasswords () { return findElement("verificationerrorsummary", LocatorType.Id); }
