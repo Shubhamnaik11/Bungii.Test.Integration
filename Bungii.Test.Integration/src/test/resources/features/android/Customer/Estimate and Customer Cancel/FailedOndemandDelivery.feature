@@ -4,6 +4,7 @@ Feature: Failed Ondemand Delivery
   #This feature will run in goa geofence.
   
   @regression
+    @nonstable
   Scenario: Failed Ondemand Delivery : Verify that 'SET PICKUP TIME' page is shown when no driver accepts on demand bungii
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
@@ -23,6 +24,7 @@ Feature: Failed Ondemand Delivery
     Then I verify that "Pickup Message Popup" is displayed
   
   @regression
+  @nonstable
   Scenario: Failed Ondemand Delivery : Verify that the customer can schedule pickup by clicking on SCHEDULE BUNGII button.
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
@@ -42,6 +44,7 @@ Feature: Failed Ondemand Delivery
       | 8888882028 |                 |
   
   @regression
+  @nonstable
   Scenario: Failed Ondemand Delivery : Verify that the customer can schedule pickup by clicking on date & time and selecting different time and date
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
@@ -64,6 +67,7 @@ Feature: Failed Ondemand Delivery
       | 8888882028 |                 |
   
   @regression
+  @nonstable
   Scenario: Failed Ondemand Delivery : Verify that the customer can see 4 options when cancels the on demand trip
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
@@ -80,6 +84,7 @@ Feature: Failed Ondemand Delivery
     And I verify that "Four Reasons" is displayed
   
   @regression
+  @nonstable
   Scenario: Failed Ondemand Delivery : Verify that the textbox is displayed when customer selects Other.. as the cancelling on demand bungii reason
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
@@ -98,6 +103,7 @@ Feature: Failed Ondemand Delivery
     Then The "CANCELLATION REASON" textbox should be displayed
   
   @regression
+  @nonstable
   Scenario: Failed Ondemand Delivery : Verify that customer can enter the reason of its own to cancel ondemand bungii search
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
@@ -118,6 +124,7 @@ Feature: Failed Ondemand Delivery
   
   @regression
     #stable
+  @nonstable
   Scenario Outline: Failed Ondemand Delivery : Verify that user can select each of the reason and submit successfully
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer

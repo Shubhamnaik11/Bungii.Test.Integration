@@ -6,12 +6,7 @@ Feature: Customer Home screen
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
   
-  @regression
-  Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance Between Pickup And Dropoff Is >150 Miles
-    When I tap on "Menu" > "Home" link
-    And I enter "Atlanta pickup and Indiana dropoff location" on Bungii estimate screen
-    Then I get the error popup message for "More than 150 miles trip"
-    
+
   @regression
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     When I tap on "Menu" > "Home" link
@@ -74,24 +69,7 @@ Feature: Customer Home screen
     Then I verify that "SET PICKUP LOCATION BUTTON" is displayed
     When I click on "SET PICKUP LOCATION" button
     Then I verify that "SET DROP OFF LOCATION BUTTON" is displayed
-
-  @regression
-    @testing
-  Scenario: Verify that ETA bar appears when customer selects pickup and drop-off address.
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "Goa driver_1" driver
-    When I click "Go Online" button on Home screen on driver app
-  
-    Then I Switch to "customer" application on "same" devices
-    When I tap on "Menu" > "Home" link
-    And I enter "Goa Geofence pickup location" on Bungii estimate screen
-    Then I verify that "ETA bar" is displayed
-    When I click on "SET PICKUP LOCATION" button
-    And I enter "Goa Geofence dropoff location" on Bungii estimate screen
-    Then I verify that "ETA bar" is displayed
-    And I verify that "GET ESTIMATE" is displayed
-  
+    
   @regression
   Scenario: Verify That Customer Is Allowed To Set Pickup And Dropoff Locations When No Driver ETA Is Found (Within Geofence)
     When I tap on "Menu" > "Home" link
@@ -103,3 +81,28 @@ Feature: Customer Home screen
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
     And I tap on "Cancel during search" on Bungii estimate
+  
+  @regression
+    @nonstable
+  Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance Between Pickup And Dropoff Is >150 Miles
+    When I tap on "Menu" > "Home" link
+    And I enter "Atlanta pickup and Indiana dropoff location" on Bungii estimate screen
+    Then I get the error popup message for "More than 150 miles trip"
+  
+  @regression
+  @nonstable
+  Scenario: Verify that ETA bar appears when customer selects pickup and drop-off address.
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Goa driver_1" driver
+    When I click "Go Online" button on Home screen on driver app
+    
+    Then I Switch to "customer" application on "same" devices
+    When I tap on "Menu" > "Home" link
+    And I enter "Goa Geofence pickup location" on Bungii estimate screen
+    Then I verify that "ETA bar" is displayed
+    When I click on "SET PICKUP LOCATION" button
+    And I enter "Goa Geofence dropoff location" on Bungii estimate screen
+    Then I verify that "ETA bar" is displayed
+    And I verify that "GET ESTIMATE" is displayed
+    

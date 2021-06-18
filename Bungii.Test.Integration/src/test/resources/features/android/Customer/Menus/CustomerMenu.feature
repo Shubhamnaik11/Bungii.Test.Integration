@@ -19,6 +19,7 @@ Feature: CustomerMenu
     
     ################
   @regression
+    @nonstable
     #long45 minutes
   Scenario: Verify Customer App Menu Item Navigations - FAQ | SIGN UP | ACCOUNT | PAYMENT | SUPPORT | PROMOS | MY BUNGIIS | LOGOUT
     When I tap on "Menu" > "Home" link

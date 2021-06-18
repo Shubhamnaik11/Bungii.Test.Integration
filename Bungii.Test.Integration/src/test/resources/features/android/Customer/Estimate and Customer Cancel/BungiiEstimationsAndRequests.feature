@@ -52,6 +52,7 @@
 
 @regression
 #Stable
+  @nonstable
     Scenario: Verify that Bungii can be requested when special charaters have been entered in the Details field on Estimate screen
   When I Switch to "customer" application on "same" devices
   Given I am on customer Log in page
@@ -76,6 +77,7 @@
         | 9889889888      |                 |
 
  @regression
+ @nonstable
     Scenario: Verify that the text entered in Details is displayed after customer schedules a Bungii of an on demand bungii that has timed out
    When I Switch to "customer" application on "same" devices
    Given I am on customer Log in page
@@ -101,6 +103,7 @@
    
   
       @regression
+      @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request
         When I Switch to "customer" application on "same" devices
   
@@ -140,6 +143,7 @@
   
       
       @regression
+      @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request, when viewed from Available Trips page
         When I Switch to "customer" application on "same" devices
         Given I am on customer Log in page
@@ -174,6 +178,7 @@
           | 9889889888      |                 |
   
       @regression
+      @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in the Bungii Details page for a Scheduled Bungii
         When I Switch to "customer" application on "same" devices
   
@@ -210,6 +215,7 @@
           | 9889889888      |                 |
   
       @regression
+      @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress
         When I Switch to "customer" application on "same" devices
         Given I am on customer Log in page
@@ -252,6 +258,7 @@
           | 9889889888      |                 |
   
       @regression
+      @nonstable
       Scenario: Verify that driver is not able to view  the text entered in Details field while solo bungii is in progress if text is not entered
         When I Switch to "customer" application on "same" devices
         Given I am on customer Log in page
@@ -285,6 +292,7 @@
         
      
       @regression
+      @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page
         When I Switch to "customer" application on "same" devices
   
@@ -319,6 +327,7 @@
           | 9889889888      |                 |
   
       @ready
+      @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii push notification request
         When I Switch to "driver" application on "same" devices
         When I am on the LOG IN page on driver app
@@ -352,6 +361,7 @@
   
   
       @regression
+      @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in an On Demand Bungii request.
         When I Switch to "customer" application on "same" devices
         Given I am on customer Log in page

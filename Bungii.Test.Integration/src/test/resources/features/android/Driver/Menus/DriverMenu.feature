@@ -66,6 +66,7 @@ Feature: DriverMenu
     Then Driver active flag should be "0"
 
   @regression
+    @nonstable
   Scenario: Verify Driver Can Access Trip Histoy Page Upon Clicking Itemised Earnings Hyperlink
     When I Select "EARNINGS" from driver App menu
     And the "EARNINGS" page is opened
