@@ -265,7 +265,8 @@
 		
   
   
-      @ready
+      @regression
+        #stable
     #web scenario
       Scenario: DUO: Verify that if non control driver starts delivery and control driver is then removed by Admin and assigned with new driver then noncontroller driver becomes control driver
         When I request "duo" Bungii as a customer in "goa" geofence
@@ -282,6 +283,9 @@
         And I Select "Scheduled Trip" from admin sidebar
         And I open the trip for "Testcustomertywd_appleand_A Android" the customer
         And I remove "control" driver and researches Bungii
+  
+        Then I wait for "2" mins
+        And I open the trip for "Testcustomertywd_appleand_A Android" the customer
         And I Select "Edit Trip Details" option
         And I check if a validation message "Driver 1: Add driver below or Bungii driver search will continue" is shown
         And I assign driver for the "control" trip
@@ -318,7 +322,8 @@
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
   
-	  @ready
+	  @regression
+        #stable
     #web scenario
 	  Scenario: Verify that Admin is NOT allowed to add multiple driver for solo bungii and more than 2 drivers for Duo Delivery
 		When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
