@@ -828,6 +828,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
 
                 case "VERIFY":
+                    Thread.sleep(2000);
                     action.click(admin_potentialPartnersPage.Button_VerifyDriver());
                     break;
 

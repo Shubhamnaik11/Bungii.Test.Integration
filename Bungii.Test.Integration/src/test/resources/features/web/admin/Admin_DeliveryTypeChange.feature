@@ -116,7 +116,7 @@ Feature: Admin_Delivery_Type_Change
 	Then I should see "Solo trips cannot have 2 drivers." message on edit popup
 	When I remove control driver "Testdrivertywd_appledc_a_weboo Testdriveroo" on edit popup
  
-	And I change delivery type from "Duo to Solo"
+	#And I change delivery type from "Duo to Solo"
 	And I click on "VERIFY" button
 	And the "Your changes are good to be saved." message is displayed
 	Then I click on "SAVE CHANGES" button
