@@ -707,7 +707,7 @@ public class BungiiInProgressSteps extends DriverBase {
         try {
             switch (option) {
                 case "Details From Customer":
-                    testStepAssert.isElementDisplayed(inProgressBungiiPages.Button_DetailsFromCustomer(true),"Option should not be present.", "Option is not present.", "Option is present.");
+                    testStepAssert.isFalse(action.isElementPresent(inProgressBungiiPages.Button_DetailsFromCustomer(true)),"Option should not be present.", "Option is not present.", "Option is present.");
                     break;
             }
 
