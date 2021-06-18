@@ -351,6 +351,7 @@
       @regression
    #stable
         #web
+        @nonstable
       Scenario: Verify that changing date and time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time [Admin can Override]
         When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -384,6 +385,7 @@
       @regression
    #stable
         #web
+        @nonstable
       Scenario: Verify that changing date_time for a scheduled bungii for which the customer has a conflicting bungii during the newly selected time
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time     |
@@ -409,6 +411,7 @@
       @regression
       #web
       #stable
+      @nonstable
       Scenario: Verify if research automatically happens if admin does not add a new driver after removal
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time  |

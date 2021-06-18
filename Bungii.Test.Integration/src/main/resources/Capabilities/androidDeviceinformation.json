@@ -19,7 +19,8 @@
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
-    "settings[waitForIdleTimeout]" : 1000
+    "settings[waitForIdleTimeout]" : 1000,
+    "deviceOrientation": "potrait"
   },
   "extra3": {
     "platformName": "Android",
@@ -41,7 +42,9 @@
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
-    "settings[waitForIdleTimeout]" : 1000
+    "settings[waitForIdleTimeout]" : 1000,
+    "deviceOrientation": "potrait"
+
   },
   "extra1": {
     "platformName": "Android",
@@ -63,7 +66,9 @@
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
-    "settings[waitForIdleTimeout]" : 1000
+    "settings[waitForIdleTimeout]" : 1000,
+    "deviceOrientation": "potrait"
+
   },
   "extra2": {
     "platformName": "Android",
@@ -85,7 +90,8 @@
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
-    "settings[waitForIdleTimeout]" : 1000
+    "settings[waitForIdleTimeout]" : 1000,
+    "deviceOrientation": "potrait"
   },
   "connection": {
     "device1": 0,

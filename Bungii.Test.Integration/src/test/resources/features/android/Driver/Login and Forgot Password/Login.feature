@@ -54,17 +54,7 @@ Feature: Log In
       | Expected Message 5                                                                                                    |   Expected Message 3                                                                                    |
       | Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account. | Invalid login credentials. You have exhausted 3 out of 5 attempts of entering the correct credentials.  |
 
-    @regression
-      Scenario Outline: Verify New Driver With Payment Status As Inactive Or Pending Cannot Go Online
-      When I enter phoneNumber :<Username> and  Password :<Password>
-      And I click "Log In" button on Log In screen on driver app
-      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-  
-      And I tap on "Go Online button" on Driver Home page
-      Then I should see "<Expected Message>" on Log In screen on driver app
-      Examples:
-        | Scenario        | Username   | Password | Expected Message                                  |
-        | PENDING PAYMENT | 8989890909 | Cci12345 | It looks like we ran into a hiccup. Please contact support@bungii.com for more information. |
+
 
   @regression
   Scenario Outline:  Verify New Driver With Application Status As Pending Cannot Login To Application Using Valid Credentials
@@ -84,7 +74,20 @@ Feature: Log In
     Examples:
       | Expected Message                                                                                                      |
       | Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account. |
-
+  
+  @regression
+    @nonstable
+  Scenario Outline: Verify New Driver With Payment Status As Inactive Or Pending Cannot Go Online
+    When I enter phoneNumber :<Username> and  Password :<Password>
+    And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I tap on "Go Online button" on Driver Home page
+    Then I should see "<Expected Message>" on Log In screen on driver app
+    Examples:
+      | Scenario        | Username   | Password | Expected Message                                  |
+      | PENDING PAYMENT | 8989890909 | Cci12345 | It looks like we ran into a hiccup. Please contact support@bungii.com for more information. |
+    
   #@regression
   Scenario: Verify Driver Location Permission Displayed Upon First Time Installation
     Given I have device which has location permission
