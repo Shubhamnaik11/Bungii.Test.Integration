@@ -83,7 +83,7 @@ public class DriverRegistrationSteps extends DriverBase {
 
                 action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), "bungiiauto"+Lastname+"@cci.com"); //PropertyUtility.getDataProperties("DriverEmail"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_CreatePassword(), PropertyUtility.getDataProperties("DriverPassword"));
-                action.clearSendKeys(Page_Driver_Reg.TextBox_ConfirmPassword(), PropertyUtility.getDataProperties("DriverPassword"));
+                //action.clearSendKeys(Page_Driver_Reg.TextBox_ConfirmPassword(), PropertyUtility.getDataProperties("DriverPassword"));
                 action.selectElementByText(Page_Driver_Reg.Dropdown_Location(),PropertyUtility.getDataProperties("DriverLocation"));
                 break;
             case "invalid":
@@ -91,7 +91,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(), PropertyUtility.getDataProperties("Invalid_DriverName"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), PropertyUtility.getDataProperties("Invalid_DriverEmail"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_CreatePassword(), PropertyUtility.getDataProperties("Invalid_DriverPassword"));
-                action.clearSendKeys(Page_Driver_Reg.TextBox_ConfirmPassword(), PropertyUtility.getDataProperties("Short_DriverPassword"));
+                //action.clearSendKeys(Page_Driver_Reg.TextBox_ConfirmPassword(), PropertyUtility.getDataProperties("Short_DriverPassword"));
                 action.selectElementByText(Page_Driver_Reg.Dropdown_Location(),PropertyUtility.getDataProperties("DriverLocation"));
                 break;
             case "short password":
@@ -251,7 +251,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Email()), PropertyUtility.getMessage("DReg_Email_Invalid"),  PropertyUtility.getMessage("DReg_Email_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_Email_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_Email_Invalid")+" is not displayed");
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Phone()), PropertyUtility.getMessage("DReg_Phone_Invalid"),  PropertyUtility.getMessage("DReg_Phone_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_Phone_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_Phone_Invalid")+" is not displayed");
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_CreatePassword()), PropertyUtility.getMessage("DReg_Password_Invalid"),  PropertyUtility.getMessage("DReg_Password_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_Password_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_Password_Invalid")+" is not displayed");
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_ConfirmPassword()), PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect"),  PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" should be displayed", PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" is displayed", PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" is not displayed");
+                //testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_ConfirmPassword()), PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect"),  PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" should be displayed", PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" is displayed", PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" is not displayed");
                 break;
             case "Global validation message":
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_BlankFields()), PropertyUtility.getMessage("Err_Pages_BlankFields"),  PropertyUtility.getMessage("Err_Pages_BlankFields")+" should be displayed", PropertyUtility.getMessage("Err_Pages_BlankFields")+" is displayed", PropertyUtility.getMessage("Err_Pages_BlankFields")+" is not displayed");
