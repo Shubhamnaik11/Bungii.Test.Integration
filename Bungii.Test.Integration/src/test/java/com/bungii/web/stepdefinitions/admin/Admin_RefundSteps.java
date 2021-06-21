@@ -364,7 +364,9 @@ public class Admin_RefundSteps extends DriverBase {
         String driverEarningsBefore = String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS_BEFORE"));
         Double eachDriverEarning = Double.parseDouble(driverEarningsBefore) / 2;
         Double bungiiEarnings = 0.00;
-        bungiiEarnings = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS")));
+        Double bungiiEarnings1 = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS")));
+        Double bungiiEarnings2 = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS2")));
+        bungiiEarnings = bungiiEarnings1+bungiiEarnings2;
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverBeforeRefund()),"$"+df.format(eachDriverEarning), "Driver 1 Earnings Before should be displayed", "Driver Earnings Before is displayed","Driver Earnings Before is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverAfterRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS")), "Driver 1 Earnings After should be displayed", "Driver Earnings After is displayed","Driver Earnings Aftere is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_Driver2BeforeRefund()),"$"+df.format(eachDriverEarning), "Driver 2 Earnings Before should be displayed", "Driver Earnings Before is displayed","Driver Earnings Before is not displayed");
