@@ -1513,11 +1513,16 @@ Thread.sleep(5000);
     }
 
     public String getCustomerSnackBarMessage() {
-
+        String snackbarMessage =null;
+        try {
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
-        String snackbarMessage = wait.ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class)
+        snackbarMessage = wait.ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.customer:id/snackbar_text"))).getText();
-        //String snackbarMessage = action.getText(element);
+        }
+        catch(TimeoutException ex)
+        {
+            snackbarMessage ="";
+        }
         return snackbarMessage;
     }
     public Boolean matchSnackBarMessage(String message) {
@@ -1535,9 +1540,16 @@ Thread.sleep(5000);
     }
 
     public String getDriverSnackBarMessage() {
+        String snackbarMessage =null;
+        try {
+    WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
+     snackbarMessage = wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.driver:id/snackbar_text"))).getText();
 
-        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
-        String snackbarMessage =  wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.driver:id/snackbar_text"))).getText();
+        }
+        catch(TimeoutException ex)
+        {
+            snackbarMessage ="";
+            }
         return snackbarMessage;
     }
 

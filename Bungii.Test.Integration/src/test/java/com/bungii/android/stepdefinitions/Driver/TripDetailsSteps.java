@@ -59,7 +59,7 @@ public class TripDetailsSteps extends DriverBase {
                 testStepAssert.isTrue(listOfBungii.size() == 2, "There should be two available deliveries",listOfBungii.size()+" available deliveries are displayed");
                 break;
             case "zero":
-                testStepAssert.isTrue(listOfBungii.size() == 0, "There should be zero available deliveries", listOfBungii.size()+" available deliveries are displayed");
+                testStepAssert.isTrue(listOfBungii.size() == 0, "There should be zero available deliveries", listOfBungii.size()+" available deliveries are displayed.");
                 break;
             default:
                 throw new Exception(" UNIMPLEMENTED STEP");

@@ -76,7 +76,7 @@ Feature: SoloScheduled Part B
 
 #@regression
   @ready
-    @a
+    @r
   Scenario: Verify If Incoming Scheduled Trip Request Start Time (Trip A) Overlaps TELET Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or offline SMS
 
     Given that solo schedule bungii is in progress
@@ -102,7 +102,7 @@ Feature: SoloScheduled Part B
     And I add "1" photos to the Bungii
     And I confirm trip with following details
       | Day | Trip Type | Time                                               |
-      | 0   | DUO       | <TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1> |
+      | 0   | DUO       | <START TIME WITHIN TELET OF CUSTOMER 1> |
     And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
@@ -119,7 +119,8 @@ Feature: SoloScheduled Part B
  
   @sanity
   @regression
-  Scenario: Verify Customer Can Create Scheduled Bungii
+    #Stable
+  Scenario: Verify Customer Can Create Scheduled Bungii And Driver Completes the flow
     Given I am logged in as "valid" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -130,7 +131,6 @@ Feature: SoloScheduled Part B
 
     And I Select "HOME" from driver App menu
     And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "Home" link
 
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -141,15 +141,14 @@ Feature: SoloScheduled Part B
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I check if the customer is on success screen
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    And I tap on "Menu" > "Home" link
 
     And I Switch to "driver" application on "same" devices
     And I tap on "Available Trips link" on Driver Home page
-
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-
     And Bungii Driver "Start Schedule Bungii" request
     Then Bungii driver should see "Enroute screen"
 
@@ -159,25 +158,10 @@ Feature: SoloScheduled Part B
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
-
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Arrived screen"
-
-    When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Loading Item screen"
-
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Loading Item screen"
-
-    When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Driving to DropOff screen"
-
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Driving to DropOff screen"
-
-    When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
 
@@ -186,12 +170,13 @@ Feature: SoloScheduled Part B
 
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
+    Then Bungii Driver "completes Bungii"
+    And I Select "HOME" from driver App menu
+    
     And I Switch to "customer" application on "same" devices
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
-    And I Switch to "driver" application on "same" devices
-    Then Bungii Driver "completes Bungii"
-    And I Select "HOME" from driver App menu
+    
 
    #@regression
   @ready

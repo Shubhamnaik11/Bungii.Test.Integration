@@ -103,9 +103,8 @@ Feature: SoloScheduled Part I
       | 8805368840     |                 |
   
   
-  #@regression
-  @ready
-    @ad1
+  @regression
+    #stable
   Scenario: Verify Validation Message Is Shown If Driver Tries To Start Bungii More Than 60 Mins Before The Scheduled Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -213,7 +212,8 @@ Feature: SoloScheduled Part I
 
   #@regression
   @ready
-  Scenario: Verify Driver Receives Alert Stating That The Trip Has Already Been Accepted By Him If He Receives Request Notification After Accepting The Trip From Available Trips
+    @r
+  Scenario: Pushnotification : Verify Driver Receives Alert Stating That The Trip Has Already Been Accepted By Him If He Receives Request Notification After Accepting The Trip From Available Trips
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I enter phoneNumber :8888881019 and  Password :Cci12345
@@ -221,17 +221,14 @@ Feature: SoloScheduled Part I
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     Given I Switch to "customer" application on "same" devices
-
     Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
       | NEXT_POSSIBLE | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
-
+    Then I wait for "2" mins
     And I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I click "ACCEPT" button on Bungii Request screen
-    Then I wait for "1" mins
-    And I Switch to "customer" application on "same" devices
     And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
     When I click "View" on alert message

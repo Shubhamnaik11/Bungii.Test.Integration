@@ -57,7 +57,7 @@ Feature: EstimateBungii
     Then I should see "promocode added" on Bungii estimate page
 
   @regression
-  @nonstable
+  #stable
   Scenario: Verify Customer Can Add Minimum of One And Maximum Of Four Images Of Items
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -77,7 +77,6 @@ Feature: EstimateBungii
   
   @regression
       #stable
-  @nonstable
   Scenario: Verify When Customer Switches From Ondemand To Scheduled Bungii On Account Of Unavailibility Of Driver Then Customer Is Taken To Schedule Bungii Screen
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate

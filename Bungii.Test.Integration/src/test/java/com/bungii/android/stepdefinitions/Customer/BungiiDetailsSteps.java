@@ -155,8 +155,8 @@ public class BungiiDetailsSteps extends DriverBase {
     public void i_should_see_something_on_screen(String strArg1) throws Throwable {
         try {
 
-            String expectedText=null; String actualText =null;
-            actualText = utility.getDriverSnackBarMessage();// action.getText(bungiiDetailsPage.Text_snackbarmessage());
+            String actualText = utility.getDriverSnackBarMessage();// action.getText(bungiiDetailsPage.Text_snackbarmessage());
+            String expectedText=null;
 
             switch(strArg1)
             {

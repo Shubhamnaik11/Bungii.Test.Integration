@@ -354,9 +354,8 @@
   
   
       @regression
-   #stable
+      #stable
         #web
-        @nonstable
       Scenario: Verify that changing date and time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time [Admin can Override]
         When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -388,9 +387,8 @@
           | 9393939393     |  9999992222     |
   
       @regression
-   #stable
+      #stable
         #web
-        @nonstable
       Scenario: Verify that changing date_time for a scheduled bungii for which the customer has a conflicting bungii during the newly selected time
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time     |

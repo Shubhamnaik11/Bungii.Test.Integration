@@ -9,7 +9,7 @@ Feature: FORGOT PASSWORD
     And I am on the LOG IN page on driver app
 
   @regression
-    @stable
+   #stable
   Scenario Outline: Verify Driver Is Alerted If Invalid Phone Number Is Added During Forgot Password Functionality - Case:<Scenario>
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
@@ -24,7 +24,7 @@ Feature: FORGOT PASSWORD
       | Phone Number less than 10 | 940396     | Please enter Phone number error | SEND BUTTON DISABLED |
   
   @regression
-  @stable
+ #stable
   Scenario Outline: Verify Driver Is Alerted If Invalid Phone Number Is Added During Forgot Password Functionality - Case:<Scenario>
 	When I click "Forgot Password" button on Log In screen on driver app
 	Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
@@ -39,7 +39,7 @@ Feature: FORGOT PASSWORD
       | Invalid Phone Number      | 2121212121 | FAILED TO SEND TOKEN            | SEND BUTTON ENABLED  |
 
   @regression
-  @stable
+  #stable
   Scenario Outline:  Verify Driver Is Alerted If Enters Invalid Password During Forgot Password Functionality - Case:<Scenario>
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
@@ -58,7 +58,7 @@ Feature: FORGOT PASSWORD
       | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID SMS CODE             |
   
   @regression
-  @stable
+  #stable
   Scenario Outline:  Verify Driver Is Alerted If Enters Invalid Sms Code During Forgot Password Functionality - Case:<Scenario>
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
@@ -77,7 +77,7 @@ Feature: FORGOT PASSWORD
       | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID SMS CODE             |
     
   @regression
-    @nonstable
+    #stable
   Scenario Outline: Verify Driver Is Able To Change Password Using Forgot Password Functionality
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app

@@ -63,7 +63,7 @@ Feature: CustomerForgotPassword
     Then The user should see "snackbar validation message for invalid sms code" on forgot password page
   
   @regression
-    @nonstable
+    #stable
   Scenario: Verify Customer Forgot Password Functionality With Incorrect SMS Code
     When I enter "valid" Phone Number
     And I tap on the "Send" Link

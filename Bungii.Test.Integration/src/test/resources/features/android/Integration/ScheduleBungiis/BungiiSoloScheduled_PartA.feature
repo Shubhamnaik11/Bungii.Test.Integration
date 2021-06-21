@@ -21,11 +21,13 @@ Feature: SoloScheduled
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas1  | Accepted     | NEXT_POSSIBLE |
+    
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "kansas driver 1" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
+  
+    And I Switch to "driver" application on "same" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     When Bungii Driver "cancels Bungii request"
