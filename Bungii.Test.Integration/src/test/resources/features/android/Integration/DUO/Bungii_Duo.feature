@@ -103,9 +103,11 @@ Feature: Scheduled Duo Bungiis
 	  | Kansas   | Accepted     | 1 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |
 	
 	And I Switch to "driver" application on "same" devices
+	And I wait for "3" mins
 	And I am on the LOG IN page on driver app
 	And I am logged in as "Kansas driver 1" driver
 	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I wait for "3" mins
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
@@ -156,37 +158,11 @@ Feature: Scheduled Duo Bungiis
 	Then Bungii driver should see "Enroute screen"
 	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for "non controller" driver
  
- 
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
-  
-  @regression
-    #stable
-	@nonstable
-  Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
-	Given that duo schedule bungii is in progress
-	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
-	  | Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1     | Kansas driver 2 |
-  
-	When I Switch to "driver" application on "same" devices
-	And I am on the LOG IN page on driver app
-	And I am logged in as "Kansas driver 1" driver
 	
-	And I connect to "extra1" using "Driver1" instance
-	When I Switch to "driver" application on "same" devices
-	And I am on the LOG IN page on driver app
-	And I am logged in as "Kansas driver 2" driver
-	
-	And I click the "Cancel" button on "update" screen
-	Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-	When I click "YES" on the alert message
-	
-	When I switch to "ORIGINAL" instance
-	When I Switch to "driver" application on "same" devices
-	Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
-  
   @regression
 	#stable
   Scenario: Verify Other Driver And Customer Are Notified When One Driver Cancels The Duo Bungii
@@ -221,18 +197,42 @@ Feature: Scheduled Duo Bungiis
   
   
   @regression
+    #stable
+  Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
+	Given that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
+	  | Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1     | Kansas driver 2 |
+	
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "Kansas driver 1" driver
+	
+	And I connect to "extra1" using "Driver1" instance
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "Kansas driver 2" driver
+	
+	And I click the "Cancel" button on "update" screen
+	Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+	When I click "YES" on the alert message
+	
+	When I switch to "ORIGINAL" instance
+	When I Switch to "driver" application on "same" devices
+	Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
+	
+  @regression
    #stable
 	@nonstable
+	@d
   Scenario: Verify Driver Notification When Other Driver Cancels Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
-	  #| atlanta  | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
 	  | Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
   
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
 	And I am logged in as "Kansas driver 1" driver
-    
+    And I terminate "driver" app on "same" devices
     #driver1 in background
 	And I connect to "extra1" using "Driver1" instance
 	When I Switch to "driver" application on "same" devices

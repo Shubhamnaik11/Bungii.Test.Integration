@@ -370,8 +370,6 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	And I click on "Past" tab
 	And I open first trip in past trips
 	Then I verify driver names and trip cost
-	
-	When I open new "Chrome" browser for "ADMIN"
 	And Customer should receive "Your Bungii Receipt" email
  
 	And I cancel all bungiis of customer

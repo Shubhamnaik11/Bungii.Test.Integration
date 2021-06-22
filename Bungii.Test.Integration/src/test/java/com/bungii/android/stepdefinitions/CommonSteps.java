@@ -87,7 +87,45 @@ public class CommonSteps extends DriverBase {
         ((AndroidDriver) SetupManager.getDriver()).pushFile(ANDROID_PHOTO_PATH + "/" + img.getName(), img);
 
     }
+    @When("^I terminate \"([^\"]*)\" app on \"([^\"]*)\" devices$")
+    public void i_terminate_app(String appName, String device) {
+        boolean isApplicationIsInForeground = false;
 
+        try {
+            if(action.isElementPresent(phonePage.Container_Notification(true)))
+            {
+                ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                logger.detail("Attempted to hide container");
+
+            }
+            if (!device.equalsIgnoreCase("same")) {
+                i_switch_to_something_instance(device);
+                Thread.sleep(5000);
+            }
+            switch (appName.toUpperCase()) {
+                case "DRIVER":
+                    ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    break;
+                case "CUSTOMER":
+                    ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+
+
+                pass("Terminated " + appName + " application", "Termination of " + appName + " application is successful");
+
+            //    Thread.sleep(5000);
+            //     testStepVerify.isTrue(isApplicationIsInForeground, "Switch to " + appName + " application", "Switch to " + appName + " application is successful", "Switch to " + appName + " application was not successfull");
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+
+    }
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
         boolean isApplicationIsInForeground = false;
@@ -1212,8 +1250,14 @@ public class CommonSteps extends DriverBase {
     @And("^Customer should receive \"([^\"]*)\" email$")
     public void customer_should_receive_something_email(String emailSubject) throws Throwable {
         String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
-        action.navigateTo(emailBody);
-        String url = action.getCurrentURL();
+        String url = "";
+        if(emailBody!="") {
+            action.navigateTo(emailBody);
+            url = action.getCurrentURL();
+        }
+        else
+            testStepAssert.isTrue(false,"Email should be received","Email is received :"+ emailSubject,"Email is not received : "+ emailSubject);
+
         String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String survey_link = null;
         switch(geofence)
