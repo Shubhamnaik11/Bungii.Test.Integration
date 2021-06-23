@@ -89,7 +89,8 @@ Feature: Admin_DriverDetails
     Then The Driver Trip List page should display the trip in "Payment Successful" state
 
   @ready
-  Scenario: Verify Driver Search On Dashboard Page
+    #stable
+  Scenario: Verify Driver Search On Various Pages
     When I navigate to following pages one by one
       |Page |
       | Dashboard    |
@@ -101,7 +102,7 @@ Feature: Admin_DriverDetails
 
     When I navigate to following pages one by one
       |Page |
-      | Scheduled Deliveries |
+      | All Deliveries |
     And I enter "drivers" "first name" in the "Deliveries search" box
     Then I should see "driver first name" listed on the "Deliveries" page
 

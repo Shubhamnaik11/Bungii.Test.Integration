@@ -85,7 +85,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                 utility.resetGeofenceDropdown();
 
                 Select dropdown = new Select(admin_tripsPage.DropDown_SearchForPeriod());
-                dropdown.selectByVisibleText("All");
+                dropdown.selectByVisibleText("The Beginning of Time");
                 switch (strArg2) {
                     case "first name":
                         if (strArg1.equalsIgnoreCase("customers")) {
