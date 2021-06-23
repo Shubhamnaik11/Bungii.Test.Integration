@@ -252,6 +252,15 @@ public class Admin_GeofenceSteps extends DriverBase {
         }
     }
 
+    @And("^I click on \"([^\"]*)\" page$")
+    public void i_click_on_something_page(String page) throws Throwable {
+        switch(page){
+            case "Dashboard":
+                action.click(admin_DashboardPage.Menu_Dashboard().findElement(By.xpath("a")));
+                break;
+        }
+    }
+
     @And("^I select \"([^\"]*)\" geofence$")
     public void i_select_something_geofence(String geofenceName) throws Throwable {
         try{
