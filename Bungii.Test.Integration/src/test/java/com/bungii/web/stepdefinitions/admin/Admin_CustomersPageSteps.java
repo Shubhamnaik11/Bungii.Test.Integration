@@ -112,7 +112,8 @@ public class Admin_CustomersPageSteps extends DriverBase {
                         if(strArg1.equalsIgnoreCase("customers")){
                             action.clearSendKeys(admin_dashboardPage.TextBox_SearchCustomer(),customerFirstName + Keys.ENTER);
                         }else {
-                            action.clearSendKeys(admin_dashboardPage.Textbox_DriverSearch(), driverFirstName + Keys.ENTER);
+                            action.clearSendKeys(admin_dashboardPage.Textbox_DriverSearch(), driverFirstName);
+                            action.click(admin_dashboardPage.Icon_Search());
                         }
                         Thread.sleep(2000);
                         break;
@@ -120,7 +121,8 @@ public class Admin_CustomersPageSteps extends DriverBase {
                         if(strArg1.equalsIgnoreCase("customers")){
                             action.clearSendKeys(admin_customerPage.TextBox_SearchCustomer(), customerLastName + Keys.ENTER);
                         }else {
-                            action.clearSendKeys(admin_driversPage.Textbox_SearchCriteria(), driverLastName + Keys.ENTER);
+                            action.clearSendKeys(admin_dashboardPage.Textbox_DriverSearch(), driverLastName);
+                            action.click(admin_dashboardPage.Icon_Search());
                         }
                         Thread.sleep(1000);
                         break;

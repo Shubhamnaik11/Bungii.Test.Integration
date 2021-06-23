@@ -22,7 +22,7 @@ Feature: Admin_Delivery_Type_Change
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
 	And I change delivery type from "Duo to Solo"
-	When I remove control driver "Testdrivertywd_appledc_a_webkk Testdriverkk" on edit popup
+	#When I remove control driver "Testdrivertywd_appledc_a_webkk Testdriverkk" on edit popup
  
 	And I click on "VERIFY" button
 	And the "Your changes are good to be saved." message is displayed
@@ -133,7 +133,7 @@ Feature: Admin_Delivery_Type_Change
 	And I view All Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Payment Successful" state
   
-  @ready
+  @regression
   Scenario: Verify Admin can Change delivery from Solo to Duo
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
@@ -174,7 +174,7 @@ Feature: Admin_Delivery_Type_Change
 	Then Under Driver Details: for both Driver 1 and 2 : "Add driver below or Bungii driver search will continue" should be displayed
 	And I should see Bungii Type as "DUO" in "Edit Trip Details" section
   
-  @ready
+  @regression
   Scenario: Verify Admin can Change delivery from Duo to Solo
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |

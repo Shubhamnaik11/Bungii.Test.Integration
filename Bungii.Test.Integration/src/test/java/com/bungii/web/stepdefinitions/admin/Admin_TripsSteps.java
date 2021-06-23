@@ -1560,6 +1560,7 @@ public class Admin_TripsSteps extends DriverBase {
         {
             logger.detail("Exception "+ ex.getLocalizedMessage());
         }
+        Thread.sleep(1000);
         testStepVerify.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
 
     }
@@ -1577,6 +1578,7 @@ public class Admin_TripsSteps extends DriverBase {
     {
         logger.detail("Exception "+ ex.getLocalizedMessage());
     }
+        Thread.sleep(1000);
         testStepVerify.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
 
     }
