@@ -575,6 +575,15 @@ public class HomePageSteps extends DriverBase {
                     String dayOfWeek1=simpleDateformat1.format(calendar1.getTime());
                     action.click((WebElement) SetupManager.getDriver().findElement(By.name(dayOfWeek1)));
                     break;
+                case "YESTERDAY":
+                    String geofenceLabel2 = utility.getTimeZoneBasedOnGeofenceId();
+                    Calendar calendar2= Calendar.getInstance();
+                    calendar2.add(Calendar.DAY_OF_YEAR, -1);
+                    SimpleDateFormat  simpleDateformat2 = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+                    simpleDateformat2.setTimeZone(TimeZone.getTimeZone(geofenceLabel2));
+                    String dayOfWeek2=simpleDateformat2.format(calendar2.getTime());
+                    action.click((WebElement) SetupManager.getDriver().findElement(By.name(dayOfWeek2)));
+                    break;
                 default:
                     action.click((WebElement)SetupManager.getDriver().findElement(By.name(strArg0)));
                     break;
@@ -630,6 +639,9 @@ public class HomePageSteps extends DriverBase {
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         String dayOfWeek1=simpleDateformat.format(calendar.getTime());
         i_update_sms_setting_of_sunday_to_something_to_something(dayOfWeek1,strdate,enddate); //update tomorrows as well to fix issue with timezones
+        calendar.add(Calendar.DAY_OF_YEAR, -2);
+        String dayOfWeek2=simpleDateformat.format(calendar.getTime());
+        i_update_sms_setting_of_sunday_to_something_to_something(dayOfWeek2,strdate,enddate); //update yesterdays as well to fix issue with timezones
         Thread.sleep(5000);
     }
 

@@ -124,10 +124,7 @@
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
-  
-  
-  
-  
+		
       @regression
       @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page
@@ -164,9 +161,9 @@
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
   
-      @ready
-      @nonstable
-      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii push notification request
+      @regression
+        #stable
+      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Ondemand Solo Bungii push notification request
         When I Switch to "driver" application on "same" devices
         When I am on the LOG IN page on driver app
         And I am logged in as "Testdriver_goa_e Android_test" driver
@@ -181,17 +178,13 @@
         When I tap on "Details" on Estimate screen
         And I enter "text" in Additional Notes field
         And I click on "ADD NOTE" button
-        #And I select Bungii Time as "NEW BUNGII TIME"
-        And I select Bungii Time as "2 HOUR DELAY"
-    
-        Then "Estimate" page should be opened
+        #And I select Bungii Time as "2 HOUR DELAY"
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-        And I click "Done" button on "Success" screen
-    
-        And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-        Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
-        When I click "View" on alert message
+        Then for a Bungii I should see "Bungii search screen"
+  
+		And I click on notification for "driver" for "ON DEMAND TRIP"
+        And Bungii Driver "views On Demand Bungii" request
         Then I should be able to see "Customer Note" Text
     
         And I cancel all bungiis of customer

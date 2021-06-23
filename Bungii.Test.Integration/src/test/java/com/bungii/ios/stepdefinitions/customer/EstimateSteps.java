@@ -1102,7 +1102,6 @@ public class EstimateSteps extends DriverBase {
         try {
             action.click(estimatePage.Row_TimeSelect());
             action.click(estimatePage.Button_Set());
-           // action.click(estimatePage.Text_TimeValue());
             String time=action.getValueAttribute(estimatePage.Text_TimeValue());
             Date date = getNextScheduledBungiiTimeForGeofence();
             String strTime = bungiiTimeDisplayInTextArea(date);
@@ -1118,13 +1117,22 @@ public class EstimateSteps extends DriverBase {
     @And("^I calculate the schedule time$")
     public void I_calculate_the_schedule_time() throws Throwable {
         try {
-            cucumberContextManager.setScenarioContext("MIN_TIME_DUO","30");
-            cucumberContextManager.setScenarioContext("MIN_TIME_SOLO","30");
-            String time=action.getValueAttribute(estimatePage.Text_TimeValue());
-            Date date = getNextScheduledBungiiTimeForGeofence();
-            String strTime = bungiiTimeDisplayInTextArea(date);
-            cucumberContextManager.setScenarioContext("CALCULATED_TIME",strTime);
-            cucumberContextManager.setScenarioContext("DISPLAYED_TIME",time);
+            cucumberContextManager.setScenarioContext("MIN_TIME_DUO", "30");
+            cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", "30");
+            boolean bit = false ;
+            int retry = 2;
+
+            while (bit == false || retry >0) {
+                String time = action.getValueAttribute(estimatePage.Text_TimeValue());
+                Date date = getNextScheduledBungiiTimeForGeofence();
+                String strTime = bungiiTimeDisplayInTextArea(date);
+                cucumberContextManager.setScenarioContext("CALCULATED_TIME", strTime);
+                cucumberContextManager.setScenarioContext("DISPLAYED_TIME", time);
+                if (strTime.contains(time))
+                    bit = true;
+                retry --;
+
+            }
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1192,7 +1200,7 @@ public class EstimateSteps extends DriverBase {
             isElementPresent = checkIfElementIsPresent("TERMS ON");
         }
         String value = getElementValue("TERMS AND CONDITION");
-        String expectedMsg = PropertyUtility.getMessage("customer.terms.checkbox.text");
+        String expectedMsg = PropertyUtility.getMessage("customer.terms.checkbox.text.new");
         boolean isValueCorrect = value.equals(expectedMsg);
 
         testStepVerify.isTrue(isElementPresent,
@@ -1201,7 +1209,7 @@ public class EstimateSteps extends DriverBase {
                 "Verify Terms & Condition checkBox is not " + expectedValue);
         testStepVerify.isTrue(isValueCorrect,
                 " Terms & Condition value Should be " + PropertyUtility.getMessage("customer.terms.checkbox.text"),
-                " Terms & Condition value is " + PropertyUtility.getMessage("customer.terms.checkbox.text") + "as expected",
+                " Terms & Condition value is " + PropertyUtility.getMessage("customer.terms.checkbox.text.new") + "as expected",
                 "'Terms & Condition' value is not matching ,expected is " + PropertyUtility.getMessage("customer.terms.checkbox.text")
                         + "but actual is" + value);
 

@@ -232,7 +232,7 @@ public class BungiiSteps extends DriverBase {
     @And("^Bungii Driver \"([^\"]*)\" request$")
     public void bungiiDriverRequest(String arg0) {
         try {
-            if (arg0.equalsIgnoreCase("accepts On Demand Bungii")||arg0.equalsIgnoreCase("rejects On Demand Bungii")) {
+            if (arg0.equalsIgnoreCase("accepts On Demand Bungii")||arg0.equalsIgnoreCase("rejects On Demand Bungii") ||arg0.equalsIgnoreCase("views On Demand Bungii")) {
                 boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
                 if (!isDisplayed)
                     i_click_on_notification_for_something("on demand trip");
@@ -245,7 +245,9 @@ public class BungiiSteps extends DriverBase {
                             Thread.sleep(5000);
                             action.click(Page_BungiiRequest.Button_Accept());
                             break;
-
+                        case "views On Demand Bungii":
+                            Thread.sleep(5000);
+                            break;
                         case "rejects On Demand Bungii":
                             Thread.sleep(5000);
                             action.click(Page_BungiiRequest.Button_Reject());
