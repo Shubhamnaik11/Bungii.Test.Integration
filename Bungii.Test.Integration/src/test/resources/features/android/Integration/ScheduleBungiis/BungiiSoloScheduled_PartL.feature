@@ -130,7 +130,6 @@ And I click "On To The Next One" button on the "Bungii Completed" screen
 
 @knownissue
 Scenario: Verify Customer Can Create An Ondemand Bungii And Correct Contact Number Is Displayed On Call And SMS Option
-
 Given that ondemand bungii is in progress
 | geofence | Bungii State |
 | baltimore   | Enroute      |
@@ -179,11 +178,9 @@ Then Bungii driver should see "Unloading Item screen"
 When Bungii Driver "slides to the next state"
 
 And I Switch to "customer" application on "same" devices
-Then Bungii customer should see "correct details" on Bungii completed page
 When I tap on "OK on complete" on Bungii estimate
 And I tap on "No free money" on Bungii estimate
 
 And I Switch to "driver" application on "same" devices
-Then Bungii driver should see "correct details" on Bungii completed page
 And Bungii Driver "completes Bungii"
 And Customer should receive "bungii" receipt email
