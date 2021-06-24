@@ -1,7 +1,5 @@
     @android
-    @general
-    @bungii
-    #These feature will run in Goa geofence and STABLE
+    #These feature will run in Goa geofence and STABLE and will run with regression and not bungii in android
     Feature: Driver Assignments with TELET Overlap
       #Customer D and C - Testcustomertywd_appleand_D Android 9999990074 and Testcustomertywd_appleand_C Android 9999992222
       # Driver D and C  - Testdriver_goa_d Android_test and Testdriver_goa_c Android_test

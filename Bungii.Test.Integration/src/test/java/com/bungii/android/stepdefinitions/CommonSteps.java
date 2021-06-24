@@ -1289,11 +1289,11 @@ public class CommonSteps extends DriverBase {
         String estimatedTime=(String)cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME");
         String actualLoadUnloadTime="";
         String estimatedLoadUnloadTime=(String)cucumberContextManager.getScenarioContext("BUNGII_LOADTIME");/*ratingValue="3";*/
-        String tripDetailsLink=extractUrls(emailBody).get(0);
-        if(emailBody== null)
+        if(emailBody== "")
         {
             testStepAssert.isFail("Email : "+ emailSubject + " not received");
         }
+        String tripDetailsLink=extractUrls(emailBody).get(0);
         String message = null;
        // message = utility.getExpectedPoorRatingMail(driverName, customerName, ratingValue, tripDetailsLink);
         testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
