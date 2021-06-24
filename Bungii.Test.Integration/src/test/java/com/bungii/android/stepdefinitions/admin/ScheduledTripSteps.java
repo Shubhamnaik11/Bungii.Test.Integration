@@ -211,25 +211,9 @@ public class ScheduledTripSteps extends DriverBase {
 			String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 			String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
-
-//			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
-	//		action.click(scheduledTripsPage.Button_Search());
 			Thread.sleep(5000);
-			//On admin panel CST time use to show
-			//	getPortalTime("Aug 09, 06:15 AM CDT");
-			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
 			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
-
-
-			/*int rowNumber = getTripRowNumber(tripDetails);
-			// it takes max 2.5 mins to appear
-			for (int i = 0; i < 5 && rowNumber == 999; i++) {
-				Thread.sleep(30000);
-				SetupManager.getDriver().navigate().refresh();
-				scheduledTripsPage.waitForPageLoad();
-				rowNumber = getTripRowNumber(tripDetails);
-			}*/
 			String pickupRequestOld = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
 
 			RemoveSoloDriverAndresearchBungii(tripDetails);
@@ -400,14 +384,10 @@ public class ScheduledTripSteps extends DriverBase {
 			String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 			//String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
-
+			Thread.sleep(15000);
 			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
 			action.click(scheduledTripsPage.Button_Search());
 			Thread.sleep(5000);
-			//On admin panel CST time use to show
-			//	getPortalTime("Aug 09, 06:15 AM CDT");
-			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
-			//tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 
 			int rowNumber = getTripRowNumber(tripDetails);
@@ -466,8 +446,8 @@ public class ScheduledTripSteps extends DriverBase {
 			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(), name[0]);
 			action.click(scheduledTripsPage.Button_Search());
 
-			Thread.sleep(10000);
-			List<WebElement> rows = SetupManager.getDriver().findElements(By.xpath(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0])));
+			Thread.sleep(25000);
+			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
 			if(rows.size()>0)
 			rows.get(0).click();
 			else {

@@ -30,7 +30,7 @@ Feature: SoloScheduled Part C
   
   @regression
     #stable
-  Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled start time
+  Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled delivery start time
     When that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 1 hour ahead |
@@ -52,11 +52,12 @@ Feature: SoloScheduled Part C
   
   @regression
     #stable
-  Scenario: Verify That a Solo scheduled Bungii can be started 30 mins before the scheduled Trip start time
+  Scenario: Verify That a Solo scheduled Bungii can be started 30 mins before the scheduled delivery start time
     When that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 0.5 hour ahead |
     When I Switch to "driver" application on "same" devices
+    And I wait for "3" mins
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist

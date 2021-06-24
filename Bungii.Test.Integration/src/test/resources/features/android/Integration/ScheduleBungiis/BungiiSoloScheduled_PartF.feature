@@ -22,7 +22,8 @@ Feature: SoloScheduled Part F
     And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I open the trip for "Testcustomertywd_appleyyhGZP Stark" customer
     And I remove current driver and researches Bungii
-    
+    Then I wait for "2" mins
+  
     When I switch to "ORIGINAL" instance
     And Notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE" should be displayed
     Then I cancel all bungiis of customer
@@ -31,7 +32,7 @@ Feature: SoloScheduled Part F
   
   @regression
   #stable
-  Scenario: Verify Re-searched Trip Request Doesnt Show Urgent Notification Text If Is More Than One Hour From The Scheduled Trip Time
+  Scenario: Verify Re-searched Trip Request Doesnt Show Urgent Notification Text If Is More Than One Hour From The Scheduled Trip Time in android
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 2 hour ahead |
@@ -41,14 +42,13 @@ Feature: SoloScheduled Part F
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
     When I Switch to "customer" application on "same" devices
-    Then I wait for "2" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page
+    Then I wait for "1" mins
     And I open the trip for "Testcustomertywd_appleyyhGZP Stark" customer
-  
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
+    Then I wait for "1" mins
     And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
-    When I Switch to "customer" application on "same" devices
     Then Notification for "driver" for "SCHEDULED PICKUP AVAILABLE" should be displayed
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |

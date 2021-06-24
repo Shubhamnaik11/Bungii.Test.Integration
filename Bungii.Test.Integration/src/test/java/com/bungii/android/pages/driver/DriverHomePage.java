@@ -14,7 +14,7 @@ public class DriverHomePage extends PageBase {
     // public WebElement Title_Status (boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar_main_title' or 'com.bungii.driver:id/toolbar_title']", LocatorType.XPath ,ignoreException    ); }
     public WebElement Title_Status (boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar_main_title'] | //*[@resource-id='com.bungii.driver:id/toolbar_title'] | //android.widget.TextView[@text='ALERT SETTINGS']", LocatorType.XPath ,ignoreException    ); }
 
-    public WebElement Button_NavigationBar () { return findElement("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]", LocatorType.XPath); }
+    public WebElement Button_NavigationBar (boolean ... ignoreException) { return findElement("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]", LocatorType.XPath, ignoreException); }
     public List<WebElement> Button_NavigationBarText () { return findElements("//*[@resource-id='com.bungii.driver:id/design_menu_item_text']", LocatorType.XPath); }
     public List<WebElement> Label_SubMenuText () { return findElements("//*[@resource-id='com.bungii.driver:id/layout_account_settings_tv_submenu']", LocatorType.XPath); }
 

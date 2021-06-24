@@ -88,10 +88,10 @@ public class BungiiRequestSteps extends DriverBase {
                     transactionFee=(flestimate*0.029)+0.3;
                     estimatedDriverCut=(0.7*flestimate)-transactionFee;
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut);
-                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"$"+truncValue);
+                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"~$"+truncValue); //~
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Reject(),"Reject button should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Accept(),"Accept button should be displayed");
-                    testStepVerify.isElementTextEquals(bungiiRequestPage.Navigation_Header(),"STACKED BUNGII REQUEST");
+                    //testStepVerify.isElementTextEquals(bungiiRequestPage.Navigation_Header(),"STACKED BUNGII REQUEST"); nrmal trip not stacked
                     break;
             }
         } catch (Exception e) {

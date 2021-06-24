@@ -31,7 +31,7 @@ Feature: SoloScheduled Part H
   
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
+      | CUSTOMER1_PHONE | 8888889916      |
     ########################################################################
   
   @regression
@@ -100,7 +100,7 @@ Feature: SoloScheduled Part H
     
   @regression
     #stable
-  Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Solo Trip
+  Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Solo Delivery
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | kansas  | Accepted     | 15 min ahead |

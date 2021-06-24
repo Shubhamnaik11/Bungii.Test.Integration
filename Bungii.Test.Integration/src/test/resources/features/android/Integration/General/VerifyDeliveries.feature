@@ -59,13 +59,14 @@ Feature: Delivery Flows
       | Same      | Enroute      |
     
     And I Open "customer" application on "same" devices
-    And I wait for "3" mins
+    And I wait for "4" mins
     When I am on customer Log in page
+    And I wait for "4" mins
     When I am logged in as "valid" customer
-    And I wait for "3" mins
+    And I wait for "4" mins
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I wait for "3" mins
+    And I wait for "2" mins
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select 1st trip from scheduled bungii
     When I wait for 1 hour for Bungii Schedule Time

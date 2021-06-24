@@ -228,6 +228,21 @@ public class BungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I reject \"([^\"]*)\" request$")
+    public void bungiiDriverRequestrejection(String arg0) {
+        try {
+            if (arg0.equalsIgnoreCase("On Demand Bungii") ) {
+
+                            Thread.sleep(5000);
+                            action.click(Page_BungiiRequest.Button_Reject());
+                    }
+            log("Bungii driver should able to reject " + arg0 + " request", "Bungii driver rejects  " + arg0+ " request",true);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     @And("^Bungii Driver \"([^\"]*)\" request$")
     public void bungiiDriverRequest(String arg0) {
@@ -548,11 +563,11 @@ public class BungiiSteps extends DriverBase {
             boolean isDisplayed = isNotificationTextPresent(actionToPerfrom);
             String expectedMessage= (String) cucumberContextManager.getScenarioContext("EXPECTED_MESSAGE");
 
-            testStepVerify.isTrue(isDisplayed, actor + " should be notified for " + expectedMessage, actor + " was notified for " + expectedMessage, "Not able to get notification with text for '" + expectedMessage + "' for" + actor);
+            testStepAssert.isTrue(isDisplayed, actor + " should be notified for " + expectedMessage, actor + " was notified for " + expectedMessage, "Not able to get notification with text for '" + expectedMessage + "' for" + actor);
             action.hideNotifications();
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in fetching notification", true);
 
         }
     }

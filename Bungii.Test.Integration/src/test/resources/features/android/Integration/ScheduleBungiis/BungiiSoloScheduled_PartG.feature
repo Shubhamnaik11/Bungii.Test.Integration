@@ -63,10 +63,9 @@ Feature: SoloScheduled Part G
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
     
-  #@regression
-  @ready
-    @r
-  Scenario: Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Scenario:Solo
+  @regression
+ #stable
+  Scenario: Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps:Solo
     Given I Switch to "customer" application on "same" devices
     #trip 1
     Given that solo schedule bungii is in progress
@@ -84,6 +83,7 @@ Feature: SoloScheduled Part G
     
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
+    And I wait for "1" mins
     And I Select Trip from available trip
     And I click "ACCEPT" button on Bungii Request screen
     Then I should be navigated to "AVAILABLE BUNGIIS" screen
@@ -95,7 +95,7 @@ Feature: SoloScheduled Part G
   
   @regression
     #stable
-  Scenario: Verify Scheduled Bungii Notification Info Is Correct [Estimated earnings - Date]
+  Scenario: Verify Scheduled Bungii Notification Info Is Correct [Estimated earnings and Date]
     When I clear all notification
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app

@@ -53,8 +53,16 @@ public class HomePageSteps extends DriverBase {
 
             }
             Thread.sleep(3000);
-            boolean isClicked = false;  if (action.isAlertPresent()) { utility.acceptNotificationAlert(); }
+            boolean isClicked = false;
+            if(action.isElementPresent(driverHomePage.Button_NavigationBar(true)))
             action.click(driverHomePage.Button_NavigationBar());
+            else{
+                if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
+                    action.click(estimatePage.Button_RequestConfirmCancel());
+                    logger.detail("Push notification alert was shown on driver dashboard");
+                }
+                action.click(driverHomePage.Button_NavigationBar());
+            }
             List<WebElement> elements = driverHomePage.Button_NavigationBarText();
             if (action.isAlertPresent()) {
                 if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
