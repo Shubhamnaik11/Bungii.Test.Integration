@@ -14,8 +14,8 @@ Feature: Bungii Details and Pickup Note
     And I am logged in as "Driver_goa_f Android_test" driver
     
     When I request "duo" Bungii as a customer in "goa" geofence
-      | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-      | NEXT_POSSIBLE | 9999999999     | Testcustomertywd_appleand_F Android | Cci12345          |
+      | Bungii Time   | Customer Phone | Customer Name    | Customer Password |
+      | NEXT_POSSIBLE | 9403960181     | johnny oliver | Cci12345          |
   
     When I Switch to "driver" application on "same" devices
     And I Select "Home" from driver App menu
@@ -25,7 +25,7 @@ Feature: Bungii Details and Pickup Note
     Then I Select "SCHEDULED BUNGIIS" from driver App menu
     
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-    And I open the trip for "Testcustomertywd_appleand_F Android" customer
+    And I open the trip for "johnny oliver" customer
     And I Select "Edit Trip Details" option
     And I assign driver for the "Solo" trip
     And I click on "VERIFY" button
@@ -34,7 +34,7 @@ Feature: Bungii Details and Pickup Note
     And the "Bungii Saved!" message is displayed
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 9999999999     |                 |
+      | 9403960181     |                 |
     
   @regression
     #stable
@@ -63,7 +63,7 @@ Feature: Bungii Details and Pickup Note
     And I tap on "Go Online button" on Driver Home page
     
     When I Switch to "customer" application on "same" devices
-    And I am logged in as "Testcustomertywd_appleand_F Android" customer
+    And I am logged in as "johnny oliver" customer
     And I enter "Goa pickup and dropoff location" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "15 mins"
@@ -79,7 +79,7 @@ Feature: Bungii Details and Pickup Note
     Then I should be able to see "No Note" Text
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | 9999999999      |                 |
+      | 9403960181      |                 |
   
   
   @regression
@@ -110,7 +110,8 @@ Feature: Bungii Details and Pickup Note
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "YES" button on alert message
     Then I should be able to see "Customer Note" Text
-    
+    And I reject "On Demand Bungii" request
+  
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 9999999999      |                 |
