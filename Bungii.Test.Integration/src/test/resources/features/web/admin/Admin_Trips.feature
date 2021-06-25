@@ -258,6 +258,7 @@ Feature: Admin_Trips
   
   @sanity
   @regression
+    #stable
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence

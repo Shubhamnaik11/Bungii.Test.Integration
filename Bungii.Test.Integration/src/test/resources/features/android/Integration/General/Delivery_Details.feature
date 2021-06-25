@@ -8,7 +8,7 @@ Feature: Bungii Details and Pickup Note
   
   @regression
    #stable
-  Scenario: Verify that for Duo trips if Admin portal displays Application error when one driver is accepted through available Bungiis and other is assigned by ADMIN
+  Scenario: Verify that for Duo trips if Admin portal displays Application error when one driver is accepted by driver and other is assigned by ADMIN
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Driver_goa_f Android_test" driver

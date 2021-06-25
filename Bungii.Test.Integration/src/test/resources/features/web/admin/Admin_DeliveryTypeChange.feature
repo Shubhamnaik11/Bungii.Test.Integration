@@ -49,7 +49,8 @@ Feature: Admin_Delivery_Type_Change
 	Then Under Driver Details: for Driver 1: "Testdrivertywd_appledc_a_webkk Testdriverkk" should be displayed
 	And I should see Bungii Type as "SOLO" in "Edit Trip Details" section
 
-	@regression
+@regression
+  #stable
   Scenario: Verify Admin can Change delivery from Duo to Solo when both driver accepts the delivery and one driver is removed
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |

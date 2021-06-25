@@ -9,49 +9,6 @@ Feature: SoloScheduled Part E
  # With 8805368840 - 15 cases
   Background:
 	
-@regression
-    #stable
-Scenario: Verify Driver Doesnt Receive Scheduled Trip Request If His Home Is Over 30 Mins Away From Pickup Location
-When I clear all notification
-When I Switch to "customer" application on "same" devices
-And I login as customer "8805368840" and is on Home Page
-And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-And I close "Tutorial" if exist
-When I Switch to "driver" application on "same" devices
-And I am on the LOG IN page on driver app
-And I enter phoneNumber :8888881019 and  Password :Cci12345
-And I click "Log In" button on Log In screen on driver app
-And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-
-And I Switch to "customer" application on "same" devices
-
-And I enter "kansas pickup and dropoff locations greater than 30mins" on Bungii estimate
-And I tap on "Get Estimate button" on Bungii estimate
-Then I should be navigated to "Estimate" screen
-And I add "1" photos to the Bungii
-And I add loading/unloading time of "30 mins"
-And I select Bungii Time as "next possible scheduled"
-And I tap on "Request Bungii" on Bungii estimate
-And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-And I check if the customer is on success screen
-And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-Then I cancel all bungiis of customer
-| Customer Phone | Customer2 Phone |
-| 8805368840     |                 |
-And I Switch to "customer" application on "same" devices
-When  I am on customer Log in page
-And I enter customers "8805368840" Phone Number
-And I enter customers "valid" Password
-And I tap on the "Log in" Button on Login screen
-And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-And I close "Tutorial" if exist
-And I tap on "Menu" > "MY BUNGIIS" link
-Then Bungii must be removed from "MY BUNGIIS" screen
-Then I cancel all bungiis of customer
-| Customer Phone  | Customer2 Phone |
-| 8805368840 |                 |
-
 
   #@regression
 @ready
@@ -120,33 +77,6 @@ And I click "On To The Next One" button on the "Bungii Completed" screen
 
 
 @regression
-    #Stable
-Scenario: Rate: Verify If Customer Can Rate both Drivers For The Duo Delivery
-When I request "duo" Bungii as a customer in "kansas" geofence
-| Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-| NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
-And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
-| driver1 state    | driver2 state    |
-| Unloading item   | Unloading item |
-
-Given I am on customer Log in page
-And I am logged in as "valid kansas" customer
-
-And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action one by one with respective "DUO SCHEDULED" delivery
-| driver1 state    | driver2 state    |
-| Bungii Completed | Bungii Completed |
-
-When I Switch to "customer" application on "same" devices
-And Bungii customer should see "correct rating detail for duo" on Bungii completed page
-When I select "3" Ratting star for duo "Driver 1"
-And I select "5" Ratting star for duo "Driver 2"
-Then I tap on "OK" on Bungii Complete
-
-Then I cancel all bungiis of customer
-| Customer Phone  | Customer2 Phone |
-| 8888888881 |                 |
-
-@regression
 Scenario:Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - case :Solo
 Given that solo schedule bungii is in progress
 | geofence | Bungii State | Bungii Time   |
@@ -183,3 +113,70 @@ And I Switch to "customer" application on "same" devices
 And I tap on "Menu" > "MY BUNGIIS" link
 Then Bungii must be removed from "MY BUNGIIS" screen
 
+      #@regression
+  @ready
+  Scenario:  Verify Customer Receives Notification When Control Driver Starts Solo Bungii
+    When I clear all notification
+    And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    Then I Switch to "customer" application on "same" devices
+    And I login as customer "8805368840" and is on Home Page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I tap on "Menu" > "MY BUNGIIS" link
+    When I Switch to "driver" application on "same" devices
+    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+    When I Switch to "customer" application on "same" devices
+    And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+    
+      #@regression
+  @ready
+  Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked Request (Trip 2) Then Driver Doesn't Receive Scheduled Notification Or offline SMS
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | kansas   | Enroute      |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I Switch to "customer" application on "same" devices
+    
+    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
+    
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "view stack message" request
+    And I tap on the "ACCEPT" Button on Bungii Request screen
+    And I get TELET time of currrent trip of customer 2
+    
+    And I Switch to "customer" application on "same" devices
+    Given I login as customer "9999990069" and is on Home Page
+    
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I confirm trip with following details
+      | Day | Trip Type | Time                              |
+      | 0   | SOLO      | <TIME WITHIN TELET OF CUSTOMER 2> |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    Then I should not get notification for SCHEDULED PICKUP AVAILABLE
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | 8805368840      |
+
+ 
