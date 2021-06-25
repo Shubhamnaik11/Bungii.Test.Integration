@@ -155,16 +155,19 @@ And I wait for Minimum duration for "current" Bungii to be in Driver not accepte
 
 When I Switch to "customer" application on "same" devices
 Given I am on customer Log in page
+Then I wait for "2" mins
 And I am logged in as "valid kansas" customer
+Then I wait for "2" mins
 And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 And I close "Tutorial" if exist
 And I tap on "Menu" > "MY BUNGIIS" link
 Then I wait for "4" mins
 And I select already scheduled bungii
-Then I wait for "1" mins
+Then I wait for "2" mins
     #When I Cancel selected Bungii
 When I tap on "Cancel Bungii" button
 Then correct details should be displayed on the "ADMIN-SMS" app
+And I click on device "Back" button
  #   And I click "TOP BACK" button on "Bungii Details" screen
 
 And I open Admin portal and navigate to "Scheduled Deliveries" page

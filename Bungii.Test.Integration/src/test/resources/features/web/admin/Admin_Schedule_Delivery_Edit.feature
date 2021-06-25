@@ -29,7 +29,7 @@ Feature: Admin_Schedule_Delivery_Edit
       And I confirm Pickup note is updated
       And Delivery price is recalculated based on updated value of drop off address
 
-  @ready
+  @regression
   Scenario: Verify editing drop off address for the duo scheduled trip.
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -111,7 +111,7 @@ Feature: Admin_Schedule_Delivery_Edit
     Then the updated drop off address should be displayed on delivery details page
     And Delivery price is recalculated based on updated value of drop off address
 
-      @ready
+      @regression
      Scenario: Verify editing drop off address for the Partner Portal Solo Scheduled delivery.
        When I request Partner Portal "SOLO" Trip for "MRFM" partner
          |Geofence| Bungii Time   | Customer Phone | Customer Name |

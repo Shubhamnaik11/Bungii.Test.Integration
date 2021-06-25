@@ -107,7 +107,7 @@ Feature: Admin_CustomersPage
     Then I should see "Email address is required." message for "Email" field
     
      #CORE-2024
-  @ready
+  @regression
     #Stable
   Scenario: Verify Edit Customer Phone and Email
     When I click on "Customers" Menu

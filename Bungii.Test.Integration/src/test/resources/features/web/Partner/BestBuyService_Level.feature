@@ -4,7 +4,7 @@ Feature: Service Level
   Background:
     Given I navigate to "Partner" portal configured for "BestBuy service level" URL
 
-    @ready
+    @regression
   Scenario: Verify that NA is shown for Best buy service level on configured Partner portal site.
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
