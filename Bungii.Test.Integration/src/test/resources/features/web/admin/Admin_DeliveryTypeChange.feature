@@ -48,7 +48,7 @@ Feature: Admin_Delivery_Type_Change
 	When I click on "Edit Trip Details" radiobutton
 	Then Under Driver Details: for Driver 1: "Testdrivertywd_appledc_a_webkk Testdriverkk" should be displayed
 	And I should see Bungii Type as "SOLO" in "Edit Trip Details" section
-  
+
 @regression
   #stable
   Scenario: Verify Admin can Change delivery from Duo to Solo when both driver accepts the delivery and one driver is removed
