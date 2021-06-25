@@ -828,7 +828,9 @@ public class ScheduledTripSteps extends DriverBase {
 				default:
 					error("UnImplemented Step or incorrect Trip Type.", "UnImplemented Step");
 					break;
+
 			}
+			log("I assign driver for the "+tripType+" trip","I assigned driver for the "+tripType+" trip", false);
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e);
 			error("Step  Should be successful",

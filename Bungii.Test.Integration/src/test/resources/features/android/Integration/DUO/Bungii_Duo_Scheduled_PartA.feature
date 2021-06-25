@@ -219,7 +219,7 @@ Feature: Bungii Duo Scheduled Part A
 
     When I Switch to "customer" application on "same" devices
     Then I click on notification for "CUSTOMER -Driver accepted stack Bungii"
-    When I tap "OK on Driver Accepted screen" during a Bungii
+   # When I tap "OK on Driver Accepted screen" during a Bungii
     
     And I Switch to "driver" application on "ORIGINAL" devices
     And stack trip information should be displayed on deck

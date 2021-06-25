@@ -66,10 +66,10 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	And stack trip information should be displayed on deck
 	
 	When I Switch to "customer" application on "same" devices
-	And I am on customer Log in page
-	And I enter customers "9871450107" Phone Number
-	And I enter customers "valid" Password
-	And I tap on the "Log in" Button on Login screen
+	Given I login as customer "9871450107" and is on Home Page
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
+	
 	Then for a Bungii I should see "bungii accepted screen"
 	When I click "CANCEL BUNGII" on bungii accepted screen
 	Then I see "Alert: Bungii cancel confirmation" on bungii accepted screen
@@ -106,12 +106,6 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
 	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
 	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-  
-	Given I am on customer Log in page
-	Given I login as customer "9871450107" and is on Home Page
-	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	And I close "Tutorial" if exist
-	
 	When I Switch to "driver" application on "same" devices
 	Then I click on notification for "STACK TRIP"
 	And Bungii Driver "view stack message" request
@@ -119,8 +113,6 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	And I tap on the "ACCEPT" Button on Bungii Request screen
 	Then I accept Alert message for "Alert: Display Stack trip after current trip"
 	And stack trip information should be displayed on deck
-	Then "Enroute screen" page should be opened
-	When Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
@@ -128,6 +120,10 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	Then Bungii Driver "completes Bungii"
  
 	And I Switch to "customer" application on "same" devices
+	Given I am on customer Log in page
+	Given I login as customer "9871450107" and is on Home Page
+	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I close "Tutorial" if exist
 	Then "Enroute screen" page should be opened
  
 	When I Switch to "driver" application on "same" devices
@@ -142,88 +138,6 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	And I tap on "OK on complete" on Bungii estimate
 	And I tap on "No free money" on Bungii estimate
 	
-	#When I request "Solo Scheduled" Bungii as a customer in "atlanta" geofence
-	 # | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
-	#  | NEXT_POSSIBLE         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-  
-	#Given I am on customer Log in page
-	#When I am logged in as "valid" customer
-	#And I am logged in as "valid customer 2" customer
- 
-	#And I Switch to "driver" application on "same" devices
-	#And I am on the LOG IN page on driver app
-	#And I am logged in as "valid atlanta 2" driver
-	#And I tap on "Go Online button" on Driver Home page
-	
-	#And I connect to "extra1" using "customer2" instance
-	#And I Open "customer" application on "same" devices
-	#And I am logged in as "valid customer 2" customer
-	
-	#And I Switch to "customer" application on "ORIGINAL" devices
-	#And I enter "atlanta pickup and dropoff locations" on Bungii estimate
-	#And I tap on "Get Estimate button" on Bungii estimate
-	#And I add "1" photos to the Bungii
-	#And I add loading/unloading time of "30 mins"
-	#And I select Bungii Time as "next possible scheduled"
-	#And I tap on "Request Bungii" on Bungii estimate
-	#And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-	#And I check if the customer is on success screen
-	#And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-	
-	#And I Switch to "driver" application on "same" devices
-	#And I tap on "Available Trips link" on Driver Home page
-	#And I Select Trip from driver available trip
-	#And I tap on "ACCEPT" on driver Trip details Page
-	#And I Select "SCHEDULED BUNGIIS" from driver App menu
-	#And I Select Trip from driver scheduled trip
-	#And Bungii Driver "Start Schedule Bungii" request
-	#Then "Enroute screen" page should be opened
-	
-	#When I Switch to "customer" application on "same" devices
-	#Then "Enroute screen" page should be opened
-	
-	#When I Switch to "customer" application on "customer2" devices
-	#And I enter "atlanta pickup and dropoff locations" on Bungii estimate
-	#And I tap on "Get Estimate button" on Bungii estimate
-	#And I add "1" photos to the Bungii
-	#And I add loading/unloading time of "30 mins"
-	#And I tap on "Request Bungii" on Bungii estimate
-	#And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-	
-	#And I Open "driver" application on "ORIGINAL" devices
-	#And Bungii Driver "accepts stack message" request
-	#Then I accept Alert message for "Alert: Display Stack trip after current trip"
-	#And stack trip information should be displayed on deck
-	#Then try to finish time should be correctly displayed for long stack trip
-	#When I Switch to "customer" application on "same" devices
-	#When  I switch to "customer2" instance
-	#Then for a Bungii I should see "BUNGII ACCEPTED for Stack screen"
-	#And I tap "OK on Driver Accepted screen" during a Bungii
-	#And for a Bungii I should see "Stack accepted screen"
-	
-	#When I Switch to "driver" application on "same" devices
-	#Then "Enroute screen" page should be opened
-	#When Bungii Driver "slides to the next state"
-	#And Bungii Driver "slides to the next state"
-	#And Bungii Driver "slides to the next state"
-	#And Bungii Driver "slides to the next state"
-	#And Bungii Driver "slides to the next state"
-	#Then Bungii Driver "completes Bungii"
-	
-	#And I Switch to "customer" application on "same" devices
-	#Then "Enroute screen" page should be opened
-	
-	#When I Switch to "driver" application on "same" devices
-	#And Bungii Driver "slides to the next state"
-	#And Bungii Driver "slides to the next state"
-	#And Bungii Driver "slides to the next state"
-	#And Bungii Driver "slides to the next state"
-	#And Bungii Driver "slides to the next state"
-	#Then Bungii Driver "completes Bungii"
-	
-	#And I Switch to "customer" application on "same" devices
-	#And I tap on "OK on complete" on Bungii estimate
-	#And I tap on "No free money" on Bungii estimate
   
   
   @regression
