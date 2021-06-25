@@ -123,7 +123,8 @@ Feature: Admin_PaymentMethods
     And I click on "Save" button on "Bungii Cards" screen
     Then The "Bungii Cards" gets saved successfully and it is displayed in the grid
   
-  @ready
+  @regression
+    #stable
   Scenario: Verify Fraud Card detection - Bungii Cards
     When I click on "Partner Portal  > Bungii Card" Menu
     When I click on "Add Payment Method" button on "Bungii Cards" page

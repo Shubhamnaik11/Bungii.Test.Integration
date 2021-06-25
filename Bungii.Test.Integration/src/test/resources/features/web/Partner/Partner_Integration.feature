@@ -7,7 +7,7 @@ Feature: Partner Integration with Admin and Driver
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
 
-  @ready
+  @regression
   @sanity
     #stable
   Scenario: Delivery List Status Updation For Solo Scheduled Pickup on Partner Portal

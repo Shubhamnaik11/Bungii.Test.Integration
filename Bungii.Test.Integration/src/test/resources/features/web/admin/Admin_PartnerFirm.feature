@@ -318,7 +318,7 @@ Feature: Admin_PartnerFirm
       | Customer Phone | Customer2 Phone |
       | 9999992222     |                 |
 
-@ready
+@regression
 #stable
 Scenario: Verify that same trip is shown for other driver under Trips section When admin adds driver to duo trip
   When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
