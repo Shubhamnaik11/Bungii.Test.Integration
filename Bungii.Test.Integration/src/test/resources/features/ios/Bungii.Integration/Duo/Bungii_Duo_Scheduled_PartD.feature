@@ -193,6 +193,9 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     And I slide update button on "EN ROUTE" Screen
     
     When I Switch to "driver" application on "Driver2" devices
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select delivery "1" from scheduled deliveries
+    And I start selected Bungii
     And I slide update button on "EN ROUTE" Screen
     
     When I Switch to "driver" application on "ORIGINAL" devices
@@ -246,7 +249,8 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     When I logged in Customer application using  "customer-duo" user
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    
+
+    And I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "EN ROUTE" trip status screen
     Then correct details should be displayed to customer for "DUO DRIVER 1-CALL DRIVER"
     And correct details should be displayed to customer for "DUO DRIVER 1-TEXT DRIVER"
