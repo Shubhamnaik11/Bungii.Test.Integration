@@ -45,6 +45,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   
   @ready
 	@nonstable
+	@dd
   Scenario: STACK BUNGII: Verify Driver Can Get Long Stack Request On Loading Item State And Cancellation
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State |
@@ -90,56 +91,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
   
-  @ready
-  @sanity
-	@nonstable
-    #stable
-  Scenario: STACK BUNGII : Long Stack : Verify Driver receives Long Stack and accept and complete it
-	Given that ondemand bungii is in progress
-	  | geofence | Bungii State |
-	  | atlanta  | ARRIVED      |
-	When I Switch to "driver" application on "same" devices
-	And I am on the LOG IN page on driver app
-	And I am logged in as "valid atlanta" driver
-        #put driver on background
-	When I Switch to "customer" application on "same" devices
-	When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
-	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-	When I Switch to "driver" application on "same" devices
-	Then I click on notification for "STACK TRIP"
-	And Bungii Driver "view stack message" request
-	Then "correct stack trip details" should be displayed on Bungii request screen
-	And I tap on the "ACCEPT" Button on Bungii Request screen
-	Then I accept Alert message for "Alert: Display Stack trip after current trip"
-	And stack trip information should be displayed on deck
-	And Bungii Driver "slides to the next state"
-	And Bungii Driver "slides to the next state"
-	And Bungii Driver "slides to the next state"
-	And Bungii Driver "slides to the next state"
-	Then Bungii Driver "completes Bungii"
- 
-	And I Switch to "customer" application on "same" devices
-	Given I am on customer Log in page
-	Given I login as customer "9871450107" and is on Home Page
-	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	And I close "Tutorial" if exist
-	Then "Enroute screen" page should be opened
- 
-	When I Switch to "driver" application on "same" devices
-	And Bungii Driver "slides to the next state"
-	And Bungii Driver "slides to the next state"
-	And Bungii Driver "slides to the next state"
-	And Bungii Driver "slides to the next state"
-	And Bungii Driver "slides to the next state"
-	Then Bungii Driver "completes Bungii"
- 
-	And I Switch to "customer" application on "same" devices
-	And I tap on "OK on complete" on Bungii estimate
-	And I tap on "No free money" on Bungii estimate
 	
-  
-  
   @regression
   Scenario: Verify Driver Does Not Receive Long Stacked Request If Drivers Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of The Newly Requested Trip
 	Given that ondemand bungii is in progress
@@ -235,7 +187,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   
   @regression
 	#stable
-  Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Only By Control Driver
+  Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
 	  | atlanta  | Accepted      | NEXT_POSSIBLE | valid        | valid   | valid driver 2             |
@@ -336,6 +288,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   @sanity
   @ready
 	@nonstable
+	@s1
   Scenario: Verify Long Stack Request Acceptance By Non Control Driver
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |

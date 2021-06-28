@@ -91,7 +91,7 @@ public class BungiiRequestSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"~$"+truncValue); //~
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Reject(),"Reject button should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Accept(),"Accept button should be displayed");
-                    //testStepVerify.isElementTextEquals(bungiiRequestPage.Navigation_Header(),"STACKED BUNGII REQUEST"); nrmal trip not stacked
+                    //testStepVerify.isElementTextEquals(bungiiRequestPage.Navigation_Header(),"STACKED BUNGII REQUEST"); normal trip not stacked
                     break;
             }
         } catch (Exception e) {

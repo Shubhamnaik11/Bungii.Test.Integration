@@ -33,6 +33,7 @@ Feature: Scheduled Duo Bungiis
   @sanity
 	@nonstable
    #stable
+	@s
   Scenario: Verify Duo Bungii Completion - Android [Kansas Geofence]
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -69,20 +70,18 @@ Feature: Scheduled Duo Bungiis
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at pickup"
 	And Bungii driver should see "Loading Item screen"
- 
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	Then I accept Alert message for "Reminder: both driver at drop off"
+	
 	When I Switch to "driver" application on "ORIGINAL" devices
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at drop off"
 	
-	And I Switch to "driver" application on "Driver2" devices
-	And Bungii Driver "slides to the next state"
-	And Bungii Driver "slides to the next state"
-	And Bungii Driver "slides to the next state"
-	Then I accept Alert message for "Reminder: both driver at drop off"
-	
-	When I Switch to "customer" application on "ORIGINAL" devices
+	When I Switch to "customer" application on "same" devices
 	And Bungii customer should see "correct details" on Bungii completed page
 	And I tap on "OK on complete" on Bungii estimate
 	And I tap on "No free money" on Bungii estimate

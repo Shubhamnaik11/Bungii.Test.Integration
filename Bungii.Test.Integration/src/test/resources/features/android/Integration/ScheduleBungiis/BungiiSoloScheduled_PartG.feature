@@ -84,7 +84,7 @@ Feature: SoloScheduled Part G
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
     And I wait for "1" mins
-    And I Select Trip from available trip
+    And I Select second Trip from available trip
     And I click "ACCEPT" button on Bungii Request screen
     Then I should be navigated to "AVAILABLE BUNGIIS" screen
     Then I should able to see "zero" available trip

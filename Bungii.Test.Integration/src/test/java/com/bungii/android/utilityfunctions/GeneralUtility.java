@@ -1689,8 +1689,9 @@ Thread.sleep(5000);
         } catch (Exception e) {
             //logger.detail(ExceptionUtils.getStackTrace(e));
         }
-        SetupManager.getObject().restartApp();
         logger.detail("********* RESTORING APP STATE : CUSTOMER *********");
+        SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));
+        ((AndroidDriver) SetupManager.getDriver()).resetApp();
         String appHeader = "";
         try {
             appHeader = action.getText(Page_Signup.GenericHeader(true));

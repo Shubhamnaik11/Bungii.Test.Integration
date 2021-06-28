@@ -120,9 +120,6 @@ public class CommonSteps extends DriverBase {
             //    Thread.sleep(5000);
             //     testStepVerify.isTrue(isApplicationIsInForeground, "Switch to " + appName + " application", "Switch to " + appName + " application is successful", "Switch to " + appName + " application was not successfull");
         } catch (Throwable e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
         }
 
     }
@@ -139,7 +136,7 @@ public class CommonSteps extends DriverBase {
             }
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
-                Thread.sleep(5000);
+                Thread.sleep(3000);
             }
             switch (appName.toUpperCase()) {
                 case "DRIVER":
@@ -1033,6 +1030,8 @@ public class CommonSteps extends DriverBase {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             driver.navigate().back();
+            log("I tap on device back button",
+                    "I tapped on device back button", false);
         } catch (Exception e) {
 
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1251,7 +1250,7 @@ public class CommonSteps extends DriverBase {
     public void customer_should_receive_something_email(String emailSubject) throws Throwable {
         String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         String url = "";
-        if(emailBody!="") {
+        if(emailBody!=null) {
             action.navigateTo(emailBody);
             url = action.getCurrentURL();
         }

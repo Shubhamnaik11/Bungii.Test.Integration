@@ -153,6 +153,18 @@ public class AvailableTripsSteps extends DriverBase {
                     "Trips are not listed in Available Bungiis of Driver", true);
         }
     }
+    @And("^I Select second Trip from available trip$")
+    public void i_select_second_trip_from_available_trip() throws Throwable {
+        try{
+            Thread.sleep(6000);
+            action.click(availableTrips.Row_SecondAvailable());
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Trips are not listed in Available Bungiis of Driver", true);
+        }
+    }
 
 }
 

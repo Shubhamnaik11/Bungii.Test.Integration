@@ -68,121 +68,69 @@ Feature: Bungii Duo Scheduled Part A
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
     
- 
+    @regression
+    #stable
+     @sanity
+  Scenario:  LONG STACK BUNGII: Verify Driver can accept and complete long stack Bungii [Altanta Geofence]
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State   |
+      | atlanta  | ARRIVED |
   
-  @ready
-    @nonstable
-  Scenario: STACK BUNGII: Long Stack : Verify Status Of Current Ondemand Bungii And Stacked pickup And Stack Request Alert Message And Decked Request
-    ##############################
-    Given I am on customer Log in page
-    When I am logged in as "valid" customer
-	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	And I close "Tutorial" if exist
-	
-    And I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
-    And I tap on "Go Online button" on Driver Home page
-    
-    And I Switch to "customer" application on "ORIGINAL" devices
-    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-##############################
-    
-    And I Open "driver" application on "same" devices
-    And Bungii Driver "accepts On Demand Bungii" request
-    Then "Enroute screen" page should be opened
-    
     When I Switch to "customer" application on "same" devices
-    And I tap "OK on Driver Accepted screen" during a Bungii
-    Then "Enroute screen" page should be opened
-
-    And I connect to "extra1" using "customer2" instance
-    And I Open "customer" application on "customer2" devices
-    When I Switch to "customer" application on "customer2" devices
-    And I am logged in as "valid customer 2" customer
-
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
       | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-
-    And I Open "driver" application on "ORIGINAL" devices
-    Then Bungii Driver "verify stack message" request
+      
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then I click on notification for "STACK TRIP"
     And Bungii Driver "accepts stack message" request
-    And I accept Alert message for "Alert: Display Stack trip after current trip"
-    And stack trip information should be displayed on deck
-    And try to finish time should be correctly displayed for long stack trip
-
-    When I Switch to "customer" application on "customer2" devices
-   # When  I switch to "customer2" instance
-    Then for a Bungii I should see "BUNGII ACCEPTED for Stack screen"
-    When I tap "OK on Driver Accepted screen" during a Bungii
-    Then for a Bungii I should see "Stack accepted screen"
-    
-    
-    When I Switch to "driver" application on "ORIGINAL" devices
-    Then "Enroute screen" page should be opened
-    When Bungii Driver "slides to the next state"
-    Then "Arrived screen" page should be opened
-    And stack trip information should be displayed on deck
-    And try to finish time should be correctly displayed for long stack trip
-    And Bungii Driver "slides to the next state"
-    And Bungii Driver "slides to the next state"
-    Then "Driving to DropOff screen" page should be opened
-    And stack trip information should be displayed on deck
-    And try to finish time should be correctly displayed for long stack trip
-    And Bungii Driver "slides to the next state"
-    Then "Unloading Item screen" page should be opened
-    And stack trip information should be displayed on deck
-    And try to finish time should be correctly displayed for long stack trip
-    And Bungii Driver "slides to the next state"
-    Then Bungii Driver "completes Bungii"
-    
-    When I Switch to "customer" application on "customer2" devices
-    Then "Enroute screen" page should be opened
-    
+      And I accept Alert message for "Alert: Display Stack trip after current trip"
+      And stack trip information should be displayed on deck
+      And try to finish time should be correctly displayed for long stack trip
+  
+      When I Switch to "customer" application on "same" devices
+      And I am on customer Log in page
+      And I enter customers "9871450107" Phone Number
+      And I enter customers "valid" Password
+      And I tap on the "Log in" Button on Login screen
+      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I close "Tutorial" if exist
     And I Switch to "driver" application on "ORIGINAL" devices
     And Bungii Driver "slides to the next state"
-    Then "Arrived screen" page should be opened
-    
-    When I Switch to "customer" application on "customer2" devices
-    Then "Arrived screen" page should be opened
-    
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+      And stack trip information should be displayed on deck
+      And try to finish time should be correctly displayed for long stack trip
+      And Bungii Driver "slides to the next state"
+      Then Bungii Driver "completes Bungii"
+  
+    Then I click on notification for "CUSTOMER -Driver started stack Bungii"
+    Then "Enroute screen" page should be opened
+  
     When I Switch to "driver" application on "ORIGINAL" devices
     And Bungii Driver "slides to the next state"
-    Then "Loading Item screen" page should be opened
-    
-    When I Switch to "customer" application on "customer2" devices
-    Then "Loading Item screen" page should be opened
-    
-    When I Switch to "driver" application on "ORIGINAL" devices
     And Bungii Driver "slides to the next state"
-    Then "Driving to DropOff screen" page should be opened
-    When I Switch to "customer" application on "customer2" devices
-    Then "Driving to DropOff screen" page should be opened
-    
-    When I Switch to "driver" application on "ORIGINAL" devices
     And Bungii Driver "slides to the next state"
-    Then "Unloading Item screen" page should be opened
-    
-    When I Switch to "customer" application on "customer2" devices
-    Then "Unloading Item screen" page should be opened
-    When I Switch to "driver" application on "ORIGINAL" devices
     And Bungii Driver "slides to the next state"
-    
-    And I Switch to "customer" application on "customer2" devices
+    And Bungii Driver "slides to the next state"
+  
+    When I Switch to "customer" application on "same" devices
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
+  
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
   
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 9871450107     | 8888889910      |
+    
   
-  @ready
-    @nonstable
+  @regression
+    #stable
   Scenario:  SHORT STACK BUNGII: Verify Driver can accept and complete short stack Bungii [Altanta Geofence]
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -191,8 +139,18 @@ Feature: Bungii Duo Scheduled Part A
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
+  
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
     
-    #switch to customer so that driver app is in background :Click by notification
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "accepts stack message" request
+    Then I calculate projected driver arrival time
+    And I accept Alert message for "Alert: Display Stack trip after current trip"
+    
     When I Switch to "customer" application on "same" devices
     And I am on customer Log in page
     And I enter customers "9871450107" Phone Number
@@ -200,26 +158,6 @@ Feature: Bungii Duo Scheduled Part A
     And I tap on the "Log in" Button on Login screen
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    
-    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
-    
-    When I Switch to "customer" application on "same" devices
-    And I am on customer Log in page
-    And I enter customers "9871450107" Phone Number
-    And I enter customers "valid" Password
-    And I tap on the "Log in" Button on Login screen
-    
-    And I Switch to "driver" application on "ORIGINAL" devices
-    Then I click on notification for "STACK TRIP"
-    And Bungii Driver "accepts stack message" request
-    Then I calculate projected driver arrival time
-    And I accept Alert message for "Alert: Display Stack trip after current trip"
-
-    When I Switch to "customer" application on "same" devices
-    Then I click on notification for "CUSTOMER -Driver accepted stack Bungii"
-   # When I tap "OK on Driver Accepted screen" during a Bungii
     
     And I Switch to "driver" application on "ORIGINAL" devices
     And stack trip information should be displayed on deck
@@ -352,6 +290,7 @@ Feature: Bungii Duo Scheduled Part A
   
   @ready
     @nonstable
+	@s
   Scenario: Verify Bungii Details - Call SMS
 	
 	Given that duo schedule bungii is in progress
@@ -379,24 +318,24 @@ Feature: Bungii Duo Scheduled Part A
 	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
 	When I tap "SMS for driver 1" during a Bungii
 	Then correct details should be displayed on "Driver 1 SMS" app
-	When I tap "Call for driver 1" during a Bungii
-	Then correct details should be displayed on "Driver 1 Calling" app
+	#When I tap "Call for driver 1" during a Bungii
+	#Then correct details should be displayed on "Driver 1 Calling" app
 	When I tap "SMS for driver 2" during a Bungii
 	Then correct details should be displayed on "Driver 2 SMS" app
-	When I tap "Call for driver 2" during a Bungii
-	Then correct details should be displayed on "Driver 2 Calling" app
+	#When I tap "Call for driver 2" during a Bungii
+	#Then correct details should be displayed on "Driver 2 Calling" app
 	
 	When I Switch to "driver" application on "Driver2" devices
 	And Bungii Driver taps "SMS for a driver" during a Bungii
 	Then correct details should be displayed to driver on "Driver 2 SMS" app
-	When Bungii Driver taps "Call for a driver" during a Bungii
-	Then correct details should be displayed to driver on "Driver 2 Calling" app
+	#When Bungii Driver taps "Call for a driver" during a Bungii
+	#Then correct details should be displayed to driver on "Driver 2 Calling" app
 	When Bungii Driver taps "Contact support for driver" during a Bungii
 	Then correct details should be displayed to driver on "Support-SMS" app
 	When Bungii Driver taps "SMS for a customer" during a Bungii
 	Then correct details should be displayed to driver on "SMS" app
-	When Bungii Driver taps "Call for a customer" during a Bungii
-	Then correct details should be displayed to driver on "Calling" app
+	#When Bungii Driver taps "Call for a customer" during a Bungii
+	#Then correct details should be displayed to driver on "Calling" app
 	When Bungii Driver taps "Contact support" during a Bungii
 	Then correct details should be displayed to driver on "Support-SMS" app
 	When Bungii Driver taps "View items" during a Bungii
@@ -406,14 +345,14 @@ Feature: Bungii Duo Scheduled Part A
 	When I Switch to "driver" application on "ORIGINAL" devices
 	When Bungii Driver taps "SMS for a driver" during a Bungii
 	Then correct details should be displayed to driver on "Driver 1 SMS" app
-	When Bungii Driver taps "Call for a driver" during a Bungii
-	Then correct details should be displayed to driver on "Driver 1 Calling" app
+	#When Bungii Driver taps "Call for a driver" during a Bungii
+	#Then correct details should be displayed to driver on "Driver 1 Calling" app
 	When Bungii Driver taps "Contact support for driver" during a Bungii
 	Then correct details should be displayed to driver on "Support-SMS" app
 	When Bungii Driver taps "SMS for a customer" during a Bungii
 	Then correct details should be displayed to driver on "SMS" app
-	When Bungii Driver taps "Call for a customer" during a Bungii
-	Then correct details should be displayed to driver on "Calling" app
+	#When Bungii Driver taps "Call for a customer" during a Bungii
+	#Then correct details should be displayed to driver on "Calling" app
 	When Bungii Driver taps "Contact support" during a Bungii
 	Then correct details should be displayed to driver on "Support-SMS" app
 	When Bungii Driver taps "View items" during a Bungii

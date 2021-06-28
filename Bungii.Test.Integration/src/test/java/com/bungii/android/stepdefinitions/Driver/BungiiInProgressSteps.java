@@ -72,6 +72,7 @@ public class BungiiInProgressSteps extends DriverBase {
             }
             else
             {
+                Thread.sleep(5000);
                 if (String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO")) {
                     isCustomerNameCorrect = action.getText(bungiiProgressPage.Text_DuoCustomer_Name()).equals(expectedCustName);
 
