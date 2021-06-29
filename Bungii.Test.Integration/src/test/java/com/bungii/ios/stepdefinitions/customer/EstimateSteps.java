@@ -297,25 +297,16 @@ public class EstimateSteps extends DriverBase {
                 case "today - after working hour":
                     //selectBungiiTime(0, "11", "45", "PM");
 
-                    if(browserstack=="true"){
-                        selectBungiiTime(0, "23", "45", "");
-                        log("I select time for trip as 23:45", "I selected time for trip as 23:45");
-                    }
-                    else {
                         selectBungiiTime(0, "11", "45", "PM");
                         log("I select time for trip as 11:45  pm", "I selected time for trip as 11:45  pm");
-                    }
+
 
                     break;
                 case "tommorow - before working hour":
-                    if(browserstack=="true"){
-                        selectBungiiTime(1, "00", "00", "");
-                        log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
-                    }
-                    else {
+
                         selectBungiiTime(1, "12", "00", "AM");
                         log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
-                    }
+
                     break;
                 case "today+5":
                     selectBungiiTime(5, "", "", "");
