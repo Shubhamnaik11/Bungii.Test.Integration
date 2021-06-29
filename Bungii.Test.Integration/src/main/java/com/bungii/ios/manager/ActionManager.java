@@ -380,8 +380,12 @@ public class ActionManager {
         if(!minutes.equals(""))
             Columns.get(2).sendKeys(minutes);
 
-        if(!hour.equals(""))
-            Columns.get(1).sendKeys(hour);
+        if(!hour.equals("")) {
+            if(Columns.size()==4)
+                Columns.get(1).sendKeys(hour);
+            else
+                Columns.get(1).sendKeys(hour+12);
+        }
         if(!meridiem.equals("")) {
             if(Columns.size()==4) {
                 if (!Columns.get(3).getAttribute("value").equals(meridiem))
