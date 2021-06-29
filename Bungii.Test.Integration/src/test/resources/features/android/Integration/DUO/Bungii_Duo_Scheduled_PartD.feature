@@ -114,7 +114,6 @@ Feature: Bungii Duo Scheduled Part D
  
   
   @regression
-	@nonstable
     #stable
   Scenario: Verify If Researched Driver Can Cancel Trip After Starting The Scheduled Duo Delivery When Other driver has not started the delivery
 	When I request "duo" Bungii as a customer in "kansas" geofence
@@ -126,12 +125,14 @@ Feature: Bungii Duo Scheduled Part D
 	  | driver1 state | driver2 state |
 	  | Accepted      | Accepted      |
 	
+	And I wait for "2" mins
 	And I open Admin portal and navigate to "Scheduled Deliveries" page
 	And I open the trip for "Testcustomertywd_appleRicha Test" customer
 	And I remove current driver and researches Bungii
 	
 	When I Switch to "driver" application on "ORIGINAL" devices
-	And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "Duo Scheduled Researched" trip
+	And I wait for "2" mins
+	And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "Duo Scheduled" trip
 	  | driver1 state | driver2 state |
 	  | Enroute      | Accepted      |
 	
@@ -178,6 +179,7 @@ Feature: Bungii Duo Scheduled Part D
 	 #@regression
   @ready
   @nonstable
+	@p
   Scenario: Verify Customer Receives Notification When Control Driver Starts Duo Bungii
 	When I clear all notification
 	And I request "duo" Bungii as a customer in "kansas" geofence
@@ -196,7 +198,6 @@ Feature: Bungii Duo Scheduled Part D
 	  | driver1 state | driver2 state |
 	  | Enroute       | Enroute      |
 	
-	When I Switch to "customer" application on "same" devices
 	And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
 	
 	Then I cancel all bungiis of customer

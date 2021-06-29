@@ -260,10 +260,15 @@ And I cancel all bungiis of customer
 	  | geofence | Bungii State | Driver label | Trip Label |
 	  | Kansas   | Enroute      | Kansas 2     | 2          |
 	And I Switch to "driver" application on "same" devices
+	And I wait for "3" mins
 	And I am on the LOG IN page on driver app
+	And I wait for "3" mins
 	And I am logged in as "Kansas driver 1" driver
+	And I wait for "3" mins
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I wait for "3" mins
 	And I Select Trip from driver scheduled trip
+	And I wait for "3" mins
 	And I start selected Bungii
 	Then I should see "CUSTOMER HAS ONGOING BUNGII" on screen
 	Then I cancel all bungiis of customer

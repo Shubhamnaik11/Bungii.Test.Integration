@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
@@ -23,24 +24,25 @@ public class NotificationSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     OtherAppsPage otherAppsPage = new OtherAppsPage();
-
+     DbUtility dbUtility = new DbUtility();
 
     @Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_click_on_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
         //Thread.sleep(20000);
         Thread.sleep(10000);
         try {
+            dbUtility.getLastFivePushNotification();
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
             String appHeaderName = getAppHeader(appName);
             boolean notificationClick = false;
             String bunddleId = getBundleId(currentApplication);
 
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
-            try {
+           /* try {
                 ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
-            }catch (Exception e){}
+            }catch (Exception e){}*/
             action.showNotifications();
-            Thread.sleep(90000);
+            Thread.sleep(60000);
             log("Checking notifications", "Checking notifications", true);
             switch (expectedNotification.toUpperCase()) {
                 case "TIP RECEIVED 5 DOLLAR":
@@ -56,7 +58,7 @@ public class NotificationSteps extends DriverBase {
                     break;
 
                 case "DRIVERS ARE ENROUTE":
-                    Thread.sleep(180000);
+                   // Thread.sleep(60000);
                     if (action.isElementPresent(otherAppsPage.Notification_DriverEnroute(true))) {
                         action.click(otherAppsPage.Notification_DriverEnroute(true));
                         notificationClick = true;
