@@ -108,3 +108,30 @@ Feature: Admin_DriverDetails
 
     When I enter "drivers" "last name" in the "Deliveries search" box
     Then I should see "driver last name" listed on the "Deliveries" page
+
+  @ready
+  Scenario: Verify Admin can edit and change the driver phone number
+    When I search driver "Testdrivertywd_appledc_a_drve Driver"
+    And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    And I click "Edit" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    Then I change the "Testdrivertywd_appledc_a_drve Driver" phone number
+    And I click "Save" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    And I enter confirm comment for edited phone and "Save" it
+
+  @ready
+  Scenario: Verify Admin can edit and cancel the driver phone number
+    When I search driver "Testdrivertywd_appledc_a_drve Driver"
+    And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    And I click "Edit" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    Then I change the "Testdrivertywd_appledc_a_drve Driver" phone number
+    And I click "Cancel" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+
+  @ready
+  Scenario: Verify Admin can edit and cancel the driver phone number by unsaving the comment
+    When I search driver "Testdrivertywd_appledc_a_drve Driver"
+    And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    And I click "Edit" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    Then I change the "Testdrivertywd_appledc_a_drve Driver" phone number
+    And I click "Save" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    And I enter confirm comment for edited phone and "Cancel" it
+    And I click "Cancel" button for the "Testdrivertywd_appledc_a_drve Driver" driver

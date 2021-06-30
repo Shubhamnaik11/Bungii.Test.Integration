@@ -112,7 +112,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 break;
 
         }
-        log("I should be able to click "+strArg1+" against " + applicantName,"I click "+strArg1+ " against "+ applicantName, true);
+        log("I should able to click "+strArg1+" against " + applicantName,"I have click "+strArg1+ " against "+ applicantName, true);
     }
 
     @And("^I change the \"([^\"]*)\" phone number$")
@@ -120,6 +120,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
         action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Phone(),PropertyUtility.getDataProperties("driver.mobile.change"));
         //action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Save());
+        log("I should able to change "+strArg1+" phone number.","I have changed "+strArg1+" phone number.",true);
     }
 
     @And("^I enter confirm comment for edited phone and \"([^\"]*)\" it$")
@@ -134,11 +135,14 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment(), "Driver phone updated");
                 action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment_Cancel());
         }
+        log("I should able to enter confirm comment for edited phone and "+State+" it","I have entered confirm comment for the edited phone and "+State+" it",true);
     }
 
     @And("^I cancel the edited phone number$")
     public void i_cancel_the_edited_phone_number() throws Throwable {
         action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Cancel());
+
+        log("I should able to cancel the edited phone number","I have cancelled the edited phone number.",true);
     }
 
     @Then("^I should be directed to \"([^\"]*)\"$")
