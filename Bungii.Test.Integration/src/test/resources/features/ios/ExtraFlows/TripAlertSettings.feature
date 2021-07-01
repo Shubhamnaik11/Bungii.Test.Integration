@@ -35,7 +35,7 @@ Feature: Trip Alert Settings
 	  | 8888889917     |                 |
   
   
-  @regression
+  @ready
   #stable
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Duo Is Selected By Customer
 	Given I am on the "LOG IN" page

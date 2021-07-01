@@ -1,7 +1,7 @@
 @ios
 Feature: Bungii Geofence Based Calculation
-  
-  @regression
+
+  @ready
     #Stable
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Solo Is Selected By Customer
     Given I am on the "LOG IN" page
@@ -30,9 +30,9 @@ Feature: Bungii Geofence Based Calculation
 
     And I select pickup time
     Then correct next available scheduled time should be displayed
-    
- 
-  @regression
+
+
+  @ready
     #Stable
   Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
 	Given I am on the "LOG IN" page
@@ -60,8 +60,8 @@ Feature: Bungii Geofence Based Calculation
     And I click "Get Estimate" button on "Home" screen
     And I calculate the schedule time
     Then correct next available scheduled time should be displayed
-    
-  @regression
+
+  @ready
    #stable
   Scenario: Verify Customer Can Change Default Payment Card
     And I logged in Customer application using  "valid denver" user

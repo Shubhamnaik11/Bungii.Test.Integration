@@ -39,7 +39,7 @@ Feature: Solo Scheduled Bungii Part B
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @regression
+  @ready
   #stable
   Scenario: Verify If Driver Receives More Than One Requests Then He Cant Accept The Bungii whos TELET time overlaps With Already accepted Solo Scheduled Bungiis
     Given I Switch to "customer" application on "same" devices
@@ -143,8 +143,7 @@ Feature: Solo Scheduled Bungii Part B
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @regression
-    @failures
+  @ready
   Scenario: Verify Customer Receives Notification When Driver Starts Solo Scheduled Bungii
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -162,8 +161,7 @@ Feature: Solo Scheduled Bungii Part B
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @FAILED2702
-  @regression
+  @ready
   Scenario: Verify Driver Doesnt Receive Scheduled Trip Request If His Home Is Over 30 Mins Away From Pickup Location
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
@@ -186,7 +184,6 @@ Feature: Solo Scheduled Bungii Part B
       | CUSTOMER1_PHONE |                 |
 
   @ready
-  @failures
   Scenario: Verify Re-searched Trip Request Show Urgent Notification Text If Admin Re-searches Bungii Less Than Hour From Scheduled Trip Time Or For Trip Time Between 24 Hours Prior To Current Time
     When I clear all notification
     Given that solo schedule bungii is in progress
@@ -207,9 +204,9 @@ Feature: Solo Scheduled Bungii Part B
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-  
-  
-  @regression
+
+
+  @ready
  #stable
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time
     Given that solo schedule bungii is in progress

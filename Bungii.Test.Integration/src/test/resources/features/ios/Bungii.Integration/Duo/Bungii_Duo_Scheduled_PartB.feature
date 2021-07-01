@@ -14,8 +14,8 @@ Feature: Scheduled DUO Bungii Cancellation in Denver Geofence
 
   Background:
     When I Switch to "customer" application on "same" devices
-    
-  @regression
+
+  @ready
     #stable
   Scenario:Verify Driver Cannot Cancel Scheduled Bungii From App When Bungii Is Not Started And He Should Send SMS To Cancel Duo Scheduled Bungii
     Given that duo schedule bungii is in progress
@@ -62,7 +62,6 @@ Feature: Scheduled DUO Bungii Cancellation in Denver Geofence
     Then I should be navigated to "Home" screen
   
   @regression
-  @failures
   Scenario: Verify Control Driver Can Cancel Scheduled Duo Bungii From The App In The Arrived State
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -112,7 +111,6 @@ Feature: Scheduled DUO Bungii Cancellation in Denver Geofence
     Then I should be navigated to "Home" screen
   
   @regression
-  @failures
   Scenario: Verify Non Control Driver Can Cancel Scheduled Duo Bungii From The App In The Arrived State
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |

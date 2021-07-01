@@ -34,7 +34,7 @@ Feature: Customer Home screen
     #Then current location should be present as pickup location
     And "Drop" address should be empty
 
-  @regression
+  @ready
   Scenario:Verify That Dropoff Field Is Displayed Only When Pickup Address Is Set
     Given I am on Customer logged in Home page
     And I open "customer" application on "same" devices
