@@ -1,12 +1,12 @@
 @web
 Feature: Partner Integration with Admin and Driver
-
+  
   Background:
     Given I navigate to "Partner" portal configured for "normal" URL
     And I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-
+  
   @regression
   @sanity
     #stable
@@ -104,7 +104,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed    |
-
+  
   @regression
     #stable
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip from Admin Portal
@@ -144,7 +144,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Canceled       |
-
+  
   @ready
     #Stable
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip from Driver
@@ -201,7 +201,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status    |
       | Canceled       |
-
+  
   @ready
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by control Driver
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
@@ -244,7 +244,7 @@ Feature: Partner Integration with Admin and Driver
     When As a driver "Testdrivertywd_appledc_a_ronny James" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state |
       | Enroute       |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status       |
       | Trip Started |
@@ -256,9 +256,9 @@ Feature: Partner Integration with Admin and Driver
       | Driver Canceled |
     And I view the Deliveries list on the admin portal
     And I navigate to partner portal and view the Trip status with below status
-        | Partner_Status |
-        | Canceled       |
-
+      | Partner_Status |
+      | Canceled       |
+  
   @ready
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by Non control Driver
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
@@ -298,7 +298,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Scheduled      |
-     When As a driver "Testdrivertywd_appledc_a_ronny James" perform below action with respective "Duo Scheduled" partner portal trip
+    When As a driver "Testdrivertywd_appledc_a_ronny James" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state |
       | Enroute       |
     And I view the Live Deliveries list on the admin portal
@@ -308,14 +308,14 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-     When As a driver "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
+    When As a driver "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state   |
       | Driver Canceled |
     And I view the Deliveries list on the admin portal
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Canceled       |
-
+  
   @regression
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip manually by Admin
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
@@ -372,8 +372,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed      |
-
-
+  
+  
   @ready
   Scenario: Verify Solo Scheduled trip cannot cancel in Partner portal once the Trip started
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
@@ -399,7 +399,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see the trip in the Delivery List"
     #When I navigate to "Bungii Admin Portal in new tab" URL
     When I navigate to "Admin" portal configured for "QA" URL
-    And I view the Scheduled Trips list on the admin portal
+    And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
@@ -416,7 +416,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Enroute |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status       |
       | Trip Started |
@@ -426,7 +426,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state   |
       | Bungii Canceled |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     And I navigate to partner portal
     And I select the Scheduled Bungii from Delivery List
     Then I should "see the trip details"
@@ -437,8 +437,8 @@ Feature: Partner Integration with Admin and Driver
     And I click "OK on Delivery Cancellation Failed" button on Partner Portal
     And I close the Trip Delivery Details page
     And I should logout from Partner Portal
-
-    @ready
+  
+  @ready
   Scenario: Verify Driver Est. Earning for Fixed Pricig Partner Portal Trip
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                  |Load_Unload_Time|
