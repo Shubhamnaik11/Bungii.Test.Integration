@@ -90,9 +90,9 @@ Feature: Scheduled Bungii on one device
     Then I should be navigated to "BUNGII COMPLETE" screen
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-	
-  
-  @regression
+
+
+  @ready
     #stable
   Scenario: Verify Non Control Driver Doesnt Receive Long Stack Request If Started Before The Control Driver [1 Device]
     Given that duo schedule bungii is in progress
@@ -115,9 +115,9 @@ Feature: Scheduled Bungii on one device
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 9403960183 |
-  
-  
-  @regression
+
+
+  @ready
 	#stable
   Scenario: Verify Non Control Driver Cannot Cancel Bungii once started If Control Driver Has Not Started The Bungii [1 Device]
     Given that duo schedule bungii is in progress
@@ -141,10 +141,10 @@ Feature: Scheduled Bungii on one device
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-  
 
-  
-  @regression
+
+
+  @ready
     #stable
   Scenario: Verify Scheduled Duo Bungii can be accepted by drivers and they are shown under displayed under Scheduled List upon accepting [1 Device]
 	Given I Switch to "driver" application on "same" devices
@@ -187,8 +187,7 @@ Feature: Scheduled Bungii on one device
 	  | Customer Phone  | Customer2 Phone |
 	  | 9403960188      |                 |
   
-	
-  @failed
+
   @ready
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground [1 Device]
 	Given that duo schedule bungii is in progress

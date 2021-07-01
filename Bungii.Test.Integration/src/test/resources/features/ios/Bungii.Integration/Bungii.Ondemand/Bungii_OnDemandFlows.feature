@@ -87,8 +87,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   
 
   @ready
-  @pushnotification
-    @failures
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
 
@@ -128,8 +126,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @regression
-    @failures
+  @ready
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -174,7 +171,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
   
   @ready
-    @failures
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
     When I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"

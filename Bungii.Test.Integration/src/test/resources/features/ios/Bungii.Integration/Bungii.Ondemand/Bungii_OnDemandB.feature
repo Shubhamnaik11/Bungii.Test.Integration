@@ -7,7 +7,6 @@ Feature: OndemandBungiis
  
 @sanity
 @regression
-  @failures
 Scenario: Verify Ondemand Bungii completion As An iOS User
 When I Switch to "driver" application on "same" devices
 And I login as "valid nashville" driver on "same" device and make driver status as "Online"
@@ -82,7 +81,7 @@ Then I should be navigated to "Home" screen
     And I click "On To The Next One" button on "Bungii Completed" screen
   
   @sanity
-  @regression
+  @ready
   @ondemand
   Scenario: Verify Ondemand Bungii Flow Till Completion
     When I Switch to "driver" application on "same" devices

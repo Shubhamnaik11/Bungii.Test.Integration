@@ -15,7 +15,7 @@ Feature: Scheduled DUO Bungii Trip Notifications
 	When I Switch to "customer" application on "same" devices
   
   
-  @regression
+  @ready
   #stable
   Scenario: Notification : Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Duo Scheduled Bungii
 	When I request "duo" Bungii as a customer in "denver" geofence
@@ -31,10 +31,8 @@ Feature: Scheduled DUO Bungii Trip Notifications
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
 	  | 8888889917     |                 |
-  
-  @regression
-  @failures
-  @testing1
+
+	@ready
   Scenario: Notification : Verify Customer Receives Notification When Control Driver Starts Duo Scheduled Bungii
 	When I request "duo" Bungii as a customer in "denver" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -51,8 +49,8 @@ Feature: Scheduled DUO Bungii Trip Notifications
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
 	  | 8888889917     |                 |
-  
-  @regression
+
+	@ready
   #stable
     #Run at last as lot of wait time is required [15 mins]
   Scenario: Notification : Verify If Customer Receives Notification After Admin Researches Drivers And Then Both Drivers Accept It
@@ -78,8 +76,8 @@ Feature: Scheduled DUO Bungii Trip Notifications
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
 	  | 8888889917     |                 |
-  
-  @regression
+
+	@ready
   #stable
   Scenario: Verify Customer Can Cancel Duo Scheduled Bungii Through SMS To Admin If Required Number Of Drivers Have Accepted
 	Given that duo schedule bungii is in progress
@@ -105,9 +103,9 @@ Feature: Scheduled DUO Bungii Trip Notifications
 	And I Switch to "customer" application on "same" devices
 	And I Select "MY BUNGIIS" from Customer App menu
 	Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-  
-  
-  @regression
+
+
+	@ready
    #stable
   Scenario: Verify Customer Receives alert When Duo Scheduled Bungii Is Requested At A Time Outside Working Hours
     #When I am on the "LOG IN" page
