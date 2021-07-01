@@ -202,8 +202,7 @@ Then I cancel all bungiis of customer
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
 	  | CUSTOMER1_PHONE     | 9403960183 |
-	
-  @failed
+
   @ready
   Scenario: STACKING | Verify Driver Can Receive Long Stack Request And Customer Can Cancel the stacked request when Drivers Existing Bungii is On Loading Item State [1 Device]
 	Given that ondemand bungii is in progress
@@ -254,8 +253,8 @@ Then I cancel all bungiis of customer
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE | 9403960183      |
-  
-  @regression
+
+	@ready
   Scenario: STACKING | Verify Customer Can Cancel Stacked Ondemand Bungii Accepted By a Driver [1 Device]
 	Given that ondemand bungii is in progress
 	  | geofence | Bungii State   |

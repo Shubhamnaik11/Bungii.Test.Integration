@@ -9,7 +9,7 @@ Feature: Scheduled DUO Bungii
   Background:
   When I Switch to "customer" application on "same" devices
 	
-  @regression
+  @ready
     #Stable
   Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
     Given that duo schedule bungii is in progress
@@ -205,7 +205,7 @@ Feature: Scheduled DUO Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-  @regression
+  @ready
     #stable
   Scenario: Verify Decked Alert Status And Projected Arrival Time and Time To Finish by Calculations Of Long Stacked Bungii Over Current Scheduled Bungii [2 Devices]
     Given that solo schedule bungii is in progress
@@ -284,8 +284,8 @@ Feature: Scheduled DUO Bungii
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-	
-  @regression
+
+  @ready
     #Stable
   Scenario: Verify Decked Alert Status And Projected Arrival Time and Time To Finish by Calculations Of Short Stacked Bungii Over Current Ondemand Bungii  [2 Devices]
     Given that ondemand bungii is in progress
@@ -359,8 +359,7 @@ Feature: Scheduled DUO Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
   
   #######################################################Single Device###########################################################
-  @regression
-    @d
+  @ready
   Scenario: Verify Decked Alert Status And Projected Arrival Time and Time To Finish by Calculations Of Short Stacked Bungii Over Current Scheduled Bungii [1 Device]
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |

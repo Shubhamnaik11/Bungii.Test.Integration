@@ -8,8 +8,8 @@ Feature: Solo Scheduled Bungii Part A
   Background:
     #When I clear all notification
     When I Switch to "customer" application on "same" devices
-    
-  @regression
+
+  @ready
   @sanity
   Scenario: Verify Solo Schedule Bungii Till Completion
     
@@ -86,9 +86,8 @@ Feature: Solo Scheduled Bungii Part A
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-    
-  @failures
-  @regression
+
+  @ready
   Scenario: Verify Details Of Solo Schedule Bungii
 
     Given that solo schedule bungii is in progress
@@ -170,8 +169,7 @@ Feature: Solo Scheduled Bungii Part A
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-  @regression
-    @failures
+  @ready
   Scenario: Verify Customer Can Create And Complete Schedule Solo Bungii
     Given I login as "valid denver" customer and on Home page
     When I Switch to "driver" application on "same" devices
@@ -234,7 +232,7 @@ Feature: Solo Scheduled Bungii Part A
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-  @regression
+  @ready
     #stable
   Scenario: Verify Customer Cannot Schedule Bungii At Same Time As That Of Already Scheduled Bungii
     Given that solo schedule bungii is in progress
@@ -269,7 +267,6 @@ Feature: Solo Scheduled Bungii Part A
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @ready
-  @failures
   Scenario: Verify When Admin Cancels Bungii Then Trip Is Removed From The Scheduled Trip In App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -306,8 +303,8 @@ Feature: Solo Scheduled Bungii Part A
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  
-  @regression
+
+  @ready
   #Stable
   Scenario:  Verify Customer Can Schedule Solo Bungii Only 5 Days Ahead Including Current Date
     Given I login as "valid denver" customer and on Home page
@@ -369,8 +366,8 @@ Feature: Solo Scheduled Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-    
-  @regression
+
+  @ready
 #stable
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has Bungii In Progress
     Given that solo schedule bungii is in progress
@@ -395,9 +392,8 @@ Feature: Solo Scheduled Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
-  
-  @regression
-  @failures
+
+  @ready
   
   Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts Solo Scheduled Bungii
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
@@ -418,4 +414,3 @@ Feature: Solo Scheduled Bungii Part A
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
   
- 

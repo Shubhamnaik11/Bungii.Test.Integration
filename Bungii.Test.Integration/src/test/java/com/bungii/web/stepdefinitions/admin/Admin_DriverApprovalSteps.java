@@ -102,6 +102,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 action.click(admin_GetAllBungiiDriversPage.Driver_Profile(applicantName));
                 break;
             case "Edit":
+                String Old_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+                cucumberContextManager.setScenarioContext("Old_Phone",Old_Phone_Number);
                 action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Edit());
                 break;
             case "Save":
@@ -112,7 +114,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 break;
 
         }
-        log("I should be able to click "+strArg1+" against " + applicantName,"I click "+strArg1+ " against "+ applicantName, true);
+        log("I should able to click "+strArg1+" against " + applicantName,"I have clicked "+strArg1+ " against "+ applicantName, true);
     }
 
     @And("^I change the \"([^\"]*)\" phone number$")
@@ -120,6 +122,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
         action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Phone(),PropertyUtility.getDataProperties("driver.mobile.change"));
         //action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Save());
+        log("I should able to change "+strArg1+" phone number.","I have changed "+strArg1+" phone number.",true);
     }
 
     @And("^I enter confirm comment for edited phone and \"([^\"]*)\" it$")
@@ -134,11 +137,33 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment(), "Driver phone updated");
                 action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment_Cancel());
         }
+        log("I should able to enter confirm comment for edited phone and "+State+" it","I have entered confirm comment for the edited phone and "+State+" it",true);
+    }
+
+    @Then("^I see updated driver phone number$")
+    public void i_see_updated_phone_number() throws Throwable {
+        Thread.sleep(2000);
+        testStepAssert.isElementNotEnabled(admin_GetAllBungiiDriversPage.Driver_Phone(),"Driver phone field should be not enabled.","Driver phone field is not enabled.","Driver phone field is enabled");
+        String Edited_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+
+        testStepVerify.isEquals(Edited_Phone_Number,PropertyUtility.getDataProperties("driver.mobile.change"));
+        log("Driver phone number should get update.","Driver phone number is updated.",true);
+    }
+
+    @Then("^I see unchanged driver phone number$")
+    public void i_see_unchanged_phone_number() throws Throwable {
+        testStepAssert.isElementNotEnabled(admin_GetAllBungiiDriversPage.Driver_Phone(),"Driver phone field should not be enabled.","Driver phone field is not enabled.","Driver phone field is enabled");
+        String Display_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+
+        testStepVerify.isEquals(Display_Phone_Number,(String) cucumberContextManager.getScenarioContext("Old_Phone"));
+        log("Driver phone number should remain un change.","Driver phone number is unchanged.",true);
     }
 
     @And("^I cancel the edited phone number$")
     public void i_cancel_the_edited_phone_number() throws Throwable {
         action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Cancel());
+
+        log("I should able to cancel the edited phone number","I have cancelled the edited phone number.",true);
     }
 
     @Then("^I should be directed to \"([^\"]*)\"$")
