@@ -55,6 +55,9 @@ public class ScheduledTripsPage extends PageBase {
   public WebElement CheckBox_Driver2() {return findElements("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath).get(1); }
     public WebElement Button_Remove() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[1]", LocatorType.XPath); }
 
+    public WebElement CheckBox_Driver1_Edit() {return findElement("//tr[1]/td/label/input", LocatorType.XPath); }
+    public WebElement CheckBox_Driver2_Edit() {return findElement("//tr[2]/td/label/input", LocatorType.XPath); }
+    public WebElement Button_Remove_Edit() {return findElement("btnRemoveDriver", LocatorType.Id); }
     public WebElement RadioBox_EditTrip() {return findElement("//label[contains(@class,'adminEditTrip')]/span", LocatorType.XPath);}
     public WebElement Text_EditTripType() {return findElement("//div[@class='CancelComments row']/p[2]", LocatorType.XPath);}
     public WebElement Calendar_EditTripDetailsScheduledDate() {return findElement("PickupDetails_ScheduledDate", LocatorType.Id);}

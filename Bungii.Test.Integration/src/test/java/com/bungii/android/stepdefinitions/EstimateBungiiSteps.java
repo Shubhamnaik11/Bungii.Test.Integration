@@ -930,7 +930,7 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
     bungiiEstimatePage.Link_AddPhoto(true);*/
     action.click(bungiiEstimatePage.Option_Gallery());
     action.click(bungiiEstimatePage.Option_LARGEIMAGEFOLDER());
-    logger.detail(SetupManager.getDriver().getPageSource());
+    //logger.detail(SetupManager.getDriver().getPageSource());
     Random ran = new Random();
     int random = ran.nextInt(2)+1;
     action.click(bungiiEstimatePage.IMAGE_LOCATOR(random));

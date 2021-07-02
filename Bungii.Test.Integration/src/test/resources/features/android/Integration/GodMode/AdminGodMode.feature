@@ -403,8 +403,8 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I open the trip for "Testcustomertywd_appleand_A Android" customer
-        And I Select "Edit Trip Details" option
+		And I open first trip for "Testcustomertywd_appleand_A Android" customer
+		And I Select "Edit Trip Details" option
         And I change the "particular trip time 2 hours later" to future time
         And I click on "VERIFY" button
         Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
@@ -412,38 +412,14 @@
           | Customer Phone | Customer2 Phone |
           | 9393939393     |                 |
   
-      @regression
-      #web
-      #stable
-      @nonstable
-      Scenario: Verify if research automatically happens if admin does not add a new driver after removal
-        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
-          | geofence | Bungii State | Bungii Time  |
-          | goa      | Accepted     | 0.5 hour ahead |
-        When I open new "Chrome" browser for "ADMIN"
-        And I navigate to admin portal
-        And I log in to admin portal
-        And I wait for "2" mins
-        And I Select "Scheduled Trip" from admin sidebar
-        And I open the trip for "Testcustomertywd_appleand_A Android" customer
-        And I Select "Research Driver" option
-        Then I remove assigned driver
-        Then new pickuref is generated
         
-        And I cancel all bungiis of customer
-          | Customer Phone  | Customer2 Phone |
-          | 9393939393      |                 |
-  
       @regression
       #web
       #stable
-      Scenario: Verify that Cancel button goes off once the solo scheduled Trip is cancelled
+      Scenario: Verify that Cancel button goes off once the scheduled Trip is successfully cancelled by admin
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time   |
           | goa      | Accepted     | NEXT_POSSIBLE |
-        When I Switch to "customer" application on "same" devices
-        And I am logged in as "Testcustomertywd_appleand_A Android" customer
-        
         And I wait for "2" mins
         And I open Admin portal and navigate to "Scheduled Deliveries" page
         And I Cancel Bungii with following details
@@ -451,3 +427,29 @@
           | 0      | TEST     | Outside of delivery scope      |
         Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
         And "Cancel button" should not be displayed
+  
+      @regression
+      #web
+      #stable
+      Scenario: Verify if research automatically happens if admin does not add a new driver after removal
+        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+          | geofence | Bungii State | Bungii Time  |
+          | goa      | Accepted     | 0.5 hour ahead |
+        When I open new "Chrome" browser for "ADMIN"
+        And I navigate to admin portal
+        And I log in to admin portal
+        And I Select "Scheduled Trip" from admin sidebar
+        And I wait for "2" mins
+        And I open the trip for "Testcustomertywd_appleand_A Android" customer
+        And I Select "Edit Trip Details" option
+        And I remove current driver from edit popup
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+        And I wait for "2" mins
+        Then new pickuref is generated
+    
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | 9393939393      |                 |

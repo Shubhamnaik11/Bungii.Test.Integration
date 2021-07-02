@@ -54,8 +54,7 @@ Feature: DriverMenu
     Then I should be able to see data on "LOGOUT" page
 
   @regression
-    @nonstable
-    @kk
+  #stable
   Scenario: Verify Driver Can Access Trip Histoy Page Upon Clicking Itemised Earnings Hyperlink
     When I Select "EARNINGS" from driver App menu
     And the "EARNINGS" page is opened
