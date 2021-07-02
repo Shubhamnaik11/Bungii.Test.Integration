@@ -200,7 +200,6 @@ Feature: PickupNote Feature
 	
   @regression
      #stable
-	@y
   Scenario: Verify that driver is able to correctly view all the text entered in Details field in an OnDemand Bungii request
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
