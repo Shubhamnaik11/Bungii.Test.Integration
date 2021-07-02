@@ -12,7 +12,7 @@ public class ScheduledBungiisPage extends PageBase {
 
     public WebElement Text_NoBungiis_msg () { return findElement("//android.widget.LinearLayout[@id='com.bungii.customer:id/scheduled_bungii_list_rl_container_nobungii']/android.widget.TextView[@instance='2']", LocatorType.XPath); }
 
-    public WebElement Button_SaveMoney () { return findElement("com.bungii.customer:id/my_bungii_save_money", LocatorType.Id); }
+    public WebElement Button_SaveMoney (boolean... ignoreException) { return findElement("com.bungii.customer:id/my_bungii_save_money", LocatorType.Id, ignoreException); }
 
     public WebElement Text_TimeToNextBungii() { return findElement("com.bungii.customer:id/fragment_scheduled_bungii_textview_hours", LocatorType.Id); }
 

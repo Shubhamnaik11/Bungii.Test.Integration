@@ -388,7 +388,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error Occured While Requesting Bungii. Probable rootcause : Payment card error on braintree",
+            error("Step  Should be successful", "Error Occured While Requesting Bungii. Check Screenshot for more details",
                     true);
         }
     }

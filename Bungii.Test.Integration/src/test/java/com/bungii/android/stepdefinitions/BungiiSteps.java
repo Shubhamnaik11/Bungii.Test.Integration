@@ -225,7 +225,7 @@ public class BungiiSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in tapping "+arg0+ " on Driver Home screen", true);
         }
     }
     @And("^I reject \"([^\"]*)\" request$")

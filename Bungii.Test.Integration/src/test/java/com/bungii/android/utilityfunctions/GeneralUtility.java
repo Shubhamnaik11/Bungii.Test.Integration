@@ -883,10 +883,10 @@ Thread.sleep(5000);
                 if (action.isElementPresent(homePage.Button_Closetutorials(true)))
                     action.click(homePage.Button_Closetutorials());
             }
-            log(" I am logged in as customer with phone : "+phone,
-                    " I am logged in as customer with phone : "+phone, true);
+            log(" I am logged in as customer having phone number [ "+phone+" ]",
+                    " I am logged in as customer having phone number [ "+phone+" ]", true);
         } else {
-            logger.detail("Customer not logged in");
+            logger.detail("Customer [ "+phone+" ] is not logged in");
         }
         //AssertionManager.ElementDisplayed(homePage.Title_HomePage);
         //AssertionManager.ElementDisplayed(homePage.Link_Invite);

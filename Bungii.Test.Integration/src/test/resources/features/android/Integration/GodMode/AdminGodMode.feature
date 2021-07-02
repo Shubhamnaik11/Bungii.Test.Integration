@@ -268,6 +268,7 @@
       @regression
         #stable
     #web scenario
+        @k
       Scenario: DUO: Verify that if non control driver starts delivery and control driver is then removed by Admin and assigned with new driver then noncontroller driver becomes control driver
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -287,7 +288,7 @@
         Then I wait for "2" mins
         And I open the trip for "Testcustomertywd_appleand_A Android" the customer
         And I Select "Edit Trip Details" option
-        And I check if a validation message "Driver 1: Add driver below or Bungii driver search will continue" is shown
+        And I check if a validation message "Driver 2: Add driver below or Bungii driver search will continue" is shown
         And I assign driver for the "control" trip
         And I click on "VERIFY" button
         And the "Your changes are good to be saved." message is displayed

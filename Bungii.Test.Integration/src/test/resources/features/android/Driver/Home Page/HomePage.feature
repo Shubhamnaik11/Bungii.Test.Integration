@@ -11,9 +11,7 @@ Feature: Driver Home screen
   @regression
   Scenario: Verify Driver Default Status Is Set To Offline After Login
     Then the status of the driver should be "Offline"
-
-    #Not able to verify Rating value for android, Just ratting bar is validated
-
+    
   @regression
   Scenario: Verify Driver Information Is Populated Correctly On Driver Dashboard Screen
     Then The "name" for "valid" driver should be correctly displayed
@@ -23,6 +21,7 @@ Feature: Driver Home screen
   @regression
     #stable
   Scenario: Verify Driver Go Online button And Available Trips Link On Driver Dashboard Screen
+    And I wait for "1" mins
     When I click "Go Online" button on Home screen on driver app
     Then The title of button should change to "Go Offline" on driver app
     And Info text should be updated

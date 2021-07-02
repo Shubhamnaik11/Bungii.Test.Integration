@@ -44,7 +44,7 @@ public class DriverMenuSteps extends DriverBase {
                 //TODO: specify failure here
             }*/
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE",phone);
-            log("I should be logged in", "I am logged in", true);
+            log("I should be logged in", "I am logged in as driver with phone "+ phone, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             logger.error("Page source", SetupManager.getDriver().getPageSource());
@@ -61,7 +61,7 @@ public class DriverMenuSteps extends DriverBase {
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Screen "+Title+" is not displayed correctly", true);
         }
     }
 
@@ -128,7 +128,7 @@ public class DriverMenuSteps extends DriverBase {
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Screen "+strArg1+" not displayed correctly", true);
         }
     }
 

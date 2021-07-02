@@ -127,7 +127,7 @@ public class HomePageSteps extends DriverBase {
             action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
             String getNaviagationText = action.getText(driverHomePage.Generic_HeaderElement());
             boolean isHomePage = getNaviagationText.equals("OFFLINE") || getNaviagationText.equals("ONLINE");
-            testStepAssert.isTrue(isHomePage, "I should be navigated to Driver home page", "I am not navigated to home page, Title is" + getNaviagationText);
+            testStepAssert.isTrue(isHomePage, "I should be navigated to Driver Home screen",  getNaviagationText + " screen is displayed instead of Driver Home screen");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
