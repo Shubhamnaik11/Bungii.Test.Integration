@@ -42,8 +42,6 @@ Feature: SoloScheduled Part H
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas 2" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
     Then for a Bungii I should see "Arrived screen"
     
     And I Switch to "driver" application on "same" devices

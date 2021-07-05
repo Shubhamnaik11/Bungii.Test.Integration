@@ -751,7 +751,7 @@ public class CommonSteps extends DriverBase {
             if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
             } else if (actualMessage.equals("")) {
-                actualMessage = action.getText(driverHomePage.Alert_NewBungii());
+                actualMessage = action.getText(driverHomePage.Alert_NewBungii(true));
             } else {
                 actualMessage = bungiiRequest.Alert_Msg(true).getText();
             }
@@ -793,7 +793,7 @@ public class CommonSteps extends DriverBase {
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
 
-            testStepVerify.isEquals(actualMessage, expectedMessage,
+            testStepAssert.isEquals(actualMessage, expectedMessage,
                     "Alert with text" + expectedMessage + "should be displayed",
                     "Alert with text ," + expectedMessage + " should be displayed",
                     "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "

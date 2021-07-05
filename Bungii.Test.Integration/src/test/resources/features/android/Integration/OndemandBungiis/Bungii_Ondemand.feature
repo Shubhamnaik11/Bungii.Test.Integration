@@ -181,7 +181,6 @@ Feature: On Demand Bungii
     
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
     And I Switch to "customer" application on "same" devices
-    
     When I select "2" Ratting star for duo "Driver 1"
     When I give tip to Bungii Driver with following tip and Press "OK" Button
       | Tip |
@@ -189,6 +188,5 @@ Feature: On Demand Bungii
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
     And I click "On To The Next One" button on the "Bungii Completed" screen
     Then poor driver ratting should be sent to customer
-   
-
- 
+  
+    

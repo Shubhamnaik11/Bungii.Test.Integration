@@ -8,7 +8,7 @@ Feature: SoloScheduled Part F
     
   @regression
 	#stable
-  Scenario: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time
+  Scenario: Pushnotitication: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas   | Accepted     | NEXT_POSSIBLE |

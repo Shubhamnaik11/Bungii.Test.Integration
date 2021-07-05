@@ -761,14 +761,9 @@ public class BungiiSteps extends DriverBase {
                             //int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
                             int wait = Integer.parseInt((String)cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START"));
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
-                            Thread.sleep(5000); //hardwait for driver2AccessToken to be non control driver
+                            Thread.sleep(15000); //hardwait for driver2AccessToken to be non control driver
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                             if (!driver2State.equalsIgnoreCase("Accepted")) { // new addition

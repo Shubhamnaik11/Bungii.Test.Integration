@@ -47,7 +47,7 @@ public class BungiiSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     MessagesPage messagesPage=new MessagesPage();
     EstimatePage estimatePage = new EstimatePage();
-    DbUtility dbutility = new DbUtility();
+    DbUtility dbUtility = new DbUtility();
 
     @Then("^for a Bungii I should see \"([^\"]*)\"$")
     public void forABungiiIShouldSee(String arg0) throws Throwable {
@@ -334,6 +334,8 @@ public class BungiiSteps extends DriverBase {
         try {
             String expecteMessage="";
             action.showNotifications();
+            dbUtility.getLastFivePushNotification();
+
             log("Checking notifications","Checking notifications",true);
             expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
@@ -359,11 +361,11 @@ public class BungiiSteps extends DriverBase {
                 String pickupRequestID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
                 if (pickupRequestID == "") {
-                    pickupRequestID = dbutility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH"));
+                    pickupRequestID = dbUtility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH"));
                 }
 
                 if (pickupRequestID != "") {
-                    String pushNotificationContent = dbutility.getCustomerPushNotificationContent(CustomerPhoneNum, pickupRequestID);
+                    String pushNotificationContent = dbUtility.getCustomerPushNotificationContent(CustomerPhoneNum, pickupRequestID);
 
                     testStepAssert.isTrue(pushNotificationContent.contains(expecteMessage), "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "VIRTUAL PUSH NOTIFICATION NOT RECEIVED : " + expecteMessage + " message");
 
@@ -384,6 +386,7 @@ public class BungiiSteps extends DriverBase {
         try {
             String expecteMessage="";
             action.showNotifications();
+            dbUtility.getLastFivePushNotification();
             log("Checking notifications","Checking notifications",true);
             expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
@@ -409,7 +412,7 @@ public class BungiiSteps extends DriverBase {
                 String pickupRequestID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
                 if (pickupRequestID == "") {
-                    pickupRequestID = dbutility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH"));
+                    pickupRequestID = dbUtility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH"));
                 }
 
                 if (pickupRequestID != "") {
@@ -419,7 +422,7 @@ public class BungiiSteps extends DriverBase {
                         driverPhoneNum = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PUSH");
 
                         if (driverPhoneNum != null) {
-                            String pushNotificationContent = dbutility.getDriverPushNotificationContent(driverPhoneNum, pickupRequestID);
+                            String pushNotificationContent = dbUtility.getDriverPushNotificationContent(driverPhoneNum, pickupRequestID);
 
                             testStepAssert.isTrue(pushNotificationContent.contains(expecteMessage), "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find virtual notification with " + expecteMessage + " message");
 
@@ -443,7 +446,9 @@ public class BungiiSteps extends DriverBase {
         try {
             String expecteMessage="";
                     action.showNotifications();
-                    log("Checking notifications","Checking notifications",true);
+            dbUtility.getLastFivePushNotification();
+
+            log("Checking notifications","Checking notifications",true);
                     expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
@@ -476,6 +481,8 @@ public class BungiiSteps extends DriverBase {
         try {
             String expecteMessage="";
             action.showNotifications();
+            dbUtility.getLastFivePushNotification();
+
             boolean notificationClick=false;
             log("Checking notifications","Checking notifications",true);
             expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
@@ -531,6 +538,7 @@ public class BungiiSteps extends DriverBase {
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
 
             action.showNotifications();
+            dbUtility.getLastFivePushNotification();
 
             log("Checking notifications", "Checking notifications", true);
             expecteMessage = utility.getExpectedNotification(expectedNotification.toUpperCase());
@@ -559,7 +567,7 @@ public class BungiiSteps extends DriverBase {
     public void notification_for_something_for_something_should_be_displayed(String actor, String actionToPerfrom) {
         try {
             action.showNotifications();
-
+            dbUtility.getLastFivePushNotification();
             boolean isDisplayed = isNotificationTextPresent(actionToPerfrom);
             String expectedMessage= (String) cucumberContextManager.getScenarioContext("EXPECTED_MESSAGE");
 

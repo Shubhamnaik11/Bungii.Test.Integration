@@ -178,9 +178,8 @@ Feature: SoloScheduled Part B
     And I tap on "No free money" on Bungii estimate
     
 
-   #@regression
-  @ready
-  @a
+  @regression
+  #stable
   Scenario: Verify Customer Can Contact Controlled Driver When Noncontrol Driver Starts the trip
     
     When I request "duo" Bungii as a customer in "Kansas" geofence
@@ -197,13 +196,57 @@ Feature: SoloScheduled Part B
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     When I try to contact driver using "sms driver1"
-    Then correct details should be displayed to driver on "Driver 1 SMS" app
+    Then correct support details should be displayed to customer on "SMS" app
     When I try to contact driver using "sms driver2"
-    Then correct details should be displayed to driver on "Driver 2 SMS" app
+    Then correct support details should be displayed to customer on "SMS" app
     When I try to contact driver using "call driver2"
-    Then correct details should be displayed to driver on "Driver 1 Calling" app
-    When I try to contact driver using "call driver1"
-    Then correct details should be displayed to driver on "Driver 2 Calling" app
+    #Call app terminates in browserstack
+    #Then correct support details should be displayed to customer on "CALL" app
+    #When I try to contact driver using "call driver1"
+    #Then correct support details should be displayed to customer on "CALL" app
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
+    
+          #@regression
+  @ready
+  Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked Request (Trip 2) Then Driver Doesn't Receive Scheduled Notification Or offline SMS
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | kansas   | Enroute      |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I Switch to "customer" application on "same" devices
+    
+    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
+    
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "view stack message" request
+    And I tap on the "ACCEPT" Button on Bungii Request screen
+    And I get TELET time of currrent trip of customer 2
+    
+    And I Switch to "customer" application on "same" devices
+    Given I login as customer "9999990069" and is on Home Page
+    
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I confirm trip with following details
+      | Day | Trip Type | Time                              |
+      | 0   | SOLO      | <TIME WITHIN TELET OF CUSTOMER 2> |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    Then I should not get notification for SCHEDULED PICKUP AVAILABLE
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | 8805368840      |

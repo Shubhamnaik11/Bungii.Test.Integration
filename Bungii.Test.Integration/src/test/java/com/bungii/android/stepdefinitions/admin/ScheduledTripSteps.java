@@ -417,6 +417,35 @@ public class ScheduledTripSteps extends DriverBase {
 		}
 	}
 
+	@And("^I remove \"([^\"]*)\" driver from Bungii and researches it")
+	public void i_remove__driver_and_researches_bungii(String driverType) throws Throwable {
+		try {
+			Map<String, String> tripDetails = new HashMap<String, String>();
+			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+			String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+			String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+			tripDetails.put("CUSTOMER", custName);
+			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
+			tripDetails.put("BUNGII_DISTANCE", tripDistance);
+			String pickupRequestOld = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+
+			removeDriverAndResearchDeliveryAsAdminByName(tripDetails, driverType);
+			Thread.sleep(30000);
+
+			String pickupRequest = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+			cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+			testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest), " Pickup request should be updated, Old pickup ref:" + pickupRequestOld + " , new pickup ref:" + pickupRequest);
+			pass("I remove driver and researches Bungii ", "I removed "+driverType+"driver and researches Bungii",
+					true);
+			action.click(scheduledTripsPage.Button_ClosePopUp());
+
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
 
 	@And("^I open the trip for \"([^\"]*)\" customer$")
 	public void i_open_the_trip_for_something_customer(String strArg1) throws Throwable {
@@ -698,7 +727,22 @@ public class ScheduledTripSteps extends DriverBase {
         action.click(scheduledTripsPage.Button_Research());
         scheduledTripsPage.waitForPageLoad();
     }
+	public void removeDriverAndResearchDeliveryAsAdminByName(Map<String, String> tripDetails, String driverType) {
+		if (driverType.equalsIgnoreCase("controller")) {
+			action.click(scheduledTripsPage.CheckBox_DriverByName((String)cucumberContextManager.getScenarioContext("DRIVER_1")));
+		} else if (driverType.equalsIgnoreCase("noncontroller")) {
+			action.click(scheduledTripsPage.CheckBox_DriverByName((String)cucumberContextManager.getScenarioContext("DRIVER_2")));
+		}
+		action.click(scheduledTripsPage.Button_Remove());
+		scheduledTripsPage.waitForPageLoad();
+		try {
+			Thread.sleep(5000);
+		} catch (Exception e) {
+		}
 
+		action.click(scheduledTripsPage.Button_Research());
+		scheduledTripsPage.waitForPageLoad();
+	}
 	/**
 	 * Got to trip details from list of scheduled list
 	 *
@@ -864,6 +908,63 @@ public class ScheduledTripSteps extends DriverBase {
 					"Error performing step,Please check logs for more details", true);
 		}
 	}
+	@And("^I assign \"([^\"]*)\" driver to Bungii$")
+	public void i_assign_for_the_something_trip(String tripType) throws Throwable {
+		try {
+			switch (tripType) {
+				case "Solo":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					action.click(scheduledTripsPage.Select_TestDriver());
+					String driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
+					break;
+				case "Duo":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					action.click(scheduledTripsPage.Select_TestDriver());
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					action.click(scheduledTripsPage.Select_TestDriver());
+					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					String driver2Name = scheduledTripsPage.Text_EditTrpDetailsDriver2Name().getText();
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER2_NAME", driver2Name);
+					break;
+				case "controller":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					action.click(scheduledTripsPage.Select_TestDriver());
+					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
+					break;
+				case "noncontroller":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					action.click(scheduledTripsPage.Select_TestDriver());
+					driver2Name = scheduledTripsPage.Text_EditTrpDetailsDriver2Name().getText();
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER2_NAME", driver2Name);
+					break;
+				case "control driver":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					action.click(scheduledTripsPage.Select_TestDriver());
+					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
+					break;
+
+				case "current":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys(tripType);
+					action.click(scheduledTripsPage.Select_TestDriver());
+					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
+					break;
+				default:
+					error("UnImplemented Step or incorrect Trip Type.", "UnImplemented Step");
+					break;
+
+			}
+			log("I assign driver for the "+tripType+" trip","I assigned driver for the "+tripType+" trip", false);
+		} catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
 
 	@And("^I assign driver for the \"([^\"]*)\" trip$")
 	public void i_assign_driver_for_the_something_trip(String tripType) throws Throwable {
@@ -898,7 +999,7 @@ public class ScheduledTripSteps extends DriverBase {
 					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER2_NAME", driver2Name);
 					break;
 				case "control driver":
-					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Testdriver_goa_a Android_test");
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
 					action.click(scheduledTripsPage.Select_TestDriver());
 					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
 					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
