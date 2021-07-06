@@ -38,6 +38,7 @@ Feature: Bungii Duo Scheduled Part A
   #@regression
   @ready
     @nonstable
+    @ss
   Scenario:Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification When The App Remains open
     Given that duo schedule bungii is in accepted by controlled driver
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2 |
@@ -60,7 +61,8 @@ Feature: Bungii Duo Scheduled Part A
     And I select already scheduled bungii
     When I Cancel selected Bungii
   
-    When I Switch to "driver" application on "same" devices
+    #When I Switch to "driver" application on "same" devices
+    And I click on notification for "CUSTOMER CANCELLED SCHEDULED BUNGII"
     Then Alert message with CUSTOMER CANCELLED SCHEDULED BUNGII text should be displayed
     When I click "OK" on alert message
     
@@ -259,7 +261,8 @@ Feature: Bungii Duo Scheduled Part A
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
       | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
     
-    And I Open "driver" application on "Driver2" devices
+    #step to make driver app in background
+    And I Open "customer" application on "Driver2" devices
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "reject stack message" request
 

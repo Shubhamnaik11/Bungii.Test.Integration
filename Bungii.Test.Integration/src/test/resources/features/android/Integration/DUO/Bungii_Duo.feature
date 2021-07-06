@@ -164,7 +164,8 @@ Feature: Scheduled Duo Bungiis
 	
   @regression
 	#stable
-  Scenario: Verify Other Driver And Customer Are Notified When One Driver Cancels The Duo Bungii
+	@ss
+  Scenario: Verify Customer Are Notified When One Driver Cancels The Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
 	  | Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
@@ -172,11 +173,8 @@ Feature: Scheduled Duo Bungiis
 	When I Switch to "customer" application on "same" devices
 	And I am on customer Log in page
 	And I am logged in as "valid kansas" customer
-	
-	When I Switch to "driver" application on "same" devices
-	And I am on the LOG IN page on driver app
-	And I am logged in as "Kansas driver 1" driver
-	
+	And I terminate "customer" app on "same" devices
+ 
 	And I connect to "extra1" using "Driver1" instance
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
@@ -187,42 +185,14 @@ Feature: Scheduled Duo Bungiis
 	When I click "YES" on the alert message
 	
 	When I switch to "ORIGINAL" instance
-	When I Switch to "driver" application on "same" devices
-    #message to driver
-	Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
-	
-	When I Switch to "driver" application on "same" devices
 	And I click on notification for "DRIVER CANCELLED BUNGII"
-  
-  
-  @regression
-    #stable
-  Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
-	Given that duo schedule bungii is in progress
-	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
-	  | Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1     | Kansas driver 2 |
-	
-	When I Switch to "driver" application on "same" devices
-	And I am on the LOG IN page on driver app
-	And I am logged in as "Kansas driver 1" driver
-	
-	And I connect to "extra1" using "Driver1" instance
-	When I Switch to "driver" application on "same" devices
-	And I am on the LOG IN page on driver app
-	And I am logged in as "Kansas driver 2" driver
-	
-	And I click the "Cancel" button on "update" screen
 	Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-	When I click "YES" on the alert message
 	
-	When I switch to "ORIGINAL" instance
-	When I Switch to "driver" application on "same" devices
-	Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 	
   @regression
    #stable
 	@nonstable
-	@d
+	@ss
   Scenario: Verify Driver Notification When Other Driver Cancels Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |

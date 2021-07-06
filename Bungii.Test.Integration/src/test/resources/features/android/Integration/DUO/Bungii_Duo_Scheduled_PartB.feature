@@ -151,7 +151,8 @@ Feature: Bungii Duo Scheduled Part B
     #When I Cancel selected Bungii
     When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
-    
+    And I click on device "Back" button
+  
     And I open Admin portal and navigate to "Scheduled Deliveries" page
     
     And I Cancel Bungii with following details

@@ -2,7 +2,7 @@
 @duo
 @bungii
 
-Feature: Bungii Duo Scheduled Part C
+Feature: Bungii Duo Scheduled Part E
 # All Stable 5 Cases
 Background:
 
@@ -30,6 +30,7 @@ And I cancel all bungiis of customer
 
 @regression
     #stable
+  @st
 Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :enroute
 Given that duo schedule bungii is in progress
 | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -94,7 +95,7 @@ And I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
 	  | 8805368840     |                 |
 
-	   @regression
+  @regression
   #stable
   Scenario: Verify If Control Driver Is Allowed To Complete The Trip And Proper Summary Is Shown
 	Given that duo schedule bungii is in progress
@@ -125,6 +126,7 @@ And I cancel all bungiis of customer
   
   @regression
     #stable
+	@nonstable
   Scenario:Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip - Duo
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time  | Customer        | Driver1         | Driver2         |

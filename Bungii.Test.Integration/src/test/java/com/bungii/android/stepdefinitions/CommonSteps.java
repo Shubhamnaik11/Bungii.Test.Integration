@@ -794,9 +794,9 @@ public class CommonSteps extends DriverBase {
             }
 
             testStepAssert.isEquals(actualMessage, expectedMessage,
-                    "Alert with text" + expectedMessage + "should be displayed",
+                    "Alert with text " + expectedMessage + "should be displayed",
                     "Alert with text ," + expectedMessage + " should be displayed",
-                    "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
+                    "Alert Message is not displayed, actual Message " + actualMessage + " Expected is "
                             + expectedMessage);
 
         } catch (Throwable e) {
