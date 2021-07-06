@@ -2,6 +2,7 @@
 @DUO
 @scheduled
 @bungii
+@DuoWithMultiDevice
     #All Cases are stable in this feature
 Feature: Scheduled DUO Bungii
   I want  request Scheduled Bungii with Duo type
