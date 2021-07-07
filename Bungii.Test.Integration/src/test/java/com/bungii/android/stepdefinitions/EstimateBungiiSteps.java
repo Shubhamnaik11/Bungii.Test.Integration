@@ -210,7 +210,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step, "+arg0+ " is not displayed", true);
+            error("Step  Should be successful", arg0+ " is not displayed", true);
         }
     }
 

@@ -1075,7 +1075,7 @@ public class ScheduledTripSteps extends DriverBase {
 		}catch (Throwable e) {
 			logger.error("Error performing step" + e);
 			error("Step  Should be successful",
-					"Error performing step,Please check logs for more details", true);
+					"Error in assigning driver "+driverName+" to the delivery by admin. Please check screenshot for more details", true);
 		}
 	}
 
@@ -1144,7 +1144,7 @@ public class ScheduledTripSteps extends DriverBase {
 		}catch (Throwable e) {
 			logger.error("Error performing step" + e);
 			error("Step  Should be successful",
-					"Error performing step,Please check logs for more details", true);
+					"Error in viewing "+message+"message", true);
 		}
 	}
 	@When("^I close \"([^\"]*)\" popup$")
