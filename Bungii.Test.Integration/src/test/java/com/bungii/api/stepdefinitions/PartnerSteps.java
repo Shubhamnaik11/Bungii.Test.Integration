@@ -30,6 +30,7 @@ public class PartnerSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("Phone",customerPhone);
         String geofence = dataMap.get("Geofence").trim();
         cucumberContextManager.setScenarioContext("GEOFENCE",geofence);
+        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE",geofence);
         String bungii_time = dataMap.get("Bungii Time").trim();
 
         String Access_Token = authServices.partnerLogin(Partner_Portal);

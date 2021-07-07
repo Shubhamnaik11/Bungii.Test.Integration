@@ -319,6 +319,7 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Cancel_Confirmation()), PropertyUtility.getMessage("Confirmation_Message_Delivery_Cancel"));
                     break;
                 case "see Canceled trip message":
+                    Thread.sleep(2000);
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Cancel_Trip()), PropertyUtility.getMessage("Message_Cancel_Trip"));
                     break;
                 case "see Get Estimate screen":
@@ -332,6 +333,9 @@ public class Partner_LoginSteps extends DriverBase {
                     break;
                 case "see Delivery cancellation failed message":
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Delivery_Cancellation_Failed()), PropertyUtility.getMessage("Message_Delivery_Cancellation_Failed"));
+                    break;
+                case "Your delivery has been canceled message":
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Pop_Message_Delivery_Cancelled()), PropertyUtility.getMessage("Message_Delivery_Cancelled"));
                     break;
                 case "see Service Level":
                     //String xpath ="//div[@class='service-level form-group']/div/p";

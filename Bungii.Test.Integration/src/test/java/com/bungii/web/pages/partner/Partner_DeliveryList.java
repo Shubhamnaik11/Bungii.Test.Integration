@@ -44,8 +44,11 @@ public class Partner_DeliveryList extends PageBase {
     //Cancel message
     public WebElement Message_Cancel_Trip() { return findElement("//p[@class='trip-Canceled-text']",LocatorType.XPath);}
 
-    //
+    //message
     public WebElement Message_Delivery_Cancellation_Failed() { return findElement("//h2[contains(text(),'Delivery cancellation failed!')]/following::p",LocatorType.XPath);}
+
+    //Pop up message
+    public WebElement Pop_Message_Delivery_Cancelled() { return findElement("//h2[contains(text(),'Cancel Delivery')]/following::p",LocatorType.XPath);}
 
     //Status Filter dropdown
     public WebElement Dropdown_Partner_Status() { return findElement("//div[contains(@class,'caret')]",LocatorType.XPath);}

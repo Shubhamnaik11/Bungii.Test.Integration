@@ -38,7 +38,8 @@ public class AvailableTripsSteps extends DriverBase {
 			String customerName=(String) cucumberContextManager.getScenarioContext("CUSTOMER");
 			String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
 		//	customerName="Vishal B";numberOfDriver="DUO";
-			selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));
+			//selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));--removing this since now full name is displaying
+			selectBungiiFromList(numberOfDriver,customerName);
 
 		//	selectBungiiFromList("DUO","Vishal B");
 
@@ -51,6 +52,27 @@ public class AvailableTripsSteps extends DriverBase {
 			error( "Trip Should be listed in Available Bungiis", "Trip is not displayed in available Bungii for customer " + customerName + " of "+ numberOfDriver +" type", true);
 		}
 	}
+
+	@Then("^Partner Portal name should be display in \"([^\"]*)\" section$")
+	public void partner_portal_name_should_be_display_in_something_section(String Screen) throws Throwable {
+		switch (Screen){
+			case "AVAILABLE BUNGIIS":
+			case "SCHEDULED BUNGIIS":
+			case "EN ROUTE"	:
+			case "ARRIVED":
+			case "LOADING ITEM":
+			case "DRIVING TO DROP OFF":
+			case "UNLOADING ITEM":
+				String partnerName= availableTripsPage.Partner_Name().getText();
+				String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
+				testStepVerify.isEquals(partnerName,partnerNameExpected);
+				break;
+			default:
+				log("Pass correct screen","Wrong screen has been Pass",true);
+				break;
+		}
+	}
+
 	@Then("^I should able to see \"([^\"]*)\" available trip$")
 	public void i_should_able_to_see_something_available_trip(String strArg1) throws Throwable {
 		try {

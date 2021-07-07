@@ -1387,9 +1387,40 @@ public class CoreServices extends DriverBase {
         }else {
             No_of_Driver=2;
         }
-
+        cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER",No_of_Driver);
         if(Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE")){
             nextAvailableBungii = getScheduledBungiiTime();
+            String temp = nextAvailableBungii[0];
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            //By default data is in UTC
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date dt = null;
+            try {
+                dt = formatter.parse(temp);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dt);
+            int mnts = calendar.get(Calendar.MINUTE);
+
+            calendar.set(Calendar.MINUTE, mnts - 15);
+            int unroundedMinutes = calendar.get(Calendar.MINUTE);
+            int mod = unroundedMinutes % 15;
+            calendar.add(Calendar.MINUTE, (15 - mod));
+            calendar.set(Calendar.SECOND, 0);
+
+            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+            //DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            DateFormat formatterForLocalTimezone = new SimpleDateFormat("MMM dd, HH:mm a z");
+            formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            String strdate = formatterForLocalTimezone.format(calendar.getTime());
+
+            cucumberContextManager.setScenarioContext("BUNGII_TIME",strdate);
         }
 
         if(Geofence.equalsIgnoreCase("Kansas")) {

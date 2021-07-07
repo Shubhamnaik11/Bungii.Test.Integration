@@ -56,6 +56,8 @@ public class EstimateSteps extends DriverBase {
             enterLoadingTime(loadTime);
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
+            String BungiiType = (String)cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+            verifyDisclaimer(BungiiType);
             clickAcceptTerms();
             strTime = enterTime(time);
             strTime=strTime.replace("am","AM").replace("pm","PM");
@@ -1545,12 +1547,24 @@ public class EstimateSteps extends DriverBase {
     public void clickAcceptTerms() {
         action.swipeUP();
         if(!estimatePage.CheckBoxOff_Terms().isSelected()) {
+            testStepVerify.isEquals(action.getText(estimatePage.Text_Checkbox_Terms()),PropertyUtility.getDataProperties("customer.checkbox"));
             action.click(estimatePage.CheckBoxOff_Terms());
             logger.detail("Checkbox Terms Selected : true ");
         }
         else
         {
             logger.detail("Checkbox Terms Selected [Existing] : true ");
+        }
+    }
+
+    public void verifyDisclaimer(String Type) {
+        if(Type.equalsIgnoreCase("solo")){
+            testStepVerify.isEquals(action.getValueAttribute(estimatePage.Text_Solo_Disclaimer()),PropertyUtility.getDataProperties("customer.solo.disclaimer"));
+            logger.detail("Disclaimer for "+Type+":"+action.getValueAttribute(estimatePage.Text_Solo_Disclaimer()));
+        }
+        else{
+            testStepVerify.isEquals(action.getValueAttribute(estimatePage.Text_Duo_Disclaimer()),PropertyUtility.getDataProperties("customer.duo.disclaimer"));
+            logger.detail("Disclaimer for "+Type+":"+action.getValueAttribute(estimatePage.Text_Duo_Disclaimer()));
         }
     }
 
