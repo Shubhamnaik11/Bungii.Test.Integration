@@ -47,6 +47,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_TripsPage admin_TripsPage =  new Admin_TripsPage();
     Admin_PotentialPartnersPage admin_potentialPartnersPage = new Admin_PotentialPartnersPage();
+    Admin_LogviewPage admin_logviewPage = new Admin_LogviewPage();
 
     GeneralUtility utility= new GeneralUtility();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
@@ -866,6 +867,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Confirm":
                     action.click(admin_revivalPage.Button_Confirm());
                     break;
+                case "Execute":
+                    action.click(admin_logviewPage.Button_Execute());
+                    break;
+
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", true);

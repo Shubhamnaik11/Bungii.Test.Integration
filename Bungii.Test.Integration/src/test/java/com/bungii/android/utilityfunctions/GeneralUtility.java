@@ -1598,10 +1598,7 @@ Thread.sleep(5000);
         }
         try {
             SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-           // logger.detail("Switched to Driver in recovery scenario");
-
-            Thread.sleep(1000);
-
+            ((AndroidDriver) SetupManager.getDriver()).resetApp();
         } catch (Exception e) {
         }
 
@@ -1617,7 +1614,7 @@ Thread.sleep(5000);
                     //TODO
                 }
                 if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
-                    logger.detail("Driver is on arrived screen");
+                    logger.detail("Driver is on Arrived screen");
                     action.click(driverBungiiProgressPage.Button_Cancel());
                     action.click(driverBungiiProgressPage.Button_Cancel_Yes());
                     launchCustomerApplication();
@@ -1687,7 +1684,6 @@ Thread.sleep(5000);
             }
 
         } catch (Exception e) {
-            //logger.detail(ExceptionUtils.getStackTrace(e));
         }
         logger.detail("********* RESTORING APP STATE : CUSTOMER *********");
         SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));

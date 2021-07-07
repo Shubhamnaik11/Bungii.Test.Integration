@@ -5,6 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_DriversPage;
+import com.bungii.web.pages.admin.Admin_LogviewPage;
 import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -31,6 +32,7 @@ public class Admin_DriverDetails extends DriverBase{
     Admin_DriversPage admin_Driverspage = new Admin_DriversPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    Admin_LogviewPage admin_logviewPage = new Admin_LogviewPage();
 
     @Then("^Set the Geofence dropdown to \"([^\"]*)\"$")
     public void set_the_geofence_dropdown_to_something(String strArg1) throws Throwable {
@@ -70,6 +72,12 @@ public class Admin_DriverDetails extends DriverBase{
         switch (Linkname){
             case "View Profile":
                 action.click(admin_Driverspage.Link_ViewProfile());
+                break;
+            case "Download Query Result(comma)":
+                action.click(admin_logviewPage.Link_DownloadQueryResultWithComma());
+                break;
+            case "Download Query Result(pipe)":
+                action.click(admin_logviewPage.Link_DownloadQueryResultWithPipe());
                 break;
 
         }
