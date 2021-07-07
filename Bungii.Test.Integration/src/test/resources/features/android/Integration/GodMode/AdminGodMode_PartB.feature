@@ -1,6 +1,4 @@
 @android
-@general
-@bungii
 @adminmode
     #These feature will run in Kansas geofence
 Feature: God Mode Feature Part B

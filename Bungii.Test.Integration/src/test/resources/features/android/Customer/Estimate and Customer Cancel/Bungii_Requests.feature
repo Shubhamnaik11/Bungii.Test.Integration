@@ -1,6 +1,4 @@
 @android
-@general
-@bungii
     #These feature will run in Boston geofence
 Feature: Bungii Requests
 	  
