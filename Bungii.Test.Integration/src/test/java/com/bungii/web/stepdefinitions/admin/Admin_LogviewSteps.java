@@ -69,6 +69,8 @@ public class Admin_LogviewSteps extends DriverBase {
             File dir = new File(home + "/Downloads");
             FileFilter fileFilter = new WildcardFileFilter("*.csv");
             File[] files = dir.listFiles(fileFilter);
+            logger.detail("Files "+ files);
+            logger.detail("Files Length "+ files.length);
 
             if (files.length > 0) {
                 /** The newest file comes first **/
@@ -88,12 +90,12 @@ public class Admin_LogviewSteps extends DriverBase {
 
                         case "comma":
                         gridValue.add(row.getText().replace(" ", ","));
-                            System.out.print("Grid Content : "+row.getText().replace(" ",",") +"\n");
+                            logger.detail("Grid Content : "+row.getText().replace(" ",",") +"\n");
 
                             break;
                         case "pipe":
                         gridValue.add(row.getText().replace(" ", "|"));
-                            System.out.print("Grid Content : "+row.getText().replace(" ","|") +"\n");
+                            logger.detail("Grid Content : "+row.getText().replace(" ","|") +"\n");
 
                             break;
                     }
