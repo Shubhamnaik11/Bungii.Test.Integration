@@ -1582,4 +1582,23 @@ public class Admin_TripsSteps extends DriverBase {
         testStepVerify.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
 
     }
+
+    @And("^the cost of the delivery should be zero$")
+    public void the_cost_of_the_delivery_should_be_zero() throws Throwable {
+        String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
+        DecimalFormat df = new DecimalFormat("0.00");
+        String cost = (String) cucumberContextManager.getScenarioContext("COST");
+        Double orgcost = Double.parseDouble(cost);
+
+        Thread.sleep(1000);
+        testStepVerify.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
+
+    }
+
+    @And("^I open the first search delivery$")
+    public void i_open_the_first_search_delivery() throws Throwable {
+        action.getElementByXPath("//tr[@id='row1']/td[4]/a").click();
+
+    }
+
 }
