@@ -102,7 +102,12 @@ public class GeneralUtility extends DriverBase {
         return adminURL;
     }
 
+    public String getCurrentUrl() throws InterruptedException {
 
+        Thread.sleep(5000);
+        String adminURL = SetupManager.getObject().getCurrentUrl();
+        return adminURL;
+    }
     public void DriverLogin(String Phone, String Password) {
         String driverURL = GetDriverUrl();
 

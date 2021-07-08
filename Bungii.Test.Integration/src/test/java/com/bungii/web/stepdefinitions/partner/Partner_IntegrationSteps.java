@@ -1,7 +1,7 @@
 package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.web.utilityfunctions.GeneralUtility;
 import com.bungii.api.utilityFunctions.CoreServices;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -13,11 +13,15 @@ import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryList;
 import com.bungii.web.stepdefinitions.admin.Admin_BusinessUsersSteps;
 import com.bungii.web.utilityfunctions.DbUtility;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
 import java.util.Map;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Partner_IntegrationSteps extends DriverBase {
@@ -375,5 +379,69 @@ public class Partner_IntegrationSteps extends DriverBase {
         }
     }
 
+    @And("^I navigate to \"([^\"]*)\" page$")
+    public void i_navigate_to_something_page(String strArg1) throws Throwable {
+        try{
+            String url = utility.getCurrentUrl().replace("/login", "/quote-only");
+            action.navigateTo(url);
+            log("I navigate to Quote-only page" ,
+                    "I navigated to Quote-only page" , false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in navigating to Quote-only page",
+                    true);
+        }
+    }
+    @Then("^I should see the estimate cost quote$")
+    public void i_should_see_the_estimate_cost_quote() throws Throwable {
+        try{
+            String Alias_Name= (String) cucumberContextManager.getScenarioContext("Alias");
+            String Selected_Service =(String) cucumberContextManager.getScenarioContext("Selected_service");
+            String Trip_Type = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
+            int Driver_Number=1;
+
+            if(Trip_Type.equalsIgnoreCase("Duo")){
+                Driver_Number=2;
+            }
+
+            String Estimate_distance = dbUtility.getEstimateDistance(Alias_Name);
+            double Estimate_distance_value = Double.parseDouble(Estimate_distance);
+
+            String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Selected_Service);
+            double Last_Tier_Milenge_Min_Range_value = Double.parseDouble(Last_Tier_Milenge_Min_Range);
+
+            String Price="";
+            if(Estimate_distance_value <= Last_Tier_Milenge_Min_Range_value) {
+                Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, Estimate_distance, Selected_Service);
+            }
+            else{
+                Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, Estimate_distance, Selected_Service);
+            }
+            String Price_Estimated_Page = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
+            Price_Estimated_Page = Price_Estimated_Page.replace("Estimated Cost: $","");
+            testStepAssert.isEquals(Price_Estimated_Page,Price,"For Selected "+Selected_Service+" service correct price should be shown.","For Selected "+Selected_Service+" service correct price is shown.", "For Selected "+Selected_Service+" service correct price is not shown.");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in getting estimate cost quote",
+                    true);
+        }
+
+    }
+
+    @Then("^Fields get reset to default state$")
+    public void fields_get_reset_to_default_state() throws Throwable {
+        try{
+         testStepAssert.isEquals(Page_Partner_Dashboard.Dropdown_Pickup_Address().getAttribute("value"),"","Pickup address field should get cleared","Pickup address field is cleared","Pickup address field is not cleared");
+            testStepAssert.isEquals(Page_Partner_Dashboard.Dropdown_Delivery_Address().getAttribute("value"),"","Dropdown address field should get cleared","Dropdown address field is cleared","Dropdown address field is not cleared");
+            testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Label_NoServiceSelected(),"Service Level should get default to No Service Selected","Service Level gets default to No Service Selected","Service Level should is not defaulted to No Service Selected");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in starting over",
+                    true);
+        }
+
+    }
 
 }

@@ -7,6 +7,7 @@ Feature: Admin_Logview
 	
 	@regression
 	  #stable
+	  #CORE-2627
 	Scenario Outline: Verify admin can fetch and download the data from <table> table in logview
 	  When I Select Database "<database>"
 	  And I enter "<sql statement>" query with limit "<limit>"

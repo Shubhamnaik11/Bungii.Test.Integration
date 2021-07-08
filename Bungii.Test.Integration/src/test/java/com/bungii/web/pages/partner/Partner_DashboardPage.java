@@ -158,4 +158,7 @@ public class Partner_DashboardPage extends PageBase {
 
     //Delivery Cost
     public WebElement Label_Delivery_Cost() { return findElement("//div/label[contains(text(),'Delivery Cost:')]",LocatorType.XPath);}
+
+    public WebElement Label_NoServiceSelected() { return findElement("//div[contains(text(),'No service selected.')]",LocatorType.XPath);}
+
 }

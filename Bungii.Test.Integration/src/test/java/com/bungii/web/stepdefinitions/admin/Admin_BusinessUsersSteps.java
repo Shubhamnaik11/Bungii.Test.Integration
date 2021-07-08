@@ -10,6 +10,7 @@ import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_DetailsPage;
+import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -57,7 +58,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
     Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
     Admin_RefundsPage admin_refundsPage = new Admin_RefundsPage();
-
+    Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
         switch (fields) {
@@ -800,6 +801,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         public void i_click_on_something_button(String Name) throws Throwable {
             switch(Name)
             {
+                case "Start Over":
+                    action.click(partner_dashboardPage.Label_Start_Over());
+                    break;
+
                 case "Save":
                     action.click(admin_BusinessUsersPage.Button_PaymentSave());
                     break;
