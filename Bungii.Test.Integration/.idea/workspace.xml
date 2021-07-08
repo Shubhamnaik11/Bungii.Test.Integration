@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="62ba28db-0818-493c-b347-c77d79bcc0bf" name="Default" comment="QA checkin - ios case to handle SD tickets driver minutes 0">
+    <list default="true" id="62ba28db-0818-493c-b347-c77d79bcc0bf" name="Default" comment="QA checkin - Web Bulk upload path issue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Logview.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Logview.feature" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,10 +19,28 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_LogviewSteps.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="55">
-              <caret line="67" column="61" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="61" />
+              <caret line="67" column="35" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Admin_BusinessUsersSteps.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_BusinessUsersSteps.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="593" column="36" lean-forward="true" selection-start-line="593" selection-start-column="36" selection-end-line="593" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RunAutoSuite.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1615">
+              <caret line="111" column="1" selection-start-line="111" selection-start-column="1" selection-end-line="111" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -50,15 +66,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Driver_LoginSteps.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_LoginSteps.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="72" column="25" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Driver_Application.feature" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Application.feature">
           <provider selected="true" editor-type-id="text-editor">
@@ -71,27 +78,6 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file leaf-file-name="RunAutoSuite.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="20" column="106" selection-start-line="20" selection-start-column="106" selection-end-line="20" selection-end-column="106" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Admin_LogviewPage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Admin_LogviewPage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="54" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="54" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Admin_Logview.feature" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Logview.feature">
           <provider selected="true" editor-type-id="text-editor">
@@ -101,9 +87,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Admin_Live_Delivery_Edit.feature" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Admin_Live_Delivery_Edit.feature" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Live_Delivery_Edit.feature">
           <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="Admin_BusinessUsers.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_BusinessUsers.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="344">
+              <caret line="169" column="16" lean-forward="true" selection-start-line="169" selection-start-column="16" selection-end-line="169" selection-end-column="16" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -163,7 +158,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/partner/Partner_LoginSteps.java" />
         <option value="$PROJECT_DIR$/src/test/resources/features/web/Partner/Partner_Integration.feature" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/HomePageSteps.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/PromosSteps.java" />
@@ -208,12 +202,13 @@
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java" />
         <option value="$PROJECT_DIR$/src/test/resources/features/android/Integration/DUO/Bungii_Duo.feature" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Admin_LogviewPage.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_BusinessUsersSteps.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_DriverDetails.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_LogviewSteps.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" />
         <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Logview.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_BusinessUsers.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_BusinessUsersSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" />
       </list>
     </option>
   </component>
@@ -948,13 +943,6 @@
       <option name="presentableId" value="Default" />
       <updated>1600323768787</updated>
     </task>
-    <task id="LOCAL-00111" summary="QA checkin - ios fixes">
-      <created>1621951050468</created>
-      <option name="number" value="00111" />
-      <option name="presentableId" value="LOCAL-00111" />
-      <option name="project" value="LOCAL" />
-      <updated>1621951050469</updated>
-    </task>
     <task id="LOCAL-00112" summary="QA checkin - ios new file changes">
       <created>1621951098899</created>
       <option name="number" value="00112" />
@@ -1291,7 +1279,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625723082610</updated>
     </task>
-    <option name="localTasksCounter" value="160" />
+    <task id="LOCAL-00160" summary="QA checkin - Web Bulk upload path issue">
+      <created>1625723477950</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1625723477950</updated>
+    </task>
+    <option name="localTasksCounter" value="161" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1427,7 +1422,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="QA checkin - android time select" />
     <MESSAGE value="QA checkin - android TELET Fixes" />
     <MESSAGE value="QA checkin - Web Script movement - Regression 209 and ready 41" />
     <MESSAGE value="QA checkin - web fixes" />
@@ -1452,7 +1446,8 @@
     <MESSAGE value="QA checkin - web download on VM loggers" />
     <MESSAGE value="QA checkin - STRNVM04 Directory path fix" />
     <MESSAGE value="QA checkin - Set download directory for web" />
-    <option name="LAST_COMMIT_MESSAGE" value="QA checkin - Set download directory for web" />
+    <MESSAGE value="QA checkin - Web Bulk upload path issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="QA checkin - Web Bulk upload path issue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2278,13 +2273,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Customer/Home Page/CustomerHome.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="105" column="40" lean-forward="true" selection-start-line="105" selection-start-column="40" selection-end-line="105" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/HomeSteps.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
@@ -2542,34 +2530,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_BusinessUsersSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9469">
-          <caret line="590" column="25" selection-start-line="589" selection-start-column="12" selection-end-line="596" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_LoginSteps.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
           <caret line="72" column="25" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="20" column="106" selection-start-line="20" selection-start-column="106" selection-end-line="20" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_LogviewSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="55">
-          <caret line="67" column="61" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2583,9 +2547,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_BankDetails.feature">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Application.feature">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-255" />
@@ -2595,6 +2556,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="15" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Logview.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="71" lean-forward="true" selection-start-line="17" selection-start-column="71" selection-end-line="17" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Live_Delivery_Edit.feature">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_BusinessUsers.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="169" column="16" lean-forward="true" selection-start-line="169" selection-start-column="16" selection-end-line="169" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -2608,15 +2586,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Logview.feature">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_BankDetails.feature">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_LogviewSteps.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="71" lean-forward="true" selection-start-line="17" selection-start-column="71" selection-end-line="17" selection-end-column="71" />
+        <state relative-caret-position="55">
+          <caret line="67" column="35" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Live_Delivery_Edit.feature">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_BusinessUsersSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="593" column="36" lean-forward="true" selection-start-line="593" selection-start-column="36" selection-end-line="593" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1615">
+          <caret line="111" column="1" selection-start-line="111" selection-start-column="1" selection-end-line="111" selection-end-column="1" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">
