@@ -15,6 +15,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -587,7 +588,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             String errorFileName = cucumberContextManager.getScenarioContext("CSVFILE").toString();
             errorFileName = utility.GetFormattedString(errorFileName, ".csv");
             errorFileName = errorFileName + "_errors";
-            String home = System.getProperty("user.home");
+            String home = SystemUtils.getUserHome().getPath();//System.getProperty("user.home");
             File file = new File(home + "/Downloads/" + errorFileName + ".csv");
             try {
                 if (file.exists()) {

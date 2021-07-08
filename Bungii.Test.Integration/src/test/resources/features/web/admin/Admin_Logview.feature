@@ -7,7 +7,6 @@ Feature: Admin_Logview
 	
 	@regression
 	  #stable
-	  @notes
 	Scenario Outline: Verify admin can fetch and download the data from <table> table in logview
 	  When I Select Database "<database>"
 	  And I enter "<sql statement>" query with limit "<limit>"
@@ -20,5 +19,5 @@ Feature: Admin_Logview
 	  
 	  Examples:
 	 | database  |table | sql statement | limit |
-	     | Bungii/Admin | pickupdetails |  select pickupid,pickupref from pickupdetails order by pickupid desc    |       1|
+	     | Bungii/Admin | pickupdetails |  select pickupid,pickupref from pickupdetails order by pickupid desc    |       10|
 	     | Bungii Reporting | factpickup |   select id, pickupref from factpickup order by id desc  |       10|

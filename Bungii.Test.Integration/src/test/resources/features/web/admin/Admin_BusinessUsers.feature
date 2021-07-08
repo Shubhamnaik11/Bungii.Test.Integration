@@ -133,6 +133,7 @@ Feature: Admin_BusinessUsers
 	
   @knownissue
 	#Unable to download or read from the downloads folder of VM
+    @notes
   Scenario: Verify Add New Business User And Add Payment Method - Field validations In Uploaded CSV For Bulk Trips
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
