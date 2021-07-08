@@ -406,7 +406,7 @@ public class Partner_IntegrationSteps extends DriverBase {
             String pickupAddress = (String) cucumberContextManager.getScenarioContext("PickupAddress");
             String dropoffAddress =(String) cucumberContextManager.getScenarioContext("Delivery_Address");
             String Estimate_distance  = new GoogleMaps().getMiles(pickupAddress, dropoffAddress);
-            double Estimate_distance_value = Double.parseDouble(Estimate_distance)/100;
+            double Estimate_distance_value = Double.parseDouble(Estimate_distance)/1000;
             logger.detail("Estimated Distance : "+ Estimate_distance_value);
             String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Selected_Service);
             double Last_Tier_Milenge_Min_Range_value = Double.parseDouble(Last_Tier_Milenge_Min_Range);
