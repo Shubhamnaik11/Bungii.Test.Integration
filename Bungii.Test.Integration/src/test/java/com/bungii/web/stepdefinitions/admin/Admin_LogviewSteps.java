@@ -9,6 +9,7 @@ import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.*;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -63,7 +64,8 @@ public class Admin_LogviewSteps extends DriverBase {
             List<WebElement> gridRows =admin_logviewPage.findElements("//table/tbody/tr",PageBase.LocatorType.XPath);
 
             Thread.sleep(5000);
-            String home = System.getProperty("user.home");
+          //  String home = System.getProperty("user.home");
+            String home = SystemUtils.getUserHome().getPath();
             File theNewestFile = null;
             File dir = new File(home + "\\Downloads");
             FileFilter fileFilter = new WildcardFileFilter("*.csv");
