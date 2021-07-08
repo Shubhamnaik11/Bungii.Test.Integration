@@ -58,6 +58,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
+                cucumberContextManager.setScenarioContext("NOTE",comment);
                 action.click(admin_accessorialChargesPage.Button_Save());
                 Thread.sleep(3000);
                 i++;
@@ -188,6 +189,15 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
         String actualTotalAmount = dbUtility.getAccessorialCharge(pickuprequest);
         testStepAssert.isEquals("$"+actualTotalAmount,expectedTotal, "Total "+expectedTotal+" should be displayed", expectedTotal+" is displayed", expectedTotal+" is not displayed");
+
+    }
+    @And("^\"([^\"]*)\" should show comment without quotes in the trippaymentdetails table in Database$")
+    public void something_should_show_comment_without_quotes_in_the_trippaymentdetails_table_in_database(String strArg1) throws Throwable {
+        String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String note = (String) cucumberContextManager.getScenarioContext("NOTE");
+
+        String dbnote = dbUtility.getBusinessNotes(pickuprequest);
+        testStepAssert.isEquals(dbnote,note, "Total "+note+" should be displayed", note+" is displayed", note+" is not displayed");
 
     }
 

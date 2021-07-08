@@ -407,6 +407,7 @@ public class Partner_IntegrationSteps extends DriverBase {
             String dropoffAddress =(String) cucumberContextManager.getScenarioContext("Delivery_Address");
             String Estimate_distance  = new GoogleMaps().getMiles(pickupAddress, dropoffAddress);
             double Estimate_distance_value = Double.parseDouble(Estimate_distance)/1000;
+            Estimate_distance_value = Estimate_distance_value / 1.609344; //to convert kms to miles
             logger.detail("Estimated Distance : "+ Estimate_distance_value);
             String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Selected_Service);
             double Last_Tier_Milenge_Min_Range_value = Double.parseDouble(Last_Tier_Milenge_Min_Range);
@@ -419,7 +420,7 @@ public class Partner_IntegrationSteps extends DriverBase {
             }
             String Price_Estimated_Page = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
             Price_Estimated_Page = Price_Estimated_Page.replace("Estimated Cost: $","");
-            testStepAssert.isEquals(Price_Estimated_Page,Price,"For Selected "+Selected_Service+" service correct price should be shown.","For Selected "+Selected_Service+" service correct price is shown.", "For Selected "+Selected_Service+" service correct price is not shown.");
+            testStepAssert.isEquals(Price_Estimated_Page,Price,"For Selected "+Selected_Service+" service correct price should be shown. Expected : "+Price +" | Actual : "+ Price_Estimated_Page,"For Selected "+Selected_Service+" service correct price is shown. Expected : "+Price +" | Actual : "+ Price_Estimated_Page, "For Selected "+Selected_Service+" service correct price is not shown. Expected : "+Price +" | Actual : "+ Price_Estimated_Page);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
