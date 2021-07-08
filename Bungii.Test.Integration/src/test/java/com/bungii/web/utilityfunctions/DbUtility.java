@@ -229,7 +229,7 @@ public class DbUtility extends DbContextManager {
                 "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
 
         Trip_Price = getDataFromMySqlMgmtServer(queryString);
-        logger.detail("Estimate Service Price  =  " + Trip_Price + " of "+ Service_name +" [ Alias :"+Alias+" ]" + " For Drivers : "+No_of_Driver+" | Trip Distance : "+ Trip_Estimate_Distance);
+        logger.detail("Calculated Estimated Service Price  =  " + Trip_Price + " of "+ Service_name +" [ Alias :"+Alias+" ]" + " For Drivers : "+No_of_Driver+" | Trip Distance : "+ Trip_Estimate_Distance);
         return Trip_Price;
 
     }
@@ -249,13 +249,11 @@ public class DbUtility extends DbContextManager {
                 "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
                 "and ss.service_name = '"+Service_name+"'\n" +
                 "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
-        logger.detail("QUERY : " +queryString);
-
         Last_Tier = getDataFromMySqlMgmtServer(queryString);
-
         int Last_Tier_Number = Integer.parseInt(Last_Tier);
-
+        logger.detail("Last_Tier_Number : " +Last_Tier_Number);
         int Second_Last_Tier = Last_Tier_Number-1;
+        logger.detail("Second_Last_Tier : " +Second_Last_Tier);
 
         //Query for selecting second last tier amount
         String queryString1 ="select amount\n" +
@@ -266,13 +264,9 @@ public class DbUtility extends DbContextManager {
                 "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
                 "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  tier_number="+Second_Last_Tier+"\n" +
                 "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
-        logger.detail("QUERY : " +queryString1);
-
-        //Trip_Price = getDataFromMySqlServer(queryString);
         Second_Last_Tier_Amount = Double.parseDouble(getDataFromMySqlMgmtServer(queryString1));
-        logger.detail("Second_Last_Tier_Amount =  " + Second_Last_Tier_Amount + " of latest trip" );
+        logger.detail("Second_Last_Tier_Amount =  " + Second_Last_Tier_Amount );
 
-        //Query for selecting maxium milenge for second last last tier
         String queryString2 ="select mile_range_max\n" +
                 "from business_partner_loc_fixed_distance_pricing fp\n" +
                 "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
@@ -281,12 +275,10 @@ public class DbUtility extends DbContextManager {
                 "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
                 "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  tier_number="+Second_Last_Tier+"\n" +
                 "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
-        logger.detail("QUERY : " +queryString2);
-
         Second_Last_Tier_Milenge = Double.parseDouble(getDataFromMySqlMgmtServer(queryString2));
-        logger.detail("Second_Last_Tier_Milenge =  " + Second_Last_Tier_Milenge + " of latest trip" );
-
+        logger.detail("Second_Last_Tier_Milenge =  " + Second_Last_Tier_Milenge);
         Double Remaining_Milenge = Double.parseDouble(Trip_Estimate_Distance) - Second_Last_Tier_Milenge;
+        logger.detail("Remaining_Milenge =  " + Remaining_Milenge);
 
         //Multiplying factor
         String queryString3 ="select amount\n" +
@@ -300,12 +292,12 @@ public class DbUtility extends DbContextManager {
 
 
         Double Multiplier = Double.parseDouble(getDataFromMySqlMgmtServer(queryString3));
+        logger.detail("Multiplier =  " + Multiplier);
         Double Cal2 = Remaining_Milenge*Multiplier;
         Trip_Price = Second_Last_Tier_Amount + Cal2;
         DecimalFormat dec = new DecimalFormat("#.00");
         String priceValue = dec.format(Trip_Price).toString();
-        logger.detail("QUERY : " +queryString3);
-        logger.detail("Estimate amount [For Exceeding Last Tier] =  " + priceValue + " of latest trip" );
+        logger.detail("Calculated Estimate amount [For Exceeding Last Tier] =  " + priceValue + " of latest trip" );
         return priceValue;
 
     }
@@ -336,6 +328,14 @@ public class DbUtility extends DbContextManager {
         accessorial_Charge = getDataFromMySqlServer(queryString);
         logger.detail("Total Accessorial Charge =  " + accessorial_Charge + " of delivery "+ pickupref );
         return accessorial_Charge;
+
+    }
+    public static String getBusinessNotes(String pickupref) {
+        String business_notes;
+        String queryString = "SELECT business_notes FROM trippaymentdetails where TRID in (SELECT TRID FROM triprequest WHERE pickupid IN (SELECT  pickupid FROM pickupdetails WHERE pickupref='"+pickupref+"'));";
+        business_notes = getDataFromMySqlServer(queryString);
+        logger.detail("Business Note =  " + business_notes + " of delivery "+ pickupref );
+        return business_notes;
 
     }
     public static long getEstimateTimeforPickup(String Pickup_Reference) {
