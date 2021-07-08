@@ -412,10 +412,10 @@ public class Partner_IntegrationSteps extends DriverBase {
             double Last_Tier_Milenge_Min_Range_value = Double.parseDouble(Last_Tier_Milenge_Min_Range);
             String Price="";
             if(Estimate_distance_value <= Last_Tier_Milenge_Min_Range_value) {
-                Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, Estimate_distance, Selected_Service);
+                Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, String.valueOf(Estimate_distance_value), Selected_Service);
             }
             else{
-                Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, Estimate_distance, Selected_Service);
+                Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, String.valueOf(Estimate_distance_value), Selected_Service);
             }
             String Price_Estimated_Page = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
             Price_Estimated_Page = Price_Estimated_Page.replace("Estimated Cost: $","");
