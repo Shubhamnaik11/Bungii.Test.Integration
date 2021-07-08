@@ -229,7 +229,7 @@ public class DbUtility extends DbContextManager {
                 "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
 
         Trip_Price = getDataFromMySqlMgmtServer(queryString);
-        logger.detail("Estimate Service Price  =  " + Trip_Price + " of "+ Service_name +"[ Alias :"+Alias+" ]" + "Drivers : "+No_of_Driver+" | Trip Distance : "+ Trip_Estimate_Distance);
+        logger.detail("Estimate Service Price  =  " + Trip_Price + " of "+ Service_name +" [ Alias :"+Alias+" ]" + " For Drivers : "+No_of_Driver+" | Trip Distance : "+ Trip_Estimate_Distance);
         return Trip_Price;
 
     }
@@ -324,7 +324,7 @@ public class DbUtility extends DbContextManager {
 
 
         Max_Value_Min_Milenge = getDataFromMySqlMgmtServer(queryString);
-        logger.detail("Max Value Min Mileage =  " + Max_Value_Min_Milenge + " of latest trip" );
+        logger.detail("Max mile_range_min =  " + Max_Value_Min_Milenge + " of Alias "+ Alias +" and service " + Service_name );
         return Max_Value_Min_Milenge;
 
     }

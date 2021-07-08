@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
+import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import com.bungii.api.utilityFunctions.CoreServices;
 import com.bungii.common.core.DriverBase;
@@ -399,17 +400,16 @@ public class Partner_IntegrationSteps extends DriverBase {
             String Selected_Service =(String) cucumberContextManager.getScenarioContext("Selected_service");
             String Trip_Type = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
             int Driver_Number=1;
-
             if(Trip_Type.equalsIgnoreCase("Duo")){
                 Driver_Number=2;
             }
-
-            String Estimate_distance = dbUtility.getEstimateDistance(Alias_Name);
-            double Estimate_distance_value = Double.parseDouble(Estimate_distance);
-
+            String pickupAddress = (String) cucumberContextManager.getScenarioContext("PickupAddress");
+            String dropoffAddress =(String) cucumberContextManager.getScenarioContext("Delivery_Address");
+            String Estimate_distance  = new GoogleMaps().getMiles(pickupAddress, dropoffAddress);
+            double Estimate_distance_value = Double.parseDouble(Estimate_distance)/100;
+            logger.detail("Estimated Distance : "+ Estimate_distance_value);
             String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Selected_Service);
             double Last_Tier_Milenge_Min_Range_value = Double.parseDouble(Last_Tier_Milenge_Min_Range);
-
             String Price="";
             if(Estimate_distance_value <= Last_Tier_Milenge_Min_Range_value) {
                 Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, Estimate_distance, Selected_Service);
