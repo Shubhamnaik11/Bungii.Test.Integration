@@ -9,6 +9,7 @@ import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.*;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -63,52 +64,61 @@ public class Admin_LogviewSteps extends DriverBase {
             List<WebElement> gridRows =admin_logviewPage.findElements("//table/tbody/tr",PageBase.LocatorType.XPath);
 
             Thread.sleep(5000);
-            String home = System.getProperty("user.home");
-         //   File file = new File(home + "/Downloads/QueryResult" +  + ".csv");
+          //  String home = System.getProperty("user.home");
+            String home = SystemUtils.getUserHome().getPath();
             File theNewestFile = null;
-            File dir = new File(home + "/Downloads");
+            File dir = new File(home + "\\Downloads");
             FileFilter fileFilter = new WildcardFileFilter("*.csv");
             File[] files = dir.listFiles(fileFilter);
+            logger.detail("Download directory : "+ home + "\\Downloads");
+            if(files!=null) {
+                logger.detail("Files Length : " + files.length);
+                for (int i = 0; i<files.length;i++)
+                logger.detail("File : "+ files[i].getName());
 
-            if (files.length > 0) {
-                /** The newest file comes first **/
-                Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-                theNewestFile = files[0];
-            }
-            Scanner sc = new Scanner(theNewestFile);
-            sc.useDelimiter("\r\n");   //sets the delimiter pattern
+                if (files.length > 0) {
+                    Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+                    theNewestFile = files[0];
+                }
+                Scanner sc = new Scanner(theNewestFile);
+                sc.useDelimiter("\r\n");   //sets the delimiter pattern
 
-            int i = 0;
-            List<String> gridValue = new ArrayList<>();
-            List<String> fileValue = new ArrayList<>();
+                int i = 0;
+                List<String> gridValue = new ArrayList<>();
+                List<String> fileValue = new ArrayList<>();
 
-            for(WebElement row : gridRows) {
+                for (WebElement row : gridRows) {
 
-                    switch(strArg1) {
+                    switch (strArg1) {
 
                         case "comma":
-                        gridValue.add(row.getText().replace(" ", ","));
-                            System.out.print("Grid Content : "+row.getText().replace(" ",",") +"\n");
+                            gridValue.add(row.getText().replace(" ", ","));
+                            logger.detail("Grid Content : " + row.getText().replace(" ", ",") + "\n");
 
                             break;
                         case "pipe":
-                        gridValue.add(row.getText().replace(" ", "|"));
-                            System.out.print("Grid Content : "+row.getText().replace(" ","|") +"\n");
+                            gridValue.add(row.getText().replace(" ", "|"));
+                            logger.detail("Grid Content : " + row.getText().replace(" ", "|") + "\n");
 
                             break;
                     }
 
+                }
+                while (sc.hasNext())  //returns a boolean value
+                {
+                    String value = sc.next();
+                    System.out.print("File Content : " + value + "\n");  //find and returns the next complete token from this scanner
+                    fileValue.add(value);
+
+                }
+                sc.close();  //closes the scanner
+                testStepAssert.isTrue(fileValue.equals(gridValue), "Download content should match with grid content", "Download content matches with grid content", "Download content doesnt match with grid content");
             }
-            while (sc.hasNext())  //returns a boolean value
+            else
             {
-                String value = sc.next();
-                System.out.print("File Content : "+value+"\n");  //find and returns the next complete token from this scanner
-                fileValue.add(value);
+                testStepAssert.isFail("Files not found in "+ home + "/Downloads");
 
             }
-            sc.close();  //closes the scanner
-         testStepAssert.isTrue(fileValue.equals(gridValue),"Download content should match with grid content","Download content matches with grid content","Download content doesnt match with grid content" );
-
     } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step Should be successful", "Error in viewing downloaded file",

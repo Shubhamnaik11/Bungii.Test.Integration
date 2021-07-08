@@ -31,9 +31,8 @@ Feature: Scheduled Duo Bungiis
   
   @regression
   @sanity
-	@nonstable
    #stable
-	@s
+	@add
   Scenario: Verify Duo Bungii Completion - Android [Kansas Geofence]
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -41,14 +40,10 @@ Feature: Scheduled Duo Bungiis
 	
 	When I Switch to "customer" application on "same" devices
 	And I am logged in as "valid kansas" customer
-	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	And I close "Tutorial" if exist
 	
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
 	And I am logged in as "kansas driver 1" driver
-	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
@@ -56,13 +51,14 @@ Feature: Scheduled Duo Bungiis
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at pickup"
 	And Bungii driver should see "Loading Item screen"
+ 
+	When I Switch to "customer" application on "same" devices
+	Then "Loading Item screen" page should be opened
 	
 	And I connect to "extra1" using "Driver2" instance
 	And I Open "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
 	And I am logged in as "kansas driver 2" driver
-	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request

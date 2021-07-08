@@ -1,11 +1,8 @@
 package com.bungii.web.stepdefinitions.admin;
 
-import com.bungii.SetupManager;
-import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -14,27 +11,12 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
-import static com.bungii.web.utilityfunctions.DbUtility.*;
 
 public class Admin_AccessorialChargesSteps extends DriverBase {
 
@@ -58,6 +40,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
+                cucumberContextManager.setScenarioContext("NOTE",comment);
                 action.click(admin_accessorialChargesPage.Button_Save());
                 Thread.sleep(3000);
                 i++;
@@ -188,6 +171,15 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
         String actualTotalAmount = dbUtility.getAccessorialCharge(pickuprequest);
         testStepAssert.isEquals("$"+actualTotalAmount,expectedTotal, "Total "+expectedTotal+" should be displayed", expectedTotal+" is displayed", expectedTotal+" is not displayed");
+
+    }
+    @And("^\"([^\"]*)\" should show comment without quotes in the trippaymentdetails table in Database$")
+    public void something_should_show_comment_without_quotes_in_the_trippaymentdetails_table_in_database(String strArg1) throws Throwable {
+        String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String note = (String) cucumberContextManager.getScenarioContext("NOTE");
+
+        String dbnote = dbUtility.getBusinessNotes(pickuprequest);
+        testStepAssert.isEquals(dbnote,note, "Total "+note+" should be displayed", note+" is displayed", note+" is not displayed");
 
     }
 

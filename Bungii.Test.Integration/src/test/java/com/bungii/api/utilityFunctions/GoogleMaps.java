@@ -54,7 +54,49 @@ public class GoogleMaps {
         ApiHelper.genericResponseValidation(response,RequestText);
         return  getStackDuration(response);
     }
+    public String getMiles(String pickupAddress, String dropAddress) {
+        Date date= new Date();
+        long epoch = date.getTime();
+        String strOrigins = pickupAddress;
+        String strDestinations = dropAddress;
+        Map<String, String> data = new HashedMap();
+        String RequestText="API REQUEST : Get Distance : "+ DISTANCE_MATRIX_API;
 
+        Response response =given()//.log().all()
+                .header("User-Agent", "okhttp/3.4.1")
+                .header("Content-Type", "x-www-form-urlencoded")
+                .header("Accept-Encoding", "gzip")
+                .urlEncodingEnabled(true)
+                .contentType("x-www-form-urlencoded")
+                .param("units", "imperial")
+                .param("origins", strOrigins)
+                .param("destinations", strDestinations)
+
+                .param("key", "AIzaSyD5z-ZpO46vNQIXTGeNYJSIy9vvlR-ViQI")
+                .param("departure_time", String.valueOf(epoch))
+                .param("traffic_model","best_guess")
+                .param("mode","driving")
+                .when()
+                .get(DISTANCE_MATRIX_API);
+
+        ApiHelper.genericResponseValidation(response,RequestText);
+        return  getMilesData(response);
+    }
+    public String getMilesData(Response response){
+        String distance= "";
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ArrayList jsonArray = jsonPathEvaluator.getJsonObject("rows");
+
+        HashMap hashMapjsonEleFour = (HashMap) jsonArray.get(0);
+        JSONObject jsonEleFour=new JSONObject(hashMapjsonEleFour);
+        JSONArray elementsjsonEleFour = jsonEleFour.getJSONArray("elements");
+        JSONObject elementelementsjsonEleFourZero = elementsjsonEleFour.getJSONObject(0);
+        JSONObject distanceInTraffic =elementelementsjsonEleFourZero.getJSONObject("distance");
+
+        String distanceToDropUp =distanceInTraffic.get("value").toString();
+        distance=distanceToDropUp.replace(" km","").replace(" mi","");
+        return distance;
+    }
     public long[] getStackDuration(Response response){
         long [] timingInformation= new long[2];
         JsonPath jsonPathEvaluator = response.jsonPath();
