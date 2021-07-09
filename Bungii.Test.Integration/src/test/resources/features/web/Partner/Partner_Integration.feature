@@ -574,5 +574,6 @@ Feature: Partner Integration with Admin and Driver
       And I click "Cancel Delivery" button on Partner Portal
       Then I should "Your delivery has been canceled message"
       And I click "OK" button on Partner Portal
-      And I close the Trip Delivery Details page
-      And I should logout from Partner Portal
+      Then Admin should receive the "Partner Delivery Canceled!" email
+      #And I close the Trip Delivery Details page
+      #And I should logout from Partner Portal

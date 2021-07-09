@@ -43,7 +43,9 @@ public class Partner_Delivery_Details extends DriverBase {
             String CustomerMobile = dataMap.get("Customer_Mobile").trim();
             cucumberContextManager.setScenarioContext("CustomerPhone", CustomerMobile);
             String PickupContactName = dataMap.get("Pickup_Contact_Name").trim();
+            cucumberContextManager.setScenarioContext("PickupContactName",PickupContactName);
             String PickupContactPhone = dataMap.get("Pickup_Contact_Phone").trim();
+            cucumberContextManager.setScenarioContext("PickupContactPhone",PickupContactPhone);
 
             if (Site.equalsIgnoreCase("normal")) {
                 switch (str) {

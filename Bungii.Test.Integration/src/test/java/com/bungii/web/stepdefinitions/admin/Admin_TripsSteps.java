@@ -1010,6 +1010,119 @@ public class Admin_TripsSteps extends DriverBase {
 
     }
 
+    @Then("^Admin should receive the \"([^\"]*)\" email$")
+    public void admin_should_receive_the_something_email(String emailSubject) throws Throwable {
+
+        String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
+        emailBody=emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
+        logger.detail("Email Body (Actual): "+ emailBody);
+        //String supportNumber = PropertyUtility.getDataProperties("support.phone.number");
+        //String firmName = PropertyUtility.getDataProperties("washington.Partner.Firm.Name");
+
+        String name = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME");
+        String customerName = null;
+        String customerPhone = null;
+        String customerEmail = null;
+        boolean hasDST=false;
+
+         String Partner_Name = "";
+        String PPSite = (String) cucumberContextManager.getScenarioContext("SiteUrl");
+        if(PPSite.equalsIgnoreCase("Normal")){
+            Partner_Name ="MRFM, San Francisco CA";
+        }
+
+         String Scheduled_Date = (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
+         String Pickup_Address = (String) cucumberContextManager.getScenarioContext("PickupAddress");
+         String Dropup_Address = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
+         String Customer_Name = (String) cucumberContextManager.getScenarioContext("Customer_Name");
+         String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
+         String Driver_Name = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+         String Driver_Phone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+         String Driver_Licence_Plate = PropertyUtility.getDataProperties("partnerfirm.driver1.LicencePlate");
+         String Items_To_Deliver = (String) cucumberContextManager.getScenarioContext("");
+         String Pickup_Contact_Name = (String) cucumberContextManager.getScenarioContext("PickupContactName");
+         String Pickup_Contact_Phone = (String) cucumberContextManager.getScenarioContext("PickupContactPhone");
+
+
+        if (!name.isEmpty()) {
+            customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME") + " Business User";
+            customerPhone = getCustomerPhone((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"), "Business User");
+            customerEmail = getCustomerEmail((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"), "Business User");
+        } else {
+            customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String[] Name = customerName.split(" ");
+            customerPhone = getCustomerPhone(Name[0], Name[1]);
+            customerEmail = getCustomerEmail(Name[0], Name[1]);
+        }
+
+        String pickupdate = (String) cucumberContextManager.getScenarioContext("PICKUP_TIME");
+        if (pickupdate == "") {
+
+            pickupdate = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+
+            if (pickupdate == "" || pickupdate == "NOW") {
+                pickupdate = getOndemandStartTime((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST"));
+                TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+                Date date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS").parse(pickupdate);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.add(Calendar.MINUTE, 30);
+                int min = calendar.getTime().getMinutes();
+                int remainder = (min % 15);
+                int minutes = (15 - remainder);
+                calendar.add(Calendar.MINUTE, minutes);
+                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
+                Date date1 = calendar.getTime();
+
+                TimeZone zone = TimeZone.getTimeZone("America/New_York");
+
+                hasDST = zone.observesDaylightTime();
+
+                if(hasDST){
+
+                    int hr1 = date1.getHours() + 1;
+                    date1.setHours(hr1);
+                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
+                    //pickupdate.replaceAll("EST","EDT");
+                    //emailBody.replaceAll("EST","EDT");
+                }
+                else{
+                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
+                }
+                // pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date1).toString();
+
+            } else {
+                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
+                Date date = new SimpleDateFormat("MMM dd, hh:mm a z").parse(pickupdate);
+                int year = Calendar.getInstance().get(Calendar.YEAR);
+                date.setYear(date.getYear()+(year-date.getYear()));
+                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date).toString();
+            }
+
+        }
+        String message = null;
+        switch (emailSubject) {
+            case "Partner Delivery Canceled!":
+                if(hasDST){
+                    message = utility.getExpectedPartnerPortalCanceledEmailContent(Partner_Name,Scheduled_Date, Pickup_Address, Dropup_Address,Customer_Name,Customer_Phone,Driver_Name,Driver_Phone,Driver_Licence_Plate,Items_To_Deliver,Pickup_Contact_Name,Pickup_Contact_Phone);
+                    message= message.replaceAll("EST","EDT");
+                }else {
+                    message = utility.getExpectedPartnerPortalCanceledEmailContent(Partner_Name,Scheduled_Date, Pickup_Address, Dropup_Address,Customer_Name,Customer_Phone,Driver_Name,Driver_Phone,Driver_Licence_Plate,Items_To_Deliver,Pickup_Contact_Name,Pickup_Contact_Phone);
+                }
+                //message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                break;
+        }
+        message= message.replaceAll(" ","");
+        //message= message.replaceAll("EST","EDT");
+        logger.detail("Email Body (Expected): "+message);
+        testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
+
+    }
+
     @And("^Customer should receive \"([^\"]*)\" email$")
     public void customer_should_receive_something_email(String emailSubject) throws Throwable {
         try {
