@@ -640,7 +640,8 @@ public class BungiiSteps extends DriverBase {
                 case "Home screen":
                     Thread.sleep(5000);
                     action.textToBePresentInElementText(Page_DriverHome.Title_Status(), PropertyUtility.getMessage("driver.home.title.online"));
-                    testStepVerify.isElementTextEquals(Page_DriverHome.Title_Status(), PropertyUtility.getMessage("driver.home.title.online"), "Driver status should be Online", "Driver status is Online", "Driver status is offline");
+                    String status = action.getText(Page_DriverHome.Title_Status());
+                    testStepAssert.isTrue(((status==PropertyUtility.getMessage("driver.home.title.online"))||status==PropertyUtility.getMessage("driver.home.title.offline")), "Driver status should be Online Or Offline", "Driver status is Online Or Offline", "Driver status is not online/offline");
                    // testStepVerify.isElementTextEquals(Page_DriverHome.Button_OnlineOffline(), PropertyUtility.getMessage("driver.home.gooffline"), "Go offline button on driver should be enabled", "Go Offline button on driver home page is Enabled", "Go Offline button on driver home page is disabled");
                     break;
                 case "Enroute screen":

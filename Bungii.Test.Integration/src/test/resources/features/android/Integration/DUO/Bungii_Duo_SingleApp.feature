@@ -351,7 +351,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
   
   @regression
 	#stable
-  Scenario: Verify If Customer does not Receives Notification After Admin Researches Drivers And Both Drivers Assigned from Admin
+  Scenario: Verify If Customer does not Receive Notification After Admin Researches Drivers And Both Drivers Assigned from Admin
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
 	  | atlanta  | Scheduled      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |

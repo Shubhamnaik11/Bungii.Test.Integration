@@ -118,7 +118,6 @@ Feature: Scheduled Duo Bungiis
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
 	Then Bungii driver should see "Enroute screen"
-	#Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 	
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
@@ -140,7 +139,6 @@ Feature: Scheduled Duo Bungiis
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
 	Then Bungii driver should see "Enroute screen"
-	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for "controller" driver
  
 	And I connect to "extra1" using "Driver2" instance
 	And I Open "driver" application on "same" devices
@@ -151,7 +149,6 @@ Feature: Scheduled Duo Bungiis
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
 	Then Bungii driver should see "Enroute screen"
-	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for "non controller" driver
  
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
@@ -160,7 +157,7 @@ Feature: Scheduled Duo Bungiis
 	
   @regression
 	#stable
-	@ss
+	@q
   Scenario: Verify Customer Are Notified When One Driver Cancels The Duo Bungii
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -174,8 +171,7 @@ Feature: Scheduled Duo Bungiis
 	And I connect to "extra1" using "Driver1" instance
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
-	And I am logged in as "Kansas driver 2" driver
-	
+	And I am logged in as "Kansas driver 1" driver
 	And I click the "Cancel" button on "update" screen
 	Then Alert message with DRIVER CANCEL BUNGII text should be displayed
 	When I click "YES" on the alert message
