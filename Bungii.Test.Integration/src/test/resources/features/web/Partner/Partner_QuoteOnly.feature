@@ -5,8 +5,7 @@ Feature: Quote Only Feature
 	Given I navigate to "Partner" portal configured for "service level" URL
 
 @regression
-@notes
-Scenario Outline: Verify partner can get the Quote from quote-only page for <Type>-<ServiceName> for <Distance> distance
+Scenario Outline: Verify partner can get the Quote from quote-only page for partner delivery of <Type> for Service <ServiceName> for <Distance> distance range
 And I navigate to "Quote-Only" page
   When I request "<Type>" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
 | Pickup_Address                                                                     | Delivery_Address            |
@@ -60,7 +59,6 @@ Then I should see the estimate cost quote
 	|Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
   
   @regression
-  @notes
   Scenario: Verify partner can startover from quote-only page
 	And I navigate to "Quote-Only" page
 	When I request "Solo" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
@@ -68,3 +66,9 @@ Then I should see the estimate cost quote
 	  | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879            |
     And I click on "Start Over" button
 	Then Fields get reset to default state
+  
+  @regression
+  Scenario: Verify Pickup Time should not be displayed on quote-only page
+	And I navigate to "Quote-Only" page
+	Then I should see header as "Get Quote"
+	And Pickup Time field should not be displayed

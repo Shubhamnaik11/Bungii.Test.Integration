@@ -260,13 +260,14 @@ public class Admin_RefundSteps extends DriverBase {
     @And("^I should see Original Delivery Charge & Customer Refund & Total Customer Charge for duo delivery$")
     public void i_should_see_original_delivery_charge_customer_refund_total_customer_charge_for_duodelivery() throws Throwable {
         DecimalFormat df = new DecimalFormat("0.00");
+        Thread.sleep(5000);
         Double refundPercentage =  (Double.valueOf((String)  cucumberContextManager.getScenarioContext("REFUND_PERCENTAGE"))+  Double.valueOf((String)  cucumberContextManager.getScenarioContext("REFUND_PERCENTAGE2")))/2;
         Double refundAmount = Double.valueOf((String)cucumberContextManager.getScenarioContext("REFUND_AMOUNT"))+Double.valueOf((String)cucumberContextManager.getScenarioContext("REFUND_AMOUNT2"));
         Double totalCustomerCharge = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")))-Double.parseDouble(String.valueOf((cucumberContextManager.getScenarioContext("REFUND_AMOUNT"))))-Double.parseDouble(String.valueOf((cucumberContextManager.getScenarioContext("REFUND_AMOUNT2"))));
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_OriginalDeliveryCharge()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")), "Origional Delivery Charge should be displayed", "Origional Delivery Charge is displayed","Origional Delivery Charge is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundPercentage()),"(- "+String.valueOf(refundPercentage)+" % )", "Customer Refund Percentage should be displayed", "Customer Refund Percentage is displayed","Customer Refund Percentage is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundAmount()),"-$"+df.format(refundAmount), "Customer Refund Amount should be displayed", "Customer Refund Amount is displayed","Customer Refund Amount is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_TotalCustomerCharge()),"$"+df.format(totalCustomerCharge), "Total Customer Charge should be displayed", "Total Customer Charge is displayed","Total Customer Charge is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_OriginalDeliveryCharge()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")), "Origional Delivery Charge should be displayed", "Origional Delivery Charge is displayed","Origional Delivery Charge is not displayed");
 
     }
 

@@ -318,7 +318,8 @@ public class Partner_trips extends DriverBase {
                 //action.getElementByXPath("//h2[text()='Delivery Cost']//following::span/strong").getText();
         Display_Price = Display_Price.substring(1);
 
-        String Estimate_distance = dbUtility.getEstimateDistance(Alias_Name);
+        //String Estimate_distance = dbUtility.getEstimateDistance(Alias_Name);
+        String Estimate_distance = (String) cucumberContextManager.getScenarioContext("Distance_Estimate_Page");
         double Estimate_distance_value = Double.parseDouble(Estimate_distance);
 
         String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Selected_Service);
@@ -334,11 +335,8 @@ public class Partner_trips extends DriverBase {
 
         String Estimated_Price = (String) cucumberContextManager.getScenarioContext("Price_Estimate_Page");
 
-
-
-        testStepVerify.isEquals(Display_Price,Estimated_Price);
-        testStepVerify.isEquals(Display_Price,Price);
-        log("For Selected "+Selected_Service+" service correct price should be shown.","For Selected "+Selected_Service+" service correct price is shown.", true);
+        testStepAssert.isEquals(Estimated_Price,Price,"Estimated Cost On Estimate screen : "+ Estimated_Price+" should be match calculated price",Estimated_Price+" matches calculated price",Estimated_Price+" does not match calculated price instead "+ Price + " is displayed");
+        testStepAssert.isEquals(Display_Price,Price,"Estimated Cost On Delivery Detail screen :  "+Display_Price+" should be match calculated price",Display_Price+" matches calculated price",Display_Price+" does not match calculated price instead "+ Price + " is displayed");
     }
 
     @Then("^I should see \"([^\"]*)\"$")

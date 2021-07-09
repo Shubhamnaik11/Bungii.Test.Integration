@@ -403,20 +403,24 @@ public class Partner_IntegrationSteps extends DriverBase {
             if(Trip_Type.equalsIgnoreCase("Duo")){
                 Driver_Number=2;
             }
-            String pickupAddress = (String) cucumberContextManager.getScenarioContext("PickupAddress");
+           /* String pickupAddress = (String) cucumberContextManager.getScenarioContext("PickupAddress");
             String dropoffAddress =(String) cucumberContextManager.getScenarioContext("Delivery_Address");
             String Estimate_distance  = new GoogleMaps().getMiles(pickupAddress, dropoffAddress);
             double Estimate_distance_value = Double.parseDouble(Estimate_distance)/1000;
             Estimate_distance_value = Estimate_distance_value / 1.609344; //to convert kms to miles
-            logger.detail("Estimated Distance : "+ Estimate_distance_value);
+            */
+            String Estimated_distance = action.getText(Page_Partner_Dashboard.Label_Distance()).replace(" miles","");//calculate values as per the displayed miles value to avoid mismatch in calculation
+            double Estimate_distance_value = Double.parseDouble(Estimated_distance);
+
+            logger.detail("Estimated Distance : "+ Estimated_distance);
             String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Selected_Service);
             double Last_Tier_Milenge_Min_Range_value = Double.parseDouble(Last_Tier_Milenge_Min_Range);
             String Price="";
             if(Estimate_distance_value <= Last_Tier_Milenge_Min_Range_value) {
-                Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, String.valueOf(Estimate_distance_value), Selected_Service);
+                Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, String.valueOf(Estimated_distance), Selected_Service);
             }
             else{
-                Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, String.valueOf(Estimate_distance_value), Selected_Service);
+                Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, String.valueOf(Estimated_distance), Selected_Service);
             }
             String Price_Estimated_Page = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
             Price_Estimated_Page = Price_Estimated_Page.replace("Estimated Cost: $","");
@@ -443,6 +447,28 @@ public class Partner_IntegrationSteps extends DriverBase {
                     true);
         }
 
+    }
+
+    @Then("^I should see header as \"([^\"]*)\"$")
+    public void i_should_see_header_as_something(String strArg1) throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Header_QuotesOnly(),"Header Get Quotes should be displayed","Header Get Quotes is displayed","Header Get Quotes is not displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing Quotes only page",
+                    true);
+        }
+    }
+
+    @And("^Pickup Time field should not be displayed$")
+    public void pickup_time_field_should_not_be_displayed() throws Throwable {
+        try{
+            testStepAssert.isFalse(action.isElementPresent(Page_Partner_Dashboard.Dropdown_Pickup_Time(true)),"Header Get Quotes should be displayed","Header Get Quotes is displayed","Header Get Quotes is not displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing Quotes only page",
+                    true);
+        }
     }
 
 }

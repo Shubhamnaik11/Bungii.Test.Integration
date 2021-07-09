@@ -65,7 +65,7 @@ Feature: Admin_PartnerFirmTrips
   @ready
       #test data created in base
   Scenario: Verify Partner Firm Cancellation - Duo Scheduled
-    When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+    When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999356 | Testcustomertywd_appleWashB Shah|
     And As a driver "Testdrivertywd_appledc_a_web Sundard" perform below action with respective "Duo Scheduled" Delivery

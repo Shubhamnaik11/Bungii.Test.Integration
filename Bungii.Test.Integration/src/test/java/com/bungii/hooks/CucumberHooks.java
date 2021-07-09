@@ -136,8 +136,9 @@ public class CucumberHooks {
                 //js.executeScript(String.format("window.localStorage.clear();"));
                 if(CucumberContextManager.getObject().getScenarioContext("IS_PARTNER").equals("TRUE")) {
                     //Clear only incase its partner site
-                    js.executeScript(String.format("window.sessionStorage.clear();"));
-                    logger.detail("***Cleared Browser Sessions storage***");
+                   // js.executeScript(String.format("window.sessionStorage.clear();"));
+                    //logger.detail("***Cleared Browser Sessions storage***");
+                    logger.detail("***Browser Sessions storage Not cleared Explicetly ***");
                 }
             }
             //clear scenario context

@@ -109,7 +109,7 @@ Feature: Admin_DriverDetails
     When I enter "drivers" "last name" in the "Deliveries search" box
     Then I should see "driver last name" listed on the "Deliveries" page
 
-  @ready
+  @regression
   Scenario: Verify Admin can edit and change the driver phone number
     When I search driver "Testdrivertywd_appledc_a_drve Driver"
     And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
@@ -119,7 +119,7 @@ Feature: Admin_DriverDetails
     And I enter confirm comment for edited phone and "Save" it
     Then I see updated driver phone number
 
-  @ready
+  @regression
   Scenario: Verify Admin can edit and cancel the driver phone number
     When I search driver "Testdrivertywd_appledc_a_drve Driver"
     And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver

@@ -78,5 +78,6 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Estimated_Distance_Cost () { return findElement("",LocatorType.XPath);}
 
     public WebElement Textbox_Search () { return findElement("SearchCriteria", LocatorType.Id); }
+    public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
 
 }

@@ -70,6 +70,7 @@ public class Partner_LoginSteps extends DriverBase {
     @When("^I enter \"([^\"]*)\" password on Partner Portal$")
     public void WhenIEnterPasswordOnPartnerPortal(String str)
     {
+        SetupManager.getObject().manage().window().maximize();
         switch (str)
         {
             case "valid":
@@ -116,6 +117,8 @@ public class Partner_LoginSteps extends DriverBase {
                                 //action.getElementByXPath("//label[contains(text(),'Delivery Cost:')]//following::strong").getText();
                         Price_Estimated_Page = Price_Estimated_Page.substring(1);
                         cucumberContextManager.setScenarioContext("Price_Estimate_Page", Price_Estimated_Page);
+                        String Estimate_distance = action.getText(Page_Partner_Dashboard.Label_Distance()).replace(" miles","");//calculate values as per the displayed miles value to avoid mismatch in calculation
+                        cucumberContextManager.setScenarioContext("Distance_Estimate_Page", Estimate_distance);
 
                         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                     } else {
@@ -240,6 +243,18 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Incorrect_Password"));
                     break;
                 case "see Delivery Details screen":
+                    /////////////////////////////WorkAround to eliminate logout on Track deliveries/////////////////////////////////////
+                    Thread.sleep(5000);
+                    if(SetupManager.getObject().getCurrentUrl().contains("login"))
+                    {
+                        action.clearSendKeys(Page_Partner_Login.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                        action.click(Page_Partner_Login.Button_Sign_In());
+                        action.click(Page_Partner_Done.Dropdown_Setting());
+                        action.click(Page_Partner_Done.Button_Track_Deliveries());
+                        logger.detail("PARTNER RELOGIN AS A WORKAROUND TO ELIMINATE FALSE KICKOUT");
+                    }
+                    /////////////////////////////WorkAround Ends/////////////////////////////////////
+
                     String PP_Site = (String) cucumberContextManager.getScenarioContext("SiteUrl");
                     if (PP_Site.equalsIgnoreCase("normal")) {
                         testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));

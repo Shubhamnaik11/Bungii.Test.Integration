@@ -59,7 +59,7 @@ Feature: Admin_DriverApplicationVerification
   @regression
     #test data created in base
   Scenario: Verify Driver Application Rejection With All Fields Approved - NonFountain
-    When I click "Verify" button against the "John Tony" applicant
+    When I click "Verify" button against the "Nilesh PM" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and approve all the verification fields
     And I click on "Reject Application" link
@@ -79,9 +79,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the field changes to "rejected"
     When I click and reset the status of "Driver Picture" field
     Then the status of the field resets to default
-
-  #@ready
-  #@failedT
+    
   @regression
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain

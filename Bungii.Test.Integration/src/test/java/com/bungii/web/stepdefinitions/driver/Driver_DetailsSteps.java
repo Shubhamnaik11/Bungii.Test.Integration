@@ -223,28 +223,28 @@ public class Driver_DetailsSteps extends DriverBase {
     public void i_should_see_blank_fields_validation_on_something_page(String strArg1) throws Throwable {
         switch (strArg1) {
             case "Forgot Password":
-                testStepVerify.isElementTextEquals(Page_ForgotPassword.Err_ForgotPass_BlankField(), PropertyUtility.getMessage("Err_Pages_BlankFields"), PropertyUtility.getMessage("Err_Pages_BlankFields") + " should be displayed", PropertyUtility.getMessage("Err_Pages_BlankFields") + " is displayed", PropertyUtility.getMessage("Err_Pages_BlankFields") + " was not displayed");
+                testStepAssert.isElementTextEquals(Page_ForgotPassword.Err_ForgotPass_BlankField(), PropertyUtility.getMessage("Err_Pages_BlankFields"), PropertyUtility.getMessage("Err_Pages_BlankFields") + " should be displayed", PropertyUtility.getMessage("Err_Pages_BlankFields") + " is displayed", PropertyUtility.getMessage("Err_Pages_BlankFields") + " was not displayed");
                 break;
             case "Verify your phone":
-                testStepVerify.isElementTextEquals(Page_VerifyPhone.Err_VerifyPhone_BlankField(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
+                testStepAssert.isElementTextEquals(Page_VerifyPhone.Err_VerifyPhone_BlankField(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Verify your phone should be displayed","Verify your phone is displayed","Verify your phone is not displayed");
                 break;
             case "driver Details":
-                testStepVerify.isElementTextEquals(Page_Driver_Details.Err_DriverDetails_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
+                testStepAssert.isElementTextEquals(Page_Driver_Details.Err_DriverDetails_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"driver details should be displayed","driver details is displayed","driver details is not displayed");
                 break;
             case "Pickup Information":
-                testStepVerify.isElementTextEquals(Page_Driver_PickupInfo.Err_PickupInfo_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
+                testStepAssert.isElementTextEquals(Page_Driver_PickupInfo.Err_PickupInfo_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Pickup Information should be displayed","Pickup Information is displayed","Pickup Information is not displayed");
                 break;
             case "Documentation":
-                testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_Documentation_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
+                testStepAssert.isElementTextEquals(Page_Driver_Doc.Err_Documentation_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Documentation should be displayed","Documentation is displayed","Documentation is not displayed");
                 break;
             case "Bank Details":
-                testStepVerify.isElementTextEquals(Page_Driver_Bank.Err_BankDetails_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
+                testStepAssert.isElementTextEquals(Page_Driver_Bank.Err_BankDetails_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Bank Details should be displayed","Bank Details is displayed","Bank Details is not displayed");
                 break;
             case "Terms & Conditions":
-                testStepVerify.isElementTextEquals(Page_Driver_Terms.Err_Terms(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
+                testStepAssert.isElementTextEquals(Page_Driver_Terms.Err_Terms(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Terms & Conditions should be displayed","Terms & Conditions is displayed","Terms & Conditions is not displayed");
                 break;
             case "Video Training":
-                testStepVerify.isElementTextEquals(Page_Driver_Video.Err_Video(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
+                testStepAssert.isElementTextEquals(Page_Driver_Video.Err_Video(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Video Training should be displayed","Video Training is displayed","Video Training is not displayed");
                 break;
             default:
                 break;

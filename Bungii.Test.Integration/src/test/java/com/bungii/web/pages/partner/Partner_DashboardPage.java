@@ -77,7 +77,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Pickup_date_Tomorrow() { return findElement("//li[contains(text(),'Tomorrow')]",LocatorType.XPath);}
 
     //Pickup Time dropdown
-    public WebElement Dropdown_Pickup_Time() { return findElement("//div[@class='MuiFormControl-root pickup-time']",LocatorType.XPath);}
+    public WebElement Dropdown_Pickup_Time(boolean...ignoreException) { return findElement("//div[@class='MuiFormControl-root pickup-time']",LocatorType.XPath,ignoreException);}
     public WebElement Pickup_Time1() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][1]",LocatorType.XPath);}
 
     //Get Estimate Button
@@ -86,6 +86,8 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Label_DeliveryCostDelivery() { return findElement("//h2[text()='Delivery Cost']//following::span/strong",LocatorType.XPath);}
     //Estimated Cost label
     public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Estimated Cost: ')]",LocatorType.XPath);}
+
+    public WebElement Label_Distance() { return findElement("//label[contains(text(),'Distance in Miles -')]/strong",LocatorType.XPath);}
 
     //Continue button
     //public  WebElement Button_Continue() { return findElement("//a[@class='btn']",LocatorType.XPath);}
@@ -161,4 +163,6 @@ public class Partner_DashboardPage extends PageBase {
 
     public WebElement Label_NoServiceSelected() { return findElement("//div[contains(text(),'No service selected.')]",LocatorType.XPath);}
 
+    //Pickup Address in edit
+    public WebElement Header_QuotesOnly() { return findElement("//h1[text()='Get Quote']",LocatorType.XPath);}
 }
