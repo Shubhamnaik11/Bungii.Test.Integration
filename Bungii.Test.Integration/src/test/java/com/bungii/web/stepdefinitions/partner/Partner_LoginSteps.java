@@ -116,6 +116,8 @@ public class Partner_LoginSteps extends DriverBase {
                                 //action.getElementByXPath("//label[contains(text(),'Delivery Cost:')]//following::strong").getText();
                         Price_Estimated_Page = Price_Estimated_Page.substring(1);
                         cucumberContextManager.setScenarioContext("Price_Estimate_Page", Price_Estimated_Page);
+                        String Estimate_distance = action.getText(Page_Partner_Dashboard.Label_Distance()).replace(" miles","");//calculate values as per the displayed miles value to avoid mismatch in calculation
+                        cucumberContextManager.setScenarioContext("Distance_Estimate_Page", Estimate_distance);
 
                         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                     } else {

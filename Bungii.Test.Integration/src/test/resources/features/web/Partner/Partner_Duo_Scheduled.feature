@@ -1,5 +1,5 @@
 @web
-Feature: Partner Duo Scheduled Trips
+Feature: Partner Duo Scheduled Delivery
 
   Background:
     Given I navigate to "Partner" portal configured for "normal" URL
