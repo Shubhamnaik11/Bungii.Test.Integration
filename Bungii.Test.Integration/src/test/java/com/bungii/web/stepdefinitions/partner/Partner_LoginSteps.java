@@ -70,6 +70,8 @@ public class Partner_LoginSteps extends DriverBase {
     @When("^I enter \"([^\"]*)\" password on Partner Portal$")
     public void WhenIEnterPasswordOnPartnerPortal(String str)
     {
+        SetupManager.getObject().manage().window().maximize();
+        SetupManager.getObject().manage().window().fullscreen();
         switch (str)
         {
             case "valid":
