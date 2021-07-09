@@ -71,7 +71,6 @@ public class Partner_LoginSteps extends DriverBase {
     public void WhenIEnterPasswordOnPartnerPortal(String str)
     {
         SetupManager.getObject().manage().window().maximize();
-        SetupManager.getObject().manage().window().fullscreen();
         switch (str)
         {
             case "valid":
@@ -244,6 +243,17 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Incorrect_Password"));
                     break;
                 case "see Delivery Details screen":
+                    /////////////////////////////WorkAround to eliminate logout on Track deliveries/////////////////////////////////////
+                    Thread.sleep(5000);
+                    if(SetupManager.getObject().getCurrentUrl().contains("login"))
+                    {
+                        action.clearSendKeys(Page_Partner_Login.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                        action.click(Page_Partner_Login.Button_Sign_In());
+                        action.click(Page_Partner_Done.Dropdown_Setting());
+                        action.click(Page_Partner_Done.Button_Track_Deliveries());
+                        logger.detail("PARTNER RELOGIN AS A WORKAROUND TO ELIMINATE FALSE KICKOUT");
+                    }
+                    /////////////////////////////WorkAround Ends/////////////////////////////////////
 
                     String PP_Site = (String) cucumberContextManager.getScenarioContext("SiteUrl");
                     if (PP_Site.equalsIgnoreCase("normal")) {

@@ -291,6 +291,8 @@ public class Admin_TripsSteps extends DriverBase {
                 String costPath =  String.format("//td[contains(.,'%s')]/preceding-sibling::td[1]/span", customer);
                 TripPath= xpath;
                 int retrycount = 10;
+                action.clearSendKeys(admin_ScheduledTripsPage.Textbox_Search(), customer.substring(0, customer.indexOf(" ")));
+                action.click(admin_ScheduledTripsPage.Button_Search());
 
                 boolean retry = true;
                 while (retry == true && retrycount > 0) {

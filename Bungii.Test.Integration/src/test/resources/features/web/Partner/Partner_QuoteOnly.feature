@@ -5,7 +5,7 @@ Feature: Quote Only Feature
 	Given I navigate to "Partner" portal configured for "service level" URL
 
 @regression
-Scenario Outline: Verify partner can get the Quote from quote-only page for <Type>-<ServiceName> for <Distance> distance
+Scenario Outline: Verify partner can get the Quote from quote-only page for partner delivery of <Type> for Service <ServiceName> for <Distance> distance range
 And I navigate to "Quote-Only" page
   When I request "<Type>" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
 | Pickup_Address                                                                     | Delivery_Address            |

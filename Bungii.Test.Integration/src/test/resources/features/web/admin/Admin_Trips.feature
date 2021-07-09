@@ -45,7 +45,7 @@ Feature: Admin_Trips
     And The first time promo code should get released
 
   @sanity
-  @ready
+  @regression
     #test data created in base
   Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence

@@ -15,7 +15,7 @@ Feature: Driver_RegistrationCompletion
 
   #@ready
   #knownissue fixed
-  @regression
+  @knownissue
         #there is one issue There was a problem processing your credit card; please double check your payment information and try again. when saved
   Scenario: Verify Driver Application Terms And Conditions Form - Uncheck Terms On Exisiting Non Fountain Application
     When I uncheck "agree to the Terms and Conditions." checkbox
@@ -24,7 +24,7 @@ Feature: Driver_RegistrationCompletion
 
   #@ready
   # knownissue fixed
-  @regression
+  @knownissue
     #there is one issue There was a problem processing your credit card; please double check your payment information and try again. when saved
   Scenario: Verify Driver Application Terms And Conditions Form - Check Terms On Exisiting Non Fountain Application
     When I click "I agree to the Terms and Conditions" on driver portal
