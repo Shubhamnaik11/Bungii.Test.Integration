@@ -416,7 +416,8 @@ public class Partner_IntegrationSteps extends DriverBase {
                 Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, String.valueOf(Estimate_distance_value), Selected_Service);
             }
             else{
-                Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, String.valueOf(Estimate_distance_value), Selected_Service);
+                String Estimated_distance = action.getText(Page_Partner_Dashboard.Label_Distance()).replace(" miles","");//For last tier calculate values as per the displayed miles value to avoid mismatch in calculation
+                Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, String.valueOf(Estimated_distance), Selected_Service);
             }
             String Price_Estimated_Page = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
             Price_Estimated_Page = Price_Estimated_Page.replace("Estimated Cost: $","");

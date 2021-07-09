@@ -973,6 +973,7 @@ public class GeneralUtility extends DriverBase {
     public void resetGeofenceDropdown(){
         action.click(admin_geofencePage.List_Geofence());
         action.click(admin_geofencePage.Button_Clear());
+        action.click(admin_geofencePage.Button_ApplyGeofence());
     }
     public void selectGeofenceDropdown(String geofence){
         action.click(admin_geofencePage.List_Geofence());

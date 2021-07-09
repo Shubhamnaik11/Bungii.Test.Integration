@@ -34,7 +34,103 @@ public class Admin_CustomersPageSteps extends DriverBase {
     public void i_enter_something_in_the_something_box(String script, String strArg2) throws Throwable {
         action.clearSendKeys(admin_dashboardPage.TextBox_SearchCustomer(),script + Keys.ENTER);
     }
+    @When("^I enter \"([^\"]*)\" \"([^\"]*)\" in the \"([^\"]*)\" box as \"([^\"]*)\"$")
+    public void i_enter_something_something_in_the_something_box_as(String strArg1, String strArg2, String strArg3, String name) throws Throwable {
+        String driverFirstName = PropertyUtility.getDataProperties("web.driver.firstname");
+        cucumberContextManager.setScenarioContext("DRIVERFIRSTNAME", driverFirstName);
+        String driverLastName = PropertyUtility.getDataProperties("web.driver.lastname");
+        cucumberContextManager.setScenarioContext("DRIVERLASTNAME", driverLastName);
 
+        switch (strArg3) {
+            case "Customers search":
+                switch (strArg2) {
+                    case "first name":
+                        cucumberContextManager.setScenarioContext("CUSTFIRSTNAME", name);
+                        action.clearSendKeys(admin_customerPage.TextBox_SearchCustomer(), name + Keys.ENTER);
+                        Thread.sleep(2000);
+                        break;
+
+                    case "last name":
+                        cucumberContextManager.setScenarioContext("CUSTLASTNAME", name);
+                        action.clearSendKeys(admin_customerPage.TextBox_SearchCustomer(), name + Keys.ENTER);
+                        Thread.sleep(2000);
+                        break;
+                }
+                break;
+
+            case "Drivers search":
+
+                switch (strArg2) {
+                    case "first name":
+                        action.clearSendKeys(admin_driversPage.Textbox_SearchCriteria(), driverFirstName + Keys.ENTER);
+                        Thread.sleep(2000);
+                        break;
+
+                    case "last name":
+                        action.clearSendKeys(admin_driversPage.Textbox_SearchCriteria(), driverLastName + Keys.ENTER);
+                        Thread.sleep(2000);
+                        break;
+                }
+                break;
+
+            case "Deliveries search":
+//            case "Trips search":
+                //Select geoFenceDropdown = new Select(admin_tripsPage.Dropdown_Geofence());
+                // geoFenceDropdown.selectByVisibleText("-- All --");
+                utility.resetGeofenceDropdown();
+
+                Select dropdown = new Select(admin_tripsPage.DropDown_SearchForPeriod());
+                dropdown.selectByVisibleText("The Beginning of Time");
+                switch (strArg2) {
+                    case "first name":
+                        if (strArg1.equalsIgnoreCase("customers")) {
+                            cucumberContextManager.setScenarioContext("CUSTFIRSTNAME", name);
+                            action.clearSendKeys(admin_tripsPage.TextBox_Search(), name + Keys.ENTER);
+                        } else {
+                            action.clearSendKeys(admin_tripsPage.TextBox_Search(), driverFirstName + Keys.ENTER);
+                        }
+                        Thread.sleep(2000);
+                        break;
+
+                    case "last name":
+                        if (strArg1.equalsIgnoreCase("customers")) {
+                            cucumberContextManager.setScenarioContext("CUSTLASTNAME", name);
+                            action.clearSendKeys(admin_tripsPage.TextBox_Search(), name + Keys.ENTER);
+                        } else {
+                            action.clearSendKeys(admin_tripsPage.TextBox_Search(), driverLastName + Keys.ENTER);
+                        }
+                        Thread.sleep(2000);
+                        break;
+                }
+                break;
+            case "Dashboard search":
+                switch (strArg2){
+                    case "first name":
+                        if(strArg1.equalsIgnoreCase("customers")){
+                            cucumberContextManager.setScenarioContext("CUSTFIRSTNAME", name);
+                            action.clearSendKeys(admin_dashboardPage.TextBox_SearchCustomer(),name + Keys.ENTER);
+                        }else {
+                            action.clearSendKeys(admin_dashboardPage.Textbox_DriverSearch(), driverFirstName);
+                            action.click(admin_dashboardPage.Icon_Search());
+                        }
+                        Thread.sleep(2000);
+                        break;
+                    case "last name":
+                        if(strArg1.equalsIgnoreCase("customers")){
+                            cucumberContextManager.setScenarioContext("CUSTLASTNAME", name);
+                            action.clearSendKeys(admin_customerPage.TextBox_SearchCustomer(), name + Keys.ENTER);
+                        }else {
+                            action.clearSendKeys(admin_dashboardPage.Textbox_DriverSearch(), driverLastName);
+                            action.click(admin_dashboardPage.Icon_Search());
+                        }
+                        Thread.sleep(1000);
+                        break;
+                }
+                break;
+        }
+        log("I enter "+strArg1+" "+strArg2+" in the "+strArg3+" box as "+ name ,
+                "I have entered "+strArg1+" "+strArg2+" in the "+strArg3+" box as "+ name);
+    }
 
     @When("^I enter \"([^\"]*)\" \"([^\"]*)\" in the \"([^\"]*)\" box$")
     public void i_enter_something_something_in_the_something_box(String strArg1, String strArg2, String strArg3) throws Throwable {

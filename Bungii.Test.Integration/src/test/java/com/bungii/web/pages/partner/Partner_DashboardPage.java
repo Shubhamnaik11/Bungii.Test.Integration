@@ -87,6 +87,9 @@ public class Partner_DashboardPage extends PageBase {
     //Estimated Cost label
     public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Estimated Cost: ')]",LocatorType.XPath);}
 
+    public WebElement Label_Distance() { return findElement("//label[contains(text(),'Distance in Miles -')]/strong",LocatorType.XPath);}
+
+
     //Continue button
     //public  WebElement Button_Continue() { return findElement("//a[@class='btn']",LocatorType.XPath);}
     public  WebElement Button_Continue() { return findElement("//button[@class='btn']",LocatorType.XPath);}

@@ -240,6 +240,7 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Incorrect_Password"));
                     break;
                 case "see Delivery Details screen":
+
                     String PP_Site = (String) cucumberContextManager.getScenarioContext("SiteUrl");
                     if (PP_Site.equalsIgnoreCase("normal")) {
                         testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));

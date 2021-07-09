@@ -84,6 +84,9 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         Thread.sleep(15000);
         action.clearSendKeys(admin_TripsPage.TextBox_Search(),pickuprequest+Keys.ENTER);
+        ///////////////////
+        Thread.sleep(5000);
+        utility.resetGeofenceDropdown();
         Thread.sleep(5000);
         //String status = "Payment Successful";
         action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]", customerName),PageBase.LocatorType.XPath));

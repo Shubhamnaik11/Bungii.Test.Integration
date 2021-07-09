@@ -1561,7 +1561,8 @@ public class Admin_TripsSteps extends DriverBase {
             logger.detail("Exception "+ ex.getLocalizedMessage());
         }
         Thread.sleep(1000);
-        testStepVerify.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
+        String actual = action.getText(action.getElementByXPath(costxpath)).replace("/ $","");
+        testStepVerify.isEquals(actual, df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed instead "+ actual + " is displayed");
 
     }
     @And("^the cost of the delivery should be halved$")
@@ -1579,7 +1580,8 @@ public class Admin_TripsSteps extends DriverBase {
         logger.detail("Exception "+ ex.getLocalizedMessage());
     }
         Thread.sleep(1000);
-        testStepVerify.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
+        String actual = action.getText(action.getElementByXPath(costxpath)).replace("/ $","");
+        testStepVerify.isEquals(actual, df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed instead "+ actual + " is displayed");
 
     }
 }
