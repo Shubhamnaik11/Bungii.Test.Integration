@@ -34,6 +34,7 @@ public class Partner_Delivery_Details extends DriverBase {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
             String Items_deliver = dataMap.get("Items_To_Deliver").trim();
+            cucumberContextManager.setScenarioContext("Item_Name",Items_deliver);
             String CustomerName = dataMap.get("Customer_Name").trim();
             //String SpecialInstruction = dataMap.get("Special_Instruction").trim();
             cucumberContextManager.setScenarioContext("Customer_Name", CustomerName);

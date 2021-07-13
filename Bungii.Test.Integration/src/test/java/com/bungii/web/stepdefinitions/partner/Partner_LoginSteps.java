@@ -325,6 +325,11 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepAssert.isElementDisplayed(Page_Partner_Delivery_List.Row_DeliveryList(scheduled_time,customer), "Trip for "+ customer +"[Scheduled Time :"+scheduled_time+"] should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
                     break;
                 case "see the trip details":
+                    String emailPickupAddress = action.getText(Page_Partner_Delivery.Text_Pick_Address());
+                    cucumberContextManager.setScenarioContext("EmailPickupAddress",emailPickupAddress);
+                    String emailDeliveryAddress = action.getText(Page_Partner_Delivery.Text_Delivery_Address());
+                    cucumberContextManager.setScenarioContext("EmailDeliveryAddress",emailDeliveryAddress);
+
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Delivery_Details_Dashboard()), PropertyUtility.getMessage("Delivery_Details_Dashboard"));
                     break;
                 case "see the cancel delivery warning message":

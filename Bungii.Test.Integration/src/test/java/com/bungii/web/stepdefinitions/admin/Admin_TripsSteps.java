@@ -1037,80 +1037,30 @@ public class Admin_TripsSteps extends DriverBase {
         }
 
          String Scheduled_Date = (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
-         String Pickup_Address = (String) cucumberContextManager.getScenarioContext("PickupAddress");
-         String Dropup_Address = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
+         SimpleDateFormat sdfd = new SimpleDateFormat("MMM dd, YYYY at HH:mm aa z");
+         SimpleDateFormat edfd = new SimpleDateFormat("MMM dd, YYYY at HH:mm aa");
+         Date date = sdfd.parse(Scheduled_Date);
+         Calendar cal = Calendar.getInstance();
+         cal.setTime(date);
+         cal.add(Calendar.MINUTE, 15);
+         String New_Scheduled_Date = edfd.format(cal.getTime());
+
+         String Pickup_Address = (String) cucumberContextManager.getScenarioContext("EmailPickupAddress");
+         String Dropup_Address = (String) cucumberContextManager.getScenarioContext("EmailDeliveryAddress");
          String Customer_Name = (String) cucumberContextManager.getScenarioContext("Customer_Name");
          String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
          String Driver_Name = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
          String Driver_Phone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-         String Driver_Licence_Plate = PropertyUtility.getDataProperties("partnerfirm.driver1.LicencePlate");
-         String Items_To_Deliver = (String) cucumberContextManager.getScenarioContext("");
+         String Driver_Licence_Plate = PropertyUtility.getDataProperties("email.driver.LicencePlate");
+         String Items_To_Deliver = (String) cucumberContextManager.getScenarioContext("Item_Name");
          String Pickup_Contact_Name = (String) cucumberContextManager.getScenarioContext("PickupContactName");
          String Pickup_Contact_Phone = (String) cucumberContextManager.getScenarioContext("PickupContactPhone");
 
-
-        if (!name.isEmpty()) {
-            customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME") + " Business User";
-            customerPhone = getCustomerPhone((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"), "Business User");
-            customerEmail = getCustomerEmail((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"), "Business User");
-        } else {
-            customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-            String[] Name = customerName.split(" ");
-            customerPhone = getCustomerPhone(Name[0], Name[1]);
-            customerEmail = getCustomerEmail(Name[0], Name[1]);
-        }
-
-        String pickupdate = (String) cucumberContextManager.getScenarioContext("PICKUP_TIME");
-        if (pickupdate == "") {
-
-            pickupdate = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-
-            if (pickupdate == "" || pickupdate == "NOW") {
-                pickupdate = getOndemandStartTime((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST"));
-                TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-                Date date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS").parse(pickupdate);
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                calendar.add(Calendar.MINUTE, 30);
-                int min = calendar.getTime().getMinutes();
-                int remainder = (min % 15);
-                int minutes = (15 - remainder);
-                calendar.add(Calendar.MINUTE, minutes);
-                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
-                Date date1 = calendar.getTime();
-
-                TimeZone zone = TimeZone.getTimeZone("America/New_York");
-
-                hasDST = zone.observesDaylightTime();
-
-                if(hasDST){
-
-                    int hr1 = date1.getHours() + 1;
-                    date1.setHours(hr1);
-                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
-                    //pickupdate.replaceAll("EST","EDT");
-                    //emailBody.replaceAll("EST","EDT");
-                }
-                else{
-                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
-                }
-                // pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date1).toString();
-
-            } else {
-                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
-                Date date = new SimpleDateFormat("MMM dd, hh:mm a z").parse(pickupdate);
-                int year = Calendar.getInstance().get(Calendar.YEAR);
-                date.setYear(date.getYear()+(year-date.getYear()));
-                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date).toString();
-            }
-
-        }
         String message = null;
         switch (emailSubject) {
             case "Partner Delivery Canceled!":
                 if(hasDST){
-                    message = utility.getExpectedPartnerPortalCanceledEmailContent(Partner_Name,Scheduled_Date, Pickup_Address, Dropup_Address,Customer_Name,Customer_Phone,Driver_Name,Driver_Phone,Driver_Licence_Plate,Items_To_Deliver,Pickup_Contact_Name,Pickup_Contact_Phone);
+                    message = utility.getExpectedPartnerPortalCanceledEmailContent(Partner_Name,New_Scheduled_Date, Pickup_Address, Dropup_Address,Customer_Name,Customer_Phone,Driver_Name,Driver_Phone,Driver_Licence_Plate,Items_To_Deliver,Pickup_Contact_Name,Pickup_Contact_Phone);
                     message= message.replaceAll("EST","EDT");
                 }else {
                     message = utility.getExpectedPartnerPortalCanceledEmailContent(Partner_Name,Scheduled_Date, Pickup_Address, Dropup_Address,Customer_Name,Customer_Phone,Driver_Name,Driver_Phone,Driver_Licence_Plate,Items_To_Deliver,Pickup_Contact_Name,Pickup_Contact_Phone);
