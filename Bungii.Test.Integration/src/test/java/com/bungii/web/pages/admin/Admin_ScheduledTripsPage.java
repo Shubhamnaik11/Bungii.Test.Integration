@@ -23,6 +23,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit pickup location']",LocatorType.XPath);}
 
+    public WebElement Link_Grid_First_Row() { return findElement("//tr[@id='row1']/td[4]/a",LocatorType.XPath);}
     public WebElement Textbox_Drop_Off_Location () { return findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
     public WebElement Textbox_Pickup_Location () { return findElement("PickupDetails_PickupOriginAddress",LocatorType.Id);}
 

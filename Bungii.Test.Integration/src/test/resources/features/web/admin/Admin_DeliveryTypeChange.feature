@@ -227,8 +227,9 @@ Feature: Admin_Delivery_Type_Change
 	  Then I should be able to see the respective bungii with the below status
 		  |  Status |
 		  | Searching Drivers |
-	  And I open the first search delivery
-	  Then I note the Driver Est. Earnings for the delivery
+	  And I view the searched delivery
+	  Then I note the Driver Est. Earnings for the search delivery
+	  And I navigate back to Scheduled Deliveries
 	  And I click on "Edit" link beside scheduled bungii
 	  When I click on "Edit Trip Details" radiobutton
 	  And I change delivery type from "Solo to Duo"
@@ -246,8 +247,9 @@ Feature: Admin_Delivery_Type_Change
 		  | Type |
 		  | Duo |
 	  And the cost of the delivery should be zero
-	  And I open the first search delivery
-	  Then The Driver Est. Earnings for the delivery remain same
+	  And I view the searched delivery
+	  Then I confirm that Driver Est. Earnings for the delivery remain same
+	  And I navigate back to Scheduled Deliveries
 	  And I click on "Edit" link beside scheduled bungii
 	  When I click on "Edit Trip Details" radiobutton
 	  And I change delivery type from "Duo to Solo"
@@ -265,6 +267,10 @@ Feature: Admin_Delivery_Type_Change
 		  | Type |
 		  | Solo |
 	  And the cost of the delivery should be zero
-	  And I open the first search delivery
-	  Then The Driver Est. Earnings for the delivery remain same
+	  And I view the searched delivery
+	  Then I confirm that Driver Est. Earnings for the delivery remain same
+  	  And I navigate back to Scheduled Deliveries
+	  Then I should be able to see the respective bungii with the below status
+		  |  Status |
+		  | Searching Drivers |
 

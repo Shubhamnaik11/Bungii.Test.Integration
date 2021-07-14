@@ -46,6 +46,7 @@ public class Partner_trips extends DriverBase {
     private static LogUtility logger = new LogUtility(DashBoardSteps.class);
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
     Partner_DeliveryList Page_Partner_Delivery_List = new Partner_DeliveryList();
+    Admin_TripDetailsPage Page_Admin_Trips_Details = new Admin_TripDetailsPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     com.bungii.web.utilityfunctions.DbUtility dbUtility = new DbUtility();
@@ -838,40 +839,51 @@ public class Partner_trips extends DriverBase {
         log("I should able to view the correct Driver Est. Earnings for geofence based pricing model","I am able to viewed the correct Driver Est. Earnings for geofence based pricing model", true);
     }
 
-    @Then("^I note the Driver Est. Earnings for the delivery$")
-    public void i_note_the_Driver_Est_Earnings_for_the_delivery(){
-        String DriverEstEarning= action.getElementByXPath("//td[text()='Driver Earnings']/following::td[1]").getText();
+    @Then("^I note the Driver Est. Earnings for the search delivery$")
+    public void i_note_the_Driver_Est_Earnings_for_the_search_delivery()throws Throwable {
+        try{
+        String DriverEstEarning= action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Eranings());
 
-        //DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
         DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
         cucumberContextManager.setScenarioContext("Old_Driver_Earning",DriverEstEarning);
 
-        //String ExpectedDriverEstEarning= webUtility.calDriverEstEarning();
+            log("I should able to note the Driver Est. Earnings for the search delivery.","The noted Driver Est. Earnings for the delivery is: "+DriverEstEarning, true);
+        }
+        catch (Exception ex){
+            logger.detail("Exception "+ ex.getLocalizedMessage());
+        }
 
-       // testStepVerify.isEquals(ExpectedDriverEstEarning, DriverEstEarning.trim(), "Driver Est. Earning value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Driver Est. Value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning + ",(Truncate to single float point)", "Expected Est. Earning value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning);
-        action.getElementByXPath("//div[@id='btnOk']").click();
-        log("I should able to note the Driver Est. Earnings for the delivery","The noted Driver Est. Earnings for the delivery is: "+DriverEstEarning, true);
     }
 
-    @Then("^The Driver Est. Earnings for the delivery remain same$")
-    public void the_Driver_Est_Earnings_for_the_delivery_remain_same(){
-        String NewDriverEstEarning= action.getElementByXPath("//td[text()='Driver Earnings']/following::td[1]").getText();
+    @Then("^I confirm that Driver Est. Earnings for the delivery remain same$")
+    public void the_Driver_Est_Earnings_for_the_delivery_remain_same()throws Throwable {
+        try {
+            String NewDriverEstEarning = action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Eranings());
 
-        //DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
-        NewDriverEstEarning=NewDriverEstEarning.substring(1,NewDriverEstEarning.length());
+            NewDriverEstEarning = NewDriverEstEarning.substring(1, NewDriverEstEarning.length());
 
-        String Old_Driver_Est_Earning = (String) cucumberContextManager.getScenarioContext("Old_Driver_Earning");
+            String Old_Driver_Est_Earning = (String) cucumberContextManager.getScenarioContext("Old_Driver_Earning");
 
-        testStepVerify.isEquals(NewDriverEstEarning,Old_Driver_Est_Earning);
+            testStepAssert.isEquals(NewDriverEstEarning, Old_Driver_Est_Earning, "Old driver estimate earning should be same as new driver estimate earning", "Old driver estimate earning is same as new driver estimate earning", "Old driver estimate earning is not same as new driver estimate earning");
 
-        cucumberContextManager.setScenarioContext("Old_Driver_Earning",NewDriverEstEarning);
+            cucumberContextManager.setScenarioContext("Old_Driver_Earning", NewDriverEstEarning);
 
+            log("Old Driver Est Earning -" + Old_Driver_Est_Earning + " should be same as New Driver Est Earning -" + NewDriverEstEarning, "Old Driver Est Earning -" + Old_Driver_Est_Earning + " is same as New Driver Est Earning -" + NewDriverEstEarning, true);
+        }
+        catch (Exception ex){
+            logger.detail("Exception "+ ex.getLocalizedMessage());
+        }
+    }
 
-        //String ExpectedDriverEstEarning= webUtility.calDriverEstEarning();
+    @And("^I navigate back to Scheduled Deliveries$")
+    public void i_navigate_back_to_scheduled_deliveries() throws Throwable {
+        try{
+            action.click(Page_Admin_Trips_Details.Button_Ok());
+            log("I should able to navigate back to Scheduled Deliveries.","I have navigated back to Scheduled Deliveries", true);
+        }
+        catch (Exception ex){
 
-        // testStepVerify.isEquals(ExpectedDriverEstEarning, DriverEstEarning.trim(), "Driver Est. Earning value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Driver Est. Value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning + ",(Truncate to single float point)", "Expected Est. Earning value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning);
-        action.getElementByXPath("//div[@id='btnOk']").click();
-        log("Old Driver Est Earning -"+Old_Driver_Est_Earning+" should be same as New Driver Est Earning -"+NewDriverEstEarning,"Old Driver Est Earning -"+Old_Driver_Est_Earning+" is same as New Driver Est Earning -"+NewDriverEstEarning, true);
+        }
     }
 
     @Then("^I view the correct Driver Earnings for geofence based pricing model$")
