@@ -24,6 +24,9 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import sun.rmi.runtime.NewThreadAction;
+
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -1037,13 +1040,26 @@ public class Admin_TripsSteps extends DriverBase {
         }
 
          String Scheduled_Date = (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
-         SimpleDateFormat sdfd = new SimpleDateFormat("MMM dd, YYYY at HH:mm aa z");
-         SimpleDateFormat edfd = new SimpleDateFormat("MMM dd, YYYY at HH:mm aa");
-         Date date = sdfd.parse(Scheduled_Date);
+        String Scheduled_Date_Split[] = Scheduled_Date.split("at ");
+        String Str1 = Scheduled_Date_Split[0];
+        String Str2 = Scheduled_Date_Split[1];
+         //Scheduled_Date =Scheduled_Date.replaceAll("at ","");
+        // SimpleDateFormat sdfd = new SimpleDateFormat("MMM dd, YYYY HH:mm aa z",Locale.ENGLISH);
+        SimpleDateFormat sdfd = new SimpleDateFormat("HH:mm aa z",Locale.ENGLISH);
+         sdfd.setTimeZone(TimeZone.getTimeZone("UTC"));
+         SimpleDateFormat edfd = new SimpleDateFormat("HH:mm aa");
+         String geofenceLabel =utility.getTimeZoneBasedOnGeofence();
+         edfd.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+         Date date = sdfd.parse(Str2);
          Calendar cal = Calendar.getInstance();
          cal.setTime(date);
-         cal.add(Calendar.MINUTE, 15);
+         //cal.add(Calendar.MINUTE, 15);
          String New_Scheduled_Date = edfd.format(cal.getTime());
+         String FSD = Str1.concat(New_Scheduled_Date);
+        StringBuffer str = new StringBuffer(FSD);
+        str.insert(13,"at ");
+         New_Scheduled_Date = str.toString();
 
          String Pickup_Address = (String) cucumberContextManager.getScenarioContext("EmailPickupAddress");
          String Dropup_Address = (String) cucumberContextManager.getScenarioContext("EmailDeliveryAddress");
@@ -1051,7 +1067,11 @@ public class Admin_TripsSteps extends DriverBase {
          String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
          String Driver_Name = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
          String Driver_Phone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-         String Driver_Licence_Plate = PropertyUtility.getDataProperties("email.driver.LicencePlate");
+         String Driver_Licence_Plate = null;
+         if(!Driver_Name.isEmpty()) {
+             Driver_Licence_Plate = PropertyUtility.getDataProperties("email.driver.LicencePlate");
+         }
+         
          String Items_To_Deliver = (String) cucumberContextManager.getScenarioContext("Item_Name");
          String Pickup_Contact_Name = (String) cucumberContextManager.getScenarioContext("PickupContactName");
          String Pickup_Contact_Phone = (String) cucumberContextManager.getScenarioContext("PickupContactPhone");
@@ -1059,13 +1079,13 @@ public class Admin_TripsSteps extends DriverBase {
         String message = null;
         switch (emailSubject) {
             case "Partner Delivery Canceled!":
-                if(hasDST){
-                    message = utility.getExpectedPartnerPortalCanceledEmailContent(Partner_Name,New_Scheduled_Date, Pickup_Address, Dropup_Address,Customer_Name,Customer_Phone,Driver_Name,Driver_Phone,Driver_Licence_Plate,Items_To_Deliver,Pickup_Contact_Name,Pickup_Contact_Phone);
-                    message= message.replaceAll("EST","EDT");
-                }else {
-                    message = utility.getExpectedPartnerPortalCanceledEmailContent(Partner_Name,Scheduled_Date, Pickup_Address, Dropup_Address,Customer_Name,Customer_Phone,Driver_Name,Driver_Phone,Driver_Licence_Plate,Items_To_Deliver,Pickup_Contact_Name,Pickup_Contact_Phone);
+                if(Driver_Name.isEmpty()) {
+                    message = utility.getExpectedPartnerPortalCanceledEmailContentWithoutDriver(Partner_Name, New_Scheduled_Date, Pickup_Address, Dropup_Address, Customer_Name, Customer_Phone, Items_To_Deliver, Pickup_Contact_Name, Pickup_Contact_Phone);
                 }
-                //message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                else{
+                    message = utility.getExpectedPartnerPortalCanceledEmailContentWithDriver(Partner_Name, New_Scheduled_Date, Pickup_Address, Dropup_Address, Customer_Name, Customer_Phone, Driver_Name, Driver_Phone, Driver_Licence_Plate, Items_To_Deliver, Pickup_Contact_Name, Pickup_Contact_Phone);
+
+                }
                 break;
         }
         message= message.replaceAll(" ","");
