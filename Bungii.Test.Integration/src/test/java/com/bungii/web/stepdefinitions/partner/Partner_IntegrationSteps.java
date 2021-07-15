@@ -69,7 +69,7 @@ public class Partner_IntegrationSteps extends DriverBase {
         //int numberOfDriver = bungiiType.trim().equalsIgnoreCase("duo") ? 2 : 1;
         //int numberOf_Driver = dataMap.get("Driver").trim().equalsIgnoreCase("duo") ? 2 :1;
 
-        cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+        //cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
         cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
         cucumberContextManager.setScenarioContext("PP_Site",Site);
          Thread.sleep(10000);

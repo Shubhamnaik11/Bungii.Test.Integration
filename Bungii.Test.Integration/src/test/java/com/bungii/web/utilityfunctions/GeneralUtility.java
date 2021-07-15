@@ -3,6 +3,7 @@ package com.bungii.web.utilityfunctions;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.EmailUtility;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.*;
@@ -14,6 +15,7 @@ import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_LoginPage;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -42,9 +44,11 @@ import java.util.regex.Pattern;
 import static com.bungii.web.utilityfunctions.DbUtility.*;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.CREATE;
+import static com.bungii.common.manager.ResultManager.error;
 
 public class GeneralUtility extends DriverBase {
     Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
+    private static LogUtility logger = new LogUtility(com.bungii.android.manager.ActionManager.class);
     Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage();
     DbUtility dbUtility = new DbUtility();
     ActionManager action = new ActionManager();
@@ -601,8 +605,10 @@ public class GeneralUtility extends DriverBase {
                 }
 
             }
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to read email for Partner Cancel delivery with driver",
+                    true);
         }
 
         return emailMessage;
@@ -633,8 +639,10 @@ public class GeneralUtility extends DriverBase {
                 }
 
             }
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to read email for Partner Cancel delivery without driver",
+                    true);
         }
 
         return emailMessage;
@@ -899,7 +907,7 @@ public class GeneralUtility extends DriverBase {
     public double bungiiEstimate(String tripDistance, String loadTime, String estTime, String Promo) {
         //get bungii type and current geofence type.
         String bungiiType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
-        String currentGeofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get minimum cost,Mile value,Minutes value of Geofence
         double minCost = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.minimum.cost")),
                 perMileValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.miles")),

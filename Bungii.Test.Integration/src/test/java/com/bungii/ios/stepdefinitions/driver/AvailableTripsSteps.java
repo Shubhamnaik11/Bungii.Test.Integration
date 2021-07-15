@@ -53,7 +53,7 @@ public class AvailableTripsSteps extends DriverBase {
 		}
 	}
 
-	@Then("^Partner Portal name should be display in \"([^\"]*)\" section$")
+	@Then("^Partner Portal name should be displayed in \"([^\"]*)\" section$")
 	public void partner_portal_name_should_be_display_in_something_section(String Screen) throws Throwable {
 		try {
 			switch (Screen) {
@@ -75,7 +75,9 @@ public class AvailableTripsSteps extends DriverBase {
 			}
 		}
 		catch (Exception ex){
-			logger.detail("Exception "+ ex.getLocalizedMessage());
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "Partner Portal name is not displayed on "+Screen,
+					true);
 		}
 	}
 

@@ -416,7 +416,7 @@ public class Partner_trips extends DriverBase {
         //int numberOfDriver = bungiiType.trim().equalsIgnoreCase("duo") ? 2 : 1;
         int numberOf_Driver = dataMap.get("Driver").trim().equalsIgnoreCase("duo") ? 2 :1;
 
-        cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
 
         switch (Type)
         {
@@ -589,7 +589,7 @@ public class Partner_trips extends DriverBase {
                 }
                 break;
             case "Delivery Address":
-                String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+                String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
                 String Delivery_Address = dataMap.get("Delivery_Address");
 
@@ -734,7 +734,7 @@ public class Partner_trips extends DriverBase {
             String status = dataMap.get("Status").trim();
             String tripType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
             String customer = (String) cucumberContextManager.getScenarioContext("Customer_Name");
-            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
             String pickupRef = (String) cucumberContextManager.getScenarioContext("pickupRequestPartner");
 
 
@@ -850,7 +850,9 @@ public class Partner_trips extends DriverBase {
             log("I should able to note the Driver Est. Earnings for the search delivery.","The noted Driver Est. Earnings for the delivery is: "+DriverEstEarning, true);
         }
         catch (Exception ex){
-            logger.detail("Exception "+ ex.getLocalizedMessage());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to note the driver est earning for the search delivery",
+                    true);
         }
 
     }
@@ -871,7 +873,9 @@ public class Partner_trips extends DriverBase {
             log("Old Driver Est Earning -" + Old_Driver_Est_Earning + " should be same as New Driver Est Earning -" + NewDriverEstEarning, "Old Driver Est Earning -" + Old_Driver_Est_Earning + " is same as New Driver Est Earning -" + NewDriverEstEarning, true);
         }
         catch (Exception ex){
-            logger.detail("Exception "+ ex.getLocalizedMessage());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to confirm driver est earning remain same on delivery detail page",
+                    true);
         }
     }
 
@@ -882,6 +886,9 @@ public class Partner_trips extends DriverBase {
             log("I should able to navigate back to Scheduled Deliveries.","I have navigated back to Scheduled Deliveries", true);
         }
         catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to navigate back to Scheduled Deliveries",
+                    true);
 
         }
     }

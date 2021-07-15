@@ -217,7 +217,7 @@ Feature: Admin_Delivery_Type_Change
 	And I should see Bungii Type as "SOLO" in "Edit Trip Details" section
 
   @ready
-  Scenario: Verify that driver est earning doesn't get change for the delivery having Promoter type Promocode when it changes from Solo to Duo and vice-versa
+  Scenario: Verify that driver est earning doesnt get change for the delivery having Promoter type Promocode when it changes from Solo to Duo and vice-versa
 	  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 		  | Bungii Time   | Customer Phone | Customer Name                  |
 		  | NEXT_POSSIBLE | 9823741001     | Testcustomertywd_applePromo Customer|

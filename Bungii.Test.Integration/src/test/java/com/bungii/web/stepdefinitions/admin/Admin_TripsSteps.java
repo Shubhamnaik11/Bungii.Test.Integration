@@ -193,7 +193,7 @@ public class Admin_TripsSteps extends DriverBase {
         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
         String geofenceName = getGeofence(geofence);
         //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
@@ -277,7 +277,7 @@ public class Admin_TripsSteps extends DriverBase {
             String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
             String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
             String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
             String geofenceName = getGeofence(geofence);
             //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
@@ -380,7 +380,7 @@ public class Admin_TripsSteps extends DriverBase {
             String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
             String tripType[] = tripTypeAndCategory.split(" ");
             String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
             String geofenceName = getGeofence(geofence);
             //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
@@ -595,7 +595,7 @@ public class Admin_TripsSteps extends DriverBase {
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String status = (String) cucumberContextManager.getScenarioContext("STATUS");
         String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-        String timezone = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String timezone = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String Bunggi_Type = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
 
         if(!scheduled_time.equalsIgnoreCase("NOW")) {
@@ -949,7 +949,7 @@ public class Admin_TripsSteps extends DriverBase {
                 int remainder = (min % 15);
                 int minutes = (15 - remainder);
                 calendar.add(Calendar.MINUTE, minutes);
-                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
+                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"))));
                 Date date1 = calendar.getTime();
 
                 TimeZone zone = TimeZone.getTimeZone("America/New_York");
@@ -970,7 +970,7 @@ public class Admin_TripsSteps extends DriverBase {
                // pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date1).toString();
 
             } else {
-                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
+                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"))));
                 Date date = new SimpleDateFormat("MMM dd, hh:mm a z").parse(pickupdate);
                 int year = Calendar.getInstance().get(Calendar.YEAR);
                 date.setYear(date.getYear()+(year-date.getYear()));
@@ -1018,6 +1018,7 @@ public class Admin_TripsSteps extends DriverBase {
     @Then("^Admin should receive the \"([^\"]*)\" email$")
     public void admin_should_receive_the_something_email(String emailSubject) throws Throwable {
 
+        try{
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody == null) {
             testStepAssert.isFail("Email : " + emailSubject + " not received");
@@ -1093,6 +1094,11 @@ public class Admin_TripsSteps extends DriverBase {
         logger.detail("Email Body (Expected): "+message);
         testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
 
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Admin unable to received the " +emailSubject+ "email",
+                    true);
+             }
     }
 
     @And("^Customer should receive \"([^\"]*)\" email$")
@@ -1683,7 +1689,9 @@ public class Admin_TripsSteps extends DriverBase {
             testStepAssert.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $", ""), df.format(orgcost), orgcost + " should be displayed", orgcost + " is displayed", orgcost + " is not displayed");
         }
         catch (Exception ex){
-            logger.detail("Exception "+ ex.getLocalizedMessage());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Cost of the delivery is not shown as zero",
+                    true);
         }
     }
 
@@ -1695,7 +1703,9 @@ public class Admin_TripsSteps extends DriverBase {
 
         }
         catch (Exception ex){
-            logger.detail("Exception "+ ex.getLocalizedMessage());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to view the searched delivery",
+                    true);
         }
     }
 

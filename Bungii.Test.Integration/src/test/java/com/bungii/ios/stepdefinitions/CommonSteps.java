@@ -2386,7 +2386,7 @@ public class CommonSteps extends DriverBase {
         String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
         String tripType[] = tripTypeAndCategory.split(" ");
         customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
         cucumberContextManager.setScenarioContext("STATUS",status);
         if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers")

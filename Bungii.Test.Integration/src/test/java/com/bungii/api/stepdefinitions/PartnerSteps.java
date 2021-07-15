@@ -29,7 +29,7 @@ public class PartnerSteps extends DriverBase {
         String customerPhone = dataMap.get("Customer Phone").trim();
         cucumberContextManager.setScenarioContext("Phone",customerPhone);
         String geofence = dataMap.get("Geofence").trim();
-        cucumberContextManager.setScenarioContext("GEOFENCE",geofence);
+        //cucumberContextManager.setScenarioContext("GEOFENCE",geofence);
         cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE",geofence);
         String bungii_time = dataMap.get("Bungii Time").trim();
 

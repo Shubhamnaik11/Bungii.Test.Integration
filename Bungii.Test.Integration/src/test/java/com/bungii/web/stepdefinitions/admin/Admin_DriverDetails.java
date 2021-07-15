@@ -88,7 +88,7 @@ public class Admin_DriverDetails extends DriverBase{
     @Then("^The Delivery List page should display the delivery in \"([^\"]*)\" state$")
     public void the_trip_list_page_should_display_the_trip_in_something_state(String status) throws Throwable {
         String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String timezone = utility.getTripTimezone(geofence);
         TimeZone.setDefault(TimeZone.getTimeZone(timezone));
         String XPath = "";
@@ -143,7 +143,7 @@ public class Admin_DriverDetails extends DriverBase{
     @Then("^The Driver Trip List page should display the trip in \"([^\"]*)\" state$")
     public void the_driver_trip_list_page_should_display_the_trip_in_something_state(String status) throws Throwable {
         String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String timezone = utility.getTripTimezone(geofence);
         TimeZone.setDefault(TimeZone.getTimeZone(timezone));
         String XPath = "";

@@ -483,12 +483,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     {
         case "Ondemand":
              csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP_PARTNER_FIRM_ONDEMAND"));
-            cucumberContextManager.setScenarioContext("GEOFENCE","washingtondc");
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","washingtondc");
              break;
         case "Solo Scheduled":
              csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP_PARTNER_FIRM_SCHEDULED"));
              csvFile =   utility.generateScheduledBungiiCSV(csvFile,"America/New_York",1, (String)(cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME")), "9999794897");
-            cucumberContextManager.setScenarioContext("GEOFENCE","washingtondc");
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","washingtondc");
              break;
     }
         String imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
