@@ -61,13 +61,13 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
+        try{
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            Long now = Instant.now().toEpochMilli();
+            int i = now.intValue() / 1000;
         switch (fields) {
 //            case "Business Users" :
             case "New Partner" :
-            try {
-                Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
-                Long now = Instant.now().toEpochMilli();
-                int i = now.intValue() / 1000;
                 String Name = dataMap.get("Name").trim().replace("<<UniqueNo>>", Integer.toString(i));
                 String Phone = dataMap.get("Phone").trim().replace("<<UniquePhone>>", "");
                 String Email = dataMap.get("Email").trim();
@@ -79,24 +79,16 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), Phone);
                 action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(), Email);
                 log("I enter values on Add Business User page",
-                        "I entered values on Add Business User page", true);
+                        "I entered values on Add Business User page", false);
 
                 cucumberContextManager.setScenarioContext("BO_NAME", Name);
                 cucumberContextManager.setScenarioContext("BO_PHONE", admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo().getAttribute("value"));
                 cucumberContextManager.setScenarioContext("BO_EMAIL", Email);
                 cucumberContextManager.setScenarioContext("BO_STATUS", "Active");
 
-            } catch (Exception e) {
-                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-                error("Step  Should be successful", "Error performing step,Please check logs for more details",
-                        true);
-            }
+
             break;
             case "Geofence" :
-                try {
-                    Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
-                    Long now = Instant.now().toEpochMilli();
-                    int i = now.intValue() / 1000;
                     String Primary = dataMap.get("Primary").trim();
                     String Secondary = dataMap.get("Secondary").trim();
                     String GeofenceName = dataMap.get("Geo-Name").trim().replace("-<<UniqueNo>>", Integer.toString(i));
@@ -121,17 +113,11 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("GF_GEOTIMEZONE", GeoTimeZone);
                     cucumberContextManager.setScenarioContext("GF_STATUS", GeoStatus);
 
-                } catch (Exception e) {
-                    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-                    error("Step  Should be successful", "Error performing step, Please check logs for more details",
-                            true);
-                }
+
 
                 break;
             case "Geofence Attributes" :
-                try {
-                    Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
-                    String Key = dataMap.get("Key").trim();
+                 String Key = dataMap.get("Key").trim();
                     String DefaultValue = dataMap.get("Default-Value").trim();
                     String Description = dataMap.get("Description").trim();
                     String Label = dataMap.get("Label").trim();
@@ -147,41 +133,53 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 //                    }
 
                     log("I enter values on Geofence Attribute page",
-                            "I entered values on Geofence Attribute page", true);
+                            "I entered values on Geofence Attribute page", false);
 
                     cucumberContextManager.setScenarioContext("GF_ATTR_KEY", Key);
                     cucumberContextManager.setScenarioContext("GF_ATTR_DEFAULT_VALUE",DefaultValue);
                     cucumberContextManager.setScenarioContext("GF_ATTR_DESCRIPTION", Description);
                     cucumberContextManager.setScenarioContext("GF_ATTR_LABEL", Label);
 
-                } catch (Exception e) {
-                    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-                    error("Step  Should be successful", "Error performing step, Please check logs for more details",
-                            true);
-                }
-
                 break;
+        }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
     @When("^I enter invalid phone number and email field$")
     public void i_enter_invalid_phone_number_and_email_field() throws Throwable {
+        try{
         action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),"INVALID");
         action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),"INVALID");
         log("I enter invalid values on Add Business User page",
-                "I entered  invalid values on Add Business User page", true);
+                "I entered  invalid values on Add Business User page", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
     @When("^I search by Name \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_search_by_name_something_in_something_page(String currentdatetime, String strArg1) throws Throwable {
+        try{
         Thread.sleep(2000);
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
         log("I search by name in Business User list page",
-                "I searched by name in Business User list page", true);
+                "I searched by name in Business User list page", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I edit the \"([^\"]*)\" and \"([^\"]*)\"$")
     public void i_edit_the_something_and_something(String strArg1, String strArg2) throws Throwable {
+        try{
         Thread.sleep(3000);
        String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Search should return the customer", "Search returns the customer", "Search doesn't return the customer");
@@ -195,12 +193,17 @@ public class Admin_BusinessUsersSteps extends DriverBase {
        action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),String.valueOf(Newphone));
         cucumberContextManager.setScenarioContext("BO_PHONE", admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo().getAttribute("value"));
         log("I edit " + strArg1 +" and "+ strArg2,
-                "I edited " + strArg1 +" and "+ strArg2, true);
-
+                "I edited " + strArg1 +" and "+ strArg2, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
        }
 
     @Then("^the partner gets saved successfully and it is displayed in the \"([^\"]*)\" grid$")
     public void the_partner_gets_saved_successfully_and_it_is_displayed_in_the_something_grid(String strArg1) throws Throwable {
+        try{
         Thread.sleep(1000);
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
@@ -213,10 +216,16 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the user \"([^\"]*)\" is displayed in the Partners grid$")
     public void the_user_something_is_displayed_in_the_business_users_grid(String currentdatetime) throws Throwable {
+        try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
@@ -226,11 +235,17 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the partner gets updated successfully and it is displayed in the Partners grid$")
     public void the_business_user_gets_updated_successfully_and_it_is_displayed_in_the_business_users_grid() throws Throwable {
 
+        try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
@@ -241,12 +256,16 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
     @Then("^the partner is not displayed in Upload deliveries since payment is not set$")
     public void the_business_user_is_not_displayed_in_bulk_trips_since_payment_is_not_set() throws Throwable {
-
+    try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         Select select = new Select(admin_BusinessUsersPage.DropDown_BusinessUser());
 
@@ -256,7 +275,11 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             if(e.getText().equals(Name))
                 testStepAssert.isFalse(e.getText().equals(Name),"Business user should not be listed in dropdown without payment method being set", "Business user is listed without payment method being set");
         }
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
@@ -272,6 +295,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @Then("^the partner is displayed in Upload Deliveries since payment is set$")
     public void the_business_user_is_displayed_in_bulk_trips_since_payment_is_set() throws Throwable {
+        try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         Select select = new Select(admin_BusinessUsersPage.DropDown_BusinessUser());
 
@@ -283,11 +307,16 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         }
         if(!bit)
         testStepAssert.isFalse(true,"Business user should be listed in dropdown since payment method is set", "Business user is not listed though payment method is set");
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I select \"([^\"]*)\" from the \"([^\"]*)\" dropdown$")
     public void i_select_something_from_the_something_dropdown(String strArg1, String field) throws Throwable {
+        try{
         String Name = null;
         switch(field) {
 //            case "Select Business User":
@@ -316,10 +345,16 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         "I have selected element from Partner Cards dropdown", true);
                 break;
         }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I click on \"([^\"]*)\" button on \"([^\"]*)\" page$")
     public void i_click_on_something_button(String button, String page) throws Throwable {
+        try{
         switch(page) {
             case "Partner Payment":
             switch (button) {
@@ -372,12 +407,17 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             }
 
         log("I select "+button+" from "+page+ " page",
-                "I have selected "+button+" from "+page+ " page", true);
-
+                "I have selected "+button+" from "+page+ " page", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I enter following card details$")
     public void i_enter_following_card_details(DataTable data) throws Throwable {
+        try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String CardNumber = dataMap.get("Card Number").trim();
         String ExpirationDate  = dataMap.get("Expiration Date").trim();
@@ -400,12 +440,17 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         action.sendKeys(admin_BusinessUsersPage.TextBox_ExpirationDate(),ExpirationDate);
         SetupManager.getDriver().switchTo().defaultContent();
         log("I enter card details on Add Payment to Business user page",
-                "I have entered card details on Add Payment to Business user page", true);
-
+                "I have entered card details on Add Payment to Business user page", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click on \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void i_click_on_something_button_on_something_screen(String button, String Screen) throws Throwable {
+        try{
         switch(Screen)
         {
             case "Partner Payment":
@@ -436,18 +481,30 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
         }
         log("I click save on "+button +" to "+Screen+" page",
-                "I have clicked save on "+button +" to "+Screen+" page", true);
+                "I have clicked save on "+button +" to "+Screen+" page", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I select user \"([^\"]*)\"$")
     public void i_select_user_something(String uniqueno) throws Throwable {
+        try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUser(),Name);
         log("I select "+uniqueno+" from Bulk Trips page",
-                "I have selected "+uniqueno+" from Bulk Trips page", true);
+                "I have selected "+uniqueno+" from Bulk Trips page", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @When("^I select business user \"([^\"]*)\"$")
     public void i_select_username_something(String username) throws Throwable {
+        try{
         action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUser(),username);
         String customerRef = null;
         switch(username) {
@@ -462,22 +519,34 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUSINESSUSER_NAME", username);
 
         log("I select "+username+" from Bulk Trips page",
-                "I have selected "+username+" from Bulk Trips page", true);
+                "I have selected "+username+" from Bulk Trips page", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I upload image to be associated with the delivery$")
     public void i_upload_image_to_be_associated_with_the_trip() throws Throwable {
+        try{
         String csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP1"));
         String imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
 
         action.sendKeys(admin_BusinessUsersPage.Input_DataFile(),csvFile);
         action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
         log("I upload csv and image on Bulk Trips page",
-                "I have uploaded csv and image on Bulk Trips page", true);
+                "I have uploaded csv and image on Bulk Trips page", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
     @And("^I upload image and csv file associated with the \"([^\"]*)\" trip$")
     public void i_upload_image_and_csv_file_associated_with_the_something_trip(String csvname) throws Throwable {
+        try{
         String csvFile = null;
     switch (csvname)
     {
@@ -496,11 +565,17 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         action.sendKeys(admin_BusinessUsersPage.Input_DataFile(),csvFile);
         action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
         log("I upload csv and image on Bulk Trips page",
-                "I have uploaded csv and image on Bulk Trips page", true);
+                "I have uploaded csv and image on Bulk Trips page", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
     @Then("^the pickup from the csv are listed down$")
     public void the_pickup_from_the_csv_are_listed_down() throws Throwable {
+        try{
         String csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP1"));
         String line = "";
         String cvsSplitBy = ",";
@@ -510,12 +585,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             int rowIndex = 0;
             while ((line = br.readLine()) != null) {
 
-                if(rowIndex!=0) {
+                if (rowIndex != 0) {
                     String[] column = line.split("\",\"");
                     String[] column2 = column[1].split("\",");
                     String[] column3 = column2[1].split(",");
-                    String pickupAddress = column[0].replace("\"","");
-                    String dropdoffAddress = column2[0].replace("\"","");
+                    String pickupAddress = column[0].replace("\"", "");
+                    String dropdoffAddress = column2[0].replace("\"", "");
 
                     String xpath = String.format("//tr/td[contains(text(),'%s')]/following-sibling::td[normalize-space(.)='']/following-sibling::td[normalize-space(.)='']/following-sibling::td[normalize-space(.)='']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']", rowIndex, pickupAddress, dropdoffAddress, column3[0]);
 
@@ -524,8 +599,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 rowIndex++;
             }
             log("the pickup from the csv should be listed down",
-                    "the pickup from the csv are listed down", true);
-
+                    "the pickup from the csv are listed down", false);
+        }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -536,6 +611,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     //BOC
     @And("^I select the file with invalid data for \"([^\"]*)\"$")
     public void i_select_the_file_with_invalid_data_for_something(String ErrorField) throws Throwable {
+        try{
         String csvFile, imagefilepath;
         switch(ErrorField){
             case "Pickup address":
@@ -580,7 +656,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 break;
         }
         log("I upload csv file with invalid data for "+ErrorField+" and image on Bulk Trips page",
-                "I have uploaded csv and image on Bulk Trips page", true);
+                "I have uploaded csv and image on Bulk Trips page", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I click on the error link and download the file with error$")
@@ -633,6 +714,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     }
     @And("^the error \"([^\"]*)\" is displayed in the csv file$")
     public void the_error_something_is_displayed_in_the_csv_file(String message) throws Throwable {
+
         String filePath = cucumberContextManager.getScenarioContext("FILE_PATH").toString();
         String line = "";
 
@@ -677,10 +759,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             }
         }
         catch (Exception ex){}
+
     }
     //BOC
     @And("^I Update the \"([^\"]*)\" and \"([^\"]*)\"$")
     public void i_update_the_something_and_something(String PhoneNumber, String Email) throws InterruptedException {
+        try{
         Thread.sleep(3000);
         String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
 
@@ -695,16 +779,27 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BO_PHONE", admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo().getAttribute("value"));
 
         log("I enter values for PhoneNumber and Email",
-                "I entered values for PhoneNumber and Email", true);
+                "I entered values for PhoneNumber and Email", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I enter above same Phone number in Phone Number fields$")
     public void i_enter_above_same_phone_number_in_phone_number_fields() throws InterruptedException {
+        try{
         Thread.sleep(2000);
         String PhoneNumber=cucumberContextManager.getScenarioContext("BO_PHONE").toString();
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), PhoneNumber);
         log("I enter value of PhoneNumber",
-                "I entered value of PhoneNumber", true);
+                "I entered value of PhoneNumber", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I enter the following values in \"([^\"]*)\" fields$")
@@ -724,7 +819,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), Phone);
             action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(), Email);
             log("I enter values on Add Business User page",
-                    "I entered values on Add Business User page", true);
+                    "I entered values on Add Business User page", false);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -741,18 +836,30 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @And("^I select the \"([^\"]*)\"$")
     public void i_select_the_something(String strArg1) throws Throwable {
+        try{
         String BusinessUserName=cucumberContextManager.getScenarioContext("BO_NAME").toString();
         action.selectElementByText(admin_BusinessUsersPage.DropDown_AddBusinessUserPayment(),BusinessUserName);
         log("I should be able to select business user.",
-                "I am able to select business user.", true);
+                "I am able to select business user.", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^The payment details page is loaded$")
     public void the_payment_details_page_is_loaded() throws Throwable {
+        try{
         String Title= admin_BusinessUsersPage.Label_PayWithCard().getText().toString();
         testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_PayWithCard(),"Pay with card","Pay with card","Pay with card is displayed", "Pay with card is not displayed");
         log("I should be able to see Pay with card label.",
-                "I am able to see Pay with card label.", true);
+                "I am able to see Pay with card label.", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I enter the card details$")
@@ -799,6 +906,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
         @And("^I click on \"([^\"]*)\" button$")
         public void i_click_on_something_button(String Name) throws Throwable {
+        try{
             switch(Name)
             {
                 case "Start Over":
@@ -879,15 +987,26 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
             }
             log("I click on the "+Name+" button",
-                    "I clicked the "+Name+" button", true);
+                    "I clicked the "+Name+" button", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
         }
 
         @When("I change the status to \"([^\"]*)\"")
         public void i_change_the_status_to(String string) {
+        try{
             // Write code here that turns the phrase above into concrete actions
             action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Inactive");
             log("I change the status to "+ string,
-                    "I changed the status to "+ string, true);
+                    "I changed the status to "+ string, false);
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
         }
 
     private File GetLatestFilefromDir(String dirPath){
@@ -923,9 +1042,15 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @And("^I get new pickuref$")
     public void i_get_new_pickuref() throws Throwable {
+        try{
         String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         pickupRequest = new DbUtility().getResarchedPickupReference(pickupRequest); //researched pickup ref
         cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 

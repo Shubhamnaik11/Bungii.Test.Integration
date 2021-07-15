@@ -35,7 +35,7 @@ public class Admin_LogviewSteps extends DriverBase {
     public void i_select_database_something(String database) throws Throwable {
         try{
             action.selectElementByText(admin_logviewPage.Dropdown_Database(),database);
-            log("I select database "+ database ,
+            log("I select database "+ database,
                     "I selected database "+ database , false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -58,14 +58,21 @@ public class Admin_TripsSteps extends DriverBase {
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
+        try{
         Thread.sleep(120000); //Wait for 2 minutes
         SetupManager.getDriver().navigate().refresh();
         //  action.click(admin_DashboardPage.Menu_Dashboard());
         log("I view the Customer list on the admin portal",
                 "I viewed the Customer list on the admin portal", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I view the Deliveries list on the admin portal$")
     public void i_view_the_trips_list_on_the_admin_portal() throws Throwable {
+        try{
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_TripsPage.Menu_CompletedTrips());
 
@@ -73,12 +80,18 @@ public class Admin_TripsSteps extends DriverBase {
         SetupManager.getDriver().navigate().refresh();
         action.selectElementByText(admin_TripsPage.Dropdown_SearchForPeriod(), "The Beginning of Time");
         log("I view the Deliveries list on the admin portal",
-                "I viewed the Deliveries list on the admin portal", true);
+                "I viewed the Deliveries list on the admin portal", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 
     @And("^I view the Live Deliveries list on the admin portal$")
     public void i_view_the_live_deliveries_list_on_the_admin_portal() throws Throwable {
+        try{
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_LiveTripsPage.Menu_LiveTrips());
         String Pickup_Ref = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
@@ -87,38 +100,62 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_LiveTripsPage.Button_Search());
         //  SetupManager.getDriver().navigate().refresh();
         log("I view the Live Deliveries list on the admin portal",
-                "I have viewed the Live Deliveries list on the admin portal", true);
+                "I have viewed the Live Deliveries list on the admin portal", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I view the Scheduled Deliveries list on the admin portal$")
     public void i_view_the_scheduled_deliveries_list_on_the_admin_portal() throws Throwable {
+        try{
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
         //action.click(admin_ScheduledTripsPage.Order_Initial_Request());//change by gopal for partner portal
         // SetupManager.getDriver().navigate().refresh();
         log("I view the Scheduled Deliveries list on the admin portal",
-                "I have viewed the Scheduled Deliveries list on the admin portal", true);
+                "I have viewed the Scheduled Deliveries list on the admin portal", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I view the all Scheduled Deliveries list on the admin portal$")
     public void i_view_the_all_scheduled_trips_list_on_the_admin_portal() throws Throwable {
+        try{
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
 
         log("I view the Scheduled Deliveries list on the admin portal",
-                "I have viewed the Scheduled Deliveries list on the admin portal", true);
+                "I have viewed the Scheduled Deliveries list on the admin portal", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @When("^I change filter to \"([^\"]*)\" on Scheduled deliveries$")
     public void i_change_filter_to_something_on_scheduled_deliveries(String filter) throws Throwable {
+        try{
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), filter);
         Thread.sleep(5000);
         log("I select filter from the Scheduled Trips list on the admin portal",
-                "I selected filter "+filter+" from the  Scheduled Trips list on the admin portal", true);
+                "I selected filter "+filter+" from the  Scheduled Trips list on the admin portal", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
     @And("^I view the partner portal Scheduled Trips list on the admin portal$")
     public void i_view_the_partner_portal_trips_on_the_admin_portal() throws Throwable{
+        try{
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
@@ -126,10 +163,16 @@ public class Admin_TripsSteps extends DriverBase {
 
         log("I view the Partner portal Scheduled Trips list on the admin portal",
                 "I viewed the Partner portal Scheduled Trips list on the admin portal", true);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should be able to see the Trip Requested count incremented in Customers Grid$")
     public void i_should_be_able_to_see_the_trip_requested_count_incremented_in_customers_grid() throws Throwable {
+        try{
         String[] name = cucumberContextManager.getScenarioContext("CUSTOMER_NAME").toString().split(" ");
         action.clearSendKeys(admin_CustomerPage.TextBox_SearchCustomer(), name[1] + Keys.ENTER);
 
@@ -145,10 +188,16 @@ public class Admin_TripsSteps extends DriverBase {
         testStepAssert.isEquals(tripRequestedCount, String.valueOf(reqCount), "Newer trip should reflect in Requested count", "Newer trip is reflected in Requested count", "DATA SYNCH ISSUE | Newer trip is not reflected in Requested count");
         testStepAssert.isEquals(tripEstimatedCount, oldtripEstimatedCount, "Newer trip should reflect in Requested count", "Newer trip is reflected in Requested count", "DATA SYNCH ISSUE | Newer trip is not reflected in Requested count");
         cucumberContextManager.setScenarioContext("XPATH", XPath);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I note the Trip Requested count of Customer \"([^\"]*)\"$")
     public void i_note_the_trip_requested_count_of_customer_something(String customer) throws Throwable {
+        try{
         String[] name = customer.split(" ");
         action.clearSendKeys(admin_DashboardPage.TextBox_SearchCustomer(), name[1] + Keys.ENTER);
 
@@ -160,17 +209,29 @@ public class Admin_TripsSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("TRIP_REQUESTEDCOUNT", tripRequestedCount);
         cucumberContextManager.setScenarioContext("TRIP_ESTIMATEDCOUNT", tripEstimatedCount);
         cucumberContextManager.setScenarioContext("CUSTOMER_NAME", customer);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I view the customer details page of Customer \"([^\"]*)\"$")
     public void i_view_the_customer_details_page_of_customer_something(String strArg1) throws Throwable {
+        try{
         String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
         log("I view the customer details page of Customer",
                 "I viewed the customer details page of Customer "+strArg1, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @Then("^Trip should be listed in the grid$")
     public void trip_should_be_listed_in_the_grid() throws Throwable {
+        try{
         String tripType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
         tripType = tripType.split(" ")[0];
         String status = "Assigning Driver(s)";
@@ -179,7 +240,12 @@ public class Admin_TripsSteps extends DriverBase {
         Thread.sleep(5000);
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", tripType, customer, status);
         testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed", "Trip is displayed", "DATA SYNCH ISSUE | Trip is not displayed");
-    }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
 
     @Then("^I should be able to see the business user requested bungii with the below status$")
     public void i_should_be_able_to_see_the_business_user_requested_bungii_with_the_below_status(DataTable data) throws Throwable {
@@ -401,6 +467,7 @@ public class Admin_TripsSteps extends DriverBase {
     }
     @And("^I select the scheduled trip on scheduled delivery$")
     public void i_select_the_scheduled_trip_on_scheduled_delivery(){
+        try{
         //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
@@ -411,11 +478,17 @@ public class Admin_TripsSteps extends DriverBase {
         action.getElementByXPath(XPath).click();
         log("I select the scheduled trip on scheduled delivery",
                 "I have selected the scheduled trip on scheduled delivery", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
     @And("^I select the partner portal scheduled trip on scheduled delivery$")
     public void i_select_the_parter_portal_scheduled_trip_on_scheduled_delivery() throws ParseException {
+        try{
         //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         String ST = (String) cucumberContextManager.getScenarioContext("ActualPickupDateTime");
         ST = ST.replace("at","");
@@ -438,11 +511,17 @@ public class Admin_TripsSteps extends DriverBase {
         action.getElementByXPath(XPath).click();
 
         log("I should able to select the partner portal scheduled trip on scheduled delivery",
-                "I am able to select the partner portal scheduled trip on scheduled delivery", true);
+                "I am able to select the partner portal scheduled trip on scheduled delivery", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I select the scheduled trip on live delivery$")
     public void i_select_the_scheduled_trip_on_live_delivery(){
+        try{
         //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
@@ -452,11 +531,17 @@ public class Admin_TripsSteps extends DriverBase {
 
         action.getElementByXPath(XPath).click();
         log("I should able to select the scheduled trip on live delivery",
-                "I am able to select the scheduled trip on live delivery", true);
+                "I am able to select the scheduled trip on live delivery", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I select the scheduled trip on live delivery for customer$")
     public void i_select_the_scheduled_trip_on_live_delivery_for_customer(){
+        try{
         //String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         String ST = (String) cucumberContextManager.getScenarioContext("BUNGII_INITIAL_SCH_TIME");
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
@@ -467,7 +552,12 @@ public class Admin_TripsSteps extends DriverBase {
         action.getElementByXPath(XPath).click();
 
         log("I should able to select the scheduled trip on live delivery for customer",
-                "I am able to select the scheduled trip on live delivery for customer", true);
+                "I am able to select the scheduled trip on live delivery for customer", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I view All Deliveries list on the admin portal$")
@@ -491,11 +581,17 @@ public class Admin_TripsSteps extends DriverBase {
     }
     @When("^I change filter to \"([^\"]*)\" on All deliveries$")
     public void i_change_filter_to_something_on_all_deliveries(String filter) throws Throwable {
+        try{
         Thread.sleep(5000);
         action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),filter);
         Thread.sleep(5000);
         log("I select filter from All Deliveries on the admin portal",
-                "I selected filter "+filter+" from All Deliveries on the admin portal", true);
+                "I selected filter "+filter+" from All Deliveries on the admin portal", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I select the scheduled trip on All Deliveries$")
     public void i_select_the_scheduled_trip_on_all_deliveries() throws Throwable {
@@ -521,12 +617,18 @@ public class Admin_TripsSteps extends DriverBase {
     @When("^I view the delivery details$")
     public void i_view_the_trip_details() throws Throwable {
 
+        try{
         String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         if(action.isElementPresent(action.getElementByXPath(xpath))){
             action.click(admin_TripDetailsPage.Schedule_Date_Row());
         }
         log("I should able to view the delivery details",
-                "I am able to viewed the delivery details", true);
+                "I am able to viewed the delivery details", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the amount is calculated and shown to admin$")
@@ -536,6 +638,7 @@ public class Admin_TripsSteps extends DriverBase {
 
     @And("^Enter the End Date and Time$")
     public void enter_the_end_date_time() throws Throwable {
+        try{
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY");
 
 
@@ -560,12 +663,17 @@ public class Admin_TripsSteps extends DriverBase {
         action.selectElementByText(admin_TripDetailsPage.Dropdown_ddlpickupEndTime(), splitedDate[3]);
         log("I enter the End Date and Time",
                 "I have entered the End Date and Time", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
     @And("^Click on \"([^\"]*)\" button$")
     public void click_on_something_button(String button) throws Throwable {
-
+try{
         switch (button) {
             case "Calculate Cost":
                 action.click(admin_TripDetailsPage.Button_CalculateCost());
@@ -583,11 +691,16 @@ public class Admin_TripsSteps extends DriverBase {
         }
         log("I click on " + button+" button",
                 "I have clicked on " + button+" button", false);
+} catch(Exception e){
+    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+    error("Step should be successful", "Error performing step,Please check logs for more details",
+            true);
+}
     }
 
     @Then("^the Bungii details is displayed successfully$")
     public void the_bungii_details_is_displayed_successfully() throws Throwable {
-
+try{
         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String status = (String) cucumberContextManager.getScenarioContext("STATUS");
@@ -628,56 +741,92 @@ public class Admin_TripsSteps extends DriverBase {
             testStepAssert.isElementDisplayed(admin_TripDetailsPage.Dropdown_Drivers().findElement(By.xpath(xpath)), " Driver " + driver1 + " should be displayed", " Driver " + driver1 + " is displayed", " Driver " + driver1 + " is not displayed");
         }
 
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
     }
 
     @When("^I click on \"([^\"]*)\" link beside scheduled bungii$")
     public void i_click_on_something_link_beside_scheduled_bungii(String link) throws Throwable {
+        try{
         Thread.sleep(4000);
         action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnEdit']")));
         log(" I click on Edit link besides the scheduled bungii",
-                "I have clicked on Edit link besides the scheduled bungii", true);
+                "I have clicked on Edit link besides the scheduled bungii", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I click on \"([^\"]*)\" link beside live delivery$")
     public void i_click_on_something_link_beside_live_delivery(String link) throws Throwable {
+        try{
         Thread.sleep(4000);
         action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnLiveEdit']")));
         log(" I click on Edit link besides the live delivery",
-                "I have clicked on Edit link besides the live delivery", true);
+                "I have clicked on Edit link besides the live delivery", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^the updated drop off address should be displayed on delivery details page$")
     public void the_updated_drop_off_address_should_be_displayed_on_delivery_details_page() throws Throwable {
+        try{
         String Expected_Change_DropOff = (String)cucumberContextManager.getScenarioContext("Change_Drop_Off");
         Expected_Change_DropOff = Expected_Change_DropOff.replace(",","");
         String Display_Change_DropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
         //testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
         testStepAssert.isTrue(Display_Change_DropOff.contains(Expected_Change_DropOff),"Correct address need to display","Correct address is display","Incorrect address is displayed");
         log(" I confirm the change drop off address on delivery details page",
-                "I have confirmed the change drop off address on delivery details page", true);
+                "I have confirmed the change drop off address on delivery details page", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I confirm the change pickup address on delivery details page$")
     public void i_confirm_the_change_pickup_address_on_delivery_details_page() throws Throwable {
+        try{
         String Expected_Change_Pickup = (String)cucumberContextManager.getScenarioContext("Change_Pickup");
         Expected_Change_Pickup = Expected_Change_Pickup.replace(",","");
         String Display_Change_Pickup = action.getText(admin_TripDetailsPage.Text_Pickup_Location());
         //testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
         testStepAssert.isTrue(Display_Change_Pickup.contains(Expected_Change_Pickup),"Correct address need to display","Correct address is display","Incorrect address is displayed");
         log(" I confirm the change drop off address on delivery details page",
-                "I have confirm the change drop off address on delivery details page", true);
+                "I have confirm the change drop off address on delivery details page", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I confirm Pickup note is updated$")
     public void i_confirm_pickup_note_is_updated() throws Throwable {
+        try{
         String Change_Pickup_Note = (String) cucumberContextManager.getScenarioContext("Change_Pickup_Note");
         String Display_Pickup_Note = action.getText(admin_EditScheduledBungiiPage.Text_Pickup_Note());
         testStepVerify.isEquals(Change_Pickup_Note,Display_Pickup_Note);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click on \"([^\"]*)\" radiobutton$")
     public void i_click_on_something_radiobutton(String radiobutton) throws Throwable {
-
+try{
         switch (radiobutton) {
             case "Cancel entire Bungii and notify driver(s)":
                 action.click(admin_ScheduledTripsPage.RadioButton_CancelBungii());
@@ -691,11 +840,16 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
         }
         log("I click "+ radiobutton,
-                "I have clicked on "+ radiobutton, true);
+                "I have clicked on "+ radiobutton, false);
+} catch(Exception e){
+    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+    error("Step should be successful", "Error performing step,Please check logs for more details",
+            true);
+}
     }
     @And("^I change delivery type from \"([^\"]*)\"")
     public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
-
+try{
         switch (radiobutton) {
             case "Solo to Duo":
                 action.click(admin_EditScheduledBungiiPage.RadioButton_Duo());
@@ -707,38 +861,62 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
         }
         log("I change delivery type from  "+ radiobutton,
-                "I changed delivery type from "+ radiobutton, true);
+                "I changed delivery type from "+ radiobutton, false);
+} catch(Exception e){
+    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+    error("Step should be successful", "Error performing step,Please check logs for more details",
+            true);
+}
     }
     @And("^I get the new pickup reference generated$")
     public void i_get_the_new_pickup_reference_generated() throws Throwable {
+        try{
         String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         pickupRequest =  getLinkedPickupRef(pickupRequest);
         cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
         log("I get the new pickup reference generated",
                 "Pickupref is "+pickupRequest, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I edit the drop off address$")
     public void i_edit_the_drop_off_address() throws Throwable {
+        try{
         testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
         action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
 
         log("I edit the drop off address ",
                 "I have edited the dropoff address ");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I edit the pickup address$")
     public void i_edit_the_pickup_address() throws Throwable {
+        try{
         testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Pickup_Location(),"Pickup location should display","Pickup location is display","Pickup location is not display");
         action.click(admin_ScheduledTripsPage.Button_Edit_Pickup_Address());
         log("I edit the pickup address.",
                 "I have edited the pickup address.");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
     @Then("^I change the drop off address to \"([^\"]*)\"$")
     public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
 
+        try{
         action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
         //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
         Thread.sleep(1000);
@@ -752,12 +930,17 @@ public class Admin_TripsSteps extends DriverBase {
 
         log("I change the dropoff address to "+arg1,
                 "I have changed the dropoff address to "+arg1);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I change the pickup address to \"([^\"]*)\"$")
     public void i_change_the_pickup_address_to_something(String arg1) throws Throwable {
 
+        try{
         action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location(),arg1);
         //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
         Thread.sleep(1000);
@@ -771,15 +954,26 @@ public class Admin_TripsSteps extends DriverBase {
 
         log("I change the pickup address to "+arg1,
                 "I have changed the pickup address to "+arg1);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I change the customer note to \"([^\"]*)\"$")
     public void i_change_the_customer_note(String arg1) throws Throwable {
+        try{
         cucumberContextManager.setScenarioContext("Change_Pickup_Note",arg1);
         action.clearSendKeys(admin_EditScheduledBungiiPage.Text_Additional_Note(),arg1);
 
         log("I change the customer note to"+arg1,
                 "I have changed the customer note to "+arg1);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I view the delivery details in admin portal$")
@@ -822,6 +1016,7 @@ public class Admin_TripsSteps extends DriverBase {
 
     @Then("^I check the price for delivery$")
     public void i_check_the_price_for_delivery() throws Throwable {
+        try{
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String xpath = String.format("//td[contains(.,'')]/following-sibling::td[contains(.,'%s')]/preceding::td[1]", customer);
         String trip_Price = action.getText(SetupManager.getDriver().findElement(By.xpath(xpath)));
@@ -832,26 +1027,42 @@ public class Admin_TripsSteps extends DriverBase {
 
         log("I check the price for delivery",
                 "I have checked the price for delivery");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^Delivery price is recalculated based on updated value of drop off address$")
     public void delivery_price_is_recalculated_based_on_updated_value_of_drop_off_address() throws Throwable {
+        try{
         String new_Price = action.getText(admin_EditScheduledBungiiPage.Text_Estimated_Price());
         new_Price = new_Price.replace("$","");
         new_Price = new_Price.replace(" ","");
         String old_Price = (String) cucumberContextManager.getScenarioContext("Price_Before");
         old_Price = old_Price.replace("$","");
         testStepVerify.isNotEquals(new_Price,old_Price);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I enter cancellation fee and Comments$")
     public void i_enter_cancellation_fee_and_comments() throws Throwable {
+        try{
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationFee(), "0");
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationComment(), "Cancelling");
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_CancellationReason(), "Other");
         log("I enter cancellation fee amount and comments",
-                "I have entered cancellation fee amount and comments", true);
+                "I have entered cancellation fee amount and comments", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     /* Moved to BusinessUsers
@@ -877,11 +1088,17 @@ public class Admin_TripsSteps extends DriverBase {
 
     @And("^I select the first driver$")
     public void i_select_the_first_driver() throws Throwable {
+        try{
         //String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         //action.click(admin_ScheduledTripsPage.Checkbox_driver(driver1));
         action.click(admin_ScheduledTripsPage.Checkbox_driver());
         log("I select the driver",
                 "I selected the driver", true);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     public String getGeofence(String geofence) {
@@ -1039,11 +1256,17 @@ public class Admin_TripsSteps extends DriverBase {
     @And("^I note the Pickupref of trip$")
     public void i_note_the_pickupref_of_trip() throws Throwable {
 
+        try{
         String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
         String pickupref= new DbUtility().getLatestPickupRefOfCustomer(customerRef);
         cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupref);
         log("I note the Pickupref of delivery",
                 "Pickupref is "+pickupref, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^Partner firm should not receive \"([^\"]*)\" email$")
@@ -1056,51 +1279,88 @@ public class Admin_TripsSteps extends DriverBase {
 
     @And("^I remove non control driver \"([^\"]*)\"$")
     public void i_remove_non_control_driver_something(String driver) throws Throwable {
+        try{
         action.click(admin_ScheduledTripsPage.Checkbox_NonControlDriver());
         action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
         log("I remove non control driver",
-                "I have removed non control driver", true);
+                "I have removed non control driver", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I remove control driver \"([^\"]*)\"$")
     public void i_remove_control_driver_something(String driver) throws Throwable {
+        try{
         action.click(admin_ScheduledTripsPage.Checkbox_ControlDriver());
         action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
         log("I remove control driver",
-                "I have removed control driver", true);
+                "I have removed control driver", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I remove non control driver \"([^\"]*)\" on edit popup$")
     public void i_remove_non_control_driver_somethingOnEdit(String driver) throws Throwable {
+        try{
         action.click(admin_ScheduledTripsPage.Checkbox_NonControlDriverEdit());
         action.click(admin_ScheduledTripsPage.Button_RemoveDriversEdit());
         log("I remove non control driver on edit popup",
-                "I have removed non control driver on edit popup", true);
+                "I have removed non control driver on edit popup", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I remove control driver \"([^\"]*)\" on edit popup$")
     public void i_remove_control_driver_somethingOnEdit(String driver) throws Throwable {
+        try{
         action.click(admin_ScheduledTripsPage.Checkbox_ControlDriverEdit());
         action.click(admin_ScheduledTripsPage.Button_RemoveDriversEdit());
         log("I remove control driver on edit popup",
-                "I have removed control driver on edit popup", true);
+                "I have removed control driver on edit popup", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @Then("^The driver should get removed successfully$")
     public void the_driver_should_get_removed_successfully() throws Throwable {
+        try{
         testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(), "Driver(s) removed successfully", "Pass", "Fail");
         action.click((admin_ScheduledTripsPage.Button_Close()));
         log("I click close button",
                 "I have clicked close button ", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I search by client name \"([^\"]*)\"$")
     public void i_search_by_client_name_something(String searchString) throws Throwable {
+        try{
         action.selectElementByText(admin_TripsPage.DropDown_SearchForPeriod(), "The Beginning of Time");
         action.sendKeys(admin_TripsPage.TextBox_Search(), searchString + Keys.ENTER);
         log("I search " + searchString + "Client Name",
-                "I have on searched " + searchString + " Client Name", true);
+                "I have on searched " + searchString + " Client Name", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^All the clients named \"([^\"]*)\" should be displayed on the delivery list grid$")
     public void all_the_clients_named_something_should_be_displayed_on_the_trip_list_grid(String searchString) throws Throwable {
+        try{
         Thread.sleep(10000);
         try {
             for (WebElement e : admin_TripsPage.Client_names()) {
@@ -1118,10 +1378,16 @@ public class Admin_TripsSteps extends DriverBase {
 
         log("I clear search box",
                 "I have cleared search box ", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I click on \"([^\"]*)\" icon on \"([^\"]*)\" Page$")
     public void i_click_on_something_icon_on_something_page(String icon, String page) throws Throwable {
+        try{
         action.selectElementByText(admin_TripsPage.DropDown_SearchForPeriod(), "The Beginning of Time");
         action.clear(admin_TripsPage.TextBox_Search());
         switch (page) {
@@ -1134,7 +1400,12 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
         }
         log("I click on " + icon + " on " + page + " page",
-                "I have clicked on " + icon + " on " + page + " page", true);
+                "I have clicked on " + icon + " on " + page + " page", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^All statuses except \"([^\"]*)\" are selected$")
@@ -1192,6 +1463,7 @@ public class Admin_TripsSteps extends DriverBase {
 
     @When("^I select filter \"([^\"]*)\" as \"([^\"]*)\"$")
     public void i_select_filter_something_as_something(String filter, String value) throws Throwable {
+        try{
         Thread.sleep(5000);
         switch (filter)
         {
@@ -1286,11 +1558,17 @@ public class Admin_TripsSteps extends DriverBase {
 
         }
         log("I select filter " +filter+" as " + value ,
-                "I have selected filter " +filter+" as " + value, true);
+                "I have selected filter " +filter+" as " + value, false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^the triplist grid shows the results by type \"([^\"]*)\"$")
     public void the_triplist_grid_shows_the_results_by_type_something(String filter) throws Throwable {
+        try{
         Thread.sleep(4000);
         if(SetupManager.getDriver().getPageSource().contains("No Deliveries found.")) {
             testStepAssert.isTrue(true, "No Deliveries found.", "No Deliveries found.");
@@ -1397,13 +1675,24 @@ public class Admin_TripsSteps extends DriverBase {
                     break;
             }
         }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
 
     }
     @And("^I refresh the page$")
     public void i_refresh_the_page() throws Throwable {
+        try{
        action.refreshPage();
         log("I refresh page",
                 "I have refreshed page ", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^Tick mark should be displayed beside driver and scheduled date$")
@@ -1415,7 +1704,7 @@ public class Admin_TripsSteps extends DriverBase {
 
     @Then("^\"([^\"]*)\" message should be displayed$")
     public void something_message_should_be_displayed(String message) throws Throwable {
-
+try{
         switch(message) {
 
             case "Your changes are good to be saved.":
@@ -1436,31 +1725,49 @@ public class Admin_TripsSteps extends DriverBase {
                 action.click(admin_EditScheduledBungiiPage.Button_Close());
                 break;
         }
+} catch(Exception e){
+    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+    error("Step should be successful", "Error performing step,Please check logs for more details",
+            true);
+}
 
     }
 
     @And("^I update the Scheduled date of the trip by 15 minutes$")
     public void i_update_the_scheduled_date_of_the_trip_by_15_minutes()  {
+        try{
         String value = admin_EditScheduledBungiiPage.TimePicker_Time().getAttribute("value");
         LocalTime time= LocalTime.parse(value, DateTimeFormatter.ofPattern("hh:mm a"));
         value = time.plusMinutes(15).format(DateTimeFormatter.ofPattern("hh:mm a")).toString();
         action.click(admin_EditScheduledBungiiPage.List_TimeFrame(value));
         log("I update the Scheduled date of the trip by 15 minutes",
                 "I have updated the Scheduled date of the trip by 15 minutes", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I remove driver \"([^\"]*)\" and add the new driver \"([^\"]*)\"$")
     public void i_remove_driver_something_and_add_the_new_driver_something(String driverRemove, String driverAdd)  {
+        try{
         action.click(admin_EditScheduledBungiiPage.Checkbox_Driver(driverRemove));
         action.click(admin_EditScheduledBungiiPage.Link_RemoveDriver());
         action.clearSendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch(),driverAdd);
         action.click(admin_EditScheduledBungiiPage.List_DriverSearchResult(driverAdd));
         log("I remove driver "+driverRemove+" and add the new driver "+driverAdd,
                 "I have removed driver "+driverRemove+" and add the new driver "+driverAdd, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click on \"([^\"]*)\" button on Edit Scheduled bungii popup$")
     public void i_click_on_something_button_on_edit_scheduled_bungii_popup(String button) throws InterruptedException {
+        try{
 
         switch (button) {
             case "Save":
@@ -1478,6 +1785,11 @@ public class Admin_TripsSteps extends DriverBase {
         }
         log("I click on "+button+" button on Edit Scheduled bungii popup",
                 "I have clicked on "+button+" button on Edit Scheduled bungii popup", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^Under Drivers: for both Driver 1 and 2 : \"([^\"]*)\" should be displayed$")
@@ -1550,6 +1862,7 @@ public class Admin_TripsSteps extends DriverBase {
 
     @And("^the cost of the delivery should be doubled$")
     public void the_cost_of_the_delivery_should_be_doubled() throws Throwable {
+        try{
         String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
         DecimalFormat df = new DecimalFormat("0.00");
         Double orgcost = 0.00;
@@ -1565,10 +1878,15 @@ public class Admin_TripsSteps extends DriverBase {
         Thread.sleep(1000);
         String actual = action.getText(action.getElementByXPath(costxpath)).replace("/ $","");
         testStepVerify.isEquals(actual, df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed instead "+ actual + " is displayed");
-
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^the cost of the delivery should be halved$")
     public void the_cost_of_the_delivery_should_be_halved() throws Throwable {
+        try{
         String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
         DecimalFormat df = new DecimalFormat("0.00");
         Double orgcost = 0.00;
@@ -1584,6 +1902,10 @@ public class Admin_TripsSteps extends DriverBase {
         Thread.sleep(1000);
         String actual = action.getText(action.getElementByXPath(costxpath)).replace("/ $","");
         testStepVerify.isEquals(actual, df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed instead "+ actual + " is displayed");
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 }

@@ -80,6 +80,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
     @And("^I search the delivery of Customer and view it$")
     public void i_search_the_delivery_of_customerAndView() throws Throwable {
+        try{
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         Thread.sleep(15000);
@@ -91,14 +92,25 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         //String status = "Payment Successful";
         action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]", customerName),PageBase.LocatorType.XPath));
         log("I search the delivery of Customer and view it","I searched the delivery of Customer and viewed it",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
     @And("^I search the delivery of Customer \"([^\"]*)\"$")
     public void i_search_the_delivery_of_customer_(String customer) throws Throwable {
+        try{
         Thread.sleep(10000);
         action.clearSendKeys(admin_TripsPage.TextBox_Search(),customer+Keys.ENTER);
         Thread.sleep(10000);
         log("I search the delivery of Customer","I searched the delivery of Customer "+ customer,false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I search the delivery of Customer$")
@@ -112,6 +124,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
     @When("^I click on \"([^\"]*)\" button on Accessorial Charges$")
     public void i_click_on_something_button_on_accessorial_charges(String button) throws Throwable {
+        try{
         switch(button.toUpperCase()) {
             case "SAVE":
             action.click(admin_accessorialChargesPage.Button_Save());
@@ -119,9 +132,15 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
         }
         log("I click on"+button+" button on Accessorial Charges","I clicked on"+button+" button on Accessorial Charges",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I should get following error for following accessorial charges fields values when saved$")
     public void i_should_get_following_error_for_following_accessorial_charges_fields_values_when_saved(DataTable data) throws Throwable {
+        try{
         List<Map<String, String>> DataList = data.asMaps();
         int i = 0;
         while (i < DataList.size()) {
@@ -166,24 +185,39 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
             }
         i++;
         }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^\"([^\"]*)\" should show total amount in the triprequest table in Database$")
     public void something_should_show_total_amount_in_the_triprequest_table_in_database(String strArg1) throws Throwable {
+        try{
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String expectedTotal = (String) cucumberContextManager.getScenarioContext("TOTAL_AMOUNT");
 
         String actualTotalAmount = dbUtility.getAccessorialCharge(pickuprequest);
         testStepAssert.isEquals("$"+actualTotalAmount,expectedTotal, "Total "+expectedTotal+" should be displayed", expectedTotal+" is displayed", expectedTotal+" is not displayed");
-
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^\"([^\"]*)\" should show comment without quotes in the trippaymentdetails table in Database$")
     public void something_should_show_comment_without_quotes_in_the_trippaymentdetails_table_in_database(String strArg1) throws Throwable {
+        try{
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String note = (String) cucumberContextManager.getScenarioContext("NOTE");
 
         String dbnote = dbUtility.getBusinessNotes(pickuprequest);
         testStepAssert.isEquals(dbnote,note, "Total "+note+" should be displayed", note+" is displayed", note+" is not displayed");
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 

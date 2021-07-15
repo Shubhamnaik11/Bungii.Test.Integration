@@ -37,14 +37,21 @@ public class Admin_PartnerSteps extends DriverBase {
 
     @When("^I search by partner Name \"([^\"]*)\"$")
     public void i_search_by_partner_name_something(String unique) throws Throwable {
+        try{
         String searchTerm= (String)cucumberContextManager.getScenarioContext("PARTNER");
         action.clearSendKeys(admin_partnerPortalPage.TextBox_Search(), searchTerm+Keys.ENTER);
         log("I search partner" ,
-                "I have searched partner "+ searchTerm, true);
+                "I have searched partner "+ searchTerm, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the partner \"([^\"]*)\" gets saved successfully and it is displayed in the Partners grid$")
     public void the_partner_something_gets_saved_successfully_and_it_is_displayed_in_the_partners_grid(String unique) throws Throwable {
+        try{
         String Partner =(String) cucumberContextManager.getScenarioContext("PARTNER");;
         String Phone = (String) cucumberContextManager.getScenarioContext("PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("EMAIL");
@@ -54,10 +61,16 @@ public class Admin_PartnerSteps extends DriverBase {
         String xpath = String.format("//tr/td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td[text()='%s']",Status, Email, Phone , Partner);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the partner \"([^\"]*)\" is displayed in the Partners grid$")
     public void the_partner_something_is_displayed_in_the_partners_grid(String unique) throws Throwable {
+        try{
         String Partner =(String) cucumberContextManager.getScenarioContext("PARTNER");;
         String Phone = (String) cucumberContextManager.getScenarioContext("PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("EMAIL");
@@ -66,17 +79,29 @@ public class Admin_PartnerSteps extends DriverBase {
         String xpath = String.format("//tr/td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td[text()='%s']",Status, Email, Phone , Partner);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @When("^I view the partner \"([^\"]*)\"$")
     public void i_view_the_partner_something(String unique) throws Throwable {
+        try{
        String xpath = (String) cucumberContextManager.getScenarioContext("XPath");
        Thread.sleep(5000);
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
         log("I view partner "+unique ,
-                "I have viewed partner", true);
+                "I have viewed partner", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @Then("^the saved data is getting displayed in the \"([^\"]*)\" page$")
     public void the_saved_data_is_getting_displayed_in_the_something_page(String strArg1) throws Throwable {
+        try{
        String partnerName= (String)    cucumberContextManager.getScenarioContext("PARTNER");
         String partnerType = (String)    cucumberContextManager.getScenarioContext("PARTNERTYPE");
         String phone= (String) cucumberContextManager.getScenarioContext("PHONE" );
@@ -107,7 +132,11 @@ public class Admin_PartnerSteps extends DriverBase {
         testStepAssert.isEquals(action.getAttributeValue(admin_partnerPortalPage.Value_PartnerStatus()),"2",Status +" should be displayed",Status +" is displayed", Status +" is not displayed");
         else
             testStepAssert.isEquals(action.getAttributeValue(admin_partnerPortalPage.Value_PartnerStatus()),"3",Status +" should be displayed",Status +" is displayed", Status +" is not displayed");
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I update following values in fields in \"([^\"]*)\" screen$")

@@ -100,16 +100,22 @@ public class Admin_PromoterSteps extends DriverBase {
 
     @When("^I search by promoter Name \"([^\"]*)\"$")
     public void i_search_by_promoter_name_something(String strArg1) throws Throwable {
+        try{
         String PromoterName =(String)cucumberContextManager.getScenarioContext("PROMOTER_NAME");;
         action.clearSendKeys(admin_PromoterPage.TextBox_Search(),PromoterName+Keys.ENTER);
         Thread.sleep(4000);
         log("I search by "+ PromoterName ,
-                "I search by "+ PromoterName, true);
-
+                "I search by "+ PromoterName, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the promoter \"([^\"]*)\" is displayed in the Promocodes grid$")
     public void the_promoter_something_is_displayed_in_the_promocodes_grid(String currentdatetime) throws Throwable {
+        try{
         String PromoterName =(String)cucumberContextManager.getScenarioContext("PROMOTER_NAME");;
         String CodeInitials = (String) cucumberContextManager.getScenarioContext("CODE_INITIALS");
         String Description = (String) cucumberContextManager.getScenarioContext("DESCRIPTION");
@@ -119,25 +125,35 @@ public class Admin_PromoterSteps extends DriverBase {
         String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/span[text()='%s']",PromoterName, CodeInitials, Description, Status);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 
 
     @When("^I view Details of promoter Name \"([^\"]*)\"$")
     public void i_view_details_of_promoter_name_something(String currentdatetime) throws Throwable {
-
+    try{
         Thread.sleep(4000);
         String xpath = (String) cucumberContextManager.getScenarioContext("XPath");
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)).findElement(By.xpath("parent::td/following-sibling::td/button[@id='btnEditPromotionDetails']")));
         log("I click on Details link" ,
-                "I have clicked on Details link", true);
+                "I have clicked on Details link", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
 
     }
 
     @Then("^the promoter \"([^\"]*)\" gets saved successfully and it is displayed in the Promoters grid$")
     public void the_promoter_something_gets_saved_successfully_and_it_is_displayed_in_the_promoters_grid(String currentdatetime) throws Throwable {
-
+   try{
         String PromoterName =(String)cucumberContextManager.getScenarioContext("PROMOTER_NAME");;
         String CodeInitials = (String) cucumberContextManager.getScenarioContext("CODE_INITIALS");
         String Description = (String) cucumberContextManager.getScenarioContext("DESCRIPTION");
@@ -147,11 +163,16 @@ public class Admin_PromoterSteps extends DriverBase {
         String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/span[text()='%s']",PromoterName, CodeInitials, Description, Status);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click on \"([^\"]*)\" button on the \"([^\"]*)\" page$")
     public void i_click_on_something_button_on_the_something_page(String button, String page) throws Throwable {
-
+try{
         switch (page)
         {
             case "Events":
@@ -164,7 +185,12 @@ public class Admin_PromoterSteps extends DriverBase {
                 break;
         }
         log("I click on "+ button ,
-                "I have clicked on " +button, true);
+                "I have clicked on " +button, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the \"([^\"]*)\" is displayed$")
