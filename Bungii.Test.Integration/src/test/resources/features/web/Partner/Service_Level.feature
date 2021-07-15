@@ -111,7 +111,7 @@ Feature: Service Level
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002  |
     And I click "Service Level List" button on Partner Portal
     Then I should "see all the Service Level" for "Biglots" Alias
-    And I change the service level to "Threshold"
+    And I change the service level to "Threshold" in "Partner" portal
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -152,7 +152,7 @@ Feature: Service Level
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002  |
     And I click "Service Level List" button on Partner Portal
     Then I should "see all the Service Level" for "Biglots" Alias
-    And I change the service level to "Threshold"
+    And I change the service level to "Threshold" in "Partner" portal
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -191,7 +191,7 @@ Feature: Service Level
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | <DeliveryAddress>           |
     And I click "Service Level List" button on Partner Portal
     Then I should "see all the Service Level" for "Biglots" Alias
-    And I change the service level to "<ServiceName>"
+    And I change the service level to "<ServiceName>" in "Partner" portal
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "service level" on partner screen
@@ -220,3 +220,44 @@ Feature: Service Level
       |Type|DeliveryAddress                                                                  |ServiceName   |Distance |
       |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
       |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
+
+    @gs
+  Scenario: Verify that admin can update service level for the Partner Portal delivery from Scheduled Deliveries page
+    When I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    When I request "Solo" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                   |
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002  |
+    And I click "Service Level List" button on Partner Portal
+    Then I should "see all the Service Level" for "Biglots" Alias
+    And I change the service level to "Threshold" in "Partner" portal
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    And I click "Continue" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    When I enter all details on "Delivery Details" for "service level" on partner screen
+      |Items_To_Deliver|Special_Instruction|Customer_Name                       |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
+      |Furniture       |Handle with care   |Testcustomertywd_appleNwAAA CustAAA |9998881111     |Test Pickup        |9823741002          |Test Dropcontact     |9998881112        |RN1           |
+    And I Select "Customer Card" as Payment Method
+    And I enter following Credit Card details on Partner Portal
+      |CardNo   |Expiry |Postal_Code      |Cvv      |
+      |VISA CARD2|12/23  |VALID POSTAL CODE|VALID CVV|
+    And I click "Schedule Bungii" button on Partner Portal
+    Then I should "see Done screen"
+    And I click "Track Deliveries" button on Partner Portal
+    Then I should "see the trip in the Delivery List"
+    And I select the Scheduled Bungii from Delivery List
+    Then I should "see the service name"
+    Then I close the Trip Delivery Details page
+    When I navigate to "Admin" portal configured for "QA" URL
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status    |
+      | Searching Drivers |
+    #And I select the partner portal scheduled trip on scheduled delivery
+    #Then I should "see correct Estimation Duration" for "Biglots" Alias
+    When I click on "Edit" link beside scheduled bungii
+    And I click on "Edit Trip Details" radiobutton
+    And I change the service level to "White Glove" in "Admin" portal
