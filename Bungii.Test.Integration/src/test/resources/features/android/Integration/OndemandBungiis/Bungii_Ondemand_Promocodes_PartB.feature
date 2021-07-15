@@ -5,7 +5,8 @@
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii Promocode Part B
   
-  @ready
+  @regression
+	#stable
   Scenario Outline: Verify Customer Can Create Ondemand Bungii With Promoter Type Promocode
 	
 	Given I Switch to "customer" application on "same" devices

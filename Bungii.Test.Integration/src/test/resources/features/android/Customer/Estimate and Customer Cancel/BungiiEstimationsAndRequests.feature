@@ -8,7 +8,7 @@
       #Driver    Testdriver_goa_e Android_test" driver
       #Geofence : Goa
   ##############################################################BLOCK SHARES USER WITH FAILED ONDEMAND FEATURE
-      @regression
+      @ready
       @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request, when viewed from Available Trips page
         When I Switch to "customer" application on "same" devices
@@ -44,7 +44,7 @@
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
   
-      @regression
+      @ready
       @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in the Bungii Details page for a Scheduled Bungii
         When I Switch to "customer" application on "same" devices
@@ -82,7 +82,7 @@
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
   
-      @regression
+      @ready
       @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress
         When I Switch to "customer" application on "same" devices
@@ -126,7 +126,7 @@
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
 		
-      @regression
+      @ready
       @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page
         When I Switch to "customer" application on "same" devices
@@ -163,7 +163,7 @@
           | 8888882028      |                 |
         
   
-      @regression
+      @ready
       @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request
         When I Switch to "customer" application on "same" devices

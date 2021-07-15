@@ -108,7 +108,7 @@ And I cancel all bungiis of customer
 | 9999991020      |                 |
 
 
-@regression
+@ready
   #stable
 Scenario: Admin God Mode: Verify if admin can assign one [non controlled] driver on duo trip when it has been re-searched
 When I request "duo" Bungii as a customer in "goa" geofence
@@ -180,7 +180,7 @@ And I cancel all bungiis of customer
 | Customer Phone  | Customer2 Phone |
 | 9999991020      |                 |
 
-@regression
+@ready
   #stable
 Scenario: Admin God Mode: Verify that if admin can remove and assign controlling driver on duo trip when non controlled driver has started the trip
 When I request "duo" Bungii as a customer in "goa" geofence

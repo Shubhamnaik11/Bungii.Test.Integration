@@ -81,7 +81,7 @@ Feature: SoloScheduled Part I
       | 8805368840     |                 |
   
   
-  @regression
+  @ready
     #stable
   Scenario: Verify Validation Message Is Shown If Driver Tries To Start Bungii More Than 60 Mins Before The Scheduled Time
     Given that solo schedule bungii is in progress
@@ -100,7 +100,7 @@ Feature: SoloScheduled Part I
       | CUSTOMER1_PHONE |                 |
   
   
-  @regression
+  @ready
     #stable
   Scenario: Verify Driver Doesnt Receive Scheduled Trip Request If His Home Is Over 30 Mins Away From Pickup Location
     When I clear all notification
@@ -144,7 +144,7 @@ Feature: SoloScheduled Part I
       | 8805368840 |                 |
   
   
-  @regression
+  @ready
     #Stable
   Scenario: Rate: Verify If Customer Can Rate both Drivers For The Duo Delivery
     When I request "duo" Bungii as a customer in "kansas" geofence

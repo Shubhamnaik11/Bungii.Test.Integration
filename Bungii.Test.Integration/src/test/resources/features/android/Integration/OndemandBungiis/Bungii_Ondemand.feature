@@ -164,7 +164,7 @@ Feature: On Demand Bungii
     Then Driver names and trip cost is displayed correctly
     
     
-  @regression
+  @ready
     #stable
   Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount and Poor driver rating email
     Given that ondemand bungii is in progress

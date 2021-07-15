@@ -71,7 +71,7 @@ Feature: On Demand Bungii Promocodes Part A
 	  | Promo percentage    | valid percent | valid baltimore |promo                   |
 	  | valid one off fixed | valid one off | valid baltimore |oneoff                  |
   
-  @regression
+  @ready
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With First Time Promocode
 	When I Switch to "driver" application on "same" devices
 	And I am logged in as "valid baltimore" driver

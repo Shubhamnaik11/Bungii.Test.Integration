@@ -95,7 +95,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
   
-	  @regression
+	  @ready
    #Stable
     Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip at same time
       
@@ -142,7 +142,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
   
-	  @regression
+	  @ready
    #Stable
     Scenario: Verify that TELET time of duo scheduled when trip is not started and non controlled driver is assigned to another scheduled trip at same time
 
@@ -190,7 +190,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
   
-	  @regression
+	  @ready
    #Stable
     Scenario: Verify that TELET time of duo scheduled when trip is not started and both driver is assigned to another scheduled trip at same time
      
@@ -236,7 +236,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
   
-	  @regression
+	  @ready
    #Stable
       Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip TELET overlap
        
@@ -282,7 +282,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9999990074      | 9999992222      |
   
-	  @regression
+	  @ready
    #Stable
       Scenario: Verify that TELET time of duo scheduled when trip is not started and non controlled driver is assigned to another scheduled trip at same time
   
@@ -328,7 +328,7 @@
           | 9999990074      | 9999992222      |
   
   
-	  @regression
+	  @ready
    #Stable
       Scenario: Verify that TELET time of duo scheduled when trip is not started and both driver is assigned to another scheduled trip at same time
         Given I Switch to "driver" application on "same" devices
@@ -374,7 +374,7 @@
           | 9999990074      | 9999992222      |
   
   
-	  @regression
+	  @ready
    #Stable
       Scenario: Verify that TELET is impacted of solo scheduled when trip is not started and driver is assigned to another scheduled trip at same time
         Given I Switch to "driver" application on "same" devices

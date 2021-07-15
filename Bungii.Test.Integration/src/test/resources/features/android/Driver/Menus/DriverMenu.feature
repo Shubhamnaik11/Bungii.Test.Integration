@@ -41,7 +41,7 @@ Feature: DriverMenu
     When I Select "LOGOUT" from ACCOUNT menu
     Then I should be able to see data on "LOGOUT" page
   
-  @regression
+  @ready
     #stable
   Scenario: Verify Driver Menus - FAQ
     When I Select "FAQ" from driver App menu
@@ -53,7 +53,7 @@ Feature: DriverMenu
     When I Select "LOGOUT" from ACCOUNT menu
     Then I should be able to see data on "LOGOUT" page
 
-  @regression
+  @ready
   #stable
   Scenario: Verify Driver Can Access Trip Histoy Page Upon Clicking Itemised Earnings Hyperlink
     When I Select "EARNINGS" from driver App menu

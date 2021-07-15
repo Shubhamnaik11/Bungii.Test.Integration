@@ -74,9 +74,8 @@ Feature: SoloScheduled Part B
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-#@regression
-  @ready
-    @r
+@regression
+#stable
   Scenario: Verify If Incoming Scheduled Trip Request Start Time (Trip A) Overlaps TELET Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or offline SMS
 
     Given that solo schedule bungii is in progress
@@ -118,7 +117,7 @@ Feature: SoloScheduled Part B
 
  
   @sanity
-  @regression
+  @ready
     #Stable
   Scenario: Verify Customer Can Create Scheduled Bungii And Driver Completes the flow
     Given I am logged in as "valid" customer

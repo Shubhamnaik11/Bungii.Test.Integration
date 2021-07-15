@@ -79,7 +79,7 @@ Feature: Delivery Flows
   
   
     
-  @regression
+  @ready
    #stable
   Scenario: TELET : Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Case:DUO
     #trip 1

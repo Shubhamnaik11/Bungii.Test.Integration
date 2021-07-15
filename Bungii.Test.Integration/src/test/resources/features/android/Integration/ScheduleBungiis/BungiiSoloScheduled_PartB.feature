@@ -7,7 +7,7 @@ Feature: SoloScheduled Part B
   
   Background:
   
-  @regression
+  @ready
   Scenario: Verify Trip limit (150 miles) For Delivery
     Given I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist

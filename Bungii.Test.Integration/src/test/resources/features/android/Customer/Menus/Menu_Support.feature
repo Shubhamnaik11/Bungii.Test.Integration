@@ -13,7 +13,7 @@ Feature: Menu_Support
     Then The user should see "Send button disabled" on Support page
     And The user should see "validation message" on Support page
   
-  @regression
+  @ready
   @nonstable
   Scenario: Verify Support Menu Snackbar Validation on text
     Then "Support" page should be opened

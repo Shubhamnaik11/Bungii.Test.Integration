@@ -111,7 +111,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
   
-      @regression
+      @ready
         #web
       Scenario: Verify that the list displays all completed Bungiis in descending order of date
       #Given I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -123,7 +123,7 @@
           | Bungii Completed   | Bungii Completed   |
         
   
-      @regression
+      @ready
      #stable
       Scenario: Verify that the driver can be assigned to a duo trip irrespective of driver home address
         Given I am on customer Log in page
@@ -265,10 +265,9 @@
 		
   
   
-      @regression
+      @ready
         #stable
     #web scenario
-        @k
       Scenario: DUO: Verify that if non control driver starts delivery and control driver is then removed by Admin and assigned with new driver then noncontroller driver becomes control driver
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -354,7 +353,7 @@
 		  | 9393939393      | 9999992222      |
   
   
-      @regression
+      @ready
       #stable
         #web
       Scenario: Verify that changing date and time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time [Admin can Override]

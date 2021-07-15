@@ -83,16 +83,14 @@ Feature: Customer Home screen
     Then for a Bungii I should see "Bungii search screen"
     And I tap on "Cancel during search" on Bungii estimate
   
-  @regression
-  @t
+  @ready
     @nonstable
   Scenario: Verify Long Haul Alert Is Shown When Distance Between Pickup And Dropoff Is greated than 150 Miles
     When I tap on "Menu" > "Home" link
     And I enter "Atlanta pickup and Indiana dropoff location" on Bungii estimate screen
     Then I get the error popup message for "More than 150 miles trip"
   
-  @regression
-  @t
+  @ready
   @nonstable
   Scenario: Verify that ETA bar appears when customer selects pickup and drop-off address
     When I Switch to "driver" application on "same" devices

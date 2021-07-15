@@ -143,7 +143,7 @@ Feature: PickupNote Feature
 	  | Customer Phone  | Customer2 Phone |
 	  | 9889889888      |                 |
   
-  @regression
+  @ready
         #stable
   Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Ondemand Solo Bungii push notification request
 	When I Switch to "driver" application on "same" devices

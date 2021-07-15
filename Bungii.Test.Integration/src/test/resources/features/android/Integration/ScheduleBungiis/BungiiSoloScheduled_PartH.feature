@@ -34,8 +34,7 @@ Feature: SoloScheduled Part H
       | CUSTOMER1_PHONE | 8888889916      |
     ########################################################################
   
-  @regression
-    @bd
+  @ready
   Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -66,7 +65,7 @@ Feature: SoloScheduled Part H
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
   
-  @regression
+  @ready
     @nonstable
   Scenario: Verify Non-Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :enroute
     Given that duo schedule bungii is in progress
@@ -97,7 +96,7 @@ Feature: SoloScheduled Part H
     When I click "OK" on alert message
     Then "Home" page should be opened
     
-  @regression
+  @ready
     #stable
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Solo Delivery
     Given that solo schedule bungii is in progress
@@ -130,7 +129,7 @@ Feature: SoloScheduled Part H
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
   
-  @regression
+  @ready
   Scenario: Verify Non-Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |

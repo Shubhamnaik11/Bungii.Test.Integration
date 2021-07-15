@@ -55,7 +55,7 @@ Feature: Bungii Details and Pickup Note
     And I verify the field "trip cost"
   
   
-  @regression
+  @ready
  #stable
   Scenario: Blank Customer Note : Verify that the Pickup note is not displayed as NULL or undefined when customer does not add a pickup note
     When I am on the LOG IN page on driver app
@@ -82,7 +82,7 @@ Feature: Bungii Details and Pickup Note
       | 9403960181      |                 |
   
   
-  @regression
+  @ready
     #Stable
   Scenario: Apostrophe in Customer note : Verify that Customer notes is diplayed in driver ondemand push notification
     Given I am on customer Log in page

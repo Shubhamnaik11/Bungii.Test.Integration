@@ -117,7 +117,7 @@ Feature: CustomerSignup
     Then I verify the trip count
   
   @email
-  @regression
+  @ready
     @nonstable
   Scenario: Verify Customer Signup With Valid Promo Code
     When I enter "unique" customer phone number on Signup Page

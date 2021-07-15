@@ -2,7 +2,7 @@
 Feature: Menu_Payment
 Scenarios on Payment Methods
 
-  @regression
+  @ready
 #stable
    Scenario: Verify Customer Can Change Default Payment Card Added To New One
     Given I am on customer Log in page

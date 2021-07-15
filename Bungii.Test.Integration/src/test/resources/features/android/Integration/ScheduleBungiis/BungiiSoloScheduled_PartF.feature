@@ -54,7 +54,7 @@ Feature: SoloScheduled Part F
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
     
-  @regression
+  @ready
     #stable
   Scenario: Snackbar : Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip - Solo
     Given that solo schedule bungii is in progress
