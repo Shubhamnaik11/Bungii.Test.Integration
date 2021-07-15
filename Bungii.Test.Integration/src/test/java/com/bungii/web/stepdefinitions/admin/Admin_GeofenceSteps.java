@@ -54,6 +54,7 @@ public class Admin_GeofenceSteps extends DriverBase {
     @When("^I click on the \"([^\"]*)\" Button on \"([^\"]*)\" Screen$")
     public void i_click_on_the_something_button_on_something_screen(String button, String screen) throws Throwable {
 
+        try{
         switch(screen) {
 
             case "Geofence":
@@ -90,26 +91,44 @@ public class Admin_GeofenceSteps extends DriverBase {
         }
         log("And I click on the "+button+" Button on "+screen ,
                 "I have clicked on the "+button+" Button on " +screen, true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
 
     @When("^I click on the geofence name \"([^\"]*)\"$")
     public void i_click_on_the_geofence_name_something(String geofenceName) throws Throwable {
+        try{
         String GeofenceName = (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
         String Xpath =String.format("//tr/td[contains(.,'%s')]",GeofenceName);
         action.click( SetupManager.getDriver().findElement(By.xpath(Xpath)));
         log("I click on the geofence name "+ geofenceName ,
                 "I have clicked on the geofence name "+ geofenceName, false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @When("^I edit the geofence \"([^\"]*)\"$")
     public void i_edit_the_geofence(String geofenceName) throws Throwable {
+        try{
         action.click(admin_GeofencePage.Button_Edit());
         log("I edit the geofence "+ geofenceName ,
                 "I have edited the geofence "+ geofenceName, false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
 
     @Then("^the geofence gets saved successfully and it is displayed in the \"([^\"]*)\" grid$")
     public void the_geofence_gets_saved_successfully_and_it_is_displayed_in_the_something_grid(String strArg1) throws Throwable {
+        try{
 
         String Name = (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
         String Timezone = (String) cucumberContextManager.getScenarioContext("GF_GEOTIMEZONE");
@@ -119,11 +138,16 @@ public class Admin_GeofenceSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("XPATH", Xpath);
         ;
         testStepAssert.isElementDisplayed(admin_GeofencePage.Row_geofenceList(Name,Status,Timezone),"Geofence should be listed in grid", "Geofence is listed in grid","Geofence is not listed in grid");
-
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
 
     @Then("^Geofence data is populated correctly$")
     public void geofence_data_is_populated_correctly() throws Throwable {
+        try{
         String Name = (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
         String Timezone = (String) cucumberContextManager.getScenarioContext("GF_GEOTIMEZONE");
         String Status = (String) cucumberContextManager.getScenarioContext("GF_STATUS");
@@ -137,7 +161,11 @@ public class Admin_GeofenceSteps extends DriverBase {
 
         testStepAssert.isElementDisplayed(admin_GeofencePage.Dropdown_Timezone().findElement(By.xpath(String.format("//option[@selected='selected' and text()='%s']",Timezone))),Timezone + " should be displayed",Timezone +" is displayed",Timezone + " is not displayed");
         testStepAssert.isElementDisplayed(admin_GeofencePage.Dropdown_Status().findElement(By.xpath(String.format("//option[@selected='selected' and text()='%s']",Status))),Status + " should be displayed",Status +" is displayed",Status + " is not displayed");
-
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @Then("^the following timezones are listed in the \"([^\"]*)\" dropdown$")
@@ -254,10 +282,18 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @And("^I click on \"([^\"]*)\" page$")
     public void i_click_on_something_page(String page) throws Throwable {
+        try{
         switch(page){
             case "Dashboard":
                 action.click(admin_DashboardPage.Menu_Dashboard().findElement(By.xpath("a")));
+                log("I click on "+page+" page" ,
+                        "I have clicked on "+page+" page", false);
                 break;
+        }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
         }
     }
 
@@ -290,6 +326,7 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @Then("^I should see active zone in the dropdown on the \"([^\"]*)\" page$")
     public void i_should_see_something_in_the_dropdown_on_the_something_page(String page) throws Throwable {
+        try{
         if(!page.equals("respective")) {
 
            String zone =  PropertyUtility.getDataProperties("active.geofence");
@@ -301,10 +338,16 @@ public class Admin_GeofenceSteps extends DriverBase {
                     "I have closed geofence dropdown", false);
 
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @And("^I should not see inactive zone in the dropdown on the \"([^\"]*)\" page$")
     public void i_should_not_see_something_in_the_dropdown_on_the_something_page(String page) throws Throwable {
+        try{
         if(!page.equals("respective")) {
 
             String zone =  PropertyUtility.getDataProperties("inactive.geofence");
@@ -323,6 +366,11 @@ public class Admin_GeofenceSteps extends DriverBase {
                    }
                }*/
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @When("^I go to \"([^\"]*)\" page$")
@@ -358,6 +406,7 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @When("^I \"([^\"]*)\" option \"([^\"]*)\" for Scheduled trip$")
     public void i_something_option_something_for_scheduled_trip(String action1, String trip_type) throws Throwable {
+        try{
         switch (trip_type){
             case "Duo":
             {
@@ -403,23 +452,40 @@ public class Admin_GeofenceSteps extends DriverBase {
             break;
         }
         log("I "+action1+" option "+trip_type+" for Scheduled trip" ,
-                "I have "+action1+" option "+trip_type+" for Scheduled trip", true);
+                "I have "+action1+" option "+trip_type+" for Scheduled trip", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
 
 
     @Then("^I can deselect \"([^\"]*)\" option for Scheduled trip$")
     public void i_can_deselect_something_option_for_scheduled_trip(String strArg1)  {
+        try{
         testStepAssert.isElementEnabled(admin_GeofencePage.Checkbox_Solo(),"Solo is enabled","Solo is enabled","Solo is disbled");
         action.click(admin_GeofencePage.Checkbox_Solo());
         log("I click option " + strArg1,
                 "I have clicked option "+ strArg1, false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @When("^I check \"([^\"]*)\" option$")
     public void i_check_something_option(String strArg1) throws Throwable {
+        try{
         action.click(admin_GeofencePage.Checkbox_Duo());
         log("I click option " + strArg1,
                 "I have clicked option "+ strArg1, false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @Then("^The \"([^\"]*)\" gets selected automatically$")
@@ -429,20 +495,32 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @When("^I click on the geofence \"([^\"]*)\"$")
     public void i_click_on_the_geofence_something(String GeofenceName) throws Throwable {
+        try{
         String Xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
         action.click( SetupManager.getDriver().findElement(By.xpath(Xpath)));
         log("I click on the geofence" ,
-                "I have clicked on the geofence", true);
+                "I have clicked on the geofence", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
 
     }
 
     @When("^I uncheck both on demand and Scheduled for a geofence$")
     public void i_uncheck_both_on_demand_and_scheduled_for_a_geofence() throws Throwable {
+        try{
         i_something_option_something_for_scheduled_trip("uncheck","Duo");
         i_something_option_something_for_scheduled_trip("uncheck","Solo");
         i_something_option_something_for_scheduled_trip("uncheck","Ondemand");
         log("I uncheck both on demand and Scheduled for a geofence" ,
-                "I have unchecked both on demand and Scheduled for a geofence", true);
+                "I have unchecked both on demand and Scheduled for a geofence", false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @Then("^The validation error message is displayed$")
@@ -538,6 +616,7 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @When("I load Geofence Attributes Page and Click on New Attributes button")
     public void i_load_geofence_attributes_page_and_click_on_new_attributes_button() throws Throwable {
+        try{
         Thread.sleep(2000);
         String loadGeoFenceAttributesUrl = PropertyUtility.getDataProperties("qa.attributes.url").concat("/GetSecuredGeofenceAttributes");
 
@@ -545,6 +624,11 @@ public class Admin_GeofenceSteps extends DriverBase {
         action.click(admin_geofenceAtrributesPage.Button_NewAttribute());
         log("I load Geofence Attributes Page and Click on New Attributes button",
                 "I have loaded Geofence Attributes Page and Clicked on New Attributes button", false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @Then("^the \"([^\"]*)\" message is displayed  in geofence popup")
@@ -559,11 +643,17 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @When("^I search by Name \"([^\"]*)\" in \"([^\"]*)\" page geofence$")
     public void iSearchByNameInPageGeofence(String arg0, String arg1) throws Throwable {
+        try{
         Thread.sleep(2000);
         String Name = (String) cucumberContextManager.getScenarioContext("GF_ATTR_LABEL");
         action.clearSendKeys(admin_geofenceAtrributesPage.TextBox_SearchCriteria(),Name + Keys.ENTER);
         log("I search by name in Geo fence New attributes page",
-                "I searched by name in Geo fence New attributes page", true);
+                "I searched by name in Geo fence New attributes page", false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
 //    @When("^I search by Name \"([^\"]*)\" in \"([^\"]*)\" page geofence$")
@@ -577,7 +667,7 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @Then("The geofence Attributes gets saved successfully and it is displayed in the grid")
     public void the_geofence_attributes_gets_saved_successfully_and_it_is_displayed_in_the_grid() throws Throwable {
-
+try{
         String Key = (String) cucumberContextManager.getScenarioContext("GF_ATTR_KEY");
         String DefaultValue = (String) cucumberContextManager.getScenarioContext("GF_ATTR_DEFAULT_VALUE");
         String Description = (String) cucumberContextManager.getScenarioContext("GF_ATTR_DESCRIPTION");
@@ -633,17 +723,29 @@ public class Admin_GeofenceSteps extends DriverBase {
         String Xpath =String.format("//tr/td[contains(.,'%s')]",DefaultValue);
         cucumberContextManager.setScenarioContext("G_XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Geofence attributes should be listed in grid", "Geofence attributes is listed in grid","Geofence attributes is not listed in grid");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @And("I check the Searched result is displayed correctly")
     public void i_check_the_searched_result_is_displayed_correctly() throws Throwable {
+        try{
         Thread.sleep(2000);
         String xpath = (String)cucumberContextManager.getScenarioContext("G_XPATH");
         testStepAssert.isElementDisplayed(action.getElementByXPath(xpath),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
-    }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+        }
 
     @And("I set \"([^\"]*)\" % Bungii Cut Per Delivery for the geofence")
     public void i_set_some_bungii_cut_per_delivery_for_the_geofence(String BungiiRateData){
+        try{
         switch(BungiiRateData){
             case "Valid":
                 int BungiiRate = Integer.parseInt(PropertyUtility.getDataProperties("valid.bungii.rate"));
@@ -664,22 +766,34 @@ public class Admin_GeofenceSteps extends DriverBase {
         }
         log("I set "+BungiiRateData+" % Bungii Cut Per Delivery for the geofence",
                 "I have set "+BungiiRateData+" % Bungii Cut Per Delivery for the geofence", false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
 
     }
 
     @Then("I check that correct Driver cut calculated based on Bungii Cut Per Delivery")
     public void I_check_that_correct_Driver_cut_calculated_based_on_Bungii_Cut_Per_Delivery(){
+        try{
         int bungii_cut = Integer.parseInt((String)cucumberContextManager.getScenarioContext("Bungii_cut"));
         int driver_cut = 100-bungii_cut;
         String dc = Integer.toString(driver_cut);
 
         String driver_rate = action.getElementByXPath("//input[@id='attributeValueDiverCutPerDelivery']").getAttribute("value");
         testStepVerify.isEquals(dc,driver_rate,"Correct Driver cut is calculated","Incorrect Driver cut");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
 
     }
 
     @Then("I see \"([^\"]*)\" validation error message.")
     public void I_see_some_validation_error_message(String ErrorMessage){
+        try{
         switch(ErrorMessage){
             case "Above 100 Bungii rate":
                 testStepVerify.isElementTextEquals(admin_GeofencePage.TextError_BunggiCut(),"Please enter a value less than or equal to 100.");
@@ -692,15 +806,26 @@ public class Admin_GeofenceSteps extends DriverBase {
                 testStepVerify.isElementTextEquals(admin_GeofencePage.TextError_BunggiCut(),"Please enter a value greater than or equal to 0.");
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
 
     }
 
     @And("^I uncheck the Active Geofences Only Checkbox$")
     public void I_uncheck_the_active_geofences_only_checkbox(){
+        try{
         action.click(admin_GeofencePage.Checkbox_Active_Geofences());
         log("I uncheck the Active Geofences Only Checkbox",
                 "I have uncheck the Active Geofences Only Checkbox", false);
         //Thread.sleep(2000);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
 
 }
