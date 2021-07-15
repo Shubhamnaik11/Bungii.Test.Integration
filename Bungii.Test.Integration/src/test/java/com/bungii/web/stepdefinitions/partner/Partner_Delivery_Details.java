@@ -236,13 +236,20 @@ public class Partner_Delivery_Details extends DriverBase {
 
     @And("^I enter the value \"([^\"]*)\" in Scheduled by field$")
     public void i_enter_the_some_value_in_scheduled_by_field(String scheduled_by) {
+        try{
         action.click(Page_Partner_Delivery.TextBox_Scheduled_By());
         action.clearSendKeys(Page_Partner_Delivery.TextBox_Scheduled_By(), scheduled_by);
-        log("I should able to enter " + scheduled_by + " in Scheduled by field", "I entered " + scheduled_by + " in Scheduled by field.", true);
+        log("I should able to enter " + scheduled_by + " in Scheduled by field", "I entered " + scheduled_by + " in Scheduled by field.", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I confirm details show in summary$")
     public void i_confirm_details_shown_in_summary() {
+        try{
         String Bungii_type = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
         if (Bungii_type.equalsIgnoreCase("Solo")) {
             testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Driver_Truck(), "Solo - 1 driver 1 truck");
@@ -259,7 +266,12 @@ public class Partner_Delivery_Details extends DriverBase {
         String EstimatedCost = (String) cucumberContextManager.getScenarioContext("Estimated_Cost");
         testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Estiated_Cost(), EstimatedCost);
 
-        log("I should able to confirm details shown in summary.", "I am able to confirmed details shown in summary.", true);
+        log("I should able to confirm details shown in summary.", "I am able to confirmed details shown in summary.", false);
+    } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should \"([^\"]*)\" on Delivery Details screen$")

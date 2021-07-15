@@ -48,7 +48,7 @@ public class Partner_LoginSteps extends DriverBase {
 
     @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
     public void i_navigate_to_something(String page, String url) throws Throwable {
-        switch (page)
+      try{  switch (page)
         {
             case "Partner":
                 String partnerUrl =  utility.NavigateToPartnerLogin(url);
@@ -63,13 +63,18 @@ public class Partner_LoginSteps extends DriverBase {
                 break;
             default:break;
         }
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
     @When("^I enter \"([^\"]*)\" password on Partner Portal$")
     public void WhenIEnterPasswordOnPartnerPortal(String str)
     {
+        try{
         SetupManager.getObject().manage().window().maximize();
         switch (str)
         {
@@ -81,22 +86,37 @@ public class Partner_LoginSteps extends DriverBase {
                 break;
             default: break;
         }
-        log("I should able to enter "+str+" driver Password on Partner portal","I entered "+str +" partner Password on Partner portal", true);
-
+        log("I should able to enter "+str+" driver Password on Partner portal","I entered "+str +" partner Password on Partner portal", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I click on close button on service level$")
     public void i_click_on_close_button_on_service_level(){
+        try{
         action.click(Page_Partner_Dashboard.Button_close());
-        log("I should able to click on close button on service level.","Service level should get close on clicked on close button." , true);
+        log("I should able to click on close button on service level.","Service level should get close on clicked on close button." , false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I change the service level to \"([^\"]*)\"$")
     public void i_change_the_service_level(String Service_Name) throws InterruptedException {
+        try{
         action.click(Page_Partner_Dashboard.Dropdown_ServiceLevel(Service_Name));
         cucumberContextManager.setScenarioContext("Selected_service",Service_Name);
-        log("I should able to change the service level to "+Service_Name,"Service name should get changed to "+Service_Name , true);
-
+        log("I should able to change the service level to "+Service_Name,"Service name should get changed to "+Service_Name , false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click \"([^\"]*)\" button on Partner Portal$")
@@ -389,13 +409,19 @@ public class Partner_LoginSteps extends DriverBase {
 
     @And("^I should logout from Partner Portal$")
     public void i_should_logout_from_partner_portal() throws Throwable {
+        try{
         action.click(Page_Partner_Done.Dropdown_Setting());
         //Thread.sleep(5000);
         utility.PartnerLogout();
 
         testStepAssert.isElementDisplayed(action.getElementByXPath("//button[@id='login']"), "SIGN IN button should be displayed on partner portal", "SIGN IN button is displayed on partner portal", "SIGN IN button is not displayed on partner portal");
         //action.getElementByXPath(Page_Partner_Login.Button_Sign_In())
-        log("I should be logged out from Partner Portal ","I clicked ", true);
+        log("I should be logged out from Partner Portal ","I clicked ", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should be navigated to Login screen$")
@@ -432,19 +458,30 @@ public class Partner_LoginSteps extends DriverBase {
     @And("^I click on Filter and select check/unchecked all checkbox$")
     public void i_click_on_filter() throws Throwable {
         //throw new PendingException();
+        try{
         action.click(Page_Partner_Done.Dropdown_Filter());
         action.click(Page_Partner_Done.Checkbox_Check_UnCheck_All());
         log("I click on Filter and select check/unchecked all checkbox","I have clicked on Filter and select check/unchecked all checkbox", false);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
     @And("^I click on Apply button on Filter$")
     public void i_click_on_apply_button_on_filter() throws Throwable {
+        try{
         //throw new PendingException();
         action.click(Page_Partner_Done.Button_Apply());
 
         log("I click on Apply button on Filter","I have clicked on Apply button on Filter", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should not able to see Filter screen$")

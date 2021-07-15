@@ -47,7 +47,7 @@ public class Partner_IntegrationSteps extends DriverBase {
 
     @When("^I request \"([^\"]*)\" Bungii trip in partner portal configured for \"([^\"]*)\" in \"([^\"]*)\" geofence$")
     public void i_request_something_bungii_trip_in_partner_portal_for_some_geofence(String Type,String Site,String geofence, DataTable data) throws InterruptedException{
-
+try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String Pickup_Address;
         String Delivery_Address;
@@ -378,6 +378,11 @@ public class Partner_IntegrationSteps extends DriverBase {
             log("I request "+Type+" Bungii trip in partner portal configured for "+Site+" in "+geofence+" geofence", "I have requested "+Type+" Bungii trip in partner portal configured for "+Site+" in "+geofence+" geofence", false);
 
         }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I navigate to \"([^\"]*)\" page$")

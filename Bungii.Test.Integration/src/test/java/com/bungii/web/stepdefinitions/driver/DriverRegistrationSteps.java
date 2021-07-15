@@ -42,6 +42,7 @@ public class DriverRegistrationSteps extends DriverBase {
 
     @Given("^I navigate to \"([^\"]*)\"$")
     public void i_navigate_to_something(String page) throws Throwable {
+        try{
         switch (page)
         {
             case "Bungii Driver URL":
@@ -52,27 +53,44 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
         }
         pass("I should be navigate to " + page,
-                "I am navigate to " + page, true);
+                "I am navigate to " + page, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Given("^I am logged in as driver$")
     public void GivenIAmLoggedInAsDriver() {
        //  utility.DriverLogin("9999999113", "Cci12345");
-
+try{
         utility.DriverLogin(PropertyUtility.getDataProperties("DriverPhoneNumber"), PropertyUtility.getDataProperties("DriverPassword"));
         pass("I am logged in as driver",
-                "I was logged in as driver using " + PropertyUtility.getDataProperties("DriverPhoneNumber") + " phone number", true);
+                "I was logged in as driver using " + PropertyUtility.getDataProperties("DriverPhoneNumber") + " phone number", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the driver logout from dashboard$")
     public void the_driver_logout_from_dashboard() throws Throwable {
+        try{
         utility.DriverLogout();
-        log("I should be logged out from dashboard ","I clicked ", true);
+        log("I should be logged out from dashboard ","I clicked ", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I enter \"([^\"]*)\" details on Signup page$")
     public void i_enter_something_details_on_signup_page(String strArg1) throws Throwable {
-        switch (strArg1) {
+        try{
+            switch (strArg1) {
             case "valid":
                 action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName"));
                 String Lastname = utility.GetUniqueLastName();
@@ -102,12 +120,17 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
         }
         log("I should able to enter "+ strArg1+" on signup pages","I entered  "+strArg1 +" on sign up page", true);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I click \"([^\"]*)\" on driver portal$")
     public void i_click_something_on_driver_portal(String p0) throws Throwable {
-        switch (p0) {
+      try{
+          switch (p0) {
             case "LOG IN link":
                 action.click(Page_Driver_Login.Tab_LogIn());
                 break;
@@ -166,12 +189,17 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
         }
         log("I able to click "+p0+" on driver portal","I clicked  "+p0 +" on driver page", true);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should be directed to \"([^\"]*)\" on Driver portal$")
     public void i_should_be_directed_to_something_on_driver_portal(String strArg1) throws Throwable {
-        switch (strArg1) {
+       try{
+           switch (strArg1) {
             case "signup tab":
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.Header_DriverRegistration()), PropertyUtility.getMessage("DriverRegistrationHeader"), PropertyUtility.getMessage("DriverRegistrationHeader")+ " should be displayed",PropertyUtility.getMessage("DriverRegistrationHeader")+ " is displayed",PropertyUtility.getMessage("DriverRegistrationHeader")+ " is not displayed");
                 break;
@@ -228,11 +256,17 @@ public class DriverRegistrationSteps extends DriverBase {
             default:
                 break;
         }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should see \"([^\"]*)\" on Driver Registration$")
     public void i_should_see_something_on_driver_registration(String p0) throws Throwable {
-        switch (p0) {
+        try{
+            switch (p0) {
             case "new verification code":
                 String VerifCode_Initial = (String) cucumberContextManager.getScenarioContext("VerifCode_Initial");
                 String DriverPhone = (String) cucumberContextManager.getScenarioContext("DriverPhone");
@@ -274,12 +308,17 @@ public class DriverRegistrationSteps extends DriverBase {
             default:
                 break;
         }
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I enter \"([^\"]*)\" verification code$")
     public void i_enter_something_verification_code(String strArg1) throws Throwable {
-        switch (strArg1) {
+       try{
+           switch (strArg1) {
             case "correct":
                 String DriverPhone = (String) cucumberContextManager.getScenarioContext("DriverPhone");
                 String VerificationCode = DbUtility.getVerificationCode(DriverPhone);
@@ -295,20 +334,30 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
         }
         log("I should able to enter "+strArg1+" verification code","I entered "+strArg1, true);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I enter driver Phone number as \"([^\"]*)\" and valid password$")
     public void i_enter_driver_phone_number_as_something_and_valid_password(String phone) throws Throwable {
-        Thread.sleep(3000);
+        try{
+            Thread.sleep(3000);
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), phone);
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("web.valid.common.driver.password"));
       //  action.click(Page_Driver_Login.Button_DriverLogin());
         log("I enter driver Phone number as "+phone+" and valid password","I have entered driver Phone number as "+phone+" and valid password", false);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I enter \"([^\"]*)\" driver phone number on Signup page$")
     public void i_enter_something_driver_phone_number_on_signup_page(String p0) throws Throwable {
-        switch (p0) {
+       try{
+           switch (p0) {
             case "unique":
                 String DriverPhone = utility.generateMobileNumber();
                 cucumberContextManager.setScenarioContext("DriverPhone", DriverPhone);
@@ -324,12 +373,17 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
         }
         log("I should able to enter "+p0+" driver phone number on Signup page","I entered "+p0 +" driver phone number on signup page", true);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I should receive \"([^\"]*)\" email$")
     public void i_should_receive_something_email(String emailSubject) throws Throwable {
 
+        try{
        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
         if (emailBody == null) {
             testStepAssert.isFail("Email : " + emailSubject + " not received");
@@ -363,12 +417,17 @@ public class DriverRegistrationSteps extends DriverBase {
         logger.detail("Email Body (Expected) : "+ message);
 
        testStepAssert.isEquals(emailBody, message,"Email (Expected): "+message+" content should match", "Email (Actual): "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^Admin should receive \"([^\"]*)\" email$")
     public void admin_should_receive_something_email(String emailSubject) throws Throwable {
-        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+        try{
+            String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
         if (emailBody == null) {
             testStepAssert.isFail("Email : " + emailSubject + " not received");
         }
@@ -391,7 +450,11 @@ public class DriverRegistrationSteps extends DriverBase {
         logger.detail("Email Body (Expected) : "+ message);
         testStepAssert.isEquals(emailBody, message,"Email (Expected): "+message+" content should match", "Email (Actual): "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
 
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 

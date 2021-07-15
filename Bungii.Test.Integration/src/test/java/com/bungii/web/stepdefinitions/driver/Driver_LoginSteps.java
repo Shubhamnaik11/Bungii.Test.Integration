@@ -36,6 +36,7 @@ public class Driver_LoginSteps extends DriverBase {
     @When("^I enter \"([^\"]*)\" driver Phone Number on Driver portal$")
     public void WhenIEnterDriverPhoneNumberOnDriverPortal(String p0)
     {
+        try{
         switch (p0)
         {
             case "valid":
@@ -47,11 +48,17 @@ public class Driver_LoginSteps extends DriverBase {
             default: break;
         }
         log("I should able to enter "+p0+" driver phone number on Driver portal","I entered "+p0 +" driver phone number on Driver portal", true);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I enter \"([^\"]*)\" driver Password on Driver portal$")
     public void WhenIEnterDriverPasswordOnDriverPortal(String p0)
     {
+        try{
         switch (p0)
         {
             case "valid":
@@ -63,13 +70,17 @@ public class Driver_LoginSteps extends DriverBase {
             default: break;
         }
         log("I should able to enter "+p0+" driver Password on Driver portal","I entered "+p0 +" driver Password on Driver portal", true);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the driver should \"([^\"]*)\"$")
     public void ThenTheDriverShould(String p0)
     {
-
+try{
             switch (p0) {
                 case "be logged in":
                     try {
@@ -94,7 +105,11 @@ public class Driver_LoginSteps extends DriverBase {
                 default:
                     break;
             }
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
@@ -117,13 +132,18 @@ public class Driver_LoginSteps extends DriverBase {
 
     @Given("^I Login as a driver with below phone numbers and Make them online$")
     public void i_login_as_a_driver_with_below_phone_numbers_and_make_them_online(DataTable data) throws Throwable {
-        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+       try{
+           Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String phoneNumber = dataMap.get("PhoneNumber").trim();
 
         String driverAccessToken = authServices.getDriverToken("1", phoneNumber, "cci12345");
       //  coreServices.updateDriverLocation(driverAccessToken, geofence);
         coreServices.updateDriverStatus(driverAccessToken);
         log("I Login as a driver with phone number "+phoneNumber+" and Make him online","I haved Logged in as a driver with phone number "+phoneNumber+" and Make him online", false);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 }

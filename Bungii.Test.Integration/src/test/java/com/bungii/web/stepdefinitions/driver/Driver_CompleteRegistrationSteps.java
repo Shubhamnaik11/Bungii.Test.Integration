@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.driver;
 
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.driver.Driver_BankDetailsPage;
@@ -10,8 +11,10 @@ import com.bungii.web.pages.driver.Driver_DocumentationPage;
 import com.bungii.web.pages.driver.Driver_PickUpInfoPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Driver_CompleteRegistrationSteps extends DriverBase {
@@ -21,9 +24,11 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
     Driver_BankDetailsPage Page_Driver_Bank = new Driver_BankDetailsPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    private static LogUtility logger = new LogUtility(Driver_CompleteRegistrationSteps.class);
 
     @When("^I enter \"([^\"]*)\" data on Pickup Information page$")
     public void i_enter_something_data_on_pickup_information_page(String strArg1) throws Throwable {
+        try{
         switch (strArg1) {
             case "valid":
                 action.clearSendKeys(Page_Driver_PickupInfo.TextBox_PickupMake(), PropertyUtility.getDataProperties("PickupMake"));
@@ -69,7 +74,12 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
             default:
                 break;
         }
-        log("I enter "+strArg1+" data on Pickup Information page","I have entered "+strArg1 +" data on Pickup Information page", true);
+        log("I enter "+strArg1+" data on Pickup Information page","I have entered "+strArg1 +" data on Pickup Information page", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     public String[] getTruckImages() {
@@ -82,7 +92,8 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
 
     @When("^I enter \"([^\"]*)\" data on Documentation page$")
     public void i_enter_something_data_on_documentation_page(String p0) throws Throwable {
-        switch (p0) {
+       try{
+           switch (p0) {
             case "valid":
                 String licenseImagePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),
                         PropertyUtility.getImageLocations("LICENSE_IMAGE"));
@@ -120,12 +131,17 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 break;
         }
         log("I enter "+p0+"  data on Documentation page","I entered "+p0 +"  data on Documentation page", true);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I enter \"([^\"]*)\" data on Bank Details page$")
     public void i_enter_something_data_on_bank_details_page(String strArg1) throws Throwable {
-        switch (strArg1) {
+       try{
+           switch (strArg1) {
             case "valid":
                 action.clearSendKeys(Page_Driver_Bank.TextBox_RoutingNumber(), PropertyUtility.getDataProperties("DriverRoutingNumber"));
                 action.clearSendKeys(Page_Driver_Bank.TextBox_BankAccNumber(), PropertyUtility.getDataProperties("DriverBankAccNumber"));
@@ -141,6 +157,10 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 break;
         }
         log("I enter "+strArg1+" data on Bank Details page","I entered "+strArg1 +" data on Bank Details page", true);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 }
