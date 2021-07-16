@@ -75,6 +75,7 @@ public class AuthServices extends DriverBase {
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("auth",BUSINESSPARTNER_LOGIN);
         String Partner_Location_Reference = "";
+        cucumberContextManager.setScenarioContext("Partner_Portal_Name",Partner_Portal);
 
         if(Partner_Portal.equalsIgnoreCase("MRFM")){
             Partner_Location_Reference = PropertyUtility.getDataProperties("partner.location.reference.MRFM");

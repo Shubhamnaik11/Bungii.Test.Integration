@@ -254,6 +254,7 @@ public class EstimatePage extends PageBase {
     public WebElement CheckBoxOff_Terms() {
         return findElement("check box off", LocatorType.AccessibilityId);
     }
+    public WebElement Text_Checkbox_Terms() { return findElement("//XCUIElementTypeStaticText[@value='I understand and accept these terms.']",LocatorType.XPath);}
     public WebElement CheckBoxOn_Terms() {
         return findElement("check box on", LocatorType.AccessibilityId);
     }
@@ -292,4 +293,8 @@ public class EstimatePage extends PageBase {
     public WebElement LargeImagePhotosFolder() {
         return findElement("ALARGEIMAGE", LocatorType.AccessibilityId);
     }
+
+    public WebElement Text_Solo_Disclaimer() { return findElement("//XCUIElementTypeStaticText[@value='I’m requesting 1 driver & 1 pickup truck.']",LocatorType.XPath);}
+    public WebElement Text_Duo_Disclaimer() { return findElement("//XCUIElementTypeStaticText[@value='I’m requesting 2 drivers & 2 pickup trucks.']",LocatorType.XPath);}
+
 }

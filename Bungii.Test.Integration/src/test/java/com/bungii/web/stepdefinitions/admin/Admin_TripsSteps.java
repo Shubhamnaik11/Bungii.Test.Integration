@@ -24,6 +24,9 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import sun.rmi.runtime.NewThreadAction;
+
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -256,7 +259,7 @@ public class Admin_TripsSteps extends DriverBase {
         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
         String geofenceName = getGeofence(geofence);
         //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
@@ -340,7 +343,7 @@ public class Admin_TripsSteps extends DriverBase {
             String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
             String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
             String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
             String geofenceName = getGeofence(geofence);
             //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
@@ -443,7 +446,7 @@ public class Admin_TripsSteps extends DriverBase {
             String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
             String tripType[] = tripTypeAndCategory.split(" ");
             String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
             String geofenceName = getGeofence(geofence);
             //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
@@ -705,7 +708,7 @@ try{
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String status = (String) cucumberContextManager.getScenarioContext("STATUS");
         String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-        String timezone = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String timezone = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String Bunggi_Type = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
 
         if(!scheduled_time.equalsIgnoreCase("NOW")) {
@@ -1163,7 +1166,7 @@ try{
                 int remainder = (min % 15);
                 int minutes = (15 - remainder);
                 calendar.add(Calendar.MINUTE, minutes);
-                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
+                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"))));
                 Date date1 = calendar.getTime();
 
                 TimeZone zone = TimeZone.getTimeZone("America/New_York");
@@ -1184,7 +1187,7 @@ try{
                // pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date1).toString();
 
             } else {
-                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
+                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"))));
                 Date date = new SimpleDateFormat("MMM dd, hh:mm a z").parse(pickupdate);
                 int year = Calendar.getInstance().get(Calendar.YEAR);
                 date.setYear(date.getYear()+(year-date.getYear()));
@@ -1227,6 +1230,92 @@ try{
         logger.detail("Email Body (Expected): "+message);
           testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
 
+    }
+
+    @Then("^Admin should receive the \"([^\"]*)\" email$")
+    public void admin_should_receive_the_something_email(String emailSubject) throws Throwable {
+
+        try{
+        String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
+        emailBody=emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
+        logger.detail("Email Body (Actual): "+ emailBody);
+        //String supportNumber = PropertyUtility.getDataProperties("support.phone.number");
+        //String firmName = PropertyUtility.getDataProperties("washington.Partner.Firm.Name");
+
+        String name = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME");
+        String customerName = null;
+        String customerPhone = null;
+        String customerEmail = null;
+        boolean hasDST=false;
+
+         String Partner_Name = "";
+        String PPSite = (String) cucumberContextManager.getScenarioContext("SiteUrl");
+        if(PPSite.equalsIgnoreCase("Normal")){
+            Partner_Name ="MRFM, San Francisco CA";
+        }
+
+         String Scheduled_Date = (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
+        String Scheduled_Date_Split[] = Scheduled_Date.split("at ");
+        String Str1 = Scheduled_Date_Split[0];
+        String Str2 = Scheduled_Date_Split[1];
+         //Scheduled_Date =Scheduled_Date.replaceAll("at ","");
+        // SimpleDateFormat sdfd = new SimpleDateFormat("MMM dd, YYYY HH:mm aa z",Locale.ENGLISH);
+        SimpleDateFormat sdfd = new SimpleDateFormat("HH:mm aa z",Locale.ENGLISH);
+         sdfd.setTimeZone(TimeZone.getTimeZone("UTC"));
+         SimpleDateFormat edfd = new SimpleDateFormat("HH:mm aa");
+         String geofenceLabel =utility.getTimeZoneBasedOnGeofence();
+         edfd.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+         Date date = sdfd.parse(Str2);
+         Calendar cal = Calendar.getInstance();
+         cal.setTime(date);
+         //cal.add(Calendar.MINUTE, 15);
+         String New_Scheduled_Date = edfd.format(cal.getTime());
+         String FSD = Str1.concat(New_Scheduled_Date);
+        StringBuffer str = new StringBuffer(FSD);
+        str.insert(13,"at ");
+         New_Scheduled_Date = str.toString();
+
+         String Pickup_Address = (String) cucumberContextManager.getScenarioContext("EmailPickupAddress");
+         String Dropup_Address = (String) cucumberContextManager.getScenarioContext("EmailDeliveryAddress");
+         String Customer_Name = (String) cucumberContextManager.getScenarioContext("Customer_Name");
+         String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
+         String Driver_Name = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+         String Driver_Phone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+         String Driver_Licence_Plate = null;
+         if(!Driver_Name.isEmpty()) {
+             Driver_Licence_Plate = PropertyUtility.getDataProperties("email.driver.LicencePlate");
+         }
+         
+         String Items_To_Deliver = (String) cucumberContextManager.getScenarioContext("Item_Name");
+         String Pickup_Contact_Name = (String) cucumberContextManager.getScenarioContext("PickupContactName");
+         String Pickup_Contact_Phone = (String) cucumberContextManager.getScenarioContext("PickupContactPhone");
+
+        String message = null;
+        switch (emailSubject) {
+            case "Partner Delivery Canceled!":
+                if(Driver_Name.isEmpty()) {
+                    message = utility.getExpectedPartnerPortalCanceledEmailContentWithoutDriver(Partner_Name, New_Scheduled_Date, Pickup_Address, Dropup_Address, Customer_Name, Customer_Phone, Items_To_Deliver, Pickup_Contact_Name, Pickup_Contact_Phone);
+                }
+                else{
+                    message = utility.getExpectedPartnerPortalCanceledEmailContentWithDriver(Partner_Name, New_Scheduled_Date, Pickup_Address, Dropup_Address, Customer_Name, Customer_Phone, Driver_Name, Driver_Phone, Driver_Licence_Plate, Items_To_Deliver, Pickup_Contact_Name, Pickup_Contact_Phone);
+
+                }
+                break;
+        }
+        message= message.replaceAll(" ","");
+        //message= message.replaceAll("EST","EDT");
+        logger.detail("Email Body (Expected): "+message);
+        testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
+
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Admin unable to received the " +emailSubject+ "email",
+                    true);
+             }
     }
 
     @And("^Customer should receive \"([^\"]*)\" email$")
@@ -1908,4 +1997,38 @@ try{
                 true);
     }
     }
+
+    @And("^the cost of the delivery should be zero$")
+    public void the_cost_of_the_delivery_should_be_zero() throws Throwable {
+        try {
+            String costxpath = (String) cucumberContextManager.getScenarioContext("COSTPATH");
+            DecimalFormat df = new DecimalFormat("0.00");
+            String cost = (String) cucumberContextManager.getScenarioContext("COST");
+            Double orgcost = Double.parseDouble(cost);
+
+            Thread.sleep(1000);
+            // testStepVerify.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $",""), df.format(orgcost),orgcost+" should be displayed",orgcost+" is displayed", orgcost+" is not displayed");
+            testStepAssert.isEquals(action.getText(action.getElementByXPath(costxpath)).replace("/ $", ""), df.format(orgcost), orgcost + " should be displayed", orgcost + " is displayed", orgcost + " is not displayed");
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Cost of the delivery is not shown as zero",
+                    true);
+        }
+    }
+
+    @And("^I view the searched delivery$")
+    public void i_view_the_searched_delivery() throws Throwable {
+        try {
+            action.click(admin_ScheduledTripsPage.Link_Grid_First_Row());
+            log("I should able to view searched delivery.", "I have viewed the searched delivery", false);
+
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to view the searched delivery",
+                    true);
+        }
+    }
+
 }

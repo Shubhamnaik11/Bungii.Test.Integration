@@ -345,6 +345,11 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepAssert.isElementDisplayed(Page_Partner_Delivery_List.Row_DeliveryList(scheduled_time,customer), "Trip for "+ customer +"[Scheduled Time :"+scheduled_time+"] should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
                     break;
                 case "see the trip details":
+                    String emailPickupAddress = action.getText(Page_Partner_Delivery.Text_Pick_Address());
+                    cucumberContextManager.setScenarioContext("EmailPickupAddress",emailPickupAddress);
+                    String emailDeliveryAddress = action.getText(Page_Partner_Delivery.Text_Delivery_Address());
+                    cucumberContextManager.setScenarioContext("EmailDeliveryAddress",emailDeliveryAddress);
+
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Delivery_Details_Dashboard()), PropertyUtility.getMessage("Delivery_Details_Dashboard"));
                     break;
                 case "see the cancel delivery warning message":
@@ -367,6 +372,10 @@ public class Partner_LoginSteps extends DriverBase {
                     break;
                 case "see Delivery cancellation failed message":
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Delivery_Cancellation_Failed()), PropertyUtility.getMessage("Message_Delivery_Cancellation_Failed"));
+                    break;
+                case "Your delivery has been canceled message":
+                    Thread.sleep(2000);
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Pop_Message_Delivery_Cancelled()), PropertyUtility.getMessage("Message_Delivery_Cancelled"));
                     break;
                 case "see Service Level":
                     //String xpath ="//div[@class='service-level form-group']/div/p";

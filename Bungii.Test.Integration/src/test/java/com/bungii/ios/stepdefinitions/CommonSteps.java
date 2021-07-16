@@ -847,6 +847,12 @@ public class CommonSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+            case "valid partner kansas driver":
+                phone = PropertyUtility.getDataProperties("partner.kansas.driver.phone");
+                password = PropertyUtility.getDataProperties("partner.kansas.driver.password");
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             default:
                 throw new Exception("Please specify valid input");
         }
@@ -2380,7 +2386,7 @@ public class CommonSteps extends DriverBase {
         String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
         String tripType[] = tripTypeAndCategory.split(" ");
         customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
         cucumberContextManager.setScenarioContext("STATUS",status);
         if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers")

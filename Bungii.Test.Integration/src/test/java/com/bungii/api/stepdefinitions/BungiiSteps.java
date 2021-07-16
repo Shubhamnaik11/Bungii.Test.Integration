@@ -323,7 +323,7 @@ public class BungiiSteps extends DriverBase {
             String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
             String driverAccessToken = "", driver2AccessToken = "";
             //get geofence and pickup request from context
-            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
             driverPhoneNum = getDriverPhone(driverName);
             driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
@@ -443,7 +443,7 @@ public class BungiiSteps extends DriverBase {
                     String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
                     String driverAccessToken = "", driver2AccessToken = "";
                     //get geofence and pickup request from context
-                    String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+                    String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
                     driverPhoneNum = getDriverPhone(driverName);
                     driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
@@ -542,7 +542,7 @@ public class BungiiSteps extends DriverBase {
                     String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
                     String driverAccessToken = "", driver2AccessToken = "";
                     //get geofence and pickup request from context
-                    String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+                    String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
 
                     driverPhoneNum = getDriverPhone(driverAName);
@@ -687,7 +687,7 @@ public class BungiiSteps extends DriverBase {
             String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
             String driverAccessToken = "", driver2AccessToken = "";
             //get geofence and pickup request from context
-            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
 
             driverPhoneNum = getDriverPhone(driverAName);
@@ -905,7 +905,7 @@ public class BungiiSteps extends DriverBase {
             String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
             String driverAccessToken = "", driver2AccessToken = "";
             //get geofence and pickup request from context
-            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
 
             driverPhoneNum = getDriverPhone(driverAName);
@@ -1096,7 +1096,7 @@ public class BungiiSteps extends DriverBase {
                     String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
                     String driverAccessToken = "";
                     //get geofence and pickup request from context
-                    String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+                    String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
 
                     driverPhoneNum = getDriverPhone(driverAName);
@@ -1229,7 +1229,7 @@ public class BungiiSteps extends DriverBase {
                     String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
                     String driverAccessToken = "";
                     //get geofence and pickup request from context
-                    String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+                    String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
 
                     driverPhoneNum = getDriverPhone(driverAName);
@@ -1380,7 +1380,7 @@ public class BungiiSteps extends DriverBase {
             }
             cucumberContextManager.setScenarioContext("CUSTOMER2_PUSH", custPhoneNum);
 
-            cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+            //cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
             logger.detail("*** Requesting second " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence + " ***");
 
@@ -1483,7 +1483,7 @@ public class BungiiSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
             cucumberContextManager.setScenarioContext("CUSTOMER_PASSWORD", custPassword);
 
-            cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+            //cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
             logger.detail("*** Requesting " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence + " ***");
 
@@ -1585,7 +1585,7 @@ public class BungiiSteps extends DriverBase {
             }
             cucumberContextManager.setScenarioContext("CUSTOMER_PUSH", custPhoneNum);
 
-            cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+            //cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
             logger.detail("*** Requesting " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence + " ***");
 
@@ -2465,7 +2465,7 @@ else
         while (i < DataList.size()) {
             try {
                 String geofence = DataList.get(i).get("geofence").trim();
-                cucumberContextManager.setScenarioContext("GEOFENCE", geofence.toLowerCase());
+                cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
                 String bungiiType = DataList.get(i).get("Bungii Type").trim();//duo/solo/ONDEMAND
                 String bungiiTime = DataList.get(i).get("Bungii Time").trim();
                 String customer = DataList.get(i).get("Customer Phone").trim();
@@ -3668,7 +3668,7 @@ else
 
             cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
-            cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
 
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
@@ -4184,7 +4184,7 @@ else
                     String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
                     String driverAccessToken = "", driver2AccessToken = "";
                     //get geofence and pickup request from context
-                    String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+                    String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
                     driverPhoneNum = getDriverPhone(driverName);
                     driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");

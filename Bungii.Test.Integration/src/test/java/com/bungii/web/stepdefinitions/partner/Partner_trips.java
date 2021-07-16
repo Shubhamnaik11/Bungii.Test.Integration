@@ -46,6 +46,7 @@ public class Partner_trips extends DriverBase {
     private static LogUtility logger = new LogUtility(DashBoardSteps.class);
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
     Partner_DeliveryList Page_Partner_Delivery_List = new Partner_DeliveryList();
+    Admin_TripDetailsPage Page_Admin_Trips_Details = new Admin_TripDetailsPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     com.bungii.web.utilityfunctions.DbUtility dbUtility = new DbUtility();
@@ -464,7 +465,7 @@ try{
         //int numberOfDriver = bungiiType.trim().equalsIgnoreCase("duo") ? 2 : 1;
         int numberOf_Driver = dataMap.get("Driver").trim().equalsIgnoreCase("duo") ? 2 :1;
 
-        cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
 
         switch (Type)
         {
@@ -642,7 +643,7 @@ try{
                 }
                 break;
             case "Delivery Address":
-                String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+                String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
                 String Delivery_Address = dataMap.get("Delivery_Address");
 
@@ -800,7 +801,7 @@ try{
             String status = dataMap.get("Status").trim();
             String tripType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
             String customer = (String) cucumberContextManager.getScenarioContext("Customer_Name");
-            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
             String pickupRef = (String) cucumberContextManager.getScenarioContext("pickupRequestPartner");
 
 
@@ -909,6 +910,60 @@ try{
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+
+    @Then("^I note the Driver Est. Earnings for the search delivery$")
+    public void i_note_the_Driver_Est_Earnings_for_the_search_delivery()throws Throwable {
+        try{
+        String DriverEstEarning= action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Eranings());
+
+        DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
+        cucumberContextManager.setScenarioContext("Old_Driver_Earning",DriverEstEarning);
+
+            log("I should able to note the Driver Est. Earnings for the search delivery.","The noted Driver Est. Earnings for the delivery is: "+DriverEstEarning, true);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to note the driver est earning for the search delivery",
+                    true);
+        }
+
+    }
+
+    @Then("^I confirm that Driver Est. Earnings for the delivery remain same$")
+    public void the_Driver_Est_Earnings_for_the_delivery_remain_same()throws Throwable {
+        try {
+            String NewDriverEstEarning = action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Eranings());
+
+            NewDriverEstEarning = NewDriverEstEarning.substring(1, NewDriverEstEarning.length());
+
+            String Old_Driver_Est_Earning = (String) cucumberContextManager.getScenarioContext("Old_Driver_Earning");
+
+            testStepAssert.isEquals(NewDriverEstEarning, Old_Driver_Est_Earning, "Old driver estimate earning should be same as new driver estimate earning", "Old driver estimate earning is same as new driver estimate earning", "Old driver estimate earning is not same as new driver estimate earning");
+
+            cucumberContextManager.setScenarioContext("Old_Driver_Earning", NewDriverEstEarning);
+
+            log("Old Driver Est Earning -" + Old_Driver_Est_Earning + " should be same as New Driver Est Earning -" + NewDriverEstEarning, "Old Driver Est Earning -" + Old_Driver_Est_Earning + " is same as New Driver Est Earning -" + NewDriverEstEarning, true);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to confirm driver est earning remain same on delivery detail page",
+                    true);
+        }
+    }
+
+    @And("^I navigate back to Scheduled Deliveries$")
+    public void i_navigate_back_to_scheduled_deliveries() throws Throwable {
+        try{
+            action.click(Page_Admin_Trips_Details.Button_Ok());
+            log("I should able to navigate back to Scheduled Deliveries.","I have navigated back to Scheduled Deliveries", true);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to navigate back to Scheduled Deliveries",
+                    true);
+
+        }
     }
 
     @Then("^I view the correct Driver Earnings for geofence based pricing model$")
