@@ -1112,20 +1112,13 @@ public class EstimateSteps extends DriverBase {
         try {
             cucumberContextManager.setScenarioContext("MIN_TIME_DUO", "30");
             cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", "30");
-            boolean bit = false ;
-            int retry = 2;
 
-            while (bit == false || retry >0) {
                 String time = action.getValueAttribute(estimatePage.Text_TimeValue());
                 Date date = getNextScheduledBungiiTimeForGeofence();
                 String strTime = bungiiTimeDisplayInTextArea(date);
                 cucumberContextManager.setScenarioContext("CALCULATED_TIME", strTime);
                 cucumberContextManager.setScenarioContext("DISPLAYED_TIME", time);
-                if (strTime.contains(time))
-                    bit = true;
-                retry --;
 
-            }
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1145,7 +1138,7 @@ public class EstimateSteps extends DriverBase {
                 if(displayedTime.contains("a.m.")||displayedTime.contains("p.m.")) {
                     strTime = strTime.replace("am", "a.m.").replace("pm", "p.m.").replace("AM", "a.m.").replace("PM", "p.m.");
                 }
-                if(strTime.contains("GMT"))
+                if(strTime.contains("GMT")||strTime.contains("CDT")||strTime.contains("CST"))
                 strTime = utility.getGmtTime(strTime);
                 testStepAssert.isEquals(displayedTime, strTime,strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
             }
