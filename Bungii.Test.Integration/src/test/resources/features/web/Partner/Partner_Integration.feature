@@ -399,7 +399,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see the trip in the Delivery List"
     #When I navigate to "Bungii Admin Portal in new tab" URL
     When I navigate to "Admin" portal configured for "QA" URL
-    And I view the Scheduled Trips list on the admin portal
+    And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
@@ -416,7 +416,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Enroute |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status       |
       | Trip Started |
@@ -426,7 +426,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state   |
       | Bungii Canceled |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     And I navigate to partner portal
     And I select the Scheduled Bungii from Delivery List
     Then I should "see the trip details"

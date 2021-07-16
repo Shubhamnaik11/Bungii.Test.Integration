@@ -261,3 +261,13 @@ Feature: Service Level
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I change the service level to "White Glove" in "Admin" portal
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    When I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    And I wait for "2" mins
+    And I get the new pickup reference generated
+    And I search the delivery of Customer
+    When I view the partner portal delivery details in admin portal
+    Then the change service level should be displayed on delivery details page
+    And I navigate to partner portal
+    And I select the Scheduled Bungii from Delivery List

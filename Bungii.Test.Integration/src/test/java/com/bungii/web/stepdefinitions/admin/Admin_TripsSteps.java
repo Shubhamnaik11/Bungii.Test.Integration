@@ -655,6 +655,27 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have confirmed the change drop off address on delivery details page", true);
     }
 
+    @Then("^the change service level should be displayed on delivery details page$")
+    public void the_change_service_level_should_be_displayed_on_delivery_details_page() throws Throwable {
+        try{
+            String changeServiceLevel = (String) cucumberContextManager.getScenarioContext("Change_service");
+            String displayServiceLevel = action.getText(admin_TripDetailsPage.Text_Service_Level());
+
+            if(changeServiceLevel.equalsIgnoreCase("White Glove"))
+            {
+                changeServiceLevel = "White Glove - Delivery to room of choice, assembly and debris removal";
+            }
+
+            testStepVerify.isEquals(changeServiceLevel,displayServiceLevel,"the change service level " +changeServiceLevel+ "should be same as service level display " +displayServiceLevel+ "on delivery details page","the change service level " +changeServiceLevel+ " is not same as service level displayed " +displayServiceLevel+ "on delivery details page");
+
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to see the changed service level on delivery details page",
+                    true);
+        }
+    }
+
     @Then("^I confirm the change pickup address on delivery details page$")
     public void i_confirm_the_change_pickup_address_on_delivery_details_page() throws Throwable {
         String Expected_Change_Pickup = (String)cucumberContextManager.getScenarioContext("Change_Pickup");
@@ -797,6 +818,25 @@ public class Admin_TripsSteps extends DriverBase {
                     true);
         }
     }
+
+    @When("^I view the partner portal delivery details in admin portal$")
+    public void i_view_the_partner_portal_delivery_details_in_admin() throws Throwable {
+        try{
+            SetupManager.getDriver().navigate().refresh();
+            Thread.sleep(5000);
+            String customer = (String) cucumberContextManager.getScenarioContext("Customer_Name");
+            String xpath = String.format("//td[contains(.,'%s')]/preceding::td[2]", customer);
+            //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+            action.click(admin_EditScheduledBungiiPage.findElement(xpath,PageBase.LocatorType.XPath));
+            log("I view the delivery details in admin portal",
+                    "I viewed delivery details in admin portal", false);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 
     @When("^I open the live delivery details in admin portal$")
     public void i_open_the_live_delivery_details_in_admin() throws Throwable {

@@ -736,7 +736,7 @@ public class Partner_trips extends DriverBase {
             String tripType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
             String customer = (String) cucumberContextManager.getScenarioContext("Customer_Name");
             String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-            String pickupRef = (String) cucumberContextManager.getScenarioContext("pickupRequestPartner");
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
 
             String geofenceName = getGeofence(geofence);

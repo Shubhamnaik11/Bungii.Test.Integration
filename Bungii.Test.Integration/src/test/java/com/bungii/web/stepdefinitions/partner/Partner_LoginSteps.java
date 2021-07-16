@@ -101,7 +101,8 @@ public class Partner_LoginSteps extends DriverBase {
                    cucumberContextManager.setScenarioContext("Selected_service", Service_Name);
                    break;
                case "Admin":
-                   action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
+                   //action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
+                   action.selectElementByText(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(),Service_Name);
                    cucumberContextManager.setScenarioContext("Change_service", Service_Name);
                    break;
                default:
@@ -304,7 +305,7 @@ public class Partner_LoginSteps extends DriverBase {
                     //String date = utility.GetDateInFormat(ScheduledTime,FromFormat,ToFormat);
                     //String ST = DateFormat("MMM dd, YYYY at HH:mm aa z",ScheduledTime);
                     //cucumberContextManager.setScenarioContext("Scheduled_Time",date);
-                    cucumberContextManager.setScenarioContext("pickupRequestPartner", PickupRequest);
+                    //cucumberContextManager.setScenarioContext("pickupRequestPartner", PickupRequest);
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
                     break;
                 case "see the trip in the Delivery List":
