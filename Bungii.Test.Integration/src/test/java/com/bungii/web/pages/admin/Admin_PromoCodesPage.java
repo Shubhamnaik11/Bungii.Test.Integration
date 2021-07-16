@@ -5,7 +5,9 @@ import org.openqa.selenium.WebElement;
 
 public class Admin_PromoCodesPage extends PageBase {
 
-    public WebElement Title_PromocodesPage (boolean...ignoreException) { return findElement("//h4[text()='Promo Codes']", LocatorType.XPath,ignoreException); }
+    public WebElement Title_PromocodesPage (boolean...ignoreException) { return findElement("//h4[text()='Partners']", LocatorType.XPath,ignoreException); }
+
+    public WebElement Title_StandardcodesPage (boolean...ignoreException) { return findElement("//h4[text()='Standard Codes']", LocatorType.XPath,ignoreException); }
 
     public WebElement Menu_Marketing (boolean... ignoreException) { return findElement("adminmenu-marketing", LocatorType.Id,ignoreException); }
 
@@ -50,6 +52,8 @@ public class Admin_PromoCodesPage extends PageBase {
     public WebElement TextBox_PromotionExpirationDate() { return findElement("PromoCodeItem_ExpiryDate", LocatorType.Id); }
 
     public WebElement TextBox_Search() { return findElement("SearchCriteria", LocatorType.Id); }
+
+    public WebElement Button_Search() { return findElement("btnSearch", LocatorType.Id); }
 
     public WebElement Button_Filter() { return findElement("btnFilter", LocatorType.Id); }
 

@@ -1,6 +1,0 @@
-F:\BunjiAutomation\Bunji.Test.Regression.Android.Integration\bin\Debug\Bunji.Android.Regression.Test.Integration.dll.config
-F:\BunjiAutomation\Bunji.Test.Regression.Android.Integration\bin\Debug\Bunji.Android.Regression.Test.Integration.dll
-F:\BunjiAutomation\Bunji.Test.Regression.Android.Integration\bin\Debug\Bunji.Android.Regression.Test.Integration.pdb
-F:\BunjiAutomation\Bunji.Test.Regression.Android.Integration\obj\Debug\Bunji.Test.Regression.Android.Integration.csprojResolveAssemblyReference.cache
-F:\BunjiAutomation\Bunji.Test.Regression.Android.Integration\obj\Debug\Bunji.Android.Regression.Test.Integration.dll
-F:\BunjiAutomation\Bunji.Test.Regression.Android.Integration\obj\Debug\Bunji.Android.Regression.Test.Integration.pdb

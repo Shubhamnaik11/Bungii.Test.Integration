@@ -10,11 +10,14 @@ public class DashBoardPage extends PageBase {
     }
 
     public WebElement Button_PromoCode() {
-        return findElement("adminmenu-promocode", LocatorType.Id);
+        return findElement("adminmenu-promocodes-menu", LocatorType.Id);
     }
 
     public WebElement Button_Marketing() {
         return findElement("adminmenu-marketing", LocatorType.Id);
+    }
+    public WebElement Link_StandardCodes() {
+        return findElement("adminmenu-promocode", LocatorType.Id);
     }
 
     public WebElement Button_ReferralSource() {
@@ -30,5 +33,9 @@ public class DashBoardPage extends PageBase {
     }
 
     public  WebElement Button_Customers() { return findElement("adminmenu-customers", LocatorType.Id);}
+    public WebElement List_Geofence() {return findElement("dropdownMenuButton" , LocatorType.Id);}
+    public WebElement TextBox_SearchGeofence() {return findElement("myInput" , LocatorType.Id);}
+    public WebElement Button_ApplyGeofence() {return findElement("btnApply" , LocatorType.Id);}
+    public WebElement Checkbox_Geofence(String geofence) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath);}
 
 }

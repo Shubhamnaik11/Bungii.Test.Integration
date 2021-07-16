@@ -47,13 +47,14 @@ public class Admin_PromoterSteps extends DriverBase {
             int i = now.intValue() % 1000;
 
             switch (popup) {
-                case "Add New Promoter" :
+                case "Add New Partner" :
                     String id = uniqid();
                 String PromoterName = dataMap.get("Promoter Name").trim().replace("<<Unique>>", Integer.toString(i));
                 String CodeInitials = dataMap.get("Code Initials").trim().replace("<<Unique>>", id);;
                 String Description = dataMap.get("Description").trim();
                 String Status = dataMap.get("Status").trim();
 
+                Thread.sleep(2000);
                 action.sendKeys(admin_PromoterPage.TextBox_PromoterName(), PromoterName);
                 action.sendKeys(admin_PromoterPage.TextBox_CodeInitials(), CodeInitials);
                 action.sendKeys(admin_PromoterPage.TextBox_Discription(), Description);
@@ -64,7 +65,7 @@ public class Admin_PromoterSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DESCRIPTION", Description);
                 cucumberContextManager.setScenarioContext("STATUS", Status);
                 break;
-                case "Add Promotion" :
+                case "Add Event" :
                     String PromotionName = dataMap.get("Promotion Name").trim().replace("<<Unique>>", Integer.toString(i));
                     String PromoStartDate = dataMap.get("Promotion Start Date").trim();
                     String PromoExpirationDate = dataMap.get("Expiration Date").trim();
@@ -99,15 +100,22 @@ public class Admin_PromoterSteps extends DriverBase {
 
     @When("^I search by promoter Name \"([^\"]*)\"$")
     public void i_search_by_promoter_name_something(String strArg1) throws Throwable {
+        try{
         String PromoterName =(String)cucumberContextManager.getScenarioContext("PROMOTER_NAME");;
         action.clearSendKeys(admin_PromoterPage.TextBox_Search(),PromoterName+Keys.ENTER);
+        Thread.sleep(4000);
         log("I search by "+ PromoterName ,
-                "I search by "+ PromoterName, true);
-
+                "I search by "+ PromoterName, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the promoter \"([^\"]*)\" is displayed in the Promocodes grid$")
     public void the_promoter_something_is_displayed_in_the_promocodes_grid(String currentdatetime) throws Throwable {
+        try{
         String PromoterName =(String)cucumberContextManager.getScenarioContext("PROMOTER_NAME");;
         String CodeInitials = (String) cucumberContextManager.getScenarioContext("CODE_INITIALS");
         String Description = (String) cucumberContextManager.getScenarioContext("DESCRIPTION");
@@ -117,52 +125,72 @@ public class Admin_PromoterSteps extends DriverBase {
         String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/span[text()='%s']",PromoterName, CodeInitials, Description, Status);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 
 
     @When("^I view Details of promoter Name \"([^\"]*)\"$")
     public void i_view_details_of_promoter_name_something(String currentdatetime) throws Throwable {
-
+    try{
         Thread.sleep(4000);
         String xpath = (String) cucumberContextManager.getScenarioContext("XPath");
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)).findElement(By.xpath("parent::td/following-sibling::td/button[@id='btnEditPromotionDetails']")));
         log("I click on Details link" ,
-                "I have clicked on Details link", true);
+                "I have clicked on Details link", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
 
     }
 
     @Then("^the promoter \"([^\"]*)\" gets saved successfully and it is displayed in the Promoters grid$")
     public void the_promoter_something_gets_saved_successfully_and_it_is_displayed_in_the_promoters_grid(String currentdatetime) throws Throwable {
-
+   try{
         String PromoterName =(String)cucumberContextManager.getScenarioContext("PROMOTER_NAME");;
         String CodeInitials = (String) cucumberContextManager.getScenarioContext("CODE_INITIALS");
         String Description = (String) cucumberContextManager.getScenarioContext("DESCRIPTION");
         String Status = (String)cucumberContextManager.getScenarioContext("STATUS");
-        Thread.sleep(4000);
+        Thread.sleep(6000);
         i_search_by_promoter_name_something(PromoterName);
         String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/span[text()='%s']",PromoterName, CodeInitials, Description, Status);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click on \"([^\"]*)\" button on the \"([^\"]*)\" page$")
     public void i_click_on_something_button_on_the_something_page(String button, String page) throws Throwable {
-
+try{
         switch (page)
         {
-            case "Promotions":
+            case "Events":
 
                 switch (button) {
-                    case "New Promotion":
+                    case "New Event":
                         action.click(admin_PromoterPage.Button_NewPromotion());
                         break;
                 }
                 break;
         }
         log("I click on "+ button ,
-                "I have clicked on " +button, true);
+                "I have clicked on " +button, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the \"([^\"]*)\" is displayed$")
@@ -212,8 +240,9 @@ public class Admin_PromoterSteps extends DriverBase {
     }
     @And("^I enter following card details on \"([^\"]*)\" screen$")
     public void i_enter_following_card_details_on_something_screen(String page, DataTable data) throws Throwable {
+        try{
         switch (page) {
-            case "Promoter Cards":
+            case "Free Delivery Credit Card":
                 Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
                 String CardNumber = dataMap.get("Card Number").trim();
                 String ExpirationDate  = dataMap.get("Expiration Date").trim();
@@ -278,7 +307,6 @@ public class Admin_PromoterSteps extends DriverBase {
                 String BungiiCVV  = dataMapForBungiiCard.get("CVV").trim();
                 String BungiiPostalCode  = dataMapForBungiiCard.get("Postal Code").trim();
                 new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("braintree-hosted-field-postalCode")));
-                String BungiiPin = SetupManager.getDriver().getPageSource();
                 action.sendKeys(admin_paymentMethodsPage.TextBox_PostalCode(),BungiiPostalCode);
 
 
@@ -301,13 +329,17 @@ public class Admin_PromoterSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("CARD_EXPIRY_DATE", BungiiExpirationDate);
                 break;
         }
-
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in entering card details on Bungii Cards screen",
+                    true);
+        }
     }
 
     @Then("^the card is added to the promoter \"([^\"]*)\"$")
     public void the_card_is_added_to_the_promoter_something(String currentdatetime) throws Throwable {
 
-        testStepAssert.isElementTextEquals(admin_PromoterPage.Label_SuccessMessage(),"Payment details added successfully for Promoter.","Payment details added successfully for Promoter. message should be displayed" ,"Payment details added successfully for Promoter. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
+        testStepAssert.isElementTextEquals(admin_PromoterPage.Label_SuccessMessage(),"Payment details added successfully for partner.","Payment details added successfully for partner. message should be displayed" ,"Payment details added successfully for partner. message is displayed","Payment details added successfully for partner. message should be displayed is not displayed");
 
     }
     private String uniqid() {

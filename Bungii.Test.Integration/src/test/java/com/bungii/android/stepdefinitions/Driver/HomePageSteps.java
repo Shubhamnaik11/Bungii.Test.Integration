@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.pages.driver.DriverHomePage;
@@ -29,26 +30,52 @@ public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomePageSteps.class);
     ActionManager action = new ActionManager();
     DriverHomePage driverHomePage = new DriverHomePage();
+    AccountsPage driverAccountPage = new AccountsPage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility = new GeneralUtility();
     TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
+    EstimatePage estimatePage = new EstimatePage();
 
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
-            if (action.isNotificationAlertDisplayed()) {
+            Thread.sleep(15000);
+            if (action.isAlertPresent()) {
                 if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                     utility.acceptNotificationAlert();
+                    if (action.isAlertPresent()) {
+                        if (action.isElementPresent(estimatePage.Button_OK(true)))
+                            action.click(estimatePage.Button_OK());
+                    }
                 } else {
                     action.click(Page_BungiiRequest.AlertButton_Cancel());
                 }
 
             }
-            boolean isClicked = false;
             Thread.sleep(3000);
+            boolean isClicked = false;
+            if(action.isElementPresent(driverHomePage.Button_NavigationBar(true)))
             action.click(driverHomePage.Button_NavigationBar());
+            else{
+                if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
+                    action.click(estimatePage.Button_RequestConfirmCancel());
+                    logger.detail("Push notification alert was shown on driver dashboard");
+                }
+                action.click(driverHomePage.Button_NavigationBar());
+            }
             List<WebElement> elements = driverHomePage.Button_NavigationBarText();
+            if (action.isAlertPresent()) {
+                if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
+                    utility.acceptNotificationAlert();
+                    if (action.isAlertPresent()) {
+                        if (action.isElementPresent(estimatePage.Button_OK(true)))
+                            action.click(estimatePage.Button_OK());
+                    }
+                } else {
+                    action.click(Page_BungiiRequest.AlertButton_Cancel());
+                }
 
+            }
             for (WebElement element : elements) {
                 if (element.getText().equalsIgnoreCase(menuItem)) {
                     action.click(element);
@@ -68,6 +95,31 @@ public class HomePageSteps extends DriverBase {
         }
     }
 
+    @And("^I Select \"([^\"]*)\" from ACCOUNT menu$")
+    public void i_select_something_from_account_menu(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "ACCOUNT INFO":
+                    action.click(driverAccountPage.Link_Account_Info());
+                    break;
+                case "ALERT SETTINGS":
+                    action.click(driverAccountPage.Link_Account_Settings());
+                    break;
+                case "PRIVACY POLICY":
+                    action.click(driverAccountPage.Link_Privarcy_Policy());
+                    break;
+                case "LOGOUT":
+                    action.click(driverAccountPage.Link_Logout());
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @And("^I should be navigated to Home screen on driver app$")
     public void i_should_be_navigated_to_home_screen_on_driver_app() throws Throwable {
         try {
@@ -75,7 +127,7 @@ public class HomePageSteps extends DriverBase {
             action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
             String getNaviagationText = action.getText(driverHomePage.Generic_HeaderElement());
             boolean isHomePage = getNaviagationText.equals("OFFLINE") || getNaviagationText.equals("ONLINE");
-            testStepAssert.isTrue(isHomePage, "I should be navigated to Driver home page", "I am not navigated to home page, Title is" + getNaviagationText);
+            testStepAssert.isTrue(isHomePage, "I should be navigated to Driver Home screen",  getNaviagationText + " screen is displayed instead of Driver Home screen");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -88,13 +140,15 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (button) {
                 case "Go Online":
+                    Thread.sleep(4000);
                     action.click(driverHomePage.Button_OnlineOffline());
                     Thread.sleep(4000);
                     break;
                 case "Go Offline":
+                    Thread.sleep(4000);
                     action.click(driverHomePage.Button_OnlineOffline());
                     break;
-                case "Available Trips":
+                case "Available Bungiis":
                     action.click(driverHomePage.Link_AvailableTrips());
                     break;
                 default:
@@ -259,7 +313,7 @@ public class HomePageSteps extends DriverBase {
             toHour = toHour.startsWith("0") ? toHour.substring(1) : toHour;
             String tohour1=((strArg2.split(" ")[0]).split(":")[1]).trim();
             String tohour2=(strArg2.split(" ")[1]).trim();
-            log("Updated setting of" + strArg0 + " , to " + strArg1 + "-" + strArg2, " update trip settings", true);
+            log("Updated setting of" + strArg0 + " , to " + strArg1 + "-" + strArg2, "Updated settings of" + strArg0 + " , to " + strArg1 + "-" + strArg2, true);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

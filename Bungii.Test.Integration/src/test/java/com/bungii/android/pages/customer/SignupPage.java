@@ -9,8 +9,12 @@ public class SignupPage extends PageBase {
         public WebElement Header_HomePage(boolean ...ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()] | //android.view.ViewGroup[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()]", LocatorType.XPath,ignoreException); }
 
 
+        public WebElement Message_Error(boolean ...ignoreException) { return findElement("android:id/message", LocatorType.Id,ignoreException); }
+        public WebElement Button_Retry(boolean ...ignoreException) { return findElement("android:id/button1", LocatorType.Id,ignoreException); }
+
     // Login link
     public WebElement Link_Login(boolean ...ignoreException) { return findElement("com.bungii.customer:id/title_login", LocatorType.Id,ignoreException); }
+
     //-------------Signup fields---------------------------------------------------------------------------
     public WebElement TextField_FirstName() { return findElement("com.bungii.customer:id/signup_field_first_nam", LocatorType.Id); }
 
@@ -67,7 +71,10 @@ public class SignupPage extends PageBase {
 
     public WebElement Button_VerifyContinue() { return findElement("com.bungii.customer:id/smsVerifyContinue", LocatorType.Id); }
 
-    public WebElement Link_Resend() { return findElement("//android.widget.Button[@text='Resend code']", LocatorType.XPath); }
+    public WebElement Link_Resend() { return findElement("//android.widget.Button[@text='RESEND CODE']", LocatorType.XPath); }
 
     public WebElement Title_Verification() { return findElement("//android.widget.TextView[@text='VERIFICATION']", LocatorType.XPath); }
+
+    public WebElement Button_Yes() { return findElement("//android.widget.Button[@text='YES']", LocatorType.XPath); }
+
 }

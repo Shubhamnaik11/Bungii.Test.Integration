@@ -1,19 +1,39 @@
-@
+@android
 Feature: Login
   In order to login to bungii
   As a customer and perform functions
 
   Background:
     Given I am on customer Log in page
-
+    
+  @regression
+  Scenario: Verify Terms And Condition Screen Is Displayed To Bungii Customer On First Time Login (Resetting data Of App To Simulate Fresh Install)
+    Given I newly installed "Bungii Customer" app
+    When I tap on the "Log in" button on Signup Page
+    And I enter customers "valid" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    Then "Terms and Conditions" page should be opened
+    And I should see "all details" on Term and Condition agreement
+    When I accept Term and Condition agreement
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    Then "Tutorial" page should be opened
+    When I close tutorial Page
+    Then The user should be logged in
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
+    
   @sanity
   @regression
   Scenario: Verify Customer Login With Valid Credentials
     When I enter customers "valid" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then The user should be logged in
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Verify Customer Login With Invalid Credentials
@@ -44,20 +64,6 @@ Feature: Login
     Then The user should see "field validations for password" on log in page
     And The user should see "login button disabled" on log in page
 
-  @regression
-  Scenario: Verify Terms And Condition Screen Is Displayed To Bungii Customer On First Time Login (Resetting Sata Of App To Simulate Fresh Install)
-    Given I newly installed "Bungii Customer" app
-    When I tap on the "Log in" button on Signup Page
-    And I enter customers "valid" Phone Number
-    And I enter customers "valid" Password
-    And I tap on the "Log in" Button on Login screen
-    Then "Terms and Conditions" page should be opened
-    And I should see "all details" on Term and Condition agreement
-    When I accept Term and Condition agreement
-    Then "Tutorial" page should be opened
-    When I close tutorial Page
-    Then The user should be logged in
-    And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Verify Customer Login Functionality With Invalid Password Attempt Five Times
@@ -104,7 +110,8 @@ Feature: Login
     When I verify and allow access of Location from Bungii application
     When I close tutorial Page
     Then The user should be logged in
-    And I tap on "Menu" > "Logout" link
+    And I tap on the "ACCOUNT>LOGOUT" link
+    #And I tap on "Menu" > "Logout" link
     And I am on customer Log in page
     And I enter customers "valid" Phone Number
     And I enter customers "valid" Password

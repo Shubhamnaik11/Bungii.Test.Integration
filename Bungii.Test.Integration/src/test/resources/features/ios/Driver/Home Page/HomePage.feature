@@ -31,5 +31,5 @@ Feature: Driver Home screen
     And Info text should be updated
     And The navigation title should change to "Online"
 
-    When I click "Available Trips" button on "Home" screen on driverApp
-    Then I should be navigated to "Available Trips" screen on driverApp
+    When I click "Available Bungiis" button on "Home" screen on driverApp
+    Then I should be navigated to "Available Bungiis" screen on driverApp

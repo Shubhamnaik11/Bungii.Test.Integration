@@ -38,10 +38,16 @@ public class CucumberContextManager {
      * @return
      */
     public Object getScenarioContext(String key){
-        if(scenarioContext.containsKey(key))
-            return scenarioContext.get(key.toString());
-        else
+        if(scenarioContext.containsKey(key)) {
+            String value = scenarioContext.get(key.toString()).toString();
+            System.out.println("                  GET STORED VARIABLE: "+ key.toString() + " : "+value );
+            return value;
+        }
+        else {
+            System.out.println(" ALERT :          GET STORED VARIABLE: " + key.toString() + " Is Not Set ");
             return "";
+        }
+             
     }
 
 

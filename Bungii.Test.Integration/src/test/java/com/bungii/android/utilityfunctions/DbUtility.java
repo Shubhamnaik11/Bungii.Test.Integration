@@ -3,6 +3,9 @@ package com.bungii.android.utilityfunctions;
 import com.bungii.common.manager.DbContextManager;
 import com.bungii.common.utilities.LogUtility;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class DbUtility extends DbContextManager {
     private static LogUtility logger = new LogUtility(DbUtility.class);
 
@@ -86,12 +89,12 @@ public class DbUtility extends DbContextManager {
         return smsCode;
     }
     public static String getTELETfromDb(String custRef) {
-        String PickupID = "";
+        String telet = "";
         String queryString = "SELECT TELET FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
-        PickupID = getDataFromMySqlServer(queryString);
+        telet = getDataFromMySqlServer(queryString);
 
-        logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
-        return PickupID;
+        logger.detail("For customer reference is " + custRef + " TELET time is " + telet);
+        return telet;
     }
     public static String[] getLoadingTimeStamp(String customerPhone){
         String[] loadingTme= new String[2];
@@ -117,6 +120,7 @@ public class DbUtility extends DbContextManager {
 
         driverLocation[0]=    getDataFromMySqlServer("select Latitude from driverlocation where driverid = "+driverId);
         driverLocation[1]=    getDataFromMySqlServer("select Longitude from driverlocation where driverid = "+driverId);
+        logger.detail("For driverId " + driverId + " driver location is " + driverLocation[0]+","+driverLocation[1]);
 
         return driverLocation;
     }
@@ -130,6 +134,8 @@ public class DbUtility extends DbContextManager {
         tripLocation[1]=    getDataFromMySqlServer("select PickupLong from pickupdropaddress  where PickupID= "+pickupID);
         tripLocation[2]=    getDataFromMySqlServer("select DropOffLat from pickupdropaddress  where PickupID="+pickupID);
         tripLocation[3]=    getDataFromMySqlServer("select DropOffLong from pickupdropaddress  where PickupID= "+pickupID);
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]+","+tripLocation[1]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[2]+","+tripLocation[3]);
         return tripLocation;
     }
 
@@ -137,6 +143,7 @@ public class DbUtility extends DbContextManager {
         String custRef=getCustomerRefference(customerPhone);
         String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
         String statusTimeStamp=  getDataFromMySqlServer("select StatusTimestamp from tripevents te join pickupdetails pd on te.pickupid = pd.pickupid where pickupRef = '"+pickupRef+"' and te.TripStatus = 40");
+        logger.detail("For pickupRef " + pickupRef + " status 40 TimeStamp is " + statusTimeStamp);
         return statusTimeStamp;
     }
 
@@ -194,22 +201,65 @@ public class DbUtility extends DbContextManager {
         String activeFlag = getDataFromMySqlServer(queryString2);
         return activeFlag;
     }
-    public  String getCustomerDeviceToken(String phoneNumber){
-        String queryString2 = " select token from device where UserRef IN (select CustomerRef from customer where phone="+phoneNumber+") order by DevID desc limit 1";
+    public String getCustomerDeviceToken(String phoneNumber){
+        String queryString2 = "select token from device where UserRef IN (select CustomerRef from customer where phone='"+phoneNumber+"') order by DevID desc limit 1";
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
 
-    public  String getDriverDeviceToken(String phoneNumber){
-        String queryString2 = " select token from device where UserRef IN (select DriverRef from driver  where phone="+phoneNumber+") order by DevID desc limit 1";
+    public String getDriverDeviceToken(String phoneNumber){
+        String queryString2 = "select token from device where UserRef IN (select DriverRef from driver  where phone='"+phoneNumber+"') order by DevID desc limit 1";
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
 
-    public  String getCustomersMostRecentBungii(String phoneNumber){
+    public String getCustomersMostRecentBungii(String phoneNumber){
 
-        String queryString2 = "SELECT PickupRef FROM pickupdetails  WHERE customerRef IN(SELECT CustomerRef FROM customer WHERE phone="+phoneNumber+") order by pickupid desc limit 1";
+        String queryString2 = "SELECT PickupRef FROM pickupdetails  WHERE customerRef IN(SELECT CustomerRef FROM customer WHERE phone='"+phoneNumber+"') order by pickupid desc limit 1";
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
+    }
+
+    public String getFinalBungiiCost(String pickupref){
+
+        String queryString2 = "SELECT pickup_revenue FROM pickupdetails WHERE pickupref='"+pickupref+"'";
+        String cost = getDataFromMySqlServer(queryString2);
+        return cost;
+    }
+    public String getCustomersMostRecentBungiiPickupId(String phoneNumber){
+        String queryString2 = "SELECT Pickupid FROM pickupdetails WHERE customerRef IN (SELECT CustomerRef FROM customer WHERE phone='"+phoneNumber+"') order by pickupid desc limit 1";
+        String Pickupid = getDataFromMySqlServer(queryString2);
+        return Pickupid;
+    }
+    public String getPickupNoteOfLastPickupOf(String phoneNumber){
+        String getLastPickupId = getCustomersMostRecentBungiiPickupId(phoneNumber);
+        String queryString2 = "select cust_sch_conversion_remark_comments from pickup_detail_remarks where pickup_id in ('"+getLastPickupId+"')";
+        String getPickupNote = getDataFromMySqlServer(queryString2);
+        return getPickupNote;
+    }
+
+    public static String getDriverPushNotificationContent(String phoneNumber, String pickupRef){
+        String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+phoneNumber+"') and Payload Like '%"+pickupRef+"%' and UserType ='AUD'";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
+    public static String getCustomerPushNotificationContent(String phoneNumber, String pickupRef){
+        String queryString2= "select Payload from pushnotification where userid in (select Id from customer where phone = '"+phoneNumber+"') and Payload Like '%"+pickupRef+"%' and UserType ='AUC'";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
+    public void getLastFivePushNotification(){
+        String queryString2= "select payload from pushnotification order by PNID DESC limit 10;";
+        List<HashMap<String,Object>> pushnotification = getDataFromMySqlServerMap(queryString2);
+        logger.detail("*** LAST 10 Pushnotifications from Pushnotifications table ***");
+        for (int i = 0; i < pushnotification.size(); i++) {
+            logger.detail(pushnotification.get(i).values().toString());
+        }
+    }
+
+    public static String getPickupRef(String customerPhone){
+        String custRef=getCustomerRefference(customerPhone);
+        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
+        return pickupRef;
     }
 }

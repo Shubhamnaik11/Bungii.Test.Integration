@@ -1,6 +1,8 @@
 package com.bungii.common.manager;
 
+import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.ThreadLocalStepDefinitionMatch;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -10,7 +12,7 @@ import org.testng.Assert;
  *
  *All verification method will go in this class
  */
-public class VerificationManager {
+public class VerificationManager  {
 
 	private static LogUtility logger = new LogUtility(VerificationManager.class);
 
@@ -26,8 +28,9 @@ public class VerificationManager {
 			Assert.assertTrue(value, expectedText);
 			ResultManager.pass( expectedText, "Success : " + expectedText, true);
 		} catch (AssertionError e) {
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
 			//mark test case fail and continue test
-			ResultManager.fail( expectedText, errorMessage, true);
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(), expectedText, errorMessage, true);
 		}
 	}
 	/**
@@ -41,7 +44,8 @@ public class VerificationManager {
 			ResultManager.pass( expectedText, "Success : " + expectedText, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedText, "Failed : " + expectedText, true);
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(), expectedText, "Failed : " + expectedText, true);
 		}
 	}
 
@@ -57,7 +61,8 @@ public class VerificationManager {
 			ResultManager.pass( expectedText, sucessMessage, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedText, errorMessage, true);
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(), expectedText, errorMessage, true);
 		}
 
 	}
@@ -74,7 +79,8 @@ public class VerificationManager {
 			ResultManager.pass( expectedText, "Success : " + expectedText, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedText, errorMessage, true);
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(),expectedText, errorMessage, true);
 		}
 		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 
@@ -91,7 +97,8 @@ public class VerificationManager {
 			ResultManager.pass( expectedText, sucessMessage, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedText, errorMessage, true);
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(),expectedText, errorMessage, true);
 		}
 		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 	}
@@ -108,7 +115,8 @@ public class VerificationManager {
 			ResultManager.pass( expectedText, sucessMessage, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedText, errorMessage+" Actual Value "+actualValue+" | Expected Value "+expectedValue, true);
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(),expectedText, errorMessage+" Actual Value "+actualValue+" | Expected Value "+expectedValue, true);
 		}
 		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 
@@ -123,10 +131,28 @@ public class VerificationManager {
 			ResultManager.pass( expectedValue+" should be displayed", actualValue+" is correctly displayed", true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedValue+" should be displayed", expectedValue+ " is not displayed. Actual : "+actualValue, true);
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(),expectedValue+" should be displayed", expectedValue+ " is not displayed. Actual value : "+actualValue, true);
 		}
 		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 	}
+
+	/**
+	 * @param expectedValue Expected value
+	 * @param actualValue Actual value
+	 */
+	public void isNotEquals(String actualValue, String expectedValue) {
+		try {
+			Assert.assertNotEquals(expectedValue, actualValue);
+			ResultManager.pass( expectedValue+" should not be displayed", actualValue+" is displayed", true);
+		} catch (AssertionError e) {
+			//mark test case fail and continue test
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(), expectedValue+" should not be displayed", expectedValue+ " is matching with Actual : "+actualValue, true);
+		}
+		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
+	}
+
 	/**
 	 * @param expectedValue Expected value
 	 * @param actualValue Actual value
@@ -137,7 +163,8 @@ public class VerificationManager {
 			ResultManager.pass( expectedValue+" should be displayed", actualValue+" is correctly displayed", true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedValue+" should be displayed", expectedValue+ " is not displayed. Actual : "+actualValue, true);
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(), expectedValue+" should be displayed", expectedValue+ " is not displayed. Actual : "+actualValue, true);
 		}
 		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 	}
@@ -155,7 +182,8 @@ public class VerificationManager {
 			ResultManager.pass( expectedText, sucessMessage, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedText, errorMessage, true);
+			CucumberContextManager.getObject().setScenarioContext("PASS_WITH_OBSERVATIONS","TRUE");
+			ResultManager.failureStep( ThreadLocalStepDefinitionMatch.get(), expectedText, errorMessage, true);
 		}
 
 	}

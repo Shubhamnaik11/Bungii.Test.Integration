@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.bungii.SetupManager.BrowserStackLocal;
 import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -55,6 +56,8 @@ public class EstimateSteps extends DriverBase {
             enterLoadingTime(loadTime);
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
+            String BungiiType = (String)cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+            verifyDisclaimer(BungiiType);
             clickAcceptTerms();
             strTime = enterTime(time);
             strTime=strTime.replace("am","AM").replace("pm","PM");
@@ -67,6 +70,10 @@ public class EstimateSteps extends DriverBase {
             } else {
                 actualTime = action.getValueAttribute(estimatePage.Text_TimeValue());
                 isCorrectTime = actualTime.equals(strTime);
+                logger.detail("Expected Time is :"+strTime +" ||| Actual time is :"+actualTime);
+                testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
+                        "I selected trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
+                                + strTime + " | " + actualTime + " not matching with entered time ");
             }
 
             clickRequestBungii();
@@ -96,17 +103,13 @@ public class EstimateSteps extends DriverBase {
                     isAlertCorrect = verifyAndAcceptAlert(loadTime);
                 }
             }
-            logger.detail("Expected Time is :"+strTime +" ||| Actual time is :"+actualTime);
             testStepAssert.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
                     "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
+            utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("LATEST_LOGGEDIN_CUSTOMER_PHONE"));
 
-            testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
-                    "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
-                            + strTime + actualTime + " not matching with entered time ");
-            utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in requesting Delivery",
                     true);
         }
 
@@ -132,7 +135,7 @@ public class EstimateSteps extends DriverBase {
             enterLoadingTime(loadTime);
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
-            clickAcceptTerms();
+            //clickAcceptTerms();
             action.swipeDown();
             strTime = enterTime(time);
 
@@ -140,7 +143,9 @@ public class EstimateSteps extends DriverBase {
             if (saveDetails) {
                 details = getEstimateDetails();
             }
-
+            action.swipeUP();
+            action.swipeUP();
+            clickAcceptTerms();
             i_request_for_bungii_using_request_bungii_button();
 
             // SAVE required values in scenario context
@@ -163,12 +168,59 @@ public class EstimateSteps extends DriverBase {
             utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in requesting delivery",
                     true);
         }
 
     }
+    @When("^I try to confirm trip with following detail$")
+    public void itryEnterTripInformations(DataTable tripInformation) throws Throwable {
+        try {
+            Map<String, String> data = tripInformation.transpose().asMap(String.class, String.class);
+            String loadTime = data.get("LoadTime"), promoCode = data.get("PromoCode"), time = data.get("Time"),
+                    pickUpImage = data.get("PickUpImage");
+            //Vishal[21/12]: added this to save time , It takes time to read trip value from estimate page
+            boolean saveDetails = true;
+            try {
+                String save_trip_info = data.get("Save Trip Info");
+                saveDetails = save_trip_info.equalsIgnoreCase("No") ? false : true;
+            } catch (Exception e) {
+            }
+            boolean isCorrectTime = false;
+            String strTime = "";
+            enterLoadingTime(loadTime);
+            //  addPromoCode(promoCode);
+            addBungiiPickUpImage(pickUpImage);
 
+            action.swipeDown();
+            strTime = enterTime(time);
+
+            String[] details = new String[4];
+            if (saveDetails) {
+                details = getEstimateDetails();
+            }
+            action.swipeUP();
+            action.swipeUP();
+            clickAcceptTerms();
+            action.click(estimatePage.Button_RequestBungii());
+
+            // SAVE required values in scenario context
+            cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+            cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", details[0]);
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", details[2]);
+            cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
+            String actualText = getDriver().switchTo().alert().getText();
+            getDriver().switchTo().alert().accept();
+
+            log("I try confirming trip with following details", "I tried requesting bungii ");
+            utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in trying to request delivery",
+                    true);
+        }
+
+    }
     @When("^I request for bungii using Request Bungii Button$")
     public void i_request_for_bungii_using_request_bungii_button() throws Throwable {
         clickRequestBungii();
@@ -207,10 +259,10 @@ public class EstimateSteps extends DriverBase {
             String actualValue = estimate.substring(0, estimate.length() - 1);
             String truncValue = new DecimalFormat("#.00").format(expectedValue);
             //  String truncValue = new DecimalFormat("#.##").format(expectedValue);
-            testStepVerify.isEquals(estimate.trim(), truncValue.trim(), "Estimate value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + actualValue + ",(Truncate to single float point)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + estimate);
+            testStepAssert.isEquals(estimate.trim(), truncValue.trim(), "Estimate value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + actualValue + ",(Truncate to single float point)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + estimate);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in getting Estimate value for trip",
                     true);
         }
     }
@@ -242,15 +294,21 @@ public class EstimateSteps extends DriverBase {
     @When("^I try to schedule bungii for \"([^\"]*)\"$")
     public void i_try_to_schedule_bungii_for_something(String strArg1) throws Throwable {
         try {
-
+            String browserstack= BrowserStackLocal();
             switch (strArg1.toLowerCase()) {
                 case "today - after working hour":
-                    selectBungiiTime(0, "11", "45", "PM");
-                    log("I select time for trip as 11:45  pm", "I selected time for trip as 11:45  pm");
+                    //selectBungiiTime(0, "11", "45", "PM");
+
+                        selectBungiiTime(0, "11", "45", "PM");
+                        log("I select time for trip as 11:45  pm", "I selected time for trip as 11:45  pm");
+
+
                     break;
                 case "tommorow - before working hour":
-                    selectBungiiTime(1, "12", "00", "AM");
-                    log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
+
+                        selectBungiiTime(1, "12", "00", "AM");
+                        log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
+
                     break;
                 case "today+5":
                     selectBungiiTime(5, "", "", "");
@@ -266,20 +324,25 @@ public class EstimateSteps extends DriverBase {
         }
     }
 
-    public String enterTime(String time) throws ParseException {
+    public String enterTime(String time) throws ParseException, InterruptedException {
         String strTime = "";
         if (time.equalsIgnoreCase("NOW")) {
             //    selectBungiiTimeNow();
             strTime = "Now";
         } else if (time.equalsIgnoreCase("NEXT_POSSIBLE")) {
-            Date date = getNextScheduledBungiiTime();
+            Date date = getNextScheduledBungiiTimeForGeofence();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
+            Thread.sleep(3000);
             action.click(estimatePage.Row_TimeSelect());
+            Thread.sleep(6000);
+            if(!action.isElementPresent(estimatePage.Button_Set(true))) {
+                action.click(estimatePage.Row_TimeSelect()); //Retry to select time - workaround for duo cases
+            }
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
         }else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
-            Date date = getNextScheduledBungiiTime();
+            Date date = getNextScheduledBungiiTimeForGeofence();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
             //action.click(estimatePage.Row_TimeSelect());
@@ -324,6 +387,11 @@ public class EstimateSteps extends DriverBase {
             String[] dateScroll = bungiiTimeForScroll(teletTimeInLocal);
             strTime = bungiiTimeDisplayInTextArea(teletTimeInLocal);
             action.click(estimatePage.Row_TimeSelect());
+            //BrowserStack Changes for not display of AM and PM
+            String bs = BrowserStackLocal();
+            if(bs.equalsIgnoreCase("True")){
+                dateScroll[3] ="";
+            }
             selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
 
         } else if (time.equalsIgnoreCase("<START TIME WITHIN TELET OF CUSTOMER 1>")) {
@@ -342,8 +410,10 @@ public class EstimateSteps extends DriverBase {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(teletTimeInUtc);
             int mnts = calendar.get(Calendar.MINUTE);
-
+             if(mnts>=30)
             calendar.set(Calendar.MINUTE, mnts - 30);
+             else
+                 calendar.set(Calendar.MINUTE, 0);
             int unroundedMinutes = calendar.get(Calendar.MINUTE);
             int mod = unroundedMinutes % 15;
             calendar.add(Calendar.MINUTE, (15 - mod));
@@ -363,11 +433,11 @@ public class EstimateSteps extends DriverBase {
 
             String[] dateScroll = bungiiTimeForScroll(teletTimeInLocal);
             strTime = bungiiTimeDisplayInTextArea(teletTimeInLocal);
-            action.click(estimatePage.Row_TimeSelect());
+            //action.click(estimatePage.Row_TimeSelect()); added inside so removing it
             selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
 
         } else if (time.equals("<TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1>")) {
-            Date date = getNextScheduledBungiiTime();
+            Date date = getNextScheduledBungiiTimeForGeofence();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
             action.click(estimatePage.Row_TimeSelect());
@@ -390,7 +460,7 @@ public class EstimateSteps extends DriverBase {
             calendar.setTime(teletTimeInUtc);
             int mnts = calendar.get(Calendar.MINUTE);
 
-            calendar.set(Calendar.MINUTE, mnts);
+            calendar.set(Calendar.MINUTE, mnts+120);
             int unroundedMinutes = calendar.get(Calendar.MINUTE);
             int mod = unroundedMinutes % 15;
             calendar.add(Calendar.MINUTE, (15 - mod));
@@ -425,13 +495,38 @@ public class EstimateSteps extends DriverBase {
             strTime = bungiiTimeDisplayInTextArea(date);
             selectBungiiTime();
         } else if (time.equalsIgnoreCase("Today+1 1:00 PM")) {
-            selectBungiiTime(1, "1", "00", "PM");
+            //BrowserStack Changes for not display of AM and PM
+            String bs = BrowserStackLocal();
+            if(bs.equalsIgnoreCase("True")){
+                selectBungiiTime(1, "1", "00", "");
+            }
+            else {
+                selectBungiiTime(1, "1", "00", "PM");
+            }
         } else if (time.equalsIgnoreCase("Today+2 1:00 PM")) {
-            selectBungiiTime(2, "1", "00", "PM");
+            //BrowserStack Changes for not display of AM and PM
+            String bs = BrowserStackLocal();
+            if(bs.equalsIgnoreCase("True")){
+                selectBungiiTime(2, "1", "00", "");
+            }else {
+                selectBungiiTime(2, "1", "00", "PM");
+            }
         } else if (time.equalsIgnoreCase("Today+3 1:00 PM")) {
-            selectBungiiTime(3, "1", "00", "PM");
+            //BrowserStack Changes for not display of AM and PMse
+            String bs = BrowserStackLocal();
+            if(bs.equalsIgnoreCase("True")){
+                selectBungiiTime(3, "1", "00", "");
+            }else {
+                selectBungiiTime(3, "1", "00", "PM");
+            }
         } else if (time.equalsIgnoreCase("Today+4 1:00 PM")) {
-            selectBungiiTime(4, "1", "00", "PM");
+            //BrowserStack Changes for not display of AM and PM
+            String bs = BrowserStackLocal();
+            if(bs.equalsIgnoreCase("True")){
+                selectBungiiTime(4, "1", "00", "");
+            }else {
+                selectBungiiTime(4, "1", "00", "PM");
+            }
         } else {
             selectBungiiTime(0, "", "", "");
             strTime = "Now";
@@ -500,6 +595,24 @@ public class EstimateSteps extends DriverBase {
             formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
         else
             formattedDate = formattedDate + " " + utility.getTimeZoneBasedOnGeofence();
+
+        cucumberContextManager.setScenarioContext("BUNGII_FORMATTED", formattedDate);
+        return formattedDate;
+    }
+
+    public String bungiiTimeDisplayDriverEarning(Date date) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy hh:mm a");
+        String formattedDate = sdf.format(date);
+        //After sprint 27 /26 IST is being added in scheduled page
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+            formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
+        else
+            formattedDate = formattedDate + " " + utility.getTimeZoneBasedOnGeofence();
+
+        cucumberContextManager.setScenarioContext("BUNGII_FORMATTED", formattedDate);
         return formattedDate;
     }
 
@@ -526,6 +639,19 @@ public class EstimateSteps extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime + 15); //15 added to eliminate there is delay in requeting bungii
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
+
+        String strdate = formatter.format(calendar.getTime());
+        return strdate;
+    }
+    public String getDateForTimeZoneToMatch() {
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time.nashville"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
         calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
@@ -533,7 +659,6 @@ public class EstimateSteps extends DriverBase {
         String strdate = formatter.format(calendar.getTime());
         return strdate;
     }
-
     public String getDateForTimeZone(int minuteDifferance) {
         String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
         int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
@@ -541,6 +666,19 @@ public class EstimateSteps extends DriverBase {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
         calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime + minuteDifferance);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
+
+        String strdate = formatter.format(calendar.getTime());
+        return strdate;
+    }
+    public String getDateForTimeZoneDependingOn(int minuteDifferance) {
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + minuteDifferance);
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
 
@@ -573,7 +711,17 @@ public class EstimateSteps extends DriverBase {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone());
-            System.out.println("\t" + date1);
+            //System.out.println("\t" + date1);
+        } catch (Exception e) {
+        }
+
+        return date1;
+    }
+    public Date getFormatedTimeToMatch() {
+        Date date1 = Calendar.getInstance().getTime();
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZoneToMatch());
+            //System.out.println("\t" + date1);
         } catch (Exception e) {
         }
 
@@ -584,7 +732,7 @@ public class EstimateSteps extends DriverBase {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZoneForGeofence());
-            System.out.println("\t" + date1);
+           // System.out.println("\t" + date1);
         } catch (Exception e) {
         }
 
@@ -595,7 +743,17 @@ public class EstimateSteps extends DriverBase {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone(minuteDifferance));
-            System.out.println("\t" + date1);
+            //System.out.println("\t" + date1);
+        } catch (Exception e) {
+        }
+
+        return date1;
+    }
+    public Date getFormatedTimeDependingOn(int minuteDifferance) {
+        Date date1 = Calendar.getInstance().getTime();
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZoneDependingOn(minuteDifferance));
+            //System.out.println("\t" + date1);
         } catch (Exception e) {
         }
 
@@ -610,6 +768,9 @@ public class EstimateSteps extends DriverBase {
     public Date getNextScheduledBungiiTime() {
         return getFormatedTime();
     }
+    public Date getNextScheduledBungiiTimeToMatch() {
+        return getFormatedTimeToMatch();
+    }
 
     public Date getNextScheduledBungiiTimeForGeofence(){
         return getFormatedTimeForGeofence();
@@ -622,7 +783,9 @@ public class EstimateSteps extends DriverBase {
     public Date getNextScheduledBungiiTime(int minuteDifferance) {
         return getFormatedTime(minuteDifferance);
     }
-
+    public Date getNextScheduledBungiiTimeDependingOn(int minuteDifferance) {
+        return getFormatedTimeDependingOn(minuteDifferance);
+    }
     public Date getScheduledBungiiTime(int minuteDifferance) {
         int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
         Calendar calendar = Calendar.getInstance();
@@ -753,15 +916,24 @@ public class EstimateSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_TIME", details[1]);
 
             String value = getElementValue("Promo Code");
+            logger.detail("Requested Field Values : "+ details[0]+", "+ details[1]+", "+ details[2]+", "+ details[3]);
 
             cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", value);
+            String fieldValues = details[0]+", "+ details[1]+", "+ details[2]+", "+ details[3];
             if (!time.equals("")) {
                 String strTime = enterTime(time);
-                cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+                String[] redetails = getEstimateDetails();
+                cucumberContextManager.setScenarioContext("BUNGII_TIME", redetails[1]);
+                logger.detail("Requested Field Values : "+ redetails[1]);
+                fieldValues =  redetails[0]+", "+ redetails[1]+", "+ redetails[2]+", "+ redetails[3];
             }
+
+            log("I enter details on Estimate screen", "I was able to add "+ fieldValues+" on estimate screen", true);
+
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in requesting delivery ",
                     true);
         }
     }
@@ -798,7 +970,7 @@ public class EstimateSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in verifying elements on estimate screen", true);
         }
     }
 
@@ -874,13 +1046,39 @@ public class EstimateSteps extends DriverBase {
         }
     }
 
+    @And("^I wait for 15 minutes slot overlap period if occurs$")
+    public void i_wait_for_15_minutes_slot_overlap_period_if_occurs() throws Throwable {
+        //throw new PendingException();
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        //int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        //calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        if(unroundedMinutes%15<=1);
+        {
+            Thread.sleep(120000);
+        }
+
+
+    }
+
     @Then("^correct details next available scheduled time should be displayed$")
     public void correct_details_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
             String displayedTime = getElementValue("TIME");
-            Date date = getNextScheduledBungiiTime();
+            Date date = getNextScheduledBungiiTimeToMatch();
             String strTime = bungiiTimeDisplayInTextArea(date);
-            testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"),strTime.replace("am","AM").replace("pm","PM"));
+            if(BrowserStackLocal().equalsIgnoreCase("true")) {
+                strTime = utility.getGmtTime(strTime);
+                strTime = strTime.replace("am","a.m.").replace("pm","p.m.").replace("AM","a.m.").replace("PM","p.m.");
+
+                testStepAssert.isEquals(displayedTime, strTime,"Default Pickup Time should be calculated properly","Default Pickup Time is displayed properly : "+ displayedTime,"Default Pickup Time is not displayed properly : "+ displayedTime);
+            }
+            else
+                testStepAssert.isEquals(displayedTime.replace("am","AM").replace("pm","PM"),strTime.replace("am","AM").replace("pm","PM"),"Default Pickup Time should be calculated properly","Default Pickup Time is displayed properly : "+ displayedTime,"Default Pickup Time is not displayed properly : "+ displayedTime);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -897,24 +1095,63 @@ public class EstimateSteps extends DriverBase {
         try {
             action.click(estimatePage.Row_TimeSelect());
             action.click(estimatePage.Button_Set());
-           // action.click(estimatePage.Text_TimeValue());
             String time=action.getValueAttribute(estimatePage.Text_TimeValue());
+            Date date = getNextScheduledBungiiTimeForGeofence();
+            String strTime = bungiiTimeDisplayInTextArea(date);
+            cucumberContextManager.setScenarioContext("CALCULATED_TIME",strTime);
+            cucumberContextManager.setScenarioContext("DISPLAYED_TIME",time);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I calculate the schedule time$")
+    public void I_calculate_the_schedule_time() throws Throwable {
+        try {
+            cucumberContextManager.setScenarioContext("MIN_TIME_DUO", "30");
+            cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", "30");
+            boolean bit = false ;
+            int retry = 2;
 
+            while (bit == false || retry >0) {
+                String time = action.getValueAttribute(estimatePage.Text_TimeValue());
+                Date date = getNextScheduledBungiiTimeForGeofence();
+                String strTime = bungiiTimeDisplayInTextArea(date);
+                cucumberContextManager.setScenarioContext("CALCULATED_TIME", strTime);
+                cucumberContextManager.setScenarioContext("DISPLAYED_TIME", time);
+                if (strTime.contains(time))
+                    bit = true;
+                retry --;
+
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^correct next available scheduled time should be displayed$")
     public void correct_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
 
             String displayedTime = getElementValue("TIME");
-            Date date = getNextScheduledBungiiTimeForGeofence();
-            String strTime = bungiiTimeDisplayInTextArea(date);
+            //Date date = getNextScheduledBungiiTimeForGeofence();
+            String strTime =(String)cucumberContextManager.getScenarioContext("CALCULATED_TIME");
 
-            testStepVerify.isEquals( displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"));
+            if(BrowserStackLocal().equalsIgnoreCase("true")) {
+                if(displayedTime.contains("a.m.")||displayedTime.contains("p.m.")) {
+                    strTime = strTime.replace("am", "a.m.").replace("pm", "p.m.").replace("AM", "a.m.").replace("PM", "p.m.");
+                }
+                if(strTime.contains("GMT"))
+                strTime = utility.getGmtTime(strTime);
+                testStepAssert.isEquals(displayedTime, strTime,strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
+            }
+            else
+
+            testStepAssert.isEquals(displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"),strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
 
 
         } catch (Exception e) {
@@ -956,7 +1193,7 @@ public class EstimateSteps extends DriverBase {
             isElementPresent = checkIfElementIsPresent("TERMS ON");
         }
         String value = getElementValue("TERMS AND CONDITION");
-        String expectedMsg = PropertyUtility.getMessage("customer.text.terms");
+        String expectedMsg = PropertyUtility.getMessage("customer.terms.checkbox.text.new");
         boolean isValueCorrect = value.equals(expectedMsg);
 
         testStepVerify.isTrue(isElementPresent,
@@ -964,9 +1201,9 @@ public class EstimateSteps extends DriverBase {
                 "Verify Terms & Condition checkBox is " + expectedValue,
                 "Verify Terms & Condition checkBox is not " + expectedValue);
         testStepVerify.isTrue(isValueCorrect,
-                " Terms & Condition value Should be " + PropertyUtility.getMessage("customer.text.terms"),
-                " Terms & Condition value is " + PropertyUtility.getMessage("customer.text.terms") + "as expected",
-                "'Terms & Condition' value is not matching ,expected is" + PropertyUtility.getMessage("customer.text.terms")
+                " Terms & Condition value Should be " + PropertyUtility.getMessage("customer.terms.checkbox.text"),
+                " Terms & Condition value is " + PropertyUtility.getMessage("customer.terms.checkbox.text.new") + "as expected",
+                "'Terms & Condition' value is not matching ,expected is " + PropertyUtility.getMessage("customer.terms.checkbox.text")
                         + "but actual is" + value);
 
     }
@@ -1152,13 +1389,13 @@ public class EstimateSteps extends DriverBase {
 
         List<WebElement> genericStaticText = estimatePage.Text_GenericStaticText();
 
-        details[0] = action.getValueAttribute(genericStaticText.get(1));
+        details[0] = action.getValueAttribute(estimatePage.Text_DistValue()); //action.getValueAttribute(genericStaticText.get(1)); //miles
         //  details[0] = action.getValueAttribute(estimatePage.Text_DistanceValue());//2
-        details[1] = action.getValueAttribute(genericStaticText.get(13));//
+        details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());//action.getValueAttribute(genericStaticText.get(10));//Now  from 13 index moved to 10
         //   details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());//11
-        details[2] = action.getValueAttribute(genericStaticText.get(5));//6
+        details[2] = action.getValueAttribute(estimatePage.Text_AmountValue()); //action.getValueAttribute(genericStaticText.get(5));//amount
         //    details[2] = action.getValueAttribute(estimatePage.Text_EstimateValue());//6
-        details[3] = action.getValueAttribute(genericStaticText.get(14));//10
+        details[3] = action.getValueAttribute(estimatePage.Value_LoadTime()); //action.getValueAttribute(genericStaticText.get(12));//mins from 14 index moved to 12
         //   details[3] = action.getValueAttribute(estimatePage.Text_LoadUnLoadTimeValue());//10
         return details;
     }
@@ -1227,6 +1464,7 @@ public class EstimateSteps extends DriverBase {
      * @param meridiem    AM/PM
      */
     public void selectBungiiTime(int forwordDate, String hour, String minutes, String meridiem) {
+
         action.click(estimatePage.Row_TimeSelect());
         action.dateTimePicker(estimatePage.DatePicker_BungiiTime, estimatePage.DateWheel_BungiiTime, forwordDate, hour, minutes, meridiem);
         //  action.click(estimatePage.Row_TimeSelect());
@@ -1263,7 +1501,7 @@ public class EstimateSteps extends DriverBase {
         } else if (option.equalsIgnoreCase("No image")) {
             addImage(0);
         } else if (option.equalsIgnoreCase("large image")) {
-            addLargeImage();
+            addImage(1);
         } else
             addImage(1);
 
@@ -1308,20 +1546,40 @@ public class EstimateSteps extends DriverBase {
      */
     public void clickAcceptTerms() {
         action.swipeUP();
-        estimatePage.CheckBoxOff_Terms().click();
+        if(!estimatePage.CheckBoxOff_Terms().isSelected()) {
+            testStepVerify.isEquals(action.getText(estimatePage.Text_Checkbox_Terms()),PropertyUtility.getDataProperties("customer.checkbox"));
+            action.click(estimatePage.CheckBoxOff_Terms());
+            logger.detail("Checkbox Terms Selected : true ");
+        }
+        else
+        {
+            logger.detail("Checkbox Terms Selected [Existing] : true ");
+        }
+    }
+
+    public void verifyDisclaimer(String Type) {
+        if(Type.equalsIgnoreCase("solo")){
+            testStepVerify.isEquals(action.getValueAttribute(estimatePage.Text_Solo_Disclaimer()),PropertyUtility.getDataProperties("customer.solo.disclaimer"));
+            logger.detail("Disclaimer for "+Type+":"+action.getValueAttribute(estimatePage.Text_Solo_Disclaimer()));
+        }
+        else{
+            testStepVerify.isEquals(action.getValueAttribute(estimatePage.Text_Duo_Disclaimer()),PropertyUtility.getDataProperties("customer.duo.disclaimer"));
+            logger.detail("Disclaimer for "+Type+":"+action.getValueAttribute(estimatePage.Text_Duo_Disclaimer()));
+        }
     }
 
     /**
      * Click cancel button on Navigation bar
      */
     public void clickCancel() {
-        estimatePage.Button_Cancel().click();
+        action.click(estimatePage.Button_Cancel());
     }
 
     /**
      * Click request bungii
      */
     public void clickRequestBungii() {
+        action.swipeUP();
         action.swipeUP();
         action.click(estimatePage.Button_RequestBungii());
     }

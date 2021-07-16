@@ -43,7 +43,7 @@ public class SetPickupTimePage extends PageBase {
 
     public WebElement Page_TitleSuccess(){return findElement("//*[@resource-id='com.bungii.customer:id/action_bar']/android.widget.TextView", LocatorType.XPath);}
 
-    public WebElement Popup_CancelReasonTitle() {return findElement("//*[@resource-id='com.bungii.customer:id/custom']/android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath);}
+    public WebElement Popup_CancelReasonTitle() {return findElement("//android.widget.TextView[contains(@text,\"What's your reason\")]", LocatorType.XPath);}
     public WebElement Text_MonthPicker(){return findElement("android:id/date_picker_month", LocatorType.Id);}
     public WebElement Text_DayPicker(){return findElement("android:id/date_picker_day", LocatorType.Id);}
     public WebElement Text_YearPicker(){return findElement("android:id/date_picker_year", LocatorType.Id);}
@@ -51,7 +51,7 @@ public class SetPickupTimePage extends PageBase {
 
     public WebElement Text_FirstCancellationReason() {return findElement("//*[@resource-id='com.bungii.customer:id/alert_cancellation_reason_tv' and @text='I needed it right away.']", LocatorType.XPath);}
     public WebElement Text_SecondCancellationReason() {return findElement("//*[@resource-id='com.bungii.customer:id/alert_cancellation_reason_tv' and @text='I found an alternative.']", LocatorType.XPath);}
-    public WebElement Text_ThirdCancellationReason() {return findElement("//*[@resource-id='com.bungii.customer:id/alert_cancellation_reason_tv']", LocatorType.XPath);}
+    public WebElement Text_ThirdCancellationReason() {return findElement("//*[@resource-id='com.bungii.customer:id/alert_cancellation_reason_tv' and contains(@text,'need it anymore.')]", LocatorType.XPath);}
     public WebElement Text_FourthCancellationReason() {return findElement("//*[@resource-id='com.bungii.customer:id/alert_cancellation_reason_tv' and @text='Other...']", LocatorType.XPath);}
     public WebElement TextBox_CancellationReason() {return findElement("com.bungii.customer:id/alert_cancellation_reason_et", LocatorType.Id);}
     public WebElement Button_SubmitCancellationReason(){return findElement("com.bungii.customer:id/alert_cancellation_reason_et_submit", LocatorType.Id);}

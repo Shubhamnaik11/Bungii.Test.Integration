@@ -52,7 +52,7 @@ public class FaqSteps extends DriverBase {
                 case "first answer dropdown open":
                     Thread.sleep(20000);
                     //    action.scrollToBottom();
-                    testStepAssert.isTrue(action.getText(faqPage.FAQ_FirstAnswer()).contains("Bungii is considered an essential business during COVID-19"), "First answer dropdown should open", "First answer dropdown is displayed", "First answer dropdown is not displayed");
+                    testStepAssert.isTrue(action.getText(faqPage.FAQ_FirstAnswer()).contains("Bungii drivers are following"), "First answer dropdown should open", "First answer dropdown is displayed", "First answer dropdown is not displayed");
                     break;
                 case "first answer dropdown close":Thread.sleep(2000);
                 //    testStepAssert.isFalse(action.getText(faqPage.FAQ_FirstAnswer()).contains("an app similar to other popular ridesharing apps"), "First answer dropdown should close", "First answer dropdown should be closed", "First answer dropdown is displayed");
@@ -80,7 +80,7 @@ public class FaqSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in viewing " + strArg1+ "on FAQ page",
                     true);
         }
     }

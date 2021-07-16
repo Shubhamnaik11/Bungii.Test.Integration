@@ -28,7 +28,7 @@ public class TermsPage extends PageBase {
 
 
     public WebElement Header_PermissionsLocation(boolean... ignore) { return findElement("com.bungii.customer:id/toolbar_location_permission", LocatorType.Id,ignore); }
-    public WebElement Button_PermissionsSure() { return findElement("com.bungii.customer:id/button_location_permission_sure", LocatorType.Id); }
+    public WebElement Button_PermissionsSure(boolean... ignore) { return findElement("com.bungii.customer:id/button_location_permission_sure", LocatorType.Id,ignore); }
 
 
 

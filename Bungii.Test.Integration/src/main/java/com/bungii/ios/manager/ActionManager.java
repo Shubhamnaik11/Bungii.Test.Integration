@@ -12,6 +12,7 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
 
@@ -49,7 +50,15 @@ public class ActionManager {
             //  Assert.fail("Following element is not displayed : " + element);
         }
     }
-
+    public static void waitUntilIsElementClickable(WebElement element) {
+        try {
+            IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            wait.until((ExpectedConditions.elementToBeClickable(element)));
+        } catch (Exception Ex) {
+            //  Assert.fail("Following element is not displayed : " + element);
+        }
+    }
     /**
      * @param element , locator of field
      * @param text    , Text value that is to be sent
@@ -66,7 +75,23 @@ public class ActionManager {
                     true);
         }
     }
-
+    /**
+     * @param element , locator of field
+     * @param text    , Text value that is to be sent
+     */
+    public void clearSendKeys(WebElement element, String text) {
+        try {
+            element.clear();
+            element.sendKeys(text);
+            logger.detail("ACTION | Send  " + text + " in element -> " + getElementDetails(element));
+        }
+        catch(Exception ex)
+        {
+            logger.error("ACTION FAILED | Send  " + text + " in element -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Send  " + text + " in element -> " + getElementDetails(element), "Unable to send " + text + " in element -> " + getElementDetails(element),
+                    true);
+        }
+    }
     /**
      * @return boolean value according to alert existence
      */
@@ -93,8 +118,10 @@ public class ActionManager {
     public String getValueAttribute(WebElement element) {
         String value = "";
         try {
-            value = element.getAttribute("value");
-            logger.detail("GET | Element -> " + getElementDetails(element) + " value is " + value);
+            if(element!= null) {
+                value = element.getAttribute("value");
+                logger.detail("GET | Element -> " + getElementDetails(element) + " value is " + value);
+            }
 
         }
            catch(Exception ex)
@@ -122,11 +149,48 @@ public class ActionManager {
         return value;
 
     }
+    public String getScreenHeader(WebElement element) {
+        String value = "";
+        try {
+            value = element.getAttribute("name");
 
+            logger.detail("GET | Screen Header is " + value);
+        }
+        catch(Exception ex)
+        {
+           // logger.error("ACTION FAILED | Error in getting Screen Header", ExceptionUtils.getStackTrace(ex));
+            //error("Get name for element by locator -> " + getElementDetails(element), "Unable to get name for element by locator -> " + getElementDetails(element),
+                  //  true);
+        }
+        return value;
+
+    }
+    public String getAppName(WebElement element) {
+        String value = "";
+        try {
+            value = element.getAttribute("name");
+
+            logger.detail("GET | App Name is " + value);
+        }
+        catch(Exception ex)
+        {
+            // logger.error("ACTION FAILED | Error in getting Screen Header", ExceptionUtils.getStackTrace(ex));
+            //error("Get name for element by locator -> " + getElementDetails(element), "Unable to get name for element by locator -> " + getElementDetails(element),
+            //  true);
+        }
+        return value;
+
+    }
     public void click(WebElement element) {
         try{
         element.click();
         logger.detail("ACTION | Click on element by locator -> " + getElementDetails(element));
+
+    }
+    catch(ElementClickInterceptedException ex)
+    {
+        waitUntilIsElementClickable(element);
+        element.click();
 
     }
          catch(Exception ex)
@@ -135,6 +199,19 @@ public class ActionManager {
         error("Click on element by locator -> " + getElementDetails(element), "Unable to click on element -> " + getElementDetails(element),
                 true);
     }
+    }
+    public void JavaScriptClick(WebElement element) {
+        try{
+            JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+            executor.executeScript("arguments[0].click();", element);
+            logger.detail(" JS Click on element by locator" + getElementDetails(element));
+
+        }  catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to click on element -> " + getElementDetails(element) ,
+                    true);
+        }
     }
 
     public void tapByElement(WebElement element) {
@@ -146,7 +223,13 @@ public class ActionManager {
         new TouchAction(driver).tap(point(endX, startY)).perform();
         logger.detail("ACTION | Tap element by locator -> " + getElementDetails(element));
     }
-
+    public void doubleTapByElement(WebElement element) {
+        AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
+        TouchActions action = new TouchActions(driver);
+        action.doubleTap(element);
+        action.perform();
+        logger.detail("ACTION | Tap element by locator -> " + getElementDetails(element));
+    }
     public void clickMiddlePoint(WebElement element) {
         Point elementLocation = element.getLocation();
         Dimension elementSize = element.getSize();
@@ -291,20 +374,34 @@ public class ActionManager {
         for (int row = 0; row < forwordDate; row++)
             js.executeScript("mobile: selectPickerWheelValue", hp);}catch (Exception e){}
         if(!meridiem.equals(""))
+            if(Columns.size()==4)
             Columns.get(3).sendKeys(meridiem);
 
         if(!minutes.equals(""))
             Columns.get(2).sendKeys(minutes);
 
-        if(!hour.equals(""))
-            Columns.get(1).sendKeys(hour);
-        if(!meridiem.equals("")) {
-            if (!Columns.get(3).getAttribute("value").equals(meridiem))
-                Columns.get(3).sendKeys(meridiem);
+        if(!hour.equals("")) {
+            if(Columns.size()==4)
+                Columns.get(1).sendKeys(hour);
+            else
+                Columns.get(1).sendKeys(hour+12);
         }
-        logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
-                + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value") + " "
-                + Columns.get(3).getAttribute("value"));
+        if(!meridiem.equals("")) {
+            if(Columns.size()==4) {
+                if (!Columns.get(3).getAttribute("value").equals(meridiem))
+                    Columns.get(3).sendKeys(meridiem);
+                logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
+                        + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value") + " "
+                        + Columns.get(3).getAttribute("value"));
+            }
+            logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
+                    + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value"));
+        }
+        else{
+            logger.detail("ACTION | Select time from picker : Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
+                    + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value"));
+        }
+
 
     }
 
@@ -558,30 +655,35 @@ public class ActionManager {
      * @param show
      */
     private void manageNotifications(Boolean show) {
+try {
+    Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
+    int yMargin = 5;
+    int xMid = screenSize.width / 2;
+    PointOption top = point(xMid, yMargin);
+    PointOption bottom = point(xMid, screenSize.height - yMargin);
 
-        Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
-        int yMargin = 5;
-        int xMid = screenSize.width / 2;
-        PointOption top = point(xMid, yMargin);
-        PointOption bottom = point(xMid, screenSize.height - yMargin);
+    TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
+    if (show) {
+        action.press(top);
+        logger.detail("ACTION | Open notification tray ");
+    } else {
+        action.press(bottom);
+        logger.detail("ACTION | Close notification tray ");
+    }
+    action.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
+    if (show) {
+        action.moveTo(bottom);
+        // logger.detail("ACTION | Open notification tray ");
+    } else {
+        action.moveTo(top);
+        //logger.detail("ACTION | Close notification tray ");
+    }
+    action.perform();
+}
+        catch(Exception ex)
+    {
 
-        TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
-        if (show) {
-            action.press(top);
-            logger.detail("ACTION | Open notification tray ");
-        } else {
-            action.press(bottom);
-            logger.detail("ACTION | Close notification tray ");
-        }
-        action.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
-        if (show) {
-            action.moveTo(bottom);
-            logger.detail("ACTION | Open notification tray ");
-        } else {
-            action.moveTo(top);
-            logger.detail("ACTION | Close notification tray ");
-        }
-        action.perform();
+    }
     }
 
     /**
@@ -638,18 +740,14 @@ public class ActionManager {
                 break;
             }
         }
-        if (buttonLabel.equals(""))
+        if (buttonLabel.equals("")) {
+            logger.detail("ACTION | No Alert button : " + label);
             return false;
+        }
         else {
             HashMap<String, String> params = new HashMap<>();
             JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
-
-           // params.put("action", "accept");
-           // params.put("buttonLabel", buttonLabel);
-          //  js.executeScript("mobile: alert", params);
              SetupManager.getDriver().findElement(By.id(label)).click();
-           // Alert alert = SetupManager.getDriver().switchTo().alert();
-           // alert.accept();
             logger.detail("ACTION | Accept Alert button : "+ label);
 
             return true;
@@ -689,9 +787,13 @@ public class ActionManager {
         //    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
         //   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         try {
-            boolean isdisplayed = element.isDisplayed();
-            logger.detail("GET | Element -> "+ getElementDetails(element)+" is displayed : "+isdisplayed);
-            return isdisplayed;
+            if(element!= null) {
+                boolean isdisplayed = element.isDisplayed();
+                logger.detail("GET | Element -> " + getElementDetails(element) + " is displayed : " + isdisplayed);
+                return isdisplayed;
+            }
+            else
+                return false;
         } catch (Exception Ex) {
             return false;
         }

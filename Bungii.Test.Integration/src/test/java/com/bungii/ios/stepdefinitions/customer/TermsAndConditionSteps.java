@@ -12,6 +12,8 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import java.util.List;
+
 import static com.bungii.common.manager.ResultManager.*;
 
 public class TermsAndConditionSteps extends DriverBase {
@@ -30,51 +32,57 @@ public class TermsAndConditionSteps extends DriverBase {
     public void i_accept_term_and_condition_agreement_and_rest(String terms, String notification, String location) {
         try {
             GeneralUtility utility = new GeneralUtility();
-            Thread.sleep(3000);
+            Thread.sleep(5000);
             String pageHeader = utility.getPageHeader();
 
-            if(action.isElementPresent(termsAndConditionPage.Button_CheckOff())) {
+            if(action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
                 action.click(termsAndConditionPage.Button_CheckOff());
                 action.click(termsAndConditionPage.Button_Continue());
                 Thread.sleep(3000);
                // pageHeader = utility.getPageHeader();
             }
-            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
+            if(action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
                 action.click(enableNotificationPage.Button_Sure());
                 Thread.sleep(3000);
                 action.clickAlertButton("Allow");
-                Thread.sleep(3000);
+                Thread.sleep(5000);
                // pageHeader = utility.getPageHeader();
             }
-            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+            if(action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                 action.click(enableLocationPage.Button_Sure());
                 Thread.sleep(3000);
-                action.clickAlertButton("Allow");  //Customer App alert for ios 12 and below
-                Thread.sleep(3000);
+                action.clickAlertButton("Always Allow");  //Customer App alert for ios 12 and below
+                //Thread.sleep(3000);
                // pageHeader = utility.getPageHeader();
+
             }
 
         } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
         }
     }
 
     @Then("^I close \"([^\"]*)\" if exist$")
     public void i_close_tutorial_page(String Tutorial) throws Throwable {
         try {
-            if(action.isElementPresent(tutorialPage.Button_Close())) {
-                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
-                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
-                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
-                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
-                action.click(tutorialPage.Button_Start());
+            if(action.isElementPresent(tutorialPage.Button_Close(true))) {
+                //action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+              //  action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+               // action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                //action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+               // action.click(tutorialPage.Button_Start());
+                action.click(tutorialPage.Button_Close());
+                if (action.isAlertPresent()) {
+                    String alertMessage = action.getAlertMessage();
+                    List<String> getListOfAlertButton = action.getListOfAlertButton();
+                    if (alertMessage.contains("we are not operating in your area")) {
+                        if (getListOfAlertButton.contains("Done")) {
+                            action.clickAlertButton("Done");
+                        }
+                    }
+                }
             }
 
         } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
     }

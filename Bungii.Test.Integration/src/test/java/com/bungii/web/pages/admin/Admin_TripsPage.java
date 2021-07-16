@@ -9,14 +9,16 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Menu_Trips () { return findElement("adminmenu-trips", LocatorType.Id); }
 
-    public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+    public WebElement Menu_CompletedTrips () { return findElement("adminmenu-completedtrips", LocatorType.Id); }
+
+    //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
 
     public WebElement DropDown_SearchForPeriod () {return findElement("SearchForPeriod", LocatorType.Id); }
 
     //public List<WebElement> Client_names () { return findElements("//td[9]", LocatorType.XPath); }
-    public List<WebElement> Client_names () { return findElements("//td[10]", LocatorType.XPath); }
+    public List<WebElement> Client_names () { return findElements("//td[8]", LocatorType.XPath); }
 
     public WebElement Button_Filter () { return findElement("btnFilter", LocatorType.Id); }
 
@@ -31,6 +33,8 @@ public class Admin_TripsPage extends PageBase {
     public WebElement CheckBox_FilterDriverCancelled () { return findElement("chkStatus-66", LocatorType.Id); }
 
     public WebElement CheckBox_FilterAdminCancelled () { return findElement("chkStatus-70", LocatorType.Id); }
+
+    public WebElement CheckBox_FilterPartnerCancelled () { return findElement("chkStatus-72", LocatorType.Id); }
 
     public WebElement CheckBox_FilterPickupWithError () { return findElement("chkStatus-PickupwithError", LocatorType.Id); }
 

@@ -7,7 +7,7 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Menu_Drivers () { return findElement("//img[@alt='Drivers']", LocatorType.XPath); }
 
-    public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+    //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement Label_DriversPageHeader () { return findElement("//h4[text()='Drivers']",LocatorType.XPath);}
 
@@ -15,7 +15,7 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Textbox_SearchCriteria () {return findElement("SearchCriteria", LocatorType.Id);}
 
-    public WebElement Label_TripListHeader () { return  findElement("//h4[text()='Trip List']", LocatorType.XPath);}
+    public WebElement Label_TripListHeader () { return  findElement("//h4[text()='Delivery List']", LocatorType.XPath);}
 
     public WebElement Grid_TripList () { return findElement("tblTripList",LocatorType.Id);}
 

@@ -16,6 +16,7 @@ public class DbContextManager {
     private static LogUtility logger = new LogUtility(DbContextManager.class);
     private static String MYSQL_URL = PropertyUtility.getJdbcConfigProperties("jdbc.mysqlserver.url");
     private static String MYSQL_MGMT_URL = PropertyUtility.getJdbcConfigProperties("jdbc.mysqlserver.mgmt.url");
+    private static String MYSQL_RPT_URL = PropertyUtility.getJdbcConfigProperties("jdbc.mysqlserver.rpt.url");
 
     private static String MYSQL_USER = PropertyUtility.getJdbcConfigProperties("mysql.user");
     private static String MYSQL_PASSWORD = PropertyUtility.getJdbcConfigProperties("mysql.password");
@@ -30,7 +31,7 @@ public class DbContextManager {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection conn = DriverManager.getConnection(MSSQL_URL, MSSQL_USER, MSSQL_PASSWORD);
-            logger.detail("Connected to ms sql server");
+           // logger.detail("Connected to ms sql server");
 
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(queryString);
@@ -51,7 +52,7 @@ public class DbContextManager {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
-            logger.detail("Connected to my sql server | "+ MYSQL_URL);
+            //logger.detail("Connected to my sql server | "+ MYSQL_URL);
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(queryString);
@@ -66,13 +67,32 @@ public class DbContextManager {
 
         return result;
     }
+    public static String getDataFromMySqlReportServer(String queryString) {
+        String result = "";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(MYSQL_RPT_URL, MYSQL_USER, MYSQL_PASSWORD);
+            //logger.detail("Connected to my sql server | "+ MYSQL_URL);
 
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(queryString);
+            while (rs.next()) {
+                result = rs.getString(1);
+                // logger.detail("MY SQL SERVER DATA : " + result);
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return result;
+    }
     public static boolean checkIfExpectedDataFromMySqlServer(String queryString,String expectedString) {
         String result = "";ResultSet rs = null;boolean isDataPresent=false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
-            logger.detail("Connected to my sql server");
+           // logger.detail("Connected to my sql server");
 
             Statement stmt = con.createStatement();
              rs = stmt.executeQuery(queryString);
@@ -97,7 +117,7 @@ public class DbContextManager {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(MYSQL_MGMT_URL, MYSQL_USER, MYSQL_PASSWORD);
-            logger.detail("Connected to my sql server");
+           // logger.detail("Connected to my sql server");
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(queryString);
@@ -113,13 +133,42 @@ public class DbContextManager {
         return result;
     }
 
+
     public static List<HashMap<String,Object>> getDataFromMySqlServerMap(String queryString) {
         String result = "";
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
-            logger.detail("Connected to my sql server | "+ MYSQL_URL);
+          //  logger.detail("Connected to my sql server | "+ MYSQL_URL);
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(queryString);
+            ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
+            int columns = md.getColumnCount();
+
+            while (rs.next()) {
+                HashMap<String,Object> row = new HashMap<String, Object>(columns);
+                for(int i=1; i<=columns; ++i) {
+                    row.put(md.getColumnName(i),rs.getObject(i));
+                }
+                list.add(row);
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
+    public static List<HashMap<String,Object>> getListDataFromMySqlMgmtServer(String queryString) {
+        String result = "";
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(MYSQL_MGMT_URL, MYSQL_USER, MYSQL_PASSWORD);
+            logger.detail("Connected to my sql server | "+ MYSQL_MGMT_URL);
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(queryString);

@@ -1,5 +1,6 @@
 package com.bungii.api.utilityFunctions;
 
+import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
 
 import java.text.SimpleDateFormat;
@@ -8,7 +9,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.TimeZone;
 
-public class GeneralUtility {
+public class GeneralUtility extends DriverBase {
 
     public String genearateRandomString() {
         int stringlength = 10;
@@ -70,12 +71,14 @@ public class GeneralUtility {
         return driverCordinate;
     }
 
-    public static String getCurrentUTCTime() {
+    public static String getCurrentUTCTime() throws InterruptedException {
         // Get formatted UTC time
+        Thread.sleep(3000); //Added purposely to delay status update by 2 seconds - OPS-476 changes
         Calendar calendar = Calendar.getInstance();
+       // calendar.add(Calendar.SECOND, 2);
         Date dateTime = calendar.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        sdf.setTimeZone(TimeZone.getTimeZone("GTM"));
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         String dateFormatted = sdf.format(dateTime);
         return dateFormatted;
     }
@@ -102,5 +105,30 @@ public class GeneralUtility {
                         break;
                 }
         return timeZoneCompleteText;
+    }
+    /**
+     * Get timezone for geofence, read it from properties file and conver into Time zone object
+     *
+     * @return
+     */
+    public String getTimeZoneBasedOnGeofenceId() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        // currentGeofence="kansas";
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone.id");
+        return getGeofenceTimeZone;
+    }
+    /**
+     * Get geofence data from properties file
+     *
+     * @param geofenceName Geofence name
+     * @param partialKey   this is partial value that is to be searched in properties file
+     * @return get message from Geofence propertiese file
+     */
+    public String getGeofenceData(String geofenceName, String partialKey) {
+        geofenceName = (geofenceName.isEmpty() || geofenceName.equals("")) ? PropertyUtility.getGeofenceData("current.geofence") : geofenceName.toLowerCase();
+        String actualKey = geofenceName + "." + partialKey;
+        return PropertyUtility.getGeofenceData(actualKey);
     }
 }

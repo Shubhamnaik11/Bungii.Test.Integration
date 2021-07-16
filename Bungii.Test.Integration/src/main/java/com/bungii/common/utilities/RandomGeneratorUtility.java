@@ -106,7 +106,7 @@ public final class RandomGeneratorUtility {
 
 
     public static String randomEmailAddress(Integer length) {
-        String email = randomAlphanumeric(length) + "@Testexample.com";
+        String email = randomAlphanumeric(length);
         return email.toLowerCase();
     }
 

@@ -34,7 +34,7 @@ public class ReportManager {
 		//removed detail files path as npew
 		//this.detailFilepath=this.detailsFolderPath+PropertyUtility.getFileLocations("SUMMARY_FILE");
 		htmlReportManager= new ReportGeneratorUtility(this.detailsFolderPath,this.screenshotFolder,this.miscFolder,this.logFolder);
-		/*this.testResultManager= */new ResultManager(this);
+		new ResultManager(this);
 		createInitialFolder();
 		htmlReportManager.startSuiteFile();
 	}
@@ -91,16 +91,20 @@ public class ReportManager {
 	 * Method that will be called before start of test case
 	 * @param tcName Name of test case 
 	 */
-	public void startTestCase(String tcName, String featureName) {
-		htmlReportManager.startTestCase(tcName, featureName);
+	public void startTestCase(String tcName, String featureName, String tags) {
+		htmlReportManager.startTestCase(tcName, featureName, tags);
 	}
 
 	/**
 	 * Method that will be called end of test case
 	 * @param isFailed
 	 */
-	public void endTestCase(boolean isFailed){
-		htmlReportManager.endTestCase(isFailed);
+	public void endTestCase(boolean isFailed, boolean isSkipped){
+		htmlReportManager.endTestCase(isFailed,isSkipped);
+	}
+
+	public void getFeatureExecutionStatus(){
+		htmlReportManager.getFeatureExecutionStatus();
 	}
 	/**
 	 * Set test case failed flag to true
@@ -110,6 +114,8 @@ public class ReportManager {
 	}
 
 	public boolean isVerificationFailed(){return htmlReportManager.isScenarioFailed();}
+	public int inconclusive(){return htmlReportManager.inconclusive();}
+	public int skipped(){return htmlReportManager.skipped();}
 
 	/**
 	 *Add row in Result 
@@ -129,8 +135,14 @@ public class ReportManager {
 	 * Method that will be called at end of Test Suite
 	 */
 	public void endSuiteFile() {
-		htmlReportManager.endSuiteFile();
-		copyLogFile();
+		try {
+			htmlReportManager.endSuiteFile();
+			copyLogFile();
+		}
+		catch (Exception ex)
+		{
+
+		}
 	}
 	
 	/**
@@ -138,7 +150,7 @@ public class ReportManager {
 	 */
 	public void copyLogFile(){
 		FileUtility.makeFolder(this.logFolder);
-		FileUtility.copyFile(FileUtility.getSuiteResource(logger.getLogFileName(), ""), this.logFolder + "/Testlogs.log");
+		FileUtility.copyFile(FileUtility.getSuiteResource(logger.getLogFileName(), ""), this.logFolder + "/ConsoleLog.log");
 
 	}
 	

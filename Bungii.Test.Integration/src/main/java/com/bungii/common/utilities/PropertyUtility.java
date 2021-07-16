@@ -182,6 +182,8 @@ public class PropertyUtility {
         }
         if (!(loginFileName == null)) {
             LOGIN_PROPERTY_FILE = LOGIN_PROPERTY_FOLDER.replace("{ENVT}",environment) + File.separator + loginFileName + ".properties";
+            System.out.println("Login File for thread "+LOGIN_PROPERTY_FILE);
+
         }
     }
 
@@ -225,7 +227,7 @@ public class PropertyUtility {
 
         //add login Data properties to main data properties
         data.putAll(loginData);
-        System.out.println("Listing merged data + login properties ("+LOGIN_PROPERTY_FILE+")");
+       // System.out.println("Listing merged data + login properties ("+LOGIN_PROPERTY_FILE+")");
        // data.list(System.out);
 
         resultConfig = new Properties();

@@ -27,14 +27,23 @@ public class LoginSteps extends DriverBase {
          //   utility.launchCustomerApplication();
             utility.goToLoginPage();
             action.waitUntilIsElementExistsAndDisplayed(loginPage.Header_LoginPage(true));
-            testStepVerify.isElementDisplayed(loginPage.Header_LoginPage(true), "Login button should be displayed ", "Login button is displayed", "Sign up button is not displayed");
+            testStepVerify.isElementDisplayed(loginPage.Header_LoginPage(true), "Login button should be displayed", "Login button is displayed", "Sign up button is not displayed");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I login as customer \"([^\"]*)\" and is on Home Page$")
+    public void i_login_as_customer_something_and_is_on_home_page(String strArg1) throws Throwable {
+        i_am_on_customer_log_in_page();
+        i_enter_customers_something_phone_number(strArg1);
+        i_enter_customers_something_password("valid");
+        i_tap_on_the_something_button("Log in");
 
+        Thread.sleep(15000);
+
+
+    }
     @When("^I enter customers \"([^\"]*)\" Phone Number$")
     public void i_enter_customers_something_phone_number(String strArg1) throws Throwable {
         try {
@@ -141,7 +150,7 @@ public class LoginSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Validation messages not displayed",
                     true);
         }
     }

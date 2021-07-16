@@ -9,6 +9,7 @@ import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
 
 import java.text.DateFormat;
@@ -20,6 +21,7 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_CustomerSortSteps extends DriverBase {
@@ -33,6 +35,7 @@ public class Admin_CustomerSortSteps extends DriverBase {
 
     @When("^I click on \"([^\"]*)\" header for \"([^\"]*)\" order in the \"([^\"]*)\" table$")
     public void i_click_on_something_header_for_something_order_in_the_something_table(String header, String order, String table) throws Throwable {
+        try{
         cucumberContextManager.setScenarioContext("HEADER", header);
 
         int pageno = 2;
@@ -70,7 +73,7 @@ public class Admin_CustomerSortSteps extends DriverBase {
                             }
                         }
                         break;
-                    case "Trips Requested":
+                    case "Deliveries Requested":
                         sort = admin_customerPage.Header_TripsRequested().getAttribute("class");
                         if (order.equals("Ascending")) {
                             if (!sort.equals("sorting_asc")) {
@@ -83,7 +86,7 @@ public class Admin_CustomerSortSteps extends DriverBase {
                             }
                         }
                         break;
-                    case "Trips Estimated":
+                    case "Deliveries Estimated":
                         sort = admin_customerPage.Header_TripsEstimated().getAttribute("class");
                         if (order.equals("Ascending")) {
                             if (!sort.equals("sorting_asc")) {
@@ -125,13 +128,19 @@ public class Admin_CustomerSortSteps extends DriverBase {
 
         }
         log("I click on "+header+" to sort by order "+ order ,
-                "I have clicked on "+header+" to sort by order "+ order, true);
+                "I have clicked on "+header+" to sort by order "+ order, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
 
     @Then("^The column \"([^\"]*)\" data gets sorted in \"([^\"]*)\" order in the \"([^\"]*)\" table$")
     public void the_column_something_data_gets_sorted_in_something_order_in_the_something_table(String field, String order, String table) throws Throwable {
+        try{
         ArrayList<String> dateList = new ArrayList<String>();
         ArrayList<String> amountList = new ArrayList<String>();
         DateFormat parser = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aa");
@@ -265,6 +274,11 @@ public class Admin_CustomerSortSteps extends DriverBase {
                         */
                 }
                 break;
+        }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
 
     }

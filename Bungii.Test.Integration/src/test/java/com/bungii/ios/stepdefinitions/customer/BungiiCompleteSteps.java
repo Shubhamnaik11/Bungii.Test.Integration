@@ -81,7 +81,7 @@ public class BungiiCompleteSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in comparing values shown on Bungii completed page",
                     true);
         }
     }
@@ -111,13 +111,28 @@ public class BungiiCompleteSteps extends DriverBase {
         try {
             //List<WebElement> star= bungiiCompletePage.Button_GenericDriver1star();
             switch (strArg1) {
+                case "5":
+                    action.click(bungiiCompletePage.Button_Solo5Star());
+                    cucumberContextManager.setScenarioContext("RATING_VALUE","5");
+                    break;
+                case "1":
+                    action.click(bungiiCompletePage.Button_Solo1Star());
+                    cucumberContextManager.setScenarioContext("RATING_VALUE","1");
+                    break;
+                case "2":
+                    action.click(bungiiCompletePage.Button_Solo2Star());
+                    cucumberContextManager.setScenarioContext("RATING_VALUE","2");
+                    break;
                 case "3":
                     action.click(bungiiCompletePage.Button_Solo3Star());
                     cucumberContextManager.setScenarioContext("RATING_VALUE","3");
                     break;
-                default:
-                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                case "4":
+                    action.click(bungiiCompletePage.Button_Solo4Star());
+                    cucumberContextManager.setScenarioContext("RATING_VALUE","4");
                     break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
             }
 
         } catch (Exception e) {
@@ -147,7 +162,7 @@ public class BungiiCompleteSteps extends DriverBase {
         }
     }
 
-    @Then("^\"([^\"]*)\" stars should be highlighted for Driver 1$")
+    @Then("^\"([^\"]*)\" stars should be highlighted for Driver1$")
     public void something_stars_should_be_highlighted(String strArg1) throws Throwable {
         try {
             List<WebElement> star = bungiiCompletePage.Button_Driver1Filled();
@@ -169,14 +184,30 @@ public class BungiiCompleteSteps extends DriverBase {
         }
     }
 
-    @Then("^\"([^\"]*)\" stars should be highlighted for solo Driver 1$")
+    @Then("^\"([^\"]*)\" stars should be highlighted for solo Driver1$")
     public void something_stars_should_be_solohighlighted(String strArg1) throws Throwable {
         try {
             List<WebElement> star = bungiiCompletePage.Button_DriverSoloFilled();
             List<WebElement> unfilledStar = bungiiCompletePage.Button_DriverSoloUnFilled();
             switch (strArg1) {
+                case "1":
+                    testStepVerify.isTrue(star.size() == 1, strArg1 + " stars are displayed ");
+                    testStepVerify.isTrue(unfilledStar.size() == (5 - Integer.parseInt(strArg1)), strArg1 + " stars are displayed ");
+                    break;
+                case "2":
+                    testStepVerify.isTrue(star.size() == 2, strArg1 + " stars are displayed ");
+                    testStepVerify.isTrue(unfilledStar.size() == (5 - Integer.parseInt(strArg1)), strArg1 + " stars are displayed ");
+                    break;
                 case "3":
                     testStepVerify.isTrue(star.size() == 3, strArg1 + " stars are displayed ");
+                    testStepVerify.isTrue(unfilledStar.size() == (5 - Integer.parseInt(strArg1)), strArg1 + " stars are displayed ");
+                    break;
+                case "4":
+                    testStepVerify.isTrue(star.size() == 4, strArg1 + " stars are displayed ");
+                    testStepVerify.isTrue(unfilledStar.size() == (5 - Integer.parseInt(strArg1)), strArg1 + " stars are displayed ");
+                    break;
+                case "5":
+                    testStepVerify.isTrue(star.size() == 5, strArg1 + " stars are displayed ");
                     testStepVerify.isTrue(unfilledStar.size() == (5 - Integer.parseInt(strArg1)), strArg1 + " stars are displayed ");
                     break;
                 default:
@@ -191,7 +222,7 @@ public class BungiiCompleteSteps extends DriverBase {
         }
     }
 
-    @Then("^\"([^\"]*)\" starts should be highlighted for Driver 2$")
+    @Then("^\"([^\"]*)\" stars should be highlighted for Driver2$")
     public void something_starts_should_be_highlightedDriver2(String strArg1) throws Throwable {
         try {
             List<WebElement> star = bungiiCompletePage.Button_Driver2Filled();
@@ -223,11 +254,16 @@ public class BungiiCompleteSteps extends DriverBase {
         String totalTime = action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()), totalDistance = action.getValueAttribute(bungiiCompletePage.Text_Distance());
         int tripActualTime = Integer.parseInt(utility.getActualTime());
         String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+        tripDistance= tripDistance.replace(" miles","").trim();
+        logger.detail("Calculated Distance : "+tripDistance);
+        logger.detail("Actual Distance : "+totalDistance);
+        Double value = Double.valueOf(tripDistance);
+        tripDistance = new DecimalFormat("#.00").format(value);
         if (tripActualTime == 1)
             testStepVerify.isTrue(totalTime.contains(tripActualTime + "  min") || totalTime.contains(tripActualTime + " min"), "Total time should contains" + tripActualTime + " minute");
         else
             testStepVerify.isTrue(totalTime.contains(tripActualTime + "  mins") || totalTime.contains(tripActualTime + " mins"), "Total time should contains" + tripActualTime + " minute");
-        testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance), "Total distance should contains " + tripDistance);
+        testStepVerify.isTrue(totalDistance.contains(tripDistance), "Total distance should contain " + tripDistance);
         //Vishal[2503]:TODO: add more
     }
 

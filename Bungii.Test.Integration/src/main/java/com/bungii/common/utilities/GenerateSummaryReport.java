@@ -26,7 +26,7 @@ public class GenerateSummaryReport {
     static Path configFilePath;
     private static ArrayList<String> summaryData = new ArrayList<>();
     private static ArrayList<String> failureSummaryData = new ArrayList<>();
-    private static int passCount = 0, failCount = 0, inConclusiveCount = 0;
+    private static int passCount = 0, failCount = 0, inConclusiveCount = 0,skippedCount = 0;
     private static String logoFilePath = "";
     private static Date startTime, endTime;
 
@@ -59,17 +59,24 @@ public class GenerateSummaryReport {
                     //Parse HTML file and extract data
                     Document doc = Jsoup.parse(in, null);
                     Element table = doc.select("table").get(0); //select the first table.
-                    Element table2 = doc.select("table").get(2); //select the third hidden table.
 
                     Elements rows = table.select("tr");
+                    int featureTotal = Integer.parseInt(doc.getElementById("pass").val().contains("--") ? "0" : doc.getElementById("pass").val())+Integer.parseInt(doc.getElementById("fail").val().contains("--") ? "0" : doc.getElementById("fail").val())+ Integer.parseInt(doc.getElementById("inconclusive").val().contains("--") ? "0" : doc.getElementById("inconclusive").val())+Integer.parseInt(doc.getElementById("skipped").val().contains("--") ? "0" : doc.getElementById("skipped").val());
+                    int featurePass = Integer.parseInt(doc.getElementById("pass").val().contains("--") ? "0" : doc.getElementById("pass").val());
+                    int featureFail = Integer.parseInt(doc.getElementById("fail").val().contains("--") ? "0" : doc.getElementById("fail").val());
+                    int featureInconclusive = Integer.parseInt(doc.getElementById("inconclusive").val().contains("--") ? "0" : doc.getElementById("inconclusive").val());
+                    int featureSkipped = Integer.parseInt(doc.getElementById("skipped").val().contains("--") ? "0" : doc.getElementById("skipped").val());
+
+                    String featureSummary = "[TOTAL : "+featureTotal+" | PASS : "+ featurePass +" | FAIL : "+ featureFail + " | INCONCLUSIVE : " + featureInconclusive + " | SKIPPED : " + featureSkipped+ "]";
                     summaryData.add("<tr> </tr>");
-                    summaryData.add(" <td colspan=3 style='text-align:left;'> FEATURE : " + in.getName().toString().replace(".html", "") + "</td>");
+                    summaryData.add(" <td colspan=3 style='text-align:left;'> FEATURE : " + in.getName().toString().replace(".html", "") +" "+ featureSummary+" </td>");
                     summaryData.add(" <td colspan=3><a href=" + subFolder + "/" + in.getName() + "> EXECUTION REPORT : " + in.getName() + "</td>");
                     summaryData.add("<tr> </tr>");
 
-                    passCount = passCount + Integer.parseInt(doc.getElementById("pass").val().contains("--") ? "0" : doc.getElementById("pass").val());
-                    failCount = failCount + Integer.parseInt(doc.getElementById("fail").val().contains("--") ? "0" : doc.getElementById("fail").val());
-                    inConclusiveCount = inConclusiveCount + Integer.parseInt(doc.getElementById("inconclusive").val().contains("--") ? "0" : doc.getElementById("inconclusive").val());
+                    passCount = passCount + featurePass;
+                    failCount = failCount + featureFail;
+                    inConclusiveCount = inConclusiveCount + featureInconclusive;
+                    skippedCount = skippedCount + featureSkipped;
 
                     for (int i = 1 + 1; i < rows.size(); i++) { //first row is the col names so skip it.
                         Element row = rows.get(i);
@@ -92,6 +99,9 @@ public class GenerateSummaryReport {
                         summaryData.add(data);
                         testCount++;
                     }
+                    if(doc.select("table").size()>2) {
+                        Element table2 = doc.select("table").get(2); //select the third hidden table.
+
                     Elements rows2 = table2.select("tr");
                     for (int i = 1 + 1; i < rows2.size(); i++) { //first row is the col names so skip it.
                         Element row = rows2.get(i);
@@ -100,6 +110,7 @@ public class GenerateSummaryReport {
                         failureSummaryData.add("<tr>" + data + "</tr>");
                         isFailed = true;
                     }
+                    }
                 }
                 createResultFileFromSummaryTemplate(platform, category, environment);
                 System.out.println("Generated index.html");
@@ -107,11 +118,12 @@ public class GenerateSummaryReport {
                 System.out.println("Generated summarycount.html");
 
                 new GenerateResultCSV().GenerateCSV(mainFolder);
+
+
                 if (isFailed)
                 {
                     createResultFileFromFailedSummaryTemplate(platform, category, environment);
                     CopyScreenshotsToDirectory();
-
                     System.out.println("Generated failedsummary.html");
 
                 }
@@ -273,11 +285,13 @@ public class GenerateSummaryReport {
             totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
             totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
             totalStr = totalStr.replaceAll("<!--SUMARRY-->", listString);
-            int total = passCount+failCount+inConclusiveCount;
+            int total = passCount+failCount+inConclusiveCount+skippedCount;
             totalStr = totalStr.replaceAll("<!--TOTAL.COUNT-->",  total + "");
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
             totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");
+            totalStr = totalStr.replaceAll("<!--SKIPPED.COUNT-->", skippedCount + "");
+
             totalStr = totalStr.replaceAll("<!--START.TIME-->", startTime + "");
             totalStr = totalStr.replaceAll("<!--END.TIME-->", endTime + "");
             totalStr = totalStr.replaceAll("<!--TOTAL.TIME-->", calculateDuration(endTime,startTime) + "");
@@ -317,11 +331,12 @@ public class GenerateSummaryReport {
            // totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
           //  totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
            // totalStr = totalStr.replaceAll("<!--SUMARRY-->", listString);
-            int total = passCount+failCount+inConclusiveCount;
+            int total = passCount+failCount+inConclusiveCount+skippedCount;
             totalStr = totalStr.replaceAll("<!--TOTAL.COUNT-->",  total + "");
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
             totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");
+            totalStr = totalStr.replaceAll("<!--SKIPPED.COUNT-->", skippedCount + "");
             totalStr = totalStr.replaceAll("<!--START.TIME-->", startTime + "");
             totalStr = totalStr.replaceAll("<!--END.TIME-->", endTime + "");
             totalStr = totalStr.replaceAll("<!--TOTAL.TIME-->", calculateDuration(endTime,startTime) + "");
@@ -364,6 +379,8 @@ public class GenerateSummaryReport {
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
             totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");
+            totalStr = totalStr.replaceAll("<!--SKIPPED.COUNT-->", skippedCount + "");
+
             totalStr = totalStr.replaceAll("<!--START.TIME-->", startTime + "");
             totalStr = totalStr.replaceAll("<!--END.TIME-->", endTime + "");
             totalStr = totalStr.replaceAll("<!--TOTAL.TIME-->", calculateDuration(endTime,startTime) + "");

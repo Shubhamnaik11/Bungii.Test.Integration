@@ -13,6 +13,9 @@ import org.testng.annotations.Parameters;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 
 @CucumberOptions(features = "target/test-classes/features/android", monochrome = true, tags = "@android and @regression", plugin = {
@@ -71,23 +74,19 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         //vishal[0102]:commented this as logic to update config properties is moved while reading property file in PropertyUtility class
         //TODO: Remove commented block
 /*        Properties props = new Properties();
-
         String propsFileName = "./src/main/resources/UserProperties/config.properties";
         try {
             //first load old one:
             FileInputStream configStream = new FileInputStream(propsFileName);
             props.load(configStream);
             configStream.close();
-
             //modifies existing or adds new property
             props.setProperty("target.platform", Platform);
             props.setProperty("environment", environment);
-
             //save modified property file
             FileOutputStream output = new FileOutputStream(propsFileName);
             props.store(output, "");
             output.close();
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }*/
@@ -101,7 +100,13 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
      */
     @AfterSuite
     public void afterSuite() throws IOException {
-        this.hooks.tearDown();
+        try {
+            this.hooks.tearDown();
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
 }

@@ -5,7 +5,9 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.customer.AccountPage;
 import com.bungii.ios.pages.customer.HomePage;
+import com.bungii.ios.pages.customer.InvitePage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -26,17 +28,21 @@ public class HomeSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(EstimateSteps.class);
     ActionManager action = new ActionManager();
     private HomePage homePage;
+    private InvitePage invitePage = new InvitePage();
+    private AccountPage accountPage = new AccountPage();
+
     DbUtility dbUtility= new DbUtility();
     public HomeSteps(HomePage homePage) {
         this.homePage = homePage;
+
     }
 
     @Then("^User should be successfully logged in to the application$")
     public void user_should_be_successfully_logged_in_to_the_system() {
         try {
             GeneralUtility utility = new GeneralUtility();
-            boolean isHomePage = utility.verifyPageHeader("HOME");
-            testStepVerify.isTrue(isHomePage, "User should be loggind in", " Home screen is displayed", "User was not logged in");
+            boolean isHomePage = utility.verifyPageHeader("BUNGII"); //Customer App Screen
+            testStepVerify.isTrue(isHomePage, "User should be loggind in", " BUNGII screen is displayed", "User was not logged in");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -137,6 +143,21 @@ public class HomeSteps extends DriverBase {
             } catch (Exception e) {
                 logger.detail("Geofence is not specified ");
             }
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if(alertMessage.contains("Oops! It looks like we are not operating in your area quite yet"))
+                    action.clickAlertButton("Done");
+                if(alertMessage.contains("Apple ID Verification"))
+                    action.clickAlertButton("Not Now");
+            }
+            if (action.isElementPresent(homePage.Button_ClearPickup(true))) {
+                action.click(homePage.Button_ClearPickup());
+                //action.tapByElement(homePage.Button_ClearPickup());
+                logger.detail("CLEARED PICKUP ADDRESS FROM FIELD ");
+            }
+
             selectBungiiLocation("PICK UP", pickup);
             Thread.sleep(5000);
             selectBungiiLocation("DROP", drop);
@@ -149,7 +170,7 @@ public class HomeSteps extends DriverBase {
 
           //  isbungiiTypeCorrect = (tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) || (tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
             testStepVerify.isTrue(isbungiiTypeCorrect,
-                    "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up  address" + pickup + " and drop address " + drop + " using search dropdown",
+                    "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii is requested for Pick up address : " + pickup + " and drop address : " + drop + " using search dropdown",
                     "Driver for Bungii is not " + bungiiType);
         } catch (Exception e) {
             logger.error("Error Requesting Bungii", ExceptionUtils.getStackTrace(e));
@@ -265,10 +286,12 @@ public class HomeSteps extends DriverBase {
             switch (actionToDo.toUpperCase()) {
                 case "DROP":
                     Thread.sleep(5000);
-                    selectDropLocation(1);
+                    selectDropLocation("9351 Todd Road");
+                    //selectDropLocation(1);
                     break;
                 case "PICK UP":
-                    selectPickUpLocation(1);
+                    selectPickUpLocation("6800 Zoo Drive");
+                   // selectPickUpLocation(1);
                     //   action.click(homePage.BUTTON_SET());
                     break;
                 case "CURRENT PICK UP":
@@ -285,23 +308,50 @@ public class HomeSteps extends DriverBase {
                     true);
         }
     }
-
+    @When("^I select \"([^\"]*)\" location from customer home screen$")
+    public void i_select_something_locationFromCustomerHome(String actionToDo) {
+        try {
+            switch (actionToDo.toUpperCase()) {
+                case "DROP":
+                    Thread.sleep(5000);
+                    selectDropLocation("9351 Todd Road");
+                    //selectDropLocation(1);
+                    break;
+                case "PICK UP":
+                    selectPickUpLocationValue("6800 Zoo Drive");
+                    // selectPickUpLocation(1);
+                    //   action.click(homePage.BUTTON_SET());
+                    break;
+                case "CURRENT PICK UP":
+                    action.click(homePage.BUTTON_SET());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP ");
+            }
+            pass(actionToDo + " location should be selected",
+                    actionToDo + " location is selected", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @Then("^current location should be present as pickup location$")
     public void current_location_should_be_present_as_pickup_location() {
         try {
 
-            String addressValue = action.getValueAttribute(homePage.TextBox_Pickup_LineOne());
+            String addressValue = action.getValueAttribute(homePage.TextBox_Pickup_LineOne(true));
 
-            testStepVerify.isTrue(!addressValue.isEmpty() && !addressValue.equals(""),
+            testStepVerify.isTrue(!addressValue.isEmpty() && !addressValue.equals("") ,
                     "Pickup location value should be non empty", "Pickup location value is" + addressValue,
-                    "Pickup location value should be non empty");
+                    "Pickup location value should be non empty | Note : Sometimes if location is not detected then it remains blank "); // Sometimes if location is not detected then it remains blank
 
             //       testStepVerify.isEquals(getEtaTime(), "0 MINS");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in getting current address from pickup location", true);
         }
     }
 
@@ -408,6 +458,26 @@ public class HomeSteps extends DriverBase {
     @And("^I Select \"([^\"]*)\" from Customer App menu$")
     public void i_select_something_from_customer_app_menu(String menuItem) {
         try {
+
+
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if (alertMessage.contains("we are not operating in your area")) {
+                    if (getListOfAlertButton.contains("Done")) {
+                        action.clickAlertButton("Done");
+                    }
+                }
+            }
+            String header = getNavigationBarName();
+            if (header.equalsIgnoreCase("INVITE"))
+            {
+                action.click(invitePage.Button_Done());
+            }
+            if (header.equalsIgnoreCase("ACCOUNT INFO")||header.equalsIgnoreCase("PROMOS")||header.equalsIgnoreCase("PAYMENT"))
+            {
+                action.click(accountPage.Button_MenuBack());
+            }
             goToAppMenu();
             clickAppMenu(menuItem);
             log(menuItem + " must be selected sucessfully",
@@ -415,11 +485,11 @@ public class HomeSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in selecting menu : "+ menuItem, true);
         }
     }
 
-    public void i_selectlogout() {
+    public void i_selectlogout() throws InterruptedException {
             goToAppMenu();
             clickAppMenu("LOGOUT");
     }
@@ -490,8 +560,8 @@ public class HomeSteps extends DriverBase {
             switch (strArg1.toLowerCase()) {
                 case "less than 30 mins":
                     String minsValue = action.getValueAttribute(homePage.Text_EtaTime());
-                    int intMinValue = Integer.parseInt(minsValue.replace("ETA at Pickup Location: ", "").replace(" minutes", ""));
-                    testStepVerify.isTrue(minsValue.contains(" minutes"), "Minutes should displayed");
+                    int intMinValue = Integer.parseInt(minsValue.replace("Driver ETA to pickup: ", "").replace(" mins", ""));
+                    testStepVerify.isTrue(minsValue.contains(" mins"), "Mins should displayed");
                     testStepVerify.isTrue(intMinValue < 31, " Mins valus should be less than 30", "Mins value is" + intMinValue, "Mins value is" + intMinValue);
                     break;
                 case "not be displayed":
@@ -511,7 +581,7 @@ public class HomeSteps extends DriverBase {
     @Then("^geofence not active message should be displayed$")
     public void geofence_not_active_message_should_be_displayed() throws Throwable {
         try {
-            testStepVerify.isElementEnabled(homePage.Text_OutOfOffice(),"'Whoops! Sorry, we’re not operating here yet.' should be displayed");
+            testStepVerify.isElementDisplayed(homePage.Text_OutOfOffice(),"'Whoops! Sorry, we’re not operating here yet.' should be displayed","'Whoops! Sorry, we’re not operating here yet.' is displayed","'Whoops! Sorry, we’re not operating here yet.' is not displayed");
             testStepVerify.isElementEnabled(homePage.Text_OutOfOffice_RequestCity(),"'Request your city' should be displayed");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -526,7 +596,7 @@ public class HomeSteps extends DriverBase {
      * @return Navigation header name
      */
     public String getNavigationBarName() {
-        return action.getNameAttribute(homePage.Text_NavigationBar());
+        return action.getScreenHeader(homePage.Text_NavigationBar());
     }
 
 
@@ -636,7 +706,7 @@ public class HomeSteps extends DriverBase {
      *
      * @param appMenuItem : Identifier for app menu
      */
-    public void clickAppMenu(String appMenuItem) {
+    public void clickAppMenu(String appMenuItem) throws InterruptedException {
         switch (appMenuItem.toUpperCase()) {
             case "HOME":
                 action.click(homePage.AppMenu_Home());
@@ -644,29 +714,39 @@ public class HomeSteps extends DriverBase {
             case "FAQ":
                 action.click(homePage.AppMenu_FAQ());
                 break;
-            case "ACCOUNT":
+            case "ACCOUNT INFO":
+            case "ACCOUNT > ACCOUNT INFO":
                 action.click(homePage.AppMenu_Account());
+                action.click(homePage.AppMenu_AccountInfo());
+
                 break;
             case "MY BUNGIIS":
                 action.click(homePage.AppMenu_MyBungiisTrip());
                 break;
             case "PAYMENT":
+            case "ACCOUNT > PAYMENT":
+                action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_Payment());
                 break;
             case "SUPPORT":
                 action.click(homePage.AppMenu_Support());
                 break;
             case "PROMOS":
+            case "ACCOUNT > PROMOS":
+                action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_Promos());
                 break;
             case "DRIVE WITH BUNGII":
                 action.click(homePage.AppMenu_DriveWithBungii());
                 break;
             case "LOGOUT":
+            case "ACCOUNT > LOGOUT":
+                action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_LogOut());
+                Thread.sleep(5000);
                 break;
             default:
-                logger.error("Please specify valid application menu item");
+                logger.error("Please specify valid application menu item. You have specified : "+ appMenuItem);
                 break;
         }
     }
@@ -755,16 +835,19 @@ public class HomeSteps extends DriverBase {
      *
      * @param location : Location value that is to be entered in textbox
      */
-    public void selectPickUpLocation(String location) {
+    public void selectPickUpLocation(String location) throws InterruptedException {
 
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
         //VISHAL[12042019]: Quick fix for QA auto
-        try {Thread.sleep(3000);}catch (Exception e){}
+        try {Thread.sleep(5000);}catch (Exception e){}
+
         if (action.isElementPresent(homePage.Button_ClearPickup(true)))
             action.click(homePage.Button_ClearPickup());
 
+        action.tapByElement(homePage.TextBox_Pickup());
         action.clearEnterText(homePage.TextBox_Pickup(), location);
+        Thread.sleep(5000);
         action.click(homePage.Link_PickUpSuggestion());
         //  action.hideKeyboard();
         try {
@@ -785,17 +868,54 @@ public class HomeSteps extends DriverBase {
         } catch (Exception e) {
         }
     }
+    public void selectPickUpLocationValue(String location) throws InterruptedException {
 
+        try {Thread.sleep(5000);}catch (Exception e){}
+
+        if (action.isElementPresent(homePage.BUTTON_Set_DropOff(true))) {
+            action.tapByElement(homePage.TextBox_Pickup());
+            action.tapByElement(homePage.Button_ClearPickup());
+            try {Thread.sleep(5000);}catch (Exception e){}
+        }
+
+
+        if (action.isElementPresent(homePage.Button_ClearPickup(true)))
+            action.click(homePage.Button_ClearPickup());
+
+     //   action.tapByElement(homePage.TextBox_Pickup());
+        action.clearEnterText(homePage.TextBox_Pickup(), location);
+        Thread.sleep(5000);
+        action.click(homePage.Link_PickUpSuggestion());
+        //  action.hideKeyboard();
+        try {
+            // wait for loading to disappear
+/*            if (action.isElementPresent(homePage.Image_Loading(true))) {
+                action.invisibilityOfElementLocated(homePage.Image_Loading(true));
+            }*/
+            Thread.sleep(3000);
+
+
+            action.click(homePage.BUTTON_Set_PickupOff());
+            if (!action.isElementPresent(homePage.TextBox_Pickup_LineTwo(true))) {
+                Point initial = homePage.Image_eta_bar().getLocation();
+                action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + 80, 1);
+                //action.dragFromToForDuration(82, 262, 82, 300, 2);
+                action.click(homePage.BUTTON_Set_PickupOff());
+            }
+        } catch (Exception e) {
+        }
+    }
     /**
      * Select drop location by entering value in textbox
      *
      * @param location Location value that is to be entered in textbox
      */
-    public void selectDropLocation(String location) {
+    public void selectDropLocation(String location) throws InterruptedException {
 
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
         action.clearEnterText(homePage.TextBox_Drop(), location);
+        Thread.sleep(5000);
         action.click(homePage.Link_DropSuggestion());
         //	hideKeyboard();
         // Click(BUTTON_SET);

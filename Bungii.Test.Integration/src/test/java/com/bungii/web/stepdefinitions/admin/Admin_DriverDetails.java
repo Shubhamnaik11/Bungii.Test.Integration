@@ -2,9 +2,11 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_DriversPage;
+import com.bungii.web.pages.admin.Admin_LogviewPage;
 import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -12,6 +14,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_DriverDetails extends DriverBase{
@@ -31,69 +35,111 @@ public class Admin_DriverDetails extends DriverBase{
     Admin_DriversPage admin_Driverspage = new Admin_DriversPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    Admin_LogviewPage admin_logviewPage = new Admin_LogviewPage();
+    private static LogUtility logger = new LogUtility(Admin_DriverDetails.class);
 
     @Then("^Set the Geofence dropdown to \"([^\"]*)\"$")
     public void set_the_geofence_dropdown_to_something(String strArg1) throws Throwable {
-        action.selectElementByText(admin_Driverspage.Dropdown_Geofence(), "-- All --");
+      //  action.selectElementByText(admin_Driverspage.Dropdown_Geofence(), "-- All --");
+        try{
+        utility.resetGeofenceDropdown();
+        log("I set the Geofence dropdown to" + strArg1,
+                "I have set the Geofence dropdown to" + strArg1, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
     }
 
     @When("^I search driver \"([^\"]*)\"$")
     public void i_search_driver_something(String driver) throws Throwable {
+        try{
         action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(),driver+ Keys.ENTER);
         cucumberContextManager.setScenarioContext("DRIVER",driver);
         log("I search driver " + driver,
-                "I have searched driver " + driver, true);
-
+                "I have searched driver " + driver, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^The \"([^\"]*)\" page should be displayed$")
     public void the_something_page_should_be_displayed(String page) throws Throwable {
+        try{
         switch (page){
             case "Trip List":
                 testStepAssert.isElementDisplayed(admin_Driverspage.Label_TripListHeader(),"Drivers Trip List page should be displayed","Drivers Trip List page is displayed", "Drivers Trip List page is not displayed");
                 break;
         }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^List of trips completed by the driver should be displayed on the Trip List Page$")
     public void list_of_trips_completed_by_the_driver_should_be_displayed_on_the_trip_list_page() throws Throwable {
+        try{
         action.selectElementByText(admin_Driverspage.Dropdown_SearchForPeriod(), "The Beginning of Time");
-        if(!action.getPagesource().contains("No trips found."))
+        if(!action.getPagesource().contains("No Deliveries found."))
         testStepAssert.isElementDisplayed(admin_Driverspage.Grid_TripList(),"Trip List grid should be displayed","Trip List grid is displayed", "Trip List grid is not displayed");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I click on \"([^\"]*)\" Link$")
     public void i_click_on_some_link(String Linkname){
+        try{
         switch (Linkname){
             case "View Profile":
                 action.click(admin_Driverspage.Link_ViewProfile());
                 break;
+            case "Download Query Result(comma)":
+                action.click(admin_logviewPage.Link_DownloadQueryResultWithComma());
+                break;
+            case "Download Query Result(pipe)":
+                action.click(admin_logviewPage.Link_DownloadQueryResultWithPipe());
+                break;
 
         }
+        log("I click on "+Linkname+" Link",
+                "I have clicked on "+Linkname+" Link", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
-    @Then("^The Trip List page should display the trip in \"([^\"]*)\" state$")
+    @Then("^The Delivery List page should display the delivery in \"([^\"]*)\" state$")
     public void the_trip_list_page_should_display_the_trip_in_something_state(String status) throws Throwable {
+        try{
         String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String timezone = utility.getTripTimezone(geofence);
         TimeZone.setDefault(TimeZone.getTimeZone(timezone));
         String XPath = "";
       
         if (!scheduled_time.equalsIgnoreCase("NOW")) {
-                       Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
+            Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
             inputdate.setYear(new Date().getYear());
             ZoneId zoneId = TimeZone.getDefault().toZoneId();
-            //TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date());
-            if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
+            /*if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
-
-             /*
              if (timezone=="EST" || timezone=="CST")
-                     inputdate.setHours(inputdate.getHours() + 1);
-            }*/
+                     inputdate.setHours(inputdate.getHours() + 1); /// EDT time when changed to EST it looses 1 hour thus added this code
             }
-            String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
-            XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
+
+             */
+            String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate); // removed ss
+            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]", formattedDate, status);
         }
         else
         {
@@ -126,12 +172,18 @@ public class Admin_DriverDetails extends DriverBase{
 
         cucumberContextManager.setScenarioContext("XPATH",XPath);
         testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
-    }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
 
     @Then("^The Driver Trip List page should display the trip in \"([^\"]*)\" state$")
     public void the_driver_trip_list_page_should_display_the_trip_in_something_state(String status) throws Throwable {
+        try{
         String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String timezone = utility.getTripTimezone(geofence);
         TimeZone.setDefault(TimeZone.getTimeZone(timezone));
         String XPath = "";
@@ -143,8 +195,8 @@ public class Admin_DriverDetails extends DriverBase{
                 if (timezone=="CST")
                     inputdate.setHours(inputdate.getHours()+1);
             }
-            String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
-            XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
+            String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate);
+            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]", formattedDate, status);
         }
         else
         {
@@ -177,5 +229,10 @@ public class Admin_DriverDetails extends DriverBase{
 
         cucumberContextManager.setScenarioContext("XPATH",XPath);
         testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
-    }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
 }

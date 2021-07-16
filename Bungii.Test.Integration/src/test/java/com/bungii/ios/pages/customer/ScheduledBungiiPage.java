@@ -46,11 +46,18 @@ public class ScheduledBungiiPage extends PageBase {
     }
 
     public WebElement Trip_Status() {
-        return findElement("//XCUIElementTypeImage[@name=\"disclosure-arrow-right\"]/preceding-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath);
+        return findElement("(//XCUIElementTypeImage[@name=\"disclosure-arrow-right\"]/preceding-sibling::XCUIElementTypeStaticText[1])[2]", LocatorType.XPath);
     }
 
     public WebElement Cell_FirstTrip() {
         return findElement("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/parent::XCUIElementTypeCell", LocatorType.XPath);
+    }
+
+    public WebElement Label_MinutesSolo() {
+        return findElement("//XCUIElementTypeImage[@name='bungii_type-solo']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+    }
+    public WebElement Label_MinutesDuo() {
+        return findElement("//XCUIElementTypeImage[@name='bungii_type-duo']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
     }
 
 }

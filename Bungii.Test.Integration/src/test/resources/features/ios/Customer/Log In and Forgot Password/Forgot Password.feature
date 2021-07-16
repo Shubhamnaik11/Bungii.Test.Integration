@@ -52,6 +52,8 @@ Feature: FORGOT PASSWORD
     And I Enter "<New Password>" value in "new password" field in "FORGOT PASSWORD" Page
     And I click "Continue" button on "Forgot Password" screen
     Then user is alerted for "<Expected Message>"
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I should be navigated to "Home" screen
 
     Examples:
@@ -75,8 +77,10 @@ Feature: FORGOT PASSWORD
     And I Enter "valid" value in "sms code" field in "FORGOT PASSWORD" Page
     And I click "Continue" button on "Forgot Password" screen
     Then user is alerted for "<Expected Message>"
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I should be navigated to "Home" screen
-    And I Select "LOGOUT" from Customer App menu
+    And I Select "ACCOUNT > LOGOUT" from Customer App menu
 
     Examples:
       | Scenario    | Value        | New Password | Expected Message        |
@@ -84,7 +88,7 @@ Feature: FORGOT PASSWORD
 
 
   @regression
-  Scenario: Verify Customer Is Able To Login And Complete Bungii After Updating Password Using Forgot Password On Being Locked Out
+  Scenario: Verify Customer Is Able To Login After Updating Password Using Forgot Password On Being Locked Out
 
     When I enter Username :8877995510 and  Password :cci12345
     And I click "Log In" button on "Log In" screen
@@ -106,11 +110,6 @@ Feature: FORGOT PASSWORD
     When I enter Username :8877995510 and  Password :cci12345
     And I click "Log In" button on "Log In" screen
     Then user is alerted for "USER ACCOUNT LOCKED"
-#6th attempts with correct password
-    # commented this as , locked user are able to login in QA_AUTO
- #   When I enter Username :8877995510 and  Password :Cci12345
- #   And I click "Log In" button on "Log In" screen
- #   Then user is alerted for "USER ACCOUNT LOCKED"
 
     When I click "Forgot Password" button on "LOG IN" screen
     When I Enter "8877995510" value in "Phone Number" field in "FORGOT PASSWORD" Page
@@ -121,5 +120,7 @@ Feature: FORGOT PASSWORD
 
     And I click "Continue" button on "Forgot Password" screen
     Then user is alerted for "PASSWORD CHANGE SUCCESS"
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I should be navigated to "Home" screen
-    And I Select "LOGOUT" from Customer App menu
+    And I Select "ACCOUNT > LOGOUT" from Customer App menu

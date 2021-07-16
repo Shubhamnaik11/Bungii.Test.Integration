@@ -34,7 +34,23 @@ public class GeofenceSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I activate \"([^\"]*)\" geofence$")
+    public void i_activate_something_geofence(String geofenceName) throws Throwable {
+        try{
+            switch (geofenceName) {
+                case "Chicago":
+                    action.click(geofencePage.Button_Edit());
+                    action.selectElementByText(geofencePage.Dropdown_Status(),"Active");
+                    action.click(geofencePage.Button_Save());
+                    break;
 
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @When("^I click on the \"([^\"]*)\" Button on \"([^\"]*)\" Screen$")
     public void i_click_on_the_something_button_on_something_screen(String button,String screen)throws Throwable{
         try{
@@ -68,6 +84,31 @@ public class GeofenceSteps extends DriverBase {
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+    @And("^I get the value of \"([^\"]*)\"$")
+    public void i_get_the_value_of_something(String type) throws Throwable {
+        try{
+            String timeValue = "";
+            switch(type){
+
+                case "Minimum scheduled time for Duo trip":
+         timeValue = action.getValueAttribute(geofencePage.TextBox_MinimumScheduledtimeforduo());
+        cucumberContextManager.setScenarioContext("MIN_TIME_DUO", timeValue);
+        break;
+
+        case "Minimum scheduled time for Solo trip":
+            timeValue = action.getValueAttribute(geofencePage.TextBox_MinimumScheduledtimeforsolo());
+            action.clearEnterText(geofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
+           cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", timeValue);
+        break;
+            }
+            log("I should get the value of "+type +" : "+timeValue,
+                    "I get the value of "+ type +" : "+timeValue,true);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in getting value of "+type,
+                    true);
+        }
     }
 
     @And("^I change the value of \"([^\"]*)\" to \"([^\"]*)\" minutes$")

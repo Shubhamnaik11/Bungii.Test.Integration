@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
@@ -10,7 +11,11 @@ import com.bungii.web.utilityfunctions.*;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hamcrest.beans.PropertyUtil;
+
+import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_DriverVerificationSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
@@ -19,9 +24,11 @@ public class Admin_DriverVerificationSteps extends DriverBase {
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
+    private static LogUtility logger = new LogUtility(Admin_DriverVerificationSteps.class);
 
     @And("^I check if each field has an \"([^\"]*)\" option$")
     public void i_check_if_each_field_has_an_something_option(String p0) throws Throwable {
+        try{
         switch(p0)
         {
             case "accept":
@@ -32,7 +39,7 @@ public class Admin_DriverVerificationSteps extends DriverBase {
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverCity(),"I accept Driver city","I accepted Driver city","Error in accepting Driver city");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverState(),"I accept Driver State","I accepted Driver State","Error in accepting Driver State");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverZip(),"I accept Driver ZIP","I accepted Driver ZIP","Error in accepting Driver ZIP");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverSSN(),"I accept Driver SSN","I accepted Driver SSN","Error in accepting Driver SSN");
+               // testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverSSN(),"I accept Driver SSN","I accepted Driver SSN","Error in accepting Driver SSN");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverBirthday(),"I accept Driver birthday","I accepted Driver birthday","Error in accepting Driver birthday");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages(),"I accept Driver pickup images","I accepted Driver pickup images","Error in accepting Driver pickup images");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake(),"I accept Driver pickup make","I accepted Driver pickup make","Error in accepting Driver pickup make");
@@ -56,7 +63,7 @@ public class Admin_DriverVerificationSteps extends DriverBase {
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_City(),"I reject Driver city","I rejected Driver city","Error in rejecting Driver city");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_State(),"I reject Driver State","I rejected Driver State","Error in rejecting Driver State");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_ZipCode(),"I reject Driver ZIP","I rejected Driver ZIP","Error in rejecting Driver ZIP");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_SSN(),"I reject Driver SSN","I rejected Driver SSN","Error in rejecting Driver SSN");
+               // testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_SSN(),"I reject Driver SSN","I rejected Driver SSN","Error in rejecting Driver SSN");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_Birthday(),"I reject Driver birthday","I rejected Driver birthday","Error in rejecting Driver birthday");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_DriverPickupImages(),"I reject Driver pickup images","I rejected Driver pickup images","Error in rejecting Driver pickup images");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupMake(),"I reject Driver pickup make","I rejected Driver pickup make","Error in rejecting Driver pickup make");
@@ -71,15 +78,31 @@ public class Admin_DriverVerificationSteps extends DriverBase {
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_RoutingNumber(),"I reject Driver routing number","I rejected Driver routing number","Error in rejecting Driver routing number");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_AccountNumber(),"I reject Driver account number","I rejected Driver account number","Error in rejecting Driver account number");
                 break;
-        }    }
+        }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
+
 
     @And("^I verify and approve the \"([^\"]*)\" field$")
     public void i_verify_and_approve_the_something_field(String strArg1) throws Throwable {
+        try{
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
+        log("I verify and approve the "+strArg1+" field",
+                "I verified and approve the "+strArg1+" field", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I verify and reject the \"([^\"]*)\" field$")
     public void i_verify_and_reject_the_something_field(String strArg1) throws Throwable {
+        try{
         switch(strArg1)
         {
             case "Birthday":
@@ -88,10 +111,19 @@ public class Admin_DriverVerificationSteps extends DriverBase {
             case "Driver Picture":
                 action.click( admin_DriverVerificationPage.Verify_Reject_DriverPicture());
                 break;
-        }    }
+        }
+        log("I verify and reject the "+strArg1+" field",
+                "I verified and reject the "+strArg1+" field", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 
     @And("^I check if the status has been changed to \"([^\"]*)\"$")
     public void i_check_if_the_status_has_been_changed_to_something(String strArg1) throws Throwable {
+        try{
         switch(strArg1)
         {
             case "accepted":
@@ -100,23 +132,56 @@ public class Admin_DriverVerificationSteps extends DriverBase {
 
             case "rejected":
                 action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(),"Invalid DOB");
+                log("I enter rejection reason in field",
+                        "I have entered rejection reason in field", false);
                 break;
-        }    }
+        }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 
 
     @And("^I click and reset the status of \"([^\"]*)\" field$")
     public void i_click_and_reset_the_status_of_something_field(String strArg1) throws Throwable {
+        try{
         action.click(admin_DriverVerificationPage.Verify_Reject_DriverPicture());
+        log("I click and reset the status of "+strArg1+" field",
+                "I clicked and reseted the status of "+strArg1+" field", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I check if the status of \"([^\"]*)\" field has been changed to rejected$")
     public void i_check_if_the_status_of_something_field_has_been_changed_to_rejected(String strArg1) throws Throwable {
+        try{
         action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_DriverPicture(),"Clear picture needed");
+        log("I check if the status of "+strArg1+" field has been changed to rejected",
+                "I checked if the status of "+strArg1+" field has been changed to rejected", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I click and reset the Rejected status of \"([^\"]*)\" field$")
     public void i_click_and_reset_the_rejected_status_of_something_field(String strArg1) throws Throwable {
+        try{
         action.click(admin_DriverVerificationPage.Verify_Reject_DriverPicture());
+        log("I click and reset the Rejected status of "+strArg1+" field",
+                "I clicked and reseted the Rejected status of "+strArg1+" field", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
     }
 
     @And("^I verify that the status has been reset$")
@@ -146,17 +211,28 @@ public class Admin_DriverVerificationSteps extends DriverBase {
 
     @Then("^The accepted tick is removed for \"([^\"]*)\" field previously accepted by admin$")
     public void the_accepted_tick_is_removed_for_something_field_previously_accepted_by_admin(String strArg1) throws Throwable {
-        String s = admin_DriverVerificationPage.Button_VerifySSN().getAttribute("class");
-        testStepAssert.isTrue(admin_DriverVerificationPage.Button_VerifySSN().getAttribute("class").equalsIgnoreCase("btn btn-default ok"),"Pass","Fail");
-        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Textbox_SSNComment(),"Comment box for SSN should be hidden","Comment box for SSN is hidden","Comment box for SSN is visible");
-    }
+        try{
+        String s = admin_DriverVerificationPage.Button_VerifyDOB().getAttribute("class");
+        testStepAssert.isTrue(admin_DriverVerificationPage.Button_VerifyDOB().getAttribute("class").equalsIgnoreCase("btn btn-default ok"),"DOB field is not highligted ","DOB field is  highligted ");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
 
     @Then("^I check if driver SSN is masked$")
     public void i_check_if_driver_ssn_is_masked() throws Throwable {
+        try{
         String actualSSN= driver_detailsPage.TextBox_SSN().getAttribute("value");
         String expectedSSN= PropertyUtility.getDataProperties("driver.social.security.number");
 
         testStepAssert.isEquals(actualSSN, expectedSSN, expectedSSN+ " is present.",
                 "SSN is marked and displayed.", "SSN displayed is incorrect.");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 }

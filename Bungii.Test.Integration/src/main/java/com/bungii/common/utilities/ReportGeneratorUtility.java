@@ -36,6 +36,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	private final static String SUMMARY_TITLE="TEST SUMMARY REPORT";
 	private final static String logoPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("LOGO_FILENAME");
 	private final static String downloadPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("DOWNLOAD_LOGO");
+
 	private final static String passPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("PASS_lOGO");
 	private final static String failPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("FAIL_lOGO");
 
@@ -44,6 +45,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	private int failed = 0;
 	private int passed = 0;
 	private int inconclusive=0;
+	private int skipped =0;
 	private int testStepCount=0;
 	private Date  testFinish, startTime = null;
 
@@ -51,6 +53,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	private String tcName;
 	private String featureName;
     private String reason;
+	private String tags;
 	private boolean isTcVerifyFailed;
 
 	public ReportGeneratorUtility(String detailsFolderPath, String screenshotFolder, String miscFolder, String logFolder){
@@ -77,7 +80,12 @@ public class ReportGeneratorUtility extends DriverBase {
 		//testCaseHeaderTemplate();
 		//logDetails(detailsArray);
 		//finishDetailsFile();
+		try{
 		createResultFileFromTemplate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 	}
 	
 	public void createResultFileFromTemplate(){
@@ -92,20 +100,25 @@ public class ReportGeneratorUtility extends DriverBase {
 			    totalStr += s;	        
 			}
 	        totalStr = totalStr.replaceAll("<!--LOGO.PATH-->",logoPath);
-            totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
+			String session = (String) cucumberContextManager.getScenarioContext("SESSION");
+			if(session =="")
+				totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
+            else
+			totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName+" | Session ID : "+session);
 	        totalStr = totalStr.replaceAll("<!--SUMARRY-->", Matcher.quoteReplacement(getLogDetails(summaryArray)));
 			totalStr = totalStr.replaceAll("<!--DETAILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
 	        totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->",passed+"");
 	        totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->",failed+"");
 	        totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->",inconclusive+"");
-            totalStr = totalStr.replaceAll("<!--FAILURE.DETAILS-->",Matcher.quoteReplacement(getLogFailureData(failureArray)));
+			totalStr = totalStr.replaceAll("<!--SKIPPED.COUNT-->",skipped+"");
+			totalStr = totalStr.replaceAll("<!--FAILURE.DETAILS-->",Matcher.quoteReplacement(getLogFailureData(failureArray)));
 
 	        FileWriter fw = new FileWriter(result);
 	    fw.write(totalStr);
 	    fw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -113,13 +126,14 @@ public class ReportGeneratorUtility extends DriverBase {
 	 * Method that will be called before start of test case
 	 * @param tcName Name of test case 
 	 */
-	public void startTestCase(String tcName , String featureName) {
+	public void startTestCase(String tcName , String featureName , String tags) {
 		this.tcName = tcName.replace(",","");
 		this.featureName = featureName;
 		this.startTime = new Date();
 		this.isTcVerifyFailed=false;
 		this.testStepCount=0;
 		this.reason="";
+		this.tags= tags;
 		addTestCaseEntryInDetailsTable(tcName, featureName);
 		ThreadLocalStepDefinitionMatch.resetNumberOfSteps();
 	}
@@ -129,11 +143,11 @@ public class ReportGeneratorUtility extends DriverBase {
 	 */
 	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
 	    name= name.replace(",","");
-		String str = "<tr class='header'><td colspan='5' align='left'>Scenario : "+ name + "</td></tr>"; ;
+		String str = "<tr class='header'><td colspan='5' align='left'>Scenario : "+ name +" - Tags : "+tags+"</td></tr>"; ;
 		detailsArray.add(str);
 		stackTraceArray.clear();
         this.reason="";
-		logger.detail("Scenario: "+testCases+" of Feature: "+ featureName);
+		logger.detail("SCENARIO : "+testCases+" OF FEATURE : "+ featureName);
 	}
 
 	/**
@@ -151,15 +165,15 @@ public class ReportGeneratorUtility extends DriverBase {
 		if (eventData.get("type").toString() == "PASSED") {
 			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
 		}
+		else if (eventData.get("type").toString() == "WARNING") {
+			str = str + "<td style='background-color:orange;'>" + eventData.get("type").toString() + "</td>";
+		}
 		else {
 			str = str + "<td style='background-color:pink;'>" + eventData.get("type").toString() + "</td>";
 		}
 
 		str = str + "<td align='left'>" + eventData.get("expected").toString() + "</td>";
 		str = str + "<td align='left'>" + reason + "</td>";
-		//str = str + "<td>" + testStepStart + "</td>";
-		//str = str + "<td>" + testStepEnd + "</td>";
-		//str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
 		str = str + "</tr>";
 
 		detailsArray.add(str);
@@ -207,64 +221,86 @@ public class ReportGeneratorUtility extends DriverBase {
 		}
 
 		String path = sDumpFile.replace('\\', '/');
-		logger.detail("Screenshot Path :  "+ downloadPath );
+		logger.detail("Screenshot Path :  "+ path );
 		return message +" <div style='color:red; font-weight: bold'> " +
 				" <img src='./"+downloadPath+"' alt='' onclick=\"showImage('"+path+"')\"/> Download screenshot here" +
-				"</div>";
+				"</div><div><a href='" + path+"'> Link </a></div>";
 		//return "<a href='" + sDumpFile.replace("\\", "/") + "'>" + message + "</a>";
 	}
 
 	/**
 	 * @param isFailed boolean flag set by testng assert statements
 	 */
-	public void endTestCase(boolean isFailed) {
+	public void endTestCase(boolean isFailed, boolean isSkipped) {
 		String str1;
 		//String str2;
 		testCases++;
 		testFinish = new Date();
 		String str = "";
 		String status = "";
-		//check testng assert and local flag as well
-		if (!isFailed &&!isTcVerifyFailed){
-			status = "<td style='background-color:MediumSeaGreen;'>Pass</td>";
-			passed++;
+		if(isSkipped)
+		{
+			skipped++;
+			status = "<td style='background-color:skyblue;'>Skipped</td>";
+			str = "<td>" + ThreadLocalStepDefinitionMatch.getNumberOfSteps() + "</td>" + "<td>" + this.startTime
+					+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);
+			str1 = "<td cursor:'pointer;' style='text-align:left;'>" + tcName + "</td>" + status + str;
+			summaryArray.add(str1);
 		}
 		else {
-            try {
-				if (this.reason.equalsIgnoreCase( "")) {
-                    String cause = (String) cucumberContextManager.getScenarioContext("ERROR");
-					String step = (String) cucumberContextManager.getScenarioContext("STEP");
-                    this.reason = cause;
-					if(cause!="")
-						failureStep(step, "Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
+			//check testng assert and local flag as well
+			if (!isFailed && !isTcVerifyFailed) {
+				status = "<td style='background-color:MediumSeaGreen;'>Pass</td>";
+				passed++;
+			} else {
+				try {
+					if (this.reason.equalsIgnoreCase("")) {
+						String cause = (String) cucumberContextManager.getScenarioContext("ERROR");
+						String step = (String) cucumberContextManager.getScenarioContext("STEP");
+						this.reason = cause;
+						if (cause != "")
+							failureStep(step, "Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
+					}
+				} catch (Exception ex) {
 				}
+				String reason = this.reason;
+				//"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
+				String st = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped/Not passed due to above error. Please refer to logs for more details</td>";
+				if (reason == "") {
+					CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+					status = "<td style='background-color:skyblue;'>Inconclusive</td>";
+				} else if (((String) CucumberContextManager.getObject().getScenarioContext("PASS_WITH_OBSERVATIONS")).equals("TRUE")) {
+					passed++;
+					status = "<td style='background-color:orange;'>Observations</td>";
+				} else {
+					failed++;
+					status = "<td style='background-color:pink;'>Fail</td>";
 				}
-            catch(Exception ex){}
-			String reason = this.reason;
-             //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
-			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
-			detailsArray.add(st);
-			failed++;
+				detailsArray.add(st);
+				String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status + "<td align='left'>" + reason + "</td>";
+				failureArray.add(str2);
+				failureArray.addAll(stackTraceArray);
 
-			status = "<td style='background-color:pink;'>Fail</td>";
-			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
-			failureArray.add(str2);
-            failureArray.addAll(stackTraceArray);
+			}
 
-		}
-
-		str = "<td>" + ThreadLocalStepDefinitionMatch.getNumberOfSteps() + "</td>" + "<td>" + this.startTime
-				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);
+			str = "<td>" + ThreadLocalStepDefinitionMatch.getNumberOfSteps() + "</td>" + "<td>" + this.startTime
+					+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);
 /*		str = "<td>" + this.testStepCount + "</td>" + "<td>" + this.startTime
 				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);*/
 
-		str1 = "<td cursor:'pointer;' style='text-align:left;'>" + tcName + "</td>" + status  + str;
+			str1 = "<td cursor:'pointer;' style='text-align:left;'>" + tcName + "</td>" + status + str;
 
 
-		summaryArray.add(str1);
-		int totalExecuted = passed + failed;
-		logger.trace("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | TOTAL EXECUTED : " + totalExecuted );
+			summaryArray.add(str1);
+			//int totalExecuted = passed + failed + inconclusive;
+			//logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | TOTAL EXECUTED : " + totalExecuted);
+		}
+	}
 
+	public void getFeatureExecutionStatus()
+	{
+		int totalExecuted = passed + failed + inconclusive+ skipped;
+		logger.detail("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | INCONCLUSIVE:"+inconclusive+" | SKIPPED : " + skipped+" | TOTAL EXECUTED : " + totalExecuted);
 	}
 
 	/**
@@ -342,6 +378,14 @@ public class ReportGeneratorUtility extends DriverBase {
 		return this.isTcVerifyFailed;
 	}
 
+	public int inconclusive(){
+		inconclusive++;
+
+		return inconclusive;
+	}
+	public int skipped(){
+		return skipped;
+	}
 	private String getLogDetails(ArrayList<String> strArray) {
 		String strDetails = "";
 		for (String str : strArray)

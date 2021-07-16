@@ -7,8 +7,8 @@ import java.util.List;
 
 public class TripAlertSettingsPage extends PageBase {
 
-    public WebElement Button_TripAlerts() { return findElement("Trip Alerts", LocatorType.AccessibilityId); }
-    public WebElement Button_Done() { return findElement("Done", LocatorType.AccessibilityId); }
+    public WebElement Button_DeliveryAlerts() { return findElement("Delivery Alerts", LocatorType.AccessibilityId); }
+    public WebElement Button_Done() { return findElement("Set", LocatorType.AccessibilityId); }
     public WebElement Button_Cancel() { return findElement("Cancel", LocatorType.AccessibilityId); }
     public WebElement Button_Save() { return findElement("SAVE", LocatorType.AccessibilityId); }
     public WebElement Button_SMSAlerts() { return findElement("SMS Alerts", LocatorType.AccessibilityId); }

@@ -10,6 +10,6 @@ public class Admin_PartnersPage extends PageBase {
 
     public WebElement Assign_Partners () { return findElement("adminmenu-assigncluster", LocatorType.Id); }
 
-    public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+  //  public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
 }

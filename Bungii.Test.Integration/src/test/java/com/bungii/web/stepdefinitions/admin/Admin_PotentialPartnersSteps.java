@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_PotentialPartnersPage;
@@ -14,6 +15,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_PotentialPartnersSteps extends DriverBase {
     ActionManager action = new ActionManager();
@@ -49,10 +51,11 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
         try {
             String countTrips = admin_potentialPartnersPage.Text_PickupsNumberInCluster().getText();
             cucumberContextManager.setScenarioContext("TRIPSINCLUSTER", countTrips);
+            log("I get the count of" + strArg1 ,
+                    "I got the count of" + strArg1, false);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
@@ -73,7 +76,6 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
 
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
@@ -86,6 +88,8 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
                     action.click(admin_potentialPartnersPage.Hyperlink_ViewTrips());
                     break;
             }
+            log("I click on " + strArg1 +" hyperlink" ,
+                    "I have clicked on " + strArg1 +" hyperlink", false);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -102,6 +106,7 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
             String driver1Name=admin_potentialPartnersPage.Text_EditTrpDetailsDriver1Name().getText();
             cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);
             cucumberContextManager.setScenarioContext("DRIVER2_NAME",driver1Name);
+            log("I assign driver for the delivery ","I assigned driver "+driver1Name+" to the delivery",true );
 
         }catch (Throwable e) {
             logger.error("Error performing step" + e);
@@ -116,9 +121,10 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
         try {
             switch (strArg1) {
                 case "Testdrivertywd_appledc_a_web Sundarm":
-                    String drivers= action.getText(admin_potentialPartnersPage.Text_DriversListScheduledTrips());
                     String driverName= (String)cucumberContextManager.getScenarioContext("DRIVER2_NAME");
-                    if(drivers.contains(driverName)){
+                    boolean condition= action.isElementPresent(admin_potentialPartnersPage.findElement(String.format("//tr[1]/td[contains(.,'%s')]",driverName),PageBase.LocatorType.XPath));
+
+                    if(condition){
                         testStepAssert.isTrue(true, "Driver is assigned.", "Driver is not assigned.");
                     }
                     else {

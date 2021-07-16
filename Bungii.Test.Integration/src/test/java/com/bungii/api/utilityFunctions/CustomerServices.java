@@ -14,19 +14,19 @@ public class CustomerServices {
 
 
     public Response customerProfile(String authToken) {
-        logger.detail("API REQUEST : Get Customer Profile by authToken " + authToken);
+        String RequestText="API REQUEST : Get Customer Profile by authToken " + authToken;
         String loginURL = null;
         loginURL = UrlBuilder.createApiUrl("customer", customer_PROFILE);
         Header header = new Header("AuthorizationToken", authToken);
-        Response response = ApiHelper.getRequestForDriver(loginURL, header);
-        ApiHelper.genericResponseValidation(response);
+        Response response = ApiHelper.getRequestForCustomer(loginURL, header);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
     }
 
     public String getCustomerRef(String authToken) {
-        logger.detail("API REQUEST : Get Customer Reference by authToken " + authToken);
+        String RequestText="API REQUEST : Get Customer Reference by authToken " + authToken;
         Response response = customerProfile(authToken);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         JsonPath jsonPathEvaluator = response.jsonPath();
         return jsonPathEvaluator.get("CustomerProfile.CustomerRef");
     }

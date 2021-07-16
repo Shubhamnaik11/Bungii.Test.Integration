@@ -4,30 +4,37 @@ Feature: Customer	Menu
 
   Background: 
     Given I am on Customer logged in Home page
+    
   @sanity
-  @FAILED2702
   @regression
-  Scenario: Verify Customer App Menu Links
+  Scenario: Verify Customer App Menu Links - HOME | FAQ | ACCOUNT | MY BUNGIIS | PAYMENT | SUPPORT | PROMOS | LOGOUT
     When I Select "Home" from Customer App menu
     Then I should be navigated to "Home" screen
     When I Select "FAQ" from Customer App menu
     Then I should be navigated to "FAQ" screen
-    When I Select "ACCOUNT" from Customer App menu
-    Then I should be navigated to "ACCOUNT" screen
+    When I Select "ACCOUNT > ACCOUNT INFO" from Customer App menu
+    Then I should be navigated to "ACCOUNT INFO" screen
     When I Select "MY BUNGIIS" from Customer App menu
     Then I should be navigated to "MY BUNGIIS" screen
-    When I Select "PAYMENT" from Customer App menu
+    When I Select "ACCOUNT > PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen
-    When I Select "PROMOS" from Customer App menu
+    When I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
+    When I Switch to "customer" application on "same" devices
+    When I Select "ACCOUNT > LOGOUT" from Customer App menu
+    Then I should be navigated to "LOG IN" screen
+    
+  @regression
+    #stable
+  Scenario: Verify Customer App Menu Links - DRIVE WITH BUNGII
     When I Select "DRIVE WITH BUNGII" from Customer App menu
     Then I should be navigated to "bungii.com" screen
     When I Switch to "customer" application on "same" devices
-    When I Select "LOGOUT" from Customer App menu
+    When I Select "ACCOUNT > LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
-
+    
   @regression
   Scenario: Verify Customer Support Menu
     When I Select "SUPPORT" from Customer App menu
@@ -60,7 +67,7 @@ Feature: Customer	Menu
  #   And I should see "social media links" on FAQ page
   @regression
   Scenario: Verify Get More Money Link Redirects To Invite Screen
-    When I Select "PROMOS" from Customer App menu
+    When I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I click "GET MORE MONEY" button on "PROMOS" screen
     Then I should be navigated to "Invite" screen

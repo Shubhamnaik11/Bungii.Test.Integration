@@ -21,6 +21,8 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.pass;
 
 public class TripAlertSettingsMenuSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LoginSteps.class);
@@ -42,7 +44,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     public void i_click_on_something_tab(String option) throws Throwable {
         try {
             switch (option) {
-                case "Trip Alerts":
+                case "Delivery Alerts":
                     action.click(tripAlertSettingsPage.Tab_TripAlerts());
                     break;
 
@@ -55,14 +57,15 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "Past":
-                    Thread.sleep(2000);
+                    Thread.sleep(10000);
                     action.click(homePage.Tab_MyBungiisPast());
                     break;
 
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-        }
+            log(" I tap on " + option + " on My Bungiis",
+                    "I  tap on  " + option, true);        }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -75,21 +78,34 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     @Then("^I should be able to see \"([^\"]*)\" Text and Time$")
     public void i_should_be_able_to_see_something_text_and_time(String tab)  {
         String data=null;Boolean b;
-        String time=PropertyUtility.getDataProperties("alert.time");
+        WebElement element;
+        String time=PropertyUtility.getDataProperties("alert.time.to.android");
         try {
+            action.scrollToTop();
+            int count =0;
             switch (tab) {
-                case "Trip Alerts":
+                case "Delivery Alerts":
                     data = action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
-                    testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("trip.alert.text"));
-                    b = clickDriverMenu(time);
-                    testStepVerify.isEquals(b.toString(), "true");
+                    testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("trip.alert.android.text").trim());
+                    //b = clickDriverMenu(time);
+                    //testStepVerify.isEquals(b.toString(), "true");
+                     count = getTimeRow();
+                     //At a time u can see only 6
+                    testStepAssert.isTrue(count==6,"All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed. Days displayed : "+ count);
+                    action.scrollToBottom();
+                    element = getLastTimeRow();
+                    testStepAssert.isEquals(element.getText(),"Saturday","All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed.");
+
                     break;
 
                 case "SMS Alerts":
                     data = action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
                     testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("sms.alert.text"));
-                    b = clickDriverMenu(time);
-                    testStepVerify.isEquals(b.toString(), "true");
+                  //  b = clickDriverMenu(time);
+                   // testStepVerify.isEquals(b.toString(), "true");
+                    //At a time u can see  7 in SMS alerts
+                    count = getTimeRow();
+                    testStepAssert.isTrue(count==7,"All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed. Days displayed : "+ count);
                     break;
 
                 default:
@@ -144,15 +160,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "No Note":
-                    noteText=action.getText(estimatePage.Text_DetailsNote());
-                    enteredNoteText=(String)cucumberContextManager.getScenarioContext("NOTE_TEXT");
-                    if(noteText.equals(enteredNoteText)){
-                        testStepAssert.isTrue(true, "The note text should match.", "The note text didn't match.");
-                    }
-                    else
-                    {
-                        testStepAssert.isFail("The note text didn't match.");
-                    }
+                        testStepAssert.isFalse(action.isElementPresent(estimatePage.Text_DetailsNote(true)), "The note section is not displayed.", "The note section is displayed.");
                     break;
 
                 case "Customer Entered":
@@ -179,6 +187,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             action.click(tripAlertSettingsPage.Image_TimeSettingsArrow());
             action.click(tripAlertSettingsPage.Text_TimeSettingsFromTime());
             action.click(tripAlertSettingsPage.TimePicker_ChangeTime());
+            log(" I click on time and change " + strArg1 + "",
+                    "I clicked on time and change  " + strArg1, true);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -194,6 +204,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             switch (Name) {
                 case "SAVE TIME":
                     action.click(tripAlertSettingsPage.TimePicker_OK());
+                    action.click(tripAlertSettingsPage.Button_SaveTime());
+
                     break;
 
                 case "ADD":
@@ -280,6 +292,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }
+            pass(" I click on " + Name + " button",
+                    "I clicked on  " + Name +" button");
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -291,8 +305,14 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     @Then("^I verify that changes in time are saved$")
     public void i_verify_that_changes_in_time_are_saved() throws Throwable {
         try {
-            Boolean b = checkTimeChange("08:00 - 21:00");
-            testStepVerify.isEquals(b.toString(), "true");
+            //Boolean b = checkTimeChange("08:00 - 09:00");
+            action.scrollToTop();
+            int count = getTimeRow();
+            testStepAssert.isTrue(count==6,"All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed. Days displayed : "+ count);
+            action.scrollToBottom();
+            WebElement element = getLastTimeRow();
+            testStepAssert.isEquals(element.getText(),"Saturday","All Weekdays should be displayed","All Weekdays are displayed","All Weekdays are not displayed.");
+
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -326,9 +346,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
     public boolean clickDriverMenu(String time) {
         Boolean isCorrectTime = true;
+
         List<WebElement> elements = tripAlertSettingsPage.Text_TripAlertsTime();
         for (WebElement element : elements) {
-            if (element.getText().equals(time) && isCorrectTime) {
+            if (element.getText().contains(time) && isCorrectTime) {
                 isCorrectTime = true;
                  }else{
                 isCorrectTime = false;
@@ -338,5 +359,14 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             isCorrectTime=false;
 
         return isCorrectTime;
+    }
+    public int getTimeRow() {
+        List<WebElement> elements = tripAlertSettingsPage.Text_TripAlertsTime();
+        return elements.size();
+    }
+
+    public WebElement getLastTimeRow() {
+        List<WebElement> elements = tripAlertSettingsPage.Text_TripAlertsDay();
+        return elements.get(5);
     }
 }

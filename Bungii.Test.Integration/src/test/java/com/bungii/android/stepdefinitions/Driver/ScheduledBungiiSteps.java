@@ -31,7 +31,44 @@ public class ScheduledBungiiSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
     private static LogUtility logger = new LogUtility(ScheduledBungiiSteps.class);
+    @And("I open first Trip from driver scheduled trip")
+    public void iSelectFirstTripFromDriverScheduledTrip() {
+        try{
+            boolean skipNormalFlow = false;
+            boolean isSelected = false;
+            if(action.isNotificationAlertDisplayed()){
+                if(action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))){
+                    utility.acceptNotificationAlert();
+                    skipNormalFlow=true;
+                }
+                else{
+                    action.click(Page_BungiiRequest.AlertButton_Cancel());
+                }
+                isSelected=true;
+            }
+            if(!skipNormalFlow) {
+                String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+                List<WebElement> listOfScheduledTrip = scheduledBungiiPage.List_ScheduledBungiis();
+                String timeZone=utility.getTimeZoneBasedOnGeofence();
+                for (WebElement element : listOfScheduledTrip) {
+                    WebElement schDate = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_scheduleddatetime"));
+                        WebElement rowViewIcom = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_icon"));
+                        action.click(new Point(rowViewIcom.getLocation().getX(), rowViewIcom.getLocation().getY()));
+                        //action.click(rowViewIcom);
+                        isSelected = true;
+                        break;
+                }
+            }
+            if(skipNormalFlow)
+                testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using alert for upcoming trip to driver ","I was not able to start Bungii");
+            else
+                testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using list of Bungii's present in avialable bungii list","I was not able to start Bungii");
 
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @And("I Select Trip from driver scheduled trip")
     public void iSelectTripFromDriverScheduledTrip() {
         try{
@@ -57,19 +94,23 @@ public class ScheduledBungiiSteps extends DriverBase {
                /* if(!tripTime.contains(timeZone))
                     tripTime=tripTime+" "+timeZone;*/
                 //if ((action.getText(schDate)+""+action.getText(schTimeZone)).equalsIgnoreCase(tripTime)) {
-                if ((action.getText(schDate)).equalsIgnoreCase(tripTime)) {
+                if(TimeZone.getTimeZone("CST6CDT").inDaylightTime(new Date()))
+                    tripTime = tripTime.replace("ST","DT");
+
+              //  Thread.sleep(4000);
+                //if ((action.getText(schDate)).equalsIgnoreCase(tripTime)) {
                     WebElement rowViewIcom = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_icon"));
                     action.click(new Point(rowViewIcom.getLocation().getX(), rowViewIcom.getLocation().getY()));
                     //action.click(rowViewIcom);
                     isSelected = true;
                     break;
-                }
+                //}
             }
         }
         if(skipNormalFlow)
-            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using alert for upcoming trip to driver ","I was not able to select Bungii");
+            testStepAssert.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using alert for upcoming trip to driver ","I was not able to select Bungii");
         else
-            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using list of Bungii's present in avialable bungii list","I was not able to select Bungii");
+            testStepAssert.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using list of Bungii's present in avialable bungii list","I was not able to select Bungii");
 
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -89,7 +130,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 
     @When("^I wait for Minimum duration for Bungii Start Time$")
     public void i_wait_for_minimum_duration_for_bungii_start_time() {
-        try {
+        /*try {
             Date currentDate = new Date();
 
             String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
@@ -120,5 +161,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+        */
+        logger.detail("Temparory Commented since it is taking longer time.");
     }
 }

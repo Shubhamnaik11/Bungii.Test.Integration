@@ -6,20 +6,26 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
 import com.bungii.ios.stepdefinitions.customer.*;
-import com.bungii.ios.utilityfunctions.DbUtility;
+import com.bungii.api.utilityFunctions.DbUtility;
+import com.google.gson.Gson;
 import cucumber.api.junit.Cucumber;
+import cucumber.deps.com.thoughtworks.xstream.mapper.Mapper;
 import io.restassured.http.Header;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.runner.Request;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.utilities.ApiHelper.gson;
 
 public class CoreServices extends DriverBase {
     private static LogUtility logger = new LogUtility(CoreServices.class);
@@ -42,11 +48,17 @@ public class CoreServices extends DriverBase {
     private static String GET_PROMOCODE = "/api/customer/getpromocodes";
     private static String DRIVER_CANCELPICKUPLIST = "/api/driver/cancelpickup";
     private static String STACKED_PICKUP_CONFIRMATION = "/api/driver/stackedpickupconfirmation";
-    GeneralUtility utility = new GeneralUtility();
+    private static String PARTNER_PICKUPESTIMATE = "/api/partner/pickupestimate";
+    private static String PARTNER_PICKUPDETAILS = "/api/partner/pickupdetails?pickuprequestid=";
+    private static String PARTNER_DELIVERYINFOMATION = "/api/partner/deliveryinformation";
+    private static String PARTNER_GRAPHQL = "/graphql";
+    private static String PARTNER_CONFIRM_PICKUP = "/api/partner/confirmpickup";
 
+    GeneralUtility utility = new GeneralUtility();
+    DbUtility dbUtility = new DbUtility();
 
     public Response validatePickupRequest(String authToken, String geoFence) {
-        logger.detail("API REQUEST : Validate Pickup Request : " + authToken +" : "+ geoFence);
+        String RequestText ="API REQUEST : Validate Pickup Request : " + authToken +" : "+ geoFence;
         JSONObject jsonObj = new JSONObject();
         JSONObject dropOffCordinate = new JSONObject();
         JSONObject pickupCordinates = new JSONObject();
@@ -115,12 +127,12 @@ public class CoreServices extends DriverBase {
         String apiURL = UrlBuilder.createApiUrl("core", VALIDATE_PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
         //logger.detail(response.then().log().body());
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
 
     }
     public Response validatePickupRequestOfPartnerFirm(String authToken, String geoFence) {
-        logger.detail("API REQUEST : Validate Pickup Request Of Partner Firm : " + authToken +" : "+ geoFence);
+        String RequestText ="API REQUEST : Validate Pickup Request Of Partner Firm : " + authToken +" : "+ geoFence;
 
         JSONObject jsonObj = new JSONObject();
         JSONObject dropOffCordinate = new JSONObject();
@@ -148,17 +160,17 @@ public class CoreServices extends DriverBase {
         String apiURL = UrlBuilder.createApiUrl("core", VALIDATE_PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
        // logger.detail(response.then().log().body());
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
 
     }
     public Response availablePickupList(String authToken) {
-        logger.detail("API REQUEST : Available Pickup List : Auth token " + authToken);
+        String RequestText ="API REQUEST : Available Pickup List : Auth token " + authToken;
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", AVAILABLE_PICKUPLIST);
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
     }
 
@@ -172,10 +184,18 @@ public class CoreServices extends DriverBase {
                 String pickupRequest = (String) pickupDetails.get("PickupRef");
                 if (pickupRequest.equalsIgnoreCase(expectedPickupRequest)) {
                     isPickupInAvailableTrip = true;
+                    logger.detail("Driver is eligible for pickup : "+ pickupRequest);
                     break;
+                }
+                else
+                {
+                    logger.detail("Pickup requests for which driver is eligible are : "+ pickupRequest);
                 }
             }
         }
+        else
+            logger.detail("No Pickup requests found for which driver is eligible");
+
         return isPickupInAvailableTrip;
     }
 
@@ -196,7 +216,17 @@ public class CoreServices extends DriverBase {
 
             }
             if (!foundPickup) {
-                error("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip since Driver "+driverDetail+" is not eligible for pickup : "+expectedPickupRequest, false);
+
+                List<HashMap<String,Object>> driverEligible =dbUtility.getAllDriversEligible(expectedPickupRequest);
+                String drivers = " Phone numbers of drivers who are eligible for pickup : "+ expectedPickupRequest+ " : ";
+                int i =0 ;
+
+                while (i<driverEligible.size())
+                {
+                    drivers = drivers + " "+driverEligible.get(i).get("Phone");
+                    i++;
+                }
+                logger.detail("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip since Driver "+driverDetail+" is not eligible for pickup : "+expectedPickupRequest +" | "+ drivers, false);
             }
 
         } catch (Exception e) {
@@ -206,7 +236,7 @@ public class CoreServices extends DriverBase {
     }
 
     public Response pickupRequest(String authToken, int numberOfDriver, String geoFence) {
-        logger.detail("API REQUEST : Pickpup Request " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
+        String RequestText ="API REQUEST : Pickup Request for Authtoken " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence;
 
         JSONObject jsonObj = new JSONObject();
         JSONObject dropOffAddress = new JSONObject();
@@ -250,14 +280,63 @@ public class CoreServices extends DriverBase {
 
         String apiURL = UrlBuilder.createApiUrl("core", PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
 
 
     }
+    public Response pickupRequestWithZeroDistance(String authToken, int numberOfDriver, String geoFence) {
+        String RequestText ="API REQUEST : Pickpup Request " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence;
 
+        JSONObject jsonObj = new JSONObject();
+        JSONObject dropOffAddress = new JSONObject();
+        JSONObject dropOffCordinate = new JSONObject();
+        JSONObject pickUpAddress = new JSONObject();
+        JSONObject pickUpCordinate = new JSONObject();
+        if (geoFence.equalsIgnoreCase("nashville")||geoFence.equalsIgnoreCase("goa")||geoFence.equalsIgnoreCase("kansas")||geoFence.equalsIgnoreCase("boston")||geoFence.contains("atlanta")||geoFence.equalsIgnoreCase("baltimore") ||geoFence.equalsIgnoreCase("miami")||geoFence.equalsIgnoreCase("denver")||geoFence.equalsIgnoreCase("washingtondc")) {
+            dropOffAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address1"));
+            dropOffAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address2"));
+            dropOffAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.city"));
+            dropOffAddress.put("Country", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.country"));
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.longitude")));
+            dropOffAddress.put("Location", dropOffCordinate);
+            dropOffAddress.put("State", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.state"));
+            dropOffAddress.put("ZipPostalCode", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.zipcode"));
+
+            pickUpAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address1"));
+            pickUpAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address2"));
+            pickUpAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.city"));
+            pickUpAddress.put("Country", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.country"));
+            pickUpCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.latitude")));
+            pickUpCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.longitude")));
+            pickUpAddress.put("Location", pickUpCordinate);
+            pickUpAddress.put("State", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.state"));
+            pickUpAddress.put("ZipPostalCode", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.zipcode"));
+
+            jsonObj.put("DropOffAddress", dropOffAddress);
+            jsonObj.put("PickupAddress", pickUpAddress);
+            jsonObj.put("NoOfDrivers", numberOfDriver);
+
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address1") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address2"));
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.city") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.state"));
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address1") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address2"));
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.city") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.state"));
+            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", numberOfDriver == 1 ? "SOLO" : "DUO");
+        } else {
+            logger.detail("Specify valid geofence");
+        }
+        Header header = new Header("AuthorizationToken", authToken);
+
+        String apiURL = UrlBuilder.createApiUrl("core", PICKUP_REQUEST);
+        Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return response;
+
+
+    }
     public Response pickupRequestPartnerFirm(String authToken, int numberOfDriver, String geoFence) {
-        logger.detail("API REQUEST : Pickpup Request of Partner Firm " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
+        String RequestText ="API REQUEST : Pickpup Request of Partner Firm " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence;
 
         JSONObject jsonObj = new JSONObject();
         JSONObject dropOffAddress = new JSONObject();
@@ -301,11 +380,12 @@ public class CoreServices extends DriverBase {
 
         String apiURL = UrlBuilder.createApiUrl("core", PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
 
 
     }
+
 
     public String getPickupRequest(String authToken, int numberOfDriver, String geoFence) {
         logger.detail("API REQUEST : Get Pickpup Request " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
@@ -315,7 +395,14 @@ public class CoreServices extends DriverBase {
         return jsonPathEvaluator.get("PickupRequestID");
 
     }
+    public String getPickupRequestWithZeroDistance(String authToken, int numberOfDriver, String geoFence) {
+        logger.detail("API REQUEST : Get Pickpup Request " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
+        Response response = pickupRequestWithZeroDistance(authToken, numberOfDriver, geoFence);
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        saveAppliedPromoCode(response);
+        return jsonPathEvaluator.get("PickupRequestID");
 
+    }
     public String getPickupRequestOfPartnerFirm(String authToken, int numberOfDriver, String geoFence) {
         logger.detail("API REQUEST : Get Pickpup Request Of Partner Firm" + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
         Response response = pickupRequestPartnerFirm(authToken, numberOfDriver, geoFence);
@@ -344,7 +431,7 @@ public class CoreServices extends DriverBase {
     }
     public void recalculateEstimate(String pickupRequestID, String walletReferance, String authToken) {
         try {
-            logger.detail("Recalculating Estimate of pickup request : " + pickupRequestID+" | Wallet Reference : "+ walletReferance+" | Auth Token : "+ authToken);
+            String RequestText ="Recalculating Estimate of pickup request : " + pickupRequestID+" | Wallet Reference : "+ walletReferance+" | Auth Token : "+ authToken;
 
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("PickupRequestID", pickupRequestID);
@@ -358,7 +445,7 @@ public class CoreServices extends DriverBase {
             Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
             JsonPath jsonPathEvaluator = response.jsonPath();
 
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
             cucumberContextManager.setScenarioContext("BUNGII_TIME", "NOW");
             String bungiiDistance="";
            /* if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
@@ -371,8 +458,10 @@ public class CoreServices extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "~$" +truncValue);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", "15 mins");
             int estimateTripDuration=jsonPathEvaluator.get("Estimate.TimePickupToDropOff");
-            estimateTripDuration=estimateTripDuration/60000;int estimateDurationWithLoadUnload=estimateTripDuration+15;
-            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME", "~"+estimateTripDuration+"  mins");
+            logger.detail("estimateTripDuration "+ estimateTripDuration);
+            Double estimateDuration=Double.valueOf(estimateTripDuration)/60000;
+            Long estimateDurationWithLoadUnload=Math.round(estimateDuration)+15;
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME", "~"+Math.round(estimateDuration)+"  mins");
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME", "~"+estimateDurationWithLoadUnload+"  mins");
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
@@ -380,7 +469,7 @@ public class CoreServices extends DriverBase {
     }
     public void recalculateEstimate(String pickupRequestID, String walletReferance, String authToken,String customerLabel) {
         try {
-            logger.detail("Recalculating Estimate of pickup request : " + pickupRequestID+" | Wallet Reference : "+ walletReferance+" | Auth Token : "+ authToken);
+            String RequestText ="Recalculating Estimate of pickup request : " + pickupRequestID+" | Wallet Reference : "+ walletReferance+" | Auth Token : "+ authToken;
 
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("PickupRequestID", pickupRequestID);
@@ -394,7 +483,7 @@ public class CoreServices extends DriverBase {
             Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
             JsonPath jsonPathEvaluator = response.jsonPath();
 
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response, RequestText);
             cucumberContextManager.setScenarioContext("BUNGII_TIME"+customerLabel, "NOW");
             String bungiiDistance="";
             //now two decimal point are shown
@@ -438,30 +527,72 @@ public class CoreServices extends DriverBase {
 
 
     public Response customerConfirmation(String pickRequestID, String paymentMethodID, String authToken, String scheduledDateTime) {
-        logger.detail("API REQUEST : Customer Confirmation of pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken +" | Scheduled Date Time : "+ scheduledDateTime);
+        String RequestText ="API REQUEST : Customer Confirmation of pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken +" | Scheduled Date Time : "+ scheduledDateTime;
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("WalletRef", (String)cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"));
         jsonObj.put("EstLoadUnloadTimeInMilliseconds", 900000);
         jsonObj.put("PickupRequestID", pickRequestID);
-        jsonObj.put("Description", "");
         jsonObj.put("PaymentMethodID", paymentMethodID);
+        jsonObj.put("Description", "");
+        String str="";
         if (!scheduledDateTime.equals("")) {
             jsonObj.put("IsScheduledPickup", true);
             jsonObj.put("ScheduledDateTime", scheduledDateTime);
+            str= "TestNote for Scheduled "+pickRequestID;
         } else {
             jsonObj.put("IsScheduledPickup", false);
+            str= "TestNote for OnDemand "+pickRequestID;
 
         }
-
+        jsonObj.put("PickupNote",str);
+        cucumberContextManager.setScenarioContext("PICKUP_NOTE",str);
         Header header = new Header("AuthorizationToken", authToken);
 
         String apiURL = null;
+        try{
+        Thread.sleep(10000);} catch(Exception ex){}
 
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CONFIRMATION);
         Response response = ApiHelper.uploadImage(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        HashMap error = jsonPathEvaluator.get("Error");
+        if (error != null && error.size()!=0) {
+             String errorCode = jsonPathEvaluator.get("Error.Code").toString();
+             if (errorCode=="20027")
+             {
+                 scheduledDateTime = getNextTime(scheduledDateTime);
+                 logger.detail("Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Requesting with 15 minutes later time.");
+                 response = customerConfirmation(pickRequestID, paymentMethodID, authToken, scheduledDateTime);
+             }
+            else if (errorCode=="3004")
+            {
+                try{ Thread.sleep(30000);}catch (InterruptedException e){}
+                scheduledDateTime = getNextTime(scheduledDateTime);
+                logger.detail("There was a problem processing your credit card; please double check your payment information and try again. | Retrying in 30 Seconds");
+                response = customerConfirmation(pickRequestID, paymentMethodID, authToken, scheduledDateTime);
+            }
+            else
+                 ApiHelper.genericResponseValidation(response, RequestText);
+        }
+        else
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
+    }
+    public String getNextTime(String scheduledDateTime)
+    {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+        Date d = null;
+        try {
+            d = df.parse(scheduledDateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        cal.add(Calendar.MINUTE, 15);
+        String newTime = df.format(cal.getTime());
+        return newTime;
     }
 
     public String[] getScheduledBungiiTime() {
@@ -470,7 +601,7 @@ public class CoreServices extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         int mnts = calendar.get(Calendar.MINUTE);
 
-        calendar.set(Calendar.MINUTE, mnts + 30);
+        calendar.set(Calendar.MINUTE, mnts+ 45); // Always choose 2nd possible slot to avoid issues with delay in requesting bungii
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));
@@ -484,6 +615,10 @@ public class CoreServices extends DriverBase {
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
         rtnArray[0] = formattedDate+".000";
         rtnArray[1] = wait;
+
+        logger.detail("TIME CALC BLOCK3 : "+  rtnArray[0]);
+        cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
+
         return rtnArray;
 
     }
@@ -491,6 +626,14 @@ public class CoreServices extends DriverBase {
         String[] rtnArray = new String[2];
         int bufferTimeToStartTrip = 0;
         Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date = null;
+        try {
+            date = sdfd.parse(teletTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        calendar.setTime(date);
         int mnts = calendar.get(Calendar.MINUTE);
         String teletType=(String)cucumberContextManager.getScenarioContext("TELET_TYPE");
             if(teletType.equalsIgnoreCase("TELET SAME TIME")) {
@@ -506,22 +649,77 @@ public class CoreServices extends DriverBase {
         Date nextQuatter = calendar.getTime();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //sdf.setTimeZone(TimeZone.getTimeZone("UTC")); //Commeting TELET IS already in UTC
         String formattedDate = sdf.format(nextQuatter);
 
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
         rtnArray[0] = formattedDate+".000";
         rtnArray[1] = wait;
+        logger.detail("TIME CALC BLOCK TELET : "+ rtnArray[0]);
+        cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
+
         return rtnArray;
 
     }
+    public String[] getScheduledBungiiTimeFurtureSlot(String teletTime) {
+        String[] rtnArray = new String[2];
+        int bufferTimeToStartTrip = 0;
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date = null;
+        try {
+            date = sdfd.parse(teletTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        calendar.setTime(date);
+        int mnts = calendar.get(Calendar.MINUTE);
+        String teletType=(String)cucumberContextManager.getScenarioContext("TELET_TYPE");
+        if(teletType.equalsIgnoreCase("TELET SAME TIME")) {
+            calendar.set(Calendar.MINUTE, mnts + 30);
+        }
+        else if(teletType.equalsIgnoreCase("TELET OVERLAP")){
+            calendar.set(Calendar.MINUTE, mnts + 45);
+        }
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 15;
+        if(mod!=0)
+            calendar.add(Calendar.MINUTE, (15 - mod));
+        calendar.set(Calendar.SECOND, 0);
+        Date nextQuatter = calendar.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
+        //sdf.setTimeZone(TimeZone.getTimeZone("UTC")); //Commeting TELET IS already in UTC
+        String formattedDate = sdf.format(nextQuatter);
+
+        String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
+        rtnArray[0] = formattedDate+".000";
+        rtnArray[1] = wait;
+        logger.detail("TIME CALC BLOCK TELET : "+ rtnArray[0]);
+        cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
+
+        return rtnArray;
+
+    }
+
     public String[] getScheduledBungiiTime(int minuteDifferance) {
         String[] rtnArray = new String[2];
         int bufferTimeToStartTrip = 0;
         Calendar calendar = Calendar.getInstance();
         int mnts = calendar.get(Calendar.MINUTE);
 
-        calendar.set(Calendar.MINUTE, mnts + 30+minuteDifferance);
+       /* if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
+        {
+            calendar.set(Calendar.MINUTE, mnts + 30 + minuteDifferance);
+            int timer = mnts + 30 + minuteDifferance;
+            logger.detail("Calculated Time [Daylight On] : " + timer);
+        }
+        else*/
+        {
+            calendar.set(Calendar.MINUTE, mnts + minuteDifferance);
+            int timer = mnts + minuteDifferance;
+            logger.detail("Calculated Time [Daylight Off] : " + timer);
+        }
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));
@@ -535,6 +733,11 @@ public class CoreServices extends DriverBase {
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
         rtnArray[0] = formattedDate+".000";;
         rtnArray[1] = wait;
+        logger.detail("Schedule Time  : " +  rtnArray[0]);
+        logger.detail("TIME CALC BLOCK with Differnece of "+ minuteDifferance);
+        cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
+
+
         return rtnArray;
 
     }
@@ -555,19 +758,21 @@ public class CoreServices extends DriverBase {
                 strTime=strTime.replace(timeLabel,"");
         }
             cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
-     //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
+            cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+        //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
     //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
         int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
         customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
         return waitDuraton;
     }
-    public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken,int minDiff) {
+    public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken,int minDiff) throws ParseException {
         //get utc time and time for bungii to start
-        logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken);
+        logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken +" | Minute Difference "+ minDiff);
 
         String[] nextAvailableBungii = getScheduledBungiiTime(minDiff);
-        Date date = new EstimateSteps().getNextScheduledBungiiTime(minDiff);
+
+        Date date = new EstimateSteps().getNextScheduledBungiiTimeDependingOn(minDiff);
         String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
@@ -576,7 +781,10 @@ public class CoreServices extends DriverBase {
             if(strTime.contains(timeLabel))
                 strTime=strTime.replace(timeLabel,"");
         }
+
         cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+        cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+
         //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
         //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
@@ -590,6 +798,7 @@ public class CoreServices extends DriverBase {
 
         String[] nextAvailableBungii = getScheduledBungiiTime();
         Date date = new EstimateSteps().getNextScheduledBungiiTime();
+        String strTimeDriverEarnings = new EstimateSteps().bungiiTimeDisplayDriverEarning(date);
         String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         cucumberContextManager.setScenarioContext("TIME",strTime);
@@ -600,6 +809,9 @@ public class CoreServices extends DriverBase {
         }
 
         cucumberContextManager.setScenarioContext("BUNGII_TIME"+label, strTime.replace("am", "AM").replace("pm","PM"));
+        cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+
+        cucumberContextManager.setScenarioContext("Scheduled_Time",strTimeDriverEarnings.replace("am", "AM").replace("pm","PM"));
         //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
         //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
@@ -613,7 +825,7 @@ public class CoreServices extends DriverBase {
         logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken);
 
         String[] nextAvailableBungii = getScheduledBungiiTime(teletTime);
-        Date date = new EstimateSteps().getNextScheduledBungiiTime();
+       Date date = new EstimateSteps().getNextScheduledBungiiTime();
         String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         cucumberContextManager.setScenarioContext("TIME",strTime);
@@ -624,6 +836,8 @@ public class CoreServices extends DriverBase {
         }
 
         cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+        cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+
         //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
         //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
@@ -632,9 +846,43 @@ public class CoreServices extends DriverBase {
         return waitDuraton;
     }
 
+    public int customerConfirmationScheduledForFuture(String pickRequestID, String paymentMethodID, String authToken,String futureTime) throws ParseException {
+        //get utc time and time for bungii to start
+        logger.detail("Customer Confirmation of Scheduled pickup request [Future Date] "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken);
+
+        String[] nextAvailableBungii = getScheduledBungiiTimeFurtureSlot(futureTime);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = sdf.parse(nextAvailableBungii[0]);
+        Calendar cal = new GregorianCalendar();
+        cal.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
+
+        cal.setTime(date);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("MMM dd, HH:mm a z", Locale.US);
+        sdf1.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
+        System.out.println(sdf1.format(date));
+       // LocalDateTime.parse(nextAvailableBungii[0], DateTimeFormatter.ofPattern( "yyyy-MM-dd HH:mm:ss.SSS" , Locale.US )).atZone( ZoneId.of( "America/New_York" ) );
+        String strTime = sdf1.format(date);
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        cucumberContextManager.setScenarioContext("TIME",strTime);
+        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID") &&currentGeofence.equalsIgnoreCase("goa")){
+            String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+            if(strTime.contains(timeLabel))
+                strTime=strTime.replace(timeLabel,"");
+        }
+        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+        cucumberContextManager.setScenarioContext("SCHEDULED_BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+
+        //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
+        //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+        logger.detail("UTC TIME : "+ nextAvailableBungii[0] + " and geofence based time : "+ strTime);
+        int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
+        customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
+        return waitDuraton;
+    }
 
     public Response customerView(String pickuprequestid, String authToken) {
-        logger.detail("API REQUEST : Customer View "+ pickuprequestid +" | Auth Token : "+ authToken);
+        String RequestText ="API REQUEST : Get Customer View "+ pickuprequestid +" | Auth Token : "+ authToken;
 
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -645,13 +893,13 @@ public class CoreServices extends DriverBase {
                 get(apiURL);
         //response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
 
     }
 
     public Response driverView(String pickuprequestid, String authToken) {
-        logger.detail("API REQUEST : Driver View "+ pickuprequestid +" | Auth Token : "+ authToken);
+        String RequestText ="API REQUEST : Get Driver View "+ pickuprequestid +" | Auth Token : "+ authToken;
 
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -661,7 +909,7 @@ public class CoreServices extends DriverBase {
         Response response = ApiHelper.givenDriverConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
        // response.then().log().body();
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
 
 
@@ -669,9 +917,9 @@ public class CoreServices extends DriverBase {
 
     public String driverPaymentMethod(String pickuprequestid, String authToken) {
         try {
-            logger.detail("API REQUEST : Driver Payment Method "+ pickuprequestid +" | Auth Token : "+ authToken);
+            String RequestText ="API REQUEST : Get Driver Payment Method "+ pickuprequestid +" | Auth Token : "+ authToken;
             Response response = driverView(pickuprequestid, authToken);
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
             JsonPath jsonPathEvaluator = response.jsonPath();
             return jsonPathEvaluator.get("PickupDetails.PaymentMethodRef");
         } catch (Exception e) {
@@ -681,7 +929,7 @@ public class CoreServices extends DriverBase {
 
     public Response updateDriverLocation(String authToken, String geofence) {
         Float[] driverLocations = utility.getDriverLocation(geofence);
-        logger.detail("API REQUEST : (For Ondemand Bungiis) Update Driver Location of Authtoken : "+ authToken +" | Geofence : "+ geofence+" | Location : "+ driverLocations[0]+","+driverLocations[1]);
+        String RequestText ="API REQUEST : (For Ondemand Bungiis) Update Driver Location of Authtoken : "+ authToken +" | Geofence : "+ geofence+" | Location : "+ driverLocations[0]+","+driverLocations[1];
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("Latitude", driverLocations[0]);
         jsonObj.put("Longitude", driverLocations[1]);
@@ -691,17 +939,18 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", UPDATE_LOCATION);
         Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
 
     }
     public Response stackedPickupConfirmation(String pickuprequestid, String authToken) {
-        logger.detail("API REQUEST : Stacked Pickup Request Confirmation of Pickup Request id:  "+ pickuprequestid +" | Auth Token : "+ authToken);
+       String RequestText= "API REQUEST : Stacked Pickup Request Confirmation of Pickup Request id:  "+ pickuprequestid +" | Auth Token : "+ authToken;
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("DeviceName", "XT1092");
         //make status online
         jsonObj.put("PickupRequestID", pickuprequestid);
+        jsonObj.put("EventSource", 2);
         jsonObj.put("DeviceToken", "fYUrbPrSXAo:APAS1bFc7QqYIWYyYaIvlcu1Nz30Swc67UDBg75rwUlNbPZDIi2dLdrsgdplYB5GmJqOihXVB64bwVmfEqZAF0DkTOsYX8b8VrjleMHjkSVdQy3ao2nWrCot_HcXx6jYY7pksq3JbKCHP0QYyvmywSA6HRNIhXgiSa" + utility.genearateRandomString());
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -709,7 +958,7 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", STACKED_PICKUP_CONFIRMATION);
         Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
     }
 
@@ -734,7 +983,8 @@ public class CoreServices extends DriverBase {
 
     public void updateStatus(String pickupID, String authToken, int statusID) {
         try {
-            logger.detail("API REQUEST : Update Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID);
+            String utcTime= utility.getCurrentUTCTime();
+            String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID +" at "+ utcTime;
 
             JSONObject jsonObj = new JSONObject();
             JSONObject status = new JSONObject();
@@ -742,7 +992,7 @@ public class CoreServices extends DriverBase {
             status.put("PickupId", pickupID);
             status.put("PickupStatusId", pickupID);
             status.put("synced", false);
-            status.put("StatusTimestamp", utility.getCurrentUTCTime());
+            status.put("StatusTimestamp", utcTime);
             status.put("Status", statusID);
             statusArray.put(status);
             jsonObj.put("Statuses", statusArray);
@@ -755,7 +1005,7 @@ public class CoreServices extends DriverBase {
 
             apiURL = UrlBuilder.createApiUrl("core", UPDATE_PICKUP_STATUS);
             Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
 
 
         } catch (Exception e) {
@@ -764,10 +1014,40 @@ public class CoreServices extends DriverBase {
 
     }
 
+    public Response AcceptBungii(String pickupID, String authToken) {
+        Response response = null;
+        try {
+            String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ 21;
+            JSONObject jsonObj = new JSONObject();
+            JSONObject status = new JSONObject();
+            JSONArray statusArray = new JSONArray();
+            status.put("PickupId", pickupID);
+            status.put("PickupStatusId", pickupID);
+            status.put("synced", false);
+            status.put("StatusTimestamp", utility.getCurrentUTCTime());
+            status.put("Status", 21);
+            statusArray.put(status);
+            jsonObj.put("Statuses", statusArray);
 
+            //make status online
+            jsonObj.put("PickupRequestID", pickupID);
+            Header header = new Header("AuthorizationToken", authToken);
+
+            String apiURL = null;
+
+            apiURL = UrlBuilder.createApiUrl("core", UPDATE_PICKUP_STATUS);
+            response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+          //  ApiHelper.genericResponseValidation(response,RequestText);
+
+
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+      return response ;
+    }
     public void pickupdetails(String pickupID, String authToken, String geofence) {
         try {
-            logger.detail("API REQUEST : Pickup Details of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Geofence : "+ geofence);
+            String RequestText = "API REQUEST : Get Pickup Details of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Geofence : "+ geofence;
             JSONObject jsonObj = new JSONObject();
             JSONObject driverCordinate = new JSONObject();
             Float[] driverLocations = utility.getDriverLocation(geofence);
@@ -785,7 +1065,7 @@ public class CoreServices extends DriverBase {
 
             apiURL = UrlBuilder.createApiUrl("core", PICKUP_DETAILS);
             Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response, RequestText);
 
 
         } catch (Exception e) {
@@ -794,10 +1074,66 @@ public class CoreServices extends DriverBase {
 
     }
 
+    public JsonPath getPickupdetails(String pickupID, String authToken, String geofence) {
+        JsonPath jsonPathEvaluator= null;
+        try {
+
+            String RequestText = "API REQUEST : Get Pickup Details of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Geofence : "+ geofence;
+            JSONObject jsonObj = new JSONObject();
+            JSONObject driverCordinate = new JSONObject();
+            Float[] driverLocations = utility.getDriverLocation(geofence);
+
+            driverCordinate.put("Latitude", driverLocations[0]);
+            driverCordinate.put("Longitude", driverLocations[1]);
+            jsonObj.put("Location", driverCordinate);
+            jsonObj.put("PickupRequestID", pickupID);
+            Header header = new Header("AuthorizationToken", authToken);
+
+            String apiURL = null;
+
+            apiURL = UrlBuilder.createApiUrl("core", PICKUP_DETAILS);
+            Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+            jsonPathEvaluator = response.jsonPath();
+            ApiHelper.genericResponseValidation(response, RequestText);
+
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+        return jsonPathEvaluator;
+    }
+
+    public JsonPath getPickupdetailsFromPushNotification(String pickupID, String authToken, String geofence) {
+        JsonPath jsonPathEvaluator= null;
+        try {
+
+            String RequestText = "API REQUEST : Get Pickup Details of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Geofence : "+ geofence;
+            JSONObject jsonObj = new JSONObject();
+            JSONObject driverCordinate = new JSONObject();
+            Float[] driverLocations = utility.getDriverLocation(geofence);
+
+            driverCordinate.put("Latitude", driverLocations[0]);
+            driverCordinate.put("Longitude", driverLocations[1]);
+            jsonObj.put("Location", driverCordinate);
+            jsonObj.put("PickupRequestID", pickupID);
+            Header header = new Header("AuthorizationToken", authToken);
+
+            String apiURL = null;
+
+            apiURL = UrlBuilder.createApiUrl("core", PICKUP_DETAILS);
+            Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+            jsonPathEvaluator = response.jsonPath();
+           // ApiHelper.genericResponseValidation(response, RequestText);
+
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+        return jsonPathEvaluator;
+    }
+
     public void rateAndTip(String pickupRef, String authToken, String driverRef, String tipPaymentMethod, Double
             rating, Double tipAmount) {
         try {
-            logger.detail("API REQUEST : Rate and Tip | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Driver Ref : "+ driverRef + " | Tip Payment Method : "+ tipPaymentMethod+ " | Rating : "+ rating+ " | Tip Amount : "+ tipAmount);
+            String RequestText = "API REQUEST : Rate and Tip | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Driver Ref : "+ driverRef + " | Tip Payment Method : "+ tipPaymentMethod+ " | Rating : "+ rating+ " | Tip Amount : "+ tipAmount;
             JSONObject jsonObj = new JSONObject();
             JSONObject driver = new JSONObject();
             JSONArray driverArray = new JSONArray();
@@ -817,7 +1153,7 @@ public class CoreServices extends DriverBase {
             apiURL = UrlBuilder.createApiUrl("core", RATE_AND_TIP);
             Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
             JsonPath jsonPathEvaluator = response.jsonPath();
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response, RequestText);
 
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
@@ -827,8 +1163,7 @@ public class CoreServices extends DriverBase {
     public void rateAndTip(String pickupRef, String authToken, String driverRef, String tipPaymentMethod, Double
             rating, Double tipAmount, String driver2Ref, String tipPayment2Method) {
         try {
-            logger.detail("API REQUEST : Rate and Tip | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Driver Ref : "+ driverRef + " | Tip Payment Method : "+ tipPaymentMethod+ " | Rating : "+ rating+ " | Tip Amount : "+ tipAmount);
-
+            String RequestText = "API REQUEST : Rate and Tip | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Driver Ref : "+ driverRef + " | Tip Payment Method : "+ tipPaymentMethod+ " | Rating : "+ rating+ " | Tip Amount : "+ tipAmount;
             JSONObject jsonObj = new JSONObject();
             JSONObject driver = new JSONObject();
             JSONObject driver2 = new JSONObject();
@@ -856,7 +1191,7 @@ public class CoreServices extends DriverBase {
             apiURL = UrlBuilder.createApiUrl("core", RATE_AND_TIP);
             Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
             JsonPath jsonPathEvaluator = response.jsonPath();
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
 
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
@@ -874,53 +1209,59 @@ public class CoreServices extends DriverBase {
 
     }
     public Response getCustomersScheduledPickupList(String authToken) {
-        logger.detail("API REQUEST : Get Customer Scheduled Pickup List | Auth Token : "+ authToken);
+        String RequestText = "API REQUEST : Get Customer Scheduled Pickup List | Auth Token : "+ authToken;
 
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_SCHEDULEDLIST);
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
 
         return response;
 
     }
 
     public Response getDriverScheduledPickupList(String authToken) {
-        logger.detail("API REQUEST : Get driver Scheduled Pickup List | Auth Token : "+ authToken);
+        String RequestText = "API REQUEST : Get driver Scheduled Pickup List | Auth Token : "+ authToken;
 
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", DRIVER_SCHEDULEDLIST);
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
        // response.then().log().body();
         return response;
 
     }
     public void cancelAllScheduledBungiis(String authToken){
-        logger.detail("Canceling Scheduled Bungii | Auth Token : "+ authToken);
 
         JsonPath jsonPathEvaluator = getCustomersScheduledPickupList(authToken).jsonPath();
 
         ArrayList ScheduledPickups = jsonPathEvaluator.get("ScheduledPickups");
         if (ScheduledPickups != null) {
+            logger.detail("***Total scheduled deliveries found for customer : "+ ScheduledPickups.size()+"***");
             for (int i = 0; i < ScheduledPickups.size(); i++) {
                 HashMap pickupDetails = (HashMap) ScheduledPickups.get(i);
                 String pickupRequest = (String) pickupDetails.get("PickupRef");
                 boolean CanBeCancelled = (boolean) pickupDetails.get("CanBeCancelled");
                 getScheduledPickupDetails(pickupRequest,authToken);
-                if(CanBeCancelled)
-                    cancelBungiiAsCustomer(pickupRequest,authToken);
-                else
+               /* if(CanBeCancelled) {
+                    cancelBungiiAsCustomer(pickupRequest, authToken);
+                    logger.detail("***Cancelled Pickup Request as Customer | Pickup Request : "+ pickupRequest+"***");
+                }
+                else {*/
                     new WebPortal().cancelBungiiAsAdmin(pickupRequest);
+                    logger.detail("***Cancelled Pickup Request as Admin | Pickup Request : "+ pickupRequest+"***");
+                //}
             }
         }
+        else
+            logger.detail("***No Scheduled Bungiis Found for Customer***");
+
 
     }
     public void cancelOrCompleteOngoingBungii(String custAccessToken){
-        logger.detail("Canceling or completing Ongoing Bungii");
-
+        logger.detail("***Checking Ongoing Bungiis of Customer***");
         Response response= customerView("", custAccessToken);
 
 
@@ -933,8 +1274,10 @@ public class CoreServices extends DriverBase {
             int pickupStatus = jsonPathEvaluator.get("PickupDetails.PickupStatus");
             int numberOfDriver = jsonPathEvaluator.get("PickupDetails.NoOfDrivers");
             //on demand searching
-            if (pickupStatus == 4)
+            if (pickupStatus == 4) {
                 cancelBungiiAsCustomer(pickupRequestID, custAccessToken);
+                logger.detail("***Cancelled Pickup Request as Customer | Pickup Request : "+ pickupRequestID+"***");
+            }
             else if(pickupStatus == 23 || pickupStatus == 24) {
                 //cancel Bungii as driver
                 String driverPhoneCode="1";
@@ -943,6 +1286,8 @@ public class CoreServices extends DriverBase {
                 String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
 
                 updateStatus(pickupRequestID, driverAccessToken, 66);
+                logger.detail("***Pickup Status moved to 66 From either 23 or 24 | Pickup Request : "+ pickupRequestID+"***");
+
             } else if(pickupStatus == 25 || pickupStatus == 26 ||pickupStatus == 27 ||pickupStatus == 28) {
                 //complete Bungii as driver
                 String driverPhoneCode="1";
@@ -957,7 +1302,7 @@ public class CoreServices extends DriverBase {
                     case 27:
                         updateStatus(pickupRequestID, driverAccessToken, 28);
                     case 28:
-                        try {Thread.sleep(35000); } catch (InterruptedException e) {e.printStackTrace();}
+                       // try {Thread.sleep(35000); } catch (InterruptedException e) {e.printStackTrace();}
                 }
                 String paymentMethod = new PaymentServices().getPaymentMethodRef(custAccessToken);
 
@@ -971,12 +1316,15 @@ public class CoreServices extends DriverBase {
                     rateAndTip(pickupRequestID, custAccessToken, driver1Ref, paymentMethod, 5.0, 0.0, driver2Ref, paymentMethod);
 
                 }
+                logger.detail("***Completed In Progress Trip | Pickup Request : "+ pickupRequestID+"***");
             }
 
         }
+        else
+            logger.detail("***No Ongoing Bungiis Found for the Customer***" );
     }
     public Response getScheduledPickupDetails(String pickuprequestid, String authToken) {
-        logger.detail("API REQUEST : Get Scheduled Pickup Details | pickup Request : "+ pickuprequestid + " | Authtoken : "+ authToken);
+        String RequestText ="API REQUEST : Get Scheduled Pickup Details | pickup Request : "+ pickuprequestid + " | Authtoken : "+ authToken;
 
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -987,13 +1335,13 @@ public class CoreServices extends DriverBase {
                 get(apiURL);
        // response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response,RequestText);
         return response;
     }
 
     public void cancelBungiiAsCustomer(String pickupRef, String authToken) {
         try {
-            logger.detail("API REQUEST : Cancel Bungii As a Customer | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken);
+            String RequestText ="API REQUEST : Cancel Bungii As a Customer | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Status : "+ 64;
 
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("Status", 64);
@@ -1003,7 +1351,7 @@ public class CoreServices extends DriverBase {
             String apiURL = null;
             apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CANCELPICKUPLIST);
             Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
-            ApiHelper.genericResponseValidation(response);
+            ApiHelper.genericResponseValidation(response,RequestText);
 
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
@@ -1011,7 +1359,7 @@ public class CoreServices extends DriverBase {
     }
 
     public Response getPromoCodes(String authToken,String pickupRequestid) {
-        logger.detail("API REQUEST : Get Promo Codes | pickup Request : "+ pickupRequestid + " | Authtoken : "+ authToken);
+        String RequestText ="API REQUEST : Get Promo Codes | pickup Request : "+ pickupRequestid + " | Authtoken : "+ authToken;
 
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", GET_PROMOCODE);
@@ -1020,9 +1368,311 @@ public class CoreServices extends DriverBase {
                 get(apiURL);
        // response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
-        ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response, RequestText);
         return response;
      }
+
+    public String partnerPickupEstimate(String Partner_Portal,String Geofence,String Bungii_Time,String PartnerLocationConfigurationVersionRef,String BusinessPartnerDefaultAddressRef){
+        String RequestText ="API REQUEST : Partner Estimate Cost(Post) |  : "+ Partner_Portal;
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("core",PARTNER_PICKUPESTIMATE);
+        //String PartnerLocationConfigVersion = (String) cucumberContextManager.getScenarioContext("PartnerLocationReference");
+        String[] nextAvailableBungii = new String[0];
+        int No_of_Driver;
+        Response response = null;
+
+        String BungiiType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+        if(BungiiType.equalsIgnoreCase("SOLO")){
+            No_of_Driver=1;
+        }else {
+            No_of_Driver=2;
+        }
+        cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER",No_of_Driver);
+        if(Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE")){
+            nextAvailableBungii = getScheduledBungiiTime();
+            String temp = nextAvailableBungii[0];
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            //By default data is in UTC
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date dt = null;
+            try {
+                dt = formatter.parse(temp);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dt);
+            int mnts = calendar.get(Calendar.MINUTE);
+
+            calendar.set(Calendar.MINUTE, mnts - 15);
+            int unroundedMinutes = calendar.get(Calendar.MINUTE);
+            int mod = unroundedMinutes % 15;
+            calendar.add(Calendar.MINUTE, (15 - mod));
+            calendar.set(Calendar.SECOND, 0);
+
+            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+            //DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            DateFormat formatterForLocalTimezone = new SimpleDateFormat("MMM dd, HH:mm a z");
+            formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            String strdate = formatterForLocalTimezone.format(calendar.getTime());
+
+            cucumberContextManager.setScenarioContext("BUNGII_TIME",strdate);
+        }
+
+        if(Geofence.equalsIgnoreCase("Kansas")) {
+
+            String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+            String Load_Unload = PropertyUtility.getDataProperties("partner.load.unload.time");
+
+            String Pickup_Address_Id = PropertyUtility.getDataProperties("partner.kansas.pickup_address_id");
+            String Pickup_Address1 = PropertyUtility.getDataProperties("partner.kansas.pickup_address1");
+            String Pickup_Address2 = PropertyUtility.getDataProperties("partner.kansas.pickup_address2");
+            String Pickup_City = PropertyUtility.getDataProperties("partner.kansas.pickup_city");
+            String Pickup_Country = PropertyUtility.getDataProperties("partner.kansas.pickup_country");
+            String Pickup_Latitude = PropertyUtility.getDataProperties("partner.kansas.pickup_latitude");
+            String Pickup_Longitude = PropertyUtility.getDataProperties("partner.kansas.pickup_longitude");
+            String Pickup_State = PropertyUtility.getDataProperties("partner.kansas.pickup_state");
+            String Pickup_ZipPostalCode = PropertyUtility.getDataProperties("partner.kansas.pickup_zippostalcode");
+
+            String DropOff_Address_Id = PropertyUtility.getDataProperties("partner.kansas.dropoff_address_id");
+            String DropOff_Address1 = PropertyUtility.getDataProperties("partner.kansas.dropoff_address1");
+            String DropOff_Address2 = PropertyUtility.getDataProperties("partner.kansas.dropoff_address2");
+            String DropOff_City = PropertyUtility.getDataProperties("partner.kansas.dropoff_city");
+            String DropOff_Country = PropertyUtility.getDataProperties("partner.kansas.dropoff_country");
+            String DropOff_Latitude = PropertyUtility.getDataProperties("partner.kansas.dropoff_latitude");
+            String DropOff_Longitude = PropertyUtility.getDataProperties("partner.kansas.dropoff_longitude");
+            String DropOff_State = PropertyUtility.getDataProperties("partner.kansas.dropoff_state");
+            String DropOff_ZipPostalCode = PropertyUtility.getDataProperties("partner.kansas.dropoff_zippostalcode");
+
+            //for Pickup Location
+            JSONObject jsonPickupLocation = new JSONObject();
+            jsonPickupLocation.put("Latitude", Pickup_Latitude);
+            jsonPickupLocation.put("Longitude", Pickup_Longitude);
+
+            //JSONObject jsonPickup =  new JSONObject();
+            //jsonPickup.put("Location",jsonPickupLocation);
+
+            //for Pickup Address:
+            JSONObject jsonPickupAddress = new JSONObject();
+            jsonPickupAddress.put("AddressId", Pickup_Address_Id);
+            jsonPickupAddress.put("Address1", Pickup_Address1);
+            jsonPickupAddress.put("Address2", Pickup_Address2);
+            jsonPickupAddress.put("City", Pickup_City);
+            jsonPickupAddress.put("Country", Pickup_Country);
+            jsonPickupAddress.put("Location", jsonPickupLocation);
+            jsonPickupAddress.put("State", Pickup_State);
+            jsonPickupAddress.put("ZipPostalCode", Pickup_ZipPostalCode);
+
+            //for Dropoff location
+            JSONObject jsonDropOffLocation = new JSONObject();
+            jsonDropOffLocation.put("Latitude", DropOff_Latitude);
+            jsonDropOffLocation.put("Longitude", DropOff_Longitude);
+
+            //JSONArray jsonDrop=  new JSONArray();
+            //jsonDrop.put(jsonDropOffLocation);
+
+            //for Dropoff Address:
+            JSONObject jsonDropoffAddress = new JSONObject();
+            jsonDropoffAddress.put("AddressId", DropOff_Address_Id);
+            jsonDropoffAddress.put("Address1", DropOff_Address1);
+            jsonDropoffAddress.put("Address2", DropOff_Address2);
+            jsonDropoffAddress.put("City", DropOff_City);
+            jsonDropoffAddress.put("Country", DropOff_Country);
+            jsonDropoffAddress.put("Location", jsonDropOffLocation);
+            jsonDropoffAddress.put("State", DropOff_State);
+            jsonDropoffAddress.put("ZipPostalCode", DropOff_ZipPostalCode);
+
+            JSONArray jsonCompletePickup= new JSONArray();
+            jsonCompletePickup.put(jsonPickupAddress);
+            JSONArray jsonCompleteDropOff= new JSONArray();
+            jsonCompleteDropOff.put(jsonDropoffAddress);
+
+            //final main json for request payload
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("PickupAddress", jsonPickupAddress);
+            jsonObj.put("DropOffAddress", jsonDropoffAddress);
+            jsonObj.put("DeliveryDateTime", nextAvailableBungii[0]);
+            jsonObj.put("EstLoadUnloadTimeInMilliseconds", Load_Unload);
+            jsonObj.put("IsScheduledPickup", true);
+            jsonObj.put("PartnerLocationConfigVersion", PartnerLocationConfigurationVersionRef);
+            jsonObj.put("PickupRequestID",JSONObject.NULL);
+            jsonObj.put("ServiceLevelRef", JSONObject.NULL);
+            jsonObj.put("NoOfDrivers",No_of_Driver);
+            jsonObj.put("BusinessPartnerDefaultAddressRef", BusinessPartnerDefaultAddressRef);
+
+            //Header header = new Header("AuthorizationToken", AccessToken);
+            response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);//body(jsonObj.toString()).
+            // response.then().log().body();
+            JsonPath jsonPathEvaluator = response.jsonPath();
+            ApiHelper.genericResponseValidation(response, RequestText);
+        }
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return jsonPathEvaluator.get("PickupRequestID");
+            //return response;
+
+    }
+
+    public String partnerPickupDetails(String PickupRequest){
+        String RequestText ="API REQUEST : Partner PickupDetails(Get) |PICKUP REQUEST  : "+ PickupRequest;
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("reporting",PARTNER_PICKUPDETAILS+PickupRequest);
+        String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+
+        Response response = ApiHelper.givenPartnerAccess(AccessToken).when().get(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return jsonPathEvaluator.get("AccessToken");
+        //return response;
+
+    }
+
+    public String partnerDeliveryInformation(String PickupRequest){
+        String RequestText ="API REQUEST : Partner PickupDetails(PATCH) |PICKUP REQUEST  : "+ PickupRequest;
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("core",PARTNER_DELIVERYINFOMATION);
+        String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+        String Partner_Customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String Partner_Customer_Phone = (String) cucumberContextManager.getScenarioContext("Phone");
+
+        JSONObject jsonFiled1 = new JSONObject();
+        jsonFiled1.put("FieldRef","f2bd9004-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled1.put("FieldValue","Test Pickup");
+
+        //Pickup contact
+        JSONObject jsonFiled2 = new JSONObject();
+        jsonFiled2.put("FieldRef","f2bd908c-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled2.put("FieldValue","3456765435");
+
+        //Drop Name
+        JSONObject jsonFiled3 = new JSONObject();
+        jsonFiled3.put("FieldRef","f2bd90b3-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled3.put("FieldValue","Test Drop");
+
+        //Drop Contact
+        JSONObject jsonFiled4 = new JSONObject();
+        jsonFiled4.put("FieldRef","f2bd90d3-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled4.put("FieldValue","4567898765");
+
+        //Drop Contact
+        JSONObject jsonFiled5 = new JSONObject();
+        jsonFiled5.put("FieldRef","f2bd91b2-6757-11ea-a4a3-00155d0a8706");
+        jsonFiled5.put("FieldValue","RN01");
+
+        JSONArray SF = new JSONArray();
+        SF.put(jsonFiled1);
+        SF.put(jsonFiled2);
+        SF.put(jsonFiled3);
+        SF.put(jsonFiled4);
+        SF.put(jsonFiled5);
+
+        //JSONObject jsonStaticFields = new JSONObject();
+        //jsonStaticFields.put("StaticFields",SF);
+        JSONArray CF = new JSONArray();
+        JSONArray ITD = new JSONArray();
+
+
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("PickupRequestID", PickupRequest);
+        jsonObj.put("CustomerName",Partner_Customer);
+        jsonObj.put("CustomerMobile",Partner_Customer_Phone);
+        jsonObj.put("PickupNote","Test Automation Script");
+        jsonObj.put("SpecialInstructions","SPL from QA script");
+        jsonObj.put("StaticFields",SF);
+        jsonObj.put("CustomFields",CF);
+        jsonObj.put("PaymentOption","CC");
+        jsonObj.put("PaymentMethodNonce","fake-valid-nonce");
+        jsonObj.put("ItemsToDeliver",ITD);
+        //Header header = new Header("AuthorizationToken",);
+
+        Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return jsonPathEvaluator.get("AccessToken");
+        //return response;
+
+    }
+
+    public String partner_graphql(){
+        String RequestText ="API REQUEST : Partner graphql braintree API)";
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("braintree",PARTNER_GRAPHQL);
+        //String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+        String Auth = PropertyUtility.getDataProperties("Braintree_Authorization");
+
+        JSONObject clientSdkMetadata = new JSONObject();
+        clientSdkMetadata.put("source","client");
+        clientSdkMetadata.put("integration","dropin2");
+        clientSdkMetadata.put("sessionId","126dfb9997-dedc-42a1-bef1-602376ff9b38");
+
+        JSONObject billing_Address = new JSONObject();
+        billing_Address.put("postalCode","xcs");
+
+        JSONObject CCVar = new JSONObject();
+        CCVar.put("number","4111111111111111");
+        CCVar.put("expirationMonth","12");
+        CCVar.put("expirationYear","2031");
+        CCVar.put("cvv","123");
+        CCVar.put("billingAddress",billing_Address);
+
+        JSONObject Credit_card = new JSONObject();
+        Credit_card.put("creditCard",CCVar);
+
+        JSONObject Validate = new JSONObject();
+        Validate.put("validate",false);
+
+        JSONObject variables = new JSONObject();
+        variables.put("input",Credit_card);
+        variables.put("options",Validate);
+
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("clientSdkMetadata",clientSdkMetadata);
+        jsonObj.put("query", "mutation TokenizeCreditCard($input: TokenizeCreditCardInput!) {   tokenizeCreditCard(input: $input) {     token     creditCard {       bin       brandCode       last4       cardholderName       expirationMonth      expirationYear      binData {         prepaid         healthcare         debit         durbinRegulated         commercial         payroll         issuingBank         countryOfIssuance         productId       }     }   } }");
+        jsonObj.put("variables",variables);
+        jsonObj.put("operationName","TokenizeCreditCard");
+        //Header header = new Header("AuthorizationToken",);
+
+
+        //Response response = ApiHelper.givenPartnerAccess(Auth).when().get(apiURL);
+        Response response = ApiHelper.givenPartnerBraintree(Auth).body(jsonObj.toString()).when().post(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        //String str = response.toString();
+        return jsonPathEvaluator.get("data.tokenizeCreditCard.token");
+        //return response;
+
+    }
+
+    public Response partnerConfirmPickup(String PickupRequest){
+        String RequestText ="API REQUEST : Partner Confirm Pickup(Post) |PICKUP REQUEST  : "+ PickupRequest;
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("core",PARTNER_CONFIRM_PICKUP);
+        String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("PickupRequestID",PickupRequest);
+
+        Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);
+        //response.then().log().all();
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response, RequestText);
+        return response;
+        //return response;
+
+    }
+
 }
 
 

@@ -5,6 +5,8 @@ import com.bungii.common.utilities.LogUtility;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
 
 public class DbUtility extends DbContextManager {
     private static LogUtility logger = new LogUtility(DbUtility.class);
@@ -42,7 +44,7 @@ public class DbUtility extends DbContextManager {
 
     public static String getCustomerRefference(String phoneNumber) {
         String custRef = "";
-        String queryString = "SELECT CustomerRef  FROM customer WHERE Phone = " + phoneNumber;
+        String queryString = "SELECT CustomerRef FROM customer WHERE Phone = " + phoneNumber;
         custRef = getDataFromMySqlServer(queryString);
         logger.detail("For Phone Number " + phoneNumber + "customer reference is " + custRef);
         return custRef;
@@ -52,7 +54,7 @@ public class DbUtility extends DbContextManager {
         String estTime = "";
         String queryString = "SELECT EstTime FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
         estTime = getDataFromMySqlServer(queryString);
-        logger.detail("For customer reference is " + custRef + " Extimate time is " + estTime);
+        logger.detail("For customer reference  " + custRef + " Extimate time is " + estTime);
         return estTime;
     }
 
@@ -60,7 +62,7 @@ public class DbUtility extends DbContextManager {
         String estTime = "";
         String queryString = "SELECT EstDistance FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
         estTime = getDataFromMySqlServer(queryString);
-        logger.detail("For customer reference is " + custRef + " Extimate time is " + estTime);
+        logger.detail("For customer reference  " + custRef + " Extimate time is " + estTime);
         return estTime;
     }
 
@@ -69,7 +71,7 @@ public class DbUtility extends DbContextManager {
         String queryString = "SELECT PickupID FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
         PickupID = getDataFromMySqlServer(queryString);
 
-        logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
+        logger.detail("For customer reference " + custRef + " Extimate time is " + PickupID);
         return PickupID;
     }
 
@@ -111,7 +113,7 @@ public class DbUtility extends DbContextManager {
             String queryString2 = "select DriverID from eligibletripdriver where pickupid IN (select PickupID from pickupdetails where pickupRef ='" + pickupRequest + "' )";
             boolean isDriverEligible =false;/* checkIfExpectedDataFromMySqlServer(queryString2,driverID);*/
 
-            for(int i=0;i<30 && !isDriverEligible;i++){
+            for(int i=0;i<8 && !isDriverEligible;i++){
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
@@ -125,8 +127,11 @@ public class DbUtility extends DbContextManager {
     }
 
     public static String getPickupRef(String customerPhone){
-        String custRef=getCustomerRefference(customerPhone);
-        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
+        String pickupRef="";
+        if(customerPhone!="") {
+            String custRef = getCustomerRefference(customerPhone);
+             pickupRef = getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
+        }
         return pickupRef;
     }
 
@@ -204,5 +209,49 @@ public class DbUtility extends DbContextManager {
                 "where pd.PickupRef = "+pickupRef+";";
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
+    }
+
+    public static String getDriverCurrentToken(String phoneNumber){
+
+        String queryString2 = "select Token from userloginlog where UserId in (select id from driver where Phone= '"+phoneNumber+"') and UserType = 1 and OutTime is null";
+        String deviceToken = getDataFromMySqlMgmtServer(queryString2);
+        return deviceToken;
+    }
+
+     public static String getCustomerCurrentToken(String phoneNumber){
+
+        String queryString2 = "select Token from userloginlog where UserId in (select id from customer where Phone= '"+phoneNumber+"') and UserType = 2 and OutTime is null";
+        String deviceToken = getDataFromMySqlMgmtServer(queryString2);
+        return deviceToken;
+    }
+    public static String getPushNotificationContent(String phoneNumber, String pickupRef){
+        String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+phoneNumber+"') and Payload Like '%"+pickupRef+"%'";
+        String Payload = getDataFromMySqlServer(queryString2);
+        logger.detail("Query : "+ queryString2 +" | Payload : "+ Payload);
+        return Payload;
+    }
+
+    public static String getCustomerPushNotificationContent(String customerPhoneNum, String pickupRef, String content)
+    {
+        String queryString2= "select Payload from pushnotification where userid in (select Id from customer where phone = '"+customerPhoneNum+"') and Payload Like '%"+pickupRef+"%' and Payload Like '%"+content+"%'";
+        String Payload = getDataFromMySqlServer(queryString2);
+        logger.detail("Query : "+ queryString2 +" | Payload : "+ Payload);
+        return Payload;
+
+    }
+    public static String getDriverPushNotificationContent(String driverPhoneNum, String pickupRef, String content)
+    {
+        String queryString2= "select Payload from pushnotification where userid in (select Id from driver where phone = '"+driverPhoneNum+"') and Payload Like '%"+pickupRef+"%' and Payload Like '%"+content+"%'";
+        String Payload = getDataFromMySqlServer(queryString2);
+        logger.detail("Query : "+ queryString2 +" | Payload : "+ Payload);
+        return Payload;
+
+    }
+    public static String getCustomerName(String phoneNumber) {
+        String fullname = "";
+        String queryString = "SELECT fullname FROM customer WHERE Phone = " + phoneNumber;
+        fullname = getDataFromMySqlServer(queryString);
+        logger.detail("Fullname is" + fullname + ", query, " + queryString);
+        return fullname;
     }
 }

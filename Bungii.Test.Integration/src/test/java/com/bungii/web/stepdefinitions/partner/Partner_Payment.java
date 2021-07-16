@@ -12,12 +12,12 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.JavascriptExecutor;
 
 import java.util.Map;
 
-import static com.bungii.common.manager.ResultManager.fail;
-import static com.bungii.common.manager.ResultManager.pass;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class Partner_Payment extends DriverBase {
 
@@ -28,7 +28,7 @@ public class Partner_Payment extends DriverBase {
 
     @And("^I Select \"([^\"]*)\" as Payment Method$")
     public void i_select_something_as_payment_method(String str) throws InterruptedException {
-
+try{
         switch (str){
             case "Customer Card":
                 action.click(Page_Partner_Delivery.Radio_Button_Customer_Card());
@@ -39,11 +39,18 @@ public class Partner_Payment extends DriverBase {
             default:break;
 
         }
+        log("I select "+str+" as Payment Method","I have selected "+str+" as Payment Method", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
     @And(("^I enter following Credit Card details on Partner Portal$"))
     public void i_enter_credit_card_details(DataTable data) {
+
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String cardType = dataMap.get("CardNo");
         String expiry = dataMap.get("Expiry");
@@ -57,6 +64,27 @@ public class Partner_Payment extends DriverBase {
             switch (cardType.toUpperCase()) {
                 case "VISA CARD":
                     cardNumber = PropertyUtility.getDataProperties("payment.valid.card.visa");
+                    break;
+                case "VISA CARD2":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.visa2");
+                    break;
+                case "VISA CARD3":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.visa3");
+                    break;
+                case "VISA CARD4":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.visa4");
+                    break;
+                case "VISA CARD5":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.visa5");
+                    break;
+                case "VISA CARD6":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.visa6");
+                    break;
+                case "MASTER CARD":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.mastercard");
+                    break;
+                case "MASTER CARD2":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.mastercard2");
                     break;
                 case "DISCOVER CARD":
                     cardNumber = PropertyUtility.getDataProperties("payment.valid.card.discover");
@@ -115,7 +143,7 @@ public class Partner_Payment extends DriverBase {
 
     @Then("^I should \"([^\"]*)\" on partner portal$")
     public void i_should_see_some_validation_message(String str){
-
+try{
         switch(str){
             case "see validation message for invalid card number":
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Invalid_CardNumber()), PropertyUtility.getMessage("Invalid_Card_Number"));
@@ -134,7 +162,11 @@ public class Partner_Payment extends DriverBase {
                 break;
             default:break;
         }
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     public void addCardDetails(String cardNo, String expiry, String cvv, String postalCode) throws InterruptedException {
@@ -151,15 +183,16 @@ public class Partner_Payment extends DriverBase {
         action.sendKeys(Page_Partner_Delivery.TextBox_Expiry_Date(), expiry);
         action.switchToMainFrame();
 
+        action.switchToFrame("braintree-hosted-field-postalCode");
+        action.click(Page_Partner_Delivery.TextBox_Postal_Code());
+        action.sendKeys(Page_Partner_Delivery.TextBox_Postal_Code(), postalCode);
+        action.switchToMainFrame();
+
         action.switchToFrame("braintree-hosted-field-cvv");
         action.click(Page_Partner_Delivery.TextBox_CVV());
         action.sendKeys(Page_Partner_Delivery.TextBox_CVV(), cvv);
         action.switchToMainFrame();
 
-        action.switchToFrame("braintree-hosted-field-postalCode");
-        action.click(Page_Partner_Delivery.TextBox_Postal_Code());
-        action.sendKeys(Page_Partner_Delivery.TextBox_Postal_Code(), postalCode);
-        action.switchToMainFrame();
         Thread.sleep(1000);
     }
 }

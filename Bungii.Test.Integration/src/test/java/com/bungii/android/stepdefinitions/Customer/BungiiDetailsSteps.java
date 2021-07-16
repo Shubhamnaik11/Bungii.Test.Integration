@@ -28,10 +28,26 @@ public class BungiiDetailsSteps extends DriverBase {
     BungiiRequest bungiiRequest=new BungiiRequest();
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
 
+    @When("I tap on \"([^\"]*)\" button$")
+    public void i_tap_cancelbungii(String button) {
+        try {
+            Thread.sleep(2000);
+            action.scrollToBottom();
+            action.click(bungiiDetailsPage.Button_CancelBungii());
+            Thread.sleep(2000);
+            action.click(bungiiDetailsPage.Button_Yes());
+
+            pass("I should be able to tap on cancel bungii","I tap on Cancel bungii",true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @Then("^I Cancel selected Bungii$")
     public void i_cancel_selected_bungii() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
             action.scrollToBottom();
             action.click(bungiiDetailsPage.Button_CancelBungii());
             Thread.sleep(2000);
@@ -65,7 +81,9 @@ public class BungiiDetailsSteps extends DriverBase {
     @When("^I wait for 1 hour for Bungii Schedule Time$")
     public void i_wait_for_one_hour_for_bungii_start_time() {
         try {
-            String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+            Thread.sleep(180000); // Wait for 3 minutes
+
+          /*  String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
             int mininumWaitTime = 60;
             if (!bungiiTime.equalsIgnoreCase("NOW")) {
                 String geofenceLabel=utility.getTimeZoneBasedOnGeofence().toUpperCase();
@@ -90,7 +108,7 @@ public class BungiiDetailsSteps extends DriverBase {
                 }
                 action.hardWaitWithSwipeUp((int)diffInMinutes);
                 log("I wait for "+diffInMinutes+" Minutes for Bungii Start Time ", "I waited for "+diffInMinutes+" (with Extra buffer)", true);
-            }
+            }*/
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -136,7 +154,10 @@ public class BungiiDetailsSteps extends DriverBase {
     @Then("^I should see \"([^\"]*)\" on screen$")
     public void i_should_see_something_on_screen(String strArg1) throws Throwable {
         try {
-            String expectedText=null; String actualText =null;
+
+            String actualText = utility.getDriverSnackBarMessage();// action.getText(bungiiDetailsPage.Text_snackbarmessage());
+            String expectedText=null;
+
             switch(strArg1)
             {
             case "REQUIRED DRIVER NOT ACCEPTED":
@@ -146,7 +167,6 @@ public class BungiiDetailsSteps extends DriverBase {
                  expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
                  break;
         }
-            actualText = action.getText(bungiiDetailsPage.Text_snackbarmessage());
             testStepVerify.isEquals(actualText, expectedText);
          } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

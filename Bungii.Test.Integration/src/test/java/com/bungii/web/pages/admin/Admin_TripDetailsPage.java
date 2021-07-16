@@ -25,4 +25,13 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Label_ScheduledTime(String xpath_scheduled_time) { return findElement( xpath_scheduled_time, LocatorType.XPath);}
 
+    public WebElement Schedule_Date_Row() {return findElement("//td[3]/a",LocatorType.XPath);}
+
+    public WebElement Text_DropOff_Location() { return findElement("//td[text()='Drop Off Location']/following::td[1]",LocatorType.XPath);}
+
+    public WebElement Text_Pickup_Location() { return findElement("//td[text()='Pickup Location']/following::td[1]",LocatorType.XPath);}
+
+    public WebElement Text_Driver_Est_Eranings() { return findElement("//td[text()='Driver Earnings']/following::td[1]",LocatorType.XPath);}
+
+    public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
 }

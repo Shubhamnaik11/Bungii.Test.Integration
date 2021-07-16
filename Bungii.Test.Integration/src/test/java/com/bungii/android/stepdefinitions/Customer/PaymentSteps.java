@@ -114,7 +114,7 @@ public class PaymentSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in tapping "+strArg1+" on Customer Payment screen",
                     true);
         }
     }
@@ -270,25 +270,25 @@ public class PaymentSteps extends DriverBase {
         try {
             switch (p1) {
                 case "valid card number":
-                    paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.valid.card.jcb"));
+                    action.enterText(paymentPage.Textfield_CardNumber(),PropertyUtility.getDataProperties("payment.valid.card.jcb"));
                     cucumberContextManager.setScenarioContext("Last4Digits", PropertyUtility.getDataProperties("payment.valid.card.jcb").substring(PropertyUtility.getDataProperties("payment.valid.card.jcb").length() - 4));
                     break;
                 case "valid visa card number":
-                    paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.valid.card.visa"));
+                    action.enterText(paymentPage.Textfield_CardNumber(),PropertyUtility.getDataProperties("payment.valid.card.visa"));
                     cucumberContextManager.setScenarioContext("Last4Digits", PropertyUtility.getDataProperties("payment.valid.card.visa").substring(PropertyUtility.getDataProperties("payment.valid.card.jcb").length() - 4));
                     break;
                 case "valid discover card number":
-                    paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.valid.card.discover"));
+                    action.enterText(paymentPage.Textfield_CardNumber(),PropertyUtility.getDataProperties("payment.valid.card.discover"));
                     cucumberContextManager.setScenarioContext("Last4Digits", PropertyUtility.getDataProperties("payment.valid.card.discover").substring(PropertyUtility.getDataProperties("payment.valid.card.jcb").length() - 4));
                     break;
                 case "invalid card number":
                     action.click(paymentPage.Textfield_CardNumber());
-                    action.sendKeys(PropertyUtility.getDataProperties("payment.invalid.card"));
+                    action.enterText(paymentPage.Textfield_CardNumber(),PropertyUtility.getDataProperties("payment.invalid.card"));
                     // paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.invalid.card"));
                     break;
                 case "fraud card number":
                     action.click(paymentPage.Textfield_CardNumber());
-                    action.sendKeys(PropertyUtility.getDataProperties("payment.fraud.card"));
+                    action.enterText(paymentPage.Textfield_CardNumber(),PropertyUtility.getDataProperties("payment.fraud.card"));
                     break;
                 case "valid expiry date":
                     action.click(paymentPage.Month_12());
@@ -299,13 +299,13 @@ public class PaymentSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(paymentPage.Text_Cvv());
                     Thread.sleep(2000);
-                    action.sendKeys(paymentPage.Text_Cvv(),PropertyUtility.getDataProperties("valid.card.cvv"));
+                    action.enterText(paymentPage.Text_Cvv(),PropertyUtility.getDataProperties("valid.card.cvv"));
                     Thread.sleep(2000);
                     break;
                 case "valid postal code":
                     action.click(paymentPage.Text_PostalCode());
                     Thread.sleep(2000);
-                    action.sendKeys(paymentPage.Text_PostalCode(),PropertyUtility.getDataProperties("valid.card.postal.code"));
+                    action.enterText(paymentPage.Text_PostalCode(),PropertyUtility.getDataProperties("valid.card.postal.code"));
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

@@ -8,7 +8,7 @@
 	And I am on the "LOG IN" page on driverApp
 	And I am logged in as "valid nashville" driver
 	Then I driver active flag should be "1"
-	When I Select "LOGOUT" from driver App menu
+	When I Select "ACCOUNT > LOGOUT" from driver App menu
 	Then I driver active flag should be "0"
  
 	@failed
@@ -17,7 +17,7 @@
 	Scenario: Verify Device Token Deregistration Upon Customer Logout
 	  Given I am on Customer logged in Home page
 	  Then I customers active flag should be "1"
-	  When I Select "LOGOUT" from Customer App menu
+	  When I Select "ACCOUNT > LOGOUT" from Customer App menu
 	  Then I customers active flag should be "0"
 
     #enable restriction on iphone , disable safari. Not to be run with normal regression

@@ -61,6 +61,13 @@ public class ActionManager {
             element.sendKeys(text);
             logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
         }
+        catch(ElementNotInteractableException ex)
+        {
+            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+            try { Thread.sleep(10000); }  catch(InterruptedException e){}
+            element.sendKeys(text);
+            logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+        }
           catch(Exception ex)
             {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
@@ -135,6 +142,34 @@ public class ActionManager {
             return null;
         }
     }
+
+    public String getAttributeValue(WebElement element) {
+        try {
+
+            Long  DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+            Thread.sleep(3000);
+            //  new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until((JavascriptExecutor)DriverManager.getObject().getDriver()).executeScript("return document.readyState").equals("complete") }
+            waitForJStoLoad();
+            // new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+            String value = element.getAttribute("value");
+            logger.detail("Attribute value is  " + value + " for element -> " + getElementDetails(element));
+
+            return value;
+        }
+        catch(StaleElementReferenceException ex)
+        {
+            String value = element.getAttribute("value");
+            logger.detail("Attribute value is  " + value + " for element -> " + getElementDetails(element));
+            return value;
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to get value from element -> " + getElementDetails(element) ,
+                    true);
+            return null;
+        }
+    }
     /**
      * @param element ,locator that is to be clicked
      */
@@ -143,11 +178,13 @@ public class ActionManager {
         try {
         new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
             element.click();
+            logger.detail("Click on element by locator" + getElementDetails(element));
         }catch (StaleElementReferenceException ex){
             //Retry
             try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
                    element.click();
+                logger.detail("Click on element by locator [Attempt 2]" + getElementDetails(element));
             }
             catch (Exception ex1) {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(ex1));
@@ -155,19 +192,20 @@ public class ActionManager {
                         true);
 
             }
+
             }
 
          catch(WebDriverException ex) {
                         //Chrome Retry if unable to click because of overlapping (Chrome NativeEvents is always on (Clicks via Co-ordinates))
                         JavaScriptClick(element);
             }
-        logger.detail("Click on element by locator" + getElementDetails(element));
+
     }
     public void JavaScriptClick(WebElement element) {
         try{
             JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
             executor.executeScript("arguments[0].click();", element);
-        logger.detail(" JS Click on element by locator" + getElementDetails(element));
+        logger.detail("JS Click on element by locator" + getElementDetails(element));
 
     }  catch(Exception ex)
     {
@@ -234,6 +272,7 @@ public class ActionManager {
     }
 
     public WebElement getElementByXPath(String Locator) {
+        logger.detail("Find Element with Locator : ", Locator);
         return new PageBase().findElement(Locator, PageBase.LocatorType.XPath);
     }
     public void selectElementByText(WebElement element, String text)
@@ -343,4 +382,13 @@ catch(Exception ex)
 
 
     }
+    public boolean isElementPresent(WebElement element) {
+        try {
+            boolean isdisplayed = element.isDisplayed();
+            return isdisplayed;
+        } catch (Exception Ex) {
+            return false;
+        }
+    }
+
 }

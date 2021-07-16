@@ -11,7 +11,8 @@ Feature: Driver_Documentation
     And I click Next on "Driver Details" page
     And I click Next on "Pickup Information" page
 
-  @regression
+  #@ready
+  @knownissue
   Scenario: Verify Driver Application Documentation Form - Invalid Data Validations On Exisiting Non Fountain Application
     When I click Next on "Documentation" page
      Then I should see blank fields validation on "Documentation" page

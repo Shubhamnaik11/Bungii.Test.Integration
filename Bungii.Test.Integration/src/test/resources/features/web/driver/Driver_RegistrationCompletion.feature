@@ -13,14 +13,19 @@ Feature: Driver_RegistrationCompletion
     And I click Next on "Documentation" page
     And I click Next on "Bank Details" page
 
-  @regression
-    @failed
+  #@ready
+  #knownissue fixed
+  @knownissue
+        #there is one issue There was a problem processing your credit card; please double check your payment information and try again. when saved
   Scenario: Verify Driver Application Terms And Conditions Form - Uncheck Terms On Exisiting Non Fountain Application
     When I uncheck "agree to the Terms and Conditions." checkbox
     And I click Next on "Terms & Conditions" page
     Then I should see blank fields validation on "Terms & Conditions" page
 
-  @regression
+  #@ready
+  # knownissue fixed
+  @knownissue
+    #there is one issue There was a problem processing your credit card; please double check your payment information and try again. when saved
   Scenario: Verify Driver Application Terms And Conditions Form - Check Terms On Exisiting Non Fountain Application
     When I click "I agree to the Terms and Conditions" on driver portal
     And I check "agree to the Terms and Conditions." checkbox

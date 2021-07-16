@@ -17,7 +17,6 @@ Feature: Admin_Geofence
     
   @sanity
   @regression
-    @demo
   Scenario: Verify Add Edit New Geofence
     When I click on the "Scale" Button
     And I enter following values in "Geofence" fields
@@ -32,6 +31,7 @@ Feature: Admin_Geofence
       | Primary                                              | Secondary                   | Geo-Name  | Geo-TimeZone | Geo-Status|
       | e{o~FpctuOjE\|j_Ao\|e@veBfe@mbt@lqe@_rM      | km_}FhtotOznYf~gDcoeDxy]cx@stsBlmoC{orA        |     | PST            |Inactive|
     When I click on the "Save" Button on "Geofence" Screen
+    And I uncheck the Active Geofences Only Checkbox
     Then the geofence gets saved successfully and it is displayed in the "Geofences" grid
 
   @sanity
@@ -58,9 +58,9 @@ Feature: Admin_Geofence
       | Dashboard    |
       | Customers     |
       | Drivers       |
-      | Trips          |
-      | Scheduled Trips |
-      | Live Trips |
+      | All Deliveries          |
+      | Scheduled Deliveries |
+      | Live Deliveries |
       |Partners    |
     Then I should see active zone in the dropdown on the "respective" page
     And I should not see inactive zone in the dropdown on the "respective" page
@@ -81,12 +81,11 @@ Feature: Admin_Geofence
     Then The validation error message is displayed
 
 
-  @failed
+  
     #NEED TO VERIFY VALUES OF THESE PARAMETERS SCHEDULE_PICKUP_FROM_TIME and SCHEDULE_PICKUP_TO_TIME
   #this test script will fail as the value of above parameters are set as 30 mins and 840 mins.
   #It should be 15 mins and 1410 mins, currently validations are put considering 15 and 1410 mins
   @regression
-    @test
   Scenario: Verify Minimum Scheduled Time For Solo Or Duo Trip Cannot Be More Than The Difference Between SCHEDULE_PICKUP_FROM_TIME And SCHEDULE_PICKUP_TO_TIME
     When I click on the geofence "Chicago"
     And I click on the "Settings" Button on "Geofence" Screen
@@ -133,7 +132,7 @@ Feature: Admin_Geofence
    # And I click on the "Save" Button on "Geofence Settings" Screen
     #Then check if error message is displayed for "solo trip"
 
-  @failed
+ 
         #NEED TO VERIFY VALUES OF THIS PARAMETER SCHEDULED_PICKUP_MAX_PROCESSING_TIME
   #In database this value is set as 120 mins, needs to be checked.
   @regression
@@ -177,8 +176,7 @@ Feature: Admin_Geofence
     When I click on the "Save" Button on "GeofenceAttributes" Screen
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
 
-  @ready
-    @test
+  @regression
   Scenario: Verify Field Validations on Geofence Attributes page
     When I load Geofence Attributes Page and Click on New Attributes button
     And I click on the "Save" Button on "GeofenceAttributes" Screen
@@ -186,5 +184,28 @@ Feature: Admin_Geofence
     And I enter following values in "Geofence Attributes" fields
       | Key                                              | Default-Value                   | Description  | Label|
       | BusinessFAQ      | BusinessFAQ        |  | |
+    And I click on the "Save" Button on "GeofenceAttributes" Screen
+    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+
+    @regression
+    Scenario:Verify setting driver-bungii cuts for geofence
+      When I click on the geofence "Boston"
+      And I click on the "Settings" Button on "Geofence" Screen
+      And I set "Blank" % Bungii Cut Per Delivery for the geofence
+      And I click on the "Save" Button on "Geofence Settings" Screen
+      Then I see "Blank Bungii rate" validation error message.
+      And I set "Above100" % Bungii Cut Per Delivery for the geofence
+      Then I see "Above 100 Bungii rate" validation error message.
+      And I set "Below Zero" % Bungii Cut Per Delivery for the geofence
+      Then I see "Below Zero Bungii rate" validation error message.
+      And I set "Valid" % Bungii Cut Per Delivery for the geofence
+      Then I check that correct Driver cut calculated based on Bungii Cut Per Delivery
+  
+  @regression
+  Scenario: Verify An application error has occured message is not displayed when user keeps label field blank on Geofence Attributes page
+    When I load Geofence Attributes Page and Click on New Attributes button
+    And I enter following values in "Geofence Attributes" fields
+      | Key              | Default-Value                   | Description  | Label|
+      | Attr1            | Attr                            |  Desc       |      |
     And I click on the "Save" Button on "GeofenceAttributes" Screen
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup

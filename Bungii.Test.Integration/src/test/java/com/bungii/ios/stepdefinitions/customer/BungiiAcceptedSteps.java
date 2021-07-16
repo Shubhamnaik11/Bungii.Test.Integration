@@ -54,8 +54,8 @@ public class BungiiAcceptedSteps extends DriverBase {
                 testStepVerify.isElementEnabled(bungiiAcceptedPage.Button_CancelBungii(),"Cancel Bungii should be displayed");
                 String expectedArrivalValue=(String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")+" - "+(String)cucumberContextManager.getScenarioContext("DRIVER_MAX_ARRIVAL")+" "+label;
                 expectedArrivalValue=expectedArrivalValue.replace("am", "AM").replace("pm","PM");
-
-                testStepVerify.isElementTextEquals(bungiiAcceptedPage.Textlabel_ProjectedTimeValue(),expectedArrivalValue);
+                String actual = action.getText(bungiiAcceptedPage.Textlabel_ProjectedTimeValue());
+                testStepVerify.isTrue(expectedArrivalValue.contains(actual),"Projected arrival Time : "+ actual +" is displayed","Projected arrival Time : "+ actual +" is displayed instead of "+ expectedArrivalValue);
                 break;
         }
 

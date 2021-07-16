@@ -6,20 +6,20 @@ Feature: Admin_BusinessUsers
     When I click on "Customers" Menu
     Then I should be directed to "Customers Page"
 
-  @regression
-  Scenario: Verify Customer List - Sort ASC DESC
+  @knownissue
+  Scenario: Verify Customer List - Sort ASC DESC [CORE-1927]
     When I click on "Name" header for "Ascending" order in the "Customer List" table
     Then The column "Name" data gets sorted in "Ascending" order in the "Customer List" table
     When I click on "Name" header for "Descending" order in the "Customer List" table
     Then The column "Name" data gets sorted in "Descending" order in the "Customer List" table
-    When I click on "Trips Requested" header for "Ascending" order in the "Customer List" table
-    Then The column "Trips Requested" data gets sorted in "Ascending" order in the "Customer List" table
-    When I click on "Trips Requested" header for "Descending" order in the "Customer List" table
-    Then The column "Trips Requested" data gets sorted in "Descending" order in the "Customer List" table
-    When I click on "Trips Estimated" header for "Ascending" order in the "Customer List" table
-    Then The column "Trips Estimated" data gets sorted in "Ascending" order in the "Customer List" table
-    When I click on "Trips Estimated" header for "Descending" order in the "Customer List" table
-    Then The column "Trips Estimated" data gets sorted in "Descending" order in the "Customer List" table
+    When I click on "Deliveries Requested" header for "Ascending" order in the "Customer List" table
+    Then The column "Deliveries Requested" data gets sorted in "Ascending" order in the "Customer List" table
+    When I click on "Deliveries Requested" header for "Descending" order in the "Customer List" table
+    Then The column "Deliveries Requested" data gets sorted in "Descending" order in the "Customer List" table
+    When I click on "Deliveries Estimated" header for "Ascending" order in the "Customer List" table
+    Then The column "Deliveries Estimated" data gets sorted in "Ascending" order in the "Customer List" table
+    When I click on "Deliveries Estimated" header for "Descending" order in the "Customer List" table
+    Then The column "Deliveries Estimated" data gets sorted in "Descending" order in the "Customer List" table
     When I click on "Spent" header for "Ascending" order in the "Customer List" table
     Then The column "Spent" data gets sorted in "Ascending" order in the "Customer List" table
     When I click on "Spent" header for "Descending" order in the "Customer List" table

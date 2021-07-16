@@ -83,4 +83,22 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Select_GoaGeofence() { return findElement("//tbody[@id='NewApplicantsTBody']/tr/td[contains(text(),'Goa')]\n", LocatorType.XPath);}
 
+    public WebElement TextBox_Bunggi_Cut_Rate() { return findElement("attributeValueBungiiCutPerDelivery",LocatorType.Id);}
+    public WebElement TextBox_Driver_Cut_Rate() { return findElement("attributeValueDiverCutPerDelivery",LocatorType.Id);}
+
+    public WebElement TextError_BunggiCut() { return findElement("//label[@id='attributeValueBungiiCutPerDelivery-error']",LocatorType.XPath);}
+    public WebElement TextError_General() { return findElement("//p[contains(text(),'Oops! It looks like you missed something. Please fill out all fields before proceeding.')]",LocatorType.XPath);}
+
+    public WebElement Checkbox_Active_Geofences() { return findElement("activeGeofenceOnly",LocatorType.Id);}
+
+    public WebElement Row_geofenceList(String Name,String Status,String Timezone) {return  findElement(String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",Name,Status,Timezone), LocatorType.XPath);}
+
+    public WebElement List_Geofence() {return findElement("dropdownMenuButton" , LocatorType.Id);}
+    public WebElement TextBox_SearchGeofence() {return findElement("myInput" , LocatorType.Id);}
+    public WebElement Button_ApplyGeofence() {return findElement("btnApply" , LocatorType.Id);}
+    public WebElement Button_Clear() {return findElement("clearAll" , LocatorType.Id);}
+
+    public WebElement Checkbox_Geofence(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath, ignoreException);}
+    public WebElement Checkbox_GeofenceLabel(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]",geofence) , LocatorType.XPath, ignoreException);}
+
 }

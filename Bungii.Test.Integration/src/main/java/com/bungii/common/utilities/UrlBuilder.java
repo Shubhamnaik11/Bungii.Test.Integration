@@ -39,8 +39,25 @@ public class UrlBuilder {
                     baseUrl = PropertyUtility.getDataProperties("WEBCORE_URL");
                     basePort = PropertyUtility.getDataProperties("WEBCORE_PORT");
                     break;
+                case "reporting":
+                    baseUrl = PropertyUtility.getDataProperties("REPORTING_URL");
+                    basePort = PropertyUtility.getDataProperties("REPORTING_PORT");
+                    break;
+                case "braintree":
+                    baseUrl = PropertyUtility.getDataProperties("PAYMENT_BRAINTREE");
+                    basePort = PropertyUtility.getDataProperties("BRAINTREE_PORT");
+                    break;
+                case "partner":
+                    baseUrl = PropertyUtility.getDataProperties("PARTNER_URL");
+                    basePort = PropertyUtility.getDataProperties("PARTNER_PORT");
+                    break;
             }
-            String urlString = protocol + "://" + baseUrl + ":" + basePort+endpoint;
+            String urlString="";
+            if(basePort.equalsIgnoreCase("0000")) {
+                urlString = protocol + "://" + baseUrl + endpoint;
+            }else{
+                urlString = protocol + "://" + baseUrl + ":" + basePort + endpoint;
+            }
             return urlString;
         } catch (Exception e) {
             throw new RuntimeException(e);

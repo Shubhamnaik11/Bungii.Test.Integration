@@ -90,13 +90,24 @@ public class EstimatePage extends PageBase {
 
     public WebElement Text_TimeValue() {
      //   return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
-        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[14]", LocatorType.ClassChain);
+        return findElement("//XCUIElementTypeStaticText[@value='Pickup Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
     }
+
+    public WebElement Text_DistValue() {
+        return findElement("//XCUIElementTypeStaticText[@value='DISTANCE']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+    }
+    public WebElement Text_AmountValue() {
+        return findElement("//XCUIElementTypeStaticText[@value='ESTIMATED COST']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+    }
+
+
+
 
     public List<WebElement> Text_GenericStaticText() {
         //   return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
         return findElements("**/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.ClassChain);
     }
+
 
     public WebElement Button_InfoLoadingTime() {
         return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
@@ -119,14 +130,14 @@ public class EstimatePage extends PageBase {
         return findElement("//XCUIElementTypeButton[contains(@name,'check box')]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
     }
     public WebElement Text_DurationValue() {
-        return findElement("//XCUIElementTypeStaticText[@name=\"ESTIMATED DURATION\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='ESTIMATED DURATION']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
     }
 //XCUIElementTypeStaticText[@name="ESTIMATED DURATION"]
 
 
-/*    public WebElement Text_LoadTime() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/parent::XCUIElementTypeOther", LocatorType.XPath);
-    }*/
+   public WebElement Value_LoadTime() {
+        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/parent::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
+    }
 
     public WebElement Text_LoadTime() {
         return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeButton", LocatorType.XPath);
@@ -145,7 +156,12 @@ public class EstimatePage extends PageBase {
 
     public WebElement Row_TimeSelect() {
         return findElement(
-                "//XCUIElementTypeStaticText[@name='Pickup Time']/parent::XCUIElementTypeOther", LocatorType.XPath);
+                "//XCUIElementTypeStaticText[@name='Pickup Time']/parent::XCUIElementTypeOther/XCUIElementTypeButton[1]", LocatorType.XPath);
+    }
+
+    public WebElement Label_TimeSelect() {
+        return findElement(
+                "//XCUIElementTypeStaticText[@name='Pickup Time']/following-sibling::XCUIElementTypeButton[2]", LocatorType.XPath);
     }
 /*    public WebElement Button_AddPhoto() {
         return findElement("ADD ITEM PHOTO", LocatorType.Name);
@@ -224,7 +240,7 @@ public class EstimatePage extends PageBase {
     public WebElement Text_Distance() {
         return findElement("DISTANCE", LocatorType.AccessibilityId);
     }
-    public WebElement Button_Set() {return findElement("Set", LocatorType.AccessibilityId); }
+    public WebElement Button_Set(boolean... ignoreException) {return findElement("Set", LocatorType.AccessibilityId, ignoreException); }
     public WebElement Button_RequestBungii() {
         return findElement("REQUEST BUNGII", LocatorType.AccessibilityId);
     }
@@ -238,6 +254,7 @@ public class EstimatePage extends PageBase {
     public WebElement CheckBoxOff_Terms() {
         return findElement("check box off", LocatorType.AccessibilityId);
     }
+    public WebElement Text_Checkbox_Terms() { return findElement("//XCUIElementTypeStaticText[@value='I understand and accept these terms.']",LocatorType.XPath);}
     public WebElement CheckBoxOn_Terms() {
         return findElement("check box on", LocatorType.AccessibilityId);
     }
@@ -276,4 +293,8 @@ public class EstimatePage extends PageBase {
     public WebElement LargeImagePhotosFolder() {
         return findElement("ALARGEIMAGE", LocatorType.AccessibilityId);
     }
+
+    public WebElement Text_Solo_Disclaimer() { return findElement("//XCUIElementTypeStaticText[@value='I’m requesting 1 driver & 1 pickup truck.']",LocatorType.XPath);}
+    public WebElement Text_Duo_Disclaimer() { return findElement("//XCUIElementTypeStaticText[@value='I’m requesting 2 drivers & 2 pickup trucks.']",LocatorType.XPath);}
+
 }

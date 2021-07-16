@@ -12,6 +12,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -45,7 +46,12 @@ public class SignupSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            action.sendKeys(Page_Signup.TextField_Phonenumber(), customerPhone);
+            if (StringUtils.isNumeric(customerPhone)) {
+                //element.sendKeys();
+                Page_Signup.TextField_Phonenumber().click();
+                utility.inputOnNumberKeyBoard(customerPhone);
+            }
+            //action.enterText(Page_Signup.TextField_Phonenumber(), customerPhone);
             cucumberContextManager.setScenarioContext("CustomerPhoneNum", customerPhone);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -61,7 +67,6 @@ public class SignupSteps extends DriverBase {
 
             switch (strArg1) {
                 case "valid":
-
                     action.clearSendKeys(Page_Signup.TextField_FirstName(),PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
                      firstName= Page_Signup.TextField_FirstName().getText();
                     cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
@@ -69,10 +74,12 @@ public class SignupSteps extends DriverBase {
                     action.click(Page_Signup.TextField_Email());
                     String emailAddress="bungiiauto+"+RandomGeneratorUtility.getData("{RANDOM_STRING}",4)+"@gmail.com";
                     cucumberContextManager.setScenarioContext("NEW_USER_EMAIL_ADDRESS",emailAddress);
-                    action.sendKeys(emailAddress);
+                    cucumberContextManager.setScenarioContext("NEW_USER_FIRST_NAME",firstName);
+                    action.enterText(Page_Signup.TextField_Email(),emailAddress);
                     action.hideKeyboard();
                     //    action.clearsendKeys(Page_Signup.TextField_Email(), /*PropertyUtility.getDataProperties("customer.email")*/"@cc.com");
                     action.clearSendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.new.password"));
+                    action.hideKeyboard();
                     action.click(Page_Signup.Select_ReferralSource());
                     action.click(Page_Signup.Option_ReferralSource());
                     action.click(Page_Signup.Link_ReferralSourceDone());
@@ -86,10 +93,11 @@ public class SignupSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
                     action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
                     action.click(Page_Signup.TextField_Email());
-                    action.sendKeys(PropertyUtility.getDataProperties("customer.email"));
+                    action.enterText(Page_Signup.TextField_Email(),PropertyUtility.getDataProperties("customer.email"));
                     action.hideKeyboard();
                     //    action.clearsendKeys(Page_Signup.TextField_Email(), /*PropertyUtility.getDataProperties("customer.email")*/"@cc.com");
                     action.clearSendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.new.password"));
+                    action.hideKeyboard();
                     action.click(Page_Signup.Select_ReferralSource());
                     action.click(Page_Signup.Option_ReferralSource());
                     action.click(Page_Signup.Link_ReferralSourceDone());
@@ -97,13 +105,13 @@ public class SignupSteps extends DriverBase {
                 case "blank":
                     action.clearSendKeys(Page_Signup.TextField_FirstName(), "");
                     action.clearSendKeys(Page_Signup.TextField_LastName(), "");
-                    action.clearSendKeys(Page_Signup.TextField_Email(), "");
+                    action.enterText(Page_Signup.TextField_Email(), "");
                     action.clearSendKeys(Page_Signup.TextField_Password(), "");
                     break;
 
                 case "invalid":
                     action.click(Page_Signup.TextField_Email());
-                    action.sendKeys(PropertyUtility.getDataProperties("customer.email.invalid"));
+                    action.enterText(Page_Signup.TextField_Email(),PropertyUtility.getDataProperties("customer.email.invalid"));
                     action.hideKeyboard();
                     //action.sendKeys(Page_Signup.TextField_Email(), PropertyUtility.getDataProperties("customer.email.invalid"));
                     action.sendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.invalid"));
@@ -133,7 +141,7 @@ public class SignupSteps extends DriverBase {
                 default:
                         error("UnImplemented Step or incorrect button name", "UnImplemented Step");
             }
-            action.sendKeys(Page_Signup.Textfield_SMSCode(), smsCode);
+            action.enterText(Page_Signup.Textfield_SMSCode(), smsCode);
 
             pass("I should able to enter verification code",
                     "I entered verification code : " + smsCode + "in sms code field", true);
@@ -191,6 +199,7 @@ public class SignupSteps extends DriverBase {
     @And("^the new user should see \"([^\"]*)\"$")
     public void the_new_user_should_see_something(String strArg1) throws Throwable {
         try {
+            String actual = "";
         switch (strArg1) {
             case "sign up button disabled":
                 testStepVerify.isElementNotEnabled(Page_Signup.Button_Signup(true), "Signup button should be disabled", "Signup button is disabled", "Signup button is enabled");
@@ -203,24 +212,31 @@ public class SignupSteps extends DriverBase {
                 break;
 
             case "Signup page":
-                testStepVerify.isElementDisplayed(Page_Signup.Button_Signup(), "Signup button should be displayed", "Signup button is displayed ", "Signup button is not displayed");
-                testStepVerify.isTrue(utility.isCorrectPage("Signup"), "Signup should be displayed", "Signup page is displayed", "Signup page is not displayed");
+                testStepAssert.isElementDisplayed(Page_Signup.Button_Signup(), "Signup button should be displayed", "Signup button is displayed ", "Signup button is not displayed");
+                testStepAssert.isTrue(utility.isCorrectPage("Signup"), "Signup should be displayed", "Signup page is displayed", "Signup page is not displayed");
                 break;
 
             case "snackbar validation message for existing user":
-                testStepVerify.isEquals(utility.getSnackBarMessage(), PropertyUtility.getMessage("customer.signup.existinguser"), "Warning message for Existing message should be displayed", "Snackbar message is displayed", "Snackbar message is not displayed");
+                testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.signup.existinguser"), "Warning message for Existing message should be displayed", "Snackbar message is displayed", "Snackbar message is not displayed");
                 break;
             case "Inactive Promo Code message":
-                testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message for Inactive Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
+                 actual = utility.getSignupAlertMessage();
+                testStepAssert.isEquals(actual, PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message for Inactive Promo Code should be displayed", "Alert message is displayed : " + PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message is not displayed : " + PropertyUtility.getMessage("customer.signup.inactivepromo.android") + " | Actual : "+ actual);
+                action.click(Page_Signup.Button_Yes());
                 break;
+            case "Invalid Promo Code message":
+                 actual = utility.getSignupAlertMessage();
+                testStepAssert.isEquals(actual, PropertyUtility.getMessage("customer.promos.invalid"), "Alert message for Invalid Promo Code should be displayed", "Alert message is displayed : " + PropertyUtility.getMessage("customer.promos.invalid"), "Alert message is not displayed : " + PropertyUtility.getMessage("customer.promos.invalid") + " | Actual : "+ actual);
+                action.click(Page_Signup.Button_Yes());
 
+                break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+        error("Step  Should be successful", "Validation message not displayed ",
                 true);
     }
     }
@@ -257,7 +273,8 @@ public class SignupSteps extends DriverBase {
             action.click(Page_Signup.CheckBox_Promo());
         }
 
-        action.sendKeys(Page_Signup.TextField_Referral(), strPromoCode);
+        action.enterText(Page_Signup.TextField_Referral(), strPromoCode);
+        action.hideKeyboard();
         log("I should able to enter Promo code in signup Page ",
                 "I entered  " + strPromoCode + " as " + strArg1 + "promoCode", true);
     } catch (Exception e) {

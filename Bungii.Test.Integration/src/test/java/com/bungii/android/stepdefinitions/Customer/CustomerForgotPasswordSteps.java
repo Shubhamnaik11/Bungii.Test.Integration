@@ -31,7 +31,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
     String PreviousSMSCode = "";
 
 
-    @And("I tap on the {string} Link")
+    @And("I tap on the \"([^\"]*)\" Link")
     public void iTapOnTheLink(String arg0) {
         try {
 
@@ -70,7 +70,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
         }
     }
 
-    @When("I enter {string} Phone Number")
+    @When("I enter \"([^\"]*)\" Phone Number")
     public void i_enter_Phone_Number(String string) {
         try {
 
@@ -99,7 +99,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
         }
     }
 
-    @When("I enter {string} SMS code")
+    @When("I enter \"([^\"]*)\" SMS code")
     public void i_enter_SMS_code(String string) {
         try {
 
@@ -130,7 +130,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
         }
     }
 
-    @When("I enter customers new {string} Password")
+    @When("I enter customers new \"([^\"]*)\" Password")
     public void i_enter_customers_new_Password(String string) {
         try {
 
@@ -170,9 +170,12 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     action.click(Page_CustTerms.Button_PermissionsAllow());
                     // ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                 }
+            }
+                Thread.sleep(5000);
                 if (action.isElementPresent(homePage.Button_Closetutorials(true)))
                     action.click(homePage.Button_Closetutorials());
-            }
+                //Add code to handle Done
+
             testStepAssert.isTrue(utility.isCorrectPage("Home"), "Home page should be displayed", "Home page is displayed", "Home page was not displayed");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -191,7 +194,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     action.click(forgotPasswordPage.Button_Continue());
                    // String message=action.getText(forgotPasswordPage.Snackbar_ForgotPassword(true));
                     //Boolean isMessageCorrectlyDisplayed=utility.isForgotPasswordMessageCorrect();
-                    testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(true),PropertyUtility.getMessage("customer.forgotpassword.success.android"),PropertyUtility.getMessage("customer.forgotpassword.success.android") +" , should be correctly displayed. ",PropertyUtility.getMessage("customer.forgotpassword.success.android")+" is displayed","Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text" );
+                    testStepVerify.isEquals(utility.getCustomerSnackBarMessage(),PropertyUtility.getMessage("customer.forgotpassword.success.android"),PropertyUtility.getMessage("customer.forgotpassword.success.android") +" , should be correctly displayed. ",PropertyUtility.getMessage("customer.forgotpassword.success.android")+" is displayed","Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text" );
 
 /*                    String actualMessage = SetupManager.getDriver().findElement(By.id("com.bungii.customer:id/snackbar_text")).getText();
                     if (actualMessage == null) {
@@ -205,7 +208,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     break;
 
                 case "snackbar validation message for invalid sms code":
-                    testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(), PropertyUtility.getMessage("customer.forgotpassword.invalid.code.android"));
+                    testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.forgotpassword.invalid.code.android"));
                     break;
                 case "Send button disabled":
                     testStepVerify.isElementNotEnabled(forgotPasswordPage.Button_ForgotPass_Send(true), "Send buttons should be disabled ", "Send button is disabled", "Send Button is not disabled");
@@ -220,7 +223,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     break;
                 case "snackbar validation message for invalid number":
                     errorMessage = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
-                    testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(), errorMessage);
+                    testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), errorMessage);
                     break;
 
                 default:
@@ -228,7 +231,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Validation message not displayed",
                     true);
         }
     }

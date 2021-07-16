@@ -7,11 +7,35 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Menu_ScheduledTrips () { return findElement("adminmenu-scheduledtrips", LocatorType.Id); }
 
-    public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+    public WebElement Menu_AllTrips () { return findElement("adminmenu-completedtrips", LocatorType.Id); }
+
+    //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement Button_Submit () { return findElement("CustomerCancel", LocatorType.Name); }
 
     public WebElement Textbox_CancellationFee () { return findElement("txtCancellationFee", LocatorType.Id); }
+
+    public WebElement Label_Drop_Off_Location () { return findElement("//p[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
+
+    public WebElement Label_Pickup_Location () { return findElement("//p[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
+
+    public WebElement Button_Edit_Drop_Off_Address () { return findElement("//img[@title='Edit drop off location']",LocatorType.XPath);}
+
+    public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit pickup location']",LocatorType.XPath);}
+
+    public WebElement Link_Grid_First_Row() { return findElement("//tr[@id='row1']/td[4]/a",LocatorType.XPath);}
+    public WebElement Textbox_Drop_Off_Location () { return findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
+    public WebElement Textbox_Pickup_Location () { return findElement("PickupDetails_PickupOriginAddress",LocatorType.Id);}
+
+    //public WebElement FirstAddressDropdownResult () { return findElement("//div[@id='divPlacesResult']/div[1]",LocatorType.XPath);}
+
+    public WebElement DropdownResult (String address) { return findElement(String.format("//div[@id='divPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
+
+    public WebElement DropdownPickupResult (String address) { return findElement(String.format("//div[@id='divPickupPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
+
+    public WebElement DropOff_Address() { return findElement("//label[@id='lblDestinationAddress']",LocatorType.XPath);}
+
+    public WebElement Pickup_Address() { return findElement("//label[@id='lblPickupAddress']",LocatorType.XPath);}
 
     public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
 
@@ -38,9 +62,23 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
 
-    public WebElement Checkbox_NonControlDriver () { return findElement( "//div[@id='tripDriverDetails']//div[1]//label[1]//span[1]", LocatorType.XPath);}
+    public WebElement Checkbox_NonControlDriver () { return findElement( "//div[@id='tripDriverDetails']/div[1]/label[1]/input", LocatorType.XPath);}
+
+    public WebElement Checkbox_ControlDriver () { return findElement( "//div[@id='tripDriverDetails']/div[2]/label[1]/input", LocatorType.XPath);}
+
+    public WebElement Checkbox_ControlDriverEdit () { return findElement( "//*[@id='editTripDrivers']/tbody/tr[1]/td//input", LocatorType.XPath);}
+
+    public WebElement Checkbox_NonControlDriverEdit () { return findElement( "//*[@id='editTripDrivers']/tbody/tr[2]/td//input", LocatorType.XPath);}
+
+    public WebElement Button_RemoveDriversEdit () { return findElement("btnRemoveDriver", LocatorType.Id); }//Richa
 
     public WebElement Label_DriverRemovalSuccessMessage () { return findElement( "//p/i[text()='Driver(s) removed successfully']" , LocatorType.XPath); }
 
     public WebElement Button_Close () { return findElement("//button[@class='close']", LocatorType.XPath);}
+
+    public WebElement Estimated_Distance_Cost () { return findElement("",LocatorType.XPath);}
+
+    public WebElement Textbox_Search () { return findElement("SearchCriteria", LocatorType.Id); }
+    public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
+
 }

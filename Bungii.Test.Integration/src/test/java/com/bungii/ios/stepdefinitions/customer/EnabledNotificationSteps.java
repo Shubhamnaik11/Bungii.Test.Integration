@@ -40,7 +40,7 @@ public class EnabledNotificationSteps extends DriverBase {
 
             switch (identifier.toLowerCase()) {
                 case "all details":
-                    testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Header()), PropertyUtility.getMessage("customer.navigation.allow.notifications.header"));
+                    testStepVerify.isEquals(action.getScreenHeader(enableNotificationPage.Text_Header()), PropertyUtility.getMessage("customer.navigation.allow.notifications.header"));
                     testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Label()), PropertyUtility.getMessage("customer.navigation.allow.notifications.text"));
 
                     break;
@@ -75,18 +75,29 @@ public class EnabledNotificationSteps extends DriverBase {
             String pageName = utility.getPageHeader();
             if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                 action.click(enableNotificationPage.Button_Sure());
+                logger.detail("On Notifications Popup");
                 action.clickAlertButton("Allow");
-               // pageName = utility.getPageHeader();
+                Thread.sleep(15000);
             }
-            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+           // Thread.sleep(6000);
+            if(action.isAlertPresent())
+            {
+                action.clickAlertButton("Always Allow");
+            }
+            else
+            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
+                logger.detail("On Locations Popup");
+
+                Thread.sleep(3000);
                 action.clickAlertButton("Always Allow");
                 //pageName = utility.getPageHeader();
             }
 
         } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+           // action.clickAlertButton("Always Allow");
+           // action.clickAlertButton("Always Allow");
+
         }
 
     }
@@ -96,7 +107,7 @@ public class EnabledNotificationSteps extends DriverBase {
 
             switch (identifier.toLowerCase()) {
                 case "all details":
-                    testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Header()), PropertyUtility.getMessage("driver.navigation.allow.notifications.header"));
+                    testStepVerify.isEquals(action.getScreenHeader(enableNotificationPage.Text_Header()), PropertyUtility.getMessage("driver.navigation.allow.notifications.header"));
                     testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Label()), PropertyUtility.getMessage("driver.navigation.allow.notifications.text"));
 
                     break;

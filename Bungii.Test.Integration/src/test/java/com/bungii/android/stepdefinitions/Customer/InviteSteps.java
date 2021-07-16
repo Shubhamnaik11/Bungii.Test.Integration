@@ -16,6 +16,7 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
@@ -26,6 +27,7 @@ public class InviteSteps extends DriverBase {
     HomePage Page_CustHome = new HomePage();
     private static LogUtility logger = new LogUtility(InviteSteps.class);
     OtherAppsPage otherAppsPage = new OtherAppsPage();
+    LocationPage locationPage = new LocationPage();
 
     @When("^I tap \"([^\"]*)\" on Invite page$")
     public void i_tap_something_on_invite_page(String actionItem) throws Throwable {
@@ -41,8 +43,8 @@ public class InviteSteps extends DriverBase {
                     Thread.sleep(30000);
                     if(!action.isElementPresent(invitePage.FBApp_PostLink(true))){
 
-                        i_tap_something_on_invite_page("Share");
-                        action.click(invitePage.Share_Facebook());
+                       // i_tap_something_on_invite_page("Share");
+                        //action.click(invitePage.Share_Facebook());
 
                     }
                     break;
@@ -56,8 +58,8 @@ public class InviteSteps extends DriverBase {
                     action.click(invitePage.Share_TextMessage());
                     break;
                 case "Back":
-                    action.click(invitePage.Button_Back());
-                    //((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    //action.tap(invitePage.Button_Back());
+                    ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -123,7 +125,7 @@ public class InviteSteps extends DriverBase {
 
             switch (strArg1) {
                 case "Facebook with app installed":
-                   // Thread.sleep(60000);
+                   /* Thread.sleep(60000);
                     testStepAssert.isElementDisplayed(invitePage.FBApp_PostLink(true), "Overlay post button should be be displayed", "Post button is displayed", "Post button is not displayed");
                     action.sendKeys(invitePage.FBApp_StatusText(), PropertyUtility.getDataProperties("support.text"));
                     Thread.sleep(10000);
@@ -148,7 +150,8 @@ public class InviteSteps extends DriverBase {
                             retrycount--;
                             retry = true;
                         }
-                    }
+                    }*/
+                    testStepAssert.isElementDisplayed(invitePage.FBApp_Policy(), "By clicking continue, you agree to our Terms and Privacy Policy. We use a service that's pre-installed on your device to auto-update apps. You can turn off the service at any time. Learn more.", "Facebook policy is displayed", "Facebook policy is not displayed");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -169,13 +172,13 @@ public class InviteSteps extends DriverBase {
             switch (strArg1) {
                 case "on text message app":
                     if (action.isElementPresent(invitePage.TextMsg_TextField(true))) {
-                    action.hideKeyboard();
-                    expectedText = PropertyUtility.getMessage("customer.invite.sms").replace("{0}", referralCode);
-                    testStepVerify.contains(action.getText(invitePage.TextMsg_TextField()), expectedText, " I should able to see properly invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
-                    }else{
+                        action.hideKeyboard();
+                        expectedText = PropertyUtility.getMessage("customer.invite.sms").replace("{0}", referralCode);
+                        testStepVerify.contains(action.getText(invitePage.TextMsg_TextField()), expectedText, " I should able to see properly invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    } else {
                         //send any phone number
-                        action.sendKeys(invitePage.Text_Receipient(),"55");
-                        ((AndroidDriver)SetupManager.getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
+                        action.sendKeys(invitePage.Text_Receipient(), "55");
+                        ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
                         action.hideKeyboard();
                         expectedText = PropertyUtility.getMessage("customer.invite.sms").replace("{0}", referralCode);
                         testStepVerify.contains(action.getText(invitePage.Text_Body()), expectedText, " I should able to see properly invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
@@ -186,17 +189,34 @@ public class InviteSteps extends DriverBase {
 
                 case "on gmail app":
                     action.hideKeyboard();
-                    testStepVerify.isElementTextEquals(invitePage.Gmail_Referral_Subject(), PropertyUtility.getMessage("customer.invite.mailsub"));
-                    expectedText = PropertyUtility.getMessage("customer.invite.mailbody").replace("{0}", referralCode);
-                    if(action.isElementPresent(invitePage.Gmail_Referral_Body_other(true)))
-                        testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body_other()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
-                    else
-                        testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    if (action.isElementPresent(invitePage.Gmail_SkipTutorial(true))) {
+                        action.click(invitePage.Gmail_SkipTutorial());
+                    } else {
+                        testStepVerify.isElementTextEquals(invitePage.Gmail_Referral_Subject(), PropertyUtility.getMessage("customer.invite.mailsub"));
+                        expectedText = PropertyUtility.getMessage("customer.invite.mailbody").replace("{0}", referralCode);
+
+
+                        if (action.isElementPresent(invitePage.Gmail_Referral_Body_other(true)))
+                            testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body_other()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                        else
+                            testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    }
                     break;
 
                 case "on Twitter in browser":
                     action.hideKeyboard();
-                    expectedText = PropertyUtility.getMessage("customer.invite.twitter.on.browser").replace("{0}", referralCode);
+                    if (action.isElementPresent(locationPage.Option_Chrome(true))) {
+                        action.click(locationPage.Option_Chrome(true));
+                        action.click(locationPage.Button_Always());
+                    }
+                    String url ="twitter.com/intent/tweet?text=Check+out+%40BungiiApp%2C+like+“Uber+for+trucks.”+Use+my+promo+code%2C+"+referralCode+"+for+%2410+off+your+first+trip.+%23UseBungii+https%3A%2F%2Fdjg8x.app.goo";
+                    String actual = invitePage.Browser_bar().getText();
+                    if(actual.contains(url))
+                    testStepAssert.isTrue(true," Application should redirect to Twitter with Referral code ", " Application redirected to Twitter with Referral code : "+ actual, "Application didnt redirect to twitter with Referral code : " + url + actual );
+                    else
+                        testStepAssert.isTrue(false," Application should redirect to Twitter with Referral code ", " Application redirected to Twitter with Referral code : "+ actual, "Application didnt redirect to twitter with Referral code : " + url + actual );
+
+                    /*expectedText = PropertyUtility.getMessage("customer.invite.twitter.on.browser").replace("{0}", referralCode);
                     if(action.isElementPresent(invitePage.Twitter_Referral_Body(true)))
                     testStepVerify.contains(action.getText(invitePage.Twitter_Referral_Body()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
                     else if(action.isElementPresent(invitePage.Twitter_SignUP(true))) {
@@ -206,7 +226,7 @@ public class InviteSteps extends DriverBase {
                     }
                         else
                     testStepVerify.contains(action.getText(invitePage.Twitter_Referral_BodyChrome()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
-
+*/
                     break;
 
                 case "on Facebook app":

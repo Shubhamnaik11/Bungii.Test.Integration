@@ -113,7 +113,7 @@ public class ScheduledTripSteps extends DriverBase {
 			Thread.sleep(30000);
 			cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
 
-			log( "I should able to cancel bungii", "I was able to cancel bungii",
+			log( "I should be able to verify status and researches Bungii", "I verified status and researched Bungii",
 					true);
 
 		} catch (Exception e) {
@@ -162,7 +162,7 @@ public class ScheduledTripSteps extends DriverBase {
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-			error( "Step  Should be successful", "Error performing step,Please check logs for more details",
+			error( "Step  Should be successful", "Error in removing current driver and researching Bungii",
 					true);
 		}	}
 	private String getCstTime(String bungiiTime) throws ParseException {
@@ -193,7 +193,7 @@ public class ScheduledTripSteps extends DriverBase {
 			formattedDate = bungiiTime.substring(0, 7)+" "+intYear+ bungiiTime.substring(7, 8)+hour+ bungiiTime.substring(11, 14) + ":00" + bungiiTime.substring(14, bungiiTime.length());
 		}
 		else*/
-		 formattedDate = bungiiTime.substring(0, 7)+" "+intYear+ bungiiTime.substring(7, 13) + ":00" + bungiiTime.substring(13, bungiiTime.length());
+		 formattedDate = bungiiTime.substring(0, 7)+" "+intYear+ bungiiTime.substring(7, 13) + ":00" ;//+ bungiiTime.substring(13, bungiiTime.length()); commented since some trips give GMT format
 
 		return formattedDate;
 	}
@@ -246,10 +246,10 @@ public class ScheduledTripSteps extends DriverBase {
 		boolean isFound=false;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(WebElement row:rows){
-			String rowCustName=row.findElement(By.xpath("//td[6]")).getText(),rowSchduledTime=row.findElement(By.xpath("//td[5]")).getText(),rowEstimatedDistance=row.findElement(By.xpath("//td[8]")).getText();
-
+			String rowCustName=row.findElement(By.xpath("//td[6]")).getText(),rowSchduledTime=row.findElement(By.xpath("//td[4]")).getText(),rowEstimatedDistance=row.findElement(By.xpath("//td[8]")).getText();
+			rowEstimatedDistance = rowEstimatedDistance.split("/")[0].trim(); // new change sprint 44
 			if(rowCustName.equals(custName) && rowEstimatedDistance.equals(estimatedDistance)){
-				WebElement tripDetailsLink=row.findElement(By.xpath("//td[5]/a"));
+				WebElement tripDetailsLink=row.findElement(By.xpath("//td[4]/a"));  //new change sprint 44
 				action.click(tripDetailsLink);
 				isFound=true;
 			}
@@ -265,16 +265,16 @@ public class ScheduledTripSteps extends DriverBase {
 		String custName = tripDetails.get("CUSTOMER");
 		String scheduledDate= tripDetails.get("SCHEDULED_DATE"),estimatedDistance=tripDetails.get("BUNGII_DISTANCE");
 		//Temp fix 25022019
-		scheduledDate=scheduledDate.replace("GMT+5:30","IST");
+		scheduledDate=scheduledDate.replace(":00 "," ").replace(":00","").replace("GMT+5:30","IST").trim();
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){
 			String rowCustName= action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]"));
-			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]"));
+			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[4]"));
 		//	String rowEstimatedDistance=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
 			String rowSrNumber=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[1]"));
 
-			if(rowCustName.equals(custName) &&scheduledDate.equalsIgnoreCase(rowSchduledTime)){
+			if(rowCustName.equals(custName) &&rowSchduledTime.contains(scheduledDate)){
 				rowNumber=Integer.parseInt(rowSrNumber);
 			}
 
@@ -363,7 +363,7 @@ public class ScheduledTripSteps extends DriverBase {
 		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber,"Admin Portal:  I was not able to find bungii with details "+tripDetails);
 		WebElement tripStatus;
 
-		tripStatus=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td[11]"));
+		tripStatus=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td[10]")); //Changed from 11 sprint 44
 		testStepVerify.isElementTextEquals(tripStatus,status);
 	}
 //tr[@id='row1']/td[9]

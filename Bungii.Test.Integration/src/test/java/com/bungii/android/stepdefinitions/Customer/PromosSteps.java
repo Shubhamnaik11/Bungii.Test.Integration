@@ -114,40 +114,47 @@ public class PromosSteps extends DriverBase {
                     break;
                 case "snackbar message for invalid code":
                     expectedMessage = PropertyUtility.getMessage("customer.promos.invalid");
+                    actualMessage = utilities.getCustomerSnackBarMessage();
 //                    testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
-                    testStepAssert.isEquals(utilities.getCustomerSnackBarMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    testStepAssert.isEquals(actualMessage, expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + actualMessage + "' message is displayed", "'" + actualMessage + "' message is displayed");
                     break;
                 case "snackbar message for expired code":
                     expectedMessage = PropertyUtility.getMessage("customer.promos.expired");
-               //     testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
-                    testStepAssert.isEquals(utilities.getCustomerSnackBarMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    actualMessage = utilities.getCustomerSnackBarMessage();
+
+                    //     testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    testStepAssert.isEquals(actualMessage, expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + actualMessage + "' message is displayed", "'" + actualMessage + "' message is displayed");
                     break;
                 case "snackbar message for already added code":
                     expectedMessage = PropertyUtility.getMessage("customer.promos.already.existing.code");
-            //        testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
-                    testStepAssert.isEquals(utilities.getCustomerSnackBarMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    actualMessage = utilities.getCustomerSnackBarMessage();
+                    //        testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    testStepAssert.isEquals(actualMessage, expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + actualMessage + "' message is displayed", "'" + actualMessage + "' message is displayed");
                     break;
                 case "snackbar stating referrals are only for new users":
                     expectedMessage = PropertyUtility.getMessage("customer.promos.referral.error");
                   //  actualMessage = action.getText(promoPage.Snackbar());
                     actualMessage = utilities.getCustomerSnackBarMessage();
-                    testStepAssert.isEquals(actualMessage, expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    testStepAssert.isEquals(actualMessage, expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + actualMessage + "' message is displayed", "'" + actualMessage + "' message is displayed");
                     break;
                 case "snackbar stating first time code is for new users":
                     expectedMessage = PropertyUtility.getMessage("customer.promos.first.time.error.android");
                 //    expectedMessage = PropertyUtility.getMessage("customer.promos.first.time.old.user");
-                //    testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
-                    testStepAssert.isEquals(utilities.getCustomerSnackBarMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    actualMessage = utilities.getCustomerSnackBarMessage();
+                    //    testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    testStepAssert.isEquals(actualMessage, expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + actualMessage + "' message is displayed", "'" + actualMessage + "' message is displayed");
                     break;
                 case "snackbar message for used one off code":
                     expectedMessage = PropertyUtility.getMessage("customer.promos.invalid");
-                //    testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
-                    testStepAssert.isEquals(utilities.getCustomerSnackBarMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    actualMessage = utilities.getCustomerSnackBarMessage();
+                    //    testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    testStepAssert.isEquals(actualMessage, expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
                     break;
                 case "snackbar message stating referral already exists":
                     expectedMessage = PropertyUtility.getMessage("customer.promos.referral.error");
-               //     testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
-                    testStepAssert.isEquals(utilities.getCustomerSnackBarMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    actualMessage = utilities.getCustomerSnackBarMessage();
+                    //     testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    testStepAssert.isEquals(actualMessage, expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -155,7 +162,7 @@ public class PromosSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Snackbar message is not displayed : "+strArg1 ,
                     true);
         }
     }

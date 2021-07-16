@@ -3,9 +3,11 @@ package com.bungii.web.utilityfunctions;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.EmailUtility;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.*;
+import com.bungii.web.pages.admin.Admin_GeofencePage;
 import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
@@ -13,6 +15,7 @@ import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_LoginPage;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -38,11 +41,14 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.bungii.web.utilityfunctions.DbUtility.*;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.CREATE;
+import static com.bungii.common.manager.ResultManager.error;
 
 public class GeneralUtility extends DriverBase {
     Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
+    private static LogUtility logger = new LogUtility(com.bungii.android.manager.ActionManager.class);
     Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage();
     DbUtility dbUtility = new DbUtility();
     ActionManager action = new ActionManager();
@@ -51,12 +57,28 @@ public class GeneralUtility extends DriverBase {
     Partner_LoginPage Page_PartnerLogin = new Partner_LoginPage();
     EmailUtility emailUtility = new EmailUtility();
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
+    Admin_GeofencePage admin_geofencePage = new Admin_GeofencePage();
 
-    private String GetPartnerUrl(){
+    private String GetPartnerUrl(String PP_Site){
         String partnerURL = null;
+        cucumberContextManager.setScenarioContext("SiteUrl",PP_Site);
         String environment =PropertyUtility.getProp("environment");
-        if(environment.equalsIgnoreCase("QA_AUTO"))
-            partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+        if(environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS")){
+            if(PP_Site.equalsIgnoreCase("normal")){
+                partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.partner.ref"));
+            }else if(PP_Site.equalsIgnoreCase("service level")){
+                partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.service_level_partner.ref"));
+            }else if(PP_Site.equalsIgnoreCase("kiosk mode")){
+                partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
+            }else if(PP_Site.equalsIgnoreCase("BestBuy service level")){
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.ref"));
+
+            }
+        }
         return  partnerURL;
     }
 
@@ -65,25 +87,31 @@ public class GeneralUtility extends DriverBase {
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))
             driverURL = PropertyUtility.getDataProperties("dev.driver.url");
-        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO"))
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS"))
             driverURL = PropertyUtility.getDataProperties("qa.driver.url");
         if (environment.equalsIgnoreCase("STAGE"))
             driverURL = PropertyUtility.getDataProperties("stage.driver.url");
         return driverURL;
     }
 
-    private String GetAdminUrl() {
+    public String GetAdminUrl() {
         String adminURL = null;
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))
             adminURL = PropertyUtility.getDataProperties("dev.admin.url");
-        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO"))
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS"))
             adminURL = PropertyUtility.getDataProperties("qa.admin.url");
         if (environment.equalsIgnoreCase("STAGE"))
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");
         return adminURL;
     }
 
+    public String getCurrentUrl() throws InterruptedException {
+
+        Thread.sleep(5000);
+        String adminURL = SetupManager.getObject().getCurrentUrl();
+        return adminURL;
+    }
     public void DriverLogin(String Phone, String Password) {
         String driverURL = GetDriverUrl();
 
@@ -100,10 +128,12 @@ public class GeneralUtility extends DriverBase {
         action.navigateTo(driverURL);
     }
 
-    public void NavigateToPartnerLogin(){
-        String partnerURL = GetPartnerUrl();
+    public String NavigateToPartnerLogin(String Site){
+
+        String partnerURL = GetPartnerUrl(Site);
         action.deleteAllCookies();
         action.navigateTo(partnerURL);
+        return partnerURL;
     }
 
     public void AdminLogin() throws InterruptedException {
@@ -118,8 +148,6 @@ public class GeneralUtility extends DriverBase {
     public void AdminLoginFromPartner() throws InterruptedException {
         String adminURL = GetAdminUrl();
         Thread.sleep(2000);
-
-
         action.openNewTab();
         action.navigateTo(adminURL);
         action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
@@ -276,15 +304,15 @@ public class GeneralUtility extends DriverBase {
             String emailContent = "";
             for (int i = recentMessages.length; i > 0; i--) {
 
-                System.out.println("MESSAGE " + (i) + ":");
+                System.out.println("***********");
                 Message msg = recentMessages[i - 1];
              //   System.out.println(msg.getMessageNumber());
                 String subject = msg.getSubject();//important value
 
-                System.out.println("Subject: " + subject);
+                System.out.println("Subject: " + subject + " | Date: " + msg.getReceivedDate());
                 // System.out.println("From: " + msg.getFrom()[0]);
                // System.out.println("To: " + msg.getAllRecipients()[0]);//important value
-                System.out.println("Date: " + msg.getReceivedDate());
+                System.out.println();
                // System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
                 if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress)))
                 {
@@ -549,6 +577,77 @@ public class GeneralUtility extends DriverBase {
         return emailMessage;
     }
 
+    public String getExpectedPartnerPortalCanceledEmailContentWithDriver(String partner_Name,String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String driverName,String driverPhone,String driverLicencePlate,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalCanceledEmailWithDriver.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%PartnerName%",partner_Name)
+                            .replaceAll("%ScheduledDate%",scheduled_Date)
+                            .replaceAll("%PickupAddress%",pickup_Address)
+                            .replaceAll("%DropupAddress%",dropup_Address)
+                            .replaceAll("%CustomerName%",customer_Name)
+                            .replaceAll("%CustomerPhone%",customer_Phone)
+                            .replaceAll("%DriverName%",driverName)
+                            .replaceAll("%DriverPhone%",driverPhone)
+                            .replaceAll("%DriverLicencePlate%",driverLicencePlate)
+                            .replaceAll("%ItemsToDeliver%",items_To_Deliver)
+                            .replaceAll("%PickupContactName%",pickup_Contact_Name)
+                            .replaceAll("%PickupContactPhone%",pickup_Contact_Phone);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to read email for Partner Cancel delivery with driver",
+                    true);
+        }
+
+        return emailMessage;
+    }
+
+    public String getExpectedPartnerPortalCanceledEmailContentWithoutDriver(String partner_Name,String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalCanceledEmailWithoutDriver.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%PartnerName%",partner_Name)
+                            .replaceAll("%ScheduledDate%",scheduled_Date)
+                            .replaceAll("%PickupAddress%",pickup_Address)
+                            .replaceAll("%DropupAddress%",dropup_Address)
+                            .replaceAll("%CustomerName%",customer_Name)
+                            .replaceAll("%CustomerPhone%",customer_Phone)
+                            .replaceAll("%ItemsToDeliver%",items_To_Deliver)
+                            .replaceAll("%PickupContactName%",pickup_Contact_Name)
+                            .replaceAll("%PickupContactPhone%",pickup_Contact_Phone);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to read email for Partner Cancel delivery without driver",
+                    true);
+        }
+
+        return emailMessage;
+    }
+
     public String getExpectedFailedTripEmailContent(String pickupId,String pickupRef,String pickupStatus,String customerName,String customerPhone,String pickupLocation,String pickupAddress)
     {
         String emailMessage = "";
@@ -662,6 +761,8 @@ public class GeneralUtility extends DriverBase {
 
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%DriverName%", driverName);
+                    s = s.replaceAll("ā€™", "'");
+                    s = s.replaceAll("’", "'");
                     emailMessage += s;
                 }
 
@@ -684,7 +785,7 @@ public class GeneralUtility extends DriverBase {
         //get timezone value of Geofence
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
         if(TimeZone.getTimeZone(getGeofenceTimeZone).inDaylightTime( new Date() ))
-            getGeofenceTimeZone = getGeofenceTimeZone.replace("S","D");
+            getGeofenceTimeZone = getGeofenceTimeZone.replace("ST","DT");
         return getGeofenceTimeZone;
     }
     /**
@@ -806,7 +907,7 @@ public class GeneralUtility extends DriverBase {
     public double bungiiEstimate(String tripDistance, String loadTime, String estTime, String Promo) {
         //get bungii type and current geofence type.
         String bungiiType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
-        String currentGeofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get minimum cost,Mile value,Minutes value of Geofence
         double minCost = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.minimum.cost")),
                 perMileValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.miles")),
@@ -836,5 +937,132 @@ public class GeneralUtility extends DriverBase {
         return estimateCost;
     }
 
+    public String calDriverEstEarning(){
+        String CalculatedDriverValue="";
+        //Driver Cut used for calculation
+        double DSE;
+
+        String geofence= (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        if(geofence.equalsIgnoreCase("washingtondc")){
+            geofence = "washington dc";
+        }
+
+        String Bungii_rate = getBungiiRate(geofence);
+
+        int Driver_rate = 100-Integer.parseInt(Bungii_rate);
+
+        String PickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        Double Customer_Price_After_Discount= Double.parseDouble(getEstPrice(PickupRequest));
+
+        String Bungii_Type= (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        int num_Of_Driver;
+        if(Bungii_Type.equalsIgnoreCase("Solo Scheduled")||Bungii_Type.equalsIgnoreCase("Solo")){
+            num_Of_Driver=1;
+        }
+        else {
+            num_Of_Driver=2;
+        }
+
+        Double Transaction_Fees = (Customer_Price_After_Discount*(0.029))+(0.3*num_Of_Driver);
+
+        DSE = (Customer_Price_After_Discount*(Driver_rate*0.01))-(Transaction_Fees);
+
+
+        int Last_Zero_Digit =(int) ((DSE*100)%10);
+        if(Last_Zero_Digit==0){
+            CalculatedDriverValue = String.valueOf(String.format("%.1f", DSE));
+        }else {
+            CalculatedDriverValue = String.valueOf(String.format("%.2f", DSE));
+        }
+        return CalculatedDriverValue;
+    }
+
+    public String calDriverEarning(){
+        String CalculatedDriverValue="";
+        //Driver Cut used for calculation
+        double DSE;
+
+        String geofence= (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        if(geofence.equalsIgnoreCase("washingtondc")){
+            geofence = "washington dc";
+        }
+
+        String Bungii_rate = getBungiiRate(geofence);
+
+        int Driver_rate = 100-Integer.parseInt(Bungii_rate);
+
+        String PickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        Double Customer_Price_After_Discount= Double.parseDouble(getActualPrice(PickupRequest));
+
+        String Bungii_Type= (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        int num_Of_Driver;
+        if(Bungii_Type.equalsIgnoreCase("Solo Scheduled")||Bungii_Type.equalsIgnoreCase("Solo")){
+            num_Of_Driver=1;
+        }
+        else {
+            num_Of_Driver=2;
+        }
+
+        Double Transaction_Fees = (Customer_Price_After_Discount*(0.029))+(0.3*num_Of_Driver);
+
+        DSE = (Customer_Price_After_Discount*(Driver_rate*0.01))-(Transaction_Fees);
+
+
+        int Last_Zero_Digit =(int) ((DSE*100)%10);
+        if(Last_Zero_Digit==0){
+            CalculatedDriverValue = String.valueOf(String.format("%.1f", DSE));
+        }else {
+            CalculatedDriverValue = String.valueOf(String.format("%.2f", DSE));
+        }
+        return CalculatedDriverValue;
+    }
+
+    public String getTimeZoneBasedOnGeofenceId() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        // currentGeofence="kansas";
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone.id");
+        return getGeofenceTimeZone;
+    }
+
+    public long Milliseconds_To_Minutes(long milliseconds){
+        long minutes = (milliseconds / 1000) / 60;
+        return minutes;
+    }
+
+    public String getbungiiDayLightTimeValue(String bungiiTime){
+        String time=bungiiTime;
+        if(bungiiTime.contains("CDT")) { time=bungiiTime.replace("CDT","CST"); }
+        else if(bungiiTime.contains("EDT")){ time=bungiiTime.replace("EDT","EST"); }
+        else if(bungiiTime.contains("MDT")){ time=bungiiTime.replace("MDT","MST"); }
+        else if(bungiiTime.contains("PDT")){ time=bungiiTime.replace("PDT","PST"); }
+        else if(bungiiTime.contains("IST")){ time=bungiiTime; }
+        return time;
+    }
+    public void searchGeofenceDropdown(String geofence){
+        action.click(admin_geofencePage.List_Geofence());
+        action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(),geofence);
+    }
+
+    public void resetGeofenceDropdown(){
+        action.click(admin_geofencePage.List_Geofence());
+        action.click(admin_geofencePage.Button_Clear());
+        action.click(admin_geofencePage.Button_ApplyGeofence());
+    }
+    public void selectGeofenceDropdown(String geofence){
+        action.click(admin_geofencePage.List_Geofence());
+        action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(),geofence);
+        action.JavaScriptClick(admin_geofencePage.Checkbox_Geofence(geofence));
+        action.click(admin_geofencePage.Button_ApplyGeofence());
+    }
+    public void reApplyGeofenceDropdown(){
+        action.click(admin_geofencePage.List_Geofence());
+        action.click(admin_geofencePage.Button_ApplyGeofence());
+    }
+
+    public void closeGeofenceDropdown(){
+        action.click(admin_geofencePage.Button_ApplyGeofence());
+    }
 }
 

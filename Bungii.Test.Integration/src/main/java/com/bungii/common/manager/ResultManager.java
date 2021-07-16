@@ -79,9 +79,9 @@ public class ResultManager {
      */
     public static void failureStep(String step, String expected, String actual, Boolean... screenDump) {
         String name = step;
-        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.FAILED.toString(), screenDump));
+        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.WARNING.toString(), screenDump));
         logger.error("FAIL| Step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
-        reportManager.verificationFailed(getDataMap(name, expected, actual, ResultType.FAILED.toString()));
+        reportManager.verificationFailed(getDataMap(name, expected, actual, ResultType.WARNING.toString()));
        // Assert.fail("For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual); // Added for failure
     }
     /**
@@ -136,7 +136,7 @@ public class ResultManager {
             }
 
         } catch (IOException e) {
-            logger.error("Error while capturing/coping screenshot" + e.getMessage());
+            logger.error("Error while capturing/copying screenshot" + e.getMessage());
         }
 
 
@@ -153,6 +153,10 @@ public class ResultManager {
 
     public static void setStacktrace(String stackTrace)
     {
+        int len = stackTrace.length();
+        if (len>1500)
+            len =1500;
+        stackTrace = stackTrace.substring(0,len)+" ...";
         reportManager.addStackTrace(getDataMap("", "", stackTrace,"", false));
 
     }

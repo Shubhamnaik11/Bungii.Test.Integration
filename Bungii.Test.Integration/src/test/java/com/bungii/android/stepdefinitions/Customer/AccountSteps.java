@@ -61,4 +61,25 @@ public class AccountSteps extends DriverBase {
                     true);
         }
     }
+
+    @Then("^I click on \"([^\"]*)\" button on the \"([^\"]*)\" page of customer app$")
+    public void i_click_on_something_button_on_the_something_page_of_customer_app(String strArg1, String strArg2) throws Throwable {
+        try {
+            switch (strArg2) {
+                case "PAYMENT":
+                case "PROMOS":
+                case "ACCOUNT INFO":
+                    action.click(accountPage.Button_Cust_Navigate_Up());
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }

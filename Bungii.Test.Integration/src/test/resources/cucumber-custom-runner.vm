@@ -52,12 +52,27 @@ public class $className extends AbstractTestNGCucumberTests {
          if (Platform.equalsIgnoreCase("ios") || Platform.equalsIgnoreCase("android")) {
              //if mutiple devices are pass from maven then get class number and use that device for running that class
              if (lstallDevice.split(",").length > 1) {
-
                  String curentThreadNumber = ClassName.substring(2, 4);
-                 if(curentThreadNumber.equals("01")){
-                     ManageDevices.write("");
+                 boolean duoFirst = false, soloFirst = false;
+                if(curentThreadNumber.equals("01")){
+                 if(category.equalsIgnoreCase("duo")){
+                  ManageDevices.write("");
+                    System.setProperty("DEVICE", lstallDevice.split(",")[0]);
+                    System.out.println("*** Found device for class : "+ClassName+ " | Devices for duo ");
+                    duoFirst = true;
+                 }
+                 else{
+                     ManageDevices.write(lstallDevice.split(",")[1]);
                      System.setProperty("DEVICE", lstallDevice.split(",")[0]);
-                 }else {
+                     System.out.println("*** Found device for class : "+ClassName+ " | Device: "+ lstallDevice.split(",")[0]);
+                      soloFirst = true;
+                     }
+                  }
+                         if(curentThreadNumber.equals("02")){
+                            try {Thread.sleep((5000));} catch (InterruptedException e) {e.printStackTrace();}
+                             }
+                         if(duoFirst==false && soloFirst == false)
+                         {
                      try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
                      boolean searchFreeDevice=true;
                      boolean counter=false;
@@ -71,13 +86,14 @@ public class $className extends AbstractTestNGCucumberTests {
                          }
                          }
                          else{
-                          System.out.println("*** Searching device for class "+ClassName+ " - Found Device : "+ device);
+
                             }
                          if(device!=null){
                              if(!device.isEmpty()){
                                  String[] deviceList = device.split(",");
                                  String deviceToBeUsed=deviceList[0];
                                  System.setProperty("DEVICE", deviceToBeUsed);
+                                 System.out.println("*** Searching device for class "+ClassName);
                                  System.out.println("*** Found device for class : "+ClassName+ " | Device : "+deviceToBeUsed);
                                  deviceList = ArrayUtils.remove(deviceList, 0);
                                  String strDeviceList = String.join(",", deviceList);
@@ -86,13 +102,15 @@ public class $className extends AbstractTestNGCucumberTests {
                                  searchFreeDevice=false;
                              }
                          }
+                         if(searchFreeDevice==true)
                          try {Thread.sleep(20000);} catch (InterruptedException e) {e.printStackTrace();}
 
                      }while (searchFreeDevice);
+                     System.out.println("*** Starting Test for class "+ClassName);
                  }
              } else {
                  System.setProperty("DEVICE", device);
-
+                 ManageDevices.write("");
              }
          }
          if(multipleLoginFile.trim().equalsIgnoreCase("true")){
@@ -154,28 +172,13 @@ public class $className extends AbstractTestNGCucumberTests {
  	}
     @AfterSuite
     public  void afterSuite() {
-    /*
-        String ClassName = this.getClass().getSimpleName();
-                    System.out.println("AFTER SUITE"+ClassName);
 
-        String curentThreadNumber = ClassName.substring(2, 4);
-        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());
-        if(curentThreadNumber.equals("01")){
-            ManageDevices.write(lstallDevice);
-        }else {
-            if(ManageDevices.readFile().trim().equals("")) {
-                ManageDevices.write(System.getProperty("DEVICE"));
-            }else {
-                ManageDevices.write(ManageDevices.readFile()+","+System.getProperty("DEVICE"));
-            }
-        }
-        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());*/
                 if (PropertyUtility.targetPlatform.equalsIgnoreCase("ios") || PropertyUtility.targetPlatform.equalsIgnoreCase("android"))
                     ManageDevices.afterSuiteManageDevice();
 
         try {
             this.hooks.tearDown();
         } catch (IOException e1) {
-            e1.printStackTrace();
+            //e1.printStackTrace();
         }    }
 	}

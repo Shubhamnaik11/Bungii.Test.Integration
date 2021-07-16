@@ -46,34 +46,42 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
     GeneralUtility utility = new GeneralUtility();
     Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
-
+    Admin_PartnerPortalPage admin_partnerPortalPage = new Admin_PartnerPortalPage();
 
     @When("^I click on \"([^\"]*)\" Menu$")
     public void i_click_something_menu(String link) throws Throwable {
+        try{
        switch(link) {
            case "Marketing  > Promocode" :
               action.click(admin_PromoCodesPage.Menu_Marketing());
               break;
-           case "Marketing  > Referral Source" :
+           case "Promo Codes > Standard Codes" :
+               action.click(admin_PromoterPage.Menu_Promotion());
+               break;
+           case "Marketing  > Referral Sources" :
                action.click(admin_PromoCodesPage.Menu_Marketing());
                action.click(admin_ReferralSourcePage.Menu_ReferralSource());
                break;
-           case "Business Users  > Business Users" :
+//           case "Business Users  > Business Users" :
+           case "Bulk Delivery Upload  > Partners" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                break;
-           case "Business Users  > Bulk Trips" :
+           case "Bulk Delivery Upload  > Upload Deliveries" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BulkTrips());
                break;
-           case "Business Users  > Business Users Payment" :
+//           case "Business Users  > Business Users Payment" :
+           case "Bulk Delivery Upload  > Partner Payment" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BusinessUsersPayment());
                break;
-           case "Promotion  > Promoters" :
+           case "Promo Codes > Free Deliveries Codes  > Partners" :
                action.click(admin_PromoterPage.Menu_Promotion());
+               action.click(admin_PromoterPage.Menu_Promotion_Free_Delivery());
                break;
-           case "Promotion  > Promoter Cards" :
+           case "Free Deliveries Codes  > Free Delivery Credit Card" :
                action.click(admin_PromoterPage.Menu_Promotion());
+               action.click(admin_PromoterPage.Menu_Promotion_Free_Delivery());
                action.click(admin_PromoterPage.Menu_PromoterPayment());
                break;
            case "Geofences  > Geofences" :
@@ -89,8 +97,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_customerPage.Menu_Customers());
                break;
 
-           case "Trips > Trips" :
+           case "Deliveries > All Deliveries" :
                action.click(admin_TripsPage.Menu_Trips());
+               action.click(admin_TripsPage.Menu_CompletedTrips());
                break;
 
            case "Drivers":
@@ -104,50 +113,100 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Potential Partners > Partner Search":
                action.click(admin_potentialPartnersPage.Menu_PartnerSearch());
                break;
-           case "Payment Methods  > Partner Cards":
+           case "Partner Portal  > Partner Card":
                action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethodsSubMenu());
+
                break;
-           case "Payment Methods  > Bungii Cards":
+           case "Partner Portal  > Bungii Card":
                action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethodsSubMenu());
                action.click(admin_paymentMethodsPage.Menu_BungiiCards());
                break;
-
-
+           case "Partner Portal  > Partners":
+               Thread.sleep(5000);
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_PartnersSubMenu());
+               break;
+           case "Partner Portal  > Locations":
+               Thread.sleep(5000);
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_LocationsSubMenu());
+               break;
        }
         log("I click on "+link+" menu link" ,
-                "I have clicked on "+link+" menu link", true);
-
+                "I have clicked on "+link+" menu link", false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @When("^I search by Name \"([^\"]*)\"$")
     public void i_search_by_name_something(String strArg1) throws Throwable {
+        try{
         String Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
         action.sendKeys(admin_PromoCodesPage.TextBox_Search(),Name +Keys.ENTER);
         log("I search "+ Name + "prmocode" ,
                 "I have on searched "+Name+" prmocode", true);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @When("^I search by Code \"([^\"]*)\"$")
     public void i_search_by_code_something(String strArg1) throws Throwable {
 
+        try{
             String Code = (String) cucumberContextManager.getScenarioContext("PROMOCODE");
             action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
 
         log("I search "+ Code + "prmocode" ,
-                "I have on searched "+Code+" prmocode", true);
+                "I have on searched "+Code+" prmocode", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+    }
+
+    @When("^I search by string \"([^\"]*)\"$")
+    public void i_search_by_string_something(String strArg1) throws Throwable {
+
+        try{
+        action.sendKeys(admin_PromoCodesPage.TextBox_Search(), strArg1 + Keys.ENTER);
+        log("I search "+ strArg1 + " string" ,
+                "I have on searched "+strArg1+" string", false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
     @When("^I search by first code generated for above promocode$")
     public void i_search_by_any_code_generated_for_above_promocode() throws Throwable {
+        try{
         action.click(admin_PromoCodesPage.Button_Filter());
         action.click(admin_PromoCodesPage.Button_Reset());
         String LastCode = (String) cucumberContextManager.getScenarioContext("LASTCODE");
-        action.sendKeys(admin_PromoCodesPage.TextBox_Search(), LastCode+Keys.ENTER);
+        action.sendKeys(admin_PromoCodesPage.TextBox_Search(), LastCode);
+        action.click(admin_PromoCodesPage.Button_Search());
+        Thread.sleep(4000);
         log("I search "+ LastCode + "prmocode" ,
-                "I have on searched "+LastCode+" prmocode", true);
+                "I have on searched "+LastCode+" prmocode", false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
     @Then("^the searched promocode data gets populated correctly$")
     public void the_searched_promocode_data_gets_populated_correctly() throws Throwable {
 
+        try{
         String Count = (String) cucumberContextManager.getScenarioContext("CODE_COUNT");
         String Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
         String Type = (String)cucumberContextManager.getScenarioContext("PROMOCODE_TYPE");
@@ -171,16 +230,26 @@ public class Admin_PromoCodesSteps extends DriverBase {
         testStepAssert.isEquals(admin_PromoCodesPage.TextBox_PromoCode().getAttribute("value"), LastCode , LastCode  +"should be displayed", LastCode  +" is displayed", LastCode  +" is not displayed" );
         testStepAssert.isEquals(admin_PromoCodesPage.TextBox_PromotionStartDate().getAttribute("value"), PromotionStartDate.toString(),  PromotionStartDate.toString()+" should be displayed",  PromotionStartDate.toString()+" is displayed",  PromotionStartDate.toString()+" is not displayed" );
         testStepAssert.isEquals(admin_PromoCodesPage.TextBox_PromotionExpirationDate().getAttribute("value"), Expires.toString(), Expires.toString()+ " should be displayed", Expires.toString()+" is displayed", Expires.toString() +" is not displayed" );
-
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
 
     @When("^I view the searched promocode$")
     public void i_view_the_searched_promocode() throws Throwable {
+        try{
        String xpath = (String) cucumberContextManager.getScenarioContext("XPath");
        Thread.sleep(4000);
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)).findElement(By.xpath("following-sibling::td[1]")));
         log("I click on View link" ,
-                "I have clicked on View link", true);
+                "I have clicked on View link", false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @When("^I click on \"([^\"]*)\" icon$")
@@ -197,7 +266,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     break;
                 case "Driver Trips":
                     String driver = (String) cucumberContextManager.getScenarioContext("DRIVER");
-                    String xpath = String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Driver Trips']", driver);
+                    String xpath = String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Driver Deliveries']", driver);
 //                    action.waitUntilIsElementExistsAndDisplayed(admin_DriverPage.Icon_DriverTrips(xpath), (long) 5000);
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
                     break;
@@ -217,6 +286,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @When("^I select \"([^\"]*)\" as \"([^\"]*)\"$")
     public void i_select_something_as_something1(String CodeType, String value) throws Throwable {
+        try{
         switch (CodeType)
         {
             case "Code Type":
@@ -233,10 +303,10 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     case "FB Shared":
                         action.click(admin_PromoCodesPage.CheckBox_FilterOneOffFBShare());
                         break;
-                    case "Delivery By Promoter":
+                    case "Delivery By Partner":
                         action.click(admin_PromoCodesPage.CheckBox_FilterDeliveryChargesByPromoter());
                         break;
-                    case "Delivery By Promoter (M)":
+                    case "Delivery By Partner (M)":
                         action.click(admin_PromoCodesPage.CheckBox_FilterDeliveryChargesByPromoterMultipleUse());
                         break;
                 }
@@ -248,20 +318,32 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
         }
         log("I select "+value+" in CodeType "+ CodeType ,
-                "I have selected "+value+" in CodeType "+ CodeType, true);
+                "I have selected "+value+" in CodeType "+ CodeType, false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @When("^I select promocode type as \"([^\"]*)\"$")
     public void i_select_promocode_type_as_something(String promoCodeType) throws Throwable {
+        try{
         Thread.sleep(5000);
         action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
         log("I select promocode type as "+ promoCodeType ,
-                "I have selected promocode type as "+ promoCodeType, true);
+                "I have selected promocode type as "+ promoCodeType, false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
 
     @Then("^the \"([^\"]*)\" type promocode gets saved successfully and it is displayed in the Promocodes grid$")
     public void the_something_type_promocode_gets_saved_successfully_and_it_is_displayed_in_the_promocodes_grid(String promocodetype) throws Throwable {
 
+        try{
         String Name = null, Type = null, CreatedDate= null, Expires = "", Code = null, Status ="Active", Value = null, Discount = null,Entered = "0", Used ="0";
         String xpath = null;
         Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
@@ -324,19 +406,30 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
 
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @Then("^the promocode \"([^\"]*)\" is displayed in the Promocodes grid$")
     public void the_promocode_something_is_displayed_in_the_promocodes_grid(String strArg1) throws Throwable {
+        try{
         Thread.sleep(2000);
         String xpath = (String)cucumberContextManager.getScenarioContext("XPath");
         testStepAssert.isElementDisplayed(action.getElementByXPath(xpath),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
-
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @Then("^the \"([^\"]*)\" type 5 promocodes gets saved successfully and it is displayed in the Promocodes grid$")
     public void the_something_type_5_promocodes_gets_saved_successfully_and_it_is_displayed_in_the_promocodes_grid(String strArg1) throws Throwable {
 
+        try{
         String Name = null, Type = null, CreatedDate= null, Expires = "", Code = null, Status ="Active", Value = null, Discount = null,Entered = "0", Used ="0";
         String xpath = null;
         String Count = (String) cucumberContextManager.getScenarioContext("CODE_COUNT");
@@ -365,11 +458,16 @@ public class Admin_PromoCodesSteps extends DriverBase {
         }
         cucumberContextManager.setScenarioContext("LASTCODE", LastCode);
 
-
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
 
     @Then("^the promocode is displayed in the Promocodes grid$")
     public void the_promocode_is_displayed_in_the_promocodes_grid() throws Throwable {
+        try{
         String Name = null, Type = null, CreatedDate = null, Expires = "", Code = null, Status = "Active", Value = null, Discount = null, Entered = "0", Used = "0";
         String xpath = null;
 
@@ -386,8 +484,14 @@ public class Admin_PromoCodesSteps extends DriverBase {
         CreatedDate = dateFormat.format(today1).toString();
 
         xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']", Name, CreatedDate, Expires, Code, Type, Status, Discount, Entered, Used);
+        action.waitUntilIsElementExistsAndDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),30L);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath", xpath);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
     @Then("^the promocode saved data gets populated correctly$")
     public void the_saved_data_gets_populated_correctly() throws Throwable {
@@ -404,36 +508,54 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @Then("^the promocode grid shows the results by type \"([^\"]*)\"$")
     public void the_promocode_grid_shows_the_results_by_type_something(String Type) throws Throwable {
-        Type = Type.replace("Delivery By Promoter (M)","Delivery Charges By Promoter Multiple Use"); ////////////////
+        try{
+        Type = Type.replace("Delivery By Partner (M)","Delivery Charges By Partner Multiple Use"); ////////////////
         String xpath = String.format("//tr/td[5][text()='%s']",Type);
         //page 1 records verified
         List<WebElement> rowswithtype = SetupManager.getDriver().findElements(By.xpath(xpath));
         List<WebElement> rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
         testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithtype.size()),Type + " records should be displayed",Type + " records is displayed", Type + " records is not displayed");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
     @Then("^the promocode grid shows the results by type \"([^\"]*)\" having Code value starting with \"([^\"]*)\"$")
     public void the_promocode_grid_shows_the_results_by_type_something_having_code_value_starting_with_something(String Type, String Value) throws Throwable {
+        try{
         String xpath = String.format("//tr/td[contains(text(),'%s')]/following-sibling::td[text()='%s']",Value, Type);
         //page 1 records verified
         List<WebElement> rowswithtype = SetupManager.getDriver().findElements(By.xpath(xpath));
         List<WebElement> rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
 
         testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithtype.size()),Type + " records should be displayed",Type + " records is displayed", Type + " records is not displayed");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @Then("^the promocode grid shows the only the \"([^\"]*)\" promocodes$")
     public void the_promocode_grid_shows_the_only_the_something_promocodes(String Value) throws Throwable {
+        try{
         String xpath = String.format("//tr/td[6][contains(.,'%s')]",Value);
         //page 1 records verified
         List<WebElement> rowswithtype = SetupManager.getDriver().findElements(By.xpath(xpath));
         List<WebElement> rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
         testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithtype.size()),Value + " records should be displayed",Value + " records is displayed", Value + " records is not displayed");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @Then("^the promocode grid shows the both \"([^\"]*)\" promocodes$")
     public void the_promocode_grid_shows_the_both_something_promocodes(String strArg1) throws Throwable {
 
-
+try{
         String xpath1 = String.format("//tr/td[6][contains(.,'%s')]","Active");
         String xpath2 = String.format("//tr/td[6][contains(.,'%s')]","Expired");
         //page 1 records verified
@@ -450,17 +572,22 @@ public class Admin_PromoCodesSteps extends DriverBase {
         int totalValue = rowswithstatusActive.size()+rowswithstatusExpired.size();
         List<WebElement> rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
         testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(totalValue),String.valueOf(rows.size()) + " records should be displayed",String.valueOf(rows.size()) + " records are displayed", String.valueOf(rows.size()) + " records are not displayed");
-
+} catch (Exception e) {
+    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+    error("Step Should be successful", "Error in viewing result set",
+            true);
+}
     }
 
     @Then("^the \"([^\"]*)\" popup gets removed from UI$")
     public void the_something_popup_gets_removed_from_ui(String popup) throws Throwable {
+        try{
         switch(popup) {
             case "Add New Promocode":
                 testStepAssert.isNotElementDisplayed(admin_PromoCodesPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
                 break;
 
-            case "Business User":
+            case "Partners":
                 testStepAssert.isNotElementDisplayed(admin_BusinessUsersPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
                 break;
               //BOC
@@ -469,16 +596,21 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
              //EOC
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
         }
 
     @Then("^the \"([^\"]*)\" message is displayed$")
     public void the_something_message_is_displayed(String message) throws Throwable {
-
+try{
         switch(message) {
             case "Oops! It looks like you missed something. Please fill out all fields before proceeding.":
                 testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
-            case "Trips have been requested successfully.":
+            case "Deliveries have been requested successfully.":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_BulkTripSuccess()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
@@ -497,7 +629,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
             case "No promo codes found.":
                 testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_NoPromoCodesFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
-
+            case "No Customers found.":
+                testStepAssert.isEquals(action.getText(admin_customerPage.Label_NoCustomerFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                break;
             case "Payment details added successfully for Business User.":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_PaymentMethodSavedMessage()), message,message+ " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
@@ -508,7 +642,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isEquals(action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))),"This card number is not valid.", "This card number is not valid.","The message is listed in grid", "The message is not listed in grid");
                 break;
 
-            case "No Business users found.":
+            case "No Partners found.":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_NoBusinessUsersFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
@@ -537,16 +671,23 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
 
         }
+} catch (Exception e) {
+    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+    error("Step Should be successful", "Error in viewing result set",
+            true);
+}
     }
 
 
     @And("^I click on the \"([^\"]*)\" Button on \"([^\"]*)\" popup$")
     public void i_click_on_the_something_button_on_something_popup(String button, String popup) throws Throwable {
+        try{
         switch(popup) {
             case "Add New Promocode":
             action.click(admin_PromoCodesPage.Button_Cancel());
             break;
-            case "Business Users":
+            case "Partner":
+//            case "Business Users":
                 switch(button) {
                     case "Cancel":
                     action.click(admin_BusinessUsersPage.Button_Cancel());
@@ -556,7 +697,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                         break;
                 }
                 break;
-            case "Add New Promoter":
+            case "Add New Partner":
                 switch(button) {
                     case "Cancel":
                         action.click(admin_PromoterPage.Button_Cancel());
@@ -566,7 +707,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                         break;
                 }
                 break;
-            case "Add Promotion":
+            case "Add Event":
                 switch(button) {
                     case "Cancel":
                         action.click(admin_PromoterPage.Button_Cancel());
@@ -599,9 +740,24 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 }
                 break;
                 //EOC
+            case "Add Partner":
+                switch(button) {
+                    case "Cancel":
+                        action.click(admin_partnerPortalPage.Button_Cancel());
+                        break;
+                    case "Save":
+                        action.click(admin_partnerPortalPage.Button_Save());
+                        break;
+                }
+                break;
         }
         log("I click on "+button+" on "+ popup ,
-                "I have clicked on "+button+" on "+ popup, true);
+                "I have clicked on "+button+" on "+ popup, false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
     @And("^I enter following values in fields$")
     public void i_enter_following_values_in_fields(DataTable data) throws Throwable {
@@ -627,6 +783,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                      DiscountValue = dataMap.get("Discount Value").trim();
                      DiscountCategory = dataMap.get("Discount Category").trim();
                     Date today = new Date();
+                    
                     Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
                     DateFormat dateFormatFetch = new SimpleDateFormat("MMM dd, yyyy");
                     DateFormat dateFormatInput = new SimpleDateFormat("MM/dd/yyyy");
@@ -660,7 +817,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     action.sendKeys(admin_PromoCodesPage.TextBox_DiscountValue(), DiscountValue);
                     action.click(admin_PromoCodesPage.RadioButton_Percent());
                     break;
-                case "Delivery By Promoter":
+                case "Delivery By Partner":
                     Promoter = dataMap.get("Select Promoter").trim();
                     Promotion = dataMap.get("Select Promotion").trim();
                     NoOfCodes = dataMap.get("No Of Codes").trim();
@@ -678,7 +835,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CODE_COUNT", NoOfCodes);
                     cucumberContextManager.setScenarioContext("DISCOUNT_CATEGORY", (admin_PromoCodesPage.RadioButton_DollarsDisabled().isSelected() ? "Dollars" : "Percent"));
                     break;
-                case "Delivery By Promoter (M)":
+                case "Delivery By Partner (M)":
                     Promoter = dataMap.get("Select Promoter").trim();
                     Promotion = dataMap.get("Select Promotion").trim();
                     Code = dataMap.get("Code").trim().replace("<<CurrentDateTime>>",Integer.toString(i));
@@ -712,16 +869,23 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @And("^I uncheck \"([^\"]*)\"$")
     public void i_uncheck_something(String strArg1) throws Throwable {
+        try{
         if(admin_PromoCodesPage.CheckBox_HideExpired().isSelected())
         action.click(admin_PromoCodesPage.CheckBox_HideExpired());
 
         log("I uncheck Hide Expired filter" ,
-                "I have unchecked Hide Expired filter" , true);
+                "I have unchecked Hide Expired filter" , false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @And("^the \"([^\"]*)\" message is displayed for the \"([^\"]*)\" field$")
     public void the_something_message_is_displayed_for_the_something_field(String message, String field) throws Throwable {
 
+        try{
         switch(field)
         {
             case "Select Promoter":
@@ -766,11 +930,18 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerInvalidCVV().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
         }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
 
     @When("^I enter \"([^\"]*)\" field with below values and click Save$")
     public void i_enter_something_field_with_below_values_and_click_save(String field , DataTable data) throws Throwable {
-        List<Map<String, String>> DataList = data.asMaps();
+        try{
+            List<Map<String, String>> DataList = data.asMaps();
+
         int i = 0;
         switch (field) {
             case "No of Codes":
@@ -802,11 +973,17 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 }
                 break;
         }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
 
     }
 
     @Then("^the \"([^\"]*)\" message is displayed beside the \"([^\"]*)\" field$")
     public void the_corresponding_message_is_displayed_beside_the_something_field(String message, String field) throws Throwable {
+        try{
         switch (field)
         {
             case "respective":
@@ -821,11 +998,17 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isTrue(false, message + "should be displayed", message + " displayed", message + "did not displayed");
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
 
     }
 
     @And("^I change the \"([^\"]*)\" to past date$")
     public void i_change_the_something_to_past_date(String ExpiryDate) throws Throwable {
+        try{
         String PastExpiryDate= PropertyUtility.getDataProperties("past.expiry.date");
 
         switch (ExpiryDate)
@@ -835,11 +1018,17 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
         }
         log("I enter expiration date" ,
-                "I have entered expiration date" , true);
+                "I have entered expiration date" , false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @And("^I edit the Promo Code Name$")
     public void i_edit_the_promo_code_name() throws Throwable {
+        try{
         String PromoCodeName=null;
 
         Long now = Instant.now().toEpochMilli();
@@ -849,20 +1038,32 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
         action.clearSendKeys(admin_PromoCodesPage.TextBox_PromoCodeName(), PromoCodeName);
         log("I edit the Promo Code name" ,
-                "I have edited promo Code name" , true);
+                "I have edited promo Code name" , false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @Then("^the edited promocode is displayed in the Promocodes grid$")
     public void the_edited_promocode_is_displayed_in_the_promocodes_grid() throws Throwable {
+        try{
         String PromoCodeName=cucumberContextManager.getScenarioContext("PROMOCODE_NAME").toString();
         String xpath=null;
         xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",PromoCodeName);
         testStepAssert.isElementDisplayed(action.getElementByXPath(xpath), xpath + " Element should be displayed", xpath + " Element is displayed", xpath + " Element is not displayed");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
 
     @And("^I change the \"([^\"]*)\" to future date$")
     public void i_change_the_something_to_future_date(String ExpiryDate) throws Throwable {
+        try{
         switch (ExpiryDate)
         {
             case "Expiration Date":
@@ -872,11 +1073,17 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
         }
         log("I want to change expiration date" ,
-                "I have changed expiration date" , true);
+                "I have changed expiration date" , false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @Then("^the date gets saved$")
     public void the_date_gets_saved() throws Throwable {
+        try{
         String PromoCodeName=cucumberContextManager.getScenarioContext("PROMOCODE_NAME").toString();
         String date=cucumberContextManager.getScenarioContext("EXPIRY_DATE").toString();
         String FromFormat="MM/dd/yyyy", ToFormat="MMM dd, yyyy";
@@ -886,6 +1093,11 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
         String xpath= String.format("//tr[1]/td[text()='%s']/following-sibling::td[2][contains(text(),'%s')]",PromoCodeName, date1);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     @And("^I enter the following values in fields$")
@@ -945,12 +1157,12 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @When("^I search by the Code \"([^\"]*)\"$")
     public void i_search_by_the_code_something(String Code) throws Throwable {
+        try{
         switch (Code) {
             case "Promo":
-                action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
-                break;
 
             case "@#$@@":
+                Thread.sleep(2000);
                 action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
                 break;
 
@@ -959,11 +1171,17 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
         }
         log("I want to enter "+Code+" value " ,
-                "I have enetered  "+Code+" value " , true);
+                "I have enetered  "+Code+" value " , false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
     }
 
     @And("^I check if pages exists$")
     public void i_check_if_pages_exists() throws Throwable {
+        try{
         Thread.sleep(2000);
         List<WebElement> elements = SetupManager.getDriver().findElements(By.xpath("//ul[@class='pagination pagination-sm']/li/a"));
 
@@ -975,7 +1193,12 @@ public class Admin_PromoCodesSteps extends DriverBase {
             }
         }
         log("I check if pagination exists " ,
-                "I have checked if pagination exists" , true);
+                "I have checked if pagination exists" , false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
 
@@ -987,6 +1210,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @Then("^I verify that pagination exists$")
     public void i_verify_that_pagination_exists() throws Throwable {
+        try{
         List<WebElement> pagination = SetupManager.getDriver().findElements(By.xpath("//ul[@class='pagination pagination-sm']/li/a"));
         if (pagination.size() > 0) {
             testStepAssert.isTrue(true,"Pagination exists","Error: No pagination found.");
@@ -994,6 +1218,11 @@ public class Admin_PromoCodesSteps extends DriverBase {
         else{
             testStepAssert.isFalse(false,"Pagination doesnot exists","Error: No pagination found.");
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step Should be successful", "Error in viewing result set",
+                true);
+    }
     }
 
     //EOC

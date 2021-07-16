@@ -23,10 +23,10 @@ Feature: Driver Login
 
   @sanity
   @regression
-  @sanityfailure
   Scenario: Verify Driver Should be Able To Login To Application Using Valid Password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then I should be successfully logged in to the application
 
 
@@ -81,10 +81,12 @@ Feature: Driver Login
   Scenario: Verify New Driver With Payment Status As Inactive Or Pending Cannot Go Online
     When I enter phoneNumber :8989890909 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+  
     Then I should be successfully logged in to the application
     When I click "Go Online" button on "Home" screen on driverApp
     Then Alert message with HICCUP MESSAGE text should be displayed on driverApp
     And I accept Alert message on driverApp
-    When I Select "LOGOUT" from driver App menu
+    When I Select "ACCOUNT > LOGOUT" from driver App menu
 
 

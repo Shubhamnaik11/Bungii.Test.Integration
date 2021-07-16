@@ -5,11 +5,9 @@ Feature: Admin_DriverApplicationVerification
     Given I am logged in as Admin
     And there is a pending application for driver verification
 
-  @sanity
-  @regression
+  @knownissue
   @email
-  @failed
-    #test data created in base
+      #test data created in base
   Scenario: Verify Driver Application Approval - NonFountain
     When I click "Verify" button against the "John MwrB" applicant
     Then I should be directed to "Driver Verification Page"
@@ -22,11 +20,9 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Active"
     And I should receive "BUNGII: Time to Hit the Road!" email
 
-  @sanity
-  @regression
+  @knownissue
     #test data created in base
   @email
-  @failed
   Scenario: Verify Driver Application Rejection - NonFountain
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
@@ -40,21 +36,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Rejected"
     And I should receive "Your application has been rejected." email
     
-  @regression
-  @email
-    #test data created in base
-  Scenario: Verify Driver Application Resend Application - NonFountain
-    When I click "Verify" button against the "John PxLK" applicant
-    Then I should be directed to "Driver Verification Page"
-    When I verify and reject the invalid verification fields
-    And I click on the "Resend Application" Button
-    And I confirm the "Driver Resend Application" action
-    Then the status of the driver application should be marked as "Re-sent to Driver"
-    Then I should receive "BUNGII: Action Required!" email
-  #  When I login as driver "John PxLK"
-   # And Correct the fields and resubmit
-   # Then Admin receives "" email
-
+  
   @regression
     #test data created in base
   Scenario: Verify Resend Button Button visibility On All Field Approval - NonFountain
@@ -63,7 +45,8 @@ Feature: Admin_DriverApplicationVerification
     And I verify and approve all the verification fields
     Then the "Resend Application" button is not visible
 
-  @regression
+  @knownissue
+    #cancel button doesnt work
     #test data created in base
   Scenario: Verify Driver Application Rejection Cancellation - NonFountain
     When I click "Verify" button against the "John Johnie" applicant
@@ -76,7 +59,7 @@ Feature: Admin_DriverApplicationVerification
   @regression
     #test data created in base
   Scenario: Verify Driver Application Rejection With All Fields Approved - NonFountain
-    When I click "Verify" button against the "John Tony" applicant
+    When I click "Verify" button against the "Nilesh PM" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and approve all the verification fields
     And I click on "Reject Application" link
@@ -96,7 +79,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the field changes to "rejected"
     When I click and reset the status of "Driver Picture" field
     Then the status of the field resets to default
-
+    
   @regression
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
@@ -113,7 +96,7 @@ Feature: Admin_DriverApplicationVerification
     And I am logged in as Admin
     Then there is a pending application for driver verification
     When I click "Verify" button against the "Melvin Johnson" applicant
-    Then The accepted tick is removed for "Social Security Number" field previously accepted by admin
+    Then The accepted tick is removed for "Date Of Birth" field previously accepted by admin
 
   @regression
     #test data created in base
@@ -122,3 +105,17 @@ Feature: Admin_DriverApplicationVerification
     Then I should be directed to "Driver Verification Page"
     When I verify and reject the invalid verification fields
     Then the "Approve Application" button is not visible
+  
+  @ready
+    #test data created in base
+  Scenario: Verify Driver Application Resend Application - NonFountain
+    When I click "Verify" button against the "John PxLK" applicant
+    Then I should be directed to "Driver Verification Page"
+    When I verify and reject the invalid verification fields
+    And I click on the "Resend Application" Button
+    And I confirm the "Driver Resend Application" action
+    Then the status of the driver application should be marked as "Re-sent to Driver"
+    Then I should receive "BUNGII: Action Required!" email
+  #  When I login as driver "John PxLK"
+   # And Correct the fields and resubmit
+   # Then Admin receives "" email

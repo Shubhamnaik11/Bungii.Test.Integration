@@ -20,6 +20,12 @@ public class Partner_DeliveryPage extends PageBase {
     //Items to Deliver
     public WebElement TextBox_Item_To_Deliver() { return findElement("pickUpNote",LocatorType.Name);}
 
+    //SKU Text fiels
+    public WebElement TextBox_SKU() { return findElement("skuNumber",LocatorType.Name);}
+
+    //SKU Add
+    public WebElement Button_SKU_Add() { return findElement("SKU",LocatorType.Id);}
+
     //Blank Item to deliver message
     public WebElement Message_Black_Item_To_Deliver() { return findElement("//div[contains(text(),'Items to deliver is required.')]",LocatorType.XPath);}
 
@@ -39,13 +45,18 @@ public class Partner_DeliveryPage extends PageBase {
     public WebElement Message_Blank_Customer_Mobile() { return findElement("//div[contains(text(),'Customer mobile is required.')]",LocatorType.XPath);}
 
     //Pickup Contact Name
-    public WebElement TextBox_Pickup_Contact_Name() { return findElement("f2bd9004-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+    //public WebElement TextBox_Pickup_Contact_Name() { return findElement("f2bd9004-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);
+    public WebElement TextBox_Pickup_Contact_Name() { return findElement("//label[text()='Pickup contact name']/following::input[1]",LocatorType.XPath);}
 
     //Blank Pickup Contact Name
     public WebElement Message_Blank_Pickup_Contact_Name() { return findElement("//div[contains(text(),'Pickup contact name is required.')]",LocatorType.XPath);}
 
     //Pickup Contact Phone
-    public WebElement TextBox_Pickup_Contact_Phone() { return findElement("f2bd908c-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+    //public WebElement TextBox_Pickup_Contact_Phone() { return findElement("f2bd908c-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+    public WebElement TextBox_Pickup_Contact_Phone() { return findElement("//label[text()='Pickup contact phone']/following::input[1]",LocatorType.XPath);}
+
+    //Scheduled By
+    public WebElement TextBox_Scheduled_By() { return findElement("//label[text()='Scheduled By']/following::input[1]",LocatorType.XPath);}
 
     //Pickup Date Time
     public WebElement Label_Pickup_Date_Time() { return findElement("//label[contains(text(),'Pickup Date & Time:')]/following-sibling::p",LocatorType.XPath);}
@@ -61,6 +72,14 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Receipt Number
     public WebElement TextBox_Receipt_Number() { return findElement("f2bd91b2-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+
+    //Order Number
+    public WebElement TextBox_Order_Number() { return findElement("//input[@data-field='Order Number']",LocatorType.XPath);}
+
+    //Sold Buy
+    public WebElement Dropdown_SoldBuy() { return findElement("//div[@class='MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl']",LocatorType.XPath);}
+
+    public WebElement List_StoreAssociate(String storeAssociate) { return findElement(String.format("//li[text()='%s']",storeAssociate),LocatorType.XPath);}
 
     //Customer Card Payment
     public WebElement Radio_Button_Customer_Card() { return findElement("//label[contains(text(),'Customer Card')]",LocatorType.XPath);}
@@ -97,7 +116,7 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Schedule Bungii button
     //public WebElement Button_Schedule_Bungii() { return findElement("submit-details",LocatorType.Id);}
-    public WebElement Button_Schedule_Bungii() { return findElement("//button[@id='submit-details']//img",LocatorType.XPath);}
+    public WebElement Button_Schedule_Bungii() { return findElement("//button[@id='submit-details']",LocatorType.XPath);}
 
     //Driver and truck text in summary
     public WebElement Text_Driver_Truck() { return findElement("//label[contains(text(),'s needed:')]/following-sibling::p",LocatorType.XPath);}
@@ -111,4 +130,6 @@ public class Partner_DeliveryPage extends PageBase {
     //Estimated cost in summary
     public WebElement Text_Estiated_Cost() { return findElement("//h2[@class='estimate-label']/span",LocatorType.XPath);}
 
+    //Delivery Cost
+    public WebElement Label_Delivery_Cost() { return findElement("//h2[contains(text(),'Delivery Cost')]",LocatorType.XPath);}
 }

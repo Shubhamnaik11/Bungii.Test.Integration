@@ -2,9 +2,13 @@ package com.bungii.common.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.restassured.config.DecoderConfig;
+import io.restassured.config.RestAssuredConfig;
+import io.restassured.config.SSLConfig;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
+import io.restassured.path.json.exception.JsonPathException;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -28,7 +32,7 @@ public class ApiHelper {
      * @return
      */
     public static RequestSpecification givenCustConfig() {
-        return given()//.log().body()
+        return given().config(RestAssuredConfig.config().decoderConfig(DecoderConfig.decoderConfig().defaultContentCharset("UTF-8")).and().sslConfig(new SSLConfig().relaxedHTTPSValidation()))//.log().body()
                 .header("MobileAppVersion", PropertyUtility.getDataProperties("CUST_MOBILE_APP_VERSION"))
                 .header("AppVersion", PropertyUtility.getDataProperties("CUST_APP_VERSION"))
                 .header("User-Agent", "okhttp/3.4.1")
@@ -39,12 +43,79 @@ public class ApiHelper {
     }
 
     /**
+     * Given config for Partner Config
+     *
+     * @return
+     */
+    public static RequestSpecification givenPartnerConfig(){
+
+        return given()//.log().all()
+                //.header("authority", PropertyUtility.getDataProperties("AUTH_URL"))
+                .header("accept","application/json, text/plain, */*")
+                .header("accept-encoding", "gzip, deflate, br")
+                .header("accept-language", "en-US,en;q=0.9")
+                .header("content-type", "application/json")
+                .header("Accept-Encoding", "gzip, deflate, br")
+                .header("sec-fetch-dest","empty")
+                .header("sec-fetch-mode","cors")
+                .header("sec-fetch-site","same-site")
+                .header("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36")//PropertyUtility.getDataProperties("DEVICE_ID"))
+                .auth().preemptive().basic(PropertyUtility.getDataProperties("partner.auth.username"), PropertyUtility.getDataProperties("partner.auth.password"));
+    }
+
+    /**
+     * Given config for Partner Access with AccessToken
+     *
+     * @return
+     */
+    public static RequestSpecification givenPartnerAccess(String AccessToken){
+
+        return given()//.log().all()
+                //.header("authority", PropertyUtility.getDataProperties("AUTH_URL"))
+                .header("accept","application/json, text/plain, */*")
+                .header("accept-encoding", "gzip, deflate, br")
+                .header("accept-language", "en-US,en;q=0.9")
+                .header("appversion",4)
+                .header("authorizationtoken",AccessToken)
+                .header("content-type", "application/json")
+                .header("sec-fetch-dest","empty")
+                .header("sec-fetch-mode","cors")
+                .header("sec-fetch-site","same-site")
+                .header("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36")//PropertyUtility.getDataProperties("DEVICE_ID"))
+                .auth().preemptive().basic(PropertyUtility.getDataProperties("partner.auth.username"), PropertyUtility.getDataProperties("partner.auth.password"));
+    }
+
+    /**
+     * Given config for Partner Braintree with Authorization
+     *
+     * @return
+     */
+    public static RequestSpecification givenPartnerBraintree(String Auth){
+
+        return given()//.log().all()
+                //.header("authority", PropertyUtility.getDataProperties("AUTH_URL"))
+                .header("accept","*/*")
+                .header("accept-encoding", "gzip, deflate, br")
+                .header("accept-language", "en-US,en;q=0.9")
+                .header("Braintree-Version","2018-05-10")
+                .header("Authorization",Auth)
+                .header("Connection","keep-alive")
+                .header("content-type", "application/json")
+                .header("accept-Encoding", "gzip, deflate, br")
+                .header("sec-fetch-dest","empty")
+                .header("sec-fetch-mode","cors")
+                .header("sec-fetch-site","same-site")
+                .header("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0");//PropertyUtility.getDataProperties("DEVICE_ID"))
+
+    }
+
+    /**
      * Given config for driver app
      *
      * @return
      */
     public static RequestSpecification givenDriverConfig() {
-        return given()//.log().body()
+        return given().config(RestAssuredConfig.config().decoderConfig(DecoderConfig.decoderConfig().defaultContentCharset("UTF-8")).and().sslConfig(new SSLConfig().relaxedHTTPSValidation()))//.log().body()
                 .header("MobileAppVersion", PropertyUtility.getDataProperties("DRIVER_MOBILE_APP_VERSION"))
                 .header("AppVersion", PropertyUtility.getDataProperties("DRIVER_APP_VERSION"))
                 .header("User-Agent", "okhttp/3.4.1")
@@ -164,7 +235,6 @@ public class ApiHelper {
             Response response = givenDriverConfig().
                     when().
                     get(path);
-
           //  response.then().log().body();
             return response;
         }
@@ -257,10 +327,9 @@ public class ApiHelper {
         if ((Boolean) data.get("IsScheduledPickup")) {
             response = givenCustConfig().header(authToken).param("WalletRef", data.get("WalletRef")).param("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds")).param("PickupRequestID", data.get("PickupRequestID")).param("Description", data.get("Description")).param("PaymentMethodID", data.get("PaymentMethodID")).param("IsScheduledPickup", data.get("IsScheduledPickup"))
                     .contentType("multipart/form-data")
-                    //.multiPart(new File("C:\\Users\\vishal.bagi\\Pictures\\ItemImage2.jpg"))
-                    .multiPart("ItemImage1", new File(pickupImage))
-                    .multiPart("Content-Type", "image/jpeg")
-                    .multiPart("filename", "ItemImage1")
+                    .multiPart("ItemImage1",new File(pickupImage),"image/jpeg") //new File(pickupImage)
+                    .multiPart("Content-Type", "image/jpeg" )
+                    .multiPart("filename", "ItemImage1","multipart/form-data")
                     .multiPart("WalletRef", data.get("WalletRef"))
                     .multiPart("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds"))
                     .multiPart("PickupRequestID", data.get("PickupRequestID"))
@@ -268,20 +337,21 @@ public class ApiHelper {
                     .multiPart("PaymentMethodID", data.get("PaymentMethodID"))
                     .multiPart("IsScheduledPickup", data.get("IsScheduledPickup"))
                     .multiPart("ScheduledDateTime", data.get("ScheduledDateTime"))
+                    .multiPart("PickupNote",data.get("PickupNote"))
                     .when().post(Path);
         } else {
             response = givenCustConfig().header(authToken).param("WalletRef", data.get("WalletRef")).param("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds")).param("PickupRequestID", data.get("PickupRequestID")).param("Description", data.get("Description")).param("PaymentMethodID", data.get("PaymentMethodID")).param("IsScheduledPickup", data.get("IsScheduledPickup"))
                     .contentType("multipart/form-data")
-                    //.multiPart(new File("C:\\Users\\vishal.bagi\\Pictures\\ItemImage2.jpg"))
-                    .multiPart("ItemImage1", new File(pickupImage))
+                    .multiPart("ItemImage1", new File(pickupImage),"image/jpeg")
                     .multiPart("Content-Type", "image/jpeg")
-                    .multiPart("filename", "ItemImage1")
+                    .multiPart("filename", "ItemImage1","multipart/form-data")
                     .multiPart("WalletRef", data.get("WalletRef"))
                     .multiPart("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds"))
                     .multiPart("PickupRequestID", data.get("PickupRequestID"))
                     .multiPart("Description", data.get("Description"))
                     .multiPart("PaymentMethodID", data.get("PaymentMethodID"))
                     .multiPart("IsScheduledPickup", data.get("IsScheduledPickup"))
+                    .multiPart("PickupNote",data.get("PickupNote"))
                     .when().post(Path);
         }
         return response;
@@ -293,20 +363,27 @@ public class ApiHelper {
         return gson;
     }
 
-    public static void genericResponseValidation(Response response) {
+    public static void genericResponseValidation(Response response, String RequestText) {
         JsonPath jsonPathEvaluator;
         try {
             jsonPathEvaluator = response.jsonPath();
             HashMap error = jsonPathEvaluator.get("Error");
 
         if (error == null) {
-            logger.detail("VERIFIED | API call response - Success ");
+          //  logger.detail(response.then().log().body()); //temporary checkin
+            logger.detail(RequestText + " | Response - Success ");
         }
         else
-        {
+        {   logger.detail(RequestText + " | Response - Failure ");
             logger.detail(response.then().log().body());
         }
             response.then().statusCode(200);
+        }
+        catch (JsonPathException ex) {
+            logger.error("Lexical error in JSON response " + response.then().log().body() +" for request "+RequestText);
+            error("Step should be successful", "Failed due to :  Lexical error in JSON response " +response.then().log().body()+" for request "+RequestText,
+                    false);
+
         }
         catch (AssertionError ex)
         {
@@ -315,13 +392,13 @@ public class ApiHelper {
             if (error.size()!=0) {
                 logger.error("API Call failed : ", " Failed due to : " + error.get("Message").toString());
                 error("Step should be successful", "Failed due to :  " + error.get("Message").toString(),
-                        true);
+                        false);
             }
             else
             {
                 logger.error("API Call failed : ", " API Response is empty. It seems to be queue error. Please reset the queue and try again.");
                 error("Step should be successful", "API Response is empty. It see seems to be queue error. Please reset the queue and try again.",
-                        true);
+                        false);
             }
         }
 

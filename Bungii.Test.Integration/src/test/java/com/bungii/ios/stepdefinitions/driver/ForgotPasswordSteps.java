@@ -21,6 +21,7 @@ public class ForgotPasswordSteps extends DriverBase {
 
             String phoneNumber= strArg1.equalsIgnoreCase("{VALID USER}")? PropertyUtility.getDataProperties("ios.valid.driver.phone"):strArg1;
 
+            Thread.sleep(3000);
             String smsCode = DbUtility.getVerificationCodeDriver(phoneNumber);
 //            driverForgotPasswordPage.visibilityOf(driverForgotPasswordPage.Button_Continue());
 

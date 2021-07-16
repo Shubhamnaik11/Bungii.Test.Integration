@@ -8,6 +8,7 @@ import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.customer.EnableLocationPage;
+import com.bungii.ios.pages.customer.EnableNotificationPage;
 import com.bungii.ios.pages.driver.*;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
@@ -27,6 +28,7 @@ import static com.bungii.common.manager.ResultManager.*;
 public class CommonStepsDriver extends DriverBase {
     private static LogUtility logger = new LogUtility(CommonSteps.class);
     ActionManager action = new ActionManager();
+
     String Image_Solo = "bungii_type-solo", Image_Duo = "bungii_type-duo";
     private TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
     private BungiiCompletedPage driverBungiiCompletedPage= new BungiiCompletedPage();
@@ -35,21 +37,23 @@ public class CommonStepsDriver extends DriverBase {
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
     private ScheduledTripsPage scheduledTripsPage;
     private com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage;
-    private EnableLocationPage enableLocationPage;
+    //private EnableLocationPage enableLocationPage;
+    EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
+    EnableLocationPage enableLocationPage = new EnableLocationPage();
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
                        ScheduledTripsPage scheduledTripsPage,
                        BungiiRequestPage bungiiRequestPage,
                         com.bungii.ios.pages.driver.HomePage driverHomePage,
-                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage, com.bungii.ios.pages.customer.EnableLocationPage enableLocationPage) {
+                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage) {
 
         this.driverUpdateStatusPage = updateStatusPage;
         this.scheduledTripsPage = scheduledTripsPage;
         this.driverHomePage = driverHomePage;
         this.driverLoginPage=driverLoginPage;
         this.driverForgotPasswordPage=driverForgotPasswordPage;
-        this.enableLocationPage=enableLocationPage;
+        //this.enableLocationPage=enableLocationPage;
 
     }
 
@@ -70,7 +74,7 @@ public class CommonStepsDriver extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            testStepVerify.isTrue(messageDisplayed,
+            testStepAssert.isTrue(messageDisplayed,
                     messageElement + " should be displayed", messageElement + " Message is Displayed",
                     messageElement + " Message is not Displayed");
         } catch (Throwable e) {
@@ -116,19 +120,20 @@ public class CommonStepsDriver extends DriverBase {
                     action.click(driverForgotPasswordPage.Button_Back());
                     break;
                 case "GO ONLINE":
+                    Thread.sleep(2000);
                     action.click(driverHomePage.GoOnline_Btn());
                     break;
                 case "GO OFFLINE":
                     action.click(driverHomePage.GoOffline_Btn());
                     break;
-                case "AVAILABLE TRIPS":
+                case "AVAILABLE BUNGIIS":
                     action.click(driverHomePage.Text_AvailableTrips());
                     break;
                 case "SMS ALERT":
                     action.click(tripAlertSettingsPage.Button_SMSAlerts());
                     break;
-                case "TRIP ALERT":
-                    action.click(tripAlertSettingsPage.Button_TripAlerts());
+                case "DELIVERY ALERT":
+                    action.click(tripAlertSettingsPage.Button_DeliveryAlerts());
                     break;
                 case "ITEMIZED EARNINGS":
                     action.click(driverHomePage.Link_Itemized_Earnings());
@@ -162,9 +167,8 @@ public class CommonStepsDriver extends DriverBase {
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            e.printStackTrace();
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in navigating to screen : "+ screen, true);
         }
     }
 
@@ -289,15 +293,15 @@ public class CommonStepsDriver extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-            testStepVerify.isEquals(actualMessage, expectedMessage,
-                    "Alert : " + expectedMessage + "should be displayed",
+            testStepAssert.isEquals(actualMessage, expectedMessage,
+                    "Alert : " + expectedMessage + " should be displayed",
                     "Alert : " + actualMessage + " is displayed",
                     "Alert is not displayed | Actual Message " + actualMessage + " Expected is "
                             + expectedMessage);
         } catch (Throwable e) {
             logger.error("Invalid Password Alert Not Displayed", ExceptionUtils.getStackTrace(e));
             fail("Step should be successful",
-                    "Invalid Password Alert Not Displayed", true);
+                    "Expected Alert Not Displayed", true);
         }
     }
 
@@ -318,7 +322,8 @@ public class CommonStepsDriver extends DriverBase {
         try {
             //adding temp page source , can remove later
           //  logger.error("Page source", SetupManager.getDriver().getPageSource());
-            String navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
+
+            String navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
             switch (screen.trim().toUpperCase()) {
                 case "LOG IN":
                     goToDriverLogInPage(navigationBarName);
@@ -331,7 +336,7 @@ public class CommonStepsDriver extends DriverBase {
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in navigating to "+ screen + " screen on driver app ", true);
 
         }
     }
@@ -346,17 +351,37 @@ public class CommonStepsDriver extends DriverBase {
                 action.clickAlertButton("Done");
 
         }
+         navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
         if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
             action.click(driverBungiiCompletedPage.Button_NextTrip());
-            //homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
+            navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
         }
 
         if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
-            if (navigationBarName.equals("LOCATION"))
-            {
-                action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Always Allow");
+            try {
+               // GeneralUtility utility = new GeneralUtility();
+               // String pageName = utility.getPageHeader();
+                if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
+                    action.click(enableNotificationPage.Button_Sure());
+                    action.clickAlertButton("Allow");
+                    // pageName = utility.getPageHeader();
+                    Thread.sleep(3000);
+                }
+                if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+                    action.click(enableLocationPage.Button_Sure());
+                    action.clickAlertButton("Always Allow");
+                    //pageName = utility.getPageHeader();
+                }
+
+            } catch (Exception e) {
+
             }
+            navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
+            if (navigationBarName.equals("LOG IN")||navigationBarName.equals("ARRIVED")||navigationBarName.equals("ARRIVED")||navigationBarName.equals("EN ROUTE")||navigationBarName.equals("LOADING ITEM")||navigationBarName.equals("UNLOADING ITEM")||navigationBarName.equals("DRIVING TO DROPOFF"))
+            {
+                //Do nothing - Its fresh Bungii requested as precondition step
+            }
+                else
                 homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
         }
 
