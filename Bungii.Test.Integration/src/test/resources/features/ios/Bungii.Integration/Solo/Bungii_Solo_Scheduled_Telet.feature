@@ -116,7 +116,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip TELET Then Request Should Not Be Sent To Driver
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | denver   | Accepted     | 15 min ahead |
+      | denver   | Accepted     | 0.5 hour ahead |
     When I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -224,6 +224,7 @@ Feature: Solo Scheduled Bungii - TELET
       | CUSTOMER1_PHONE | 8888889917      |
 
   @ready
+    #Test this case manually on QA since on QA_Auto working offline time is set as 11.45pm to 12.00am and hence both slot can't consider for this case
    #Stable
   Scenario: Verify Customer Doesnt Receives Notification When Solo Scheduled Bungii Is Requested At A Time Outside Working Hours
     Given I login as "valid denver" customer and on Home page
