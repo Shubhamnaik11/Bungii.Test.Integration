@@ -639,8 +639,8 @@ public class UpdateStatusSteps extends DriverBase {
     public void stack_trip_information_should_be_displayed_on_deck() {
         try {
             String customerName = (String) cucumberContextManager.getScenarioContext("LATEST_LOGGEDIN_CUSTOMER_NAME");
-            testStepVerify.isElementTextEquals(updateStatusPage.Text_NextLabel(), "NEXT","'NEXT' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
-            testStepVerify.isElementTextEquals(updateStatusPage.Text_OnDeckLabel(), "ON DECK","'ON DECK' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
+            testStepVerify.isElementTextEquals(updateStatusPage.Text_NextLabel(), "NEXT CUSTOMER","'NEXT CUSTOMER' text lable should be displayed","'NEXT CUSTOMER' text lable is displayed","'NEXT CUSTOMER' text lable is not displayed");
+            testStepVerify.isElementTextEquals(updateStatusPage.Text_OnDeckLabel(), "ON DECK","'ON DECK' text lable should be displayed","'ON DECK' text lable is displayed","'ON DECK' text lable is not displayed");
             testStepVerify.isElementTextEquals(updateStatusPage.Text_StackCustomer(), customerName.substring(0, customerName.indexOf(" ") + 2));
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -422,11 +422,12 @@ public class CoreServices extends DriverBase {
                 HashMap pickupDetails = (HashMap) availableArray.get(i);
                 promoCode = (String) pickupDetails.get("Code");
                 walletRef=(String) pickupDetails.get("WalletRef");
-                cucumberContextManager.setScenarioContext("ADDED_PROMOCODE", promoCode);
-                cucumberContextManager.setScenarioContext("ADDED_PROMOCODE_WALLETREF", walletRef);
                 break;
             }
+            cucumberContextManager.setScenarioContext("ADDED_PROMOCODE", promoCode);
+            cucumberContextManager.setScenarioContext("ADDED_PROMOCODE_WALLETREF", walletRef);
         }
+
         return walletRef;
     }
     public void recalculateEstimate(String pickupRequestID, String walletReferance, String authToken) {
