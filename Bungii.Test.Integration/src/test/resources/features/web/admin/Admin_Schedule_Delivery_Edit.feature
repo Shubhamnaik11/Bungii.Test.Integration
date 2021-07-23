@@ -66,7 +66,7 @@ Feature: Admin_Schedule_Delivery_Edit
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
-    And I change the drop off address to "8500 Scudder Avenue"
+    And I change the drop off address to "8500 Scudder Avenue, Copiague"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
   
@@ -83,7 +83,7 @@ Feature: Admin_Schedule_Delivery_Edit
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
-    And I change the drop off address to "8500 Scudder Avenue"
+    And I change the drop off address to "8500 Scudder Avenue, Copiague"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
   
