@@ -865,7 +865,7 @@ try{
             String customer = (String) cucumberContextManager.getScenarioContext("Customer_Name");
 
             String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
-            String pickupRef = (String) cucumberContextManager.getScenarioContext("pickupRequestPartner");
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
             String geofenceName = getGeofence(geofence);
             action.clearSendKeys(admin_LiveTripsPage.TextBox_Search_Field(),pickupRef);
