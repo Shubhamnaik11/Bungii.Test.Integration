@@ -156,6 +156,13 @@ public class Partner_DashboardPage extends PageBase {
     //Selected service name
     public WebElement Text_Service_Name() { return findElement("//span[@class='service-title']",LocatorType.XPath);}
 
+    //Service name and decription
+    public WebElement Text_Service_Decription() { return findElement("//label[text()='Service Level']/following::p[1]",LocatorType.XPath);}
+
     //Delivery Cost
     public WebElement Label_Delivery_Cost() { return findElement("//div/label[contains(text(),'Delivery Cost:')]",LocatorType.XPath);}
+
+    //Delivery cost on delivery details
+    public WebElement Text_Delivery_Cost() {return findElement("//h2[contains(text(),'Delivery Cost')]/span/strong",LocatorType.XPath);}
+
 }

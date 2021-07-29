@@ -652,7 +652,7 @@ public class Admin_TripsSteps extends DriverBase {
         //testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
         testStepAssert.isTrue(Display_Change_DropOff.contains(Expected_Change_DropOff),"Correct address need to display","Correct address is display","Incorrect address is displayed");
         log(" I confirm the change drop off address on delivery details page",
-                "I have confirmed the change drop off address on delivery details page", true);
+                "I have confirmed the change drop off address on delivery details page", false);
     }
 
     @Then("^the change service level should be displayed on delivery details page$")
@@ -663,7 +663,7 @@ public class Admin_TripsSteps extends DriverBase {
 
             if(changeServiceLevel.equalsIgnoreCase("White Glove"))
             {
-                changeServiceLevel = "White Glove - Delivery to room of choice, assembly and debris removal";
+                changeServiceLevel = PropertyUtility.getDataProperties("change.service.description");
             }
 
             testStepVerify.isEquals(changeServiceLevel,displayServiceLevel,"the change service level " +changeServiceLevel+ "should be same as service level display " +displayServiceLevel+ "on delivery details page","the change service level " +changeServiceLevel+ " is not same as service level displayed " +displayServiceLevel+ "on delivery details page");
@@ -675,6 +675,49 @@ public class Admin_TripsSteps extends DriverBase {
                     true);
         }
     }
+
+    @Then("^the price for the delivery shown as per the changed service level$")
+    public void the_price_for_the_delivery_shown_as_per_the_changed_service_level() throws Throwable {
+        try{
+            String Alias_Name= (String) cucumberContextManager.getScenarioContext("Alias");
+            String Change_Service =(String) cucumberContextManager.getScenarioContext("Change_service");
+            String Trip_Type = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
+            int Driver_Number=1;
+
+            if(Trip_Type.equalsIgnoreCase("Duo")){
+                Driver_Number=2;
+            }
+
+            String Display_Price = action.getText(admin_TripDetailsPage.Text_Estimated_Charge());
+            //action.getElementByXPath("//h2[text()='Delivery Cost']//following::span/strong").getText();
+            Display_Price = Display_Price.substring(1);
+
+            String Estimate_distance = dbUtility.getEstimateDistance(Alias_Name);
+            double Estimate_distance_value = Double.parseDouble(Estimate_distance);
+
+            String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Change_Service);
+            double Last_Tier_Milenge_Min_Range_value = Double.parseDouble(Last_Tier_Milenge_Min_Range);
+
+            String Price="";
+            if(Estimate_distance_value <= Last_Tier_Milenge_Min_Range_value) {
+                Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, Estimate_distance, Change_Service);
+            }
+            else{
+                Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, Estimate_distance, Change_Service);
+            }
+
+            testStepVerify.isEquals(Display_Price,Price);
+
+            log("The price for the delivery should be shown as per the changed service level",
+                    "The price for the delivery is shown as per the changed service level", false);
+        }
+        catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "The price for the delivery is not shown as per the chnaged service level",
+                    true);
+        }
+    }
+
 
     @Then("^I confirm the change pickup address on delivery details page$")
     public void i_confirm_the_change_pickup_address_on_delivery_details_page() throws Throwable {
@@ -730,11 +773,18 @@ public class Admin_TripsSteps extends DriverBase {
     }
     @And("^I get the new pickup reference generated$")
     public void i_get_the_new_pickup_reference_generated() throws Throwable {
-        String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-        pickupRequest =  getLinkedPickupRef(pickupRequest);
-        cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
-        log("I get the new pickup reference generated",
-                "Pickupref is "+pickupRequest, false);
+        try {
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            pickupRequest = getLinkedPickupRef(pickupRequest);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            log("I get the new pickup reference generated",
+                    "Pickupref is " + pickupRequest, false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "New pickup reference is not generated",
+                    true);
+        }
     }
 
     @And("^I edit the drop off address$")

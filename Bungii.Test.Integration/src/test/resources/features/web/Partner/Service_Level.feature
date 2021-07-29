@@ -221,7 +221,8 @@ Feature: Service Level
       |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
       |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
 
-    @gs
+    #CORE-1574(Web side part)
+    @ready
   Scenario: Verify that admin can update service level for the Partner Portal delivery from Scheduled Deliveries page
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -256,8 +257,6 @@ Feature: Service Level
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Searching Drivers |
-    #And I select the partner portal scheduled trip on scheduled delivery
-    #Then I should "see correct Estimation Duration" for "Biglots" Alias
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I change the service level to "White Glove" in "Admin" portal
@@ -269,5 +268,9 @@ Feature: Service Level
     And I search the delivery of Customer
     When I view the partner portal delivery details in admin portal
     Then the change service level should be displayed on delivery details page
+    Then the price for the delivery shown as per the changed service level
     And I navigate to partner portal
     And I select the Scheduled Bungii from Delivery List
+    Then the change service level should be displayed on partner portal delivery details page
+    Then the price for the partner portal delivery shown as per the changed service level
+
