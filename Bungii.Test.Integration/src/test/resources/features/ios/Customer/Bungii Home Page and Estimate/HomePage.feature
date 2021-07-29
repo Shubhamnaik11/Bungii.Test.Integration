@@ -12,30 +12,7 @@ Feature: Customer Home screen
     When I click "Pick Up Clear Text" button on "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
 
-  @regression
-    #stable
-  Scenario: Verify ETA And Location Textbox Header - Also Verify Clear Text Button Is Enabled Once Location Is Selected
-    #When I logged in Customer application using  "existing" user
-    Given I am on Customer logged in Home page
-    Then current location should be present as pickup location
-    And "Invite referrals" should be present in "Home" screen
-    And "PICK UP" box header and ETA bar header should be correctly displayed
-  
-    And I enter pickup location
-      | Driver | Pickup Location     |
-      | Solo   | cancona bus station |
-    And "Drop" box header and ETA bar header should be correctly displayed
-    And Clear Button should be enabled for "Pick up" box
-  
-    And I enter drop location
-      | Driver | Drop Location  |
-      | Solo   | Margao Railway Overbridge |
-   # When I select "Pick up" location from customer home screen
-    #Then "Pick up" address should be displayed in text box
-    #When I select "Drop" location from customer home screen
-    Then "Drop" address should be displayed in text box
-    And Clear Button should be enabled for "Drop" box
-
+ 
   @regression
    #stable
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
@@ -57,7 +34,7 @@ Feature: Customer Home screen
     #Then current location should be present as pickup location
     And "Drop" address should be empty
 
-  @regression
+  @ready
   Scenario:Verify That Dropoff Field Is Displayed Only When Pickup Address Is Set
     Given I am on Customer logged in Home page
     And I open "customer" application on "same" devices
@@ -122,3 +99,27 @@ Feature: Customer Home screen
     Then geofence not active message should be displayed
     When I click "Request your city" button on "Home" screen
     Then I should be navigated to "bungii.com" screen
+  
+  @regression
+    #stable
+  Scenario: Verify ETA And Location Textbox Header - Also Verify Clear Text Button Is Enabled Once Location Is Selected
+    #When I logged in Customer application using  "existing" user
+    Given I am on Customer logged in Home page
+    Then current location should be present as pickup location
+    And "Invite referrals" should be present in "Home" screen
+    And "PICK UP" box header and ETA bar header should be correctly displayed
+    
+    And I enter pickup location
+      | Driver | Pickup Location     |
+      | Solo   | cancona bus station |
+    And "Drop" box header and ETA bar header should be correctly displayed
+    And Clear Button should be enabled for "Pick up" box
+    
+    And I enter drop location
+      | Driver | Drop Location  |
+      | Solo   | Margao Railway Overbridge |
+   # When I select "Pick up" location from customer home screen
+    #Then "Pick up" address should be displayed in text box
+    #When I select "Drop" location from customer home screen
+    Then "Drop" address should be displayed in text box
+    And Clear Button should be enabled for "Drop" box

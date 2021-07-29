@@ -29,7 +29,8 @@ Feature: Admin_Schedule_Delivery_Edit
       And I confirm Pickup note is updated
       And Delivery price is recalculated based on updated value of drop off address
 
-  @ready
+  @regression
+      #stable
   Scenario: Verify editing drop off address for the duo scheduled trip.
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -65,7 +66,7 @@ Feature: Admin_Schedule_Delivery_Edit
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
-    And I change the drop off address to "8500 Scudder Avenue"
+    And I change the drop off address to "8500 Scudder Avenue, Copiague"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
   
@@ -82,7 +83,7 @@ Feature: Admin_Schedule_Delivery_Edit
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
-    And I change the drop off address to "8500 Scudder Avenue"
+    And I change the drop off address to "8500 Scudder Avenue, Copiague"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
   
@@ -111,7 +112,9 @@ Feature: Admin_Schedule_Delivery_Edit
     Then the updated drop off address should be displayed on delivery details page
     And Delivery price is recalculated based on updated value of drop off address
 
-      @ready
+    
+  @regression
+    #stable
      Scenario: Verify editing drop off address for the Partner Portal Solo Scheduled delivery.
        When I request Partner Portal "SOLO" Trip for "MRFM" partner
          |Geofence| Bungii Time   | Customer Phone | Customer Name |

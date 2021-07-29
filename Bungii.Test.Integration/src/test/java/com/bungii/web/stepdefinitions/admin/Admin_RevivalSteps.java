@@ -12,10 +12,12 @@ import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
 
 import java.text.DecimalFormat;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_RevivalSteps extends DriverBase {
@@ -31,13 +33,21 @@ public class Admin_RevivalSteps extends DriverBase {
 
     @Then("^Revive button should be displayed beside the trip$")
     public void revive_button_should_be_displayed_beside_the_trip() throws Throwable {
-        String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']", customerName);
-        testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link,PageBase.LocatorType.XPath)),"Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
-        cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
+        try {
+            String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']", customerName);
+            testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
+            cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @Then("^I should see \"([^\"]*)\" message on popup with PickupId anad Pickup Origin$")
     public void i_should_see_something_message_on_popup_with_pickupid_anad_pickup_origin(String message) throws Throwable {
+
+        try{
         testStepAssert.isTrue(action.isElementPresent(admin_RevivalPage.Label_HeaderPopup()),message+" should be displayed", message+" is displayed", message+" is not displayed");
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String pickupId = dbUtility.getPickupIdFromFactPickup(pickuprequest);
@@ -47,10 +57,15 @@ public class Admin_RevivalSteps extends DriverBase {
         testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupId(),pickupId, pickupId +" should be displayed", pickupId +" is displayed", pickupId+" is not displayed");
         //testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupOrigin(),source, source +" should be displayed", source +" is displayed", source+" is not displayed");
         testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupCustomer(),customerName, customerName +" should be displayed", customerName +" is displayed", customerName+" is not displayed");
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @When("^I click on \"([^\"]*)\" button on Revival Popup$")
     public void i_click_on_something_button_on_revival_popup(String button) throws Throwable {
+        try{
         switch(button)
         {
             case "Confirm":
@@ -65,6 +80,11 @@ public class Admin_RevivalSteps extends DriverBase {
         }
         log("I click on the "+button+" button on Revival Popup",
                 "I have clicked the "+button+" button on Revival Popup", true);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 }

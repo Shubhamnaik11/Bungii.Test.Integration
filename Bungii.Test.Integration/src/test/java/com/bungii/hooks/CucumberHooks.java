@@ -69,6 +69,7 @@ public class CucumberHooks {
         this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0], tags);
         SetupManager.getObject().useDriverInstance("ORIGINAL");
         new CucumberContextManager().setScenarioContext("PASS_WITH_OBSERVATIONS","FALSE");
+        new CucumberContextManager().setScenarioContext("IS_PARTNER","FALSE");
         // Thread.sleep(2000);
         if (!isFirstTestCase) {
             SetupManager.getObject().restartApp();
@@ -133,7 +134,12 @@ public class CucumberHooks {
                 bit=true;
                 JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
                 //js.executeScript(String.format("window.localStorage.clear();"));
-                js.executeScript(String.format("window.sessionStorage.clear();"));
+                if(CucumberContextManager.getObject().getScenarioContext("IS_PARTNER").equals("TRUE")) {
+                    //Clear only incase its partner site
+                   // js.executeScript(String.format("window.sessionStorage.clear();"));
+                    //logger.detail("***Cleared Browser Sessions storage***");
+                    logger.detail("***Browser Sessions storage Not cleared Explicetly ***");
+                }
             }
             //clear scenario context
             this.reportManager.getFeatureExecutionStatus();

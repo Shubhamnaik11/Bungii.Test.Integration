@@ -8,7 +8,7 @@ Feature: SoloScheduled Part F
     
   @regression
 	#stable
-  Scenario: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time or for trip time between 24 hours prior to current time
+  Scenario: Pushnotitication: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas   | Accepted     | NEXT_POSSIBLE |
@@ -16,16 +16,15 @@ Feature: SoloScheduled Part F
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
     When I Switch to "customer" application on "same" devices
+    
     Then I wait for "2" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I open the trip for "Testcustomertywd_appleyyhGZP Stark" customer
-  
     And I remove current driver and researches Bungii
+    Then I wait for "2" mins
+  
     When I switch to "ORIGINAL" instance
-    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-    When I Switch to "customer" application on "same" devices
     And Notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE" should be displayed
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
@@ -33,7 +32,7 @@ Feature: SoloScheduled Part F
   
   @regression
   #stable
-  Scenario: Verify Re-searched Trip Request Doesnt Show Urgent Notification Text If Is More Than One Hour From The Scheduled Trip Time
+  Scenario: Verify Re-searched Trip Request Doesnt Show Urgent Notification Text If Is More Than One Hour From The Scheduled Trip Time in android
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 2 hour ahead |
@@ -43,22 +42,21 @@ Feature: SoloScheduled Part F
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
     When I Switch to "customer" application on "same" devices
-    Then I wait for "2" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page
+    Then I wait for "1" mins
     And I open the trip for "Testcustomertywd_appleyyhGZP Stark" customer
-  
     And I remove current driver and researches Bungii
     When I switch to "ORIGINAL" instance
+    Then I wait for "1" mins
     And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
-    When I Switch to "customer" application on "same" devices
     Then Notification for "driver" for "SCHEDULED PICKUP AVAILABLE" should be displayed
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
     
-  @regression
+  @ready
     #stable
-  Scenario:Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip - Solo
+  Scenario: Snackbar : Verify Driver Cannot Start Bungii If The Customer Is Currently In An Ongoing Trip - Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 1 hour ahead |

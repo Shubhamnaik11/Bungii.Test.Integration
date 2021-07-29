@@ -6,11 +6,14 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_PaymentMethodsPage;
 import cucumber.api.java.en.Then;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.bungii.common.manager.ResultManager.error;
 
 public class Admin_PaymentMethodSteps extends DriverBase {
 
@@ -21,6 +24,7 @@ public class Admin_PaymentMethodSteps extends DriverBase {
 
         @Then("^The \"([^\"]*)\" gets saved successfully and it is displayed in the grid$")
         public void the_something_gets_saved_successfully_and_it_is_displayed_in_the_grid(String pageName) throws Throwable {
+            try{
             SimpleDateFormat sdf = new SimpleDateFormat("MM/yy");
             SimpleDateFormat sdf1 = new SimpleDateFormat("MM/yyyy");
             Date parsedDate = null;
@@ -50,6 +54,11 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                     break;
 
             }
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
         }
 
 //    @Then("^the card is added to the user \"([^\"]*)\" on \"([^\"]*)\" page$")
@@ -58,6 +67,7 @@ public class Admin_PaymentMethodSteps extends DriverBase {
 //    }
         @Then("^the card is added to the user \"([^\"]*)\" page$")
         public void the_card_is_added_to_the_user_something_page(String PageName) throws Throwable {
+            try{
             switch(PageName) {
                 case "partner Cards":
                     testStepAssert.isElementTextEquals(admin_paymentMethodsPage.Label_SuccessMessageForPartner(),"Partner Payment Method added successfully.","Partner Payment Method added successfully. message should be displayed" ,"Partner Payment Method added successfully. message is displayed","Partner Payment Method added successfully. message should be displayed is not displayed");
@@ -67,10 +77,17 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                     testStepAssert.isElementTextEquals(admin_paymentMethodsPage.Label_SuccessMessageForBungii(),"Bungii Payment Method added successfully.","Bungii Payment Method added successfully. message should be displayed" ,"Bungii Payment Method added successfully. message is displayed","Bungii Payment Method added successfully. message should be displayed is not displayed");
                     break;
             }
+
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
         }
 
         @Then("^The \"([^\"]*)\" details screen is removed from UI$")
         public void the_something_details_screen_is_removed_from_ui(String PageName) throws Throwable {
+            try{
             switch(PageName) {
                 case "Add Partner Cards":
                     testStepAssert.isNotElementDisplayed(admin_paymentMethodsPage.Button_Save(), PageName + " button should be hidden",
@@ -82,5 +99,10 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                             PageName +" button is hidden", PageName+" button is not hidden");
                     break;
             }
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
         }
 }

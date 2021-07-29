@@ -29,9 +29,9 @@ public class EarningsPage extends PageBase {
     public WebElement Link_ItemisedEarning() { return findElement("//android.view.View[@content-desc='Click here to view itemized earnings Itemized Earnings']", LocatorType.XPath); }
 
 
-    public WebElement Link_ItemisedEarnings() { return findElement("//android.view.View[@content-desc='Itemised earnings']", LocatorType.XPath); }
+    public WebElement Link_ItemisedEarnings() { return findElement("com.bungii.driver:id/activity_earnings_itemized_earnings_btn", LocatorType.Id); }
 
     //public WebElement Text_HistoryDataTotalEarnings() { return findElement("//*[@resource-id='tblDriverTrips']/android.view.View[6]", LocatorType.XPath);}
-    public WebElement Text_HistoryDataTotalEarnings() { return findElement("//*[@resource-id='com.bungii.driver:id/content_main']//android.view.View[6]", LocatorType.XPath);}
+    public WebElement Text_HistoryDataTotalEarnings() { return findElement("//android.view.View[@text=\"You've earned $0.00 in 0 Bungii(s).\"]", LocatorType.XPath);}
 
 }

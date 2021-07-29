@@ -53,8 +53,16 @@ public class HomePageSteps extends DriverBase {
 
             }
             Thread.sleep(3000);
-            boolean isClicked = false;  if (action.isAlertPresent()) { utility.acceptNotificationAlert(); }
+            boolean isClicked = false;
+            if(action.isElementPresent(driverHomePage.Button_NavigationBar(true)))
             action.click(driverHomePage.Button_NavigationBar());
+            else{
+                if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
+                    action.click(estimatePage.Button_RequestConfirmCancel());
+                    logger.detail("Push notification alert was shown on driver dashboard");
+                }
+                action.click(driverHomePage.Button_NavigationBar());
+            }
             List<WebElement> elements = driverHomePage.Button_NavigationBarText();
             if (action.isAlertPresent()) {
                 if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
@@ -119,7 +127,7 @@ public class HomePageSteps extends DriverBase {
             action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
             String getNaviagationText = action.getText(driverHomePage.Generic_HeaderElement());
             boolean isHomePage = getNaviagationText.equals("OFFLINE") || getNaviagationText.equals("ONLINE");
-            testStepAssert.isTrue(isHomePage, "I should be navigated to Driver home page", "I am not navigated to home page, Title is" + getNaviagationText);
+            testStepAssert.isTrue(isHomePage, "I should be navigated to Driver Home screen",  getNaviagationText + " screen is displayed instead of Driver Home screen");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

@@ -34,6 +34,7 @@ public class Partner_Delivery_Details extends DriverBase {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
             String Items_deliver = dataMap.get("Items_To_Deliver").trim();
+            cucumberContextManager.setScenarioContext("Item_Name",Items_deliver);
             String CustomerName = dataMap.get("Customer_Name").trim();
             //String SpecialInstruction = dataMap.get("Special_Instruction").trim();
             cucumberContextManager.setScenarioContext("Customer_Name", CustomerName);
@@ -43,7 +44,9 @@ public class Partner_Delivery_Details extends DriverBase {
             String CustomerMobile = dataMap.get("Customer_Mobile").trim();
             cucumberContextManager.setScenarioContext("CustomerPhone", CustomerMobile);
             String PickupContactName = dataMap.get("Pickup_Contact_Name").trim();
+            cucumberContextManager.setScenarioContext("PickupContactName",PickupContactName);
             String PickupContactPhone = dataMap.get("Pickup_Contact_Phone").trim();
+            cucumberContextManager.setScenarioContext("PickupContactPhone",PickupContactPhone);
 
             if (Site.equalsIgnoreCase("normal")) {
                 switch (str) {
@@ -236,13 +239,20 @@ public class Partner_Delivery_Details extends DriverBase {
 
     @And("^I enter the value \"([^\"]*)\" in Scheduled by field$")
     public void i_enter_the_some_value_in_scheduled_by_field(String scheduled_by) {
+        try{
         action.click(Page_Partner_Delivery.TextBox_Scheduled_By());
         action.clearSendKeys(Page_Partner_Delivery.TextBox_Scheduled_By(), scheduled_by);
-        log("I should able to enter " + scheduled_by + " in Scheduled by field", "I entered " + scheduled_by + " in Scheduled by field.", true);
+        log("I should able to enter " + scheduled_by + " in Scheduled by field", "I entered " + scheduled_by + " in Scheduled by field.", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I confirm details show in summary$")
     public void i_confirm_details_shown_in_summary() {
+        try{
         String Bungii_type = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
         if (Bungii_type.equalsIgnoreCase("Solo")) {
             testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Driver_Truck(), "Solo - 1 driver 1 truck");
@@ -259,7 +269,12 @@ public class Partner_Delivery_Details extends DriverBase {
         String EstimatedCost = (String) cucumberContextManager.getScenarioContext("Estimated_Cost");
         testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Estiated_Cost(), EstimatedCost);
 
-        log("I should able to confirm details shown in summary.", "I am able to confirmed details shown in summary.", true);
+        log("I should able to confirm details shown in summary.", "I am able to confirmed details shown in summary.", false);
+    } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should \"([^\"]*)\" on Delivery Details screen$")

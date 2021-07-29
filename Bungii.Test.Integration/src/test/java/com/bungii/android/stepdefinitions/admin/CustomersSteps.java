@@ -51,7 +51,7 @@ public class CustomersSteps extends DriverBase {
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step  Should be successful", "Error in verifying delivery count on admin portal",
                     true);
         }
     }

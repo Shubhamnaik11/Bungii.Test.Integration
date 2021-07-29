@@ -45,7 +45,7 @@ Feature: Admin_PartnerFirm
   @knownissue
       #test data created in base
   Scenario: Verify Partner Firm Email Upon Driver Acceptance And Removal Research - Duo Scheduled
-    When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+    When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999355 | Testcustomertywd_appleWashA Shah|
     And As a driver "Testdrivertywd_appledc_a_web Sundara" perform below action with respective "Duo Scheduled" Delivery
@@ -75,7 +75,7 @@ Feature: Admin_PartnerFirm
   @knownissue
       #test data created in base
   Scenario: Verify Partner Firm Cancellation Email - Duo Scheduled
-    When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+    When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999356 | Testcustomertywd_appleWashB Shah|
     And As a driver "Testdrivertywd_appledc_a_web Sundard" perform below action with respective "Duo Scheduled" Delivery
@@ -318,7 +318,7 @@ Feature: Admin_PartnerFirm
       | Customer Phone | Customer2 Phone |
       | 9999992222     |                 |
 
-@ready
+@regression
 #stable
 Scenario: Verify that same trip is shown for other driver under Trips section When admin adds driver to duo trip
   When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location

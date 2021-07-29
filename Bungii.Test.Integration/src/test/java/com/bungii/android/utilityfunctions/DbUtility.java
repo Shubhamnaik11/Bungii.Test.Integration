@@ -3,6 +3,9 @@ package com.bungii.android.utilityfunctions;
 import com.bungii.common.manager.DbContextManager;
 import com.bungii.common.utilities.LogUtility;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class DbUtility extends DbContextManager {
     private static LogUtility logger = new LogUtility(DbUtility.class);
 
@@ -245,6 +248,15 @@ public class DbUtility extends DbContextManager {
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
+    public void getLastFivePushNotification(){
+        String queryString2= "select payload from pushnotification order by PNID DESC limit 10;";
+        List<HashMap<String,Object>> pushnotification = getDataFromMySqlServerMap(queryString2);
+        logger.detail("*** LAST 10 Pushnotifications from Pushnotifications table ***");
+        for (int i = 0; i < pushnotification.size(); i++) {
+            logger.detail(pushnotification.get(i).values().toString());
+        }
+    }
+
     public static String getPickupRef(String customerPhone){
         String custRef=getCustomerRefference(customerPhone);
         String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");

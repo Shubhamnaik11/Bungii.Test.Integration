@@ -36,9 +36,11 @@ public class AvailableTripsSteps extends DriverBase {
 			if (action.isAlertPresent()){ SetupManager.getDriver().switchTo().alert().dismiss();   Thread.sleep(1000);        }
 
 			String customerName=(String) cucumberContextManager.getScenarioContext("CUSTOMER");
+
 			String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
 		//	customerName="Vishal B";numberOfDriver="DUO";
-			selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));
+			//selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));--removing this since now full name is displaying
+			selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ") + 2));
 
 		//	selectBungiiFromList("DUO","Vishal B");
 
@@ -51,6 +53,35 @@ public class AvailableTripsSteps extends DriverBase {
 			error( "Trip Should be listed in Available Bungiis", "Trip is not displayed in available Bungii for customer " + customerName + " of "+ numberOfDriver +" type", true);
 		}
 	}
+
+	@Then("^Partner Portal name should be displayed in \"([^\"]*)\" section$")
+	public void partner_portal_name_should_be_display_in_something_section(String Screen) throws Throwable {
+		try {
+			switch (Screen) {
+				case "AVAILABLE BUNGIIS":
+				case "SCHEDULED BUNGIIS":
+				case "EN ROUTE":
+				case "ARRIVED":
+				case "LOADING ITEM":
+				case "DRIVING TO DROP OFF":
+				case "UNLOADING ITEM":
+					String partnerName = availableTripsPage.Partner_Name().getText();
+					String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
+					//testStepVerify.isEquals(partnerName,partnerNameExpected);
+					testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be display in " + Screen + " section", "Partner Portal name is displayed in " + Screen + " section", "Partner Portal name is not displayed in " + Screen + " section");
+					break;
+				default:
+					log("Pass correct screen", "Wrong screen has been Pass", true);
+					break;
+			}
+		}
+		catch (Exception ex){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "Partner Portal name is not displayed on "+Screen,
+					true);
+		}
+	}
+
 	@Then("^I should able to see \"([^\"]*)\" available trip$")
 	public void i_should_able_to_see_something_available_trip(String strArg1) throws Throwable {
 		try {
@@ -58,10 +89,13 @@ public class AvailableTripsSteps extends DriverBase {
 			List<WebElement> listOfBungii=availableTripsPage.Image_SelectBungiis();
 			switch (strArg1) {
 				case "two":
-					testStepAssert.isTrue(listOfBungii.size()==3,"There should be two available deliveries","There are two available deliveries", "There are no two available deliveries");
+					testStepAssert.isTrue(listOfBungii.size()==3,"There should be two available deliveries","There are two available deliveries", "There are no or more than two available deliveries");
+					break;
+				case "one":
+					testStepAssert.isTrue(listOfBungii.size()==2,"There should be one available deliveries","There are one available deliveries", "There are no or more than one available deliveries");
 					break;
 				case "zero":
-					testStepAssert.isTrue(listOfBungii.size()==1,"There should be zero available deliveries","There are zero available deliveries", "There are no zero available deliveries");
+					testStepAssert.isTrue(listOfBungii.size()==1,"There should be zero available deliveries","There are zero available deliveries", "There are more then one available deliveries");
 					break;
 				default:
 					throw new Exception(" UNIMPLEMENTED STEP");

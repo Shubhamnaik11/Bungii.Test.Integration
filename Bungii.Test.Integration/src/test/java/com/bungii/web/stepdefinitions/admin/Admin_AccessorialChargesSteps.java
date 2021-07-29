@@ -1,11 +1,8 @@
 package com.bungii.web.stepdefinitions.admin;
 
-import com.bungii.SetupManager;
-import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -14,27 +11,12 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
-import static com.bungii.web.utilityfunctions.DbUtility.*;
 
 public class Admin_AccessorialChargesSteps extends DriverBase {
 
@@ -55,10 +37,14 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 String amount = DataList.get(i).get("Amount").trim();
                 String feeType = DataList.get(i).get("Fee Type").trim();
                 String comment = DataList.get(i).get("Comment").trim();
+                String driver_cut = DataList.get(i).get("Driver Cut").trim();
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
+                action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
+                cucumberContextManager.setScenarioContext("NOTE",comment);
                 action.click(admin_accessorialChargesPage.Button_Save());
+                action.click(admin_accessorialChargesPage.Button_Confirm());
                 Thread.sleep(3000);
                 i++;
             }
@@ -74,7 +60,8 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     @Then("^I should see \"([^\"]*)\" section displayed$")
     public void i_should_see_something_section_displayed(String section) throws Throwable {
         testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Header_Section(),section, section+" should be displayed", section+" is displayed", section+" is not displayed");
-        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Message_Mandatory(),"Fields marked with * are mandatory.", "Fields marked with * are mandatory. should be displayed", "Fields marked with * are mandatory. is displayed", "Fields marked with * are mandatory. is not displayed");
+        //removed in Sprint47
+        //testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Message_Mandatory(),"Fields marked with * are mandatory.", "Fields marked with * are mandatory. should be displayed", "Fields marked with * are mandatory. is displayed", "Fields marked with * are mandatory. is not displayed");
     }
 
     @Then("^I should see following details in the Accessorial charges section$")
@@ -97,22 +84,37 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
     @And("^I search the delivery of Customer and view it$")
     public void i_search_the_delivery_of_customerAndView() throws Throwable {
+        try{
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         Thread.sleep(15000);
         action.clearSendKeys(admin_TripsPage.TextBox_Search(),pickuprequest+Keys.ENTER);
+        ///////////////////
+        Thread.sleep(5000);
+        utility.resetGeofenceDropdown();
         Thread.sleep(5000);
         //String status = "Payment Successful";
         action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]", customerName),PageBase.LocatorType.XPath));
         log("I search the delivery of Customer and view it","I searched the delivery of Customer and viewed it",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
     @And("^I search the delivery of Customer \"([^\"]*)\"$")
     public void i_search_the_delivery_of_customer_(String customer) throws Throwable {
+        try{
         Thread.sleep(10000);
         action.clearSendKeys(admin_TripsPage.TextBox_Search(),customer+Keys.ENTER);
         Thread.sleep(10000);
         log("I search the delivery of Customer","I searched the delivery of Customer "+ customer,false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I search the delivery of Customer$")
@@ -126,6 +128,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
     @When("^I click on \"([^\"]*)\" button on Accessorial Charges$")
     public void i_click_on_something_button_on_accessorial_charges(String button) throws Throwable {
+        try{
         switch(button.toUpperCase()) {
             case "SAVE":
             action.click(admin_accessorialChargesPage.Button_Save());
@@ -133,9 +136,15 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
         }
         log("I click on"+button+" button on Accessorial Charges","I clicked on"+button+" button on Accessorial Charges",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I should get following error for following accessorial charges fields values when saved$")
     public void i_should_get_following_error_for_following_accessorial_charges_fields_values_when_saved(DataTable data) throws Throwable {
+        try{
         List<Map<String, String>> DataList = data.asMaps();
         int i = 0;
         while (i < DataList.size()) {
@@ -180,15 +189,39 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
             }
         i++;
         }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^\"([^\"]*)\" should show total amount in the triprequest table in Database$")
     public void something_should_show_total_amount_in_the_triprequest_table_in_database(String strArg1) throws Throwable {
+        try{
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String expectedTotal = (String) cucumberContextManager.getScenarioContext("TOTAL_AMOUNT");
 
         String actualTotalAmount = dbUtility.getAccessorialCharge(pickuprequest);
         testStepAssert.isEquals("$"+actualTotalAmount,expectedTotal, "Total "+expectedTotal+" should be displayed", expectedTotal+" is displayed", expectedTotal+" is not displayed");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^\"([^\"]*)\" should show comment without quotes in the trippaymentdetails table in Database$")
+    public void something_should_show_comment_without_quotes_in_the_trippaymentdetails_table_in_database(String strArg1) throws Throwable {
+        try{
+        String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String note = (String) cucumberContextManager.getScenarioContext("NOTE");
 
+        String dbnote = dbUtility.getBusinessNotes(pickuprequest);
+        testStepAssert.isEquals(dbnote,note, "Total "+note+" should be displayed", note+" is displayed", note+" is not displayed");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 

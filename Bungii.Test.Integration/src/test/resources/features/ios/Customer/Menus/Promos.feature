@@ -10,12 +10,10 @@ Feature: Promos
   @regression
     #stable
   Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching Trip Having Promocode Applied To It
+    And I Switch to "customer" application on "ORIGINAL" devices
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
-    And I Switch to "customer" application on "ORIGINAL" devices
+  
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | Solo   | 2052 Welton Street Denver Colorado | 3650 New Center Point Colorado Springs  | denver   |
@@ -39,6 +37,8 @@ Feature: Promos
     And I Select "Home" from Customer App menu
     
     When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
@@ -71,7 +71,6 @@ Feature: Promos
     Then I should be navigated to "Bungii Completed" screen
     
     And I Switch to "customer" application on "same" devices
-    Then I wait for "2" mins
     Then I should be navigated to "Bungii Complete" screen
     And Bungii customer should see "correct details with promo" on Bungii completed page
     And I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -329,7 +328,7 @@ Feature: Promos
 
 
     
-  @regression
+  @ready
   Scenario Outline: Verify Already Applied Expired Promocode Is Removed From The Promos Screen
     And I am on the "LOG IN" page
     And I enter Username :8805368850 and  Password :{VALID}

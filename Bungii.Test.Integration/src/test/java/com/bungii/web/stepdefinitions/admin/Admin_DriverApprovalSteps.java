@@ -62,7 +62,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void i_click_something_button_against_the_applicant_name(String button) throws Throwable {
 
        // cucumberContextManager.setScenarioContext("LASTNAME", "KSqc");
-
+    try{
         //Search code
        action.click(adminDashboardPage.Link_ViewAllDriverRegistrations());
         String Lastname =  (String) cucumberContextManager.getScenarioContext("LASTNAME");
@@ -76,10 +76,16 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         }
         log("I click on "+button+" button against the applicant name",
                 "I have clicked on "+button+" button against the applicant name", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
     @When("^I click \"([^\"]*)\" button against the \"([^\"]*)\" applicant$")
     public void i_click_something_button_against_the_something_applicant(String strArg1, String applicantName) throws Throwable {
+        try{
         action.click(adminDashboardPage.Link_ViewAllDriverRegistrations());
         String[] name =  applicantName.split(" ");
         action.clearSendKeys(admin_GetAllBungiiDriversPage.TextBox_Search(),name[1]);
@@ -92,16 +98,24 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(applicantName));
                 break;
         }
-        log("I should be able to click "+strArg1+" against " + applicantName,"I click "+strArg1+ " against "+ applicantName, true);
+        log("I should be able to click "+strArg1+" against " + applicantName,"I click "+strArg1+ " against "+ applicantName, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click \"([^\"]*)\" button for the \"([^\"]*)\" driver$")
     public void i_click_something_button_for_the_something_driver(String strArg1, String applicantName) throws Throwable {
+        try{
         switch (strArg1) {
             case "Profile":
                 action.click(admin_GetAllBungiiDriversPage.Driver_Profile(applicantName));
                 break;
             case "Edit":
+                String Old_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+                cucumberContextManager.setScenarioContext("Old_Phone",Old_Phone_Number);
                 action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Edit());
                 break;
             case "Save":
@@ -112,7 +126,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 break;
 
         }
-        log("I should be able to click "+strArg1+" against " + applicantName,"I click "+strArg1+ " against "+ applicantName, true);
+        log("I should able to click "+strArg1+" against " + applicantName,"I have clicked "+strArg1+ " against "+ applicantName, false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I change the \"([^\"]*)\" phone number$")
@@ -120,10 +139,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
         action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Phone(),PropertyUtility.getDataProperties("driver.mobile.change"));
         //action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Save());
+        log("I should able to change "+strArg1+" phone number.","I have changed "+strArg1+" phone number.",true);
     }
 
     @And("^I enter confirm comment for edited phone and \"([^\"]*)\" it$")
     public void i_confirm_the_edited_phone(String State) throws Throwable {
+        try{
         //action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_updated_comment());
         switch (State) {
             case "Save":
@@ -134,15 +155,61 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment(), "Driver phone updated");
                 action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment_Cancel());
         }
+        log("I should able to enter confirm comment for edited phone and "+State+" it","I have entered confirm comment for the edited phone and "+State+" it",true);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I see updated driver phone number$")
+    public void i_see_updated_phone_number() throws Throwable {
+        try{
+        Thread.sleep(2000);
+        testStepAssert.isElementNotEnabled(admin_GetAllBungiiDriversPage.Driver_Phone(),"Driver phone field should be not enabled.","Driver phone field is not enabled.","Driver phone field is enabled");
+        String Edited_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+
+        testStepVerify.isEquals(Edited_Phone_Number,PropertyUtility.getDataProperties("driver.mobile.change"));
+        log("Driver phone number should get update.","Driver phone number is updated.",true);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I see unchanged driver phone number$")
+    public void i_see_unchanged_phone_number() throws Throwable {
+        try{
+        testStepAssert.isElementNotEnabled(admin_GetAllBungiiDriversPage.Driver_Phone(),"Driver phone field should not be enabled.","Driver phone field is not enabled.","Driver phone field is enabled");
+        String Display_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+
+        testStepVerify.isEquals(Display_Phone_Number,(String) cucumberContextManager.getScenarioContext("Old_Phone"));
+        log("Driver phone number should remain un change.","Driver phone number is unchanged.",true);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I cancel the edited phone number$")
     public void i_cancel_the_edited_phone_number() throws Throwable {
+        try{
         action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Cancel());
+
+        log("I should able to cancel the edited phone number","I have cancelled the edited phone number.",true);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should be directed to \"([^\"]*)\"$")
     public void i_should_be_directed_to_something(String screen) throws Throwable {
+        try{
         switch (screen) {
             case "Driver Verification Page":
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Title_DriverVerificationPage(true), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
@@ -179,10 +246,16 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 testStepAssert.isElementDisplayed(admin_partnerPortalPage.Label_PartnerListHeader(),"I should be navigated to "+screen, "I am navigated to "+ screen, "I am not navigates to "+ screen);
                 break;
         }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I verify and approve all the verification fields$")
     public void i_verify_and_approve_all_the_verification_fields() throws Throwable {
+        try{
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
@@ -206,10 +279,16 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
         log("I verify and approve all the verification fields",
                 "I have verified and approved all the verification fields", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click on the \"([^\"]*)\" Button$")
     public void iClickOnTheButton(String arg0) throws Throwable {
+        try{
         String Name = null, xpath=null;
         switch (arg0)
         {
@@ -271,11 +350,17 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         }
         log("I click on the "+arg0+ " button" ,
                 "I have clicked on the "+arg0+ " button");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
     @And("^I confirm the \"([^\"]*)\" action$")
     public void i_confirm_the_something_action(String strArg1) throws Throwable {
+        try{
         switch (strArg1)
         {
             case "Driver Application Approval":
@@ -292,9 +377,15 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         }
         log("I can confirm " + strArg1 + " action" ,
                 "I have confirmed " + strArg1 + " action");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^the \"([^\"]*)\" button is not visible$")
     public void i_check_if_something_button_is_visible(String strArg1) throws Throwable {
+        try{
         switch (strArg1)
         {
             case "Approve Application":
@@ -303,7 +394,14 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Resend Application":
                 testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Button_DriverResentButton(),"Resend Application button should be displayed","Resend Application button is displayed","Resend Application button is not displayed");
                 break;
-        }    }
+        }
+
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+}
 
 
 
@@ -311,6 +409,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         @Then("^the status of the driver application should be marked as \"([^\"]*)\"$")
         public void theStatusOfTheDriverApplicationShouldBeMarkedAs(String arg0) throws Throwable {
 
+        try{
         //Search code
             String Lastname =  (String) cucumberContextManager.getScenarioContext("LASTNAME");
             action.clearSendKeys(admin_GetAllBungiiDriversPage.TextBox_Search(),Lastname);
@@ -331,8 +430,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     testStepAssert.isElementDisplayed(admin_GetAllBungiiDriversPage.GridRow_BungiiPendingVerification(Lastname),"Pending Verification Status should be displayed","Pending Verification Status is displayed","Pending Verification Status is not displayed");
                     break;
             }
-        
 
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
          }
 
 
@@ -344,13 +447,20 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @When("^I enter the reject reason$")
     public void iEnterTheRejectReason() throws Throwable {
+        try{
         action.clearSendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejectDriverApplication(),"Invalid values found. Please review and resend the application");
         log("I enter the reject reason" ,
                 "I have I entered the reject reason");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the status of the field changes to \"([^\"]*)\"$")
     public void theStatusOfTheFieldChangesTo(String arg0) throws Throwable {
+        try{
         switch (arg0) {
             case "Accepted":
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"I check status of the field ","Status is accepted" , "Field is not accepted");
@@ -359,6 +469,11 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 testStepAssert.isElementValueEquals(admin_DriverVerificationPage.Status_Accepted(), "","I check status of the field ","Status is rejected" , "Field is not rejected");
         break;
         }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the status of the field resets to default$")
@@ -369,6 +484,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @And("^I verify all the fields except \"([^\"]*)\"$")
     public void i_verify_all_the_fields_except_something(String strArg1) throws Throwable {
+        try{
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
@@ -393,10 +509,16 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
         log("I can verify all the fields except DOB" ,
                 "I have verified all the fields except DOB");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I login as driver \"([^\"]*)\"$")
     public void i_login_as_driver_something(String driverName) throws Throwable {
+        try{
         utility.NavigateToDriverLogin();
         action.click(Page_Driver_Login.Tab_LogIn());
         switch(driverName) {
@@ -408,6 +530,11 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(Page_Driver_Login.Button_DriverLogin());
         log("I login as driver" ,
                 "I have logged in as driver");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 

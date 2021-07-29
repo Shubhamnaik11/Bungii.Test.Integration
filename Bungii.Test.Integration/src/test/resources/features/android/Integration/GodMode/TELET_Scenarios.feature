@@ -1,7 +1,5 @@
     @android
-    @general
-    @bungii
-    #These feature will run in Goa geofence and STABLE
+    #These feature will run in Goa geofence and STABLE and will run with regression and not bungii in android
     Feature: Driver Assignments with TELET Overlap
       #Customer D and C - Testcustomertywd_appleand_D Android 9999990074 and Testcustomertywd_appleand_C Android 9999992222
       # Driver D and C  - Testdriver_goa_d Android_test and Testdriver_goa_c Android_test
@@ -97,7 +95,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
   
-	  @regression
+	  @ready
    #Stable
     Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip at same time
       
@@ -144,7 +142,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
   
-	  @regression
+	  @ready
    #Stable
     Scenario: Verify that TELET time of duo scheduled when trip is not started and non controlled driver is assigned to another scheduled trip at same time
 
@@ -192,7 +190,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
   
-	  @regression
+	  @ready
    #Stable
     Scenario: Verify that TELET time of duo scheduled when trip is not started and both driver is assigned to another scheduled trip at same time
      
@@ -238,7 +236,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
   
-	  @regression
+	  @ready
    #Stable
       Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip TELET overlap
        
@@ -284,7 +282,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9999990074      | 9999992222      |
   
-	  @regression
+	  @ready
    #Stable
       Scenario: Verify that TELET time of duo scheduled when trip is not started and non controlled driver is assigned to another scheduled trip at same time
   
@@ -330,7 +328,7 @@
           | 9999990074      | 9999992222      |
   
   
-	  @regression
+	  @ready
    #Stable
       Scenario: Verify that TELET time of duo scheduled when trip is not started and both driver is assigned to another scheduled trip at same time
         Given I Switch to "driver" application on "same" devices
@@ -376,7 +374,7 @@
           | 9999990074      | 9999992222      |
   
   
-	  @regression
+	  @ready
    #Stable
       Scenario: Verify that TELET is impacted of solo scheduled when trip is not started and driver is assigned to another scheduled trip at same time
         Given I Switch to "driver" application on "same" devices

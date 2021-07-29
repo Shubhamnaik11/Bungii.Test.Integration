@@ -8,8 +8,7 @@ Feature: Scheduled DUO Bungii in Goa Geofence
   Background:
   When I Switch to "customer" application on "same" devices
   
-  
-  @failed
+
   @ready
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Background [2 Devices]
     Given that duo schedule bungii is in progress
@@ -45,7 +44,6 @@ Feature: Scheduled DUO Bungii in Goa Geofence
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @failed
   @ready
   Scenario: DUO DELIVERY CANCELLATION | Verify Customer And Other Driver Is Notified When One Of The Driver Cancels The Scheduled Duo Bungii [2 Devices]
     Given that duo schedule bungii is in progress
@@ -79,7 +77,6 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     When I Switch to "driver" application on "same" devices
     And I click on notification for "Customer" for "DRIVER CANCELLED BUNGII"
 
-  @failed
   @ready
   Scenario: Verify Other Driver Notification In Background When One Of The Driver Cancels Duo Scheduled Bungii [2 Devices]
     Given that duo schedule bungii is in progress
@@ -135,7 +132,6 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
-  @FAILED2702
   @ready
   Scenario Outline: Verify Customer Amount Calculation For Scheduled Duo Bungii With Promo Code
     When I Switch to "driver" application on "same" devices
@@ -193,6 +189,9 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     And I slide update button on "EN ROUTE" Screen
     
     When I Switch to "driver" application on "Driver2" devices
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select delivery "1" from scheduled deliveries
+    And I start selected Bungii
     And I slide update button on "EN ROUTE" Screen
     
     When I Switch to "driver" application on "ORIGINAL" devices
@@ -229,8 +228,7 @@ Feature: Scheduled DUO Bungii in Goa Geofence
       | PROMO CODE        |
       | PROMO DOLLAR OFF  |
       | PROMO PERCENT OFF |
-  
-  @FAILED2702
+
   @ready
   Scenario: Verify Control Driver Can Contact Customer Of A Requested Scheduled Duo Bungii
     Given that duo schedule bungii is in progress
@@ -246,7 +244,8 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     When I logged in Customer application using  "customer-duo" user
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    
+
+    And I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "EN ROUTE" trip status screen
     Then correct details should be displayed to customer for "DUO DRIVER 1-CALL DRIVER"
     And correct details should be displayed to customer for "DUO DRIVER 1-TEXT DRIVER"

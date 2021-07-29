@@ -50,10 +50,11 @@ public class Partner_LoginSteps extends DriverBase {
 
     @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
     public void i_navigate_to_something(String page, String url) throws Throwable {
-        switch (page)
+      try{  switch (page)
         {
             case "Partner":
-               String partnerUrl =  utility.NavigateToPartnerLogin(url);
+                String partnerUrl =  utility.NavigateToPartnerLogin(url);
+                cucumberContextManager.setScenarioContext("IS_PARTNER","TRUE");
                 pass("I should be navigate to " + page + " portal configured for "+ url ,
                         "I navigated to " + page + " portal configured for "+ url +" ["+partnerUrl+"]", true);
                 break;
@@ -64,14 +65,19 @@ public class Partner_LoginSteps extends DriverBase {
                 break;
             default:break;
         }
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
-
+    }
 
 
     @When("^I enter \"([^\"]*)\" password on Partner Portal$")
     public void WhenIEnterPasswordOnPartnerPortal(String str)
     {
+        try{
+        SetupManager.getObject().manage().window().maximize();
         switch (str)
         {
             case "valid":
@@ -82,14 +88,24 @@ public class Partner_LoginSteps extends DriverBase {
                 break;
             default: break;
         }
-        log("I should able to enter "+str+" driver Password on Partner portal","I entered "+str +" partner Password on Partner portal", true);
-
+        log("I should able to enter "+str+" driver Password on Partner portal","I entered "+str +" partner Password on Partner portal", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I click on close button on service level$")
     public void i_click_on_close_button_on_service_level(){
+        try{
         action.click(Page_Partner_Dashboard.Button_close());
-        log("I should able to click on close button on service level.","Service level should get close on clicked on close button." , true);
+        log("I should able to click on close button on service level.","Service level should get close on clicked on close button." , false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I change the service level to \"([^\"]*)\" in \"([^\"]*)\" portal$")
@@ -116,6 +132,18 @@ public class Partner_LoginSteps extends DriverBase {
            error("Step should be successful", "Unable to change the service " + Service_Name+ "for" +Site_Name+ "portal",
                    true);
        }
+
+    @And("^I change the service level to \"([^\"]*)\"$")
+    public void i_change_the_service_level(String Service_Name) throws InterruptedException {
+        try{
+        action.click(Page_Partner_Dashboard.Dropdown_ServiceLevel(Service_Name));
+        cucumberContextManager.setScenarioContext("Selected_service",Service_Name);
+        log("I should able to change the service level to "+Service_Name,"Service name should get changed to "+Service_Name , false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click \"([^\"]*)\" button on Partner Portal$")
@@ -136,6 +164,8 @@ public class Partner_LoginSteps extends DriverBase {
                                 //action.getElementByXPath("//label[contains(text(),'Delivery Cost:')]//following::strong").getText();
                         Price_Estimated_Page = Price_Estimated_Page.substring(1);
                         cucumberContextManager.setScenarioContext("Price_Estimate_Page", Price_Estimated_Page);
+                        String Estimate_distance = action.getText(Page_Partner_Dashboard.Label_Distance()).replace(" miles","");//calculate values as per the displayed miles value to avoid mismatch in calculation
+                        cucumberContextManager.setScenarioContext("Distance_Estimate_Page", Estimate_distance);
 
                         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                     } else {
@@ -260,6 +290,18 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Incorrect_Password"));
                     break;
                 case "see Delivery Details screen":
+                    /////////////////////////////WorkAround to eliminate logout on Track deliveries/////////////////////////////////////
+                    Thread.sleep(5000);
+                    if(SetupManager.getObject().getCurrentUrl().contains("login"))
+                    {
+                        action.clearSendKeys(Page_Partner_Login.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                        action.click(Page_Partner_Login.Button_Sign_In());
+                        action.click(Page_Partner_Done.Dropdown_Setting());
+                        action.click(Page_Partner_Done.Button_Track_Deliveries());
+                        logger.detail("PARTNER RELOGIN AS A WORKAROUND TO ELIMINATE FALSE KICKOUT");
+                    }
+                    /////////////////////////////WorkAround Ends/////////////////////////////////////
+
                     String PP_Site = (String) cucumberContextManager.getScenarioContext("SiteUrl");
                     if (PP_Site.equalsIgnoreCase("normal")) {
                         testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
@@ -330,6 +372,11 @@ public class Partner_LoginSteps extends DriverBase {
                     testStepAssert.isElementDisplayed(Page_Partner_Delivery_List.Row_DeliveryList(scheduled_time,customer), "Trip for "+ customer +"[Scheduled Time :"+scheduled_time+"] should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
                     break;
                 case "see the trip details":
+                    String emailPickupAddress = action.getText(Page_Partner_Delivery.Text_Pick_Address());
+                    cucumberContextManager.setScenarioContext("EmailPickupAddress",emailPickupAddress);
+                    String emailDeliveryAddress = action.getText(Page_Partner_Delivery.Text_Delivery_Address());
+                    cucumberContextManager.setScenarioContext("EmailDeliveryAddress",emailDeliveryAddress);
+
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Delivery_Details_Dashboard()), PropertyUtility.getMessage("Delivery_Details_Dashboard"));
                     break;
                 case "see the cancel delivery warning message":
@@ -352,6 +399,10 @@ public class Partner_LoginSteps extends DriverBase {
                     break;
                 case "see Delivery cancellation failed message":
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Delivery_Cancellation_Failed()), PropertyUtility.getMessage("Message_Delivery_Cancellation_Failed"));
+                    break;
+                case "Your delivery has been canceled message":
+                    Thread.sleep(2000);
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Pop_Message_Delivery_Cancelled()), PropertyUtility.getMessage("Message_Delivery_Cancelled"));
                     break;
                 case "see Service Level":
                     //String xpath ="//div[@class='service-level form-group']/div/p";
@@ -394,13 +445,19 @@ public class Partner_LoginSteps extends DriverBase {
 
     @And("^I should logout from Partner Portal$")
     public void i_should_logout_from_partner_portal() throws Throwable {
+        try{
         action.click(Page_Partner_Done.Dropdown_Setting());
         //Thread.sleep(5000);
         utility.PartnerLogout();
 
         testStepAssert.isElementDisplayed(action.getElementByXPath("//button[@id='login']"), "SIGN IN button should be displayed on partner portal", "SIGN IN button is displayed on partner portal", "SIGN IN button is not displayed on partner portal");
         //action.getElementByXPath(Page_Partner_Login.Button_Sign_In())
-        log("I should be logged out from Partner Portal ","I clicked ", true);
+        log("I should be logged out from Partner Portal ","I clicked ", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should be navigated to Login screen$")
@@ -437,19 +494,30 @@ public class Partner_LoginSteps extends DriverBase {
     @And("^I click on Filter and select check/unchecked all checkbox$")
     public void i_click_on_filter() throws Throwable {
         //throw new PendingException();
+        try{
         action.click(Page_Partner_Done.Dropdown_Filter());
         action.click(Page_Partner_Done.Checkbox_Check_UnCheck_All());
         log("I click on Filter and select check/unchecked all checkbox","I have clicked on Filter and select check/unchecked all checkbox", false);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
     @And("^I click on Apply button on Filter$")
     public void i_click_on_apply_button_on_filter() throws Throwable {
+        try{
         //throw new PendingException();
         action.click(Page_Partner_Done.Button_Apply());
 
         log("I click on Apply button on Filter","I have clicked on Apply button on Filter", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should not able to see Filter screen$")

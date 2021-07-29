@@ -6,6 +6,7 @@ Feature: Admin_Accessorial_Charges
 	Given I am logged in as Admin
 	
 @regression
+  #CORE-2447 : issue still exist in qaauto
 Scenario: Verify Accessorial Charges Can be added to Payment Successful Solo Scheduled Deliveries
 When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 | Bungii Time   | Customer Phone | Customer Name |
@@ -24,15 +25,16 @@ And I view the Deliveries list on the admin portal
   And I search the delivery of Customer and view it
 Then I should see "Accessorial Charges" section displayed
 When I add following accessorial charges and save it
-|Amount|Fee Type         |Comment|
-| 10   | Excess Wait Time| Charges due to excess waiting |
-| 20.5   | Cancelation | Charges due to Cancelation |
-| 25.65  | Mountainous | Charges due to mountainous reason |
-| 100   | Other | Charges due to other reasons |
+|Amount	|Fee Type         |Comment							  |Driver Cut|
+| 10   	| Excess Wait Time| Charges due to Excess wait		  |	2		 |
+| 20.5  | Cancelation 	  | Charges due to Cancelation 		  |4.5       |
+| 25.65 | Mountainous 	  | Charges due to mountainous reason |10.0      |
+| 100   | Other 		  | Charges due to other reasons      |20        |
 Then I should see following details in the Accessorial charges section
 |Excess Wait Time|Cancelation	|Mountainous	| Other | Total |
 | $10            |$20.5         |$25.65         |$100  |$156.15|
   And "accessorial_fee_amount" should show total amount in the triprequest table in Database
+  And "business_notes" should show comment without quotes in the trippaymentdetails table in Database
   
   @regression
   Scenario: Verify Accessorial Charges Field Validations - Blank
@@ -61,6 +63,7 @@ Then I should see following details in the Accessorial charges section
 	  | 10    | Blank           | Blank          | Fee Type |Please select fee type. |
 	  | 10    | Blank           | This is Comment| Fee Type |Please select fee type. |
 	  | 10    | Excess Wait Time| Blank          | Comment |Please add a comment.   |
+	  | 10   | Excess Wait Time| Accessorial charges Comments: Accessorial charges comment having more than 500 characters in Excess Wait Time field column entered to identify whether it causes issues like "CORE-2446 SPRINT43:: QA environment:: Saving Comments of 500 characters for accessorial fees gives Application Error" Please note that If data gets validation message  without any application error then it means that the above issue no longer exists and it is working as expected. !!! Accessorial charges Comments Ends, Thank you!!!!|Comment|Comment exceeds 500 characters.|
   
   
   @regression

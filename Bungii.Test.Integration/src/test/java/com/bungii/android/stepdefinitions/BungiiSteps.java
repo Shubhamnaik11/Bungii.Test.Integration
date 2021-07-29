@@ -47,7 +47,7 @@ public class BungiiSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     MessagesPage messagesPage=new MessagesPage();
     EstimatePage estimatePage = new EstimatePage();
-    DbUtility dbutility = new DbUtility();
+    DbUtility dbUtility = new DbUtility();
 
     @Then("^for a Bungii I should see \"([^\"]*)\"$")
     public void forABungiiIShouldSee(String arg0) throws Throwable {
@@ -225,6 +225,21 @@ public class BungiiSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in tapping "+arg0+ " on Driver Home screen", true);
+        }
+    }
+    @And("^I reject \"([^\"]*)\" request$")
+    public void bungiiDriverRequestrejection(String arg0) {
+        try {
+            if (arg0.equalsIgnoreCase("On Demand Bungii") ) {
+
+                            Thread.sleep(5000);
+                            action.click(Page_BungiiRequest.Button_Reject());
+                    }
+            log("Bungii driver should able to reject " + arg0 + " request", "Bungii driver rejects  " + arg0+ " request",true);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
@@ -232,7 +247,7 @@ public class BungiiSteps extends DriverBase {
     @And("^Bungii Driver \"([^\"]*)\" request$")
     public void bungiiDriverRequest(String arg0) {
         try {
-            if (arg0.equalsIgnoreCase("accepts On Demand Bungii")||arg0.equalsIgnoreCase("rejects On Demand Bungii")) {
+            if (arg0.equalsIgnoreCase("accepts On Demand Bungii")||arg0.equalsIgnoreCase("rejects On Demand Bungii") ||arg0.equalsIgnoreCase("views On Demand Bungii")) {
                 boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
                 if (!isDisplayed)
                     i_click_on_notification_for_something("on demand trip");
@@ -245,7 +260,9 @@ public class BungiiSteps extends DriverBase {
                             Thread.sleep(5000);
                             action.click(Page_BungiiRequest.Button_Accept());
                             break;
-
+                        case "views On Demand Bungii":
+                            Thread.sleep(5000);
+                            break;
                         case "rejects On Demand Bungii":
                             Thread.sleep(5000);
                             action.click(Page_BungiiRequest.Button_Reject());
@@ -317,6 +334,8 @@ public class BungiiSteps extends DriverBase {
         try {
             String expecteMessage="";
             action.showNotifications();
+            dbUtility.getLastFivePushNotification();
+
             log("Checking notifications","Checking notifications",true);
             expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
@@ -342,11 +361,11 @@ public class BungiiSteps extends DriverBase {
                 String pickupRequestID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
                 if (pickupRequestID == "") {
-                    pickupRequestID = dbutility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH"));
+                    pickupRequestID = dbUtility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH"));
                 }
 
                 if (pickupRequestID != "") {
-                    String pushNotificationContent = dbutility.getCustomerPushNotificationContent(CustomerPhoneNum, pickupRequestID);
+                    String pushNotificationContent = dbUtility.getCustomerPushNotificationContent(CustomerPhoneNum, pickupRequestID);
 
                     testStepAssert.isTrue(pushNotificationContent.contains(expecteMessage), "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "VIRTUAL PUSH NOTIFICATION NOT RECEIVED : " + expecteMessage + " message");
 
@@ -367,6 +386,7 @@ public class BungiiSteps extends DriverBase {
         try {
             String expecteMessage="";
             action.showNotifications();
+            dbUtility.getLastFivePushNotification();
             log("Checking notifications","Checking notifications",true);
             expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
@@ -392,7 +412,7 @@ public class BungiiSteps extends DriverBase {
                 String pickupRequestID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
                 if (pickupRequestID == "") {
-                    pickupRequestID = dbutility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH"));
+                    pickupRequestID = dbUtility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PUSH"));
                 }
 
                 if (pickupRequestID != "") {
@@ -402,7 +422,7 @@ public class BungiiSteps extends DriverBase {
                         driverPhoneNum = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PUSH");
 
                         if (driverPhoneNum != null) {
-                            String pushNotificationContent = dbutility.getDriverPushNotificationContent(driverPhoneNum, pickupRequestID);
+                            String pushNotificationContent = dbUtility.getDriverPushNotificationContent(driverPhoneNum, pickupRequestID);
 
                             testStepAssert.isTrue(pushNotificationContent.contains(expecteMessage), "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find virtual notification with " + expecteMessage + " message");
 
@@ -426,7 +446,9 @@ public class BungiiSteps extends DriverBase {
         try {
             String expecteMessage="";
                     action.showNotifications();
-                    log("Checking notifications","Checking notifications",true);
+            dbUtility.getLastFivePushNotification();
+
+            log("Checking notifications","Checking notifications",true);
                     expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
@@ -459,6 +481,8 @@ public class BungiiSteps extends DriverBase {
         try {
             String expecteMessage="";
             action.showNotifications();
+            dbUtility.getLastFivePushNotification();
+
             boolean notificationClick=false;
             log("Checking notifications","Checking notifications",true);
             expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
@@ -514,6 +538,7 @@ public class BungiiSteps extends DriverBase {
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
 
             action.showNotifications();
+            dbUtility.getLastFivePushNotification();
 
             log("Checking notifications", "Checking notifications", true);
             expecteMessage = utility.getExpectedNotification(expectedNotification.toUpperCase());
@@ -542,15 +567,15 @@ public class BungiiSteps extends DriverBase {
     public void notification_for_something_for_something_should_be_displayed(String actor, String actionToPerfrom) {
         try {
             action.showNotifications();
-
+            dbUtility.getLastFivePushNotification();
             boolean isDisplayed = isNotificationTextPresent(actionToPerfrom);
             String expectedMessage= (String) cucumberContextManager.getScenarioContext("EXPECTED_MESSAGE");
 
-            testStepVerify.isTrue(isDisplayed, actor + " should be notified for " + expectedMessage, actor + " was notified for " + expectedMessage, "Not able to get notification with text for '" + expectedMessage + "' for" + actor);
+            testStepAssert.isTrue(isDisplayed, actor + " should be notified for " + expectedMessage, actor + " was notified for " + expectedMessage, "Not able to get notification with text for '" + expectedMessage + "' for" + actor);
             action.hideNotifications();
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in fetching notification", true);
 
         }
     }
@@ -615,7 +640,8 @@ public class BungiiSteps extends DriverBase {
                 case "Home screen":
                     Thread.sleep(5000);
                     action.textToBePresentInElementText(Page_DriverHome.Title_Status(), PropertyUtility.getMessage("driver.home.title.online"));
-                    testStepVerify.isElementTextEquals(Page_DriverHome.Title_Status(), PropertyUtility.getMessage("driver.home.title.online"), "Driver status should be Online", "Driver status is Online", "Driver status is offline");
+                    String status = action.getText(Page_DriverHome.Title_Status());
+                    testStepAssert.isTrue(((status==PropertyUtility.getMessage("driver.home.title.online"))||status==PropertyUtility.getMessage("driver.home.title.offline")), "Driver status should be Online Or Offline", "Driver status is Online Or Offline", "Driver status is not online/offline");
                    // testStepVerify.isElementTextEquals(Page_DriverHome.Button_OnlineOffline(), PropertyUtility.getMessage("driver.home.gooffline"), "Go offline button on driver should be enabled", "Go Offline button on driver home page is Enabled", "Go Offline button on driver home page is disabled");
                     break;
                 case "Enroute screen":

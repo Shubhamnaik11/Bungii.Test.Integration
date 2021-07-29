@@ -49,23 +49,7 @@ Feature: CustomerSignup
     And I enter "invalid" data in mandatory fields on Signup Page
     Then the new user should see "validations for all fields"
 
-  @email
-  @regression
-  Scenario: Verify Customer Signup With Valid Promo Code
-    When I enter "unique" customer phone number on Signup Page
-    And I enter "valid" data in mandatory fields on Signup Page
-    And I enter "ValidPercent" promo code on Signup Page
-    And I tap on the "Sign Up" button on Signup Page
-    And I enter "valid" Verification code
-    And I tap on the "Verification Continue" Link
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    Then The user should be logged in
-    #When I tap on "Menu" > "Promos" link
-    When I tap on the "ACCOUNT>PROMOS" link
-    Then "ValidPercent" promo code should be displayed
-    When I click on "i" icon
-    Then The "Info Message" is displayed
-    And Customer should receive signup email
+
 
   @regression
   Scenario: Verify Signup With Invalid Referral Code
@@ -131,7 +115,26 @@ Feature: CustomerSignup
     And I Select "Customers" from admin sidebar
     And I Search for customer
     Then I verify the trip count
-
+  
+  @email
+  @ready
+    @nonstable
+  Scenario: Verify Customer Signup With Valid Promo Code
+    When I enter "unique" customer phone number on Signup Page
+    And I enter "valid" data in mandatory fields on Signup Page
+    And I enter "ValidPercent" promo code on Signup Page
+    And I tap on the "Sign Up" button on Signup Page
+    And I enter "valid" Verification code
+    And I tap on the "Verification Continue" Link
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    Then The user should be logged in
+    #When I tap on "Menu" > "Promos" link
+    When I tap on the "ACCOUNT>PROMOS" link
+    Then "ValidPercent" promo code should be displayed
+    When I click on "i" icon
+    Then The "Info Message" is displayed
+    And Customer should receive signup email
+    
   #used one off
   #Know issue, no alert
   @knownissue

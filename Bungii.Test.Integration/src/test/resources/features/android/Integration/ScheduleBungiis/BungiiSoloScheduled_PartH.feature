@@ -31,10 +31,10 @@ Feature: SoloScheduled Part H
   
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
+      | CUSTOMER1_PHONE | 8888889916      |
     ########################################################################
   
-  @regression
+  @ready
   Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -42,8 +42,6 @@ Feature: SoloScheduled Part H
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid kansas 2" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
     Then for a Bungii I should see "Arrived screen"
     
     And I Switch to "driver" application on "same" devices
@@ -67,7 +65,7 @@ Feature: SoloScheduled Part H
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
   
-  @regression
+  @ready
     @nonstable
   Scenario: Verify Non-Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :enroute
     Given that duo schedule bungii is in progress
@@ -97,8 +95,41 @@ Feature: SoloScheduled Part H
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then "Home" page should be opened
+    
+  @ready
+    #stable
+  Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Solo Delivery
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | kansas  | Accepted     | 15 min ahead |
+    
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
+    And I open the trip for "Testcustomertywd_appleyyhGZP Stark" customer
+    And I remove current driver and researches Bungii
+
+    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+    
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Testdrivertywd_appleks_rathree Test" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And Bungii Driver "Start Schedule Bungii" request
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+    Then Bungii driver should see "Scheduled Bungii screen"
+    
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
   
-  @regression
+  @ready
   Scenario: Verify Non-Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -121,7 +152,7 @@ Feature: SoloScheduled Part H
     When I click "YES" on the alert message
     And I Select "HOME" from driver App menu
     Then Bungii driver should see "Home screen"
-  
+    
     When I go to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
@@ -130,42 +161,6 @@ Feature: SoloScheduled Part H
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-  
-  
-  @ready
-  Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Solo Trip
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time  |
-      | kansas  | Accepted     | 15 min ahead |
-    
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
-    And I open the trip for "Testcustomertywd_appleyyhGZP Stark" customer
-    And I remove current driver and researches Bungii
-
-    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
-      | driver1 state |
-      | Accepted      |
-    
-    When I switch to "ORIGINAL" instance
-    When I Switch to "driver" application on "same" devices
-
-    And I am on the LOG IN page on driver app
-    And I am logged in as "Testdrivertywd_appleks_rathree Test" driver
-
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    And Bungii Driver "Start Schedule Bungii" request
-    And I click the "Cancel" button on "update" screen
-    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "YES" on the alert message
-    Then Bungii driver should see "Scheduled Bungii screen"
-    
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-
-  
 
  
   

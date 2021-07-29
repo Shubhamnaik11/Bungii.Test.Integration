@@ -7,9 +7,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   Background:
     #When I clear all notification
     When I Switch to "customer" application on "same" devices
-  
-  
-  @regression
+
+
+  @ready
     #Stable
     #move to end
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
@@ -154,7 +154,6 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
       | CUSTOMER1_PHONE |                 |
   
   @knownissue
-    @failures
     #stable
   Scenario: Email : Verify Poor rating email for Driver For Solo Trip
     Given that ondemand bungii is in progress

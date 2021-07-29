@@ -87,7 +87,42 @@ public class CommonSteps extends DriverBase {
         ((AndroidDriver) SetupManager.getDriver()).pushFile(ANDROID_PHOTO_PATH + "/" + img.getName(), img);
 
     }
+    @When("^I terminate \"([^\"]*)\" app on \"([^\"]*)\" devices$")
+    public void i_terminate_app(String appName, String device) {
+        boolean isApplicationIsInForeground = false;
 
+        try {
+            if(action.isElementPresent(phonePage.Container_Notification(true)))
+            {
+                ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                logger.detail("Attempted to hide container");
+
+            }
+            if (!device.equalsIgnoreCase("same")) {
+                i_switch_to_something_instance(device);
+                Thread.sleep(5000);
+            }
+            switch (appName.toUpperCase()) {
+                case "DRIVER":
+                    ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    break;
+                case "CUSTOMER":
+                    ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+
+
+                pass("Terminated " + appName + " application", "Termination of " + appName + " application is successful");
+
+            //    Thread.sleep(5000);
+            //     testStepVerify.isTrue(isApplicationIsInForeground, "Switch to " + appName + " application", "Switch to " + appName + " application is successful", "Switch to " + appName + " application was not successfull");
+        } catch (Throwable e) {
+        }
+
+    }
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
         boolean isApplicationIsInForeground = false;
@@ -101,7 +136,7 @@ public class CommonSteps extends DriverBase {
             }
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
-                Thread.sleep(5000);
+                Thread.sleep(3000);
             }
             switch (appName.toUpperCase()) {
                 case "DRIVER":
@@ -716,7 +751,7 @@ public class CommonSteps extends DriverBase {
             if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
             } else if (actualMessage.equals("")) {
-                actualMessage = action.getText(driverHomePage.Alert_NewBungii());
+                actualMessage = action.getText(driverHomePage.Alert_NewBungii(true));
             } else {
                 actualMessage = bungiiRequest.Alert_Msg(true).getText();
             }
@@ -758,10 +793,10 @@ public class CommonSteps extends DriverBase {
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
 
-            testStepVerify.isEquals(actualMessage, expectedMessage,
-                    "Alert with text" + expectedMessage + "should be displayed",
+            testStepAssert.isEquals(actualMessage, expectedMessage,
+                    "Alert with text " + expectedMessage + "should be displayed",
                     "Alert with text ," + expectedMessage + " should be displayed",
-                    "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
+                    "Alert Message is not displayed, actual Message " + actualMessage + " Expected is "
                             + expectedMessage);
 
         } catch (Throwable e) {
@@ -995,6 +1030,8 @@ public class CommonSteps extends DriverBase {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             driver.navigate().back();
+            log("I tap on device back button",
+                    "I tapped on device back button", false);
         } catch (Exception e) {
 
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1187,7 +1224,7 @@ public class CommonSteps extends DriverBase {
         try {
             boolean isCorrectPage = false;
             isCorrectPage = utility.isCorrectPage(screen);
-            testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+            testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I should be navigated to " + screen, "I was not navigated to " + screen + " screen ");
 
         } catch (Throwable e) {
@@ -1212,8 +1249,14 @@ public class CommonSteps extends DriverBase {
     @And("^Customer should receive \"([^\"]*)\" email$")
     public void customer_should_receive_something_email(String emailSubject) throws Throwable {
         String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
-        action.navigateTo(emailBody);
-        String url = action.getCurrentURL();
+        String url = "";
+        if(emailBody!=null) {
+            action.navigateTo(emailBody);
+            url = action.getCurrentURL();
+        }
+        else
+            testStepAssert.isTrue(false,"Email should be received","Email is received :"+ emailSubject,"Email is not received : "+ emailSubject);
+
         String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String survey_link = null;
         switch(geofence)
@@ -1245,11 +1288,11 @@ public class CommonSteps extends DriverBase {
         String estimatedTime=(String)cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME");
         String actualLoadUnloadTime="";
         String estimatedLoadUnloadTime=(String)cucumberContextManager.getScenarioContext("BUNGII_LOADTIME");/*ratingValue="3";*/
-        String tripDetailsLink=extractUrls(emailBody).get(0);
-        if(emailBody== null)
+        if(emailBody== "")
         {
             testStepAssert.isFail("Email : "+ emailSubject + " not received");
         }
+        String tripDetailsLink=extractUrls(emailBody).get(0);
         String message = null;
        // message = utility.getExpectedPoorRatingMail(driverName, customerName, ratingValue, tripDetailsLink);
         testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");

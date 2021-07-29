@@ -210,7 +210,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step, "+arg0+ " is not displayed", true);
+            error("Step  Should be successful", arg0+ " is not displayed", true);
         }
     }
 
@@ -515,6 +515,12 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("goa.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("goa.customer.phone"));
                     break;
+                case "johnny oliver":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.nontestcustomer.phone"),
+                            PropertyUtility.getDataProperties("goa.nontestcustomer.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("goa.nontestcustomer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("goa.nontestcustomer.phone"));
+                    break;
 
                 case "Testcustomertywd_apple_AGQFCg Test":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone"),
@@ -676,7 +682,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
-                    cucumberContextManager.setScenarioContext("GEOFENCE","goa");
+                    //cucumberContextManager.setScenarioContext("GEOFENCE","goa");
 
                     break;
                 default:
@@ -924,7 +930,10 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
     bungiiEstimatePage.Link_AddPhoto(true);*/
     action.click(bungiiEstimatePage.Option_Gallery());
     action.click(bungiiEstimatePage.Option_LARGEIMAGEFOLDER());
-    action.click(bungiiEstimatePage.IMAGE_LOCATOR());
+    //logger.detail(SetupManager.getDriver().getPageSource());
+    Random ran = new Random();
+    int random = ran.nextInt(2)+1;
+    action.click(bungiiEstimatePage.IMAGE_LOCATOR(random));
     bungiiEstimatePage.Link_AddPhoto(true);
 
 }
@@ -1108,6 +1117,9 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
                     break;
                 case "1 HOUR DELAY":
                     utility.selectTimeValue(60);
+                    break;
+                case "2 HOUR DELAY":
+                    utility.selectTimeValue(120);
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

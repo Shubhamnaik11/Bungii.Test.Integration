@@ -34,6 +34,7 @@ public class Admin_RefundSteps extends DriverBase {
 
     @When("^I select \"([^\"]*)\" radio button$")
     public void i_select_something_radio_button(String radioButton) throws Throwable {
+        try{
         switch (radioButton)
         {
             case "Partial Refund":
@@ -45,12 +46,18 @@ public class Admin_RefundSteps extends DriverBase {
                 partial= false;
                 break;
         }
-        log("I select "+radioButton,"I Selected "+radioButton+" on Refund popup" ,true );
+        log("I select "+radioButton,"I Selected "+radioButton+" on Refund popup" ,false );
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
 
     }
 
     @When("^I enter \"([^\"]*)\" as \"([^\"]*)\" percentage$")
     public void i_enter_something_as_something_percentage(String field, String value) throws Throwable {
+        try{
         switch (field)
         {
             case "Customer Refund Amount":
@@ -65,10 +72,16 @@ public class Admin_RefundSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_BungiiEarnings()).trim());
 
         log("I enter value in "+field,"I entered  "+value+" in field "+field+" on Refund popup" ,true );
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
     @And("^I enter \"([^\"]*)\" as \"([^\"]*)\" dollars$")
     public void i_enter_something_as_something_dollars(String field, String value) throws Throwable {
+        try{
         switch (field)
         {
             case "Customer Refund Amount":
@@ -80,11 +93,17 @@ public class Admin_RefundSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("REFUND_PERCENTAGE",action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()).trim());
         cucumberContextManager.setScenarioContext("DRIVER_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim());
         cucumberContextManager.setScenarioContext("BUNGII_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_BungiiEarnings()).trim());
-        log("I enter value in "+field,"I entered  "+value+" in field "+field+" on Refund popup" ,true );
+        log("I enter value in "+field,"I entered  "+value+" in field "+field+" on Refund popup" ,false );
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
 
     }
     @And("^I enter \"([^\"]*)\" as \"([^\"]*)\"")
     public void i_enter_something_as_something(String field, String value) throws Throwable {
+        try{
         switch (field)
         {
             case "Bungii Internal Notes":
@@ -96,22 +115,34 @@ public class Admin_RefundSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("BUNGII_DRIVER_NOTE",value);
                 break;
         }
-        log("I enter value in "+field,"I entered  "+value+" in field "+field+" on Refund popup" ,true );
+        log("I enter value in "+field,"I entered  "+value+" in field "+field+" on Refund popup" ,false );
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @When("^I update \"([^\"]*)\" as \"([^\"]*)\" dollars$")
     public void i_update_something_as_something_dollars(String field, String value) throws Throwable {
+        try{
         switch (field)
         {
             case "Earnings":
                 action.clearSendKeys(admin_refundsPage.TextBox_DriverEarnings(),value+Keys.TAB);
                 break;
         }
-        log("I enter value in "+field,"I entered  "+value+" in field "+field+" on Refund popup" ,true );
+        log("I enter value in "+field,"I entered  "+value+" in field "+field+" on Refund popup" ,false );
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
     @When("^I update \"([^\"]*)\" as origional value of amount$")
     public void i_update_something_as_origional_value(String field) throws Throwable {
+        try{
         String value = "";
         switch (field)
         {
@@ -120,12 +151,17 @@ public class Admin_RefundSteps extends DriverBase {
                 action.clearSendKeys(admin_refundsPage.TextBox_DriverEarnings(),value+Keys.TAB);
                 break;
         }
-        log("I update value in "+field,"I updated  "+value+" in field "+field+" on Refund popup" ,true );
-
+        log("I update value in "+field,"I updated  "+value+" in field "+field+" on Refund popup" ,false );
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I update \"([^\"]*)\" as \"([^\"]*)\" percentage$")
     public void i_update_something_as_something_percentage_of_amount(String field, String value) throws Throwable {
+        try{
         switch (field)
         {
             case "Earnings":
@@ -133,11 +169,16 @@ public class Admin_RefundSteps extends DriverBase {
                 break;
         }
         log("I update value in "+field,"I updated  "+value+" in field "+field+" on Refund popup" ,true );
-
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @When("^I update \"([^\"]*)\" as origional value of percentage$")
     public void i_update_something_as_origional_value_of_percentage(String field) throws Throwable {
+        try{
         String value = "";
         switch (field)
         {
@@ -147,16 +188,26 @@ public class Admin_RefundSteps extends DriverBase {
                 break;
         }
         log("I updated origional value in "+field,"I updated  "+value+" in field "+field+" on Refund popup" ,true );
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^The \"([^\"]*)\" section should be displayed$")
     public void the_something_section_should_be_displayed(String header) throws Throwable {
-       testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header, "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
+       try{
+           testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header, "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
         String driverEarning = action.getText(admin_refundsPage.Label_Driver()).trim().replace("$","");
         String bungiiEarning = action.getText(admin_refundsPage.Label_Bungii()).trim().replace("$","");
         cucumberContextManager.setScenarioContext("DRIVER_EARNINGS_BEFORE",driverEarning);
         cucumberContextManager.setScenarioContext("BUNGII_EARNINGS_BEFORE",bungiiEarning);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
     @Then("^The \"([^\"]*)\" section should not be displayed$")
@@ -167,7 +218,7 @@ public class Admin_RefundSteps extends DriverBase {
 
     @Then("^\"([^\"]*)\" fields should be auto calculated based on Delivery Total and Driver Earnings$")
     public void something_fields_should_be_auto_calculated_based_on_delivery_total_and_driver_earnings(String field) throws Throwable {
-
+try{
         String deliveryTotal = action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$","");
         String customerInputAmount = action.getAttributeValue(admin_refundsPage.TextBox_RefundAmount()).trim();
         String customerInputPercentage = action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()).trim();
@@ -184,13 +235,18 @@ public class Admin_RefundSteps extends DriverBase {
                 testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_BungiiPercentage()),String.valueOf(df.format(calculatedBungiiPercentage)), "Bungii Earnings Percentage should be displayed", "Bungii Earnings Percentage is displayed","Bungii Earnings Percentage is not displayed");
                 break;
         }
+} catch(Exception e){
+    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+    error("Step should be successful", "Error performing step,Please check logs for more details",
+            true);
+}
     }
 
 
 
     @And("^\"([^\"]*)\" field should be auto calculated based on Delivery Total and Driver Earnings$")
     public void something_field_should_be_auto_calculated_based_on_delivery_total_and_driver_earnings(String field) throws Throwable {
-
+try{
         String deliveryTotal = action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$","");
         String customerInputAmount = action.getAttributeValue(admin_refundsPage.TextBox_RefundAmount()).trim();
         String customerInputPercentage = action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()).trim();
@@ -208,6 +264,11 @@ public class Admin_RefundSteps extends DriverBase {
                 testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()),String.valueOf(df.format(calculatedAmountPecentage)), "Customer refund amount percentage should be displayed", "Customer refund amount percentage is displayed","Customer refund amount percentage is not displayed");
                 break;
         }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^Notes text area should be displayed$")
@@ -234,6 +295,7 @@ public class Admin_RefundSteps extends DriverBase {
 
     @And("^I click on \"([^\"]*)\" button on Issue Refund popup$")
     public void i_click_on_something_button_on_issue_refund_popup(String button) throws Throwable {
+        try{
         switch (button) {
             case "Continue":
                 action.click(admin_refundsPage.Button_Continue());
@@ -243,11 +305,17 @@ public class Admin_RefundSteps extends DriverBase {
                 break;
         }
         log("I click on "+button + " button ","I clicked on "+button + " button " ,false );
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
     @And("^I should see Original Delivery Charge & Customer Refund & Total Customer Charge$")
     public void i_should_see_original_delivery_charge_customer_refund_total_customer_charge() throws Throwable {
+        try{
         DecimalFormat df = new DecimalFormat("0.00");
         String refundPercentage = (String)  cucumberContextManager.getScenarioContext("REFUND_PERCENTAGE");
         Double totalCustomerCharge = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")))-Double.parseDouble(String.valueOf((cucumberContextManager.getScenarioContext("REFUND_AMOUNT"))));
@@ -255,23 +323,34 @@ public class Admin_RefundSteps extends DriverBase {
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundPercentage()),"(- "+String.valueOf(refundPercentage)+" % )", "Customer Refund Percentage should be displayed", "Customer Refund Percentage is displayed","Customer Refund Percentage is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundAmount()),"-$"+df.format(Double.valueOf((String)cucumberContextManager.getScenarioContext("REFUND_AMOUNT"))), "Customer Refund Amount should be displayed", "Customer Refund Amount is displayed","Customer Refund Amount is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_TotalCustomerCharge()),"$"+df.format(totalCustomerCharge), "Total Customer Charge should be displayed", "Total Customer Charge is displayed","Total Customer Charge is not displayed");
-
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I should see Original Delivery Charge & Customer Refund & Total Customer Charge for duo delivery$")
     public void i_should_see_original_delivery_charge_customer_refund_total_customer_charge_for_duodelivery() throws Throwable {
+        try{
         DecimalFormat df = new DecimalFormat("0.00");
+        Thread.sleep(5000);
         Double refundPercentage =  (Double.valueOf((String)  cucumberContextManager.getScenarioContext("REFUND_PERCENTAGE"))+  Double.valueOf((String)  cucumberContextManager.getScenarioContext("REFUND_PERCENTAGE2")))/2;
         Double refundAmount = Double.valueOf((String)cucumberContextManager.getScenarioContext("REFUND_AMOUNT"))+Double.valueOf((String)cucumberContextManager.getScenarioContext("REFUND_AMOUNT2"));
         Double totalCustomerCharge = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")))-Double.parseDouble(String.valueOf((cucumberContextManager.getScenarioContext("REFUND_AMOUNT"))))-Double.parseDouble(String.valueOf((cucumberContextManager.getScenarioContext("REFUND_AMOUNT2"))));
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_OriginalDeliveryCharge()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")), "Origional Delivery Charge should be displayed", "Origional Delivery Charge is displayed","Origional Delivery Charge is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundPercentage()),"(- "+String.valueOf(refundPercentage)+" % )", "Customer Refund Percentage should be displayed", "Customer Refund Percentage is displayed","Customer Refund Percentage is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundAmount()),"-$"+df.format(refundAmount), "Customer Refund Amount should be displayed", "Customer Refund Amount is displayed","Customer Refund Amount is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_TotalCustomerCharge()),"$"+df.format(totalCustomerCharge), "Total Customer Charge should be displayed", "Total Customer Charge is displayed","Total Customer Charge is not displayed");
-
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_OriginalDeliveryCharge()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")), "Origional Delivery Charge should be displayed", "Origional Delivery Charge is displayed","Origional Delivery Charge is not displayed");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I should see breakdown of Before and After Refund earnings$")
     public void i_should_see_breakdown_of_before_and_after_refund_earnings() throws Throwable {
+        try{
         DecimalFormat df = new DecimalFormat("0.00");
         Double bungiiEarnings = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS")));
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverBeforeRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS_BEFORE")), "Driver Earnings Before should be displayed", "Driver Earnings Before is displayed","Driver Earnings Before is not displayed");
@@ -281,7 +360,11 @@ public class Admin_RefundSteps extends DriverBase {
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiAfterRefund()),"$"+df.format(bungiiEarnings), "Bungii Earnings After should be displayed", "Bungii Earnings After is displayed","Bungii Earnings After is not displayed");
          else
             testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiAfterRefund()),"- ($"+df.format(bungiiEarnings).toString().replace("-","")+")", "Bungii Earnings After should be displayed", "Bungii Earnings After is displayed","Bungii Earnings After is not displayed");
-
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @Then("^the values should be reverted to origional value$")
     public void the_values_should_be_reverted_to_origional_value() throws Throwable {
@@ -334,14 +417,21 @@ public class Admin_RefundSteps extends DriverBase {
     }
     @And("^I check \"([^\"]*)\"$")
     public void i_check_something(String strArg1) throws Throwable {
+        try{
         action.click(admin_refundsPage.Checkbox_same());
         cucumberContextManager.setScenarioContext("DRIVER2_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings2()).trim());
         cucumberContextManager.setScenarioContext("DRIVER_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim());
         log("I check  "+strArg1 ,"I checked "+strArg1  ,false );
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
 
     }
     @When("^I enter \"([^\"]*)\" as \"([^\"]*)\" for both drivers$")
     public void i_enter_something_as_something_for_both_drivers(String field, String value) throws Throwable {
+        try{
         switch (field)
         {
             case "Bungii Internal Notes":
@@ -355,16 +445,26 @@ public class Admin_RefundSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("BUNGII_DRIVER_NOTE2",value);
                 break;
         }
-        log("I enter value in "+field +" for both drivers","I entered  "+value+" in field "+field+" on Refund popup for both drivers" ,true );
+        log("I enter value in "+field +" for both drivers","I entered  "+value+" in field "+field+" on Refund popup for both drivers" ,false );
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I should see breakdown of Before and After Refund earnings for both driver$")
     public void i_should_see_breakdown_of_before_and_after_refund_earnings_for_both_driver() throws Throwable {
+        try{
         DecimalFormat df = new DecimalFormat("0.00");
         String driverEarningsBefore = String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS_BEFORE"));
         Double eachDriverEarning = Double.parseDouble(driverEarningsBefore) / 2;
         Double bungiiEarnings = 0.00;
-        bungiiEarnings = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS")));
+        Double bungiiEarnings1 = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS")));
+        //Double bungiiEarnings2 = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS2")));
+        String earnings2 = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS2"));
+        Double bungiiEarnings3 =   earnings2 =="" ? 0 : Double.parseDouble(earnings2);
+        bungiiEarnings = bungiiEarnings1+bungiiEarnings3;
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverBeforeRefund()),"$"+df.format(eachDriverEarning), "Driver 1 Earnings Before should be displayed", "Driver Earnings Before is displayed","Driver Earnings Before is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverAfterRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS")), "Driver 1 Earnings After should be displayed", "Driver Earnings After is displayed","Driver Earnings Aftere is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_Driver2BeforeRefund()),"$"+df.format(eachDriverEarning), "Driver 2 Earnings Before should be displayed", "Driver Earnings Before is displayed","Driver Earnings Before is not displayed");
@@ -376,7 +476,11 @@ public class Admin_RefundSteps extends DriverBase {
         else
             testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiAfterRefund()),"- ($"+df.format(bungiiEarnings).toString().replace("-","")+")", "Bungii Earnings After should be displayed", "Bungii Earnings After is displayed","Bungii Earnings After is not displayed");
 
-
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I should see Bungii Driver Note for both drivers$")
     public void i_should_see_bungii_driver_note_for_both_drivers() throws Throwable {
@@ -386,6 +490,7 @@ public class Admin_RefundSteps extends DriverBase {
     }
     @And("^I enter \"([^\"]*)\" as \"([^\"]*)\" dollars from second driver$")
     public void i_enter_something_as_something_dollars_from_second_driver(String field, String value) throws Throwable {
+        try{
         switch (field)
         {
             case "Customer Refund Amount":
@@ -398,7 +503,12 @@ public class Admin_RefundSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("DRIVER2_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings2()).trim());
         cucumberContextManager.setScenarioContext("BUNGII_EARNINGS2",action.getAttributeValue(admin_refundsPage.TextBox_BungiiEarnings2()).trim());
 
-        log("I enter value in "+field,"I entered  "+value+" in field "+field+" from second driver on Refund popup" ,true );
+        log("I enter value in "+field,"I entered  "+value+" in field "+field+" from second driver on Refund popup" ,false );
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 }

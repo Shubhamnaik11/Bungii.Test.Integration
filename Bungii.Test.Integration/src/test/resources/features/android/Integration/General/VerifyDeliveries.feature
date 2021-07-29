@@ -32,7 +32,8 @@ Feature: Delivery Flows
     #When I Cancel selected Bungii
     When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
-    
+    And I click on device "Back" button
+  
     And I open Admin portal and navigate to "Scheduled Deliveries" page
     
     And I Cancel Bungii with following details
@@ -59,13 +60,14 @@ Feature: Delivery Flows
       | Same      | Enroute      |
     
     And I Open "customer" application on "same" devices
-    And I wait for "3" mins
+    And I wait for "4" mins
     When I am on customer Log in page
+    And I wait for "4" mins
     When I am logged in as "valid" customer
-    And I wait for "3" mins
+    And I wait for "4" mins
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I wait for "3" mins
+    And I wait for "2" mins
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select 1st trip from scheduled bungii
     When I wait for 1 hour for Bungii Schedule Time
@@ -77,7 +79,7 @@ Feature: Delivery Flows
   
   
     
-  @regression
+  @ready
    #stable
   Scenario: TELET : Verify If Driver receives More Than One Requests He Is Not Able To Accept The Bungii If He Has Already Accepted A Bungii whos TELET Time Overlaps - Case:DUO
     #trip 1

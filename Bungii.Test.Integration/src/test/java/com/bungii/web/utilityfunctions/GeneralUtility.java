@@ -3,6 +3,7 @@ package com.bungii.web.utilityfunctions;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.EmailUtility;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.*;
@@ -14,6 +15,7 @@ import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_LoginPage;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -42,9 +44,11 @@ import java.util.regex.Pattern;
 import static com.bungii.web.utilityfunctions.DbUtility.*;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.CREATE;
+import static com.bungii.common.manager.ResultManager.error;
 
 public class GeneralUtility extends DriverBase {
     Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
+    private static LogUtility logger = new LogUtility(com.bungii.android.manager.ActionManager.class);
     Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage();
     DbUtility dbUtility = new DbUtility();
     ActionManager action = new ActionManager();
@@ -102,7 +106,12 @@ public class GeneralUtility extends DriverBase {
         return adminURL;
     }
 
+    public String getCurrentUrl() throws InterruptedException {
 
+        Thread.sleep(5000);
+        String adminURL = SetupManager.getObject().getCurrentUrl();
+        return adminURL;
+    }
     public void DriverLogin(String Phone, String Password) {
         String driverURL = GetDriverUrl();
 
@@ -568,6 +577,77 @@ public class GeneralUtility extends DriverBase {
         return emailMessage;
     }
 
+    public String getExpectedPartnerPortalCanceledEmailContentWithDriver(String partner_Name,String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String driverName,String driverPhone,String driverLicencePlate,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalCanceledEmailWithDriver.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%PartnerName%",partner_Name)
+                            .replaceAll("%ScheduledDate%",scheduled_Date)
+                            .replaceAll("%PickupAddress%",pickup_Address)
+                            .replaceAll("%DropupAddress%",dropup_Address)
+                            .replaceAll("%CustomerName%",customer_Name)
+                            .replaceAll("%CustomerPhone%",customer_Phone)
+                            .replaceAll("%DriverName%",driverName)
+                            .replaceAll("%DriverPhone%",driverPhone)
+                            .replaceAll("%DriverLicencePlate%",driverLicencePlate)
+                            .replaceAll("%ItemsToDeliver%",items_To_Deliver)
+                            .replaceAll("%PickupContactName%",pickup_Contact_Name)
+                            .replaceAll("%PickupContactPhone%",pickup_Contact_Phone);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to read email for Partner Cancel delivery with driver",
+                    true);
+        }
+
+        return emailMessage;
+    }
+
+    public String getExpectedPartnerPortalCanceledEmailContentWithoutDriver(String partner_Name,String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalCanceledEmailWithoutDriver.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%PartnerName%",partner_Name)
+                            .replaceAll("%ScheduledDate%",scheduled_Date)
+                            .replaceAll("%PickupAddress%",pickup_Address)
+                            .replaceAll("%DropupAddress%",dropup_Address)
+                            .replaceAll("%CustomerName%",customer_Name)
+                            .replaceAll("%CustomerPhone%",customer_Phone)
+                            .replaceAll("%ItemsToDeliver%",items_To_Deliver)
+                            .replaceAll("%PickupContactName%",pickup_Contact_Name)
+                            .replaceAll("%PickupContactPhone%",pickup_Contact_Phone);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to read email for Partner Cancel delivery without driver",
+                    true);
+        }
+
+        return emailMessage;
+    }
+
     public String getExpectedFailedTripEmailContent(String pickupId,String pickupRef,String pickupStatus,String customerName,String customerPhone,String pickupLocation,String pickupAddress)
     {
         String emailMessage = "";
@@ -827,7 +907,7 @@ public class GeneralUtility extends DriverBase {
     public double bungiiEstimate(String tripDistance, String loadTime, String estTime, String Promo) {
         //get bungii type and current geofence type.
         String bungiiType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
-        String currentGeofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get minimum cost,Mile value,Minutes value of Geofence
         double minCost = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.minimum.cost")),
                 perMileValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.miles")),
@@ -968,6 +1048,7 @@ public class GeneralUtility extends DriverBase {
     public void resetGeofenceDropdown(){
         action.click(admin_geofencePage.List_Geofence());
         action.click(admin_geofencePage.Button_Clear());
+        action.click(admin_geofencePage.Button_ApplyGeofence());
     }
     public void selectGeofenceDropdown(String geofence){
         action.click(admin_geofencePage.List_Geofence());

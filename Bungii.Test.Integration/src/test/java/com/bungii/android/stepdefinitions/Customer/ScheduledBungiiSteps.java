@@ -260,6 +260,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                     tripType = data.get("Trip Type");
             action.scrollToTop();
             selectBungiiTime(Integer.parseInt(day), "05", "30", "PM", tripType);
+            log("I confirm trip for " + day +" and type "+tripType, "I confirmed trip for " + day +" and type "+ tripType);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -387,7 +388,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error Occured While Requesting Bungii. Probable rootcause : Payment card error on braintree",
+            error("Step  Should be successful", "Error Occured While Requesting Bungii. Check Screenshot for more details",
                     true);
         }
     }
@@ -398,7 +399,7 @@ public class ScheduledBungiiSteps extends DriverBase {
            switch (buttonName){
 
                case "ACCEPT":
-                   Thread.sleep(6000);
+                   Thread.sleep(15000);
                    action.click(estimatePage.Button_BungiiAccept());
                    break;
 

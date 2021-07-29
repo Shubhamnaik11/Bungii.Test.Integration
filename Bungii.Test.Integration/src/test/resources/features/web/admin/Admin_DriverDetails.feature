@@ -88,44 +88,47 @@ Feature: Admin_DriverDetails
       | Bungii Completed |
     Then The Driver Trip List page should display the trip in "Payment Successful" state
 
-  @ready
+  @regression
+    #stable
   Scenario: Verify Driver Search On Various Pages
     When I navigate to following pages one by one
       |Page |
       | Dashboard    |
     And I enter "drivers" "first name" in the "Dashboard search" box
     Then I should see "driver first name" listed on the "Dashboard" page
-
+    And I click on "Dashboard" page
     When I enter "drivers" "last name" in the "Dashboard search" box
     Then I should see "driver last name" listed on the "Dashboard" page
 
     When I navigate to following pages one by one
       |Page |
-      | Trips |
-    And I enter "drivers" "first name" in the "Trips search" box
-    Then I should see "driver first name" listed on the "Trips" page
+      | All Deliveries |
+    And I enter "drivers" "first name" in the "Deliveries search" box
+    Then I should see "driver first name" listed on the "Deliveries" page
 
-    When I enter "drivers" "last name" in the "Trips search" box
-    Then I should see "driver last name" listed on the "Trips" page
+    When I enter "drivers" "last name" in the "Deliveries search" box
+    Then I should see "driver last name" listed on the "Deliveries" page
 
-    @ready
-    Scenario: Verify Admin can edit and change the driver phone number
-      When I search driver "Testdrivertywd_appledc_a_drve Driver"
-      And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
-      And I click "Edit" button for the "Testdrivertywd_appledc_a_drve Driver" driver
-      Then I change the "Testdrivertywd_appledc_a_drve Driver" phone number
-      And I click "Save" button for the "Testdrivertywd_appledc_a_drve Driver" driver
-      And I enter confirm comment for edited phone and "Save" it
+  @regression
+  Scenario: Verify Admin can edit and change the driver phone number
+    When I search driver "Testdrivertywd_appledc_a_drve Driver"
+    And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    And I click "Edit" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    Then I change the "Testdrivertywd_appledc_a_drve Driver" phone number
+    And I click "Save" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    And I enter confirm comment for edited phone and "Save" it
+    Then I see updated driver phone number
 
-  @ready
+  @regression
   Scenario: Verify Admin can edit and cancel the driver phone number
     When I search driver "Testdrivertywd_appledc_a_drve Driver"
     And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
     And I click "Edit" button for the "Testdrivertywd_appledc_a_drve Driver" driver
     Then I change the "Testdrivertywd_appledc_a_drve Driver" phone number
     And I click "Cancel" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    Then I see unchanged driver phone number
 
-    @ready
+  @ready
   Scenario: Verify Admin can edit and cancel the driver phone number by unsaving the comment
     When I search driver "Testdrivertywd_appledc_a_drve Driver"
     And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
@@ -134,3 +137,4 @@ Feature: Admin_DriverDetails
     And I click "Save" button for the "Testdrivertywd_appledc_a_drve Driver" driver
     And I enter confirm comment for edited phone and "Cancel" it
     And I click "Cancel" button for the "Testdrivertywd_appledc_a_drve Driver" driver
+    Then I see unchanged driver phone number

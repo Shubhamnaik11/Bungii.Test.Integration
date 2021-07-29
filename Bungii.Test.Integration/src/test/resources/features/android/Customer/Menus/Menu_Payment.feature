@@ -2,9 +2,9 @@
 Feature: Menu_Payment
 Scenarios on Payment Methods
 
-  #@regression
-  @knownissue
-  Scenario: Verify Customer Can Change Default Payment Card Added To New One
+  @ready
+#stable
+   Scenario: Verify Customer Can Change Default Payment Card Added To New One
     Given I am on customer Log in page
     And I am logged in as "valid" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -29,7 +29,8 @@ Scenarios on Payment Methods
     #And I tap on "Menu" > "Logout" link
 
   #commented this due to base to auto data issue
-  @knownissue
+  @BrowserstackDoesNotSupport
+    #donotexecute
   Scenario Outline: Verify Customer Payment Method Deletion
     Given I am on Sign up page
     When I enter "unique" customer phone number on Signup Page
@@ -63,7 +64,8 @@ Scenarios on Payment Methods
       | Scenario       | Card Detail                | Card Expiry       |CVV|Postal Code|
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
   
-  @knownissue
+  @BrowserstackDoesNotSupport
+    #donotexecute
   Scenario Outline: Verify Customer Payment Method Addition With Valid Card Details
     Given I am logged in as "valid" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -86,7 +88,8 @@ Scenarios on Payment Methods
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
       | VALID_visa     | valid visa card number     | valid expiry date |valid cvv|valid postal code|
   
-  @knownissue
+  @BrowserstackDoesNotSupport
+    #donotexecute
   Scenario: Verify Customer Payment Method Addition With Invalid Card Number
     Given I am logged in as "valid" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -98,7 +101,8 @@ Scenarios on Payment Methods
     Then I should see "invalid card error" on Payment page
   
   
-  @knownissue
+  @BrowserstackDoesNotSupport
+    #donotexecute
   Scenario:  Verify Customer Payment Method Addition With Invalid Card Expiry
     Given I am logged in as "valid" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -109,7 +113,8 @@ Scenarios on Payment Methods
     And I enter "valid card number" on Card Details page
     Then I should see "no option to add previous year" on Payment page
   
-  @knownissue
+  @BrowserstackDoesNotSupport
+    #donotexecute
   Scenario: Verify Customer Payment Method Addition With Fraud Card Number
     Given I am logged in as "valid" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist

@@ -56,6 +56,8 @@ public class EstimateSteps extends DriverBase {
             enterLoadingTime(loadTime);
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
+            String BungiiType = (String)cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+            verifyDisclaimer(BungiiType);
             clickAcceptTerms();
             strTime = enterTime(time);
             strTime=strTime.replace("am","AM").replace("pm","PM");
@@ -297,25 +299,16 @@ public class EstimateSteps extends DriverBase {
                 case "today - after working hour":
                     //selectBungiiTime(0, "11", "45", "PM");
 
-                    if(browserstack=="true"){
-                        selectBungiiTime(0, "23", "45", "");
-                        log("I select time for trip as 23:45", "I selected time for trip as 23:45");
-                    }
-                    else {
                         selectBungiiTime(0, "11", "45", "PM");
                         log("I select time for trip as 11:45  pm", "I selected time for trip as 11:45  pm");
-                    }
+
 
                     break;
                 case "tommorow - before working hour":
-                    if(browserstack=="true"){
-                        selectBungiiTime(1, "00", "00", "");
-                        log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
-                    }
-                    else {
+
                         selectBungiiTime(1, "12", "00", "AM");
                         log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
-                    }
+
                     break;
                 case "today+5":
                     selectBungiiTime(5, "", "", "");
@@ -1102,7 +1095,6 @@ public class EstimateSteps extends DriverBase {
         try {
             action.click(estimatePage.Row_TimeSelect());
             action.click(estimatePage.Button_Set());
-           // action.click(estimatePage.Text_TimeValue());
             String time=action.getValueAttribute(estimatePage.Text_TimeValue());
             Date date = getNextScheduledBungiiTimeForGeofence();
             String strTime = bungiiTimeDisplayInTextArea(date);
@@ -1118,13 +1110,15 @@ public class EstimateSteps extends DriverBase {
     @And("^I calculate the schedule time$")
     public void I_calculate_the_schedule_time() throws Throwable {
         try {
-            cucumberContextManager.setScenarioContext("MIN_TIME_DUO","30");
-            cucumberContextManager.setScenarioContext("MIN_TIME_SOLO","30");
-            String time=action.getValueAttribute(estimatePage.Text_TimeValue());
-            Date date = getNextScheduledBungiiTimeForGeofence();
-            String strTime = bungiiTimeDisplayInTextArea(date);
-            cucumberContextManager.setScenarioContext("CALCULATED_TIME",strTime);
-            cucumberContextManager.setScenarioContext("DISPLAYED_TIME",time);
+            cucumberContextManager.setScenarioContext("MIN_TIME_DUO", "30");
+            cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", "30");
+
+                String time = action.getValueAttribute(estimatePage.Text_TimeValue());
+                Date date = getNextScheduledBungiiTimeForGeofence();
+                String strTime = bungiiTimeDisplayInTextArea(date);
+                cucumberContextManager.setScenarioContext("CALCULATED_TIME", strTime);
+                cucumberContextManager.setScenarioContext("DISPLAYED_TIME", time);
+
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1144,7 +1138,7 @@ public class EstimateSteps extends DriverBase {
                 if(displayedTime.contains("a.m.")||displayedTime.contains("p.m.")) {
                     strTime = strTime.replace("am", "a.m.").replace("pm", "p.m.").replace("AM", "a.m.").replace("PM", "p.m.");
                 }
-                if(strTime.contains("GMT"))
+                if(strTime.contains("GMT")||strTime.contains("CDT")||strTime.contains("CST"))
                 strTime = utility.getGmtTime(strTime);
                 testStepAssert.isEquals(displayedTime, strTime,strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
             }
@@ -1192,7 +1186,7 @@ public class EstimateSteps extends DriverBase {
             isElementPresent = checkIfElementIsPresent("TERMS ON");
         }
         String value = getElementValue("TERMS AND CONDITION");
-        String expectedMsg = PropertyUtility.getMessage("customer.terms.checkbox.text");
+        String expectedMsg = PropertyUtility.getMessage("customer.terms.checkbox.text.new");
         boolean isValueCorrect = value.equals(expectedMsg);
 
         testStepVerify.isTrue(isElementPresent,
@@ -1201,7 +1195,7 @@ public class EstimateSteps extends DriverBase {
                 "Verify Terms & Condition checkBox is not " + expectedValue);
         testStepVerify.isTrue(isValueCorrect,
                 " Terms & Condition value Should be " + PropertyUtility.getMessage("customer.terms.checkbox.text"),
-                " Terms & Condition value is " + PropertyUtility.getMessage("customer.terms.checkbox.text") + "as expected",
+                " Terms & Condition value is " + PropertyUtility.getMessage("customer.terms.checkbox.text.new") + "as expected",
                 "'Terms & Condition' value is not matching ,expected is " + PropertyUtility.getMessage("customer.terms.checkbox.text")
                         + "but actual is" + value);
 
@@ -1546,12 +1540,24 @@ public class EstimateSteps extends DriverBase {
     public void clickAcceptTerms() {
         action.swipeUP();
         if(!estimatePage.CheckBoxOff_Terms().isSelected()) {
+            testStepVerify.isEquals(action.getText(estimatePage.Text_Checkbox_Terms()),PropertyUtility.getDataProperties("customer.checkbox"));
             action.click(estimatePage.CheckBoxOff_Terms());
             logger.detail("Checkbox Terms Selected : true ");
         }
         else
         {
             logger.detail("Checkbox Terms Selected [Existing] : true ");
+        }
+    }
+
+    public void verifyDisclaimer(String Type) {
+        if(Type.equalsIgnoreCase("solo")){
+            testStepVerify.isEquals(action.getValueAttribute(estimatePage.Text_Solo_Disclaimer()),PropertyUtility.getDataProperties("customer.solo.disclaimer"));
+            logger.detail("Disclaimer for "+Type+":"+action.getValueAttribute(estimatePage.Text_Solo_Disclaimer()));
+        }
+        else{
+            testStepVerify.isEquals(action.getValueAttribute(estimatePage.Text_Duo_Disclaimer()),PropertyUtility.getDataProperties("customer.duo.disclaimer"));
+            logger.detail("Disclaimer for "+Type+":"+action.getValueAttribute(estimatePage.Text_Duo_Disclaimer()));
         }
     }
 

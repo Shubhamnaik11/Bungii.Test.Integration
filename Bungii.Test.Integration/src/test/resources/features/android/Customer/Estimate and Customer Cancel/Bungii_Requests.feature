@@ -1,6 +1,4 @@
 @android
-@general
-@bungii
     #These feature will run in Boston geofence
 Feature: Bungii Requests
 	  
@@ -93,7 +91,7 @@ Feature: Bungii Requests
 	  | Customer Phone | Customer2 Phone |
 	  | 8805368840     |                 |
 	  
-	  @regression
+	  @ready
 	  Scenario: Verify Driver Can Reject Ondemand Bungii Request
 	  Given I am on customer Log in page
 	  When I am logged in as "valid boston" customer

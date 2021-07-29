@@ -42,7 +42,7 @@ Feature: DriverMenu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
   
-  @ready
+  @regression
     #stable
   Scenario: Verify Driver App Menu Option Navigation - FAQ
     When I Select "FAQ" from driver App menu

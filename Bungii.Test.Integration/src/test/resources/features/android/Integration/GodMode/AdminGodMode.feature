@@ -111,7 +111,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
   
-      @regression
+      @ready
         #web
       Scenario: Verify that the list displays all completed Bungiis in descending order of date
       #Given I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -123,7 +123,7 @@
           | Bungii Completed   | Bungii Completed   |
         
   
-      @regression
+      @ready
      #stable
       Scenario: Verify that the driver can be assigned to a duo trip irrespective of driver home address
         Given I am on customer Log in page
@@ -266,6 +266,7 @@
   
   
       @ready
+        #stable
     #web scenario
       Scenario: DUO: Verify that if non control driver starts delivery and control driver is then removed by Admin and assigned with new driver then noncontroller driver becomes control driver
         When I request "duo" Bungii as a customer in "goa" geofence
@@ -282,8 +283,11 @@
         And I Select "Scheduled Trip" from admin sidebar
         And I open the trip for "Testcustomertywd_appleand_A Android" the customer
         And I remove "control" driver and researches Bungii
+  
+        Then I wait for "2" mins
+        And I open the trip for "Testcustomertywd_appleand_A Android" the customer
         And I Select "Edit Trip Details" option
-        And I check if a validation message "Driver 1: Add driver below or Bungii driver search will continue" is shown
+        And I check if a validation message "Driver 2: Add driver below or Bungii driver search will continue" is shown
         And I assign driver for the "control" trip
         And I click on "VERIFY" button
         And the "Your changes are good to be saved." message is displayed
@@ -318,7 +322,8 @@
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
   
-	  @ready
+	  @regression
+        #stable
     #web scenario
 	  Scenario: Verify that Admin is NOT allowed to add multiple driver for solo bungii and more than 2 drivers for Duo Delivery
 		When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
@@ -348,8 +353,8 @@
 		  | 9393939393      | 9999992222      |
   
   
-      @regression
-   #stable
+      @ready
+      #stable
         #web
       Scenario: Verify that changing date and time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time [Admin can Override]
         When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
@@ -382,7 +387,7 @@
           | 9393939393     |  9999992222     |
   
       @regression
-   #stable
+      #stable
         #web
       Scenario: Verify that changing date_time for a scheduled bungii for which the customer has a conflicting bungii during the newly selected time
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
@@ -397,14 +402,30 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I open the trip for "Testcustomertywd_appleand_A Android" customer
-        And I Select "Edit Trip Details" option
+		And I open first trip for "Testcustomertywd_appleand_A Android" customer
+		And I Select "Edit Trip Details" option
         And I change the "particular trip time 2 hours later" to future time
         And I click on "VERIFY" button
         Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
         And I cancel all bungiis of customer
           | Customer Phone | Customer2 Phone |
           | 9393939393     |                 |
+  
+        
+      @regression
+      #web
+      #stable
+      Scenario: Verify that Cancel button goes off once the scheduled Trip is successfully cancelled by admin
+        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+          | geofence | Bungii State | Bungii Time   |
+          | goa      | Accepted     | NEXT_POSSIBLE |
+        And I wait for "2" mins
+        And I open Admin portal and navigate to "Scheduled Deliveries" page
+        And I Cancel Bungii with following details
+          | Charge | Comments | Reason                         |
+          | 0      | TEST     | Outside of delivery scope      |
+        Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+        And "Cancel button" should not be displayed
   
       @regression
       #web
@@ -416,31 +437,18 @@
         When I open new "Chrome" browser for "ADMIN"
         And I navigate to admin portal
         And I log in to admin portal
-        And I wait for "2" mins
         And I Select "Scheduled Trip" from admin sidebar
+        And I wait for "2" mins
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
-        And I Select "Research Driver" option
-        Then I remove assigned driver
+        And I Select "Edit Trip Details" option
+        And I remove current driver from edit popup
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+        And I wait for "2" mins
         Then new pickuref is generated
-        
+    
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
-  
-      @regression
-      #web
-      #stable
-      Scenario: Verify that Cancel button goes off once the solo scheduled Trip is cancelled
-        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
-          | geofence | Bungii State | Bungii Time   |
-          | goa      | Accepted     | NEXT_POSSIBLE |
-        When I Switch to "customer" application on "same" devices
-        And I am logged in as "Testcustomertywd_appleand_A Android" customer
-        
-        And I wait for "2" mins
-        And I open Admin portal and navigate to "Scheduled Deliveries" page
-        And I Cancel Bungii with following details
-          | Charge | Comments | Reason                         |
-          | 0      | TEST     | Outside of delivery scope      |
-        Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-        And "Cancel button" should not be displayed

@@ -172,17 +172,28 @@ public class Driver_DetailsSteps extends DriverBase {
     }
     @When("^I uncheck \"([^\"]*)\" checkbox$")
     public void i_uncheck_something_checkbox(String strArg1) throws Throwable {
-        if(Page_Driver_Terms.CheckBox_Agree().isSelected())
+       try{ if(Page_Driver_Terms.CheckBox_Agree().isSelected())
             action.click(Page_Driver_Terms.CheckBox_Agree());
         log("I uncheck "+strArg1+" checkbox","I have uncheck "+strArg1 +" checkbox", false);
+       } catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
 
     }
 
     @And("^I check \"([^\"]*)\" checkbox$")
     public void i_check_something_checkbox(String strArg1) throws Throwable {
+        try{
         if(!Page_Driver_Terms.CheckBox_Agree().isSelected())
             action.click(Page_Driver_Terms.CheckBox_Agree());
         log("I check "+strArg1+" checkbox","I have check "+strArg1 +" checkbox", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I click Next on \"([^\"]*)\" page$")
     public void i_click_next_on_something_page(String strArg1) throws Throwable {
@@ -221,60 +232,84 @@ public class Driver_DetailsSteps extends DriverBase {
 
     @Then("^I should see blank fields validation on \"([^\"]*)\" page$")
     public void i_should_see_blank_fields_validation_on_something_page(String strArg1) throws Throwable {
-        switch (strArg1) {
-            case "Forgot Password":
-                testStepVerify.isElementTextEquals(Page_ForgotPassword.Err_ForgotPass_BlankField(), PropertyUtility.getMessage("Err_Pages_BlankFields"), PropertyUtility.getMessage("Err_Pages_BlankFields") + " should be displayed", PropertyUtility.getMessage("Err_Pages_BlankFields") + " is displayed", PropertyUtility.getMessage("Err_Pages_BlankFields") + " was not displayed");
-                break;
-            case "Verify your phone":
-                testStepVerify.isElementTextEquals(Page_VerifyPhone.Err_VerifyPhone_BlankField(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
-                break;
-            case "driver Details":
-                testStepVerify.isElementTextEquals(Page_Driver_Details.Err_DriverDetails_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
-                break;
-            case "Pickup Information":
-                testStepVerify.isElementTextEquals(Page_Driver_PickupInfo.Err_PickupInfo_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
-                break;
-            case "Documentation":
-                testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_Documentation_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
-                break;
-            case "Bank Details":
-                testStepVerify.isElementTextEquals(Page_Driver_Bank.Err_BankDetails_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
-                break;
-            case "Terms & Conditions":
-                testStepVerify.isElementTextEquals(Page_Driver_Terms.Err_Terms(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
-                break;
-            case "Video Training":
-                testStepVerify.isElementTextEquals(Page_Driver_Video.Err_Video(), PropertyUtility.getMessage("Err_Pages_BlankFields"));
-                break;
-            default:
-                break;
-        }
+        try{
+            switch (strArg1) {
+                case "Forgot Password":
+                    testStepAssert.isElementTextEquals(Page_ForgotPassword.Err_ForgotPass_BlankField(), PropertyUtility.getMessage("Err_Pages_BlankFields"), PropertyUtility.getMessage("Err_Pages_BlankFields") + " should be displayed", PropertyUtility.getMessage("Err_Pages_BlankFields") + " is displayed", PropertyUtility.getMessage("Err_Pages_BlankFields") + " was not displayed");
+                    break;
+                case "Verify your phone":
+                    testStepAssert.isElementTextEquals(Page_VerifyPhone.Err_VerifyPhone_BlankField(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Verify your phone should be displayed","Verify your phone is displayed","Verify your phone is not displayed");
+                    break;
+                case "driver Details":
+                    testStepAssert.isElementTextEquals(Page_Driver_Details.Err_DriverDetails_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"driver details should be displayed","driver details is displayed","driver details is not displayed");
+                    break;
+                case "Pickup Information":
+                    testStepAssert.isElementTextEquals(Page_Driver_PickupInfo.Err_PickupInfo_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Pickup Information should be displayed","Pickup Information is displayed","Pickup Information is not displayed");
+                    break;
+                case "Documentation":
+                    testStepAssert.isElementTextEquals(Page_Driver_Doc.Err_Documentation_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Documentation should be displayed","Documentation is displayed","Documentation is not displayed");
+                    break;
+                case "Bank Details":
+                    testStepAssert.isElementTextEquals(Page_Driver_Bank.Err_BankDetails_AllBlank(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Bank Details should be displayed","Bank Details is displayed","Bank Details is not displayed");
+                    break;
+                case "Terms & Conditions":
+                    testStepAssert.isElementTextEquals(Page_Driver_Terms.Err_Terms(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Terms & Conditions should be displayed","Terms & Conditions is displayed","Terms & Conditions is not displayed");
+                    break;
+                case "Video Training":
+                    testStepAssert.isElementTextEquals(Page_Driver_Video.Err_Video(), PropertyUtility.getMessage("Err_Pages_BlankFields"),"Video Training should be displayed","Video Training is displayed","Video Training is not displayed");
+                    break;
+                default:
+                    break;
+            }
+
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
     @And("^I update the rejected \"([^\"]*)\" field$")
     public void i_update_the_rejected_something_field(String strArg1) throws Throwable {
-        driverRegistrationSteps.i_navigate_to_something("Driver Details");
+       try{ driverRegistrationSteps.i_navigate_to_something("Driver Details");
         action.JavaScriptClear(Page_Driver_Details.Textbox_DriverDetails_DOB());
         action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_DOB(),"01/01/1992");
         log("I update the rejected DOB field" ,
-                "I have updated the rejected DOB field");    }
+                "I have updated the rejected DOB field");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 
     @And("^I update the accepted \"([^\"]*)\" field$")
     public void i_update_the_accepted_something_field(String str){
+        try{
         //action.JavaScriptClear(Page_Driver_Details.Textbox_DriverDetails_SSN());
        // action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_SSN(),"1111111111");
         log("I update the approved SSN field" ,
                 "As a part of CORE-1453, SSN field cannot be viewed or edited");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
     @And("^I submit the updated application$")
     public void i_submit_the_updated_application() throws Throwable {
-        action.click(Page_Driver_Details.Button_Submit());
+        try{action.click(Page_Driver_Details.Button_Submit());
         action.click(Page_Driver_Details.Button_ConfirmSubmit());
         log("I can submit the updated application" ,
                 "I have submitted the updated application");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I logout of driver portal$")
@@ -295,6 +330,7 @@ public class Driver_DetailsSteps extends DriverBase {
 
     @And("^Below stats are displayed correctly$")
     public void below_stats_are_displayed_correctly( DataTable data) throws Throwable {
+        try{
         List<Map<String, String>> DataList = data.asMaps();
         int i = 0;
         cucumberContextManager.setScenarioContext("TOTAL_TRIPS", Page_Driver_ViewDetails.Label_TotalTripsCount().getText());
@@ -307,11 +343,16 @@ public class Driver_DetailsSteps extends DriverBase {
              testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.Label_Statistics(xpath),statistics + " should be displayed",statistics+ " is displayed", statistics + " is not displayed");
             i++;
         }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^The My Stats section should be updated$")
     public void the_my_stats_section_should_be_updated() throws Throwable {
-        SetupManager.getDriver().navigate().refresh();
+        try{SetupManager.getDriver().navigate().refresh();
         driverRegistrationSteps.i_click_something_on_driver_portal("LOG IN link");
         driverRegistrationSteps.i_enter_driver_phone_number_as_something_and_valid_password("8888881014");
         driverRegistrationSteps.i_click_something_on_driver_portal("LOG IN button");
@@ -324,18 +365,30 @@ public class Driver_DetailsSteps extends DriverBase {
         String xpath = String.format("//p[contains(text(),'Total Trips')]/following-sibling::h3[contains(text(),'%s')]",new_count);
         Boolean isCountIncremented = action.waitForElement(xpath);
         testStepAssert.isTrue(isCountIncremented == true,"Total Trip count should be incremented", "Total trip count is incremented", "DATA SYNCH ISSUE | Total trip count is not incremented");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @When("^I click on calendar to select date range$")
     public void i_click_on_calendar_to_select_date_range() throws Throwable {
-        action.click(Page_Driver_ViewDetails.Calendar_TripsDaterange());
+       try{
+           action.click(Page_Driver_ViewDetails.Calendar_TripsDaterange());
         log("I select the date range",
-                "I selected the date range ", true);
+                "I selected the date range ", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I can select date range for one year$")
     public void i_can_select_date_range_for_one_year() throws Throwable {
-        while(!Page_Driver_ViewDetails.Calendar_FromDateMonth().getText().equalsIgnoreCase("Jan 2019"))
+        try{
+            while(!Page_Driver_ViewDetails.Calendar_FromDateMonth().getText().equalsIgnoreCase("Jan 2019"))
         {
             action.click(Page_Driver_ViewDetails.Calendar_PreviousMonth());
         }
@@ -348,12 +401,22 @@ public class Driver_DetailsSteps extends DriverBase {
         testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.Label_SelectedDateRange(),"Selected date range should be displayed","Selected date range is displayed","Selected date range is not displayed");
         action.click(Page_Driver_ViewDetails.Button_Apply());
         testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.Label_SearchResultDateRange(),"Selected date range should be displayed","Selected date range is displayed","Selected date range is not displayed");
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^I wait for data to synch$")
     public void i_wait_for_data_to_synch() throws Throwable {
+        try{
         Thread.sleep(120000);
         log("I wait for data to synch","I waited for data to synch", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
 
     }
 

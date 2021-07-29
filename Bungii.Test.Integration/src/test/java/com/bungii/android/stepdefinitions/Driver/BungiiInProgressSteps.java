@@ -72,6 +72,7 @@ public class BungiiInProgressSteps extends DriverBase {
             }
             else
             {
+                Thread.sleep(5000);
                 if (String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO")) {
                     isCustomerNameCorrect = action.getText(bungiiProgressPage.Text_DuoCustomer_Name()).equals(expectedCustName);
 
@@ -707,7 +708,7 @@ public class BungiiInProgressSteps extends DriverBase {
         try {
             switch (option) {
                 case "Details From Customer":
-                    testStepAssert.isElementDisplayed(inProgressBungiiPages.Button_DetailsFromCustomer(true),"Option should not be present.", "Option is not present.", "Option is present.");
+                    testStepAssert.isFalse(action.isElementPresent(inProgressBungiiPages.Button_DetailsFromCustomer(true)),"Option should not be present.", "Option is not present.", "Option is present.");
                     break;
             }
 

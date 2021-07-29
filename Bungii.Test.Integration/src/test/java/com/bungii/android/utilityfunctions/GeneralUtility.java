@@ -883,10 +883,10 @@ Thread.sleep(5000);
                 if (action.isElementPresent(homePage.Button_Closetutorials(true)))
                     action.click(homePage.Button_Closetutorials());
             }
-            log(" I am logged in as customer with phone : "+phone,
-                    " I am logged in as customer with phone : "+phone, true);
+            log(" I am logged in as customer having phone number [ "+phone+" ]",
+                    " I am logged in as customer having phone number [ "+phone+" ]", true);
         } else {
-            logger.detail("Customer not logged in");
+            logger.detail("Customer [ "+phone+" ] is not logged in");
         }
         //AssertionManager.ElementDisplayed(homePage.Title_HomePage);
         //AssertionManager.ElementDisplayed(homePage.Link_Invite);
@@ -1513,11 +1513,16 @@ Thread.sleep(5000);
     }
 
     public String getCustomerSnackBarMessage() {
-
+        String snackbarMessage =null;
+        try {
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
-        String snackbarMessage = wait.ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class)
+        snackbarMessage = wait.ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.customer:id/snackbar_text"))).getText();
-        //String snackbarMessage = action.getText(element);
+        }
+        catch(TimeoutException ex)
+        {
+            snackbarMessage ="";
+        }
         return snackbarMessage;
     }
     public Boolean matchSnackBarMessage(String message) {
@@ -1535,9 +1540,16 @@ Thread.sleep(5000);
     }
 
     public String getDriverSnackBarMessage() {
+        String snackbarMessage =null;
+        try {
+    WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
+     snackbarMessage = wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.driver:id/snackbar_text"))).getText();
 
-        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("SnakBarWaitTime")));
-        String snackbarMessage =  wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.presenceOfElementLocated(By.id("com.bungii.driver:id/snackbar_text"))).getText();
+        }
+        catch(TimeoutException ex)
+        {
+            snackbarMessage ="";
+            }
         return snackbarMessage;
     }
 
@@ -1586,10 +1598,7 @@ Thread.sleep(5000);
         }
         try {
             SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-           // logger.detail("Switched to Driver in recovery scenario");
-
-            Thread.sleep(1000);
-
+            ((AndroidDriver) SetupManager.getDriver()).resetApp();
         } catch (Exception e) {
         }
 
@@ -1605,7 +1614,7 @@ Thread.sleep(5000);
                     //TODO
                 }
                 if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
-                    logger.detail("Driver is on arrived screen");
+                    logger.detail("Driver is on Arrived screen");
                     action.click(driverBungiiProgressPage.Button_Cancel());
                     action.click(driverBungiiProgressPage.Button_Cancel_Yes());
                     launchCustomerApplication();
@@ -1675,10 +1684,10 @@ Thread.sleep(5000);
             }
 
         } catch (Exception e) {
-            //logger.detail(ExceptionUtils.getStackTrace(e));
         }
-        SetupManager.getObject().restartApp();
         logger.detail("********* RESTORING APP STATE : CUSTOMER *********");
+        SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));
+        ((AndroidDriver) SetupManager.getDriver()).resetApp();
         String appHeader = "";
         try {
             appHeader = action.getText(Page_Signup.GenericHeader(true));

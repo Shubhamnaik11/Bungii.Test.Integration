@@ -121,31 +121,7 @@ Feature: Bungii Duo Scheduled Part B
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
     
-  @regression
-  Scenario: Verify Driver Can Start Bungii Within 60 Mins Of The Scheduled Time If Required Number Of Drivers Accepts It
-    When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
-    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Accepted      |               |
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I enter phoneNumber :9999999991 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    And I start selected Bungii
-    Then I should see "REQUIRED DRIVER NOT ACCEPTED" on screen
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-
-    ##################################################################################################
- 
-    
+  
       #stable
   @regression
   Scenario: Verify Customer Can Cancel Through SMS To Admin after 2 hour processing is over (Irrespective Of No. Of Required Drivers Have Accepted Or Not)
@@ -175,7 +151,8 @@ Feature: Bungii Duo Scheduled Part B
     #When I Cancel selected Bungii
     When I tap on "Cancel Bungii" button
     Then correct details should be displayed on the "ADMIN-SMS" app
-    
+    And I click on device "Back" button
+  
     And I open Admin portal and navigate to "Scheduled Deliveries" page
     
     And I Cancel Bungii with following details
@@ -188,7 +165,31 @@ Feature: Bungii Duo Scheduled Part B
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
-    
   
+  
+  @regression
+  Scenario: Verify Driver Can Start Bungii Within 60 Mins Of The Scheduled Time If Required Number Of Drivers Accepts It
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |               |
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :9999999991 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And I start selected Bungii
+    Then I should see "REQUIRED DRIVER NOT ACCEPTED" on screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
+    ##################################################################################################
+ 
+    
  

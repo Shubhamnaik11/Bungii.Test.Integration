@@ -176,6 +176,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
  
   #promo code in example
   @regression
+    #stable
   Scenario Outline: Verify Text On Promos Screen When First Time Promocode Is Added
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page

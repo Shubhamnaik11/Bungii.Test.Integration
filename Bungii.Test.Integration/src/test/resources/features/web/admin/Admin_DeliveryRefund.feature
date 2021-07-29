@@ -383,7 +383,7 @@ Feature: Admin_Refund
 	And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
 	And Notes text area should not be displayed
   
-  @ready
+  @regression
   Scenario: Verify Partial Refund for Duo Delivery and complete Driver payment
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |

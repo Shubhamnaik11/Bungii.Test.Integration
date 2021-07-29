@@ -54,7 +54,7 @@
       When I click "OK" on alert message
       Then "Home" page should be opened
   
-    @regression
+    @ready
     Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Enroute State
       Given I am on customer Log in page
       When I am logged in as "valid boston" customer
@@ -75,6 +75,7 @@
       And I tap on "Request Bungii" on Bungii estimate
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
       
+      And I wait for "1" mins
       And I Open "driver" application on "same" devices
       And Bungii Driver "accepts On Demand Bungii" request
       Then Bungii driver should see "Enroute screen"
@@ -87,7 +88,7 @@
       When I tap on the "ACCOUNT>PROMOS" link
       Then I should see unused promo code
   
-    @regression
+    @ready
       #stable
     Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Arrived State
       Given I am on customer Log in page
@@ -108,6 +109,8 @@
       And I add loading/unloading time of "30 mins"
       And I tap on "Request Bungii" on Bungii estimate
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+  
+      And I wait for "1" mins
       And I Open "driver" application on "same" devices
       And Bungii Driver "accepts On Demand Bungii" request
       Then Bungii driver should see "Enroute screen"

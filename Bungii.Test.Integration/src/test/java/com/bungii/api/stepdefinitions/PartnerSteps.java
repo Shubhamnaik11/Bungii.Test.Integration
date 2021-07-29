@@ -29,7 +29,8 @@ public class PartnerSteps extends DriverBase {
         String customerPhone = dataMap.get("Customer Phone").trim();
         cucumberContextManager.setScenarioContext("Phone",customerPhone);
         String geofence = dataMap.get("Geofence").trim();
-        cucumberContextManager.setScenarioContext("GEOFENCE",geofence);
+        //cucumberContextManager.setScenarioContext("GEOFENCE",geofence);
+        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE",geofence);
         String bungii_time = dataMap.get("Bungii Time").trim();
 
         String Access_Token = authServices.partnerLogin(Partner_Portal);
@@ -40,7 +41,7 @@ public class PartnerSteps extends DriverBase {
 
         cucumberContextManager.setScenarioContext("Partner_Location_Config_VersionRef",PartnerSettings[0]);
 
-        String PickupRequestID = coreServices.partnerPickupEstimate(Partner_Portal,geofence,bungii_time,PartnerSettings[0],PartnerSettings[1]);
+        String PickupRequestID = coreServices.partnerPickupEstimate(Partner_Portal,geofence,bungii_time,PartnerSettings[0],PartnerSettings[1],PartnerSettings[2]);
         cucumberContextManager.setScenarioContext("Pickup_Request",PickupRequestID);
         cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequestID);
 

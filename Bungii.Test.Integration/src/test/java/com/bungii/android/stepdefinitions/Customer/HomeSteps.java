@@ -31,6 +31,7 @@ public class HomeSteps extends DriverBase {
     ActionManager action = new ActionManager();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     HomePage Page_CustHome = new HomePage();
+    ScheduledBungiisPage scheduledBungiisPage = new ScheduledBungiisPage();
 
     @When("^I Select \"([^\"]*)\" from customer app menu list$")
     public void i_select_something_from_customer_app_menu_list(String strArg1) throws Throwable {
@@ -715,10 +716,15 @@ public class HomeSteps extends DriverBase {
                     break;
 
                 case "Past info":
+                    if(action.isElementPresent(scheduledBungiisPage.Button_SaveMoney(true))){
+                        testStepAssert.isTrue(true, "Save Money Button should be displayed.", "Save Money Button is displayed.", "Save Money Button is not displayed");
+                    }
+                        else{
                     actualText = action.getText(homePage.Text_PastBungiisInfo());
-                     expected = "You don’t have any completed Bungiis at this time.";// PropertyUtility.getMessage("no.scheduled.bungiis").replace("�","'").replace("â??","'");
-                    actualText = actualText.replace("\n", " ").replace("�","'");
-                    testStepAssert.isEquals(actualText, expected, "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is "+ actualText);
+                    expected = "You don’t have any completed Bungiis at this time.";// PropertyUtility.getMessage("no.scheduled.bungiis").replace("�","'").replace("â??","'");
+                    actualText = actualText.replace("\n", " ").replace("�", "'");
+                    testStepAssert.isEquals(actualText, expected, "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed. Actual is " + actualText);
+                }
                     break;
 
                 default:
@@ -727,7 +733,7 @@ public class HomeSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in viewing "+ strArg1 , true);
         }
     }
 
@@ -798,7 +804,7 @@ public class HomeSteps extends DriverBase {
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in verifying "+strArg1+" is displayed", true);
         }
     }
 }

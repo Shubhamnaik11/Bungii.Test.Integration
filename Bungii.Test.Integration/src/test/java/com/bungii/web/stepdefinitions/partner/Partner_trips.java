@@ -46,6 +46,7 @@ public class Partner_trips extends DriverBase {
     private static LogUtility logger = new LogUtility(DashBoardSteps.class);
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
     Partner_DeliveryList Page_Partner_Delivery_List = new Partner_DeliveryList();
+    Admin_TripDetailsPage Page_Admin_Trips_Details = new Admin_TripDetailsPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     com.bungii.web.utilityfunctions.DbUtility dbUtility = new DbUtility();
@@ -176,24 +177,33 @@ public class Partner_trips extends DriverBase {
 
     @When("^I clear the existing pickup address details$")
     public void i_clear_the_existing_pickup_address_details(){
-
+try{
         action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
         action.click(Page_Partner_Dashboard.Button_PickupClear());
         log("I clear the existing pickup address details","I have cleared the existing pickup address details", false);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
        @When("^I click on Pickup date$")
     public  void i_click_on_pickup_date(){
-
+try{
         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
            log("I click on Pickup date","I have clicked on Pickup date", false);
-
+       } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
        }
 
     @Then("^I should see five future days including today$")
     public void i_should_see_five_future_days_including_today() {
 
+        try{
         testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Pickup_Date_Today(),"Today date should be display","Today date is display.","Today day is not displayed.");
         testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Pickup_date_Today_1(),"Second day should be display","Second day is display.","Second day is not displayed.");
         testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Pickup_date_Today_2(),"Third day should be display","Third day is display.","Third day is not displayed.");
@@ -201,6 +211,11 @@ public class Partner_trips extends DriverBase {
         testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Pickup_date_Today_4(),"Fifth day should be display","Fifth day is display.","Fifth day is not displayed.");
 
         action.click(Page_Partner_Dashboard.Pickup_date_Today_1());
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
@@ -208,6 +223,7 @@ public class Partner_trips extends DriverBase {
     @And("^I select Pickup Date and Pickup Time$")
     public  void i_select_pickupdate_time(DataTable data) throws Throwable {
 
+        try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String PickupDate =dataMap.get("PickUp_Date");
         String PickUpTime =dataMap.get("PickUp_Time");
@@ -219,6 +235,11 @@ public class Partner_trips extends DriverBase {
         }
 
         cucumberContextManager.setScenarioContext("ScheduledDate",strTime);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
@@ -274,6 +295,7 @@ public class Partner_trips extends DriverBase {
     @And("^I select Next Possible Pickup Date and Pickup Time$")
     public  void i_select_next_possible_pickupdate_time(DataTable data) throws Throwable {
 
+        try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         //String PickupDate =dataMap.get("PickUp_Date");
         String Next_PickUpTime =dataMap.get("Trip_Time");
@@ -285,11 +307,16 @@ public class Partner_trips extends DriverBase {
 
         cucumberContextManager.setScenarioContext("Scheduled_Time", strTime);
 
-
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I select Next Pickup Date and Pickup Time$")
     public  void i_select_next_days_pickupdate_time(DataTable data) throws Throwable {
 
+        try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         //String PickupDate =dataMap.get("PickUp_Date");
         String Next_PickUpTime =dataMap.get("Trip_Time");
@@ -300,12 +327,18 @@ public class Partner_trips extends DriverBase {
         strTime=strTime.replace("am","AM").replace("pm","PM");
 
         cucumberContextManager.setScenarioContext("Scheduled_Time", strTime);
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
     @And("^I check correct price is shown for selected service$")
     public void i_check_correct_price_is_shown_for_selected_service(){
-        String Alias_Name= (String) cucumberContextManager.getScenarioContext("Alias");
+        try{
+            String Alias_Name= (String) cucumberContextManager.getScenarioContext("Alias");
+
         String Selected_Service =(String) cucumberContextManager.getScenarioContext("Selected_service");
         String Trip_Type = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
         int Driver_Number=1;
@@ -318,7 +351,8 @@ public class Partner_trips extends DriverBase {
                 //action.getElementByXPath("//h2[text()='Delivery Cost']//following::span/strong").getText();
         Display_Price = Display_Price.substring(1);
 
-        String Estimate_distance = dbUtility.getEstimateDistance(Alias_Name);
+        //String Estimate_distance = dbUtility.getEstimateDistance(Alias_Name);
+        String Estimate_distance = (String) cucumberContextManager.getScenarioContext("Distance_Estimate_Page");
         double Estimate_distance_value = Double.parseDouble(Estimate_distance);
 
         String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Selected_Service);
@@ -334,12 +368,14 @@ public class Partner_trips extends DriverBase {
 
         String Estimated_Price = (String) cucumberContextManager.getScenarioContext("Price_Estimate_Page");
 
-
-
-        testStepVerify.isEquals(Display_Price,Estimated_Price);
-        testStepVerify.isEquals(Display_Price,Price);
-        log("For Selected "+Selected_Service+" service correct price should be shown.","For Selected "+Selected_Service+" service correct price is shown.", true);
-    }
+        testStepAssert.isEquals(Estimated_Price,Price,"Estimated Cost On Estimate screen : "+ Estimated_Price+" should be match calculated price",Estimated_Price+" matches calculated price",Estimated_Price+" does not match calculated price instead "+ Price + " is displayed");
+        testStepAssert.isEquals(Display_Price,Price,"Estimated Cost On Delivery Detail screen :  "+Display_Price+" should be match calculated price",Display_Price+" matches calculated price",Display_Price+" does not match calculated price instead "+ Price + " is displayed");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
 
     @Then("^I should see \"([^\"]*)\"$")
     public void i_should_see_something_on_screen(String str){
@@ -376,13 +412,19 @@ public class Partner_trips extends DriverBase {
 
     @And("^I select the Scheduled Bungii from Delivery List$")
     public void i_select_scheduled_bungii_from_delivery_list(){
+        try{
         String scheduled_time =(String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");;
         String customer =(String) cucumberContextManager.getScenarioContext("Customer_Name");
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer);
 
         action.getElementByXPath(XPath).click();
         //action.click(Page_Partner_Delivery_List.Record1());
-        log("I should able to select the Scheduled Bungii from Delivery List","Scheduled Bungii from Delivery List get selected.",true);
+        log("I should able to select the Scheduled Bungii from Delivery List","Scheduled Bungii from Delivery List get selected.",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^the change service level should be displayed on partner portal delivery details page$")
@@ -449,8 +491,14 @@ public class Partner_trips extends DriverBase {
 
     @And("^I close the Trip Delivery Details page$")
     public void i_close_the_trip_delivery_details_page(){
+        try{
         action.click(Page_Partner_Delivery_List.Button_Close());
-        log("I should able to close the Trip Delivery Details page.","I am able to closed the Trip Delivery Details page.", true);
+        log("I should able to close the Trip Delivery Details page.","I am able to closed the Trip Delivery Details page.", false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I request for \"([^\"]*)\" Bungii trip in partner portal in \"([^\"]*)\" $")
@@ -479,7 +527,7 @@ public class Partner_trips extends DriverBase {
         //int numberOfDriver = bungiiType.trim().equalsIgnoreCase("duo") ? 2 : 1;
         int numberOf_Driver = dataMap.get("Driver").trim().equalsIgnoreCase("duo") ? 2 :1;
 
-        cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
 
         switch (Type)
         {
@@ -585,6 +633,7 @@ public class Partner_trips extends DriverBase {
 
     @When("^I click on \"([^\"]*)\" information icon and verify its text contents$")
     public void i_click_on_some_information_icon(String Information_Icon)throws Throwable{
+        try{
         String expectedMessage = "", actualMessage = "";
         Thread.sleep(3000);
         switch (Information_Icon){
@@ -617,7 +666,11 @@ public class Partner_trips extends DriverBase {
         log("I click on Information Icon "+ Information_Icon +"and verify it text contents",
                 "I have clicked on Information Icon "+ Information_Icon +" and verified its test contents",true);
         testStepAssert.isEquals(expectedMessage,actualMessage,expectedMessage+" should be displayed ", expectedMessage+" is displayed ", actualMessage+" is displayed ");
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I change the \"([^\"]*)\" and click on Get Estimate button$")
@@ -652,7 +705,7 @@ public class Partner_trips extends DriverBase {
                 }
                 break;
             case "Delivery Address":
-                String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+                String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
                 String Delivery_Address = dataMap.get("Delivery_Address");
 
@@ -679,10 +732,14 @@ public class Partner_trips extends DriverBase {
 
     @And("^I clear the Pickup Address on Get Estimate screen of Partner Portal$")
     public void i_clear_the_pickup_address_on_get_estimate_screen(){
-
+try{
         action.click(Page_Partner_Dashboard.Button_PickupClear());
         log("I clear pickup address ","I cleared pickup address ", true);
-
+} catch(Exception e){
+    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+    error("Step should be successful", "Error performing step,Please check logs for more details",
+            true);
+}
     }
 
     @Then("^I check that Address field on Get Estimate screen get clear$")
@@ -700,7 +757,7 @@ public class Partner_trips extends DriverBase {
 
     @Then("^Estimate Cost should get recalculate$")
     public void Estimate_Cost_get_recalculate(){
-        String Total_Estimated_Cost = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
+        try{String Total_Estimated_Cost = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
         //String Estimated_Cost_Label = Total_Estimated_Cost.substring(0,Total_Estimated_Cost.indexOf(':'));
         String[] Split_Total_estimated_Cost = Total_Estimated_Cost.split(":");
         //String Estimated_Cost_Label = Split_Total_estimated_Cost[0];
@@ -713,7 +770,11 @@ public class Partner_trips extends DriverBase {
                         "Total Estimate cost is recalculated , previous cost is" + Old_Estimated_Cost + " , new cost is" + New_Estimated_Cost,
                         "Total Estimate cost was not recalculated");
         Old_Estimated_Cost = New_Estimated_Cost;
-
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I check correct estimated price calculated on Partner Portal$")
@@ -752,7 +813,8 @@ public class Partner_trips extends DriverBase {
 
     @Then("^I should be able to see the respective partner portal trip with \"([^\"]*)\" state$")
     public void i_should_be_able_to_see_the_respective_partner_portal_trip_with_something_state(String strArg1) throws Throwable {
-        String status = strArg1;
+        try{
+            String status = strArg1;
         String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
         String geofence = (String)  cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         DateTimeFormatter dft = DateTimeFormatter.ofPattern("MMM dd, hh:mm a z", Locale.ENGLISH);//for checking the MMMM month format
@@ -787,7 +849,11 @@ public class Partner_trips extends DriverBase {
         }
 
         testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
-
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should be able to see the respective bungii partner portal trip with the below status$")
@@ -797,9 +863,9 @@ public class Partner_trips extends DriverBase {
             String status = dataMap.get("Status").trim();
             String tripType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
             String customer = (String) cucumberContextManager.getScenarioContext("Customer_Name");
-            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("pickupRequestPartner");
 
             String geofenceName = getGeofence(geofence);
             action.clearSendKeys(admin_LiveTripsPage.TextBox_Search_Field(),pickupRef);
@@ -891,6 +957,7 @@ public class Partner_trips extends DriverBase {
 
     @Then("^I view the correct Driver Est. Earnings for geofence based pricing model$")
     public void i_view_the_correct_Driver_Est_Earnings(){
+        try{
         String DriverEstEarning= action.getElementByXPath("//td[text()='Driver Earnings']/following::td[1]").getText();
         //DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
         DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
@@ -900,11 +967,71 @@ public class Partner_trips extends DriverBase {
         testStepVerify.isEquals(ExpectedDriverEstEarning, DriverEstEarning.trim(), "Driver Est. Earning value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Driver Est. Value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning + ",(Truncate to single float point)", "Expected Est. Earning value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning);
         action.getElementByXPath("//div[@id='btnOk']").click();
         log("I should able to view the correct Driver Est. Earnings for geofence based pricing model","I am able to viewed the correct Driver Est. Earnings for geofence based pricing model", true);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I note the Driver Est. Earnings for the search delivery$")
+    public void i_note_the_Driver_Est_Earnings_for_the_search_delivery()throws Throwable {
+        try{
+        String DriverEstEarning= action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Eranings());
+
+        DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
+        cucumberContextManager.setScenarioContext("Old_Driver_Earning",DriverEstEarning);
+
+            log("I should able to note the Driver Est. Earnings for the search delivery.","The noted Driver Est. Earnings for the delivery is: "+DriverEstEarning, true);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to note the driver est earning for the search delivery",
+                    true);
+        }
+
+    }
+
+    @Then("^I confirm that Driver Est. Earnings for the delivery remain same$")
+    public void the_Driver_Est_Earnings_for_the_delivery_remain_same()throws Throwable {
+        try {
+            String NewDriverEstEarning = action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Eranings());
+
+            NewDriverEstEarning = NewDriverEstEarning.substring(1, NewDriverEstEarning.length());
+
+            String Old_Driver_Est_Earning = (String) cucumberContextManager.getScenarioContext("Old_Driver_Earning");
+
+            testStepAssert.isEquals(NewDriverEstEarning, Old_Driver_Est_Earning, "Old driver estimate earning should be same as new driver estimate earning", "Old driver estimate earning is same as new driver estimate earning", "Old driver estimate earning is not same as new driver estimate earning");
+
+            cucumberContextManager.setScenarioContext("Old_Driver_Earning", NewDriverEstEarning);
+
+            log("Old Driver Est Earning -" + Old_Driver_Est_Earning + " should be same as New Driver Est Earning -" + NewDriverEstEarning, "Old Driver Est Earning -" + Old_Driver_Est_Earning + " is same as New Driver Est Earning -" + NewDriverEstEarning, true);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to confirm driver est earning remain same on delivery detail page",
+                    true);
+        }
+    }
+
+    @And("^I navigate back to Scheduled Deliveries$")
+    public void i_navigate_back_to_scheduled_deliveries() throws Throwable {
+        try{
+            action.click(Page_Admin_Trips_Details.Button_Ok());
+            log("I should able to navigate back to Scheduled Deliveries.","I have navigated back to Scheduled Deliveries", true);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to navigate back to Scheduled Deliveries",
+                    true);
+
+        }
     }
 
     @Then("^I view the correct Driver Earnings for geofence based pricing model$")
     public void i_view_the_correct_Driver_Earnings(){
-        String DriverEarning= action.getElementByXPath("//td[text()='Driver Earnings']/following::td[1]").getText();
+        try{
+            String DriverEarning= action.getElementByXPath("//td[text()='Driver Earnings']/following::td[1]").getText();
         //To remove $ sign
         DriverEarning=DriverEarning.substring(1,DriverEarning.length());
 
@@ -914,7 +1041,12 @@ public class Partner_trips extends DriverBase {
         action.click(Page_Partner_Delivery_List.Button_OK_Admin_Portal());
 
         log("I should able to view the correct Driver Earnings for geofence based pricing model.","I am able to viewed the correct Driver Earnings for geofence based pricing model", true);
-    }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
 
 
     @And("^I navigate to partner portal$")
@@ -927,7 +1059,7 @@ public class Partner_trips extends DriverBase {
 
     @And("^I navigate to partner portal and view the Trip status with below status$")
     public void i_view_the_scheduled_trips_list_on_the_partner_portal_with_some_status(DataTable data) throws InterruptedException {
-        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+        try{Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String Partner_Status = dataMap.get("Partner_Status").trim();
         ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
         SetupManager.getDriver().switchTo().window(tabs.get(0));
@@ -965,7 +1097,12 @@ public class Partner_trips extends DriverBase {
                 }
             }
         log("I should able to navigate to partner portal and view the Trip status with status as "+Partner_Status,"I get navigate to partner portal and viewed the Trip status with status as "+Partner_Status, true);
-    }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
 
     public String getGeofence(String geofence) {
         String geofenceName = "";

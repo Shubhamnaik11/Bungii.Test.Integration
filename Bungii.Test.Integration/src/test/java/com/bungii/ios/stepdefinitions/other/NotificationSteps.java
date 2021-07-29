@@ -454,7 +454,7 @@ public class NotificationSteps extends DriverBase {
                     if (!isDriverEligible)
                         error("Diver should be eligible for trip", "Driver "+driverPhoneNum+" is not eligible for pickup : "+ pickupRequestID, false);
                     //response = new CoreServices().getPickupdetails(pickupRequestID, driverAccessToken,"");
-                String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+                String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
                 JsonPath jsonpathevaluator = new CoreServices().getPickupdetailsFromPushNotification(pickupRequestID, driverAccessToken,geofence);
                     logger.detail("ERROR MESSAGE "+jsonpathevaluator.get("Error.Message"));
                     cucumberContextManager.setScenarioContext("API_RESPONSE",jsonpathevaluator.get("Error.Message"));

@@ -44,65 +44,8 @@ Feature: Service Level
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |
     Then I should "see Service Level"
 
-    @regression
-    @servicelevelcalculation
-  Scenario Outline: Verify changing the service level options display on configured Partner portal <Type>-<ServiceName> for <Distance> distance
-    When I enter "valid" password on Partner Portal
-    And I click "SIGN IN" button on Partner Portal
-    When I request "<Type>" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
-      | Pickup_Address                                                                     | Delivery_Address            |
-      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | <DeliveryAddress>           |
-    And I click "Service Level List" button on Partner Portal
-    Then I should "see all the Service Level" for "Biglots" Alias
-    And I change the service level to "<ServiceName>"
-    And I click "Continue" button on Partner Portal
-    Then I should "see Delivery Details screen"
-    And I check correct price is shown for selected service
-
-      Examples:
-      |Type|DeliveryAddress                                                                  |ServiceName   |Distance |
-      |Solo|900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|White Glove   |0-10     |
-      |Duo |900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|White Glove   |0-10     |
-      |Solo|11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |White Glove   |10-15    |
-      |Duo |11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |White Glove   |10-15    |
-      |Solo|655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |White Glove   |15-30    |
-      |Duo |655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |White Glove   |15-30    |
-      |Solo|1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |White Glove   |30-100   |
-      |Duo |1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |White Glove   |30-100   |
-      |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |White Glove   |Above 100|
-      |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |White Glove   |Above 100|
-      |Solo|900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Room of Choice|0-10     |
-      |Duo |900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Room of Choice|0-10     |
-      |Solo|11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Room of Choice|10-15    |
-      |Duo |11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Room of Choice|10-15    |
-      |Solo|655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Room of Choice|15-30    |
-      |Duo |655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Room of Choice|15-30    |
-      |Solo|1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Room of Choice|30-100   |
-      |Duo |1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Room of Choice|30-100   |
-      |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Room of Choice|Above 100|
-      |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Room of Choice|Above 100|
-      |Solo|900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Threshold     |0-10     |
-      |Duo |900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Threshold     |0-10     |
-      |Solo|11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Threshold     |10-15    |
-      |Duo |11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Threshold     |10-15    |
-      |Solo|655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Threshold     |15-30    |
-      |Duo |655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Threshold     |15-30    |
-      |Solo|1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Threshold     |30-100   |
-      |Duo |1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Threshold     |30-100   |
-      |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Threshold     |Above 100|
-      |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Threshold     |Above 100|
-      |Solo|900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Curbside      |0-10     |
-      |Duo |900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Curbside      |0-10     |
-      |Solo|11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Curbside      |10-15    |
-      |Duo |11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Curbside      |10-15    |
-      |Solo|655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Curbside      |15-30    |
-      |Duo |655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Curbside      |15-30    |
-      |Solo|1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Curbside      |30-100   |
-      |Duo |1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Curbside      |30-100   |
-      |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
-      |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
-
-  @ready
+  @regression
+    #stable
   Scenario: Verify that service level partner portal trip is shown in Admin portal
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -143,6 +86,7 @@ Feature: Service Level
 
   #CORE-1541
   @ready
+    @t1
     #stable
   Scenario: Verify that correct Estimate duration for service level partner portal trip is shown in Admin portal
     When I enter "valid" password on Partner Portal
@@ -173,6 +117,7 @@ Feature: Service Level
     Then I should "see the service name"
     Then I close the Trip Delivery Details page
     When I navigate to "Admin" portal configured for "QA" URL
+    And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
@@ -183,7 +128,8 @@ Feature: Service Level
 
 #CORE-1862 scenario
   @ready
-  Scenario Outline: Verify driver earning calculated service level options display on configured Partner portal <Type>-<ServiceName> for <Distance> distance
+    @t1
+  Scenario Outline: Verify driver earning calculated for partner delivery of <Type> for Service <ServiceName> for <Distance> distance range
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     When I request "<Type>" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
@@ -209,6 +155,7 @@ Feature: Service Level
     Then I should "see the service name"
     Then I close the Trip Delivery Details page
     When I navigate to "Admin" portal configured for "QA" URL
+    And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
@@ -273,4 +220,62 @@ Feature: Service Level
     And I select the Scheduled Bungii from Delivery List
     Then the change service level should be displayed on partner portal delivery details page
     Then the price for the partner portal delivery shown as per the changed service level
+
+
+  @regression
+  Scenario Outline: Verify service level estimate cost calculation for partner delivery of <Type> for Service <ServiceName> for <Distance> distance range
+    When I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    When I request "<Type>" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address            |
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | <DeliveryAddress>           |
+    And I click "Service Level List" button on Partner Portal
+    Then I should "see all the Service Level" for "Biglots" Alias
+    And I change the service level to "<ServiceName>"
+    And I click "Continue" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    And I check correct price is shown for selected service
+    
+    Examples:
+      |Type|DeliveryAddress                                                                  |ServiceName   |Distance |
+      |Solo|900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|White Glove   |0-10     |
+      |Duo |900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|White Glove   |0-10     |
+      |Solo|11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |White Glove   |10-15    |
+      |Duo |11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |White Glove   |10-15    |
+      |Solo|655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |White Glove   |15-30    |
+      |Duo |655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |White Glove   |15-30    |
+      |Solo|1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |White Glove   |30-100   |
+      |Duo |1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |White Glove   |30-100   |
+      |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |White Glove   |Above 100|
+      |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |White Glove   |Above 100|
+      |Solo|900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Room of Choice|0-10     |
+      |Duo |900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Room of Choice|0-10     |
+      |Solo|11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Room of Choice|10-15    |
+      |Duo |11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Room of Choice|10-15    |
+      |Solo|655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Room of Choice|15-30    |
+      |Duo |655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Room of Choice|15-30    |
+      |Solo|1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Room of Choice|30-100   |
+      |Duo |1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Room of Choice|30-100   |
+      |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Room of Choice|Above 100|
+      |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Room of Choice|Above 100|
+      |Solo|900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Threshold     |0-10     |
+      |Duo |900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Threshold     |0-10     |
+      |Solo|11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Threshold     |10-15    |
+      |Duo |11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Threshold     |10-15    |
+      |Solo|655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Threshold     |15-30    |
+      |Duo |655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Threshold     |15-30    |
+      |Solo|1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Threshold     |30-100   |
+      |Duo |1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Threshold     |30-100   |
+      |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Threshold     |Above 100|
+      |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Threshold     |Above 100|
+      |Solo|900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Curbside      |0-10     |
+      |Duo |900 23rd Street Northwest, Washington, United States, District of Columbia, 20037|Curbside      |0-10     |
+      |Solo|11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Curbside      |10-15    |
+      |Duo |11151 Veirs Mill Road, Silver Spring, United States, Maryland, 20902             |Curbside      |10-15    |
+      |Solo|655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Curbside      |15-30    |
+      |Duo |655 Watkins Mill Road, Gaithersburg, United States, Maryland, 20879              |Curbside      |15-30    |
+      |Solo|1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Curbside      |30-100   |
+      |Duo |1101 Stevenson Lane, Baltimore, United States, Maryland, 21286                   |Curbside      |30-100   |
+      |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
+      |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
 

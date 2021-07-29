@@ -55,7 +55,7 @@ Feature: Solo Scheduled Bungii - TELET
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @ready
     #stable
   Scenario: Verify If Incoming Scheduled Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
     Given that solo schedule bungii is in progress
@@ -90,8 +90,7 @@ Feature: Solo Scheduled Bungii - TELET
       | Customer Phone  | Customer2 Phone      |
       | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
 
-  @FAILED2702
-  @regression
+  @ready
   Scenario: Verify If Incoming On-demend Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -113,12 +112,11 @@ Feature: Solo Scheduled Bungii - TELET
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @failures
-  @regression
+  @ready
   Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip TELET Then Request Should Not Be Sent To Driver
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | denver   | Accepted     | 15 min ahead |
+      | denver   | Accepted     | 0.5 hour ahead |
     When I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -136,8 +134,8 @@ Feature: Solo Scheduled Bungii - TELET
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  
-  @regression
+
+  @ready
   #stable
   Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked request (Trip 2) Then Driver Doesnt Receive Scheduled Notification
     Given that ondemand bungii is in progress
@@ -191,9 +189,9 @@ Feature: Solo Scheduled Bungii - TELET
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-  
-  
-  @regression
+
+
+  @ready
     #Stable
   Scenario: Verify Customer Cannot Schedule Solo Bungii That Overlaps With Another Scheduled Deliveries TELET Time
     Given that solo schedule bungii is in progress
@@ -224,8 +222,9 @@ Feature: Solo Scheduled Bungii - TELET
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
-  
-  @regression
+
+  @ready
+    #Test this case manually on QA since on QA_Auto working offline time is set as 11.45pm to 12.00am and hence both slot can't consider for this case
    #Stable
   Scenario: Verify Customer Doesnt Receives Notification When Solo Scheduled Bungii Is Requested At A Time Outside Working Hours
     Given I login as "valid denver" customer and on Home page
@@ -241,7 +240,6 @@ Feature: Solo Scheduled Bungii - TELET
     
   @knownissue
   #KNOWN ISSUE , TELET TIME IS NOT RECALCULATED
-  @ready
   Scenario: Verify TELET Of Re-searched Trip Should Not Be Same As That Of Previous Trip - KNOWN ISSUE
 	Given that solo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   |

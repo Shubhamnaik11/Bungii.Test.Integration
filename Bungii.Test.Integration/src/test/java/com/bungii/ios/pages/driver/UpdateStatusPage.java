@@ -96,9 +96,9 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Text_WaitingForDriver(){return findElement("//XCUIElementTypeStaticText[@name=\"Waiting for the other driver to end Bungii.\"]",LocatorType.XPath);}
 
 	//STACK
-	public WebElement Text_NextLabel(boolean ...ignoreException) { return findElement("NEXT", LocatorType.Name,ignoreException); }
+	public WebElement Text_NextLabel(boolean ...ignoreException) { return findElement("NEXT CUSTOMER", LocatorType.Name,ignoreException); }
 	public WebElement Text_OnDeckLabel(boolean ...ignoreException) { return findElement("ON DECK", LocatorType.Name,ignoreException); }
-	public WebElement Text_StackCustomer(boolean ...ignoreException) { return findElement("//XCUIElementTypeStaticText[@name='NEXT']/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath,ignoreException); }
+	public WebElement Text_StackCustomer(boolean ...ignoreException) { return findElement("//XCUIElementTypeStaticText[@name='NEXT CUSTOMER']/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath,ignoreException); }
 	public WebElement Text_StackInfo(){return findElement("//XCUIElementTypeStaticText[contains(@label,'Try to finish by')]",LocatorType.XPath);}
 	public WebElement Button_Info(){return findElement("//XCUIElementTypeStaticText[contains(@label,'Try to finish by')]/following-sibling::XCUIElementTypeButton",LocatorType.XPath);}
 	public WebElement Text_ETAValue(){return findElement("//XCUIElementTypeStaticText[contains(@name,\"ETA:\")]",LocatorType.XPath);}
