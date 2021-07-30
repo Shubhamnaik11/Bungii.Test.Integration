@@ -199,7 +199,7 @@
   
       @regression
         #web
-      Scenario: Verify the DUO trip started by non controller driver and controller driver is removed and new driver is added to the same trip
+      Scenario: Verify the DUO trip started by non control driver and control driver is removed and new driver is added to the same trip
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
           | NEXT_POSSIBLE  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |

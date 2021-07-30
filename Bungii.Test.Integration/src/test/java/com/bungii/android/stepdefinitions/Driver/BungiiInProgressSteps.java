@@ -335,7 +335,7 @@ public class BungiiInProgressSteps extends DriverBase {
     public void stack_trip_information_should_be_displayed_on_deck() {
         try {
             String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER2");
-            testStepVerify.isElementTextEquals(bungiiProgressPage.Text_NextLabel(), "NEXT","'NEXT' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
+            testStepVerify.isElementTextEquals(bungiiProgressPage.Text_NextLabel(), "NEXT CUSTOMER","'NEXT CUSTOMER' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
             testStepVerify.isElementTextEquals(bungiiProgressPage.Text_OnDeckLabel(), "ON DECK","'ON DECK' text lable should be displayed","'ON DECK' text lable is displayed","'NEXT' text lable is not displayed");
             testStepVerify.isElementTextEquals(bungiiProgressPage.Text_StackCustomer(), customerName.substring(0, customerName.indexOf(" ") + 2));
         } catch (Throwable e) {
