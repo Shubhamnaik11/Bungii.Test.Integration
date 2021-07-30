@@ -22,6 +22,8 @@ Feature: Customer	Menu
     Then I should be navigated to "SUPPORT" screen
     When I Select "ACCOUNT > PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
+    When I Select "ACCOUNT > PRIVACY POLICY" from Customer App menu
+    Then I should be navigated to "CUSTOMER PRIVACY POLICY" screen
     When I Switch to "customer" application on "same" devices
     When I Select "ACCOUNT > LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen

@@ -84,6 +84,7 @@ public class HomePage extends PageBase {
 
   public WebElement AppMenu_Support() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SUPPORT'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Promos() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'PROMOS'", PageBase.LocatorType.Predicate); }
+  public WebElement AppMenu_Privacy() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'PRIVACY POLICY'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_DriveWithBungii() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SIGN UP TO DRIVE'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Payment() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'PAYMENT'", LocatorType.Predicate); }
     //public WebElement AppMenu_ScheduledTrip() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SCHEDULED BUNGIIS'", PageBase.LocatorType.Predicate); }
