@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.admin.*;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -46,8 +47,7 @@ public class CustomersSteps extends DriverBase {
             String now="Today";
             int count=1;
             String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td[contains(.,'%s')][1]",name,now,count);
-            action.waitUntilIsWebElementExistsAndDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),30L);
-            testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)), Xpath + "Element should be displayed", Xpath + "Element is displayed", Xpath + "Element is not displayed");
+            testStepAssert.isElementDisplayed(customersPage.findElement(Xpath, PageBase.LocatorType.XPath), Xpath + "Element should be displayed", Xpath + "Element is displayed", Xpath + "Element is not displayed");
             action.click(dashBoardPage.Button_Customers());
         }
         catch (Exception e) {

@@ -734,17 +734,4 @@ public class ActionManager {
             return false;
 
     }
-
-    public void waitUntilIsWebElementExistsAndDisplayed(WebElement element, Long waitTime) {
-        try {
-            WebDriver driver = SetupManager.getDriver();
-            WebDriverWait wait = new WebDriverWait(driver, waitTime);
-            wait.until((ExpectedConditions.visibilityOf(element)));
-        } catch (Exception ex) {
-            Assert.fail("Following element is not displayed : " + getElementDetails(element));
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Following element is not displayed -> " + getElementDetails(element),
-                    true);
-        }
-    }
 }
