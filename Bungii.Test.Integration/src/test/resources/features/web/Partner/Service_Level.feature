@@ -173,12 +173,12 @@ Feature: Service Level
   Scenario: Verify that admin can update service level for the Partner Portal delivery from Scheduled Deliveries page
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
-    When I request "Solo" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
+    And I request "Solo" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                   |
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002  |
     And I click "Service Level List" button on Partner Portal
     Then I should "see all the Service Level" for "Biglots" Alias
-    And I change the service level to "Threshold" in "Partner" portal
+    When I change the service level to "Threshold" in "Partner" portal
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -193,12 +193,12 @@ Feature: Service Level
       |VISA CARD2|12/23  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
-    And I click "Track Deliveries" button on Partner Portal
+    When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
-    And I select the Scheduled Bungii from Delivery List
+    When I select the Scheduled Bungii from Delivery List
     Then I should "see the service name"
-    Then I close the Trip Delivery Details page
-    When I navigate to "Admin" portal configured for "QA" URL
+    When I close the Trip Delivery Details page
+    And I navigate to "Admin" portal configured for "QA" URL
     And I view the all Scheduled Deliveries list on the admin portal
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
@@ -208,18 +208,18 @@ Feature: Service Level
     And I click on "Edit Trip Details" radiobutton
     And I change the service level to "White Glove" in "Admin" portal
     And I click on "Verify" button on Edit Scheduled bungii popup
-    When I click on "Save" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
     And I get the new pickup reference generated
     And I search the delivery of Customer
     When I view the partner portal delivery details in admin portal
     Then the change service level should be displayed on delivery details page
-    Then the price for the delivery shown as per the changed service level
-    And I navigate to partner portal
+    And the price for the delivery shown as per the changed service level
+    When I navigate to partner portal
     And I select the Scheduled Bungii from Delivery List
     Then the change service level should be displayed on partner portal delivery details page
-    Then the price for the partner portal delivery shown as per the changed service level
+    And the price for the partner portal delivery shown as per the changed service level
 
 
   @regression
