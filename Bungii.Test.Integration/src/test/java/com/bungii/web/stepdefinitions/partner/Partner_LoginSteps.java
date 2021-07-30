@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import com.bungii.web.pages.partner.*;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -40,6 +41,7 @@ public class Partner_LoginSteps extends DriverBase {
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     Partner_Done Page_Partner_Done = new Partner_Done();
     Partner_DeliveryList Page_Partner_Delivery_List = new Partner_DeliveryList();
+    Admin_ScheduledTripsPage Page_Admin_ScheduledTrips = new Admin_ScheduledTripsPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
@@ -105,6 +107,31 @@ public class Partner_LoginSteps extends DriverBase {
                 true);
     }
     }
+
+    @And("^I change the service level to \"([^\"]*)\" in \"([^\"]*)\" portal$")
+    public void i_change_the_service_level_to_something_in_something_portal(String Service_Name, String Site_Name) throws Throwable {
+       try {
+           switch (Site_Name) {
+               case "Partner":
+                   action.click(Page_Partner_Dashboard.Dropdown_ServiceLevel(Service_Name));
+                   cucumberContextManager.setScenarioContext("Selected_service", Service_Name);
+                   break;
+               case "Admin":
+                   //action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
+                   action.selectElementByText(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(),Service_Name);
+                   cucumberContextManager.setScenarioContext("Change_service", Service_Name);
+                   break;
+               default:
+                   logger.error("Wrong site name is pass.Please Pass correct site.");
+           }
+               log("I should able to change the service level to " + Service_Name, "Service name should get changed to " + Service_Name, true);
+
+       }
+       catch(Exception ex){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+           error("Step should be successful", "Unable to change the service " + Service_Name+ "for" +Site_Name+ "portal",
+                   true);
+       }
 
     @And("^I change the service level to \"([^\"]*)\"$")
     public void i_change_the_service_level(String Service_Name) throws InterruptedException {
@@ -320,7 +347,7 @@ public class Partner_LoginSteps extends DriverBase {
                     //String date = utility.GetDateInFormat(ScheduledTime,FromFormat,ToFormat);
                     //String ST = DateFormat("MMM dd, YYYY at HH:mm aa z",ScheduledTime);
                     //cucumberContextManager.setScenarioContext("Scheduled_Time",date);
-                    cucumberContextManager.setScenarioContext("pickupRequestPartner", PickupRequest);
+                    //cucumberContextManager.setScenarioContext("pickupRequestPartner", PickupRequest);
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
                     break;
                 case "see the trip in the Delivery List":

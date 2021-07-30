@@ -797,6 +797,70 @@ try{
     }
     }
 
+    @Then("^the change service level should be displayed on delivery details page$")
+    public void the_change_service_level_should_be_displayed_on_delivery_details_page() throws Throwable {
+        try{
+            String changeServiceLevel = (String) cucumberContextManager.getScenarioContext("Change_service");
+            String displayServiceLevel = action.getText(admin_TripDetailsPage.Text_Service_Level());
+
+            if(changeServiceLevel.equalsIgnoreCase("White Glove"))
+            {
+                changeServiceLevel = PropertyUtility.getDataProperties("change.service.description");
+            }
+
+            testStepVerify.isEquals(changeServiceLevel,displayServiceLevel,"the change service level " +changeServiceLevel+ "should be same as service level display " +displayServiceLevel+ "on delivery details page","the change service level " +changeServiceLevel+ " is not same as service level displayed " +displayServiceLevel+ "on delivery details page");
+
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to see the changed service level on delivery details page",
+                    true);
+        }
+    }
+
+    @Then("^the price for the delivery shown as per the changed service level$")
+    public void the_price_for_the_delivery_shown_as_per_the_changed_service_level() throws Throwable {
+        try{
+            String Alias_Name= (String) cucumberContextManager.getScenarioContext("Alias");
+            String Change_Service =(String) cucumberContextManager.getScenarioContext("Change_service");
+            String Trip_Type = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
+            int Driver_Number=1;
+
+            if(Trip_Type.equalsIgnoreCase("Duo")){
+                Driver_Number=2;
+            }
+
+            String Display_Price = action.getText(admin_TripDetailsPage.Text_Estimated_Charge());
+            //action.getElementByXPath("//h2[text()='Delivery Cost']//following::span/strong").getText();
+            Display_Price = Display_Price.substring(1);
+
+            String Estimate_distance = dbUtility.getEstimateDistance(Alias_Name);
+            double Estimate_distance_value = Double.parseDouble(Estimate_distance);
+
+            String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Change_Service);
+            double Last_Tier_Milenge_Min_Range_value = Double.parseDouble(Last_Tier_Milenge_Min_Range);
+
+            String Price="";
+            if(Estimate_distance_value <= Last_Tier_Milenge_Min_Range_value) {
+                Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, Estimate_distance, Change_Service);
+            }
+            else{
+                Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, Estimate_distance, Change_Service);
+            }
+
+            testStepVerify.isEquals(Display_Price,Price);
+
+            log("The price for the delivery should be shown as per the changed service level",
+                    "The price for the delivery is shown as per the changed service level", false);
+        }
+        catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "The price for the delivery is not shown as per the chnaged service level",
+                    true);
+        }
+    }
+
+
     @Then("^I confirm the change pickup address on delivery details page$")
     public void i_confirm_the_change_pickup_address_on_delivery_details_page() throws Throwable {
         try{
@@ -873,17 +937,20 @@ try{
     }
     @And("^I get the new pickup reference generated$")
     public void i_get_the_new_pickup_reference_generated() throws Throwable {
-        try{
-        String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-        pickupRequest =  getLinkedPickupRef(pickupRequest);
-        cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
-        log("I get the new pickup reference generated",
-                "Pickupref is "+pickupRequest, false);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
-    }
+
+        try {
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            pickupRequest = getLinkedPickupRef(pickupRequest);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            log("I get the new pickup reference generated",
+                    "Pickupref is " + pickupRequest, false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "New pickup reference is not generated",
+                    true);
+        }
+
     }
 
     @And("^I edit the drop off address$")
@@ -996,6 +1063,25 @@ try{
                     true);
         }
     }
+
+    @When("^I view the partner portal delivery details in admin portal$")
+    public void i_view_the_partner_portal_delivery_details_in_admin() throws Throwable {
+        try{
+            SetupManager.getDriver().navigate().refresh();
+            Thread.sleep(5000);
+            String customer = (String) cucumberContextManager.getScenarioContext("Customer_Name");
+            String xpath = String.format("//td[contains(.,'%s')]/preceding::td[2]", customer);
+            //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+            action.click(admin_EditScheduledBungiiPage.findElement(xpath,PageBase.LocatorType.XPath));
+            log("I view the delivery details in admin portal",
+                    "I viewed delivery details in admin portal", false);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 
     @When("^I open the live delivery details in admin portal$")
     public void i_open_the_live_delivery_details_in_admin() throws Throwable {
