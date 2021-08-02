@@ -2,13 +2,14 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.admin.Admin_LogviewPage;
 import com.bungii.web.pages.admin.Admin_TripDetailsPage;
-import com.bungii.web.pages.driver.Driver_LoginPage;
+import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -22,8 +23,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -35,6 +37,7 @@ public class Admin_DriverDetails extends DriverBase{
     Admin_DriversPage admin_Driverspage = new Admin_DriversPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    DbUtility dbUtility = new DbUtility();
     Admin_LogviewPage admin_logviewPage = new Admin_LogviewPage();
     private static LogUtility logger = new LogUtility(Admin_DriverDetails.class);
 
@@ -235,4 +238,14 @@ public class Admin_DriverDetails extends DriverBase{
                     true);
         }
         }
+
+    @And("^I do not see regions listed under Geofence information on Driver details page$")
+    public void i_do_not_see_regions_listed_under_geofence_information_on_driver_details_page() throws Throwable {
+        List<HashMap<String, Object>> regions = dbUtility.getRegionsList();
+        for ( HashMap<String, Object> region : regions) {
+            String Xpath = String.format("//strong[contains(text(),'Other Geofences')]/parent::td/parent::tr/following-sibling::tr/td[text()='%s']",region);
+            testStepAssert.isNotElementDisplayed(admin_Driverspage.findElement(Xpath, PageBase.LocatorType.XPath,true), "Region" + regions + " should not be displayed" , "Region" + regions + " is displayed" , "Region" + regions + " is not displayed");
+        }
+    }
+
 }
