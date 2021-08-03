@@ -243,11 +243,16 @@ public class Admin_DriverDetails extends DriverBase{
 
     @And("^I do not see regions listed under Geofence information on Driver details page$")
     public void i_do_not_see_regions_listed_under_geofence_information_on_driver_details_page() throws Throwable {
-        List<HashMap<String, Object>> regions = dbUtility.getRegionsList();
-        for ( HashMap<String, Object> region : regions) {
-            String Xpath = String.format("//strong[contains(text(),'Other Geofences')]/parent::td/parent::tr/following-sibling::tr/td[text()='%s']",region);
-            testStepAssert.isNotElementDisplayed(admin_Driverspage.findElement(Xpath, PageBase.LocatorType.XPath,true), "Region" + regions + " should not be displayed" , "Region" + regions + " is displayed" , "Region" + regions + " is not displayed");
+        try{
+            List<HashMap<String, Object>> regions = dbUtility.getRegionsList();
+                for ( HashMap<String, Object> region : regions) {
+                    String Xpath = String.format("//strong[contains(text(),'Other Geofences')]/parent::td/parent::tr/following-sibling::tr/td[text()='%s']",region);
+                    testStepAssert.isNotElementDisplayed(admin_Driverspage.findElement(Xpath, PageBase.LocatorType.XPath,true), "Region" + regions + " should not be displayed" , "Region" + regions + " is displayed" , "Region" + regions + " is not displayed");
+                }
+            } catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
-
 }
