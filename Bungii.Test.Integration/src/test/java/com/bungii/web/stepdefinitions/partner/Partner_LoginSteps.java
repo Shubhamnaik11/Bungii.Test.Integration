@@ -110,28 +110,28 @@ public class Partner_LoginSteps extends DriverBase {
 
     @And("^I change the service level to \"([^\"]*)\" in \"([^\"]*)\" portal$")
     public void i_change_the_service_level_to_something_in_something_portal(String Service_Name, String Site_Name) throws Throwable {
-       try {
-           switch (Site_Name) {
-               case "Partner":
-                   action.click(Page_Partner_Dashboard.Dropdown_ServiceLevel(Service_Name));
-                   cucumberContextManager.setScenarioContext("Selected_service", Service_Name);
-                   break;
-               case "Admin":
-                   //action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
-                   action.selectElementByText(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(),Service_Name);
-                   cucumberContextManager.setScenarioContext("Change_service", Service_Name);
-                   break;
-               default:
-                   logger.error("Wrong site name is pass.Please Pass correct site.");
-           }
-               log("I should able to change the service level to " + Service_Name, "Service name should get changed to " + Service_Name, true);
+        try {
+            switch (Site_Name) {
+                case "Partner":
+                    action.click(Page_Partner_Dashboard.Dropdown_ServiceLevel(Service_Name));
+                    cucumberContextManager.setScenarioContext("Selected_service", Service_Name);
+                    break;
+                case "Admin":
+                    //action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
+                    action.selectElementByText(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(), Service_Name);
+                    cucumberContextManager.setScenarioContext("Change_service", Service_Name);
+                    break;
+                default:
+                    logger.error("Wrong site name is pass.Please Pass correct site.");
+            }
+            log("I should able to change the service level to " + Service_Name, "Service name should get changed to " + Service_Name, true);
 
-       }
-       catch(Exception ex){
-           logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-           error("Step should be successful", "Unable to change the service " + Service_Name+ "for" +Site_Name+ "portal",
-                   true);
-       }
+        } catch (Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to change the service " + Service_Name + "for" + Site_Name + "portal",
+                    true);
+        }
+    }
 
     @And("^I change the service level to \"([^\"]*)\"$")
     public void i_change_the_service_level(String Service_Name) throws InterruptedException {
