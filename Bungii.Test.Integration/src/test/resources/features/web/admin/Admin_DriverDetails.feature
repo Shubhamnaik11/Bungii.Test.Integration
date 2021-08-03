@@ -119,7 +119,7 @@ Feature: Admin_DriverDetails
     And I enter confirm comment for edited phone and "Save" it
     Then I see updated driver phone number
 
-  @a
+  @regression
   Scenario: Verify Admin can edit and cancel the driver phone number
     When I search driver "Testdrivertywd_appledc_a_drve Driver"
     And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
