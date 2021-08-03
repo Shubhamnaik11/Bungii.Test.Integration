@@ -166,5 +166,32 @@ public class AvailableTripsSteps extends DriverBase {
         }
     }
 
+    @Then("^Partner Portal name should be displayed in \"([^\"]*)\" section$")
+    public void partner_portal_name_should_be_displayed_in_something_section(String Screen) throws Throwable {
+        try {
+            switch (Screen) {
+                case "AVAILABLE BUNGIIS":
+                case "SCHEDULED BUNGIIS":
+                case "EN ROUTE":
+                case "ARRIVED":
+                case "LOADING ITEM":
+                case "DRIVING TO DROP OFF":
+                case "UNLOADING ITEM":
+                    String partnerName = availableTrips.Partner_Name().getText();
+                    String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
+                    //testStepVerify.isEquals(partnerName,partnerNameExpected);
+                    testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be display in " + Screen + " section", "Partner Portal name is displayed in " + Screen + " section", "Partner Portal name is not displayed in " + Screen + " section");
+                    break;
+                default:
+                    log("Pass correct screen", "Wrong screen has been Pass", true);
+                    break;
+            }
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Partner Portal name is not displayed on "+Screen,
+                    true);
+        }
+    }
 }
 
