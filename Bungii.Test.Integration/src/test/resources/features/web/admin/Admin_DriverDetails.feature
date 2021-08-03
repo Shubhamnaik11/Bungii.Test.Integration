@@ -119,7 +119,7 @@ Feature: Admin_DriverDetails
     And I enter confirm comment for edited phone and "Save" it
     Then I see updated driver phone number
 
-  @regression
+  @a
   Scenario: Verify Admin can edit and cancel the driver phone number
     When I search driver "Testdrivertywd_appledc_a_drve Driver"
     And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
@@ -127,6 +127,8 @@ Feature: Admin_DriverDetails
     Then I change the "Testdrivertywd_appledc_a_drve Driver" phone number
     And I click "Cancel" button for the "Testdrivertywd_appledc_a_drve Driver" driver
     Then I see unchanged driver phone number
+    #core-2661
+    And I do not see regions listed under Geofence information on Driver details page
 
   @ready
   Scenario: Verify Admin can edit and cancel the driver phone number by unsaving the comment
