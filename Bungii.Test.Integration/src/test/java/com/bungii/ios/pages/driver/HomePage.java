@@ -65,6 +65,7 @@ public class HomePage extends PageBase {
     public WebElement AppMenu_FAQ() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FAQ'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_EARNINGS() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'EARNINGS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_TripAlertSettings() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ALERT SETTINGS'", PageBase.LocatorType.Predicate); }
+    public WebElement AppMenu_PrivacyPolicy() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'PRIVACY POLICY'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Feedback() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FEEDBACK'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Store() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'BUNGII STORE'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_LEADERBOARD() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'LEADERBOARD'", PageBase.LocatorType.Predicate); }
@@ -83,6 +84,8 @@ public class HomePage extends PageBase {
     public WebElement Text_Earnings() { return findElement("//XCUIElementTypeStaticText[@name=\"Disbursement info\"]", LocatorType.XPath); }
     public WebElement Text_TripAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"Delivery Alerts\"]", LocatorType.XPath); }
     public WebElement Text_SMSAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"SMS Alerts\"]", LocatorType.XPath); }
+    public WebElement Text_Privacy() {return findElement("//XCUIElementTypeStaticText[@name=\"Privacy\"]",LocatorType.XPath);}
+    public WebElement Button_Back() {return findElement("//XCUIElementTypeButton[@name=\"Back\"]",LocatorType.XPath);}
     public WebElement Text_Feedback() { return findElement("//XCUIElementTypeStaticText[@name=\"Send us your feedback\"]", LocatorType.XPath); }
     public WebElement Text_Store() { return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII STORE\"]", LocatorType.XPath); }
     public WebElement Text_ApplicationError(boolean ...ignoreException) { return findElement("//XCUIElementTypeStaticText[@name=\"An application error has occured.\"]", LocatorType.XPath,ignoreException); }

@@ -32,6 +32,9 @@ Feature: DriverMenu
     When I Select "ACCOUNT > ALERT SETTINGS" from driver App menu
     Then I should be navigated to "ALERT SETTINGS" screen
     Then I should be able to see data on "ALERT SETTINGS" page
+    When I Select "ACCOUNT > PRIVACY POLICY" from driver App menu
+    Then I should be navigated to "PRIVACY POLICY" screen
+    Then I should be able to see data on "PRIVACY POLICY" page
     When I Select "BUNGII STORE" from driver App menu
     Then I should be navigated to "BUNGII STORE" screen
     Then I should be able to see data on "BUNGII STORE" page

@@ -209,6 +209,10 @@ public class HomePageSteps extends DriverBase {
                     action.click(homepage.AppMenu_Account());
                     action.click(homepage.AppMenu_TripAlertSettings());
                     break;
+                case "ACCOUNT > PRIVACY POLICY":
+                    action.click(homepage.AppMenu_Account());
+                    action.click(homepage.AppMenu_PrivacyPolicy());
+                    break;
                 case "FEEDBACK":
                     action.click(homepage.AppMenu_Feedback());
                     break;
@@ -420,9 +424,12 @@ public class HomePageSteps extends DriverBase {
                     testStepAssert.isElementNameEquals(homepage.Text_TripAlertSettings(), "Delivery Alerts", "Delivery Alerts is displayed", "Delivery Alerts is displayed", "Delivery Alerts is not displayed");
                     testStepAssert.isElementNameEquals(homepage.Text_SMSAlertSettings(), "SMS Alerts", "SMS Alerts is displayed", "SMS Alerts is displayed", "SMS Alerts is not displayed");
                     break;
-
                 case "FEEDBACK":
                     testStepAssert.isElementNameEquals(homepage.Text_Feedback(), "Send us your feedback", "Send us your feedback is displayed", "Send us your feedback is displayed", "Send us your feedback is not displayed");
+                    break;
+                case "PRIVACY POLICY":
+                    testStepAssert.isElementNameEquals(homepage.Text_Privacy(), "Privacy", "Privacy text should be displayed", "Privacy text is displayed", "Privacy text is not displayed");
+                    action.click(homepage.Button_Back());
                     break;
 
                 case "BUNGII STORE":

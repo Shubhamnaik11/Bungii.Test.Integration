@@ -695,6 +695,9 @@ public class GeneralUtility extends DriverBase {
             case "ACCOUNT INFO":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.account");
                 break;
+            case "CUSTOMER PRIVACY POLICY":
+                expectedMessage = PropertyUtility.getMessage("customer.navigation.privacy.policy");
+                break;
             case "SCHEDULED BUNGII":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.scheduled.bungii");
                 break;
@@ -709,6 +712,9 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "ALERT SETTINGS":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.trip.alert.settings");
+                break;
+            case "PRIVACY POLICY":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.privacy.policy");
                 break;
             case "BUNGII STORE":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.store");

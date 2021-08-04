@@ -474,7 +474,7 @@ public class HomeSteps extends DriverBase {
             {
                 action.click(invitePage.Button_Done());
             }
-            if (header.equalsIgnoreCase("ACCOUNT INFO")||header.equalsIgnoreCase("PROMOS")||header.equalsIgnoreCase("PAYMENT"))
+            if (header.equalsIgnoreCase("ACCOUNT INFO")||header.equalsIgnoreCase("PRIVACY POLICY")||header.equalsIgnoreCase("PROMOS")||header.equalsIgnoreCase("PAYMENT"))
             {
                 action.click(accountPage.Button_MenuBack());
             }
@@ -735,6 +735,10 @@ public class HomeSteps extends DriverBase {
             case "ACCOUNT > PROMOS":
                 action.click(homePage.AppMenu_Account());
                 action.click(homePage.AppMenu_Promos());
+                break;
+            case "ACCOUNT > PRIVACY POLICY":
+                action.click(homePage.AppMenu_Account());
+                action.click(homePage.AppMenu_Privacy());
                 break;
             case "DRIVE WITH BUNGII":
                 action.click(homePage.AppMenu_DriveWithBungii());
