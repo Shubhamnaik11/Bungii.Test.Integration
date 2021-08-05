@@ -109,6 +109,11 @@ public class DriverMenuSteps extends DriverBase {
                     testStepAssert.isElementTextEquals(homePage.Text_TripAlertSettings(), "Delivery Alerts", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
+                case "PRIVACY POLICY":
+                    data = action.getText(homePage.Text_PrivacyPolicy()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_PrivacyPolicy(), strArg1, data + " is displayed", data + " is displayed", data + " is not displayed");
+                    break;
+
                 case "FEEDBACK":
                     data = action.getText(homePage.Text_Feedback()).toString();
                     testStepAssert.isElementTextEquals(homePage.Text_Feedback(), "Send us your feedback", data + " is displayed", data + " is displayed", data + " is not displayed");

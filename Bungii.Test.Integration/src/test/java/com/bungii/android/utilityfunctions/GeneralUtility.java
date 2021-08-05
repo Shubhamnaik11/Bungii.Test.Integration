@@ -80,6 +80,7 @@ public class GeneralUtility extends DriverBase {
     FAQPage faqPage = new FAQPage();
     SupportPage supportPage = new SupportPage();
     PromosPage promosPage = new PromosPage();
+    PrivacyPolicyPage privacyPolicyPage = new PrivacyPolicyPage();
     com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
     ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
     TermsPage termsPage = new TermsPage();
@@ -220,6 +221,10 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "Promos":
                 isCorrectPage = action.isElementPresent(promosPage.Header_SavePage(true));
+                break;
+            case "Privacy Policy":
+                isCorrectPage = action.isElementPresent(privacyPolicyPage.Header_PrivacyPolicyPage(true));
+                action.isElementPresent(privacyPolicyPage.Text_Privacy(true));
                 break;
             case "Home":
                 isCorrectPage = action.isElementPresent(homePage.Header_HomePage(true));
@@ -650,6 +655,20 @@ Thread.sleep(5000);
                 else
                     action.click(homePage.Button_NavPromos());
                 break;
+             case "ACCOUNT > PRIVACY POLICY":
+                 if(action.isElementPresent(accountPage.Button_Navigate_Up(true)))
+                 {
+                     action.click(accountPage.Button_Navigate_Up());
+                     action.click(homePage.Button_NavPrivacyPolicy());
+
+                 }
+                 else if(action.isElementPresent(homePage.Button_NavAccount(true))){
+                     action.click(homePage.Button_NavAccount());
+                     action.click(homePage.Button_NavPrivacyPolicy());
+                 }
+                 else
+                     action.click(homePage.Button_NavPrivacyPolicy());
+                 break;
             case "ACCOUNT>LOGOUT":
                 //String currentPage = action.getText(Page_Signup.GenericHeader(true));
                // if (currentPage.equalsIgnoreCase("ACCOUNT INFO")||currentPage.equalsIgnoreCase("PROMOS")||currentPage.equalsIgnoreCase("PAYMENT"))

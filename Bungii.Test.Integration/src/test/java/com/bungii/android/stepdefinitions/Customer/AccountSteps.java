@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.AccountPage;
+import com.bungii.android.pages.customer.PrivacyPolicyPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -16,6 +17,7 @@ public class AccountSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(AccountSteps.class);
     ActionManager action = new ActionManager();
     AccountPage accountPage = new AccountPage();
+    PrivacyPolicyPage privacyPolicyPage = new PrivacyPolicyPage();
 
     /**
      * Read customer details and store it in scenario context
@@ -70,6 +72,9 @@ public class AccountSteps extends DriverBase {
                 case "PROMOS":
                 case "ACCOUNT INFO":
                     action.click(accountPage.Button_Cust_Navigate_Up());
+                    break;
+                case "PRIVACY POLICY":
+                    action.click(privacyPolicyPage.Button_Cust_Navigate_Up());
                     break;
                 default:
                     break;

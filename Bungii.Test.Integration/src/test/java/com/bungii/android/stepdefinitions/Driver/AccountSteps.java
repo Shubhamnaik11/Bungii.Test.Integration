@@ -52,6 +52,7 @@ public class AccountSteps extends DriverBase {
             switch (strArg2){
                 case "ACCOUNT INFO":
                 case "ALERT SETTINGS":
+                case "PRIVACY POLICY":
                     action.click(accountPage.Button_Navigate_Up());
                     break;
                 default:
