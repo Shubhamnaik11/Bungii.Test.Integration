@@ -9,6 +9,7 @@ import com.bungii.android.pages.customer.LocationPage;
 import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.pages.driver.*;
+import com.bungii.android.pages.customer.PrivacyPolicyPage;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.EmailUtility;
