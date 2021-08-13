@@ -106,7 +106,7 @@ public class HomePageSteps extends DriverBase {
                     action.click(driverAccountPage.Link_Account_Settings());
                     break;
                 case "PRIVACY POLICY":
-                    action.click(driverAccountPage.Link_Privarcy_Policy());
+                    action.click(driverAccountPage.Link_Privacy_Policy());
                     break;
                 case "LOGOUT":
                     action.click(driverAccountPage.Link_Logout());
