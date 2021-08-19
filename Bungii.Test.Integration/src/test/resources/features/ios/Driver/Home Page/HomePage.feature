@@ -13,7 +13,7 @@ Feature: Driver Home screen
   @regression
   Scenario: Verify Driver Information Is Populated Correctly On Driver Dashboard Screen
     Then The "name" for "valid" driver should be correctly displayed
-    And The "Vehicle info" for "valid" driver should be correctly displayed
+    #And The "Vehicle info" for "valid" driver should be correctly displayed--removed in Sprint 48
     And The "rating" for "valid" driver should be correctly displayed
     And I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -26,10 +26,10 @@ Feature: Driver Home screen
 
   @regression
   Scenario: Verify Driver Go Online button And Available Trips Link On Driver Dashboard Screen
-    When I click "Go Online" button on "Home" screen on driverApp
-    Then The title of button should change to "Go Offline" on driverApp
+    When I click "Offline" button on "Home" screen on driverApp
+    Then The title of button should change to "Online" on driverApp
     And Info text should be updated
-    And The navigation title should change to "Online"
+    #And The navigation title should change to "Online"---Sprint 48 Online/Offline title is removed now BUNGII will be shown
 
     When I click "Available Bungiis" button on "Home" screen on driverApp
     Then I should be navigated to "Available Bungiis" screen on driverApp

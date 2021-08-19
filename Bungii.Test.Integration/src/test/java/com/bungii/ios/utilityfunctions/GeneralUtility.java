@@ -618,11 +618,11 @@ public class GeneralUtility extends DriverBase {
             case "HOME":
                 if (currentApplication.equals("DRIVER")) {
                     String naviagationBar = action.getScreenHeader(driverHomePage.Text_NavigationBar());
-                    if (naviagationBar.equals("ONLINE") || naviagationBar.equals("OFFLINE")) {
+                    if (naviagationBar.equals("ONLINE") || naviagationBar.equals("OFFLINE") || naviagationBar.equals("Bungii_Driver.AppView")) {
                         isCorrectPage = true;
                     } else {
                         Thread.sleep(7000);
-                        isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("OFFLINE");
+                        isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("OFFLINE") || action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("Bungii_Driver.AppView");
                     }
                     break;
                 } else {

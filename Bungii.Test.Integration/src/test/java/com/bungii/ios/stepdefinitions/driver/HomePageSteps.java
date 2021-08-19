@@ -250,8 +250,8 @@ public class HomePageSteps extends DriverBase {
     public void info_text_should_be_updated() {
         // Write code here that turns the phrase above into concrete actions
         try {
-            testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverName()), PropertyUtility.getMessage("DriverStatusInfo"));
-            testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverInfo()), PropertyUtility.getMessage("DriverInfo"));
+            //testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverName()), PropertyUtility.getMessage("DriverStatusInfo"));
+            testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverInfoOnline()), PropertyUtility.getMessage("DriverInfo"));
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -308,11 +308,13 @@ public class HomePageSteps extends DriverBase {
 
         try {
             switch (buttonTitle.toUpperCase()) {
-                case "GO ONLINE":
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.GoOnline_Btn()), buttonTitle.toUpperCase());
-                    break;
-                case "GO OFFLINE":
+                case "ONLINE":
+                    //buttonTitle="OFFLINE";
                     testStepVerify.isEquals(action.getNameAttribute(homepage.GoOffline_Btn()), buttonTitle.toUpperCase());
+                    break;
+                case "OFFLINE":
+                    //buttonTitle="ONLINE";
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.GoOnline_Btn()), buttonTitle.toUpperCase());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -342,7 +344,7 @@ public class HomePageSteps extends DriverBase {
 
             switch (info.toLowerCase()) {
                 case "name":
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverName()), driverName);
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverName1(driverName)), driverName);
                     break;
                 case "vehicle info":
                     testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverInfo()), driverVehicle);
