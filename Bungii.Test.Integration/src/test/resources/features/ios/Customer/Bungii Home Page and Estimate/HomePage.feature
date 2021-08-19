@@ -56,7 +56,6 @@ Feature: Customer Home screen
     And driver eta should be "less than 30 mins"
 
   @regression
-    @gs
   Scenario:Verify Customer Can Set Pickup And Dropoff Locations When No Driver ETA Is Found (Within Geofence)
     Given I am on Customer logged in Home page
 
