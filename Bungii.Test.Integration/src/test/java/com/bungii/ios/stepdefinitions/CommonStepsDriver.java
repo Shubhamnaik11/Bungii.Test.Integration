@@ -119,15 +119,16 @@ public class CommonStepsDriver extends DriverBase {
                 case "BACK":
                     action.click(driverForgotPasswordPage.Button_Back());
                     break;
-                case "GO ONLINE":
+                case "ONLINE":
                     Thread.sleep(2000);
-                    action.click(driverHomePage.GoOnline_Btn());
-                    break;
-                case "GO OFFLINE":
                     action.click(driverHomePage.GoOffline_Btn());
                     break;
+                case "OFFLINE":
+                    action.click(driverHomePage.GoOnline_Btn());
+                    break;
                 case "AVAILABLE BUNGIIS":
-                    action.click(driverHomePage.Text_AvailableTrips());
+                    //action.click(driverHomePage.Text_AvailableTrips());
+                    action.click(driverHomePage.Link_View_AvailableTrips());
                     break;
                 case "SMS ALERT":
                     action.click(tripAlertSettingsPage.Button_SMSAlerts());
