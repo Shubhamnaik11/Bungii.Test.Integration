@@ -5,6 +5,7 @@ import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.api.utilityFunctions.AuthServices;
 import com.bungii.api.utilityFunctions.CoreServices;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
@@ -502,7 +503,8 @@ public class NotificationSteps extends DriverBase {
                 driverPhoneNum =  (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
             }
             if(driverPhoneNum!= null) {
-                String pushNotificationContent = new DbUtility().getPushNotificationContent(driverPhoneNum, pickupRequestID);
+                String pushNotificationContent = new DbUtility().getDriverPushNotificationContent(driverPhoneNum, pickupRequestID,expectedNotification);
+
                 if (pushNotificationContent == "") {
                    // if (new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequestID))
                         //if(!expectedNotification.contains("URGENT"))
