@@ -21,7 +21,9 @@ Feature: Solo Scheduled Bungii Part C
     Then I wait for "1" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I remove current driver and researches Bungii
-    
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "customer" application on "same" devices
     And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
     And I should get virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
   

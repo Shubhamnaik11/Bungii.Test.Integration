@@ -45,9 +45,10 @@ Feature: Solo Scheduled Bungii Part B
     Given I Switch to "customer" application on "same" devices
 
     #trip 1
+    #Change the Bunggi time from 15 minutes ahead to 0.5 hour ahead since minimum schedule tiem at geofence is set to 30 minutes
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | denver   | Scheduled    | 15 min ahead |
+      | denver   | Scheduled    | 0.5 hour ahead |
      #trip 2
     Given I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                      | Customer label |
