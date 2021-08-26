@@ -22,10 +22,10 @@ public class DriverHomePage extends PageBase {
 
     public WebElement Image_DriverProfilePhoto () { return findElement("com.bungii.driver:id/home_driver_profile_image", LocatorType.Id); }
 
-    public WebElement Button_OnlineOffline () { return findElement("com.bungii.driver:id/home_button_go_online", LocatorType.Id); }
-
-    public WebElement Link_AvailableTrips (boolean ...ignoreException) { return findElement("com.bungii.driver:id/home_textview_available_trips", LocatorType.Id,ignoreException); }
-
+   // public WebElement Button_OnlineOffline () { return findElement("com.bungii.driver:id/home_button_go_online", LocatorType.Id); }
+    public WebElement Button_OnlineOffline () { return findElement("//*[contains(@resource-id,'com.bungii.driver:id/tvThumbState')]", LocatorType.XPath); }
+   // public WebElement Link_AvailableTrips (boolean ...ignoreException) { return findElement("com.bungii.driver:id/home_textview_available_trips", LocatorType.Id,ignoreException); }
+    public WebElement Link_AvailableTrips (boolean ...ignoreException) { return findElement("//android.widget.TextView[@text='View Available Bungiis']", LocatorType.XPath,ignoreException); }
 
     public WebElement Alert_NewBungii (boolean ...ignoreException) { return findElement("com.bungii.driver:id/notification_alert_message", LocatorType.Id,ignoreException); }
     public WebElement Text_DriverInfo () { return findElements("android.widget.TextView", LocatorType.ClassName).get(2); }
