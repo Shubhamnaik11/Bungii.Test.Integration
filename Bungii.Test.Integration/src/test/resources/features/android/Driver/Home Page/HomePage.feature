@@ -15,7 +15,7 @@ Feature: Driver Home screen
   @regression
   Scenario: Verify Driver Information Is Populated Correctly On Driver Dashboard Screen
     Then The "name" for "valid" driver should be correctly displayed
-    And The "Vehicle info" for "valid" driver should be correctly displayed
+    #And The "Vehicle info" for "valid" driver should be correctly displayed - Removed in Sprint 48 - Core-2844
     And The "rating" for "valid" driver should be correctly displayed
 
   @regression
