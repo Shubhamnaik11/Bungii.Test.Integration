@@ -34,7 +34,7 @@ Feature: Scheduled Bungii on one device
       | 9403960188      |                 |
     
 	
-  @ready
+  @regression
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver [1 Device]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -92,7 +92,7 @@ Feature: Scheduled Bungii on one device
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
 
-  @ready
+  @regression
     #stable
   Scenario: Verify Non Control Driver Doesnt Receive Long Stack Request If Started Before The Control Driver [1 Device]
     Given that duo schedule bungii is in progress
@@ -117,7 +117,7 @@ Feature: Scheduled Bungii on one device
       | CUSTOMER1_PHONE | 9403960183 |
 
 
-  @ready
+  @regression
 	#stable
   Scenario: Verify Non Control Driver Cannot Cancel Bungii once started If Control Driver Has Not Started The Bungii [1 Device]
     Given that duo schedule bungii is in progress
@@ -144,7 +144,7 @@ Feature: Scheduled Bungii on one device
 
 
 
-  @ready
+  @regression
     #stable
   Scenario: Verify Scheduled Duo Bungii can be accepted by drivers and they are shown under displayed under Scheduled List upon accepting [1 Device]
 	Given I Switch to "driver" application on "same" devices
