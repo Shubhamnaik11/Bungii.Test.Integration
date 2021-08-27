@@ -192,7 +192,7 @@ Feature: SoloScheduled Part K
 	And I am on the LOG IN page on driver app
 	And I am logged in as "valid" driver
 	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	Then I click "Go Online" button on Home screen on driver app
+	Then I click "OFFLINE" button on Home screen on driver app
 	And I Select "AVAILABLE BUNGIIS" from driver App menu
 	And I Select Trip from driver available trip
 	And I tap on "ACCEPT" on driver Trip details Page
