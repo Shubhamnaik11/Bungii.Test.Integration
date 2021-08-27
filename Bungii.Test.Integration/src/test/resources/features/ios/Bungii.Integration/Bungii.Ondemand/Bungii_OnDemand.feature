@@ -9,7 +9,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I Switch to "customer" application on "same" devices
 
 
-  @ready
+  @regression
     #Stable
     #move to end
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
