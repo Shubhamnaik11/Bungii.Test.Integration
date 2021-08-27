@@ -138,6 +138,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     }
                     if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))
                         action.scrollToBottom();
+                   // verifyDisclaimer(Tr)
                     action.click(bungiiEstimatePage.Button_RequestBungii());
                     break;
 
@@ -1437,4 +1438,13 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
         return formattedDates;
     }
 
+    public void verifyDisclaimer(String Type) {
+        if (Type.equalsIgnoreCase("solo")) {
+            testStepVerify.isEquals(action.getValueAttribute(estimatePage.Text_Solo_Disclaimer()), PropertyUtility.getDataProperties("customer.solo.disclaimer"));
+            logger.detail("Disclaimer for " + Type + ":" + action.getValueAttribute(estimatePage.Text_Solo_Disclaimer()));
+        } else {
+            testStepVerify.isEquals(action.getValueAttribute(estimatePage.Text_Duo_Disclaimer()), PropertyUtility.getDataProperties("customer.duo.disclaimer"));
+            logger.detail("Disclaimer for " + Type + ":" + action.getValueAttribute(estimatePage.Text_Duo_Disclaimer()));
+        }
+    }
 }
