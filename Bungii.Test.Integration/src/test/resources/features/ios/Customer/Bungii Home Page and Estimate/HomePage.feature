@@ -66,7 +66,7 @@ Feature: Customer Home screen
     And I enter drop location
       | Driver | Drop Location  |
       | Solo   | Margao Railway Overbridge |
-    And I click "Get Estimate" button on "Home" screen
+    And I click "Get Estimate" button on "Home"Moc screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |

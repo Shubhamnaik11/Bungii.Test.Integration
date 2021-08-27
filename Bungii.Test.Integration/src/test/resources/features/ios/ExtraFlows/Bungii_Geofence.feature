@@ -61,7 +61,7 @@ Feature: Bungii Geofence Based Calculation
     And I calculate the schedule time
     Then correct next available scheduled time should be displayed
 
-  @ready
+  @regression
    #stable
   Scenario: Verify Customer Can Change Default Payment Card
     And I logged in Customer application using  "valid denver" user

@@ -49,7 +49,7 @@ Feature: Solo Scheduled Bungii Part C
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @ready
+  @regression
   Scenario: Verify Driver Is Not Allowed To Start Bungii Within 60 Mins Of Scheduled Time If Required Number Of Drivers Have Not Accepted The Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -122,7 +122,7 @@ Feature: Solo Scheduled Bungii Part C
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-  @ready
+  @regression
   Scenario: Verify If Non Control Driver Completes Trip Before Control Driver Then He Is Shown Waiting Screen Till The Control Driver Completes And The Correct Summary Is Shown Thereafter
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
