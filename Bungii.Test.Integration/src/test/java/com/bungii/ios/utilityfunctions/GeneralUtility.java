@@ -31,6 +31,7 @@ import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.Dimension;
@@ -53,6 +54,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -1453,18 +1455,21 @@ try {
     String customer2PhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");//customer2PhoneNumber="9999991259";
     String driverPhoneNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");//driverPhoneNumber="9955112208";
 
-    String[] loadingTimeStamp = com.bungii.android.utilityfunctions.DbUtility.getLoadingTimeStamp(customerPhoneNumber);
+    //String[] loadingTimeStamp = com.bungii.android.utilityfunctions.DbUtility.getLoadingTimeStamp(customerPhoneNumber);
     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     //By default data is in UTC
     formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-    Date loadingStartTime = formatter.parse(loadingTimeStamp[0]);
-    Date loadingEtartTime = formatter.parse(loadingTimeStamp[1]);
-    long duration = loadingEtartTime.getTime() - loadingStartTime.getTime();
-    long loadingTime = TimeUnit.MILLISECONDS.toMinutes(duration);
 
-    String[] driverLocation = com.bungii.android.utilityfunctions.DbUtility.getDriverLocation(driverPhoneNumber);
+    //String[] driverLocation = com.bungii.android.utilityfunctions.DbUtility.getDriverLocation(driverPhoneNumber);
     String[] pickup1Locations = com.bungii.android.utilityfunctions.DbUtility.getPickupAndDropLocation(customerPhoneNumber);
     String[] pickup2Locations = com.bungii.android.utilityfunctions.DbUtility.getPickupAndDropLocation(customer2PhoneNumber);
+
+    //String Pickup_request_ongoing= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+    String custRef = DbUtility.getCustomerRefference(customerPhoneNumber);
+    String Telet = DbUtility.getTELETfromDb(custRef);
+    Date TeletDateTime = formatter.parse(Telet);
+    long TeletTimeInMs = TeletDateTime.getTime();
+    //long TeletTimeInMs = TimeUnit.MILLISECONDS.toMinutes(TeletTime);//Db telet time in MS
 
     String[] dropLocation = new String[2];
     dropLocation[0] = pickup1Locations[2];
@@ -1473,33 +1478,25 @@ try {
     newPickupLocations[0] = pickup2Locations[0];
     newPickupLocations[1] = pickup2Locations[1];
 
-    long[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(driverLocation, dropLocation, newPickupLocations);
+    long[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(dropLocation, newPickupLocations);
     logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance[0]+" and "+timeToCoverDistance[1]);
-    int FLUFF_TIME = 4;
-    loadingTime = (loadingTime < 1 ? 10 : loadingTime);
-    // loadingTime=10;
-    logger.detail("loadingTime "+loadingTime);
-    Double totalTimeETAtoPickup = (double)loadingTime + (double)timeToCoverDistance[0] / 60 + (double)timeToCoverDistance[1] / 60 + FLUFF_TIME;
-    logger.detail("totalTimeETAtoPickup "+totalTimeETAtoPickup);
-    Double tripProjectedEndTime = (double)loadingTime + (double) timeToCoverDistance[0] / 60;
-    logger.detail("tripProjectedEndTime "+tripProjectedEndTime);
-    String tripStartTime = com.bungii.android.utilityfunctions.DbUtility.getStatusTimeStampForStack(customer2PhoneNumber);
-    logger.detail("Status Timestamp "+tripStartTime);
-    Date tryToFinishTome_Temp = formatter.parse(tripStartTime);
+
     DateFormat formatterForLocalTimezone = new SimpleDateFormat("hh:mm a");
     formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+    //Double TeletDistanceTime = TeletTimeInMs + (double) timeToCoverDistance[0] / 60;
+    long TeletDistanceTime = TeletTimeInMs + timeToCoverDistance[0] * 1000;
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTimeInMillis(TeletDistanceTime);
+    Date dt = calendar.getTime();
 
-    Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() +new Double(ONE_MINUTE_IN_MILLIS * new Double(tripProjectedEndTime)).longValue());
-    String driverTime = formatterForLocalTimezone.format(tryToFinishTome);
-
-    Date timeStampToCalculateDate = new Date(tryToFinishTome_Temp.getTime() + new Double(ONE_MINUTE_IN_MILLIS * new Double(totalTimeETAtoPickup)).longValue());
-
-
-    Date minTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_FROM * ONE_MINUTE_IN_MILLIS));
+    Date minTime = new Date(dt.getTime() + (FROM_RANGE_FROM * ONE_MINUTE_IN_MILLIS));
     String strMindate = formatterForLocalTimezone.format(minTime);
 
-    Date maxTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_TO * ONE_MINUTE_IN_MILLIS));
+    //Date maxTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_TO * ONE_MINUTE_IN_MILLIS));
+    Date maxTime = new Date(dt.getTime() + (FROM_RANGE_TO * ONE_MINUTE_IN_MILLIS));
     String strMaxdate = formatterForLocalTimezone.format(maxTime);
+
+    String driverTime = formatterForLocalTimezone.format(TeletDateTime);
     cucumberContextManager.setScenarioContext("DRIVER_FINISH_BY", driverTime);
     cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL", strMindate);
     cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL", strMaxdate);
