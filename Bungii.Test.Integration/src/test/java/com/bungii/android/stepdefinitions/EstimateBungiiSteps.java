@@ -1436,5 +1436,4 @@ private void addPhoto(AndroidDriver<MobileElement> driver) throws Throwable
         }
         return formattedDates;
     }
-
 }
