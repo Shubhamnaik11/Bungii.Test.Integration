@@ -258,6 +258,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             Map<String, String> data = tripInformation.transpose().asMap(String.class, String.class);
             String day = data.get("Day"),
                     tripType = data.get("Trip Type");
+            verifyDisclaimer(tripType);
             action.scrollToTop();
             selectBungiiTime(Integer.parseInt(day), "05", "30", "PM", tripType);
             log("I confirm trip for " + day +" and type "+tripType, "I confirmed trip for " + day +" and type "+ tripType);
@@ -874,4 +875,13 @@ public class ScheduledBungiiSteps extends DriverBase {
         return Image_SelectBungii;
     }
 
+    public void verifyDisclaimer(String Type) {
+        if (Type.equalsIgnoreCase("SOLO")) {
+            testStepVerify.isEquals(action.getText(estimatePage.Text_Solo_Disclaimer()), PropertyUtility.getDataProperties("customer.solo.disclaimer"));
+            logger.detail("Disclaimer for " + Type + ":" + action.getText(estimatePage.Text_Solo_Disclaimer()));
+        } else {
+            testStepVerify.isEquals(action.getText(estimatePage.Text_Duo_Disclaimer()), PropertyUtility.getDataProperties("customer.duo.disclaimer"));
+            logger.detail("Disclaimer for " + Type + ":" + action.getText(estimatePage.Text_Duo_Disclaimer()));
+        }
+    }
 }
