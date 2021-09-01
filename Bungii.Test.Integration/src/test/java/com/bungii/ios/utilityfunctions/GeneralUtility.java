@@ -618,11 +618,11 @@ public class GeneralUtility extends DriverBase {
             case "HOME":
                 if (currentApplication.equals("DRIVER")) {
                     String naviagationBar = action.getScreenHeader(driverHomePage.Text_NavigationBar());
-                    if (naviagationBar.equals("ONLINE") || naviagationBar.equals("OFFLINE")) {
+                    if (naviagationBar.equals("ONLINE") || naviagationBar.equals("OFFLINE") || naviagationBar.equals("Bungii_Driver.AppView")) {
                         isCorrectPage = true;
                     } else {
                         Thread.sleep(7000);
-                        isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("OFFLINE");
+                        isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("OFFLINE") || action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("Bungii_Driver.AppView");
                     }
                     break;
                 } else {
@@ -695,6 +695,9 @@ public class GeneralUtility extends DriverBase {
             case "ACCOUNT INFO":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.account");
                 break;
+            case "CUSTOMER PRIVACY POLICY":
+                expectedMessage = PropertyUtility.getMessage("customer.navigation.privacy.policy");
+                break;
             case "SCHEDULED BUNGII":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.scheduled.bungii");
                 break;
@@ -709,6 +712,9 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "ALERT SETTINGS":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.trip.alert.settings");
+                break;
+            case "PRIVACY POLICY":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.privacy.policy");
                 break;
             case "BUNGII STORE":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.store");

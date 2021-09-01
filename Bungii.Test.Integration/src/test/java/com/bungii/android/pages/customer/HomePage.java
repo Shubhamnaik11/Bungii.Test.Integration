@@ -69,6 +69,7 @@ public class HomePage extends PageBase {
     public WebElement Button_NavSupport() { return findElement("//android.widget.CheckedTextView[@text='SUPPORT']",LocatorType.XPath); }
     //public WebElement Button_NavPromos() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(6); }
     public WebElement Button_NavPromos() { return findElement("//android.widget.TextView[@text='PROMOS']",LocatorType.XPath); }
+    public WebElement Button_NavPrivacyPolicy() { return findElement("//android.widget.TextView[@text='PRIVACY POLICY']",LocatorType.XPath); }
     public WebElement Button_NavDrives() { return findElement("//android.widget.CheckedTextView[@text='SIGN UP TO DRIVE']",LocatorType.XPath); }
     //public WebElement Button_Navlogout() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(8); }
     public WebElement Button_Navlogout() { return findElement("//android.widget.TextView[@text='LOGOUT']",LocatorType.XPath); }

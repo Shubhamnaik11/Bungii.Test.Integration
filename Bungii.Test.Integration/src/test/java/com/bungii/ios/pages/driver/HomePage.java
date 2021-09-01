@@ -30,9 +30,12 @@ public class HomePage extends PageBase {
     public WebElement Button_GoOnline(boolean ...ignoreException) { return findElement("GO ONLINE", LocatorType.AccessibilityId,ignoreException); }
     public WebElement Button_GoOffline(boolean ...ignoreException) { return findElement("GO OFFLINE", PageBase.LocatorType.AccessibilityId,ignoreException); }
     public WebElement Text_AvailableTrips() { return findElement("Available Bungiis", PageBase.LocatorType.AccessibilityId); }
+    public WebElement Link_View_AvailableTrips() { return findElement("//XCUIElementTypeStaticText[@name='View Available Bungiis']", LocatorType.XPath); }
 
-    public WebElement GoOnline_Btn() { return findElement("GO ONLINE", PageBase.LocatorType.AccessibilityId); }
-    public WebElement GoOffline_Btn() { return findElement("GO OFFLINE", PageBase.LocatorType.AccessibilityId); }
+    //public WebElement GoOnline_Btn() { return findElement("GO ONLINE", PageBase.LocatorType.AccessibilityId); }
+    public WebElement GoOnline_Btn() { return findElement("//XCUIElementTypeStaticText[@name='OFFLINE']", LocatorType.XPath); }
+    //public WebElement GoOffline_Btn() { return findElement("GO OFFLINE", PageBase.LocatorType.AccessibilityId); }
+    public WebElement GoOffline_Btn() { return findElement("//XCUIElementTypeStaticText[@name='ONLINE']", LocatorType.XPath); }
 
 
     public WebElement NavigationBar_Status (boolean ...ignoreException) { return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName, ignoreException); }
@@ -47,7 +50,9 @@ public class HomePage extends PageBase {
 //'**/XCUIElementTypeNavigationBar/XCUIElementTypeButton
 
     public WebElement Text_DriverName() { return findElement("//XCUIElementTypeButton[@name='Available Bungiis']/preceding-sibling::XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
+    public WebElement Text_DriverName1(String driverName) { return findElement("//XCUIElementTypeStaticText[@name='"+driverName+"']", PageBase.LocatorType.XPath); }
     public WebElement Text_DriverInfo() { return findElement("//XCUIElementTypeButton[@name='Available Bungiis']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
+    public WebElement Text_DriverInfoOnline() { return findElement("//XCUIElementTypeStaticText[@name='ONLINE']/following::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
     public WebElement Button_DriverStatus() { return findElement("//XCUIElementTypeButton[@name='Available Bungiis']/preceding-sibling::XCUIElementTypeButton", PageBase.LocatorType.XPath); }
 
     public WebElement AppMenu_AvailableTrip() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'AVAILABLE BUNGIIS'", LocatorType.Predicate); }
@@ -65,6 +70,7 @@ public class HomePage extends PageBase {
     public WebElement AppMenu_FAQ() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FAQ'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_EARNINGS() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'EARNINGS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_TripAlertSettings() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ALERT SETTINGS'", PageBase.LocatorType.Predicate); }
+    public WebElement AppMenu_PrivacyPolicy() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'PRIVACY POLICY'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Feedback() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FEEDBACK'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Store() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'BUNGII STORE'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_LEADERBOARD() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'LEADERBOARD'", PageBase.LocatorType.Predicate); }
@@ -83,6 +89,8 @@ public class HomePage extends PageBase {
     public WebElement Text_Earnings() { return findElement("//XCUIElementTypeStaticText[@name=\"Disbursement info\"]", LocatorType.XPath); }
     public WebElement Text_TripAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"Delivery Alerts\"]", LocatorType.XPath); }
     public WebElement Text_SMSAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"SMS Alerts\"]", LocatorType.XPath); }
+    public WebElement Text_Privacy() {return findElement("//XCUIElementTypeStaticText[@name=\"Privacy\"]",LocatorType.XPath);}
+    public WebElement Button_Back() {return findElement("//XCUIElementTypeButton[@name=\"Back\"]",LocatorType.XPath);}
     public WebElement Text_Feedback() { return findElement("//XCUIElementTypeStaticText[@name=\"Send us your feedback\"]", LocatorType.XPath); }
     public WebElement Text_Store() { return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII STORE\"]", LocatorType.XPath); }
     public WebElement Text_ApplicationError(boolean ...ignoreException) { return findElement("//XCUIElementTypeStaticText[@name=\"An application error has occured.\"]", LocatorType.XPath,ignoreException); }

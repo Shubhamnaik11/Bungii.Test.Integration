@@ -16,7 +16,7 @@ public class AccountsPage extends PageBase{
 
     public WebElement Link_Account_Settings() { return findElement("//android.view.ViewGroup[@resource-id='com.bungii.driver:id/layout_account_settings_constraint_layout'][2]",LocatorType.XPath);}
 
-    public WebElement Link_Privarcy_Policy() { return findElement("//android.view.ViewGroup[@resource-id='com.bungii.driver:id/layout_account_settings_constraint_layout'][3]",LocatorType.XPath);}
+    public WebElement Link_Privacy_Policy() { return findElement("//android.view.ViewGroup[@resource-id='com.bungii.driver:id/layout_account_settings_constraint_layout'][3]",LocatorType.XPath);}
 
     public WebElement Link_Logout() { return findElement("//android.view.ViewGroup[@resource-id='com.bungii.driver:id/layout_account_settings_constraint_layout'][4]",LocatorType.XPath);}
 

@@ -15,16 +15,16 @@ Feature: Driver Home screen
   @regression
   Scenario: Verify Driver Information Is Populated Correctly On Driver Dashboard Screen
     Then The "name" for "valid" driver should be correctly displayed
-    And The "Vehicle info" for "valid" driver should be correctly displayed
+    #And The "Vehicle info" for "valid" driver should be correctly displayed - Removed in Sprint 48 - Core-2844
     And The "rating" for "valid" driver should be correctly displayed
 
   @regression
     #stable
   Scenario: Verify Driver Go Online button And Available Trips Link On Driver Dashboard Screen
     And I wait for "1" mins
-    When I click "Go Online" button on Home screen on driver app
-    Then The title of button should change to "Go Offline" on driver app
-    And Info text should be updated
+    When I click "OFFLINE" button on Home screen on driver app
+    Then The title of button should change to "ONLINE" on driver app
+    #And Info text should be updated - Removed in Sprint 48 - Core-2844
     And The navigation title should change to "Online"
 
     When I click "Available Bungiis" button on Home screen on driver app
