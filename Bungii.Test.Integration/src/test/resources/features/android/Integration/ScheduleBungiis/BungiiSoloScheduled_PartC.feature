@@ -28,7 +28,7 @@ Feature: SoloScheduled Part C
     
  
   
-  @ready
+  @regression
     #stable
   Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled delivery start time
     When that solo schedule bungii is in progress

@@ -111,7 +111,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
   
-      @ready
+      @regression
         #web
       Scenario: Verify that the list displays all completed Bungiis in descending order of date
       #Given I am logged in as "Testcustomertywd_appleand_A Android" customer
