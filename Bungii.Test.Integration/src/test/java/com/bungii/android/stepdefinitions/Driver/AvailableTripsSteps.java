@@ -179,11 +179,10 @@ public class AvailableTripsSteps extends DriverBase {
                 case "UNLOADING ITEM":
                     String partnerName = availableTrips.Partner_Name().getText();
                     String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
-                    //testStepVerify.isEquals(partnerName,partnerNameExpected);
-                    testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be display in " + Screen + " section", "Partner Portal name is displayed in " + Screen + " section", "Partner Portal name is not displayed in " + Screen + " section");
+                    testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be displayed on " + Screen + " screen", "Partner Portal name is displayed in " + Screen + " screen", "Partner Portal name is not displayed in " + Screen + " screen");
                     break;
                 default:
-                    log("Pass correct screen", "Wrong screen has been Pass", true);
+                    log("Correct screen", "Wrong screen", true);
                     break;
             }
         }
