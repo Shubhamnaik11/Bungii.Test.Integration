@@ -45,7 +45,7 @@ Feature: DriverMenu
     When I Select "LOGOUT" from ACCOUNT menu
     Then I should be able to see data on "LOGOUT" page
   
-  @ready
+  @regression
     #stable
   Scenario: Verify Driver Menus - FAQ
     When I Select "FAQ" from driver App menu

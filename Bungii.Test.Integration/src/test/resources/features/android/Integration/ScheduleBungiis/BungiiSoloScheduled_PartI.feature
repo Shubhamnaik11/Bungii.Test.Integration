@@ -144,7 +144,7 @@ Feature: SoloScheduled Part I
       | 8805368840 |                 |
   
   
-  @ready
+  @regression
     #Stable
   Scenario: Rate: Verify If Customer Can Rate both Drivers For The Duo Delivery
     When I request "duo" Bungii as a customer in "kansas" geofence
