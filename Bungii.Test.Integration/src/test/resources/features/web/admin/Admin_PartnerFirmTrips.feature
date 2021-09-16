@@ -92,6 +92,7 @@ Feature: Admin_PartnerFirmTrips
 
 
   @ready
+    @testpath
     #test data created in base
   Scenario: Verify Partner Firm  Upon Driver Acceptance And Remove Research - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -111,6 +112,7 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
+    And I get the new pickup reference generated
     And As a driver "Testdrivertywd_appledc_a_web Sundarh" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted  |
@@ -176,6 +178,7 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
 
   @ready
+    @testpath
     #test data created in base
   Scenario: Verify Partner Firm For Long Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -195,10 +198,14 @@ Feature: Admin_PartnerFirmTrips
       | driver1 state|
       |Stacked Pickup Accepted |
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
-    When I cancel bungii as a customer "Testcustomertywd_appleWashI Shah" with phone number "9999999363"
+    And I get the new pickup reference generated
+    When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarj"
+
+    #When I cancel bungii as a customer "Testcustomertywd_appleWashI Shah" with phone number "9999999363"
     #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @ready
+    @testpath
     #test data created in base
   Scenario: Verify Partner Firm For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -224,8 +231,10 @@ Feature: Admin_PartnerFirmTrips
     And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Ondemand" Delivery
       | driver1 state|
       |Stacked Pickup Accepted |
+    And I get the new pickup reference generated
+    When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarm"
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
-    When I cancel bungii as a customer "Testcustomertywd_appleWashK Shah" with phone number "9999999364"
+    #When I cancel bungii as a customer "Testcustomertywd_appleWashK Shah" with phone number "9999999364"
     #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @sanity
