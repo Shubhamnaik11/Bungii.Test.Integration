@@ -204,7 +204,7 @@ Feature: Admin_PartnerFirmTrips
     #When I cancel bungii as a customer "Testcustomertywd_appleWashI Shah" with phone number "9999999363"
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 9999999363     |                 |
+      | 9999999363     |  9999999362     |
     #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @ready
@@ -239,7 +239,7 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 9999999364     |                 |
+      | 9999999364     | 9999999357      |
     #When I cancel bungii as a customer "Testcustomertywd_appleWashK Shah" with phone number "9999999364"
     #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
