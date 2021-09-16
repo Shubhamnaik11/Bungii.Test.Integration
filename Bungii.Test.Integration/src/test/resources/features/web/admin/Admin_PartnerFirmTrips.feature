@@ -167,7 +167,7 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then Tick mark should be displayed beside driver and scheduled date
     When I click on "Save" button on Edit Scheduled bungii popup
-    Then "Bungii Saved" message should be displayed
+    Then "Bungii Saved!" message should be displayed
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
     #################
     When I cancel bungii as a customer "Testcustomertywd_apple-Jd1" with phone number "9999794897"
