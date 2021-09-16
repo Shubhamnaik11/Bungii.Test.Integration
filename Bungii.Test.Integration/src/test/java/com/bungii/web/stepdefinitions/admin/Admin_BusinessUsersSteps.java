@@ -517,7 +517,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         }
             cucumberContextManager.setScenarioContext("CUSTOMER_REF", customerRef);
             cucumberContextManager.setScenarioContext("BUSINESSUSER_NAME", username);
-
+            cucumberContextManager.setScenarioContext("CUSTOMER", username);
         log("I select "+username+" from Bulk Trips page",
                 "I have selected "+username+" from Bulk Trips page", false);
         } catch(Exception e){
