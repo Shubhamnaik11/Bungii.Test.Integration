@@ -2,13 +2,13 @@
 
   Feature: Partner Portal Cases integration with Android
 
-  @ready
+  @aa
   Scenario: Verify that the Partner name shown on driver app
     When I request Partner Portal "SOLO" Trip for "MRFM" partner
     |Geofence| Bungii Time   | Customer Phone | Customer Name |
     |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drva Kansas_a" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
