@@ -1911,7 +1911,8 @@ try{
     public void i_update_the_scheduled_date_of_the_trip_by_15_minutes()  {
         try{
         String value = admin_EditScheduledBungiiPage.TimePicker_Time().getAttribute("value");
-        LocalTime time= LocalTime.parse(value, DateTimeFormatter.ofPattern("hh:mm a"));
+            action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
+            LocalTime time= LocalTime.parse(value, DateTimeFormatter.ofPattern("hh:mm a"));
         value = time.plusMinutes(15).format(DateTimeFormatter.ofPattern("hh:mm a")).toString();
         action.click(admin_EditScheduledBungiiPage.List_TimeFrame(value));
         log("I update the Scheduled date of the trip by 15 minutes",
