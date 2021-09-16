@@ -359,5 +359,6 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
+    And Click on "Edit" button
     When I click on "Edit Trip Details" radiobutton
     Then I should not get alert as "Customer has ongoing trip"
