@@ -113,9 +113,9 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
     And I get the new pickup reference generated
-    And As a driver "Testdrivertywd_appledc_a_web Sundarh" perform below action with respective "Solo Scheduled" Delivery
-      | driver1 state|
-      | Accepted  |
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 9999999358     |                 |
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
 
   @ready
@@ -173,7 +173,9 @@ Feature: Admin_PartnerFirmTrips
     And I get the new pickup reference generated
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
     #################
-    When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarj"
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 9999794897     |                 |
     #When I cancel bungii as a customer "Testcustomertywd_apple-Jd1" with phone number "9999794897"
     #Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
 
@@ -199,9 +201,10 @@ Feature: Admin_PartnerFirmTrips
       |Stacked Pickup Accepted |
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     And I get the new pickup reference generated
-    When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarj"
-
     #When I cancel bungii as a customer "Testcustomertywd_appleWashI Shah" with phone number "9999999363"
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 9999999363     |                 |
     #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @ready
@@ -232,8 +235,11 @@ Feature: Admin_PartnerFirmTrips
       | driver1 state|
       |Stacked Pickup Accepted |
     And I get the new pickup reference generated
-    When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarm"
+
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 9999999364     |                 |
     #When I cancel bungii as a customer "Testcustomertywd_appleWashK Shah" with phone number "9999999364"
     #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
