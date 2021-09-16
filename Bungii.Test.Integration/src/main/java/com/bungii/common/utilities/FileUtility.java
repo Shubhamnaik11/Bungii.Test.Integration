@@ -150,6 +150,7 @@ public class FileUtility {
 			home = home + "/" + relPath;
 		if (!relName.equals(""))
 			home = home + "/" + relName;
+		logger.detail("Path Formed : "+ home);
 		return home;
 	}
 //MOVED from RESOURCE PATH

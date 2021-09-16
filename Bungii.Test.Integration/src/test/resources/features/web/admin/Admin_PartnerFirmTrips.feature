@@ -141,6 +141,7 @@ Feature: Admin_PartnerFirmTrips
 
 
   @ready
+    @testpath
     #Create driver in base
   Scenario: Verify Partner Scheduled - Solo Scheduled Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
