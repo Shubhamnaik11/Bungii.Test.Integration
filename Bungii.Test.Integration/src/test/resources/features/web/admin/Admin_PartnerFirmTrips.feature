@@ -147,8 +147,8 @@ Feature: Admin_PartnerFirmTrips
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
     And I upload image and csv file associated with the "Solo Scheduled" trip
-    And I click on "Upload" button on "Bulk Trips" page
-    When I click on "Confirm" button on "Bulk Trips" page
+    And I click on "Upload" button on "Upload Deliveries" page
+    When I click on "Confirm" button on "Upload Deliveries" page
     Then the "Trips have been requested successfully." message is displayed
     And I note the Pickupref of trip
     When As a driver "Testdrivertywd_appledc_a_web Sundark" perform below action with respective "Solo Scheduled" Delivery

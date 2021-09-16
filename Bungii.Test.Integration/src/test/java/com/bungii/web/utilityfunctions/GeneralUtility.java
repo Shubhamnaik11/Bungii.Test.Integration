@@ -431,6 +431,8 @@ public class GeneralUtility extends DriverBase {
 
         Date target;
         Date date = new Date();
+        if(TimeZone.getTimeZone("America/New_York").inDaylightTime(date))
+            date = DateUtils.setHours(date, date.getHours() + 1); //set 1 hour later if daylight savings is set
 
         int minutes = ((int) Math.ceil(date.getMinutes() / 15d) * 15 + 30);
 
@@ -439,8 +441,9 @@ public class GeneralUtility extends DriverBase {
             target = DateUtils.setMinutes(date, minutes); //set minute
             target = DateUtils.setHours(target, target.getHours() + 1); //set minute
         } else {
-            target = DateUtils.setMinutes(new Date(), minutes); //set minute
+            target = DateUtils.setMinutes(date, minutes); //set minute
         }
+
 
         String pickupTime = pickuptimeformatter.format(target);
         cucumberContextManager.setScenarioContext("PICKUP_TIME" , pickupTime);
@@ -465,7 +468,7 @@ public class GeneralUtility extends DriverBase {
                         .replace("CUSTOMERPHONE_TO_REPLACE", customerPhone)
                         .replace("LOAD_TO_REPLACE", "15"));
             }
-
+            logger.detail("File Request Row : " + fixedLines );
             Files.write(Paths.get(newFilePath), fixedLines, UTF_8, CREATE);
 
         } catch (Exception ex) {
