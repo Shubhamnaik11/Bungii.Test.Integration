@@ -346,10 +346,11 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
   Then I verify that the "Testdrivertywd_appledc_a_web Sundarm" is displayed
   
   @ready
+    @testpath
   Scenario: Verify that Admin does not get "Customer has ongoing trip" alert when he edits an already edited schedule bungii
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |Customer Password|
-      | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android|Cci12345         |
+      | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C android|Cci12345         |
     And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state     |
       | Accepted          |
