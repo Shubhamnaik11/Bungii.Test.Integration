@@ -478,6 +478,7 @@ public class GeneralUtility extends DriverBase {
         ArrayList<String> address = new ArrayList<String>();
              switch (timezone) {
                  case "EST":
+                 case "America/New_York":
                  address.add((String) PropertyUtility.getDataProperties("washington.Partner.Firm.Pickup.Address"));
                  address.add((String) PropertyUtility.getDataProperties("washington.Partner.Firm.Dropoff.Address"));
                  break;
