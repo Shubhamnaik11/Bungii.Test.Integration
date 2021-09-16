@@ -168,6 +168,7 @@ Feature: Admin_PartnerFirmTrips
     Then Tick mark should be displayed beside driver and scheduled date
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
+    And I get the new pickup reference generated
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
     #################
     When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarj"
