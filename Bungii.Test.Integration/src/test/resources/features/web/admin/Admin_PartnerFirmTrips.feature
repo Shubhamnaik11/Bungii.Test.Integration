@@ -170,7 +170,8 @@ Feature: Admin_PartnerFirmTrips
     Then "Bungii Saved!" message should be displayed
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
     #################
-    When I cancel bungii as a customer "Testcustomertywd_apple-Jd1" with phone number "9999794897"
+    When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarj"
+    #When I cancel bungii as a customer "Testcustomertywd_apple-Jd1" with phone number "9999794897"
     #Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
 
   @ready
