@@ -24,7 +24,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import sun.rmi.runtime.NewThreadAction;
 
 import java.sql.Time;
 import java.text.DateFormat;
