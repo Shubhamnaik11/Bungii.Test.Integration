@@ -201,6 +201,7 @@ public class Admin_TripsSteps extends DriverBase {
     @And("^I note the Trip Requested count of Customer \"([^\"]*)\"$")
     public void i_note_the_trip_requested_count_of_customer_something(String customer) throws Throwable {
         try{
+            utility.resetGeofenceDropdown();
         String[] name = customer.split(" ");
         action.clearSendKeys(admin_DashboardPage.TextBox_SearchCustomer(), name[1] + Keys.ENTER);
 
