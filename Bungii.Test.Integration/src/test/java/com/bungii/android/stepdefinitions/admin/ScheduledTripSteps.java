@@ -814,7 +814,7 @@ public class ScheduledTripSteps extends DriverBase {
 		WebElement editButton,editlink;
 		if (rowNumber == 0) {
 //			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
-			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("/td/following-sibling::td/div/img']"));
+			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("/td/following-sibling::td/div/img"));
 			editlink = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("/td/div/ul/li/p[contains(text(),'Edit')]"));
 		} else {
 			//vishal[1403] : Updated xpath
