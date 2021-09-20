@@ -819,7 +819,7 @@ public class ScheduledTripSteps extends DriverBase {
 		} else {
 			//vishal[1403] : Updated xpath
 //			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/following-sibling::td/div/img"));
-			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/following-sibling::td/div/img]"));
+			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/following-sibling::td/div/img"));
 			editlink = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/div/ul/li/p[contains(text(),'Edit')]"));
 		}
 		editButton.click();
