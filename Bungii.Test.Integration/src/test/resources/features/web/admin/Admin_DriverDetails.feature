@@ -130,7 +130,7 @@ Feature: Admin_DriverDetails
     #core-2661
     And I do not see regions listed under Geofence information on Driver details page
 
-  @ready
+  @regression
   Scenario: Verify Admin can edit and cancel the driver phone number by unsaving the comment
     When I search driver "Testdrivertywd_appledc_a_drve Driver"
     And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver

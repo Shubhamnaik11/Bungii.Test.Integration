@@ -345,7 +345,7 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
   And I search the delivery of Customer "Testcustomertywd_applekrishna Hoderker"
   Then I verify that the "Testdrivertywd_appledc_a_web Sundarm" is displayed
   
-  @ready
+  @regression
   Scenario: Verify that Admin does not get "Customer has ongoing trip" alert when he edits an already edited schedule bungii
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |Customer Password|
