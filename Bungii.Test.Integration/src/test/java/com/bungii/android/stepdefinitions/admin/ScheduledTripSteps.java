@@ -485,8 +485,12 @@ public class ScheduledTripSteps extends DriverBase {
 			WebElement editButton;
 			//Thread.sleep(10000);
 			if (rowNumber != 999) {
-				  action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']")),30L);
-				editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
+//				  action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']")),30L);
+//				editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
+//				editButton.click();
+				action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/div/img")),30L);
+				action.click(scheduledTripsPage.findElement("//tr[@id='row"+rowNumber+"']/td/div/img", PageBase.LocatorType.XPath));
+				editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/div/ul/li//p[@id='btnEdit']"));
 				editButton.click();
 			} else
 			{
@@ -784,9 +788,9 @@ public class ScheduledTripSteps extends DriverBase {
 		List<WebElement> rows = scheduledTripsPage.Row_TripDetails();
 		for (int i = 1; i <= rows.size(); i++) {
 
-			String rowCustName = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[6]")).getText();
+			String rowCustName = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[7]")).getText();
 			//String rowSchduledTime = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[5]")).getText();
-			String rowSrNumber = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[1]")).getText();
+			String rowSrNumber = SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')][" + i + "]/td[2]")).getText();
 			//logger.detail("Actual Row Details : "+ rowSchduledTime +" "+ rowCustName +" on "+ rowSrNumber );
 			//logger.detail("Expected Row Details : "+ scheduledDate +" "+ custName +" ");
 			if (rowCustName.equalsIgnoreCase(custName) ) { //&& scheduledDate.equalsIgnoreCase(rowSchduledTime)) {
@@ -807,13 +811,19 @@ public class ScheduledTripSteps extends DriverBase {
 	public void cancelBungii(Map<String, String> tripDetails, String cancelCharge, String comments, String reason) {
 		int rowNumber = getTripRowNumber(tripDetails);
 		testStepAssert.isFalse(rowNumber == 999, "I should able to find bungii that is to be cancelled ", "I found bungii at row number " + rowNumber, " I was not able to find bungii");
-		WebElement editButton;
+		WebElement editButton,editlink;
 		if (rowNumber == 0) {
-			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
-		} else
+//			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
+			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("/td/following-sibling::td/div/img"));
+			editlink = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("/td/div/ul/li/p[contains(text(),'Edit')]"));
+		} else {
 			//vishal[1403] : Updated xpath
-			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/p[@id='btnEdit']"));
+//			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/following-sibling::td/div/img"));
+			editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/following-sibling::td/div/img]"));
+			editlink = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/div/ul/li/p[contains(text(),'Edit')]"));
+		}
 		editButton.click();
+		editlink.click();
 		action.click(scheduledTripsPage.RadioBox_Cancel());
 		//scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge); //Richa- Commented this line as the field already contained charge as '0'
 		action.click(scheduledTripsPage.TextBox_CancelFee());
