@@ -92,6 +92,7 @@ public class EstimateSteps extends DriverBase {
                     warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request", true);
                     SetupManager.getDriver().switchTo().alert().accept();
                     strTime = enterTime("NEXT_POSSIBLE AFTER ALERT");
+                    strTime=strTime.replace("am","AM").replace("pm","PM");
                     String timeValue = action.getValueAttribute(estimatePage.Text_TimeValue()).replace("am","AM").replace("pm","PM");
                     if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
                     {

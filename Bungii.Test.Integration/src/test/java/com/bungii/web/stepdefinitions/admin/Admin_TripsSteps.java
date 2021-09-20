@@ -629,7 +629,7 @@ public class Admin_TripsSteps extends DriverBase {
         if(action.isElementPresent(action.getElementByXPath(xpath))){
            // action.click(admin_TripDetailsPage.Schedule_Date_Row());
             action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/img")));
-            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/ul/li/p[contains(text(),'View Delivery Details')]")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
 
         }
         log("I should able to view the delivery details",
