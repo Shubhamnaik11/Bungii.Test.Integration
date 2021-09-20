@@ -911,7 +911,7 @@ try{
 
         } else {
 
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", tripType, customer);
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType, customer);
                 int retrycount = 10;
 
                 boolean retry = true;
