@@ -627,7 +627,10 @@ public class Admin_TripsSteps extends DriverBase {
         try{
         String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
         if(action.isElementPresent(action.getElementByXPath(xpath))){
-            action.click(admin_TripDetailsPage.Schedule_Date_Row());
+           // action.click(admin_TripDetailsPage.Schedule_Date_Row());
+            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/img")));
+            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/ul/li/p[contains(text(),'View Delivery Details')]")));
+
         }
         log("I should able to view the delivery details",
                 "I am able to viewed the delivery details", false);
@@ -760,8 +763,9 @@ try{
     public void i_click_on_something_link_beside_scheduled_bungii(String link) throws Throwable {
         try{
         Thread.sleep(4000);
-        action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnEdit']")));
-        log(" I click on Edit link besides the scheduled bungii",
+        action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/img")));
+        action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/ul/li/p[contains(text(),'Edit')]")));
+            log(" I click on Edit link besides the scheduled bungii",
                 "I have clicked on Edit link besides the scheduled bungii", false);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
