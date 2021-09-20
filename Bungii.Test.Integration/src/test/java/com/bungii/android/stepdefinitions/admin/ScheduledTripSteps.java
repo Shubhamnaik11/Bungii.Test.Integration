@@ -488,8 +488,8 @@ public class ScheduledTripSteps extends DriverBase {
 //				  action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']")),30L);
 //				editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
 //				editButton.click();
-				action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/div/img']")),30L);
-				action.click(scheduledTripsPage.findElement(String.format("//tr[@id='row"+"%s"+"']/parent::tr/td/div/img']",rowNumber), PageBase.LocatorType.XPath));
+				action.waitUntilIsElementExistsAndDisplayed(scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/div/img")),30L);
+				action.click(scheduledTripsPage.findElement("//tr[@id='row"+rowNumber+"']/td/div/img", PageBase.LocatorType.XPath));
 				editButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/div/ul/li//p[@id='btnEdit']"));
 				editButton.click();
 			} else
