@@ -17,6 +17,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -144,7 +145,7 @@ public class Admin_DriverDetails extends DriverBase{
 
              */
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate); // removed ss
-            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]", formattedDate, status);
+            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(.,'%s')]", formattedDate, status);
         }
         else
         {
@@ -156,7 +157,8 @@ public class Admin_DriverDetails extends DriverBase{
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
-            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
+            char[] delimiters = { ' ', '_' };
+            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : WordUtils.capitalizeFully(tripType[0], delimiters), driver, customer);
 
         }
 
@@ -201,7 +203,7 @@ public class Admin_DriverDetails extends DriverBase{
                     inputdate.setHours(inputdate.getHours()+1);
             }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate);
-            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]", formattedDate, status);
+            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(.,'%s')]", formattedDate, status);
         }
         else
         {
@@ -213,6 +215,7 @@ public class Admin_DriverDetails extends DriverBase{
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
+            
             XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
 
         }
