@@ -480,9 +480,11 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         BT = BT.replace("Solo Scheduled","SOLO");
         BT = BT.toUpperCase();
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, ST);
 
-        action.getElementByXPath(XPath).click();
+        //action.getElementByXPath(XPath).click();
+            action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
         log("I select the scheduled trip on scheduled delivery",
                 "I have selected the scheduled trip on scheduled delivery", false);
     } catch(Exception e){
@@ -513,10 +515,12 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         BT = BT.replace("Solo Scheduled","SOLO");
         BT = BT.toUpperCase();
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, Schedule_Time);
 
-        action.getElementByXPath(XPath).click();
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, Schedule_Time);
 
+        //action.getElementByXPath(XPath).click();
+            action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
         log("I should able to select the partner portal scheduled trip on scheduled delivery",
                 "I am able to select the partner portal scheduled trip on scheduled delivery", false);
         } catch(Exception e){
@@ -534,9 +538,12 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td/a", BT, ST,Client);
+       // String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td/a", BT, ST,Client);
+         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, ST,Client);
 
-        action.getElementByXPath(XPath).click();
+            // action.getElementByXPath(XPath).click();
+            action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
         log("I should able to select the scheduled trip on live delivery",
                 "I am able to select the scheduled trip on live delivery", false);
     } catch(Exception e){
@@ -554,9 +561,11 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td/a", BT, ST,Client);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, ST,Client);
 
-        action.getElementByXPath(XPath).click();
+       // action.getElementByXPath(XPath).click();
+            action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
 
         log("I should able to select the scheduled trip on live delivery for customer",
                 "I am able to select the scheduled trip on live delivery for customer", false);
@@ -608,9 +617,12 @@ public class Admin_TripsSteps extends DriverBase {
             String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
             String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             BT = BT.replace("Solo Scheduled", "Solo");
-            String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST, Client);
+          String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, ST, Client);
 
-            action.getElementByXPath(XPath).click();
+           // action.getElementByXPath(XPath).click();
+            action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+
             log("I select the scheduled trip on All Deliveries",
                     "I have selected the scheduled trip on All Deliveries", false);
         }
@@ -1173,6 +1185,7 @@ try{
     @When("^I select reason as \"([^\"]*)\"$")
     public void i_enter_reason(String reason) throws Throwable {
         try{
+            action.click(admin_ScheduledTripsPage.Dropdown_Reason());
             action.selectElementByText(admin_ScheduledTripsPage.Dropdown_Reason(), reason);
             log("I enter reason as "+reason,
                     "I have entered reason as "+reason, false);
@@ -1864,14 +1877,14 @@ try{
                     break;
                 case "On-Demand Category":
                     //xpath = String.format("//td[4][text()='On-Demand']");
-                    xpath = String.format("//td[4][contains(.,'On-Demand')]");
+                    xpath = String.format("//td[contains(.,'On-Demand')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Scheduled Category":
                     //xpath = String.format("//td[4][text()='Scheduled']");
-                    xpath = String.format("//td[4][contains(.,'Scheduled')]");
+                    xpath = String.format("//td[contains(.,'Scheduled')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
