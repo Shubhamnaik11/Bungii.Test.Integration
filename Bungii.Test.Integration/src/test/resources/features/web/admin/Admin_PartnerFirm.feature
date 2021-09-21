@@ -149,7 +149,7 @@ Feature: Admin_PartnerFirm
     And I enter cancellation fee and Comments
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
-    When I view the Trips list on the admin portal
+    When I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And Partner firm should receive "Bungii Delivery Pickup Canceled" email
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
@@ -320,7 +320,7 @@ Feature: Admin_PartnerFirm
 
 @regression
 #stable
-Scenario: Verify that same trip is shown for other driver under Trips section When admin adds driver to duo trip
+Scenario: Verify that same delivery is shown for other driver under Deliveries section When admin adds driver to duo trip
   When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
     | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|

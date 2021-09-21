@@ -62,7 +62,8 @@ Feature: Admin_PartnerFirmTrips
 
  
     
-  @ready
+  @regression
+    #stable
       #test data created in base
   Scenario: Verify Partner Firm Cancellation - Duo Scheduled
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -118,7 +119,8 @@ Feature: Admin_PartnerFirmTrips
       | 9999999358     |                 |
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
 
-  @ready
+  @regression
+    #stable
     #test data created in base
   Scenario: Verify Partner When Cancel Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -166,21 +168,16 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Edit Trip Details" radiobutton
     And I update the Scheduled date of the trip by 15 minutes
     And I remove driver "Testdrivertywd_appledc_a_web Sundark" and add the new driver "Testdrivertywd_appledc_a_web Sundarj"
+    When I select reason as "Partner initiated"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then Tick mark should be displayed beside driver and scheduled date
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I get the new pickup reference generated
-    #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
-    #################
-    And I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 9999794897     |                 |
-    #When I cancel bungii as a customer "Testcustomertywd_apple-Jd1" with phone number "9999794897"
-    #Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
 
-  @ready
-    @testpath
+
+  @regression
+    #stable
     #test data created in base
   Scenario: Verify Partner Firm For Long Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -201,14 +198,9 @@ Feature: Admin_PartnerFirmTrips
       |Stacked Pickup Accepted |
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     And I get the new pickup reference generated
-    #When I cancel bungii as a customer "Testcustomertywd_appleWashI Shah" with phone number "9999999363"
-    And I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 9999999363     |  9999999362     |
-    #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
-  @ready
-    @testpath
+  @regression
+    #stable
     #test data created in base
   Scenario: Verify Partner Firm For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -236,15 +228,9 @@ Feature: Admin_PartnerFirmTrips
       |Stacked Pickup Accepted |
     And I get the new pickup reference generated
 
-    #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
-    And I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 9999999364     | 9999999357      |
-    #When I cancel bungii as a customer "Testcustomertywd_appleWashK Shah" with phone number "9999999364"
-    #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
-
   @sanity
-  @ready
+  @regression
+    #stable
     #test data created in base
     #changed driver name
   Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin

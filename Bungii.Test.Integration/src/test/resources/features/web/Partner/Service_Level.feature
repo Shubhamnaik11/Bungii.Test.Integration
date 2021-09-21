@@ -127,8 +127,8 @@ Feature: Service Level
     Then I should "see correct Estimation Duration" for "Biglots" Alias
 
 #CORE-1862 scenario
-  @ready
-    @t1
+  @regression
+    #stable
   Scenario Outline: Verify driver earning calculated for partner delivery of <Type> for Service <ServiceName> for <Distance> distance range
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal

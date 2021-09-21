@@ -202,7 +202,8 @@ Feature: Partner Integration with Admin and Driver
       | Partner_Status    |
       | Canceled       |
   
-  @ready
+  @regression
+    #stable
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by control Driver
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -258,8 +259,9 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Canceled       |
-  
-  @ready
+
+  @regression
+    #stable
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by Non control Driver
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

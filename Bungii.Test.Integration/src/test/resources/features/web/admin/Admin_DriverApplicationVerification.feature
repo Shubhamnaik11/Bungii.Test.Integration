@@ -45,7 +45,8 @@ Feature: Admin_DriverApplicationVerification
     And I verify and approve all the verification fields
     Then the "Resend Application" button is not visible
 
-  @knownissue
+  @regression
+    #fixed with sprint 49
     #cancel button doesnt work
     #test data created in base
   Scenario: Verify Driver Application Rejection Cancellation - NonFountain
