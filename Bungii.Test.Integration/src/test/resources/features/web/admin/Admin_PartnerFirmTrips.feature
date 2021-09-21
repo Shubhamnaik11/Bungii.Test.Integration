@@ -176,8 +176,8 @@ Feature: Admin_PartnerFirmTrips
     And I get the new pickup reference generated
 
 
-  @ready
-    @testpath
+  @regression
+    #stable
     #test data created in base
   Scenario: Verify Partner Firm For Long Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -199,8 +199,8 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     And I get the new pickup reference generated
 
-  @ready
-    @testpath
+  @regression
+    #stable
     #test data created in base
   Scenario: Verify Partner Firm For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location

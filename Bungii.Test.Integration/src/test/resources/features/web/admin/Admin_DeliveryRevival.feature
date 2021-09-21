@@ -81,7 +81,8 @@ Feature: Admin_Revival
 	And I view All Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Payment Successful" state
   
-  @ready
+  @regression
+	  #stable
   Scenario: Verify Admin can Assign driver and admin can manually end bungii in loading item state of the Revived Delivery
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
