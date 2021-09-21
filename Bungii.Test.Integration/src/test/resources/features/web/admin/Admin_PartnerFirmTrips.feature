@@ -174,13 +174,7 @@ Feature: Admin_PartnerFirmTrips
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I get the new pickup reference generated
-    #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
-    #################
-    And I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 9999794897     |                 |
-    #When I cancel bungii as a customer "Testcustomertywd_apple-Jd1" with phone number "9999794897"
-    #Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
+
 
   @ready
     @testpath
@@ -204,11 +198,6 @@ Feature: Admin_PartnerFirmTrips
       |Stacked Pickup Accepted |
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     And I get the new pickup reference generated
-    #When I cancel bungii as a customer "Testcustomertywd_appleWashI Shah" with phone number "9999999363"
-    And I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 9999999363     |  9999999362     |
-    #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @ready
     @testpath
@@ -238,13 +227,6 @@ Feature: Admin_PartnerFirmTrips
       | driver1 state|
       |Stacked Pickup Accepted |
     And I get the new pickup reference generated
-
-    #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
-    And I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 9999999364     | 9999999357      |
-    #When I cancel bungii as a customer "Testcustomertywd_appleWashK Shah" with phone number "9999999364"
-    #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @sanity
   @regression
