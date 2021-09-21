@@ -31,7 +31,9 @@ public class LiveTripsSteps extends DriverBase {
             Thread.sleep(5000);
             action.click(liveTripsPage.Button_StartDateSort());
             Thread.sleep(5000);
-            action.click(liveTripsPage.Button_RowOne());
+            action.click(liveTripsPage.Image_Three_Dot());
+            action.click(liveTripsPage.Link_View_Delivery_Details());
+
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
