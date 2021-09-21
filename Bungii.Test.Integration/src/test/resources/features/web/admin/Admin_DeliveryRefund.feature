@@ -163,6 +163,7 @@ Feature: Admin_Refund
 	And Click on "Calculate Cost" button
 	Then the amount is calculated and shown to admin
 	And Click on "Confirm" button
+	And I wait for "2" mins
 	And I view the Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Payment Successful" state
 	And I search the delivery of Customer and view it

@@ -31,7 +31,7 @@ Feature: Admin_Schedule_Delivery_Edit
 
   @regression
       #stable
-  Scenario: Verify editing drop off address for the duo scheduled trip.
+  Scenario: Verify editing drop off address for the duo scheduled trip
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
       | NEXT_POSSIBLE | 9999999202     | Testcustomertywd_appleNewO Customer|

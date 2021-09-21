@@ -62,7 +62,8 @@ Feature: Admin_PartnerFirmTrips
 
  
     
-  @ready
+  @regression
+    #stable
       #test data created in base
   Scenario: Verify Partner Firm Cancellation - Duo Scheduled
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -118,7 +119,8 @@ Feature: Admin_PartnerFirmTrips
       | 9999999358     |                 |
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
 
-  @ready
+  @regression
+    #stable
     #test data created in base
   Scenario: Verify Partner When Cancel Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -166,6 +168,7 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Edit Trip Details" radiobutton
     And I update the Scheduled date of the trip by 15 minutes
     And I remove driver "Testdrivertywd_appledc_a_web Sundark" and add the new driver "Testdrivertywd_appledc_a_web Sundarj"
+    When I select reason as "Partner initiated"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then Tick mark should be displayed beside driver and scheduled date
     When I click on "Save" button on Edit Scheduled bungii popup
@@ -244,7 +247,8 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @sanity
-  @ready
+  @regression
+    #stable
     #test data created in base
     #changed driver name
   Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin
