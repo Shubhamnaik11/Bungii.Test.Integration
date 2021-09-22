@@ -85,8 +85,7 @@ Feature: Service Level
     #And I should logout from Partner Portal
 
   #CORE-1541
-  @ready
-    @t1
+  @regression
     #stable
   Scenario: Verify that correct Estimate duration for service level partner portal trip is shown in Admin portal
     When I enter "valid" password on Partner Portal

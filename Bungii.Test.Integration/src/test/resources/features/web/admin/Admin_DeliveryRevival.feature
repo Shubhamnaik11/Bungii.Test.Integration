@@ -37,7 +37,8 @@ Feature: Admin_Revival
 	When I view the Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
   
-  @ready
+  @regression
+	  #stable
   Scenario: Verify Admin can Assign driver and assigned driver can complete the Revived Delivery
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
@@ -47,6 +48,7 @@ Feature: Admin_Revival
 	  |Accepted |
 	  | Enroute  |
 	When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvs Driver"
+
 	And I wait for 2 minutes
 	And I view the Deliveries list on the admin portal
 	And I search the delivery of Customer
@@ -54,6 +56,7 @@ Feature: Admin_Revival
 	When I click on "Revive" button
 	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
 	When I click on "Confirm" button on Revival Popup
+
 	And I wait for 2 minutes
 	And I view the all Scheduled Deliveries list on the admin portal
 	And I search the delivery of Customer
@@ -68,8 +71,9 @@ Feature: Admin_Revival
 	Then I click on "SAVE CHANGES" button
 	And the "Bungii Saved!" message is displayed
 	When I click on "Close" button
+
 	And I refresh the page
-	And As a driver "Testdrivertywd_appledc_a_drvs Driver" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvs Driver" perform below action with respective "Solo Scheduled Researched" Delivery
 	  | driver1 state|
 	  | Enroute  |
 	  | Arrived |

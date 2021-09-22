@@ -45,7 +45,8 @@ Feature: Admin_Trips
     And The first time promo code should get released
 
   @sanity
-  @regression
+  @ready
+    #mania needs to be whitelisted
     #test data created in base
   Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -165,9 +166,9 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Krishna Hoderker"
     Then Trip should be listed in the grid
   
-  @ready
+  @regression
     #stable
-  Scenario: Verify Driver Est. Earnings for for Customer Trip
+  Scenario: Verify Driver Est. Earnings for for Customer Delivery
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|

@@ -256,6 +256,7 @@ try{
 
                     //Clicking on duo radio button
                     action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+                    Thread.sleep(5000);
 
                     //Clicking on Load Unload dropdown
                     action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());

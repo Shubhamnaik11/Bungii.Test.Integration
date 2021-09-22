@@ -92,10 +92,10 @@ Feature: Admin_PartnerFirmTrips
     #And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
 
 
-  @ready
-    @testpath
+  @regression
+    #stable
     #test data created in base
-  Scenario: Verify Partner Firm  Upon Driver Acceptance And Remove Research - Solo Scheduled
+  Scenario: Verify Partner Firm Upon Driver Acceptance And Remove Research - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999358 | Testcustomertywd_appleWashC Shah|
@@ -114,9 +114,6 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
     And I get the new pickup reference generated
-    And I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 9999999358     |                 |
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
 
   @regression
@@ -199,8 +196,8 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     And I get the new pickup reference generated
 
-  @regression
-    #stable
+  @ready
+    #failed in sprint 49 regression
     #test data created in base
   Scenario: Verify Partner Firm For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -229,8 +226,8 @@ Feature: Admin_PartnerFirmTrips
     And I get the new pickup reference generated
 
   @sanity
-  @regression
-    #stable
+  @ready
+    #failed in sprint 49 regression
     #test data created in base
     #changed driver name
   Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin

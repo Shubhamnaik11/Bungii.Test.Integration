@@ -56,8 +56,8 @@ Then I should see following details in the Accessorial charges section
 	Then I should see "Accessorial Charges" section displayed
 	And I should get following error for following accessorial charges fields values when saved
 	  |Amount |Fee Type         |Comment         | Field | Message |
-	  | Blank | Blank           | Blank          | Amount |Please select fee type. |
-	  | Blank | Blank           | This is Comment| Amount |Please select fee type. |
+	  | Blank | Blank           | Blank          | Fee Type |Please select fee type. |
+	  | Blank | Blank           | This is Comment| Fee Type |Please select fee type. |
 	  | Blank | Excess Wait Time| Blank          | Amount |Please enter an amount. |
 	  | Blank | Excess Wait Time| This is Comment| Amount |Please enter an amount. |
 	  | 10    | Blank           | Blank          | Fee Type |Please select fee type. |
