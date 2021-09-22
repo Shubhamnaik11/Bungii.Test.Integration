@@ -52,7 +52,7 @@ public class LiveTripsSteps extends DriverBase {
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error in viewing delivery from live deliveries",
+            error("Step  Should be successful", "Error in viewing delivery",
                     true);
         }
     }
@@ -409,7 +409,7 @@ public class LiveTripsSteps extends DriverBase {
                 testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
-                String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
+                String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
                 int retrycount =10;
                 boolean retry = true;
                 while (retry == true && retrycount >0) {
@@ -436,7 +436,7 @@ public class LiveTripsSteps extends DriverBase {
                 }
                 //cucumberContextManager.setScenarioContext("XPATH",XPath);
                 //logger.detail("XPATH is"+XPath);
-                String XPath2= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]/parent::tr/td[3]/a", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
+                String XPath2= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
                 cucumberContextManager.setScenarioContext("XPATH",XPath2);
                 logger.detail("XPATH is"+XPath2);
 
