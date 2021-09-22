@@ -133,6 +133,7 @@
         And I enter "far off Goa pickup and dropoff locations" on Bungii estimate
         And I tap on "two drivers selector" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
+        And I select Bungii Time as "2 HOUR DELAY"
         And I add loading/unloading time of "30 mins"
         And I add "1" photos to the Bungii
         And I tap on "Request Bungii" on Bungii estimate
