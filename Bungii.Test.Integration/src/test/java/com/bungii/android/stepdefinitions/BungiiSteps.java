@@ -639,12 +639,16 @@ public class BungiiSteps extends DriverBase {
             switch (arg0) {
                 case "Home screen":
                     Thread.sleep(5000);
-                    action.textToBePresentInElementText(Page_DriverHome.Title_Status(), PropertyUtility.getMessage("driver.home.title.online"));
+/*                    action.textToBePresentInElementText(Page_DriverHome.Title_Status(), PropertyUtility.getMessage("driver.home.title.online"));
                     String status = action.getText(Page_DriverHome.Title_Status());
-                    testStepAssert.isTrue(((status==PropertyUtility.getMessage("driver.home.title.online"))||status==PropertyUtility.getMessage("driver.home.title.offline")), "Driver status should be Online Or Offline", "Driver status is Online Or Offline", "Driver status is not online/offline");
-                   // testStepVerify.isElementTextEquals(Page_DriverHome.Button_OnlineOffline(), PropertyUtility.getMessage("driver.home.gooffline"), "Go offline button on driver should be enabled", "Go Offline button on driver home page is Enabled", "Go Offline button on driver home page is disabled");
+                    testStepAssert.isTrue(((status==PropertyUtility.getMessage("driver.home.title.online"))||status==PropertyUtility.getMessage("driver.home.title.offline")), "Driver status should be Online Or Offline", "Driver status is Online Or Offline", "Driver status is not online/offline");*/
+                    action.textToBePresentInElementText(Page_DriverHome.Button_OnlineOffline(), PropertyUtility.getMessage("driver.home.title.online"));
+                    String status = action.getText(Page_DriverHome.Button_OnlineOffline());
+                    testStepAssert.isTrue(((status.equals(PropertyUtility.getMessage("driver.home.title.online")))||status.equals(PropertyUtility.getMessage("driver.home.title.offline"))), "Driver status should be Online Or Offline", "Driver status is Online Or Offline", "Driver status is not online/offline");
+                    // testStepVerify.isElementTextEquals(Page_DriverHome.Button_OnlineOffline(), PropertyUtility.getMessage("driver.home.gooffline"), "Go offline button on driver should be enabled", "Go Offline button on driver home page is Enabled", "Go Offline button on driver home page is disabled");
                     break;
                 case "Enroute screen":
+                    Thread.sleep(5000);
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should not be highlighted ", "Arrived icon is not highlighted", "Arrived icon is  highlighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_LoadingItem(), " Loading icon should not be highlighted ", " Loading icon is not highlighted", "Loading icon is highlighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_DrivingToDropOff(), " Driving to Drop Off icon should not be highlighted ", " Driving to Drop Off icon is not highlighted", " Driving to Drop Off icon is highlighted");

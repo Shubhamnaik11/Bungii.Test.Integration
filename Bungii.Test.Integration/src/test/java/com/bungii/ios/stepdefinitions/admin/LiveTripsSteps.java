@@ -1,9 +1,10 @@
 package com.bungii.ios.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
-import com.bungii.android.pages.admin.DriversPage;
-import com.bungii.android.pages.admin.LiveTripsPage;
+//import com.bungii.android.pages.admin.DriversPage;
+//import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.pages.admin.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
@@ -45,8 +46,9 @@ public class LiveTripsSteps extends DriverBase {
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);
             action.click(liveTripsPage.Button_StartDateSort());Thread.sleep(2000);
+            action.click(liveTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", custName), PageBase.LocatorType.XPath));
+            action.click(liveTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'View Delivery Details')]", custName),PageBase.LocatorType.XPath));
 
-            action.click(liveTripsPage.Button_RowOne());
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
