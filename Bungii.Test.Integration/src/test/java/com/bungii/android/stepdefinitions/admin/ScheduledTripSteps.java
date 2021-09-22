@@ -541,9 +541,8 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_open_the_trip_for_something_the_customer(String custName) throws Throwable {
 		try {
 			String[] name = custName.split(" ");
-			String pickupref = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
-			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupref);
+			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),name[0]);
 			action.click(scheduledTripsPage.Button_Search());
 
 			Thread.sleep(25000);
@@ -555,8 +554,14 @@ public class ScheduledTripSteps extends DriverBase {
                 error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
             }*/
 
-			action.click(scheduledTripsPage.findElement(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]), PageBase.LocatorType.XPath));
-			action.click(scheduledTripsPage.findElement(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Edit')]",name[0]), PageBase.LocatorType.XPath));
+			List<WebElement> rows_editicon = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]),PageBase.LocatorType.XPath);
+			List<WebElement> rows_editlink = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Edit')]",name[0]),PageBase.LocatorType.XPath);
+
+			if(rows_editicon.size()>0)
+			{
+				rows_editicon.get(0).click();
+				rows_editlink.get(0).click();
+			}
 
 			pass("I should able to open trip", "I viewed scheduled delivery",
 					false);
