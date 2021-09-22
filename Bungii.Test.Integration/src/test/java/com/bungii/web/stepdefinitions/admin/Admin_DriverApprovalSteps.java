@@ -511,7 +511,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 "I have verified all the fields except DOB");
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
+        error("Step should be successful", "Error in approving/rejecting driver application fields",
                 true);
     }
     }

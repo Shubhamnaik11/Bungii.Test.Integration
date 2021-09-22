@@ -81,7 +81,8 @@ Feature: Admin_DriverApplicationVerification
     When I click and reset the status of "Driver Picture" field
     Then the status of the field resets to default
     
-  @regression
+  @ready
+    #moved in sprint 49 to ready as it needs fix
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
     When I click "Verify" button against the "Melvin Johnson" applicant

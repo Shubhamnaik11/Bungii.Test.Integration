@@ -37,8 +37,8 @@ Feature: Admin_Revival
 	When I view the Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
   
-  @ready
-	  @t
+  @regression
+	  #stable
   Scenario: Verify Admin can Assign driver and assigned driver can complete the Revived Delivery
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |

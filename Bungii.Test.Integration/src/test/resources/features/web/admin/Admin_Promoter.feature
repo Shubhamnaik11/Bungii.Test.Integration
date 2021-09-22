@@ -6,6 +6,22 @@ Feature: Admin_Promoter
     When I click on "Promo Codes > Free Deliveries Codes  > Partners" Menu
     Then I should be directed to "Promoters Page"
 
+  @regression
+    #Failing due to pagination bar appears on Partners list
+  Scenario: Verify Promoter Grid Sort ASC DESC
+    When I click on "Name" header "Ascending" on "Promoter" grid
+    Then the "Partners" list should be sorted by "Ascending" order of "Name"
+    When I click on "Name" header "Descending" on "Promoter" grid
+    Then the "Partners" list should be sorted by "Descending" order of "Name"
+    When I click on "Created" header "Ascending" on "Promoter" grid
+    Then the "Partners" list should be sorted by "Ascending" order of "Created"
+    When I click on "Created" header "Descending" on "Promoter" grid
+    Then the "Partners" list should be sorted by "Descending" order of "Created"
+    When I click on "Code Initials" header "Ascending" on "Promoter" grid
+    Then the "Partners" list should be sorted by "Ascending" order of "Code Initials"
+    When I click on "Code Initials" header "Descending" on "Promoter" grid
+    Then the "Partners" list should be sorted by "Descending" order of "Code Initials"
+
   @sanity
   @regression
   Scenario: Verify Add New Promoter
@@ -80,20 +96,7 @@ Feature: Admin_Promoter
     Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed
     
 
-  @regression
-  Scenario: Verify Promoter Grid Sort ASC DESC
-    When I click on "Name" header "Ascending" on "Promoter" grid
-    Then the "Partners" list should be sorted by "Ascending" order of "Name"
-    When I click on "Name" header "Descending" on "Promoter" grid
-    Then the "Partners" list should be sorted by "Descending" order of "Name"
-    When I click on "Created" header "Ascending" on "Promoter" grid
-    Then the "Partners" list should be sorted by "Ascending" order of "Created"
-    When I click on "Created" header "Descending" on "Promoter" grid
-    Then the "Partners" list should be sorted by "Descending" order of "Created"
-    When I click on "Code Initials" header "Ascending" on "Promoter" grid
-    Then the "Partners" list should be sorted by "Ascending" order of "Code Initials"
-    When I click on "Code Initials" header "Descending" on "Promoter" grid
-    Then the "Partners" list should be sorted by "Descending" order of "Code Initials"
+
 
   @regression
   Scenario: Verify Cancellation of Add New Promoter
