@@ -542,17 +542,27 @@ public class ScheduledTripSteps extends DriverBase {
 		try {
 			String[] name = custName.split(" ");
 
-			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(), name[0]);
+			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),name[0]);
 			action.click(scheduledTripsPage.Button_Search());
 
 			Thread.sleep(25000);
-			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
+/*			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
 			if(rows.size()>0)
 			rows.get(0).click();
 			else {
 			    String xpath = String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]);
                 error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
-            }
+            }*/
+
+			List<WebElement> rows_editicon = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]),PageBase.LocatorType.XPath);
+			List<WebElement> rows_editlink = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Edit')]",name[0]),PageBase.LocatorType.XPath);
+
+			if(rows_editicon.size()>0)
+			{
+				rows_editicon.get(0).click();
+				rows_editlink.get(0).click();
+			}
+
 			pass("I should able to open trip", "I viewed scheduled delivery",
 					false);
 
@@ -566,16 +576,19 @@ public class ScheduledTripSteps extends DriverBase {
 	@And("^I open the trip for customer using pickupref$")
 	public void i_open_the_trip_for_customer() throws Throwable {
 		String pickupref = "";
+		String customer = "";
 		try {
 			 pickupref = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+			 customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
 
 			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(), pickupref);
 			action.click(scheduledTripsPage.Button_Search());
 
 			Thread.sleep(10000);
-			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//tr/td/p[@id='btnEdit']"),PageBase.LocatorType.XPath);
-			if(rows.size()>0)
-				rows.get(0).click();
+			action.click(scheduledTripsPage.findElement(String.format("//a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",customer),PageBase.LocatorType.XPath));
+			action.click(scheduledTripsPage.findElement(String.format("//a[contains(text(),'%s')]/parent::td/following-sibling::td/div/ul/li/p[@id='btnEdit']",customer),PageBase.LocatorType.XPath));
+/*			if(rows.size()>0)
+				rows.get(0).click();*/
 			pass("I should able to open trip", "I viewed scheduled delivery",
 					false);
 
