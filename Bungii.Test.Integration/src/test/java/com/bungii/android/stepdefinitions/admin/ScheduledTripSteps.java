@@ -1435,12 +1435,19 @@ public class ScheduledTripSteps extends DriverBase {
 
 	@And("^I Select reason as \"([^\"]*)\" to edit datetime$")
 	public void i_select_reason_as_something_to_edit_datetime(String reason) throws Throwable {
-		testStepAssert.isElementDisplayed(scheduledTripsPage.Select_EditReason(),"Select reason dropdown should be displayed on editing date/time","Select reason dropdown is displayed on editing date/time","Select reason dropdown is NOT displayed on editing date/time");
-		switch (reason)
-		{
-			case "Partner initiated" :
-				action.selectElementByText(scheduledTripsPage.Select_EditReason(),reason);
-				break;
-		}
+	    try {
+            testStepAssert.isElementDisplayed(scheduledTripsPage.Select_EditReason(),"Select reason dropdown should be displayed on editing date/time","Select reason dropdown is displayed on editing date/time","Select reason dropdown is NOT displayed on editing date/time");
+            switch (reason)
+            {
+                case "Partner initiated" :
+                    action.selectElementByText(scheduledTripsPage.Select_EditReason(),reason);
+                    break;
+            }
+        }
+        catch (Exception e){
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
 	}
 }
