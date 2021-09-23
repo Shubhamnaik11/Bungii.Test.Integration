@@ -36,7 +36,7 @@ Then I should see following details in the Accessorial charges section
   And "accessorial_fee_amount" should show total amount in the triprequest table in Database
   And "business_notes" should show comment without quotes in the trippaymentdetails table in Database
   
-  @regression
+  @ready
   Scenario: Verify Accessorial Charges Field Validations - Blank
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name |
@@ -56,8 +56,8 @@ Then I should see following details in the Accessorial charges section
 	Then I should see "Accessorial Charges" section displayed
 	And I should get following error for following accessorial charges fields values when saved
 	  |Amount |Fee Type         |Comment         | Field | Message |
-	  | Blank | Blank           | Blank          | Amount |Please enter an amount. |
-	  | Blank | Blank           | This is Comment| Amount |Please enter an amount. |
+	  | Blank | Blank           | Blank          | Fee Type |Please select fee type. |
+	  | Blank | Blank           | This is Comment| Fee Type |Please select fee type. |
 	  | Blank | Excess Wait Time| Blank          | Amount |Please enter an amount. |
 	  | Blank | Excess Wait Time| This is Comment| Amount |Please enter an amount. |
 	  | 10    | Blank           | Blank          | Fee Type |Please select fee type. |

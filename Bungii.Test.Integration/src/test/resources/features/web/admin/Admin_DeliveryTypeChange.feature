@@ -219,8 +219,8 @@ Feature: Admin_Delivery_Type_Change
   @ready
   Scenario: Verify that driver est earning doesnt get change for the delivery having Promoter type Promocode when it changes from Solo to Duo and vice-versa
 	  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-		  | Bungii Time   | Customer Phone | Customer Name                  |
-		  | NEXT_POSSIBLE | 9823741001     | Testcustomertywd_applePromo Customer|
+		  | Bungii Time   | Customer Phone | Customer Password | Customer Name                       |
+		  | NEXT_POSSIBLE | 9823741001     | Cci12345          | Testcustomertywd_applePromo Customer|
 	  And I view the all Scheduled Deliveries list on the admin portal
 	  And I wait for 2 minutes
 	  And I search the delivery of Customer

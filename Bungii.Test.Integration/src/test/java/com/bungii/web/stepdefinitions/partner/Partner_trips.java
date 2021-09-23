@@ -712,7 +712,9 @@ try{
                 action.click(Page_Partner_Dashboard.Button_DeliveryClear());
                 action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                 action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(),Delivery_Address+ Keys.TAB);
+                Thread.sleep(5000);
                 action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                Thread.sleep(5000);
                 action.click(Page_Partner_Dashboard.List_Delivery_Address());
                 Thread.sleep(2000);
 
@@ -866,6 +868,7 @@ try{
 
             String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
             String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            cucumberContextManager.setScenarioContext("pickupRequest",pickupRef);
 
             String geofenceName = getGeofence(geofence);
             action.clearSendKeys(admin_LiveTripsPage.TextBox_Search_Field(),pickupRef);

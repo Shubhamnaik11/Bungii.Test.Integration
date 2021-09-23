@@ -70,6 +70,7 @@ public class Admin_RevivalSteps extends DriverBase {
         {
             case "Confirm":
                 action.click(admin_revivalPage.Button_Confirm());
+                Thread.sleep(10000);
                 String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
                 pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
                 cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);

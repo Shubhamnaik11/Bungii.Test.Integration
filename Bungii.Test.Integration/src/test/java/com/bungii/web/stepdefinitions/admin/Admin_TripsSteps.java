@@ -480,9 +480,11 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         BT = BT.replace("Solo Scheduled","SOLO");
         BT = BT.toUpperCase();
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, ST);
 
-        action.getElementByXPath(XPath).click();
+        //action.getElementByXPath(XPath).click();
+            action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
         log("I select the scheduled trip on scheduled delivery",
                 "I have selected the scheduled trip on scheduled delivery", false);
     } catch(Exception e){
@@ -513,10 +515,12 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         BT = BT.replace("Solo Scheduled","SOLO");
         BT = BT.toUpperCase();
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, Schedule_Time);
 
-        action.getElementByXPath(XPath).click();
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, Schedule_Time);
 
+        //action.getElementByXPath(XPath).click();
+            action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
         log("I should able to select the partner portal scheduled trip on scheduled delivery",
                 "I am able to select the partner portal scheduled trip on scheduled delivery", false);
         } catch(Exception e){
@@ -534,9 +538,12 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td/a", BT, ST,Client);
+       // String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td/a", BT, ST,Client);
+         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, ST,Client);
 
-        action.getElementByXPath(XPath).click();
+            // action.getElementByXPath(XPath).click();
+            action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
         log("I should able to select the scheduled trip on live delivery",
                 "I am able to select the scheduled trip on live delivery", false);
     } catch(Exception e){
@@ -554,9 +561,11 @@ public class Admin_TripsSteps extends DriverBase {
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         BT = BT.replace("Solo Scheduled","Solo");
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding-sibling::td/a", BT, ST,Client);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, ST,Client);
 
-        action.getElementByXPath(XPath).click();
+       // action.getElementByXPath(XPath).click();
+            action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
 
         log("I should able to select the scheduled trip on live delivery for customer",
                 "I am able to select the scheduled trip on live delivery for customer", false);
@@ -608,9 +617,12 @@ public class Admin_TripsSteps extends DriverBase {
             String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
             String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             BT = BT.replace("Solo Scheduled", "Solo");
-            String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", BT, ST, Client);
+          String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, ST, Client);
 
-            action.getElementByXPath(XPath).click();
+           // action.getElementByXPath(XPath).click();
+            action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
+            action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+
             log("I select the scheduled trip on All Deliveries",
                     "I have selected the scheduled trip on All Deliveries", false);
         }
@@ -1065,7 +1077,11 @@ try{
             String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             String xpath = String.format("//td[contains(.,'%s')]/preceding::td[2]", customer);
             //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
-            action.click(admin_EditScheduledBungiiPage.findElement(xpath,PageBase.LocatorType.XPath));
+           // action.click(admin_EditScheduledBungiiPage.findElement(xpath,PageBase.LocatorType.XPath));
+            action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", customer),PageBase.LocatorType.XPath));
+            action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'View Delivery Details')]", customer),PageBase.LocatorType.XPath));
+
+
             log("I view the delivery details in admin portal",
                     "I viewed delivery details in admin portal", false);
         } catch (Throwable e) {
@@ -1166,7 +1182,19 @@ try{
                 true);
     }
     }
-
+    @When("^I select reason as \"([^\"]*)\"$")
+    public void i_enter_reason(String reason) throws Throwable {
+        try{
+            action.click(admin_ScheduledTripsPage.Dropdown_Reason());
+            action.selectElementByText(admin_ScheduledTripsPage.Dropdown_Reason(), reason);
+            log("I enter reason as "+reason,
+                    "I have entered reason as "+reason, false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     /* Moved to BusinessUsers
     @And("^I click on \"([^\"]*)\" button$")
         public void i_click_on_something_button(String button) throws Throwable {
@@ -1768,95 +1796,95 @@ try{
             List<WebElement> rows = null;
             switch (filter) {
                 case "Payment Unsuccessful Status":
-                    xpath = String.format("//td[contains(text(),'Payment Pending')]");
+                    xpath = String.format("//td[contains(.,'Payment Pending')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Payment Successful Status":
-                    xpath = String.format("//td[contains(text(),'Payment Successful')]");
+                    xpath = String.format("//td[contains(.,'Payment Successful')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Customer Canceled Status":
-                    xpath = String.format("//td[contains(text(),'Customer Canceled')]");
+                    xpath = String.format("//td[contains(.,'Customer Canceled')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Driver Canceled Status":
-                    xpath = String.format("//td[contains(text(),'Driver Canceled')]");
+                    xpath = String.format("//td[contains(.,'Driver Canceled')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Admin Canceled Status":
-                    xpath = String.format("//td[contains(text(),'Admin Canceled')]");
+                    xpath = String.format("//td[contains(.,'Admin Canceled')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Pickup with Error Status":
-                    xpath = String.format("//td[contains(text(),'Pickup with Error') | contains(text(),'Unable To Estimate')]");
+                    xpath = String.format("//td[contains(.,'Pickup with Error') | contains(.,'Unable To Estimate')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Price Estimated Status":
-                    xpath = String.format("//td[contains(text(),'Price Estimated')]");
+                    xpath = String.format("//td[contains(.,'Price Estimated')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Driver(s) Not Found Status":
-                    xpath = String.format("//td[contains(text(),'Driver(s) Not Found')]");
+                    xpath = String.format("//td[contains(.,'Driver(s) Not Found')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Driver Not Arrived Status":
-                    xpath = String.format("//td[contains(text(),'Driver Not Arrived')]");
+                    xpath = String.format("//td[contains(.,'Driver Not Arrived')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Driver Removed Status":
-                    xpath = String.format("//td[contains(text(),'Driver Removed')]");
+                    xpath = String.format("//td[contains(.,'Driver Removed')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Promoter Payment Pending Status":
-                    xpath = String.format("//td[contains(text(),'Promoter Payment Pending')]");
+                    xpath = String.format("//td[contains(.,'Promoter Payment Pending')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Solo Type":
                     //xpath = String.format("//td[3][text()='Solo']");
-                    xpath = String.format("//td/span[contains(text(),'Solo')]");
+                    xpath = String.format("//td/span[contains(.,'Solo')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Duo Type":
                     //xpath = String.format("//td[3][text()='Duo']");
-                    xpath = String.format("//td/span[contains(text(),'Duo')]");
+                    xpath = String.format("//td/span[contains(.,'Duo')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "On-Demand Category":
                     //xpath = String.format("//td[4][text()='On-Demand']");
-                    xpath = String.format("//td[4][contains(text(),'On-Demand')]");
+                    xpath = String.format("//td[contains(.,'On-Demand')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Scheduled Category":
                     //xpath = String.format("//td[4][text()='Scheduled']");
-                    xpath = String.format("//td[4][contains(text(),'Scheduled')]");
+                    xpath = String.format("//td[contains(.,'Scheduled')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");

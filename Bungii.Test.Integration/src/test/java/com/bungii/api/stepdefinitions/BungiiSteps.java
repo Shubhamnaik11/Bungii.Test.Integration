@@ -417,7 +417,7 @@ public class BungiiSteps extends DriverBase {
                 } catch (Exception e) {
 
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-                    error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    error("Step Should be successful for pickupref : "+ pickupRequest , "Error performing step,Please check logs for more details",
                             true);
 
                 }
@@ -431,11 +431,12 @@ public class BungiiSteps extends DriverBase {
         {
             //Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             List<Map<String, String>> DataList = data.asMaps();
+            String pickupRequest = "";
             int i = 0;
             while (i < DataList.size()) {
                 try {
                     String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
-                    String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
                     cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
                     cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
@@ -513,7 +514,7 @@ public class BungiiSteps extends DriverBase {
                 } catch (Exception e) {
 
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-                    error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    error("Step Should be successful for pickupref : "+ pickupRequest, "Error performing step,Please check logs for more details",
                             true);
 
                 }
