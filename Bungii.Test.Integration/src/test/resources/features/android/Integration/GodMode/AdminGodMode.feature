@@ -104,6 +104,7 @@
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
         And I change the "trip time to past" to future time
+        And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
         Then the "Please check the date/time selected. You cannot select a past date/time." message is displayed
     
@@ -176,6 +177,7 @@
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
         And I change the "trip time" to future time
+        And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
         Then the "Your changes are good to be saved." message is displayed
         And I click on "SAVE CHANGES" button
