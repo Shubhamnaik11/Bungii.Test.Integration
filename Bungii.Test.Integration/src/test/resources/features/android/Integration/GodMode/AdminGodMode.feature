@@ -405,9 +405,10 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-		And I open first trip for "Testcustomertywd_appleand_A Android" customer
+        And I open the trip for "Testcustomertywd_appleand_A Android" the customer
 		And I Select "Edit Trip Details" option
         And I change the "particular trip time 2 hours later" to future time
+        And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
         Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
         And I cancel all bungiis of customer
