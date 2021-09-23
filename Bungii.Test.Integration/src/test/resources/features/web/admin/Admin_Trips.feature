@@ -141,7 +141,8 @@ Feature: Admin_Trips
       |  Status |
       | Driver Removed|
 
-  @regression
+  @ready
+    #Failed in Sprint 49
     #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Solo Scheduled Trip
     And I note the Trip Requested count of Customer "Jerome Seinfield"
@@ -153,8 +154,8 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Jerome Seinfield"
     Then Trip should be listed in the grid
 
-  @regression
-    #stable
+  @ready
+    #Failed in Sprint 49
       #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Duo Scheduled Trip
     And I note the Trip Requested count of Customer "Krishna Hoderker"
@@ -166,8 +167,8 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Krishna Hoderker"
     Then Trip should be listed in the grid
   
-  @regression
-    #stable
+  @ready
+    #Failed in Sprint 49
   Scenario: Verify Driver Est. Earnings for for Customer Delivery
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
