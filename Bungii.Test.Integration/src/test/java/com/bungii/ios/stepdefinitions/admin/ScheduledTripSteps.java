@@ -269,10 +269,10 @@ public class ScheduledTripSteps extends DriverBase {
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){
-			String rowCustName= action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]"));
-			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[4]"));
+			String rowCustName= action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[7]"));
+			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]"));
 		//	String rowEstimatedDistance=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
-			String rowSrNumber=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[1]"));
+			String rowSrNumber=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[2]"));
 
 			if(rowCustName.equals(custName) &&rowSchduledTime.contains(scheduledDate)){
 				rowNumber=Integer.parseInt(rowSrNumber);
@@ -335,13 +335,18 @@ public class ScheduledTripSteps extends DriverBase {
 	public void RemoveSoloDriverAndresearchBungii(Map<String,String> tripDetails){
 		int rowNumber =getTripRowNumber(tripDetails);
 		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber,"Admin Portal: I was not able to find bungii with details "+tripDetails);
+		WebElement threeDotButton;
 		WebElement editButton;
 		if(rowNumber==0){
-			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
-		}else
+			threeDotButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//div/*[@id='dLabel']"));
+			//editButton1=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//*[@id='btnEdit']"));
+		}else {
 			//vishal[1403] : Updated xpath
-			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
+			threeDotButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/div/*[@id='dLabel']"));
+		}
+		editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//*[@id='btnEdit']"));
 		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
+		threeDotButton.click();
 		editButton.click();
 		action.click(scheduledTripsPage.CheckBox_Driver1());
 		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));

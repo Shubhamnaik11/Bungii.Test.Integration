@@ -88,6 +88,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @ready
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
+    When I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
 
     And I Switch to "customer" application on "same" devices
@@ -107,7 +108,9 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I tap "Back" on Promos screen
     And I should be navigated to "Estimate" screen
     And I request for bungii using Request Bungii Button
-    
+    Then I should be navigated to "SEARCHING" screen
+
+    When I Switch to "driver" application on "same" devices
     And I view and accept virtual notification for "Driver" for "on demand trip"
 
     And I Switch to "customer" application on "same" devices
@@ -147,8 +150,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | Payment Card | Time           | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE  | Default     |
+      | LoadTime | PromoCode | Payment Card | Time                  | PickUpImage |
+      | 30       |           |              | NEXT_SECOND_POSSIBLE  | Default     |
     And I click "PROMO CODE LINE" button on "Estimate" screen
     And I Enter "VALID" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
