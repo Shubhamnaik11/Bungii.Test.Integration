@@ -594,6 +594,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.boston"));
                     break;
+                case "new boston pickup and dropoff locations":
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.boston.new"));
+                    action.click(Page_CustHome.Button_ETASet());
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.boston"));
+                    break;
                 case "baltimore pickup and dropoff locations":
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.baltimore"));
                     action.click(Page_CustHome.Button_ETASet());
