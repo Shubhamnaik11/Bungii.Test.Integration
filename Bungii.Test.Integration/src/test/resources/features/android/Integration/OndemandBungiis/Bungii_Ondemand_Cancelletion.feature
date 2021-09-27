@@ -68,7 +68,7 @@
       
       And I tap on "Go Online button" on Driver Home page
       And I Switch to "customer" application on "same" devices
-      And I enter "boston pickup and dropoff locations" on Bungii estimate
+      And I enter "new boston pickup and dropoff locations" on Bungii estimate
       And I tap on "Get Estimate button" on Bungii estimate
       And I add "2" photos to the Bungii
       And I add loading/unloading time of "30 mins"
@@ -103,7 +103,7 @@
       
       And I tap on "Go Online button" on Driver Home page
       And I Switch to "customer" application on "same" devices
-      And I enter "boston pickup and dropoff locations" on Bungii estimate
+      And I enter "new boston pickup and dropoff locations" on Bungii estimate
       And I tap on "Get Estimate button" on Bungii estimate
       And I add "2" photos to the Bungii
       And I add loading/unloading time of "30 mins"
