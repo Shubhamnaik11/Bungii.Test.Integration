@@ -294,13 +294,14 @@ public class ScheduledTripSteps extends DriverBase {
 
 		if(rowNumber==0){
 			//threeDotButton=
-					scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//div/*[@id='dLabel']")).click();
+			action.click((WebElement)scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//div/*[@id='dLabel']")));
 
 		}else {
 			//vishal[1403] : Updated xpath
-			scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/div/*[@id='dLabel']")).click();
+			action.click((WebElement)scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/div/*[@id='dLabel']")));
 		}
-		scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//*[@id='btnEdit']")).click();
+
+		action.click((WebElement)scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//*[@id='btnEdit']")));
 
 		action.click(scheduledTripsPage.RadioBox_Cancel());
 	//	scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
