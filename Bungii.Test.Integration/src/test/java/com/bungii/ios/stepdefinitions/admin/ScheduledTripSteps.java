@@ -291,13 +291,18 @@ public class ScheduledTripSteps extends DriverBase {
 	public void cancelBungii(Map<String,String> tripDetails,String cancelCharge,String comments){
 		int rowNumber =getTripRowNumber(tripDetails);
 		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber,"Admin Portal: Bungii Not Found "+ tripDetails);
+		WebElement threeDotButton;
 		WebElement editButton;
 		if(rowNumber==0){
-			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
-		}else
+			threeDotButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//div/*[@id='dLabel']"));
+			//editButton1=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//*[@id='btnEdit']"));
+		}else {
 			//vishal[1403] : Updated xpath
-			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
-	//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
+			threeDotButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/div/*[@id='dLabel']"));
+		}
+		editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//*[@id='btnEdit']"));
+		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
+		threeDotButton.click();
 		editButton.click();
 		action.click(scheduledTripsPage.RadioBox_Cancel());
 	//	scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
