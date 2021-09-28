@@ -1442,6 +1442,9 @@ public class ScheduledTripSteps extends DriverBase {
                 case "Partner initiated" :
                     action.selectElementByText(scheduledTripsPage.Select_EditReason(),reason);
                     break;
+				case "Customer initiated" :
+					action.selectElementByText(scheduledTripsPage.Select_EditReason(),reason);
+					break;
             }
         }
         catch (Exception e){

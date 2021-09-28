@@ -335,7 +335,7 @@
 		  | NEXT_POSSIBLE | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
 		When I request another "duo" Bungii as a customer in "goa" geofence
 		  | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-		  | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
+		  | NEXT_POSSIBLE | 9823741003     | Testcustomertywd_appleNwBBB CustBBB | Cci12345          |
 		Then I wait for "2" mins
 		When I open new "Chrome" browser for "ADMIN"
 		And I navigate to admin portal
@@ -347,9 +347,9 @@
 		Then I am not allowed to assign more drivers
 		And I click on "Close" button
 	
-		When I open the trip for "Testcustomertywd_appleand_C Android" the customer
+		When I open the trip for "Testcustomertywd_appleNwBBB CustBBB" the customer
 		And I Select "Edit Trip Details" option
-		And I assign driver for the "Duo" trip
+		And I assign driver for the "Do" trip
 		Then I am not allowed to assign more drivers
 	
 		And I cancel all bungiis of customer
@@ -383,6 +383,7 @@
         And I Select "Edit Trip Details" option
         And I change the "particular trip time 2 hours later" to future time
         And I click on "VERIFY" button
+        And I Select reason as "Customer initiated" to edit datetime
         And the "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
         And the "Bungii Saved!" message is displayed
