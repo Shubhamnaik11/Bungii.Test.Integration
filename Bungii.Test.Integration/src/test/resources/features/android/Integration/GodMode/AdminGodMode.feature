@@ -349,12 +349,12 @@
 	
 		When I open the trip for "Testcustomertywd_appleNwBBB CustBBB" the customer
 		And I Select "Edit Trip Details" option
-		And I assign driver for the "Do" trip
+		And I assign driver for the "Duo" trip
 		Then I am not allowed to assign more drivers
 	
 		And I cancel all bungiis of customer
 		  | Customer Phone  | Customer2 Phone |
-		  | 9393939393      | 9999992222      |
+		  | 9393939393      | 9823741003      |
   
   
       @ready
