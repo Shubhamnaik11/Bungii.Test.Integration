@@ -6,6 +6,7 @@ import com.bungii.android.pages.customer.SignupPage;
 
 import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.EarningsPage;
+import com.bungii.android.pages.driver.PrivacyPolicyPage;
 import com.bungii.android.stepdefinitions.Customer.HomeSteps;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -26,6 +27,7 @@ public class DriverMenuSteps extends DriverBase {
     DriverHomePage homePage = new DriverHomePage();
     SignupPage Page_Signup = new SignupPage();
     EarningsPage earningsPage = new EarningsPage();
+    PrivacyPolicyPage privacyPolicyPage = new PrivacyPolicyPage();
     ActionManager action = new ActionManager();
 
     @Given("^I am on Driver logged in Home page$")
@@ -107,6 +109,12 @@ public class DriverMenuSteps extends DriverBase {
                 case "ALERT SETTINGS":
                     data = action.getText(homePage.Text_TripAlertSettings()).toString();
                     testStepAssert.isElementTextEquals(homePage.Text_TripAlertSettings(), "Delivery Alerts", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    break;
+
+                case "PRIVACY POLICY":
+                    data = action.getText(homePage.Text_PrivacyPolicy()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_PrivacyPolicy(), strArg1, data + " is displayed", data + " is displayed", data + " is not displayed");
+                    action.isElementPresent(privacyPolicyPage.Text_Privacy(true));
                     break;
 
                 case "FEEDBACK":

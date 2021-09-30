@@ -192,4 +192,7 @@ public class EstimatePage extends PageBase {
   public WebElement TextBox_CurrentBungiiAMPM(){return findElement("//android.widget.EditText[@resource-id='android:id/numberpicker_input' and @index=0]", LocatorType.XPath);}
 
   public WebElement Button_NextBungii(){return findElement("com.bungii.driver:id/pickup_summary_button_next_bungii", LocatorType.Id);}
+
+  public WebElement Text_Solo_Disclaimer() { return findElement("//android.widget.TextView[@text='I’m requesting 1 driver & 1 pickup truck.']",LocatorType.XPath);}
+  public WebElement Text_Duo_Disclaimer() { return findElement("//android.widget.TextView[@text='I’m requesting 2 drivers & 2 pickup trucks.']",LocatorType.XPath);}
 }

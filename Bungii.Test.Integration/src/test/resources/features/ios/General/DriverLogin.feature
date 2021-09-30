@@ -84,7 +84,7 @@ Feature: Driver Login
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   
     Then I should be successfully logged in to the application
-    When I click "Go Online" button on "Home" screen on driverApp
+    When I click "OFFLINE" button on "Home" screen on driverApp
     Then Alert message with HICCUP MESSAGE text should be displayed on driverApp
     And I accept Alert message on driverApp
     When I Select "ACCOUNT > LOGOUT" from driver App menu

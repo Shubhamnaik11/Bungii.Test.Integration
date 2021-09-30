@@ -399,4 +399,10 @@ public class DbUtility extends DbContextManager {
         return Service;
     }
 
+    public static List<HashMap<String, Object>> getRegionsList() {
+        List<HashMap<String,Object>> regions=  new ArrayList<>();
+        String queryString = "select name from geofence where org_level = 2";
+        regions = getListDataFromMySqlMgmtServer(queryString);
+        return regions;
+    }
 }

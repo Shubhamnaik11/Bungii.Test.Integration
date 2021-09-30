@@ -422,11 +422,12 @@ public class CoreServices extends DriverBase {
                 HashMap pickupDetails = (HashMap) availableArray.get(i);
                 promoCode = (String) pickupDetails.get("Code");
                 walletRef=(String) pickupDetails.get("WalletRef");
-                cucumberContextManager.setScenarioContext("ADDED_PROMOCODE", promoCode);
-                cucumberContextManager.setScenarioContext("ADDED_PROMOCODE_WALLETREF", walletRef);
                 break;
             }
+            cucumberContextManager.setScenarioContext("ADDED_PROMOCODE", promoCode);
+            cucumberContextManager.setScenarioContext("ADDED_PROMOCODE_WALLETREF", walletRef);
         }
+
         return walletRef;
     }
     public void recalculateEstimate(String pickupRequestID, String walletReferance, String authToken) {
@@ -1372,7 +1373,7 @@ public class CoreServices extends DriverBase {
         return response;
      }
 
-    public String partnerPickupEstimate(String Partner_Portal,String Geofence,String Bungii_Time,String PartnerLocationConfigurationVersionRef,String BusinessPartnerDefaultAddressRef){
+    public String partnerPickupEstimate(String Partner_Portal,String Geofence,String Bungii_Time,String PartnerLocationConfigurationVersionRef,String BusinessPartnerDefaultAddressRef,String BusinessPartnerDefaultAddressConfigVersionID){
         String RequestText ="API REQUEST : Partner Estimate Cost(Post) |  : "+ Partner_Portal;
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core",PARTNER_PICKUPESTIMATE);
@@ -1503,6 +1504,7 @@ public class CoreServices extends DriverBase {
             jsonObj.put("ServiceLevelRef", JSONObject.NULL);
             jsonObj.put("NoOfDrivers",No_of_Driver);
             jsonObj.put("BusinessPartnerDefaultAddressRef", BusinessPartnerDefaultAddressRef);
+            jsonObj.put("BusinessPartnerDefaultAddressConfigVersionID",BusinessPartnerDefaultAddressConfigVersionID);
 
             //Header header = new Header("AuthorizationToken", AccessToken);
             response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);//body(jsonObj.toString()).

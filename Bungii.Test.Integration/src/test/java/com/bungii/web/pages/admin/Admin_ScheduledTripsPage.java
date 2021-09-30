@@ -23,6 +23,10 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit pickup location']",LocatorType.XPath);}
 
+
+    //public WebElement Admin_Dropdown_ServiceLevel(String serviceLevel) { return findElement("//li/div/div/span[@class='service-title' and @data-name='"+serviceLevel+"']",LocatorType.XPath);}
+    public WebElement Admin_Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
+
     public WebElement Link_Grid_First_Row() { return findElement("//tr[@id='row1']/td[4]/a",LocatorType.XPath);}
     public WebElement Textbox_Drop_Off_Location () { return findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
     public WebElement Textbox_Pickup_Location () { return findElement("PickupDetails_PickupOriginAddress",LocatorType.Id);}
@@ -40,6 +44,8 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
 
     public WebElement Dropdown_CancellationReason () { return findElement("txtCancellationRemark", LocatorType.Id); }
+
+    public WebElement Dropdown_Reason () { return findElement("ddEditDeliveryRemark", LocatorType.Id); }
 
     //changed by Richa
     //public WebElement RadioButton_CancelBungii () { return findElement("//span[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input", LocatorType.XPath); }
@@ -80,5 +86,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Textbox_Search () { return findElement("SearchCriteria", LocatorType.Id); }
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
+
+    public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'View Delivery Details')]",LocatorType.XPath);}
 
 }

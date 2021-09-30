@@ -37,7 +37,7 @@ Feature: SoloScheduled Part G
     And I am logged in as "valid" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
-    Then I click "Go Offline" button on Home screen on driver app
+    Then I click "ONLINE" button on Home screen on driver app
     When I Switch to "customer" application on "same" devices
     And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                    |
@@ -102,7 +102,7 @@ Feature: SoloScheduled Part G
     And I am logged in as "valid" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
-    Then I click "Go Online" button on Home screen on driver app
+    Then I click "OFFLINE" button on Home screen on driver app
     When I Switch to "customer" application on "same" devices
     
     And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence

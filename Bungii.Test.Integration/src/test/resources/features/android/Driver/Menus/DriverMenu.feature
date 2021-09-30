@@ -11,7 +11,7 @@ Feature: DriverMenu
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
   
   @regression
-  Scenario: Verify Driver Menus - Leaderboard | Scheduled And Available Bungiis | Earnigs | Account |  Alert Settings | Store | Logout
+  Scenario: Verify Driver Menus - Leaderboard | Scheduled And Available Bungiis | Earnigs | Account |  Alert Settings | Privacy Policy | Store | Logout
     When I Select "LEADERBOARD" from driver App menu
     And the "LEADERBOARD" page is opened
     Then I should be able to see data on "LEADERBOARD" page
@@ -33,6 +33,10 @@ Feature: DriverMenu
     And the "ALERT SETTINGS" page is opened
     Then I should be able to see data on "ALERT SETTINGS" page
     Then I click on "Navigate Back" button on the "ALERT SETTINGS" page
+    And I Select "PRIVACY POLICY" from ACCOUNT menu
+    And the "PRIVACY POLICY" page is opened
+    Then I should be able to see data on "PRIVACY POLICY" page
+    Then I click on "Navigate Back" button on the "PRIVACY POLICY" page
     When I Select "BUNGII STORE" from driver App menu
     And the "STORE" page is opened
     Then I should be able to see data on "BUNGII STORE" page
@@ -41,7 +45,7 @@ Feature: DriverMenu
     When I Select "LOGOUT" from ACCOUNT menu
     Then I should be able to see data on "LOGOUT" page
   
-  @ready
+  @regression
     #stable
   Scenario: Verify Driver Menus - FAQ
     When I Select "FAQ" from driver App menu

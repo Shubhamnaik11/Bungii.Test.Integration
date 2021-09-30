@@ -40,10 +40,7 @@ Feature: On Demand Bungii
     And I am logged in as "valid baltimore" driver
     And I wait for "2" mins
     And I open Admin portal and navigate to "Live Deliveries" page
-    
     And I select trip from live trips
-    
-    When I switch to "ADMIN" instance
     Then I wait for trip status to be "Trip Started"
     Then manually end bungii should be "disabled"
     

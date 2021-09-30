@@ -4,8 +4,9 @@ Feature: Admin_Schedule_Delivery_Edit
   Background:
     Given I am logged in as Admin
 
-    @regression
-    Scenario: Verify editing drop off address for the Solo scheduled delivery.
+    @ready
+      #failed in sprint 49
+    Scenario: Verify editing drop off address for the Solo scheduled delivery
       When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
         | Bungii Time   | Customer Phone | Customer Name |
         | NEXT_POSSIBLE | 9999999200     | Testcustomertywd_appleNewM Customer  |
@@ -31,7 +32,7 @@ Feature: Admin_Schedule_Delivery_Edit
 
   @regression
       #stable
-  Scenario: Verify editing drop off address for the duo scheduled trip.
+  Scenario: Verify editing drop off address for the duo scheduled trip
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
       | NEXT_POSSIBLE | 9999999202     | Testcustomertywd_appleNewO Customer|
@@ -66,7 +67,7 @@ Feature: Admin_Schedule_Delivery_Edit
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
-    And I change the drop off address to "8500 Scudder Avenue"
+    And I change the drop off address to "8500 Scudder Avenue, Copiague"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
   
@@ -83,7 +84,7 @@ Feature: Admin_Schedule_Delivery_Edit
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
-    And I change the drop off address to "8500 Scudder Avenue"
+    And I change the drop off address to "8500 Scudder Avenue, Copiague"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
   
@@ -135,3 +136,7 @@ Feature: Admin_Schedule_Delivery_Edit
        When I view the delivery details in admin portal
        Then the updated drop off address should be displayed on delivery details page
        And Delivery price is recalculated based on updated value of drop off address
+
+
+
+

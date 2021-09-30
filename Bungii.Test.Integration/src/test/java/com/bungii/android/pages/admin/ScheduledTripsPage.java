@@ -98,4 +98,6 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement Select_CancellationReason() {return findElement("txtCancellationRemark", LocatorType.Id);}
 
+    public WebElement Select_EditReason() {return findElement("ddEditDeliveryRemark",LocatorType.Id);}
+
 }

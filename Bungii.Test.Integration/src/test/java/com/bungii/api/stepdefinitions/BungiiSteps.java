@@ -296,6 +296,12 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appleks_a_kay Stark_ksThreE":
                 phone = PropertyUtility.getDataProperties("valid.driver.phone");
                 break;
+            case "Testdrivertywd_appleks_a_drvb Kansas_b":
+                phone = PropertyUtility.getDataProperties("Kansas.driver3.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvc Kansas_c":
+                phone = PropertyUtility.getDataProperties("Kansas.driver4.phone");
+                break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
 
@@ -417,7 +423,7 @@ public class BungiiSteps extends DriverBase {
                 } catch (Exception e) {
 
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-                    error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    error("Step Should be successful for pickupref : "+ pickupRequest , "Error performing step,Please check logs for more details",
                             true);
 
                 }
@@ -431,11 +437,12 @@ public class BungiiSteps extends DriverBase {
         {
             //Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             List<Map<String, String>> DataList = data.asMaps();
+            String pickupRequest = "";
             int i = 0;
             while (i < DataList.size()) {
                 try {
                     String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
-                    String pickupRequest = (String) cucumberContextManager.getScenarioContext("pickupRequestPartner");
+                    pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
                     cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
                     cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
@@ -513,7 +520,7 @@ public class BungiiSteps extends DriverBase {
                 } catch (Exception e) {
 
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-                    error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    error("Step Should be successful for pickupref : "+ pickupRequest, "Error performing step,Please check logs for more details",
                             true);
 
                 }

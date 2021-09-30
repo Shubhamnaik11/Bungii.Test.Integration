@@ -20,7 +20,7 @@ Feature: CustomerMenu
     ################
   @regression
     #long45 minutes
-  Scenario: Verify Customer App Menu Item Navigations - FAQ | SIGN UP | ACCOUNT | PAYMENT | SUPPORT | PROMOS | MY BUNGIIS | LOGOUT
+  Scenario: Verify Customer App Menu Item Navigations - FAQ | SIGN UP | ACCOUNT | PAYMENT | SUPPORT | PROMOS | PRIVACY POLICY | MY BUNGIIS | LOGOUT
     When I tap on "Menu" > "Home" link
     Then "Home" page should be opened
     
@@ -41,8 +41,11 @@ Feature: CustomerMenu
     When I tap on "Menu" > "Support" link
     Then "Support" page should be opened
     When I tap on the "ACCOUNT>PROMOS" link
-    Then I click on "Navigate Back" button on the "PROMOS" page of customer app
     Then "Promos" page should be opened
+    Then I click on "Navigate Back" button on the "PROMOS" page of customer app
+    When I tap on the "ACCOUNT > PRIVACY POLICY" link
+    Then "Privacy Policy" page should be opened
+    Then I click on "Navigate Back" button on the "PRIVACY POLICY" page of customer app
     When I tap on "Menu" > "My Bungiis" link
     Then "MY BUNGIIS" page should be opened
     And I click on "Scheduled" tab
@@ -57,4 +60,3 @@ Feature: CustomerMenu
     And I tap on the "ACCOUNT>LOGOUT" link
     Then "Login" page should be opened
 
-    

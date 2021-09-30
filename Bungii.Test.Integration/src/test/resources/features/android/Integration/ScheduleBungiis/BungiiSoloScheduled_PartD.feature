@@ -7,7 +7,7 @@ Feature: SoloScheduled Part D
   Background:
   
   
-  @ready
+  @regression
    #stable
   Scenario: Verify Customer Can Cancel The Scheduled Bungii
     Given that solo schedule bungii is in progress
@@ -96,7 +96,7 @@ Feature: SoloScheduled Part D
       | CUSTOMER1_PHONE |                 |
   
   
-  @ready
+  @regression
   Scenario: Verify that that Past Trips page correctly displays completed Scheduled Solo Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |

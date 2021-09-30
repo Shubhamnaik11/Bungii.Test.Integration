@@ -37,11 +37,14 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 String amount = DataList.get(i).get("Amount").trim();
                 String feeType = DataList.get(i).get("Fee Type").trim();
                 String comment = DataList.get(i).get("Comment").trim();
+                String driver_cut = DataList.get(i).get("Driver Cut").trim();
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
+                action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
                 cucumberContextManager.setScenarioContext("NOTE",comment);
                 action.click(admin_accessorialChargesPage.Button_Save());
+                action.click(admin_accessorialChargesPage.Button_Confirm());
                 Thread.sleep(3000);
                 i++;
             }
@@ -57,7 +60,8 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     @Then("^I should see \"([^\"]*)\" section displayed$")
     public void i_should_see_something_section_displayed(String section) throws Throwable {
         testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Header_Section(),section, section+" should be displayed", section+" is displayed", section+" is not displayed");
-        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Message_Mandatory(),"Fields marked with * are mandatory.", "Fields marked with * are mandatory. should be displayed", "Fields marked with * are mandatory. is displayed", "Fields marked with * are mandatory. is not displayed");
+        //removed in Sprint47
+        //testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Message_Mandatory(),"Fields marked with * are mandatory.", "Fields marked with * are mandatory. should be displayed", "Fields marked with * are mandatory. is displayed", "Fields marked with * are mandatory. is not displayed");
     }
 
     @Then("^I should see following details in the Accessorial charges section$")
@@ -90,7 +94,9 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         utility.resetGeofenceDropdown();
         Thread.sleep(5000);
         //String status = "Payment Successful";
-        action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]", customerName),PageBase.LocatorType.XPath));
+        action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", customerName),PageBase.LocatorType.XPath));
+        action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/p[contains(text(),'View Delivery Details')]", customerName),PageBase.LocatorType.XPath));
+
         log("I search the delivery of Customer and view it","I searched the delivery of Customer and viewed it",false);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

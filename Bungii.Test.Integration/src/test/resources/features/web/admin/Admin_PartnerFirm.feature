@@ -149,7 +149,7 @@ Feature: Admin_PartnerFirm
     And I enter cancellation fee and Comments
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
-    When I view the Trips list on the admin portal
+    When I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And Partner firm should receive "Bungii Delivery Pickup Canceled" email
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
@@ -320,7 +320,7 @@ Feature: Admin_PartnerFirm
 
 @regression
 #stable
-Scenario: Verify that same trip is shown for other driver under Trips section When admin adds driver to duo trip
+Scenario: Verify that same delivery is shown for other driver under Deliveries section When admin adds driver to duo trip
   When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
     | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|
@@ -345,11 +345,11 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
   And I search the delivery of Customer "Testcustomertywd_applekrishna Hoderker"
   Then I verify that the "Testdrivertywd_appledc_a_web Sundarm" is displayed
   
-  @ready
+  @regression
   Scenario: Verify that Admin does not get "Customer has ongoing trip" alert when he edits an already edited schedule bungii
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |Customer Password|
-      | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android|Cci12345         |
+      | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C android|Cci12345         |
     And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state     |
       | Accepted          |
@@ -358,5 +358,6 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
+    And Click on "Edit" button
     When I click on "Edit Trip Details" radiobutton
     Then I should not get alert as "Customer has ongoing trip"

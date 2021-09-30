@@ -92,6 +92,7 @@ public class EstimateSteps extends DriverBase {
                     warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request", true);
                     SetupManager.getDriver().switchTo().alert().accept();
                     strTime = enterTime("NEXT_POSSIBLE AFTER ALERT");
+                    strTime=strTime.replace("am","AM").replace("pm","PM");
                     String timeValue = action.getValueAttribute(estimatePage.Text_TimeValue()).replace("am","AM").replace("pm","PM");
                     if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
                     {
@@ -341,7 +342,20 @@ public class EstimateSteps extends DriverBase {
             }
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
-        }else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
+        }else if (time.equalsIgnoreCase("NEXT_SECOND_POSSIBLE")) {
+            Date date = getNextScheduledBungiiTimeForGeofence();
+            String[] dateScroll = bungiiTimeForScroll(date);
+            strTime = bungiiTimeDisplayInTextArea(date);
+            Thread.sleep(3000);
+            action.click(estimatePage.Row_TimeSelect());
+            Thread.sleep(6000);
+            if(!action.isElementPresent(estimatePage.Button_Set(true))) {
+                action.click(estimatePage.Row2_TimeSelect()); //Retry to select time - workaround for duo cases
+            }
+            //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
+            action.click(estimatePage.Button_Set());
+        }
+        else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
             Date date = getNextScheduledBungiiTimeForGeofence();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
@@ -1112,20 +1126,13 @@ public class EstimateSteps extends DriverBase {
         try {
             cucumberContextManager.setScenarioContext("MIN_TIME_DUO", "30");
             cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", "30");
-            boolean bit = false ;
-            int retry = 2;
 
-            while (bit == false || retry >0) {
                 String time = action.getValueAttribute(estimatePage.Text_TimeValue());
                 Date date = getNextScheduledBungiiTimeForGeofence();
                 String strTime = bungiiTimeDisplayInTextArea(date);
                 cucumberContextManager.setScenarioContext("CALCULATED_TIME", strTime);
                 cucumberContextManager.setScenarioContext("DISPLAYED_TIME", time);
-                if (strTime.contains(time))
-                    bit = true;
-                retry --;
 
-            }
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1145,7 +1152,7 @@ public class EstimateSteps extends DriverBase {
                 if(displayedTime.contains("a.m.")||displayedTime.contains("p.m.")) {
                     strTime = strTime.replace("am", "a.m.").replace("pm", "p.m.").replace("AM", "a.m.").replace("PM", "p.m.");
                 }
-                if(strTime.contains("GMT"))
+                if(strTime.contains("GMT")||strTime.contains("CDT")||strTime.contains("CST"))
                 strTime = utility.getGmtTime(strTime);
                 testStepAssert.isEquals(displayedTime, strTime,strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
             }

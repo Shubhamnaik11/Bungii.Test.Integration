@@ -106,7 +106,7 @@ public class HomePageSteps extends DriverBase {
                     action.click(driverAccountPage.Link_Account_Settings());
                     break;
                 case "PRIVACY POLICY":
-                    action.click(driverAccountPage.Link_Privarcy_Policy());
+                    action.click(driverAccountPage.Link_Privacy_Policy());
                     break;
                 case "LOGOUT":
                     action.click(driverAccountPage.Link_Logout());
@@ -139,14 +139,11 @@ public class HomePageSteps extends DriverBase {
     public void i_click_something_button_on_home_screen_on_driver_app(String button) throws Throwable {
         try {
             switch (button) {
-                case "Go Online":
+                case "OFFLINE":
+                case "ONLINE":
                     Thread.sleep(4000);
                     action.click(driverHomePage.Button_OnlineOffline());
                     Thread.sleep(4000);
-                    break;
-                case "Go Offline":
-                    Thread.sleep(4000);
-                    action.click(driverHomePage.Button_OnlineOffline());
                     break;
                 case "Available Bungiis":
                     action.click(driverHomePage.Link_AvailableTrips());
@@ -167,11 +164,11 @@ public class HomePageSteps extends DriverBase {
             switch (status.toUpperCase()) {
                 case "OFFLINE":
                     testStepVerify.isEquals(action.getText(driverHomePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.offline"));
-                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.goonline"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.offline"));
                     break;
                 case "ONLINE":
                     testStepVerify.isEquals(action.getText(driverHomePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.online"));
-                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.gooffline"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.online"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -222,7 +219,7 @@ public class HomePageSteps extends DriverBase {
     public void the_title_of_button_should_change_to_something_on_driver_app(String buttonTitle) throws Throwable {
         try {
             switch (buttonTitle.toUpperCase()) {
-                case "GO ONLINE":
+                case "ONLINE":
                     testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), buttonTitle.toUpperCase());
                     break;
                 case "GO OFFLINE":

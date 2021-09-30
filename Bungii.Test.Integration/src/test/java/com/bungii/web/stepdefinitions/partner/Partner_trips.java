@@ -427,6 +427,68 @@ try{
     }
     }
 
+    @Then("^the change service level should be displayed on partner portal delivery details page$")
+    public void the_change_service_level_should_be_displayed_on_partner_portal_delivery_details_page() throws Throwable {
+        try{
+            String changeServiceLevel = (String) cucumberContextManager.getScenarioContext("Change_service");
+            String displayServiceLevel = action.getText(Page_Partner_Dashboard.Text_Service_Decription());
+
+            if(changeServiceLevel.equalsIgnoreCase("White Glove"))
+            {
+                changeServiceLevel = PropertyUtility.getDataProperties("change.service.description");
+            }
+
+            testStepVerify.isEquals(changeServiceLevel,displayServiceLevel,"the change service level " +changeServiceLevel+ "should be same as service level display " +displayServiceLevel+ "on delivery details page of partner portal","the change service level " +changeServiceLevel+ " is not same as service level displayed " +displayServiceLevel+ "on delivery details page of partner portal");
+
+        }
+        catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "The changed service level is not displayed on partner portal delivery details page",
+                    true);
+        }
+    }
+
+    @Then("^the price for the partner portal delivery shown as per the changed service level$")
+    public void the_price_for_the_partner_portal_delivery_shown_as_per_the_changed_service_level() throws Throwable {
+        try{
+            String Alias_Name= (String) cucumberContextManager.getScenarioContext("Alias");
+            String Change_Service =(String) cucumberContextManager.getScenarioContext("Change_service");
+            String Trip_Type = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
+            int Driver_Number=1;
+
+            if(Trip_Type.equalsIgnoreCase("Duo")){
+                Driver_Number=2;
+            }
+
+            String Display_Price = action.getText(Page_Partner_Dashboard.Text_Delivery_Cost());
+            Display_Price = Display_Price.substring(1);
+
+            String Estimate_distance = dbUtility.getEstimateDistance(Alias_Name);
+            double Estimate_distance_value = Double.parseDouble(Estimate_distance);
+
+            String Last_Tier_Milenge_Min_Range = dbUtility.getMaxMilengeValue(Alias_Name,Change_Service);
+            double Last_Tier_Milenge_Min_Range_value = Double.parseDouble(Last_Tier_Milenge_Min_Range);
+
+            String Price="";
+            if(Estimate_distance_value <= Last_Tier_Milenge_Min_Range_value) {
+                Price = dbUtility.getServicePrice(Alias_Name, Driver_Number, Estimate_distance, Change_Service);
+            }
+            else{
+                Price = dbUtility.getServicePriceLastTier(Alias_Name, Driver_Number, Estimate_distance, Change_Service);
+            }
+
+            testStepVerify.isEquals(Display_Price,Price);
+
+            log("The price for the delivery on partner portal should be shown as per the changed service level",
+                    "The price for the delivery on partner portal is shown as per the changed service level", false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "The price for the partner portal delivery is not shown as per the changed service level",
+                    true);
+        }
+    }
+
     @And("^I close the Trip Delivery Details page$")
     public void i_close_the_trip_delivery_details_page(){
         try{
@@ -650,7 +712,9 @@ try{
                 action.click(Page_Partner_Dashboard.Button_DeliveryClear());
                 action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                 action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(),Delivery_Address+ Keys.TAB);
+                Thread.sleep(5000);
                 action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                Thread.sleep(5000);
                 action.click(Page_Partner_Dashboard.List_Delivery_Address());
                 Thread.sleep(2000);
 
@@ -801,9 +865,10 @@ try{
             String status = dataMap.get("Status").trim();
             String tripType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
             String customer = (String) cucumberContextManager.getScenarioContext("Customer_Name");
-            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
-            String pickupRef = (String) cucumberContextManager.getScenarioContext("pickupRequestPartner");
 
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            cucumberContextManager.setScenarioContext("pickupRequest",pickupRef);
 
             String geofenceName = getGeofence(geofence);
             action.clearSendKeys(admin_LiveTripsPage.TextBox_Search_Field(),pickupRef);
@@ -812,7 +877,7 @@ try{
             cucumberContextManager.setScenarioContext("STATUS", status);
 
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
-                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType.toUpperCase(), customer);
+                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType.toUpperCase(), customer);
                 int retrycount = 13;
 
                 boolean retry = true;
@@ -849,7 +914,7 @@ try{
 
         } else {
 
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", tripType, customer);
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType, customer);
                 int retrycount = 10;
 
                 boolean retry = true;

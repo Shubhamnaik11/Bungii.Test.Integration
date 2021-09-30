@@ -104,9 +104,9 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
             admin_potentialPartnersPage.TextBox_DriverSearch().sendKeys(driverName);
             admin_potentialPartnersPage.Select_TestDriver().click();
             String driver1Name=admin_potentialPartnersPage.Text_EditTrpDetailsDriver1Name().getText();
-            cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);
-            cucumberContextManager.setScenarioContext("DRIVER2_NAME",driver1Name);
-            log("I assign driver for the delivery ","I assigned driver "+driver1Name+" to the delivery",true );
+            cucumberContextManager.setScenarioContext("DRIVER1_NAME",driverName);
+            cucumberContextManager.setScenarioContext("DRIVER2_NAME",driverName);
+            log("I assign driver for the delivery ","I assigned driver "+driverName+" to the delivery",true );
 
         }catch (Throwable e) {
             logger.error("Error performing step" + e);
