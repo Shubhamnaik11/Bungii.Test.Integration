@@ -116,7 +116,7 @@ public class AuthServices extends DriverBase {
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response, RequestText);
 
-        String[] abc = {jsonPathEvaluator.get("PartnerLocationSettings.PartnerLocationConfigurationVersionRef").toString(),jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressRef[0]").toString(),jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressConfigVersionID[0]").toString()};
+        String[] abc = {jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressRef[0]").toString(),jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressConfigVersionID[0]").toString()};
         return abc;
         //return response;
 

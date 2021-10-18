@@ -25,6 +25,7 @@ Feature: SoloScheduled Part F
     Then I wait for "2" mins
   
     When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
     And Notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE" should be displayed
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
