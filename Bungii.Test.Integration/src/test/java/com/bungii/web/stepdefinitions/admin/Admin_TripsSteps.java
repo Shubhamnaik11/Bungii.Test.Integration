@@ -2148,7 +2148,11 @@ try{
     @And("^I view the searched delivery$")
     public void i_view_the_searched_delivery() throws Throwable {
         try {
-            action.click(admin_ScheduledTripsPage.Link_Grid_First_Row());
+            //action.click();
+            Thread.sleep(4000);
+            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/img")));
+            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/ul/li/p[contains(text(),'View Delivery Details')]")));
+            //action.click(admin_ScheduledTripsPage.Link_Grid_First_Row());
             log("I should able to view searched delivery.", "I have viewed the searched delivery", false);
 
         }
