@@ -55,15 +55,17 @@ Then I should see following details in the Accessorial charges section
 	And I search the delivery of Customer and view it
 	Then I should see "Accessorial Charges" section displayed
 	And I should get following error for following accessorial charges fields values when saved
-	  |Amount |Fee Type         |Comment         | Field | Message |
-	  | Blank | Blank           | Blank          | Fee Type |Please select fee type. |
-	  | Blank | Blank           | This is Comment| Fee Type |Please select fee type. |
-	  | Blank | Excess Wait Time| Blank          | Amount |Please enter an amount. |
-	  | Blank | Excess Wait Time| This is Comment| Amount |Please enter an amount. |
-	  | 10    | Blank           | Blank          | Fee Type |Please select fee type. |
-	  | 10    | Blank           | This is Comment| Fee Type |Please select fee type. |
-	  | 10    | Excess Wait Time| Blank          | Comment |Please add a comment.   |
-	  | 10   | Excess Wait Time| Accessorial charges Comments: Accessorial charges comment having more than 500 characters in Excess Wait Time field column entered to identify whether it causes issues like "CORE-2446 SPRINT43:: QA environment:: Saving Comments of 500 characters for accessorial fees gives Application Error" Please note that If data gets validation message  without any application error then it means that the above issue no longer exists and it is working as expected. !!! Accessorial charges Comments Ends, Thank you!!!!|Comment|Comment exceeds 500 characters.|
+	  |Amount |Driver Cut|Fee Type         |Comment         | Field | Message |
+	  | Blank |     Blank| Blank           | Blank          | Fee Type |Please select fee type. |
+	  | Blank |   Blank	|Blank           | This is Comment| Fee Type |Please select fee type. |
+	  | Blank |    Blank|Excess Wait Time| Blank          | Amount |Please enter amount. |
+	  | Blank |    Blank|Excess Wait Time| This is Comment| Amount |Please enter amount. |
+	  | 10	  |    Blank|Excess Wait Time| Blank          | Driver Amount |Please enter driver cut. |
+	  | 10	  |    Blank|Excess Wait Time| This is Comment| Driver Amount |Please enter driver cut. |
+	  | 10    |         2|Blank           | Blank          | Fee Type |Please select fee type. |
+	  | 10    |         2|Blank           | This is Comment| Fee Type |Please select fee type. |
+	  | 10    |         2|Excess Wait Time| Blank          | Comment |Please add a comment.   |
+	  | 10   |          2|Excess Wait Time| Accessorial charges Comments: Accessorial charges comment having more than 500 characters in Excess Wait Time field column entered to identify whether it causes issues like "CORE-2446 SPRINT43:: QA environment:: Saving Comments of 500 characters for accessorial fees gives Application Error" Please note that If data gets validation message  without any application error then it means that the above issue no longer exists and it is working as expected. !!! Accessorial charges Comments Ends, Thank you!!!!|Comment|Comment exceeds 500 characters.|
   
   
   @regression
