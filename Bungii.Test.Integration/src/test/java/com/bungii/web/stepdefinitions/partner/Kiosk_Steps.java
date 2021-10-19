@@ -19,7 +19,7 @@ public class Kiosk_Steps extends DriverBase {
     public void i_click_on_some_link_on_kiosk_partner_portal(String linkName){
         switch(linkName)
         {
-            case "Setting":
+            case "Menu":
                 action.click(Page_Kiosk.Link_Setting());
                 break;
         }
