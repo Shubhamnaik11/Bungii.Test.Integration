@@ -1398,7 +1398,7 @@ Thread.sleep(5000);
         String myBungiiDateTime=month+" "+Day+", "+year+" - "+String.valueOf(currentHour)+":"+mins;
         cucumberContextManager.setScenarioContext("MY_BUNGII_DATE", myBungiiDateTime);
     }
-    public void selectTimeValue(int min) {
+/*    public void selectTimeValue(int min) {
         action.scrollToTop();
         action.click(estimatePage.Time()); if(action.isElementPresent(estimatePage.Button_Later(true)))
             action.click(estimatePage.Button_Later());
@@ -1408,7 +1408,27 @@ Thread.sleep(5000);
         action.sendKeys(setPickupTimePage.Text_SelectMinutes(),String.valueOf(currentMin));
         String mins=setPickupTimePage.Text_SelectMinutes().getText();
         action.click(setPickupTimePage.Button_TimePickerOK());
+    }*/
+
+    public void selectTimeValue(int min) {
+        action.scrollToTop();
+        action.click(estimatePage.Time()); if(action.isElementPresent(estimatePage.Button_Later(true)))
+            action.click(estimatePage.Button_Later());
+        action.click(estimatePage.Button_DateConfirm());
+        int currentMin= Integer.parseInt(setPickupTimePage.Text_SelectMinutes().getText());
+        int currentHour= Integer.parseInt(setPickupTimePage.Text_SelectHours().getText());
+        if(min>=60)
+        {
+            int hoursToAdd =min/60;
+            currentHour=currentHour+hoursToAdd;
+            action.enterText(setPickupTimePage.Text_SelectHours(),String.valueOf(currentHour));
+        }
+        else currentMin=currentMin+min;
+        action.enterText(setPickupTimePage.Text_SelectMinutes(),String.valueOf(currentMin));
+        String mins=setPickupTimePage.Text_SelectMinutes().getText();
+        action.click(setPickupTimePage.Button_TimePickerOK());
     }
+
     public void selectNewerTime() {
         action.click(estimatePage.Button_DateConfirm());
         int currentHour= Integer.parseInt(setPickupTimePage.Text_SelectHours().getText());
