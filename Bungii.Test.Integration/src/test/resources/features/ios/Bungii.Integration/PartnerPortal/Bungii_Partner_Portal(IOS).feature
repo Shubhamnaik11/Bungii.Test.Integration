@@ -9,7 +9,8 @@ Feature: Partner Portal Cases integration with IOS
     When I Switch to "driver" application on "same" devices
     And I login as "valid partner kansas driver" driver on "same" device and make driver status as "Online"
     And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
+    #And I Select Trip from available trip
+    And I Select Partner portal Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
     Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
     When I accept selected Bungii
