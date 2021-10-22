@@ -856,7 +856,6 @@ public class HomeSteps extends DriverBase {
             }
             if (action.isAlertPresent()) {
                 logger.detail("Alert message" + action.getAlertMessage());
-                ;
                 SetupManager.getDriver().switchTo().alert().dismiss();
                 Thread.sleep(1000);
             }
