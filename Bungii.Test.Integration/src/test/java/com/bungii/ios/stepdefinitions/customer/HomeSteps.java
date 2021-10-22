@@ -185,6 +185,8 @@ public class HomeSteps extends DriverBase {
         try {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String pickup = dataMap.get("Pickup Location").trim();
+            String Bungii_Type = dataMap.get("Driver").trim();
+            cucumberContextManager.setScenarioContext("BUNGII_TYPE",Bungii_Type);
             selectBungiiLocation("PICK UP", pickup);
             log("I enter pickup location", " I entered location" + pickup);
 
@@ -846,8 +848,19 @@ public class HomeSteps extends DriverBase {
         //VISHAL[12042019]: Quick fix for QA auto
         try {Thread.sleep(5000);}catch (Exception e){}
 
-        if (action.isElementPresent(homePage.Button_ClearPickup(true)))
+        if (action.isElementPresent(homePage.Button_ClearPickup(true))) {
             action.click(homePage.Button_ClearPickup());
+            Thread.sleep(2000);
+            if (action.isElementPresent(homePage.Button_ClearPickup(true))) {
+                action.click(homePage.Button_ClearPickup());
+            }
+            if (action.isAlertPresent()) {
+                logger.detail("Alert message" + action.getAlertMessage());
+                ;
+                SetupManager.getDriver().switchTo().alert().dismiss();
+                Thread.sleep(1000);
+            }
+        }
 
         action.tapByElement(homePage.TextBox_Pickup());
         action.clearEnterText(homePage.TextBox_Pickup(), location);
