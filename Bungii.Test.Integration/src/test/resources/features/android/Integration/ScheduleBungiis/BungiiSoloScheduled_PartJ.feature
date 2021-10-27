@@ -13,7 +13,7 @@ Feature: SoloScheduled Part B
     
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas   | Scheduled    | 15 min ahead |
+      | kansas   | Scheduled    | 30 min ahead |
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
