@@ -178,7 +178,7 @@ Feature: Scheduled Duo Bungiis
 	
 	When I switch to "ORIGINAL" instance
 	And I click on notification for "DRIVER CANCELLED BUNGII"
-	Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+	Then Alert message with DRIVER CANCELLED text should be displayed
 	
 	
   @regression
