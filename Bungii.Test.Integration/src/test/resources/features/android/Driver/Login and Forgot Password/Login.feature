@@ -53,7 +53,7 @@ Feature: Log In
       | Scenario        | Username   | Password | Expected Message                                  | Login Button Status  |
       | PENDING PAYMENT | 9999991009 | Cci12345 | Your account registration is still under process. | LOGIN BUTTON ENABLED |
   
-  @ready
+  @regression
     #stable
   Scenario Outline: Verify New Driver With Payment Status As Inactive Or Pending Cannot Go Online
     When I enter phoneNumber :<Username> and  Password :<Password>
