@@ -431,6 +431,9 @@ public class Admin_TripsSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("XPATH", XPath);
                 testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
             }
+
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Delivery_Portal(),"Delivery Portal column should be shown.","Delivery Portal column is shown.","Delivery Portal Column is not shown.");
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Market(),"Market column should be shown.","Market column is shown.","Market Column is not shown.");
         }
         catch(Exception e)
         {
