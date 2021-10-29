@@ -53,7 +53,7 @@ Feature: Delivery Flows
   Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has A Ongoing Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | Kansas   | Accepted     | 1.25 hour ahead |
+      | Kansas   | Accepted     | 1 hour ahead |
     And I wait for "3" mins
     Given that ondemand bungii is in progress as a second delivery
       | geofence  | Bungii State |

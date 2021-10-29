@@ -50,7 +50,7 @@ Feature: DriverMenu
   Scenario: Verify Driver Menus - FAQ
     When I Select "FAQ" from driver App menu
     And the "FAQ" page is opened
-    And I wait for "1" mins
+    And I wait for "2" mins
     Then I should be able to see data on "FAQ" page
     When I Select "ACCOUNT" from driver App menu
     And the "ACCOUNT" page is opened

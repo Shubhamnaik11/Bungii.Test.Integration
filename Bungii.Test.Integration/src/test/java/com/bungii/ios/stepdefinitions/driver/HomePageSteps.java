@@ -400,7 +400,7 @@ public class HomePageSteps extends DriverBase {
                     break;
 
                 case "AVAILABLE BUNGIIS":
-                    testStepAssert.isElementNameEquals(homepage.Text_AvailableTripsData(), "No Bungiis Available", " is displayed", "No Bungiis Available is displayed", " is not displayed");
+                    testStepAssert.isElementNameEquals(homepage.Text_AvailableTripsData(), "No Bungiis available", " is displayed", "No Bungiis Available is displayed", " is not displayed");
                     break;
 
                 case "EARNINGS":

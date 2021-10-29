@@ -92,7 +92,7 @@ public class DriverMenuSteps extends DriverBase {
 
                 case "AVAILABLE BUNGIIS":
                     data = action.getText(homePage.Text_AvailableTrips()).toString();
-                    testStepAssert.isElementTextEquals(homePage.Text_AvailableTrips(), "No Bungiis Available", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    testStepAssert.isElementTextEquals(homePage.Text_AvailableTrips(), "No Bungiis available", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "EARNINGS":
