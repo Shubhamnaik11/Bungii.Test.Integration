@@ -61,11 +61,12 @@ And I slide update button on "DRIVING TO DROP OFF" Screen
   When I Switch to "customer" application on "same" devices
 
 And I wait for "3" mins
-  And I open Admin portal and navigate to "Live Deliveries" page
+And I open Admin portal and navigate to "Live Deliveries" page
 Then I should be able to see the respective bungii with the below status
 | Status          |
 | Unloading Items |
-When I view the trip details
+#When I view the trip details
+And I select trip from live trips
 
 When I switch to "ORIGINAL" instance
 And I open "customer" application on "same" devices
@@ -140,7 +141,8 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	Then I should be able to see the respective bungii with the below status
 	  | Status        |
 	  | Loading Items |
-	When I view the trip details
+	#When I view the trip details
+	And I select trip from live trips
 	And I click on "Manually End Bungii" link
 	And Enter the End Date and Time
 	And Click on "Calculate Cost" button
@@ -217,7 +219,8 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	Then I should be able to see the respective bungii with the below status
 	  | Status             |
 	  | Driving To Dropoff |
-	When I view the trip details
+	#When I view the trip details
+	And I select trip from live trips
 	And I click on "Manually End Bungii" link
 	And Enter the End Date and Time
 	And Click on "Calculate Cost" button

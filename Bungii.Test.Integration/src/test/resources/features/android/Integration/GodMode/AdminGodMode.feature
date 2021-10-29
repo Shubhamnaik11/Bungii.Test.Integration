@@ -104,6 +104,7 @@
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
         And I change the "trip time to past" to future time
+        And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
         Then the "Please check the date/time selected. You cannot select a past date/time." message is displayed
     
@@ -133,6 +134,7 @@
         And I enter "far off Goa pickup and dropoff locations" on Bungii estimate
         And I tap on "two drivers selector" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
+        And I select Bungii Time as "2 HOUR DELAY"
         And I add loading/unloading time of "30 mins"
         And I add "1" photos to the Bungii
         And I tap on "Request Bungii" on Bungii estimate
@@ -175,6 +177,7 @@
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
         And I change the "trip time" to future time
+        And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
         Then the "Your changes are good to be saved." message is displayed
         And I click on "SAVE CHANGES" button
@@ -244,6 +247,7 @@
         And I open the trip for "Testcustomertywd_appleand_A Android" customer
         And I Select "Edit Trip Details" option
         And I change the "trip time" to future time
+        And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
         Then the "Your changes are good to be saved." message is displayed
         And I click on "SAVE CHANGES" button
@@ -331,7 +335,7 @@
 		  | NEXT_POSSIBLE | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
 		When I request another "duo" Bungii as a customer in "goa" geofence
 		  | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-		  | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
+		  | NEXT_POSSIBLE | 9823741003     | Testcustomertywd_appleNwBBB CustBBB | Cci12345          |
 		Then I wait for "2" mins
 		When I open new "Chrome" browser for "ADMIN"
 		And I navigate to admin portal
@@ -343,14 +347,14 @@
 		Then I am not allowed to assign more drivers
 		And I click on "Close" button
 	
-		When I open the trip for "Testcustomertywd_appleand_C Android" the customer
+		When I open the trip for "Testcustomertywd_appleNwBBB CustBBB" the customer
 		And I Select "Edit Trip Details" option
 		And I assign driver for the "Duo" trip
 		Then I am not allowed to assign more drivers
 	
 		And I cancel all bungiis of customer
 		  | Customer Phone  | Customer2 Phone |
-		  | 9393939393      | 9999992222      |
+		  | 9393939393      | 9823741003      |
   
   
       @ready
@@ -379,6 +383,7 @@
         And I Select "Edit Trip Details" option
         And I change the "particular trip time 2 hours later" to future time
         And I click on "VERIFY" button
+        And I Select reason as "Customer initiated" to edit datetime
         And the "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
         And the "Bungii Saved!" message is displayed
@@ -402,9 +407,10 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-		And I open first trip for "Testcustomertywd_appleand_A Android" customer
+        And I open the trip for "Testcustomertywd_appleand_A Android" the customer
 		And I Select "Edit Trip Details" option
         And I change the "particular trip time 2 hours later" to future time
+        And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
         Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
         And I cancel all bungiis of customer

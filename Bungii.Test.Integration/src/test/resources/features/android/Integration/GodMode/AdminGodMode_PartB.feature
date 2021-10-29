@@ -76,10 +76,10 @@ And I cancel all bungiis of customer
 @regression
 #stable
 Scenario: Admin God Mode: Verify admin can assign one [controlled] driver on DUO trip when it has been re-searched
-When I request "duo" Bungii as a customer in "goa" geofence
+When I request "duo" Bungii as a customer in "kansas" geofence
 | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
 | NEXT_POSSIBLE | 9999991020     | Testcustomertywd_appleand_B Android | Cci12345         |
-  And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "DUO SCHEDULED" trip
+  And As a driver "Testdrivertywd_appleks_a_drvb Kansas_b" and "Testdrivertywd_appleks_a_drvc Kansas_c" perform below action with respective "DUO SCHEDULED" trip
 | driver1 state | driver2 state |
 | Accepted      | Accepted      |
 Then I wait for "2" mins
@@ -195,15 +195,16 @@ When I open new "Chrome" browser for "ADMIN"
 And I navigate to admin portal
 And I log in to admin portal
 And I Select "Scheduled Trip" from admin sidebar
-And I click on "Edit Trip1" button
-  And I remove "controller" driver from Bungii and researches it
+And I open the trip for "Testcustomertywd_appleand_B Android" the customer
+And I Select "Edit Trip Details" option
+And I remove "controller" driver from Bungii and researches it
 
 Then I wait for "2" mins
 And I open Admin portal and navigate to "Scheduled Deliveries" page
 And I open the trip for "Testcustomertywd_appleand_B Android" the customer
 
 And I Select "Edit Trip Details" option
-  And I assign "noncontroller" driver to Bungii
+And I assign "noncontroller" driver to Bungii
   
  # And I assign driver for the "control driver" trip
    #this guy will become non control once saved and trip will start

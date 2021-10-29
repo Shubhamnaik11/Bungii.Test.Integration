@@ -46,6 +46,7 @@ public class Partner_LoginSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
     //DbUtility dbUtility = new DbUtility();
+    Kiosk_Page Page_Kiosk = new Kiosk_Page();
 
 
     @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
@@ -181,6 +182,24 @@ public class Partner_LoginSteps extends DriverBase {
                     action.click(Page_Partner_Done.Dropdown_Setting());
                     Thread.sleep(5000);
                     action.click(Page_Partner_Done.Button_Track_Deliveries());
+                    Thread.sleep(5000);
+                    if(action.getCurrentURL().contains("login")|| action.getCurrentURL().contains("Login"))
+                    {
+                        //Workaround for app getting logged out when run in parallel
+                        action.clearSendKeys(Page_Partner_Login.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                        action.click(Page_Partner_Login.Button_Sign_In());
+                        Thread.sleep(5000);
+                        testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Start_Over()), PropertyUtility.getMessage("Start_Over_Header"));
+                        Thread.sleep(5000);
+                        if(!action.isElementPresent(Page_Partner_Done.Dropdown_Setting(true))) {
+                            action.click(Page_Kiosk.Link_Setting());
+                            action.clearSendKeys(Page_Kiosk.Textbox_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                            action.click(Page_Kiosk.Button_Continue());
+                        }
+                            action.click(Page_Partner_Done.Dropdown_Setting());
+                            action.click(Page_Partner_Done.Button_Track_Deliveries());
+
+                    }
                     break;
                 case "Back to Estimate":
                     action.click(Page_Partner_Delivery.Link_Back_To_Estimate());

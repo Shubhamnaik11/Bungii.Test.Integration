@@ -140,12 +140,12 @@ try{
                     Thread.sleep(6000);
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                    //Thread.sleep(1000);
+                    Thread.sleep(5000);
                     action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                     //Clicking on duo radio button
                     action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
-
+                    Thread.sleep(5000);
                     //Clicking on Load Unload dropdown
                     action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
 
@@ -203,7 +203,7 @@ try{
                     Thread.sleep(2000);
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                    //Thread.sleep(1000);
+                    Thread.sleep(5000);
                     action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                     Thread.sleep(5000);
@@ -256,6 +256,7 @@ try{
 
                     //Clicking on duo radio button
                     action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+                    Thread.sleep(5000);
 
                     //Clicking on Load Unload dropdown
                     action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
@@ -305,7 +306,7 @@ try{
                     Thread.sleep(5000);
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                    //Thread.sleep(1000);
+                    Thread.sleep(5000);
                     action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                     //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
@@ -321,7 +322,7 @@ try{
                     Thread.sleep(5000);
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                    //Thread.sleep(1000);
+                   Thread.sleep(5000);
                     action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                     //Clicking on duo radio button
@@ -347,7 +348,7 @@ try{
                     //Thread.sleep(2000);
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                    //Thread.sleep(1000);
+                 Thread.sleep(5000);
                     action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                     //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
@@ -363,7 +364,7 @@ try{
                     Thread.sleep(2000);
                     action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                     action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                    //Thread.sleep(1000);
+                    Thread.sleep(5000);
                     action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                     //Clicking on duo radio button

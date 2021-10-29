@@ -385,6 +385,7 @@ public class Admin_GeofenceSteps extends DriverBase {
         String MinTimeForDuoTrip = PropertyUtility.getDataProperties("Min.time.Duo.trip");
         String MinTimeForSoloTrip = PropertyUtility.getDataProperties("Min.time.Solo.trip");
         String MinTripCost=PropertyUtility.getDataProperties("Minimum.trip.cost");
+
         String SurveyEmailLink=PropertyUtility.getDataProperties("Survey.email.link");
         String TripCostPerMile=PropertyUtility.getDataProperties("Trip.cost.per.mile");
         String TripCostPerMinute=PropertyUtility.getDataProperties("Trip.cost.per.minute");
@@ -394,6 +395,7 @@ public class Admin_GeofenceSteps extends DriverBase {
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_MinTimeForDuoTrip(), MinTimeForDuoTrip,MinTimeForDuoTrip+" should be displayed", MinTimeForDuoTrip+" is displayed", MinTimeForDuoTrip+" is not displayed");
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_MinTimeForSoloTrip(), MinTimeForSoloTrip,MinTimeForSoloTrip+" should be displayed", MinTimeForSoloTrip+" is displayed", MinTimeForSoloTrip+" is not displayed");
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_MinTripCost(), MinTripCost,MinTripCost+" should be displayed", MinTripCost+" is displayed", MinTripCost+" is not displayed");
+        action.click(admin_GeofencePage.Button_Next());
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_SurveyEmailLink(), SurveyEmailLink,SurveyEmailLink+" should be displayed", SurveyEmailLink+" is displayed", SurveyEmailLink+" is not displayed");
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMile(), TripCostPerMile,TripCostPerMile+" should be displayed", TripCostPerMile+" is displayed", TripCostPerMile+" is not displayed");
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMinute(), TripCostPerMinute,TripCostPerMinute+" should be displayed", TripCostPerMinute+" is displayed", TripCostPerMinute+" is not displayed");

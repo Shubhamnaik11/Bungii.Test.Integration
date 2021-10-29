@@ -712,7 +712,9 @@ try{
                 action.click(Page_Partner_Dashboard.Button_DeliveryClear());
                 action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                 action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(),Delivery_Address+ Keys.TAB);
+                Thread.sleep(5000);
                 action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                Thread.sleep(5000);
                 action.click(Page_Partner_Dashboard.List_Delivery_Address());
                 Thread.sleep(2000);
 
@@ -866,6 +868,7 @@ try{
 
             String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
             String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            cucumberContextManager.setScenarioContext("pickupRequest",pickupRef);
 
             String geofenceName = getGeofence(geofence);
             action.clearSendKeys(admin_LiveTripsPage.TextBox_Search_Field(),pickupRef);
@@ -874,7 +877,7 @@ try{
             cucumberContextManager.setScenarioContext("STATUS", status);
 
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
-                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType.toUpperCase(), customer);
+                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType.toUpperCase(), customer);
                 int retrycount = 13;
 
                 boolean retry = true;
@@ -911,7 +914,7 @@ try{
 
         } else {
 
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", tripType, customer);
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType, customer);
                 int retrycount = 10;
 
                 boolean retry = true;

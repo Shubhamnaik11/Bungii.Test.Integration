@@ -10,7 +10,7 @@ Feature: Kiosk Mode
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-    And I click on "Setting" Link on Kiosk Partner Portal
+    And I click on "Menu" Link on Kiosk Partner Portal
     And I enter "valid" password for Admin access
     And I click on "Continue" button on Kiosk Partner Portal
     Then I should "see Admin access" on Kiosk Partner Portal
@@ -22,7 +22,7 @@ Feature: Kiosk Mode
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-    And I click on "Setting" Link on Kiosk Partner Portal
+    And I click on "Menu" Link on Kiosk Partner Portal
     And I enter "invalid" password for Admin access
     And I click on "Continue" button on Kiosk Partner Portal
     Then I should "see validations message for incorrect password field" on Kiosk Partner Portal
@@ -33,7 +33,7 @@ Feature: Kiosk Mode
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-    And I click on "Setting" Link on Kiosk Partner Portal
+    And I click on "Menu" Link on Kiosk Partner Portal
     And I click on "Continue" button on Kiosk Partner Portal
     Then I should "see validations message for blank password field" on Kiosk Partner Portal
 
@@ -42,7 +42,7 @@ Feature: Kiosk Mode
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-    And I click on "Setting" Link on Kiosk Partner Portal
+    And I click on "Menu" Link on Kiosk Partner Portal
     And I enter "valid" password for Admin access
     And I click on "Continue" button on Kiosk Partner Portal
     Then I should "see Admin access" on Kiosk Partner Portal
@@ -72,13 +72,13 @@ Feature: Kiosk Mode
     And I should logout from Partner Portal
     #And I should logout from Kiosk Partner Portal
 
-    @regression
-      #stable
+    @ready
+      #Failed in sprint 49
   Scenario: Verify login to Partner portal configured with Kiosk mode can scheduled duo trip
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-    And I click on "Setting" Link on Kiosk Partner Portal
+    And I click on "Menu" Link on Kiosk Partner Portal
     And I enter "valid" password for Admin access
     And I click on "Continue" button on Kiosk Partner Portal
     Then I should "see Admin access" on Kiosk Partner Portal

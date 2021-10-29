@@ -106,7 +106,8 @@ Feature: Admin_OndemandTrips
     Then All the clients named "Vishal" should be displayed on the delivery list grid
 
   @regression
-  Scenario: Verify Filters On Trip List
+    #stable
+  Scenario: Verify Filters On Delivery List
     When I click on "Deliveries > All Deliveries" Menu
     And I click on "Filter" icon on "All Deliveries" Page
     Then All statuses except "Price Estimated" are selected

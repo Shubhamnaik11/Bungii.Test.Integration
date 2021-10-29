@@ -5,7 +5,8 @@ import org.openqa.selenium.WebElement;
 
 public class Kiosk_Page extends PageBase {
     //Setting link
-    public WebElement Link_Setting() { return findElement("//i[@title='Settings']", LocatorType.XPath); }
+    //Setting icon is changed to Menu - CORE-3106
+    public WebElement Link_Setting() { return findElement("//i[@title='Menu']", LocatorType.XPath); }
 
     //Setting Close
     public WebElement Link_SettingClose() { return findElement("//i[@title='Close']", LocatorType.XPath); }

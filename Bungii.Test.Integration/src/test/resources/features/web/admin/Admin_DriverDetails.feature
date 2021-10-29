@@ -90,7 +90,7 @@ Feature: Admin_DriverDetails
 
   @regression
     #stable
-  Scenario: Verify Driver Search On Various Pages
+  Scenario: Verify Driver Search On Dashboard Page
     When I navigate to following pages one by one
       |Page |
       | Dashboard    |
@@ -100,6 +100,9 @@ Feature: Admin_DriverDetails
     When I enter "drivers" "last name" in the "Dashboard search" box
     Then I should see "driver last name" listed on the "Dashboard" page
 
+  @regression
+    #stable
+  Scenario: Verify Driver Search On All Deliveries Page
     When I navigate to following pages one by one
       |Page |
       | All Deliveries |
@@ -131,6 +134,7 @@ Feature: Admin_DriverDetails
     And I do not see regions listed under Geofence information on Driver details page
 
   @ready
+    #failed in sprint 49 regression
   Scenario: Verify Admin can edit and cancel the driver phone number by unsaving the comment
     When I search driver "Testdrivertywd_appledc_a_drve Driver"
     And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver

@@ -1,9 +1,10 @@
 package com.bungii.ios.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
-import com.bungii.android.pages.admin.DriversPage;
-import com.bungii.android.pages.admin.LiveTripsPage;
+//import com.bungii.android.pages.admin.DriversPage;
+//import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.pages.admin.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
@@ -45,12 +46,13 @@ public class LiveTripsSteps extends DriverBase {
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);
             action.click(liveTripsPage.Button_StartDateSort());Thread.sleep(2000);
+            action.click(liveTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", custName), PageBase.LocatorType.XPath));
+            action.click(liveTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'View Delivery Details')]", custName),PageBase.LocatorType.XPath));
 
-            action.click(liveTripsPage.Button_RowOne());
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error in viewing delivery from live deliveries",
+            error("Step  Should be successful", "Error in viewing delivery",
                     true);
         }
     }
@@ -407,7 +409,7 @@ public class LiveTripsSteps extends DriverBase {
                 testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
-                String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
+                String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
                 int retrycount =10;
                 boolean retry = true;
                 while (retry == true && retrycount >0) {
@@ -434,7 +436,7 @@ public class LiveTripsSteps extends DriverBase {
                 }
                 //cucumberContextManager.setScenarioContext("XPATH",XPath);
                 //logger.detail("XPATH is"+XPath);
-                String XPath2= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]/parent::tr/td[3]/a", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
+                String XPath2= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
                 cucumberContextManager.setScenarioContext("XPATH",XPath2);
                 logger.detail("XPATH is"+XPath2);
 

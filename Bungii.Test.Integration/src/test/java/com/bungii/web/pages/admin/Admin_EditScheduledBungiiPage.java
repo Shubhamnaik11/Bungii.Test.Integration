@@ -9,7 +9,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement TimePicker_Time () { return findElement("PickupDetails_ScheduledTime", LocatorType.Id); }
 
-    public WebElement List_TimeFrame (String time) { return findElement("//div/ul/li/a[text()='"+time+"']", LocatorType.XPath); }
+    public WebElement List_TimeFrame (String time) { return findElement("//div/ul/li[text()='"+time+"']", LocatorType.XPath); }
 
     public WebElement Link_RemoveDriver() { return findElement("btnRemoveDriver", LocatorType.Id); }
 

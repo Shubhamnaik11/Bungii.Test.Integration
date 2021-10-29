@@ -92,6 +92,7 @@ public class EstimateSteps extends DriverBase {
                     warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request", true);
                     SetupManager.getDriver().switchTo().alert().accept();
                     strTime = enterTime("NEXT_POSSIBLE AFTER ALERT");
+                    strTime=strTime.replace("am","AM").replace("pm","PM");
                     String timeValue = action.getValueAttribute(estimatePage.Text_TimeValue()).replace("am","AM").replace("pm","PM");
                     if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
                     {
@@ -341,7 +342,20 @@ public class EstimateSteps extends DriverBase {
             }
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
-        }else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
+        }else if (time.equalsIgnoreCase("NEXT_SECOND_POSSIBLE")) {
+            Date date = getNextScheduledBungiiTimeForGeofence();
+            String[] dateScroll = bungiiTimeForScroll(date);
+            strTime = bungiiTimeDisplayInTextArea(date);
+            Thread.sleep(3000);
+            action.click(estimatePage.Row_TimeSelect());
+            Thread.sleep(6000);
+            if(!action.isElementPresent(estimatePage.Button_Set(true))) {
+                action.click(estimatePage.Row2_TimeSelect()); //Retry to select time - workaround for duo cases
+            }
+            //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
+            action.click(estimatePage.Button_Set());
+        }
+        else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
             Date date = getNextScheduledBungiiTimeForGeofence();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);

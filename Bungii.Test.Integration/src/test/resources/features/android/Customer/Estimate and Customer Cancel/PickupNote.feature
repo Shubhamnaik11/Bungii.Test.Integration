@@ -85,7 +85,7 @@ Feature: PickupNote Feature
 	And I add loading/unloading time of "15 mins"
 	Then I add "1" photos to the Bungii
 	Then "Estimate" page should be opened
-	And I select Bungii Time as "2 HOUR DELAY"
+	And I select Bungii Time as "next possible scheduled"
 	
 	When I tap on "Request Bungii" on Bungii estimate
 	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
@@ -121,7 +121,7 @@ Feature: PickupNote Feature
 	When I tap on "Details" on Estimate screen
 	And I enter "text" in Additional Notes field
 	And I click on "ADD NOTE" button
-	And I select Bungii Time as "2 HOUR DELAY"
+	And I select Bungii Time as "next possible scheduled"
 	
 	When I tap on "Request Bungii" on Bungii estimate
 	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
@@ -143,7 +143,7 @@ Feature: PickupNote Feature
 	  | Customer Phone  | Customer2 Phone |
 	  | 9889889888      |                 |
   
-  @ready
+  @regression
         #stable
   Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Ondemand Solo Bungii push notification request
 	When I Switch to "driver" application on "same" devices

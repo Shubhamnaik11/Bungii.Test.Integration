@@ -517,7 +517,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         }
             cucumberContextManager.setScenarioContext("CUSTOMER_REF", customerRef);
             cucumberContextManager.setScenarioContext("BUSINESSUSER_NAME", username);
-
+            cucumberContextManager.setScenarioContext("CUSTOMER", username+" Business User");
         log("I select "+username+" from Bulk Trips page",
                 "I have selected "+username+" from Bulk Trips page", false);
         } catch(Exception e){
@@ -556,7 +556,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
              break;
         case "Solo Scheduled":
              csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP_PARTNER_FIRM_SCHEDULED"));
-             csvFile =   utility.generateScheduledBungiiCSV(csvFile,"America/New_York",1, (String)(cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME")), "9999794897");
+             csvFile =   utility.generateScheduledBungiiCSV(csvFile,"EST",1, (String)(cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME")), "9999794897");
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","washingtondc");
              break;
     }

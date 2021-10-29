@@ -85,8 +85,7 @@ Feature: Service Level
     #And I should logout from Partner Portal
 
   #CORE-1541
-  @ready
-    @t1
+  @regression
     #stable
   Scenario: Verify that correct Estimate duration for service level partner portal trip is shown in Admin portal
     When I enter "valid" password on Partner Portal
@@ -127,8 +126,8 @@ Feature: Service Level
     Then I should "see correct Estimation Duration" for "Biglots" Alias
 
 #CORE-1862 scenario
-  @ready
-    @t1
+  @regression
+    #stable
   Scenario Outline: Verify driver earning calculated for partner delivery of <Type> for Service <ServiceName> for <Distance> distance range
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal

@@ -18,6 +18,7 @@ public class Admin_AccessorialChargesPage extends PageBase {
     public WebElement GridRowTotal(String total) { return findElement(String.format("//td/strong[text()='%s']/parent::td/following-sibling::td",total), LocatorType.XPath); }
 
     public WebElement Error_AccessorialFeeAmount() { return findElement("fee-amount-error", LocatorType.Id); }
+    public WebElement Error_AccessorialFeeDriverCut() { return findElement("fee-type-driverOneShare-error", LocatorType.Id); }
     public WebElement Error_AccessorialFeeType() { return findElement("fee-type-error", LocatorType.Id); }
     public WebElement Error_AccessorialFeeComment() { return findElement("fee-comment-error", LocatorType.Id); }
 

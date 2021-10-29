@@ -10,6 +10,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
 
   @regression
+    @testing
     #Stable
     #move to end
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
@@ -31,8 +32,6 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I wait for "2" mins
     And I open Admin portal and navigate to "Live Deliveries" page
     And I select trip from live trips
-
-    When I switch to "ADMIN" instance
     Then I wait for trip status to be "Trip Started"
     Then manually end bungii should be "disabled"
 

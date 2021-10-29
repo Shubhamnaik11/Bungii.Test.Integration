@@ -528,6 +528,13 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("goa.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("goa.customer.phone"));
                     break;
+
+                case "Testcustomertywd_appleNwBBB CustBBB":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("Testcustomertywd_appleNwBBB.phone.number"), PropertyUtility.getDataProperties("Testcustomertywd_appleNwBBB.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Testcustomertywd_appleNwBBB.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("Testcustomertywd_appleNwBBB.phone.number"));
+                    break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -591,6 +598,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "boston pickup and dropoff locations":
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.boston"));
+                    action.click(Page_CustHome.Button_ETASet());
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.boston"));
+                    break;
+                case "new boston pickup and dropoff locations":
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.boston.new"));
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.boston"));
                     break;

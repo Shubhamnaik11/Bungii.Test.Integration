@@ -18,7 +18,7 @@ Feature: Bungii Details and Pickup Note
       | NEXT_POSSIBLE | 9403960181     | johnny oliver | Cci12345          |
   
     When I Switch to "driver" application on "same" devices
-    And I Select "Home" from driver App menu
+#    And I Select "Home" from driver App menu
     And I tap on "Available Trips link" on Driver Home page
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page

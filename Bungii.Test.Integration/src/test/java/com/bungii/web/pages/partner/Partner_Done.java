@@ -9,7 +9,7 @@ public class Partner_Done extends PageBase {
     public WebElement Text_Schedule_Done_Success_Header() { return findElement("//h1[@class='heading']", LocatorType.XPath); }
 
     //Setting dropdown
-    public WebElement Dropdown_Setting() { return findElement("//div[@class='dropdown-menu-right dropdown']",LocatorType.XPath);}
+    public WebElement Dropdown_Setting(boolean...ignoreException) { return findElement("//div[@class='dropdown-menu-right dropdown']",LocatorType.XPath, ignoreException);}
 
     //Track Deliveries button
     public WebElement Button_Track_Deliveries() { return findElement("track-deliveries",LocatorType.Id);}

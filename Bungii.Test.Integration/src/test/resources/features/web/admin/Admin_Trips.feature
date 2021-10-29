@@ -40,12 +40,13 @@ Feature: Admin_Trips
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
-    When I view the Trips list on the admin portal
+    When I view All Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And The first time promo code should get released
 
   @sanity
-  @regression
+  @ready
+    #mania needs to be whitelisted
     #test data created in base
   Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -140,7 +141,8 @@ Feature: Admin_Trips
       |  Status |
       | Driver Removed|
 
-  @regression
+  @ready
+    #Failed in Sprint 49
     #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Solo Scheduled Trip
     And I note the Trip Requested count of Customer "Jerome Seinfield"
@@ -152,8 +154,8 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Jerome Seinfield"
     Then Trip should be listed in the grid
 
-  @regression
-    #stable
+  @ready
+    #Failed in Sprint 49
       #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Duo Scheduled Trip
     And I note the Trip Requested count of Customer "Krishna Hoderker"
@@ -166,8 +168,8 @@ Feature: Admin_Trips
     Then Trip should be listed in the grid
   
   @ready
-    #stable
-  Scenario: Verify Driver Est. Earnings for for Customer Trip
+    #Failed in Sprint 49
+  Scenario: Verify Driver Est. Earnings for for Customer Delivery
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
