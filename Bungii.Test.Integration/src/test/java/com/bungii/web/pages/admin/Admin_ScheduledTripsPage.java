@@ -19,6 +19,10 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Label_Pickup_Location () { return findElement("//p[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
 
+    public WebElement Label_Market () { return findElement("//th[text()='Market']",LocatorType.XPath);}
+
+    public WebElement Label_Delivery_Portal () { return findElement("//th[text()='Delivery Type']",LocatorType.XPath);}
+
     public WebElement Button_Edit_Drop_Off_Address () { return findElement("//img[@title='Edit drop off location']",LocatorType.XPath);}
 
     public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit pickup location']",LocatorType.XPath);}
