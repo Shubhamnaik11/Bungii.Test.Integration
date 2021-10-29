@@ -177,7 +177,7 @@ public class AvailableTripsSteps extends DriverBase {
                 case "LOADING ITEM":
                 case "DRIVING TO DROP OFF":
                 case "UNLOADING ITEM":
-                    String partnerName = availableTrips.Partner_Name().getText();
+                    String partnerName = action.getText(availableTrips.Partner_Name());
                     String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
                     testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be displayed on " + Screen + " screen", "Partner Portal name is displayed in " + Screen + " screen", "Partner Portal name is not displayed in " + Screen + " screen");
                     break;
