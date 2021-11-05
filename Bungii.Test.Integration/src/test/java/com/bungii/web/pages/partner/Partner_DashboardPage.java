@@ -171,4 +171,11 @@ public class Partner_DashboardPage extends PageBase {
 
     //Pickup Address in edit
     public WebElement Header_QuotesOnly() { return findElement("//h1[text()='Get Quote']",LocatorType.XPath);}
+
+    //Label 1Pallet
+    public WebElement Label_1Pallet() { return findElement("//label[contains(text(),'1 Pallet')]",LocatorType.XPath);}
+
+    //Label 2Pallets
+    public WebElement Label_2Pallets() { return findElement("//label[contains(text(),'2 Pallets')]",LocatorType.XPath);}
+
 }

@@ -30,7 +30,7 @@ public class Partner_DeliveryPage extends PageBase {
     public WebElement Message_Black_Item_To_Deliver() { return findElement("//div[contains(text(),'Items to deliver is required.')]",LocatorType.XPath);}
 
     //Special Instruction
-    public WebElement TextBox_Special_Intruction() { return findElement("//input[@placeholder='Enter any special instructions for the delivery']",LocatorType.XPath);}
+    public WebElement TextBox_Special_Intruction() { return findElement("specialInstructions",LocatorType.Name);}
 
     //Customer Name
     public WebElement TextBox_Customer_Name() { return findElement("customerName",LocatorType.Name);}
@@ -132,4 +132,23 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Delivery Cost
     public WebElement Label_Delivery_Cost() { return findElement("//h2[contains(text(),'Delivery Cost')]",LocatorType.XPath);}
+
+    //Product Description Text fields
+    public WebElement TextBox_Product_Description() { return findElement("Name",LocatorType.Name);}
+
+    //Dimensions Text fields
+    public WebElement TextBox_Dimensions() { return findElement("Dimensions",LocatorType.Name);}
+
+    //Weight Text fields
+    public WebElement TextBox_Weight() { return findElement("Weight",LocatorType.Name);}
+
+    //Delivery Purpose Text fields
+    public WebElement TextBox_Delivery_Purpose() { return findElement("//input[@data-field='Delivery purpose']",LocatorType.XPath);}
+
+    //RB/SB NUMBER Text fields
+    public WebElement TextBox_Rb_Sb_Number() { return findElement("//label[contains(text(),'RB/SB Number')]//following-sibling::input",LocatorType.XPath);}
+
+    //SoldBy Text fields
+    public WebElement TextBox_SoldBy() { return findElement("//label[contains(text(),'Scheduled By')]//following-sibling::input",LocatorType.XPath);}
+
 }

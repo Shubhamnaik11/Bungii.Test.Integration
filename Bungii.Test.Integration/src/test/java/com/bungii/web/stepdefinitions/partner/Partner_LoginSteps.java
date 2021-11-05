@@ -302,6 +302,10 @@ public class Partner_LoginSteps extends DriverBase {
                     //action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Label_Get_Estimate_Header(), (long) 2000);
                     testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Start_Over()), PropertyUtility.getMessage("Start_Over_Header"));
                     break;
+                case "see 1 pallet and 2 pallets":
+                    testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_1Pallet()), PropertyUtility.getDataProperties("1Pallet"));
+                    testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_2Pallets()), PropertyUtility.getDataProperties("2Pallets"));
+                    break;
                 case "see validations message for blank password field":
                     testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Blank_Password"));
                     break;

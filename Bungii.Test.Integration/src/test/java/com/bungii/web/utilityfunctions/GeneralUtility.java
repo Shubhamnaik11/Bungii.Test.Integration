@@ -70,7 +70,11 @@ public class GeneralUtility extends DriverBase {
             }else if(PP_Site.equalsIgnoreCase("service level")){
                 partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
                 cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.service_level_partner.ref"));
-            }else if(PP_Site.equalsIgnoreCase("kiosk mode")){
+            }else if(PP_Site.equalsIgnoreCase("FloorDecor service level")){
+                partnerURL = PropertyUtility.getDataProperties("qa.fnd_service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref"));
+            }
+            else if(PP_Site.equalsIgnoreCase("kiosk mode")){
                 partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
                 cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
             }else if(PP_Site.equalsIgnoreCase("BestBuy service level")){
