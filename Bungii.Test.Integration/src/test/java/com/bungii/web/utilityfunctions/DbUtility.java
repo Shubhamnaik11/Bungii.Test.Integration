@@ -347,6 +347,15 @@ public class DbUtility extends DbContextManager {
 
     }
 
+    public static String getPickupToken(String Pickup_Reference) {
+        String pickup_token;
+        String queryString = "SELECT pickup_token FROM pickupdetails where PickupRef='"+Pickup_Reference+"'";
+        pickup_token = getDataFromMySqlServer(queryString);
+        logger.detail("Pickup_Token =  " + pickup_token + " of PickupRef="+Pickup_Reference);
+        return pickup_token;
+
+    }
+
     public static long getDefaultPickupTime(String Service_Name,String SubDomain){
         long default_Pickup_Time=0;
         String queryString ="select ss.default_pickup_time\n" +

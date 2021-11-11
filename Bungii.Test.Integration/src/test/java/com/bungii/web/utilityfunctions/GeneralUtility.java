@@ -30,6 +30,10 @@ import javax.mail.NoSuchProviderException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Base64;
+import org.apache.commons.io.IOUtils;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -157,6 +161,20 @@ public class GeneralUtility extends DriverBase {
         action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
         action.click(Page_AdminLogin.Button_AdminLogin());
+    }
+
+    public void CustWebLinkDriverRating() throws InterruptedException {
+        String URL = (String)cucumberContextManager.getScenarioContext("PartnerPortalURL");
+        String Pickup_Id = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String pickup_Token = DbUtility.getPickupToken(Pickup_Id);
+        //Thread.sleep(2000);
+        URL = URL.replace("login","Pickup/"+pickup_Token);
+        //action.openNewTab();
+        action.navigateTo(URL);
+        Thread.sleep(5000);
+        //action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
+        //action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
+        //action.click(Page_AdminLogin.Button_AdminLogin());
     }
 
     public void TestAdminLogin() {
@@ -1071,6 +1089,19 @@ public class GeneralUtility extends DriverBase {
 
     public void closeGeofenceDropdown(){
         action.click(admin_geofencePage.Button_ApplyGeofence());
+    }
+
+    public String encodeImage(String Image){
+        String base64="";
+        try{
+            InputStream iSteamReader = new FileInputStream(Image);
+            byte[] imageBytes = IOUtils.toByteArray(iSteamReader);
+            base64 = Base64.getEncoder().encodeToString(imageBytes);
+            //System.out.println(base64);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "data:image/png;base64,"+base64;
     }
 }
 

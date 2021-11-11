@@ -3,8 +3,11 @@ package com.bungii.web.stepdefinitions.partner;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
+import com.bungii.common.manager.CucumberContextManager;
+import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.common.utilities.ScreenshotUtility;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
@@ -34,6 +37,7 @@ import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
 import static com.bungii.web.utilityfunctions.DbUtility.getListOfService;
 
+
 public class Partner_LoginSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LogInSteps.class);
     Partner_LoginPage Page_Partner_Login = new Partner_LoginPage();
@@ -47,7 +51,7 @@ public class Partner_LoginSteps extends DriverBase {
     DbUtility dbUtility = new DbUtility();
     //DbUtility dbUtility = new DbUtility();
     Kiosk_Page Page_Kiosk = new Kiosk_Page();
-
+    Driver_RatingPage Page_DriverRating = new Driver_RatingPage();
 
     @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
     public void i_navigate_to_something(String page, String url) throws Throwable {
@@ -454,6 +458,9 @@ public class Partner_LoginSteps extends DriverBase {
                     String NA_Delivery_cost = action.getText(Page_Partner_Delivery.Label_Delivery_Cost());
                     testStepVerify.isEquals(NA_Delivery_cost,Shown_Delivery_Cost);
                     break;
+                case "see Ratings submitted successfully message":
+                    testStepVerify.isEquals(action.getText(Page_DriverRating.Text_Rating_Submitted_Successfully()),PropertyUtility.getMessage("Ratings_submitted_successfully"));
+                    break;
                 default:
                     break;
             }
@@ -548,6 +555,118 @@ public class Partner_LoginSteps extends DriverBase {
         //throw new PendingException();
         testStepAssert.isNotElementDisplayed(Page_Partner_Done.Button_Apply(),"Filter window should close and Apply button shouldn't be shown","Filter window is close and Apply button is not shown","Filter window is not close and Apply button is shown");
 
+    }
+
+    @Then("^I open the link to provide driver rating$")
+    public void i_open_the_link_to_provide_driver_rating() throws Throwable {
+        try{
+            utility.CustWebLinkDriverRating();
+
+        }catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Link should get open for providing the driver rating", "Error performing step,Please check logs for more details",
+                    true);
+
+        }
+    }
+
+    @Then("^I check details on link page open for driver rating$")
+    public void i_check_details_on_link_page_open_for_driver_rating() throws Throwable {
+        try {
+            String Driver_Name = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            testStepVerify.isElementDisplayed(Page_DriverRating.Label_Delivery_Status(), "Delivery status should be display", "Delivery status is display", "Delivery status is not display");
+            testStepVerify.isElementDisplayed(Page_DriverRating.Text_Successfully_Completed(), "Successfully Completed! text should be display", "Successfully Completed! text is display", "Successfully Completed! text is not display");
+            testStepVerify.isElementTextEquals(Page_DriverRating.Text_Sucessfully_Completed_Para(), PropertyUtility.getMessage("Driver_Rating_Successfully_Completed_Text"));
+            testStepVerify.isElementDisplayed(Page_DriverRating.Label_Driver_Name(Driver_Name), "Driver name should be display", "Driver name is display", "Driver name is not display");
+
+            testStepVerify.isElementDisplayed(Page_DriverRating.Image_All_Stars(), "All rating stars should be display", "All rating stars is display", "All rating stars is not display");
+
+            //ALl Ok Image base64 encoded comparison
+            WebElement Image_All_Ok = Page_DriverRating.Image_All_Ok();
+            String expectedImage = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"), PropertyUtility.getImageLocations("ALL_OK"));
+            String expectedImageSource = utility.encodeImage(expectedImage);
+            String actualImageSource = Image_All_Ok.getAttribute("src");
+
+            testStepVerify.isEquals(actualImageSource, expectedImageSource);
+        }catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("I check that the details on link page open for driver rating", "Error performing step,Please check logs for more details",
+                    true);
+
+        }
+
+    }
+
+    @Then("^I check that rating stars are not shown submission$")
+    public void i_check_that_rating_stars_are_not_shown_submission() throws Throwable {
+        try{
+                testStepVerify.isElementNotDisplayed(Page_DriverRating.Image_All_Stars(true),"All rating stars should not be display","All rating stars is not display", "All rating stars is display");
+                testStepVerify.isElementNotDisplayed(Page_DriverRating.Button_Submit(true),"Submit button should not be shown.","Submit button is not shown.","Submit button is shown.");
+
+        }catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("I check that the rating stars are not shown submission", "Error performing step,Please check logs for more details",
+                    true);
+
+        }
+    }
+
+    @Then("^I change the rating to \"([^\"]*)\" stars$")
+    public void i_change_the_rating_to_something_stars(String Rating) throws Throwable {
+        try{
+            int i;
+            switch (Rating){
+                case "4":
+                    i=3;
+                    action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
+                    Thread.sleep(1000);
+                    break;
+                case "3":
+                    i=2;
+                    action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
+                    Thread.sleep(1000);
+                    break;
+                case "2":
+                    i=1;
+                    action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
+                    Thread.sleep(1000);
+                    break;
+                case "1":
+                    i=0;
+                    action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
+                    Thread.sleep(1000);
+                    break;
+                default:
+                    i=5;
+                    action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
+                    Thread.sleep(1000);
+                    break;
+            }
+
+        }catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Driver rating should get change to "+Rating, "Driver rating is not change to "+Rating,
+                    true);
+
+        }
+    }
+
+    @And("^I click on \"([^\"]*)\" button on Driver Rating Page$")
+    public void i_click_on_something_button_on_driver_rating_page(String buttonType) throws Throwable {
+        try{
+            action.click(Page_DriverRating.Button_Submit());
+
+        }catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("I should able to click "+buttonType+" button", "I am not able to click "+buttonType+" button",
+                    true);
+
+        }
     }
 
 }

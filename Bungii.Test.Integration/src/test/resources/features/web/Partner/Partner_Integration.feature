@@ -621,3 +621,52 @@ Feature: Partner Integration with Admin and Driver
     Then Admin should receive the "Partner Delivery Canceled!" email
       #And I close the Trip Delivery Details page
       #And I should logout from Partner Portal
+
+  @ready
+  Scenario: Verify that the portal's customer can open the link to provide driver rating.
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | 9999999205 | Testcustomertywd_appleNewR Customer|
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted      |
+      | enroute       |
+      |Arrived         |
+      |Loading Item     |
+      |Driving To Dropoff |
+      |Unloading item    |
+      |Bungii Completed  |
+    And I open the link to provide driver rating
+    Then I check details on link page open for driver rating
+    Then I change the rating to "1" stars
+    Then I change the rating to "2" stars
+    Then I change the rating to "3" stars
+    Then I change the rating to "4" stars
+    And I click on "Submit" button on Driver Rating Page
+    Then I should "see Ratings submitted successfully message"
+
+    @ready
+      @gs
+  Scenario: Verify that the portal's customer can provide driver rating for delivery only once.
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | 9999999205 | Testcustomertywd_appleNewR Customer|
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted      |
+      | enroute       |
+      |Arrived         |
+      |Loading Item     |
+      |Driving To Dropoff |
+      |Unloading item    |
+      |Bungii Completed  |
+    And I open the link to provide driver rating
+    Then I check details on link page open for driver rating
+    Then I change the rating to "1" stars
+    Then I change the rating to "2" stars
+    Then I change the rating to "3" stars
+    Then I change the rating to "4" stars
+    And I click on "Submit" button on Driver Rating Page
+    Then I should "see Ratings submitted successfully message"
+    And I open the link to provide driver rating
+    Then I check that rating stars are not shown submission
