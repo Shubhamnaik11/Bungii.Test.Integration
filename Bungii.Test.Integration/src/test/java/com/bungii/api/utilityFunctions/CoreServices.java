@@ -1542,7 +1542,9 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core",PARTNER_DELIVERYINFOMATION);
         String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
         String Partner_Customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        String Partner_Customer_Phone = (String) cucumberContextManager.getScenarioContext("Phone");
+        String Partner_Customer_Phone1 = (String) cucumberContextManager.getScenarioContext("Phone");
+        ArrayList<String> Partner_Customer_Phone = new ArrayList<String>();
+        Partner_Customer_Phone.add(Partner_Customer_Phone1);
 
         JSONObject jsonFiled1 = new JSONObject();
         jsonFiled1.put("FieldRef","f2bd9004-6757-11ea-a4a3-00155d0a8706");
