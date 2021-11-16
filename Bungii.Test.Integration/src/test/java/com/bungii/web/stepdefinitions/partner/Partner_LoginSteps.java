@@ -560,7 +560,7 @@ public class Partner_LoginSteps extends DriverBase {
     @Then("^I open the link to provide driver rating$")
     public void i_open_the_link_to_provide_driver_rating() throws Throwable {
         try{
-            utility.CustWebLinkDriverRating();
+            utility.NavigateDriverRatingWebLink();
 
         }catch (Exception e) {
 
@@ -574,21 +574,38 @@ public class Partner_LoginSteps extends DriverBase {
     @Then("^I check details on link page open for driver rating$")
     public void i_check_details_on_link_page_open_for_driver_rating() throws Throwable {
         try {
-            String Driver_Name = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            String BungiiType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+
             testStepVerify.isElementDisplayed(Page_DriverRating.Label_Delivery_Status(), "Delivery status should be display", "Delivery status is display", "Delivery status is not display");
             testStepVerify.isElementDisplayed(Page_DriverRating.Text_Successfully_Completed(), "Successfully Completed! text should be display", "Successfully Completed! text is display", "Successfully Completed! text is not display");
             testStepVerify.isElementTextEquals(Page_DriverRating.Text_Sucessfully_Completed_Para(), PropertyUtility.getMessage("Driver_Rating_Successfully_Completed_Text"));
-            testStepVerify.isElementDisplayed(Page_DriverRating.Label_Driver_Name(Driver_Name), "Driver name should be display", "Driver name is display", "Driver name is not display");
+            String Driver_Name = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            testStepVerify.isElementDisplayed(Page_DriverRating.Label_Driver_Name(Driver_Name), "Driver1 name should be display", "Driver1 name is display", "Driver1 name is not display");
+            testStepVerify.isElementDisplayed(Page_DriverRating.Image_All_Stars(), "All rating stars for driver1 should be display", "All rating stars for driver1 is display", "All rating stars for driver1 is not display");
 
-            testStepVerify.isElementDisplayed(Page_DriverRating.Image_All_Stars(), "All rating stars should be display", "All rating stars is display", "All rating stars is not display");
 
+            if(BungiiType.equalsIgnoreCase("Solo")){
+                WebElement Image_All_Ok = Page_DriverRating.Image_All_Ok_Solo();
+                String expectedImage = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"), PropertyUtility.getImageLocations("ALL_OK"));
+                String expectedImageSource = utility.encodeImage(expectedImage);
+                String actualImageSource = Image_All_Ok.getAttribute("src");
+
+                testStepVerify.isEquals(actualImageSource, expectedImageSource);
+            }
+            if(BungiiType.equalsIgnoreCase("Duo")){
+                String Driver_Name2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+                testStepVerify.isElementDisplayed(Page_DriverRating.Label_Driver_Name(Driver_Name2), "Driver2 name should be display", "Driver2 name is display", "Driver2 name is not display");
+                testStepVerify.isElementDisplayed(Page_DriverRating.Image_All_Stars(), "All rating stars for driver2 should be display", "All rating stars for driver 2 is display", "All rating stars for driver 2 is not display");
+                WebElement Image_All_Ok = Page_DriverRating.Image_All_Ok_Duo();
+                String expectedImage = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"), PropertyUtility.getImageLocations("ALL_OK"));
+                String expectedImageSource = utility.encodeImage(expectedImage);
+                String actualImageSource = Image_All_Ok.getAttribute("src");
+
+                testStepVerify.isEquals(actualImageSource, expectedImageSource);
+            }
             //ALl Ok Image base64 encoded comparison
-            WebElement Image_All_Ok = Page_DriverRating.Image_All_Ok();
-            String expectedImage = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"), PropertyUtility.getImageLocations("ALL_OK"));
-            String expectedImageSource = utility.encodeImage(expectedImage);
-            String actualImageSource = Image_All_Ok.getAttribute("src");
 
-            testStepVerify.isEquals(actualImageSource, expectedImageSource);
+
         }catch (Exception e) {
 
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -614,36 +631,82 @@ public class Partner_LoginSteps extends DriverBase {
         }
     }
 
-    @Then("^I change the rating to \"([^\"]*)\" stars$")
-    public void i_change_the_rating_to_something_stars(String Rating) throws Throwable {
+    @Then("^I change the rating to \"([^\"]*)\" stars for \"([^\"]*)\"$")
+    public void i_change_the_rating_to_something_stars_for_something(String Rating, String DriverType) throws Throwable {
         try{
+            if(DriverType.equalsIgnoreCase("Driver1")){
             int i;
+            String driverRating="";
             switch (Rating){
                 case "4":
+                    i=4;
+                    action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
+                    Thread.sleep(1000);
+                    driverRating="4";
+                    break;
+                case "3":
                     i=3;
                     action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
                     Thread.sleep(1000);
+                    driverRating="3";
                     break;
-                case "3":
+                case "2":
                     i=2;
                     action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
                     Thread.sleep(1000);
+                    driverRating="2";
                     break;
-                case "2":
+                case "1":
                     i=1;
                     action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
                     Thread.sleep(1000);
-                    break;
-                case "1":
-                    i=0;
-                    action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
-                    Thread.sleep(1000);
+                    driverRating="1";
                     break;
                 default:
                     i=5;
                     action.JavaScriptClick(Page_DriverRating.Image_Stars(i));
                     Thread.sleep(1000);
+                    driverRating="5";
                     break;
+            }
+            cucumberContextManager.setScenarioContext("Driver_Rating",driverRating);
+            }
+            else if(DriverType.equalsIgnoreCase("Driver2")){
+                int i;
+                String driver2Rating="";
+                switch (Rating){
+                    case "4":
+                        i=4;
+                        action.JavaScriptClick(Page_DriverRating.Image_Stars2(i));
+                        Thread.sleep(1000);
+                        driver2Rating="4";
+                        break;
+                    case "3":
+                        i=3;
+                        action.JavaScriptClick(Page_DriverRating.Image_Stars2(i));
+                        Thread.sleep(1000);
+                        driver2Rating="3";
+                        break;
+                    case "2":
+                        i=2;
+                        action.JavaScriptClick(Page_DriverRating.Image_Stars2(i));
+                        Thread.sleep(1000);
+                        driver2Rating="2";
+                        break;
+                    case "1":
+                        i=1;
+                        action.JavaScriptClick(Page_DriverRating.Image_Stars2(i));
+                        Thread.sleep(1000);
+                        driver2Rating="1";
+                        break;
+                    default:
+                        i=5;
+                        action.JavaScriptClick(Page_DriverRating.Image_Stars2(i));
+                        Thread.sleep(1000);
+                        driver2Rating="5";
+                        break;
+                }
+                cucumberContextManager.setScenarioContext("Driver2_Rating",driver2Rating);
             }
 
         }catch (Exception e) {
@@ -664,6 +727,37 @@ public class Partner_LoginSteps extends DriverBase {
 
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("I should able to click "+buttonType+" button", "I am not able to click "+buttonType+" button",
+                    true);
+
+        }
+    }
+
+    @Then("^I verify the submitted driver rating value in the database$")
+    public void i_verify_the_submitted_driver_rating_value_in_the_database() throws Throwable {
+        try{
+            String Bungii_Type= (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+            String PickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String PickupId=dbUtility.getPickupId(PickupRef);
+
+            List <HashMap<String,Object>>dbDriverRating= dbUtility.getDriverRating(PickupId);
+
+            if(Bungii_Type.equalsIgnoreCase("Solo")||Bungii_Type.equalsIgnoreCase("Solo Scheduled")) {
+                String Driver1Rating = dbDriverRating.get(0).toString();
+                testStepVerify.isEquals((String) cucumberContextManager.getScenarioContext("Driver_Rating"),Driver1Rating);
+
+            }else if(Bungii_Type.equalsIgnoreCase("Duo")) {
+                String Driver1Rating = dbDriverRating.get(0).toString();
+                String Driver2Rating = dbDriverRating.get(1).toString();
+                testStepVerify.isEquals((String) cucumberContextManager.getScenarioContext("Driver_Rating"),Driver1Rating);
+                testStepVerify.isEquals((String) cucumberContextManager.getScenarioContext("Driver2_Rating"),Driver2Rating);
+            }
+
+
+
+        }catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Correct submitted driver rating value shoud be shown in database", "Correct submitted driver rating value is not shown in database",
                     true);
 
         }

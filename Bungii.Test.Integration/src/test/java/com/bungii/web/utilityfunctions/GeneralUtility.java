@@ -163,7 +163,7 @@ public class GeneralUtility extends DriverBase {
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
 
-    public void CustWebLinkDriverRating() throws InterruptedException {
+    public void NavigateDriverRatingWebLink() throws InterruptedException {
         String URL = (String)cucumberContextManager.getScenarioContext("PartnerPortalURL");
         String Pickup_Id = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String pickup_Token = DbUtility.getPickupToken(Pickup_Id);

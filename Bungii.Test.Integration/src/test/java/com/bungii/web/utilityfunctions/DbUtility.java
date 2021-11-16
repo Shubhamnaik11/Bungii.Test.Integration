@@ -81,6 +81,15 @@ public class DbUtility extends DbContextManager {
         logger.detail("Pickupid  " + pickupid + " of pickupref " + pickupRef );
         return pickupid;
     }
+    public static List<HashMap<String,Object>> getDriverRating(String pickupId) {
+       // String driverRating ;
+        List<HashMap<String,Object>> driverRating = new ArrayList<>();
+        String queryString = "SELECT DriverRating from triprequest where pickupid ='" + pickupId+"'";
+        //driverRating =getDataFromMySqlServer(queryString);
+        driverRating = getDataFromMySqlServerMap(queryString);
+        logger.detail("Driver Rating =  " + driverRating + " is shown in database for PickupId= " + pickupId );
+        return driverRating;
+    }
     public static String getPickupIdFromFactPickup(String pickupRef) {
         String pickupid = "";
         String queryString = "SELECT id FROM factpickup WHERE pickupref ='" + pickupRef+"'";
