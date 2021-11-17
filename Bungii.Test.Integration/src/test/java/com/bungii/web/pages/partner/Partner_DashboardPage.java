@@ -106,7 +106,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Message_Highlighted_Fields() { return findElement("//div[contains(text(),'Please verify the highlighted fields above.')]",LocatorType.XPath);}
 
     //Information Icon What’s needed?
-    public  WebElement Information_Icon_Whats_Needed() { return findElement("//label[contains(text(),'What’s needed?')]/i",LocatorType.XPath);}
+    public  WebElement Information_Icon_Whats_Needed() { return findElement("//label[contains(text(),\"WHAT'S NEEDED\")]/i",LocatorType.XPath);}
 
     //Information Icon Delivery Address
     public  WebElement Information_Icon_Delivery_Address() { return findElement("//label[contains(text(),'Delivery Address')]/i",LocatorType.XPath);}
