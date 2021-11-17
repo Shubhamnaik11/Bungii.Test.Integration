@@ -140,51 +140,52 @@ Feature: Admin_Refund
 	Then the values should be reverted to origional value
 	And I click on "Close icon" button
 	Then The "Issue Refund" section should not be displayed
-  
-@regression
-  Scenario: Verify Complete Refund for manually ended solo scheduled bungii and partial payment for driver
-	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-	  | Bungii Time   | Customer Phone | Customer Name                  |
-	  | NEXT_POSSIBLE | 9999999606     | Testcustomertywd_appleNewF Customer|
-	And As a driver "Testdrivertywd_appledc_a_drvi Driver" perform below action with respective "Solo Scheduled" Delivery
-	  | driver1 state|
-	  |Accepted |
-	  | Enroute  |
-	  | Arrived |
-	  | Loading Item |
-	And I view the Live Deliveries list on the admin portal
-	Then I should be able to see the respective bungii with the below status
-	  |  Status |
-	  | Loading Items |
-	When I view the delivery details
-	Then the Bungii details is displayed successfully
-	And I click on "Manually End Bungii" link
-	And Enter the End Date and Time
-	And Click on "Calculate Cost" button
-	Then the amount is calculated and shown to admin
-	And Click on "Confirm" button
-	And I wait for "2" mins
-	And I view the Deliveries list on the admin portal
-	Then The Delivery List page should display the delivery in "Payment Successful" state
-	And I search the delivery of Customer and view it
-	When I click on "ISSUE REFUND" button
-	Then The "Issue Refund" section should be displayed
-	When I select "Complete Refund" radio button
-	When I update "Earnings" as "10.00" dollars
-	Then I should see Customer Refund Amount and Driver Earnings
-	When I enter "Bungii Internal Notes" as "Internal Note"
-	When I enter "Notes" as "Driver Note"
-	And I click on "Continue" button on Issue Refund popup
-	Then I should see "Issue Refund - Confirm Details" popup
-	And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
-	And I should see breakdown of Before and After Refund earnings
-	And I should see Bungii Internal Note
-	When I select "Are you sure you want to proceed with refund request ?" checkbox
-	And I click on "Process Refund" button on Issue Refund popup
-	Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
-	When I click on "OK" button
-	And I search the delivery of Customer and view it
-	Then The "Issue Refund" button should not be displayed
+
+
+#This scenario is no longer valid as manually end bungii link is removed for CORE-3257. Can be reused when coding CORE-3257(Edit Delivery Status - Payment Complete)
+#  Scenario: Verify Complete Refund for manually ended solo scheduled bungii and partial payment for driver
+#	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+#	  | Bungii Time   | Customer Phone | Customer Name                  |
+#	  | NEXT_POSSIBLE | 9999999606     | Testcustomertywd_appleNewF Customer|
+#	And As a driver "Testdrivertywd_appledc_a_drvi Driver" perform below action with respective "Solo Scheduled" Delivery
+#	  | driver1 state|
+#	  |Accepted |
+#	  | Enroute  |
+#	  | Arrived |
+#	  | Loading Item |
+#	And I view the Live Deliveries list on the admin portal
+#	Then I should be able to see the respective bungii with the below status
+#	  |  Status |
+#	  | Loading Items |
+#	When I view the delivery details
+#	Then the Bungii details is displayed successfully
+#	And I click on "Manually End Bungii" link
+#	And Enter the End Date and Time
+#	And Click on "Calculate Cost" button
+#	Then the amount is calculated and shown to admin
+#	And Click on "Confirm" button
+#	And I wait for "2" mins
+#	And I view the Deliveries list on the admin portal
+#	Then The Delivery List page should display the delivery in "Payment Successful" state
+#	And I search the delivery of Customer and view it
+#	When I click on "ISSUE REFUND" button
+#	Then The "Issue Refund" section should be displayed
+#	When I select "Complete Refund" radio button
+#	When I update "Earnings" as "10.00" dollars
+#	Then I should see Customer Refund Amount and Driver Earnings
+#	When I enter "Bungii Internal Notes" as "Internal Note"
+#	When I enter "Notes" as "Driver Note"
+#	And I click on "Continue" button on Issue Refund popup
+#	Then I should see "Issue Refund - Confirm Details" popup
+#	And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
+#	And I should see breakdown of Before and After Refund earnings
+#	And I should see Bungii Internal Note
+#	When I select "Are you sure you want to proceed with refund request ?" checkbox
+#	And I click on "Process Refund" button on Issue Refund popup
+#	Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+#	When I click on "OK" button
+#	And I search the delivery of Customer and view it
+#	Then The "Issue Refund" button should not be displayed
   
   @regression
   Scenario: Verify Issue Refund button is not displayed for Customer Canceled Delivery
