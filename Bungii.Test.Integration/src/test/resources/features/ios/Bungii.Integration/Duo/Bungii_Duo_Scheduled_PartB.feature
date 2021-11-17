@@ -99,6 +99,7 @@ Feature: Scheduled DUO Bungii Cancellation in Denver Geofence
     And I am on the "LOG IN" page on driverApp
     #non control driver
     And I am logged in as "valid denver driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then I should be navigated to "EN ROUTE" screen
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
