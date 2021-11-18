@@ -128,6 +128,9 @@ public class BungiiSteps extends DriverBase {
             case "Melvin Johnson":
                 phone = PropertyUtility.getDataProperties("web.valid.driver106.phone");
                 break;
+            case "Drake Martin":
+                phone = PropertyUtility.getDataProperties("web.valid.driver107.phone");
+                break;
             case "Testdrivertywd_appledc_a_ptner Driverone":
                 phone = PropertyUtility.getDataProperties("web.valid.partner.driver1.phone");
                 break;

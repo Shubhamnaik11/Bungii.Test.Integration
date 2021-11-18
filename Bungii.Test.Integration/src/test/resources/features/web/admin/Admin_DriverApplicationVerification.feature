@@ -85,11 +85,11 @@ Feature: Admin_DriverApplicationVerification
     #moved in sprint 49 to ready as it needs fix
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
-    When I click "Verify" button against the "Melvin Johnson" applicant
+    When I click "Verify" button against the "Drake Martin" applicant
     And I verify all the fields except "Date of Birth"
     And I click on the "Resend Application" Button
     And I confirm the "Driver Resend Application" action
-    And I login to the driver portal as driver "Melvin Johnson"
+    And I login to the driver portal as driver "Drake Martin"
     And I update the rejected "Date of Birth" field
     And I update the accepted "Social Security Number" field
     And I click on "Update" button
@@ -97,7 +97,7 @@ Feature: Admin_DriverApplicationVerification
     #And I logout of driver portal  #Not logging out due to clicking
     And I am logged in as Admin
     Then there is a pending application for driver verification
-    When I click "Verify" button against the "Melvin Johnson" applicant
+    When I click "Verify" button against the "Drake Martin" applicant
     Then The accepted tick is removed for "Date Of Birth" field previously accepted by admin
 
   @regression
@@ -111,7 +111,7 @@ Feature: Admin_DriverApplicationVerification
   @ready
     #test data created in base
   Scenario: Verify Driver Application Resend Application - NonFountain
-    When I click "Verify" button against the "John PxLK" applicant
+    When I click "Verify" button against the "James KbpK" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and reject the invalid verification fields
     And I click on the "Resend Application" Button
