@@ -623,6 +623,7 @@ public class Admin_TripsSteps extends DriverBase {
           String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, ST, Client);
 
            // action.getElementByXPath(XPath).click();
+            Thread.sleep(5000);
             action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
             action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
 
