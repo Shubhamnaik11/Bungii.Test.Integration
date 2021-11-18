@@ -167,14 +167,10 @@ public class GeneralUtility extends DriverBase {
         String URL = (String)cucumberContextManager.getScenarioContext("PartnerPortalURL");
         String Pickup_Id = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String pickup_Token = DbUtility.getPickupToken(Pickup_Id);
-        //Thread.sleep(2000);
         URL = URL.replace("login","Pickup/"+pickup_Token);
-        //action.openNewTab();
         action.navigateTo(URL);
         Thread.sleep(5000);
-        //action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
-        //action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
-        //action.click(Page_AdminLogin.Button_AdminLogin());
+        
     }
 
     public void TestAdminLogin() {

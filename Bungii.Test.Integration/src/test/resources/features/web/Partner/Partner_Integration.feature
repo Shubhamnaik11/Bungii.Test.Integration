@@ -644,7 +644,7 @@ Feature: Partner Integration with Admin and Driver
     Then I change the rating to "4" stars for "Driver1"
     And I click on "Submit" button on Driver Rating Page
     Then I should "see Ratings submitted successfully message"
-    Then I verify the submitted driver rating value in the database
+    Then Submitted driver ratings are saved in the database
 
   @ready
   Scenario: Verify that the portal's customer can open the link to provide driver rating for duo delivery.
@@ -666,7 +666,7 @@ Feature: Partner Integration with Admin and Driver
     Then I change the rating to "4" stars for "Driver2"
     And I click on "Submit" button on Driver Rating Page
     Then I should "see Ratings submitted successfully message"
-    Then I verify the submitted driver rating value in the database
+    Then Submitted driver ratings are saved in the database
 
     @ready
   Scenario: Verify that the portal's customer can provide driver rating for delivery only once.
@@ -688,4 +688,4 @@ Feature: Partner Integration with Admin and Driver
     And I click on "Submit" button on Driver Rating Page
     Then I should "see Ratings submitted successfully message"
     And I open the link to provide driver rating
-    Then I check that rating stars are not shown submission
+    Then I check that rating stars are not shown on driver rating page once the ratings are submitted for the delivery
