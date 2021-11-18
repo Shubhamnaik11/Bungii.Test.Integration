@@ -8,7 +8,9 @@ Feature: Admin_OndemandTrips
   @regression
     #stable
     #test data created in base
-  Scenario: Verify Manually Ending Bungii As An Admin For Solo Ondemand Pickup
+#  Scenario: Verify Manually Ending Bungii As An Admin For Solo Ondemand Pickup
+#  CORE-3257 - Manually end bungii functionality is removed
+  Scenario: Verify Manually End Bungii Link is Removed for Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000003 | Testcustomertywd_appleweb CustC|
@@ -23,14 +25,20 @@ Feature: Admin_OndemandTrips
       | Loading Items |
     When I view the delivery details
     Then the Bungii details is displayed successfully
-    And I click on "Manually End Bungii" link
-    And Enter the End Date and Time
-    And Click on "Calculate Cost" button
-    Then the amount is calculated and shown to admin
-    And Click on "Confirm" button
-    And I view the Deliveries list on the admin portal
-    #Then The Delivery List page should display the trip in "Payment Successful" state
-    Then The Delivery List page should display the delivery in "Payment Successful" state
+    And Manually end bungii link is removed for live trips
+#    And I click on "Manually End Bungii" link
+#    And Enter the End Date and Time
+#    And Click on "Calculate Cost" button
+#    Then the amount is calculated and shown to admin
+#    And Click on "Confirm" button
+#    And I view the Deliveries list on the admin portal
+#    #Then The Delivery List page should display the trip in "Payment Successful" state
+#    Then The Delivery List page should display the delivery in "Payment Successful" state
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverC" perform below action with respective "Solo Ondemand" trip
+      | driver1 state|
+      |Driving To Dropoff |
+      | Unloading Items |
+      | Bungii Completed |
 
   @sanity
   @regression
