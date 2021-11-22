@@ -139,6 +139,7 @@ Feature: Solo Scheduled Bungii Part C
     And I am on the "LOG IN" page on driverApp
     And I enter phoneNumber :9955112208 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
