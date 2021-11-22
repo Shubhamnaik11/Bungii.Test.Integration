@@ -98,12 +98,12 @@ Feature: Admin_OndemandTrips
   Scenario: Verify Driver Does Not receive Ondemand requests If He Is Not Assigned To Geofence In Which His Current Location Is
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999995002 | Testcustomertywd_appleweb CustY|
+      | NEXT_POSSIBLE | 9999999101 | Testcustomertywd_appleNewQA Customer|
     Then The driver "Testdrivertywd_appledc_a_web TestdriverY" should receive On Demand requests as he is assigned to "washingtondc" geofence
-    When I cancel "On Demand" of customer "9999995002"
+    When I cancel "On Demand" of customer "9999999101"
     And I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999995002 | Testcustomertywd_appleweb CustY|
+      | NEXT_POSSIBLE | 9999999101 | Testcustomertywd_appleNewQA Customer|
     Then the driver "Testdrivertywd_appledc_a_web TestdriverY" should not receive On Demand requests as he is assigned NOT to "goa" geofence
 
 

@@ -202,7 +202,7 @@ Feature: Admin_PartnerFirmTrips
   Scenario: Verify Partner Firm For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999357 | Testcustomertywd_appleWashJ Shah|
+      | NEXT_POSSIBLE | 9999999102 | Testcustomertywd_appleNewQB Customer|
     And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |

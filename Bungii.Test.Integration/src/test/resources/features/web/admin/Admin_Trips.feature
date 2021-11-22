@@ -55,6 +55,7 @@ Feature: Admin_Trips
    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Deliveries list on the admin portal
+    And I wait for "2" mins
     And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
