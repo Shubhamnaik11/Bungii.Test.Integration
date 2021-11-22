@@ -27,7 +27,8 @@ Feature: On Demand Bungii
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
   
   @regression
-  Scenario:Verify Manually End Bungii Option Is Available In The Last Three States Only
+#  Scenario:Verify Manually End Bungii Option Is Available In The Last Three States Only
+  Scenario:Verify Manually End Bungii Option Is Removed For Live Delivery
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | baltimore | Enroute      |
@@ -54,19 +55,19 @@ Feature: On Demand Bungii
     And I slide update button on "ARRIVED" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Loading Items"
-    Then manually end bungii should be "enabled"
+    Then manually end bungii should be "disabled"
     
     When I switch to "ORIGINAL" instance
     And I slide update button on "LOADING ITEM" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Driving To Dropoff"
-    Then manually end bungii should be "enabled"
+    Then manually end bungii should be "disabled"
     
     When I switch to "ORIGINAL" instance
     And I slide update button on "DRIVING TO DROP OFF" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Unloading Items"
-    Then manually end bungii should be "enabled"
+    Then manually end bungii should be "disabled"
     
     When I switch to "ORIGINAL" instance
     And I slide update button on "UNLOADING ITEM" Screen
@@ -92,7 +93,7 @@ Feature: On Demand Bungii
     And I tap on "Go Online button" on Driver Home page
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "HOME" link
-    And I enter "baltimore pickup and dropoff locations" on Bungii estimate
+    And I enter "new baltimore pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
