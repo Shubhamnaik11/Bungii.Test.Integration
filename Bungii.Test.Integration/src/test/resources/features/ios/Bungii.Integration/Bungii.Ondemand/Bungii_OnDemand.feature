@@ -45,19 +45,19 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I slide update button on "ARRIVED" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Loading Items"
-    Then manually end bungii should be "enabled"
+    Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "LOADING ITEM" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Driving To Dropoff"
-    Then manually end bungii should be "enabled"
+    Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "DRIVING TO DROP OFF" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Unloading Items"
-    Then manually end bungii should be "enabled"
+    Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "UNLOADING ITEM" Screen
