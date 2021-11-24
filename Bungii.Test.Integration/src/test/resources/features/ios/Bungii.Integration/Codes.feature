@@ -13,7 +13,8 @@ Scenario: Verify Requesting Of Ondemand Bungii With Referral Code
   And I click "Invite referrals" button on "HOME" screen
   Then I should be navigated to "Invite" screen
   When I get Invite Code
-  
+
+  When I Switch to "driver" application on "same" devices
 And I login as "valid nashville" driver on "same" device and make driver status as "Online"
 
 When I Switch to "customer" application on "same" devices
