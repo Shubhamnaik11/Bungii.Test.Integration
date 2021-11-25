@@ -32,7 +32,7 @@ And I wait for Minimum duration for "current" Bungii to be in Driver not accepte
 Then I wait for "4" mins
 And I select already scheduled bungii
 When I Cancel selected Bungii
-  When I Switch to "customer" application on "same" devices
+  #When I Switch to "customer" application on "same" devices
   Then correct support details should be displayed to customer on "ADMIN-SMS" app
 
 And I open Admin portal and navigate to "Scheduled Deliveries" page
