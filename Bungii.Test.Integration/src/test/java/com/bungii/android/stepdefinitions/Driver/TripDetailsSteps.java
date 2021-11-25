@@ -7,6 +7,7 @@ import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -54,12 +55,20 @@ public class TripDetailsSteps extends DriverBase {
     @Then("^I should able to see \"([^\"]*)\" available trip$")
     public void i_should_able_to_see_something_available_trip(String strArg1) throws Throwable {
         List<WebElement> listOfBungii = availableTripsPage.Image_SelectBungiis();
+        List<WebElement> listOfCustomerBungii = availableTripsPage.Row_CustomerTrips();
         switch (strArg1) {
             case "two":
                 testStepAssert.isTrue(listOfBungii.size() == 2, "There should be two available deliveries",listOfBungii.size()+" available deliveries are displayed");
                 break;
             case "zero":
                 testStepAssert.isTrue(listOfBungii.size() == 0, "There should be zero available deliveries", listOfBungii.size()+" available deliveries are displayed.");
+                break;
+            case "two customer":
+                testStepAssert.isTrue(listOfCustomerBungii.size() == 2, "There should be two available app customer deliveries",listOfBungii.size()+" available app customer deliveries are displayed");
+                break;
+            case "old":
+                int count = Integer.parseInt(String.valueOf(cucumberContextManager.getScenarioContext("COUNT_OF_AVAILABLE_TRIPS")));
+                testStepAssert.isTrue(listOfBungii.size() == count, "There should be no additional available deliveries",listOfBungii.size()+" available deliveries are displayed");
                 break;
             default:
                 throw new Exception(" UNIMPLEMENTED STEP");
@@ -81,6 +90,17 @@ public class TripDetailsSteps extends DriverBase {
                 break;
             default:
                 throw new Exception(" UNIMPLEMENTED STEP");
+        }
+    }
+
+    @And("^I Count the number of available bungiis$")
+    public void i_count_the_number_of_available_bungiis() throws Throwable {
+        try{
+            List<WebElement> listOfBungii = availableTripsPage.Image_SelectBungiis();
+            cucumberContextManager.setScenarioContext("COUNT_OF_AVAILABLE_TRIPS",listOfBungii.size());
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 }

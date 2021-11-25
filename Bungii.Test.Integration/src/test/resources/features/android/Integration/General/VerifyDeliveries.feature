@@ -97,8 +97,8 @@ Feature: Delivery Flows
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
     And I Select "AVAILABLE BUNGIIS" from driver App menu
-    Then I should able to see "two" available trip
-    
+    Then I should able to see "two customer" available trip
+
     And I Select Trip from available trip
     And I click "ACCEPT" button on Bungii Request screen
     Then I should be navigated to "AVAILABLE BUNGIIS" screen
@@ -118,12 +118,15 @@ Feature: Delivery Flows
     And I enter phoneNumber :8888881019 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    
+
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Count the number of available bungiis
+
     When I Select "ACCOUNT" from driver App menu
     And the "ACCOUNT" page is opened
     When I Select "ALERT SETTINGS" from ACCOUNT menu
     And I update trip setting of "TODAY" to "12:00 AM" to "12:05 AM"
-  
+
     #And I update kansas driver todays trip alert setting to outside current time
     When I Switch to "customer" application on "same" devices
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
@@ -134,7 +137,7 @@ Feature: Delivery Flows
     When I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should be navigated to "AVAILABLE BUNGIIS" screen
-    And I should able to see "zero" available trip
+    And I should able to see "old" available trip
     When I Select "ACCOUNT" from driver App menu
     And the "ACCOUNT" page is opened
     When I Select "ALERT SETTINGS" from ACCOUNT menu
