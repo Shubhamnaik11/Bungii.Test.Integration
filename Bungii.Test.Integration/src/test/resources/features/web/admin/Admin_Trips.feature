@@ -39,7 +39,7 @@ Feature: Admin_Trips
     And I enter cancellation fee and Comments
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
-    Then The "Pick up has been successfully cancelled." message should be displayed
+    Then The "Pick up has been successfully canceled." message should be displayed
     When I view All Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And The first time promo code should get released
@@ -255,7 +255,7 @@ Feature: Admin_Trips
     And I enter cancellation fee and Comments
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
-    Then The "Pick up has been successfully cancelled." message should be displayed
+    Then The "Pick up has been successfully canceled." message should be displayed
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
 
