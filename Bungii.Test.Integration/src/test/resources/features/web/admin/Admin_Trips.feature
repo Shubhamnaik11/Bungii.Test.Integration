@@ -199,7 +199,6 @@ Feature: Admin_Trips
   
   
   @ready
-    @gs
  #stable
   Scenario: Verify Filters shows future deliveries in All deliveries page
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
