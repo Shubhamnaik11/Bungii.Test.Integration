@@ -84,7 +84,7 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
     And I click on "Submit" button
-    Then The "Pick up has been successfully cancelled." message should be displayed
+    Then The "Pick up has been successfully canceled." message should be displayed
     #When I view the Trips list on the admin portal
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
@@ -134,7 +134,7 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
     And I click on "Submit" button
-    Then The "Pick up has been successfully cancelled." message should be displayed
+    Then The "Pick up has been successfully canceled." message should be displayed
     When I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     #And Partner firm should receive "Bungii Delivery Pickup Canceled" email
