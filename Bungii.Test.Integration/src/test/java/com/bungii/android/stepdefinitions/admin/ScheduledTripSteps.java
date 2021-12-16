@@ -890,7 +890,7 @@ public class ScheduledTripSteps extends DriverBase {
 			switch (messageElement.toUpperCase()) {
 				case "BUNGII CANCEL":
 					Thread.sleep(35000);
-					testStepAssert.isElementTextEquals(scheduledTripsPage.Label_Message(),"Pick up has been successfully cancelled.","Pick up has been successfully cancelled. should be displayed","Pick up has been successfully cancelled. is displayed","Pick up has been successfully cancelled. is not displayed");
+					testStepAssert.isElementTextEquals(scheduledTripsPage.Label_Message(),"Pick up has been successfully canceled.","Pick up has been successfully canceled. should be displayed","Pick up has been successfully canceled. is displayed","Pick up has been successfully canceled. is not displayed");
 					break;
 				default:
 					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
