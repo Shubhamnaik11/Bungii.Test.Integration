@@ -51,6 +51,7 @@ public class DashBoardSteps extends DriverBase {
                     action.click(dashBoardPage.Button_Drivers());
                     break;
                 case "geofence":
+                    Thread.sleep(2000);
                     action.click(dashBoardPage.Menu_Geofences());
                     break;
                 default:
