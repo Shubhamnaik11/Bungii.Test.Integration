@@ -38,7 +38,7 @@
     
         When I Switch to "driver" application on "same" devices
         And I Select "AVAILABLE BUNGIIS" from driver App menu
-        And I Select Trip from driver available trip
+        And I Select Trip from available trip
         Then I should be able to see "Customer Note" Text
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
@@ -73,7 +73,7 @@
     
         When I Switch to "driver" application on "same" devices
         And I Select "AVAILABLE BUNGIIS" from driver App menu
-        And I Select Trip from driver available trip
+        And I Select Trip from available trip
         And I tap on "ACCEPT" on driver Trip details Page
         And I Select "SCHEDULED BUNGIIS" from driver App menu
         And I Select Trip from driver scheduled trip
@@ -112,7 +112,7 @@
     
         When I Switch to "driver" application on "same" devices
         And I Select "AVAILABLE BUNGIIS" from driver App menu
-        And I Select Trip from driver available trip
+        And I Select Trip from available trip
         And I tap on "ACCEPT" on driver Trip details Page
         And I Select "SCHEDULED BUNGIIS" from driver App menu
         And I Select Trip from driver scheduled trip
