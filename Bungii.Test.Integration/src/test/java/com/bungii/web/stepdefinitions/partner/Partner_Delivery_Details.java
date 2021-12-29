@@ -90,7 +90,28 @@ public class Partner_Delivery_Details extends DriverBase {
             String ReceiptNumber = "";
             String OrderNumber = "";
             String SoldBuy = "";
-            String Items_deliver = dataMap.get("Items_To_Deliver").trim();
+            String ProductDescription = "";
+            String Dimensions = "";
+            String Weight = "";
+            String DeliveryPurpose = "";
+            String RbSbNumber = "";
+            String Items_deliver = "";
+
+            if(dataMap.containsKey("Items_To_Deliver")){
+                Items_deliver = dataMap.get("Items_To_Deliver");
+            }
+            if(dataMap.containsKey("Product_Description")) {
+                ProductDescription = dataMap.get("Product_Description").trim();
+                cucumberContextManager.setScenarioContext("Product_Description",ProductDescription);
+            }
+            if(dataMap.containsKey("Dimensions")){
+                Dimensions = dataMap.get("Dimensions").trim();
+                cucumberContextManager.setScenarioContext("Dimensions",Dimensions);
+            }
+            if(dataMap.containsKey("Weight")){
+                Weight = dataMap.get("Weight").trim();
+                cucumberContextManager.setScenarioContext("Weight",Weight);
+            }
             if (dataMap.containsKey("Customer_Name")) {
                 CustomerName = dataMap.get("Customer_Name").trim();
                 cucumberContextManager.setScenarioContext("Customer_Name", CustomerName);
@@ -107,6 +128,12 @@ public class Partner_Delivery_Details extends DriverBase {
             }
             if (dataMap.containsKey("SoldBuy")) {
                 SoldBuy = dataMap.get("SoldBuy").trim();
+            }
+            if (dataMap.containsKey("Delivery_Purpose")) {
+                DeliveryPurpose = dataMap.get("Delivery_Purpose").trim();
+            }
+            if (dataMap.containsKey("Rb_Sb_Number")) {
+                RbSbNumber = dataMap.get("Rb_Sb_Number").trim();
             }
 
             //cucumberContextManager.setScenarioContext("Customer", CustomerName);
@@ -220,6 +247,42 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Order_Number(), OrderNumber);
                         action.click(Page_Partner_Delivery.Dropdown_SoldBuy());
                         action.click(Page_Partner_Delivery.List_StoreAssociate("Krishna"));
+
+
+                        break;
+                    default:
+                        break;
+                }
+                log("I enter all details on "+str+" for "+Site+" on partner screen", "I have entered all details on "+str+" for "+Site+" on partner screen", false);
+
+            } else if (Site.equalsIgnoreCase("FloorDecor service level")) {
+
+                switch (str) {
+                    case "Delivery Details":
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Product_Description(), ProductDescription);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Dimensions(),Dimensions);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Weight(),Weight);
+                        //action.click(Page_Partner_Delivery.Button_SKU_Add());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                        //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                        action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+
+                        String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                        cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
+                        cucumberContextManager.setScenarioContext("Customer_Name", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
+                        cucumberContextManager.setScenarioContext("Customer_Mobile", Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value"));
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(),DeliveryPurpose);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Rb_Sb_Number(),RbSbNumber);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(),SoldBuy);
 
 
                         break;

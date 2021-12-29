@@ -154,6 +154,8 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
             String feeType = DataList.get(i).get("Fee Type").trim();
             String comment = DataList.get(i).get("Comment").trim();
             String field = DataList.get(i).get("Field").trim();
+            String driver_cut = DataList.get(i).get("Driver Cut").trim();
+
 
             String message = DataList.get(i).get("Message").trim();
 
@@ -162,6 +164,11 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
             }
             else{
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
+            }
+            if(driver_cut.equalsIgnoreCase("Blank")){
+                action.clear(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut());
+            }else{
+                action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
             }
             if(feeType.equalsIgnoreCase("Blank")) {
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), "-- Select Fee Type --");
@@ -187,6 +194,9 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                     break;
                 case "COMMENT":
                     testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Error_AccessorialFeeComment(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                    break;
+                case "Driver Amount":
+                    testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Error_AccessorialFeeDriverCut(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                     break;
             }
         i++;

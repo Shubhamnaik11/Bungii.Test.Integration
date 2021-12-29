@@ -54,6 +54,29 @@ public class AvailableTripsSteps extends DriverBase {
 		}
 	}
 
+	@And("^I Select Partner portal Trip from available trip$")
+	public void i_select_partner_portal_trip_from_available_trip() {
+		try {
+			Thread.sleep(5000);
+
+			if (action.isAlertPresent()){ SetupManager.getDriver().switchTo().alert().dismiss();   Thread.sleep(1000);        }
+
+			String customerName=(String) cucumberContextManager.getScenarioContext("CUSTOMER");
+
+			String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
+
+			//selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));--removing this since now full name is displaying
+			selectBungiiFromList(numberOfDriver,customerName);
+
+			log( "I Select Partner portal Trip from available trip of driver", "I selected trip for partner portal customer " +customerName + " of "+ numberOfDriver +" type",true);
+		} catch (Exception e) {
+			String customerName=(String) cucumberContextManager.getScenarioContext("CUSTOMER");
+			String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Partner portal Trip Should be listed in Available Bungiis", "Partner portal Trip is not displayed in available Bungii for customer " + customerName + " of "+ numberOfDriver +" type", true);
+		}
+	}
+
 	@Then("^Partner Portal name should be displayed in \"([^\"]*)\" section$")
 	public void partner_portal_name_should_be_display_in_something_section(String Screen) throws Throwable {
 		try {

@@ -128,6 +128,9 @@ public class BungiiSteps extends DriverBase {
             case "Melvin Johnson":
                 phone = PropertyUtility.getDataProperties("web.valid.driver106.phone");
                 break;
+            case "Drake Martin":
+                phone = PropertyUtility.getDataProperties("web.valid.driver107.phone");
+                break;
             case "Testdrivertywd_appledc_a_ptner Driverone":
                 phone = PropertyUtility.getDataProperties("web.valid.partner.driver1.phone");
                 break;
@@ -301,6 +304,15 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "Testdrivertywd_appleks_a_drvc Kansas_c":
                 phone = PropertyUtility.getDataProperties("Kansas.driver4.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drve Kansas_e":
+                phone = PropertyUtility.getDataProperties("Kansas.driver7.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvf Kansas_f":
+                phone = PropertyUtility.getDataProperties("Kansas.driver8.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvg Kansas_g":
+                phone = PropertyUtility.getDataProperties("Kansas.driver9.phone");
                 break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
@@ -540,7 +552,8 @@ public class BungiiSteps extends DriverBase {
                     String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
                     String driver2State = DataList.get(i).get("driver2 state").trim();//status like accepted/enroute etc
 
-                    String pickupRequest = (String) cucumberContextManager.getScenarioContext("pickupRequest");
+                    //String pickupRequest = (String) cucumberContextManager.getScenarioContext("pickupRequest");
+                    String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
                     cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
                     cucumberContextManager.setScenarioContext("DRIVER_1", driverAName);

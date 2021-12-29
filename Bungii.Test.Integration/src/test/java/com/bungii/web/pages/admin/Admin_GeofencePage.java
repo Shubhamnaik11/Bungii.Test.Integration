@@ -63,6 +63,7 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Checkbox_Solo() {return  findElement("//label[normalize-space()=\"1 Driver\"][1]/input[@name='attributeValueScheduledNoOfDrivers'][1]",LocatorType.XPath);}
 
     public WebElement Checkbox_Duo() {return  findElement("//label[normalize-space()=\"2 Drivers\"][1]/input[@name='attributeValueScheduledNoOfDrivers'][1]", LocatorType.XPath);}
+    public WebElement Button_Next() {return  findElement("//a/span[text()='Next']", LocatorType.XPath);}
 
     public WebElement Checkbox_OnDemand() {return findElement("//label[normalize-space()=\"1 Driver\"][1]/input[@name='attributeValueOnDemandNoOfDrivers'][1]", LocatorType.XPath);}
 

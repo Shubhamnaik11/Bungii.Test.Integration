@@ -11,6 +11,7 @@ Feature: Admin_Schedule_Delivery_Edit
         | Bungii Time   | Customer Phone | Customer Name |
         | NEXT_POSSIBLE | 9999999200     | Testcustomertywd_appleNewM Customer  |
       And I view the all Scheduled Deliveries list on the admin portal
+      And I wait for "2" mins
       Then I should be able to see the respective bungii with the below status
         |  Status |
         | Searching Drivers |

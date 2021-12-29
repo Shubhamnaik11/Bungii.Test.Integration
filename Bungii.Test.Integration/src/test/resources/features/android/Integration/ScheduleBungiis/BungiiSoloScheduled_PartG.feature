@@ -34,7 +34,7 @@ Feature: SoloScheduled Part G
     When I clear all notification
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drvd Kansas_d" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
     Then I click "ONLINE" button on Home screen on driver app
@@ -99,7 +99,7 @@ Feature: SoloScheduled Part G
     When I clear all notification
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drvd Kansas_d" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
     Then I click "OFFLINE" button on Home screen on driver app

@@ -41,4 +41,9 @@ public class AvailableTripsPage extends PageBase {
     public WebElement Row_SecondAvailable() {return findElements("//*[@resource-id='com.bungii.driver:id/row_available_pickup_imageview_arrow']",LocatorType.XPath).get(1);}
 
     public List<WebElement> Image_SelectBungiis()  {return findElements("com.bungii.driver:id/row_available_pickup_container",LocatorType.Id);}
+
+    public WebElement Partner_Name() { return findElement("//*[@resource-id='com.bungii.driver:id/content_business_partner_tv_partner_name']", LocatorType.XPath);}
+
+    public List<WebElement> Row_CustomerTrips(){return findElements("//*[@resource-id='com.bungii.driver:id/row_available_pickup_imageview_arrow' and @resource-id[not(contains(., 'com.bungii.driver:id/row_available_pickup_iv_pickuptype'))]]",LocatorType.XPath);}
+
 }

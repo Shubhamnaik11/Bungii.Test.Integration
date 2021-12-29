@@ -84,7 +84,7 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
     And I click on "Submit" button
-    Then The "Pick up has been successfully cancelled." message should be displayed
+    Then The "Pick up has been successfully canceled." message should be displayed
     #When I view the Trips list on the admin portal
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
@@ -134,7 +134,7 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
     And I click on "Submit" button
-    Then The "Pick up has been successfully cancelled." message should be displayed
+    Then The "Pick up has been successfully canceled." message should be displayed
     When I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     #And Partner firm should receive "Bungii Delivery Pickup Canceled" email
@@ -202,7 +202,7 @@ Feature: Admin_PartnerFirmTrips
   Scenario: Verify Partner Firm For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999357 | Testcustomertywd_appleWashJ Shah|
+      | NEXT_POSSIBLE | 9999999102 | Testcustomertywd_appleNewQB Customer|
     And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |
@@ -261,7 +261,7 @@ Feature: Admin_PartnerFirmTrips
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
     And I click on "Submit" button
-    Then The "Pick up has been successfully cancelled." message should be displayed
+    Then The "Pick up has been successfully canceled." message should be displayed
     When I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     #And Partner firm should not receive "Bungii Delivery Pickup Canceled" email

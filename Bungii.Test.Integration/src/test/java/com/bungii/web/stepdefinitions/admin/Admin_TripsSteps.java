@@ -431,6 +431,9 @@ public class Admin_TripsSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("XPATH", XPath);
                 testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
             }
+
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Delivery_Portal(),"Delivery Portal column should be shown.","Delivery Portal column is shown.","Delivery Portal Column is not shown.");
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Market(),"Market column should be shown.","Market column is shown.","Market Column is not shown.");
         }
         catch(Exception e)
         {
@@ -620,6 +623,7 @@ public class Admin_TripsSteps extends DriverBase {
           String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/parent::tr", BT, ST, Client);
 
            // action.getElementByXPath(XPath).click();
+            Thread.sleep(5000);
             action.click(SetupManager.getDriver().findElement(By.xpath(XPath)).findElement(By.xpath("td/div/img")));
             action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
 
@@ -2148,7 +2152,11 @@ try{
     @And("^I view the searched delivery$")
     public void i_view_the_searched_delivery() throws Throwable {
         try {
-            action.click(admin_ScheduledTripsPage.Link_Grid_First_Row());
+            //action.click();
+            Thread.sleep(4000);
+            action.click(admin_ScheduledTripsPage.findElement((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr/td/div/img",PageBase.LocatorType.XPath));
+            action.click(admin_ScheduledTripsPage.findElement((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr/td/div/ul/li/p[contains(text(),'View Delivery Details')]",PageBase.LocatorType.XPath));
+            //action.click(admin_ScheduledTripsPage.Link_Grid_First_Row());
             log("I should able to view searched delivery.", "I have viewed the searched delivery", false);
 
         }

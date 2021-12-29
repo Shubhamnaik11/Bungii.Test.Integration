@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
@@ -92,4 +93,16 @@ public class Admin_DriverRejectSteps extends DriverBase {
                     true);
         }
         }
+
+    @And("^Manually end bungii link is removed for live trips$")
+    public void manually_end_bungii_link_is_removed_for_live_trips() throws Throwable {
+        try{
+            testStepAssert.isNotElementDisplayed(admin_TripDetailsPage.findElement("btnEndPickup", PageBase.LocatorType.Id,true), "Manually end bungii link should not be displayed" , "Manually end bungii link is NOT displayed" , "Manually end bungii link is displayed");
+        }
+        catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

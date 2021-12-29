@@ -1373,7 +1373,7 @@ public class CoreServices extends DriverBase {
         return response;
      }
 
-    public String partnerPickupEstimate(String Partner_Portal,String Geofence,String Bungii_Time,String PartnerLocationConfigurationVersionRef,String BusinessPartnerDefaultAddressRef,String BusinessPartnerDefaultAddressConfigVersionID){
+    public String partnerPickupEstimate(String Partner_Portal,String Geofence,String Bungii_Time,String BusinessPartnerDefaultAddressRef,String BusinessPartnerDefaultAddressConfigVersionID){
         String RequestText ="API REQUEST : Partner Estimate Cost(Post) |  : "+ Partner_Portal;
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core",PARTNER_PICKUPESTIMATE);
@@ -1499,7 +1499,7 @@ public class CoreServices extends DriverBase {
             jsonObj.put("DeliveryDateTime", nextAvailableBungii[0]);
             jsonObj.put("EstLoadUnloadTimeInMilliseconds", Load_Unload);
             jsonObj.put("IsScheduledPickup", true);
-            jsonObj.put("PartnerLocationConfigVersion", PartnerLocationConfigurationVersionRef);
+            //jsonObj.put("PartnerLocationConfigVersion", PartnerLocationConfigurationVersionRef);
             jsonObj.put("PickupRequestID",JSONObject.NULL);
             jsonObj.put("ServiceLevelRef", JSONObject.NULL);
             jsonObj.put("NoOfDrivers",No_of_Driver);
@@ -1542,7 +1542,9 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core",PARTNER_DELIVERYINFOMATION);
         String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
         String Partner_Customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        String Partner_Customer_Phone = (String) cucumberContextManager.getScenarioContext("Phone");
+        String Partner_Customer_Phone1 = (String) cucumberContextManager.getScenarioContext("Phone");
+        ArrayList<String> Partner_Customer_Phone = new ArrayList<String>();
+        Partner_Customer_Phone.add(Partner_Customer_Phone1);
 
         JSONObject jsonFiled1 = new JSONObject();
         jsonFiled1.put("FieldRef","f2bd9004-6757-11ea-a4a3-00155d0a8706");

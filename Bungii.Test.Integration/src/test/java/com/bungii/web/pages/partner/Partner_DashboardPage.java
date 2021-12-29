@@ -69,12 +69,17 @@ public class Partner_DashboardPage extends PageBase {
 
     //Today and 4 days
     public WebElement Pickup_Date() { return findElement("//label[contains(text(),'Pickup Date')]/following::div[1]",LocatorType.XPath);}
-    public WebElement Pickup_Date_Today() { return findElement("//li[contains(@class,'MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-selected')]",LocatorType.XPath);}
+/*    public WebElement Pickup_Date_Today() { return findElement("//li[contains(@class,'MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-selected')]",LocatorType.XPath);}
     public WebElement Pickup_date_Today_1() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][1]",LocatorType.XPath);}
     public WebElement Pickup_date_Today_2() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][2]",LocatorType.XPath);}
     public WebElement Pickup_date_Today_3() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][3]",LocatorType.XPath);}
-    public WebElement Pickup_date_Today_4() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][4]",LocatorType.XPath);}
-    public WebElement Pickup_date_Tomorrow() { return findElement("//li[contains(text(),'Tomorrow')]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_4() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][4]",LocatorType.XPath);}*/
+    public WebElement Pickup_Date_Today() { return findElement("//div[contains(text(),'Today')]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_1() { return findElement("//div[contains(text(),'Tomorrow')]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_2() { return findElement("//div[@class='date-container auto-dimensions']/div/div[3]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_3() { return findElement("//div[@class='date-container auto-dimensions']/div/div[4]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_4() { return findElement("//div[@class='date-container auto-dimensions']/div/div[5]",LocatorType.XPath);}
+    public WebElement Pickup_date_Tomorrow() { return findElement("//div[contains(text(),'Tomorrow')]",LocatorType.XPath);}
 
     //Pickup Time dropdown
     public WebElement Dropdown_Pickup_Time(boolean...ignoreException) { return findElement("//div[@class='MuiFormControl-root pickup-time']",LocatorType.XPath,ignoreException);}
@@ -106,7 +111,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Message_Highlighted_Fields() { return findElement("//div[contains(text(),'Please verify the highlighted fields above.')]",LocatorType.XPath);}
 
     //Information Icon What’s needed?
-    public  WebElement Information_Icon_Whats_Needed() { return findElement("//label[contains(text(),'What’s needed?')]/i",LocatorType.XPath);}
+    public  WebElement Information_Icon_Whats_Needed() { return findElement("//label[contains(text(),\"WHAT'S NEEDED\")]/i",LocatorType.XPath);}
 
     //Information Icon Delivery Address
     public  WebElement Information_Icon_Delivery_Address() { return findElement("//label[contains(text(),'Delivery Address')]/i",LocatorType.XPath);}
@@ -171,4 +176,11 @@ public class Partner_DashboardPage extends PageBase {
 
     //Pickup Address in edit
     public WebElement Header_QuotesOnly() { return findElement("//h1[text()='Get Quote']",LocatorType.XPath);}
+
+    //Label 1Pallet
+    public WebElement Label_1Pallet() { return findElement("//label[contains(text(),'1 Pallet')]",LocatorType.XPath);}
+
+    //Label 2Pallets
+    public WebElement Label_2Pallets() { return findElement("//label[contains(text(),'2 Pallets')]",LocatorType.XPath);}
+
 }

@@ -33,7 +33,7 @@ Feature: Admin_Revival
 	And I enter cancellation fee and Comments
 	And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
 	And I click on "Submit" button
-	Then The "Pick up has been successfully cancelled." message should be displayed
+	Then The "Pick up has been successfully canceled." message should be displayed
 	When I view the Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
   
@@ -87,7 +87,9 @@ Feature: Admin_Revival
   
   @regression
 	  #stable
-  Scenario: Verify Admin can Assign driver and admin can manually end bungii in loading item state of the Revived Delivery
+	#Verify Admin can Assign driver and admin can manually end bungii in loading item state of the Revived Delivery
+	#CORE-3257 - Manually end bungii functionality is removed
+	Scenario: Verify Admin can Assign driver to the Revived Delivery and Manually End Bungii link is Removed
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999226     | Testcustomertywd_appleNewMM Customer|
@@ -129,16 +131,23 @@ Feature: Admin_Revival
 	  | Loading Items |
 	When I view the delivery details
 	Then the Bungii details is displayed successfully
-	And I click on "Manually End Bungii" link
-	And Enter the End Date and Time
-	And Click on "Calculate Cost" button
-	Then the amount is calculated and shown to admin
-	And Click on "Confirm" button
-	And I wait for 2 minutes
-	And I view the Deliveries list on the admin portal
-	Then The Delivery List page should display the delivery in "Payment Successful" state
-	
-  @regression
+	And Manually end bungii link is removed for live trips
+#	And I click on "Manually End Bungii" link
+#	And Enter the End Date and Time
+#	And Click on "Calculate Cost" button
+#	Then the amount is calculated and shown to admin
+#	And Click on "Confirm" button
+#	And I wait for 2 minutes
+#	And I view the Deliveries list on the admin portal
+#	Then The Delivery List page should display the delivery in "Payment Successful" state
+	And As a driver "Testdrivertywd_appledc_a_drvt Driver" perform below action with respective "Solo Scheduled" Delivery
+	| driver1 state|
+	| Driving To Dropoff |
+	| Unloading Item |
+  	|Bungii Completed |
+
+
+	@regression
   Scenario: Verify Revived button is displayed against the Driver canceled Revived Delivery
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |

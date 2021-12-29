@@ -621,3 +621,71 @@ Feature: Partner Integration with Admin and Driver
     Then Admin should receive the "Partner Delivery Canceled!" email
       #And I close the Trip Delivery Details page
       #And I should logout from Partner Portal
+
+  @ready
+  Scenario: Verify that the portal's customer can open the link to provide driver rating for solo delivery.
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | 9999999228 | Testcustomertywd_appleNewMO Customer|
+    And As a driver "Testdrivertywd_appleks_a_drve Kansas_e" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted      |
+      | enroute       |
+      |Arrived         |
+      |Loading Item     |
+      |Driving To Dropoff |
+      |Unloading Item    |
+      |Bungii Completed  |
+    And I open the link to provide driver rating
+    Then I check details on link page open for driver rating
+    Then I change the rating to "1" stars for "Driver1"
+    Then I change the rating to "2" stars for "Driver1"
+    Then I change the rating to "3" stars for "Driver1"
+    Then I change the rating to "4" stars for "Driver1"
+    And I click on "Submit" button on Driver Rating Page
+    Then I should "see Ratings submitted successfully message"
+    Then Submitted driver ratings are saved in the database
+
+  @ready
+  Scenario: Verify that the portal's customer can open the link to provide driver rating for duo delivery.
+    When I request Partner Portal "Duo" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas  | NEXT_POSSIBLE | 9999999229     | Testcustomertywd_appleNewMP Customer|
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+      | Enroute       | Enroute       |
+      |Arrived         |Arrived         |
+      |Loading Item     |Loading Item     |
+      |Driving To Dropoff |Driving To Dropoff |
+      |Unloading Item    |Unloading Item    |
+      |Bungii Completed  |Bungii Completed  |
+    And I open the link to provide driver rating
+    Then I check details on link page open for driver rating
+    Then I change the rating to "3" stars for "Driver1"
+    Then I change the rating to "4" stars for "Driver2"
+    And I click on "Submit" button on Driver Rating Page
+    Then I should "see Ratings submitted successfully message"
+    Then Submitted driver ratings are saved in the database
+
+    @ready
+  Scenario: Verify that the portal's customer can provide driver rating for delivery only once.
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas  | NEXT_POSSIBLE | 9999999228     | Testcustomertywd_appleNewMO Customer|
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted      |
+      | enroute       |
+      |Arrived         |
+      |Loading Item     |
+      |Driving To Dropoff |
+      |Unloading item    |
+      |Bungii Completed  |
+    And I open the link to provide driver rating
+    Then I check details on link page open for driver rating
+    Then I change the rating to "3" stars for "Driver1"
+    And I click on "Submit" button on Driver Rating Page
+    Then I should "see Ratings submitted successfully message"
+    And I open the link to provide driver rating
+    Then I check that rating stars are not shown on driver rating page once the ratings are submitted for the delivery
