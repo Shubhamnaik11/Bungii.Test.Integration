@@ -31,15 +31,23 @@ Feature: SoloScheduled Part C
   @regression
     #stable
   Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled delivery start time
-    When that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time  |
-      | Kansas   | Accepted     | 1 hour ahead |
-    When I Open "driver" application on "same" devices
-    And I wait for "3" mins
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                        | Customer Password |
+      | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer | cci12345          |
+    And I get TELET time of of the current trip
+    And As a driver "Testdrivertywd_appleks_a_drvh Kansas_h" perform below action with respective "SOLO SCHEDULED" trip
+      | driver1 state |
+      | Accepted      |
+
+    Given I login as customer "9999999103" and is on Home Page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drvh Kansas_h" driver
     And I wait for "4" mins
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I wait for "3" mins
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I wait for "4" mins
     And I Select Trip from driver scheduled trip
@@ -48,7 +56,7 @@ Feature: SoloScheduled Part C
     Then Bungii driver should see "Enroute screen"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8888889916     |                 |
+      | 9999999103     |                 |
   
   @regression
     #stable
