@@ -51,4 +51,7 @@ public class BungiiRequest extends PageBase {
     public WebElement Button_CancelBungii() { return findElement("com.bungii.driver:id/scheduled_bungii_details_tv_cancel_bungii", LocatorType.Id);}
 
     public WebElement Text_CustomerNote(){return findElement("//androidx.recyclerview.widget.RecyclerView/following::android.widget.TextView[2]", LocatorType.XPath);}
+
+    public WebElement Alert_Msg_Stay_Online() { return findElement("com.bungii.driver:id/appCompatTextView21", LocatorType.Id); }
+    public WebElement Button_Stay_Online() { return findElement("com.bungii.driver:id/btnStayOnline_alert_dialog_controller", LocatorType.Id); }
 }
