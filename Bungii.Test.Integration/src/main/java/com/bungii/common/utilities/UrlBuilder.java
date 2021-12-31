@@ -14,9 +14,25 @@ public class UrlBuilder {
                     baseUrl = PropertyUtility.getDataProperties("CORE_URL");
                     basePort = PropertyUtility.getDataProperties("CORE_PORT");
                     break;
-                case "auth":
+/*                case "auth":
                     baseUrl = PropertyUtility.getDataProperties("AUTH_URL");
                     basePort = PropertyUtility.getDataProperties("AUTH_PORT");
+                    break;*/
+                case "cust_auth":
+                    baseUrl = PropertyUtility.getDataProperties("CUST_AUTH_URL");
+                    basePort = PropertyUtility.getDataProperties("CUST_AUTH_PORT");
+                    break;
+                case "driver_auth":
+                    baseUrl = PropertyUtility.getDataProperties("DRIVER_AUTH_URL");
+                    basePort = PropertyUtility.getDataProperties("DRIVER_AUTH_PORT");
+                    break;
+                case "admin_auth":
+                    baseUrl = PropertyUtility.getDataProperties("ADMIN_AUTH_URL");
+                    basePort = PropertyUtility.getDataProperties("ADMIN_AUTH_PORT");
+                    break;
+                case "partner_auth":
+                    baseUrl = PropertyUtility.getDataProperties("PARTNER_AUTH_URL");
+                    basePort = PropertyUtility.getDataProperties("PARTNER_AUTH_PORT");
                     break;
                 case "infra":
                     baseUrl = PropertyUtility.getDataProperties("INFRA_URL");
