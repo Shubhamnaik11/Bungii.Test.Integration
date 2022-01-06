@@ -35,7 +35,7 @@ public class AuthServices extends DriverBase {
             data.put("PhoneCountryCode", custPhoneCode);
             data.put("Password", custPassword);
             data.put("PhoneNo", custPhoneNum);
-            String loginURL = UrlBuilder.createApiUrl("auth", CUST_LOGIN_ENDPOINT);
+            String loginURL = UrlBuilder.createApiUrl("cust_auth", CUST_LOGIN_ENDPOINT);
             Response response = ApiHelper.postDetailsForCustomer(loginURL, data);
             ApiHelper.genericResponseValidation(response,RequestText);
         return response;
@@ -56,7 +56,7 @@ public class AuthServices extends DriverBase {
             data.put("PhoneCountryCode", driverPhoneCode);
             data.put("Password", driverPassword);
             data.put("PhoneNo", driverPhoneNum);
-            String loginURL = UrlBuilder.createApiUrl("auth", DRIVER_LOGIN_ENDPOINT);
+            String loginURL = UrlBuilder.createApiUrl("driver_auth", DRIVER_LOGIN_ENDPOINT);
             Response response= ApiHelper.postDetailsForDriver(loginURL, data);
             ApiHelper.genericResponseValidation(response, RequestText);
         return response;
@@ -73,7 +73,7 @@ public class AuthServices extends DriverBase {
     public String partnerLogin(String Partner_Portal){
         String RequestText ="API REQUEST : Partner Login(Post) |  : "+ Partner_Portal;
         String apiURL = null;
-        apiURL = UrlBuilder.createApiUrl("auth",BUSINESSPARTNER_LOGIN);
+        apiURL = UrlBuilder.createApiUrl("partner_auth",BUSINESSPARTNER_LOGIN);
         String Partner_Location_Reference = "";
         String partnerURL = "";
         cucumberContextManager.setScenarioContext("Partner_Portal_Name",Partner_Portal);
