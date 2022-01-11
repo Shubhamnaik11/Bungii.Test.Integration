@@ -19,6 +19,8 @@ import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.AnyOf.anyOf;
 
 
 public class ApiHelper {
@@ -377,7 +379,7 @@ public class ApiHelper {
         {   logger.detail(RequestText + " | Response - Failure ");
             logger.detail(response.then().log().body());
         }
-            response.then().statusCode(200);
+            response.then().statusCode(anyOf(is(200),is(201))); // 201 added due to auth service changes
         }
         catch (JsonPathException ex) {
             logger.error("Lexical error in JSON response " + response.then().log().body() +" for request "+RequestText);
@@ -403,5 +405,4 @@ public class ApiHelper {
         }
 
     }
-
 }
