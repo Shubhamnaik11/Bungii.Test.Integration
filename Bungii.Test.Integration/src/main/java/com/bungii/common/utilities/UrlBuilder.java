@@ -14,10 +14,10 @@ public class UrlBuilder {
                     baseUrl = PropertyUtility.getDataProperties("CORE_URL");
                     basePort = PropertyUtility.getDataProperties("CORE_PORT");
                     break;
-/*                case "auth":
+                case "auth":
                     baseUrl = PropertyUtility.getDataProperties("AUTH_URL");
                     basePort = PropertyUtility.getDataProperties("AUTH_PORT");
-                    break;*/
+                    break;
                 case "cust_auth":
                     baseUrl = PropertyUtility.getDataProperties("CUST_AUTH_URL");
                     basePort = PropertyUtility.getDataProperties("CUST_AUTH_PORT");
