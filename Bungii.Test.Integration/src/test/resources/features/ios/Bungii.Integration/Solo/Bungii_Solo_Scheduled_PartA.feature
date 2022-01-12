@@ -255,6 +255,7 @@ Feature: Solo Scheduled Bungii Part A
 
   @regression
     #stable
+    @authfailure
   Scenario: Verify Customer Can Cancel Solo Scheduled Bungii Also Verify Trip Details In Bungii Details
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -288,6 +289,7 @@ Feature: Solo Scheduled Bungii Part A
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @regression
+    @authfailure
   Scenario: Verify Status Of Scheduled Solo Bungii Trip In Drivers Scheduled Bungiis Menu Screen When Required Number Of Drivers Have Not Accepted It
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |

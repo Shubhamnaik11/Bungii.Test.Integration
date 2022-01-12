@@ -69,6 +69,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     
 
   @regression
+    @authfailure
   Scenario: Verify Trip information/Bungii completed page For Ongoing Ondemand Bungii
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -250,6 +251,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   #this scenario is move to knownissue from regression due to SSL error while adding the Credit card.
   #@regression
     @regression
+      @authfailure
   Scenario Outline: Verify Sign up of Customer With Referral Code
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
@@ -285,6 +287,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
   
   @regression
+    @authfailure
   Scenario: Verify Call View Item Details For Ongoing Ondemand Bungii
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |

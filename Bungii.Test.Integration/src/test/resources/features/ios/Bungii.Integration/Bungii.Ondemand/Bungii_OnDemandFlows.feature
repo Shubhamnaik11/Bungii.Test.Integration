@@ -60,6 +60,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   
   @regression
     #Stable
+    @authfailure
   Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -130,6 +131,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
 
   @regression
+    @authfailure
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal

@@ -11,6 +11,7 @@ Feature: Promocode_Manually_End_Bungii
 	
 @regression
 #stable
+	@authfailure
 Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually Ending Bungii
 When I Switch to "customer" application on "same" devices
 And I am on the "LOG IN" page

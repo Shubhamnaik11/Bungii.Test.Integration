@@ -20,6 +20,7 @@ Feature: Customer Estimate screen
     
   @regression
     #stable
+    @authfailure
   Scenario: Verify If Customer Cancels Ondemand Bungii While It Is In Searching driver State Then He Is Navigated To Home Screen - Also Pickup And Dropoff Location Of Previous Trip Is Not Reset
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -36,6 +37,7 @@ Feature: Customer Estimate screen
   
   
   @regression
+    @authfailure
   Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details Remains Unchanged
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
