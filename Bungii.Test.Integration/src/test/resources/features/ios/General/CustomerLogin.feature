@@ -7,7 +7,7 @@ Feature: Customer Login
     And I accept Alert message if exist
 
   @regression
-  Scenario Outline: Verify Customer Cannot Login To Application Using Invalid Details - Scenario:<Scenario>
+  Scenario Outline: Verify Customer Cannot Login To Application Using <Scenario>
     When I enter Username :<Username> and  Password :<Password>
     And I click "Log In" button on "Log In" screen
     Then Alert message with <Expected Message> text should be displayed

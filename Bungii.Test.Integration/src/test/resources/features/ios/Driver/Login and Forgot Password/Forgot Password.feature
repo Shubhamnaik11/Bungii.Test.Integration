@@ -8,11 +8,9 @@ Feature: FORGOT PASSWORD
   Background:
     Given I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    
-  @FAILED2702
 
   @regression
-  Scenario Outline: Verify Driver Is Alerted If Invalid Phone Number Is Added During Forgot Password Functionality - Scenario:<Scenario>
+  Scenario Outline: Verify Driver Is Alerted If <Scenario> Is Added During Forgot Password Functionality
     When I click "Forgot Password" button on "LOG IN" screen on driverApp
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page on driverApp
     And I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page on driverApp
@@ -25,7 +23,7 @@ Feature: FORGOT PASSWORD
       | Invalid Phone Number      | 212121212121 | FAILED TO SEND TOKEN |
 
   @regression
-  Scenario Outline: Verify Driver Is Alerted If Enters Invalid Password Or Sms Code During Forgot Password Functionality - Scenario:<Scenario>
+  Scenario Outline: Verify Driver Is Alerted If Enters <Scenario> During Forgot Password Functionality
     When I click "Forgot Password" button on "LOG IN" screen on driverApp
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page on driverApp
     And I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page on driverApp
