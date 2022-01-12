@@ -31,7 +31,7 @@ Feature: Solo Scheduled Bungii - TELET
  
 
   @regression
-  @failures
+  @authfailure
   Scenario: Verify Customer Is Not Allowed To Request Bungii If TELET Time Of The New Bungii Overlaps With Already Scheduled Bungii
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -180,6 +180,7 @@ Feature: Solo Scheduled Bungii - TELET
        #its scheduled time not initial request time
   @regression
     #stable
+    @authfailure
   Scenario: Verify TELET Is Calculated Correctly [Initial Request Time+Estimated Duration*1.5+30Minutes] For Solo Scheduled Delivery
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
