@@ -258,7 +258,7 @@ public class CommonStepsDriver extends DriverBase {
                     break;
             }
             String alertText = SetupManager.getDriver().switchTo().alert().getText();
-            testStepVerify.isEquals(alertText, expectedText);
+            testStepAssert.isEquals(alertText, expectedText,alertText+" should be displayed",alertText+" is displayed", alertText+" is displayed instead of "+expectedText );
             SetupManager.getDriver().switchTo().alert().accept();
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -268,10 +268,12 @@ public class CommonStepsDriver extends DriverBase {
 
     @Then("^Alert message with (.+) text should be displayed on driverApp$")
     public void alert_message_with_text_should_be_displayed_driverApp(String message) {
+        String actualMessage ="";
+        String expectedMessage="";;
         try {
             action.waitForAlert();
-            String actualMessage = action.getAlertMessage();
-            String expectedMessage;
+            actualMessage = action.getAlertMessage();
+
             switch (message.toUpperCase()) {
                 case "INVALID_PASSWORD":
                     expectedMessage = PropertyUtility.getMessage("driver.error.invalidpassword");
@@ -294,16 +296,18 @@ public class CommonStepsDriver extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-            testStepAssert.isEquals(actualMessage, expectedMessage,
-                    "Alert : " + expectedMessage + " should be displayed",
-                    "Alert : " + actualMessage + " is displayed",
-                    "Alert is not displayed | Actual Message " + actualMessage + " Expected is "
-                            + expectedMessage);
+
         } catch (Throwable e) {
             logger.error("Invalid Password Alert Not Displayed", ExceptionUtils.getStackTrace(e));
             fail("Step should be successful",
                     "Expected Alert Not Displayed", true);
         }
+
+        testStepAssert.isEquals(actualMessage, expectedMessage,
+                "Alert : " + expectedMessage + " should be displayed",
+                "Alert : " + actualMessage + " is displayed",
+                "Actual Message is displayed " + actualMessage + " instead of "
+                        + expectedMessage);
     }
 
     @And("^I accept Alert message on driverApp$")

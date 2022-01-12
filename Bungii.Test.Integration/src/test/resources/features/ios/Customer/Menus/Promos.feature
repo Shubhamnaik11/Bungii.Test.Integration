@@ -9,7 +9,7 @@ Feature: Promos
   
   @regression
     #stable
-  Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching Trip Having Promocode Applied To It
+  Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching
     And I Switch to "customer" application on "ORIGINAL" devices
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
@@ -23,7 +23,7 @@ Feature: Promos
     
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE  | Default     |
+      | 30       |           |              | NEXT_SECOND_POSSIBLE  | Default     |
     And I click "PROMO CODE LINE" button on "Estimate" screen
     #  And I Enter "PROMOCODE" value in "Promo Code" field in "Promo" Page
     And I add "PROMO PERCENT OFF" PromoCode
@@ -39,6 +39,7 @@ Feature: Promos
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen

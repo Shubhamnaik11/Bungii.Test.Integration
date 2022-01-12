@@ -478,6 +478,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "REQUEST YOUR CITY":
                     action.click(homePage.Text_OutOfOffice_RequestCity());
+                    Thread.sleep(5000);
                     break;
                 case "SHARE ON FACEBOOK":
                 case "SHARE ON TWITTER":
@@ -1202,8 +1203,8 @@ public class CommonSteps extends DriverBase {
             }
             testStepAssert.isEquals(actualMessage, expectedMessage,
                     "Alert with text" + expectedMessage + "should be displayed",
-                    "Alert with text ," + expectedMessage + " should be displayed",
-                    "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
+                    "Alert with text ," + expectedMessage + " is displayed",
+                    "Actual Message is displayed " + actualMessage + " instead of  "
                             + expectedMessage);
 
     }
@@ -2269,7 +2270,8 @@ public class CommonSteps extends DriverBase {
                     break;
             }
             String alertText = SetupManager.getDriver().switchTo().alert().getText();
-            testStepVerify.isEquals(alertText, expectedText);
+           // testStepVerify.isEquals(alertText, expectedText);
+            testStepAssert.isEquals(alertText, expectedText,alertText+" should be displayed",alertText+" is displayed", alertText+" is displayed instead of "+expectedText );
             SetupManager.getDriver().switchTo().alert().accept();
             Thread.sleep(1000);
         } catch (Exception e) {
