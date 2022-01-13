@@ -317,17 +317,32 @@
                         <goals>
                             <goal>java</goal>
                         </goals>
+                    <configuration>
+                        <mainClass>com.bungii.common.utilities.GenerateSummaryReport</mainClass>
+                        <arguments>
+                            <argument>${ResultFolder}</argument>
+                            <argument>${test.Platform}</argument>
+                            <argument>${test.Category}</argument>
+                            <argument>${test.Environment}</argument>
+                        </arguments>
+                    </configuration>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.bungii.runner.ReRunFailedSuite</mainClass>
+                            <arguments>
+                                <argument>${ResultFolder}</argument>
+                                <argument>${test.Platform}</argument>
+                                <argument>${test.Category}</argument>
+                                <argument>${test.Environment}</argument>
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <mainClass>com.bungii.common.utilities.GenerateSummaryReport</mainClass>
-                    <arguments>
-                        <argument>${ResultFolder}</argument>
-                        <argument>${test.Platform}</argument>
-                        <argument>${test.Category}</argument>
-                        <argument>${test.Environment}</argument>
-                    </arguments>
-                </configuration>
+
             </plugin>
         </plugins>
     </build>

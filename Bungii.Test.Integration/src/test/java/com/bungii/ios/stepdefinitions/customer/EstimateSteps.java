@@ -983,8 +983,8 @@ public class EstimateSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful",
-                    "Error in verifying elements on estimate screen", true);
+            error("Step Should be successful",
+                    "Error in verifying values of fields on estimate screen", true);
         }
     }
 
@@ -1152,9 +1152,11 @@ public class EstimateSteps extends DriverBase {
                 if(displayedTime.contains("a.m.")||displayedTime.contains("p.m.")) {
                     strTime = strTime.replace("am", "a.m.").replace("pm", "p.m.").replace("AM", "a.m.").replace("PM", "p.m.");
                 }
-                if(strTime.contains("GMT")||strTime.contains("CDT")||strTime.contains("CST"))
-                strTime = utility.getGmtTime(strTime);
-                testStepAssert.isEquals(displayedTime, strTime,strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
+                String TstrTime = strTime;
+                if(strTime.contains("GMT")||strTime.contains("CDT")||strTime.contains("CST")) {
+                    strTime = utility.getGmtTime(strTime);
+                }
+                testStepAssert.isTrue(displayedTime.equals(strTime) || displayedTime.equals(TstrTime) ,strTime+" OR "+TstrTime+" should be displayed",strTime+" OR "+TstrTime+" is displayed", strTime+" OR "+TstrTime+" is not displayed instead "+ displayedTime +" is displayed");
             }
             else
 

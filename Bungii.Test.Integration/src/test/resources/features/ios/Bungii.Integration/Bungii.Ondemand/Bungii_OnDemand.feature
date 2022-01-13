@@ -287,7 +287,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
   
   @regression
-    @authfailure
+  #stable
   Scenario: Verify Call View Item Details For Ongoing Ondemand Bungii
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |

@@ -36,8 +36,8 @@ Feature: Customer Estimate screen
   
   
   @regression
-    @authfailure
-  Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details Remains Unchanged
+  #stable
+  Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details are retained
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
