@@ -67,6 +67,7 @@ public class EstimateSteps extends DriverBase {
             if (saveDetails) {
                 details = getEstimateDetails();
                 isCorrectTime = details[1].equals(strTime);
+                logger.detail("Expected Time is :"+strTime +" ||| Actual time is :"+details[1]);
             } else {
                 actualTime = action.getValueAttribute(estimatePage.Text_TimeValue());
                 isCorrectTime = actualTime.equals(strTime);
@@ -82,6 +83,7 @@ public class EstimateSteps extends DriverBase {
 
             // SAVE required values in scenario context
             cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+            //cucumberContextManager.setScenarioContext("BUNGII_TIME", details[1]);
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", details[0]);
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", details[2]);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
@@ -328,10 +330,24 @@ public class EstimateSteps extends DriverBase {
     public String enterTime(String time) throws ParseException, InterruptedException {
         String strTime = "";
         if (time.equalsIgnoreCase("NOW")) {
-            //    selectBungiiTimeNow();
+             //   selectBungiiTimeNow();
             strTime = "Now";
         } else if (time.equalsIgnoreCase("NEXT_POSSIBLE")) {
             Date date = getNextScheduledBungiiTimeForGeofence();
+            /*
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            //int mnts = calendar.get(Calendar.MINUTE);
+
+            //calendar.set(Calendar.MINUTE, mnts - 30);
+            int unroundedMinutes = calendar.get(Calendar.MINUTE);
+            int mod = unroundedMinutes % 15;
+            calendar.add(Calendar.MINUTE, (15 - mod));
+            calendar.set(Calendar.SECOND, 0);
+
+            Date nextQuatter = calendar.getTime();
+
+             */
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
             Thread.sleep(3000);
@@ -354,6 +370,39 @@ public class EstimateSteps extends DriverBase {
             }
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
+        }
+        else if (time.equalsIgnoreCase("30_MIN_AHEAD")) {
+            Date date = getNextScheduledBungiiTimeForGeofence();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            //int mnts = calendar.get(Calendar.MINUTE);
+
+            //calendar.set(Calendar.MINUTE, mnts - 30);
+            int unroundedMinutes = calendar.get(Calendar.MINUTE);
+            int mod = unroundedMinutes % 15;
+            calendar.add(Calendar.MINUTE, (30 - mod));
+            calendar.set(Calendar.SECOND, 0);
+
+            Date nextQuatter = calendar.getTime();
+
+            String[] dateScroll = bungiiTimeForScroll(nextQuatter);
+            strTime = bungiiTimeDisplayInTextArea(nextQuatter);
+            Thread.sleep(3000);
+            action.click(estimatePage.Row_TimeSelect());
+            Thread.sleep(6000);
+            if(!action.isElementPresent(estimatePage.Button_Set(true))) {
+                action.click(estimatePage.Row2_TimeSelect()); //Retry to select time - workaround for duo cases
+            }
+            //Thread.sleep(6000);
+            //if(!action.isElementPresent(estimatePage.Button_Set(true))) {
+                //action.click(estimatePage.Row2_TimeSelect()); //Retry to select time - workaround for duo cases
+            //}
+              //selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
+            //action.click(estimatePage.Row_TimeSelect());
+            action.dateTimePicker(estimatePage.DatePicker_BungiiTime, estimatePage.DateWheel_BungiiTime, 0, dateScroll[1], dateScroll[2], dateScroll[3]);
+            //  action.click(estimatePage.Row_TimeSelect());
+            action.click(estimatePage.Button_Set());
+            //action.click(estimatePage.Button_Set());
         }
         else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
             Date date = getNextScheduledBungiiTimeForGeofence();
@@ -703,7 +752,7 @@ public class EstimateSteps extends DriverBase {
         String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
         int nextTripTime=0;
         cucumberContextManager.getScenarioContext("MIN_TIME_DUO");
-        cucumberContextManager.getScenarioContext("MIN_TIME_SOLO");
+        String aa= (String) cucumberContextManager.getScenarioContext("MIN_TIME_SOLO");
         String bungiiType= (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
         if(bungiiType.equalsIgnoreCase("solo")) {
              nextTripTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("MIN_TIME_SOLO"));

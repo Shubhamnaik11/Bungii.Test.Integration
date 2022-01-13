@@ -183,7 +183,7 @@ Feature: Solo Scheduled Bungii Part A
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE | Default     |
+      | 30       |           |              | 30_MIN_AHEAD | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
     Then I Select "Home" from Customer App menu
