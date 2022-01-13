@@ -39,7 +39,7 @@ And I tap "Back" on Promos screen
 
 When I enter following details on "Estimate" screen
 | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-|          |           |              | NEXT_POSSIBLE | Default     |
+|          |           |              | NEXT_SECOND_POSSIBLE | Default     |
 
 And I should be navigated to "Estimate" screen
 Then I save bungii trip time details
