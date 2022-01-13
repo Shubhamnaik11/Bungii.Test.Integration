@@ -1,13 +1,12 @@
 @ios
 @bungii
-
 Feature: OndemandBungiis
   Background:
 	#When I Switch to "customer" application on "same" devices
  
 @sanity
 @regression
-  @authfailure
+#stable
 Scenario: Verify Ondemand Bungii completion As An iOS User
 When I Switch to "driver" application on "same" devices
 And I login as "valid nashville" driver on "same" device and make driver status as "Online"
