@@ -180,8 +180,7 @@ Feature: Solo Scheduled Bungii - TELET
        #its scheduled time not initial request time
   @regression
     #stable
-    @authfailure
-  Scenario: Verify TELET Is Calculated Correctly [Initial Request Time+Estimated Duration*1.5+30Minutes] For Solo Scheduled Delivery
+  Scenario: Verify TELET Is Calculated Correctly [InitialRequestTime+EstimatedDuration*1.5+30Mins] For Solo Scheduled Delivery
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
