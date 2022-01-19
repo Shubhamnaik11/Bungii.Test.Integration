@@ -223,6 +223,7 @@ Feature: Admin_Trips
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for "2" mins
 	And I view All Deliveries list on the admin portal
     And I search the delivery of Customer
     Then The Delivery List page should display the delivery in "Admin Canceled" state
@@ -234,7 +235,7 @@ Feature: Admin_Trips
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     When I change filter to "The Past 3 Months" on All deliveries
     Then The Delivery List page should display the delivery in "Admin Canceled" state
-    When I change filter to "The Beginning Of Time" on All deliveries
+    When I change filter to "The Beginning of Time" on All deliveries
     Then The Delivery List page should display the delivery in "Admin Canceled" state
   
   @sanity
