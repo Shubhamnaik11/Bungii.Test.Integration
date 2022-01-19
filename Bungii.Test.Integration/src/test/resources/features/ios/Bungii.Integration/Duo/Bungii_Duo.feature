@@ -82,13 +82,15 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "UNLOADING ITEM" Screen
+    #When I Switch to "driver" application on "Driver2" devices
+    #And I slide update button on "UNLOADING ITEM" Screen
     #Then I accept Alert message for "Reminder: both driver at drop off"
 
     And I Switch to "customer" application on "ORIGINAL" devices
