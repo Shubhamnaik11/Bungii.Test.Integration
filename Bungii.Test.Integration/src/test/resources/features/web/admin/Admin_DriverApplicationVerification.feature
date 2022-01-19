@@ -108,8 +108,8 @@ Feature: Admin_DriverApplicationVerification
     When I verify and reject the invalid verification fields
     Then the "Approve Application" button is not visible
   
-  @ready
-    #test data created in base
+  @knownissue
+    #test data created in base. driver is having sneha email
   Scenario: Verify Driver Application Resend Application - NonFountain
     When I click "Verify" button against the "James KbpK" applicant
     Then I should be directed to "Driver Verification Page"
