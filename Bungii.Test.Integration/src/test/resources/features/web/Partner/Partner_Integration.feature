@@ -319,8 +319,9 @@ Feature: Partner Integration with Admin and Driver
       | Canceled       |
 
   @ready
+    #CORE-3257 - Manually end bungii functionality is removed
     #Failed in Sprint 49
-  Scenario: Verify Cancelling Partner Portal Solo Scheduled trip manually by Admin
+  Scenario: Verify that Admin is not allow to Cancelling Partner Portal Solo Scheduled trip as manually end link is removed
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
@@ -362,19 +363,31 @@ Feature: Partner Integration with Admin and Driver
       | Partner_Status |
       | In-Progress    |
     And I view the Live Deliveries list on the admin portal
-    #And I click on Partner Portal Bungii delivery
+    ##And I click on Partner Portal Bungii delivery
     And I open the live delivery details in admin portal
-    And I click on "Manually End Bungii" link
-    And Enter the End Date and Time
-    And Click on "Calculate Cost" button
-    Then the amount is calculated and shown to admin
-    And Click on "Confirm" button
-    And I view the Deliveries list on the admin portal
-    #Then The Delivery List page should display the delivery in "Payment Successful" state
-    Then I should be able to see the respective partner portal trip with "Payment Successful" state
-    And I navigate to partner portal and view the Trip status with below status
-      | Partner_Status |
-      | Completed      |
+    And Manually end bungii link is removed for live trips
+    And I navigate to partner portal
+    And I select the Scheduled Bungii from Delivery List
+    Then I should "see the trip details"
+    And I click "Cancel Delivery link" button on Partner Portal
+    Then I should "see the cancel delivery warning message"
+    And I click "Cancel Delivery" button on Partner Portal
+    Then I should "see Delivery cancellation failed message"
+    And I click "OK on Delivery Cancellation Failed" button on Partner Portal
+    And I close the Trip Delivery Details page
+    And I should logout from Partner Portal
+
+    #And I click on "Manually End Bungii" link
+    #And Enter the End Date and Time
+    #And Click on "Calculate Cost" button
+    #Then the amount is calculated and shown to admin
+    #And Click on "Confirm" button
+    #And I view the Deliveries list on the admin portal
+    ##Then The Delivery List page should display the delivery in "Payment Successful" state
+    #Then I should be able to see the respective partner portal trip with "Payment Successful" state
+    #And I navigate to partner portal and view the Trip status with below status
+    #  | Partner_Status |
+    #  | Completed      |
   
   
   @ready
