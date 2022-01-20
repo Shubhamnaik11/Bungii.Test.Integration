@@ -88,6 +88,9 @@ public class LoginSteps extends DriverBase {
                 case "blank":
                     action.sendKeys(loginPage.TextField_Password(), "");
                     break;
+                case "generic":
+                    action.sendKeys(loginPage.TextField_Password(), PropertyUtility.getDataProperties("customer_generic2.password"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
