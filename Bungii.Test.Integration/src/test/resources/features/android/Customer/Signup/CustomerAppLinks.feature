@@ -5,7 +5,7 @@ Feature: CustomerApplicationLinks
   Background:
     When I tap on the "Log in" button on Signup Page
     And I enter customers "9999999104" Phone Number
-    And I enter customers "valid" Password
+    And I enter customers "generic" Password
     And I tap on the "Log in" Button on Login screen
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
@@ -24,7 +24,7 @@ Feature: CustomerApplicationLinks
     #When I tap on "Menu" > "Logout" link
     When I tap on the "ACCOUNT>LOGOUT" link
     And I enter customers "9999999104" Phone Number
-    And I enter customers "valid" Password
+    And I enter customers "generic" Password
     And I tap on the "Log in" Button on Login screen
     And I verify that the tutorial is displayed only once
 
