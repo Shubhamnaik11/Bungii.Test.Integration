@@ -398,7 +398,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name                             |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Testcustomertywd Apple New QD Customer      |9999999104     |Test Pickup        |9999999359          |
+      |Furniture       |Testcustomertywd Apple New QE Customer      |9999999105     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
