@@ -147,18 +147,18 @@ Feature: Scheduled Bungii on one device
   @regression
     #stable
   Scenario: Verify Scheduled Duo Bungii can be accepted by drivers and they are shown under displayed under Scheduled List upon accepting [1 Device]
-	Given I Switch to "driver" application on "same" devices
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | Requested     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
+    When I Switch to "driver" application on "same" devices
 	And I am on the "LOG IN" page on driverApp
 	And I am logged in as "valid duo driver 1" driver
 	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	
-	And that duo schedule bungii is in progress
-	  | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-	  | goa      | Requested     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
-	
-	Given I Switch to "driver" application on "same" devices
-	And I am on the "LOG IN" page on driverApp
-	And I am logged in as "valid duo driver 1" driver
+    And I click "Offline" button on "Home" screen on driverApp
+	#Given I Switch to "driver" application on "same" devices
+    #And I am on the "Home" page on driverApp
+	#And I am on the "LOG IN" page on driverApp
+	#And I am logged in as "valid duo driver 1" driver
 	
 	And I Select "AVAILABLE BUNGIIS" from driver App menu
 	And I Select Trip from available trip
@@ -176,6 +176,7 @@ Feature: Scheduled Bungii on one device
 	
 	And I Select "AVAILABLE BUNGIIS" from driver App menu
 	And I Select Trip from available trip
+    Then I should be navigated to "BUNGII DETAILS" screen
 	Then Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
 	When I accept selected Bungii
 	

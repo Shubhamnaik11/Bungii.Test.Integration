@@ -397,8 +397,8 @@ Feature: Partner Integration with Admin and Driver
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
-      |Items_To_Deliver|Customer_Name      |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Testpartner H      |9998881111     |Test Pickup        |9999999359          |
+      |Items_To_Deliver|Customer_Name                             |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+      |Furniture       |Testcustomertywd Apple New QE Customer      |9999999105     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -410,7 +410,7 @@ Feature: Partner Integration with Admin and Driver
     #When I navigate to "Bungii Admin Portal in new tab" URL
     When I navigate to "Admin" portal configured for "QA" URL
     And I view the partner portal Scheduled Trips list on the admin portal
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_drvj WashingtonDC_j" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted |
     And I view the partner portal Scheduled Trips list on the admin portal
@@ -419,7 +419,7 @@ Feature: Partner Integration with Admin and Driver
       | Scheduled |
     And I select the partner portal scheduled trip on scheduled delivery
     Then I view the correct Driver Est. Earnings for geofence based pricing model
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_drvj WashingtonDC_j" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Enroute |
     And I view the Live Deliveries list on the admin portal
@@ -428,7 +428,7 @@ Feature: Partner Integration with Admin and Driver
       | Trip Started |
     And I select the scheduled trip on live delivery
     Then I view the correct Driver Est. Earnings for geofence based pricing model
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_drvj WashingtonDC_j" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Arrived |
     And I view the Live Deliveries list on the admin portal
@@ -437,7 +437,7 @@ Feature: Partner Integration with Admin and Driver
       | Driver(s) Arrived |
     And I select the scheduled trip on live delivery
     Then I view the correct Driver Est. Earnings for geofence based pricing model
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_drvj WashingtonDC_j" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Loading Item |
     And I view the Live Deliveries list on the admin portal
@@ -446,7 +446,7 @@ Feature: Partner Integration with Admin and Driver
       | Loading Items |
     And I select the scheduled trip on live delivery
     Then I view the correct Driver Est. Earnings for geofence based pricing model
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_drvj WashingtonDC_j" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Driving To Dropoff |
     And I view the Live Deliveries list on the admin portal
@@ -455,7 +455,7 @@ Feature: Partner Integration with Admin and Driver
       | Driving To Dropoff |
     And I select the scheduled trip on live delivery
     Then I view the correct Driver Est. Earnings for geofence based pricing model
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_drvj WashingtonDC_j" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Unloading Item |
     And I view the Live Deliveries list on the admin portal
@@ -464,7 +464,7 @@ Feature: Partner Integration with Admin and Driver
       | Unloading Items |
     And I select the scheduled trip on live delivery
     Then I view the correct Driver Est. Earnings for geofence based pricing model
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_drvj WashingtonDC_j" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Bungii Completed |
     And I view All Deliveries list on the admin portal
