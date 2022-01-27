@@ -588,7 +588,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Ratings submitted successfully message"
     Then Submitted driver ratings are saved in the database
 
-  @ready
+  @regression
   Scenario: Verify that the portal's customer can open the link to provide driver rating for duo delivery.
     When I request Partner Portal "Duo" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
