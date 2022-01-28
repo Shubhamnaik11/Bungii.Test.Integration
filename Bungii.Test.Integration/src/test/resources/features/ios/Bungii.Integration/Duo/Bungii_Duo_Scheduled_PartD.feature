@@ -266,7 +266,7 @@ Feature: Scheduled DUO Bungii in Goa Geofence
       | 9403960188      |                 |
   
   @FAILED2702
-  @ready
+  @regression
   Scenario: Verify Non Control Driver Can Contact Customer Of A Requested Scheduled Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
