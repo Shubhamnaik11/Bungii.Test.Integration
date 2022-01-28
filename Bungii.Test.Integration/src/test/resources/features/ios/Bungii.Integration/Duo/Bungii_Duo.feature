@@ -10,7 +10,7 @@ Feature: Scheduled DUO Bungii
   Background:
   When I Switch to "customer" application on "same" devices
 	
-  @ready
+  @regression
     #Stable
   Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
     Given that duo schedule bungii is in progress

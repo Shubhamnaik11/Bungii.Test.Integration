@@ -110,7 +110,7 @@ Feature: Scheduled DUO Bungii Part A
     
 #change login
   @failed
-  @ready
+  @regression
   Scenario:Verify That Driver Is Not Able To Accept The DUO Request If The Trip Is Already Accepted By Required Number Of Drivers
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
