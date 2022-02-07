@@ -11,6 +11,7 @@ Feature: Promocode_Manually_End_Bungii
 	
 @regression
 #stable
+	@authfailure
 Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually Ending Bungii
 When I Switch to "customer" application on "same" devices
 And I am on the "LOG IN" page
@@ -38,7 +39,7 @@ And I tap "Back" on Promos screen
 
 When I enter following details on "Estimate" screen
 | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-|          |           |              | NEXT_POSSIBLE | Default     |
+|          |           |              | NEXT_SECOND_POSSIBLE | Default     |
 
 And I should be navigated to "Estimate" screen
 Then I save bungii trip time details
