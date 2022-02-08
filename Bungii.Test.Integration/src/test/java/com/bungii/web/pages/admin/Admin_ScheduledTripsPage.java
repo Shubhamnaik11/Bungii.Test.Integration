@@ -93,4 +93,32 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'View Delivery Details')]",LocatorType.XPath);}
 
+    //Deivery details
+    public WebElement DeliveryDetails_Dropdown(){return  findElement("dLabel",LocatorType.Id);}
+
+    public WebElement Admin_CustomerName(){return  findElement("//tbody/tr[1]/td[7]/a",LocatorType.XPath);}
+
+    public WebElement Admin_TrackingId(){return  findElement("//div/h4[3]",LocatorType.XPath);}
+
+
+    public WebElement LiveDelivery_Dropdown(){return  findElement(" //ul/li/a[text() =\"View Delivery Details\"]",LocatorType.XPath);}
+    public WebElement List_ViewEdit(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Edit')]",LocatorType.XPath);}
+    public WebElement Edit_DeliveryDetails(){return  findElement("//label/span[text()='Edit Delivery Details']",LocatorType.XPath);}
+
+    public WebElement Edit_dropOffLocation(){return  findElement("//div/img[@class=\"cursor editDropoffAddress\"]",LocatorType.XPath);}
+
+    public WebElement Edit_dropOfflocationAddress(){return  findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
+
+    public WebElement SelectAdd(){return  findElement("//div[@data-name='Washington']",LocatorType.XPath);}
+
+    public WebElement EditScheduled_Form(){return  findElement("exampleModalLongTitle",LocatorType.Id);}
+
+    public WebElement Edit_Verify(){return  findElement("//button[text() =\"VERIFY\"]",LocatorType.XPath);}
+
+    public WebElement Edit_Save(){return  findElement("//button[text() =\"SAVE\"]",LocatorType.XPath);}
+
+    public WebElement Edit_Close(){return  findElement("//div/button[@class =\"close\"]",LocatorType.XPath);}
+
+    public WebElement NewDropoffAddress(){return  findElement("lblDestinationAddress",LocatorType.Id);}
+
 }
