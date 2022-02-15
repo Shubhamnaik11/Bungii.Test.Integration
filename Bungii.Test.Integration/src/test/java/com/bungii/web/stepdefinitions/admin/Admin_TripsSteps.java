@@ -588,6 +588,7 @@ public class Admin_TripsSteps extends DriverBase {
             //action.click(admin_LiveTripsPage.Menu_LiveTrips());
             SetupManager.getDriver().navigate().refresh();
             action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
+            Thread.sleep(2000);
             log("I view All Deliveries on the admin portal",
                     "I viewed All Deliveries on the admin portal", true);
         }
