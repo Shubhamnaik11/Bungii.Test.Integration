@@ -91,6 +91,6 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Textbox_Search () { return findElement("SearchCriteria", LocatorType.Id); }
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
 
-    public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'View Delivery Details')]",LocatorType.XPath);}
+    public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
 
 }

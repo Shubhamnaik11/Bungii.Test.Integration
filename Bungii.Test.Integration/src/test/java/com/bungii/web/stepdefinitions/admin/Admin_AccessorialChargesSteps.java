@@ -95,7 +95,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         Thread.sleep(5000);
         //String status = "Payment Successful";
         action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", customerName),PageBase.LocatorType.XPath));
-        action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/p[contains(text(),'View Delivery Details')]", customerName),PageBase.LocatorType.XPath));
+        action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/p[contains(text(),'Delivery Details')]", customerName),PageBase.LocatorType.XPath));
 
         log("I search the delivery of Customer and view it","I searched the delivery of Customer and viewed it",false);
     } catch(Exception e){
