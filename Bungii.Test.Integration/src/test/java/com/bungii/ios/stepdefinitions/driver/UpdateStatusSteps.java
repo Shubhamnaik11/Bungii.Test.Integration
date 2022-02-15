@@ -722,6 +722,7 @@ public class UpdateStatusSteps extends DriverBase {
 
         testStepVerify.isTrue(driverToPickUP>100,"Driver to pickp value should be greater that 100 ", "Driver to pickup value is "+driverToPickUP +" min","Driver to pickup value is "+driverToPickUP +" min");
     }
+
     public boolean isMessageAppPage() {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), PropertyUtility.getMessage("messages.navigation.new"));
         return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(PropertyUtility.getMessage("messages.navigation.new"));
@@ -758,8 +759,8 @@ public class UpdateStatusSteps extends DriverBase {
      * property
      */
     public boolean isUpdatePage(String pageName) {
-        action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), pageName);
-        return action.getScreenHeader(updateStatusPage.Text_NavigationBar()).equals(pageName);
+        action.textToBePresentInElementName(updateStatusPage.Text_NavigationBarScreen(pageName), pageName);
+        return action.getScreenHeader(updateStatusPage.Text_NavigationBarScreen(pageName)).equals(pageName);
 
     }
 
