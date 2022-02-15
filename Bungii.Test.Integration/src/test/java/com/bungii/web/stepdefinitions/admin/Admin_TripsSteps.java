@@ -1083,7 +1083,7 @@ try{
             //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
            // action.click(admin_EditScheduledBungiiPage.findElement(xpath,PageBase.LocatorType.XPath));
             action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", customer),PageBase.LocatorType.XPath));
-            action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'View Delivery Details')]", customer),PageBase.LocatorType.XPath));
+            action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'Delivery Details')]", customer),PageBase.LocatorType.XPath));
 
 
             log("I view the delivery details in admin portal",
@@ -1122,7 +1122,7 @@ try{
             String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
             //String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding::td[4]", driver,customer);
             action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//td/div/img")));
-            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'View Delivery Details')]")));
+            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'Delivery Details')]")));
             //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
             //action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
 
@@ -2155,7 +2155,7 @@ try{
             //action.click();
             Thread.sleep(4000);
             action.click(admin_ScheduledTripsPage.findElement((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr/td/div/img",PageBase.LocatorType.XPath));
-            action.click(admin_ScheduledTripsPage.findElement((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr/td/div/ul/li/p[contains(text(),'View Delivery Details')]",PageBase.LocatorType.XPath));
+            action.click(admin_ScheduledTripsPage.findElement((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr/td/div/ul/li/p[contains(text(),'Delivery Details')]",PageBase.LocatorType.XPath));
             //action.click(admin_ScheduledTripsPage.Link_Grid_First_Row());
             log("I should able to view searched delivery.", "I have viewed the searched delivery", false);
 
