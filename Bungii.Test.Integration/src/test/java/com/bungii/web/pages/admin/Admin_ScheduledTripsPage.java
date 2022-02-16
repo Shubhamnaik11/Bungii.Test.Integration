@@ -91,7 +91,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Textbox_Search () { return findElement("SearchCriteria", LocatorType.Id); }
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
 
-    public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'View Delivery Details')]",LocatorType.XPath);}
+    public WebElement List_ViewDeliveries(){return  findElement("//div/ul/li/p[text()=\"Delivery Details\"]",LocatorType.XPath);}
 
     //Deivery details
     public WebElement DeliveryDetails_Dropdown(){return  findElement("dLabel",LocatorType.Id);}
@@ -101,7 +101,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Admin_TrackingId(){return  findElement("//div/h4[3]",LocatorType.XPath);}
 
 
-    public WebElement LiveDelivery_Dropdown(){return  findElement(" //ul/li/a[text() =\"View Delivery Details\"]",LocatorType.XPath);}
+    public WebElement LiveDelivery_Details(){return  findElement("//div/ul/li/a[text()=\"Delivery Details\"]",LocatorType.XPath);}
     public WebElement List_ViewEdit(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Edit')]",LocatorType.XPath);}
     public WebElement Edit_DeliveryDetails(){return  findElement("//label/span[text()='Edit Delivery Details']",LocatorType.XPath);}
 
@@ -110,6 +110,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Edit_dropOfflocationAddress(){return  findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
 
     public WebElement SelectAdd(){return  findElement("//div[@data-name='Washington']",LocatorType.XPath);}
+
 
     public WebElement EditScheduled_Form(){return  findElement("exampleModalLongTitle",LocatorType.Id);}
 
@@ -121,4 +122,10 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement NewDropoffAddress(){return  findElement("lblDestinationAddress",LocatorType.Id);}
 
+
+    public WebElement Delivery_Scheduled(){return  findElement("//tbody/tr/td[text() ='Scheduled']",LocatorType.XPath);}
+
+    public WebElement Delivery_Successfull(){return  findElement("//tbody/tr/td[11]",LocatorType.XPath);}
+
+    public WebElement Delivery_TripStarted(){return  findElement("//tbody/tr/td[12]",LocatorType.XPath);}
 }
