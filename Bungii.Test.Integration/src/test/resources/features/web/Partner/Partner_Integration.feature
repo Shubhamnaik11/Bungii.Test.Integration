@@ -467,6 +467,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_drvj WashingtonDC_j" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Bungii Completed |
+    Then I wait for "2" mins
     And I view All Deliveries list on the admin portal
     Then I should be able to see the respective partner portal trip with "Payment Successful" state
     #Then The Delivery List page should display the delivery in "Payment Successful" state
