@@ -125,7 +125,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Delivery_Scheduled(){return  findElement("//tbody/tr/td[text() ='Scheduled']",LocatorType.XPath);}
 
-    public WebElement Delivery_Successfull(){return  findElement("//tbody/tr/td[11]",LocatorType.XPath);}
+    public WebElement Delivery_Successfull(){return  findElement("//tbody/tr/td[contains(text() ,\"Payment Successful\")]",LocatorType.XPath);}
 
-    public WebElement Delivery_TripStarted(){return  findElement("//tbody/tr/td[12]",LocatorType.XPath);}
+    public WebElement Delivery_TripStarted(){return  findElement("//tbody/tr/td[contains(text() ,\"Trip Started\")]",LocatorType.XPath);}
 }

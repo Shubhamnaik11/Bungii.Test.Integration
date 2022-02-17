@@ -183,8 +183,11 @@ public class Partner_DashboardPage extends PageBase {
     //Label 2Pallets
     public WebElement Label_2Pallets() { return findElement("//label[contains(text(),'2 Pallets')]",LocatorType.XPath);}
 
+    //time
+    public WebElement Time() { return findElement(" //form/div[5]/div[2]",LocatorType.XPath);}
 
 
+    public WebElement SelectTime() { return findElement("//div/ul[@class =\"MuiList-root MuiMenu-list jss3 MuiList-padding\"]/li[3]",LocatorType.XPath);}
     //Tracking Id Column
     public WebElement TrackingId_Column() { return findElement("//tr/th[2]/div",LocatorType.XPath);}
 

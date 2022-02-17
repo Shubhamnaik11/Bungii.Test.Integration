@@ -4,7 +4,6 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
-import com.bungii.ios.stepdefinitions.admin.ScheduledTripSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_LiveTripsPage;
 import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
@@ -21,6 +20,7 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
+
 
 import org.testng.Assert;
 
@@ -53,85 +53,84 @@ public class Partner_TrackingIdSteps extends DriverBase {
             action.clearSendKeys(Page_Partner_Login.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
             action.click(Page_Partner_Login.Button_Sign_In());
             testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Start_Over()), PropertyUtility.getMessage("Start_Over_Header"));
-            action.click(Page_Partner_Done.Dropdown_Setting());
-           action.click(Page_Partner_Done.Button_Track_Deliveries());
-             Thread.sleep(3000);
 
-//
-//            // pickup Address , delivery address , load time
-//            action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
-//            action.click(Page_Partner_Dashboard.Button_PickupClear());
-//            action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-//            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), "601 13th Street Northwest, Washington, United States, District of Columbia, 20005 " + Keys.TAB);
-//            action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-//            Thread.sleep(3000);
-//            action.click(Page_Partner_Dashboard.List_Pickup_Address());
-//
-//            Thread.sleep(5000);
-//            action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-//            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), "234 13th Street Northeast, Washington, District of Columbia 20002" + Keys.TAB);
-//            Thread.sleep(3000);
-//            action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-//            Thread.sleep(5000);
-//            action.click(Page_Partner_Dashboard.List_Delivery_Address());
-//            Thread.sleep(5000);
-//            action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
-//            action.click(Page_Partner_Dashboard.Load_Unload_Time_15());
-//            action.click(Page_Partner_Dashboard.Button_Get_Estimate());
-//            Thread.sleep(5000);
-//            action.click(Page_Partner_Dashboard.Button_Continue());
-//            Thread.sleep(3000);
-//
-//
-//            //Delivery Details
-//            action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), "Furniture");
-//            action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), "Test");
-//            action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
-//
-//
-//            action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), "9998887777");
-//            action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), "Test Pickup");
-//            action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
-//            action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), "9999999359");
-//            action.click(Page_Partner_Delivery.Radio_Button_Customer_Card());
-//            Thread.sleep(5000);
-//
-//            //Credit card Details
-//            action.switchToFrame("braintree-hosted-field-number");
-//            action.click(Page_Partner_Delivery.TextBox_Card_Number());
-//            action.sendKeys(Page_Partner_Delivery.TextBox_Card_Number(), "4242424242424242");
-//
-//            action.switchToMainFrame();
-//
-//            ;
-//            action.switchToFrame("braintree-hosted-field-expirationDate");
-//            action.click(Page_Partner_Delivery.TextBox_Expiry_Date());
-//            action.sendKeys(Page_Partner_Delivery.TextBox_Expiry_Date(), "12/29");
-//            action.switchToMainFrame();
-//
-//            action.switchToFrame("braintree-hosted-field-postalCode");
-//            action.click(Page_Partner_Delivery.TextBox_Postal_Code());
-//            action.sendKeys(Page_Partner_Delivery.TextBox_Postal_Code(), "XYZ");
-//            action.switchToMainFrame();
-//
-//            action.switchToFrame("braintree-hosted-field-cvv");
-//            action.click(Page_Partner_Delivery.TextBox_CVV());
-//            action.sendKeys(Page_Partner_Delivery.TextBox_CVV(), "124");
-//            action.switchToMainFrame();
-//            Thread.sleep(3000);
-//
-//            action.JavaScriptScrolldown();
-//            action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
-//            Thread.sleep(5000);
-//
-//            testStepVerify.isEquals(action.getText(Page_Partner_Done.Text_Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
-//
-//            Thread.sleep(2000);
-//
-//            cucumberContextManager.setScenarioContext("TrackingID_Summary", action.getText(Page_Partner_Dashboard.Summary_TrackingId_2()));
-//            Assert.assertTrue(cucumberContextManager.getScenarioContext("TrackingID_Summary").toString().length()>0,"TrackingId is not displayed");
-//
-//            cucumberContextManager.setScenarioContext("Delivery_Summary", Page_Partner_Dashboard.Summary_DeliveryAddress().getText().replace(",", "").replace(" United States", ""));
+
+
+            // pickup Address , delivery address , load time
+            action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+            action.click(Page_Partner_Dashboard.Button_PickupClear());
+            action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), "601 13th Street Northwest, Washington, United States, District of Columbia, 20005 " + Keys.TAB);
+            action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+            Thread.sleep(3000);
+            action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+            Thread.sleep(5000);
+            action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), "234 13th Street Northeast, Washington, District of Columbia 20002" + Keys.TAB);
+            Thread.sleep(3000);
+            action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+            Thread.sleep(5000);
+            action.click(Page_Partner_Dashboard.List_Delivery_Address());
+            Thread.sleep(5000);
+            action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
+            action.click(Page_Partner_Dashboard.Load_Unload_Time_15());
+            Thread.sleep(2000);
+            action.click(Page_Partner_Dashboard.Button_Get_Estimate());
+            Thread.sleep(5000);
+            action.click(Page_Partner_Dashboard.Button_Continue());
+            Thread.sleep(3000);
+
+
+            //Delivery Details
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), "Furniture");
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), "Test");
+            action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+
+
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), "9998887777");
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), "Test Pickup");
+            action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), "9999999359");
+            action.click(Page_Partner_Delivery.Radio_Button_Customer_Card());
+            Thread.sleep(5000);
+
+            //Credit card Details
+            action.switchToFrame("braintree-hosted-field-number");
+            action.click(Page_Partner_Delivery.TextBox_Card_Number());
+            action.sendKeys(Page_Partner_Delivery.TextBox_Card_Number(), "4242424242424242");
+
+            action.switchToMainFrame();
+
+            ;
+            action.switchToFrame("braintree-hosted-field-expirationDate");
+            action.click(Page_Partner_Delivery.TextBox_Expiry_Date());
+            action.sendKeys(Page_Partner_Delivery.TextBox_Expiry_Date(), "12/29");
+            action.switchToMainFrame();
+
+            action.switchToFrame("braintree-hosted-field-postalCode");
+            action.click(Page_Partner_Delivery.TextBox_Postal_Code());
+            action.sendKeys(Page_Partner_Delivery.TextBox_Postal_Code(), "XYZ");
+            action.switchToMainFrame();
+
+            action.switchToFrame("braintree-hosted-field-cvv");
+            action.click(Page_Partner_Delivery.TextBox_CVV());
+            action.sendKeys(Page_Partner_Delivery.TextBox_CVV(), "124");
+            action.switchToMainFrame();
+            Thread.sleep(3000);
+
+            action.JavaScriptScrolldown();
+            action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
+            Thread.sleep(5000);
+
+            testStepVerify.isEquals(action.getText(Page_Partner_Done.Text_Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
+
+            Thread.sleep(2000);
+
+            cucumberContextManager.setScenarioContext("TrackingID_Summary", action.getText(Page_Partner_Dashboard.Summary_TrackingId_2()));
+            Assert.assertTrue(cucumberContextManager.getScenarioContext("TrackingID_Summary").toString().length()>0,"TrackingId is not displayed");
+
+            cucumberContextManager.setScenarioContext("Delivery_Summary", Page_Partner_Dashboard.Summary_DeliveryAddress().getText().replace(",", "").replace(" United States", ""));
 
             String PickupRequest = new DbUtility().getPickupRef("9998887777");
             cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
@@ -147,65 +146,64 @@ public class Partner_TrackingIdSteps extends DriverBase {
         Thread.sleep(1000);
         Assert.assertTrue(cucumberContextManager.getScenarioContext("TrackingID_Summary").toString().length()>0,"TrackingId is not displayed");
     }
-//
-//
 
-//    @And("^I click the \"([^\"]*)\" button on Partner Portal$")
-//    public void I_Click_the_Some_Button_On_Partner_Portal(String str) throws InterruptedException {
-//        try {
-//            Thread.sleep(5000);
-//        action.click(Page_Partner_Done.Dropdown_Setting());
-//        action.click(Page_Partner_Done.Button_Track_Deliveries());
-//        Thread.sleep(5000);
-//        String  Column_Tracking = "TRACKING ID";
-//        cucumberContextManager.setScenarioContext("TrackingId_Column", action.getText(Page_Partner_Dashboard.TrackingId_Column()));
-//        Assert.assertEquals(cucumberContextManager.getScenarioContext("TrackingId_Column"),Column_Tracking,"Tracking Id column doesnt exist");
-//
-//        cucumberContextManager.setScenarioContext("Partner_CustomerName",action.getText(Page_Partner_Dashboard.Trip_Customer()));
-//        cucumberContextManager.setScenarioContext("Partner_TrackingId", action.getText(Page_Partner_Dashboard.Trip_TrackingId()));
-//        cucumberContextManager.setScenarioContext("Delivery Address", action.getText(Page_Partner_Dashboard.Trip_DeliveryAddress()).replace(",", ""));
-//        Thread.sleep(2000);
-//    }catch (Exception e) {
-//        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-//        error("Step should be successful", "Error performing step,Please check logs for more details",
-//                true);
-//    }
-//    }
-//
-//    @And("^I search the trip using a correct tracking id$")
-//    public void i_search_the_trip_using_a_correct_tracking_id() throws Throwable {
-//        try {
-//            action.click(Page_Partner_Dashboard.SearchBar());
-//            Thread.sleep(1000);
-//            action.clearSendKeys(Page_Partner_Dashboard.SearchBar(), (String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-//        }catch (Exception e) {
-//            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-//            error("Step should be successful", "Error performing step,Please check logs for more details",
-//                    true);
-//        }
-//    }
-//
-//    @Then("^I should see the trip Details$")
-//    public void i_should_see_the_trip_details() throws Throwable {
-//        Thread.sleep(5000);
-//        Assert.assertEquals(cucumberContextManager.getScenarioContext("TrackingID_Summary"),cucumberContextManager.getScenarioContext("Partner_TrackingId"),"Tracking Id doesnt match the expected data");
-//        Assert.assertEquals(cucumberContextManager.getScenarioContext("Delivery_Summary"),cucumberContextManager.getScenarioContext("Delivery Address"),"Delivery Address doesnt match the expected data");
-//    }
-//
-//    @When("^I search the trip using invalid tracking id \"([^\"]*)\"$")
-//    public void i_search_the_trip_using_invalid_tracking_id_something(String TrackingID) throws Throwable {
-//        try {
-//            action.click(Page_Partner_Dashboard.SearchBar());
-//            Thread.sleep(1000);
-//            action.clearSendKeys(Page_Partner_Dashboard.SearchBar(), TrackingID + Keys.ENTER);
-//            Thread.sleep(2000);
-//        }catch (Exception e) {
-//            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-//            error("Step should be successful", "Error performing step,Please check logs for more details",
-//                    true);
-//        }
-//    }
-//
+
+    @And("^I click the \"([^\"]*)\" button on Partner Portal$")
+    public void I_Click_the_Some_Button_On_Partner_Portal(String str) throws InterruptedException {
+        try {
+            Thread.sleep(2000);
+        action.click(Page_Partner_Done.Dropdown_Setting());
+        action.click(Page_Partner_Done.Button_Track_Deliveries());
+        Thread.sleep(5000);
+        String  Column_Tracking = "TRACKING ID";
+        cucumberContextManager.setScenarioContext("TrackingId_Column", action.getText(Page_Partner_Dashboard.TrackingId_Column()));
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("TrackingId_Column"),Column_Tracking,"Tracking Id column doesnt exist");
+
+        cucumberContextManager.setScenarioContext("Partner_CustomerName",action.getText(Page_Partner_Dashboard.Trip_Customer()));
+        cucumberContextManager.setScenarioContext("Partner_TrackingId", action.getText(Page_Partner_Dashboard.Trip_TrackingId()));
+        cucumberContextManager.setScenarioContext("Delivery Address", action.getText(Page_Partner_Dashboard.Trip_DeliveryAddress()).replace(",", ""));
+        Thread.sleep(2000);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I search the trip using a correct tracking id$")
+    public void i_search_the_trip_using_a_correct_tracking_id() throws Throwable {
+        try {
+            action.click(Page_Partner_Dashboard.SearchBar());
+            Thread.sleep(1000);
+            action.clearSendKeys(Page_Partner_Dashboard.SearchBar(), (String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I should see the trip Details$")
+    public void i_should_see_the_trip_details() throws Throwable {
+        Thread.sleep(5000);
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("TrackingID_Summary"),cucumberContextManager.getScenarioContext("Partner_TrackingId"),"Tracking Id doesnt match the expected data");
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("Delivery_Summary"),cucumberContextManager.getScenarioContext("Delivery Address"),"Delivery Address doesnt match the expected data");
+    }
+
+    @When("^I search the trip using invalid tracking id \"([^\"]*)\"$")
+    public void i_search_the_trip_using_invalid_tracking_id_something(String TrackingID) throws Throwable {
+        try {
+            action.click(Page_Partner_Dashboard.SearchBar());
+            Thread.sleep(1000);
+            action.clearSendKeys(Page_Partner_Dashboard.SearchBar(), TrackingID + Keys.ENTER);
+            Thread.sleep(2000);
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @Then("^I should see the message \"([^\"]*)\"$")
     public void i_should_see_the_message_something(String ErrorMessage) throws Throwable {
         String ErrorText = action.getText(Page_Partner_Dashboard.Trip_ErrorMessage());
@@ -218,11 +216,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
     public void i_navigate_to_the_something_portal_configured_for_something_url(String strArg1, String strArg2) throws Throwable {
         try {
             utility.AdminLoginFromPartner();
-          cucumberContextManager.setScenarioContext("TrakingNewId","RNQH3G3Z");
-          cucumberContextManager.setScenarioContext("partner_CustomerName","Test6");
 //            Thread.sleep(120000); //2 minute wait
-//            Thread.sleep(60000);//1 minute
-            Thread.sleep(2000);
+            Thread.sleep(60000);//1 minute wait
         }catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -236,16 +231,14 @@ public class Partner_TrackingIdSteps extends DriverBase {
         Thread.sleep(15000);
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
-//        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("TrakingNewId") + Keys.ENTER);
+        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
         Thread.sleep(2000);
 
     }
     @Then("^I should be able to see the respective delivery$")
     public void i_should_be_able_to_see_the_respective_delivery() throws Throwable {
         cucumberContextManager.setScenarioContext("Admin_CustomerName",action.getText(admin_ScheduledTripsPage.Admin_CustomerName()));
-//       Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_CustomerName"),cucumberContextManager.getScenarioContext("Admin_CustomerName").toString().trim(),"Customer names dont match");
-       Assert.assertEquals(cucumberContextManager.getScenarioContext("partner_CustomerName"),cucumberContextManager.getScenarioContext("Admin_CustomerName").toString().trim(),"Customer names dont match");
+       Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_CustomerName"),cucumberContextManager.getScenarioContext("Admin_CustomerName").toString().trim(),"Customer names dont match");
         Thread.sleep(1000);
     }
 
@@ -261,8 +254,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
     public void i_should_see_the_something_displayed_on_the_delivery_details(String strArg1) throws Throwable {
         String ScheduledTrackingId = action.getText(admin_ScheduledTripsPage.Admin_TrackingId()).replace("Tracking Id:","").trim();
         Assert.assertTrue(ScheduledTrackingId.length()>0,"TrackingId is not displayed on admin portal");
-//        Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_TrackingId"),ScheduledTrackingId,"Tracking Ids dont match");
-       Assert.assertEquals(cucumberContextManager.getScenarioContext("TrakingNewId"),ScheduledTrackingId,"Tracking Ids dont match");
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_TrackingId"),ScheduledTrackingId,"Tracking Ids dont match");
         Thread.sleep(1000);
         action.click(admin_TripDetailsPage.Button_Ok());
         Thread.sleep(1000);
@@ -272,19 +264,19 @@ public class Partner_TrackingIdSteps extends DriverBase {
     public void i_should_be_able_to_see_the_bungii_trip_status_to_be_changed_to_the_below_status(DataTable data) throws Throwable {
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String status = dataMap.get("Status").trim();
-//      action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("TrakingNewId") + Keys.ENTER);
+        action.click(admin_LiveTripsPage.Menu_LiveTrips());
+      action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
+        Thread.sleep(4000);
         String DeliveryStatus = action.getText(admin_ScheduledTripsPage.Delivery_TripStarted()).trim();
         Assert.assertEquals(status,DeliveryStatus,"Delivery Status dont match");
-       //verify enroute
+
     }
 
     @When("^I Click on the \"([^\"]*)\" link and enter \"([^\"]*)\" in the search bar$")
     public void i_click_on_the_something_link_and_enter_something_in_the_search_bar(String strArg1, String strArg2) throws Throwable {
         Thread.sleep(6000);
         action.click(admin_LiveTripsPage.Menu_LiveTrips());
-//         action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("TrakingNewId") + Keys.ENTER);
+         action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
         Thread.sleep(1000);
         action.click(admin_ScheduledTripsPage.DeliveryDetails_Dropdown());
         action.click(admin_ScheduledTripsPage.LiveDelivery_Details());
@@ -297,14 +289,13 @@ public class Partner_TrackingIdSteps extends DriverBase {
         String LiveTrackingId = action.getText(admin_ScheduledTripsPage.Admin_TrackingId()).replace("Tracking Id:","").trim();
         Thread.sleep(1000);
         Assert.assertTrue(LiveTrackingId.length()>0,"TrackingId is not displayed on admin portal");
-//       Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_TrackingId"),LiveTrackingId,"Tracking Ids dont match");
-        Assert.assertEquals(cucumberContextManager.getScenarioContext("TrakingNewId"),LiveTrackingId,"Tracking Ids dont match");
+       Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_TrackingId"),LiveTrackingId,"Tracking Ids dont match");
         action.click(admin_TripDetailsPage.Button_Ok());
         Thread.sleep(1000);
     }
-    @And("^I wait for 1 minute$")
-    public void i_wait_for_1_minute() throws Throwable {
-       Thread.sleep(60000);
+    @And("^I wait for 2 minute$")
+    public void i_wait_for_2_minute() throws Throwable {
+       Thread.sleep(120000);
     }
 
     @Then("^I should be able to see the respective bungii trip with the below status$")
@@ -313,8 +304,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
         String status = dataMap.get("Status").trim();
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
-//        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("TrakingNewId") + Keys.ENTER);
+        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
         Thread.sleep(1000);
         String DeliveryStatus = action.getText(admin_ScheduledTripsPage.Delivery_Scheduled());
         Assert.assertEquals(status,DeliveryStatus,"Delivery Statuses dont match");
@@ -324,8 +314,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
     @When("^I Click on the \"([^\"]*)\" link and enter the \"([^\"]*)\" into search bar$")
     public void i_click_on_the_something_link_and_enter_the_something_into_search_bar(String strArg1, String strArg2) throws Throwable {
         action.click(admin_ScheduledTripsPage.Menu_AllTrips());
-        //action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("TrakingNewId") + Keys.ENTER);
+        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
         Thread.sleep(1000);
         action.click(admin_ScheduledTripsPage.DeliveryDetails_Dropdown());
         action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
@@ -336,15 +325,13 @@ public class Partner_TrackingIdSteps extends DriverBase {
     public void i_should_see_delivery_details_displayed() throws Throwable {
         String AllTrackingId = action.getText(admin_ScheduledTripsPage.Admin_TrackingId()).replace("Tracking Id:","").trim();
         Assert.assertTrue(AllTrackingId.length()>0,"TrackingId is not displayed on admin portal");
-//        Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_TrackingId"),AllTrackingId,"Tracking Ids dont match");
-        Assert.assertEquals(cucumberContextManager.getScenarioContext("TrakingNewId"),AllTrackingId,"Tracking Ids dont match");
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_TrackingId"),AllTrackingId,"Tracking Ids dont match");
         action.click(admin_TripDetailsPage.Button_Ok());
         Thread.sleep(1000);
     }
    @When("^I click on the \"([^\"]*)\" link and click on the \"([^\"]*)\" button from the dropdown$")
    public void i_click_on_the_something_link_and_click_on_the_something_button_from_the_dropdown(String strArg1, String strArg2) throws Throwable {
-//        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-      action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("TrakingNewId") + Keys.ENTER);
+        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
         Thread.sleep(2000);
         action.click(admin_ScheduledTripsPage.DeliveryDetails_Dropdown());
         action.click(admin_ScheduledTripsPage.List_ViewEdit());
@@ -389,8 +376,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
         action.refreshPage();
         action.click(Page_Partner_Dashboard.SearchBar());
         Thread.sleep(1000);
-//        action.clearSendKeys(Page_Partner_Dashboard.SearchBar(), (String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        action.clearSendKeys(Page_Partner_Dashboard.SearchBar(), (String) cucumberContextManager.getScenarioContext("TrakingNewId") + Keys.ENTER);
+        action.clearSendKeys(Page_Partner_Dashboard.SearchBar(), (String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
     }
 
     @Then("^I should see the delivery address changed and get navigated to the \"([^\"]*)\" portal$")
@@ -402,7 +388,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
         Thread.sleep(2000);
         SetupManager.getDriver().switchTo().window(tabs.get(1));
         SetupManager.getDriver().manage().window().maximize();
-        Thread.sleep(6000);
+        Thread.sleep(4000);
     }
 
 
@@ -410,10 +396,9 @@ public class Partner_TrackingIdSteps extends DriverBase {
 
     @Then("^The \"([^\"]*)\" page should display the delivery in \"([^\"]*)\" state$")
     public void the_something_page_should_display_the_delivery_in_something_state(String PagenName, String ExpectedText) throws Throwable {
-        action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_AllTrips());
-        //action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("TrakingNewId") + Keys.ENTER);
+        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
+        Thread.sleep(4000);
         String DeliveryComplete = action.getText(admin_ScheduledTripsPage.Delivery_Successfull());
         Assert.assertEquals(ExpectedText,DeliveryComplete,"Delivery Statuses dont match");
     }
