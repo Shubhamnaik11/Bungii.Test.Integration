@@ -190,8 +190,9 @@ Feature: Payment page
     And I enter phoneNumber :9955112203 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
     Then I wait for "2" mins
     And I open Admin portal and navigate to "Customers" page
     Then trips requested count should be "1"

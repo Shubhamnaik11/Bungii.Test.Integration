@@ -56,8 +56,9 @@ And I close "Tutorial" if exist
 When bungii admin manually end bungii created by "CUSTOMER1"
 
 When I Switch to "driver" application on "same" devices
-Then I should be navigated to "Bungii Completed" screen
-When I click "On To The Next One" button on "Bungii Completed" screen
+And I click "Skip This Step" button on "Rate customer" screen
+Then I should be navigated to "Bungii completed" screen
+When I click "On To The Next One" button on "Bungii completed" screen
 Then I should be navigated to "EN ROUTE" screen
 
 When I Switch to "customer" application on "same" devices
@@ -109,7 +110,8 @@ And I view and accept virtual notification for "Driver" for "stack trip"
 When I Switch to "driver" application on "ORIGINAL" devices
 And I slide update button on "UNLOADING ITEM" Screen
 Then I should be navigated to "Bungii Completed" screen
-When I click "On To The Next One" button on "Bungii Completed" screen
+And I click "Skip This Step" button on "Rate customer" screenAnd I click "Skip This Step" button on "Rate customer" screen
+When I click "On To The Next One" button on "Bungii completed" screen
 Then I should be navigated to "EN ROUTE" screen
 
 Then I cancel all bungiis of customer
@@ -162,7 +164,8 @@ Then I cancel all bungiis of customer
 	  | Bungii Completed |
 	
 	And I Switch to "driver" application on "same" devices
-	When I click "On To The Next One" button on "Bungii Completed" screen
+	And I click "Skip This Step" button on "Rate customer" screen
+	When I click "On To The Next One" button on "Bungii completed" screen
 	Then I should be navigated to "EN ROUTE" screen
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |
@@ -197,7 +200,8 @@ Then I cancel all bungiis of customer
 	  | Bungii Completed |
 	
 	And I Switch to "driver" application on "same" devices
-	When I click "On To The Next One" button on "Bungii Completed" screen
+	And I click "Skip This Step" button on "Rate customer" screen
+	When I click "On To The Next One" button on "Bungii completed" screen
 	Then I should be navigated to "EN ROUTE" screen
 	Then I cancel all bungiis of customer
 	  | Customer Phone | Customer2 Phone |

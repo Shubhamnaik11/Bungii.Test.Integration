@@ -36,14 +36,15 @@ Then I should be navigated to "EN ROUTE" trip status screen
 And I slide update button on "EN ROUTE" Screen
 Then I should be navigated to "ARRIVED" trip status screen
   And I slide update button on "ARRIVED" Screen
-  Then I should be navigated to "LOADING ITEM" trip status screen
-  And I slide update button on "LOADING ITEM" Screen
-Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-And I slide update button on "DRIVING TO DROP OFF" Screen
-Then I should be navigated to "UNLOADING ITEM" trip status screen
-And I slide update button on "UNLOADING ITEM" Screen
-Then I should be navigated to "Bungii Completed" screen
-When I click "On To The Next One" button on "Bungii Completed" screen
+  Then I should be navigated to "LOADING ITEMS" trip status screen
+  And I slide update button on "LOADING ITEMS" Screen
+Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
+And I slide update button on "DRIVING TO DROP-OFF" Screen
+Then I should be navigated to "UNLOADING ITEMS" trip status screen
+And I slide update button on "UNLOADING ITEMS" Screen
+And I click "Skip This Step" button on "Rate customer" screen
+Then I should be navigated to "Bungii completed" screen
+When I click "On To The Next One" button on "Bungii completed" screen
 
 And I Switch to "customer" application on "same" devices
 Then I should be navigated to "Bungii Complete" screen
@@ -78,7 +79,8 @@ Then I should be navigated to "Home" screen
       | 5       | 5   |
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
     And I Switch to "driver" application on "same" devices
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
   
   @sanity
   @ready
@@ -142,8 +144,9 @@ Then I should be navigated to "Home" screen
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
     
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
