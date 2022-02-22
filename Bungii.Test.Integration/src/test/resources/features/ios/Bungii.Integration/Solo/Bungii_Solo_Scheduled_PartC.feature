@@ -119,8 +119,9 @@ Feature: Solo Scheduled Bungii Part C
     Then I should be navigated to "Home" screen
 
     When I Switch to "driver" application on "same" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
 
   @regression
   Scenario: Verify If Non Control Driver Completes Trip Before Control Driver Then He Is Shown Waiting Screen Till The Control Driver Completes And The Correct Summary Is Shown Thereafter
@@ -160,8 +161,9 @@ Feature: Solo Scheduled Bungii Part C
     Then I should be navigated to "Home" screen
 
     When I Switch to "driver" application on "same" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
 
   @ready
   #stable

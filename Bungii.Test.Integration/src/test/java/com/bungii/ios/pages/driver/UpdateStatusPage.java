@@ -28,7 +28,7 @@ public class UpdateStatusPage extends PageBase {
 
 //	public List<WebElement> Text_Info() { return findElements("//XCUIElementTypeImage[@name='pickup_state_1']/parent::XCUIElementTypeOther/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
-	public List<WebElement> Text_Info() { return findElements("**/XCUIElementTypeStaticText", LocatorType.ClassChain); }
+	public List<WebElement> Text_Info() { return findElements("//XCUIElementTypeStaticText[@name]", LocatorType.XPath); }
 
 
 /*	public WebElement Image_Trip_State_1() { return findElement("pickup_state_1", PageBase.LocatorType.Name); }

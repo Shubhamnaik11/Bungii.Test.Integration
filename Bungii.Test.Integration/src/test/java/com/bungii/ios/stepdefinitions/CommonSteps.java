@@ -376,7 +376,13 @@ public class CommonSteps extends DriverBase {
                         SetupManager.getDriver().switchTo().alert().dismiss();
                         Thread.sleep(1000);
                     }
-                    action.click(driverBungiiCompletedPage.Button_NextTrip());
+                    action.click(driverBungiiCompletedPage.Button_Next_Bungii());
+                    break;
+                case "SUBMIT":
+                    action.click(driverBungiiCompletedPage.Button_Submit());
+                    break;
+                case "SKIP THIS STEP":
+                    action.click(driverBungiiCompletedPage.Button_Skip_This_Step());
                     break;
                 case "I DON'T LIKE FREE MONEY":
                     takeActionOnPromotion("REJECT");
@@ -682,6 +688,66 @@ public class CommonSteps extends DriverBase {
 
     }
 
+    @Then("^I see \"([^\"]*)\" screen$")
+    public void i_see_something_screen(String screen) throws Throwable {
+        try {
+            boolean isCorrectPage = false;
+            switch (screen) {
+                case "Rate customer":
+                    Thread.sleep(5000);
+                    //String abc = bungiiCompletePage.Text_RateCustomer().getText();
+                    isCorrectPage = action.getScreenHeader(driverBungiiCompletedPage.Text_RateCustomer()).equals(screen);
+                    testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+                            "I should be navigated to " + screen, "Error in navigating to " + screen + " screen ");
+                    break;
+                default:
+                    logger.detail("Lands on wrong screen");
+                    break;
+            }
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+
+    }
+
+    @And("^I select \"([^\"]*)\" customer rating$")
+    public void i_select_something_customer_rating(String ratingStar) throws Throwable {
+        try {
+            int i = 0;
+            switch (ratingStar) {
+                case "1":
+                    i = 1;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "2":
+                    i = 2;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "3":
+                    i = 3;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "4":
+                    i = 4;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "5":
+                    i = 5;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                default:
+                    logger.detail("Not selected any start rating");
+            }
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+    }
     @Given("^I am on the \"([^\"]*)\" page$")
     public void i_am_on_the_something_page(String screen) {
         try {
@@ -973,7 +1039,7 @@ public class CommonSteps extends DriverBase {
 
         }
         if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
-            action.click(driverBungiiCompletedPage.Button_NextTrip());
+            action.click(driverBungiiCompletedPage.Button_Next_Bungii());
             //homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
         }
 
