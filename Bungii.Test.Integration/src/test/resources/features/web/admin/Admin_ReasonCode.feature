@@ -156,14 +156,14 @@ Feature: Admin_Reason_Code
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
       | NEXT_POSSIBLE | 9999999112     | Testcustomertywd_appleNewQL Customer|
-    And As a driver "Testdrivertywd_appledc_a_drvn WashingtonDC_n" and "Testdrivertywd_appledc_a_drvm WashingtonDC_m" perform below action with respective "Duo Scheduled" trip
-      | driver1 state | driver2 state |
-      |      |       |
+    And I wait for "5" mins
+    And I wait for "3" mins
     And I view the all Scheduled Deliveries list on the admin portal
-    And I wait for "2" mins
+    And I wait for "5" mins
+    And I wait for "5" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Driver(s) Not Found |
     When I click on the options beside scheduled bungii
     And I click on "Edit" in the dropdown
     And I click on "Edit Trip Details" radiobutton
@@ -371,16 +371,16 @@ Feature: Admin_Reason_Code
       |CardNo   |Expiry |Postal_Code      |Cvv      |
       |VISA CARD4|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
+    And I wait for "5" mins
     Then I should "see Done screen"
+    And I wait for "4" mins
     When I navigate to "Admin" portal configured for "QA" URL
+    And I wait for "4" mins
     And I view the partner portal Scheduled Trips list on the admin portal
+    And I wait for "5" mins
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
-    When As a driver "Testdrivertywd_appledc_a_drvl WashingtonDC_l" and "Testdrivertywd_appledc_a_drvm WashingtonDC_m" perform below action with respective "Duo Scheduled" partner portal trip
-      | driver1 state | driver2 state |
-      |      |       |
-    And I view the partner portal Scheduled Trips list on the admin portal
+      | Driver(s) Not Found |
     When I click on the options beside scheduled bungii
     And I click on "Edit" in the dropdown
     And I click on "Edit Trip Details" radiobutton
