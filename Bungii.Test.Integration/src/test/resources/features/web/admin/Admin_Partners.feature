@@ -5,7 +5,7 @@ Feature: Admin_Partners_Business_And_EAPI
     Given I am logged in as Admin
     When I click on "Partner Portal  > Partners" Menu
     Then I should be directed to "Partner Portal Page"
-    
+
   @regression
   Scenario: Verify Add New Partner
     When I click on the "New Portal Parter" Button
@@ -97,3 +97,19 @@ Feature: Admin_Partners_Business_And_EAPI
       | EAPIMart_<<Unique>>_Edited| Partner | 9766209256 | bungiiauto@gmail.com | Anil  | Bani| 6200 Kansas Zoo | Kansas | Kansas | Kansas | 64132 | This is EAPI edited Partner| CC|Active|
     When I click on the "Save" Button on "Add Partner" popup
     Then the partner "RMart_<<Unique>>_Edited" gets saved successfully and it is displayed in the Partners grid
+
+  @ready
+
+  Scenario: Verify that admin can unlock locked out partner users for different portal types and check locked partners are displayed in Unlock partners list page
+    When I navigate to "Partner" portal configured for "FloorDecor service level" URL
+    And I enter "invalid" password and click "SIGN IN" ten times on Partner Portal
+    Then I see the "Invalid login credentials. Your account has been locked." message
+    When I navigate to "Admin" portal configured for "QA" URL
+    And I click on "Partner Portal" in the side menu
+    And I click on "Unlock Portal" in Partner Portal
+    Then I should be directed to "Unlock Partners Page"
+    When I check for the locked partner user and click "Unlock" button
+    Then I navigate to "Partner" portal configured for "FloorDecor service level" URL
+    And I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "see 1 pallet and 2 pallets"
