@@ -10,6 +10,12 @@ public class Admin_PartnersPage extends PageBase {
 
     public WebElement Assign_Partners () { return findElement("adminmenu-assigncluster", LocatorType.Id); }
 
-  //  public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+    public WebElement Invalid_Password_Message () { return findElement("//div[@class='form-group']/div", LocatorType.XPath); }
+
+    public WebElement Label_Unlock_Partners () { return findElement("  //div[@id='unlock-partners']/h4",LocatorType.XPath);}
+        //  public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+
+    public WebElement Button_Unlock (String lockedPartner) { return findElement("//tr/td/p[contains(text(),'"+lockedPartner+"')]/following::td/button[contains(text(),'Unlock')]", LocatorType.XPath); }
+
 
 }
