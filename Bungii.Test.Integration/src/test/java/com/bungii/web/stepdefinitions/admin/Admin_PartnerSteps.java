@@ -7,6 +7,10 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_PartnerPortalPage;
+import com.bungii.web.pages.admin.Admin_PartnersPage;
+import com.bungii.web.pages.admin.Admin_PaymentMethodsPage;
+import com.bungii.web.pages.partner.Partner_LoginPage;
+import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -34,6 +38,9 @@ public class Admin_PartnerSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     private static LogUtility logger = new LogUtility(Admin_PartnerSteps.class);
     Admin_PartnerPortalPage admin_partnerPortalPage = new Admin_PartnerPortalPage();
+    Admin_PartnersPage admin_partnersPage=new Admin_PartnersPage();
+    Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
+    Partner_LoginPage Page_Partner_Login = new Partner_LoginPage();
 
     @When("^I search by partner Name \"([^\"]*)\"$")
     public void i_search_by_partner_name_something(String unique) throws Throwable {
@@ -209,6 +216,83 @@ public class Admin_PartnerSteps extends DriverBase {
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^I see the \"([^\"]*)\" message$")
+    public void i_see_the_something_message(String errorMessage) throws Throwable {
+        try{
+            String actualMessage= action.getText(admin_partnersPage.Invalid_Password_Message());
+            testStepAssert.isEquals(actualMessage,errorMessage,"Invalid login credentials. Your account has been locked.","Correct error message is displayed","In-correct error message is displayed");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+    }
+
+    @And("^I enter \"([^\"]*)\" password and click \"([^\"]*)\" ten times on Partner Portal$")
+    public void i_enter_something_password_and_click_something_ten_times_on_partner_portal(String strArg1, String strArg2) throws Throwable {
+
+        try{
+            String currentUrl= action.getCurrentURL();
+            int indexValueOne = currentUrl.indexOf("/",(currentUrl.indexOf("/") + 1));
+            int indexValueTwo = currentUrl.indexOf(".");
+            String subDomainName= currentUrl.substring(indexValueOne+1,indexValueTwo);
+            cucumberContextManager.setScenarioContext("SUB_DOMAIN_NAME",subDomainName);
+
+            int i =1;
+            for(i=1;i<=10;i++)
+            {
+                action.clearSendKeys(Page_Partner_Login.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("Invalid_PartnerPassword"));
+                action.click(Page_Partner_Login.Button_Sign_In());
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+
+    }
+
+    @And("^I click on \"([^\"]*)\" in the side menu$")
+    public void i_click_on_something_in_the_side_menu(String strArg1) throws Throwable {
+
+        try{
+            action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+
+    }
+
+    @And("^I click on \"([^\"]*)\" in Partner Portal$")
+    public void i_click_on_something_in_partner_portal(String strArg1) throws Throwable {
+
+        try{
+            action.click(admin_paymentMethodsPage.Menu_UnlockPartnersSubMenu());
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+    }
+
+    @When("^I check for the locked partner user and click \"([^\"]*)\" button$")
+    public void i_check_for_the_locked_partner_user_and_click_something_button(String strArg1) throws Throwable {
+
+        try{
+            String subDomainName= (String) cucumberContextManager.getScenarioContext("SUB_DOMAIN_NAME");
+            String partnerName = DbUtility.getPartnerName(subDomainName);
+            action.click(admin_partnersPage.Button_Unlock(partnerName));
+            cucumberContextManager.setScenarioContext("PARTNER_NAME",partnerName);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
                     true);
         }
     }
