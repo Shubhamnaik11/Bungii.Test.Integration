@@ -24,36 +24,19 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
 
-    @When("^I click on the options beside scheduled bungii$")
-    public void i_click_on_the_options_beside_scheduled_bungii() throws Throwable {
-        try {
-            action.click(SetupManager.getDriver().findElement(By.xpath((String) cucumberContextManager.getScenarioContext("XPATH") + "/parent::tr")).findElement(By.xpath("td/div/img")));
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-    }
 
     @And("^I click on \"([^\"]*)\" in the dropdown$")
     public void i_click_on_something_in_the_dropdown(String dropdown) throws Throwable {
         try{
         switch (dropdown) {
-            case "Edit":
-                    action.click(admin_EditScheduledBungiiPage.Button_Edit());
-                    break;
-
             case "Customer initiated":
                     Select selectCustomer = new Select((WebElement) admin_EditScheduledBungiiPage.Reason_Dropdown());
                     selectCustomer.selectByVisibleText("Customer initiated");
                     break;
-
             case "Partner initiated":
                     Select selectPartner = new Select((WebElement) admin_EditScheduledBungiiPage.Reason_Dropdown());
                     selectPartner.selectByVisibleText("Partner initiated");
                     break;
-
             case "Delivery Details":
                     action.click(admin_EditScheduledBungiiPage.Button_Delivery_Details());
                     break;
@@ -78,7 +61,6 @@ public class Admin_ReasonCodeSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
                     break;
             case "Date":
-
                     action.click(admin_EditScheduledBungiiPage.DatePicker_ScheduledDate());
                     Thread.sleep(1000);
                     action.click(admin_EditScheduledBungiiPage.Changed_Date());

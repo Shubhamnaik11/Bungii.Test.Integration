@@ -16,8 +16,7 @@ Feature: Admin_Reason_Code
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers |
-    When I click on the options beside scheduled bungii
-    And I click on "Edit" in the dropdown
+    When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Time" and select future time
     And I click on "Reason" for change time
@@ -38,8 +37,7 @@ Feature: Admin_Reason_Code
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers |
-    When I click on the options beside scheduled bungii
-    And I click on "Edit" in the dropdown
+    When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Time" and select future time
     And I click on "Reason" for change time
@@ -55,14 +53,13 @@ Feature: Admin_Reason_Code
     Scenario: Verify Reason dropdown is displayed for Customer SOLO re-scheduled delivery when NO Driver accepts and Admin edits only Date
       When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
         | Bungii Time   | Customer Phone | Customer Name |
-        | NEXT_POSSIBLE | 9999999108 | Testcustomertywd_appleNewQH Customer |
+        | NEXT_POSSIBLE | 9999999108 | Testcustomertywd_appleNewQH Customer|
       And I view the all Scheduled Deliveries list on the admin portal
       And I wait for "2" mins
       Then I should be able to see the respective bungii with the below status
         |  Status |
         | Searching Drivers |
-      When I click on the options beside scheduled bungii
-      And I click on "Edit" in the dropdown
+      When I click on "Edit" link beside scheduled bungii
       And I click on "Edit Trip Details" radiobutton
       And I click on the "Date" and select future time
       And I click on "Reason" for change time
@@ -84,8 +81,7 @@ Feature: Admin_Reason_Code
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers |
-    When I click on the options beside scheduled bungii
-    And I click on "Edit" in the dropdown
+    When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Date" and select future time
     And I click on the "Time" and select future time
@@ -103,14 +99,13 @@ Feature: Admin_Reason_Code
   Scenario: Verify Reason dropdown is hidden when Admin does not edit date or time or both and verify reason dropdown values
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
-      | NEXT_POSSIBLE | 9999999110     | Testcustomertywd_appleNewQJ Customer |
+      | NEXT_POSSIBLE | 9999999110     | Testcustomertywd_appleNewQJ Customer|
     And I view the all Scheduled Deliveries list on the admin portal
     And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers |
-    When I click on the options beside scheduled bungii
-    And I click on "Edit" in the dropdown
+    When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I check if the "Reason" field is hidden
     And I click on the "Time" and select future time
@@ -137,8 +132,7 @@ Feature: Admin_Reason_Code
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers |
-    When I click on the options beside scheduled bungii
-    And I click on "Edit" in the dropdown
+    When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Date" and select future time
     And I click on the "Time" and select future time
@@ -164,8 +158,7 @@ Feature: Admin_Reason_Code
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Driver(s) Not Found |
-    When I click on the options beside scheduled bungii
-    And I click on "Edit" in the dropdown
+    When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Time" and select future time
     And I click on "Reason" for change time
@@ -187,8 +180,7 @@ Feature: Admin_Reason_Code
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers |
-    When I click on the options beside scheduled bungii
-    And I click on "Edit" in the dropdown
+    When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
     Then I change the drop off address to "4400 Massachusetts Avenue Northwest"
@@ -261,7 +253,6 @@ Feature: Admin_Reason_Code
     And I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     And I select the Scheduled Bungii from Delivery List
-    #Then I should "see the service name"
     Then I close the Trip Delivery Details page
     When I navigate to "Admin" portal configured for "QA" URL
     And I view the partner portal Scheduled Trips list on the admin portal
@@ -333,8 +324,7 @@ Feature: Admin_Reason_Code
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
-    When I click on the options beside scheduled bungii
-    And I click on "Edit" in the dropdown
+    When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Date" and select future time
     And I click on "Reason" for change time
@@ -381,8 +371,7 @@ Feature: Admin_Reason_Code
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Driver(s) Not Found |
-    When I click on the options beside scheduled bungii
-    And I click on "Edit" in the dropdown
+    When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Time" and select future time
     And I click on "Reason" for change time
