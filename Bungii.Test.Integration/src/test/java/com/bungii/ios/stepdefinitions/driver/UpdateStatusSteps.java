@@ -493,8 +493,8 @@ public class UpdateStatusSteps extends DriverBase {
         String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",", "").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
 
-        boolean isTagDisplayed = actualInfo.get(1).equals("PICKUP LOCATION");
-        boolean isETACorrect = actualInfo.get(3).contains("ETA:") && actualInfo.get(3).contains("mins");
+        boolean isTagDisplayed = actualInfo.get(5).equals("PICKUP LOCATION");
+        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualPickuplocation = actualInfo.get(2).replace(",", "").replace("  ", " ");
         boolean isPickUpDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation.contains(pickUpLocationLineTwo);

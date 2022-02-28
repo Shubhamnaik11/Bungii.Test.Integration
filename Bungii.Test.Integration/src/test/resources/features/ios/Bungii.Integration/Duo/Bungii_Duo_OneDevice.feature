@@ -83,7 +83,8 @@ Feature: Scheduled Bungii on one device
     Then I accept Alert message for "Reminder: both driver at drop off"
     Then I should be navigated to "Bungii Completed" screen
     Then I wait for "1" mins
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins

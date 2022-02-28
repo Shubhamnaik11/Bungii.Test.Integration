@@ -290,7 +290,18 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     }
     @Then("^\"([^\"]*)\" message is displayed$")
     public void something_message_is_displayed(String message) throws Throwable {
-        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorContainer(),message,message+ " message should be displayed" ,message+ " message is displayed",message+ "  message should be displayed is not displayed");
+        try{
+            switch(message){
+                case "payment declined error":
+                    testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorContainer(),PropertyUtility.getMessage("payment.declined.error"),message+ " message should be displayed" ,message+ " message is displayed",message+ "  message should be displayed is not displayed");
+                    break;
+            }
+
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^the partner is displayed in Upload Deliveries since payment is set$")

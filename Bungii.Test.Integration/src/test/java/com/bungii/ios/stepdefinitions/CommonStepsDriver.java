@@ -358,7 +358,7 @@ public class CommonStepsDriver extends DriverBase {
         }
          navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
         if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
-            action.click(driverBungiiCompletedPage.Button_NextTrip());
+            action.click(driverBungiiCompletedPage.Button_Next_Bungii());
             navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
         }
 
