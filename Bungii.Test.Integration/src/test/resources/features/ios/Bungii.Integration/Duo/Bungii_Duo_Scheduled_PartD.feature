@@ -211,9 +211,10 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     Then I should be navigated to "Home" screen
     
     And I Switch to "driver" application on "ORIGINAL" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
-    
+    And I click "On To The Next One" button on "Bungii completed" screen
+
     Then I wait for "3" mins
     
     And I open new "Chrome" browser for "ADMIN PORTAL"

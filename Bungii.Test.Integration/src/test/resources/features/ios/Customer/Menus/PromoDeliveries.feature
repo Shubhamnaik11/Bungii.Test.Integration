@@ -56,8 +56,9 @@ When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 Then I should be navigated to "Home" screen
 
 When I Switch to "driver" application on "same" devices
-  Then Bungii driver should see "correct details" on Bungii completed page
-  And I click "On To The Next One" button on "Bungii Completed" screen
+And I click "Skip This Step" button on "Rate customer" screen
+Then Bungii driver should see "correct details" on Bungii completed page
+And I click "On To The Next One" button on "Bungii completed" screen
 
 And I open new "Chrome" browser for "ADMIN PORTAL"
 And I navigate to admin portal

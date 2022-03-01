@@ -103,13 +103,15 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "Home" screen
 
     And I Switch to "driver" application on "ORIGINAL" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
     And I Select "HOME" from driver App menu
   
     When I Switch to "driver" application on "Driver2" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
     And I Select "HOME" from driver App menu
     
     
@@ -175,8 +177,9 @@ Feature: Scheduled DUO Bungii
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "same" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -201,8 +204,9 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -260,8 +264,9 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "same" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -281,8 +286,9 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -337,8 +343,9 @@ Feature: Scheduled DUO Bungii
     And try to finish time should be correctly displayed for short stack trip
     
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "same" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -354,8 +361,9 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -401,8 +409,9 @@ Feature: Scheduled DUO Bungii
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for short stack trip
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
     
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "EN ROUTE" screen
@@ -413,8 +422,9 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
   
     And I Switch to "customer" application on "same" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen

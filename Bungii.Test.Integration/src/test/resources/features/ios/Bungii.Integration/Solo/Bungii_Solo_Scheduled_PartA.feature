@@ -84,8 +84,9 @@ Feature: Solo Scheduled Bungii Part A
     Then I should be navigated to "Home" screen
     
     When I Switch to "driver" application on "same" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
 
   @ready
   Scenario: Verify Details Of Solo Schedule Bungii
@@ -166,8 +167,9 @@ Feature: Solo Scheduled Bungii Part A
     Then I should be navigated to "Home" screen
 
     When I Switch to "driver" application on "same" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
 
   @ready
   Scenario: Verify Customer Can Create And Complete Schedule Solo Bungii
@@ -221,8 +223,9 @@ Feature: Solo Scheduled Bungii Part A
     Then Customer should be navigated to "UNLOADING ITEM" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
     When I rate Bungii Driver  with following details and Press "OK" Button
