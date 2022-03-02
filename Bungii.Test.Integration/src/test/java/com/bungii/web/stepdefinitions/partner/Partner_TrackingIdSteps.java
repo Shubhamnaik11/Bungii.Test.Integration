@@ -339,17 +339,12 @@ public class Partner_TrackingIdSteps extends DriverBase {
     @When("^I click on the \"([^\"]*)\" link and click on the \"([^\"]*)\" button from the dropdown$")
     public void i_click_on_the_something_link_and_click_on_the_something_button_from_the_dropdown(String deliveryType, String strArg2) throws Throwable {
         try {
-            switch (deliveryType) {
-                case "Scheduled Deliveries":
-                    action.clearSendKeys(admin_TripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
-                    Thread.sleep(2000);
-                    action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
-                    action.click(admin_ScheduledTripsPage.List_ViewEdit());
-                    action.click(admin_ScheduledTripsPage.Dropdown_Edit_DeliveryDetails());
-                    Thread.sleep(3000);
-                    break;
-
-            }
+            action.clearSendKeys(admin_TripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
+            Thread.sleep(2000);
+            action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
+            action.click(admin_ScheduledTripsPage.List_ViewEdit());
+            action.click(admin_ScheduledTripsPage.Dropdown_Edit_DeliveryDetails());
+            Thread.sleep(3000);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
