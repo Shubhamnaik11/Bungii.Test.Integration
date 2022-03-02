@@ -94,38 +94,38 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement List_ViewDeliveries(){return  findElement("//div/ul/li/p[text()=\"Delivery Details\"]",LocatorType.XPath);}
 
     //Deivery details
-    public WebElement DeliveryDetails_Dropdown(){return  findElement("dLabel",LocatorType.Id);}
+    public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
 
-    public WebElement Admin_CustomerName(){return  findElement("//tbody/tr[1]/td[7]/a",LocatorType.XPath);}
+    public WebElement Text_Admin_CustomerName(){return  findElement("//tbody/tr[1]/td[7]/a",LocatorType.XPath);}
 
-    public WebElement Admin_TrackingId(){return  findElement("//div/h4[3]",LocatorType.XPath);}
+    public WebElement Text_Admin_TrackingId(){return  findElement("//div/h4[3]",LocatorType.XPath);}
 
 
-    public WebElement LiveDelivery_Details(){return  findElement("//div/ul/li/a[text()=\"Delivery Details\"]",LocatorType.XPath);}
+    public WebElement Dropdown_LiveDelivery_Details(){return  findElement("//div/ul/li/a[text()=\"Delivery Details\"]",LocatorType.XPath);}
     public WebElement List_ViewEdit(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Edit')]",LocatorType.XPath);}
-    public WebElement Edit_DeliveryDetails(){return  findElement("//label/span[text()='Edit Delivery Details']",LocatorType.XPath);}
+    public WebElement Dropdown_Edit_DeliveryDetails(){return  findElement("//label/span[text()='Edit Delivery Details']",LocatorType.XPath);}
 
-    public WebElement Edit_dropOffLocation(){return  findElement("//div/img[@class=\"cursor editDropoffAddress\"]",LocatorType.XPath);}
+    public WebElement Link_Edit_dropOffLocation(){return  findElement("//div/img[@class=\"cursor editDropoffAddress\"]",LocatorType.XPath);}
 
-    public WebElement Edit_dropOfflocationAddress(){return  findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
+    public WebElement Textbox_Edit_dropOfflocationAddress(){return  findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
 
-    public WebElement SelectAdd(){return  findElement("//div[@data-name='Washington']",LocatorType.XPath);}
-
-
-    public WebElement EditScheduled_Form(){return  findElement("exampleModalLongTitle",LocatorType.Id);}
-
-    public WebElement Edit_Verify(){return  findElement("//button[text() =\"VERIFY\"]",LocatorType.XPath);}
-
-    public WebElement Edit_Save(){return  findElement("//button[text() =\"SAVE\"]",LocatorType.XPath);}
-
-    public WebElement Edit_Close(){return  findElement("//div/button[@class =\"close\"]",LocatorType.XPath);}
-
-    public WebElement NewDropoffAddress(){return  findElement("lblDestinationAddress",LocatorType.Id);}
+    public WebElement Text_SelectAdd(){return  findElement("//div[@data-name='Fort Lesley J. McNair']",LocatorType.XPath);}
 
 
-    public WebElement Delivery_Scheduled(){return  findElement("//tbody/tr/td[text() ='Scheduled']",LocatorType.XPath);}
+    public WebElement RadioButton_EditDeliveryDetails(){return  findElement("exampleModalLongTitle",LocatorType.Id);}
 
-    public WebElement Delivery_Successfull(){return  findElement("//tbody/tr/td[contains(text() ,\"Payment Successful\")]",LocatorType.XPath);}
+    public WebElement Button_Edit_Verify(){return  findElement("//button[text() =\"VERIFY\"]",LocatorType.XPath);}
 
-    public WebElement Delivery_TripStarted(){return  findElement("//tbody/tr/td[contains(text() ,\"Trip Started\")]",LocatorType.XPath);}
+    public WebElement Button_Edit_Save(){return  findElement("//button[text() =\"SAVE\"]",LocatorType.XPath);}
+
+    public WebElement Button_Edit_Close(){return  findElement("//div/button[@class =\"close\"]",LocatorType.XPath);}
+
+    public WebElement Text_NewDropoffAddress(){return  findElement("lblDestinationAddress",LocatorType.Id);}
+
+
+    public WebElement Text_Delivery_Scheduled(){return  findElement("//tbody/tr/td[text() ='Scheduled']",LocatorType.XPath);}
+
+    public WebElement Text_Delivery_Successfull(){return  findElement("//tbody/tr/td[contains(text() ,\"Payment Successful\")]",LocatorType.XPath);}
+
+    public WebElement Text_Delivery_TripStarted(){return  findElement("//tbody/tr/td[contains(text() ,\"Trip Started\")]",LocatorType.XPath);}
 }

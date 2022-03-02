@@ -5,7 +5,6 @@ Feature: Partner Integration with Admin and Driver
     Given I'm logged into "Partner" portal and  created a new  delivery
 
   @ready
-
   Scenario: Display and search Tracking ID on partner portals
     Then I should see the trackingid displayed on the delivery confirmation page
     When I click the "Track Deliveries" button on Partner Portal
@@ -17,7 +16,7 @@ Feature: Partner Integration with Admin and Driver
     When As a driver "Testdrivertywd_appledc_a_drve Driver" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted  |
-    And I wait for 2 minute
+    And I wait for 2 minutes
      Then I should be able to see the respective bungii trip with the below status
       | Status    |
       | Scheduled |
@@ -35,11 +34,11 @@ Feature: Partner Integration with Admin and Driver
     When As a driver "Testdrivertywd_appledc_a_drve Driver" perform below action with respective "Edited Solo Scheduled" Delivery
       | driver1 state|
       | Enroute |
-    And I wait for 2 minute
+    And I wait for 2 minutes
     Then I should be able to see the  bungii trip status to be changed to the below status
       | Status |
       | Trip Started |
-    When I Click on the "Live Deliveries" link and enter "Tracking Id" in the search bar
+    When  I click on the "Live Deliveries" button and enter the "Tracking Id" in the search bar
     Then I should see the delivery details displayed
     When As a driver "Testdrivertywd_appledc_a_drve Driver" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
@@ -48,8 +47,8 @@ Feature: Partner Integration with Admin and Driver
       | Driving To Dropoff |
       | Unloading Item |
       | Bungii Completed |
-    And I wait for 2 minute
+    And I wait for 2 minutes
     Then The "All Deliveries" page should display the delivery in "Payment Successful" state
-    When I Click on the "All Deliveries" link and enter the "Tracking Id" into search bar
+    When  I click on the "All Deliveries" button and enter the "Tracking Id" in the search bar
     Then I should see delivery details displayed
 

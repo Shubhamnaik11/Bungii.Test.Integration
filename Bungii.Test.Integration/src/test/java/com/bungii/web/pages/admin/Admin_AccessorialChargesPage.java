@@ -16,7 +16,6 @@ public class Admin_AccessorialChargesPage extends PageBase {
     public WebElement Message_Mandatory() { return findElement("//div[@id='accessorial-charge']/label[2]", LocatorType.XPath); }
 //    public WebElement GridRow(String feeType) { return findElement(String.format("//td[text()='%s']/following-sibling::td",feeType), LocatorType.XPath); } -- old xpath
    public WebElement ExcessWaitTime() { return findElement("//div/h4/a[contains(text(),\"Excess Wait Time\")]", LocatorType.XPath); }
-    //div/h4/a[contains(text(),'Excess Wait Time - '$10')] //  //div[1]/div[1]/h4/a
     public WebElement GridRowTotal(String total) { return findElement(String.format("//td/strong[text()='%s']/parent::td/following-sibling::td",total), LocatorType.XPath); }
     public WebElement Error_AccessorialFeeAmount() { return findElement("fee-amount-error", LocatorType.Id); }
     public WebElement Error_AccessorialFeeDriverCut() { return findElement("fee-type-driverOneShare-error", LocatorType.Id); }

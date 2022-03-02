@@ -189,39 +189,39 @@ public class Partner_DashboardPage extends PageBase {
 
     public WebElement SelectTime() { return findElement("//div/ul[@class =\"MuiList-root MuiMenu-list jss3 MuiList-padding\"]/li[3]",LocatorType.XPath);}
     //Tracking Id Column
-    public WebElement TrackingId_Column() { return findElement("//tr/th[2]/div",LocatorType.XPath);}
+    public WebElement Text_TrackingId_Column() { return findElement("//tr/th[2]/div",LocatorType.XPath);}
 
-    //Label Summary Tracking Id
-    public WebElement Summary_TrackingId_2() { return findElement("//section/div[1]/p",LocatorType.XPath);}
-
-
+    // Summary Tracking Id
+    public WebElement Text_Summary_TrackingId() { return findElement("//section/div[1]/p",LocatorType.XPath);}
 
 
-    //Label Summary Delivery Address
-    public WebElement Summary_DeliveryAddress() { return findElement("//section/div[2]/div/p",LocatorType.XPath);}
+
+
+    // Summary Delivery Address
+    public WebElement Text_Summary_DeliveryAddress() { return findElement("//section/div[2]/div/p",LocatorType.XPath);}
 
 
 
     //Search Bar
-    public WebElement SearchBar() { return findElement("searchText", LocatorType.Id); }
+    public WebElement Textbox_SearchBar() { return findElement("searchText", LocatorType.Id); }
 
     //Trip DeliveryDate
     public WebElement Trip_DeliveryDate() { return findElement("//tbody/tr[1]/td[1]/div",LocatorType.XPath);}
 
     //Trip TrackingId
-    public WebElement Trip_TrackingId() { return findElement("//tr[1]/td[2]/div[1]",LocatorType.XPath);}
+    public WebElement Text_Trip_TrackingId() { return findElement("//tr[1]/td[2]/div[1]",LocatorType.XPath);}
 
     //trip Customer
-    public WebElement Trip_Customer() { return findElement("//tr[1]/td[3]/div[1]",LocatorType.XPath);}
+    public WebElement Text_Trip_Customer() { return findElement("//tr[1]/td[3]/div[1]",LocatorType.XPath);}
 
     //Trip Delivery Address
-    public WebElement Trip_DeliveryAddress() { return findElement("//tr[1]/td[4]/div[1]",LocatorType.XPath);}
+    public WebElement Text_Trip_DeliveryAddress() { return findElement("//tr[1]/td[4]/div[1]",LocatorType.XPath);}
 
     //Trip Delivery Status
     public WebElement Trip_DeliveryStatus() { return findElement("//tr[1]/td[5]/div[1]",LocatorType.XPath);}
 
     //No Trip Message
-    public WebElement Trip_ErrorMessage() { return findElement("//td/div/div[text() =\"Sorry, no records found\"]",LocatorType.XPath);}
+    public WebElement Label_Trip_ErrorMessage() { return findElement("//td/div/div[text() =\"Sorry, no records found\"]",LocatorType.XPath);}
 
 
 

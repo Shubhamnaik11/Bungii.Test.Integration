@@ -16,18 +16,12 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
-
-
 import org.testng.Assert;
-
-
 import java.util.ArrayList;
 import java.util.Map;
-
 import static com.bungii.common.manager.ResultManager.error;
 
 
@@ -127,10 +121,10 @@ public class Partner_TrackingIdSteps extends DriverBase {
 
             Thread.sleep(2000);
 
-            cucumberContextManager.setScenarioContext("TrackingID_Summary", action.getText(Page_Partner_Dashboard.Summary_TrackingId_2()));
-            Assert.assertTrue(cucumberContextManager.getScenarioContext("TrackingID_Summary").toString().length()>0,"TrackingId is not displayed");
+            cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY", action.getText(Page_Partner_Dashboard.Text_Summary_TrackingId()));
+            Assert.assertTrue(cucumberContextManager.getScenarioContext("TRACKINGID_SUMMARY").toString().length()>0,"TrackingId is not displayed");
 
-            cucumberContextManager.setScenarioContext("Delivery_Summary", Page_Partner_Dashboard.Summary_DeliveryAddress().getText().replace(",", "").replace(" United States", ""));
+            cucumberContextManager.setScenarioContext("DELIVERY_SUMMARY", Page_Partner_Dashboard.Text_Summary_DeliveryAddress().getText().replace(",", "").replace(" United States", ""));
 
             String PickupRequest = new DbUtility().getPickupRef("9998887777");
             cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
@@ -143,9 +137,16 @@ public class Partner_TrackingIdSteps extends DriverBase {
     }
     @Then("^I should see the trackingid displayed on the delivery confirmation page$")
     public void i_should_see_the_trackingid_displayed_on_the_delivery_confirmation_page() throws Throwable {
-        Thread.sleep(1000);
-        Assert.assertTrue(cucumberContextManager.getScenarioContext("TrackingID_Summary").toString().length()>0,"TrackingId is not displayed");
-    }
+        try {
+            Thread.sleep(1000);
+            Assert.assertTrue(cucumberContextManager.getScenarioContext("TRACKINGID_SUMMARY").toString().length() > 0, "TrackingId is not displayed");
+        }
+        catch (Exception e) {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step should be successful", "Error performing step,Please check logs for more details",
+                        true);
+            }
+        }
 
 
     @And("^I click the \"([^\"]*)\" button on Partner Portal$")
@@ -155,13 +156,13 @@ public class Partner_TrackingIdSteps extends DriverBase {
         action.click(Page_Partner_Done.Dropdown_Setting());
         action.click(Page_Partner_Done.Button_Track_Deliveries());
         Thread.sleep(5000);
-        String  Column_Tracking = "TRACKING ID";
-        cucumberContextManager.setScenarioContext("TrackingId_Column", action.getText(Page_Partner_Dashboard.TrackingId_Column()));
-        Assert.assertEquals(cucumberContextManager.getScenarioContext("TrackingId_Column"),Column_Tracking,"Tracking Id column doesnt exist");
+        String  columnTracking = "TRACKING ID";
+        cucumberContextManager.setScenarioContext("TRACKINGID_COLUMN", action.getText(Page_Partner_Dashboard.Text_TrackingId_Column()));
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("TRACKINGID_COLUMN"),columnTracking,"Tracking Id column doesnt exist");
 
-        cucumberContextManager.setScenarioContext("Partner_CustomerName",action.getText(Page_Partner_Dashboard.Trip_Customer()));
-        cucumberContextManager.setScenarioContext("Partner_TrackingId", action.getText(Page_Partner_Dashboard.Trip_TrackingId()));
-        cucumberContextManager.setScenarioContext("Delivery Address", action.getText(Page_Partner_Dashboard.Trip_DeliveryAddress()).replace(",", ""));
+        cucumberContextManager.setScenarioContext("PARTNER_CUSTOMERNAME",action.getText(Page_Partner_Dashboard.Text_Trip_Customer()));
+        cucumberContextManager.setScenarioContext("PARTNER_TRACKINGID", action.getText(Page_Partner_Dashboard.Text_Trip_TrackingId()));
+        cucumberContextManager.setScenarioContext("DELIVERY_ADDRESS", action.getText(Page_Partner_Dashboard.Text_Trip_DeliveryAddress()).replace(",", ""));
         Thread.sleep(2000);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -173,9 +174,9 @@ public class Partner_TrackingIdSteps extends DriverBase {
     @And("^I search the trip using a correct tracking id$")
     public void i_search_the_trip_using_a_correct_tracking_id() throws Throwable {
         try {
-            action.click(Page_Partner_Dashboard.SearchBar());
+            action.click(Page_Partner_Dashboard.Textbox_SearchBar());
             Thread.sleep(1000);
-            action.clearSendKeys(Page_Partner_Dashboard.SearchBar(), (String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
+            action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), (String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -185,17 +186,23 @@ public class Partner_TrackingIdSteps extends DriverBase {
 
     @Then("^I should see the trip Details$")
     public void i_should_see_the_trip_details() throws Throwable {
+        try{
         Thread.sleep(5000);
-        Assert.assertEquals(cucumberContextManager.getScenarioContext("TrackingID_Summary"),cucumberContextManager.getScenarioContext("Partner_TrackingId"),"Tracking Id doesnt match the expected data");
-        Assert.assertEquals(cucumberContextManager.getScenarioContext("Delivery_Summary"),cucumberContextManager.getScenarioContext("Delivery Address"),"Delivery Address doesnt match the expected data");
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("TRACKINGID_SUMMARY"),cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID"),"Tracking Id doesnt match the expected data");
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("DELIVERY_SUMMARY"),cucumberContextManager.getScenarioContext("DELIVERY_ADDRESS"),"Delivery Address doesnt match the expected data");
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I search the trip using invalid tracking id \"([^\"]*)\"$")
     public void i_search_the_trip_using_invalid_tracking_id_something(String TrackingID) throws Throwable {
         try {
-            action.click(Page_Partner_Dashboard.SearchBar());
+            action.click(Page_Partner_Dashboard.Textbox_SearchBar());
             Thread.sleep(1000);
-            action.clearSendKeys(Page_Partner_Dashboard.SearchBar(), TrackingID + Keys.ENTER);
+            action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), TrackingID + Keys.ENTER);
             Thread.sleep(2000);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -206,9 +213,15 @@ public class Partner_TrackingIdSteps extends DriverBase {
 
     @Then("^I should see the message \"([^\"]*)\"$")
     public void i_should_see_the_message_something(String ErrorMessage) throws Throwable {
-        String ErrorText = action.getText(Page_Partner_Dashboard.Trip_ErrorMessage());
+        try {
+        String errorText = action.getText(Page_Partner_Dashboard.Label_Trip_ErrorMessage());
         Thread.sleep(1000);
-        Assert.assertEquals(ErrorText,ErrorMessage,"Error messages dont match");
+        Assert.assertEquals(errorText,ErrorMessage,"Error messages dont match");
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
@@ -216,8 +229,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
     public void i_navigate_to_the_something_portal_configured_for_something_url(String strArg1, String strArg2) throws Throwable {
         try {
             utility.AdminLoginFromPartner();
-//            Thread.sleep(120000); //2 minute wait
-            Thread.sleep(60000);//1 minute wait
+            Thread.sleep(60000);
         }catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -227,182 +239,276 @@ public class Partner_TrackingIdSteps extends DriverBase {
     }
 
     @When("^I click on the \"([^\"]*)\" button and enter the \"([^\"]*)\" in the search bar$")
-    public void i_click_on_the_something_button_and_enter_the_something_in_the_search_bar(String strArg1, String strArg2) throws Throwable {
-        Thread.sleep(15000);
-        action.click(admin_TripsPage.Menu_Trips());
-        action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        Thread.sleep(2000);
+    public void i_click_on_the_something_button_and_enter_the_something_in_the_search_bar(String deliveryType, String strArg2) throws Throwable {
+       try {
+           switch (deliveryType){
+               case "Scheduled Deliveries":
+                   Thread.sleep(15000);
+                   action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
+                   action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
+                   Thread.sleep(2000);
+                   break;
+            case "Live Deliveries":
+                   Thread.sleep(6000);
+                   action.click(admin_LiveTripsPage.Menu_LiveTrips());
+                   action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
+                   Thread.sleep(1000);
+                   action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
+                   action.click(admin_ScheduledTripsPage.Dropdown_LiveDelivery_Details());
+                   Thread.sleep(5000);
+                   break;
+            case "All Deliveries":
+                   action.click(admin_ScheduledTripsPage.Menu_AllTrips());
+                   action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
+                   Thread.sleep(1000);
+                   action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
+                   action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+                   Thread.sleep(5000);
+                   break;
+
+           }
+
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
     @Then("^I should be able to see the respective delivery$")
     public void i_should_be_able_to_see_the_respective_delivery() throws Throwable {
-        cucumberContextManager.setScenarioContext("Admin_CustomerName",action.getText(admin_ScheduledTripsPage.Admin_CustomerName()));
-       Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_CustomerName"),cucumberContextManager.getScenarioContext("Admin_CustomerName").toString().trim(),"Customer names dont match");
+        try {
+        cucumberContextManager.setScenarioContext("ADMIN_CUSTOMERNAME",action.getText(admin_ScheduledTripsPage.Text_Admin_CustomerName()));
+       Assert.assertEquals(cucumberContextManager.getScenarioContext("PARTNER_CUSTOMERNAME"),cucumberContextManager.getScenarioContext("ADMIN_CUSTOMERNAME").toString().trim(),"Customer names dont match");
         Thread.sleep(1000);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I click on the \"([^\"]*)\" button from the dropdown$")
     public void i_click_on_the_something_button_from_the_dropdown(String strArg1) throws Throwable {
-        action.click(admin_ScheduledTripsPage.DeliveryDetails_Dropdown());
+        try {
+        action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
         action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
         Thread.sleep(5000);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
     @Then("^I should see the \"([^\"]*)\" displayed on the delivery details$")
     public void i_should_see_the_something_displayed_on_the_delivery_details(String strArg1) throws Throwable {
-        String ScheduledTrackingId = action.getText(admin_ScheduledTripsPage.Admin_TrackingId()).replace("Tracking Id:","").trim();
-        Assert.assertTrue(ScheduledTrackingId.length()>0,"TrackingId is not displayed on admin portal");
-        Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_TrackingId"),ScheduledTrackingId,"Tracking Ids dont match");
+       try {
+        String scheduledTrackingId = action.getText(admin_ScheduledTripsPage.Text_Admin_TrackingId()).replace("Tracking Id:","").trim();
+        Assert.assertTrue(scheduledTrackingId.length()>0,"TrackingId is not displayed on admin portal");
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID"),scheduledTrackingId,"Tracking Ids dont match");
         Thread.sleep(1000);
         action.click(admin_TripDetailsPage.Button_Ok());
         Thread.sleep(1000);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should be able to see the  bungii trip status to be changed to the below status$")
     public void i_should_be_able_to_see_the_bungii_trip_status_to_be_changed_to_the_below_status(DataTable data) throws Throwable {
+        try {
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String status = dataMap.get("Status").trim();
         action.click(admin_LiveTripsPage.Menu_LiveTrips());
-      action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
+      action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
         Thread.sleep(4000);
-        String DeliveryStatus = action.getText(admin_ScheduledTripsPage.Delivery_TripStarted()).trim();
-        Assert.assertEquals(status,DeliveryStatus,"Delivery Status dont match");
+        String deliveryStatus = action.getText(admin_ScheduledTripsPage.Text_Delivery_TripStarted()).trim();
+        Assert.assertEquals(status,deliveryStatus,"Delivery Status dont match");
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
-    @When("^I Click on the \"([^\"]*)\" link and enter \"([^\"]*)\" in the search bar$")
-    public void i_click_on_the_something_link_and_enter_something_in_the_search_bar(String strArg1, String strArg2) throws Throwable {
-        Thread.sleep(6000);
-        action.click(admin_LiveTripsPage.Menu_LiveTrips());
-         action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        Thread.sleep(1000);
-        action.click(admin_ScheduledTripsPage.DeliveryDetails_Dropdown());
-        action.click(admin_ScheduledTripsPage.LiveDelivery_Details());
-        Thread.sleep(5000);
+    @When("^I click on the \"([^\"]*)\" link and click on the \"([^\"]*)\" button from the dropdown$")
+    public void i_click_on_the_something_link_and_click_on_the_something_button_from_the_dropdown(String deliveryType, String strArg2) throws Throwable {
+        try {
+            switch (deliveryType) {
+                case "Scheduled Deliveries":
+                    action.clearSendKeys(admin_TripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
+                    Thread.sleep(2000);
+                    action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
+                    action.click(admin_ScheduledTripsPage.List_ViewEdit());
+                    action.click(admin_ScheduledTripsPage.Dropdown_Edit_DeliveryDetails());
+                    Thread.sleep(3000);
+                    break;
 
+            }
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should see the delivery details displayed$")
     public void i_should_see_the_delivery_details_displayed() throws Throwable {
-        String LiveTrackingId = action.getText(admin_ScheduledTripsPage.Admin_TrackingId()).replace("Tracking Id:","").trim();
+        try {
+        String liveTrackingId = action.getText(admin_ScheduledTripsPage.Text_Admin_TrackingId()).replace("Tracking Id:","").trim();
         Thread.sleep(1000);
-        Assert.assertTrue(LiveTrackingId.length()>0,"TrackingId is not displayed on admin portal");
-       Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_TrackingId"),LiveTrackingId,"Tracking Ids dont match");
+        Assert.assertTrue(liveTrackingId.length()>0,"TrackingId is not displayed on admin portal");
+       Assert.assertEquals(cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID"),liveTrackingId,"Tracking Ids dont match");
         action.click(admin_TripDetailsPage.Button_Ok());
         Thread.sleep(1000);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
-    @And("^I wait for 2 minute$")
-    public void i_wait_for_2_minute() throws Throwable {
-       Thread.sleep(120000);
     }
 
     @Then("^I should be able to see the respective bungii trip with the below status$")
     public void i_should_be_able_to_see_the_respective_bungii_trip_with_the_below_status(DataTable data) throws Throwable {
+        try {
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String status = dataMap.get("Status").trim();
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
+        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
         Thread.sleep(1000);
-        String DeliveryStatus = action.getText(admin_ScheduledTripsPage.Delivery_Scheduled());
-        Assert.assertEquals(status,DeliveryStatus,"Delivery Statuses dont match");
+        String deliveryStatus = action.getText(admin_ScheduledTripsPage.Text_Delivery_Scheduled());
+        Assert.assertEquals(status,deliveryStatus,"Delivery Statuses dont match");
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
-
-
-    @When("^I Click on the \"([^\"]*)\" link and enter the \"([^\"]*)\" into search bar$")
-    public void i_click_on_the_something_link_and_enter_the_something_into_search_bar(String strArg1, String strArg2) throws Throwable {
-        action.click(admin_ScheduledTripsPage.Menu_AllTrips());
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        Thread.sleep(1000);
-        action.click(admin_ScheduledTripsPage.DeliveryDetails_Dropdown());
-        action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
-        Thread.sleep(5000);
     }
 
     @Then("^I should see delivery details displayed$")
     public void i_should_see_delivery_details_displayed() throws Throwable {
-        String AllTrackingId = action.getText(admin_ScheduledTripsPage.Admin_TrackingId()).replace("Tracking Id:","").trim();
-        Assert.assertTrue(AllTrackingId.length()>0,"TrackingId is not displayed on admin portal");
-        Assert.assertEquals(cucumberContextManager.getScenarioContext("Partner_TrackingId"),AllTrackingId,"Tracking Ids dont match");
+        try {
+        String allTrackingId = action.getText(admin_ScheduledTripsPage.Text_Admin_TrackingId()).replace("Tracking Id:","").trim();
+        Assert.assertTrue(allTrackingId.length()>0,"TrackingId is not displayed on admin portal");
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID"),allTrackingId,"Tracking Ids dont match");
         action.click(admin_TripDetailsPage.Button_Ok());
         Thread.sleep(1000);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
-   @When("^I click on the \"([^\"]*)\" link and click on the \"([^\"]*)\" button from the dropdown$")
-   public void i_click_on_the_something_link_and_click_on_the_something_button_from_the_dropdown(String strArg1, String strArg2) throws Throwable {
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
-        Thread.sleep(2000);
-        action.click(admin_ScheduledTripsPage.DeliveryDetails_Dropdown());
-        action.click(admin_ScheduledTripsPage.List_ViewEdit());
-        action.click(admin_ScheduledTripsPage.Edit_DeliveryDetails());
-        Thread.sleep(3000);
-   }
+    }
+
     @Then("^I should see the \"([^\"]*)\" details form$")
     public void i_should_see_the_something_details_form(String strArg1) throws Throwable {
-    String EditFormheader = action.getText(admin_ScheduledTripsPage.EditScheduled_Form());
-    Assert.assertTrue(EditFormheader.equals("Edit Scheduled Bungii"),"Edit form is not displayed");
+        try {
+    String editFormHeader = action.getText(admin_ScheduledTripsPage.RadioButton_EditDeliveryDetails());
+    Assert.assertTrue(editFormHeader.equals("Edit Scheduled Bungii"),"Edit form is not displayed");
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @When("^I click on the \"([^\"]*)\" button and click  the \"([^\"]*)\" button$")
     public void i_click_on_the_something_button_and_click_the_something_button(String strArg1, String strArg2) throws Throwable {
-        cucumberContextManager.setScenarioContext("OldDropOffAdd",action.getText(admin_ScheduledTripsPage.NewDropoffAddress()));
-        action.click(admin_ScheduledTripsPage.Edit_dropOffLocation());
-        action.click(admin_ScheduledTripsPage.Edit_dropOfflocationAddress());
+        try {
+        cucumberContextManager.setScenarioContext("OLD_DROPOFF_ADDRESS",action.getText(admin_ScheduledTripsPage.Text_NewDropoffAddress()));
+        action.click(admin_ScheduledTripsPage.Link_Edit_dropOffLocation());
+        action.click(admin_ScheduledTripsPage.Textbox_Edit_dropOfflocationAddress());
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
     @And("^change the \"([^\"]*)\" location$")
     public void change_the_something_location(String strArg1) throws Throwable {
-        action.clearSendKeys(admin_ScheduledTripsPage.Edit_dropOfflocationAddress(),"Washington, DC 20024 ");
-        action.click(admin_ScheduledTripsPage.SelectAdd());
+        try {
+        action.clearSendKeys(admin_ScheduledTripsPage.Textbox_Edit_dropOfflocationAddress(),"Fort Lesley J. McNair, Washington, District of Columbia, 20024");
+        action.click(admin_ScheduledTripsPage.Text_SelectAdd());
         Thread.sleep(1000);
-        cucumberContextManager.setScenarioContext("NewDropOffAdd",action.getText(admin_ScheduledTripsPage.NewDropoffAddress()));
-        action.click(admin_ScheduledTripsPage.Edit_Verify());
-        action.click(admin_ScheduledTripsPage.Edit_Save());
-        action.click(admin_ScheduledTripsPage.Edit_Close());
+        cucumberContextManager.setScenarioContext("NEW_DROPOFF_ADDRESS",action.getText(admin_ScheduledTripsPage.Text_NewDropoffAddress()));
+        action.click(admin_ScheduledTripsPage.Button_Edit_Verify());
+        action.click(admin_ScheduledTripsPage.Button_Edit_Save());
+        action.click(admin_ScheduledTripsPage.Button_Edit_Close());
         Thread.sleep(1000);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
+
     @Then("^I should see the location changed$")
     public void i_should_see_the_location_changed() throws Throwable {
-    Assert.assertNotEquals(cucumberContextManager.getScenarioContext("NewDropOffAdd"),cucumberContextManager.getScenarioContext("OldDropOffAdd"),"drop off location is not changed ");
+        try {
+    Assert.assertNotEquals(cucumberContextManager.getScenarioContext("NEW_DROPOFF_ADDRESS"),cucumberContextManager.getScenarioContext("OLD_DROPOFF_ADDRESS"),"drop off location is not changed ");
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @When("^I navigate back to \"([^\"]*)\" portal and click on \"([^\"]*)\" button$")
     public void i_navigate_back_to_something_portal_and_click_on_something_button(String strArg1, String strArg2) throws Throwable {
+        try {
         ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
         SetupManager.getDriver().switchTo().window(tabs.get(0));
         action.refreshPage();
-        action.click(Page_Partner_Dashboard.SearchBar());
+        action.click(Page_Partner_Dashboard.Textbox_SearchBar());
         Thread.sleep(1000);
-        action.clearSendKeys(Page_Partner_Dashboard.SearchBar(), (String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
+        action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), (String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should see the delivery address changed and get navigated to the \"([^\"]*)\" portal$")
     public void i_should_see_the_delivery_address_changed_and_get_navigated_to_the_something_portal(String strArg1) throws Throwable {
+        try {
         Thread.sleep(2000);
-        cucumberContextManager.setScenarioContext("Delivery Address", action.getText(Page_Partner_Dashboard.Trip_DeliveryAddress()));
-        Assert.assertEquals(cucumberContextManager.getScenarioContext("Delivery Address").toString().replace(",",""),cucumberContextManager.getScenarioContext("NewDropOffAdd").toString().replace(",",""),"Delivery addresses dont match");
+        cucumberContextManager.setScenarioContext("DELIVERY_ADDRESS", action.getText(Page_Partner_Dashboard.Text_Trip_DeliveryAddress()));
+        Assert.assertEquals(cucumberContextManager.getScenarioContext("DELIVERY_ADDRESS").toString().replace(",",""),cucumberContextManager.getScenarioContext("NEW_DROPOFF_ADDRESS").toString().replace(",",""),"Delivery addresses dont match");
         ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
         Thread.sleep(2000);
         SetupManager.getDriver().switchTo().window(tabs.get(1));
         SetupManager.getDriver().manage().window().maximize();
         Thread.sleep(4000);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
-
-
+    }
 
 
     @Then("^The \"([^\"]*)\" page should display the delivery in \"([^\"]*)\" state$")
     public void the_something_page_should_display_the_delivery_in_something_state(String PagenName, String ExpectedText) throws Throwable {
+        try {
         action.click(admin_ScheduledTripsPage.Menu_AllTrips());
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("Partner_TrackingId") + Keys.ENTER);
+        action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
         Thread.sleep(4000);
-        String DeliveryComplete = action.getText(admin_ScheduledTripsPage.Delivery_Successfull());
-        Assert.assertEquals(ExpectedText,DeliveryComplete,"Delivery Statuses dont match");
+        String deliveryComplete = action.getText(admin_ScheduledTripsPage.Text_Delivery_Successfull());
+        Assert.assertEquals(ExpectedText,deliveryComplete,"Delivery Statuses dont match");
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
-
-
-
+    }
 }
