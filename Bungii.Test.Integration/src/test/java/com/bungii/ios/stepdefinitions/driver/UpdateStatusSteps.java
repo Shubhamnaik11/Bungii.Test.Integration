@@ -857,8 +857,6 @@ public class UpdateStatusSteps extends DriverBase {
      * Click call to customer
      */
     public void clickCallToCustomer() throws InterruptedException{
-        //action.click(updateStatusPage.Button_MoreOptions());
-        //Thread.sleep(2000);
         action.click(updateStatusPage.Button_Call());
         //Thread.sleep(2000);
 
@@ -868,8 +866,6 @@ public class UpdateStatusSteps extends DriverBase {
      * Click SMS to customer
      */
     public void clickSMSToCustomer() throws InterruptedException{
-        //action.click(updateStatusPage.Button_MoreOptions());
-        //Thread.sleep(2000);
 
         action.click(updateStatusPage.Button_Sms());
         Thread.sleep(2000);
@@ -880,12 +876,7 @@ public class UpdateStatusSteps extends DriverBase {
      * Click SMS to Bungii
      */
     public void clickSMSToSupport() throws InterruptedException{
-        //action.click(updateStatusPage.Button_MoreOptions());
-        //Thread.sleep(2000);
-        //logger.detail(SetupManager.getDriver().getPageSource());
-        action.tapByElement(updateStatusPage.Button_SupportSms());
-        //logger.detail(SetupManager.getDriver().getPageSource());
-        //action.click(updateStatusPage.Button_SupportSms());
+        action.click(updateStatusPage.Button_SupportSms());
         Thread.sleep(2000);
 
     }
@@ -894,10 +885,7 @@ public class UpdateStatusSteps extends DriverBase {
      * Click View Items
      */
     public void clickViewItems() throws InterruptedException {
-        //action.tapByElement(updateStatusPage.Button_MoreOptions());
-        //Thread.sleep(2000);
-
-        action.tapByElement(updateStatusPage.Button_ViewItems());
+        action.click(updateStatusPage.Button_ViewItems());
         Thread.sleep(2000);
 
     }
