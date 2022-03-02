@@ -13,7 +13,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     @testing
     #Stable
     #move to end
-  Scenario: Verify Manually End Bungii Option Is not Available In The Last Three States Only
+  Scenario: Verify Manually End Bungii Option Is not Available In The any States of bungii
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
@@ -48,19 +48,19 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Driving To Dropoff"
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
-    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Unloading Items"
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
     Then I see "Rate customer" screen
     And I select "4" customer rating
     #And I click "Submit" button on Rate customer screen
