@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_ReasonCodeSteps extends DriverBase {
 
@@ -30,17 +31,21 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         try{
         switch (dropdown) {
             case "Customer initiated":
-                    Select selectCustomer = new Select((WebElement) admin_EditScheduledBungiiPage.Reason_Dropdown());
+                    Select selectCustomer = new Select((WebElement) admin_EditScheduledBungiiPage.Dropdown_Result());
                     selectCustomer.selectByVisibleText("Customer initiated");
                     break;
             case "Partner initiated":
-                    Select selectPartner = new Select((WebElement) admin_EditScheduledBungiiPage.Reason_Dropdown());
+                    Select selectPartner = new Select((WebElement) admin_EditScheduledBungiiPage.Dropdown_Result());
                     selectPartner.selectByVisibleText("Partner initiated");
                     break;
             case "Delivery Details":
                     action.click(admin_EditScheduledBungiiPage.Button_Delivery_Details());
                     break;
+
+            default: break;
         }
+            log("I view "+dropdown+" in the dropdown",
+                    "I could see "+dropdown+" in the dropdown", false);
         }
         catch (Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -67,7 +72,11 @@ public class Admin_ReasonCodeSteps extends DriverBase {
                     String dateChanged = admin_EditScheduledBungiiPage.DatePicker_ScheduledDate().getText();
                     cucumberContextManager.setScenarioContext("Date_Changed", dateChanged);
                     break;
+
+            default: break;
         }
+            log("I can select future time/date",
+                    "I was able to change time/date to future time/date", false);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -81,7 +90,10 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     public void i_click_on_something_for_change_time(String strArg1) throws Throwable {
 
         try {
-            action.click(admin_EditScheduledBungiiPage.Reason_Dropdown());
+            action.click(admin_EditScheduledBungiiPage.Dropdown_Result());
+
+            log("I can click on reason dropdown",
+                    "I clicked on reason dropdown", false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -94,7 +106,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     @And("^I check if the \"([^\"]*)\" field is hidden$")
     public void i_check_if_the_something_field_is_hidden(String strArg1) throws Throwable {
         try {
-            testStepAssert.isFalse(admin_EditScheduledBungiiPage.Reason_Dropdown().isDisplayed(), "Reason should not be displayed", "Reason is displayed");
+            testStepAssert.isFalse(admin_EditScheduledBungiiPage.Dropdown_Result().isDisplayed(), "Reason dropdown should not be displayed", "Reason dropdown is displayed");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -112,8 +124,8 @@ public class Admin_ReasonCodeSteps extends DriverBase {
                 add("Customer initiated");
                 add("No drivers available");
             }};
-            action.click(admin_EditScheduledBungiiPage.Reason_Dropdown());
-            Select select = new Select(admin_EditScheduledBungiiPage.Reason_Dropdown());
+            action.click(admin_EditScheduledBungiiPage.Dropdown_Result());
+            Select select = new Select(admin_EditScheduledBungiiPage.Dropdown_Result());
             List<String> Options = new ArrayList();
             List<WebElement> actualOptions = select.getOptions();
             int size = actualOptions.size();
@@ -121,7 +133,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
                 String options = actualOptions.get(i).getText();
                 Options.add(options);
             }
-            testStepAssert.isTrue(Options.containsAll(expectedOptions),"Correct reasons need to be display","Correct reasons are display","Incorrect reasons are displayed");
+            testStepAssert.isTrue(Options.containsAll(expectedOptions),"Correct reasons need to be displayed","Correct reasons are displayed","Incorrect reasons are displayed");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -133,9 +145,12 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     @And("^I check if the \"([^\"]*)\" field is present$")
     public void i_check_if_the_something_field_is_present(String strArg1) throws Throwable {
         try {
-            admin_EditScheduledBungiiPage.Reason_Dropdown();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            testStepAssert.isTrue(true,"Reasons is not displayed","Reasons is not displayed","Reasons is displayed");
+            testStepAssert.isTrue(action.isElementPresent(admin_EditScheduledBungiiPage.Dropdown_Result(true)),"Reasons should be displayed","Reasons is displayed", "Reasons is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 
@@ -148,6 +163,9 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
         action.JavaScriptClick(admin_EditScheduledBungiiPage.Driver_Dropdown_Result(driverName));
         Thread.sleep(1000);
+
+            log("I can add a driver on edit delivery page",
+                    "I added a driver on edit delivery page", false);
         }
         catch (Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -161,6 +179,9 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         try {
             action.click(admin_EditScheduledBungiiPage.Changed_Time());
             Thread.sleep(5000);
+
+            log("I can click on Change Time tab",
+                    "I clicked on change time tab", false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -13,7 +13,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement ScheduledDate_Time_Dropdown3 () { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
 
-    public WebElement Reason_Dropdown () { return findElement("ddEditDeliveryRemark", LocatorType.Id); }
+    public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
 
     public WebElement Driver_Dropdown_Result (String driverName) { return findElement(String.format("//div[@id='divDriversResult']/div[contains(.,'%s')]",driverName),LocatorType.XPath);}
 
