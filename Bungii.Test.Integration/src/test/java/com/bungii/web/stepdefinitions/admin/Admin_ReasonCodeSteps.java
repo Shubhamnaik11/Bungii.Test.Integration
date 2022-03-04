@@ -61,7 +61,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
             case "Time":
                     action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
                     Thread.sleep(1000);
-                    action.click(admin_EditScheduledBungiiPage.ScheduledDate_Time_Dropdown3());
+                    action.click(admin_EditScheduledBungiiPage.Dropdown_ScheduledDate_Time());
                     String timeChanged = admin_EditScheduledBungiiPage.TimePicker_Time().getText();
                     cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
                     break;
@@ -145,7 +145,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     @And("^I check if the \"([^\"]*)\" field is present$")
     public void i_check_if_the_something_field_is_present(String strArg1) throws Throwable {
         try {
-            testStepAssert.isTrue(action.isElementPresent(admin_EditScheduledBungiiPage.Dropdown_Result(true)),"Reasons should be displayed","Reasons is displayed", "Reasons is not displayed");
+            testStepAssert.isFalse(action.isElementPresent(admin_EditScheduledBungiiPage.Dropdown_Result(true)),"Reasons should be displayed","Reasons is displayed", "Reasons is not displayed");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -161,7 +161,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch(),driverName);
         Thread.sleep(1000);
         action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
-        action.JavaScriptClick(admin_EditScheduledBungiiPage.Driver_Dropdown_Result(driverName));
+        action.JavaScriptClick(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
         Thread.sleep(1000);
 
             log("I can add a driver on edit delivery page",
