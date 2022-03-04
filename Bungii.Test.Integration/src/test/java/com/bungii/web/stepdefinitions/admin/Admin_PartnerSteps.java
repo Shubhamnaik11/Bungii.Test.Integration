@@ -223,8 +223,8 @@ public class Admin_PartnerSteps extends DriverBase {
     @Then("^I see the \"([^\"]*)\" message$")
     public void i_see_the_something_message(String errorMessage) throws Throwable {
         try{
-            String actualMessage= action.getText(admin_partnersPage.Invalid_Password_Message());
-            testStepAssert.isEquals(actualMessage,errorMessage,"Invalid login credentials. Your account has been locked.","Correct error message is displayed","In-correct error message is displayed");
+            String actualMessage= action.getText(admin_partnersPage.Text_Invalid_Password_Message());
+            testStepAssert.isEquals(actualMessage,errorMessage,"Invalid login credentials. Your account has been locked.","Correct error message is displayed","In-correct error message is displayed: "+actualMessage);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -249,6 +249,9 @@ public class Admin_PartnerSteps extends DriverBase {
                 action.clearSendKeys(Page_Partner_Login.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("Invalid_PartnerPassword"));
                 action.click(Page_Partner_Login.Button_Sign_In());
             }
+            log("I should be able to enter incorrect password for 10 times",
+                    "I entered incorrect password 10 times",false);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step Should be successful", "Error in viewing result set",
@@ -262,6 +265,10 @@ public class Admin_PartnerSteps extends DriverBase {
 
         try{
             action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+
+            log("I should be able to click on Partners in the side menu",
+                    "I am able to click on Partners in the side menu",false);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step Should be successful", "Error in viewing result set",
@@ -275,6 +282,10 @@ public class Admin_PartnerSteps extends DriverBase {
 
         try{
             action.click(admin_paymentMethodsPage.Menu_UnlockPartnersSubMenu());
+
+            log("I should be able to click on Unlock Partners in the sub menu",
+                    "I am able to click on Unlock Partners in the sub menu",false);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step Should be successful", "Error in viewing result set",
@@ -291,12 +302,30 @@ public class Admin_PartnerSteps extends DriverBase {
             action.click(admin_partnersPage.Button_Unlock(partnerName));
             cucumberContextManager.setScenarioContext("PARTNER_NAME",partnerName);
 
+            log("I should be able to see the locked partner, click on the unlock button and unlock the locked partner",
+                    "I am able to see the locked partner, click on the unlock button and unlock the locked partner",false);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step Should be successful", "Error in viewing result set",
                     true);
         }
     }
+
+    @And("^I check if the unlocked partner is displayed in the list$")
+    public void i_check_if_the_unlocked_partner_is_displayed_in_the_list() throws Throwable {
+        try{
+            String subDomainName= (String) cucumberContextManager.getScenarioContext("SUB_DOMAIN_NAME");
+            String partnerName = DbUtility.getPartnerName(subDomainName);
+            testStepAssert.isFalse(action.isElementPresent(admin_partnersPage.Button_Unlock(partnerName,true)), "Unlocked partner should not be present", "Unlocked partner is not present", "Unlocked partner is present");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+    }
+
 
     @And("^I enter following values in fields in \"([^\"]*)\" screen$")
     public void i_enter_following_values_in_fields_in_something_screen(String screen,DataTable data) throws Throwable {

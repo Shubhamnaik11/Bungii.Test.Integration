@@ -109,6 +109,7 @@ Feature: Admin_Partners_Business_And_EAPI
     And I click on "Unlock Portal" in Partner Portal
     Then I should be directed to "Unlock Partners Page"
     When I check for the locked partner user and click "Unlock" button
+    And I check if the unlocked partner is displayed in the list
     Then I navigate to "Partner" portal configured for "FloorDecor service level" URL
     And I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
