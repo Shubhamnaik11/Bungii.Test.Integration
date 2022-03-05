@@ -1,5 +1,5 @@
 @web
-Feature: Partner Integration with Admin and Driver
+Feature: Partner Tracking ID
 
   Background:
     Given I'm logged into "Partner" portal and  created a new  delivery
@@ -27,7 +27,7 @@ Feature: Partner Integration with Admin and Driver
     When I click on the "Scheduled Deliveries" link and click on the "Edit" button from the dropdown
     Then I should see the "Edit Scheduled Bungii" details form
     When I click on the "Edit Delivery Details" button and click  the "Edit pickup location" button
-    And change the "Dropoff" location
+    And Change the "Dropoff" location
     Then I should see the location changed
     When I navigate back to "Partner" portal and click on "Track Deliveries" button
     Then I should see the delivery address changed and get navigated to the "Admin" portal
