@@ -1,5 +1,5 @@
 @web
-Feature: Partner Tracking ID
+Feature: Delivery Tracking ID
 
   Background:
     Given I'm logged into "Partner" portal and  created a new  delivery

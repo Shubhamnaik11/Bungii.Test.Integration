@@ -19,7 +19,6 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
-import org.testng.Assert;
 import java.util.ArrayList;
 import java.util.Map;
 import static com.bungii.common.manager.ResultManager.error;
@@ -129,7 +128,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
 
             String PickupRequest = new DbUtility().getPickupRef("9998887777");
             cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
-
+         log("I should be logged into Partner portal and create a new delivery","I could log into Partner portal and create a new delivery");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -178,8 +177,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
             action.click(Page_Partner_Dashboard.Textbox_SearchBar());
             Thread.sleep(1000);
             action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), (String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
-            log("I search the delivery using a correct tracking id",
-                    "I searched the delivery using a correct tracking id", false);
+            log("I should be able to search the delivery using a correct tracking id",
+                    "I could search the delivery using a correct tracking id", false);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -207,8 +206,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
             Thread.sleep(1000);
             action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), TrackingID + Keys.ENTER);
             Thread.sleep(2000);
-            log("I search the delivery using a invalid tracking id",
-                    "I searched the delivery using a invalid tracking id", false);
+            log("I should be able to search the delivery using a invalid tracking id",
+                    "I could search the delivery using a invalid tracking id", false);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -236,7 +235,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
             utility.AdminLoginFromPartner();
             Thread.sleep(60000);
             log("I should get logged into admin portal",
-                    "I get logged into admin portal", false);
+                    "I could  get logged into admin portal", false);
         }catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -272,10 +271,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
                    action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
                    Thread.sleep(5000);
                    break;
-
            }
-           
-
+           log("I should be able to click on the "+deliveryType +"button and enter the Tracking Id in the search bar","I could click on the "+deliveryType +"button and enter the Tracking Id in the search bar",false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -297,11 +294,12 @@ public class Partner_TrackingIdSteps extends DriverBase {
     }
 
     @When("^I click on the \"([^\"]*)\" button from the dropdown$")
-    public void i_click_on_the_something_button_from_the_dropdown(String strArg1) throws Throwable {
+    public void i_click_on_the_something_button_from_the_dropdown(String buttonText) throws Throwable {
         try {
         action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
         action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
         Thread.sleep(5000);
+        log("I should be able to click on the "+ buttonText+" button from the dropdown","I could  click on the  "+ buttonText+"  button from the dropdown",false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
