@@ -22,7 +22,7 @@ Feature: Partner Tracking ID
       | Scheduled |
     When I click on the "Scheduled Deliveries" button and enter the "Tracking Id" in the search bar
     Then I should be able to see the respective delivery
-    When I click on the "View Delivery Details" button from the dropdown
+    When I click on the " Delivery Details" button from the dropdown
     Then I should see the "Tracking Id" displayed on the delivery details
     When I click on the "Scheduled Deliveries" link and click on the "Edit" button from the dropdown
     Then I should see the "Edit Scheduled Bungii" details form

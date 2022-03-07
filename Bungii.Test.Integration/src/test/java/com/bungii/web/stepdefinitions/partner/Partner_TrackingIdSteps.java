@@ -23,6 +23,7 @@ import org.testng.Assert;
 import java.util.ArrayList;
 import java.util.Map;
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 
 public class Partner_TrackingIdSteps extends DriverBase {
@@ -177,6 +178,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
             action.click(Page_Partner_Dashboard.Textbox_SearchBar());
             Thread.sleep(1000);
             action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), (String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
+            log("I search the delivery using a correct tracking id",
+                    "I searched the delivery using a correct tracking id", false);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -204,6 +207,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
             Thread.sleep(1000);
             action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), TrackingID + Keys.ENTER);
             Thread.sleep(2000);
+            log("I search the delivery using a invalid tracking id",
+                    "I searched the delivery using a invalid tracking id", false);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -230,6 +235,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
         try {
             utility.AdminLoginFromPartner();
             Thread.sleep(60000);
+            log("I should get logged into admin portal",
+                    "I get logged into admin portal", false);
         }catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -267,6 +274,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
                    break;
 
            }
+           
 
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -345,6 +353,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
             action.click(admin_ScheduledTripsPage.List_ViewEdit());
             action.click(admin_ScheduledTripsPage.Dropdown_Edit_DeliveryDetails());
             Thread.sleep(3000);
+            log("I should be able to click on  Delivery details from the dropdown",
+                    "I could click on the Delivery details from the dropdown", false);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -419,6 +429,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("OLD_DROPOFF_ADDRESS",action.getText(admin_ScheduledTripsPage.Text_NewDropoffAddress()));
         action.click(admin_ScheduledTripsPage.Link_Edit_dropOffLocation());
         action.click(admin_ScheduledTripsPage.Textbox_Edit_dropOfflocationAddress());
+        log("I should be able to click on the Edit Delivery Details  button and then click on the Edit pickup location button",
+               "I could  click on the Edit Delivery Details  button and then click on the Edit pickup location button" ,false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -438,6 +450,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
         action.click(admin_ScheduledTripsPage.Button_Edit_Save());
         action.click(admin_ScheduledTripsPage.Button_Edit_Close());
         Thread.sleep(1000);
+        log("I should be able to change the dropoff location","I could change the dropoff location",false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -467,6 +480,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
         action.click(Page_Partner_Dashboard.Textbox_SearchBar());
         Thread.sleep(1000);
         action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), (String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
+      log("I Should be able to navigate back to Partner portal and click on the track deliveries button",
+              "I could navigate back to Partner portal and click on the track deliveries button",false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -485,6 +500,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
         SetupManager.getDriver().switchTo().window(tabs.get(1));
         SetupManager.getDriver().manage().window().maximize();
         Thread.sleep(4000);
+        log("I should see the delivery address changed in partner portal and get navigated to the admin portal","I could see the delivery address changed in partner portal and get navigated to the admin portal",false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
