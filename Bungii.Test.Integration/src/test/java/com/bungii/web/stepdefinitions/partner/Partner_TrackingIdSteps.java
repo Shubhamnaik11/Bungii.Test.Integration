@@ -461,7 +461,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
     public void i_should_see_the_location_changed() throws Throwable {
         try {
     boolean locationStatus = cucumberContextManager.getScenarioContext("NEW_DROPOFF_ADDRESS").toString().equals( (String) cucumberContextManager.getScenarioContext("OLD_DROPOFF_ADDRESS"));
-    testStepAssert.isTrue(locationStatus,"drop off location is changed","drop off location is not changed");
+    testStepAssert.isFalse(locationStatus,"drop off location is changed","drop off location is not changed");
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
