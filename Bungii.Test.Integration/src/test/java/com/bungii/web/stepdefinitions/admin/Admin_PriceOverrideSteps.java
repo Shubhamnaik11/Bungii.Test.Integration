@@ -12,6 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
+
 
 public class Admin_PriceOverrideSteps extends DriverBase {
 
@@ -26,6 +28,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
 
         try{
             admin_tripDetailsPage.Button_Price_Override().isDisplayed();
+            log("I should be able to see Price Override button",
+                    "I could see the Price Override button",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -39,6 +43,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
         try{
             action.click(admin_tripDetailsPage.Button_Price_Override());
             Thread.sleep(5000);
+            log("I should be able to click on Price Override button ",
+                    "I could click on Price Override button",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -61,16 +67,15 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     String newDriverCut = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
                     action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Driver_Cut(),newDriverCut);
                     break;
-
             }
+            log("I should be able to override the customer price and driver cut",
+                    "I could override the customer price and driver cut",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
-
-
     }
 
     @And("^I select Reason as \"([^\"]*)\"$")
@@ -86,8 +91,9 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     Select selectDriverOverrideReason = new Select((WebElement) admin_tripDetailsPage.Dropdown_Reason_Override_Driver_Cut());
                     selectDriverOverrideReason.selectByVisibleText("Driver Incentive");
                     break;
-
             }
+            log("I should be able to select reason to override the customer price and driver cut",
+                    "I could select reason to override the customer price and driver cut",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -115,23 +121,9 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("OLD_DRIVER_CUT",oldDriverCut);
                     cucumberContextManager.setScenarioContext("NEW_DRIVER_CUT",newDriverPrice);
                     break;
-
-                case "Scheduled":
-                    String custPrice = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
-                    String oldCustPrice = custPrice.substring(1);
-                    float OldPrice= Float.parseFloat(oldCustPrice);
-                    float NewPrice= (float) (OldPrice+20.08);
-                    cucumberContextManager.setScenarioContext("OLD_CUSTOMER_PRICE", oldCustPrice);
-                    cucumberContextManager.setScenarioContext("NEW_CUSTOMER_PRICE",NewPrice);
-
-                    String driverCutPrice = action.getText(admin_tripDetailsPage.Text_Driver_Est_Earnings_Scheduled());
-                    String oldDriverCutPrice = driverCutPrice.substring(1);
-                    float OldDriverPrice= Float.parseFloat(oldDriverCutPrice);
-                    float NewDriverPrice= (float) (OldDriverPrice+20.08);
-                    cucumberContextManager.setScenarioContext("OLD_DRIVER_CUT",OldDriverPrice);
-                    cucumberContextManager.setScenarioContext("NEW_DRIVER_CUT",NewDriverPrice);
-                    break;
             }
+            log("I should be able to save the old values of customer price and driver cut",
+                    "I could save the old values of customer price and driver cut",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -155,6 +147,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     action.click(admin_tripDetailsPage.Button_Override_Cancel());
                     break;
             }
+            log("I should be able to click on the "+button+"button",
+                    "I could click on the "+button+"button",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -217,8 +211,6 @@ public class Admin_PriceOverrideSteps extends DriverBase {
             String expectedEstimatedCharges = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
             String actualDeliveryCost = action.getText(admin_tripDetailsPage.Text_Partner_Delivery_Cost());
             testStepAssert.isEquals(actualDeliveryCost,expectedEstimatedCharges,"Driver Charges are not overriden","Driver Charges are not Overriden","Driver Charges are Overriden");
-
-
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -238,6 +230,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     action.isElementPresent(admin_tripDetailsPage.Textbox_Override_Driver_Cut());
                     break;
             }
+            log("I should be able to check if "+menuName+"is displayed",
+                    "I couldcheck if "+menuName+"is displayed",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -267,6 +261,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
         try {
             String newCustomerPrice = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
             action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Driver_Cut(), newCustomerPrice);
+            log("I should be able to change customer price",
+                    "I could change customer price",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -285,6 +281,44 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     true);
         }
 
+    }
+
+    @Then("^I check the new values of \"([^\"]*)\" and \"([^\"]*)\" for changed \"([^\"]*)\"$")
+    public void i_check_the_new_values_of_something_and_something_for_changed_something(String strArg1, String strArg2, String strArg3) throws Throwable {
+        try{
+
+            action.refreshPage();
+            String estimatedCharges = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
+            String actualEstimatedCharges = estimatedCharges.substring(1);
+            String expectedEstimatedCharges = (String) cucumberContextManager.getScenarioContext("OLD_CUSTOMER_PRICE");
+            testStepAssert.isEquals(actualEstimatedCharges,expectedEstimatedCharges,"Estimated Charges are overriden","Estimated Charges are Overriden","Estimated Charges are not Overriden");
+
+            String driverCharges = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings());
+            String actualDriverCharges = driverCharges.substring(1);
+            String expectedDriverCharges  = (String) cucumberContextManager.getScenarioContext("OLD_DRIVER_CUT");
+            testStepAssert.isEquals(actualDriverCharges,expectedDriverCharges,"Driver Charges are overriden","Driver Charges are Overriden","Driver Charges are not Overriden");
+
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @Then("^I check if \"([^\"]*)\" button is not present$")
+    public void i_check_if_something_button_is_not_present(String strArg1) throws Throwable {
+        try{
+            action.isElementPresent(admin_tripDetailsPage.Button_Price_Override(true));
+            log("I should not be able to see Price Override button",
+                    "I could not see the Price Override button",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 

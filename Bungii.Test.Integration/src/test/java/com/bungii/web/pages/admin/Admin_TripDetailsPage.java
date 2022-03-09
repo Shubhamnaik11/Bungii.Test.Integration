@@ -43,7 +43,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
 
-    public WebElement Button_Price_Override() { return findElement("//td/a[@id='btnAdminOverride']",LocatorType.XPath);}
+    public WebElement Button_Price_Override(boolean...ignoreException) { return findElement("//td/a[@id='btnAdminOverride']",LocatorType.XPath,ignoreException);}
 
     public WebElement Textbox_Override_Customer_Price() { return findElement("delivaryCost",LocatorType.Id);}
 
@@ -63,9 +63,8 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Driver_Cut_Error() { return findElement("errorMessageFields",LocatorType.Id);}
 
+    public WebElement Text_Threshold_Price() { return findElement("//span[text()='Threshold']/following::span[1]",LocatorType.XPath);}
 
-
-
-
+    public WebElement Icon_Price_Override() { return findElement("//tr[@id='row4']/td/a/img",LocatorType.XPath);}
 
 }
