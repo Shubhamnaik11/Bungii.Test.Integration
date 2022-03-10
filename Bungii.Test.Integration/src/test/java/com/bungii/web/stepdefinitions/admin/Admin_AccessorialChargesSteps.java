@@ -74,11 +74,11 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         String totalAmount = dataMap.get("Total").trim();
         cucumberContextManager.setScenarioContext("TOTAL_AMOUNT", totalAmount);
 
-//        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Excess Wait Time"),excessWaitTimeAmount, "Excess Wait Time "+excessWaitTimeAmount+" should be displayed", excessWaitTimeAmount+" is displayed", excessWaitTimeAmount+" is not displayed");
-//        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Cancelation"),cancelationAmount, "Cancelation "+cancelationAmount+" should be displayed", cancelationAmount+" is displayed", cancelationAmount+" is not displayed");
-//        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Mountainous"),mountainousAmount, "Mountainous "+mountainousAmount+" should be displayed", mountainousAmount+" is displayed", mountainousAmount+" is not displayed");
-//        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Other"),otherAmount, "Other "+otherAmount+" should be displayed", otherAmount+" is displayed", otherAmount+" is not displayed");
-//        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRowTotal("Total"),totalAmount, "Total "+totalAmount+" should be displayed", totalAmount+" is displayed", totalAmount+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Excess Wait Time"),excessWaitTimeAmount, "Excess Wait Time "+excessWaitTimeAmount+" should be displayed", excessWaitTimeAmount+" is displayed", excessWaitTimeAmount+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Cancelation"),cancelationAmount, "Cancelation "+cancelationAmount+" should be displayed", cancelationAmount+" is displayed", cancelationAmount+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Mountainous"),mountainousAmount, "Mountainous "+mountainousAmount+" should be displayed", mountainousAmount+" is displayed", mountainousAmount+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Other"),otherAmount, "Other "+otherAmount+" should be displayed", otherAmount+" is displayed", otherAmount+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRowTotal("Total"),totalAmount, "Total "+totalAmount+" should be displayed", totalAmount+" is displayed", totalAmount+" is not displayed");
 
     }
 
