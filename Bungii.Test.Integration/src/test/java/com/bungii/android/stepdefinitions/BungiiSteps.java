@@ -1137,6 +1137,15 @@ public class BungiiSteps extends DriverBase {
                     Thread.sleep(5000);
                     break;
 
+                case "clicks More Options":
+                    action.click(Page_DriverBungiiProgress.Button_MoreOptions());
+                    break;
+
+                case "skips to rate customer":
+                    testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Title_RateCustomer(),PropertyUtility.getMessage("driver.navigation.rate.customer"));
+                    action.click(Page_DriverBungiiProgress.Link_SkipRating());
+                    break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
