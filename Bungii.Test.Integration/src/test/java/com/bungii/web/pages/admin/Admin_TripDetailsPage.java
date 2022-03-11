@@ -37,7 +37,11 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Driver_Est_Eranings() { return findElement("//td[text()=' Driver Fixed Earnings']/following::td[1]/strong",LocatorType.XPath);}
 
+    public WebElement Text_Driver_Est_Eranings_Fnd(String weight) { return findElement("//td[text()=' Driver Fixed Earnings - Pallet 1("+weight+" lbs)']/following::td[1]/strong",LocatorType.XPath);}
+
     public WebElement Text_Driver_Est_Earnings_Scheduled() { return findElement("//table[@class='table table-striped']/tbody[1]/tr/td[text()='Driver Earnings']/following::td[1]/strong",LocatorType.XPath);}
+
+    public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[@id='divDriversResult']/div[contains(.,'%s')]",driverName),LocatorType.XPath);}
 
     public WebElement Text_Partner_Delivery_Cost() { return findElement("//h2[contains(text(),'Delivery Cost')]/span/strong",LocatorType.XPath);}
 
@@ -62,9 +66,5 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Button_Override_Cancel() { return findElement("//input[@value='Cancel']",LocatorType.XPath);}
 
     public WebElement Text_Driver_Cut_Error() { return findElement("errorMessageFields",LocatorType.Id);}
-
-    public WebElement Text_Threshold_Price() { return findElement("//span[text()='Threshold']/following::span[1]",LocatorType.XPath);}
-
-    public WebElement Icon_Price_Override() { return findElement("//tr[@id='row4']/td/a/img",LocatorType.XPath);}
 
 }

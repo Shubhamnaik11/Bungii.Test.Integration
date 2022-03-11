@@ -34,7 +34,8 @@ Feature: Admin_Price_Override
       | Status           |
       | Searching Drivers|
     When I view the delivery details
-    And I get the old values of "Customer price" and "Driver cut" for "Service level"
+    And I get the old values of "Customer price" for "Service level"
+    And I get the old values of "Driver cut" for "Service level"
     And I check if "Price Override" button is displayed
     And I click on "Price Override" button on delivery details
     And I change the "Customer price"
@@ -53,7 +54,8 @@ Feature: Admin_Price_Override
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for "Service level"
+    And I check the new values of "Estimated Charge" for "Service level"
+    Then I check the new values of "Driver Fixed Earnings" for "Service level"
 
 
   @ready
@@ -89,7 +91,8 @@ Feature: Admin_Price_Override
       | Status           |
       | Searching Drivers|
     When I view the delivery details
-    And I get the old values of "Customer price" and "Driver cut" for "Service level"
+    And I get the old values of "Customer price" for "Service level"
+    And I get the old values of "Driver cut" for "Service level"
     And I check if "Price Override" button is displayed
     And I click on "Price Override" button on delivery details
     And I check if the "Customer price" menu is displayed
@@ -101,18 +104,18 @@ Feature: Admin_Price_Override
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for "Service level"
-    When I get the old values of "Customer price" and "Driver cut" for "Service level"
+    And I check the new values of "Estimated Charge" for "Service level"
+    Then I check the new values of "Driver Fixed Earnings" for "Service level"
+    When I get the old values of "Customer price" for "Service level"
     And I check if "Price Override" button is displayed
     And I click on "Price Override" button on delivery details
     And I change the "Customer price"
     And I select Reason as "Custom Quote"
-    And I change the "Driver cut"
-    And I select Reason as "Driver Incentive"
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for "Service level"
+    Then I check the new values of "Estimated Charge" for "Service level"
+
 
 
   @ready
@@ -150,13 +153,15 @@ Feature: Admin_Price_Override
     When I view the delivery details
     And I check if "Price Override" button is displayed
     And I click on "Price Override" button on delivery details
-    And I get the old values of "Customer price" and "Driver cut" for "Service level"
+    And I get the old values of "Customer price" for "Service level"
+    And I get the old values of "Driver cut" for "Service level"
     And I increase the "Driver cut" more than "Customer price"
     And I select Reason as "Driver Incentive"
     And I click on "Save" button on price override pop-up
     And "Delivery cost cannot be less than or equal to driver earnings." error message should be displayed
     Then I click on "Cancel" button on price override pop-up
-    And I get the old values of "Customer price" and "Driver cut" for "Service level"
+    And I get the old values of "Customer price" for "Service level"
+    And I get the old values of "Driver cut" for "Service level"
     And I check if "Price Override" button is displayed
     And I click on "Price Override" button on delivery details
     And I change the "Customer price"
@@ -166,7 +171,8 @@ Feature: Admin_Price_Override
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for "Service level"
+    And I check the new values of "Estimated Charge" for "Service level"
+    Then I check the new values of "Driver Fixed Earnings" for "Service level"
     And I navigate back to Scheduled Deliveries
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
@@ -251,7 +257,8 @@ Feature: Admin_Price_Override
         | Status           |
         | Scheduled |
       When I view the delivery details
-      And I get the old values of "Customer price" and "Driver cut" for "Service level"
+      And I get the old values of "Customer price" for "Service level"
+      And I get the old values of "Driver cut" for "Service level"
       And I check if "Price Override" button is displayed
       And I click on "Price Override" button on delivery details
       And I change the "Customer price"
@@ -261,7 +268,8 @@ Feature: Admin_Price_Override
       Then I click on "Save" button on price override pop-up
       And I click on "Ok" button on price override pop-up
       And I wait for "2" mins
-      Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for "Service level"
+      And I check the new values of "Estimated Charge" for "Service level"
+      Then I check the new values of "Driver Fixed Earnings" for "Service level"
       When I navigate back to Scheduled Deliveries
       And I click on "Edit" link beside scheduled bungii
       And I click on "Edit Trip Details" radiobutton
@@ -270,6 +278,113 @@ Feature: Admin_Price_Override
       And I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
       When I view the delivery details in admin portal
-      And I get the old values of "Customer price" and "Driver cut" for "Service level"
+      And I get the old values of "Customer price" for "Service level"
+      And I get the old values of "Driver cut" for "Service level"
       And I wait for "2" mins
       Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level"
+
+  @ready
+   @testsweta
+    Scenario: Verify fnd deliveries and driver app for change Service Level after override for driver earnings and customer cost  before driver accepts
+      When I navigate to "Partner" portal configured for "FloorDecor service level" URL
+      And I enter "valid" password on Partner Portal
+      And I click "SIGN IN" button on Partner Portal
+      Then I should "see 1 pallet and 2 pallets"
+      When I request "Solo" Bungii trip in partner portal configured for "FloorDecor service level" in "washingtondc" geofence
+        | Pickup_Address                                                                     | Delivery_Address                                                    |
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |
+      And I click "Service Level List" button on Partner Portal
+      Then I should "see all the Service Level" for "Floor & Decor #240" Alias
+      And I change the service level to "First Threshold" in "Partner" portal
+      And I select Next Possible Pickup Date and Pickup Time
+        |Trip_Time            |
+        |NEXT_POSSIBLE        |
+      And I click "Continue" button on Partner Portal
+      Then I should "see Delivery Details screen"
+      When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
+        |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|SoldBuy|
+        |20 boxes           |20X20X20  | 1570 |Handle with care   |Testartner T    |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
+      And I click "Schedule Bungii" button on Partner Portal
+      Then I should "see Done screen"
+      When I am logged in as Admin
+      And I view the partner portal Scheduled Trips list on the admin portal
+      And I wait for "2" mins
+      Then I should be able to see the respective bungii partner portal trip with the below status
+        | Status           |
+        | Searching Drivers|
+      When I view the delivery details
+      And I get the old values of "Customer price" for "Service level - fnd"
+      And I get the old values of "Driver cut" for "Service level - fnd"
+      And I check if "Price Override" button is displayed
+      And I click on "Price Override" button on delivery details
+      And I change the "Customer price"
+      And I select Reason as "Custom Quote"
+      And I change the "Driver cut"
+      And I select Reason as "Driver Incentive"
+      Then I click on "Save" button on price override pop-up
+      And I click on "Ok" button on price override pop-up
+      And I wait for "2" mins
+      And I check the new values of "Estimated Charge" for "Service level - fnd"
+      Then I check the new values of "Driver Fixed Earnings" for "Service level - fnd"
+      When I navigate back to Scheduled Deliveries
+      And I click on "Edit" link beside scheduled bungii
+      And I click on "Edit Trip Details" radiobutton
+      And I change the service level to "Customer Return - First Threshold" in "Admin" portal
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      And I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
+      When I view the delivery details in admin portal
+      And I get the old values of "Customer price" for "Service level - fnd"
+      And I get the old values of "Driver cut" for "Service level - fnd"
+      And I wait for "2" mins
+      Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level - fnd"
+      When I click on "Edit" link beside scheduled bungii
+      And I click on "Edit Trip Details" radiobutton
+      And I click on "Add Driver" and add "Testdrivertywd_appledc_a_drvl WashingtonDC_l" driver
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      When I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
+      And I wait for "2" mins
+      When I view the delivery details in admin portal
+      Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level - fnd"
+
+
+  @ready
+
+    Scenario: Verify fnd Portals, driver app for Price override for customer earnings only in Solo fixed pricing portals
+      When I navigate to "Partner" portal configured for "FloorDecor service level" URL
+      And I enter "valid" password on Partner Portal
+      And I click "SIGN IN" button on Partner Portal
+      Then I should "see 1 pallet and 2 pallets"
+      When I request "Solo" Bungii trip in partner portal configured for "FloorDecor service level" in "washingtondc" geofence
+        | Pickup_Address                                                                     | Delivery_Address                                                    |
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |
+      And I click "Service Level List" button on Partner Portal
+      Then I should "see all the Service Level" for "Floor & Decor #240" Alias
+      And I change the service level to "First Threshold" in "Partner" portal
+      And I select Next Possible Pickup Date and Pickup Time
+        |Trip_Time            |
+        |NEXT_POSSIBLE        |
+      And I click "Continue" button on Partner Portal
+      Then I should "see Delivery Details screen"
+      When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
+        |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|SoldBuy|
+        |20 boxes           |20X20X20  | 1570 |Handle with care   |Testartner T    |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
+      And I click "Schedule Bungii" button on Partner Portal
+      Then I should "see Done screen"
+      When I am logged in as Admin
+      And I view the partner portal Scheduled Trips list on the admin portal
+      And I wait for "2" mins
+      Then I should be able to see the respective bungii partner portal trip with the below status
+        | Status           |
+        | Searching Drivers|
+      When I view the delivery details
+      And I get the old values of "Customer price" for "Service level - fnd"
+      And I check if "Price Override" button is displayed
+      And I click on "Price Override" button on delivery details
+      And I change the "Customer price"
+      And I select Reason as "Custom Quote"
+      Then I click on "Save" button on price override pop-up
+      And I click on "Ok" button on price override pop-up
+      And I wait for "2" mins
+      Then I check the new values of "Estimated Charge" for "Service level - fnd"
