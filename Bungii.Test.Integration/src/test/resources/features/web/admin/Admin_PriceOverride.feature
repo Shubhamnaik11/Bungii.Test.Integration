@@ -120,7 +120,7 @@ Feature: Admin_Price_Override
 
   @ready
 
-    Scenario: Verify change Pickup/Drop off address after override for driver earnings and customer cost before driver accepts, check if price override is reflected on partner portal and verify Driver cut is less than Customer price for Admin override
+    Scenario: Verify change Pickup/Drop off address after override for driver earnings and customer cost before driver accepts, check if price override is reflected on partner portal, check if indicator is displayed and verify Driver cut is less than Customer price for Admin override
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -174,6 +174,7 @@ Feature: Admin_Price_Override
     And I check the new values of "Estimated Charge" for "Service level"
     Then I check the new values of "Driver Fixed Earnings" for "Service level"
     And I navigate back to Scheduled Deliveries
+    Then I check if "Price Override" icon is displayed
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
@@ -223,7 +224,7 @@ Feature: Admin_Price_Override
 
   @ready
 
-      Scenario: Verify the estimated charge and driver earnings when service level is updated over a admin override functionality
+      Scenario: Verify the estimated charge and driver earnings before and after driver accepts and when service level is updated over a admin override functionality
       When I navigate to "Partner" portal configured for "service level" URL
       When I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
@@ -247,11 +248,30 @@ Feature: Admin_Price_Override
         |DISCOVER CARD|12/23  |VALID POSTAL CODE|VALID CVV|
       And I click "Schedule Bungii" button on Partner Portal
       Then I should "see Done screen"
-      When As a driver "Testdrivertywd_appledc_a_webdd Testdriverdd" perform below action with respective "Solo Scheduled" Delivery
-        | driver1 state |
-        | Accepted      |
       When I am logged in as Admin
       And I view the partner portal Scheduled Trips list on the admin portal
+      And I wait for "2" mins
+      Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      | Searching Drivers |
+      When I view the delivery details
+      And I get the old values of "Customer price" for "Service level"
+      And I get the old values of "Driver cut" for "Service level"
+      And I check if "Price Override" button is displayed
+      And I click on "Price Override" button on delivery details
+      And I change the "Customer price"
+      And I select Reason as "Custom Quote"
+      And I change the "Driver cut"
+      And I select Reason as "Driver Incentive"
+      Then I click on "Save" button on price override pop-up
+      And I click on "Ok" button on price override pop-up
+      And I wait for "2" mins
+      And I check the new values of "Estimated Charge" for "Service level"
+      Then I check the new values of "Driver Fixed Earnings" for "Service level"
+      When I navigate back to Scheduled Deliveries
+      And As a driver "Testdrivertywd_appledc_a_webdd Testdriverdd" perform below action with respective "Solo Scheduled" Delivery
+        | driver1 state |
+        | Accepted      |
       And I wait for "2" mins
       Then I should be able to see the respective bungii partner portal trip with the below status
         | Status           |
@@ -283,9 +303,65 @@ Feature: Admin_Price_Override
       And I wait for "2" mins
       Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level"
 
+
+
   @ready
-   @testsweta
-    Scenario: Verify fnd deliveries and driver app for change Service Level after override for driver earnings and customer cost  before driver accepts
+
+      Scenario: Verify Price override for driver earnings only in Duo fixed pricing portals and when different driver share is entered ,minimum of both share is displayed in admin portal and check if indicator is displayed
+      When I navigate to "Partner" portal configured for "service level" URL
+      When I enter "valid" password on Partner Portal
+      And I click "SIGN IN" button on Partner Portal
+      When I request "Duo" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
+        | Pickup_Address                                                                     | Delivery_Address                                                   |
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002  |
+      And I click "Service Level List" button on Partner Portal
+      Then I should "see all the Service Level" for "Biglots" Alias
+      And I change the service level to "Room of Choice" in "Partner" portal
+      And I select Next Possible Pickup Date and Pickup Time
+        |Trip_Time            |
+        |NEXT_POSSIBLE        |
+      And I click "Continue" button on Partner Portal
+      Then I should "see Delivery Details screen"
+      When I enter all details on "Delivery Details" for "service level" on partner screen
+        |Items_To_Deliver|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
+        |Furniture       |Handle with care   |Testcustomertywd_appleNewRA Customer |9999999126  |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1           |
+      And I Select "Customer Card" as Payment Method
+      And I enter following Credit Card details on Partner Portal
+        |CardNo   |Expiry |Postal_Code      |Cvv      |
+        |DISCOVER CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      And I click "Schedule Bungii" button on Partner Portal
+      Then I should "see Done screen"
+      And As a driver "Testdrivertywd_appledc_a_webdd Testdriverdd" perform below action with respective "Solo Scheduled" Delivery
+         | driver1 state |
+         | Accepted      |
+      And I wait for "2" mins
+      When I am logged in as Admin
+      And I view the partner portal Scheduled Trips list on the admin portal
+      Then I should be able to see the respective bungii partner portal trip with the below status
+        | Status           |
+        | Searching Drivers |
+      When I view the delivery details
+      And I get the old values of "Driver cut" for "Service level-duo"
+      And I check if "Price Override" button is displayed
+      And I click on "Price Override" button on delivery details
+      And I change the "Driver cut" for "Service level-duo"
+      And I select Reason as "Driver Incentive"
+      Then I click on "Save" button on price override pop-up
+      And I click on "Ok" button on price override pop-up
+      And I wait for "2" mins
+      Then I check the new values of "Driver Fixed Earnings" for "Service level-duo"
+      When I navigate back to Scheduled Deliveries
+      Then I check if "Price Override" icon is displayed
+      When I click on "Edit" link beside scheduled bungii
+      And I click on "Edit Trip Details" radiobutton
+      And I change delivery type from "Duo to Solo"
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      And I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
+
+  @ready
+
+    Scenario: Verify fnd deliveries and driver app for change Service Level after override for driver earnings and customer cost before driver accepts and check if indicator is displayed
       When I navigate to "Partner" portal configured for "FloorDecor service level" URL
       And I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
@@ -303,7 +379,7 @@ Feature: Admin_Price_Override
       Then I should "see Delivery Details screen"
       When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
         |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|SoldBuy|
-        |20 boxes           |20X20X20  | 1570 |Handle with care   |Testartner T    |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
+        |20 boxes           |20X20X20  | 1570 |Handle with care   |Testcustomertywd_appleNewQY Customer   |9999999124     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
       And I click "Schedule Bungii" button on Partner Portal
       Then I should "see Done screen"
       When I am logged in as Admin
@@ -327,6 +403,7 @@ Feature: Admin_Price_Override
       And I check the new values of "Estimated Charge" for "Service level - fnd"
       Then I check the new values of "Driver Fixed Earnings" for "Service level - fnd"
       When I navigate back to Scheduled Deliveries
+      And I check if "Price Override" icon is displayed
       And I click on "Edit" link beside scheduled bungii
       And I click on "Edit Trip Details" radiobutton
       And I change the service level to "Customer Return - First Threshold" in "Admin" portal
@@ -338,16 +415,6 @@ Feature: Admin_Price_Override
       And I get the old values of "Driver cut" for "Service level - fnd"
       And I wait for "2" mins
       Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level - fnd"
-      When I click on "Edit" link beside scheduled bungii
-      And I click on "Edit Trip Details" radiobutton
-      And I click on "Add Driver" and add "Testdrivertywd_appledc_a_drvl WashingtonDC_l" driver
-      And I click on "Verify" button on Edit Scheduled bungii popup
-      When I click on "Save" button on Edit Scheduled bungii popup
-      Then "Bungii Saved!" message should be displayed
-      And I wait for "2" mins
-      When I view the delivery details in admin portal
-      Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level - fnd"
-
 
   @ready
 
@@ -369,7 +436,7 @@ Feature: Admin_Price_Override
       Then I should "see Delivery Details screen"
       When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
         |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|SoldBuy|
-        |20 boxes           |20X20X20  | 1570 |Handle with care   |Testartner T    |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
+        |20 boxes           |20X20X20  | 1570 |Handle with care   |Testcustomertywd_appleNewQZ Customer    |9999999125     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
       And I click "Schedule Bungii" button on Partner Portal
       Then I should "see Done screen"
       When I am logged in as Admin

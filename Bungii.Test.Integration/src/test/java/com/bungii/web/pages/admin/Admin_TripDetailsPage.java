@@ -39,7 +39,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Driver_Est_Eranings_Fnd(String weight) { return findElement("//td[text()=' Driver Fixed Earnings - Pallet 1("+weight+" lbs)']/following::td[1]/strong",LocatorType.XPath);}
 
-    public WebElement Text_Driver_Est_Earnings_Scheduled() { return findElement("//table[@class='table table-striped']/tbody[1]/tr/td[text()='Driver Earnings']/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Icon_Price_Override(){ return findElement("//a[@class='tooltip-overlay price-override']/img",LocatorType.XPath);}
 
     public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[@id='divDriversResult']/div[contains(.,'%s')]",driverName),LocatorType.XPath);}
 
@@ -52,6 +52,8 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Textbox_Override_Customer_Price() { return findElement("delivaryCost",LocatorType.Id);}
 
     public WebElement Textbox_Override_Driver_Cut() { return findElement("//div/input[@id='driverOneShare']",LocatorType.XPath);}
+
+    public WebElement Textbox_Override_Driver_Cut_Duo() { return findElement("//div/input[@id='driverTwoShare']",LocatorType.XPath);}
 
     public WebElement Dropdown_Reason_Override_Customer_Price() { return findElement("delivaryCostReason",LocatorType.Id);}
 
