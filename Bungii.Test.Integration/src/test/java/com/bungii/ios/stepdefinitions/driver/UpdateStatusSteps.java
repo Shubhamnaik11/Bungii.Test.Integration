@@ -675,7 +675,7 @@ public class UpdateStatusSteps extends DriverBase {
     @Then("^I should be navigated to \"([^\"]*)\" trip status screen on driver$")
     public void i_should_be_navigated_to_something_trip_status_screen_on_driver(String screen) throws Throwable {
         try{
-             testStepAssert.isElementDisplayed(updateStatusPage.Text_Header(screen),"I should be navigated to " + screen + "screen","I have navigated to " + screen + "screen","I have not navigated to " + screen + "screen");
+            testStepAssert.isElementDisplayed(updateStatusPage.Text_Header(screen),"I should be navigated to " + screen + "screen","I have navigated to " + screen + "screen","I have not navigated to " + screen + "screen");
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
