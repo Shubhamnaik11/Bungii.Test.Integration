@@ -223,7 +223,7 @@ Feature: Admin_Price_Override
       Then I check if "Price override" button is not present
 
   @ready
-
+    @testsweta
       Scenario: Verify the estimated charge and driver earnings before and after driver accepts and when service level is updated over a admin override functionality
       When I navigate to "Partner" portal configured for "service level" URL
       When I enter "valid" password on Partner Portal
@@ -302,7 +302,17 @@ Feature: Admin_Price_Override
       And I get the old values of "Driver cut" for "Service level"
       And I wait for "2" mins
       Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level"
-
+      When I navigate back to Scheduled Deliveries
+      When I click on "Edit" link beside scheduled bungii
+      And I click on "Edit Trip Details" radiobutton
+      And I click on the "Date" and select future time
+      And I click on "Reason" for change time
+      And I click on "Customer initiated" in the dropdown
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      When I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
+      And I wait for "2" mins
+      Then the updated date should be displayed on delivery details page
 
 
   @ready
