@@ -491,25 +491,6 @@ public class Admin_PriceOverrideSteps extends DriverBase {
         }
     }
 
-    @And("^I click on \"([^\"]*)\" and add \"([^\"]*)\" driver$")
-    public void i_click_on_something_and_add_something_driver(String strArg1, String driverName) throws Throwable {
-        try{
-            action.click(admin_editScheduledBungiiPage.TextBox_DriverSearch());
-            action.sendKeys(admin_editScheduledBungiiPage.TextBox_DriverSearch(),driverName);
-            Thread.sleep(1000);
-            action.sendKeys(admin_editScheduledBungiiPage.TextBox_DriverSearch()," ");
-            action.JavaScriptClick(admin_tripDetailsPage.Dropdown_Driver_Result(driverName));
-            Thread.sleep(1000);
-
-            log("I can add a driver on edit delivery page",
-                    "I added a driver on edit delivery page", false);
-        }
-        catch (Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-    }
 
 
 }
