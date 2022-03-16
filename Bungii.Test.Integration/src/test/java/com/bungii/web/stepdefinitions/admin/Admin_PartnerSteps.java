@@ -249,6 +249,8 @@ public class Admin_PartnerSteps extends DriverBase {
                 action.clearSendKeys(Page_Partner_Login.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("Invalid_PartnerPassword"));
                 action.click(Page_Partner_Login.Button_Sign_In());
             }
+            cucumberContextManager.setScenarioContext("LOCK_BIT",true);
+
             log("I should be able to enter incorrect password for 10 times",
                     "I entered incorrect password 10 times",false);
 
@@ -301,6 +303,8 @@ public class Admin_PartnerSteps extends DriverBase {
             String partnerName = DbUtility.getPartnerName(subDomainName);
             action.click(admin_partnersPage.Button_Unlock(partnerName));
             cucumberContextManager.setScenarioContext("PARTNER_NAME",partnerName);
+
+            cucumberContextManager.setScenarioContext("LOCK_BIT",false);
 
             log("I should be able to see the locked partner, click on the unlock button and unlock the locked partner",
                     "I am able to see the locked partner, click on the unlock button and unlock the locked partner",false);

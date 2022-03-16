@@ -2,6 +2,8 @@ package com.bungii.hooks;
 
 import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
+import com.bungii.api.utilityFunctions.CoreServices;
+import com.bungii.api.utilityFunctions.WebPortal;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
@@ -79,6 +81,7 @@ public class CucumberHooks {
     @After
     public void afterTest(Scenario scenario) {
         boolean bit= false;
+        String lockBit= (String) CucumberContextManager.getObject().getScenarioContext("LOCK_BIT");
         try {
             //if first test case flag is ste to true then change it to false
             if (isFirstTestCase) isFirstTestCase = false;
@@ -134,6 +137,9 @@ public class CucumberHooks {
                 bit=true;
                 JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
                 //js.executeScript(String.format("window.localStorage.clear();"));
+                if(lockBit == "true"){
+                    new WebPortal().unlockPartnerAsAdmin();
+                }
                 if(CucumberContextManager.getObject().getScenarioContext("IS_PARTNER").equals("TRUE")) {
                     //Clear only incase its partner site
                    // js.executeScript(String.format("window.sessionStorage.clear();"));

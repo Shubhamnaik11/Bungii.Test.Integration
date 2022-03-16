@@ -28,6 +28,9 @@ public class WebPortal extends DriverBase {
     private static String MANUALLY_END = "/BungiiReports/ManuallyEndPickup";
     private static String SCHEDULED_DELIVERY = "/BungiiReports/ScheduledTrips";
     private static String LIVE_DELIVERY_DETAIL="/BungiiReports/TripDetails?tripRef=";
+    private static String GET_UNLOCK_PARTNER = "/Partner/UnlockPartners";
+    private static String POST_UNLOCK_PARTNER = "/Partner/UnlockPartner";
+
 
 
     private static LogUtility logger = new LogUtility(AuthServices.class);
@@ -119,10 +122,52 @@ public class WebPortal extends DriverBase {
                         post(cancelBungii);
         // response.then().log().body();
     }
+    public void unlockPartner(String partnerLocRef) {
+        logger.detail("API REQUEST : Unlock Partner Portal " + partnerLocRef);
+        String lockedPartner = UrlBuilder.createApiUrl("web core", GET_UNLOCK_PARTNER);
+        String responseGet = given().cookies(adminCookies).cookies(adminCookies2)
+                .header("Accept-Language", "en-US,en;q=0.5")
+                .header("X-Requested-With", "XMLHttpRequest")
+                .header("Upgrade-Insecure-Requests", "1")
+                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .header("Accept-Encoding", "gzip, deflate")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                .when().redirects().follow(false).
+                get(lockedPartner).asString();
+        String verificationToken = "";//responseGet.htmlPath().getString("html.body.span.input.@value");
+        String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
+        Pattern pattern = Pattern.compile("return '(.+?')");
+        Matcher matcher = pattern.matcher(responseGet);
+        if (matcher.find())
+        {
+            csrfToken =matcher.group(1);
+        }
+
+        pattern = Pattern.compile("__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
+        matcher = pattern.matcher(responseGet);
+        if (matcher.find())
+        {
+            verificationToken =matcher.group(1);
+        }
+        String unlockPartner = UrlBuilder.createApiUrl("web core", POST_UNLOCK_PARTNER);
+
+        Response response = given().cookies(adminCookies).cookies(adminCookies2)
+                .header("__requestverificationtoken",csrfToken)
+                .formParams("PartnerLocationRef", partnerLocRef, "__RequestVerificationToken",verificationToken)
+                .when().redirects().follow(false).
+                post(unlockPartner);
+        // response.then().log().body();
+    }
 
     public void cancelBungiiAsAdmin(String pickupRequestId) {
         AdminLogin();
         cancelScheduledBungii(pickupRequestId);
+    }
+    public void unlockPartnerAsAdmin() {
+        AdminLogin();
+        String partnerLocRef= PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref");
+        unlockPartner(partnerLocRef);
     }
 
     public void asAdminManuallyEndBungii(String pickupRequestId) {

@@ -104,13 +104,13 @@ Feature: Admin_Partners_Business_And_EAPI
     When I navigate to "Partner" portal configured for "FloorDecor service level" URL
     And I enter "invalid" password and click "SIGN IN" ten times on Partner Portal
     Then I see the "Invalid login credentials. Your account has been locked." message
-    When I navigate to "Admin" portal configured for "QA" URL
-    And I click on "Partner Portal" in the side menu
-    And I click on "Unlock Portal" in Partner Portal
-    Then I should be directed to "Unlock Partners Page"
-    When I check for the locked partner user and click "Unlock" button
-    And I check if the unlocked partner is displayed in the list
-    Then I navigate to "Partner" portal configured for "FloorDecor service level" URL
-    And I enter "valid" password on Partner Portal
-    And I click "SIGN IN" button on Partner Portal
-    Then I should "see 1 pallet and 2 pallets"
+#    When I navigate to "Admin" portal configured for "QA" URL
+#    And I click on "Partner Portal" in the side menu
+#    And I click on "Unlock Portal" in Partner Portal
+#    Then I should be directed to "Unlock Partners Page"
+#    When I check for the locked partner user and click "Unlock" button
+#    And I check if the unlocked partner is displayed in the list
+#    Then I navigate to "Partner" portal configured for "FloorDecor service level" URL
+#    And I enter "valid" password on Partner Portal
+#    And I click "SIGN IN" button on Partner Portal
+#    Then I should "see 1 pallet and 2 pallets"
