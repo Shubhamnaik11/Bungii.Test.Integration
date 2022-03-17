@@ -165,18 +165,18 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" screen
+    Then I should be navigated to "LOADING ITEMS" screen
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
+    And I slide update button on "LOADING ITEMS" Screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" screen
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should be navigated to "UNLOADING ITEMS" screen
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -193,17 +193,17 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
     And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" screen
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" screen
+    Then I should be navigated to "LOADING ITEMS" screen
+    And I slide update button on "LOADING ITEMS" Screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should be navigated to "UNLOADING ITEMS" screen
 
     When I Switch to "customer" application on "Customer2" devices
     Then I should be navigated to "UNLOADING ITEM" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen

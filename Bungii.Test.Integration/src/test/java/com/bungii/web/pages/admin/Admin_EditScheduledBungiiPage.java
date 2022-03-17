@@ -3,7 +3,19 @@ package com.bungii.web.pages.admin;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+
+
 public class Admin_EditScheduledBungiiPage extends PageBase {
+
+    public WebElement Changed_Date() { return findElement("//td[@class=' ui-datepicker-days-cell-over  ui-datepicker-current-day ui-datepicker-today']/following::td[2]/a", LocatorType.XPath); }
+
+    public WebElement Changed_Time() { return findElement("//tr[@id='row1']/td[5]/a", LocatorType.XPath); }
+
+    public WebElement Dropdown_ScheduledDate_Time() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
+
+    public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
+
+    public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[@id='divDriversResult']/div[contains(.,'%s')]",driverName),LocatorType.XPath);}
 
     public WebElement DatePicker_ScheduledDate () { return findElement("PickupDetails_ScheduledDate", LocatorType.Id); }
 
@@ -40,6 +52,9 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement TickMarkDriver (String driverName) { return findElement("//td[text()='"+driverName+"']/ancestor::tr/td/i[@class='fa fa-check text-green-alt']", LocatorType.XPath); }
 
     public WebElement  Button_Edit() {return findElement("//p[@id='btnEdit']",LocatorType.XPath);}
+
+    public WebElement  Button_Delivery_Details() {return findElement("//p[@class='clickable-row']",LocatorType.XPath);}
+
 
     public WebElement Button_Close() { return findElement("//button[@class='close']/span",LocatorType.XPath);}
 
