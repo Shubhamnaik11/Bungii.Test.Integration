@@ -224,6 +224,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
            action.refreshPage();
            admin_tripDetailsPage.Icon_Price_Override().isDisplayed();
 
+           log("I should be able to see price override icon displayed",
+                   "I could see price override icon displayed",false);
 
        }
        catch(Exception e){
@@ -270,6 +272,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                             break;
 
                     }
+                    log("I should be able to override the driver cut for duo delivery",
+                            "I could override the driver cut for duo delivery",false);
             }
 
         }
@@ -338,13 +342,19 @@ public class Admin_PriceOverrideSteps extends DriverBase {
            String CustomerPrice = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
            String actualCustomerPrice = CustomerPrice.substring(1);
            String expectedCustomerPrice = (String) cucumberContextManager.getScenarioContext("OLD_CUSTOMER_PRICE");
-           testStepAssert.isEquals(actualCustomerPrice,expectedCustomerPrice,"Estimated Charges are not overriden","Estimated Charges are not Overriden","Estimated Charges are Overriden");
+           testStepAssert.isEquals(actualCustomerPrice,expectedCustomerPrice,
+                   "Estimated Charges are not overriden",
+                   "Estimated Charges are not Overriden",
+                   "Estimated Charges are Overriden");
 
 
            String driverCut = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings());
            String actualDriverCut = driverCut.substring(1);
            String expectedDriverCut = (String) cucumberContextManager.getScenarioContext("OLD_DRIVER_CUT");
-           testStepAssert.isEquals(actualDriverCut,expectedDriverCut,"Estimated Charges are not overriden","Estimated Charges are not Overriden","Estimated Charges are Overriden");
+           testStepAssert.isEquals(actualDriverCut,expectedDriverCut,
+                   "Estimated Charges are not overriden",
+                   "Estimated Charges are not Overriden",
+                   "Estimated Charges are Overriden");
        }
        catch(Exception e){
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -411,6 +421,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
         try {
             String newCustomerPrice = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
             action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Driver_Cut(), newCustomerPrice);
+
             log("I should be able to change customer price",
                     "I could change customer price",false);
         }
@@ -481,6 +492,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
     public void i_check_if_something_button_is_not_present(String strArg1) throws Throwable {
         try{
             action.isElementPresent(admin_tripDetailsPage.Button_Price_Override(true));
+
             log("I should not be able to see Price Override button",
                     "I could not see the Price Override button",false);
         }
