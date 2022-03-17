@@ -210,7 +210,7 @@ Feature: Admin_Refund
 	  And I view the Scheduled Deliveries list on the admin portal
 	  Then I should be able to see the respective bungii with the below status
 		|Status |
-		|Searching Drivers|
+		|Assigning Driver(s)|
 	  When I click on "Edit" link beside scheduled bungii
 	  And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
 	  And I enter cancellation fee and Comments
