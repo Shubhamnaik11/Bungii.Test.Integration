@@ -379,9 +379,11 @@ public class CommonSteps extends DriverBase {
                     action.click(driverBungiiCompletedPage.Button_Next_Bungii());
                     break;
                 case "SUBMIT":
+                    Thread.sleep(1000);
                     action.click(driverBungiiCompletedPage.Button_Submit());
                     break;
                 case "SKIP THIS STEP":
+                    Thread.sleep(1000);
                     action.click(driverBungiiCompletedPage.Button_Skip_This_Step());
                     break;
                 case "I DON'T LIKE FREE MONEY":

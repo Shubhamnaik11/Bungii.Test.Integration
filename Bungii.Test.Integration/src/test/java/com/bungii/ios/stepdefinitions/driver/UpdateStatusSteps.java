@@ -171,27 +171,35 @@ public class UpdateStatusSteps extends DriverBase {
 
             String expectedCustName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             expectedCustName = expectedCustName.substring(0, expectedCustName.indexOf(" ") + 2);
-            boolean isCustomerNameCorrect = getCustomerName().equals(expectedCustName);
+            String ActualName ="" ;
+            //boolean isCustomerNameCorrect = ActualName.equals(expectedCustName);
 
             switch (key) {
                 case "EN ROUTE":
+                    ActualName = getCustomerNameOnDriverApp(4);
                     isInfoCorrectlyDisplayed = validateEnRouteInfo(getTripInformation());
                     break;
                 case "ARRIVED":
+                    ActualName = getCustomerNameOnDriverApp(3);
                     isInfoCorrectlyDisplayed = validateArrivedInfo(getTripInformation());
                     break;
-                case "LOADING ITEM":
-                    isInfoCorrectlyDisplayed = validateArrivedInfo(getTripInformation());
+                case "LOADING ITEMS":
+                    ActualName = getCustomerNameOnDriverApp(3);
+                    isInfoCorrectlyDisplayed = validateLoadingItemsInfo(getTripInformation());
                     break;
-                case "DRIVING TO DROP OFF":
+                case "DRIVING TO DROP-OFF":
+                    ActualName = getCustomerNameOnDriverApp(4);
                     isInfoCorrectlyDisplayed = validateDrivingInfo(getTripInformation());
                     break;
-                case "UNLOADING ITEM":
+                case "UNLOADING ITEMS":
+                    ActualName = getCustomerNameOnDriverApp(3);
                     isInfoCorrectlyDisplayed = validateUnloadingInfo(getTripInformation());
                     break;
                 default:
                     break;
             }
+
+            boolean isCustomerNameCorrect = ActualName.equals(expectedCustName);
 
             if (/*isInfoCorrectlyDisplayed && */isCustomerNameCorrect) {
                 pass("Trip Information should be correctly displayed and customer name :" + expectedCustName + "should be displayed", "Trip Information is correctly displayed and customer name :" + expectedCustName + "is displayed correctly");
@@ -241,6 +249,7 @@ public class UpdateStatusSteps extends DriverBase {
             switch (key.toUpperCase()) {
                 case "VIEW ITEMS":
                     clickViewItems();
+                    ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                     Thread.sleep(5000);
                     validateViewImage(1);
                     break;
@@ -332,8 +341,11 @@ public class UpdateStatusSteps extends DriverBase {
     }
 
     private void validateViewImage(int image) {
+
         //  testStepVerify.isElementEnabled(updateStatusPage.Image_TripItem(),"Trip Item should be displayed");
-        testStepVerify.isTrue(action.getValueAttribute(updateStatusPage.PageIndicator_Page1()).equals("page 1 of 1"), "One image scrol slide should be present");
+        //testStepVerify.isTrue(action.getValueAttribute(updateStatusPage.PageIndicator_Page1()).equals("page 1 of 1"), "One image scrol slide should be present");
+        testStepVerify.isElementDisplayed(updateStatusPage.Header_Item_Details(),"Item Details Header should display.","Item Details Header is display.","Item Details Header is not display.");
+        testStepVerify.isTrue(action.getValueAttribute(updateStatusPage.PageIndicator_Page1()).equals("Photos"), "One image scrol slide should be present");
         //   testStepVerify.isElementEnabled(updateStatusPage.PageIndicator_Page1(),"Trip Item should be displayed");
 
         action.click(updateStatusPage.Button_CloseViewItems());
@@ -462,48 +474,51 @@ public class UpdateStatusSteps extends DriverBase {
         logger.detail("INside trip info validation");
         String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
-        boolean isTagDisplayed = actualInfo.get(1).equals("DROP OFF LOCATION");
-        String actualDropOfflocation = actualInfo.get(2).replace(",", "").replace("  ", " ");
+        //boolean isTagDisplayed = actualInfo.get(1).equals("DROP OFF LOCATION");
+        String actualDropOfflocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
 
         boolean isDropLocationDisplayed = actualDropOfflocation
                 .contains(dropOffLocationLineOne) && actualDropOfflocation
                 .contains(dropOffLocationLineTwo);
 
-        if (isTagDisplayed && isDropLocationDisplayed) {
+       // if (isTagDisplayed && isDropLocationDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
 
-        } else {
+       // } else {
+        /*
             testStepVerify.isEquals(actualInfo.get(1), "DROP OFF LOCATION",
                     "'DROP OFF LOCATION' Tag should correctly displayed",
                     "'DROP OFF LOCATION' Tag is correctly displayed",
                     "'DROP OFF LOCATION' Tag was not correctly displayed");
+            */
 
-            testStepVerify.isEquals(actualInfo.get(2), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
+            testStepVerify.isEquals(actualInfo.get(5), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
 
                     "DROP OFF location should be correctly displayed ",
                     "DROP OFF location was correctly displayed , actual was is " + actualDropOfflocation + "and expected is " + dropOffLocationLineOne + dropOffLocationLineTwo,
                     "DROP OFF location was not displayed correctly, actual was is " + actualDropOfflocation + " and expected is" + dropOffLocationLineOne + dropOffLocationLineTwo);
-        }
-
-        return isTagDisplayed && isDropLocationDisplayed;
+        //}
+        return isDropLocationDisplayed;
+        //return isTagDisplayed && isDropLocationDisplayed;
     }
 
     private boolean validateEnRouteInfo(List<String> actualInfo) {
-        logger.detail("INside trip info validation");
+        logger.detail("Inside trip info validation");
         String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",", "").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
 
-        boolean isTagDisplayed = actualInfo.get(5).equals("PICKUP LOCATION");
+        //boolean isTagDisplayed = actualInfo.get(5).equals("PICKUP LOCATION");
+
         boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
-        String actualPickuplocation = actualInfo.get(2).replace(",", "").replace("  ", " ");
+        String actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
         boolean isPickUpDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation.contains(pickUpLocationLineTwo);
 
-        if (isTagDisplayed && isETACorrect && isPickUpDisplayed) {
+       // if (isETACorrect && isPickUpDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
 
-        } else {
-            testStepVerify.isTrue(isTagDisplayed, "'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed", "'PICKUP LOCATION' Tag was not correctly displayed");
+        //} else {
+            //testStepVerify.isTrue(isTagDisplayed, "'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed", "'PICKUP LOCATION' Tag was not correctly displayed");
             testStepVerify.isTrue(isETACorrect,
                     "ETA should be correctly displayed",
                     "'ETA' Tag and minutes was correctly displayed , Actual ETA is " + actualInfo.get(2),
@@ -512,8 +527,9 @@ public class UpdateStatusSteps extends DriverBase {
                     "Pick up location should be correctly displayed ",
                     "Pick up location was correctly displayed , actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne + pickUpLocationLineTwo,
                     "Pick up location was not displayed correctly, actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne + pickUpLocationLineTwo);
-        }
-        return isTagDisplayed && isETACorrect && isPickUpDisplayed;
+        //}
+        //return isTagDisplayed && isETACorrect && isPickUpDisplayed;
+        return isETACorrect && isPickUpDisplayed;
     }
 
     private boolean validateDrivingInfo(List<String> actualInfo) {
@@ -521,19 +537,21 @@ public class UpdateStatusSteps extends DriverBase {
 
         String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
-        boolean isTagDisplayed = actualInfo.get(1).equals("DROP OFF LOCATION");
-        boolean isETAdisplayed = actualInfo.get(3).contains("ETA:") && actualInfo.get(3).contains("mins");
-        String actualDropoffLocation = actualInfo.get(2).replace(",", "").replace("  ", " ");
+        //boolean isTagDisplayed = actualInfo.get(1).equals("DROP OFF LOCATION");
+        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
+        String actualDropoffLocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
         boolean isDropDisplayed = actualDropoffLocation.contains(dropOffLocationLineOne) && actualDropoffLocation.contains(dropOffLocationLineTwo);
 
-        if (isTagDisplayed && isETAdisplayed && isDropDisplayed) {
+       // if (isTagDisplayed && isETAdisplayed && isDropDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
 
-        } else {
+       // } else {
+        /*
             testStepVerify.isTrue(isTagDisplayed,
                     "'DROP OFF LOCATION' Tag should correctly displayed",
                     "'DROP OFF LOCATION' Tag is correctly displayed",
                     "'DROP OFF LOCATION' Tag was not correctly displayed");
+            */
 
             testStepVerify.isTrue(isETAdisplayed,
                     "ETA should be correctly displayed",
@@ -544,8 +562,9 @@ public class UpdateStatusSteps extends DriverBase {
                     "DROP OFF  location should be correctly displayed ",
                     "DROP OFF  location was correctly displayed , actual was is" + actualDropoffLocation + " and expected is " + dropOffLocationLineOne + dropOffLocationLineTwo,
                     "DROP OFF location was not displayed correctly, actual was is" + actualDropoffLocation + "and expected is" + dropOffLocationLineOne + dropOffLocationLineTwo);
-        }
-        return isTagDisplayed && isETAdisplayed && isDropDisplayed;
+        //}
+        //return isTagDisplayed && isETAdisplayed && isDropDisplayed;
+        return isETAdisplayed && isDropDisplayed;
     }
 
     private boolean validateArrivedInfo(List<String> actualInfo) {
@@ -553,26 +572,61 @@ public class UpdateStatusSteps extends DriverBase {
         String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",", "").replace("  ", " ").trim();
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").replace("  ", " ").trim();
 
-        boolean isTagDisplayed = actualInfo.get(1).equals("PICKUP LOCATION");
-        String actualPickuplocation = actualInfo.get(2).replace(",", "").replace("  ", " ");
+       // boolean isTagDisplayed = actualInfo.get(1).equals("PICKUP LOCATION");
+        String actualPickuplocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
 
         boolean isPickupDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation
                 .contains(pickUpLocationLineTwo);
-        if (isTagDisplayed && isPickupDisplayed) {
+        //if (isTagDisplayed && isPickupDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
-        } else {
+        //} else {
+        /*
             testStepVerify.isTrue(isTagDisplayed,
                     "'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed",
                     "'PICKUP LOCATION' Tag was not correctly displayed");
+
+         */
 
             testStepVerify.isTrue(isPickupDisplayed,
                     "Pick up location should be correctly displayed ",
                     "Pick up location was correctly displayed , actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne + pickUpLocationLineTwo,
                     "Pick up location was not displayed correctly, actual was is" + actualPickuplocation + "and expected is" + pickUpLocationLineOne + pickUpLocationLineTwo);
-        }
-        return isTagDisplayed && isPickupDisplayed;
+        //}
+        //return isTagDisplayed && isPickupDisplayed;
+        return isPickupDisplayed;
     }
+
+    private boolean validateLoadingItemsInfo(List<String> actualInfo) {
+        logger.detail("inside trip info validation");
+        String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",", "").replace("  ", " ").trim();
+        String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").replace("  ", " ").trim();
+
+        // boolean isTagDisplayed = actualInfo.get(1).equals("PICKUP LOCATION");
+        String actualPickuplocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
+
+        boolean isPickupDisplayed = actualPickuplocation
+                .contains(pickUpLocationLineOne) && actualPickuplocation
+                .contains(pickUpLocationLineTwo);
+        //if (isTagDisplayed && isPickupDisplayed) {
+        //removed pass statement to avoid multiple screenshot and log in result
+        //} else {
+        /*
+            testStepVerify.isTrue(isTagDisplayed,
+                    "'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed",
+                    "'PICKUP LOCATION' Tag was not correctly displayed");
+
+         */
+
+        testStepVerify.isTrue(isPickupDisplayed,
+                "Pick up location should be correctly displayed ",
+                "Pick up location was correctly displayed , actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne + pickUpLocationLineTwo,
+                "Pick up location was not displayed correctly, actual was is" + actualPickuplocation + "and expected is" + pickUpLocationLineOne + pickUpLocationLineTwo);
+        //}
+        //return isTagDisplayed && isPickupDisplayed;
+        return isPickupDisplayed;
+    }
+
 
 
     @Then("^I should be navigated to \"([^\"]*)\" trip status screen$")
@@ -618,6 +672,18 @@ public class UpdateStatusSteps extends DriverBase {
         }
     }
 
+    @Then("^I should be navigated to \"([^\"]*)\" trip status screen on driver$")
+    public void i_should_be_navigated_to_something_trip_status_screen_on_driver(String screen) throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(updateStatusPage.Text_Header(screen),"I should be navigated to " + screen + "screen","I have navigated to " + screen + "screen","I have not navigated to " + screen + "screen");
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+        //throw new PendingException();
+    }
+
     @Then("^I accept Alert message for \"([^\"]*)\"$")
     public void i_accept_alert_message_for_something(String strArg1) throws Throwable {
         action.waitForAlert();
@@ -639,10 +705,16 @@ public class UpdateStatusSteps extends DriverBase {
     @And("^stack trip information should be displayed on deck$")
     public void stack_trip_information_should_be_displayed_on_deck() {
         try {
-            String customerName = (String) cucumberContextManager.getScenarioContext("LATEST_LOGGEDIN_CUSTOMER_NAME");
-            testStepVerify.isElementTextEquals(updateStatusPage.Text_NextLabel(), "NEXT CUSTOMER","'NEXT CUSTOMER' text lable should be displayed","'NEXT CUSTOMER' text lable is displayed","'NEXT CUSTOMER' text lable is not displayed");
-            testStepVerify.isElementTextEquals(updateStatusPage.Text_OnDeckLabel(), "ON DECK","'ON DECK' text lable should be displayed","'ON DECK' text lable is displayed","'ON DECK' text lable is not displayed");
-            testStepVerify.isElementTextEquals(updateStatusPage.Text_StackCustomer(), customerName.substring(0, customerName.indexOf(" ") + 2));
+            //String customerName = (String) cucumberContextManager.getScenarioContext("LATEST_LOGGEDIN_CUSTOMER_NAME");
+            //testStepVerify.isElementTextEquals(updateStatusPage.Text_NextLabel(), "NEXT CUSTOMER","'NEXT CUSTOMER' text lable should be displayed","'NEXT CUSTOMER' text lable is displayed","'NEXT CUSTOMER' text lable is not displayed");
+            String OnDeckText= action.getText(updateStatusPage.Text_OnDeckLabel());
+            boolean onDeck=false;
+            if(OnDeckText.contains("Bungii on deck, try to finish up by"))
+                onDeck=true;
+            testStepVerify.isTrue(onDeck,"Bungii on deck, try to finish up by should be displayed","Bungii on deck, try to finish up by is not displayed.");
+
+            //testStepVerify.isElementTextEquals(updateStatusPage.Text_OnDeckLabel(), "ON DECK","'ON DECK' text lable should be displayed","'ON DECK' text lable is displayed","'ON DECK' text lable is not displayed");
+            //testStepVerify.isElementTextEquals(updateStatusPage.Text_StackCustomer(), customerName.substring(0, customerName.indexOf(" ") + 2));
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -784,10 +856,8 @@ public class UpdateStatusSteps extends DriverBase {
      * Click call to customer
      */
     public void clickCallToCustomer() throws InterruptedException{
-        action.click(updateStatusPage.Button_MoreOptions());
-        Thread.sleep(2000);
         action.click(updateStatusPage.Button_Call());
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
 
     }
 
@@ -795,8 +865,6 @@ public class UpdateStatusSteps extends DriverBase {
      * Click SMS to customer
      */
     public void clickSMSToCustomer() throws InterruptedException{
-        action.click(updateStatusPage.Button_MoreOptions());
-        Thread.sleep(2000);
 
         action.click(updateStatusPage.Button_Sms());
         Thread.sleep(2000);
@@ -807,9 +875,6 @@ public class UpdateStatusSteps extends DriverBase {
      * Click SMS to Bungii
      */
     public void clickSMSToSupport() throws InterruptedException{
-        action.click(updateStatusPage.Button_MoreOptions());
-        Thread.sleep(2000);
-
         action.click(updateStatusPage.Button_SupportSms());
         Thread.sleep(2000);
 
@@ -819,9 +884,6 @@ public class UpdateStatusSteps extends DriverBase {
      * Click View Items
      */
     public void clickViewItems() throws InterruptedException {
-        action.tapByElement(updateStatusPage.Button_MoreOptions());
-        Thread.sleep(2000);
-
         action.click(updateStatusPage.Button_ViewItems());
         Thread.sleep(2000);
 
@@ -833,6 +895,7 @@ public class UpdateStatusSteps extends DriverBase {
      * @return value of customer name
      */
     public String getCustomerName() {
+        String customerName= getTripInformation().get(4);
         return action.getNameAttribute(updateStatusPage.Text_Customer());
     }
 
@@ -848,6 +911,22 @@ public class UpdateStatusSteps extends DriverBase {
             details.add(action.getValueAttribute(info));
         }
         return details;
+    }
+
+    /**
+     * Get name information that is displayed in driver app
+     *
+     * @return customer name string containing trip information in driver app
+     */
+    public String getCustomerNameOnDriverApp(int i) throws InterruptedException {
+        List<String> details = new ArrayList<>();
+        List<WebElement> textInfo = updateStatusPage.Text_Info();
+        Thread.sleep(2000);
+        for (WebElement info : textInfo) {
+            details.add(action.getValueAttribute(info));
+        }
+        String CustName= details.get(i);
+        return CustName;
     }
 
     /**
