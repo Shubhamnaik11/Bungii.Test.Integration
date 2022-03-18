@@ -83,6 +83,7 @@ public class WebPortal extends DriverBase {
         return response;
     }
 
+
     public void cancelScheduledBungii(String pickupRequestId) {
         logger.detail("API REQUEST : Cancel Scheduled Bungii " + pickupRequestId);
         String scheduledDelivery = UrlBuilder.createApiUrl("web core", SCHEDULED_DELIVERY);
@@ -127,15 +128,14 @@ public class WebPortal extends DriverBase {
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
-                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
                 .header("Accept-Encoding", "gzip, deflate")
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                 .when().redirects().follow(false).
                 get(lockedPartner);
         String responseData= responseGet.asString();
-        responseGet.then().log().body();
-        String verificationToken =  (String) cucumberContextManager.getScenarioContext("VERIFICATION_TOKEN");;//responseGet.htmlPath().getString("html.body.span.input.@value");
+
+      //  String verificationToken =  (String) cucumberContextManager.getScenarioContext("VERIFICATION_TOKEN");;//responseGet.htmlPath().getString("html.body.span.input.@value");
         String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
         Pattern pattern = Pattern.compile("return '(.+?')");
         Matcher matcher = pattern.matcher(responseData);
@@ -151,14 +151,16 @@ public class WebPortal extends DriverBase {
 //            verificationToken =matcher.group(1);
 //        }
         String unlockPartner = UrlBuilder.createApiUrl("web core", POST_UNLOCK_PARTNER);
-        Response response = given().cookies(adminCookies).cookies(adminCookies2)
+        Response response = given().cookies(adminCookies).cookies(adminCookies2).log().all()
                 .header("__requestverificationtoken",csrfToken)
-                .formParams("PartnerLocationRef", partnerLocRef, "__RequestVerificationToken",verificationToken)
-                .when().redirects().follow(false).
+                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .formParams("PartnerLocationRef", partnerLocRef)
+                .when().redirects().follow(true).
                 post(unlockPartner);
-         //response.then().log().body();
-    }
+        //responseGet.then().log().body();
+         response.then().log().body();
 
+    }
     public void cancelBungiiAsAdmin(String pickupRequestId) {
         AdminLogin();
         cancelScheduledBungii(pickupRequestId);
