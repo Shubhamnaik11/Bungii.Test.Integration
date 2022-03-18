@@ -40,7 +40,7 @@ Feature: Admin_Schedule_Delivery_Edit
     And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     Then I check the price for delivery
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
@@ -66,7 +66,7 @@ Feature: Admin_Schedule_Delivery_Edit
     And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
@@ -83,7 +83,7 @@ Feature: Admin_Schedule_Delivery_Edit
     And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
@@ -126,7 +126,7 @@ Feature: Admin_Schedule_Delivery_Edit
        And I view the all Scheduled Deliveries list on the admin portal
        Then I should be able to see the respective bungii with the below status
          |  Status |
-         | Searching Drivers |
+         | Assigning Driver(s) |
        And I check the price for delivery
        When I click on "Edit" link beside scheduled bungii
        And I click on "Edit Trip Details" radiobutton
