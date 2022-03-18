@@ -15,7 +15,7 @@ Feature: Admin_Reason_Code
     And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Time" and select future time
@@ -36,7 +36,7 @@ Feature: Admin_Reason_Code
     And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Time" and select future time
