@@ -229,13 +229,15 @@ public class DbUtility extends DbContextManager {
         String Trip_Price;
 
         String queryString ="select amount\n" +
-                "from business_partner_loc_fixed_distance_pricing fp\n" +
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
-                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
-                "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  "+Trip_Estimate_Distance+" BETWEEN mile_range_min and mile_range_max\n" +
-                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+                "from bp_service_level sl\n" +
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bp_service_level_fixed_distance_price pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like '%"+ Alias +"%'\n" +
+                "and sl.service_name = '"+Service_name+"'\n" +
+                "and no_of_drivers="+No_of_Driver+" and  "+Trip_Estimate_Distance+" BETWEEN mile_range_min and mile_range_max\n" +
+                "order by sl.service_level_number, pr.tier_number, pr.no_of_drivers";
 
         Trip_Price = getDataFromMySqlMgmtServer(queryString);
         logger.detail("Calculated Estimated Service Price  =  " + Trip_Price + " of "+ Service_name +" [ Alias :"+Alias+" ]" + " For Drivers : "+No_of_Driver+" | Trip Distance : "+ Trip_Estimate_Distance);
@@ -251,13 +253,14 @@ public class DbUtility extends DbContextManager {
 
         //Query for selecting last tier number
         String queryString ="select max(tier_number)\n" +
-                "from business_partner_loc_fixed_distance_pricing fp\n" +
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
-                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
-                "and ss.service_name = '"+Service_name+"'\n" +
-                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+                "from bp_service_level sl\n" +
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bp_service_level_fixed_distance_price pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like '%"+ Alias +"%'\n" +
+                "and sl.service_name = '"+Service_name+"'\n" +
+                "order by subdomain_name, sl.service_level_number, pr.tier_number, pr.no_of_drivers";
         Last_Tier = getDataFromMySqlMgmtServer(queryString);
         int Last_Tier_Number = Integer.parseInt(Last_Tier);
         logger.detail("Last_Tier_Number : " +Last_Tier_Number);
@@ -266,24 +269,28 @@ public class DbUtility extends DbContextManager {
 
         //Query for selecting second last tier amount
         String queryString1 ="select amount\n" +
-                "from business_partner_loc_fixed_distance_pricing fp\n" +
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
-                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
-                "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  tier_number="+Second_Last_Tier+"\n" +
-                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+                "from bp_service_level sl\n" +
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bp_service_level_fixed_distance_price pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like '%"+ Alias +"%'\n" +
+                "and sl.service_name = '"+Service_name+"'\n" +
+                "and no_of_drivers="+No_of_Driver+" and tier_number="+Second_Last_Tier+"\n" +
+                "order by sl.service_level_number, pr.tier_number, pr.no_of_drivers";
         Second_Last_Tier_Amount = Double.parseDouble(getDataFromMySqlMgmtServer(queryString1));
         logger.detail("Second_Last_Tier_Amount =  " + Second_Last_Tier_Amount );
 
         String queryString2 ="select mile_range_max\n" +
-                "from business_partner_loc_fixed_distance_pricing fp\n" +
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
-                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
-                "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  tier_number="+Second_Last_Tier+"\n" +
-                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+                "from bp_service_level sl\n" +
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bp_service_level_fixed_distance_price pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like '%"+ Alias +"%'\n" +
+                "and sl.service_name = '"+Service_name+"'\n" +
+                "and no_of_drivers="+No_of_Driver+" and tier_number="+Second_Last_Tier+"\n" +
+                "order by sl.service_level_number, pr.tier_number, pr.no_of_drivers";
         Second_Last_Tier_Milenge = Double.parseDouble(getDataFromMySqlMgmtServer(queryString2));
         logger.detail("Second_Last_Tier_Milenge =  " + Second_Last_Tier_Milenge);
         Double Remaining_Milenge = Double.parseDouble(Trip_Estimate_Distance) - Second_Last_Tier_Milenge;
@@ -291,13 +298,15 @@ public class DbUtility extends DbContextManager {
 
         //Multiplying factor
         String queryString3 ="select amount\n" +
-                "from business_partner_loc_fixed_distance_pricing fp\n" +
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
-                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
-                "and ss.service_name = '"+Service_name+"' and no_of_drivers="+No_of_Driver+" and  tier_number="+Last_Tier_Number+"\n" +
-                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+                "from bp_service_level sl\n" +
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bp_service_level_fixed_distance_price pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like '%"+ Alias +"%'\n" +
+                "and sl.service_name = '"+Service_name+"'\n" +
+                "and no_of_drivers="+No_of_Driver+" and tier_number="+Last_Tier_Number+"\n" +
+                "order by sl.service_level_number, pr.tier_number, pr.no_of_drivers";
 
 
         Double Multiplier = Double.parseDouble(getDataFromMySqlMgmtServer(queryString3));
@@ -315,13 +324,14 @@ public class DbUtility extends DbContextManager {
         String Max_Value_Min_Milenge;
 
         String queryString ="select max(mile_range_min)\n" +
-                "from business_partner_loc_fixed_distance_pricing fp\n" +
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =fp.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "join bp_supplementary_service ss on ss.bp_supplementary_service_id = fp.bp_supplementary_service_id\n" +
-                "where c.IsActive = 1 and alias like '"+Alias+"%'\n" +
-                "and ss.service_name = '"+Service_name+"'\n" +
-                "order by ss.service_level_number, fp.tier_number, fp.no_of_drivers";
+                "from bp_service_level sl\n" +
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bp_service_level_fixed_distance_price pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like '%"+ Alias +"%'\n" +
+                "and sl.service_name = '"+Service_name+"'\n" +
+                "order by subdomain_name, sl.service_level_number, pr.tier_number, pr.no_of_drivers";
 
 
         Max_Value_Min_Milenge = getDataFromMySqlMgmtServer(queryString);
