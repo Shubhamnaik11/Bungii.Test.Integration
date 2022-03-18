@@ -159,7 +159,7 @@ Feature: Service Level
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     And I select the partner portal scheduled trip on scheduled delivery
 
     Examples:
