@@ -32,7 +32,7 @@ Feature: Admin_Price_Override
     And I wait for "1" mins
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I view the delivery details
     And I get the old values of "Customer price" for "Service level"
     And I get the old values of "Driver cut" for "Service level"
@@ -89,7 +89,7 @@ Feature: Admin_Price_Override
     And I wait for "1" mins
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I view the delivery details
     And I get the old values of "Customer price" for "Service level"
     And I get the old values of "Driver cut" for "Service level"
@@ -149,7 +149,7 @@ Feature: Admin_Price_Override
     And I wait for "1" mins
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I view the delivery details
     And I check if "Price Override" button is displayed
     And I click on "Price Override" button on delivery details
@@ -200,9 +200,10 @@ Feature: Admin_Price_Override
       | Bungii Time   | Customer Phone | Customer Name                      |
       | NEXT_POSSIBLE | 9999999122     | Testcustomertywd_appleNewQW Customer|
       And I view the all Scheduled Deliveries list on the admin portal
+      And I wait for "2" mins
       And I should be able to see the respective bungii with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
       Then I click on "Edit" link beside live delivery
       When I view the delivery details
       And I check if "Price override" button is not present
@@ -223,7 +224,7 @@ Feature: Admin_Price_Override
       Then I check if "Price override" button is not present
 
   @ready
-    @testsweta
+# check
       Scenario: Verify the estimated charge and driver earnings before and after driver accepts and when service level is updated over a admin override functionality
       When I navigate to "Partner" portal configured for "service level" URL
       When I enter "valid" password on Partner Portal
@@ -253,7 +254,7 @@ Feature: Admin_Price_Override
       And I wait for "2" mins
       Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers |
+      | Assigning Driver(s) |
       When I view the delivery details
       And I get the old values of "Customer price" for "Service level"
       And I get the old values of "Driver cut" for "Service level"
@@ -349,7 +350,7 @@ Feature: Admin_Price_Override
       And I view the partner portal Scheduled Trips list on the admin portal
       Then I should be able to see the respective bungii partner portal trip with the below status
         | Status           |
-        | Searching Drivers |
+        | Assigning Driver(s) |
       When I view the delivery details
       And I get the old values of "Driver cut" for "Service level-duo"
       And I check if "Price Override" button is displayed
@@ -397,7 +398,7 @@ Feature: Admin_Price_Override
       And I wait for "2" mins
       Then I should be able to see the respective bungii partner portal trip with the below status
         | Status           |
-        | Searching Drivers|
+        | Assigning Driver(s)|
       When I view the delivery details
       And I get the old values of "Customer price" for "Service level - fnd"
       And I get the old values of "Driver cut" for "Service level - fnd"
@@ -427,7 +428,7 @@ Feature: Admin_Price_Override
       Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level - fnd"
 
   @ready
-
+  @testsweta
     Scenario: Verify fnd Portals, driver app for Price override for customer earnings only in Solo fixed pricing portals
       When I navigate to "Partner" portal configured for "FloorDecor service level" URL
       And I enter "valid" password on Partner Portal
@@ -454,7 +455,7 @@ Feature: Admin_Price_Override
       And I wait for "2" mins
       Then I should be able to see the respective bungii partner portal trip with the below status
         | Status           |
-        | Searching Drivers|
+        |Assigning Driver(s)|
       When I view the delivery details
       And I get the old values of "Customer price" for "Service level - fnd"
       And I check if "Price Override" button is displayed
