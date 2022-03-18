@@ -24,9 +24,6 @@ public class WebPortal extends DriverBase {
     private static String MANUALLY_END = "/BungiiReports/ManuallyEndPickup";
     private static String SCHEDULED_DELIVERY = "/BungiiReports/ScheduledTrips";
     private static String LIVE_DELIVERY_DETAIL="/BungiiReports/TripDetails?tripRef=";
-    private static String GET_UNLOCK_PARTNER = "/Partner/UnlockPartners";
-    private static String POST_UNLOCK_PARTNER = "/Partner/UnlockPartner";
-
 
 
     private static LogUtility logger = new LogUtility(AuthServices.class);
@@ -64,7 +61,6 @@ public class WebPortal extends DriverBase {
             verificationToken=matcher.group(1);
            // logger.detail("Verification Token POST Parameter : "+ verificationToken);
         }
-        cucumberContextManager.setScenarioContext("VERIFICATION_TOKEN",verificationToken);
 
         Response response = given().cookies(adminCookies).contentType("application/x-www-form-urlencoded; charset=UTF-8").urlEncodingEnabled(false)
                 .header("Accept-Language", "en-US,en;q=0.5")
@@ -123,7 +119,7 @@ public class WebPortal extends DriverBase {
     }
     public void unlockPartner(String partnerLocRef) {
         logger.detail("API REQUEST : Unlock Partner Portal " + partnerLocRef);
-        String lockedPartner = UrlBuilder.createApiUrl("web core", GET_UNLOCK_PARTNER);
+        String lockedPartner = UrlBuilder.createApiUrl("web core", "/Partner/UnlockPartners");
         Response responseGet = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
@@ -134,32 +130,22 @@ public class WebPortal extends DriverBase {
                 .when().redirects().follow(false).
                 get(lockedPartner);
         String responseData= responseGet.asString();
-
-      //  String verificationToken =  (String) cucumberContextManager.getScenarioContext("VERIFICATION_TOKEN");;//responseGet.htmlPath().getString("html.body.span.input.@value");
-        String csrfToken = ""; //responseGet.getCookie("__RequestVerificationToken");
-        Pattern pattern = Pattern.compile("return '(.+?')");
+        String csrfToken = "";
+        Pattern pattern = Pattern.compile("return '(.+?)'");
         Matcher matcher = pattern.matcher(responseData);
         if (matcher.find())
         {
             csrfToken =matcher.group(1);
         }
-
-//        pattern = Pattern.compile("__RequestVerificationToken\" type=\"hidden\" value=\"(.+?)\"");
-//        matcher = pattern.matcher(responseData);
-//        if (matcher.find())
-//        {
-//            verificationToken =matcher.group(1);
-//        }
-        String unlockPartner = UrlBuilder.createApiUrl("web core", POST_UNLOCK_PARTNER);
-        Response response = given().cookies(adminCookies).cookies(adminCookies2).log().all()
+        String unlockPartner = UrlBuilder.createApiUrl("web core", "/Partner/UnlockPartner");
+        Response response = given().cookies(adminCookies).cookies(adminCookies2)
                 .header("__requestverificationtoken",csrfToken)
                 .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .header("cookies", adminCookies+";"+adminCookies2)
+                .header("x-requested-with", "XMLHttpRequest")
                 .formParams("PartnerLocationRef", partnerLocRef)
-                .when().redirects().follow(true).
+                .when().redirects().follow(false).
                 post(unlockPartner);
-        //responseGet.then().log().body();
-         response.then().log().body();
-
     }
     public void cancelBungiiAsAdmin(String pickupRequestId) {
         AdminLogin();
