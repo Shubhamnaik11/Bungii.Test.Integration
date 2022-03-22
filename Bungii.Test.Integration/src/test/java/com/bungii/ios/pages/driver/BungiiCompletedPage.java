@@ -26,7 +26,7 @@ public class BungiiCompletedPage extends PageBase {
 
 		public WebElement Text_TotalEarningsLabel(){return  findElement("//XCUIElementTypeStaticText[@name='Total earnings']",LocatorType.XPath);}
 
-		public WebElement Text_TotalEarnings() { return findElement("//XCUIElementTypeStaticText[@name='Total earnings']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath); }
+		public WebElement Text_TotalEarnings() { return findElement("//XCUIElementTypeStaticText[@name='Total earnings']/preceding-sibling::XCUIElementTypeStaticText", LocatorType.XPath); }
 
 		public WebElement Text_Label(){return  findElement("//XCUIElementTypeStaticText[@value='Cha-Ching!']",LocatorType.XPath);}
 		public WebElement Image_Dollar(){return  findElement("icon_dollar",LocatorType.AccessibilityId);}
