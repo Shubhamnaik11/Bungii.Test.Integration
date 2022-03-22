@@ -345,7 +345,7 @@ public class BungiiSteps extends DriverBase {
 
             String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
-            if (bungiiType.equalsIgnoreCase("Solo Scheduled Researched") || bungiiType.equalsIgnoreCase("Duo Scheduled Researched")) {
+            if (bungiiType.equalsIgnoreCase("Solo Scheduled Researched") || bungiiType.equalsIgnoreCase("Duo Scheduled Researched") || bungiiType.equalsIgnoreCase("Edited Solo Scheduled")) {
                 pickupRequest = new DbUtility().getResarchedPickupReference(pickupRequest); //researched pickup ref
                 cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
                 bungiiType = bungiiType.replace(" Researched", "");
@@ -408,7 +408,7 @@ public class BungiiSteps extends DriverBase {
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
                         }
 
-                    } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED") || bungiiType.equalsIgnoreCase("Duo Scheduled")) {
+                    } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED") || bungiiType.equalsIgnoreCase("Duo Scheduled") || bungiiType.equalsIgnoreCase("Edited Solo Scheduled")) {
                         if (driver1State.equalsIgnoreCase("Accepted")) {
 
                             //coreServices.waitForAvailableTrips(driverName + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
