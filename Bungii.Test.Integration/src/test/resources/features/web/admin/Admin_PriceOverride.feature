@@ -120,7 +120,7 @@ Feature: Admin_Price_Override
 
   @ready
 
-    Scenario: Verify change Pickup/Drop off address after override for driver earnings and customer cost before driver accepts, check if price override is reflected on partner portal, check if indicator is displayed and verify Driver cut is less than Customer price for Admin override
+    Scenario: Verify change Pickup/Drop off address after override for driver earnings and customer cost before driver accepts, check if price override is reflected on partner portal,indicator is displayed and verify Driver cut is less than Customer price for Admin override
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -208,7 +208,7 @@ Feature: Admin_Price_Override
       When I view the delivery details
       And I check if "Price override" button is not present
       Then I navigate back to Scheduled Deliveries
-      And As a driver "Testdrivertywd_appledc_a_webdd Testdriverdd" perform below action with respective "Solo Scheduled" Delivery
+      And As a driver "Testdrivertywd_appledc_a_drvq WashingtonDC_q" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
       | Enroute       |
@@ -224,7 +224,7 @@ Feature: Admin_Price_Override
       Then I check if "Price override" button is not present
 
   @ready
-# check
+
       Scenario: Verify the estimated charge and driver earnings before and after driver accepts and when service level is updated over a admin override functionality
       When I navigate to "Partner" portal configured for "service level" URL
       When I enter "valid" password on Partner Portal
@@ -270,7 +270,7 @@ Feature: Admin_Price_Override
       And I check the new values of "Estimated Charge" for "Service level"
       Then I check the new values of "Driver Fixed Earnings" for "Service level"
       When I navigate back to Scheduled Deliveries
-      And As a driver "Testdrivertywd_appledc_a_webdd Testdriverdd" perform below action with respective "Solo Scheduled" Delivery
+      And As a driver "Testdrivertywd_appledc_a_drvr WashingtonDC_r" perform below action with respective "Solo Scheduled" Delivery
         | driver1 state |
         | Accepted      |
       And I wait for "2" mins
@@ -303,18 +303,6 @@ Feature: Admin_Price_Override
       And I get the old values of "Driver cut" for "Service level"
       And I wait for "2" mins
       Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level"
-      When I navigate back to Scheduled Deliveries
-      When I click on "Edit" link beside scheduled bungii
-      And I click on "Edit Trip Details" radiobutton
-      And I click on the "Date" and select future time
-      And I click on "Reason" for change time
-      And I click on "Customer initiated" in the dropdown
-      And I click on "Verify" button on Edit Scheduled bungii popup
-      When I click on "Save" button on Edit Scheduled bungii popup
-      Then "Bungii Saved!" message should be displayed
-      And I wait for "2" mins
-      Then the updated date should be displayed on delivery details page
-
 
   @ready
 
@@ -342,7 +330,7 @@ Feature: Admin_Price_Override
         |DISCOVER CARD|12/23  |VALID POSTAL CODE|VALID CVV|
       And I click "Schedule Bungii" button on Partner Portal
       Then I should "see Done screen"
-      And As a driver "Testdrivertywd_appledc_a_webdd Testdriverdd" perform below action with respective "Solo Scheduled" Delivery
+      And As a driver "Testdrivertywd_appledc_a_drvs WashingtonDC_s" perform below action with respective "Solo Scheduled" Delivery
          | driver1 state |
          | Accepted      |
       And I wait for "2" mins
@@ -428,8 +416,8 @@ Feature: Admin_Price_Override
       Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level - fnd"
 
   @ready
-  @testsweta
-    Scenario: Verify fnd Portals, driver app for Price override for customer earnings only in Solo fixed pricing portals
+
+    Scenario: Verify fnd deliveries and driver app for cancel and revive trip after Price Override is performed
       When I navigate to "Partner" portal configured for "FloorDecor service level" URL
       And I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
@@ -466,3 +454,22 @@ Feature: Admin_Price_Override
       And I click on "Ok" button on price override pop-up
       And I wait for "2" mins
       Then I check the new values of "Estimated Charge" for "Service level - fnd"
+      When I navigate back to Scheduled Deliveries
+      And I click on "Edit" link beside scheduled bungii
+      And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+      And I enter cancellation fee and Comments
+      And I click on "Submit" button
+      Then The "Pick up has been successfully canceled." message should be displayed
+      And I wait for "2" mins
+      And I view the Deliveries list on the admin portal
+      And I search the delivery of Customer
+      Then Revive button should be displayed beside the trip
+      When I click on "Revive" button
+      Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId, Pickup Origin and Partner Name
+      When I click on "Confirm" button on Revival Popup
+      And I wait for 2 minutes
+      And I view the all Scheduled Deliveries list on the admin portal
+      And I search the delivery of Customer
+      Then I should be able to see the respective bungii partner portal trip with the below status
+        | Status           |
+        |Assigning Driver(s)|
