@@ -212,7 +212,7 @@ public class NotificationSteps extends DriverBase {
                 }
 
                 log("I should able to accept trip through virtual notification",
-                        "I accept trip through virtual notification");
+                        "Driver "+driverPhoneNum+" accepts delivery "+ pickupRequestID+" through virtual notification");
             }
             else
             {
@@ -403,7 +403,7 @@ public class NotificationSteps extends DriverBase {
                 }
 
                 log("I should able to accept trip through virtual notification",
-                        "I accept trip through virtual notification");
+                        "Driver "+driverPhoneNum+" accepts delivery "+ pickupRequestID+" through virtual notification");
             }
             else
             {
@@ -474,7 +474,7 @@ public class NotificationSteps extends DriverBase {
                 }
 
                 log("I should able to accept trip through virtual notification",
-                        "I accept trip through virtual notification");
+                        "Driver "+driverPhoneNum+" accepts delivery "+ pickupRequestID+" through virtual notification");
 
             }
             else

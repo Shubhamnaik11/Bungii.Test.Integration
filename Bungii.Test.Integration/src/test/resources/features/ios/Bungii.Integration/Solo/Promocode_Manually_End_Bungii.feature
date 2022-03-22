@@ -11,6 +11,7 @@ Feature: Promocode_Manually_End_Bungii
 	
 @regression
 #stable
+	@authfailure
 Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually Ending Bungii
 When I Switch to "customer" application on "same" devices
 And I am on the "LOG IN" page
@@ -38,7 +39,7 @@ And I tap "Back" on Promos screen
 
 When I enter following details on "Estimate" screen
 | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-|          |           |              | NEXT_POSSIBLE | Default     |
+|          |           |              | NEXT_SECOND_POSSIBLE | Default     |
 
 And I should be navigated to "Estimate" screen
 Then I save bungii trip time details
@@ -87,9 +88,10 @@ When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 Then I should be navigated to "Home" screen
 
 When I Switch to "driver" application on "same" devices
+And I click "Skip This Step" button on "Rate customer" screen
 Then Bungii driver should see "correct details" on Bungii completed page
-And I click "On To The Next One" button on "Bungii Completed" screen
-  
+And I click "On To The Next One" button on "Bungii completed" screen
+
   
   @regression
 #stable
@@ -158,9 +160,10 @@ And I click "On To The Next One" button on "Bungii Completed" screen
 	Then I should be navigated to "Home" screen
 	
 	When I Switch to "driver" application on "same" devices
+	And I click "Skip This Step" button on "Rate customer" screen
 	Then Bungii driver should see "correct details" on Bungii completed page
-	And I click "On To The Next One" button on "Bungii Completed" screen
-  
+	And I click "On To The Next One" button on "Bungii completed" screen
+
   @regression
 #stable
   Scenario: Verify One Off Type Promocode Is Correctly Applied After Manually Ending Bungii

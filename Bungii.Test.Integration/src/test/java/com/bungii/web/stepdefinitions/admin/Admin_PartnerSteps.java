@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -58,8 +59,8 @@ public class Admin_PartnerSteps extends DriverBase {
         String Status = (String)cucumberContextManager.getScenarioContext("STATUS");
         Thread.sleep(6000);
         i_search_by_partner_name_something(Partner);
-        String xpath = String.format("//tr/td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td[text()='%s']",Status, Email, Phone , Partner);
-        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");
+        String xpath = String.format("//tr/td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td/a[text()='%s']",Status, Email, Phone , Partner);
+        testStepAssert.isElementDisplayed(admin_partnerPortalPage.findElement(xpath, PageBase.LocatorType.XPath),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -76,8 +77,8 @@ public class Admin_PartnerSteps extends DriverBase {
         String Email = (String) cucumberContextManager.getScenarioContext("EMAIL");
         String Status = (String)cucumberContextManager.getScenarioContext("STATUS");
         Thread.sleep(6000);
-        String xpath = String.format("//tr/td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td[text()='%s']",Status, Email, Phone , Partner);
-        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");
+        String xpath = String.format("//tr/td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td[text()='%s']/preceding-sibling::td/a[text()='%s']",Status, Email, Phone , Partner);
+        testStepAssert.isElementDisplayed(admin_partnerPortalPage.findElement(xpath, PageBase.LocatorType.XPath),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -467,6 +467,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_drvj WashingtonDC_j" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Bungii Completed |
+    Then I wait for "2" mins
     And I view All Deliveries list on the admin portal
     Then I should be able to see the respective partner portal trip with "Payment Successful" state
     #Then The Delivery List page should display the delivery in "Payment Successful" state
@@ -588,7 +589,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Ratings submitted successfully message"
     Then Submitted driver ratings are saved in the database
 
-  @ready
+  @regression
   Scenario: Verify that the portal's customer can open the link to provide driver rating for duo delivery.
     When I request Partner Portal "Duo" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |

@@ -259,7 +259,15 @@ public class CommonSteps extends DriverBase {
                     String text= action.getAlertMessage().toString();
                     action.clickAlertButton("OK");
                     testStepAssert.isTrue(text.contains("No Mail Accounts"),"No Mail Accounts Popup should be displayed", text +" is displayed",text+" is not displayed");
-
+                    break;
+                case "Your duo teammate is on the way":
+                    String textMessage= action.getAlertMessage().toString();
+                    testStepAssert.isTrue(message.contains(textMessage),"Your duo teammate is on the way message should be shown.","Your duo teammate is on the way message is not shown instead of that following message is shown "+textMessage);
+                    break;
+                case "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading":
+                    String arrivedTextMessage= action.getAlertMessage().toString();
+                    testStepAssert.isTrue(message.contains(arrivedTextMessage),"Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message should be shown.","Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message is not shown instead of that following message is shown "+arrivedTextMessage);
+                    break;
             }
             log("No Mail Accounts Popup should be displayed",
                     "No Mail Accounts Popup is displayed", true);
@@ -376,7 +384,15 @@ public class CommonSteps extends DriverBase {
                         SetupManager.getDriver().switchTo().alert().dismiss();
                         Thread.sleep(1000);
                     }
-                    action.click(driverBungiiCompletedPage.Button_NextTrip());
+                    action.click(driverBungiiCompletedPage.Button_Next_Bungii());
+                    break;
+                case "SUBMIT":
+                    Thread.sleep(1000);
+                    action.click(driverBungiiCompletedPage.Button_Submit());
+                    break;
+                case "SKIP THIS STEP":
+                    Thread.sleep(1000);
+                    action.click(driverBungiiCompletedPage.Button_Skip_This_Step());
                     break;
                 case "I DON'T LIKE FREE MONEY":
                     takeActionOnPromotion("REJECT");
@@ -478,6 +494,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "REQUEST YOUR CITY":
                     action.click(homePage.Text_OutOfOffice_RequestCity());
+                    Thread.sleep(5000);
                     break;
                 case "SHARE ON FACEBOOK":
                 case "SHARE ON TWITTER":
@@ -681,6 +698,66 @@ public class CommonSteps extends DriverBase {
 
     }
 
+    @Then("^I see \"([^\"]*)\" screen$")
+    public void i_see_something_screen(String screen) throws Throwable {
+        try {
+            boolean isCorrectPage = false;
+            switch (screen) {
+                case "Rate customer":
+                    Thread.sleep(5000);
+                    //String abc = bungiiCompletePage.Text_RateCustomer().getText();
+                    isCorrectPage = action.getScreenHeader(driverBungiiCompletedPage.Text_RateCustomer()).equals(screen);
+                    testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+                            "I should be navigated to " + screen, "Error in navigating to " + screen + " screen ");
+                    break;
+                default:
+                    logger.detail("Lands on wrong screen");
+                    break;
+            }
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+
+    }
+
+    @And("^I select \"([^\"]*)\" customer rating$")
+    public void i_select_something_customer_rating(String ratingStar) throws Throwable {
+        try {
+            int i = 0;
+            switch (ratingStar) {
+                case "1":
+                    i = 1;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "2":
+                    i = 2;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "3":
+                    i = 3;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "4":
+                    i = 4;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "5":
+                    i = 5;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                default:
+                    logger.detail("Not selected any start rating");
+            }
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+    }
     @Given("^I am on the \"([^\"]*)\" page$")
     public void i_am_on_the_something_page(String screen) {
         try {
@@ -972,7 +1049,7 @@ public class CommonSteps extends DriverBase {
 
         }
         if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
-            action.click(driverBungiiCompletedPage.Button_NextTrip());
+            action.click(driverBungiiCompletedPage.Button_Next_Bungii());
             //homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
         }
 
@@ -1202,8 +1279,8 @@ public class CommonSteps extends DriverBase {
             }
             testStepAssert.isEquals(actualMessage, expectedMessage,
                     "Alert with text" + expectedMessage + "should be displayed",
-                    "Alert with text ," + expectedMessage + " should be displayed",
-                    "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
+                    "Alert with text ," + expectedMessage + " is displayed",
+                    "Actual Message is displayed " + actualMessage + " instead of  "
                             + expectedMessage);
 
     }
@@ -1389,8 +1466,8 @@ public class CommonSteps extends DriverBase {
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+            error("Step Should be successful",
+                    "Error in login to a customer app using "+ key, true);
         }
     }
     @When("^I navigate to \"([^\"]*)\" on Admin portal$")
@@ -2269,7 +2346,8 @@ public class CommonSteps extends DriverBase {
                     break;
             }
             String alertText = SetupManager.getDriver().switchTo().alert().getText();
-            testStepVerify.isEquals(alertText, expectedText);
+           // testStepVerify.isEquals(alertText, expectedText);
+            testStepAssert.isEquals(alertText, expectedText,alertText+" should be displayed",alertText+" is displayed", alertText+" is displayed instead of "+expectedText );
             SetupManager.getDriver().switchTo().alert().accept();
             Thread.sleep(1000);
         } catch (Exception e) {

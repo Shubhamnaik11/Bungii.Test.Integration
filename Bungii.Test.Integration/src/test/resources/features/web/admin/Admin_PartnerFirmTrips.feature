@@ -141,7 +141,7 @@ Feature: Admin_PartnerFirmTrips
     #And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
 
 
-  @ready
+  @regression
     @testpath
     #Create driver in base
   Scenario: Verify Partner Scheduled - Solo Scheduled Bulk Trip

@@ -288,18 +288,18 @@ public class HomePageSteps extends DriverBase {
             switch (status.toUpperCase()) {
                 case "OFFLINE":
                     testStepVerify.isEquals(action.getScreenHeader(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.offline"));
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.GoOnline_Btn()), PropertyUtility.getMessage("driver.home.goonline"));
+                   testStepVerify.isEquals(action.getNameAttribute(homepage.GoOnline_Btn()), PropertyUtility.getMessage("driver.home.offline"));
                     break;
                 case "ONLINE":
                     testStepVerify.isEquals(action.getScreenHeader(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.online"));
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.GoOffline_Btn()), PropertyUtility.getMessage("driver.home.gooffline"));
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.GoOffline_Btn()), PropertyUtility.getMessage("driver.home.online"));
                     break;
                 default:
                     break;
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error in getting status of the driver ", true);
         }
     }
 

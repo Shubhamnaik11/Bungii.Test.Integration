@@ -816,10 +816,14 @@ try{
     @Then("^I should be able to see the respective partner portal trip with \"([^\"]*)\" state$")
     public void i_should_be_able_to_see_the_respective_partner_portal_trip_with_something_state(String strArg1) throws Throwable {
         try{
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            action.clearSendKeys(admin_LiveTripsPage.TextBox_Search_Field(),pickupRef);
+            action.click(admin_LiveTripsPage.Button_Search());
             String status = strArg1;
         String ST = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
         String geofence = (String)  cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
-        DateTimeFormatter dft = DateTimeFormatter.ofPattern("MMM dd, hh:mm a z", Locale.ENGLISH);//for checking the MMMM month format
+        /*
+        DateTimeFormatter dft = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a z", Locale.ENGLISH);//for checking the MMMM month format
         DateTimeFormatter dft1 = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a z",Locale.ENGLISH);//for converting to MMM month format
         //String geoLabel = utility.getTimeZoneBasedOnGeofenceId();
         String geoLabel = utility.getTripTimezone(geofence);
@@ -827,6 +831,8 @@ try{
         ZonedDateTime abc = LocalDateTime.parse(ST,dft).atZone(zone.toZoneId());
         ST = dft1.format(abc);
         ST = utility.getbungiiDayLightTimeValue(ST);
+
+         */
 
         String BT = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         String Client = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
@@ -876,7 +882,7 @@ try{
 
             cucumberContextManager.setScenarioContext("STATUS", status);
 
-            if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
+            if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Assigning Driver(s)") || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType.toUpperCase(), customer);
                 int retrycount = 13;
 

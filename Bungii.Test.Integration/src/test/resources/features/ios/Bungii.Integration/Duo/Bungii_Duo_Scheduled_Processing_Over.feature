@@ -14,7 +14,7 @@ Feature: Scheduled DUO Bungii Trip Processing Over
   Background:
 	When I Switch to "customer" application on "same" devices
 
-@ready
+@regression
 @failures
 Scenario: Verify Customer Can Request Cancel Scheduled Duo Bungii Through SMS To Admin If One Driver Accepts And Processing Is Over
 When I request "duo" Bungii as a customer in "denver" geofence

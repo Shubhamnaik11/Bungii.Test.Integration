@@ -6,7 +6,6 @@ Feature: Admin_Revival
 	
   @regression
   Scenario: Verify Admin can cancel the Revived Delivery
-	And I wait for 2 minutes
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999227     | Testcustomertywd_appleNewMN Customer|

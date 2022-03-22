@@ -93,8 +93,7 @@ Feature: Admin_Promoter
       |Card Number | Expiration Date | CVV | Postal Code|
       |4000111111111511 | 11/29      | 123  |      12345|
     And I click on "Save" button on "Promoter Cards" screen
-    Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed
-    
+    Then "payment declined error" message is displayed
 
 
 

@@ -20,7 +20,7 @@ Feature: Customer Estimate screen
     
   @regression
     #stable
-  Scenario: Verify If Customer Cancels Ondemand Bungii While It Is In Searching driver State Then He Is Navigated To Home Screen - Also Pickup And Dropoff Location Of Previous Trip Is Not Reset
+  Scenario: Verify If Customer Cancels Ondemand Bungii While It Is In Searching driver State Then He Is Navigated To Home Screen & Pickup And Dropoff Location Of Previous Trip Is Retained
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
@@ -36,7 +36,8 @@ Feature: Customer Estimate screen
   
   
   @regression
-  Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details Remains Unchanged
+  #stable
+  Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details are retained
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |

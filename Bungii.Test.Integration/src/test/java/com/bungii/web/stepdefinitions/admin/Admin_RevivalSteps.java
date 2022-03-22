@@ -35,7 +35,7 @@ public class Admin_RevivalSteps extends DriverBase {
     public void revive_button_should_be_displayed_beside_the_trip() throws Throwable {
         try {
             String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-            String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']", customerName);
+            String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']/img", customerName);
             testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
             cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
         } catch(Exception e){

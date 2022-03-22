@@ -27,7 +27,8 @@ Feature: Solo Scheduled Bungii Part A
     When I wait for Minimum duration for Bungii Start Time
     
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen
+    #Then I should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE" trip status screen on driver
     And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     
     When I Switch to "customer" application on "same" devices
@@ -37,7 +38,8 @@ Feature: Solo Scheduled Bungii Part A
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     
-    Then I should be navigated to "ARRIVED" trip status screen
+    #Then I should be navigated to "ARRIVED" trip status screen
+    Then I should be navigated to "ARRIVED" trip status screen on driver
     And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
     
     When I Switch to "customer" application on "same" devices
@@ -46,34 +48,39 @@ Feature: Solo Scheduled Bungii Part A
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" trip status screen
-    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
+    #Then I should be navigated to "LOADING ITEMS" trip status screen
+    Then I should be navigated to "LOADING ITEMS" trip status screen on driver
+    And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "LOADING ITEM" trip status screen
     And Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
+    And I slide update button on "LOADING ITEMS" Screen
+    #Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
+    And Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
     And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
-    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    #Then I should be navigated to "UNLOADING ITEMS" trip status screen
+    Then I should be navigated to "UNLOADING ITEMS" trip status screen on driver
+    And Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "UNLOADING ITEM" trip status screen
     And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
     
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
@@ -83,9 +90,9 @@ Feature: Solo Scheduled Bungii Part A
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
     
-    When I Switch to "driver" application on "same" devices
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    #When I Switch to "driver" application on "same" devices
+    #Then Bungii driver should see "correct details" on Bungii completed page
+
 
   @ready
   Scenario: Verify Details Of Solo Schedule Bungii
@@ -166,8 +173,9 @@ Feature: Solo Scheduled Bungii Part A
     Then I should be navigated to "Home" screen
 
     When I Switch to "driver" application on "same" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
 
   @ready
   Scenario: Verify Customer Can Create And Complete Schedule Solo Bungii
@@ -221,8 +229,9 @@ Feature: Solo Scheduled Bungii Part A
     Then Customer should be navigated to "UNLOADING ITEM" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
     When I rate Bungii Driver  with following details and Press "OK" Button
@@ -255,7 +264,7 @@ Feature: Solo Scheduled Bungii Part A
 
   @regression
     #stable
-  Scenario: Verify Customer Can Cancel Solo Scheduled Bungii Also Verify Trip Details In Bungii Details
+  Scenario: Verify Customer Can Cancel Solo Scheduled Bungii on Bungii Details screen
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
@@ -288,6 +297,7 @@ Feature: Solo Scheduled Bungii Part A
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @regression
+  #stable
   Scenario: Verify Status Of Scheduled Solo Bungii Trip In Drivers Scheduled Bungiis Menu Screen When Required Number Of Drivers Have Not Accepted It
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
