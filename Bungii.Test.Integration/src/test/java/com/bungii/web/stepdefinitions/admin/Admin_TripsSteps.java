@@ -358,8 +358,11 @@ public class Admin_TripsSteps extends DriverBase {
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Assigning Driver(s)") || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
-                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType[0].toUpperCase(), customer);
-                String costPath =  String.format("//td[contains(.,'%s')]/preceding-sibling::td[1]/span", customer);
+                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0], customer);
+                String costPath="";
+                if(!tripType[1].equalsIgnoreCase("ondemand")) {
+                    costPath = String.format("//td[contains(.,'%s')]/preceding-sibling::td[1]/span", customer);
+                }
                 TripPath= xpath;
                 int retrycount = 10;
                 action.clearSendKeys(admin_ScheduledTripsPage.Textbox_Search(), customer.substring(0, customer.indexOf(" ")));
@@ -391,8 +394,10 @@ public class Admin_TripsSteps extends DriverBase {
                     retryCount++;
                 }
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
-                cucumberContextManager.setScenarioContext("COSTPATH", costPath);
-                cucumberContextManager.setScenarioContext("COST", action.getText(action.getElementByXPath(costPath)).replace("/ $",""));
+                if(!tripType[1].equalsIgnoreCase("ondemand")) {
+                    cucumberContextManager.setScenarioContext("COSTPATH", costPath);
+                    cucumberContextManager.setScenarioContext("COST", action.getText(action.getElementByXPath(costPath)).replace("/ $", ""));
+                }
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
