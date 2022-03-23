@@ -69,7 +69,7 @@ Then I should be navigated to "Home" screen
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
     
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen

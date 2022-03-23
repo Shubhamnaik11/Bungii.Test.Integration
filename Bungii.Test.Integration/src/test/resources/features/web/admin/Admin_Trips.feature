@@ -59,7 +59,7 @@ Feature: Admin_Trips
     And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |
@@ -123,7 +123,7 @@ Feature: Admin_Trips
     And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |

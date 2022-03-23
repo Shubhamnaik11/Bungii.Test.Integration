@@ -14,14 +14,12 @@ public class Admin_AccessorialChargesPage extends PageBase {
     public WebElement Header_Section() { return findElement("//h4[text()='Accessorial Charges']", LocatorType.XPath); }
     public WebElement Error_AccessoricalCharges() { return findElement("accessorial-fee-error", LocatorType.Name); }
     public WebElement Message_Mandatory() { return findElement("//div[@id='accessorial-charge']/label[2]", LocatorType.XPath); }
-    public WebElement GridRow(String feeType) { return findElement(String.format("//td[text()='%s']/following-sibling::td",feeType), LocatorType.XPath); }
+   public WebElement GridRow(String feeType) { return findElement(String.format("//td[text()='%s']/following-sibling::td",feeType), LocatorType.XPath); }
+   public WebElement ExcessWaitTime() { return findElement("//div/h4/a[contains(text(),\"Excess Wait Time\")]", LocatorType.XPath); }
     public WebElement GridRowTotal(String total) { return findElement(String.format("//td/strong[text()='%s']/parent::td/following-sibling::td",total), LocatorType.XPath); }
-
     public WebElement Error_AccessorialFeeAmount() { return findElement("fee-amount-error", LocatorType.Id); }
     public WebElement Error_AccessorialFeeDriverCut() { return findElement("fee-type-driverOneShare-error", LocatorType.Id); }
     public WebElement Error_AccessorialFeeType() { return findElement("fee-type-error", LocatorType.Id); }
     public WebElement Error_AccessorialFeeComment() { return findElement("fee-comment-error", LocatorType.Id); }
-
-
 
 }

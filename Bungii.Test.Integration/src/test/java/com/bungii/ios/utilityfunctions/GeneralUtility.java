@@ -643,7 +643,11 @@ public class GeneralUtility extends DriverBase {
                     isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
                     break;}
                     //Customer app
-
+            case "BUNGII COMPLETED":
+                logger.detail("DRIVER APP");
+                String bungiiCompleted = PropertyUtility.getMessage("driver.navigation.bungii.completed");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Text_Bungii_Completed()).equals(bungiiCompleted);
+                break;
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {

@@ -331,7 +331,7 @@ Scenario: Verify that same delivery is shown for other driver under Deliveries s
   And I search the delivery of Customer
   Then I should be able to see the respective bungii with the below status
     |  Status |
-    | Searching Drivers |
+    | Assigning Driver(s) |
   And Click on "Edit" button
   When I click on "Edit Trip Details" radiobutton
   And I assign driver "Testdrivertywd_appledc_a_web Sundarm" for the trip
