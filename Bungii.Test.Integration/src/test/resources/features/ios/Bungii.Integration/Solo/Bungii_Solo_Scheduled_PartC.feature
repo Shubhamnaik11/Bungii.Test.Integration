@@ -130,7 +130,7 @@ Feature: Solo Scheduled Bungii Part C
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state  | driver2 state  |
-      | Unloading Item | Unloading Item |
+      | Unloading Items | Unloading Items |
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
@@ -142,7 +142,7 @@ Feature: Solo Scheduled Bungii Part C
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     Then non control driver should see "waiting for other driver" screen
     When I Switch to "customer" application on "same" devices
