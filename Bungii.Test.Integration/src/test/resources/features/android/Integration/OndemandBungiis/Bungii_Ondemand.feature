@@ -23,7 +23,8 @@ Feature: On Demand Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I slide update button on "UNLOADING ITEM" Screen
-    And I click "On To The Next One" button on the "Bungii Completed" screen
+    And Bungii Driver "skips to rate customer"
+    And I click "Next Bungii" button on the "Bungii Completed" screen
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
   
   @regression

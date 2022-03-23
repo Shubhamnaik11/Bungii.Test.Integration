@@ -488,8 +488,10 @@ public class ScheduledBungiiSteps extends DriverBase {
                     Thread.sleep(5000);
                     action.click(estimatePage.Button_Schedule());
                     break;
-
-
+                case "Next Bungii":
+                    Thread.sleep(5000);
+                    action.click(bungiiCompletedPage.Button_NextBungii());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

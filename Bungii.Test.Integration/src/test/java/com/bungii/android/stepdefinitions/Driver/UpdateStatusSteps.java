@@ -70,7 +70,7 @@ public class UpdateStatusSteps extends DriverBase {
      * Slide the slider to update status
      */
     public void updateStatus() throws InterruptedException {
-        action.swipeRight(updateStatusPage.Slider());
+        action.swipeRight(inProgressBungiiPages.Slider());
     }
 
     @Then("^non control driver should see \"([^\"]*)\" screen$")
