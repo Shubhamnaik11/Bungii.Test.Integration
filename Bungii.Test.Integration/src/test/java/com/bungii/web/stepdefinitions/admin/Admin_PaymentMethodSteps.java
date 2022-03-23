@@ -14,9 +14,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -113,13 +112,16 @@ public class Admin_PaymentMethodSteps extends DriverBase {
         }
 
     @And("^I click on \"([^\"]*)\" dropdown$")
-    public void i_click_on_something_dropdown(String strArg1) throws Throwable {
+    public void i_click_on_something_dropdown(String dropdown) throws Throwable {
         try {
-            action.click(admin_paymentMethodsPage.Dropdown_Partners());
-            Thread.sleep(1000);
-
-            log("I should be able to click on the partners dropdown",
-                    "I could click on the partners dropdown",false);
+               switch(dropdown){
+                 case "Partners":
+                    action.click(admin_paymentMethodsPage.Dropdown_Partners());
+                    Thread.sleep(1000);
+                    break;
+            }
+            log("I should be able to click on the "+dropdown+" dropdown",
+                    "I could click on the "+dropdown+" dropdown",false);
             
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -139,13 +141,10 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                 String options = actualOptions.get(i).getText();
                 Options.add(options);
             }
-            for (int i = 0; i < size-1; i++) {
-                for (int j = i+1; j < size; j++) {
-                    if (Options.get(i) == Options.get(j)) {
-                       testStepAssert.isFalse(false,"The dropdown should not have duplicate values","The dropdown has duplicate values");
-                    }
-                }
-            }
+            Set duplicateSet = Options.stream().filter(i -> Collections.frequency(Options, i) > 1).collect(Collectors.toSet());
+             if(duplicateSet.size()>0){
+                   testStepAssert.isFalse(false,"The dropdown should not have duplicate values","The dropdown has duplicate values");
+              }
             testStepAssert.isTrue(true,"The dropdown should not have duplicate values","The dropdown does not have duplicate values","The dropdown has duplicate values");
 
         } catch (Exception e) {
