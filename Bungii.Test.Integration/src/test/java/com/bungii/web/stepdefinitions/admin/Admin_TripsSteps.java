@@ -393,7 +393,7 @@ public class Admin_TripsSteps extends DriverBase {
                 }
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
                 cucumberContextManager.setScenarioContext("COSTPATH", costPath);
-                cucumberContextManager.setScenarioContext("COST", action.getText(action.getElementByXPath(costPath)).replace("/ $", ""));
+                cucumberContextManager.setScenarioContext("COST", action.getText(action.getElementByXPath(costPath)).replace("/ $",""));
 
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
