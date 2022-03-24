@@ -151,4 +151,26 @@ public class Partner_DeliveryPage extends PageBase {
     //SoldBy Text fields
     public WebElement TextBox_SoldBy() { return findElement("//label[contains(text(),'Scheduled By')]//following-sibling::input",LocatorType.XPath);}
 
+    public WebElement Image_dropdown_Setting() { return findElement("//div/i/img",LocatorType.XPath);}
+
+    public WebElement Link_Report() { return findElement("//div/span[text() = 'Reports']",LocatorType.XPath);}
+
+    public WebElement Label_Report_HeaderPopup() { return findElement("//div[text() ='Delivery History Report']",LocatorType.XPath);}
+
+    public WebElement Button_GenerateReport(boolean...ignoreException) { return findElement("//div/button[text() ='GENERATE REPORT']",LocatorType.XPath,ignoreException);}
+
+    public WebElement Text_CalenderCount() { return findElement("//div[@class ='materialui-daterange-picker-MuiGrid-root-1015']",LocatorType.XPath);}
+
+    public WebElement Text_FilterList() { return findElement("//div[@class ='calender-container']/div/div//div/ul/div/div/span[@style ='font-weight: normal;']",LocatorType.XPath);}
+
+    public WebElement DropdownResult (String address) { return findElement(String.format("//div[@id='divPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
+
+    public WebElement Text_MonthOfTheYear(int monthIndex) { return findElement(String.format("//div/ul[@role ='listbox']/li[%d]",monthIndex),LocatorType.XPath);}
+
+
+    public WebElement lol() { return findElement("//div[@class =\"calender-container\"]/div/div[2]/div/div/div[1]/div[2]/div[3]/div/div[1]/div[2]/div/div",LocatorType.XPath);}
+
+
+
+
 }
