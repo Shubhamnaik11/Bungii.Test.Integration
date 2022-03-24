@@ -111,7 +111,8 @@ Feature: Solo Scheduled Bungii Part A
     When I wait for Minimum duration for Bungii Start Time
 
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen
+    #Then I should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE" trip status screen on driver
     And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     And correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
@@ -128,10 +129,11 @@ Feature: Solo Scheduled Bungii Part A
     And I slide update button on "EN ROUTE" Screen
  #   When I verify and slide update button on "EN ROUTE" Screen
 
-    Then I should be navigated to "ARRIVED" trip status screen
+    #Then I should be navigated to "ARRIVED" trip status screen
+    Then I should be navigated to "ARRIVED" trip status screen on driver
     And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" trip status screen
-    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
+    Then I should be navigated to "LOADING ITEMS" trip status screen
+    And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     And correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
@@ -144,11 +146,13 @@ Feature: Solo Scheduled Bungii Part A
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
-    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
+    And I slide update button on "LOADING ITEMS" Screen
+    #Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    #Then I should be navigated to "UNLOADING ITEMS" trip status screen
+    Then I should be navigated to "UNLOADING ITEMS" trip status screen on driver
+    And Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     And correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
@@ -161,8 +165,8 @@ Feature: Solo Scheduled Bungii Part A
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    #Then I should be navigated to "Bungii Completed" screen
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
@@ -207,28 +211,33 @@ Feature: Solo Scheduled Bungii Part A
     Then I should be navigated to "BUNGII DETAILS" screen
     When I wait for Minimum duration for Bungii Start Time
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen
+    #Then I should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE" trip status screen on driver
     When I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen
+    #Then I should be navigated to "ARRIVED" trip status screen
+    Then I should be navigated to "ARRIVED" trip status screen on driver
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "ARRIVED" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" trip status screen
+    #Then I should be navigated to "LOADING ITEM" trip status screen
+    Then I should be navigated to "LOADING ITEMS" trip status screen on driver
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "LOADING ITEM" trip status screen
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    When I slide update button on "LOADING ITEMS" Screen
+    #Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
+    When I slide update button on "DRIVING TO DROP-OFF" Screen
+    #Then I should be navigated to "UNLOADING ITEM" trip status screen
+    Then I should be navigated to "UNLOADING ITEMS" trip status screen on driver
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "UNLOADING ITEM" trip status screen
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "UNLOADING ITEM" Screen
+    When I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     And I click "On To The Next One" button on "Bungii completed" screen
