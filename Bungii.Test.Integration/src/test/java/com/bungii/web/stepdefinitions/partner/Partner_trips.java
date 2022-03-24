@@ -881,15 +881,9 @@ try{
             action.click(admin_LiveTripsPage.Button_Search());
 
             cucumberContextManager.setScenarioContext("STATUS", status);
-
-            boolean scheduledPage=false;
             String pageName = action.getText(admin_LiveTripsPage.Text_Page_Header());
 
-            if(pageName.contains("Scheduled")){
-               scheduledPage= true;
-            }
-
-            if (status.equalsIgnoreCase("Scheduled") || (status.equalsIgnoreCase("Assigning Driver(s)") && scheduledPage) || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
+            if (status.equalsIgnoreCase("Scheduled") || (status.equalsIgnoreCase("Assigning Driver(s)") && pageName.contains("Scheduled")) || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType.toUpperCase(), customer);
                 int retrycount = 13;
 
