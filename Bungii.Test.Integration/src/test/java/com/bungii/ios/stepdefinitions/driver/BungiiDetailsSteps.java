@@ -44,7 +44,7 @@ public class BungiiDetailsSteps extends DriverBase {
 
             action.click(bungiiDetailsPage.Button_StartBungii());
             Thread.sleep(2000);
-            if(action.isElementPresent(bungiiDetailsPage.Text_General_Instruction())) {
+            if(action.isElementPresent(bungiiDetailsPage.Text_General_Instruction(true))) {
                 action.click(bungiiDetailsPage.Button_General_Instruction_Got_It());
             }
             log("I start selected Bungii ", "I started selected Bungii", true);

@@ -7,7 +7,7 @@ public class BungiiDetailsPage extends PageBase {
 	public WebElement Button_StartBungii() { return findElement("START BUNGII", LocatorType.Name); }
 	public WebElement Button_CancelBungii() { return findElement("//XCUIElementTypeStaticText[@name=\"CANCEL BUNGII\"]/preceding-sibling::XCUIElementTypeButton[not(contains(@name, 'START'))]", LocatorType.XPath); }
 	public WebElement Button_General_Instruction_Got_It() { return findElement("//XCUIElementTypeButton[@label='Got it']",LocatorType.XPath);}
-	public WebElement Text_General_Instruction() { return findElement("//XCUIElementTypeStaticText[@name='General instructions']",LocatorType.XPath);}
+	public WebElement Text_General_Instruction(boolean... ignoreException) { return findElement("//XCUIElementTypeStaticText[@name='General instructions']",LocatorType.XPath,ignoreException);}
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
 	public WebElement Text_ContactDriverMessage(){return findElement("//android.widget.TextView[@text='You will have the ability to contact your drivers when the Bungii begins']", LocatorType.XPath);}
