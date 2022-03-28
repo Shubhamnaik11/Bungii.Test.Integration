@@ -18,7 +18,7 @@ public class Admin_DashboardPage extends PageBase {
 
     public WebElement GridRow_PendingVerificationLink (String LastName) { return findElement("//td[text()='James "+LastName+"']/following-sibling::td[text()='Pending Verification']/following-sibling::td[2]/a", LocatorType.XPath); }
 
-    public WebElement Menu_Dashboard () { return findElement("adminmenu-dashboard", LocatorType.Id); }
+    public WebElement Menu_Dashboard () { return findElement("//li[@id='adminmenu-dashboard']/a", LocatorType.XPath); }
     public WebElement Icon_Search() { return findElement("btnSearchDriver", LocatorType.Id); }
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }

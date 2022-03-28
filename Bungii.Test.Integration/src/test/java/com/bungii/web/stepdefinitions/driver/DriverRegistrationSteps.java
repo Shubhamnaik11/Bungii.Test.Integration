@@ -457,6 +457,73 @@ try{
     }
 
     }
+    @Then("^I should see the \"([^\"]*)\" displayed$")
+    public void i_should_see_the_something_displayed(String strArg1) throws Throwable {
+        try {
+        String updatedVerbiage = "Driving with Bungii is a flexible, easy way to earn extra money on the side. To get started, fill out the application below and we’ll get you on the road in no time.";
+        Thread.sleep(1000);
+        String existingVerbiage = action.getText(Page_Driver_Reg.Text_Verbiage());
+        testStepAssert.isEquals(existingVerbiage,updatedVerbiage,"Verbiage text should be updated to newest text","Verbiage text is updated to newest text","Verbiage text is not updated to newest text");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I should see the \"([^\"]*)\" textbox not displayed$")
+    public void i_should_see_the_something_textbox_not_displayed(String strArg1) throws Throwable {
+        try {
+            testStepAssert.isFalse(action.isElementPresent(Page_Driver_Reg.TextBox_ConfirmPassword(true)), "Confirm password textbox should not be displayed", "Confirm password textbox is not displayed","Confirm password textbox is displayed");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^The password should be masked$")
+    public void the_password_should_be_masked() throws Throwable {
+        try {
+            String passwordMasked = "password";
+            Thread.sleep(1000);
+            String expectedPasswordMasked =Page_Driver_Reg.TextBox_CreatePassword().getAttribute("type");
+            testStepAssert.isTrue(expectedPasswordMasked.contentEquals(passwordMasked),"Password should be masked","Password is masked","Password is not masked");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @When("^I click on the \"([^\"]*)\" button$")
+    public void i_click_on_the_something_button(String strArg1) throws Throwable {
+        try {
+        Thread.sleep(1000);
+        action.click(Page_Driver_Reg.Link_EyeOpen());
+        log("I should be able to click on the closed eye button","I could click on the closed eye button",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
+    }
+
+    @Then("^I should see the password as text$")
+    public void i_should_see_the_password_as_text() throws Throwable {
+        try {
+            String passwordUnmasked = "text";
+            Thread.sleep(1000);
+            String expectedPasswordUnMasked =Page_Driver_Reg.TextBox_CreatePassword().getAttribute("type");
+            testStepAssert.isTrue(expectedPasswordUnMasked.contentEquals(passwordUnmasked),"Password should not be masked","Password is not masked","Password is masked");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
+    }
 
 
 }

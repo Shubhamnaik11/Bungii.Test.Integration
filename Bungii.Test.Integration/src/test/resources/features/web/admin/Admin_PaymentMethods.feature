@@ -143,3 +143,10 @@ Feature: Admin_PaymentMethods
       |4000111111111511 | 12/39      | 1236  |     12345|
     And I click on "Save" button on "Partner Cards" screen
     Then "payment declined error" message is displayed
+
+  #Core-2397 : Verify duplicate partner entries are shown in dropdown on Partner Card page
+  @ready
+  Scenario: Verify duplicate partner entries are shown in dropdown on Partner Card page
+    When I click on "Partner Portal  > Partner Card" Menu
+    And I click on "Partners" dropdown
+    Then I check if duplicate partner entries are shown in dropdown

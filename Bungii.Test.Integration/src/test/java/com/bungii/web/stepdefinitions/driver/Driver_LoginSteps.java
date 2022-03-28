@@ -146,4 +146,46 @@ try{
                 true);
     }
     }
+
+    @When("^I click on the open \"([^\"]*)\" link on the driver login page$")
+    public void i_click_on_the_open_something_link_on_the_driver_login_page(String strArg1) throws Throwable {
+        try {
+        Thread.sleep(1000);
+        action.click(Page_Driver_Login.Link_Login_OpenEye());
+        log("I should be able to click on the closed eye link","I could click on the closed eye link",false);
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^The password for driver login should be masked$")
+    public void the_password_for_driver_login_should_be_masked() throws Throwable {
+        try {
+        String passwordMasked = "password";
+        Thread.sleep(1000);
+        String expectedPasswordMasked = Page_Driver_Login.TextBox_DriverLogin_Password().getAttribute("type");
+        testStepAssert.isTrue(expectedPasswordMasked.contentEquals(passwordMasked), "Password should be masked", "Password is masked", "Password is not masked");
+    }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I should see the password in the form of text$")
+    public void i_should_see_the_password_in_the_form_of_text() throws Throwable {
+        try {
+            String passwordUnmasked = "text";
+            Thread.sleep(1000);
+            String expectedPasswordUnMasked = Page_Driver_Login.TextBox_DriverLogin_Password().getAttribute("type");
+            testStepAssert.isTrue(expectedPasswordUnMasked.contentEquals(passwordUnmasked), "Password should not be masked", "Password is not masked", "Password is masked");
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }

@@ -25,3 +25,12 @@ Feature: Driver_Signup
     And I enter "valid" details on Signup page
     And I click "Signup button" on driver portal
     Then I should see "existing phone error" on Driver Registration
+
+  @ready
+    Scenario: Verify verbiage is updated on the Sign up page
+    Then I should see the "Verbiage" displayed
+    And I enter "valid" details on Signup page
+    Then I should see the "Confirm Password" textbox not displayed
+    And The password should be masked
+    When I click on the "Eye" button
+    Then I should see the password as text

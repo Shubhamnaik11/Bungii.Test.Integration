@@ -88,13 +88,13 @@ public class UpdateStatusSteps extends DriverBase {
                 case "ARRIVED":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.arrived");
                     break;
-                case "LOADING ITEM":
+                case "LOADING ITEMS":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.loading");
                     break;
-                case "DRIVING TO DROP OFF":
+                case "DRIVING TO DROP-OFF":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.drop.off");
                     break;
-                case "UNLOADING ITEM":
+                case "UNLOADING ITEMS":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.unloading");
                     break;
                 default:
