@@ -3,6 +3,8 @@ package com.bungii.web.pages.partner;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class Partner_DeliveryPage extends PageBase {
 
     //Delivery Details Header Text
@@ -165,12 +167,16 @@ public class Partner_DeliveryPage extends PageBase {
 
     public WebElement DropdownResult (String address) { return findElement(String.format("//div[@id='divPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
 
-    public WebElement Text_MonthOfTheYear(int monthIndex) { return findElement(String.format("//div/ul[@role ='listbox']/li[%d]",monthIndex),LocatorType.XPath);}
+    public WebElement Text_MonthOfTheYear(int monthIndex) { return findElement(String.format("//div/ul[@role ='listbox']/li[%s]",monthIndex),LocatorType.XPath);}
 
 
-    public WebElement lol() { return findElement("//div[@class =\"calender-container\"]/div/div[2]/div/div/div[1]/div[2]/div[3]/div/div[1]/div[2]/div/div",LocatorType.XPath);}
+    public WebElement Dropdown_Calender2() { return findElement("//div[@class =\"calender-container\"]/div/div[2]/div/div/div[1]/div[2]/div[3]/div/div[1]/div[2]/div/div",LocatorType.XPath);}
 
+    public WebElement Text_DisabledDate() { return findElement("//div[@class =\"calender-container\"]/div/div[2]/div/div/div[1]/div[2]/div[3]/div/div[3]/div[1]//div[1]/button",LocatorType.XPath);}
 
+    public WebElement Link_ReportFilter(String filterBy) { return findElement(String.format("//div/ul/div/div/span[text() ='%s']",filterBy),LocatorType.XPath);}
+
+    public List<WebElement> List_AllDatesOfTheMonth() { return findElements("//button[contains(@class,'materialui-daterange-picker-makeStyles-filled')]/span/p",LocatorType.XPath);}
 
 
 }
