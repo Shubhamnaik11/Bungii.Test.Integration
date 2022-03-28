@@ -21,5 +21,7 @@ public class Admin_AccessorialChargesPage extends PageBase {
     public WebElement Error_AccessorialFeeDriverCut() { return findElement("fee-type-driverOneShare-error", LocatorType.Id); }
     public WebElement Error_AccessorialFeeType() { return findElement("fee-type-error", LocatorType.Id); }
     public WebElement Error_AccessorialFeeComment() { return findElement("fee-comment-error", LocatorType.Id); }
+    public WebElement Text_DiffAccessorial(int Index ) { return findElement(String.format("//div[%d]/div/h4/a",Index) ,LocatorType.XPath);}
+    public WebElement Text_DriverCut(String AmountType) { return findElement(String.format("//div/div[@id = 'collapse-%s']/div/div/div",AmountType) ,LocatorType.XPath);}
 
 }
