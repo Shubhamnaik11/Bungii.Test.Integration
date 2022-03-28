@@ -144,9 +144,9 @@ Feature: Admin_OndemandTrips
     When I select filter "Statuses" as "Price Estimated"
     And I click on "Apply" button on "All Deliveries" page
     Then the triplist grid shows the results by type "Price Estimated Status"
-    When I select filter "Statuses" as "Driver(s) Not Found"
+    When I select filter "Statuses" as "No Driver(s) Found"
     And I click on "Apply" button on "All Deliveries" page
-    Then the triplist grid shows the results by type "Driver(s) Not Found Status"
+    Then the triplist grid shows the results by type "No Driver(s)Found Status"
     When I select filter "Statuses" as "Driver Removed"
     And I click on "Apply" button on "All Deliveries" page
     Then the triplist grid shows the results by type "Driver Removed Status"
