@@ -172,8 +172,8 @@ Feature: Partner Integration with Admin and Driver
     When I navigate to "Admin" portal configured for "QA" URL
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
-      | Status           |
-      | Searching Drivers|
+      | Status             |
+      | Assigning Driver(s)|
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted |
@@ -230,8 +230,8 @@ Feature: Partner Integration with Admin and Driver
     When I navigate to "Admin" portal configured for "QA" URL
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
-      | Status           |
-      | Searching Drivers|
+      | Status             |
+      | Assigning Driver(s)|
     When As a driver "Testdrivertywd_appledc_a_ronny James" and "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
@@ -347,8 +347,8 @@ Feature: Partner Integration with Admin and Driver
     When I navigate to "Admin" portal configured for "QA" URL
     And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
-      | Status           |
-      | Searching Drivers|
+      | Status             |
+      | Assigning Driver(s)|
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted |
