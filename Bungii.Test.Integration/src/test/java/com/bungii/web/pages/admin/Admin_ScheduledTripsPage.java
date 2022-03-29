@@ -2,6 +2,7 @@ package com.bungii.web.pages.admin;
 
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
+import java.util.List;
 
 public class Admin_ScheduledTripsPage extends PageBase {
 
@@ -128,4 +129,49 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_Delivery_Successfull(){return  findElement("//tbody/tr/td[contains(text() ,\"Payment Successful\")]",LocatorType.XPath);}
 
     public WebElement Text_Delivery_TripStarted(){return  findElement("//tbody/tr/td[contains(text() ,\"Trip Started\")]",LocatorType.XPath);}
+    public WebElement Dropdown_Notes_History(){return  findElement("showNotes",LocatorType.Id);}
+
+    public WebElement Text_NotesEmpty_Message(){return  findElement("notes-tab",LocatorType.Id);}
+
+    public WebElement Textbox_AddNote(){return  findElement("newNote",LocatorType.Id);}
+
+    public WebElement Button_SaveNote(){return  findElement("saveNote",LocatorType.Id);}
+
+    public WebElement Text_FirstSavedNote(){return  findElement("//div[1][@class =\"note\"]/div/p",LocatorType.XPath);}
+
+    public WebElement Text_AdminName(){return  findElement("//div[2]/p[1]/strong",LocatorType.XPath);}
+
+    public WebElement Text_AdminCreatedNote(){return  findElement("//div[1][@class =\"note\"]/h5",LocatorType.XPath);}
+
+    public WebElement Text_Admin2Name(){return  findElement("//div[2][@class =\"note\"]/h5",LocatorType.XPath);}
+
+    public WebElement Link_EditNote(){return  findElement("//div/a[text() =\"Edit\"]",LocatorType.XPath);}
+
+    public WebElement Link_EditNote_NotDisplayed(boolean...ignoreException){return  findElement("//div/a[text() =\"Edit\"]",LocatorType.XPath,ignoreException); }
+
+    public WebElement Link_DeleteNote(){return  findElement("//div/a[text() =\"Delete\"]",LocatorType.XPath);}
+
+    public WebElement Link_ConfirmDeleteNote(){return  findElement("//div/a[text() =\"Yes\"]",LocatorType.XPath);}
+
+    public WebElement Button_NoteClose(){return  findElement("//div[@id=\"CustomerServiceNotes\"]/div/button/span[text() =\"×\"]",LocatorType.XPath);}
+
+    public WebElement Text_EditNote_TextArea(){return  findElement("//div[1]/div/textarea",LocatorType.XPath);}
+
+    public WebElement Link_NoteUpdate(){return  findElement("//div/div/button[text() =\"Update\"]",LocatorType.XPath);}
+
+    public WebElement Link_Notes(){return  findElement("//td/div/ul/li/p/span[text() =\"Notes\"]",LocatorType.XPath);}
+
+    public List<WebElement> List_Notes(){return  findElements("//div[@class ='note']/div/p",LocatorType.XPath);}
+
+    public List<WebElement> List_AllNotes(){return  findElements("//div[@class ='note']",LocatorType.XPath);}
+
+    public WebElement Text_AdminCreatedNotes(int note) { return findElement(String.format("//div[%s][@class ='note']/div/p",note), LocatorType.XPath); }
+
+    public WebElement Text_AdminNames(int admin) { return findElement(String.format("//div[%s][@class ='note']/h5",admin), LocatorType.XPath); }
+
+    public WebElement Text_NoteTime(){return  findElement("//div[1][@class =\"note\"]/label",LocatorType.XPath);}
+
+    public WebElement Text_DeliveryStatus(String status) { return findElement(String.format("//tbody/tr/td[contains(text() ,'%s')]",status), LocatorType.XPath); }
+
+    public WebElement Button_View(){return  findElement("//div/button[text() =\"View\"]",LocatorType.XPath);}
 }
