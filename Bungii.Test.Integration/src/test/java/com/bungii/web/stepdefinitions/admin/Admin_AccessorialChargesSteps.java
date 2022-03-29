@@ -45,7 +45,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("NOTE",comment);
                 action.click(admin_accessorialChargesPage.Button_Save());
                 action.click(admin_accessorialChargesPage.Button_Confirm());
-                Thread.sleep(3000);
+                Thread.sleep(7000);
                 i++;
             }
             log("I add following accessorial charges and save it", "I added field values in accessorial charges and saved it", false);
@@ -63,6 +63,49 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         //removed in Sprint47
         //testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Message_Mandatory(),"Fields marked with * are mandatory.", "Fields marked with * are mandatory. should be displayed", "Fields marked with * are mandatory. is displayed", "Fields marked with * are mandatory. is not displayed");
     }
+    @Then("^I should see the following fee type displayed$")
+    public void i_should_see_the_following_fee_type_displayed(DataTable data) throws Throwable {
+        try {
+            Thread.sleep(1000);
+            List<Map<String, String>> DataList = data.asMaps();
+            int i = 0;
+            while (i < DataList.size()) {
+                Thread.sleep(1000);
+                String feeType = DataList.get(i).get("Fee Type").trim();
+                switch (feeType) {
+                    case "Excess Wait Time":
+                        Thread.sleep(2000);
+                        String[] excessTimeCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(1)).split("-");
+                        String excessWaitTimeText = excessTimeCharge[0].trim();
+                        testStepAssert.isEquals(excessWaitTimeText,feeType,"Excess Wait time charges should match","Excess Wait time charges  match","Excess Wait time charges dont match");
+                        break;
+                    case "Cancelation":
+                        Thread.sleep(2000);
+                        String [] cancellationTimeCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(2)).split("-");
+                        String cancelationText = cancellationTimeCharge[0].trim();
+                        testStepAssert.isEquals(cancelationText,feeType,"Cancellation charges should match","Cancellation charges match","Cancellation charges dont should match");
+                        break;
+                    case "Mountainous":
+                        Thread.sleep(2000);
+                        String [] mountainiousCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(3)).split("-");
+                        String mountainiousChargeText = mountainiousCharge[0].trim();
+                        testStepAssert.isEquals(mountainiousChargeText,feeType,"Mountainious charges should match","Mountainious charges match","Mountainious charges dont match");
+                        break;
+                    case "Other":
+                        Thread.sleep(2000);
+                        String[] otherCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(4)).split("-");
+                        String otherChargeText = otherCharge[0].trim();
+                        testStepAssert.isEquals(otherChargeText,feeType,"Other charges should match","Other charges match","Other charges dont match");
+                        break;
+                }
+                i++;
+            }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
     @Then("^I should see following details in the Accessorial charges section$")
     public void i_should_see_following_details_in_the_accessorial_charges_section(DataTable data) throws Throwable {
@@ -74,11 +117,74 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         String totalAmount = dataMap.get("Total").trim();
         cucumberContextManager.setScenarioContext("TOTAL_AMOUNT", totalAmount);
 
-        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Excess Wait Time"),excessWaitTimeAmount, "Excess Wait Time "+excessWaitTimeAmount+" should be displayed", excessWaitTimeAmount+" is displayed", excessWaitTimeAmount+" is not displayed");
-        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Cancelation"),cancelationAmount, "Cancelation "+cancelationAmount+" should be displayed", cancelationAmount+" is displayed", cancelationAmount+" is not displayed");
-        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Mountainous"),mountainousAmount, "Mountainous "+mountainousAmount+" should be displayed", mountainousAmount+" is displayed", mountainousAmount+" is not displayed");
-        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Other"),otherAmount, "Other "+otherAmount+" should be displayed", otherAmount+" is displayed", otherAmount+" is not displayed");
-        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRowTotal("Total"),totalAmount, "Total "+totalAmount+" should be displayed", totalAmount+" is displayed", totalAmount+" is not displayed");
+        String[] excessTimeCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(1)).split("-");
+        String actualExcessWaitTime = excessTimeCharge[1].trim();
+        String [] cancellationTimeCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(2)).split("-");
+        String actualCancelation = cancellationTimeCharge[1].trim();
+        String [] mountainiousCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(3)).split("-");
+        String actualMountainiousCharge = mountainiousCharge[1].trim();
+        String[] otherCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(4)).split("-");
+        String actualOtherCharge = otherCharge[1].trim();
+        Thread.sleep(2000);
+        testStepAssert.isEquals(actualExcessWaitTime,excessWaitTimeAmount,"Expected excess time charges should match the Actual excess time charges","Expected excess time charges matches the Actual excess time charges","Expected excess time charges doesnt match the Actual excess time charges");
+        testStepAssert.isEquals(actualCancelation,cancelationAmount,"Expected cancellation charges should match the Actual cancellation charges","Expected cancellation charges matches match the Actual cancellation charges","Expected cancellation charges doesnt match the Actual cancellation charges");
+        testStepAssert.isEquals(actualMountainiousCharge,mountainousAmount,"Expected mountainious charges should match the Actual mountainious charges","Expected mountainious charges matches the Actual mountainious charges","Expected mountainious charges doesnt match the Actual mountainious charges");
+        testStepAssert.isEquals(actualOtherCharge,otherAmount,"Expected other charges should match the Actual other charges","Expected other charges matches the Actual other charges","Expected other charges doesnt match the Actual other charges");
+
+//        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Excess Wait Time"),excessWaitTimeAmount, "Excess Wait Time "+excessWaitTimeAmount+" should be displayed", excessWaitTimeAmount+" is displayed", excessWaitTimeAmount+" is not displayed");
+//        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Cancelation"),cancelationAmount, "Cancelation "+cancelationAmount+" should be displayed", cancelationAmount+" is displayed", cancelationAmount+" is not displayed");
+//        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Mountainous"),mountainousAmount, "Mountainous "+mountainousAmount+" should be displayed", mountainousAmount+" is displayed", mountainousAmount+" is not displayed");
+//        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Other"),otherAmount, "Other "+otherAmount+" should be displayed", otherAmount+" is displayed", otherAmount+" is not displayed");
+//        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRowTotal("Total"),totalAmount, "Total "+totalAmount+" should be displayed", totalAmount+" is displayed", totalAmount+" is not displayed");
+
+    }
+
+    @And("^I click on the Accessorial Charges links and I should see the Drivers cut displayed$")
+    public void i_click_on_the_accessorial_charges_links_and_i_should_see_the_drivers_cut_displayed(DataTable data) throws Throwable {
+        try {
+            Thread.sleep(1000);
+            List<Map<String, String>> DataList = data.asMaps();
+            int i = 0;
+            while (i < DataList.size()) {
+                String feeType = DataList.get(i).get("Fee Type").trim();
+                String driverCut = DataList.get(i).get("Driver Cut").trim();
+                switch (feeType) {
+                    case "Excess Wait Time":
+                        String excessWaitTime = feeType.replace(" ", "");
+                        action.click(admin_accessorialChargesPage.Text_DiffAccessorial(1));
+                        Thread.sleep(2000);
+                        cucumberContextManager.setScenarioContext("ExcessWaitCut",action.getText(admin_accessorialChargesPage.Text_DriverCut(excessWaitTime)).replace("Testdrivertywd_appledc_a_drva Driver's cut: $",""));
+                        testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("ExcessWaitCut"), "Excess Wait time driver cut charges should match","Excess Wait time driver cut charges match","Excess Wait time driver cut charges dont match");
+                        break;
+                    case "Cancelation":
+                        String cancellation= feeType.replace(" ", "");
+                        action.click(admin_accessorialChargesPage.Text_DiffAccessorial(2));
+                        Thread.sleep(2000);
+                        cucumberContextManager.setScenarioContext("CancellationCut",action.getText(admin_accessorialChargesPage.Text_DriverCut(cancellation)).replace("Testdrivertywd_appledc_a_drva Driver's cut: $",""));
+                        testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("CancellationCut"), "Cancelation driver cut charges should match","Cancelation driver cut charges match","Cancelation driver cut charges dont match");
+                        break;
+                    case "Mountainous":
+                        String mountainous= feeType.replace(" ", "");
+                        action.click(admin_accessorialChargesPage.Text_DiffAccessorial(3));
+                        Thread.sleep(2000);
+                        cucumberContextManager.setScenarioContext("MountainousCut",action.getText(admin_accessorialChargesPage.Text_DriverCut(mountainous)).replace("Testdrivertywd_appledc_a_drva Driver's cut: $",""));
+                        testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("MountainousCut"), "Mountainous driver cut charges should match","Mountainous driver cut charges match","Mountainous driver cut charges dont match");
+                        break;
+                    case "Other" :
+                        String other= feeType.replace(" ", "") +"s";
+                        action.click(admin_accessorialChargesPage.Text_DiffAccessorial(4));
+                        Thread.sleep(2000);
+                        cucumberContextManager.setScenarioContext("OtherCut",action.getText(admin_accessorialChargesPage.Text_DriverCut(other)).replace("Testdrivertywd_appledc_a_drva Driver's cut: $",""));
+                        testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("OtherCut"), "Other driver cut charges should match","Other driver cut charges match","Other driver cut charges dont match");
+                        break;
+                }
+                i++;
+            }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
 
     }
 
