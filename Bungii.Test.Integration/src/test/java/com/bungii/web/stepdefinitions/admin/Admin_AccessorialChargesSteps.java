@@ -21,6 +21,7 @@ import static com.bungii.common.manager.ResultManager.log;
 public class Admin_AccessorialChargesSteps extends DriverBase {
 
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
+    Admin_LiveTripsPage admin_liveTripsPage = new Admin_LiveTripsPage();
     Admin_AccessorialChargesPage admin_accessorialChargesPage= new Admin_AccessorialChargesPage();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_AccessorialChargesSteps.class);
@@ -341,6 +342,60 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 true);
     }
     }
+
+    @Then("^I should see the delivery highlighted in \"([^\"]*)\"$")
+    public void i_should_see_the_delivery_highlighted_in_something(String strArg1) throws Throwable {
+        try {
+        String expectedHighlightColor = "rgba(228, 242, 255, 1)";
+        Thread.sleep(1000);
+        boolean liveDeliveryhighlightDisplayed =  admin_liveTripsPage.Text_DeliveryHighlight().isDisplayed();
+        String liveDeliveryHighlightColor =  admin_liveTripsPage.Text_DeliveryHighlight().getCssValue("background-color");
+
+        testStepAssert.isTrue(liveDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is bot displayed");
+        testStepAssert.isEquals(liveDeliveryHighlightColor,expectedHighlightColor,"Delivery should be highlighted with blue color","Delivery is highlighted with blue color","Delivery is not  highlighted with blue color");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+
+
+    @And("^The delivery should not be highlighed in \"([^\"]*)\" for \"([^\"]*)\"$")
+    public void the_delivery_should_not_be_highlighed_in_something_for_something(String strArg1, String deliveryType) throws Throwable {
+        try {
+        String expectedHighlightColor = "rgba(228, 242, 255, 1)";
+       switch (deliveryType){
+           case "Scheduled Deliveries":
+           case "Live Deliveries":
+               Thread.sleep(1000);
+               boolean scheduledDeliveryhighlightDisplayed =  admin_liveTripsPage.Text_DeliveryHighlight().isDisplayed();
+               String scheduledDeliveryHighlightColor =  admin_liveTripsPage.Text_DeliveryHighlight().getCssValue("background-color");
+
+               testStepAssert.isTrue(scheduledDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is bot displayed");
+               testStepAssert.isFalse(scheduledDeliveryHighlightColor.contentEquals(expectedHighlightColor),"Delivery should not be highlighted with blue color","Delivery is not highlighted with blue color","Delivery is highlighted with blue color");
+
+               break;
+           case "All Deliveries":
+               Thread.sleep(1000);
+               boolean allDeliveryhighlightDisplayed =  admin_liveTripsPage.Text_AllDeliveryHighlight().isDisplayed();
+               String allDeliveryHighlightColor =  admin_liveTripsPage.Text_AllDeliveryHighlight().getCssValue("background-color");
+               System.out.println(allDeliveryhighlightDisplayed);
+               System.out.println(allDeliveryHighlightColor);
+               testStepAssert.isTrue(allDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is bot displayed");
+               testStepAssert.isFalse(allDeliveryHighlightColor.contentEquals(expectedHighlightColor),"Delivery should not be highlighted with blue color","Delivery is not highlighted with blue color","Delivery is highlighted with blue color");
+               break;
+       }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
+    }
+
+
 
 
 

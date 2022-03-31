@@ -17,4 +17,7 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Text_Page_Header() {return findElement("//h4[contains(text(),'Scheduled')]|//h4[contains(text(),'Live')]",LocatorType.XPath);}
 
+    public WebElement Text_DeliveryHighlight() {return findElement("row1",LocatorType.Id);}
+
+    public WebElement Text_AllDeliveryHighlight() {return findElement("//tbody[@id =\"TripListsTBody\"]/tr[1]",LocatorType.XPath);}
 }
