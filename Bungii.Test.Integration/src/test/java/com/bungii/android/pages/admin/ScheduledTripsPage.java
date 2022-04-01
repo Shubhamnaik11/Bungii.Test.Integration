@@ -100,4 +100,14 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement Select_EditReason() {return findElement("ddEditDeliveryRemark",LocatorType.Id);}
 
+    public WebElement Button_Price_Override() {return findElement("//td/a[@id='btnAdminOverride']",LocatorType.XPath);}
+    public WebElement Text_Driver_Est_Eranings() {return findElement("//td[text()=' Driver Fixed Earnings - Pallet 1(1111 lbs)']/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Textbox_Override_Driver_Cut() {return findElement("//div/input[@id='driverOneShare']",LocatorType.XPath);}
+    public WebElement Dropdown_Reason_Override_Driver_Cut() { return findElement("//div/select[@id='driverEarningsReason']",LocatorType.XPath);}
+    public WebElement Button_Save() { return findElement("saveAdminOverride",LocatorType.Id);}
+    public WebElement Button_Success_Ok() { return findElement("//div[@class='modal-footer']/button[text()='Ok']",LocatorType.XPath);}
+    public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
+
+
+
 }

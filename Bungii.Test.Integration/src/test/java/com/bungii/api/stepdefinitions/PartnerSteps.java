@@ -49,7 +49,7 @@ public class PartnerSteps extends DriverBase {
 
         String ClientToken = paymentServices.GetTokenForPartner(Access_Token);
             //String token = coreServices.partner_graphql();
-        coreServices.partnerDeliveryInformation(PickupRequestID);
+        coreServices.partnerDeliveryInformation(PickupRequestID,Partner_Portal);
         coreServices.partnerConfirmPickup(PickupRequestID);
 
     }

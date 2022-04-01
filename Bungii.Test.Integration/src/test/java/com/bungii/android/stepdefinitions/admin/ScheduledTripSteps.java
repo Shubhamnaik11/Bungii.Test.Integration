@@ -20,8 +20,10 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -904,6 +906,85 @@ public class ScheduledTripSteps extends DriverBase {
 		}
 	}
 
+
+	@Then("^I click on \"([^\"]*)\" button and change the driver cut$")
+	public void i_click_on_something_button_and_change_the_driver_cut(String strArg1) throws Throwable {
+		try{
+            action.refreshPage();
+			action.click(scheduledTripsPage.Button_Price_Override());
+			Thread.sleep(5000);
+
+			String driverCut = action.getText(scheduledTripsPage.Text_Driver_Est_Eranings());
+			String oldDriverCut = driverCut.substring(1);
+			float oldDriverPrice= Float.parseFloat(oldDriverCut);
+			float newDriverPrice= (float) (oldDriverPrice+20.08);
+			DecimalFormat df = new DecimalFormat("0.00");
+			float newFormatedDriverPrice = Float.parseFloat(df.format(newDriverPrice));
+			cucumberContextManager.setScenarioContext("OLD_DRIVER_CUT",oldDriverCut);
+			cucumberContextManager.setScenarioContext("NEW_DRIVER_CUT",newFormatedDriverPrice);
+
+			String newDriverCut = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
+			action.clearSendKeys(scheduledTripsPage.Textbox_Override_Driver_Cut(),newDriverCut);
+
+			Select selectDriverOverrideReason = new Select((WebElement) scheduledTripsPage.Dropdown_Reason_Override_Driver_Cut());
+			selectDriverOverrideReason.selectByVisibleText("Driver Incentive");
+
+			action.click(scheduledTripsPage.Button_Save());
+			action.click(scheduledTripsPage.Button_Success_Ok());
+
+			Thread.sleep(120000);
+
+			action.refreshPage();
+			String driverCharges = action.getText(scheduledTripsPage.Text_Driver_Est_Eranings());
+			String actualDriverCharges = driverCharges.substring(1);
+			String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
+			action.click(scheduledTripsPage.Button_Ok());
+			testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges, "Driver Charges are overriden", "Driver Charges are Overriden", "Driver Charges are not Overriden");
+
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+	@And("^I open the trip for \"([^\"]*)\" the customer for delivery details$")
+	public void i_open_the_trip_for_something_the_customer_for_delivery_details(String custName) throws Throwable {
+		try{
+			String[] name = custName.split(" ");
+
+			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),name[0]);
+			action.click(scheduledTripsPage.Button_Search());
+
+			Thread.sleep(25000);
+/*			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
+			if(rows.size()>0)
+			rows.get(0).click();
+			else {
+			    String xpath = String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]);
+                error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
+            }*/
+
+			List<WebElement> rows_editicon = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]),PageBase.LocatorType.XPath);
+			List<WebElement> rows_editlink = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Delivery Details')]",name[0]),PageBase.LocatorType.XPath);
+
+			if(rows_editicon.size()>0)
+			{
+				rows_editicon.get(0).click();
+				rows_editlink.get(0).click();
+			}
+
+			pass("I should able to open trip", "I viewed scheduled delivery",
+					false);
+
+			log(" I click on Edit link besides the scheduled bungii",
+					"I have clicked on Edit link besides the scheduled bungii", false);
+		} catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
 
 
 	@And("^I Select \"([^\"]*)\" option$")

@@ -8,6 +8,7 @@ import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -25,15 +26,14 @@ public class Admin_PriceOverrideSteps extends DriverBase {
 
     Admin_TripDetailsPage admin_tripDetailsPage = new Admin_TripDetailsPage();
     Partner_DeliveryPage partner_deliveryPage = new Partner_DeliveryPage();
+    Admin_TripDetailsPage Page_Admin_Trips_Details = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_editScheduledBungiiPage= new Admin_EditScheduledBungiiPage();
 
     @And("^I check if \"([^\"]*)\" button is displayed$")
     public void i_check_if_something_button_is_displayed(String strArg1) throws Throwable {
 
         try{
-            admin_tripDetailsPage.Button_Price_Override().isDisplayed();
-            log("I should be able to see Price Override button",
-                    "I could see the Price Override button",false);
+            testStepAssert.isElementDisplayed(admin_tripDetailsPage.Button_Price_Override(),"I should be able to see Price Override button","I could see the Price Override button","I could not see the Price Override button");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -222,17 +222,25 @@ public class Admin_PriceOverrideSteps extends DriverBase {
     public void i_check_if_something_icon_is_displayed(String strArg1) throws Throwable {
        try{
            action.refreshPage();
-           admin_tripDetailsPage.Icon_Price_Override().isDisplayed();
-
-           log("I should be able to see price override icon displayed",
-                   "I could see price override icon displayed",false);
-
+           testStepAssert.isElementDisplayed(admin_tripDetailsPage.Icon_Price_Override(),"I should be able to see price override icon displayed","I could see price override icon displayed","Price override icon is not displayed");
        }
        catch(Exception e){
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
            error("Step  Should be successful", "Error performing step,Please check logs for more details",
                    true);
        }
+    }
+    @When("^I navigate back to Live Deliveries$")
+    public void i_navigate_back_to_live_deliveries() throws Throwable {
+        try {
+                action.click(Page_Admin_Trips_Details.Button_Ok());
+                log("I should able to navigate back to Live Deliveries.","I have navigated back to Live Deliveries", true);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I change the \"([^\"]*)\"$")
@@ -381,14 +389,14 @@ public class Admin_PriceOverrideSteps extends DriverBase {
         try{
             switch (menuName){
                 case "Customer price":
-                    action.isElementPresent(admin_tripDetailsPage.Textbox_Override_Customer_Price());
+                    testStepAssert.isElementDisplayed(admin_tripDetailsPage.Textbox_Override_Customer_Price(),"I should be able to check if Customer price is displayed","I could check if Customer price is displayed","Customer price is not displayed");
                     break;
                 case "Driver cut":
-                    action.isElementPresent(admin_tripDetailsPage.Textbox_Override_Driver_Cut());
+                    testStepAssert.isElementDisplayed(admin_tripDetailsPage.Textbox_Override_Driver_Cut(),"I should be able to check if Driver cut is displayed","I could check if Driver cut is displayed","Driver cut is not displayed");
                     break;
             }
             log("I should be able to check if "+menuName+"is displayed",
-                    "I couldcheck if "+menuName+"is displayed",false);
+                    "I could check if "+menuName+"is displayed",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
