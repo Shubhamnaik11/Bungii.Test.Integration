@@ -33,11 +33,18 @@ Feature: Partner Integration with Admin and Driver
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     When I navigate to "Admin" portal configured for "QA" URL
-    And I view the partner portal Scheduled Trips list on the admin portal
+    And I wait for "2" mins
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    And I should see the delivery highlighted in "Blue"
+    When I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Assigning Driver(s)|
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+    And The delivery should not be highlighed in "Blue" for "Scheduled Deliveries"
+    When As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted |
     And I view the partner portal Scheduled Trips list on the admin portal
@@ -54,6 +61,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status |
       | Trip Started |
+    And The delivery should not be highlighed in "Blue" for "Live Deliveries"
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
@@ -101,6 +109,8 @@ Feature: Partner Integration with Admin and Driver
       | driver1 state|
       | Bungii Completed |
     And I view the Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    And The delivery should not be highlighed in "Blue" for "All Deliveries"
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed    |
