@@ -1727,7 +1727,7 @@ try{
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterPriceEstimated());
                         break;
-                    case "Driver(s) Not Found":
+                    case "No Driver(s) Found":
                         action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterDriversNotFound());
@@ -1845,8 +1845,8 @@ try{
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
-                case "Driver(s) Not Found Status":
-                    xpath = String.format("//td[contains(.,'Driver(s) Not Found')]");
+                case "No Driver(s)Found Status":
+                    xpath = String.format("//td[contains(.,'No Driver(s) Found')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
