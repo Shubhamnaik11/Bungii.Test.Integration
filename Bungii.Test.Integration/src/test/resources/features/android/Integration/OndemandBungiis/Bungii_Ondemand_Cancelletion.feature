@@ -23,7 +23,7 @@
         And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
         And I close "Tutorial" if exist
 
-        Then Driver should see "Enroute screen"
+        Then Bungii driver should see "Enroute screen"
         When Bungii Driver "clicks More Options"
         When Bungii Driver "cancels Bungii"
         And I Switch to "customer" application on "same" devices
@@ -116,9 +116,9 @@
       And I wait for "1" mins
       And I Open "driver" application on "same" devices
       And Bungii Driver "accepts On Demand Bungii" request
-      Then Driver should see "Enroute screen"
+      Then Bungii driver should see "Enroute screen"
       When Bungii Driver "slides to the next state"
-      Then Driver should see "Arrived screen"
+      Then Bungii driver should see "Arrived screen"
       When Bungii Driver "clicks More Options"
       When Bungii Driver "cancels Bungii"
       And I click "OK" on the alert message
