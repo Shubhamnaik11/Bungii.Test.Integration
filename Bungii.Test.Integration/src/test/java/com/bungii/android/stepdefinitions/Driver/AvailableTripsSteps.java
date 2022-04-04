@@ -145,6 +145,9 @@ public class AvailableTripsSteps extends DriverBase {
     public void i_select_trip_from_available_trip() throws Throwable {
         try{
             Thread.sleep(6000);
+            String expectedText = action.getText(availableTrips.Text_FromHomeMiles());
+            boolean textDisplayed = expectedText.contains("Miles");
+            testStepAssert.isTrue(textDisplayed,"Text should be updated to miles","Text is updated to miles","Text is not updated to miles");
         action.click(availableTrips.Row_AvailableTrip());
         }
         catch (Exception e) {
@@ -157,6 +160,7 @@ public class AvailableTripsSteps extends DriverBase {
     public void i_select_second_trip_from_available_trip() throws Throwable {
         try{
             Thread.sleep(6000);
+
             action.click(availableTrips.Row_SecondAvailable());
         }
         catch (Exception e) {

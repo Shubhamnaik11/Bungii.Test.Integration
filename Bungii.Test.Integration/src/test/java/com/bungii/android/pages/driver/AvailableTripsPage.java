@@ -46,4 +46,6 @@ public class AvailableTripsPage extends PageBase {
 
     public List<WebElement> Row_CustomerTrips(){return findElements("//*[@resource-id='com.bungii.driver:id/row_available_pickup_imageview_arrow' and @resource-id[not(contains(., 'com.bungii.driver:id/row_available_pickup_iv_pickuptype'))]]",LocatorType.XPath);}
 
+    public WebElement Text_FromHomeMiles() { return findElement("com.bungii.driver:id/row_available_pickup_textview_time_home", LocatorType.Id);}
+
 }
