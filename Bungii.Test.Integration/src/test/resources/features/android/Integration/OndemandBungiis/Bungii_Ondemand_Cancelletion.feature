@@ -23,7 +23,7 @@
         And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
         And I close "Tutorial" if exist
 
-        Then Driver should see "Enroute screen"
+        Then Bungii driver should see "Enroute screen"
         When Bungii Driver "clicks More Options"
         When Bungii Driver "cancels Bungii"
         And I Switch to "customer" application on "same" devices
