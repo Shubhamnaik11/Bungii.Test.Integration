@@ -28,7 +28,7 @@ public class Driver_RegistrationPage extends PageBase {
     public WebElement TextBox_CreatePassword () { return findElement("password", LocatorType.Id); }
 
     //driver Registration - Confirm password
-    public WebElement TextBox_ConfirmPassword () { return findElement("confirmpassword", LocatorType.Id); }
+    public WebElement TextBox_ConfirmPassword (boolean ...ignoreException) { return findElement("confirmpassword", LocatorType.Id,ignoreException); }
 
     //driver Registration - Sign Up Button
     public WebElement Button_SignUp () { return findElement("btnRegister", LocatorType.Id); }
@@ -93,4 +93,7 @@ public class Driver_RegistrationPage extends PageBase {
 
     public WebElement Dropdown_Location () { return findElement("location", LocatorType.Id); }
 
+    public WebElement Text_Verbiage  () { return findElement("//div[@id='signup']/p[1]", LocatorType.XPath); }
+
+    public WebElement Link_EyeOpen  () { return findElement("//div/span[@class ='close-eye']", LocatorType.XPath); }
 }

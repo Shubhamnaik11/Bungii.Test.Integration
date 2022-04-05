@@ -5,15 +5,20 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_PaymentMethodsPage;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_PaymentMethodSteps extends DriverBase {
 
@@ -105,4 +110,48 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                 true);
     }
         }
+
+    @And("^I click on \"([^\"]*)\" dropdown$")
+    public void i_click_on_something_dropdown(String dropdown) throws Throwable {
+        try {
+               switch(dropdown){
+                 case "Partners":
+                    action.click(admin_paymentMethodsPage.Dropdown_Partners());
+                    Thread.sleep(1000);
+                    break;
+            }
+            log("I should be able to click on the "+dropdown+" dropdown",
+                    "I could click on the "+dropdown+" dropdown",false);
+            
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I check if duplicate partner entries are shown in dropdown$")
+    public void i_check_if_duplicate_partner_entries_are_shown_in_dropdown() throws Throwable {
+        try {
+            Select select = new Select(admin_paymentMethodsPage.Dropdown_Partners());
+            List<String> Options = new ArrayList();
+            List<WebElement> actualOptions = select.getOptions();
+            int size = actualOptions.size();
+            for(int i =0; i<size ; i++){
+                String options = actualOptions.get(i).getText();
+                Options.add(options);
+            }
+            Set duplicateSet = Options.stream().filter(i -> Collections.frequency(Options, i) > 1).collect(Collectors.toSet());
+             if(duplicateSet.size()>0){
+                   testStepAssert.isFalse(false,"The dropdown should not have duplicate values","The dropdown has duplicate values");
+              }
+            testStepAssert.isTrue(true,"The dropdown should not have duplicate values","The dropdown does not have duplicate values","The dropdown has duplicate values");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }

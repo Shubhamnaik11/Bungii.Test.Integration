@@ -259,7 +259,15 @@ public class CommonSteps extends DriverBase {
                     String text= action.getAlertMessage().toString();
                     action.clickAlertButton("OK");
                     testStepAssert.isTrue(text.contains("No Mail Accounts"),"No Mail Accounts Popup should be displayed", text +" is displayed",text+" is not displayed");
-
+                    break;
+                case "Your duo teammate is on the way":
+                    String textMessage= action.getAlertMessage().toString();
+                    testStepAssert.isTrue(message.contains(textMessage),"Your duo teammate is on the way message should be shown.","Your duo teammate is on the way message is not shown instead of that following message is shown "+textMessage);
+                    break;
+                case "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading":
+                    String arrivedTextMessage= action.getAlertMessage().toString();
+                    testStepAssert.isTrue(message.contains(arrivedTextMessage),"Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message should be shown.","Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message is not shown instead of that following message is shown "+arrivedTextMessage);
+                    break;
             }
             log("No Mail Accounts Popup should be displayed",
                     "No Mail Accounts Popup is displayed", true);

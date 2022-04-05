@@ -57,8 +57,8 @@ And I start selected Bungii
 Then I should be navigated to "EN ROUTE" screen
 And I slide update button on "EN ROUTE" Screen
 And I slide update button on "ARRIVED" Screen
-And I slide update button on "LOADING ITEM" Screen
-And I slide update button on "DRIVING TO DROP OFF" Screen
+And I slide update button on "LOADING ITEMS" Screen
+And I slide update button on "DRIVING TO DROP-OFF" Screen
   When I Switch to "customer" application on "same" devices
 
 And I wait for "3" mins

@@ -15,4 +15,6 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Button_Search() { return findElement("btnSearch",LocatorType.Id);}
 
+    public WebElement Text_Page_Header() {return findElement("//h4[contains(text(),'Scheduled')]|//h4[contains(text(),'Live')]",LocatorType.XPath);}
+
 }

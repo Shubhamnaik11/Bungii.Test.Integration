@@ -26,7 +26,7 @@ Feature: Admin_Revival
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Driver(s) Not Found |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
 	And I enter cancellation fee and Comments
@@ -61,7 +61,7 @@ Feature: Admin_Revival
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Driver(s) Not Found |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
 	And I assign driver "Testdrivertywd_appledc_a_drvs Driver" for the trip
@@ -109,7 +109,7 @@ Feature: Admin_Revival
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Driver(s) Not Found |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
 	And I assign driver "Testdrivertywd_appledc_a_drvt Driver" for the trip
@@ -168,7 +168,7 @@ Feature: Admin_Revival
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Driver(s) Not Found |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
 	And I assign driver "Testdrivertywd_appledc_a_drvt Driver" for the trip

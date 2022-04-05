@@ -66,9 +66,10 @@ Feature: Promos
     When I slide update button on "ARRIVED" Screen
     And I Switch to "customer" application on "same" devices
     And I Switch to "driver" application on "same" devices
-    When I slide update button on "LOADING ITEM" Screen
-    When I slide update button on "DRIVING TO DROP OFF" Screen
-    When I slide update button on "UNLOADING ITEM" Screen
+    When I slide update button on "LOADING ITEMS" Screen
+    When I slide update button on "DRIVING TO DROP-OFF" Screen
+    When I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
     
     And I Switch to "customer" application on "same" devices
@@ -108,7 +109,7 @@ Feature: Promos
       | Invalid | AAAAAAA | Invalid Promo    |
 
   @regression
-  Scenario Outline: Verify Customer Cannot Add Referral Promocode After Creating Account And Is Alerted That Referral Code Are For New Customer Only
+  Scenario Outline: Verify +Customer Cannot Add Referral Promocode After Creating Account And Is Alerted That Referral Code Are For New Customer Only
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
