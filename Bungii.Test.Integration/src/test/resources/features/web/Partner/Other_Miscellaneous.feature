@@ -14,7 +14,6 @@ Feature: Other Miscellaneous
   Then I should be navigated to Login screen
 
     @regression
-      @test
     Scenario: To verify that Reports option is added in menu button of PP
       And I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
@@ -41,6 +40,9 @@ Feature: Other Miscellaneous
   @regression
   @test
   Scenario: verify that on click of generate report csv file is downloaded
+    When I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "be logged in"
    When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
@@ -65,4 +67,4 @@ Feature: Other Miscellaneous
     Then I should see "Delivery History Report" message on the popup
     When I click on the "Today" link
     And I click on "Generate Report" button
-    Then The csv file should get downloaded
+    Then The csv file should get downloaded having name "Partner-deliveries.csv"

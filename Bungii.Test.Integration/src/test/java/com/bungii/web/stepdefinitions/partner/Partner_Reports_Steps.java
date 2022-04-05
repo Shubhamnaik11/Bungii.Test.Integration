@@ -8,8 +8,14 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
+import org.apache.commons.io.FilenameUtils;
 import org.openqa.selenium.WebElement;
 
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
@@ -62,8 +68,13 @@ public class Partner_Reports_Steps extends DriverBase {
                 break;
             case "Today":
                 action.click(Page_Partner_Delivery.Link_ReportFilter(text));
+                String filePath ="C:\\Users\\allan.fernandes\\Downloads\\Partner-deliveries.csv";
+                File file = new File(filePath);
+                boolean fileShouldNotExist =file.exists();
+                testStepAssert.isFalse(fileShouldNotExist,"File should not exist in the directory","File doesnt exist in the directory","File exists in the directory");
                 break;
         }
+
 
     }
 
@@ -322,16 +333,24 @@ public class Partner_Reports_Steps extends DriverBase {
 
 
 
-
-    @And("^I click on \"([^\"]*)\" button$")
-    public void i_click_on_something_button(String strArg1) throws Throwable {
-
+    @Then("^The csv file should get downloaded having name \"([^\"]*)\"$")
+    public void the_csv_file_should_get_downloaded_having_name_something(String expectedText) throws Throwable {
+        Thread.sleep(7000);
+        String filePath ="C:\\Users\\allan.fernandes\\Downloads\\Partner-deliveries.csv";
+        File file = new File(filePath);
+       if (file.exists()){
+           String fileName = file.getName();
+           testStepAssert.isEquals(fileName,expectedText,"File names should match","File names matches","File names dont match");
+           boolean deleteFile =  file.delete();
+           testStepAssert.isFalse(deleteFile,"File should be deleted","File is deleted","File is not deleted");
+       }
+       else {
+           testStepAssert.isFail("File is not present in the directory");
+       }
     }
 
-    @Then("^The csv file should get downloaded$")
-    public void the_csv_file_should_get_downloaded() throws Throwable {
 
-    }
+
 
 }
 
