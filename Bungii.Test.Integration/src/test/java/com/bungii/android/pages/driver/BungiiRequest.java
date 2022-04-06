@@ -57,5 +57,5 @@ public class BungiiRequest extends PageBase {
     public WebElement Alert_Msg_Stay_Online() { return findElement("com.bungii.driver:id/appCompatTextView21", LocatorType.Id); }
     public WebElement Button_Stay_Online() { return findElement("com.bungii.driver:id/btnStayOnline_alert_dialog_controller", LocatorType.Id); }
 
-    public WebElement Button_ViewRequest() {return findElement("com.bungii.driver:id/appCompatButton2",LocatorType.Id);}
+    public WebElement Alert_ViewRequest() {return findElement("com.bungii.driver:id/appCompatButton2",LocatorType.Id);}
 }

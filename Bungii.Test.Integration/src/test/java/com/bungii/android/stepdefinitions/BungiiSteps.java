@@ -254,11 +254,10 @@ public class BungiiSteps extends DriverBase {
                 isDisplayed = action.waitUntilAlertDisplayed(180L);
 
                 if (action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true))) {
-                    action.click(Page_BungiiRequest.AlertButton_View());
+                    action.click(Page_BungiiRequest.Alert_ViewRequest());
                     switch (arg0) {
                         case "accepts On Demand Bungii":
                             Thread.sleep(5000);
-                            action.click(Page_BungiiRequest.Button_ViewRequest());
                             action.click(Page_BungiiRequest.Button_Accept());
                             break;
                         case "views On Demand Bungii":

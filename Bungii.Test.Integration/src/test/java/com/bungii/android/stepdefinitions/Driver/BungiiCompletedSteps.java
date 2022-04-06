@@ -98,7 +98,7 @@ public class BungiiCompletedSteps extends DriverBase {
                 Thread.sleep(5000);
                 switch (arg0){
                     case "Friendly":
-                        action.scrollUntilElementDisplayed(bungiiCompletedPage.Icon_RatingFriendly());
+                        action.scrollToBottom();
                         action.click(bungiiCompletedPage.Icon_RatingFriendly());
                         break;
                     case "Respectful":
