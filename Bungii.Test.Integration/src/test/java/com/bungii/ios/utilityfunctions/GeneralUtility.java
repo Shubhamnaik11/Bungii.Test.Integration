@@ -806,11 +806,20 @@ public class GeneralUtility extends DriverBase {
             case "LOADING ITEM":
                 expectedMessage = Status.LOADING_ITEM.toString();
                 break;
+            case "LOADING ITEMS":
+                expectedMessage = Status.LOADING_ITEMS.toString();
+                break;
             case "DRIVING TO DROP OFF":
                 expectedMessage = Status.DRIVING_TO_DROP_OFF.toString();
                 break;
+            case "DRIVING TO DROP-OFF":
+                expectedMessage = Status.DRIVING_TO_DROPOFF.toString();
+                break;
             case "UNLOADING ITEM":
                 expectedMessage = Status.UNLOADING_ITEM.toString();
+                break;
+            case "UNLOADING ITEMS":
+                expectedMessage = Status.UNLOADING_ITEMS.toString();
                 break;
             default:
                 // error("Verify Screen " + screen, "UnImplemented Step or in correct screen", "UnImplemented Step", true);
