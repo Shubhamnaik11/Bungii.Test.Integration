@@ -253,11 +253,12 @@ public class BungiiSteps extends DriverBase {
                     i_click_on_notification_for_something("on demand trip");
                 isDisplayed = action.waitUntilAlertDisplayed(180L);
 
-                if (action.isElementPresent(Page_BungiiRequest.Alert_Msg(true))) {
+                if (action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true))) {
                     action.click(Page_BungiiRequest.AlertButton_View());
                     switch (arg0) {
                         case "accepts On Demand Bungii":
                             Thread.sleep(5000);
+                            action.click(Page_BungiiRequest.Button_ViewRequest());
                             action.click(Page_BungiiRequest.Button_Accept());
                             break;
                         case "views On Demand Bungii":
@@ -659,16 +660,16 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_BungiiStatus2().getText(), Status.ARRIVED.toString(), "I should be navigate to ARRIVED Screen", "I am navigate to ARRIVED Screen", "I was not navigate to ARRIVED Screen");
                     break;
 
-                case "Loading Item screen":
+                case "Loading Items screen":
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_BungiiStatus2().getText(), Status.LOADING_ITEMS.toString(), "I should be navigate to LOADING ITEMS Screen", "I am navigate to LOADING ITEMS Screen", "I was not navigate to LOADING ITEMS Screen");
                     break;
 
-                case "Driving to DropOff screen":
+                case "Driving to Drop-Off screen":
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_BungiiStatus1().getText(), Status.DRIVING_TO_DROPOFF.toString(), "I should be navigate to DRIVING TO DROP OFF Screen", "I am navigate to DRIVING TO DROP OFF Screen", "I was not navigate to LOADING ITEM Screen");
                     testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Text_ETA(),"ETA should be displayed","ETA is displayed","ETA is not displayed");
                     break;
 
-                case "Unloading Item screen":
+                case "Unloading Items screen":
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_BungiiStatus2().getText(), Status.UNLOADING_ITEMS.toString(), "I should be navigate to UNLOADING_ITEMS Screen", "I am navigate to UNLOADING ITEMS Screen", "I was not navigate to UNLOADING ITEMS Screen");
 
                     break;
@@ -681,6 +682,17 @@ public class BungiiSteps extends DriverBase {
                 case "Scheduled Bungii screen":
                     testStepVerify.isElementTextEquals(scheduledBungiiPage.Text_PageTitle(), "SCHEDULED BUNGIIS");
                     break;
+
+                case "General Instructions":
+                    testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Header_GeneralInstructions(),"General Instructions should be shown","General Instructions are shown","General Instructions are not shown");
+                    testStepVerify.isEquals(Page_DriverBungiiProgress.Text_GeneralInstructions().getText(),PropertyUtility.getMessage("General.Instructions.Geofence.Based"),"General Instructions text should be correct","General Instructions text is correct","General Instructions text is incorrect");
+                    action.click((Page_DriverBungiiProgress.Button_GeneralInstructions_GotIt()));
+                    break;
+
+                case "Rate Customer screen":
+                    testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Title_RateCustomer(),"Rate customer screen should be shown to the driver","Rate customer screen is shown to the driver", "Rate customer screen is not shown to the driver");
+                    break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -1122,6 +1134,10 @@ public class BungiiSteps extends DriverBase {
                 case "skips to rate customer":
                     testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Title_RateCustomer(),PropertyUtility.getMessage("driver.navigation.rate.customer"));
                     action.click(Page_DriverBungiiProgress.Link_SkipRating());
+                    break;
+
+                case "rates customer":
+                    action.click(Page_BungiiComplete.RatingBar());
                     break;
 
                 default:

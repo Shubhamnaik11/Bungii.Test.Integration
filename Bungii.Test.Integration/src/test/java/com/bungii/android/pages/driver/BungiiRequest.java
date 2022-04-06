@@ -19,6 +19,8 @@ public class BungiiRequest extends PageBase {
 
     public WebElement AlertButton_Cancel(boolean ...ignoreException) { return findElement("com.bungii.driver:id/notification_alert_button_negative", LocatorType.Id,ignoreException); }
 
+    public WebElement Alert_NewBungiiRequest(boolean ignoreException){return findElement("//android.widget.TextView[@text='New Bungii Request']",LocatorType.XPath,ignoreException);}
+
     //------On Demand Request
     public WebElement Button_Accept() { return findElement("com.bungii.driver:id/activity_pickup_request_accept_bungii_button", LocatorType.Id); }
 
@@ -54,4 +56,6 @@ public class BungiiRequest extends PageBase {
 
     public WebElement Alert_Msg_Stay_Online() { return findElement("com.bungii.driver:id/appCompatTextView21", LocatorType.Id); }
     public WebElement Button_Stay_Online() { return findElement("com.bungii.driver:id/btnStayOnline_alert_dialog_controller", LocatorType.Id); }
+
+    public WebElement Button_ViewRequest() {return findElement("com.bungii.driver:id/appCompatButton2",LocatorType.Id);}
 }
