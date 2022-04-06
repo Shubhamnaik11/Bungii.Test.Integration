@@ -165,6 +165,18 @@ public class AvailableTripsSteps extends DriverBase {
 			action.click(availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true));
 	}
 
+	@And("^I click back on Bungii details$")
+	public void i_click_back_on_bungii_details() throws Throwable {
+		try {
+//			action.swipeLeft(availableTripsPage.Page_Bungii_Details());
+		}
+		catch (Exception ex){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "Could not navigate back to available bungii",
+					true);
+		}
+	}
+
 
 
 }

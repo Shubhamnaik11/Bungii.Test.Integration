@@ -10,6 +10,8 @@ public class AvailableTripsPage extends PageBase {
 	public WebElement Image_SelectBungii() { return findElement("//XCUIElementTypeImage[@name='disclosure-arrow-right']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath); }
 	public List<WebElement> Image_SelectBungiis() { return findElements("//XCUIElementTypeImage[@name='disclosure-arrow-right']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath); }
 	public WebElement Partner_Name() { return findElement("//XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);}
-	
+	//public WebElement Page_Bungii_Details() { return findElement("//XCUIElementTypeApplication[@name=Bungii Driver QAAuto]/XCUIElementTypeWindow[1]/XCUIElementTypeOther", LocatorType.XPath);}
+
+
 
 }

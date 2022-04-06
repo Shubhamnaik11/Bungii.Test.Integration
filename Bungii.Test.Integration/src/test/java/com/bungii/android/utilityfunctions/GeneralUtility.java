@@ -99,6 +99,7 @@ public class GeneralUtility extends DriverBase {
     BungiiProgressPage Page_CustomerBungiiProgress = new BungiiProgressPage();
     AccountsPage accountPage = new AccountsPage();
     DashBoardPage admin_dashboardPage = new DashBoardPage();
+    AvailableTripsPage availableTripsPage = new AvailableTripsPage();
 
     EmailUtility emailUtility = new EmailUtility();
     /**
@@ -317,6 +318,9 @@ Thread.sleep(5000);
 
                 case "BUNGII COMPLETE":
                     isCorrectPage=action.isElementPresent(customerBungiiCompletePage.PageTitle_BungiiCompleteGeneric());
+                    break;
+                case "BUNGII DETAILS":
+                    isCorrectPage=action.isElementPresent(availableTripsPage.PageTitle_BungiiDetails());
                     break;
 
                 default:

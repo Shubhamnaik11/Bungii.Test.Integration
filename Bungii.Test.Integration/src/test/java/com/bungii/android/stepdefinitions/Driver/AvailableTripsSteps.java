@@ -15,6 +15,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -192,5 +193,77 @@ public class AvailableTripsSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I click on the back button and verify the rejection popup$")
+    public void i_click_on_the_back_button_and_verify_the_rejection_popup() throws Throwable {
+      try{
+        action.click(availableTrips.Button_Back());
+        Thread.sleep(2000);
+
+        testStepAssert.isElementDisplayed(availableTrips.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
+
+      }
+      catch (Exception ex){
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+          error("Step should be successful", "I cannot click on back button",
+                  true);
+      }
+    }
+    @And("^I check if all reasons are displayed on rejection popup$")
+    public void i_check_if_all_reasons_are_displayed_on_rejection_popup() throws Throwable {
+       try{
+           List<String> expectedOptions = new ArrayList() {{
+               add("Too far away");
+               add("Earnings");
+               add("Labor requirements");
+               add("Type of item(s)");
+               add("Not enough information");
+               add("Not available");
+           }};
+          for (int j =0;j<6;j++){
+             String expectedReason= expectedOptions.get(j);
+             String actualReason = availableTrips.Text_RejectionReason(j+1).getAttribute("text");
+             testStepAssert.isEquals(actualReason,expectedReason,"The actual and expected reasons should be same","The actual and expected reasons are the same","The actual and expected reasons are not the same");
+          }
+
+          // actualOptions.add((WebElement) availableTrips.Text_RejectionReason());
+//           testStepAssert.isTrue(Options.containsAll(expectedOptions),"Correct reasons need to be displayed","Correct reasons are displayed","Incorrect reasons are displayed");
+
+       }
+       catch (Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step Should be successful", "Error in viewing result set",
+                   true);
+       }
+    }
+    @And("^I click on \"([^\"]*)\" button on rejection popup$")
+    public void i_click_on_something_button_on_rejection_popup(String button) throws Throwable {
+        try {
+            switch (button){
+                case "CANCEL":
+                    action.click(availableTrips.Button_Cancel());
+                    break;
+            }
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "I cannot click on "+button+" button",
+                    true);
+        }
+    }
+    @And("^I check that latest reason is saved when \"([^\"]*)\" button is clicked$")
+    public void i_check_that_latest_reason_is_saved_when_something_button_is_clicked(String strArg1) throws Throwable {
+        try {
+                Thread.sleep(2000);
+                Boolean checkedRadioButton= Boolean.valueOf(availableTrips.RadioButton_LatestRejectionReason().getAttribute("checked"));
+                Thread.sleep(2000);
+                testStepAssert.isTrue(checkedRadioButton,"The latest reason is selected","The latest reason is selected","The latest reason is not selected");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Latest reason is not saved", true);
+        }
+    }
+
 }
 
