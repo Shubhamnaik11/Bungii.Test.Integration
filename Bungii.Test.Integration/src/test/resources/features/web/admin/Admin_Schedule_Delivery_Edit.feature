@@ -46,7 +46,7 @@ Feature: Admin_Schedule_Delivery_Edit
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
     Then I change the drop off address to "4400 Massachusetts Avenue Northwest"
-#    And I remove the customer note
+    And I remove the customer note
     And I click on "Verify" button on Edit Scheduled bungii popup
       #Then Tick mark should be displayed beside driver and scheduled date
     When I click on "Save" button on Edit Scheduled bungii popup
@@ -54,7 +54,7 @@ Feature: Admin_Schedule_Delivery_Edit
     And I wait for "2" mins
     When I view the delivery details in admin portal
     Then the updated drop off address should be displayed on delivery details page
-#    And I confirm Pickup note is "Deleted"
+    And I confirm Pickup note is "Deleted"
     And Delivery price is recalculated based on updated value of drop off address
   
   @regression
