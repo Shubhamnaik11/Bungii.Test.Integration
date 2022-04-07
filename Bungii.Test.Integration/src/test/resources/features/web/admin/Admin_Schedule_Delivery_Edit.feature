@@ -54,7 +54,7 @@ Feature: Admin_Schedule_Delivery_Edit
     And I wait for "2" mins
     When I view the delivery details in admin portal
     Then the updated drop off address should be displayed on delivery details page
-    And I confirm Pickup note is "Deleted"
+#    And I confirm Pickup note is "Deleted"
     And Delivery price is recalculated based on updated value of drop off address
   
   @regression
