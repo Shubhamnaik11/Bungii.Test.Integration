@@ -329,6 +329,9 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_drvn WashingtonDC_n":
                 phone = PropertyUtility.getDataProperties("Washington.driver4.phone");
                 break;
+            case "Testdrivertywd_appleks_a_drvo Kansas_o":
+                phone = PropertyUtility.getDataProperties("Kansas.driver11.phone");
+                break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
 
@@ -345,7 +348,7 @@ public class BungiiSteps extends DriverBase {
 
             String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
-            if (bungiiType.equalsIgnoreCase("Solo Scheduled Researched") || bungiiType.equalsIgnoreCase("Duo Scheduled Researched")) {
+            if (bungiiType.equalsIgnoreCase("Solo Scheduled Researched") || bungiiType.equalsIgnoreCase("Duo Scheduled Researched") || bungiiType.equalsIgnoreCase("Edited Solo Scheduled")) {
                 pickupRequest = new DbUtility().getResarchedPickupReference(pickupRequest); //researched pickup ref
                 cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
                 bungiiType = bungiiType.replace(" Researched", "");
@@ -408,7 +411,7 @@ public class BungiiSteps extends DriverBase {
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
                         }
 
-                    } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED") || bungiiType.equalsIgnoreCase("Duo Scheduled")) {
+                    } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED") || bungiiType.equalsIgnoreCase("Duo Scheduled") || bungiiType.equalsIgnoreCase("Edited Solo Scheduled")) {
                         if (driver1State.equalsIgnoreCase("Accepted")) {
 
                             //coreServices.waitForAvailableTrips(driverName + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest);
@@ -833,7 +836,7 @@ public class BungiiSteps extends DriverBase {
                             coreServices.driverPollingCalls(pickupRequest, geofence, driver2AccessToken);
                         }
 
-                        if (driver1State.equalsIgnoreCase("Loading Item")) {
+                        if (driver1State.equalsIgnoreCase("Loading Items")) {
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
@@ -842,7 +845,7 @@ public class BungiiSteps extends DriverBase {
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                         }
-                        if (driver2State.equalsIgnoreCase("Loading Item")) {
+                        if (driver2State.equalsIgnoreCase("Loading Items")) {
 
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
@@ -851,7 +854,7 @@ public class BungiiSteps extends DriverBase {
                         }
 
 
-                        if (driver1State.equalsIgnoreCase("Driving To Dropoff") ) {
+                        if (driver1State.equalsIgnoreCase("Driving To Drop-off") ) {
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
@@ -861,7 +864,7 @@ public class BungiiSteps extends DriverBase {
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                         }
-                        if (driver2State.equalsIgnoreCase("Driving To Dropoff") ) {
+                        if (driver2State.equalsIgnoreCase("Driving To Drop-off") ) {
 
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
@@ -872,7 +875,7 @@ public class BungiiSteps extends DriverBase {
 
 
 
-                        if (driver1State.equalsIgnoreCase("Unloading item")) {
+                        if (driver1State.equalsIgnoreCase("Unloading items")) {
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
@@ -882,7 +885,7 @@ public class BungiiSteps extends DriverBase {
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                         }
-                        if (driver2State.equalsIgnoreCase("Unloading item")) {
+                        if (driver2State.equalsIgnoreCase("Unloading items")) {
 
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);

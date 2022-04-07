@@ -31,4 +31,8 @@ public class Driver_LoginPage extends PageBase {
 
     //Password reset success message
     public WebElement Text_PasswordResetSuccess() { return findElement("password-reset-success-summary", LocatorType.Id); }
+
+    //Driver login show password
+    public WebElement Link_Login_OpenEye() { return findElement("//form/div[2]/div/span[@class =\"close-eye\"]", LocatorType.XPath); }
+
 }

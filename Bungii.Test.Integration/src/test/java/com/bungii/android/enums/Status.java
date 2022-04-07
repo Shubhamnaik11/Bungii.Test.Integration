@@ -5,8 +5,11 @@ public enum Status {
 	ARRIVED("ARRIVED"),
 	LOADING_ITEM("LOADING ITEM"),
 	DRIVING_TO_DROP_OFF("DRIVING TO DROP OFF"),
-	UNLOADING_ITEM("UNLOADING ITEM");
-    
+	UNLOADING_ITEM("UNLOADING ITEM"),
+    LOADING_ITEMS("LOADING ITEMS"),
+    DRIVING_TO_DROPOFF("DRIVING TO DROP-OFF"),
+    UNLOADING_ITEMS("UNLOADING ITEMS");
+
     public final String name;
     Status(String status) {
         this.name = status;

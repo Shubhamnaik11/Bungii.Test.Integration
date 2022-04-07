@@ -195,7 +195,7 @@ Feature: Admin_Refund
 	  And I view the Scheduled Deliveries list on the admin portal
 	  Then I should be able to see the respective bungii with the below status
 		|  Status |
-		|Searching Drivers|
+		|Assigning Driver(s)|
 	  When I cancel bungii as a customer "Testcustomertywd_appleNewG Customer" with phone number "9999999607"
 	When I view the Deliveries list on the admin portal
 	And I wait for 2 minutes

@@ -227,7 +227,7 @@ public class Admin_GeofenceSteps extends DriverBase {
                         String Page = DataList.get(i).get("Page");
                         switch (Page) {
                             case "Dashboard" :
-                                action.click(admin_DashboardPage.Menu_Dashboard().findElement(By.xpath("a")));
+                                action.click(admin_DashboardPage.Menu_Dashboard());
                                 break;
                             case "Drivers" :
                                 action.click(admin_DriversPage.Menu_Drivers());
@@ -285,7 +285,7 @@ public class Admin_GeofenceSteps extends DriverBase {
         try{
         switch(page){
             case "Dashboard":
-                action.click(admin_DashboardPage.Menu_Dashboard().findElement(By.xpath("a")));
+                action.click(admin_DashboardPage.Menu_Dashboard());
                 log("I click on "+page+" page" ,
                         "I have clicked on "+page+" page", false);
                 break;
