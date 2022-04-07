@@ -496,8 +496,8 @@ Feature: Admin_Price_Override
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     When I request "Solo" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
-      | Pickup_Address                                                                     | Delivery_Address                                                   |
-      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002  |
+      | Pickup_Address                                                     | Delivery_Address                                                   |
+      | 3410 Beech Street Northwest Washington District of Columbia 20015  | 	3315 Shepherd Street Chevy Chase Maryland 20815  |
     And I click "Service Level List" button on Partner Portal
     Then I should "see all the Service Level" for "Biglots" Alias
     And I change the service level to "Room of Choice" in "Partner" portal
@@ -517,7 +517,7 @@ Feature: Admin_Price_Override
     Then I should "see Done screen"
     When I am logged in as Admin
     And I view the partner portal Scheduled Trips list on the admin portal
-    And As a driver "Testdrivertywd_appledc_a_drvq WashingtonDC_q" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_drvC WashingtonC" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I wait for "2" mins
@@ -539,7 +539,7 @@ Feature: Admin_Price_Override
     And I check the new values of "Estimated Charge" for "Service level"
     Then I check the new values of "Driver Fixed Earnings" for "Service level"
     When I navigate back to Scheduled Deliveries
-    And As a driver "Testdrivertywd_appledc_a_drvq WashingtonDC_q" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_drvC WashingtonC" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Enroute  |
     And I view the Live Deliveries list on the admin portal
@@ -548,7 +548,7 @@ Feature: Admin_Price_Override
       |  Status       |
       |Trip Started   |
     Then I check if "Price Override" icon is displayed
-    When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvq WashingtonDC_q"
+    When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvC WashingtonC"
     And I wait for 2 minutes
     And I view the Deliveries list on the admin portal
     And I search the delivery of Customer and view it
