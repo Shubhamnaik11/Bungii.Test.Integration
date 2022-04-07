@@ -23,7 +23,7 @@ Feature: Other Miscellaneous
       Then I should see "Reports" as an option
       When I click on the "Reports" link
       Then I should see "Delivery History Report" message on the popup
-      When I click on the "Yesterday" link
+      When I click on the "Today" link
       And I click on "Generate Report" button
       Then I should see the the message "No deliveries for selected dates"
       When I select the month which is two months ahead of the current month

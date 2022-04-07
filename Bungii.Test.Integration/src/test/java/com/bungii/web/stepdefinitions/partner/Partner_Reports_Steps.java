@@ -119,7 +119,7 @@ public class Partner_Reports_Steps extends DriverBase {
                 action.click(Page_Partner_Delivery.Link_ReportFilter(text));
                 break;
         }
-        log("I should be able to click on the" + text +"filter button","I could click on the" + text +"filter button",false);
+        log("I should be able to click on the" + text +" button","I could click on the" + text +" button",false);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
