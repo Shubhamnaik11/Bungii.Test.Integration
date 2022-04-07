@@ -87,7 +87,7 @@ Then I should be navigated to "Home" screen
   @ondemand
   Scenario: Verify Ondemand Bungii Flow Till Completion
     When I Switch to "driver" application on "same" devices
-    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
+    And I login as "valid nashville1" driver on "same" device and make driver status as "Online"
     
     And I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
@@ -116,34 +116,38 @@ Then I should be navigated to "Home" screen
     When I Switch to "driver" application on "same" devices
     Then I should be navigated to "EN ROUTE" trip status screen
     And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen
+    #Then I should be navigated to "ARRIVED" trip status screen
+    Then I should be navigated to "ARRIVED" screen on driverApp
     
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "ARRIVED" trip status screen
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" trip status screen
+    #Then I should be navigated to "LOADING ITEM" trip status screen
+    Then I should be navigated to "LOADING ITEMS" screen on driverApp
     
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "LOADING ITEM" trip status screen
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    And I slide update button on "LOADING ITEMS" Screen
+    #Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" screen on driverApp
     
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    #Then I should be navigated to "UNLOADING ITEM" trip status screen
+    Then I should be navigated to "UNLOADING ITEMS" screen on driverApp
     
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "UNLOADING ITEM" trip status screen
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
