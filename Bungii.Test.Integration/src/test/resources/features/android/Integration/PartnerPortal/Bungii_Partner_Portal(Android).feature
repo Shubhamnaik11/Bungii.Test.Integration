@@ -49,7 +49,7 @@
       And I Select "Scheduled Trip" from admin sidebar
       And I open the trip for "Testcustomertywd_appleNewRB Customer" the customer
       And I Select "Edit Trip Details" option
-      And I assign driver "Testdrivertywd_appledc_a_drvs Driver" for the trip
+      And I assign driver "Testdrivertywd_appledc_a_drvC WashingtonC" for the trip
       And I click on "VERIFY" button
       And the "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
@@ -62,7 +62,7 @@
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
-      And I am logged in as "Testdrivertywd_appledc_a_drvs Driver" driver
+      And I am logged in as "Testdrivertywd_appledc_a_drvC WashingtonC" driver
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       Then I check if driver cut is reflected
 

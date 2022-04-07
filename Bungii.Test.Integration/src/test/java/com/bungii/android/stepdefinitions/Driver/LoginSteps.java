@@ -254,7 +254,7 @@ public class LoginSteps extends DriverBase {
                     shouldLoginSucessful = true;
                     break;
 
-                case "testdrivertywd_appledc_a_drvs driver":
+                case "testdrivertywd_appledc_a_drvc washingtonc":
                     phone = PropertyUtility.getDataProperties("Washington.driver8.phone");
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                     password = PropertyUtility.getDataProperties("Washington.driver8.password");
