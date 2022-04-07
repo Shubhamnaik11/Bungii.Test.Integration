@@ -155,7 +155,7 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Report
     // Dropdown hamberger Icon
-    public WebElement Image_dropdown_Setting() { return findElement("//div/i/img",LocatorType.XPath);}
+    public WebElement Image_dropdown_Setting() { return findElement("//div/i[@title='Menu']/img",LocatorType.XPath);}
 
     // Report link
     public WebElement Link_Report() { return findElement("//div/span[text() = 'Reports']",LocatorType.XPath);}

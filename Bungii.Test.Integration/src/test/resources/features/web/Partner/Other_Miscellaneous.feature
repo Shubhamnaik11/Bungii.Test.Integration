@@ -29,14 +29,14 @@ Feature: Other Miscellaneous
       When I select the month which is two months ahead of the current month
       Then The dates should be disabled
       When I click on the below filter options i should see the respective date displayed
-      |Filter DateBy|
+      |Filter DateBy |
       |Today         |
-      |Yesterday    |
+      |Yesterday     |
       |This Week     |
-      |Last Week    |
-      |Last 7 Days  |
-      |This Month   |
-      |Last Month   |
+      |Last Week     |
+      |Last 7 Days   |
+      |This Month    |
+      |Last Month    |
 
 
   @ready
