@@ -13,23 +13,25 @@ Feature: Other Miscellaneous
     And I Clear the browser local storage and refresh the Page
   Then I should be navigated to Login screen
 
-    @regression
+    @ready
     Scenario: To verify that Reports option is added in menu button of PP
       And I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
-#      And The dropdown menu should have an "Hamburger" icon
+      And The dropdown menu should have an "Hamburger" icon
       When I click on the "Dropdown" button on the top right side of the page
-#     Then I should see "Reports" as an option
+      Then I should see "Reports" as an option
       When I click on the "Reports" link
       Then I should see "Delivery History Report" message on the popup
-
-#      When I select the month which is two months ahead of the current month
-#      Then The dates should be disabled
+      When I click on the "Yesterday" link
+      And I click on "Generate Report" button
+      Then I should see the the message "No deliveries for selected dates"
+      When I select the month which is two months ahead of the current month
+      Then The dates should be disabled
       When I click on the below filter options i should see the respective date displayed
       |Filter DateBy|
       |Today         |
-      | Yesterday    |
+      |Yesterday    |
       |This Week     |
       |Last Week    |
       |Last 7 Days  |
@@ -37,8 +39,7 @@ Feature: Other Miscellaneous
       |Last Month   |
 
 
-  @regression
-  @test
+  @ready
   Scenario: verify that on click of generate report csv file is downloaded
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -62,9 +63,11 @@ Feature: Other Miscellaneous
       |VISA CARD3|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
+    And I store the delivery details
     When I click on the "Dropdown" button on the top right side of the page
     And I click on the "Reports" link
     Then I should see "Delivery History Report" message on the popup
     When I click on the "Today" link
     And I click on "Generate Report" button
     Then The csv file should get downloaded having name "Partner-deliveries.csv"
+    And The csv file data should match the details of the delivery

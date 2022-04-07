@@ -153,30 +153,36 @@ public class Partner_DeliveryPage extends PageBase {
     //SoldBy Text fields
     public WebElement TextBox_SoldBy() { return findElement("//label[contains(text(),'Scheduled By')]//following-sibling::input",LocatorType.XPath);}
 
+    //Report
+    // Dropdown hamberger Icon
     public WebElement Image_dropdown_Setting() { return findElement("//div/i/img",LocatorType.XPath);}
 
+    // Report link
     public WebElement Link_Report() { return findElement("//div/span[text() = 'Reports']",LocatorType.XPath);}
 
+    //on click report link
     public WebElement Label_Report_HeaderPopup() { return findElement("//div[text() ='Delivery History Report']",LocatorType.XPath);}
 
+    //generate report butto
     public WebElement Button_GenerateReport(boolean...ignoreException) { return findElement("//div/button[text() ='GENERATE REPORT']",LocatorType.XPath,ignoreException);}
 
-    public WebElement Text_CalenderCount() { return findElement("//div[@class ='materialui-daterange-picker-MuiGrid-root-1015']",LocatorType.XPath);}
-
-    public WebElement Text_FilterList() { return findElement("//div[@class ='calender-container']/div/div//div/ul/div/div/span[@style ='font-weight: normal;']",LocatorType.XPath);}
-
-    public WebElement DropdownResult (String address) { return findElement(String.format("//div[@id='divPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
-
+    //select month of the year
     public WebElement Text_MonthOfTheYear(int monthIndex) { return findElement(String.format("//div/ul[@role ='listbox']/li[%s]",monthIndex),LocatorType.XPath);}
 
+   // calender number 2 in reports
+    public WebElement Dropdown_Calender2_Month() { return findElement("//div[@class =\"calender-container\"]/div/div[2]/div/div/div[1]/div[2]/div[3]/div/div[1]/div[2]/div/div",LocatorType.XPath);}
 
-    public WebElement Dropdown_Calender2() { return findElement("//div[@class =\"calender-container\"]/div/div[2]/div/div/div[1]/div[2]/div[3]/div/div[1]/div[2]/div/div",LocatorType.XPath);}
-
+    // 2 months later date disabled
     public WebElement Text_DisabledDate() { return findElement("//div[@class =\"calender-container\"]/div/div[2]/div/div/div[1]/div[2]/div[3]/div/div[3]/div[1]//div[1]/button",LocatorType.XPath);}
 
+    // filter options on report by day
     public WebElement Link_ReportFilter(String filterBy) { return findElement(String.format("//div/ul/div/div/span[text() ='%s']",filterBy),LocatorType.XPath);}
 
+    // days of calender for report
     public List<WebElement> List_AllDatesOfTheMonth() { return findElements("//button[contains(@class,'materialui-daterange-picker-makeStyles-filled')]/span/p",LocatorType.XPath);}
+
+    // 0 delivery present error
+    public WebElement Text_NoDeliveryError() { return findElement("err",LocatorType.ClassName);}
 
 
 }
