@@ -248,12 +248,11 @@ public class BungiiSteps extends DriverBase {
     public void bungiiDriverRequest(String arg0) {
         try {
             if (arg0.equalsIgnoreCase("accepts On Demand Bungii")||arg0.equalsIgnoreCase("rejects On Demand Bungii") ||arg0.equalsIgnoreCase("views On Demand Bungii")) {
-                boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
+                boolean isDisplayed = action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true));
                 if (!isDisplayed)
                     i_click_on_notification_for_something("on demand trip");
-                isDisplayed = action.waitUntilAlertDisplayed(180L);
+//                isDisplayed = action.waitUntilAlertDisplayed(180L);
 
-                if (action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true))) {
                     action.click(Page_BungiiRequest.Alert_ViewRequest());
                     switch (arg0) {
                         case "accepts On Demand Bungii":
@@ -267,7 +266,6 @@ public class BungiiSteps extends DriverBase {
                             Thread.sleep(5000);
                             action.click(Page_BungiiRequest.Button_Reject());
                             break;
-                    }
                 }
             } else if (arg0.equalsIgnoreCase("Start Schedule Bungii")) {
                 boolean skipClick = false;
@@ -302,16 +300,14 @@ public class BungiiSteps extends DriverBase {
 
             }
             else if (arg0.equalsIgnoreCase("accepts stack message") ||arg0.equalsIgnoreCase("reject stack message")||arg0.equalsIgnoreCase("view stack message")) {
-                boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
+                boolean isDisplayed = action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true));
                 if (!isDisplayed)
                     i_click_on_notification_for_something("STACK TRIP");
-                isDisplayed = action.waitUntilAlertDisplayed(180L);
+//                isDisplayed = action.waitUntilAlertDisplayed(180L);
 
-                if (action.isNotificationAlertDisplayed()) {
-                    if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.stack.alert.message"))) {
-                        action.click(Page_BungiiRequest.AlertButton_View());
-                    }
-                }
+                testStepVerify.isEquals(Page_BungiiRequest.Alert_NewBungiiRequestMessage(true).getText(),PropertyUtility.getMessage("driver.alert.stack.alert.message"),"Text in stack request should be correct","Text in the stack request is not correct");
+                action.click(Page_BungiiRequest.Alert_ViewRequest());
+
                 Thread.sleep(5000);
                 action.scrollToBottom();
                 if (arg0.equalsIgnoreCase("accepts stack message"))

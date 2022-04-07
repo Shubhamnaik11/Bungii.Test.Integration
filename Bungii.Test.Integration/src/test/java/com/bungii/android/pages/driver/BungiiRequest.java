@@ -21,6 +21,8 @@ public class BungiiRequest extends PageBase {
 
     public WebElement Alert_NewBungiiRequest(boolean ignoreException){return findElement("//android.widget.TextView[@text='New Bungii Request']",LocatorType.XPath,ignoreException);}
 
+    public WebElement Alert_NewBungiiRequestMessage(boolean ignoreException){return findElement("com.bungii.driver:id/appCompatTextView34",LocatorType.Id);}
+
     //------On Demand Request
     public WebElement Button_Accept() { return findElement("com.bungii.driver:id/activity_pickup_request_accept_bungii_button", LocatorType.Id); }
 

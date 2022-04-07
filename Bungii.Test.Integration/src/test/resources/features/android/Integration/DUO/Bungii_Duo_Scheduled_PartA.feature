@@ -89,25 +89,26 @@ Feature: Bungii Duo Scheduled Part A
     And I Switch to "driver" application on "ORIGINAL" devices
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "accepts stack message" request
-      And I accept Alert message for "Alert: Display Stack trip after current trip"
-      And stack trip information should be displayed on deck
-      And try to finish time should be correctly displayed for long stack trip
+    And I accept Alert message for "Alert: Display Stack trip after current trip"
+    And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
   
-      When I Switch to "customer" application on "same" devices
-      And I am on customer Log in page
-      And I enter customers "9871450107" Phone Number
-      And I enter customers "valid" Password
-      And I tap on the "Log in" Button on Login screen
-      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-      And I close "Tutorial" if exist
+    When I Switch to "customer" application on "same" devices
+    And I am on customer Log in page
+    And I enter customers "9871450107" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "ORIGINAL" devices
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
-      And stack trip information should be displayed on deck
-      And try to finish time should be correctly displayed for long stack trip
-      And Bungii Driver "slides to the next state"
-      Then Bungii Driver "completes Bungii"
+    And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "skips to rate customer"
+    Then Bungii Driver "completes Bungii"
   
     Then I click on notification for "CUSTOMER -Driver started stack Bungii"
     Then "Enroute screen" page should be opened
