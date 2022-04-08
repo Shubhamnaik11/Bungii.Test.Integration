@@ -402,9 +402,11 @@ public class HomePageSteps extends DriverBase {
                 case "AVAILABLE BUNGIIS":
                     testStepAssert.isElementNameEquals(homepage.Text_AvailableTripsData(), "No Bungiis available", " is displayed", "No Bungiis Available is displayed", " is not displayed");
 //                    String a = action.getNameAttribute(homepage.Text_NoDelivery());
-                    boolean a = action.isElementPresent(homepage.Text_NoDelivery(true));
-                    String b = action.getValueAttribute(homepage.Text_NoDelivery());
-//                    System.out.println(a);
+//                    boolean a = action.isElementPresent(homepage.Text_NoDelivery(true));
+                    String x = homepage.Text_NoDelivery().getAttribute("name");
+                    System.out.println(x);
+                    String b = action.getNameAttribute(homepage.Text_NoDelivery());
+                    System.out.println(b);
 //                    testStepAssert.isElementNameEquals(homepage.Text_NoDelivery(),"There are no deliveries available.\nTry checking back later.",  " is displayed", "There are no deliveries available.\nTry checking back later.", " is not displayed");
                     break;
 
