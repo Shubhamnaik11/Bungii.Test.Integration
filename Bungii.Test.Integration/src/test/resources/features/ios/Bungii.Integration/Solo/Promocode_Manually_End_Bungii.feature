@@ -12,7 +12,7 @@ Feature: Promocode_Manually_End_Bungii
 @regression
 #stable
 	@authfailure
-Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually Ending Bungii
+Scenario: Verify that Promoter Type Promocode Is Correctly Applied for bungii and Manually Ending link is dsiable
 When I Switch to "customer" application on "same" devices
 And I am on the "LOG IN" page
 And I logged in as "valid miami 2" customer
@@ -62,7 +62,7 @@ And I slide update button on "LOADING ITEMS" Screen
 And I slide update button on "DRIVING TO DROP-OFF" Screen
   When I Switch to "customer" application on "same" devices
 
-#And I wait for "3" mins
+And I wait for "2" mins
 And I open Admin portal and navigate to "Live Deliveries" page
 Then I should be able to see the respective bungii with the below status
 | Status          |
@@ -100,7 +100,7 @@ And I click "On To The Next One" button on "Bungii completed" screen
   
   @regression
 #stable
-  Scenario: Verify Promo Type Promocode Is Correctly Applied After Manually Ending Bungii
+  Scenario: Verify Promo Type Promocode Is Correctly Applied and Manually Ending link is disable
 	
 	And I am on the "LOG IN" page
     And I logged in as "valid miami" customer
@@ -140,29 +140,39 @@ And I click "On To The Next One" button on "Bungii completed" screen
 	
 	And I Select Trip from scheduled trip
 	And I start selected Bungii
-	Then I should be navigated to "EN ROUTE" screen
+	#Then I should be navigated to "EN ROUTE" screen
+	Then I should be navigated to "EN ROUTE" screen on driverApp
 	And I slide update button on "EN ROUTE" Screen
 	And I slide update button on "ARRIVED" Screen
+	And I slide update button on "LOADING ITEMS" Screen
+	And I slide update button on "DRIVING TO DROP-OFF" Screen
+	When I Switch to "customer" application on "same" devices
+	Then Customer should be navigated to "UNLOADING ITEM" trip status screen
 	And I wait for "2" mins
 	And I open Admin portal and navigate to "Live Deliveries" page
 	Then I should be able to see the respective bungii with the below status
 	  | Status        |
-	  | Loading Items |
+	  | Unloading Items |
 	#When I view the trip details
 	And I select trip from live trips
-	And I click on "Manually End Bungii" link
-	And Enter the End Date and Time
-	And Click on "Calculate Cost" button
-	And Click on "Confirm" button
-	
-	When I switch to "ORIGINAL" instance
+	  Then manually end bungii should be "disabled"
+	  When I switch to "ORIGINAL" instance
+	  When I Switch to "driver" application on "same" devices
+	  And I slide update button on "UNLOADING ITEMS" Screen
+
+	#And I click on "Manually End Bungii" link
+	#And Enter the End Date and Time
+	#And Click on "Calculate Cost" button
+	#And Click on "Confirm" button
+
+	#When I switch to "ORIGINAL" instance
 	When I Switch to "customer" application on "same" devices
 	Then I should be navigated to "Bungii Complete" screen
-	And Bungii customer should see "correct details with promo" on Bungii completed page
-	When I click "CLOSE BUTTON" button on "Bungii Complete" screen
-	Then I should be navigated to "Promotion" screen
-	When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-	Then I should be navigated to "Home" screen
+	#And Bungii customer should see "correct details with promo" on Bungii completed page
+	#When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+	#Then I should be navigated to "Promotion" screen
+	#When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+	#Then I should be navigated to "Home" screen
 	
 	When I Switch to "driver" application on "same" devices
 	And I click "Skip This Step" button on "Rate customer" screen
@@ -171,7 +181,7 @@ And I click "On To The Next One" button on "Bungii completed" screen
 
   @regression
 #stable
-  Scenario: Verify One Off Type Promocode Is Correctly Applied After Manually Ending Bungii
+  Scenario: Verify One Off Type Promocode Is Correctly Applied and Manually Ending link is disable
 	
 	When I Switch to "customer" application on "same" devices
 	And I am on the "LOG IN" page
@@ -216,23 +226,29 @@ And I click "On To The Next One" button on "Bungii completed" screen
 	
 	And I Select Trip from scheduled trip
 	And I start selected Bungii
-	Then I should be navigated to "EN ROUTE" screen
+	#Then I should be navigated to "EN ROUTE" screen
+	Then I should be navigated to "EN ROUTE" screen on driverApp
 	And I slide update button on "EN ROUTE" Screen
 	And I slide update button on "ARRIVED" Screen
-	And I slide update button on "LOADING ITEM" Screen
+	And I slide update button on "LOADING ITEMS" Screen
+	And I slide update button on "DRIVING TO DROP-OFF" Screen
 	When I Switch to "customer" application on "same" devices
 	
 	And I wait for "2" mins
 	And I open Admin portal and navigate to "Live Deliveries" page
 	Then I should be able to see the respective bungii with the below status
 	  | Status             |
-	  | Driving To Dropoff |
+	  | Unloading Items |
 	#When I view the trip details
 	And I select trip from live trips
-	And I click on "Manually End Bungii" link
-	And Enter the End Date and Time
-	And Click on "Calculate Cost" button
-	And Click on "Confirm" button
+	Then manually end bungii should be "disabled"
+	When I switch to "ORIGINAL" instance
+	When I Switch to "driver" application on "same" devices
+	And I slide update button on "UNLOADING ITEMS" Screen
+	#And I click on "Manually End Bungii" link
+	#And Enter the End Date and Time
+	#And Click on "Calculate Cost" button
+	#And Click on "Confirm" button
 	
 	When I switch to "ORIGINAL" instance
 	When I Switch to "customer" application on "same" devices
@@ -240,5 +256,6 @@ And I click "On To The Next One" button on "Bungii completed" screen
 	And Bungii customer should see "correct details with promo" on Bungii completed page
 	
 	When I Switch to "driver" application on "same" devices
+	And I click "Skip This Step" button on "Rate customer" screen
 	Then Bungii driver should see "correct details" on Bungii completed page
 
