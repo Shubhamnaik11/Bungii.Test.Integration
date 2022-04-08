@@ -362,8 +362,8 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
 
 
-    @And("^The delivery should not be highlighed in \"([^\"]*)\" for \"([^\"]*)\"$")
-    public void the_delivery_should_not_be_highlighed_in_something_for_something(String strArg1, String deliveryType) throws Throwable {
+    @And("^The delivery should not be highlighted in \"([^\"]*)\" for \"([^\"]*)\"$")
+    public void the_delivery_should_not_be_highlighted_in_something_for_something(String strArg1, String deliveryType) throws Throwable {
         try {
         String expectedHighlightColor = "rgba(228, 242, 255, 1)";
        switch (deliveryType){
@@ -381,8 +381,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                Thread.sleep(1000);
                boolean allDeliveryhighlightDisplayed =  admin_liveTripsPage.Text_AllDeliveryHighlight().isDisplayed();
                String allDeliveryHighlightColor =  admin_liveTripsPage.Text_AllDeliveryHighlight().getCssValue("background-color");
-               System.out.println(allDeliveryhighlightDisplayed);
-               System.out.println(allDeliveryHighlightColor);
+
                testStepAssert.isTrue(allDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is bot displayed");
                testStepAssert.isFalse(allDeliveryHighlightColor.contentEquals(expectedHighlightColor),"Delivery should not be highlighted with blue color","Delivery is not highlighted with blue color","Delivery is highlighted with blue color");
                break;

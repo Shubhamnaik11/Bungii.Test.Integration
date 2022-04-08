@@ -66,7 +66,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Assigning Driver(s)|
-    And The delivery should not be highlighed in "Blue" for "Scheduled Deliveries"
+    And The delivery should not be highlighted in "Blue" for "Scheduled Deliveries"
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |
@@ -83,7 +83,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Trip Started |
-    And The delivery should not be highlighed in "Blue" for "Live Deliveries"
+    And The delivery should not be highlighted in "Blue" for "Live Deliveries"
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Arrived |
@@ -118,7 +118,7 @@ Feature: Admin_Trips
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I search the delivery of Customer
-    And The delivery should not be highlighed in "Blue" for "All Deliveries"
+    And The delivery should not be highlighted in "Blue" for "All Deliveries"
     And Customer should receive "Your Bungii Receipt" email
 
   @sanity
