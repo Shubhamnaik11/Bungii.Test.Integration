@@ -91,7 +91,7 @@ public class HomePage extends PageBase {
     public WebElement Text_TripAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"Delivery Alerts\"]", LocatorType.XPath); }
     public WebElement Text_SMSAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"SMS Alerts\"]", LocatorType.XPath); }
     public WebElement Text_Privacy() {return findElement("//XCUIElementTypeStaticText[@name=\"Privacy\"]",LocatorType.XPath);}
-    public WebElement Text_NoDelivery(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name=\"There are no deliveries available. Try checking back later.]",LocatorType.XPath,ignoreException);}
+    public WebElement Text_NoDelivery() {return findElement("//XCUIElementTypeStaticText[@name=\"No Bungiis available\"]/following-sibling::XCUIElementTypeStaticText",LocatorType.XPath);}
     public WebElement Button_Back() {return findElement("//XCUIElementTypeButton[@name=\"Back\"]",LocatorType.XPath);}
     public WebElement Text_Feedback() { return findElement("//XCUIElementTypeStaticText[@name=\"Send us your feedback\"]", LocatorType.XPath); }
     public WebElement Text_Store() { return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII STORE\"]", LocatorType.XPath); }
