@@ -97,6 +97,18 @@ public class DbUtility extends DbContextManager {
         logger.detail("Pickupid  " + pickupid + " of pickupref " + pickupRef );
         return pickupid;
     }
+
+    public static String getCustomerServiceNote(String pickupReference) {
+        String note = "";
+        String initialId ="";
+        String queryString = "SELECT initial_pickup_id FROM factpickup WHERE pickupref ='" + pickupReference+"'";
+        initialId =getDataFromMySqlReportServer(queryString);
+        String queryNote = "select note from fact_pickup_note where initial_pickup_id  ='" + initialId+"'";
+        note =getDataFromMySqlReportServer(queryNote);
+        logger.detail("Customer Note = " +note + " is shown in database for pickup " +pickupReference);
+        return note;
+    }
+
     public static String getLinkedPickupRef(String pickupRef) {
         String linkedpickupref = "";
         String queryString = "SELECT PICKUPREF FROM pickupdetails WHERE LINKEDPICKUPID in (SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef+"' )";

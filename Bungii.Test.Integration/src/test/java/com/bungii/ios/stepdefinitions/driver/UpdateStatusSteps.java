@@ -88,13 +88,13 @@ public class UpdateStatusSteps extends DriverBase {
                 case "ARRIVED":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.arrived");
                     break;
-                case "LOADING ITEM":
+                case "LOADING ITEMS":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.loading");
                     break;
-                case "DRIVING TO DROP OFF":
+                case "DRIVING TO DROP-OFF":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.drop.off");
                     break;
-                case "UNLOADING ITEM":
+                case "UNLOADING ITEMS":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.unloading");
                     break;
                 default:
@@ -171,37 +171,63 @@ public class UpdateStatusSteps extends DriverBase {
 
             String expectedCustName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             expectedCustName = expectedCustName.substring(0, expectedCustName.indexOf(" ") + 2);
-            String ActualName ="" ;
+            String actualName ="" ;
             //boolean isCustomerNameCorrect = ActualName.equals(expectedCustName);
+            String TripType= (String) cucumberContextManager.getScenarioContext("TripType");
 
             switch (key) {
                 case "EN ROUTE":
-                    ActualName = getCustomerNameOnDriverApp(4);
+                    if(TripType.equals("Duo")){
+                        actualName = getCustomerNameOnDriverApp(5);
+                    }
+                    else {
+                        actualName = getCustomerNameOnDriverApp(4);
+                    }
                     isInfoCorrectlyDisplayed = validateEnRouteInfo(getTripInformation());
                     break;
                 case "ARRIVED":
-                    ActualName = getCustomerNameOnDriverApp(3);
+                    if(TripType.equals("Duo")){
+                        actualName = getCustomerNameOnDriverApp(5);
+                    }
+                    else {
+                        actualName = getCustomerNameOnDriverApp(3);
+                    }
                     isInfoCorrectlyDisplayed = validateArrivedInfo(getTripInformation());
                     break;
                 case "LOADING ITEMS":
-                    ActualName = getCustomerNameOnDriverApp(3);
+                    if(TripType.equals("Duo")){
+                        actualName = getCustomerNameOnDriverApp(4);
+                    }
+                    else {
+                        actualName = getCustomerNameOnDriverApp(3);
+                    }
                     isInfoCorrectlyDisplayed = validateLoadingItemsInfo(getTripInformation());
                     break;
                 case "DRIVING TO DROP-OFF":
-                    ActualName = getCustomerNameOnDriverApp(4);
+                    if(TripType.equals("Duo")){
+                        actualName = getCustomerNameOnDriverApp(5);
+                    }
+                    else {
+                        actualName = getCustomerNameOnDriverApp(4);
+                    }
                     isInfoCorrectlyDisplayed = validateDrivingInfo(getTripInformation());
                     break;
                 case "UNLOADING ITEMS":
-                    ActualName = getCustomerNameOnDriverApp(3);
+                    if(TripType.equals("Duo")){
+                        actualName = getCustomerNameOnDriverApp(5);
+                    }
+                    else {
+                        actualName = getCustomerNameOnDriverApp(3);
+                    }
                     isInfoCorrectlyDisplayed = validateUnloadingInfo(getTripInformation());
                     break;
                 default:
                     break;
             }
 
-            boolean isCustomerNameCorrect = ActualName.equals(expectedCustName);
+            boolean isCustomerNameCorrect = actualName.equals(expectedCustName);
 
-            if (/*isInfoCorrectlyDisplayed && */isCustomerNameCorrect) {
+            if (isInfoCorrectlyDisplayed && isCustomerNameCorrect) {
                 pass("Trip Information should be correctly displayed and customer name :" + expectedCustName + "should be displayed", "Trip Information is correctly displayed and customer name :" + expectedCustName + "is displayed correctly");
             } else {
                 fail("Trip Information should be correctly displayed and customer name :" + expectedCustName + "should be displayed", "Trip Information is correctly displayed and customer name :" + expectedCustName + "is displayed correctly");
@@ -490,14 +516,16 @@ public class UpdateStatusSteps extends DriverBase {
                     "'DROP OFF LOCATION' Tag should correctly displayed",
                     "'DROP OFF LOCATION' Tag is correctly displayed",
                     "'DROP OFF LOCATION' Tag was not correctly displayed");
-            */
+
 
             testStepVerify.isEquals(actualInfo.get(5), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
 
                     "DROP OFF location should be correctly displayed ",
                     "DROP OFF location was correctly displayed , actual was is " + actualDropOfflocation + "and expected is " + dropOffLocationLineOne + dropOffLocationLineTwo,
                     "DROP OFF location was not displayed correctly, actual was is " + actualDropOfflocation + " and expected is" + dropOffLocationLineOne + dropOffLocationLineTwo);
+
         //}
+         */
         return isDropLocationDisplayed;
         //return isTagDisplayed && isDropLocationDisplayed;
     }
@@ -509,8 +537,14 @@ public class UpdateStatusSteps extends DriverBase {
 
         //boolean isTagDisplayed = actualInfo.get(5).equals("PICKUP LOCATION");
 
-        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
-        String actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
+//        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
+        String actualPickuplocation="";
+        String tripType= (String) cucumberContextManager.getScenarioContext("TripType");
+        if(tripType.equalsIgnoreCase("Duo")){
+            actualPickuplocation = actualInfo.get(6).replace(",", "").replace("  ", " ");
+        }else {
+            actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
+        }
         boolean isPickUpDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation.contains(pickUpLocationLineTwo);
 
@@ -519,17 +553,20 @@ public class UpdateStatusSteps extends DriverBase {
 
         //} else {
             //testStepVerify.isTrue(isTagDisplayed, "'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed", "'PICKUP LOCATION' Tag was not correctly displayed");
-            testStepVerify.isTrue(isETACorrect,
+/*            testStepVerify.isTrue(isETACorrect,
                     "ETA should be correctly displayed",
                     "'ETA' Tag and minutes was correctly displayed , Actual ETA is " + actualInfo.get(2),
                     "'ETA' Tag and minutes was not displayed  correctly, Actual ETA is " + actualInfo.get(2));
+
+ */
             testStepVerify.isTrue(isPickUpDisplayed,
                     "Pick up location should be correctly displayed ",
                     "Pick up location was correctly displayed , actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne + pickUpLocationLineTwo,
                     "Pick up location was not displayed correctly, actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne + pickUpLocationLineTwo);
         //}
         //return isTagDisplayed && isETACorrect && isPickUpDisplayed;
-        return isETACorrect && isPickUpDisplayed;
+        //return isETACorrect && isPickUpDisplayed;
+        return isPickUpDisplayed;
     }
 
     private boolean validateDrivingInfo(List<String> actualInfo) {
@@ -573,8 +610,14 @@ public class UpdateStatusSteps extends DriverBase {
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").replace("  ", " ").trim();
 
        // boolean isTagDisplayed = actualInfo.get(1).equals("PICKUP LOCATION");
-        String actualPickuplocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
-
+        String actualPickuplocation ="";
+        String tripType= (String) cucumberContextManager.getScenarioContext("TripType");
+        if(tripType.equalsIgnoreCase("Duo")) {
+            actualPickuplocation = actualInfo.get(7).replace(",", "").replace("  ", " ");
+        }
+        else{
+            actualPickuplocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
+        }
         boolean isPickupDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation
                 .contains(pickUpLocationLineTwo);
@@ -603,8 +646,14 @@ public class UpdateStatusSteps extends DriverBase {
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").replace("  ", " ").trim();
 
         // boolean isTagDisplayed = actualInfo.get(1).equals("PICKUP LOCATION");
-        String actualPickuplocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
-
+        String actualPickuplocation ="";
+        String tripType= (String) cucumberContextManager.getScenarioContext("TripType");
+        if(tripType.equalsIgnoreCase("Duo")) {
+            actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
+        }
+        else {
+            actualPickuplocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
+        }
         boolean isPickupDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation
                 .contains(pickUpLocationLineTwo);
@@ -675,6 +724,7 @@ public class UpdateStatusSteps extends DriverBase {
     @Then("^I should be navigated to \"([^\"]*)\" trip status screen on driver$")
     public void i_should_be_navigated_to_something_trip_status_screen_on_driver(String screen) throws Throwable {
         try{
+            Thread.sleep(1000);
             testStepAssert.isElementDisplayed(updateStatusPage.Text_Header(screen),"I should be navigated to " + screen + "screen","I have navigated to " + screen + "screen","I have not navigated to " + screen + "screen");
         }
         catch (Throwable e) {
@@ -692,6 +742,7 @@ public class UpdateStatusSteps extends DriverBase {
         String expectedText = "";
         switch (strArg1) {
             case "Reminder: both driver at pickup":
+                
                 expectedText = PropertyUtility.getMessage("bungii.duo.driver.pickup");
                 break;
             case "Reminder: both driver at drop off":

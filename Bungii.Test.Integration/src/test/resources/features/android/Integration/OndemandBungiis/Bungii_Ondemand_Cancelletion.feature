@@ -22,8 +22,9 @@
         And I am logged in as "valid boston" driver
         And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
         And I close "Tutorial" if exist
-    
+
         Then Bungii driver should see "Enroute screen"
+        When Bungii Driver "clicks More Options"
         When Bungii Driver "cancels Bungii"
         And I Switch to "customer" application on "same" devices
         Then Alert message with DRIVER CANCELLED text should be displayed
@@ -46,8 +47,9 @@
       And I am logged in as "valid boston" driver
       And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       And I close "Tutorial" if exist
-      
-      Then Bungii driver should see "Arrived screen"
+
+      Then Driver should see "Arrived screen"
+      When Bungii Driver "clicks More Options"
       When Bungii Driver "cancels Bungii"
       And I Switch to "customer" application on "same" devices
       Then Alert message with DRIVER CANCELLED text should be displayed
@@ -78,7 +80,8 @@
       And I wait for "1" mins
       And I Open "driver" application on "same" devices
       And Bungii Driver "accepts On Demand Bungii" request
-      Then Bungii driver should see "Enroute screen"
+      Then Driver should see "Enroute screen"
+      When Bungii Driver "clicks More Options"
       When Bungii Driver "cancels Bungii"
       And I Switch to "customer" application on "same" devices
       And I click "OK" on the alert message
@@ -116,8 +119,8 @@
       Then Bungii driver should see "Enroute screen"
       When Bungii Driver "slides to the next state"
       Then Bungii driver should see "Arrived screen"
+      When Bungii Driver "clicks More Options"
       When Bungii Driver "cancels Bungii"
-      And I Switch to "customer" application on "same" devices
       And I click "OK" on the alert message
       Then Alert message with DRIVER CANCELLED text should be displayed
       When I click "OK" on alert message

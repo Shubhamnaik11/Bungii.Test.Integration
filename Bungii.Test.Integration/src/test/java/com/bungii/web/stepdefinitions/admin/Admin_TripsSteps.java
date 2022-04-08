@@ -352,14 +352,16 @@ public class Admin_TripsSteps extends DriverBase {
             //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
             utility.selectGeofenceDropdown(geofenceName);
 
+            String pageName = action.getText(admin_LiveTripsPage.Text_Page_Header());
 
             cucumberContextManager.setScenarioContext("STATUS", status);
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
-            if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Assigning Driver(s)") || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
+            if (status.equalsIgnoreCase("Scheduled") || (status.equalsIgnoreCase("Assigning Driver(s)") && pageName.contains("Scheduled")) || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType[0].toUpperCase(), customer);
                 String costPath =  String.format("//td[contains(.,'%s')]/preceding-sibling::td[1]/span", customer);
+
                 TripPath= xpath;
                 int retrycount = 10;
                 action.clearSendKeys(admin_ScheduledTripsPage.Textbox_Search(), customer.substring(0, customer.indexOf(" ")));
@@ -393,6 +395,7 @@ public class Admin_TripsSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
                 cucumberContextManager.setScenarioContext("COSTPATH", costPath);
                 cucumberContextManager.setScenarioContext("COST", action.getText(action.getElementByXPath(costPath)).replace("/ $",""));
+
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
@@ -1724,7 +1727,7 @@ try{
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterPriceEstimated());
                         break;
-                    case "Driver(s) Not Found":
+                    case "No Driver(s) Found":
                         action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterDriversNotFound());
@@ -1842,8 +1845,8 @@ try{
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
-                case "Driver(s) Not Found Status":
-                    xpath = String.format("//td[contains(.,'Driver(s) Not Found')]");
+                case "No Driver(s)Found Status":
+                    xpath = String.format("//td[contains(.,'No Driver(s) Found')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");

@@ -1,7 +1,6 @@
 @web
 @new
 Feature: Admin_Accessorial_Charges
-  
   Background:
 	Given I am logged in as Admin
 	
@@ -20,22 +19,35 @@ And As a driver "Testdrivertywd_appledc_a_drva Driver" perform below action with
 | Driving To Dropoff |
 | Unloading Item |
 | Bungii Completed |
-  And I wait for 2 minutes
+And I wait for 2 minutes
 And I view the Deliveries list on the admin portal
-  And I search the delivery of Customer and view it
+And I search the delivery of Customer and view it
 Then I should see "Accessorial Charges" section displayed
 When I add following accessorial charges and save it
-|Amount	|Fee Type         |Comment							  |Driver Cut|
-| 10   	| Excess Wait Time| Charges due to Excess wait		  |	2		 |
-| 20.5  | Cancelation 	  | Charges due to Cancelation 		  |4.5       |
-| 25.65 | Mountainous 	  | Charges due to mountainous reason |10.0      |
-| 100   | Other 		  | Charges due to other reasons      |20        |
-Then I should see following details in the Accessorial charges section
-|Excess Wait Time|Cancelation	|Mountainous	| Other | Total |
-| $10            |$20.5         |$25.65         |$100  |$156.15|
-  And "accessorial_fee_amount" should show total amount in the triprequest table in Database
-  And "business_notes" should show comment without quotes in the trippaymentdetails table in Database
-  
+| Amount   | Fee Type         | Comment                           | Driver Cut |
+|  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
+|   20.5    | Cancelation      | Charges due to Cancelation        | 4.5        |
+|  25.65   | Mountainous      | Charges due to mountainous reason | 10.0       |
+|  100     | Other            | Charges due to other reasons      | 20         |
+Then I should see the following fee type displayed
+| Fee Type         |
+| Excess Wait Time |
+| Cancelation      |
+| Mountainous      |
+| Other            |
+And I should see following details in the Accessorial charges section
+| Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+| $10              | $20.5       | $25.65      | $100  | $156.15 |
+And I click on the Accessorial Charges links and I should see the Drivers cut displayed
+| Fee Type         | Driver Cut |
+| Excess Wait Time | 2          |
+| Cancelation      | 4.5        |
+| Mountainious     | 10.0       |
+| Other            | 20         |
+ And "accessorial_fee_amount" should show total amount in the triprequest table in Database
+ And "business_notes" should show comment without quotes in the trippaymentdetails table in Database
+
+
   @regression
   Scenario: Verify Accessorial Charges Field Validations - Blank
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -68,28 +80,28 @@ Then I should see following details in the Accessorial charges section
 	  | 10   |          2|Excess Wait Time| Accessorial charges Comments: Accessorial charges comment having more than 500 characters in Excess Wait Time field column entered to identify whether it causes issues like "CORE-2446 SPRINT43:: QA environment:: Saving Comments of 500 characters for accessorial fees gives Application Error" Please note that If data gets validation message  without any application error then it means that the above issue no longer exists and it is working as expected. !!! Accessorial charges Comments Ends, Thank you!!!!|Comment|Comment exceeds 500 characters.|
   
   
-  @regression
-  Scenario: Verify Accessorial Charges Field Validations - invalid Data
-	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-	  | Bungii Time   | Customer Phone | Customer Name |
-	  | NEXT_POSSIBLE | 9999999223 | Testcustomertywd_appleNewMJ Customer|
-	And As a driver "Testdrivertywd_appledc_a_drvc Driver" perform below action with respective "Solo Scheduled" Delivery
-	  | driver1 state|
-	  |Accepted |
-	  | Enroute  |
-	  | Arrived |
-	  | Loading Item |
-	  | Driving To Dropoff |
-	  | Unloading Item |
-	  | Bungii Completed |
-	And I wait for 2 minutes
-	And I view the Deliveries list on the admin portal
-	And I search the delivery of Customer and view it
-	Then I should see "Accessorial Charges" section displayed
-	And I should get following error for following accessorial charges fields values when saved
-	  |Amount          |Fee Type         |Comment                        | Field | Message |
-	  | 100000000000   | Excess Wait Time| Charges due to excess waiting | Amount |Amount can contain at most 3 digits and 2 decimals.|
-	  | 1000           | Excess Wait Time| Charges due to excess waiting | Amount |Amount can contain at most 3 digits and 2 decimals.|
-	  | 10.5689        | Excess Wait Time| Charges due to excess waiting | Amount |Amount can contain at most 3 digits and 2 decimals.|
-	  | -10            | Excess Wait Time| Charges due to excess waiting | Amount |Amount can contain at most 3 digits and 2 decimals.|
-	  | -1.56          | Excess Wait Time| Charges due to excess waiting | Amount |Amount can contain at most 3 digits and 2 decimals.|
+@regression
+Scenario: Verify Accessorial Charges Field Validations - invalid Data
+When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+  | Bungii Time   | Customer Phone | Customer Name                        |
+  | NEXT_POSSIBLE | 9999999223     | Testcustomertywd_appleNewMJ Customer |
+ And As a driver "Testdrivertywd_appledc_a_drvc Driver" perform below action with respective "Solo Scheduled" Delivery
+| driver1 state      |
+| Accepted           |
+| Enroute            |
+| Arrived            |
+| Loading Item       |
+| Driving To Dropoff |
+| Unloading Item     |
+| Bungii Completed   |
+And I wait for 2 minutes
+And I view the Deliveries list on the admin portal
+And I search the delivery of Customer and view it
+Then I should see "Accessorial Charges" section displayed
+And I should get following error for following accessorial charges fields values when saved
+| Amount       | Driver Cut | Fee Type         | Comment                       | Field  | Message                                             |
+|100000000000  | 1          | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
+| 1000         | 32         | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
+| 10.5689      | -100       | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
+| -10          | Blank      | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
+| -1.56        | 231        | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |

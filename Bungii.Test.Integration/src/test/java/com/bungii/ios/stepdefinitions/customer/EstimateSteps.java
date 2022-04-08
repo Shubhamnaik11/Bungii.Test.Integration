@@ -372,7 +372,12 @@ public class EstimateSteps extends DriverBase {
             action.click(estimatePage.Button_Set());
         }
         else if (time.equalsIgnoreCase("30_MIN_AHEAD")) {
-            Date date = getNextScheduledBungiiTimeForGeofence();
+            //Date date = getNextScheduledBungiiTimeForGeofence();
+            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+
+            Date date = Calendar.getInstance().getTime();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
             //int mnts = calendar.get(Calendar.MINUTE);
@@ -383,7 +388,18 @@ public class EstimateSteps extends DriverBase {
             calendar.add(Calendar.MINUTE, (30 - mod));
             calendar.set(Calendar.SECOND, 0);
 
-            Date nextQuatter = calendar.getTime();
+            TimeZone tz = TimeZone.getTimeZone(geofenceLabel);
+            sdf.setTimeZone(tz);
+            Date dt = calendar.getTime();
+            sdf.format(dt);
+
+           // Date nextQuatter = calendar.getTime();
+            String NQ = sdft.format(dt);
+            Date nextQuatter = sdft.parse(NQ);
+            sdft.setTimeZone(tz);
+            String nextQuatter1 = sdft.format(nextQuatter);
+            nextQuatter = new SimpleDateFormat("yyyy-MM-dd hh:mm aa").parse(nextQuatter1);
+            //Date nextQuatter = calendar.getTime();
 
             String[] dateScroll = bungiiTimeForScroll(nextQuatter);
             strTime = bungiiTimeDisplayInTextArea(nextQuatter);
@@ -649,7 +665,7 @@ public class EstimateSteps extends DriverBase {
      */
     public String bungiiTimeDisplayInTextArea(Date date) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm aa");
         String formattedDate = sdf.format(date);
         //After sprint 27 /26 IST is being added in scheduled page
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
@@ -761,8 +777,13 @@ public class EstimateSteps extends DriverBase {
              nextTripTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("MIN_TIME_DUO"));
         }
         Calendar calendar = Calendar.getInstance();
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+
         formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        TimeZone tz = TimeZone.getTimeZone(geofenceLabel);
+        formatter.setTimeZone(tz);
+        String dt = formatter.format(tz);
+
         calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
@@ -794,7 +815,7 @@ public class EstimateSteps extends DriverBase {
     public Date getFormatedTimeForGeofence() {
         Date date1 = Calendar.getInstance().getTime();
         try {
-            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZoneForGeofence());
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS aa").parse(getDateForTimeZoneForGeofence());
            // System.out.println("\t" + date1);
         } catch (Exception e) {
         }

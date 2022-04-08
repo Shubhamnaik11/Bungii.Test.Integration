@@ -14,7 +14,7 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Title_Status(boolean ... ignoreException) { return findElement("com.bungii.driver:id/toolbar_title", LocatorType.Id,ignoreException); }
 
     //------Cancel Bungii------------------------------------------------------------
-    public WebElement Button_Cancel() { return findElement("com.bungii.driver:id/toolbar_button_cancel", LocatorType.Id); }
+    public WebElement Button_Cancel() { return findElement("com.bungii.driver:id/activity_more_options_cancel_trip", LocatorType.Id); }
     public WebElement Button_CancelBungii() { return findElement("com.bungii.driver:id/scheduled_bungii_details_tv_cancel_bungii", LocatorType.Id); }
 
     public WebElement Button_Cancel_Yes() { return findElement("android:id/button1", LocatorType.Id); }
@@ -22,7 +22,7 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Button_Cancel_Cancel() { return findElement("android:id/button2", LocatorType.Id); }
 
     //------Slider-------------------------------------------------------------------
-    public WebElement Slider() { return findElement("com.bungii.driver:id/pickup_details_slider_view", LocatorType.Id); }
+    public WebElement Slider() { return findElement("com.bungii.driver:id/view_sliding_bottom_sheet_slider_view", LocatorType.Id); }
 
 
     public WebElement Button_More() { return findElement("com.bungii.driver:id/pickup_details_ellipsise", LocatorType.Id); }
@@ -102,7 +102,7 @@ public class InProgressBungiiPages extends PageBase {
 
     //STACK
     public WebElement Text_NextLabel(boolean ... ignoreException) { return findElement("com.bungii.driver:id/stack_widget_tv_next", LocatorType.Id,ignoreException); }
-    public WebElement Text_OnDeckLabel(boolean ... ignoreException) { return findElement("com.bungii.driver:id/textView3", LocatorType.Id,ignoreException); }
+    public WebElement Text_OnDeckLabel(boolean ... ignoreException) { return findElement("com.bungii.driver:id/appCompatTextView24", LocatorType.Id,ignoreException); }
     public WebElement Text_StackCustomer(boolean ... ignoreException) { return findElement("com.bungii.driver:id/stack_customer_name_textview", LocatorType.Id,ignoreException); }
     public WebElement Text_FinishBy() { return findElement("com.bungii.driver:id/pickup_details_status_tv_pickup_end_time", LocatorType.Id); }
     public WebElement Button_StackInfo() { return findElement("com.bungii.driver:id/pickup_details_iv_stack_info", LocatorType.Id); }
@@ -110,5 +110,26 @@ public class InProgressBungiiPages extends PageBase {
     //Details Note
     public WebElement Button_DetailsFromCustomer(boolean ... ignoreException) { return findElement("//android.widget.TextView[@text='Delivery Details']", LocatorType.XPath, ignoreException); }
     public WebElement Text_CustomerNote(boolean ... ignoreException) {return findElement("com.bungii.driver:id/activity_customer_details_tv_customernote", LocatorType.Id, ignoreException);}
+
+    //General Instructions
+    public WebElement Header_GeneralInstructions() {return findElement("com.bungii.driver:id/view_instructions_header", LocatorType.Id);}
+    public WebElement Text_GeneralInstructions(){return findElement("com.bungii.driver:id/view_instructions_body",LocatorType.Id);}
+    public WebElement Button_GeneralInstructions_GotIt(){return findElement("com.bungii.driver:id/view_instructions_btn_next",LocatorType.Id);}
+
+    //DriverBungiiProgress Screen
+    public WebElement Title_BungiiStatus1() { return findElement("//*[@resource-id='com.bungii.driver:id/activity_driver_pickup_details_toolbar']/android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Title_BungiiStatus2() { return findElement("//*[@resource-id='com.bungii.driver:id/activity_driver_pickup_details_toolbar']/android.view.ViewGroup/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_ETA() { return findElement("//*[@resource-id='com.bungii.driver:id/activity_driver_pickup_details_toolbar']/android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[2]", LocatorType.XPath); }
+
+
+    //*[@resource-id='com.bungii.driver:id/activity_driver_pickup_details_toolbar']/android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]
+    //DriverRatingcustomer screen
+    public WebElement Title_RateCustomer(boolean ... ignoreException) {return findElement("//*[@resource-id='com.bungii.driver:id/constraintLayout16']/android.widget.TextView",LocatorType.XPath);}
+    public WebElement Link_SkipRating(boolean ... ignoreException){return findElement("//*[@resource-id='com.bungii.driver:id/appCompatTextView60']",LocatorType.XPath,ignoreException);}
+
+    public WebElement Button_MoreOptions(){return findElement("com.bungii.driver:id/appCompatImageView37",LocatorType.Id);}
+
+
+
 
 }

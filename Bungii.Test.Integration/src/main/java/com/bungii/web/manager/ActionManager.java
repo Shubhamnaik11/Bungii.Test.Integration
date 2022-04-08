@@ -391,4 +391,14 @@ catch(Exception ex)
         }
     }
 
+    public void acceptAlert() {
+        try {
+            SetupManager.getDriver().switchTo().alert().accept();
+            } catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to accept alert",
+                    true);
+        }
+    }
+
 }
