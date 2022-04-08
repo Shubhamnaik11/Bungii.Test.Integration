@@ -52,13 +52,17 @@ public class AvailableTripsPage extends PageBase {
 
     //------Rejection Pop Up----------------------------------------------------------------------
 
-    public WebElement Text_RejectionPopup() {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id);}
+    public WebElement Text_RejectionPopup(boolean...ignoreException) {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id,ignoreException);}
 
     public WebElement Text_RejectionReason(int i){return findElement("//android.widget.ListView/android.widget.LinearLayout["+i+"]/android.widget.LinearLayout/android.widget.TextView",LocatorType.XPath);}
 
     public WebElement Button_Cancel() {return findElement("com.bungii.driver:id/alert_dialog_list_btn_cancel",LocatorType.Id);}
 
+    public WebElement Button_Submit() {return findElement("com.bungii.driver:id/alert_dialog_list_btn_submit",LocatorType.Id);}
+
     public WebElement RadioButton_LatestRejectionReason() {return findElement("//android.view.ViewGroup/android.widget.ListView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.RadioButton",LocatorType.XPath);}
+
+
 
 
 }

@@ -208,6 +208,21 @@ public class AvailableTripsSteps extends DriverBase {
                   true);
       }
     }
+    @And("^I click on the back button and verify that rejection popup is absent$")
+    public void i_click_on_the_back_button_and_verify_that_rejection_popup_is_absent() throws Throwable {
+        try{
+            action.click(availableTrips.Button_Back());
+            Thread.sleep(2000);
+
+            testStepAssert.isFalse(action.isElementPresent(availableTrips.Text_RejectionPopup(true)),"Rejection Reason pop-up must not be displayed","Rejection Reason pop-up is not displayed", "Rejection Reason pop-up is displayed");
+
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "I cannot click on back button",
+                    true);
+        }
+    }
     @And("^I check if all reasons are displayed on rejection popup$")
     public void i_check_if_all_reasons_are_displayed_on_rejection_popup() throws Throwable {
        try{
@@ -225,9 +240,6 @@ public class AvailableTripsSteps extends DriverBase {
              testStepAssert.isEquals(actualReason,expectedReason,"The actual and expected reasons should be same","The actual and expected reasons are the same","The actual and expected reasons are not the same");
           }
 
-          // actualOptions.add((WebElement) availableTrips.Text_RejectionReason());
-//           testStepAssert.isTrue(Options.containsAll(expectedOptions),"Correct reasons need to be displayed","Correct reasons are displayed","Incorrect reasons are displayed");
-
        }
        catch (Exception e){
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -242,11 +254,28 @@ public class AvailableTripsSteps extends DriverBase {
                 case "CANCEL":
                     action.click(availableTrips.Button_Cancel());
                     break;
+                case "SUBMIT":
+                    action.click(availableTrips.Button_Submit());
+                    break;
             }
+            log("I should be able to click on "+button+" button",
+                    "I am able to click on "+button+" button",
+                    false);
         }
         catch (Exception ex){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "I cannot click on "+button+" button",
+                    true);
+        }
+    }
+    @Then("^I verify the rejection popup is displayed$")
+    public void i_verify_the_rejection_popup_is_displayed() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(availableTrips.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "I cannot click on back button",
                     true);
         }
     }

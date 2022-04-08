@@ -107,6 +107,9 @@ public class BungiiRequestSteps extends DriverBase {
                 case "ACCEPT":
                     action.click(bungiiRequestPage.Button_Accept());
                     break;
+                case "REJECT":
+                    action.click(bungiiRequestPage.Button_Reject());
+                    break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
