@@ -149,6 +149,7 @@ Feature: SoloScheduled Part B
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
+    Then Bungii driver should see "General Instructions"
     Then Bungii driver should see "Enroute screen"
 
     When I Switch to "customer" application on "same" devices
@@ -158,17 +159,20 @@ Feature: SoloScheduled Part B
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Loading Item screen"
+    Then Bungii driver should see "Loading Items screen"
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Driving to DropOff screen"
+    Then Bungii driver should see "Driving to Drop-Off screen"
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Unloading Item screen"
+    Then Bungii driver should see "Unloading Items screen"
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Unloading Item screen"
 
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Rate Customer screen"
+    When Bungii Driver "rates customer"
+    And Bungii Driver selects customer experience as "Friendly"
     Then Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
     
