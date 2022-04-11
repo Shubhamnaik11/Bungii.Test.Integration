@@ -445,4 +445,13 @@ public class DbUtility extends DbContextManager {
         regions = getListDataFromMySqlMgmtServer(queryString);
         return regions;
     }
+
+    public static String getPartnerName(String Sub_Domain_Name) {
+        String partnerName;
+        String queryString = "select business_partner_location_name from business_partner_location where subdomainname='"+Sub_Domain_Name+"'";
+        partnerName = getDataFromMySqlServer(queryString);
+        logger.detail("Partner_Name =  " + partnerName + " of Subdomain="+Sub_Domain_Name);
+        return partnerName;
+
+    }
 }
