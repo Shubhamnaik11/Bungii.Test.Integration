@@ -335,9 +335,9 @@ public class BungiiInProgressSteps extends DriverBase {
     public void stack_trip_information_should_be_displayed_on_deck() {
         try {
             String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER2");
-            testStepVerify.isElementTextEquals(bungiiProgressPage.Text_NextLabel(), "NEXT CUSTOMER","'NEXT CUSTOMER' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
-            testStepVerify.isElementTextEquals(bungiiProgressPage.Text_OnDeckLabel(), "ON DECK","'ON DECK' text lable should be displayed","'ON DECK' text lable is displayed","'NEXT' text lable is not displayed");
-            testStepVerify.isElementTextEquals(bungiiProgressPage.Text_StackCustomer(), customerName.substring(0, customerName.indexOf(" ") + 2));
+//            testStepVerify.isElementTextEquals(bungiiProgressPage.Text_NextLabel(), "NEXT CUSTOMER","'NEXT CUSTOMER' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed"); - Next customer not displayed with new driver app changes
+            testStepVerify.isTrue(bungiiProgressPage.Text_OnDeckLabel().getText().contains("Bungii on deck, try to finish by"),"On Deck text label should be displayed","'On Deck text label is not displayed");
+//            testStepVerify.isElementTextEquals(bungiiProgressPage.Text_StackCustomer(), customerName.substring(0, customerName.indexOf(" ") + 2));
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -371,11 +371,11 @@ public class BungiiInProgressSteps extends DriverBase {
             telet = telet.substring(1);*/
 //Richa
         String[] timeZone=utility.getDayLightTimeZoneBasedOnGeofence();
-        String normalTimeZone="Try to finish by "+telet+" "+timeZone[0];
-        String dayLightTimeZone="Try to finish by "+telet+" "+timeZone[1];
-        String actualTime=action.getText(bungiiProgressPage.Text_FinishBy());
+        String normalTimeZone="try to finish up by "+telet+" "+timeZone[0];
+        String dayLightTimeZone="try to finish up by "+telet+" "+timeZone[1];
+        String actualTime=action.getText(bungiiProgressPage.Text_OnDeckLabel());
 
-        if(actualTime.equalsIgnoreCase(normalTimeZone) || actualTime.equalsIgnoreCase(dayLightTimeZone)) {
+        if(actualTime.contains(normalTimeZone) || actualTime.contains(dayLightTimeZone)) {
             testStepAssert.isTrue(true,"The finish time should be displayed correctly.", "The finish time is not displayed correctly.");
         }
         else
