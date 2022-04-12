@@ -679,6 +679,27 @@ public class EstimateSteps extends DriverBase {
         return formattedDate;
     }
 
+    public String geofenceBaseBungiiCalculatedTime(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int mnts = calendar.get(Calendar.MINUTE);
+
+        calendar.set(Calendar.MINUTE, mnts + 30);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 15;
+        calendar.add(Calendar.MINUTE, (15 - mod));
+        calendar.set(Calendar.SECOND, 0);
+        Date calculatedDate = calendar.getTime();
+        //String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a z");
+        sdf.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        String formattedDate = sdf.format(calculatedDate);
+        //Calendar calendar = Calendar.getInstance();
+
+        return formattedDate;
+    }
+
     public String bungiiTimeDisplayDriverEarning(Date date) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy hh:mm a");
@@ -1216,7 +1237,9 @@ public class EstimateSteps extends DriverBase {
 
             String displayedTime = getElementValue("TIME");
             //Date date = getNextScheduledBungiiTimeForGeofence();
-            String strTime =(String)cucumberContextManager.getScenarioContext("CALCULATED_TIME");
+            //String strTime =(String)cucumberContextManager.getScenarioContext("CALCULATED_TIME");
+            Date date = getNextScheduledBungiiTimeForGeofence();
+            String strTime = geofenceBaseBungiiCalculatedTime(date);
 
             if(BrowserStackLocal().equalsIgnoreCase("true")) {
                 if(displayedTime.contains("a.m.")||displayedTime.contains("p.m.")) {
@@ -1229,7 +1252,6 @@ public class EstimateSteps extends DriverBase {
                 testStepAssert.isTrue(displayedTime.equals(strTime) || displayedTime.equals(TstrTime) ,strTime+" OR "+TstrTime+" should be displayed",strTime+" OR "+TstrTime+" is displayed", strTime+" OR "+TstrTime+" is not displayed instead "+ displayedTime +" is displayed");
             }
             else
-
             testStepAssert.isEquals(displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"),strTime+" should be displayed",strTime+" is displayed", strTime+" is not displayed instead "+ displayedTime +"is displayed");
 
 
