@@ -196,17 +196,32 @@ public class AvailableTripsSteps extends DriverBase {
     @And("^I click on the back button and verify the rejection popup$")
     public void i_click_on_the_back_button_and_verify_the_rejection_popup() throws Throwable {
       try{
-        action.click(availableTrips.Button_Back());
-        Thread.sleep(2000);
+            Thread.sleep(1000);
+            action.click(availableTrips.Button_Back());
+            Thread.sleep(2000);
 
-        testStepAssert.isElementDisplayed(availableTrips.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
-
+            testStepAssert.isElementDisplayed(availableTrips.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
       }
       catch (Exception ex){
           logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
           error("Step should be successful", "I cannot click on back button",
                   true);
       }
+    }
+    @Then("^I check if \"([^\"]*)\" customer trip that is rejected is displayed$")
+    public void i_check_if_something_customer_trip_that_is_rejected_is_displayed(String customerName) throws Throwable {
+       try{
+           List<WebElement> list = (List<WebElement>) availableTrips.Page_AvailableBungii(customerName);
+          testStepAssert.isTrue(list.size() == 0,"The customer trip should not be present","The customer trip is present");
+         //  Assert.assertTrue("Text not found!", list.size() > 0);
+
+
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful",
+                   "Error performing step,Please check logs for more details", true);
+       }
     }
     @And("^I click on the back button and verify that rejection popup is absent$")
     public void i_click_on_the_back_button_and_verify_that_rejection_popup_is_absent() throws Throwable {

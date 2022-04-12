@@ -100,4 +100,15 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement Select_EditReason() {return findElement("ddEditDeliveryRemark",LocatorType.Id);}
 
+    public WebElement Button_StopSearching() {return findElement("btnStopSearch",LocatorType.Id);}
+
+    public WebElement Button_ConfirmStopSearching() {return findElement("btnConfirm",LocatorType.Id);}
+
+    public WebElement Button_CloseConfirm() {return findElement("//div[@id='stop-search-success-modal']/div/div/div/button[text()='Close']",LocatorType.XPath);}
+
+    public WebElement Button_Ok() {return findElement("btnOk",LocatorType.Id);}
+
+    public WebElement Text_BungiiStatus(){return findElement("//td[text()='Status']/following::td[1]/strong", LocatorType.XPath);}
+
+
 }
