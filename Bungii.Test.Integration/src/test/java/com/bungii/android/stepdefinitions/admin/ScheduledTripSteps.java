@@ -914,7 +914,7 @@ public class ScheduledTripSteps extends DriverBase {
 			action.click(scheduledTripsPage.Button_Price_Override());
 			Thread.sleep(5000);
 
-			String driverCut = action.getText(scheduledTripsPage.Text_Driver_Est_Eranings());
+			String driverCut = action.getText(scheduledTripsPage.Text_Driver_Est_Earnings());
 			String oldDriverCut = driverCut.substring(1);
 			float oldDriverPrice= Float.parseFloat(oldDriverCut);
 			float newDriverPrice= (float) (oldDriverPrice+20.08);
@@ -935,11 +935,11 @@ public class ScheduledTripSteps extends DriverBase {
 			Thread.sleep(120000);
 
 			action.refreshPage();
-			String driverCharges = action.getText(scheduledTripsPage.Text_Driver_Est_Eranings());
+			String driverCharges = action.getText(scheduledTripsPage.Text_Driver_Est_Earnings());
 			String actualDriverCharges = driverCharges.substring(1);
 			String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
 			action.click(scheduledTripsPage.Button_Ok());
-			testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges, "Driver Charges are overriden", "Driver Charges are Overriden", "Driver Charges are not Overriden");
+			testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges, "Driver Charges should be overridden", "Driver Charges are overridden", "Driver Charges are not overridden");
 
 		}
 		catch(Exception e){
