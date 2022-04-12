@@ -354,9 +354,12 @@ public class HomePageSteps extends DriverBase {
     public void i_check_if_driver_cut_is_reflected() throws Throwable {
         try{
             String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
-            String driverCharges =action.getText(driverHomePage.Text_OverridenPrice());
+            String driverCharges =action.getText(driverHomePage.Text_OverriddenPrice());
             String actualDriverCharges = driverCharges.substring(1);
-            testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges, "Driver Charges are overriden", "Driver Charges are Overriden", "Driver Charges are not Overriden");
+            testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges,
+                    "Driver Charges should be overridden",
+                    "Driver Charges are overridden",
+                    "Driver Charges are not overridden");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

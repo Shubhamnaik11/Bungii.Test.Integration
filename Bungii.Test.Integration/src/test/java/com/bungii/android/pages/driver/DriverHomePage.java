@@ -58,7 +58,7 @@ public class DriverHomePage extends PageBase {
 
     public WebElement Button_Sure(boolean ignoreException){ return findElement("com.bungii.driver:id/button_location_permission_sure", LocatorType.Id,ignoreException);}
 
-    public WebElement Text_OverridenPrice() { return findElement("com.bungii.driver:id/scheduled_row_textview_status", LocatorType.Id);}
+    public WebElement Text_OverriddenPrice() { return findElement("com.bungii.driver:id/scheduled_row_textview_status", LocatorType.Id);}
 
 
 }
