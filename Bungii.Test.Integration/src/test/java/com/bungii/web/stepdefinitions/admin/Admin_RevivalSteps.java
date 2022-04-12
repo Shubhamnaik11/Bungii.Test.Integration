@@ -63,6 +63,24 @@ public class Admin_RevivalSteps extends DriverBase {
                 true);
     }
     }
+    @Then("^I should see \"([^\"]*)\" message on popup with PickupId, Pickup Origin and Partner Name$")
+    public void i_should_see_something_message_on_popup_with_pickupid_pickup_origin_and_partner_name(String message) throws Throwable {
+        try{
+            testStepAssert.isTrue(action.isElementPresent(admin_RevivalPage.Label_HeaderPopup()),message+" should be displayed", message+" is displayed", message+" is not displayed");
+            String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String pickupId = dbUtility.getPickupIdFromFactPickup(pickuprequest);
+            String source = "Customer Delivery";
+            String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+
+            testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupId(),pickupId, pickupId +" should be displayed", pickupId +" is displayed", pickupId+" is not displayed");
+            testStepAssert.isElementDisplayed(admin_RevivalPage.Label_PickupPartnerPortal(),"Pickup Partner portal is displayed","Pickup Partner portal is displayed","Pickup Partner portal is not displayed");
+
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @When("^I click on \"([^\"]*)\" button on Revival Popup$")
     public void i_click_on_something_button_on_revival_popup(String button) throws Throwable {
         try{
