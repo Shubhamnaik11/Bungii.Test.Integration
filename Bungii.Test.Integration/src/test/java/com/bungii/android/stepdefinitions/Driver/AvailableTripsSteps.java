@@ -211,8 +211,25 @@ public class AvailableTripsSteps extends DriverBase {
     @Then("^I check if \"([^\"]*)\" customer trip that is rejected is displayed$")
     public void i_check_if_something_customer_trip_that_is_rejected_is_displayed(String customerName) throws Throwable {
        try{
-           List<WebElement> list = (List<WebElement>) availableTrips.Page_AvailableBungii(customerName);
-          testStepAssert.isTrue(list.size() == 0,"The customer trip should not be present","The customer trip is present");
+
+           if (action.isElementPresent(availableTrips.Text_CustomerName())){
+               String actualName=availableTrips.Text_CustomerName().getText();
+               if(actualName==customerName)
+               {
+                   testStepAssert.isTrue(false,"Customer trip should not be present","Customer trip is present");
+               }
+           }
+           if(action.isElementPresent(availableTrips.Text_NoBungiisAvailable()))
+           {
+               testStepAssert.isTrue(true,"Customer trip should not be present","Customer trip is present");
+           }
+           else {
+               testStepAssert.isTrue(false,"Customer trip should not be present","Customer trip is present");
+
+           }
+
+          // List<WebElement> list = (List<WebElement>) availableTrips.Page_AvailableBungii(customerName);
+          //testStepAssert.isTrue(list.size() == 0,"The customer trip should not be present","The customer trip is present");
          //  Assert.assertTrue("Text not found!", list.size() > 0);
 
 
