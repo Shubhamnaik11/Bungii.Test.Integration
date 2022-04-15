@@ -51,6 +51,13 @@ public class DriverRegistrationSteps extends DriverBase {
             case "Driver Details":
                 action.click(Page_Driver_Details.Menu_DriverDetails());
                 break;
+            case "Delivery Status URL":
+                String PickupToken = (String) cucumberContextManager.getScenarioContext("PICKUP_TOKEN");
+                String url = utility.getCurrentUrl().replace("/dashboard", "/Pickup/"+PickupToken);
+                action.navigateTo(url);
+                log("I navigate to Delivery status page" ,
+                        "I navigated to Delivery status page" , false);
+                break;
         }
         pass("I should be navigate to " + page,
                 "I am navigate to " + page, false);
