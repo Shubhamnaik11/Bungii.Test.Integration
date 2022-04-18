@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
 import com.bungii.api.utilityFunctions.GoogleMaps;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.web.pages.partner.Partner_Delivery_StatusPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import com.bungii.api.utilityFunctions.CoreServices;
@@ -21,6 +22,8 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
+
+import java.util.ArrayList;
 import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -523,11 +526,22 @@ public class Partner_IntegrationSteps extends DriverBase {
         try {
             switch (status) {
                 case "En Route To Pickup":
-                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Delivery_Status(status),"Delivery Status should be shown as " + status,"Delivery Status is shown as " + status,"Delivery status is not shown as " + status);
+                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Delivery_Status(status),"Delivery Status should be shown as " + status,"Delivery Status is shown as " + status,"Delivery status is not shown as " + status);
+                    String PickupDateTime = (String) cucumberContextManager.getScenarioContext("scheduled_time");
+                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_PickupTime(PickupDateTime),"Pickup Time "+PickupDateTime+" should be displayed correctly","PickupTime is displayed correctly","PickupTime is not displayed correctly");
+                    String PickAddress = (String) cucumberContextManager.getScenarioContext("EmailPickupAddress");
+                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_PickupAddress(PickAddress),"Pickup address "+PickAddress+" should be displayed correctly","Pickup address is  displayed correctly","Pickup address is not displayed correctly");
+                    String DropAddress = (String) cucumberContextManager.getScenarioContext("EmailDeliveryAddress");
+                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_DeliveryAddress(DropAddress),"Delivery address "+DropAddress+" should be displayed correctly","Delivery address is  displayed correctly","Delivery address is not displayed correctly");
+                    String DriverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Driver1(DriverName),"Driver name "+ DriverName+ "should be displayed correctly","Driver name is  displayed correctly","Driver name is not displayed correctly");
+                    String Est_Delivery_Time = (String) cucumberContextManager.getScenarioContext("EST_DELIVERY_TIME");
+                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Est_Delivery_Time(Est_Delivery_Time),"Est. delivery time should be displayed correctly","Est. delivery time is  displayed correctly","Est. delivery time is not displayed correctly");
                     break;
                 default:
                     break;
             }
+            action.switchToTab(1);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step Should be successful", "Error in viewing Quotes only page",

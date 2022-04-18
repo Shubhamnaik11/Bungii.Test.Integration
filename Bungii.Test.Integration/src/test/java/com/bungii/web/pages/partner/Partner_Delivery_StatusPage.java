@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 public class Partner_Delivery_StatusPage extends PageBase {
 
     //Delivery Status Title
-    public WebElement Label_Delivery_Details_Title() { return findElement("//label[contains(text(),'Delivery Status')]')]", LocatorType.XPath); }
+    public WebElement Label_Delivery_Details_Title() { return findElement("//label[contains(text(),'Delivery Status')]", LocatorType.XPath); }
 
     //Delivery Status Text
     public WebElement Text_Delivery_Status(String status){return findElement(String.format("//div[@class='delivery-status']/div/span[contains(text(),'%s')]",status),LocatorType.XPath);}

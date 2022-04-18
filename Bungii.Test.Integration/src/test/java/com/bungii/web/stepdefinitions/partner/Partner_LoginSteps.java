@@ -419,6 +419,8 @@ public class Partner_LoginSteps extends DriverBase {
                     break;
                 case "see Get Estimate screen":
                     testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Label_Get_Estimate_Header(), "Get Estimate START OVER should be shown", "Get Estimate START OVER is shown", "Get Estimate START OVER is not shown");
+                    String est_delivery_time = Page_Partner_Dashboard.findElement("//label[contains(text(),'Est. Delivery Time')]/strong", PageBase.LocatorType.XPath).getText();
+                    cucumberContextManager.setScenarioContext("EST_DELIVERY_TIME",est_delivery_time);
                     //testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
                     break;
                 case "see five future days including today":
