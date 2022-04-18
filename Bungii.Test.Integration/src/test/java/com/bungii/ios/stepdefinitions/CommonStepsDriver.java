@@ -162,7 +162,8 @@ public class CommonStepsDriver extends DriverBase {
             boolean isCorrectPage = false;
 
             GeneralUtility utility = new GeneralUtility();
-            isCorrectPage = utility.verifyPageHeader(screen);
+            //isCorrectPage = utility.verifyPageHeader(screen);
+            isCorrectPage = utility.verifyDriverPageHeader(screen);
             testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I have navigated to " + screen, "I didnt navigate to " + screen + " screen ");
 
