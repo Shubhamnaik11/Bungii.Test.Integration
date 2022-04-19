@@ -144,6 +144,8 @@ public class BungiiDetailsSteps extends DriverBase {
     @When("^I start selected Bungii$")
     public void i_start_selected_bungii() {
         try {
+            Thread.sleep(3000);
+            action.scrollToBottom();
             action.click(bungiiRequest.Button_StartBungii());
             log("I start selected Bungii ", "I started selected Bungii", true);
         } catch (Exception e) {

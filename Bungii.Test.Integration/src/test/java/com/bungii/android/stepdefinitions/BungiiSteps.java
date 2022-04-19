@@ -655,16 +655,16 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_BungiiStatus2().getText(), Status.ARRIVED.toString(), "I should be navigate to ARRIVED Screen", "I am navigate to ARRIVED Screen", "I was not navigate to ARRIVED Screen");
                     break;
 
-                case "Loading Items screen":
+                case "Loading Item screen":
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_BungiiStatus2().getText(), Status.LOADING_ITEMS.toString(), "I should be navigate to LOADING ITEMS Screen", "I am navigate to LOADING ITEMS Screen", "I was not navigate to LOADING ITEMS Screen");
                     break;
 
-                case "Driving to Drop-Off screen":
+                case "Driving to DropOff screen":
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_BungiiStatus1().getText(), Status.DRIVING_TO_DROPOFF.toString(), "I should be navigate to DRIVING TO DROP OFF Screen", "I am navigate to DRIVING TO DROP OFF Screen", "I was not navigate to LOADING ITEM Screen");
                     testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Text_ETA(),"ETA should be displayed","ETA is displayed","ETA is not displayed");
                     break;
 
-                case "Unloading Items screen":
+                case "Unloading Item screen":
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_BungiiStatus2().getText(), Status.UNLOADING_ITEMS.toString(), "I should be navigate to UNLOADING_ITEMS Screen", "I am navigate to UNLOADING ITEMS Screen", "I was not navigate to UNLOADING ITEMS Screen");
 
                     break;

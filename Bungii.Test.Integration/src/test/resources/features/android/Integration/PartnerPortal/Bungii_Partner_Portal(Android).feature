@@ -2,7 +2,7 @@
 
   Feature: Partner Portal Cases integration with Android
 
-  @ready
+  @test
   Scenario: Verify that the Partner name shown on driver app
     And I am logged in as "Testdrivertywd_appleks_a_drva Kansas_a" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -19,6 +19,7 @@
     And I Select Trip from driver scheduled trip
     Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
     And I start selected Bungii
+    Then Bungii driver should see "General Instructions"
     Then Bungii driver should see "Enroute screen"
     Then Partner Portal name should be displayed in "EN ROUTE" section
     And I slide update button on "EN ROUTE" Screen
