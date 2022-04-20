@@ -25,6 +25,7 @@ public class Partner_Done extends PageBase {
     //Apply button
     public WebElement Button_Apply() { return findElement("//button[contains(text(),'Apply')]",LocatorType.XPath);}
 
-    public List<WebElement> List_Dropdown_Setting() { return findElements("//div/div[@class = 'quickAccessOptions no-access']/span",LocatorType.XPath);}
+    // Report link in dropdown
+    public WebElement Text_Report() { return findElement("//span[contains(text(),'Reports')]",LocatorType.XPath);}
 }
 

@@ -91,15 +91,8 @@ public class Partner_Reports_Steps extends DriverBase {
     @Then("^I should see \"([^\"]*)\" as an option$")
     public void i_should_see_something_as_an_option(String expectedOption) throws Throwable {
         try {
-        List<WebElement> dropdownSettings = Page_Partner_Done.List_Dropdown_Setting();
-        for (int i = 0; i < dropdownSettings.size(); i++) {
-            dropdownSettings.get(i).getText();
-            if (dropdownSettings.get(i).getText().contains(expectedOption)) {
-                String option = dropdownSettings.get(i).getText();
-                testStepAssert.isEquals(option,expectedOption,option+" option should be displayed",option+ " option  is displayed",option + " option is not displayed");
-                break;
-            }
-        }
+            boolean optionDisplayed = Page_Partner_Done.Text_Report().isDisplayed();
+            testStepAssert.isTrue(optionDisplayed,optionDisplayed+" option should be displayed",optionDisplayed+ " option  is displayed",optionDisplayed + " option is not displayed");
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -115,7 +108,6 @@ public class Partner_Reports_Steps extends DriverBase {
                 action.click(Page_Partner_Delivery.Link_Report());
                 break;
             case "Today":
-            case "Yesterday":
                 action.click(Page_Partner_Delivery.Link_ReportFilter(text));
                 break;
         }
