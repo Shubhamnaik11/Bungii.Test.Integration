@@ -1093,7 +1093,7 @@ public class ScheduledTripSteps extends DriverBase {
 				case "control":
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
 					action.click(scheduledTripsPage.Select_TestDriver());
-					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1NamePrefilled().getText();
 					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
 					break;
 				case "noncontrol":
