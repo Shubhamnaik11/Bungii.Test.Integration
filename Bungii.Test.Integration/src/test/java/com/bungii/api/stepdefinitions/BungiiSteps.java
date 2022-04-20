@@ -2893,6 +2893,15 @@ else
                     driverPassword = PropertyUtility.getDataProperties("nashville.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                }else if (geofence.equalsIgnoreCase("nashville2")) {
+                    geofence = "nashville";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("nashville.customer2.phone");
+                    custPassword = PropertyUtility.getDataProperties("nashville.customer2.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("nashville.driver2.phone");
+                    driverPassword = PropertyUtility.getDataProperties("nashville.driver2.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver2.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer2.name"));
                 } else if (geofence.equalsIgnoreCase("Kansas")) {
                     custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer.phone");
                     custPassword = PropertyUtility.getDataProperties("Kansas.customer.password");

@@ -27,7 +27,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
+    #And I am logged in as "valid nashville" driver
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I wait for "2" mins
     And I open Admin portal and navigate to "Live Deliveries" page
@@ -77,15 +78,16 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   Scenario: Verify Delivery information & Bungii completed screen For Ondemand Delivery
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
-      | nashville | Enroute      |
+      | nashville2 | Enroute      |
 	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
-    And I logged in as "valid nashville" customer
+    And I logged in as "valid nashville2" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
+    #And I am logged in as "valid nashville" driver
+    And I login as "valid nashville2" driver on "same" device and make driver status as "Online"
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     When I Switch to "customer" application on "same" devices
