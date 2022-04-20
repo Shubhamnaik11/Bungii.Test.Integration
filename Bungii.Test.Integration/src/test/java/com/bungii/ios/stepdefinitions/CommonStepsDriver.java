@@ -394,5 +394,139 @@ public class CommonStepsDriver extends DriverBase {
 
     }
 
+    @And("^I get \"([^\"]*)\" from earnings page$")
+    public void i_get_something_from_earnings_page(String earningsType) throws Throwable {
+        try{
+            switch (earningsType){
+                case "Itemized Earnings":
+                    Thread.sleep(7000);
+                    action.click(driverHomePage.Button_ItemizedEarnings());
+                    Thread.sleep(7000);
+                    String itemizedEarnings = action.getText(driverHomePage.Text_ItemizedEarnings());
+                    String actualItemizedEarnings = itemizedEarnings.substring(1);
+                    cucumberContextManager.setScenarioContext("DRIVER_ITEMIZED_EARNINGS",actualItemizedEarnings);
+                    break;
+            }
+            log("I should be able to get "+earningsType,
+                    "I could get the "+earningsType,false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while getting earnings from earnings page", true);
+        }
+    }
+    @Then("^I compare with earnings from admin portal for \"([^\"]*)\"$")
+    public void i_compare_with_earnings_from_admin_portal_for_something(String bungiiDriver) throws Throwable {
+        try{
+            switch (bungiiDriver){
+                case "solo driver":
+                    String driverEarningsOnAdminPortal= (String) cucumberContextManager.getScenarioContext("DRIVER_EARNINGS_ADMIN");
+                    String driverEarningsOnDriverApp= (String) cucumberContextManager.getScenarioContext("DRIVER_ITEMIZED_EARNINGS");
+                    testStepVerify.isEquals(driverEarningsOnDriverApp,driverEarningsOnAdminPortal,
+                            "The earnings should be same on admin portal and driver app",
+                            "The earnings are not same on admin portal and driver app");
+                    break;
+                case "duo first driver":
+                    String firstDriverEarningsOnAdminPortal= (String) cucumberContextManager.getScenarioContext("DRIVER_ONE_EARNINGS_ADMIN");
+                    String firstDriverEarningsOnDriverApp= (String) cucumberContextManager.getScenarioContext("DRIVER_ITEMIZED_EARNINGS");
+                    testStepVerify.isEquals(firstDriverEarningsOnDriverApp,firstDriverEarningsOnAdminPortal,
+                            "The earnings should be same on admin portal and driver app",
+                            "The earnings are not same on admin portal and driver app");
+                    break;
+                case "duo second driver":
+                    String secondDriverEarningsOnAdminPortal= (String) cucumberContextManager.getScenarioContext("DRIVER_TWO_EARNINGS_ADMIN");
+                    String secondDriverEarningsOnDriverApp= (String) cucumberContextManager.getScenarioContext("DRIVER_ITEMIZED_EARNINGS");
+                    testStepVerify.isEquals(secondDriverEarningsOnDriverApp,secondDriverEarningsOnAdminPortal,
+                            "The earnings should be same on admin portal and driver app",
+                            "The earnings are not same on admin portal and driver app");
+                    break;
+            }
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while getting driver earnings", true);
+        }
+    }
+    @And("^I search for \"([^\"]*)\" driver on driver details$")
+    public void i_search_for_something_driver_on_driver_details(String driverName) throws Throwable {
+        try{
+            action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),driverName);
+            action.click(scheduledTripsPage.Button_Search());
+
+            Thread.sleep(25000);
+            log("I should be able to search for the driver",
+                    "I was able to search the driver",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in searching the driver", true);
+        }
+    }
+    @And("^I click on \"([^\"]*)\" icon on driver page$")
+    public void i_click_on_something_icon_on_driver_page(String icon) throws Throwable {
+        try {
+            switch (icon){
+                case "Driver Earnings":
+                    action.click(driverHomePage.Icon_DriverEarnings());
+                    break;
+                case "View":
+                    action.click(driverHomePage.Link_ViewTrips());
+                    break;
+            }
+            log("I should be able to click on "+icon,
+                    "I could click on"+icon,false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while clicking on"+icon, true);
+        }
+    }
+    @And("^I get \"([^\"]*)\" from driver earnings page on admin portal for \"([^\"]*)\"$")
+    public void i_get_something_from_driver_earnings_page_on_admin_portal_for_something(String strArg1, String bungiiType) throws Throwable {
+        try{
+            switch(bungiiType){
+                case "solo driver":
+                    String driverEarnings = action.getText(driverHomePage.Text_DriverEarnings());
+                    String actualDriverEarnings = driverEarnings.substring(1);
+                    cucumberContextManager.setScenarioContext("DRIVER_EARNINGS_ADMIN",actualDriverEarnings);
+                    break;
+                case "duo first driver":
+                    String firstDriverEarnings = action.getText(driverHomePage.Text_DriverEarnings());
+                    String firstActualDriverEarnings = firstDriverEarnings.substring(1);
+                    cucumberContextManager.setScenarioContext("DRIVER_ONE_EARNINGS_ADMIN",firstActualDriverEarnings);
+                    break;
+                case "duo second driver":
+                    String secondDriverEarnings = action.getText(driverHomePage.Text_DriverEarnings());
+                    String secondActualDriverEarnings = secondDriverEarnings.substring(1);
+                    cucumberContextManager.setScenarioContext("DRIVER_TWO_EARNINGS_ADMIN",secondActualDriverEarnings);
+                    break;
+
+            }
+            log("I should get the driver earnings from the admin portal",
+                    "I could get the driver earnings from the admin portal",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in verifying details under Past Bungiis", true);
+        }
+
+    }
+    @And("^I click on \"([^\"]*)\" button$")
+    public void i_click_on_something_button(String button) throws Throwable {
+        try{
+            switch (button)
+            {
+                case "BACK":
+                    action.click(driverHomePage.Button_BackItemizedEarnings());
+                    break;
+            }
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
 }

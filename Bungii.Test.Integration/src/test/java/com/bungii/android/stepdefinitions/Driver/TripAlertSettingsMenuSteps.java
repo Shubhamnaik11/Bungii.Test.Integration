@@ -38,6 +38,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     SearchingPage searchingPage = new SearchingPage();
+    MyBungiisPage myBungiisPage = new MyBungiisPage();
 
 
     @And("^I click on \"([^\"]*)\" tab$")
@@ -287,6 +288,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "SUBMIT REASON":
                     action.click(setPickupTimePage.Button_SubmitCancellationReason());
+                    break;
+
+                case "BACK":
+                    action.click(myBungiisPage.Button_Back());
                     break;
 
                 default:
