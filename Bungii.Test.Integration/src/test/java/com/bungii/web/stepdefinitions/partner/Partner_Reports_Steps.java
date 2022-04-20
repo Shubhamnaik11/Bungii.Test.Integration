@@ -92,7 +92,7 @@ public class Partner_Reports_Steps extends DriverBase {
     public void i_should_see_something_as_an_option(String expectedOption) throws Throwable {
         try {
             boolean optionDisplayed = Page_Partner_Done.Text_Report().isDisplayed();
-            testStepAssert.isTrue(optionDisplayed,optionDisplayed+" option should be displayed",optionDisplayed+ " option  is displayed",optionDisplayed + " option is not displayed");
+            testStepAssert.isTrue(optionDisplayed,"option should be displayed", "option is displayed","option is not displayed");
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
