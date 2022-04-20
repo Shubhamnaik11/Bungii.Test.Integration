@@ -57,5 +57,5 @@ Feature: FORGOT PASSWORD
     And I should be navigated to "Home" screen on driverApp
 
     Examples:
-      | Scenario    | Value        | New Password | Confirm Password  | Expected Message        |
-      | VALID PHONE | {VALID USER} | Cci12345     | Cci12345          | PASSWORD CHANGE SUCCESS |
+      | Scenario    | Value         | New Password | Confirm Password  | Expected Message        |
+      | VALID PHONE | {VALID USER1} | Cci12345     | Cci12345          | PASSWORD CHANGE SUCCESS |
