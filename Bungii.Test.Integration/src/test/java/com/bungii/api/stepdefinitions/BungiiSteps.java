@@ -4057,9 +4057,9 @@ else
                 Details[1]=PropertyUtility.getDataProperties("customerB.phone.password");
                 Details[2]=PropertyUtility.getDataProperties("customerB.phone.name");
 
-                Details[3]=PropertyUtility.getDataProperties("driverB.phone.number");
-                Details[4]=PropertyUtility.getDataProperties("driverB.phone.password");
-                Details[5]=PropertyUtility.getDataProperties("driverB.phone.name");
+                Details[3]=PropertyUtility.getDataProperties("goa.driver2.phone");
+                Details[4]=PropertyUtility.getDataProperties("goa.driver2.password");
+                Details[5]=PropertyUtility.getDataProperties("goa.driver2.name");
                 break;
 
             case "Testcustomertywd_appleand_C Android":

@@ -40,6 +40,7 @@
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from available trip
         Then I should be able to see "Customer Note" Text
+        And I terminate "driver" app on "same" devices
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
@@ -78,6 +79,7 @@
         And I Select "SCHEDULED BUNGIIS" from driver App menu
         And I Select Trip from driver scheduled trip
         Then I should be able to see "Customer Note" Text
+        And I terminate "driver" app on "same" devices
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
@@ -117,11 +119,13 @@
         And I Select "SCHEDULED BUNGIIS" from driver App menu
         And I Select Trip from driver scheduled trip
         Then I start selected Bungii
+        Then Bungii driver should see "General Instructions"
         When I slide update button on "EN ROUTE" Screen
         And I slide update button on "ARRIVED" Screen
         And I click on "MORE" button
         And I click on "DETAILS FROM CUSTOMER" button
         Then I should be able to see "Details From Customer" Text
+        And I terminate "driver" app on "same" devices
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
@@ -158,6 +162,7 @@
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from driver available trip
         Then I should be able to see "Customer Note" Text
+        And I terminate "driver" app on "same" devices
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
