@@ -104,6 +104,7 @@ Feature: On Demand Bungii
 
     #When I Open "driver" application on "same" devices
     And Bungii Driver "accepts On Demand Bungii" request
+    Then Bungii driver should see "General Instructions"
     Then Bungii driver should see "Enroute screen"
 
     When I Switch to "customer" application on "same" devices
@@ -119,20 +120,20 @@ Feature: On Demand Bungii
 
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Loading Item screen"
+    Then Bungii driver should see "Loading Items screen"
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Loading Item screen"
 
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Driving to DropOff screen"
+    Then Bungii driver should see "Driving to Drop-Off screen"
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Driving to DropOff screen"
 
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Unloading Item screen"
+    Then Bungii driver should see "Unloading Items screen"
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Unloading Item screen"

@@ -5,6 +5,7 @@ import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -14,7 +15,7 @@ import static com.bungii.common.manager.ResultManager.error;
 
 public class BungiiCompletedSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(AvailableTripsSteps.class);
-    BungiiCompletedPage bungiiCompletedSteps = new BungiiCompletedPage();
+    BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     ActionManager action = new ActionManager();
     double DRIVER_SHARE=0.7,TRANSACTION_FEE=0.029,TR_COST=0.3;
     GeneralUtility utility= new GeneralUtility();
@@ -48,7 +49,7 @@ public class BungiiCompletedSteps extends DriverBase {
      */
         public void verifyBungiiCompletedPage() throws InterruptedException {
             Thread.sleep(6000);
-            testStepVerify.isElementTextEquals(bungiiCompletedSteps.Title_Status(),"BUNGII COMPLETED");
+            testStepVerify.isElementTextEquals(bungiiCompletedPage.Title_Status(),"BUNGII COMPLETED");
 
            // testStepVerify.isElementEnabled(bungiiCompletedSteps.Image_Dollar(),"'Dollar Image' should be displayed on Summary page","'Dollar Image' is displayed","'Dollar Image' is not displayed");
            // testStepVerify.isElementEnabled(bungiiCompletedSteps.Text_Label(),"'Cha-Ching' should be displayed on Summary page","'Cha-Ching' is displayed","'Cha-Ching' is not displayed");
@@ -70,7 +71,7 @@ public class BungiiCompletedSteps extends DriverBase {
                 bungiiDriver=((DRIVER_SHARE*bungiiCostCustomer-((TRANSACTION_FEE*bungiiCostCustomer*0.5+TR_COST)*2))/2);
 
             String truncValue = new DecimalFormat("#.00").format(bungiiDriver);
-            String toatlEarning=action.getText(bungiiCompletedSteps.Text_TotalEarnings());
+            String toatlEarning=action.getText(bungiiCompletedPage.Text_TotalEarnings());
             /*String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
             //Trip distance value is displayed till 1 decimanl point
 
@@ -90,4 +91,38 @@ public class BungiiCompletedSteps extends DriverBase {
             testStepVerify.isEquals(actualTotalDistance,tripDistance);*/
             testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning be $"+truncValue);
         }
+
+    @And("Bungii Driver selects customer experience as {string}")
+    public void bungiiDriverSelectsCustomerExperienceAs(String arg0) {
+            try{
+                Thread.sleep(5000);
+                switch (arg0){
+                    case "Friendly":
+                        action.scrollToBottom();
+                        action.click(bungiiCompletedPage.Icon_RatingFriendly());
+                        break;
+                    case "Respectful":
+                        action.click(bungiiCompletedPage.Icon_RatingRespectful());
+                        break;
+                    case "Clear Expectations":
+                        action.click(bungiiCompletedPage.Icon_RatingClearExpectations());
+                        break;
+                    case "Smiled":
+                        action.click(bungiiCompletedPage.Icon_RatingSmiled());
+                        break;
+                    case "Available":
+                        action.click(bungiiCompletedPage.Icon_RatingAvailable());
+                        break;
+                    case "Grateful":
+                        action.click(bungiiCompletedPage.Icon_RatingGrateful());
+                        break;
+                }
+                action.click(bungiiCompletedPage.Button_SubmitRating());
+            }
+            catch(Exception e){
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step  Should be successful",
+                        "Error performing step,Please check logs for more details", true);
+            }
+    }
 }

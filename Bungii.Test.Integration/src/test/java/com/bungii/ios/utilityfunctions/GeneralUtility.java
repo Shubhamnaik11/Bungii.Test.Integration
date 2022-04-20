@@ -599,6 +599,18 @@ public class GeneralUtility extends DriverBase {
 
     }
 
+    public boolean verifyDriverPageHeader(String key) throws InterruptedException{
+        String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
+
+        boolean isCorrectPage = false;
+        String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
+
+        action.textToBePresentInElementName(driverHomePage.Text_DriverNavigationBar(key), expectedMessage);
+        isCorrectPage = action.getScreenHeader(driverHomePage.Text_DriverNavigationBar(key)).equals(expectedMessage);
+
+        return isCorrectPage;
+    }
+
     public boolean verifyPageHeader(String key) throws InterruptedException {
         String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 
@@ -806,11 +818,20 @@ public class GeneralUtility extends DriverBase {
             case "LOADING ITEM":
                 expectedMessage = Status.LOADING_ITEM.toString();
                 break;
+            case "LOADING ITEMS":
+                expectedMessage = Status.LOADING_ITEMS.toString();
+                break;
             case "DRIVING TO DROP OFF":
                 expectedMessage = Status.DRIVING_TO_DROP_OFF.toString();
                 break;
+            case "DRIVING TO DROP-OFF":
+                expectedMessage = Status.DRIVING_TO_DROPOFF.toString();
+                break;
             case "UNLOADING ITEM":
                 expectedMessage = Status.UNLOADING_ITEM.toString();
+                break;
+            case "UNLOADING ITEMS":
+                expectedMessage = Status.UNLOADING_ITEMS.toString();
                 break;
             default:
                 // error("Verify Screen " + screen, "UnImplemented Step or in correct screen", "UnImplemented Step", true);

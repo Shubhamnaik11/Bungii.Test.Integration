@@ -93,6 +93,8 @@ public class DriverMenuSteps extends DriverBase {
                 case "AVAILABLE BUNGIIS":
                     data = action.getText(homePage.Text_AvailableTrips()).toString();
                     testStepAssert.isElementTextEquals(homePage.Text_AvailableTrips(), "No Bungiis available", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    String NoDeliveriesExpectedText = action.getText(homePage.Text_NoDeliveriesAvailable());
+                    testStepAssert.isElementTextEquals(homePage.Text_NoDeliveriesAvailable(),"There are no deliveries available.\nTry checking back later.", NoDeliveriesExpectedText + " is displayed", NoDeliveriesExpectedText + " is displayed", NoDeliveriesExpectedText + " is not displayed");
                     break;
 
                 case "EARNINGS":

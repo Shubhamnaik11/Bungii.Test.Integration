@@ -162,7 +162,8 @@ public class CommonStepsDriver extends DriverBase {
             boolean isCorrectPage = false;
 
             GeneralUtility utility = new GeneralUtility();
-            isCorrectPage = utility.verifyPageHeader(screen);
+            //isCorrectPage = utility.verifyPageHeader(screen);
+            isCorrectPage = utility.verifyDriverPageHeader(screen);
             testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I have navigated to " + screen, "I didnt navigate to " + screen + " screen ");
 
@@ -200,7 +201,12 @@ public class CommonStepsDriver extends DriverBase {
             switch (field.toUpperCase()) {
                 case "PHONE NUMBER":
                         if (screen.equalsIgnoreCase("FORGOT PASSWORD")) {
-                            inputValue = value.equalsIgnoreCase("{VALID USER}") ? PropertyUtility.getDataProperties("ios.valid.driver.phone") : inputValue;
+                            if(value.equalsIgnoreCase("{{VALID USER}}")) {
+                                inputValue = value.equalsIgnoreCase("{VALID USER}") ? PropertyUtility.getDataProperties("ios.valid.driver.phone") : inputValue;
+                            }
+                            else if(value.equalsIgnoreCase("{VALID USER1}")){
+                                inputValue = value.equalsIgnoreCase("{VALID USER1}") ? PropertyUtility.getDataProperties("ios.valid.driver1.phone") : inputValue;
+                            }
                             action.clearEnterText(driverForgotPasswordPage.Text_InputNumber(), inputValue);
                             cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", inputValue);
                         }
@@ -242,7 +248,8 @@ public class CommonStepsDriver extends DriverBase {
             switch (key.toUpperCase()) {
 
                 case "FAILED TO SEND TOKEN":
-                    expectedText = PropertyUtility.getMessage("driver.forgotpassword.failed.reset");
+                    //expectedText = PropertyUtility.getMessage("driver.forgotpassword.failed.reset");
+                    expectedText = PropertyUtility.getMessage("common.failed.message");
                     break;
                 case "PASSWORD CHANGE SUCCESS":
                     expectedText = PropertyUtility.getMessage("driver.forgotpassword.success");
