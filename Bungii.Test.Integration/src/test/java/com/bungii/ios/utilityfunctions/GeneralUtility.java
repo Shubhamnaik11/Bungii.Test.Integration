@@ -599,6 +599,18 @@ public class GeneralUtility extends DriverBase {
 
     }
 
+    public boolean verifyDriverPageHeader(String key) throws InterruptedException{
+        String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
+
+        boolean isCorrectPage = false;
+        String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
+
+        action.textToBePresentInElementName(driverHomePage.Text_DriverNavigationBar(key), expectedMessage);
+        isCorrectPage = action.getScreenHeader(driverHomePage.Text_DriverNavigationBar(key)).equals(expectedMessage);
+
+        return isCorrectPage;
+    }
+
     public boolean verifyPageHeader(String key) throws InterruptedException {
         String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 

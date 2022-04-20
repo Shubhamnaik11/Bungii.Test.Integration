@@ -109,7 +109,7 @@ Feature: Promos
       | Invalid | AAAAAAA | Invalid Promo    |
 
   @regression
-  Scenario Outline: Verify +Customer Cannot Add Referral Promocode After Creating Account And Is Alerted That Referral Code Are For New Customer Only
+  Scenario Outline: Verify Customer Cannot Add Referral Promocode After Creating Account And Is Alerted That Referral Code Are For New Customer Only
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
