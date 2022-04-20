@@ -2265,7 +2265,8 @@ public class CommonSteps extends DriverBase {
                     expectedText = PropertyUtility.getMessage("customer.promos.already.existing.code");
                     break;
                 case "FAILED TO SEND TOKEN":
-                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
+                    //expectedText = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
+                    expectedText = PropertyUtility.getMessage("common.failed.message");
                     break;
                 case "PASSWORD CHANGE SUCCESS":
                     expectedText = PropertyUtility.getMessage("customer.forgotpassword.sucess");

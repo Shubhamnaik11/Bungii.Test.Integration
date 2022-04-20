@@ -18,9 +18,12 @@ public class ForgotPasswordSteps extends DriverBase {
     @And("^I Get SMS CODE for \"([^\"]*)\" number on driverApp$")
     public void i_get_sms_code_for_driverNumber(String strArg1) {
         try {
-
-            String phoneNumber= strArg1.equalsIgnoreCase("{VALID USER}")? PropertyUtility.getDataProperties("ios.valid.driver.phone"):strArg1;
-
+            String phoneNumber="";
+            if(strArg1.equalsIgnoreCase("{VALID USER}")) {
+                phoneNumber = strArg1.equalsIgnoreCase("{VALID USER}") ? PropertyUtility.getDataProperties("ios.valid.driver.phone") : strArg1;
+            }else if(strArg1.equalsIgnoreCase("{VALID USER1}")) {
+                phoneNumber = strArg1.equalsIgnoreCase("{VALID USER1}") ? PropertyUtility.getDataProperties("ios.valid.driver1.phone") : strArg1;
+            }
             Thread.sleep(3000);
             String smsCode = DbUtility.getVerificationCodeDriver(phoneNumber);
 //            driverForgotPasswordPage.visibilityOf(driverForgotPasswordPage.Button_Continue());
