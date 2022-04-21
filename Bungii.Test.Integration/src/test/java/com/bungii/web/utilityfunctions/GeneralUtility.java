@@ -1099,5 +1099,12 @@ public class GeneralUtility extends DriverBase {
         }
         return "data:image/png;base64,"+base64;
     }
+
+    public int GetUniqueNumber(){
+        Random random = new Random();
+        // Generate random integers in range 0 to 999
+        int random_int = random.nextInt(1000);
+        return random_int;
+    }
 }
 

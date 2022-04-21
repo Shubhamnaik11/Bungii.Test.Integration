@@ -433,7 +433,7 @@ try{
             String url = utility.getCurrentUrl().replace("/login", "/quote-only");
             action.navigateTo(url);
             log("I navigate to Quote-only page" ,
-                    "I navigated to Quote-only page" , false);
+                    "I navigated to Quote-only page " + url , false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step Should be successful", "Error in navigating to Quote-only page",
