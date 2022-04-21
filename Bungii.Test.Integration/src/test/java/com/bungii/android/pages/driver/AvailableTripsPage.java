@@ -64,7 +64,7 @@ public class AvailableTripsPage extends PageBase {
 
     public WebElement Text_CustomerName() {return findElement("com.bungii.driver:id/row_available_pickup_drivername",LocatorType.Id);}
 
-    public WebElement Text_NoBungiisAvailable() {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id);}
+    public WebElement Text_NoBungiisAvailable(boolean...ignoreException) {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id,ignoreException);}
 
 
 

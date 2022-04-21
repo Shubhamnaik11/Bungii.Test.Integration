@@ -176,7 +176,21 @@ public class AvailableTripsSteps extends DriverBase {
 					true);
 		}
 	}
-
+//	@And("^I click on the back button and verify that rejection popup is absent$")
+//	public void i_click_on_the_back_button_and_verify_that_rejection_popup_is_absent() throws Throwable {
+//		try{
+//			action.click(availableTrips.Button_Back());
+//			Thread.sleep(2000);
+//
+//			testStepAssert.isFalse(action.isElementPresent(availableTrips.Text_RejectionPopup(true)),"Rejection Reason pop-up must not be displayed","Rejection Reason pop-up is not displayed", "Rejection Reason pop-up is displayed");
+//
+//		}
+//		catch (Exception ex){
+//			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+//			error("Step should be successful", "I cannot click on back button",
+//					true);
+//		}
+//	}
 
 
 }

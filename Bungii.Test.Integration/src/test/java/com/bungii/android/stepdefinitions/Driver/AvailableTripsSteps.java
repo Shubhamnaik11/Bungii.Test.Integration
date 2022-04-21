@@ -8,6 +8,7 @@ import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import io.appium.java_client.MobileElement;
@@ -27,6 +28,7 @@ public class AvailableTripsSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility= new GeneralUtility();
     DriverHomePage driverHomePage = new DriverHomePage();
+    DbUtility dbUtility = new DbUtility();
 
     @And("I Select Trip from driver available trip")
     public void iSelectTripFromDriverAvailableTrip() {
@@ -198,7 +200,7 @@ public class AvailableTripsSteps extends DriverBase {
       try{
             Thread.sleep(1000);
             action.click(availableTrips.Button_Back());
-            Thread.sleep(2000);
+            Thread.sleep(10000);
 
             testStepAssert.isElementDisplayed(availableTrips.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
       }
@@ -219,7 +221,7 @@ public class AvailableTripsSteps extends DriverBase {
                    testStepAssert.isTrue(false,"Customer trip should not be present","Customer trip is present");
                }
            }
-           if(action.isElementPresent(availableTrips.Text_NoBungiisAvailable()))
+           else if(action.isElementPresent(availableTrips.Text_NoBungiisAvailable(true)))
            {
                testStepAssert.isTrue(true,"Customer trip should not be present","Customer trip is present");
            }
@@ -227,12 +229,6 @@ public class AvailableTripsSteps extends DriverBase {
                testStepAssert.isTrue(false,"Customer trip should not be present","Customer trip is present");
 
            }
-
-          // List<WebElement> list = (List<WebElement>) availableTrips.Page_AvailableBungii(customerName);
-          //testStepAssert.isTrue(list.size() == 0,"The customer trip should not be present","The customer trip is present");
-         //  Assert.assertTrue("Text not found!", list.size() > 0);
-
-
        }
        catch (Exception e) {
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -298,6 +294,25 @@ public class AvailableTripsSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "I cannot click on "+button+" button",
                     true);
+        }
+    }
+    @Then("^I check if the reason is saved in db$")
+    public void i_check_if_the_reason_is_saved_in_db() throws Throwable {
+        try{
+            String driverNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_NUMBER");
+            String reason = dbUtility.checkRejectionReason(driverNumber);
+            if(!(reason.isEmpty()))
+            {
+                testStepAssert.isTrue(true,"The rejection reason is saved in db","The rejection reason is not saved in db");
+            }
+            else{
+                testStepAssert.isTrue(false,"The rejection reason is saved in db","The rejection reason is not saved in db");
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
     @Then("^I verify the rejection popup is displayed$")

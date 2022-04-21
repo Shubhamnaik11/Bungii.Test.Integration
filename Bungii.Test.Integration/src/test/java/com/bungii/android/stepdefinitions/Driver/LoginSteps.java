@@ -27,6 +27,7 @@ public class LoginSteps extends DriverBase {
     DriverHomePage driverHomePage =new DriverHomePage();
     AuthServices authServices = new AuthServices();
 
+
     @Given("^I am logged in as \"([^\"]*)\" driver$")
     public void i_am_logged_in_as_something_driver(String option) throws Throwable {
         try {
@@ -317,6 +318,7 @@ public class LoginSteps extends DriverBase {
             String strPassWord = password.equals("<BLANK>") ? "" : password.equals("{VALID}") ? PropertyUtility.getDataProperties("valid.driver.password") : password;
 
             utility.enterDriverPhoneAndPassword(strUserName, strPassWord);
+            cucumberContextManager.setScenarioContext("DRIVER_PHONE_NUMBER",username);
 
             pass("Username and Password should be added successfully",
             "Entered Driver Credentials ["+ strUserName+" / "+strPassWord+"] successfully");

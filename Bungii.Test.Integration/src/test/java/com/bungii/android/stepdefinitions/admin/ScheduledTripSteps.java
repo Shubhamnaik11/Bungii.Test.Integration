@@ -1013,8 +1013,8 @@ public class ScheduledTripSteps extends DriverBase {
 			pass("I should able to open trip", "I viewed scheduled delivery",
 					false);
 
-			log(" I click on Edit link besides the scheduled bungii",
-					"I have clicked on Edit link besides the scheduled bungii", false);
+			log(" I click on Delivery Details besides the scheduled bungii",
+					"I have clicked on Delivery Details besides the scheduled bungii", false);
 		} catch(Exception e){
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error("Step should be successful", "Error performing step,Please check logs for more details",
