@@ -1,4 +1,5 @@
 @web
+@test
 Feature: Admin_Geofence
 
   Background:
