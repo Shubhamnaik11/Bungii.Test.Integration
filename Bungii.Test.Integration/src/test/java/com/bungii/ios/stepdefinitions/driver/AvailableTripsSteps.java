@@ -7,7 +7,6 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.AvailableTripsPage;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -90,16 +89,28 @@ public class AvailableTripsSteps extends DriverBase {
 			switch (Screen) {
 				case "AVAILABLE BUNGIIS":
 				case "SCHEDULED BUNGIIS":
+                    String partnerName = availableTripsPage.Partner_Name().getText();
+                    String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
+                    //testStepVerify.isEquals(partnerName,partnerNameExpected);
+                    testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be display in " + Screen + " section", "Partner Portal name is displayed in " + Screen + " section", "Partner Portal name is not displayed in " + Screen + " section");
+                    break;
+
 				case "EN ROUTE":
 				case "ARRIVED":
-				case "LOADING ITEM":
-				case "DRIVING TO DROP OFF":
-				case "UNLOADING ITEM":
-					String partnerName = availableTripsPage.Partner_Name().getText();
-					String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
-					//testStepVerify.isEquals(partnerName,partnerNameExpected);
-					testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be display in " + Screen + " section", "Partner Portal name is displayed in " + Screen + " section", "Partner Portal name is not displayed in " + Screen + " section");
+				case "LOADING ITEMS":
+					String portal = (String) cucumberContextManager.getScenarioContext("Portal_Name");
+					String namePartner= availableTripsPage.Text_PartnerName(portal).getText();
+					String expectedName = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
+					testStepAssert.isEquals(namePartner, expectedName, "Partner Portal name should be display in " + Screen + " section", "Partner Portal name is displayed in " + Screen + " section", "Partner Portal name is not displayed in " + Screen + " section");
 					break;
+
+                case "DRIVING TO DROP-OFF":
+                case "UNLOADING ITEMS"://
+					String expectedCustomerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+					String customerNamehalf = expectedCustomerName.substring(0,28);
+					String nameCustomer= action.getText(availableTripsPage.Text_PartnerName(customerNamehalf));
+                    testStepAssert.isEquals(nameCustomer, customerNamehalf, "Customer name  should be display in " + Screen + " section", "Customer name is displayed in " + Screen + " section", "Customer name is not displayed in " + Screen + " section");
+                    break;
 				default:
 					log("Pass correct screen", "Wrong screen has been Pass", true);
 					break;
