@@ -31,10 +31,10 @@ public class AvailableTripsSteps extends DriverBase {
 	public void i_select_trip_from_available_trip() {
 		try {
 			Thread.sleep(5000);
-			String a  = action.getText(availableTripsPage.Text_FromHomeMiles());
+			String milesText  = action.getText(availableTripsPage.Text_FromHomeMiles());
 			Thread.sleep(2000);
-			boolean b = a.contains("miles");
-			testStepAssert.isTrue(b,"Text should be updated to miles","Text is updated to miles","Text is not updated to miles");
+			boolean isMilesPresent = milesText.contains("miles");
+			testStepAssert.isTrue(isMilesPresent,"Text should be updated to miles","Text is updated to miles","Text is not updated to miles");
 
 			if (action.isAlertPresent()){ SetupManager.getDriver().switchTo().alert().dismiss();   Thread.sleep(1000);        }
 

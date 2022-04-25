@@ -34,4 +34,5 @@ Feature: Partner Portal Cases integration with IOS
     Then I should be navigated to "UNLOADING ITEMS" trip status screen on driver
     Then Partner Portal name should be displayed in "UNLOADING ITEMS" section
     And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
