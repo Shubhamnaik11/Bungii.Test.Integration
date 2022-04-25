@@ -154,7 +154,7 @@ Feature: Scheduled DUO Bungii
     
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -262,7 +262,7 @@ Feature: Scheduled DUO Bungii
     And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -343,7 +343,7 @@ Feature: Scheduled DUO Bungii
     And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -412,7 +412,7 @@ Feature: Scheduled DUO Bungii
     And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
