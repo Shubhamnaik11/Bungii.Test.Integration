@@ -1,4 +1,5 @@
-@web
+@webremoved
+@test
 Feature: Admin_Geofence
 
   Background:

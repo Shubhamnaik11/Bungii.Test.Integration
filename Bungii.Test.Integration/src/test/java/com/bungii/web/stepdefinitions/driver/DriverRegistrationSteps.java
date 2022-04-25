@@ -16,6 +16,7 @@ import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jsoup.nodes.Document;
 
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -94,12 +95,13 @@ try{
             case "valid":
                 action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName"));
                 String Lastname = utility.GetUniqueLastName();
+                int randomnumber = utility.GetUniqueNumber();
                 action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(),Lastname);
                 cucumberContextManager.setScenarioContext("FIRSTNAME", PropertyUtility.getDataProperties("DriverFirstName"));
                 cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
                 cucumberContextManager.setFeatureContextContext("LASTNAME", Lastname);
 
-                action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), "bungiiauto"+Lastname+"@cci.com"); //PropertyUtility.getDataProperties("DriverEmail"));
+                action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), "bungiiauto+"+randomnumber+"@gmail.com"); //PropertyUtility.getDataProperties("DriverEmail"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_CreatePassword(), PropertyUtility.getDataProperties("DriverPassword"));
                 //action.clearSendKeys(Page_Driver_Reg.TextBox_ConfirmPassword(), PropertyUtility.getDataProperties("DriverPassword"));
                 action.selectElementByText(Page_Driver_Reg.Dropdown_Location(),PropertyUtility.getDataProperties("DriverLocation"));
