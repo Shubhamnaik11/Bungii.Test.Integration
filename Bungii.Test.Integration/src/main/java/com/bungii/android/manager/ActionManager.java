@@ -734,4 +734,9 @@ public class ActionManager {
             return false;
 
     }
+
+    public void JavaScriptScrollDown(WebElement element){
+        JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+        executor.executeScript("arguments[0].scrollIntoView();", element);
+    }
 }

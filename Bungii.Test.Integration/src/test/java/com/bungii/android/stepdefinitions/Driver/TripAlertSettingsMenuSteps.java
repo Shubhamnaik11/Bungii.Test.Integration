@@ -239,10 +239,12 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "VERIFY":
+                    action.JavaScriptScrollDown(scheduledTripsPage.findElement("//button[contains(text(),'VERIFY')]", PageBase.LocatorType.XPath));
                     action.click(scheduledTripsPage.Button_VerifyDriver());
                     break;
 
                 case "SAVE CHANGES":
+                    action.JavaScriptScrollDown(scheduledTripsPage.findElement("//button[@class='btn btn-primary ml15 saveTrip']", PageBase.LocatorType.XPath));
                     action.click(scheduledTripsPage.Button_SaveChanges());
                     break;
 
