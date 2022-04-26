@@ -2188,7 +2188,23 @@ try{
     String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
     String pickupref= new DbUtility().getLatestPickupRefOfCustomer(customerRef);
      cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupref);
-     Thread.sleep(1000);
+     String tripType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+     if (tripType.equals("Solo Scheduled")){
+         cucumberContextManager.setScenarioContext("BUNGII_TYPE","Duo Scheduled");
+     }
+     else if(tripType.equals("Duo Scheduled")) {
+         cucumberContextManager.setScenarioContext("BUNGII_TYPE","Solo Scheduled");
+     }
+     utility.resetGeofenceDropdown();
+        Thread.sleep(1000);
+    }
+
+    @And("^I get the latest \"([^\"]*)\"$")
+    public void i_get_the_latest_something(String strArg1) throws Throwable {
+        String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
+        String pickupref= new DbUtility().getLatestPickupRefOfCustomer(customerRef);
+        cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupref);
+        utility.resetGeofenceDropdown();
     }
 
 }

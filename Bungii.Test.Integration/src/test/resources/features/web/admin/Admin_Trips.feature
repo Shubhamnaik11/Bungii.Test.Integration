@@ -289,8 +289,7 @@ Feature: Admin_Trips
 #    And I view the Deliveries list on the admin portal
 #    Then The Delivery List page should display the delivery in "Payment Successful" state
 
-  @regression
-    @testAllan
+  @ready
   Scenario: To verify search happens when admin changes from solo to duo when trip was accepted by only 1 driver
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -313,7 +312,7 @@ Feature: Admin_Trips
     When I wait for 2 minutes
     And I get the new "pickup reference"
     And I view the all Scheduled Deliveries list on the admin portal
-    Then I should be able to see the respective bungii partner portal trip with the below status
+    Then I should be able to see the respective bungii with the below status
       | Status           |
       | Assigning Driver(s)|
     And  I search the delivery using "Pickup Reference"
@@ -325,7 +324,47 @@ Feature: Admin_Trips
     Then "Bungii Saved!" message should be displayed
     When I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
+    And I get the latest "pickup Reference"
     And  I search the delivery using "Pickup Reference"
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
+
+
+
+@ready
+  Scenario: To verify research happens when admin changes from solo to duo and assigns only one driver
+  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+   | Bungii Time   | Customer Phone | Customer Name |
+   | NEXT_POSSIBLE | 9999999358 | Testcustomertywd_appleWashC Shah|
+  And I wait for 2 minutes
+  And I view the all Scheduled Deliveries list on the admin portal
+  And  I search the delivery using "Pickup Reference"
+  Then I should be able to see the respective bungii with the below status
+    | Status           |
+    | Assigning Driver(s)|
+  When I click on "Edit" link beside scheduled bungii
+  And I click on "Edit Trip Details" radiobutton
+  And I change the delivery type from "Solo" to "Duo"
+  And I click on "Add Driver" and add "Testdrivertywd_appledc_a_web TestdriverB" driver
+  And I click on "Verify" button on Edit Scheduled bungii popup
+  And I click on "Save" button on Edit Scheduled bungii popup
+  Then "Bungii Saved!" message should be displayed
+  When I wait for 2 minutes
+  And I get the new "pickup reference"
+  And I view the all Scheduled Deliveries list on the admin portal
+  Then I should be able to see the respective bungii with the below status
+    | Status           |
+    | Assigning Driver(s)|
+  When I click on "Edit" link beside scheduled bungii
+  And I click on "Remove driver(s) and re-search" radiobutton
+  And I select the first driver
+  And I click on "Remove Driver" button
+  And I click on "Research" button
+  When I wait for 2 minutes
+  And I get the latest "pickup Reference"
+  And I view the all Scheduled Deliveries list on the admin portal
+  And  I search the delivery using "Pickup Reference"
+  Then I should be able to see the respective bungii with the below status
+    | Status           |
+    | Assigning Driver(s)|
