@@ -145,7 +145,7 @@ Feature: Partner Integration with Admin and Driver
       | Partner_Status |
       | Canceled       |
   
-  @2504
+  @regression
     #Stable
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip from Driver
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
