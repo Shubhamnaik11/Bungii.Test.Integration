@@ -735,7 +735,7 @@ public class ActionManager {
 
     }
 
-    public void JavaScriptScrollDown(WebElement element){
+    public void javaScriptScrollDown(WebElement element){
         JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
         executor.executeScript("arguments[0].scrollIntoView();", element);
     }
