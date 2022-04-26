@@ -2171,4 +2171,24 @@ try{
         }
     }
 
+    @And("^I change the delivery type from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_change_the_delivery_type_from_something_to_something(String initialTripTypeStatus, String expectedTripTypeStatus) throws Throwable {
+        switch (expectedTripTypeStatus){
+            case "Solo":
+                Thread.sleep(1000);
+                action.click(admin_TripsPage.RadioButton_SoloTrip());
+                break;
+            case "Duo":
+                action.click(admin_TripsPage.RadioButton_DuoTrip());
+                break;
+        }
+    }
+    @And("^I get the new \"([^\"]*)\"$")
+    public void i_get_the_new_something(String strArg1) throws Throwable {
+    String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
+    String pickupref= new DbUtility().getLatestPickupRefOfCustomer(customerRef);
+     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupref);
+     Thread.sleep(1000);
+    }
+
 }

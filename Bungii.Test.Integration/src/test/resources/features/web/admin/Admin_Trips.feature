@@ -289,4 +289,43 @@ Feature: Admin_Trips
 #    And I view the Deliveries list on the admin portal
 #    Then The Delivery List page should display the delivery in "Payment Successful" state
 
-  
+  @regression
+    @testAllan
+  Scenario: To verify search happens when admin changes from solo to duo when trip was accepted by only 1 driver
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999999362 | Testcustomertywd_appleWashG Shah|
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted  |
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then I should be able to see the respective bungii with the below status
+    |  Status |
+    | Scheduled |
+    When I click on "Edit" link beside scheduled bungii
+    And I click on "Edit Trip Details" radiobutton
+    And I change the delivery type from "Solo" to "Duo"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    When I wait for 2 minutes
+    And I get the new "pickup reference"
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      | Assigning Driver(s)|
+    And  I search the delivery using "Pickup Reference"
+    When I click on "Edit" link beside scheduled bungii
+    And I click on "Edit Trip Details" radiobutton
+    And I click on "Add Driver" and add "Testdrivertywd_appledc_a_drvl WashingtonDC_l" driver
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    When I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled |
