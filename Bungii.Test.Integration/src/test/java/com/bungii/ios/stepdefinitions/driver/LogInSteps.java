@@ -122,6 +122,8 @@ public class LogInSteps extends DriverBase {
             action.clearEnterText(loginPage.TextField_PhoneNumber(),strUserName);
             action.clearEnterText(loginPage.Textfield_Password(),strPassWord);
 
+            cucumberContextManager.setScenarioContext("DRIVER_PHONE_NUMBER",username);
+
             pass( "Username and Password should be added successfully",
                     "Entered Driver Credentials ["+ strUserName+" / "+strPassWord+"] successfully");
         } catch (Exception e) {

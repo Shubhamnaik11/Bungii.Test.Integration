@@ -7,6 +7,7 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.AvailableTripsPage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -14,6 +15,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -23,6 +25,7 @@ public class AvailableTripsSteps extends DriverBase {
 	AvailableTripsPage availableTripsPage;
 	private static LogUtility logger = new LogUtility(AvailableTripsSteps.class);
 	ActionManager action = new ActionManager();
+	DbUtility dbUtility = new DbUtility();
 	public AvailableTripsSteps(AvailableTripsPage availableTripsPage) {
 		this.availableTripsPage = availableTripsPage;
 	}
@@ -176,21 +179,109 @@ public class AvailableTripsSteps extends DriverBase {
 					true);
 		}
 	}
-//	@And("^I click on the back button and verify that rejection popup is absent$")
-//	public void i_click_on_the_back_button_and_verify_that_rejection_popup_is_absent() throws Throwable {
-//		try{
-//			action.click(availableTrips.Button_Back());
-//			Thread.sleep(2000);
-//
-//			testStepAssert.isFalse(action.isElementPresent(availableTrips.Text_RejectionPopup(true)),"Rejection Reason pop-up must not be displayed","Rejection Reason pop-up is not displayed", "Rejection Reason pop-up is displayed");
-//
-//		}
-//		catch (Exception ex){
-//			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-//			error("Step should be successful", "I cannot click on back button",
-//					true);
-//		}
-//	}
+	@And("^I click on the back button and verify the rejection popup$")
+	public void i_click_on_the_back_button_and_verify_the_rejection_popup() throws Throwable {
+		try{
+			action.click(availableTripsPage.Button_Back());
+			Thread.sleep(3000);
+			testStepAssert.isElementDisplayed(availableTripsPage.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
 
+		}
+		catch (Exception ex){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "I cannot click on back button",
+					true);
+		}
+	}
 
+	@And("^I click on \"([^\"]*)\" button on rejection popup$")
+	public void i_click_on_something_button_on_rejection_popup(String button) throws Throwable {
+		try {
+			switch (button){
+				case "CANCEL":
+					action.click(availableTripsPage.Button_Cancel());
+					break;
+				case "SUBMIT":
+					action.click(availableTripsPage.Button_Submit());
+					break;
+			}
+			log("I should be able to click on "+button+" button",
+					"I am able to click on "+button+" button",
+					false);
+		}
+		catch (Exception ex){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "I cannot click on "+button+" button",
+					true);
+		}
+	}
+	@And("^I check if all reasons are displayed on rejection popup$")
+	public void i_check_if_all_reasons_are_displayed_on_rejection_popup() throws Throwable {
+		try{
+			List<String> expectedOptions = new ArrayList() {{
+				add("Too far away");
+				add("Earnings");
+				add("Labor requirements");
+				add("Type of item(s)");
+				add("Not enough information");
+				add("Not available");
+			}};
+			for (int j =0;j<6;j++){
+				String expectedReason= expectedOptions.get(j);
+				String actualReason = availableTripsPage.Text_RejectionReasons(expectedReason).getAttribute("name");
+				testStepAssert.isEquals(actualReason,expectedReason,"The actual and expected reasons should be same","The actual and expected reasons are the same","The actual and expected reasons are not the same");
+			}
+
+		}
+		catch (Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step Should be successful", "Error in viewing result set",
+					true);
+		}
+	}
+	@Then("^I check if the reason is saved in db$")
+	public void i_check_if_the_reason_is_saved_in_db() throws Throwable {
+		try{
+			String driverNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_NUMBER");
+			String reason = dbUtility.checkRejectionReason(driverNumber);
+			if(!(reason.isEmpty()))
+			{
+				testStepAssert.isTrue(true,"The rejection reason is saved in db","The rejection reason is not saved in db");
+			}
+			else{
+				testStepAssert.isTrue(false,"The rejection reason is saved in db","The rejection reason is not saved in db");
+			}
+		}
+		catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
+	@And("^I click on the back button and verify that rejection popup is absent$")
+	public void i_click_on_the_back_button_and_verify_that_rejection_popup_is_absent() throws Throwable {
+		try{
+			action.click(availableTripsPage.Button_Back());
+			Thread.sleep(2000);
+
+			testStepAssert.isFalse(action.isElementPresent(availableTripsPage.Text_RejectionPopup(true)),"Rejection Reason pop-up must not be displayed","Rejection Reason pop-up is not displayed", "Rejection Reason pop-up is displayed");
+
+		}
+		catch (Exception ex){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "I cannot click on back button",
+					true);
+		}
+	}
+	@Then("^I verify the rejection popup is displayed$")
+	public void i_verify_the_rejection_popup_is_displayed() throws Throwable {
+		try{
+			testStepAssert.isElementDisplayed(availableTripsPage.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
+		}
+		catch (Exception ex){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "I cannot click on back button",
+					true);
+		}
+	}
 }
