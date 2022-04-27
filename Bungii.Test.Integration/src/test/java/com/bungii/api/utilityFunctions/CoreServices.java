@@ -1708,11 +1708,11 @@ public class CoreServices extends DriverBase {
         else if(Partner_Portal.equalsIgnoreCase("Floor and Decor")) {
 
                 //customer name
-                JSONArray CustomFields = new JSONArray();
+                JSONArray customFields = new JSONArray();
                 JSONObject field1 = new JSONObject();
                 field1.put("FieldRef", "8b0c893b-0be2-11ec-a1b2-0280ec37d420");
                 field1.put("FieldValue", "Test");
-                CustomFields.put(field1);
+                customFields.put(field1);
 
                 JSONArray ItemsToDeliver = new JSONArray();
                 if(No_Of_Driver=="1"){
@@ -1726,13 +1726,13 @@ public class CoreServices extends DriverBase {
                 }
                 else{
                     //items details for duo
-                    JSONObject firtsDeliverables = new JSONObject();
+                    JSONObject firstDeliverables = new JSONObject();
                     JSONObject secondDeliverables = new JSONObject();
-                    firtsDeliverables.put("Dimensions", "12");
-                    firtsDeliverables.put("ID", "1");
-                    firtsDeliverables.put("Name", "Books");
-                    firtsDeliverables.put("Weight", "1111");
-                    ItemsToDeliver.put(firtsDeliverables);
+                    firstDeliverables.put("Dimensions", "12");
+                    firstDeliverables.put("ID", "1");
+                    firstDeliverables.put("Name", "Books");
+                    firstDeliverables.put("Weight", "1111");
+                    ItemsToDeliver.put(firstDeliverables);
                     secondDeliverables.put("Dimensions", "32");
                     secondDeliverables.put("ID", "2");
                     secondDeliverables.put("Name", "Chair");
@@ -1742,7 +1742,7 @@ public class CoreServices extends DriverBase {
 
 
                 //static fields
-                JSONArray SaticFeilds = new JSONArray();
+                JSONArray staticFields = new JSONArray();
 
                 JSONObject field2 = new JSONObject();
                 field2.put("FieldRef", "f2bd9004-6757-11ea-a4a3-00155d0a8706");
@@ -1768,21 +1768,21 @@ public class CoreServices extends DriverBase {
                 field7.put("FieldRef", "f2bd91b2-6757-11ea-a4a3-00155d0a8706");
                 field7.put("FieldValue", "A323");
 
-                SaticFeilds.put(field2);
-                SaticFeilds.put(field3);
-                SaticFeilds.put(field4);
-                SaticFeilds.put(field5);
-                SaticFeilds.put(field6);
-                SaticFeilds.put(field7);
+                staticFields.put(field2);
+                staticFields.put(field3);
+                staticFields.put(field4);
+                staticFields.put(field5);
+                staticFields.put(field6);
+                staticFields.put(field7);
 
                 //main payload
                 JSONObject jsonObj = new JSONObject();
                 jsonObj.put("PickupRequestID", PickupRequest);
                 jsonObj.put("CustomerName", Partner_Customer);
-                jsonObj.put("CustomFields", CustomFields);
+                jsonObj.put("CustomFields", customFields);
                 jsonObj.put("CustomerMobile", Partner_Customer_Phone);
                 jsonObj.put("ItemsToDeliver", ItemsToDeliver);
-                jsonObj.put("StaticFields", SaticFeilds);
+                jsonObj.put("StaticFields", staticFields);
                 jsonObj.put("PaymentMethodNonce", JSONObject.NULL);
                 jsonObj.put("PickupNote", JSONObject.NULL);
                 jsonObj.put("PaymentOption", "MI");
