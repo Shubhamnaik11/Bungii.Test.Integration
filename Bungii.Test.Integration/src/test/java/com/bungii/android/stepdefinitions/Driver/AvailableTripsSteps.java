@@ -174,7 +174,8 @@ public class AvailableTripsSteps extends DriverBase {
     public void partner_portal_name_should_be_displayed_in_something_section(String Screen) throws Throwable {
         try {
             String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
-            String customerName[] = cucumberContextManager.getScenarioContext("CUSTOMER").toString().split(" ");
+            String customerNameFull= (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String [] customerName = customerNameFull.split(" ");
             String expectedCustomerName =customerName[0];
 
 
@@ -192,7 +193,7 @@ public class AvailableTripsSteps extends DriverBase {
                     break;
                 case "DRIVING TO DROP OFF":
                 case "UNLOADING ITEM":
-                    String customerNameText[] = action.getText(availableTrips.Partner_Name_For_Enroute()).split(" ");
+                    String[] customerNameText = action.getText(availableTrips.Partner_Name_For_Enroute()).split(" ");
                     String customerNameproper = customerNameText[0];
                     testStepAssert.isEquals(customerNameproper, expectedCustomerName, "Customer  name should be displayed on " + Screen + " screen", "Customer name is displayed in " + Screen + " screen", "Customer name is not displayed in " + Screen + " screen");
                     break;
