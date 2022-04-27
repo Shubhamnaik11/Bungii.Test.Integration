@@ -222,7 +222,6 @@ Feature: Service Level
     And the price for the partner portal delivery shown as per the changed service level
 
 
-  @test
   @regression
   Scenario Outline: Verify service level estimate cost calculation for partner delivery of <Type> for Service <ServiceName> for <Distance> distance range
     When I enter "valid" password on Partner Portal

@@ -163,6 +163,9 @@ public class CommonStepsDriver extends DriverBase {
 
             GeneralUtility utility = new GeneralUtility();
             //isCorrectPage = utility.verifyPageHeader(screen);
+            if(screen.equalsIgnoreCase("Home")){
+                screen ="Bungii";
+            }
             isCorrectPage = utility.verifyDriverPageHeader(screen);
             testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I have navigated to " + screen, "I didnt navigate to " + screen + " screen ");
@@ -201,7 +204,7 @@ public class CommonStepsDriver extends DriverBase {
             switch (field.toUpperCase()) {
                 case "PHONE NUMBER":
                         if (screen.equalsIgnoreCase("FORGOT PASSWORD")) {
-                            if(value.equalsIgnoreCase("{{VALID USER}}")) {
+                            if(value.equalsIgnoreCase("{VALID USER}")) {
                                 inputValue = value.equalsIgnoreCase("{VALID USER}") ? PropertyUtility.getDataProperties("ios.valid.driver.phone") : inputValue;
                             }
                             else if(value.equalsIgnoreCase("{VALID USER1}")){

@@ -4,6 +4,7 @@
     Background:
       Given I navigate to "Partner" portal configured for "normal" URL
 
+    @test
     @regression
     @sanity
     Scenario: Verify Partner portal login with Valid Credentials
