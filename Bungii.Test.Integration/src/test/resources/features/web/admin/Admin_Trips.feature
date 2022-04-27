@@ -370,7 +370,7 @@ Feature: Admin_Trips
     | Assigning Driver(s)|
 
 #  @ready
-#    #half incomplete till removing the driver
+#    when changing status to duo to solo delivery status doesnt change to schedule 
 #  Scenario: To verify research does not happen when admin changes from duo to solo when bungii was accepted by driver
 #    When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
 #      | Bungii Time   | Customer Phone | Customer Name |
