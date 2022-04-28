@@ -467,22 +467,23 @@ public class NotificationSteps extends DriverBase {
                     if (!isDriverEligible)
                         warning("Driver should be eligible for trip", "Driver "+driverPhoneNum+" is not eligible for pickup : "+ pickupRequestID, false);
                     new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 22);
+                    new CoreServices().updateStatusForDriverReject(pickupRequestID,driverAccessToken);
                     // if(expectedNotification.equalsIgnoreCase("on demand trip"))
                     // new CoreServices().updateStatus(pickupRequestID, driverAccessToken, 23);
                     logger.detail("Rejected pickup " + pickupRequestID +" as driver " + driverPhoneNum +" through api call [As Driver is eligible for the trip]");
                 }
                 // Switch and login on same device
-                utility.switchToApp("driver","same");
-                String navigationBarName = action.getScreenHeader(homepage.Text_NavigationBar());
-                if(navigationBarName.equalsIgnoreCase("ONLINE")) {
-                    action.click(homepage.Button_AppMenu());
-                    Thread.sleep(1000);
-                    action.click(homepage.AppMenu_ScheduledTrip());
-                    Thread.sleep(1000);
-                    //  action.click(homepage.Button_AppMenu());
-                    Thread.sleep(1000);
-                    // action.click(homepage.AppMenu_Home());
-                }
+//                utility.switchToApp("driver","same");
+//                String navigationBarName = action.getScreenHeader(homepage.Text_NavigationBar());
+//                if(navigationBarName.equalsIgnoreCase("ONLINE")) {
+//                    action.click(homepage.Button_AppMenu());
+//                    Thread.sleep(1000);
+//                    action.click(homepage.AppMenu_ScheduledTrip());
+//                    Thread.sleep(1000);
+//                    //  action.click(homepage.Button_AppMenu());
+//                    Thread.sleep(1000);
+//                    // action.click(homepage.AppMenu_Home());
+//                }
 
                 log("I should able to accept trip through virtual notification",
                         "Driver "+driverPhoneNum+" accepts delivery "+ pickupRequestID+" through virtual notification");

@@ -62,7 +62,7 @@ public class AvailableTripsPage extends PageBase {
 
     public WebElement RadioButton_LatestRejectionReason() {return findElement("//android.view.ViewGroup/android.widget.ListView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.RadioButton",LocatorType.XPath);}
 
-    public WebElement Text_CustomerName() {return findElement("com.bungii.driver:id/row_available_pickup_drivername",LocatorType.Id);}
+    public WebElement Text_CustomerName(boolean...ignoreException) {return findElement("com.bungii.driver:id/row_available_pickup_drivername",LocatorType.Id,ignoreException);}
 
     public WebElement Text_NoBungiisAvailable(boolean...ignoreException) {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id,ignoreException);}
 

@@ -579,12 +579,12 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_stop_searching_driver() throws Throwable {
 		try{
 			action.click(scheduledTripsPage.Button_StopSearching());
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			action.JavaScriptClick(scheduledTripsPage.Button_ConfirmStopSearching());
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			action.JavaScriptClick(scheduledTripsPage.Button_CloseConfirm());
-			Thread.sleep(1000);
-			action.click(scheduledTripsPage.Button_Ok());
+			Thread.sleep(2000);
+			action.JavaScriptClick(scheduledTripsPage.Button_Ok());
 			Thread.sleep(1000);
 
 			log("I should be able to stop searching driver",

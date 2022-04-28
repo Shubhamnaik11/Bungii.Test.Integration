@@ -200,7 +200,7 @@ public class AvailableTripsSteps extends DriverBase {
       try{
             Thread.sleep(1000);
             action.click(availableTrips.Button_Back());
-            Thread.sleep(10000);
+            Thread.sleep(12000);
 
             testStepAssert.isElementDisplayed(availableTrips.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
       }
@@ -211,10 +211,11 @@ public class AvailableTripsSteps extends DriverBase {
       }
     }
     @Then("^I check if \"([^\"]*)\" customer trip that is rejected is displayed$")
-    public void i_check_if_something_customer_trip_that_is_rejected_is_displayed(String customerName) throws Throwable {
+    public void i_check_if_something_customer_trip_that_is_rejected_is_displayed(String custName) throws Throwable {
        try{
+           String customerName =custName.substring(0,29);
 
-           if (action.isElementPresent(availableTrips.Text_CustomerName())){
+           if (action.isElementPresent(availableTrips.Text_CustomerName(true))){
                String actualName=availableTrips.Text_CustomerName().getText();
                if(actualName==customerName)
                {
