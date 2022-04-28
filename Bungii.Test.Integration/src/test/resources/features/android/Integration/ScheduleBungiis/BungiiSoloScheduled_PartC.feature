@@ -34,7 +34,7 @@ Feature: SoloScheduled Part C
   Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled delivery start time
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                        | Customer Password |
-      | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer | cci12345          |
+      | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer | Cci12345          |
     And I get TELET time of of the current trip
     And As a driver "Testdrivertywd_appleks_a_drvh Kansas_h" perform below action with respective "SOLO SCHEDULED" trip
       | driver1 state |
