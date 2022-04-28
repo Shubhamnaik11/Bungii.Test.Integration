@@ -208,15 +208,15 @@ Feature: Admin_Trips
     And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I change filter to "This Week" on Scheduled deliveries
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I change filter to "This Month" on Scheduled deliveries
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     And I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
