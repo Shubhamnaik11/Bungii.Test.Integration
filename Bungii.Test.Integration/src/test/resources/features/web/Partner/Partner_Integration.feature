@@ -135,7 +135,7 @@ Feature: Partner Integration with Admin and Driver
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
@@ -291,7 +291,7 @@ Feature: Partner Integration with Admin and Driver
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When As a driver "Testdrivertywd_appledc_a_ronny James" and "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
@@ -504,7 +504,7 @@ Feature: Partner Integration with Admin and Driver
       And I view the Scheduled Deliveries list on the admin portal
       Then I should be able to see the respective bungii partner portal trip with the below status
         | Status           |
-        | Searching Drivers|
+        | Assigning Driver(s)|
       And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state|
         | Accepted |
@@ -554,7 +554,7 @@ Feature: Partner Integration with Admin and Driver
     And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     And I navigate to partner portal
     And I select the Scheduled Bungii from Delivery List
     Then I should "see the trip details"
@@ -665,7 +665,7 @@ Feature: Partner Integration with Admin and Driver
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted     |

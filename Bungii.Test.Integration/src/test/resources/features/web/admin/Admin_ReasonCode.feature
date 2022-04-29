@@ -58,7 +58,7 @@ Feature: Admin_Reason_Code
       And I wait for "2" mins
       Then I should be able to see the respective bungii with the below status
         |  Status |
-        | Searching Drivers |
+        | Assigning Driver(s) |
       When I click on "Edit" link beside scheduled bungii
       And I click on "Edit Trip Details" radiobutton
       And I click on the "Date" and select future time
@@ -80,7 +80,7 @@ Feature: Admin_Reason_Code
     And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Date" and select future time
@@ -104,7 +104,7 @@ Feature: Admin_Reason_Code
     And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I check if the "Reason" field is hidden
@@ -131,7 +131,7 @@ Feature: Admin_Reason_Code
     And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Date" and select future time
@@ -157,7 +157,7 @@ Feature: Admin_Reason_Code
     And I wait for "5" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Driver(s) Not Found |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Time" and select future time
@@ -179,7 +179,7 @@ Feature: Admin_Reason_Code
     And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I edit the drop off address
@@ -258,7 +258,7 @@ Feature: Admin_Reason_Code
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I click on "Edit" link beside live delivery
     And I click on "Edit Trip Details" radiobutton
     And I check if the "Reason" field is hidden
@@ -278,7 +278,7 @@ Feature: Admin_Reason_Code
     And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     And I check the price for delivery
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
@@ -323,7 +323,7 @@ Feature: Admin_Reason_Code
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Date" and select future time
@@ -370,7 +370,7 @@ Feature: Admin_Reason_Code
     And I wait for "5" mins
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Driver(s) Not Found |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I click on the "Time" and select future time

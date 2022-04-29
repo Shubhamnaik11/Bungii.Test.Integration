@@ -1,4 +1,5 @@
 @web
+@test
   Feature: Partner_Payment
 
     Background:

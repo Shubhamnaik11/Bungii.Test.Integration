@@ -910,6 +910,13 @@ public class CommonSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver1.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+            case "valid nashville2":
+                phone = PropertyUtility.getDataProperties("nashville.driver2.phone");
+                password = PropertyUtility.getDataProperties("nashville.driver2.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver2.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             case "valid denver":
                 phone = PropertyUtility.getDataProperties("denver.driver.phone");
                 password = PropertyUtility.getDataProperties("denver.driver.password");
@@ -2265,7 +2272,8 @@ public class CommonSteps extends DriverBase {
                     expectedText = PropertyUtility.getMessage("customer.promos.already.existing.code");
                     break;
                 case "FAILED TO SEND TOKEN":
-                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
+                    //expectedText = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
+                    expectedText = PropertyUtility.getMessage("common.failed.message");
                     break;
                 case "PASSWORD CHANGE SUCCESS":
                     expectedText = PropertyUtility.getMessage("customer.forgotpassword.sucess");
@@ -2707,6 +2715,12 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("nashville.customer.phone");
                     password = PropertyUtility.getDataProperties("nashville.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid nashville2":
+                    userName = PropertyUtility.getDataProperties("nashville.customer2.phone");
+                    password = PropertyUtility.getDataProperties("nashville.customer2.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer2.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid nashville first time":
