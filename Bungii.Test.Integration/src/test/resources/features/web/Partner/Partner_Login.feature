@@ -7,6 +7,8 @@
     @test
     @regression
     @sanity
+    #CORE-3251--Text Support and Support Email Verification on Partner Portal
+    
     Scenario: Verify Partner portal login with Valid Credentials
       When I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
