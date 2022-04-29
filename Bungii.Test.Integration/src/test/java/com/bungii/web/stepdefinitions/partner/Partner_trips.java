@@ -402,6 +402,12 @@ try{
                 testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Message_Blank_LoadUnload_Time()),Blank_Load_Unload_Time);
                 testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Message_Highlighted_Fields()),Highlighted_Fields);
                 break;
+            case "Text Support Number and Email":
+                testStepVerify.isElementDisplayed(Page_Partner_Dashboard.Text_TextSupport(),"Text Support text should be shown.","Text Support text is shown.","Text Support text is not shown.");
+                testStepVerify.isElementTextEquals(Page_Partner_Dashboard.Number_TextSupport(),PropertyUtility.getDataProperties("support.phone.number"));
+                testStepVerify.isElementDisplayed(Page_Partner_Dashboard.Text_EmailSupport(),"Email Support text should be shown.","Email Support text is shown.","Email Support text is not shown.");
+                testStepVerify.isElementTextEquals(Page_Partner_Dashboard.Email_EmailSupport(),PropertyUtility.getDataProperties("support.email.address"));
+                break;
             default: break;
         }
         } catch (Exception e) {

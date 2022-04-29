@@ -11,6 +11,7 @@
       When I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
+      Then I should see "Text Support Number and Email"
       And I should logout from Partner Portal
 
     @regression
