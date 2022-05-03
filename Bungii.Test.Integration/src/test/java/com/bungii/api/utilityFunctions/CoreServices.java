@@ -59,6 +59,9 @@ public class CoreServices extends DriverBase {
     DbUtility dbUtility = new DbUtility();
 
     public Response validatePickupRequest(String authToken, String geoFence) {
+        if(geoFence.equals("kansas1")){
+            String RequestText ="API REQUEST : Validate Pickup Request : " + authToken +" : "+ "kansas";
+        }
         String RequestText ="API REQUEST : Validate Pickup Request : " + authToken +" : "+ geoFence;
         JSONObject jsonObj = new JSONObject();
         JSONObject dropOffCordinate = new JSONObject();
@@ -74,7 +77,15 @@ public class CoreServices extends DriverBase {
             dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.drop.longitude")));
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.latitude")));
             pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.longitude")));
-        } else if (geoFence.equalsIgnoreCase("boston")) {
+        }
+        else if (geoFence.equalsIgnoreCase("kansas1")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas1.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas1.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas1.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas1.pickup.longitude")));
+        }
+
+        else if (geoFence.equalsIgnoreCase("boston")) {
             dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("boston.drop.latitude")));
             dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("boston.drop.longitude")));
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("boston.pickup.latitude")));
@@ -133,6 +144,10 @@ public class CoreServices extends DriverBase {
 
     }
     public Response validatePickupRequestOfPartnerFirm(String authToken, String geoFence) {
+        if(geoFence.equals("kansas1")){
+            String location = geoFence.replace("1","");
+            geoFence =location;
+        }
         String RequestText ="API REQUEST : Validate Pickup Request Of Partner Firm : " + authToken +" : "+ geoFence;
 
         JSONObject jsonObj = new JSONObject();
