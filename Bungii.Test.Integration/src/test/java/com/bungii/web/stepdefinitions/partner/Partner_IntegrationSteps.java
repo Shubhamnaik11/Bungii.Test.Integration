@@ -537,11 +537,11 @@ public class Partner_IntegrationSteps extends DriverBase {
                     testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Driver1(DriverName),"Driver name "+ DriverName+ "should be displayed correctly","Driver name is  displayed correctly","Driver name is not displayed correctly");
                     String Est_Delivery_Time = (String) cucumberContextManager.getScenarioContext("EST_DELIVERY_TIME");
                     testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Est_Delivery_Time(Est_Delivery_Time),"Est. delivery time should be displayed correctly","Est. delivery time is  displayed correctly","Est. delivery time is not displayed correctly");
+                    action.switchToTab(1);
                     break;
                 default:
                     break;
             }
-            action.switchToTab(1);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step Should be successful", "Error in viewing Quotes only page",
