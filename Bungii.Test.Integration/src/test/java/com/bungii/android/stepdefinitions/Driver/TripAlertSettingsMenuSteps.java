@@ -39,6 +39,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     SearchingPage searchingPage = new SearchingPage();
     MyBungiisPage myBungiisPage = new MyBungiisPage();
+    EarningsPage earningsPage = new EarningsPage();
 
 
     @And("^I click on \"([^\"]*)\" tab$")
@@ -294,6 +295,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "BACK":
                     action.click(myBungiisPage.Button_Back());
+                    break;
+
+                case "Itemized Earnings":
+                    action.click(earningsPage.Button_ItemizedEarnings());
                     break;
 
                 default:
