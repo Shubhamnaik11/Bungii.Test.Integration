@@ -526,7 +526,7 @@ public class Partner_IntegrationSteps extends DriverBase {
         try {
             switch (status) {
                 case "En Route To Pickup":
-                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Delivery_Status(status),"Delivery Status should be shown as " + status,"Delivery Status is shown as " + status,"Delivery status is not shown as " + status);
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Delivery_Status(status),"Delivery Status should be shown as " + status,"Delivery Status is shown as " + status,"Delivery status is not shown as " + status);
                     String PickupDateTime = (String) cucumberContextManager.getScenarioContext("scheduled_time");
                     testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_PickupTime(PickupDateTime),"Pickup Time "+PickupDateTime+" should be displayed correctly","PickupTime is displayed correctly","PickupTime is not displayed correctly");
                     String PickAddress = (String) cucumberContextManager.getScenarioContext("EmailPickupAddress");
@@ -537,7 +537,19 @@ public class Partner_IntegrationSteps extends DriverBase {
                     testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Driver1(DriverName),"Driver name "+ DriverName+ "should be displayed correctly","Driver name is  displayed correctly","Driver name is not displayed correctly");
                     String Est_Delivery_Time = (String) cucumberContextManager.getScenarioContext("EST_DELIVERY_TIME");
                     testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Est_Delivery_Time(Est_Delivery_Time),"Est. delivery time should be displayed correctly","Est. delivery time is  displayed correctly","Est. delivery time is not displayed correctly");
+                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Icon_CallDriver(),"Driver calling icon should be displayed","Driver calling icon is displayed","Driver calling icon is not displayed");
                     action.switchToTab(1);
+                    break;
+                case "Driver Arrived At Pickup":
+                case "Loading Items":
+                case "Driving To Drop Off":
+                case "Unloading Items":
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Delivery_Status(status),"Delivery Status should be shown as " + status,"Delivery Status is shown as " + status,"Delivery status is not shown as " + status);
+                    action.switchToTab(1);
+                    break;
+                case "Successfully Completed":
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Label_SuccessMessage(),"Success Message is displayed","Success Message is displayed","Success Message is not displayed");
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_SuccessMessage(),"Success Message is displayed","Success Message is displayed","Success Message is not displayed");
                     break;
                 default:
                     break;

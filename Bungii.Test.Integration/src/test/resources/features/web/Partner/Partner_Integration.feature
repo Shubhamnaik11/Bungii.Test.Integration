@@ -7,7 +7,7 @@ Feature: Partner Integration with Admin and Driver
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
   
-  @1304
+  @regression
   @sanity
     #stable
   Scenario: Delivery List Status Updation For Solo Scheduled Pickup on Partner Portal
@@ -69,6 +69,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL again"
+    Then Delivery Status should be displayed correctly as "Driver Arrived At Pickup"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Loading Item |
@@ -79,6 +81,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL again"
+    Then Delivery Status should be displayed correctly as "Loading Items"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Driving To Dropoff |
@@ -89,6 +93,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL again"
+    Then Delivery Status should be displayed correctly as "Driving To Drop Off"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Unloading Item |
@@ -99,6 +105,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL again"
+    Then Delivery Status should be displayed correctly as "Unloading Items"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Bungii Completed |
@@ -106,6 +114,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed    |
+    When I navigate to "Delivery Status URL again"
+    Then Delivery Status should be displayed correctly as "Successfully Completed"
   
   @regression
     #stable

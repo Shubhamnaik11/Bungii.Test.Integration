@@ -59,6 +59,7 @@ public class Partner_LoginSteps extends DriverBase {
         {
             case "Partner":
                 String partnerUrl =  utility.NavigateToPartnerLogin(url);
+                cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerUrl);
                 cucumberContextManager.setScenarioContext("IS_PARTNER","TRUE");
                 pass("I should be navigate to " + page + " portal configured for "+ url ,
                         "I navigated to " + page + " portal configured for "+ url +" ["+partnerUrl+"]", true);

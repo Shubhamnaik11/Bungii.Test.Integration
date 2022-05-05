@@ -55,15 +55,16 @@ public class DriverRegistrationSteps extends DriverBase {
                 action.click(Page_Driver_Details.Menu_DriverDetails());
                 break;
             case "Delivery Status URL":
-                String PickupToken = (String) cucumberContextManager.getScenarioContext("PICKUP_TOKEN");
-                String partnerUrl =  utility.NavigateToPartnerLogin("normal");
-                String url = partnerUrl.replace("/login", "/Pickup/"+PickupToken);
-                action.openNewTab();
-                action.navigateTo(url);
+                utility.NavigateDriverRatingWebLink();
                 action.waitUntilIsElementExistsAndDisplayed(partner_Delivery_StatusPage.Label_Delivery_Details_Title(),10L);
                 testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Label_Delivery_Details_Title(),"Delivery Status Page should be shown","Delivery Status page is shown","Delivery Status page is not shown");
                 log("I navigate to Delivery status page" ,
                         "I navigated to Delivery status page" , false);
+                break;
+            case "Delivery Status URL again":
+                action.switchToTab(2);
+                action.refreshPage();
+                action.waitUntilIsElementExistsAndDisplayed(partner_Delivery_StatusPage.Label_Delivery_Details_Title(),10L);
                 break;
         }
         pass("I should be navigate to " + page,

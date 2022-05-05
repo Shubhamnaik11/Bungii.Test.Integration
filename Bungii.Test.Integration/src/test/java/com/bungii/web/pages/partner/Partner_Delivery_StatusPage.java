@@ -32,6 +32,10 @@ public class Partner_Delivery_StatusPage extends PageBase {
     //Calling icon
     public WebElement Icon_CallDriver(){return findElement("//img[@alt='driver']/following-sibling::span/img[@class='call']",LocatorType.XPath);}
 
+    //Successful Delivery Completion Message
+    public WebElement Label_SuccessMessage(){return findElement("//span[contains(text(),'Successfully Completed!')]",LocatorType.XPath);}
+    public WebElement Text_SuccessMessage(){return findElement("//p[contains(text(),'The delivery you booked has been completed. Thank you for using Bungii.')]",LocatorType.XPath);}
+
 
 
 
