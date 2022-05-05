@@ -67,7 +67,7 @@
       Then I check if driver cut is reflected
 
 #  Core-2411:Verify that driver's status remains Online when his pervious status was Online once he starts the schedule trip
-    @testAllan
+    @ready
     Scenario: Verify that driver's status remains Online when his pervious status was Online once he starts the schedule trip
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -102,9 +102,6 @@
       And I Switch to "driver" application on "ORIGINAL" devices
       Then I click on notification for "STACK TRIP"
       Then I should see "New Bungii Request" popup displayed
-#      And Bungii Driver "view stack message" request
-#      And I click on the bungii stack trip notification
-#      And I tap on the "ACCEPT" Button on Bungii Request screen
-##      And I click on the bungii stack trip notification
+
 
 
