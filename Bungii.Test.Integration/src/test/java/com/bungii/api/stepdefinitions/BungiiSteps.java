@@ -1531,12 +1531,7 @@ public class BungiiSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("CUSTOMER_PASSWORD", custPassword);
 
             //cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
-            if(geofence.equals("kansas1")){
-                cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
-            }
-            else{
-                cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
-            }
+             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
             logger.detail("*** Requesting " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence + " ***");
 
             //LOGIN

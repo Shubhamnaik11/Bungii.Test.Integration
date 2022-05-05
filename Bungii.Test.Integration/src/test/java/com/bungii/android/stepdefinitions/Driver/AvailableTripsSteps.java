@@ -8,6 +8,7 @@ import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.web.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import io.appium.java_client.MobileElement;
@@ -168,18 +169,23 @@ public class AvailableTripsSteps extends DriverBase {
 
     @Then("^Partner Portal name should be displayed in \"([^\"]*)\" section$")
     public void partner_portal_name_should_be_displayed_in_something_section(String Screen) throws Throwable {
-        try {
-            switch (Screen) {
-                case "AVAILABLE BUNGIIS":
-                case "SCHEDULED BUNGIIS":
-                case "EN ROUTE":
-                case "ARRIVED":
-                case "LOADING ITEM":
+        try{
+        String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
+
+        switch (Screen) {
+            case "AVAILABLE BUNGIIS":
+            case "SCHEDULED BUNGIIS":
+                String partnerName = action.getText(availableTrips.Partner_Name());
+                testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be displayed on " + Screen + " screen", "Partner Portal name is displayed in " + Screen + " screen", "Partner Portal name is not displayed in " + Screen + " screen");
+                break;
+            case "EN ROUTE":
+            case "ARRIVED":
+            case "LOADING ITEM":
+                String partnerNameText = action.getText(availableTrips.Partner_Name_For_Enroute());
+                testStepAssert.isEquals(partnerNameText, partnerNameExpected, "Partner Portal name should be displayed on " + Screen + " screen", "Partner Portal name is displayed in " + Screen + " screen", "Partner Portal name is not displayed in " + Screen + " screen");
+                break;
                 case "DRIVING TO DROP OFF":
                 case "UNLOADING ITEM":
-                    String partnerName = action.getText(availableTrips.Partner_Name());
-                    String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
-                    testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be displayed on " + Screen + " screen", "Partner Portal name is displayed in " + Screen + " screen", "Partner Portal name is not displayed in " + Screen + " screen");
                     break;
                 default:
                     log("Correct screen", "Wrong screen", true);
@@ -191,6 +197,26 @@ public class AvailableTripsSteps extends DriverBase {
             error("Step should be successful", "Partner Portal name is not displayed on "+Screen,
                     true);
         }
+    }
+    @And("^Driver status should be changed in db to \"([^\"]*)\"$")
+    public void driver_status_should_be_changed_in_db_to_something(String expectedDriverOnlineStatus) throws Throwable {
+        String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        String driverOnlineStatus = DbUtility.getDriverStatus(phoneNumber);
+        testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
+    }
+    @And("^I click on the bungii stack trip notification$")
+    public void i_click_on_the_bungii_stack_trip_notification() throws Throwable {
+        boolean isDisplayed = action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+
+        }
+
+    @Then("^I should see \"([^\"]*)\" popup displayed$")
+    public void i_should_see_something_popup_displayed(String expectedPopupText) throws Throwable {
+        Thread.sleep(4000);
+        String popupText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+        boolean popupDisplayed = Page_BungiiRequest.Alert_NewBungiiRequest(true).isDisplayed();
+        testStepAssert.isTrue(popupDisplayed,"Stack trip request should be displayed","Stack trip request is  displayed","Stack trip request is not displayed");
+        testStepAssert.isEquals(popupText,expectedPopupText,"Stack trip request should be present","Stack trip request is present","Stack trip request is not present");
     }
 }
 
