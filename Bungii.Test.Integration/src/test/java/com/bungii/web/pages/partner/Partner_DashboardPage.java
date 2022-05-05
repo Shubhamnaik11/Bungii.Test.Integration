@@ -223,6 +223,15 @@ public class Partner_DashboardPage extends PageBase {
     //No Trip Message
     public WebElement Label_Trip_ErrorMessage() { return findElement("//td/div/div[text() =\"Sorry, no records found\"]",LocatorType.XPath);}
 
+    //Text Support
+    public WebElement Text_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]",LocatorType.XPath);}
 
+    //Text Support Number
+    public WebElement Number_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]/following-sibling::span",LocatorType.XPath);}
 
+    //Text Email Support
+    public WebElement Text_EmailSupport() { return findElement("//strong[contains(text(),'Email Support:')]",LocatorType.XPath);}
+
+    //Email Support value
+    public WebElement Email_EmailSupport() { return findElement("//strong[contains(text(),'Email Support:')]/following-sibling::span/a",LocatorType.XPath);}
 }
