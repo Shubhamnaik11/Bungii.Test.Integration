@@ -341,6 +341,25 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_drvC WashingtonC":
                 phone = PropertyUtility.getDataProperties("Washington.driver8.phone");
                 break;
+            case "Testdrivertywd_appleks_a_drvu Kansas_u":
+                phone = PropertyUtility.getDataProperties("Kansas.driver12.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvv Kansas_v":
+                phone = PropertyUtility.getDataProperties("Kansas.driver13.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvw Kansas_w":
+                phone = PropertyUtility.getDataProperties("Kansas.driver14.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvy Kansas_y":
+                phone = PropertyUtility.getDataProperties("Kansas.driver15.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvz Kansas_z":
+                phone = PropertyUtility.getDataProperties("Kansas.driver16.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvB WashingtonB":
+                phone = PropertyUtility.getDataProperties("Washington.driver9.phone");
+                break;
+
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
 
