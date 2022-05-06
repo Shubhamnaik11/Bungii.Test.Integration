@@ -64,7 +64,7 @@ public class DriverRegistrationSteps extends DriverBase {
             case "Delivery Status URL again":
                 action.switchToTab(2);
                 action.refreshPage();
-                action.waitUntilIsElementExistsAndDisplayed(partner_Delivery_StatusPage.Label_DeliveryDetailsTitle(),10L);
+                Thread.sleep(1000);
                 break;
         }
         pass("I should be navigate to " + page,
