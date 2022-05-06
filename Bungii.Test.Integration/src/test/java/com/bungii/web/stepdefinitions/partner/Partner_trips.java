@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
+import com.bungii.common.core.PageBase;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.CucumberContextManager;
@@ -390,6 +391,10 @@ try{
                 String Estimated_Cost = Split_Total_estimated_Cost[1];
                 cucumberContextManager.setScenarioContext("Estimated_Cost",Estimated_Cost);
                 testStepVerify.isEquals(Estimated_Cost_Label, PropertyUtility.getMessage("Estimated_Cost_Label"));
+                String Estimated_Delivery_Time = Page_Partner_Dashboard.findElement("//label[contains(text(),'Est. Delivery Time')]/strong", PageBase.LocatorType.XPath).getText();
+                cucumberContextManager.setScenarioContext("ESTIMATED_DELIVERY_TIME",Estimated_Delivery_Time);
+                String Estimate_distance = action.getText(Page_Partner_Dashboard.Label_Distance()).replace(" miles","");//calculate values as per the displayed miles value to avoid mismatch in calculation
+                cucumberContextManager.setScenarioContext("ESTIMATED_DISTANCE", Estimate_distance);
                 break;
             case "see validation message for mandatory fields":
                 String Blank_Pickup_Address = PropertyUtility.getMessage("Message_Blank_Pickup");

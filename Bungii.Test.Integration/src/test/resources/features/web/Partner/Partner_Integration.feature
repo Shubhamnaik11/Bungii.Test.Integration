@@ -6,14 +6,14 @@ Feature: Partner Integration with Admin and Driver
     And I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-  
+
   @regression
   @sanity
     #stable
   Scenario: Delivery List Status Updation For Solo Scheduled Pickup on Partner Portal
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
-      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      | Pickup_Address                                                                     | Delivery_Address                                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, District of Columbia, United States, 20005  | 234 13th Street Northeast, Washington, District of Columbia, United States, 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -156,7 +156,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Canceled       |
-  
+
   @regression
     #Stable
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip from Driver
@@ -213,13 +213,13 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status    |
       | Canceled       |
-  
+
   @regression
     #stable
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by control Driver
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
-      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      | Pickup_Address                                                                     | Delivery_Address                                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, District of Columbia, United States, 20005  | 234 13th Street Northeast, Washington, District of Columbia, United States, 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -264,6 +264,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL"
+    Then Delivery Status should be displayed correctly as "En Route To Pickup"
     When As a driver "Testdrivertywd_appledc_a_ronny James" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state   |
       | Driver Canceled |
@@ -271,6 +273,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Canceled       |
+    When I navigate to "Delivery Status URL"
+    Then Delivery Status should be displayed correctly as "Delivery Cancelled"
 
   @ready
     #Failed in Sprint 49

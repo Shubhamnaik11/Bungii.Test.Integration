@@ -24,7 +24,7 @@ public class Partner_Delivery_StatusPage extends PageBase {
     public WebElement Text_PickupAddress(String address){return findElement(String.format("//label[contains(text(),'Pickup Address:')]/following-sibling::p[contains(text(),'%s')]",address),LocatorType.XPath);}
 
     //Delivery Address
-    public WebElement Text_DeliveryAddress(String address){return findElement(String.format("//label[contains(text(),'Pickup Address:')]/following-sibling::p[contains(text(),'%s')]",address),LocatorType.XPath);}
+    public WebElement Text_DeliveryAddress(String address){return findElement(String.format("//label[contains(text(),'Delivery Address:')]/following-sibling::p[contains(text(),'%s')]",address),LocatorType.XPath);}
 
     //Driver(s)
     public WebElement Text_Driver1(String address){return findElement(String.format("//h6[contains(text(),'DRIVER(S)')]/following-sibling::div/div/div/div/p[contains(text(),'%s')]",address),LocatorType.XPath);}
@@ -35,6 +35,10 @@ public class Partner_Delivery_StatusPage extends PageBase {
     //Successful Delivery Completion Message
     public WebElement Label_SuccessMessage(){return findElement("//span[contains(text(),'Successfully Completed!')]",LocatorType.XPath);}
     public WebElement Text_SuccessMessage(){return findElement("//p[contains(text(),'The delivery you booked has been completed. Thank you for using Bungii.')]",LocatorType.XPath);}
+
+    //Canceled Delivery Message
+    public WebElement Label_CanceledMessage(){return findElement("//span[contains(text(),'Delivery Cancelled')]",LocatorType.XPath);}
+    public WebElement Text_CanceledMessage(){return findElement("//p[contains(text(),'The delivery you booked has been canceled. You could either reschedule or book a delivery again. Thank you for using Bungii.')]",LocatorType.XPath);}
 
 
 

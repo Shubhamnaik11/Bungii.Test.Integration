@@ -527,16 +527,25 @@ public class Partner_IntegrationSteps extends DriverBase {
             switch (status) {
                 case "En Route To Pickup":
                     testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Delivery_Status(status),"Delivery Status should be shown as " + status,"Delivery Status is shown as " + status,"Delivery status is not shown as " + status);
-                    String PickupDateTime = (String) cucumberContextManager.getScenarioContext("scheduled_time");
-                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_PickupTime(PickupDateTime),"Pickup Time "+PickupDateTime+" should be displayed correctly","PickupTime is displayed correctly","PickupTime is not displayed correctly");
-                    String PickAddress = (String) cucumberContextManager.getScenarioContext("EmailPickupAddress");
+                    String PickupDateTime = (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
+                    String PickupDatewithoutTimezone = PickupDateTime.substring(0,PickupDateTime.length()-4);
+                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_PickupTime(PickupDatewithoutTimezone),"Pickup Time "+PickupDatewithoutTimezone+" should be displayed correctly","PickupTime is displayed correctly","PickupTime is not displayed correctly");
+                    String PickAddress = (String) cucumberContextManager.getScenarioContext("PickupAddress");
                     testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_PickupAddress(PickAddress),"Pickup address "+PickAddress+" should be displayed correctly","Pickup address is  displayed correctly","Pickup address is not displayed correctly");
-                    String DropAddress = (String) cucumberContextManager.getScenarioContext("EmailDeliveryAddress");
+                    String DropAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
                     testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_DeliveryAddress(DropAddress),"Delivery address "+DropAddress+" should be displayed correctly","Delivery address is  displayed correctly","Delivery address is not displayed correctly");
-                    String DriverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
-                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Driver1(DriverName),"Driver name "+ DriverName+ "should be displayed correctly","Driver name is  displayed correctly","Driver name is not displayed correctly");
-                    String Est_Delivery_Time = (String) cucumberContextManager.getScenarioContext("EST_DELIVERY_TIME");
-                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Est_Delivery_Time(Est_Delivery_Time),"Est. delivery time should be displayed correctly","Est. delivery time is  displayed correctly","Est. delivery time is not displayed correctly");
+                    String EstimatedDistance = (String) cucumberContextManager.getScenarioContext("ESTIMATED_DISTANCE");
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Distance(EstimatedDistance),"Estimated distance: " + EstimatedDistance + "should be displayed", "Estimated distance is displayed correctly", "Estimated distance is not displayed correctly");
+                    String DriverName1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Driver1(DriverName1),"Driver name "+ DriverName1+ "should be displayed correctly","Driver name is  displayed correctly","Driver name is not displayed correctly");
+                    if (((String) cucumberContextManager.getScenarioContext("BUNGII_TYPE")).equals("Duo Scheduled"))
+                    {
+                        String DriverName2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+                        testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Driver1(DriverName2),"Driver name "+ DriverName2+ "should be displayed correctly","Driver name is  displayed correctly","Driver name is not displayed correctly");
+                    }
+                    String Est_Delivery_Time = (String) cucumberContextManager.getScenarioContext("ESTIMATED_DELIVERY_TIME");
+//                    TO BE IMPLEMENTED AFTER CORE-3842
+//                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Est_Delivery_Time(Est_Delivery_Time),"Est. delivery time should be displayed correctly","Est. delivery time is  displayed correctly","Est. delivery time is not displayed correctly");
                     testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Icon_CallDriver(),"Driver calling icon should be displayed","Driver calling icon is displayed","Driver calling icon is not displayed");
                     action.switchToTab(1);
                     break;
@@ -550,6 +559,10 @@ public class Partner_IntegrationSteps extends DriverBase {
                 case "Successfully Completed":
                     testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Label_SuccessMessage(),"Success Message is displayed","Success Message is displayed","Success Message is not displayed");
                     testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_SuccessMessage(),"Success Message is displayed","Success Message is displayed","Success Message is not displayed");
+                    break;
+                case "Delivery Cancelled":
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Label_CanceledMessage(),"Delivery Cancelled message should be displayed","Delivery Cancelled message is displayed","Delivery Cancelled message is snot displayed");
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_CanceledMessage(),"Delivery Cancelled message should be displayed","Delivery Cancelled message is displayed","Delivery Cancelled message is snot displayed");
                     break;
                 default:
                     break;
