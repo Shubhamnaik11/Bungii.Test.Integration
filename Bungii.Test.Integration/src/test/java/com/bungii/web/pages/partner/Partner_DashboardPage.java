@@ -94,6 +94,8 @@ public class Partner_DashboardPage extends PageBase {
 
     public WebElement Label_Distance() { return findElement("//label[contains(text(),'Distance in Miles -')]/strong",LocatorType.XPath);}
 
+    public WebElement Label_EstDeliveryTime(){return findElement("//label[contains(text(),'Est. Delivery Time')]/strong",LocatorType.XPath);}
+
     //Continue button
     //public  WebElement Button_Continue() { return findElement("//a[@class='btn']",LocatorType.XPath);}
     public  WebElement Button_Continue() { return findElement("//button[@class='btn']",LocatorType.XPath);}
