@@ -59,6 +59,7 @@ public class Partner_LoginSteps extends DriverBase {
         {
             case "Partner":
                 String partnerUrl =  utility.NavigateToPartnerLogin(url);
+                cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerUrl);
                 cucumberContextManager.setScenarioContext("IS_PARTNER","TRUE");
                 pass("I should be navigate to " + page + " portal configured for "+ url ,
                         "I navigated to " + page + " portal configured for "+ url +" ["+partnerUrl+"]", true);
@@ -368,6 +369,7 @@ public class Partner_LoginSteps extends DriverBase {
 
                     testStepVerify.isEquals(action.getText(Page_Partner_Done.Text_Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
                     String PickupRequest = new DbUtility().getPickupRef(Customer_Phone);
+                    String PickupToken = new DbUtility().getPickupToken(PickupRequest);
                     //String ScheduledTime = new DbUtility().getScheduledTime(Customer_Phone);
                     //String FromFormat="yyyy-mm-dd HH:mm:ss";
                     //String ToFormat ="MMM dd, YYYY at HH:mm aa z";
@@ -376,6 +378,7 @@ public class Partner_LoginSteps extends DriverBase {
                     //cucumberContextManager.setScenarioContext("Scheduled_Time",date);
                     //cucumberContextManager.setScenarioContext("pickupRequestPartner", PickupRequest);
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
+                    cucumberContextManager.setScenarioContext("PICKUP_TOKEN",PickupToken);
                     break;
                 case "see the trip in the Delivery List":
                     String scheduled_time =(String) cucumberContextManager.getScenarioContext("Schedule_Date_Time");

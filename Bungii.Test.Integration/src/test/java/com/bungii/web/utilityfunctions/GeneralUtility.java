@@ -168,6 +168,7 @@ public class GeneralUtility extends DriverBase {
         String Pickup_Id = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String pickup_Token = DbUtility.getPickupToken(Pickup_Id);
         URL = URL.replace("login","Pickup/"+pickup_Token);
+        action.openNewTab();
         action.navigateTo(URL);
         Thread.sleep(5000);
         
