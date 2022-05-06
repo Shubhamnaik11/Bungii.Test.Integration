@@ -56,15 +56,15 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
             case "Delivery Status URL":
                 utility.NavigateDriverRatingWebLink();
-                action.waitUntilIsElementExistsAndDisplayed(partner_Delivery_StatusPage.Label_Delivery_Details_Title(),10L);
-                testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Label_Delivery_Details_Title(),"Delivery Status Page should be shown","Delivery Status page is shown","Delivery Status page is not shown");
+                Thread.sleep(1000);
+                testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Label_DeliveryDetailsTitle(),"Delivery Status Page should be shown","Delivery Status page is shown","Delivery Status page is not shown");
                 log("I navigate to Delivery status page" ,
                         "I navigated to Delivery status page" , false);
                 break;
             case "Delivery Status URL again":
                 action.switchToTab(2);
                 action.refreshPage();
-                action.waitUntilIsElementExistsAndDisplayed(partner_Delivery_StatusPage.Label_Delivery_Details_Title(),10L);
+                action.waitUntilIsElementExistsAndDisplayed(partner_Delivery_StatusPage.Label_DeliveryDetailsTitle(),10L);
                 break;
         }
         pass("I should be navigate to " + page,

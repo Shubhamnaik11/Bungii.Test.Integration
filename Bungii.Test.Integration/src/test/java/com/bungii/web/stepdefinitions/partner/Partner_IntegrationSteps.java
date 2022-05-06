@@ -524,36 +524,33 @@ public class Partner_IntegrationSteps extends DriverBase {
     @Then("^Delivery Status should be displayed correctly as \"([^\"]*)\"$")
     public void delivery_status_should_be_displayed_correctly_as_something(String status) throws Throwable {
         try {
+            String PickupDateTime = (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
+            String PickupDatewithoutTimezone = PickupDateTime.substring(0,PickupDateTime.length()-4);
+            String PickAddress = (String) cucumberContextManager.getScenarioContext("PickupAddress");
+            String DropAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
+            String EstimatedDistance = (String) cucumberContextManager.getScenarioContext("ESTIMATED_DISTANCE");
+            String DriverName1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            String Est_Delivery_Time = (String) cucumberContextManager.getScenarioContext("ESTIMATED_DELIVERY_TIME");
             switch (status) {
                 case "En Route To Pickup":
-                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Delivery_Status(status),"Delivery Status should be shown as " + status,"Delivery Status is shown as " + status,"Delivery status is not shown as " + status);
-                    String PickupDateTime = (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
-                    String PickupDatewithoutTimezone = PickupDateTime.substring(0,PickupDateTime.length()-4);
-                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_PickupTime(PickupDatewithoutTimezone),"Pickup Time "+PickupDatewithoutTimezone+" should be displayed correctly","PickupTime is displayed correctly","PickupTime is not displayed correctly");
-                    String PickAddress = (String) cucumberContextManager.getScenarioContext("PickupAddress");
-                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_PickupAddress(PickAddress),"Pickup address "+PickAddress+" should be displayed correctly","Pickup address is  displayed correctly","Pickup address is not displayed correctly");
-                    String DropAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
-                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_DeliveryAddress(DropAddress),"Delivery address "+DropAddress+" should be displayed correctly","Delivery address is  displayed correctly","Delivery address is not displayed correctly");
-                    String EstimatedDistance = (String) cucumberContextManager.getScenarioContext("ESTIMATED_DISTANCE");
-                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Distance(EstimatedDistance),"Estimated distance: " + EstimatedDistance + "should be displayed", "Estimated distance is displayed correctly", "Estimated distance is not displayed correctly");
-                    String DriverName1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
-                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Driver1(DriverName1),"Driver name "+ DriverName1+ "should be displayed correctly","Driver name is  displayed correctly","Driver name is not displayed correctly");
-                    if (((String) cucumberContextManager.getScenarioContext("BUNGII_TYPE")).equals("Duo Scheduled"))
-                    {
-                        String DriverName2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
-                        testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Driver1(DriverName2),"Driver name "+ DriverName2+ "should be displayed correctly","Driver name is  displayed correctly","Driver name is not displayed correctly");
-                    }
-                    String Est_Delivery_Time = (String) cucumberContextManager.getScenarioContext("ESTIMATED_DELIVERY_TIME");
-//                    TO BE IMPLEMENTED AFTER CORE-3842
-//                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_Est_Delivery_Time(Est_Delivery_Time),"Est. delivery time should be displayed correctly","Est. delivery time is  displayed correctly","Est. delivery time is not displayed correctly");
-                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Icon_CallDriver(),"Driver calling icon should be displayed","Driver calling icon is displayed","Driver calling icon is not displayed");
-                    action.switchToTab(1);
-                    break;
                 case "Driver Arrived At Pickup":
                 case "Loading Items":
                 case "Driving To Drop Off":
                 case "Unloading Items":
-                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Delivery_Status(status),"Delivery Status should be shown as " + status,"Delivery Status is shown as " + status,"Delivery status is not shown as " + status);
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_DeliveryStatus(status),"Delivery Status should be shown as " + status,"Delivery Status is shown as " + status,"Delivery status is not shown as " + status);
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_PickupTime(PickupDatewithoutTimezone),"Pickup Time "+PickupDatewithoutTimezone+" should be displayed correctly","PickupTime is displayed correctly","PickupTime is not displayed correctly");
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_PickupAddress(PickAddress),"Pickup address "+PickAddress+" should be displayed correctly","Pickup address is  displayed correctly","Pickup address is not displayed correctly");
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_DeliveryAddress(DropAddress),"Delivery address "+DropAddress+" should be displayed correctly","Delivery address is  displayed correctly","Delivery address is not displayed correctly");
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Distance(EstimatedDistance),"Estimated distance: " + EstimatedDistance + "should be displayed", "Estimated distance is displayed correctly", "Estimated distance is not displayed correctly");
+                    testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Driver1(DriverName1),"Driver name "+ DriverName1+ "should be displayed correctly","Driver name is  displayed correctly","Driver name is not displayed correctly");
+                    if (((String) cucumberContextManager.getScenarioContext("BUNGII_TYPE")).equals("Duo Scheduled"))
+                    {
+                        String DriverName2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+                        testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Text_Driver1(DriverName2),"Driver name "+ DriverName2+ "should be displayed correctly","Driver name is  displayed correctly","Driver name is not displayed correctly");
+                    }
+//                    TO BE IMPLEMENTED AFTER CORE-3842
+//                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Text_EstDeliveryTime(Est_Delivery_Time),"Est. delivery time should be displayed correctly","Est. delivery time is  displayed correctly","Est. delivery time is not displayed correctly");
+                    testStepVerify.isElementDisplayed(partner_Delivery_StatusPage.Icon_CallDriver(),"Driver calling icon should be displayed","Driver calling icon is displayed","Driver calling icon is not displayed");
                     action.switchToTab(1);
                     break;
                 case "Successfully Completed":
