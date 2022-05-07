@@ -590,6 +590,7 @@ Feature: Partner Integration with Admin and Driver
     Then Submitted driver ratings are saved in the database
 
     @ready
+#   CORE-2505 : Driver rating fix
     Scenario: Verify that the rating is stored in database when driver clicks submit button without clicking on rating
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -607,7 +608,7 @@ Feature: Partner Integration with Admin and Driver
       Then I check details on link page open for driver rating
       And I click on "Submit" button on Driver Rating Page
       Then I should "see Ratings submitted successfully message"
-      Then default driver ratings are saved in the database
+      Then Default driver ratings are saved in the database
 
 
   @regression

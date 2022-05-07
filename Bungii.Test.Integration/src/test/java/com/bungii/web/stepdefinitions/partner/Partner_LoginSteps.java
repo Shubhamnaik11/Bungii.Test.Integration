@@ -700,8 +700,8 @@ public class Partner_LoginSteps extends DriverBase {
         }
     }
 
-    @Then("^default driver ratings are saved in the database$")
-    public void default_driver_ratings_are_saved_in_the_database() throws Throwable {
+    @Then("^Default driver ratings are saved in the database$")
+    public void Default_driver_ratings_are_saved_in_the_database() throws Throwable {
         try {
             String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
             String pickupId = dbUtility.getPickupId(pickupRef);
