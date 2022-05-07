@@ -694,11 +694,30 @@ public class Partner_LoginSteps extends DriverBase {
         }catch (Exception e) {
 
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Correct submitted driver rating value shoud be shown in database", "Correct submitted driver rating value is not shown in database",
+            error("Correct submitted driver rating value should be shown in database", "Correct submitted driver rating value is not shown in database",
                     true);
 
         }
     }
 
+    @Then("^default driver ratings are saved in the database$")
+    public void default_driver_ratings_are_saved_in_the_database() throws Throwable {
+        try {
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String pickupId = dbUtility.getPickupId(pickupRef);
+
+            List<HashMap<String, Object>> dbDriverRating = dbUtility.getDriverRating(pickupId);
+
+            String driverRating = dbDriverRating.get(0).toString();
+            testStepAssert.isEquals(driverRating, "{DriverRating=5}", "Default driver rating should be stored", "Default driver rating is stored", "Default driver rating is stored");
+
+        } catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Correct default driver rating value should be stored in database", "Correct default driver rating value is not stored in database",
+                    true);
+
+        }
+    }
 }
 
