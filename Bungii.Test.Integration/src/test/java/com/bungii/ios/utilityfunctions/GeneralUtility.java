@@ -660,6 +660,10 @@ public class GeneralUtility extends DriverBase {
                 String bungiiCompleted = PropertyUtility.getMessage("driver.navigation.bungii.completed");
                 isCorrectPage = action.getScreenHeader(driverHomePage.Text_Bungii_Completed()).equals(bungiiCompleted);
                 break;
+            case "ITEMIZED EARNINGS":
+                logger.detail("DRIVER APP");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_ItemizedEarnings()).equals("ITEMIZED EARNINGS");
+                break;
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {
