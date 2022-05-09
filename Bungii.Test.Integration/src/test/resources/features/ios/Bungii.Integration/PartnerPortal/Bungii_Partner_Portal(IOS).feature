@@ -36,39 +36,37 @@ Feature: Partner Portal Cases integration with IOS
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
 
-    #  Core-2411:Verify that driver's status remains Online when his pervious status was Online once he starts the schedule trip
-  @reaqdy
-  Scenario: Verify that driver's status remains Online when his pervious status was Online once he starts the schedule trip
+ #  Core-2411:Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip
+  @ready
+  Scenario: Verify that driver's status remains Online when his previous status was Online once he starts the schedule tripfor ios
     When I request Partner Portal "SOLO" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
-    And I am logged in as "Testdrivertywd_appleks_andro_a Kansas_a" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
+    And I login to driver app
     And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Trip from available trip
-    Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
-    And I tap on "ACCEPT" on driver Trip details Page
+    And I Select Partner portal Trip from available trip
+    Then I should be navigated to "BUNGII DETAILS" screen
+    And Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
+    When I accept selected Bungii
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
-    And I start selected Bungii
-    Then Bungii driver should see "General Instructions"
-    Then Bungii driver should see "Enroute screen"
-    Then Partner Portal name should be displayed in "EN ROUTE" section
-    And Driver status should be changed in db to "1"
+    And I Select Trip from scheduled trip
+    Then I should be navigated to "BUNGII DETAILS" screen
+    And Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
+    When I start selected Bungii
+    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    And Driver status should be "Online"
     And I Switch to "customer" application on "same" devices
-    When I am on customer Log in page
-    And I am logged in as "valid kansas" customer
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
-    And I enter "new Kansas pickup less than 10 miles" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add "2" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I Switch to "driver" application on "ORIGINAL" devices
-    And I view and accept virtual notification for "Driver" for "on demand trip"
+    When I am on Customer logged in Home page
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                 | Drop Location                      | geofence  |
+      | Solo   | 775 Brasilia Avenue, Kansas City |  648 Madrid Avenue, Kansas City | kansas |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 15       |           |              | Now  | Default     |
+    Then I should be navigated to "SEARCHING" screen
+    And I Switch to "driver" application on "same" devices
+    And I view and check virtual notification for "Driver" for "on demand trip"
 

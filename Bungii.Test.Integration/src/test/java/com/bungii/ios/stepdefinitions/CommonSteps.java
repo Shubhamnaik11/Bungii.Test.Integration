@@ -944,6 +944,13 @@ public class CommonSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+
+            case "valid partner kansas driver2":
+                phone = PropertyUtility.getDataProperties("android.new.driver1.phone");
+                password = PropertyUtility.getDataProperties("partner.kansas.driver.password");
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             default:
                 throw new Exception("Please specify valid input");
         }
@@ -2772,4 +2779,46 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I login to driver app$")
+    public void i_login_to_driver_app() throws Throwable {
+        try {
+        String driverName = "valid partner kansas driver2";
+        String navigationBarName = "";
+        int retry =2;
+        while(retry>0) {
+            if (action.isElementPresent(driverHomePage.Text_NavigationBar(true)))
+                navigationBarName = action.getScreenHeader(driverHomePage.Text_NavigationBar(true));
+            else
+                Thread.sleep(5000);
+            retry--;
+        }
+        goToDriverLogInPage(navigationBarName);
+
+        List<String> credentials =  getDriverCredentials(driverName);
+        utility.loginToDriverApp(credentials.get(0), credentials.get(1));
+        Thread.sleep(5000);
+        acceptDriverPermissions("ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
+
+    } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+    @And("^Driver status should be \"([^\"]*)\"$")
+    public void driver_status_should_be_something(String strArg1) throws Throwable {
+        try {
+         String expectedDriverOnlineStatus ="1";
+        String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+        testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
+
+        } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
+    }
+
 }

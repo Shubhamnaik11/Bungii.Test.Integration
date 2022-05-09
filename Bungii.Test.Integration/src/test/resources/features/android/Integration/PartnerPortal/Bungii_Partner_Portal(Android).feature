@@ -73,7 +73,7 @@
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
         |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
      And I am logged in as "Testdrivertywd_appleks_andro_a Kansas_a" driver
-      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      Then I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
       And I Select "AVAILABLE BUNGIIS" from driver App menu
@@ -81,13 +81,13 @@
       Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
       And I tap on "ACCEPT" on driver Trip details Page
       And I Select "SCHEDULED BUNGIIS" from driver App menu
-      And I Select Trip from driver scheduled trip
+      When I Select Trip from driver scheduled trip
       Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
       And I start selected Bungii
-      Then Bungii driver should see "General Instructions"
-      Then Bungii driver should see "Enroute screen"
-      Then Partner Portal name should be displayed in "EN ROUTE" section
-      And Driver status should be changed in db to "1"
+      And Bungii driver should see "General Instructions"
+      And Bungii driver should see "Enroute screen"
+      And Partner Portal name should be displayed in "EN ROUTE" section
+      And Driver status should be "Online"
       And I Switch to "customer" application on "same" devices
       When I am on customer Log in page
       And I am logged in as "valid kansas" customer
@@ -101,7 +101,7 @@
       And I tap on "Yes on HeadsUp pop up" on Bungii estimate
       And I Switch to "driver" application on "ORIGINAL" devices
       Then I click on notification for "STACK TRIP"
-      Then I should see "New Bungii Request" popup displayed
+      And I should see "New Bungii Request" popup displayed
 
 
 
