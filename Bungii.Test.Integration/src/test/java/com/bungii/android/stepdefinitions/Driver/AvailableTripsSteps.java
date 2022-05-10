@@ -187,12 +187,12 @@ public class AvailableTripsSteps extends DriverBase {
                     break;
                 case "EN ROUTE":
                 case "ARRIVED":
-                case "LOADING ITEM":
+                case "LOADING ITEMS":
                     String partnerNameText = action.getText(availableTrips.Partner_Name_For_Enroute());
                     testStepAssert.isEquals(partnerNameText, partnerNameExpected, "Partner Portal name should be displayed on " + Screen + " screen", "Partner Portal name is displayed in " + Screen + " screen", "Partner Portal name is not displayed in " + Screen + " screen");
                     break;
-                case "DRIVING TO DROP OFF":
-                case "UNLOADING ITEM":
+                case "DRIVING TO DROP-OFF":
+                case "UNLOADING ITEMS":
                     String[] customerNameText = action.getText(availableTrips.Partner_Name_For_Enroute()).split(" ");
                     String customerNameproper = customerNameText[0];
                     testStepAssert.isEquals(customerNameproper, expectedCustomerName, "Customer  name should be displayed on " + Screen + " screen", "Customer name is displayed in " + Screen + " screen", "Customer name is not displayed in " + Screen + " screen");
