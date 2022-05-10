@@ -605,6 +605,28 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Ratings submitted successfully message"
     Then Submitted driver ratings are saved in the database
 
+    @ready
+#   CORE-2505 : Driver rating fix
+    Scenario: Verify that the rating is stored in database when driver clicks submit button without clicking on rating
+      When I request Partner Portal "SOLO" Trip for "MRFM" partner
+        |Geofence| Bungii Time   | Customer Phone | Customer Name |
+        |Kansas| NEXT_POSSIBLE | 9999999228 | Testcustomertywd_appleNewMO Customer|
+      And As a driver "Testdrivertywd_appleks_a_drve Kansas_e" perform below action with respective "Solo Scheduled" partner portal trip
+        | driver1 state |
+        | Accepted      |
+        | enroute       |
+        |Arrived         |
+        |Loading Item     |
+        |Driving To Dropoff |
+        |Unloading Item    |
+        |Bungii Completed  |
+      And I open the link to provide driver rating
+      Then I check details on link page open for driver rating
+      And I click on "Submit" button on Driver Rating Page
+      Then I should "see Ratings submitted successfully message"
+      Then Default driver ratings are saved in the database
+
+
   @regression
   Scenario: Verify that the portal's customer can open the link to provide driver rating for duo delivery.
     When I request Partner Portal "Duo" Trip for "MRFM" partner

@@ -47,6 +47,8 @@ public class HomePage extends PageBase {
     public WebElement Text_DriverNavigationBar (String screen) { return findElement("//XCUIElementTypeOther[@name='"+screen+"']", LocatorType.XPath); }
     public WebElement NavigationBar_Text() {return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName); }
     public WebElement Text_Bungii_Completed() { return findElement("//XCUIElementTypeStaticText[@name='Bungii completed']",LocatorType.XPath);}
+    public WebElement Header_ItemizedEarnings() { return findElement("//XCUIElementTypeOther[@name=\"ITEMIZED EARNINGS\"]",LocatorType.XPath);}
+
     //public WebElement Button_AppMenu () { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
     public WebElement Button_AppMenu (boolean ...ignoreException) { return findElement("**/XCUIElementTypeNavigationBar/XCUIElementTypeButton", LocatorType.ClassChain, ignoreException); }
 //'**/XCUIElementTypeNavigationBar/XCUIElementTypeButton
@@ -113,6 +115,10 @@ public class HomePage extends PageBase {
     public WebElement Button_ItemizedEarnings() {return findElement("//XCUIElementTypeButton[@name=\"ITEMIZED EARNINGS\"]",LocatorType.XPath);}
     public WebElement Text_ItemizedEarnings() {return findElement("//XCUIElementTypeOther/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
     public WebElement Button_BackItemizedEarnings() {return findElement("//XCUIElementTypeButton[@name=\"Back\"]",LocatorType.XPath);}
+    public WebElement Dropdown_StartDate(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]", LocatorType.XPath);}
+    public WebElement Dropdown_EndDate(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]", LocatorType.XPath);}
+    public WebElement Calendar_StartDate(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[4]/XCUIElementTypeOther/XCUIElementTypeOther", LocatorType.XPath);}
+    public WebElement Button_Cancel(){return findElement("//XCUIElementTypeButton[@name=\"Cancel\"]", LocatorType.XPath);}
 
     //Admin Driver Page
     public WebElement Icon_DriverEarnings(){return findElement("//tbody[@id='NewApplicantsTBody']/tr/td/a/img[@title='Driver Earnings']", LocatorType.XPath);}
