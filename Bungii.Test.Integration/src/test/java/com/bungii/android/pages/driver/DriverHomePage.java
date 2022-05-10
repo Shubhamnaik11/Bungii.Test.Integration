@@ -40,6 +40,7 @@ public class DriverHomePage extends PageBase {
     public WebElement Text_Leaderboard () { return findElement("//*[@resource-id='content']/android.view.View[2]/descendant::android.view.View[last()]", LocatorType.XPath); }
     public WebElement Text_ScheduledBungiis () { return findElement("//android.widget.TextView[@text='No Bungiis']",LocatorType.XPath); }
     public WebElement Text_AvailableTrips () { return findElement("//android.widget.TextView[@text='No Bungiis available']",LocatorType.XPath); }
+    public WebElement Text_NoDeliveriesAvailable () { return findElement( "//android.widget.TextView[2]",LocatorType.XPath); }
     //public WebElement Text_Earnings () { return findElement("//android.view.View[@text='DRIVER INFO']",LocatorType.XPath); }
     public WebElement Text_Earnings () { return findElement("//android.widget.TextView[@text='EARNINGS' and @resource-id='com.bungii.driver:id/toolbar_main_title']",LocatorType.XPath); }
     public WebElement Text_Account () { return findElement("//*[@resource-id='com.bungii.driver:id/account_info_textview_name']",LocatorType.XPath); }
@@ -57,5 +58,8 @@ public class DriverHomePage extends PageBase {
     public WebElement Text_BungiiCompleted(boolean ignoreException) { return findElement("com.bungii.driver:id/pickup_summary_toolbar_title", LocatorType.Id);}
 
     public WebElement Button_Sure(boolean ignoreException){ return findElement("com.bungii.driver:id/button_location_permission_sure", LocatorType.Id,ignoreException);}
+
+    public WebElement Text_OverriddenPrice() { return findElement("com.bungii.driver:id/scheduled_row_textview_status", LocatorType.Id);}
+
 
 }

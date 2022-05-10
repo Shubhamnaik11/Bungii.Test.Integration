@@ -67,7 +67,7 @@ public class ForgotPasswordSteps extends DriverBase  {
                 testStepVerify.isElementTextEquals(forgotPasswordPage.Text_ForgotError(),PropertyUtility.getMessage("driver.login.phone.error"));
                 break;
             case"FAILED TO SEND TOKEN":
-                testStepVerify.isEquals(utility.getDriverSnackBarMessage(), PropertyUtility.getMessage("driver.forgotpassword.failed.reset"));
+                testStepVerify.isEquals(utility.getDriverSnackBarMessage(), PropertyUtility.getMessage("common.failed.message"));
                 break;
             case "INVALID SMS CODE":
                 testStepVerify.isEquals(utility.getDriverSnackBarMessage(), PropertyUtility.getMessage("driver.forgotpassword.invalid.code.andriod"));

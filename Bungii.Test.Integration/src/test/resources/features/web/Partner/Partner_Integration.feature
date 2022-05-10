@@ -6,14 +6,14 @@ Feature: Partner Integration with Admin and Driver
     And I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-  
+
   @regression
   @sanity
     #stable
   Scenario: Delivery List Status Updation For Solo Scheduled Pickup on Partner Portal
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
-      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      | Pickup_Address                                                                     | Delivery_Address                                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, District of Columbia, United States, 20005  | 234 13th Street Northeast, Washington, District of Columbia, United States, 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -65,6 +65,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL"
+    Then Delivery Status should be displayed correctly as "En Route To Pickup"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Arrived |
@@ -75,6 +77,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL again"
+    Then Delivery Status should be displayed correctly as "Driver Arrived At Pickup"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Loading Item |
@@ -85,6 +89,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL again"
+    Then Delivery Status should be displayed correctly as "Loading Items"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Driving To Dropoff |
@@ -95,6 +101,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL again"
+    Then Delivery Status should be displayed correctly as "Driving To Drop Off"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Unloading Item |
@@ -105,6 +113,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL again"
+    Then Delivery Status should be displayed correctly as "Unloading Items"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Bungii Completed |
@@ -115,6 +125,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed    |
+    When I navigate to "Delivery Status URL again"
+    Then Delivery Status should be displayed correctly as "Successfully Completed"
   
   @regression
     #stable
@@ -144,7 +156,7 @@ Feature: Partner Integration with Admin and Driver
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
@@ -155,7 +167,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Canceled       |
-  
+
   @regression
     #Stable
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip from Driver
@@ -212,13 +224,13 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status    |
       | Canceled       |
-  
+
   @regression
     #stable
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by control Driver
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
-      | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      | Pickup_Address                                                                     | Delivery_Address                                                                    |Load_Unload_Time|
+      | 601 13th Street Northwest, Washington, District of Columbia, United States, 20005  | 234 13th Street Northeast, Washington, District of Columbia, United States, 20002   |30 minutes      |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -263,6 +275,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
+    When I navigate to "Delivery Status URL"
+    Then Delivery Status should be displayed correctly as "En Route To Pickup"
     When As a driver "Testdrivertywd_appledc_a_ronny James" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state   |
       | Driver Canceled |
@@ -270,6 +284,8 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Canceled       |
+    When I navigate to "Delivery Status URL"
+    Then Delivery Status should be displayed correctly as "Delivery Cancelled"
 
   @ready
     #Failed in Sprint 49
@@ -300,7 +316,7 @@ Feature: Partner Integration with Admin and Driver
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When As a driver "Testdrivertywd_appledc_a_ronny James" and "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
@@ -513,7 +529,7 @@ Feature: Partner Integration with Admin and Driver
       And I view the Scheduled Deliveries list on the admin portal
       Then I should be able to see the respective bungii partner portal trip with the below status
         | Status           |
-        | Searching Drivers|
+        | Assigning Driver(s)|
       And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state|
         | Accepted |
@@ -563,7 +579,7 @@ Feature: Partner Integration with Admin and Driver
     And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     And I navigate to partner portal
     And I select the Scheduled Bungii from Delivery List
     Then I should "see the trip details"
@@ -674,7 +690,7 @@ Feature: Partner Integration with Admin and Driver
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted     |

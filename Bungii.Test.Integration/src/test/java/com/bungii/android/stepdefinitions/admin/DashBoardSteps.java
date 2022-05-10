@@ -54,6 +54,9 @@ public class DashBoardSteps extends DriverBase {
                     SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=True");
                     //action.click(dashBoardPage.Button_Trips());
                     break;
+                case "drivers":
+                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","Admin/GetAllBungiiDrivers"));
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -65,5 +68,4 @@ public class DashBoardSteps extends DriverBase {
                     true);
         }
     }
-
 }

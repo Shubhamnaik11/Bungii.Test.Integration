@@ -7,6 +7,7 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
+    @test
     @regression
     @sanity
       #stable

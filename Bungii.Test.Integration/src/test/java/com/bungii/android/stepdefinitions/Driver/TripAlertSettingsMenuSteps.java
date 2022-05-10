@@ -38,6 +38,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     SearchingPage searchingPage = new SearchingPage();
+    MyBungiisPage myBungiisPage = new MyBungiisPage();
+    EarningsPage earningsPage = new EarningsPage();
 
 
     @And("^I click on \"([^\"]*)\" tab$")
@@ -237,10 +239,12 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "VERIFY":
+                    action.javaScriptScrollDown(scheduledTripsPage.Button_VerifyDriver());
                     action.click(scheduledTripsPage.Button_VerifyDriver());
                     break;
 
                 case "SAVE CHANGES":
+                    action.javaScriptScrollDown(scheduledTripsPage.Button_SaveChanges());
                     action.click(scheduledTripsPage.Button_SaveChanges());
                     break;
 
@@ -287,6 +291,14 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "SUBMIT REASON":
                     action.click(setPickupTimePage.Button_SubmitCancellationReason());
+                    break;
+
+                case "BACK":
+                    action.click(myBungiisPage.Button_Back());
+                    break;
+
+                case "Itemized Earnings":
+                    action.click(earningsPage.Button_ItemizedEarnings());
                     break;
 
                 default:

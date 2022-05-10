@@ -3,7 +3,8 @@ Feature: Quote Only Feature
   
   Background:
 	Given I navigate to "Partner" portal configured for "service level" URL
-
+	  
+@test
 @regression
 Scenario Outline: Verify partner can get the Quote from quote-only page for partner delivery of <Type> for Service <ServiceName> for <Distance> distance range
 And I navigate to "Quote-Only" page

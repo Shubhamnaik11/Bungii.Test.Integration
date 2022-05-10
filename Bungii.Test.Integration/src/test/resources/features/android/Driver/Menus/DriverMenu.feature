@@ -63,8 +63,8 @@ Feature: DriverMenu
     When I Select "EARNINGS" from driver App menu
     And the "EARNINGS" page is opened
     Then I should be able to see data on "EARNINGS" page
-    When I click on "Click here to view itemized earnings" hyperlink
-    Then I am redirected to "Trip History Page"
+    When I click on "Itemized Earnings" button
+    Then I am redirected to "Itemized Earnings page"
   
       #failing due to BCKD-1103
   #@regression

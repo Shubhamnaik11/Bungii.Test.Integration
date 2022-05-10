@@ -7,6 +7,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.driver.*;
+import com.bungii.web.pages.partner.Partner_Delivery_StatusPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -16,6 +17,7 @@ import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jsoup.nodes.Document;
 
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,6 +39,7 @@ public class DriverRegistrationSteps extends DriverBase {
     Driver_VideoTrainingPage Page_Driver_Video = new Driver_VideoTrainingPage();
     Driver_FinishPage Page_Driver_Finish = new Driver_FinishPage();
     Driver_DashboardPage Page_Driver_Dashboard = new Driver_DashboardPage();
+    Partner_Delivery_StatusPage partner_Delivery_StatusPage= new Partner_Delivery_StatusPage();
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
 
@@ -50,6 +53,18 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
             case "Driver Details":
                 action.click(Page_Driver_Details.Menu_DriverDetails());
+                break;
+            case "Delivery Status URL":
+                utility.NavigateDriverRatingWebLink();
+                Thread.sleep(1000);
+                testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Label_DeliveryDetailsTitle(),"Delivery Status Page should be shown","Delivery Status page is shown","Delivery Status page is not shown");
+                log("I navigate to Delivery status page" ,
+                        "I navigated to Delivery status page" , false);
+                break;
+            case "Delivery Status URL again":
+                action.switchToTab(2);
+                action.refreshPage();
+                Thread.sleep(1000);
                 break;
         }
         pass("I should be navigate to " + page,
@@ -94,12 +109,13 @@ try{
             case "valid":
                 action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName"));
                 String Lastname = utility.GetUniqueLastName();
+                int randomnumber = utility.GetUniqueNumber();
                 action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(),Lastname);
                 cucumberContextManager.setScenarioContext("FIRSTNAME", PropertyUtility.getDataProperties("DriverFirstName"));
                 cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
                 cucumberContextManager.setFeatureContextContext("LASTNAME", Lastname);
 
-                action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), "bungiiauto"+Lastname+"@cci.com"); //PropertyUtility.getDataProperties("DriverEmail"));
+                action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), "bungiiauto+"+randomnumber+"@gmail.com"); //PropertyUtility.getDataProperties("DriverEmail"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_CreatePassword(), PropertyUtility.getDataProperties("DriverPassword"));
                 //action.clearSendKeys(Page_Driver_Reg.TextBox_ConfirmPassword(), PropertyUtility.getDataProperties("DriverPassword"));
                 action.selectElementByText(Page_Driver_Reg.Dropdown_Location(),PropertyUtility.getDataProperties("DriverLocation"));

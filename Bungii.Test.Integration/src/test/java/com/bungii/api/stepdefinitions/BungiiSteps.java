@@ -329,9 +329,37 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_drvn WashingtonDC_n":
                 phone = PropertyUtility.getDataProperties("Washington.driver4.phone");
                 break;
-            case "Testdrivertywd_appleks_a_drvo Kansas_o":
-                phone = PropertyUtility.getDataProperties("Kansas.driver11.phone");
+            case "Testdrivertywd_appledc_a_drvq WashingtonDC_q":
+                phone = PropertyUtility.getDataProperties("Washington.driver5.phone");
                 break;
+            case "Testdrivertywd_appledc_a_drvr WashingtonDC_r":
+                phone = PropertyUtility.getDataProperties("Washington.driver6.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvs WashingtonDC_s":
+                phone = PropertyUtility.getDataProperties("Washington.driver7.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvC WashingtonC":
+                phone = PropertyUtility.getDataProperties("Washington.driver8.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvu Kansas_u":
+                phone = PropertyUtility.getDataProperties("Kansas.driver12.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvv Kansas_v":
+                phone = PropertyUtility.getDataProperties("Kansas.driver13.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvw Kansas_w":
+                phone = PropertyUtility.getDataProperties("Kansas.driver14.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvy Kansas_y":
+                phone = PropertyUtility.getDataProperties("Kansas.driver15.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvz Kansas_z":
+                phone = PropertyUtility.getDataProperties("Kansas.driver16.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvB WashingtonB":
+                phone = PropertyUtility.getDataProperties("Washington.driver9.phone");
+                break;
+
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
 
@@ -2884,6 +2912,15 @@ else
                     driverPassword = PropertyUtility.getDataProperties("nashville.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                }else if (geofence.equalsIgnoreCase("nashville2")) {
+                    geofence = "nashville";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("nashville.customer2.phone");
+                    custPassword = PropertyUtility.getDataProperties("nashville.customer2.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("nashville.driver2.phone");
+                    driverPassword = PropertyUtility.getDataProperties("nashville.driver2.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver2.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer2.name"));
                 } else if (geofence.equalsIgnoreCase("Kansas")) {
                     custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer.phone");
                     custPassword = PropertyUtility.getDataProperties("Kansas.customer.password");
@@ -4039,9 +4076,9 @@ else
                 Details[1]=PropertyUtility.getDataProperties("customerB.phone.password");
                 Details[2]=PropertyUtility.getDataProperties("customerB.phone.name");
 
-                Details[3]=PropertyUtility.getDataProperties("driverB.phone.number");
-                Details[4]=PropertyUtility.getDataProperties("driverB.phone.password");
-                Details[5]=PropertyUtility.getDataProperties("driverB.phone.name");
+                Details[3]=PropertyUtility.getDataProperties("goa.driver2.phone");
+                Details[4]=PropertyUtility.getDataProperties("goa.driver2.password");
+                Details[5]=PropertyUtility.getDataProperties("goa.driver2.name");
                 break;
 
             case "Testcustomertywd_appleand_C Android":

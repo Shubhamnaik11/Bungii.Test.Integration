@@ -27,4 +27,18 @@ public class BungiiCompletedPage extends PageBase {
 
     public WebElement Text_BungiiStatus(){return findElement("//android.widget.TextView[@text='Bungii completed']",LocatorType.XPath);}
     public WebElement Button_NextBungii(boolean ...ignoreException) { return findElement("com.bungii.driver:id/appCompatButton4", LocatorType.Id,ignoreException); }
+
+    //Rate Customer
+    public WebElement Icon_RatingFriendly(){return findElement("//*[@resource-id='com.bungii.driver:id/view_rating_option_tv_option' and contains(@text ,'Friendly')]",LocatorType.XPath);}
+    public WebElement Icon_RatingRespectful(){return findElement("//*[@resource-id='com.bungii.driver:id/view_rating_option_tv_option' and contains(@text ,'Respectful')]",LocatorType.XPath);}
+    public WebElement Icon_RatingClearExpectations(){return findElement("//*[@resource-id='com.bungii.driver:id/view_rating_option_tv_option' and contains(@text ,'Clear Expectations')]",LocatorType.XPath);}
+    public WebElement Icon_RatingSmiled(){return findElement("//*[@resource-id='com.bungii.driver:id/view_rating_option_tv_option' and contains(@text ,'Smiled')]",LocatorType.XPath);}
+    public WebElement Icon_RatingAvailable(){return findElement("//*[@resource-id='com.bungii.driver:id/view_rating_option_tv_option' and contains(@text ,'Available')]",LocatorType.XPath);}
+    public WebElement Icon_RatingGrateful(){return findElement("//*[@resource-id='com.bungii.driver:id/view_rating_option_tv_option' and contains(@text ,'Grateful')]",LocatorType.XPath);}
+
+    public WebElement RatingBar(){return findElement("//*[@resource-id='com.bungii.driver:id/rate_participants_rating_bar_customer']",LocatorType.XPath);}
+
+    public WebElement Button_SubmitRating(){return findElement("com.bungii.driver:id/appCompatButton3",LocatorType.Id);}
+
+
 }

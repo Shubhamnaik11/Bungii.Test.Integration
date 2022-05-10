@@ -154,7 +154,7 @@ Feature: Scheduled DUO Bungii
     
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -173,7 +173,8 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" screen
+    #Then I should be navigated to "ARRIVED" screen
+    Then I should be navigated to "ARRIVED" screen on driverApp
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
 
@@ -182,15 +183,18 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEMS" screen
+    #Then I should be navigated to "LOADING ITEMS" screen
+    Then I should be navigated to "LOADING ITEMS" screen on driverApp
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
     And I slide update button on "LOADING ITEMS" Screen
-    Then I should be navigated to "DRIVING TO DROP-OFF" screen
+    #Then I should be navigated to "DRIVING TO DROP-OFF" screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" screen on driverApp
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
     And I slide update button on "DRIVING TO DROP-OFF" Screen
-    Then I should be navigated to "UNLOADING ITEMS" screen
+    #Then I should be navigated to "UNLOADING ITEMS" screen
+    Then I should be navigated to "UNLOADING ITEMS" screen on driverApp
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
     And I slide update button on "UNLOADING ITEMS" Screen
@@ -208,13 +212,17 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" screen
+    #Then I should be navigated to "ARRIVED" screen
+    Then I should be navigated to "ARRIVED" screen on driverApp
     And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEMS" screen
+    #Then I should be navigated to "LOADING ITEMS" screen
+    Then I should be navigated to "LOADING ITEMS" screen on driverApp
     And I slide update button on "LOADING ITEMS" Screen
-    Then I should be navigated to "DRIVING TO DROP-OFF" screen
+    #Then I should be navigated to "DRIVING TO DROP-OFF" screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" screen on driverApp
     And I slide update button on "DRIVING TO DROP-OFF" Screen
-    Then I should be navigated to "UNLOADING ITEMS" screen
+    #Then I should be navigated to "UNLOADING ITEMS" screen
+    Then I should be navigated to "UNLOADING ITEMS" screen on driverApp
 
     When I Switch to "customer" application on "Customer2" devices
     Then I should be navigated to "UNLOADING ITEM" screen
@@ -254,7 +262,7 @@ Feature: Scheduled DUO Bungii
     And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -335,7 +343,7 @@ Feature: Scheduled DUO Bungii
     And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -404,7 +412,7 @@ Feature: Scheduled DUO Bungii
     And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |

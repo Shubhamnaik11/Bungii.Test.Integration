@@ -168,6 +168,7 @@ public class GeneralUtility extends DriverBase {
         String Pickup_Id = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String pickup_Token = DbUtility.getPickupToken(Pickup_Id);
         URL = URL.replace("login","Pickup/"+pickup_Token);
+        action.openNewTab();
         action.navigateTo(URL);
         Thread.sleep(5000);
         
@@ -1098,6 +1099,13 @@ public class GeneralUtility extends DriverBase {
             e.printStackTrace();
         }
         return "data:image/png;base64,"+base64;
+    }
+
+    public int GetUniqueNumber(){
+        Random random = new Random();
+        // Generate random integers in range 0 to 999
+        int random_int = random.nextInt(1000);
+        return random_int;
     }
 }
 
