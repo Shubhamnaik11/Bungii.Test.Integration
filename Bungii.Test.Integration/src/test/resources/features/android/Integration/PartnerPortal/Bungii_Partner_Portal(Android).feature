@@ -25,13 +25,13 @@
     Then Bungii driver should see "Arrived screen"
     Then Partner Portal name should be displayed in "ARRIVED" section
     And I slide update button on "ARRIVED" Screen
-    Then Bungii driver should see "Loading Item screen"
+    Then Bungii driver should see "Loading Items screen"
     Then Partner Portal name should be displayed in "LOADING ITEMS" section
     And I slide update button on "LOADING ITEM" Screen
     Then Bungii driver should see "Driving to Drop-Off screen"
     Then Partner Portal name should be displayed in "DRIVING TO DROP-OFF" section
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then Bungii driver should see "Unloading Item screen"
+    Then Bungii driver should see "Unloading Items screen"
     Then Partner Portal name should be displayed in "UNLOADING ITEMS" section
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
