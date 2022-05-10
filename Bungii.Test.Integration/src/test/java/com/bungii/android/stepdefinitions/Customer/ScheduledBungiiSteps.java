@@ -437,7 +437,35 @@ public class ScheduledBungiiSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I check online or offline pop up is displayed$")
+    public void i_check_online_or_offline_pop_up_is_displayed() throws Throwable {
+        try {
+                testStepAssert.isElementDisplayed(bungiiCompletedPage.Notification_DriverStatus(),
+                        "The driver should get a pop-up to change status",
+                        "The driver got a pop-up to change status",
+                        "The driver did not get a pop-up to change status");
 
+                String header = bungiiCompletedPage.Notification_DriverStatus().getText();
+                String expectedHeader = "Are you available for more deliveries today?";
+                testStepAssert.isEquals(header,expectedHeader,
+                        expectedHeader+" should be displayed as header",
+                    expectedHeader+" is displayed as header",
+                    expectedHeader+" is not displayed as header");
+
+                String subText = bungiiCompletedPage.Text_NotificationDriverStatus().getText();
+                String expectedSubText = "Staying online makes you eligible for on-demand requests. Go offline if you would rather not receive any.";
+                testStepAssert.isEquals(subText,expectedSubText,
+                        expectedSubText+" should be displayed as sub text",
+                        expectedSubText+" is displayed as sub text",
+                    expectedSubText+" is not displayed as sub text");
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
     @And("^I click \"([^\"]*)\" button on the \"([^\"]*)\" screen$")
     public void i_click_something_button_on_the_something_screen(String strArg1, String strArg2) throws Throwable {

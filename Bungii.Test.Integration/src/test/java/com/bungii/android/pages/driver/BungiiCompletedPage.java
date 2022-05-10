@@ -40,5 +40,9 @@ public class BungiiCompletedPage extends PageBase {
 
     public WebElement Button_SubmitRating(){return findElement("com.bungii.driver:id/appCompatButton3",LocatorType.Id);}
 
+    //Stay online/offline pop-up
+    public WebElement Notification_DriverStatus(){return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id);}
+    public WebElement Text_NotificationDriverStatus(){return findElement("com.bungii.driver:id/appCompatTextView22",LocatorType.Id);}
+
 
 }

@@ -34,4 +34,8 @@ public class BungiiCompletedPage extends PageBase {
 		public WebElement Text_RateCustomer() {return findElement("//XCUIElementTypeStaticText[@name='Rate customer']",LocatorType.XPath);}
 
 		public WebElement StarRatings(int i) {return findElements("//XCUIElementTypeButton[@name='rating unselected star icon']",LocatorType.XPath).get(i);}
+
+		public WebElement Notification_DriverStatus(){return findElement("//XCUIElementTypeStaticText[@name=\"Are you available for more deliveries today?\"]\n",LocatorType.XPath);}
+		public WebElement Text_NotificationDriverStatus(){return findElement("//XCUIElementTypeStaticText[@name=\"Staying online makes you eligible for on-demand requests. Go offline if you would rather not receive any.\"]",LocatorType.XPath);}
+
 }

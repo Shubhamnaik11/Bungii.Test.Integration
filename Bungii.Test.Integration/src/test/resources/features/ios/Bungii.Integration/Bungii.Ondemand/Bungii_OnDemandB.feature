@@ -7,6 +7,7 @@ Feature: OndemandBungiis
 @sanity
 @regression
 #stable
+  @testsweta
 Scenario: Verify Ondemand Bungii completion As An iOS User
 When I Switch to "driver" application on "same" devices
 And I login as "valid nashville" driver on "same" device and make driver status as "Online"
@@ -45,6 +46,9 @@ And I slide update button on "UNLOADING ITEMS" Screen
 And I click "Skip This Step" button on "Rate customer" screen
 Then I should be navigated to "Bungii completed" screen
 When I click "On To The Next One" button on "Bungii completed" screen
+
+  #    Core-3098 Verify online/Offline pop up is shown for on demand trip
+  And I check online or offline pop up is displayed
 
 And I Switch to "customer" application on "same" devices
 Then I should be navigated to "Bungii Complete" screen
