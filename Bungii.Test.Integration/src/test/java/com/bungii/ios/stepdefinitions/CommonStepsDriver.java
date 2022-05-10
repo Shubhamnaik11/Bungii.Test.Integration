@@ -40,6 +40,7 @@ public class CommonStepsDriver extends DriverBase {
     //private EnableLocationPage enableLocationPage;
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
+    GeneralUtility utility = new GeneralUtility();
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
@@ -431,22 +432,25 @@ public class CommonStepsDriver extends DriverBase {
                 case "solo driver":
                     String driverEarningsOnAdminPortal= (String) cucumberContextManager.getScenarioContext("DRIVER_EARNINGS_ADMIN");
                     String driverEarningsOnDriverApp= (String) cucumberContextManager.getScenarioContext("DRIVER_ITEMIZED_EARNINGS");
-                    testStepVerify.isEquals(driverEarningsOnDriverApp,driverEarningsOnAdminPortal,
+                    testStepAssert.isEquals(driverEarningsOnDriverApp,driverEarningsOnAdminPortal,
                             "The earnings should be same on admin portal and driver app",
+                            "The earnings are same on admin portal and driver app",
                             "The earnings are not same on admin portal and driver app");
                     break;
                 case "duo first driver":
                     String firstDriverEarningsOnAdminPortal= (String) cucumberContextManager.getScenarioContext("DRIVER_ONE_EARNINGS_ADMIN");
                     String firstDriverEarningsOnDriverApp= (String) cucumberContextManager.getScenarioContext("DRIVER_ITEMIZED_EARNINGS");
-                    testStepVerify.isEquals(firstDriverEarningsOnDriverApp,firstDriverEarningsOnAdminPortal,
+                    testStepAssert.isEquals(firstDriverEarningsOnDriverApp,firstDriverEarningsOnAdminPortal,
                             "The earnings should be same on admin portal and driver app",
+                            "The earnings are same on admin portal and driver app",
                             "The earnings are not same on admin portal and driver app");
                     break;
                 case "duo second driver":
                     String secondDriverEarningsOnAdminPortal= (String) cucumberContextManager.getScenarioContext("DRIVER_TWO_EARNINGS_ADMIN");
                     String secondDriverEarningsOnDriverApp= (String) cucumberContextManager.getScenarioContext("DRIVER_ITEMIZED_EARNINGS");
-                    testStepVerify.isEquals(secondDriverEarningsOnDriverApp,secondDriverEarningsOnAdminPortal,
+                    testStepAssert.isEquals(secondDriverEarningsOnDriverApp,secondDriverEarningsOnAdminPortal,
                             "The earnings should be same on admin portal and driver app",
+                            "The earnings are same on admin portal and driver app",
                             "The earnings are not same on admin portal and driver app");
                     break;
             }
@@ -455,6 +459,29 @@ public class CommonStepsDriver extends DriverBase {
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error while getting driver earnings", true);
+        }
+    }
+    @And("^I verify all the elements on itemized earnings page$")
+    public void i_verify_all_the_elements_on_itemized_earnings_page() throws Throwable {
+        try{
+            boolean isCorrectPage = false;
+            isCorrectPage = utility.verifyPageHeader("ITEMIZED EARNINGS");
+            testStepAssert.isTrue(isCorrectPage, "I should be naviagated to ITEMIZED EARNINGS screen",
+                    "I should be navigated to ITEMIZED EARNINGS" , "I was not navigated to ITEMIZED EARNINGS screen ");
+
+            testStepAssert.isElementDisplayed(driverHomePage.Dropdown_EndDate(),"The element should be displayed","The element is displayed","The element is not displayed");
+            action.click(driverHomePage.Dropdown_EndDate());
+            testStepAssert.isElementDisplayed(driverHomePage.Calendar_StartDate(),"The element should be displayed","The element is displayed","The element is not displayed");
+            action.click(driverHomePage.Button_Cancel());
+
+            testStepAssert.isElementDisplayed(driverHomePage.Dropdown_StartDate(),"The element should be displayed","The element is displayed","The element is not displayed");
+            action.click(driverHomePage.Dropdown_StartDate());
+            testStepAssert.isElementDisplayed(driverHomePage.Calendar_StartDate(),"The element should be displayed","The element is displayed","The element is not displayed");
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while verifying if element is present", true);
         }
     }
     @And("^I search for \"([^\"]*)\" driver on driver details$")
