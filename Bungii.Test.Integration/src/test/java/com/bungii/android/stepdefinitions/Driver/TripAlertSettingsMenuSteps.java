@@ -10,7 +10,6 @@ import com.bungii.android.pages.customer.PromosPage;
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
@@ -39,6 +38,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     SearchingPage searchingPage = new SearchingPage();
+    MyBungiisPage myBungiisPage = new MyBungiisPage();
     EarningsPage earningsPage = new EarningsPage();
 
 
@@ -239,10 +239,12 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "VERIFY":
+                    action.javaScriptScrollDown(scheduledTripsPage.Button_VerifyDriver());
                     action.click(scheduledTripsPage.Button_VerifyDriver());
                     break;
 
                 case "SAVE CHANGES":
+                    action.javaScriptScrollDown(scheduledTripsPage.Button_SaveChanges());
                     action.click(scheduledTripsPage.Button_SaveChanges());
                     break;
 
@@ -289,6 +291,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "SUBMIT REASON":
                     action.click(setPickupTimePage.Button_SubmitCancellationReason());
+                    break;
+
+                case "BACK":
+                    action.click(myBungiisPage.Button_Back());
                     break;
 
                 case "Itemized Earnings":

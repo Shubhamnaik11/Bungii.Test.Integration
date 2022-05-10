@@ -222,7 +222,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(forgotPasswordPage.Err_InvalidPassword()), errorMessage);
                     break;
                 case "snackbar validation message for invalid number":
-                    errorMessage = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
+                    errorMessage = PropertyUtility.getMessage("common.failed.message");
                     testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), errorMessage);
                     break;
 

@@ -44,7 +44,7 @@ public class HomePage extends PageBase {
 
     //public WebElement Text_NavigationBar (boolean ...ignoreException) { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath,ignoreException); }
     public WebElement Text_NavigationBar (boolean ...ignoreException) { return findElement("//XCUIElementTypeNavigationBar", LocatorType.XPath,ignoreException); }
-    public WebElement Text_DriverNavigationBar (String screen) { return findElement("//XCUIElementTypeStaticText[@name='"+screen+"']", LocatorType.XPath); }
+    public WebElement Text_DriverNavigationBar (String screen) { return findElement("//XCUIElementTypeOther[@name='"+screen+"']", LocatorType.XPath); }
     public WebElement NavigationBar_Text() {return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName); }
     public WebElement Text_Bungii_Completed() { return findElement("//XCUIElementTypeStaticText[@name='Bungii completed']",LocatorType.XPath);}
     //public WebElement Button_AppMenu () { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
@@ -109,5 +109,14 @@ public class HomePage extends PageBase {
 
     public WebElement Application_Name(boolean ...ignoreException) {return findElement("XCUIElementTypeApplication", LocatorType.ClassName,ignoreException); }
 
+    //Driver Earnings Page
+    public WebElement Button_ItemizedEarnings() {return findElement("//XCUIElementTypeButton[@name=\"ITEMIZED EARNINGS\"]",LocatorType.XPath);}
+    public WebElement Text_ItemizedEarnings() {return findElement("//XCUIElementTypeOther/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+    public WebElement Button_BackItemizedEarnings() {return findElement("//XCUIElementTypeButton[@name=\"Back\"]",LocatorType.XPath);}
+
+    //Admin Driver Page
+    public WebElement Icon_DriverEarnings(){return findElement("//tbody[@id='NewApplicantsTBody']/tr/td/a/img[@title='Driver Earnings']", LocatorType.XPath);}
+    public WebElement Link_ViewTrips(){return findElement("//div/a[text()='View']", LocatorType.XPath);}
+    public WebElement Text_DriverEarnings(){return findElement("//div[@class='info-box']/h1[@class='text-info']", LocatorType.XPath);}
 
 }
