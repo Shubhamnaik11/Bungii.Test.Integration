@@ -36,7 +36,7 @@ Feature: Driver Earnings
       And I Select "EARNINGS" from driver App menu
       And I get "Itemized Earnings" from earnings page
 
-#    Core-2372  Verify UI of itemized earnings page on driver app
+        #    Core-2469  Verify UI of itemized earnings page on driver app
       And I verify all the elements on itemized earnings page
       Then I compare with earnings from admin portal for "solo driver"
 
