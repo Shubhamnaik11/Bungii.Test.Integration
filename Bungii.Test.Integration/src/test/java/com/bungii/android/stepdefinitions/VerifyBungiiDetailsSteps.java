@@ -234,8 +234,10 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
         try{
             boolean isCorrectPage = false;
             isCorrectPage = utility.isCorrectPage("ITEMIZED EARNINGS");
-            testStepAssert.isTrue(isCorrectPage, "I should be naviagated to ITEMIZED EARNINGS screen",
-                    "I should be navigated to ITEMIZED EARNINGS" , "I was not navigated to ITEMIZED EARNINGS screen ");
+            testStepAssert.isTrue(isCorrectPage,
+                    "I should be navigated to ITEMIZED EARNINGS screen",
+                    "I have navigated to ITEMIZED EARNINGS screen" ,
+                    "I was not navigated to ITEMIZED EARNINGS screen ");
 
             testStepAssert.isElementDisplayed(myBungiisPage.Dropdown_EndDate(),"The element should be displayed","The element is displayed","The element is not displayed");
             action.click(myBungiisPage.Dropdown_EndDate());
