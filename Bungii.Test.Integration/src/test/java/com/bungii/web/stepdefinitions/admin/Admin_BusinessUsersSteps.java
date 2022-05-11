@@ -11,6 +11,7 @@ import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_DetailsPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
+import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -45,6 +46,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_DriverVerificationPage admin_driverVerificationPage = new Admin_DriverVerificationPage();
+    Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
 
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_LiveTripsPage admin_liveTripsPage = new Admin_LiveTripsPage();
@@ -1001,6 +1003,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
                 case "CALCULATE COST":
                     action.click(admin_liveTripsPage.Button_CalculateCost());
+                    break;
+                case "Generate Report":
+                    action.click(Page_Partner_Delivery.Button_GenerateReport());
                     break;
             }
             log("I click on the "+Name+" button",
