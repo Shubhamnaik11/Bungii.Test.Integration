@@ -195,9 +195,8 @@ public class Partner_DashboardPage extends PageBase {
 
     // Summary Tracking Id
     public WebElement Text_Summary_TrackingId() { return findElement("//section/div[1]/p",LocatorType.XPath);}
-
-
-
+    // Summary Delivery pick up address
+    public WebElement Text_Summary_PickupAddress() { return findElement("//section/div[1]/div/p",LocatorType.XPath);}
 
     // Summary Delivery Address
     public WebElement Text_Summary_DeliveryAddress() { return findElement("//section/div[2]/div/p",LocatorType.XPath);}
