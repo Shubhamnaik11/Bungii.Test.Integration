@@ -987,6 +987,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
                 case "Revive":
                     String reviveLink = (String) cucumberContextManager.getScenarioContext("REVIVE_LINK");
+                    Thread.sleep(2000);
                     action.click(admin_TripsPage.findElement(reviveLink,PageBase.LocatorType.XPath));
                     break;
                 case "Confirm":

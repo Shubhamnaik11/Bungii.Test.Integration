@@ -119,7 +119,7 @@ And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action 
 And I wait for 2 minutes
 And I view the Deliveries list on the admin portal
 When  I search the delivery using "Pickup Reference"
-When I click on the "Delivery Details" link scheduled bungii and click on the"View" button
+And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
 Then I should see "Accessorial Charges" section displayed
 When I add following accessorial charges and save it
 | Amount   | Fee Type         | Comment                           | Driver Cut |
@@ -127,3 +127,19 @@ When I add following accessorial charges and save it
 |   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
 |  25.65   | Mountainous      | Charges due to mountainous reason | 10.0       |
 |  100     | Other            | Charges due to other reasons      | 20         |
+And I should see following details in the Accessorial charges section
+| Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+| $10              | $20.5       | $25.65      | $100  | $156.15 |
+And I view the Deliveries list on the admin portal
+When  I search the delivery using "Pickup Reference"
+Then Revive button should be displayed beside the trip
+When I click on "Revive" button
+Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+When I click on "Confirm" button on Revival Popup
+And I wait for 2 minutes
+And I view the all Scheduled Deliveries list on the admin portal
+When  I search the delivery using "Pickup Reference"
+And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+And I should see following details in the Accessorial charges section
+| Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+| $10              | $20.5       | $25.65      | $100  | $156.15 |
