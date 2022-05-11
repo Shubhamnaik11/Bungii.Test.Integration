@@ -69,9 +69,11 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Label_SuccessMessage () { return findElement("SuccessMessage", LocatorType.Id); }
     //changed by Richa
-    public WebElement Label_CancelSuccessMessage () { return findElement("//p[@id='delivery-cancelled-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Label_CancelSuccessMessage () { return findElement("//p[@id='cancel-success-message']/i[2]", LocatorType.XPath); }
 
-    public WebElement Label_DeliverySuccessMessage()  { return findElement("//p[@id='delivery-completed-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Label_CancelSuccessMessageLive () { return findElement("//p[@id='delivery-cancelled-success-message']/i[2]", LocatorType.XPath); }
+
+    public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//p[@id='delivery-completed-success-message']/i[2]", LocatorType.XPath); }
 
     public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
 

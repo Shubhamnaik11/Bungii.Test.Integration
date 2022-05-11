@@ -108,7 +108,7 @@ Feature: Admin_Live_Delivery_Edit
       And I click on "Edit Delivery Status" radiobutton
       And I click on "Delivery Canceled" radiobutton
       And I click on "UPDATE BUNGII" button
-      Then The "Pick up has been successfully canceled." message should be displayed
+      Then The "Pick up has been successfully canceled." message should be displayed for live delivery
       And I view the Deliveries list on the admin portal
       Then The Delivery List page should display the delivery in "Driver Canceled" state
 
@@ -139,7 +139,7 @@ Feature: Admin_Live_Delivery_Edit
     And I click on "Edit Delivery Status" radiobutton
     And I click on "Delivery Canceled" radiobutton
     And I click on "UPDATE BUNGII" button
-    Then The "Pick up has been successfully canceled." message should be displayed
+    Then The "Pick up has been successfully canceled." message should be displayed for live delivery
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Driver Canceled" state
 
@@ -168,7 +168,7 @@ Feature: Admin_Live_Delivery_Edit
     And I enter delivery completion date and time as per geofence
     And I click on "CALCULATE COST" button
     And I click on "Confirm" button
-    Then The "Pick up has been successfully updated." message should be displayed
+    Then The "Pick up has been successfully updated." message should be displayed for live delivery
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
 
@@ -201,7 +201,7 @@ Feature: Admin_Live_Delivery_Edit
     And I enter delivery completion date and time as per geofence
     And I click on "CALCULATE COST" button
     And I click on "Confirm" button
-    Then The "Pick up has been successfully updated." message should be displayed
+    Then The "Pick up has been successfully updated." message should be displayed for live delivery
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
 

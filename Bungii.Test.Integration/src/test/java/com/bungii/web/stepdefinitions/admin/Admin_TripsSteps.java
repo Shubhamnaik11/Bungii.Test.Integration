@@ -943,6 +943,7 @@ try{
             case "Delivery Canceled":
                 action.click(admin_LiveTripsPage.RadioButton_DeliveryCanceled());
                 Thread.sleep(1000);
+                break;
             default:
                 break;
         }
@@ -1259,13 +1260,19 @@ try{
         }*/
     @Then("^The \"([^\"]*)\" message should be displayed$")
     public void the_something_message_should_be_displayed(String message) throws Throwable {
+        testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessage(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+    }
+
+    @Then("^The \"([^\"]*)\" message should be displayed for live delivery$")
+    public void the_something_message_should_be_displayed_for_live_delivery(String message) throws Throwable {
         if(message.equalsIgnoreCase("Pick up has been successfully updated.")){
-            testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_DeliverySuccessMessage(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+            testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_DeliverySuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
         }
         else {
-            testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessage(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+            testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
         }
     }
+
     @Then("^Pickup should be unassigned from the driver$")
     public void pickup_should_be_unassigned_from_the_driver() throws Throwable {
 
