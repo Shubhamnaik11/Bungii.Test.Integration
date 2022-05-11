@@ -318,10 +318,10 @@ public class BungiiSteps extends DriverBase {
                 phone = PropertyUtility.getDataProperties("Kansas.driver10.phone");
                 break;
             case "Testdrivertywd_appleks_a_drvaa Kansas_aa":
-                phone = PropertyUtility.getDataProperties("Kansas.driver11.phone");
+                phone = PropertyUtility.getDataProperties("Kansas.driver17.phone");
                 break;
             case "Testdrivertywd_appleks_a_drvab Kansas_ab":
-                phone = PropertyUtility.getDataProperties("Kansas.driver12.phone");
+                phone = PropertyUtility.getDataProperties("Kansas.driver18.phone");
                 break;
             case "Testdrivertywd_appledc_a_drvj WashingtonDC_j":
                 phone = PropertyUtility.getDataProperties("Washington.driver1.phone");
@@ -376,6 +376,24 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "Testdrivertywd_applens_a_kayM Stark_nsOnEM":
                 phone = PropertyUtility.getDataProperties("Nashville.driver10.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvu Kansas_u":
+                phone = PropertyUtility.getDataProperties("Kansas.driver12.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvv Kansas_v":
+                phone = PropertyUtility.getDataProperties("Kansas.driver13.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvw Kansas_w":
+                phone = PropertyUtility.getDataProperties("Kansas.driver14.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvy Kansas_y":
+                phone = PropertyUtility.getDataProperties("Kansas.driver15.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvz Kansas_z":
+                phone = PropertyUtility.getDataProperties("Kansas.driver16.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvB WashingtonB":
+                phone = PropertyUtility.getDataProperties("Washington.driver9.phone");
                 break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");

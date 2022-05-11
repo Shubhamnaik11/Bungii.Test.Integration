@@ -1647,7 +1647,7 @@ public class CoreServices extends DriverBase {
         String Partner_Customer_Phone1 = (String) cucumberContextManager.getScenarioContext("Phone");
         ArrayList<String> Partner_Customer_Phone = new ArrayList<String>();
         Partner_Customer_Phone.add(Partner_Customer_Phone1);
-
+        String No_Of_Driver = (String) cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
 
         if(Partner_Portal.equalsIgnoreCase("MRFM")) {
 
@@ -1706,72 +1706,91 @@ public class CoreServices extends DriverBase {
 
         else if(Partner_Portal.equalsIgnoreCase("Floor and Decor")) {
 
-            //customer name
-            JSONArray CustomFields = new JSONArray();
-            JSONObject field1=new JSONObject();
-            field1.put("FieldRef","8b0c893b-0be2-11ec-a1b2-0280ec37d420");
-            field1.put("FieldValue","Test");
-            CustomFields.put(field1);
+                //customer name
+                JSONArray customFields = new JSONArray();
+                JSONObject field1 = new JSONObject();
+                field1.put("FieldRef", "8b0c893b-0be2-11ec-a1b2-0280ec37d420");
+                field1.put("FieldValue", "Test");
+                customFields.put(field1);
 
-            //items details
-            JSONArray ItemsToDeliver = new JSONArray();
-            JSONObject deliverables = new JSONObject();
-            deliverables.put("Dimensions","12");
-            deliverables.put("ID","1");
-            deliverables.put("Name","Books");
-            deliverables.put("Weight","1111");
-            ItemsToDeliver.put(deliverables);
+                JSONArray ItemsToDeliver = new JSONArray();
+                if(No_Of_Driver=="1"){
+                    //items details for solo
+                    JSONObject deliverables = new JSONObject();
+                    deliverables.put("Dimensions", "12");
+                    deliverables.put("ID", "1");
+                    deliverables.put("Name", "Books");
+                    deliverables.put("Weight", "1111");
+                    ItemsToDeliver.put(deliverables);
+                }
+                else{
+                    //items details for duo
+                    JSONObject firstDeliverables = new JSONObject();
+                    JSONObject secondDeliverables = new JSONObject();
+                    firstDeliverables.put("Dimensions", "12");
+                    firstDeliverables.put("ID", "1");
+                    firstDeliverables.put("Name", "Books");
+                    firstDeliverables.put("Weight", "1111");
+                    ItemsToDeliver.put(firstDeliverables);
+                    secondDeliverables.put("Dimensions", "32");
+                    secondDeliverables.put("ID", "2");
+                    secondDeliverables.put("Name", "Chair");
+                    secondDeliverables.put("Weight", "1111");
+                    ItemsToDeliver.put(secondDeliverables);
+                }
 
-            //static fields
-            JSONArray SaticFeilds = new JSONArray();
 
-            JSONObject field2 = new JSONObject();
-            field2.put("FieldRef","f2bd9004-6757-11ea-a4a3-00155d0a8706");
-            field2.put("FieldValue","Tester");
+                //static fields
+                JSONArray staticFields = new JSONArray();
 
-            JSONObject field3 = new JSONObject();
-            field3.put("FieldRef","f2bd908c-6757-11ea-a4a3-00155d0a8706");
-            field3.put("FieldValue","9999999106");
+                JSONObject field2 = new JSONObject();
+                field2.put("FieldRef", "f2bd9004-6757-11ea-a4a3-00155d0a8706");
+                field2.put("FieldValue", "Tester");
 
-            JSONObject field4 = new JSONObject();
-            field4.put("FieldRef","f2bd90b3-6757-11ea-a4a3-00155d0a8706");
-            field4.put("FieldValue","NewCustomer");
+                JSONObject field3 = new JSONObject();
+                field3.put("FieldRef", "f2bd908c-6757-11ea-a4a3-00155d0a8706");
+                field3.put("FieldValue", "9999999106");
 
-            JSONObject field5 = new JSONObject();
-            field5.put("FieldRef","f2bd90d3-6757-11ea-a4a3-00155d0a8706");
-            field5.put("FieldValue","9999999108");
+                JSONObject field4 = new JSONObject();
+                field4.put("FieldRef", "f2bd90b3-6757-11ea-a4a3-00155d0a8706");
+                field4.put("FieldValue", "NewCustomer");
 
-            JSONObject field6 = new JSONObject();
-            field6.put("FieldRef","f2bd9171-6757-11ea-a4a3-00155d0a8706");
-            field6.put("FieldValue","Education");
+                JSONObject field5 = new JSONObject();
+                field5.put("FieldRef", "f2bd90d3-6757-11ea-a4a3-00155d0a8706");
+                field5.put("FieldValue", "9999999108");
 
-            JSONObject field7 = new JSONObject();
-            field7.put("FieldRef","f2bd91b2-6757-11ea-a4a3-00155d0a8706");
-            field7.put("FieldValue","A323");
+                JSONObject field6 = new JSONObject();
+                field6.put("FieldRef", "f2bd9171-6757-11ea-a4a3-00155d0a8706");
+                field6.put("FieldValue", "Education");
 
-            SaticFeilds.put(field2);
-            SaticFeilds.put(field3);
-            SaticFeilds.put(field4);
-            SaticFeilds.put(field5);
-            SaticFeilds.put(field6);
-            SaticFeilds.put(field7);
+                JSONObject field7 = new JSONObject();
+                field7.put("FieldRef", "f2bd91b2-6757-11ea-a4a3-00155d0a8706");
+                field7.put("FieldValue", "A323");
 
-            //main payload
-            JSONObject jsonObj = new JSONObject();
-            jsonObj.put("PickupRequestID", PickupRequest);
-            jsonObj.put("CustomerName",Partner_Customer);
-            jsonObj.put("CustomFields",CustomFields);
-            jsonObj.put("CustomerMobile",Partner_Customer_Phone);
-            jsonObj.put("ItemsToDeliver",ItemsToDeliver);
-            jsonObj.put("StaticFields",SaticFeilds);
-            jsonObj.put("PaymentMethodNonce",JSONObject.NULL);
-            jsonObj.put("PickupNote",JSONObject.NULL);
-            jsonObj.put("PaymentOption","MI");
-            jsonObj.put("SpecialInstructions", "SPL from QA script");
+                staticFields.put(field2);
+                staticFields.put(field3);
+                staticFields.put(field4);
+                staticFields.put(field5);
+                staticFields.put(field6);
+                staticFields.put(field7);
 
-            Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
-            JsonPath jsonPathEvaluator = response.jsonPath();
-            ApiHelper.genericResponseValidation(response, RequestText);
+                //main payload
+                JSONObject jsonObj = new JSONObject();
+                jsonObj.put("PickupRequestID", PickupRequest);
+                jsonObj.put("CustomerName", Partner_Customer);
+                jsonObj.put("CustomFields", customFields);
+                jsonObj.put("CustomerMobile", Partner_Customer_Phone);
+                jsonObj.put("ItemsToDeliver", ItemsToDeliver);
+                jsonObj.put("StaticFields", staticFields);
+                jsonObj.put("PaymentMethodNonce", JSONObject.NULL);
+                jsonObj.put("PickupNote", JSONObject.NULL);
+                jsonObj.put("PaymentOption", "MI");
+                jsonObj.put("SpecialInstructions", "SPL from QA script");
+
+                Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
+                JsonPath jsonPathEvaluator = response.jsonPath();
+                ApiHelper.genericResponseValidation(response, RequestText);
+
         }
         else {
             logger.detail("Please provide proper partner portal alias.");
