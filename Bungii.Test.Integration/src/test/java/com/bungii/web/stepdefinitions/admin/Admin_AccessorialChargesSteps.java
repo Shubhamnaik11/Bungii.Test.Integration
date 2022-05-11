@@ -351,7 +351,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         boolean liveDeliveryhighlightDisplayed =  admin_liveTripsPage.Text_DeliveryHighlight().isDisplayed();
         String liveDeliveryHighlightColor =  admin_liveTripsPage.Text_DeliveryHighlight().getCssValue("background-color");
 
-        testStepAssert.isTrue(liveDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is bot displayed");
+        testStepAssert.isTrue(liveDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is not displayed");
         testStepAssert.isEquals(liveDeliveryHighlightColor,expectedHighlightColor,"Delivery should be highlighted with blue color","Delivery is highlighted with blue color","Delivery is not  highlighted with blue color");
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -373,7 +373,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                boolean scheduledDeliveryhighlightDisplayed =  admin_liveTripsPage.Text_DeliveryHighlight().isDisplayed();
                String scheduledDeliveryHighlightColor =  admin_liveTripsPage.Text_DeliveryHighlight().getCssValue("background-color");
 
-               testStepAssert.isTrue(scheduledDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is bot displayed");
+               testStepAssert.isTrue(scheduledDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is not displayed");
                testStepAssert.isFalse(scheduledDeliveryHighlightColor.contentEquals(expectedHighlightColor),"Delivery should not be highlighted with blue color","Delivery is not highlighted with blue color","Delivery is highlighted with blue color");
 
                break;
@@ -382,7 +382,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                boolean allDeliveryhighlightDisplayed =  admin_liveTripsPage.Text_AllDeliveryHighlight().isDisplayed();
                String allDeliveryHighlightColor =  admin_liveTripsPage.Text_AllDeliveryHighlight().getCssValue("background-color");
 
-               testStepAssert.isTrue(allDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is bot displayed");
+               testStepAssert.isTrue(allDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is not displayed");
                testStepAssert.isFalse(allDeliveryHighlightColor.contentEquals(expectedHighlightColor),"Delivery should not be highlighted with blue color","Delivery is not highlighted with blue color","Delivery is highlighted with blue color");
                break;
        }
