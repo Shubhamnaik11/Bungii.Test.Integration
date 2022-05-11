@@ -960,7 +960,7 @@ try{
     public void i_enter_delivery_completion_date_and_time_as_per_geofence() throws Throwable {
         try{
             String strDate="";
-            //String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
             String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
             Calendar calendar = Calendar.getInstance();
             DateFormat formatter = new SimpleDateFormat("MMddYYYY-hh:mm-a");
@@ -979,7 +979,7 @@ try{
            // action.click(liveTripsPage.Dropdown_ddlpickupEndTime());
             action.selectElementByText(liveTripsPage.Dropdown_ddlpickupEndTime(),meridian);
 
-
+            log("Correct date= "+date+" and time= "+time+meridian+" should be enter for the "+geofence+" geofence.","Correct date= "+date+" and time= "+time+meridian+" is enter for the "+geofence+" geofence.",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
