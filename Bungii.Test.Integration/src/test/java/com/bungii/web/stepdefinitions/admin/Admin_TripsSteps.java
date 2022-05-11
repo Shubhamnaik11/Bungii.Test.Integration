@@ -978,7 +978,6 @@ try{
             action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),time);
            // action.click(liveTripsPage.Dropdown_ddlpickupEndTime());
             action.selectElementByText(liveTripsPage.Dropdown_ddlpickupEndTime(),meridian);
-
             log("Correct date= "+date+" and time= "+time+meridian+" should be enter for the "+geofence+" geofence.","Correct date= "+date+" and time= "+time+meridian+" is enter for the "+geofence+" geofence.",false);
         }
         catch(Exception e){
