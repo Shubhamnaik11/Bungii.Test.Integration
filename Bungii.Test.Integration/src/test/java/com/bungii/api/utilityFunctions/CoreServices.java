@@ -1513,8 +1513,7 @@ public class CoreServices extends DriverBase {
             JsonPath jsonPathEvaluator = response.jsonPath();
             ApiHelper.genericResponseValidation(response, RequestText);
         }
-
-        if(Geofence.equalsIgnoreCase("washingtondc")) {
+        else if(Geofence.equalsIgnoreCase("washingtondc")) {
 
             String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
 

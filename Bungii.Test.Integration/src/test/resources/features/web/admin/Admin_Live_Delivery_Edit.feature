@@ -87,3 +87,125 @@ Feature: Admin_Live_Delivery_Edit
       When I open the live delivery details in admin portal
       Then the updated drop off address should be displayed on delivery details page
       And Delivery price is recalculated based on updated value of drop off address
+
+    #CORE-3257
+    @ready
+    Scenario Outline:Verify that admin user is able to cancel customer live delivery with <StatusType> status
+      When I request "Solo Scheduled" Bungii as a customer in "nashville" geofence
+        | Bungii Time   | Customer Phone  | Customer Name |
+        | NEXT_POSSIBLE | <CustomerPhone> | <CustomerName>|
+      And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" Delivery
+        | driver1 state |
+        | Accepted      |
+      And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" trip
+        | driver1 state    |
+        | <DriverStatus> |
+      And I view the Live Deliveries list on the admin portal
+      Then I should be able to see the respective bungii with the below status
+        |  Status       |
+        | <TripStatus> |
+      And I click on "Edit" link beside live delivery
+      And I click on "Edit Delivery Status" radiobutton
+      And I click on "Delivery Canceled" radiobutton
+      And I click on "UPDATE BUNGII" button
+      Then The "Pick up has been successfully canceled." message should be displayed
+      And I view the Deliveries list on the admin portal
+      Then The Delivery List page should display the delivery in "Driver Canceled" state
+
+      Examples:
+      |DriverStatus        |CustomerPhone|CustomerName                        |DriverName                                |TripStatus  |
+      |Enroute             |9999999137   |Testcustomertywd_appleNewRL Customer|Testdrivertywd_applens_a_kayD Stark_nsOnED|Trip Started|
+      |Arrived             |9999999138   |Testcustomertywd_appleNewRM Customer|Testdrivertywd_applens_a_kayE Stark_nsOnEE|Driver(s) Arrived|
+      |Loading Item        |9999999139   |Testcustomertywd_appleNewRN Customer|Testdrivertywd_applens_a_kayF Stark_nsOnEF|Loading Items    |
+      |Driving To Dropoff  |9999999143   |Testcustomertywd_appleNewRR Customer|Testdrivertywd_applens_a_kayG Stark_nsOnEG|Driving To Dropoff    |
+      |Unloading Item      |9999999144   |Testcustomertywd_appleNewRS Customer|Testdrivertywd_applens_a_kayH Stark_nsOnEH|Unloading Items   |
+
+  @ready
+  Scenario Outline:Verify that admin user is able to cancel partner live delivery with <StatusType> status
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | <CustomerPhone> | <CustomerName>|
+    And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+    And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" trip
+      | driver1 state    |
+      | <DriverStatus> |
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status       |
+      | <TripStatus> |
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Canceled" radiobutton
+    And I click on "UPDATE BUNGII" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    And I view the Deliveries list on the admin portal
+    Then The Delivery List page should display the delivery in "Driver Canceled" state
+
+    Examples:
+      |DriverStatus        |CustomerPhone|CustomerName                        |DriverName                              |TripStatus  |
+      |Enroute             |9999999150   |Testcustomertywd_appleNewRY Customer|Testdrivertywd_appleks_a_drvaa Kansas_aa|Trip Started|
+
+  @ready
+  Scenario Outline:Verify that admin user is able to mark customer live delivery complete with <TripStatus> status
+    When I request "Solo Scheduled" Bungii as a customer in "nashville" geofence
+      | Bungii Time   | Customer Phone  | Customer Name |
+      | NEXT_POSSIBLE | <CustomerPhone> | <CustomerName>|
+    And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+    And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" trip
+      | driver1 state    |
+      | <DriverStatus> |
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status       |
+      | <TripStatus> |
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Completed" radiobutton
+    And I enter delivery completion date and time as per geofence
+    And I click on "CALCULATE COST" button
+    And I click on "Confirm" button
+    Then The "Pick up has been successfully updated." message should be displayed
+    And I view the Deliveries list on the admin portal
+    Then The Delivery List page should display the delivery in "Payment Successful" state
+
+    Examples:
+      |DriverStatus        |CustomerPhone|CustomerName                        |DriverName                                |TripStatus  |
+      |Enroute             |9999999145   |Testcustomertywd_appleNewRT Customer|Testdrivertywd_applens_a_kayI Stark_nsOnEI|Trip Started|
+      |Arrived             |9999999146   |Testcustomertywd_appleNewRU Customer|Testdrivertywd_applens_a_kayJ Stark_nsOnEJ|Driver(s) Arrived|
+      |Loading Item        |9999999147   |Testcustomertywd_appleNewRV Customer|Testdrivertywd_applens_a_kayK Stark_nsOnEK|Loading Items    |
+      |Driving To Dropoff  |9999999148   |Testcustomertywd_appleNewRW Customer|Testdrivertywd_applens_a_kayL Stark_nsOnEL|Driving To Dropoff    |
+      |Unloading Item      |9999999149   |Testcustomertywd_appleNewRX Customer|Testdrivertywd_applens_a_kayM Stark_nsOnEM|Unloading Items   |
+
+  @ready
+  Scenario Outline:Verify that admin user is able to mark partner live delivery complete with <TripStatus> status
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | <CustomerPhone> | <CustomerName>|
+    And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+    And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" trip
+      | driver1 state    |
+      | <DriverStatus> |
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status       |
+      | <TripStatus> |
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Completed" radiobutton
+    And I enter delivery completion date and time as per geofence
+    And I click on "CALCULATE COST" button
+    And I click on "Confirm" button
+    Then The "Pick up has been successfully updated." message should be displayed
+    And I view the Deliveries list on the admin portal
+    Then The Delivery List page should display the delivery in "Payment Successful" state
+
+
+    Examples:
+      |DriverStatus        |CustomerPhone|CustomerName                        |DriverName                                |TripStatus  |
+      |Enroute             |9999999151   |Testcustomertywd_appleNewZ Customer|Testdrivertywd_appleks_a_drvab Kansas_ab|Trip Started|

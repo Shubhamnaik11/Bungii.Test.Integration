@@ -317,6 +317,12 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appleks_a_drvh Kansas_h":
                 phone = PropertyUtility.getDataProperties("Kansas.driver10.phone");
                 break;
+            case "Testdrivertywd_appleks_a_drvaa Kansas_aa":
+                phone = PropertyUtility.getDataProperties("Kansas.driver11.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvab Kansas_ab":
+                phone = PropertyUtility.getDataProperties("Kansas.driver12.phone");
+                break;
             case "Testdrivertywd_appledc_a_drvj WashingtonDC_j":
                 phone = PropertyUtility.getDataProperties("Washington.driver1.phone");
                 break;
@@ -340,6 +346,36 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "Testdrivertywd_appledc_a_drvC WashingtonC":
                 phone = PropertyUtility.getDataProperties("Washington.driver8.phone");
+                break;
+            case "Testdrivertywd_applens_a_kayD Stark_nsOnED":
+                phone = PropertyUtility.getDataProperties("Nashville.driver1.phone");
+                break;
+            case "Testdrivertywd_applens_a_kayE Stark_nsOnEE":
+                phone = PropertyUtility.getDataProperties("Nashville.driver2.phone");
+                break;
+            case "Testdrivertywd_applens_a_kayF Stark_nsOnEF":
+                phone = PropertyUtility.getDataProperties("Nashville.driver3.phone");
+                break;
+            case "Testdrivertywd_applens_a_kayG Stark_nsOnEG":
+                phone = PropertyUtility.getDataProperties("Nashville.driver4.phone");
+                break;
+            case "Testdrivertywd_applens_a_kayH Stark_nsOnEH":
+                phone = PropertyUtility.getDataProperties("Nashville.driver5.phone");
+                break;
+            case "Testdrivertywd_applens_a_kayI Stark_nsOnEI":
+                phone = PropertyUtility.getDataProperties("Nashville.driver6.phone");
+                break;
+            case "Testdrivertywd_applens_a_kayJ Stark_nsOnEJ":
+                phone = PropertyUtility.getDataProperties("Nashville.driver7.phone");
+                break;
+            case "Testdrivertywd_applens_a_kayK Stark_nsOnEK":
+                phone = PropertyUtility.getDataProperties("Nashville.driver8.phone");
+                break;
+            case "Testdrivertywd_applens_a_kayL Stark_nsOnEL":
+                phone = PropertyUtility.getDataProperties("Nashville.driver9.phone");
+                break;
+            case "Testdrivertywd_applens_a_kayM Stark_nsOnEM":
+                phone = PropertyUtility.getDataProperties("Nashville.driver10.phone");
                 break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");

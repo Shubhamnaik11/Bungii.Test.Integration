@@ -47,6 +47,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_DriverVerificationPage admin_driverVerificationPage = new Admin_DriverVerificationPage();
 
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
+    Admin_LiveTripsPage admin_liveTripsPage = new Admin_LiveTripsPage();
     Admin_TripsPage admin_TripsPage =  new Admin_TripsPage();
     Admin_PotentialPartnersPage admin_potentialPartnersPage = new Admin_PotentialPartnersPage();
     Admin_LogviewPage admin_logviewPage = new Admin_LogviewPage();
@@ -995,7 +996,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Execute":
                     action.click(admin_logviewPage.Button_Execute());
                     break;
-
+                case "UPDATE BUNGII":
+                    action.click(admin_liveTripsPage.Button_UpdateBungii());
+                    break;
+                case "CALCULATE COST":
+                    action.click(admin_liveTripsPage.Button_CalculateCost());
+                    break;
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", false);
