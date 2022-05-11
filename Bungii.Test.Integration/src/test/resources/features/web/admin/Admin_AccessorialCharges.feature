@@ -21,9 +21,6 @@ And As a driver "Testdrivertywd_appledc_a_drva Driver" perform below action with
 | Unloading Item |
 | Bungii Completed |
 And I wait for 2 minutes
-And I view the Deliveries list on the admin portal
-And I search the delivery of Customer and view it
-Then I should see "Accessorial Charges" section displayed
 When I add following accessorial charges and save it
 | Amount   | Fee Type         | Comment                           | Driver Cut |
 |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
@@ -106,3 +103,27 @@ And I should get following error for following accessorial charges fields values
 | 10.5689      | -100       | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
 | -10          | Blank      | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
 | -1.56        | 231        | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
+
+
+@regression
+ @testAllan
+Scenario:  test2
+When I request Partner Portal "SOLO" Trip for "MRFM" partner
+|Geofence| Bungii Time   | Customer Phone | Customer Name |
+|Kansas  | NEXT_POSSIBLE | 9999999228     | Testcustomertywd_appleNewMO Customer|
+And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+| driver1 state |
+| Accepted      |
+| Enroute      |
+| Driver Canceled |
+And I wait for 2 minutes
+And I view the Deliveries list on the admin portal
+When  I search the delivery using "Pickup Reference"
+When I click on the "Delivery Details" link scheduled bungii and click on the"View" button
+Then I should see "Accessorial Charges" section displayed
+When I add following accessorial charges and save it
+| Amount   | Fee Type         | Comment                           | Driver Cut |
+|  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
+|   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
+|  25.65   | Mountainous      | Charges due to mountainous reason | 10.0       |
+|  100     | Other            | Charges due to other reasons      | 20         |
