@@ -42,16 +42,39 @@ Feature: Driver Earnings
 
 
   @ready
+    @testsweta
   Scenario: Verify earning page on driver app without tip after successful payment for duo partner portal
     When I request Partner Portal "DUO" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |Kansas| NEXT_POSSIBLE | 9999999131 | Testcustomertywd_appleNewRF Customer|
-    And I wait for "2" mins
 
-    And As a driver "Testdrivertywd_appleks_a_drvy Kansas_y" and "Testdrivertywd_appleks_a_drvz Kansas_z" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state |
-      | Bungii Completed   | Bungii Completed   |
-    And I wait for "2" mins
+#    And As a driver "Testdrivertywd_appleks_a_drvy Kansas_y" and "Testdrivertywd_appleks_a_drvz Kansas_z" perform below action with respective "DUO SCHEDULED" trip
+#      | driver1 state | driver2 state |
+#      | Unloading Item    | Unloading Item   |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appleks_a_drvy Kansas_y" driver
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Trip from available trip
+    And I start selected Bungii
+    And I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "ARRIVED" screen
+    And I slide update button on "ARRIVED" Screen
+    Then I should be navigated to "LOADING ITEM" screen
+    And I slide update button on "LOADING ITEM" Screen
+    Then I should be navigated to "DRIVING TO DROP OFF" screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    Then I should be navigated to "UNLOADING ITEM" screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
+  #    Core-3098 Verify online/Offline pop up is shown for on demand trip
+    And I check online or offline pop up is displayed
+    And I click on "STAY ONLINE" button
+    And I check if the status is "ONLINE"
+
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
