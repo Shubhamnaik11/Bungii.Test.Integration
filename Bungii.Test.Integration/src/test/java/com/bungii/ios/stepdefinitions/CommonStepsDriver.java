@@ -556,6 +556,10 @@ public class CommonStepsDriver extends DriverBase {
                 case "BACK":
                     action.click(driverHomePage.Button_BackItemizedEarnings());
                     break;
+                case "STAY ONLINE":
+                    action.click(driverBungiiCompletedPage.Button_StayOnline());
+                    break;
+
             }
         }
         catch (Throwable e) {

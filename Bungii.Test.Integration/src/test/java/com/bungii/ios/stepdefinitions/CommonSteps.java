@@ -298,6 +298,21 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+    @And("^I check if the status is \"([^\"]*)\"$")
+    public void i_check_if_the_status_is_something(String status) throws Throwable {
+       try{
+           switch (status){
+               case "ONLINE":
+                action.isElementPresent(driverBungiiCompletedPage.Slider_Online());
+                break;
+           }
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
     @And("^I check online or offline pop up is displayed$")
     public void i_check_online_or_offline_pop_up_is_displayed() throws Throwable {
         try {
