@@ -224,7 +224,7 @@ public class AvailableTripsSteps extends DriverBase {
 				add("Labor requirements");
 				add("Type of item(s)");
 				add("Not enough information");
-				add("Not available");
+				add("I'm going offline");
 			}};
 			for (int j =0;j<6;j++){
 				String expectedReason= expectedOptions.get(j);
