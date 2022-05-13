@@ -1,10 +1,15 @@
 package com.bungii.web.stepdefinitions.admin;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
+import com.bungii.web.pages.driver.Driver_DashboardPage;
+import com.bungii.web.pages.driver.Driver_DetailsPage;
+import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -22,6 +27,11 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     Admin_AccessorialChargesPage admin_accessorialChargesPage= new Admin_AccessorialChargesPage();
+    Admin_TripsPage adminTripsPage = new Admin_TripsPage();
+    Driver_DetailsPage Page_Driver_Details = new Driver_DetailsPage();
+    Driver_DashboardPage driver_DashboardPage = new  Driver_DashboardPage();
+    Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
+    Admin_LoginPage Page_AdminLogin = new Admin_LoginPage();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_AccessorialChargesSteps.class);
     GeneralUtility utility = new GeneralUtility();
@@ -153,28 +163,40 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                         String excessWaitTime = feeType.replace(" ", "");
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(1));
                         Thread.sleep(2000);
-                        cucumberContextManager.setScenarioContext("ExcessWaitCut",action.getText(admin_accessorialChargesPage.Text_DriverCut(excessWaitTime)).replace("Testdrivertywd_appledc_a_drva Driver's cut: $",""));
+                        String entireDriverCutForExcessWaitime[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(excessWaitTime)).split("\\$");
+
+                        String  properDriverCutForExcessWaitTime =entireDriverCutForExcessWaitime[1];
+                        cucumberContextManager.setScenarioContext("ExcessWaitCut",properDriverCutForExcessWaitTime.trim());
                         testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("ExcessWaitCut"), "Excess Wait time driver cut charges should match","Excess Wait time driver cut charges match","Excess Wait time driver cut charges dont match");
                         break;
                     case "Cancelation":
                         String cancellation= feeType.replace(" ", "");
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(2));
                         Thread.sleep(2000);
-                        cucumberContextManager.setScenarioContext("CancellationCut",action.getText(admin_accessorialChargesPage.Text_DriverCut(cancellation)).replace("Testdrivertywd_appledc_a_drva Driver's cut: $",""));
+
+                        String entireDriverCutForCancelation[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(cancellation)).split("\\$");
+                        String  properDriverCutForCancelation=entireDriverCutForCancelation[1];
+                        cucumberContextManager.setScenarioContext("CancellationCut",properDriverCutForCancelation.trim());
                         testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("CancellationCut"), "Cancelation driver cut charges should match","Cancelation driver cut charges match","Cancelation driver cut charges dont match");
                         break;
-                    case "Mountainous":
+                    case "Mountainious":
                         String mountainous= feeType.replace(" ", "");
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(3));
                         Thread.sleep(2000);
-                        cucumberContextManager.setScenarioContext("MountainousCut",action.getText(admin_accessorialChargesPage.Text_DriverCut(mountainous)).replace("Testdrivertywd_appledc_a_drva Driver's cut: $",""));
+
+                        String entireDriverCutForMountainous[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(mountainous)).split("\\$");
+                        String properDriverCutForMountainous=entireDriverCutForMountainous[1];
+                        cucumberContextManager.setScenarioContext("MountainousCut",properDriverCutForMountainous.trim());
                         testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("MountainousCut"), "Mountainous driver cut charges should match","Mountainous driver cut charges match","Mountainous driver cut charges dont match");
                         break;
                     case "Other" :
                         String other= feeType.replace(" ", "") +"s";
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(4));
                         Thread.sleep(2000);
-                        cucumberContextManager.setScenarioContext("OtherCut",action.getText(admin_accessorialChargesPage.Text_DriverCut(other)).replace("Testdrivertywd_appledc_a_drva Driver's cut: $",""));
+
+                        String entireDriverCutForOther[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(other)).split("\\$");
+                        String properDriverCutValueForOther =entireDriverCutForOther[1];
+                        cucumberContextManager.setScenarioContext("OtherCut",properDriverCutValueForOther.trim());
                         testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("OtherCut"), "Other driver cut charges should match","Other driver cut charges match","Other driver cut charges dont match");
                         break;
                 }
@@ -342,6 +364,100 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
     }
 
+    @Then("^the Accessorial Charges should not be displayed$")
+    public void the_accessorial_charges_should_not_be_displayed() throws Throwable {
+     try {
+    Thread.sleep(1000);
+     testStepAssert.isFalse(action.isElementPresent(admin_accessorialChargesPage.Header_Section(true)),"Accessorial Charges should not be displayed","Accessorial Charges is not displayed","Accessorial Charges is displayed");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I use the old pickup reference to search the driver cancelled trip$")
+    public void i_use_the_old_pickup_reference_to_search_the_driver_cancelled_trip() throws Throwable {
+     try{
+        String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
+        Thread.sleep(2000);
+        action.clearSendKeys(adminTripsPage.TextBox_Search(), oldPickupRef + Keys.ENTER);
+        log("I should be able to search the delivery using the old pickup reference",
+                "I could search the delivery using the old pickup reference",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I click on \"([^\"]*)\" link to get the total driver earnings value screen and navigate back to admin portal$")
+    public void i_click_on_something_link_to_get_the_total_driver_earnings_value_screen_and_navigate_back_to_admin_portal(String strArg1) throws Throwable {
+        try{
+        Thread.sleep(1000);
+        action.click(driver_DashboardPage.Link_Driver_BasicInfo());
+        String entireDriverEarning = action.getText(Page_Driver_Details.Text_Driver_TotalEarnings()).replace("\\$","");
+        cucumberContextManager.setScenarioContext("Initial_Driver_Total_Earning",entireDriverEarning);
+        ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
+        SetupManager.getDriver().switchTo().window(tabs.get(0));
+        action.refreshPage();
+
+        Thread.sleep(2000);
+        action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
+        action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
+        action.click(Page_AdminLogin.Button_AdminLogin());
+        log("I should be able to click on the Delivery details link and get the total earning value and navigate back to admin portal",
+                "I could click on the Delivery details link and get the total earning value and navigate back to admin portal");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
+    }
+    @And("^I login to driver portal on a new tab with driver phone number \"([^\"]*)\"$")
+    public void i_login_to_driver_portal_on_a_new_tab_with_driver_phone_number_something(String phone) throws Throwable {
+        try{
+        action.openNewTab();
+        utility.NavigateToDriverLogin();
+        Thread.sleep(1000);
+
+        action.click(Page_Driver_Login.Tab_LogIn());
+        action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), phone);
+        action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("web.valid.common.driver.password"));
+        Thread.sleep(1000);
+        action.click(Page_Driver_Login.Button_DriverLogin());
+        log("I should be able to open new tab and login to driver portal using driver phone number "+ phone ,
+                "I could open new tab and login to driver portal using driver phone number " + phone,false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^the accessorial charges cut should be displayed in total earnings$")
+    public void the_accessorial_charges_cut_should_be_displayed_in_total_earnings() throws Throwable {
+        try {
+        Thread.sleep(1000);
+        action.click(driver_DashboardPage.Link_Driver_BasicInfo());
+
+        Float entireDriverEarning = Float.parseFloat(action.getText(Page_Driver_Details.Text_Driver_TotalEarnings()).replace("$", ""));
+        String initialDriverTotal =(String)  cucumberContextManager.getScenarioContext("Initial_Driver_Total_Earning").toString().replace("$","");
+        String driverExcessWaitCutAmount =(String) cucumberContextManager.getScenarioContext("ExcessWaitCut").toString().replace("$","");
+        String driverCancellationCutAmount =(String) cucumberContextManager.getScenarioContext("CancellationCut").toString().replace("$","");
+        String driverMountainousCutAmount =(String)cucumberContextManager.getScenarioContext("MountainousCut").toString().replace("$","");
+        String driverOtherCutAmount =(String) cucumberContextManager.getScenarioContext("OtherCut").toString().replace("$","");
+        Float newDriverTotalEarning = Float.parseFloat(driverExcessWaitCutAmount) + Float.parseFloat(driverCancellationCutAmount) +Float.parseFloat(driverMountainousCutAmount) + Float.parseFloat(driverOtherCutAmount) +Float.parseFloat(initialDriverTotal);
+
+        testStepAssert.isTrue(newDriverTotalEarning>Float.parseFloat(initialDriverTotal),"Accessorial charges cut should be displayed in total earning","Accessorial charges cut is displayed in total earning","Accessorial charges cut is not displayed in total earning");
+        testStepAssert.isEquals(String.format("%.1f",newDriverTotalEarning),String.valueOf(entireDriverEarning),"Proper driver cut amount should be displayed","Proper driver cut amount is displayed","Proper driver cut amount is not displayed");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 
 
 }

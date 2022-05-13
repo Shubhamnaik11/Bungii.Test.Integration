@@ -48,7 +48,7 @@ public class Admin_RevivalSteps extends DriverBase {
     public void i_should_see_something_message_on_popup_with_pickupid_anad_pickup_origin(String message) throws Throwable {
 
         try{
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         testStepAssert.isTrue(action.isElementPresent(admin_RevivalPage.Label_HeaderPopup()),message+" should be displayed", message+" is displayed", message+" is not displayed");
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String pickupId = dbUtility.getPickupIdFromFactPickup(pickuprequest);
@@ -91,6 +91,7 @@ public class Admin_RevivalSteps extends DriverBase {
                 action.click(admin_revivalPage.Button_Confirm());
                 Thread.sleep(10000);
                 String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                cucumberContextManager.setScenarioContext("OLD_PICKUP_REQUEST",pickuprequest);
                 pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
                 cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
                 break;
