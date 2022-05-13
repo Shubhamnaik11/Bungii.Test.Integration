@@ -4,7 +4,6 @@ import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.Collections;
 import java.util.List;
 
 public class AvailableTripsPage extends PageBase {
@@ -45,28 +44,10 @@ public class AvailableTripsPage extends PageBase {
 
     public WebElement Partner_Name() { return findElement("//*[@resource-id='com.bungii.driver:id/content_business_partner_tv_partner_name']", LocatorType.XPath);}
 
-    public WebElement PageTitle_BungiiDetails() { return findElement("//android.widget.LinearLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath);}
-
+    public WebElement Partner_Name_For_Enroute() { return findElement("//*[@resource-id='com.bungii.driver:id/appCompatTextView27']", LocatorType.XPath);}
 
     public List<WebElement> Row_CustomerTrips(){return findElements("//*[@resource-id='com.bungii.driver:id/row_available_pickup_imageview_arrow' and @resource-id[not(contains(., 'com.bungii.driver:id/row_available_pickup_iv_pickuptype'))]]",LocatorType.XPath);}
 
-    //------Rejection Pop Up----------------------------------------------------------------------
-
-    public WebElement Text_RejectionPopup(boolean...ignoreException) {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id,ignoreException);}
-
-    public WebElement Text_RejectionReason(int i){return findElement("//android.widget.ListView/android.widget.LinearLayout["+i+"]/android.widget.LinearLayout/android.widget.TextView",LocatorType.XPath);}
-
-    public WebElement Button_Cancel() {return findElement("com.bungii.driver:id/alert_dialog_list_btn_cancel",LocatorType.Id);}
-
-    public WebElement Button_Submit() {return findElement("com.bungii.driver:id/alert_dialog_list_btn_submit",LocatorType.Id);}
-
-    public WebElement RadioButton_LatestRejectionReason() {return findElement("//android.view.ViewGroup/android.widget.ListView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.RadioButton",LocatorType.XPath);}
-
-    public WebElement Text_CustomerName(boolean...ignoreException) {return findElement("com.bungii.driver:id/row_available_pickup_drivername",LocatorType.Id,ignoreException);}
-
-    public WebElement Text_NoBungiisAvailable(boolean...ignoreException) {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id,ignoreException);}
-
-
-
+    public WebElement Text_FromHomeMiles() { return findElement("com.bungii.driver:id/row_available_pickup_textview_time_home", LocatorType.Id);}
 
 }

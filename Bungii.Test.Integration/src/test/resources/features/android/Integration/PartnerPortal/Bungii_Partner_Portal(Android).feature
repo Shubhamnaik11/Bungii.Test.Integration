@@ -1,7 +1,6 @@
   @android
 
   Feature: Partner Portal Cases integration with Android
-
   @ready
   Scenario: Verify that the Partner name shown on driver app
     And I am logged in as "Testdrivertywd_appleks_a_drva Kansas_a" driver
@@ -19,20 +18,21 @@
     And I Select Trip from driver scheduled trip
     Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
     And I start selected Bungii
+    Then Bungii driver should see "General Instructions"
     Then Bungii driver should see "Enroute screen"
     Then Partner Portal name should be displayed in "EN ROUTE" section
     And I slide update button on "EN ROUTE" Screen
     Then Bungii driver should see "Arrived screen"
     Then Partner Portal name should be displayed in "ARRIVED" section
     And I slide update button on "ARRIVED" Screen
-    Then Bungii driver should see "Loading Item screen"
-    Then Partner Portal name should be displayed in "LOADING ITEM" section
+    Then Bungii driver should see "Loading Items screen"
+    Then Partner Portal name should be displayed in "LOADING ITEMS" section
     And I slide update button on "LOADING ITEM" Screen
-    Then Bungii driver should see "Driving to DropOff screen"
-    Then Partner Portal name should be displayed in "DRIVING TO DROP OFF" section
+    Then Bungii driver should see "Driving to Drop-Off screen"
+    Then Partner Portal name should be displayed in "DRIVING TO DROP-OFF" section
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then Bungii driver should see "Unloading Item screen"
-    Then Partner Portal name should be displayed in "UNLOADING ITEM" section
+    Then Bungii driver should see "Unloading Items screen"
+    Then Partner Portal name should be displayed in "UNLOADING ITEMS" section
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
 
