@@ -51,8 +51,9 @@ Feature: Rejection Popup on Driver App
 
 #  Core-3008: To verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
     @ready
+#      driver issue
 #        works
-  @testsweta
+#  @testsweta
     Scenario: Verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
       When I Switch to "driver" application on "same" devices
       And I am on the "LOG IN" page on driverApp
@@ -63,18 +64,19 @@ Feature: Rejection Popup on Driver App
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
             |Geofence| Bungii Time   | Customer Phone | Customer Name |
             |Kansas| NEXT_POSSIBLE | 9999999142 | Testcustomertywd_appleNewRQ Customer|
-        Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN PORTAL"
-        And I wait for "4" mins
-        And I navigate to admin portal
-        And I wait for "4" mins
-        And I log in to admin portal
-        And I wait for "4" mins
-        And I Select "Scheduled Trip" from admin sidebar
-        And I wait for "4" mins
-        And I open the trip for "Testcustomertywd_appleNewRQ Customer" the customer for delivery details
-        And I wait for "4" mins
-       Then I check if delivery status is "No Driver(s) Found"
+
+#        Then I wait for "2" mins
+#        When I open new "Chrome" browser for "ADMIN PORTAL"
+##        And I wait for "4" mins
+#        And I navigate to admin portal
+##        And I wait for "4" mins
+#        And I log in to admin portal
+##        And I wait for "4" mins
+#        And I Select "Scheduled Trip" from admin sidebar
+##        And I wait for "4" mins
+#        And I open the trip for "Testcustomertywd_appleNewRQ Customer" the customer for delivery details
+#        And I wait for "4" mins
+#       Then I check if delivery status is "No Driver(s) Found"
 
         When I switch to "ORIGINAL" instance
         When I Switch to "driver" application on "same" devices
