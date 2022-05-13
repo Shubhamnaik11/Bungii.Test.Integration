@@ -2,10 +2,7 @@
 
 Feature: Rejection Popup on Driver App
 
-#  check drivers washingtondc driver changed
     @ready
-#    works
-#   @testsweta
     Scenario: Verify that rejection popup,cancel functionality and all reasons are displayed for scheduled deliveries on available trips page
         When I Switch to "driver" application on "same" devices
         And I am on the "LOG IN" page on driverApp
@@ -13,10 +10,12 @@ Feature: Rejection Popup on Driver App
         And I click "Log In" button on "Log In" screen on driverApp
         And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
+        Given I Switch to "customer" application on "same" devices
         Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
             | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
             | NEXT_POSSIBLE | 9999999140     | Cci12345          | Testcustomertywd_appleNewRO Customer |
 
+        Then I wait for "2" mins
         When I Switch to "driver" application on "same" devices
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from available trip
@@ -30,6 +29,7 @@ Feature: Rejection Popup on Driver App
 
   @ready
 #  works
+#    driver issue
 #  @testsweta
   Scenario: Verify that Rejection reason pop-up is not displayed to driver when the toggle is disabled on Admin Portal
 
@@ -52,9 +52,15 @@ Feature: Rejection Popup on Driver App
 #  Core-3008: To verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
     @ready
 #        works
-#  @testsweta
+  @testsweta
     Scenario: Verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
-        When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      When I Switch to "driver" application on "same" devices
+      And I am on the "LOG IN" page on driverApp
+      And I enter phoneNumber :9049840209 and  Password :Cci12345
+      And I click "Log In" button on "Log In" screen on driverApp
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+      When I request Partner Portal "SOLO" Trip for "MRFM" partner
             |Geofence| Bungii Time   | Customer Phone | Customer Name |
             |Kansas| NEXT_POSSIBLE | 9999999142 | Testcustomertywd_appleNewRQ Customer|
         Then I wait for "2" mins
@@ -72,10 +78,6 @@ Feature: Rejection Popup on Driver App
 
         When I switch to "ORIGINAL" instance
         When I Switch to "driver" application on "same" devices
-        And I am on the "LOG IN" page on driverApp
-        And I enter phoneNumber :8888880011 and  Password :Cci12345
-        And I click "Log In" button on "Log In" screen on driverApp
-        And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         Then I Select Partner portal Trip from available trip
 
