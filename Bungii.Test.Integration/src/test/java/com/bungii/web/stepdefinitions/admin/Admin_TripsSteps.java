@@ -936,6 +936,16 @@ try{
                 action.click(admin_EditScheduledBungiiPage.RadioButton_EditTripDetails());
                 Thread.sleep(3000);
                 break;
+            case "Edit Delivery Status":
+                action.click(admin_LiveTripsPage.RadioButton_EditDeliveryStatus());
+                Thread.sleep(1000);
+                break;
+            case "Delivery Canceled":
+                action.click(admin_LiveTripsPage.RadioButton_DeliveryCanceled());
+                Thread.sleep(1000);
+                break;
+            default:
+                break;
         }
         log("I click "+ radiobutton,
                 "I have clicked on "+ radiobutton, false);
@@ -945,6 +955,38 @@ try{
             true);
 }
     }
+
+    @And("^I enter delivery completion date and time as per geofence$")
+    public void i_enter_delivery_completion_date_and_time_as_per_geofence() throws Throwable {
+        try{
+            String strDate="";
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+            Calendar calendar = Calendar.getInstance();
+            DateFormat formatter = new SimpleDateFormat("MMddYYYY-hh:mm-a");
+            formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+           // calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)-1);
+            //calendar.add(Calendar.MINUTE,-5);
+
+            strDate = formatter.format(calendar.getTime());
+            String[] dateTime = strDate.split("-");
+            String date = dateTime[0];
+            String time = dateTime[1];
+            String meridian = dateTime[2];
+
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),date);
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),time);
+           // action.click(liveTripsPage.Dropdown_ddlpickupEndTime());
+            action.selectElementByText(liveTripsPage.Dropdown_ddlpickupEndTime(),meridian);
+            log("Correct date= "+date+" and time= "+time+meridian+" should be enter for the "+geofence+" geofence.","Correct date= "+date+" and time= "+time+meridian+" is enter for the "+geofence+" geofence.",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @And("^I change delivery type from \"([^\"]*)\"")
     public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
 try{
@@ -1219,6 +1261,17 @@ try{
     public void the_something_message_should_be_displayed(String message) throws Throwable {
         testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessage(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
     }
+
+    @Then("^The \"([^\"]*)\" message should be displayed for live delivery$")
+    public void the_something_message_should_be_displayed_for_live_delivery(String message) throws Throwable {
+        if(message.equalsIgnoreCase("Pick up has been successfully updated.")){
+            testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_DeliverySuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+        }
+        else {
+            testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+        }
+    }
+
     @Then("^Pickup should be unassigned from the driver$")
     public void pickup_should_be_unassigned_from_the_driver() throws Throwable {
 

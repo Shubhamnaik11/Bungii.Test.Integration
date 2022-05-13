@@ -401,4 +401,8 @@ catch(Exception ex)
         }
     }
 
+    public void switchToTab(int tab) {
+        ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
+        SetupManager.getDriver().switchTo().window(tabs.get(tab));
+    }
 }

@@ -33,4 +33,24 @@ public class MyBungiisPage extends PageBase {
     public WebElement Text_Driver1NameTrip3(){return findElements("//*[@resource-id='com.bungii.customer:id/item_my_bungii_tv_driver2name']", LocatorType.XPath).get(0);}
     public WebElement Text_Driver2NameTrip3(){return findElements("//*[@resource-id='com.bungii.customer:id/item_my_bungii_tv_driver2name']", LocatorType.XPath).get(0);}
 
+    public WebElement Text_TotalEarnings(){return findElement("com.bungii.driver:id/appCompatTextView6", LocatorType.Id);}
+    public WebElement Text_TotalTips(){return findElement("com.bungii.driver:id/appCompatTextView6", LocatorType.Id);}
+    public WebElement Button_ItemizedEarnings(){return findElement("//android.widget.RelativeLayout/android.widget.LinearLayout/android.view.ViewGroup[4]/android.widget.Button", LocatorType.XPath);}
+    public WebElement Text_ItemizedEarnings(){return findElement("//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]", LocatorType.XPath);}
+    public WebElement Icon_DriverEarnings(){return findElement("//tbody[@id='NewApplicantsTBody']/tr/td/a/img[@title='Driver Earnings']", LocatorType.XPath);}
+    public WebElement Link_ViewTrips(){return findElement("//div/a[text()='View']", LocatorType.XPath);}
+    public WebElement Text_DriverEarnings(){return findElement("//div[@class='info-box']/h1[@class='text-info']", LocatorType.XPath);}
+    public WebElement Button_Back(){return findElement("//android.widget.ImageButton[contains(@content-desc,\"Navigate up\")]", LocatorType.XPath);}
+
+    public WebElement Header_ItemizedEarnings(){return findElement("//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.LinearLayout/android.view.ViewGroup/android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath);}
+    public WebElement Dropdown_StartDate(){return findElement("com.bungii.driver:id/linearLayoutCompat", LocatorType.Id);}
+    public WebElement Dropdown_EndDate(){return findElement("com.bungii.driver:id/linearLayoutCompat3", LocatorType.Id);}
+    public WebElement Calendar_StartDate(){return findElement("android:id/parentPanel", LocatorType.Id);}
+    public WebElement Button_Cancel(){return findElement("android:id/button2", LocatorType.Id);}
+    public WebElement Button_Okay(){return findElement("android:id/button1", LocatorType.Id);}
+    public WebElement Calendar_SelectDate(){return findElement("//android.view.View[@checked=\"true\"]/following-sibling::android.view.View[1]", LocatorType.XPath);}
+    public WebElement Text_Date(){return findElement("android:id/date_picker_header_date", LocatorType.Id);}
+    public WebElement Text_Year(){return findElement("android:id/date_picker_header_year", LocatorType.Id);}
+    public WebElement Text_StartDate(){return findElement("//android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat[1]/android.widget.TextView[2]", LocatorType.XPath);}
+
 }
