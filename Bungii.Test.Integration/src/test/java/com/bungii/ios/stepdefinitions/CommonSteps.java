@@ -305,6 +305,9 @@ public class CommonSteps extends DriverBase {
                case "ONLINE":
                 action.isElementPresent(driverBungiiCompletedPage.Slider_Online());
                 break;
+               case "OFFLINE":
+                   action.isElementPresent(driverBungiiCompletedPage.Slider_Offline());
+                   break;
            }
        }
        catch (Exception e) {

@@ -2,6 +2,7 @@
 
   Feature: Partner Portal Cases integration with Android
   @ready
+   @testsweta
   Scenario: Verify that the Partner name shown on driver app
     And I am logged in as "Testdrivertywd_appleks_a_drva Kansas_a" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -34,7 +35,12 @@
     Then Bungii driver should see "Unloading Items screen"
     Then Partner Portal name should be displayed in "UNLOADING ITEMS" section
     And I slide update button on "UNLOADING ITEM" Screen
+    And Bungii Driver "skips to rate customer"
     Then I should be navigated to "Bungii Completed" screen
+    And I click "Next Bungii" button on the "Bungii Completed" screen
+
+#   Core-3098 Verify online/Offline pop up is shown for on demand trip
+    And I check online or offline pop up is displayed
 
 #  Core-2638: Verify the changed Driver cut is reflected in driver app
     @ready

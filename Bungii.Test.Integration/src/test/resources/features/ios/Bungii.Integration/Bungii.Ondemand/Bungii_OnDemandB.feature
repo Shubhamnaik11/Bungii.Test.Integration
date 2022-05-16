@@ -46,7 +46,7 @@ And I click "Skip This Step" button on "Rate customer" screen
 Then I should be navigated to "Bungii completed" screen
 When I click "On To The Next One" button on "Bungii completed" screen
 
-  #    Core-3098 Verify online/Offline pop up is shown for on demand trip
+  #    Core-3098 Verify online/Offline pop up is shown for on demand trip and stay online functionality
   And I check online or offline pop up is displayed
   And I click on "STAY ONLINE" button
   And I check if the status is "ONLINE"

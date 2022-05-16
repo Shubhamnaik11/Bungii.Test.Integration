@@ -36,3 +36,10 @@ Feature: Partner Portal Cases integration with IOS
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
+
+  #    Core-3098 Verify online/offline pop up is shown for solo Partner portal trip and go-offline functionality
+    And I check online or offline pop up is displayed
+    And I click on "GO OFFLINE" button
+    And I Select "HOME" from driver App menu
+    And I check if the status is "OFFLINE"
