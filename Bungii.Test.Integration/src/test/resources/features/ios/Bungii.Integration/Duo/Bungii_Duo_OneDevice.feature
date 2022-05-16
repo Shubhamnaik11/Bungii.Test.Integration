@@ -19,7 +19,7 @@ Feature: Scheduled Bungii on one device
     
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Duo    | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
+      | Duo    | Margao Railway Overbridge  | Panjim bus stand |
     And I click "Get Estimate" button on "Home" screen
     
     Then I should be navigated to "Estimate" screen
