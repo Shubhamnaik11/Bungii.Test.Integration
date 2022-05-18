@@ -38,7 +38,7 @@ public class Partner_DeliveryPage extends PageBase {
     public WebElement TextBox_Customer_Name() { return findElement("customerName",LocatorType.Name);}
 
     //Blank Customer Name
-    public WebElement Message_Black_Customer_Name() { return findElement("//div[contains(text(),'Customer name is required.')]",LocatorType.XPath);}
+    public WebElement Message_Black_Customer_Name() { return findElement("//div[contains(text(),'Customer full name is required.')]",LocatorType.XPath);}
 
     //Customer Mobile
     public WebElement TextBox_Customer_Mobile() { return findElement("customerMobile",LocatorType.Name);}
