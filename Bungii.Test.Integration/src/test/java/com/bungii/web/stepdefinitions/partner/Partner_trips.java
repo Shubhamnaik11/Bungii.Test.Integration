@@ -998,7 +998,7 @@ try{
     @Then("^I note the Driver Est. Earnings for the search delivery$")
     public void i_note_the_Driver_Est_Earnings_for_the_search_delivery()throws Throwable {
         try{
-        String DriverEstEarning= action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Eranings());
+        String DriverEstEarning= action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Earnings_Customer_Delivery());
 
         DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
         cucumberContextManager.setScenarioContext("Old_Driver_Earning",DriverEstEarning);
@@ -1016,7 +1016,7 @@ try{
     @Then("^I confirm that Driver Est. Earnings for the delivery remain same$")
     public void the_Driver_Est_Earnings_for_the_delivery_remain_same()throws Throwable {
         try {
-            String NewDriverEstEarning = action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Eranings());
+            String NewDriverEstEarning = action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Earnings_Customer_Delivery());
 
             NewDriverEstEarning = NewDriverEstEarning.substring(1, NewDriverEstEarning.length());
 
