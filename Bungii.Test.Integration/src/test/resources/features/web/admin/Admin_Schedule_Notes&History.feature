@@ -8,8 +8,8 @@ Feature: Admin Notes & History
   Scenario: To verify Notes-Customer service notes can be added, edited and deleted  by admin1
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                       |
-      | NEXT_POSSIBLE | 9999999200     | Testcustomertywd_appleNewM Customer |
-    And As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+      | NEXT_POSSIBLE | 8877661000     | Testcustomertywd_appleMarkA LutherA |
+    And As a driver "Testdrivertywd_appleks_a_gruE Stark_ksOnE" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I wait for 2 minutes
@@ -25,7 +25,7 @@ Feature: Admin Notes & History
     When I click on the "Delivery Details" link scheduled bungii and click on the"View" button
     Then  I should see the note created by the admin
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruE Stark_ksOnE" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Enroute       |
     And I wait for 2 minutes
@@ -41,7 +41,7 @@ Feature: Admin Notes & History
     When I click on the "Delivery Details" link scheduled bungii and click on the"View" button
     Then  I should see the note created by the admin
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruE Stark_ksOnE" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state      |
       | Arrived            |
       | Loading Item       |
@@ -63,8 +63,8 @@ Feature: Admin Notes & History
   Scenario:To verify the Notes-Customer service notes of Admin1 can be edited by Admin1 only
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                       |
-      | NEXT_POSSIBLE | 9999999200     | Testcustomertywd_appleNewM Customer |
-    And As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+      | NEXT_POSSIBLE | 8877661001     | Testcustomertywd_appleMarkB LutherB |
+    And As a driver "Testdrivertywd_appleks_a_gruF Stark_ksOnF" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I wait for 2 minutes
@@ -126,7 +126,7 @@ Feature: Admin Notes & History
     When I click on the "Notes & History" link beside scheduled bungii for "Schedule Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruG Stark_ksOnG" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I wait for 2 minutes
@@ -138,7 +138,7 @@ Feature: Admin Notes & History
     And I click on the "Notes & History" link beside scheduled bungii for "Schedule Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruG Stark_ksOnG" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Enroute       |
     And I wait for 2 minutes
@@ -150,7 +150,7 @@ Feature: Admin Notes & History
     When I click on the "Notes & History" link beside scheduled bungii for "Live Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruG Stark_ksOnG" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Arrived       |
     And I wait for 2 minutes
@@ -162,7 +162,7 @@ Feature: Admin Notes & History
     When I click on the "Notes & History" link beside scheduled bungii for "Live Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruG Stark_ksOnG" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Loading Item  |
     And I wait for 2 minutes
@@ -174,7 +174,7 @@ Feature: Admin Notes & History
     When I click on the "Notes & History" link beside scheduled bungii for "Live Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruG Stark_ksOnG" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state      |
       | Driving To Dropoff |
     And I wait for 2 minutes
@@ -186,7 +186,7 @@ Feature: Admin Notes & History
     When I click on the "Notes & History" link beside scheduled bungii for "Live Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruG Stark_ksOnG" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state  |
       | Unloading Item |
     And I wait for 2 minutes
@@ -198,7 +198,7 @@ Feature: Admin Notes & History
     When I click on the "Notes & History" link beside scheduled bungii for "Live Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruG Stark_ksOnG" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state    |
       | Bungii Completed |
     And I wait for 2 minutes
@@ -287,7 +287,7 @@ Feature: Admin Notes & History
     When I click on the "Notes & History" link beside scheduled bungii for "Schedule Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruH Stark_ksOnH" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I wait for 2 minutes
@@ -299,7 +299,7 @@ Feature: Admin Notes & History
     And I click on the "Notes & History" link beside scheduled bungii for "Schedule Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appleks_a_gruH Stark_ksOnH" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Enroute       |
     And I wait for 2 minutes
@@ -318,8 +318,8 @@ Feature: Admin Notes & History
     When  I am logged in as TestAdmin
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                       |
-      | NEXT_POSSIBLE | 9999999200     | Testcustomertywd_appleNewM Customer |
-    When As a driver "Testdrivertywd_appleks_a_drvo Kansas_o" perform below action with respective "Solo Scheduled" Delivery
+      | NEXT_POSSIBLE | 8877661002     | Testcustomertywd_appleMarkC LutherC |
+    When As a driver "Testdrivertywd_appleks_a_gruI Stark_ksOnI" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I wait for 2 minutes
