@@ -124,7 +124,7 @@ public class SetupManager extends EventFiringWebDriver {
                 CucumberContextManager.getObject().setScenarioContext("SESSION", sessionid);
             }
             driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-
+            driver.manage().window().maximize();
         DriverManager.getObject().setPrimaryInstanceKey("ORIGINAL");
         DriverManager.getObject().storeDriverInstance("ORIGINAL", driver);
         DriverManager.getObject().setDriver(driver);
@@ -314,9 +314,6 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("no-sandbox");
         if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
             chromeOptions.addArguments("--headless");
-            chromeOptions.addArguments("--window-size=1920,1080");
-        }
-        if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("WEB")) {
             chromeOptions.addArguments("--window-size=1920,1080");
         }
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
