@@ -320,6 +320,7 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
+        chromeOptions.addArguments("--window-size=1920,1080");
         chromeOptions.addArguments("--start-maximized");
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         chromeOptions.addArguments("--ignore-certificate-errors");

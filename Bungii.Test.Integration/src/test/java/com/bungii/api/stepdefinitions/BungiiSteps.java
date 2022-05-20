@@ -3771,10 +3771,14 @@ else
     @When("^I wait for 2 minutes$")
     public void i_wait_for_2_minutes() throws Throwable {
         Thread.sleep(120000);
+        pass("I wait for 2 minutes",
+                "I waited for 2 minutes");
     }
     @When("^I wait for 1 minutes$")
     public void i_wait_for_1_minutes() throws Throwable {
         Thread.sleep(60000);
+        pass("I wait for 1 minute",
+                "I waited for 1 minute");
     }
 
     @When("^I request \"([^\"]*)\" Bungii as a customer in \"([^\"]*)\" geofence from a partner location$")
