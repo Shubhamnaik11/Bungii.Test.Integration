@@ -113,9 +113,10 @@ public class SetupManager extends EventFiringWebDriver {
                     }
                 }
             }
-        } else if (TARGET_PLATFORM.equalsIgnoreCase("WEB"))
+        } else if (TARGET_PLATFORM.equalsIgnoreCase("WEB")) {
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
-
+            driver.manage().window().maximize();
+        }
         if (driver != null)
         {
             if (!TARGET_PLATFORM.equalsIgnoreCase("WEB")) {
@@ -124,7 +125,6 @@ public class SetupManager extends EventFiringWebDriver {
                 CucumberContextManager.getObject().setScenarioContext("SESSION", sessionid);
             }
             driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-            driver.manage().window().maximize();
         DriverManager.getObject().setPrimaryInstanceKey("ORIGINAL");
         DriverManager.getObject().storeDriverInstance("ORIGINAL", driver);
         DriverManager.getObject().setDriver(driver);
