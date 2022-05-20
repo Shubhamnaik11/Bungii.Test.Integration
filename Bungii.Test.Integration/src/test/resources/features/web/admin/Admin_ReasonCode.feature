@@ -6,7 +6,7 @@ Feature: Admin_Reason_Code
     Given I am logged in as Admin
 
   @ready
-
+  @testing
   Scenario: Verify Reason dropdown is displayed for Solo re-schedule delivery when no Driver accepts,initiated by Customer and Admin edits only time
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
