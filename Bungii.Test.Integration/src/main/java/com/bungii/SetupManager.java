@@ -325,6 +325,7 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
         chromeOptions.addArguments("--disable-infobars");
+        return chromeOptions;
     }
     /**
      * Start and return appium driver instance
