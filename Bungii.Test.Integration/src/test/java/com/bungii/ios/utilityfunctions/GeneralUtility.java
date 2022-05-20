@@ -682,8 +682,14 @@ public class GeneralUtility extends DriverBase {
                             logger.detail("Bypassed BUNGII ACCEPTED screen and directly showing Enroute screen");
                         }
                         else {
-                            action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
-                            isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                            if(currentApplication.equalsIgnoreCase("DRIVER")){
+                                action.textToBePresentInElementName(driverHomePage.Text_DriverNavigationBar(key), expectedMessage);
+                                isCorrectPage = action.getScreenHeader(driverHomePage.Text_DriverNavigationBar(key)).equals(expectedMessage);
+                            }
+                            else {
+                                action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
+                                isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                            }
                         }
                     }
         }

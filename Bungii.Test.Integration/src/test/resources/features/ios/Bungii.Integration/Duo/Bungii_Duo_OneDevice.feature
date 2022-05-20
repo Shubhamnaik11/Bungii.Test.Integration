@@ -61,7 +61,7 @@ Feature: Scheduled Bungii on one device
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
     And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
+    #Then I accept Alert message for "Reminder: both driver at pickup"
     Then I should be navigated to "LOADING ITEM" screen
 
     When I Switch to "customer" application on "same" devices
