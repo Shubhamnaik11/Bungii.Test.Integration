@@ -4,6 +4,7 @@ Feature: Admin Notes & History
   Background:
     Given I am logged in as Admin
 
+  @testing
   @ready
   Scenario: To verify Notes-Customer service notes can be added, edited and deleted  by admin1
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
