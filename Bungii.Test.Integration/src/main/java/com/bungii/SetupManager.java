@@ -312,15 +312,15 @@ public class SetupManager extends EventFiringWebDriver {
         prefs.put("download.default_directory",  SystemUtils.getUserHome().getPath() + File.separator + "Downloads");
         chromeOptions.setExperimentalOption("prefs", prefs);
         chromeOptions.addArguments("no-sandbox");
-        if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
+       // if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
             chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("--window-size=1920,1080");
-        }
+      //  }
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
-        chromeOptions.addArguments("--window-size=1920,1080");
+       // chromeOptions.addArguments("--window-size=1920,1080");
         chromeOptions.addArguments("--start-maximized");
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         chromeOptions.addArguments("--ignore-certificate-errors");
