@@ -382,8 +382,8 @@
         When I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I change the "particular trip time 2 hours later" to future time
-        And I click on "VERIFY" button
         And I Select reason as "Customer initiated" to edit datetime
+        And I click on "VERIFY" button
         And the "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
         And the "Bungii Saved!" message is displayed
