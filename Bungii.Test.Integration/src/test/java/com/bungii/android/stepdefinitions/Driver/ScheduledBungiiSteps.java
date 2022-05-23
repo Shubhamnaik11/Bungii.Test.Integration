@@ -30,7 +30,6 @@ public class ScheduledBungiiSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
-    InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     private static LogUtility logger = new LogUtility(ScheduledBungiiSteps.class);
     @And("I open first Trip from driver scheduled trip")
     public void iSelectFirstTripFromDriverScheduledTrip() {
@@ -122,7 +121,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     @And("^I click the \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void i_click_the_something_button_on_something_screen(String strArg1, String strArg2) throws Throwable {
         try {
-            action.click(Page_DriverBungiiProgress.Button_MoreOptions());
+            action.click(inProgressBungiiPages.Button_MoreOptions());
             action.click(inProgressBungiiPages.Button_Cancel());
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
