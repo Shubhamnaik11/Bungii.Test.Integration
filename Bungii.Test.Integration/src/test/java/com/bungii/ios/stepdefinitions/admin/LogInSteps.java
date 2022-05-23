@@ -27,9 +27,11 @@ public class LogInSteps extends DriverBase {
     @When("^I navigate to admin portal$")
     public void i_navigate_to_admin_portal() {
         try {
-            SetupManager.getDriver().get(utility.GetAdminUrl());
+            String url = utility.GetAdminUrl();
+            SetupManager.getDriver().navigate().to(utility.GetAdminUrl());
+            String navigatedUrl = SetupManager.getDriver().getCurrentUrl();
             pass("I should be navigate to admin portal",
-                    "I navigate to admin portal", true);
+                    "I navigate to admin portal url : "+ navigatedUrl, true);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
