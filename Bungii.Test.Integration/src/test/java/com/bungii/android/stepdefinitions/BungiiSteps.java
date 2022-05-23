@@ -1078,6 +1078,7 @@ public class BungiiSteps extends DriverBase {
             switch (arg0) {
                 case "cancels Bungii request":
                     Thread.sleep(5000);
+                    action.scrollToBottom();
                     action.click(Page_DriverBungiiProgress.Button_CancelBungii());
                     Thread.sleep(5000);
                     break;
