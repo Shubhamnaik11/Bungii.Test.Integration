@@ -291,7 +291,7 @@
         Then I wait for "2" mins
         And I open the trip for "Testcustomertywd_appleand_A Android" the customer
         And I Select "Edit Trip Details" option
-        And I check if a validation message "Driver 2: Add driver below or Bungii driver search will continue" is shown
+        And I check if a validation message "Driver 1: Add driver below or Bungii driver search will continue" is shown
         And I assign driver for the "control" trip
         And I click on "VERIFY" button
         And the "Your changes are good to be saved." message is displayed
