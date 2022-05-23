@@ -5,6 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.web.manager.ActionManager;
 import com.bungii.ios.pages.admin.LogInPage;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -17,6 +18,7 @@ import static com.bungii.common.manager.ResultManager.pass;
 
 public class LogInSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LogInSteps.class);
+    ActionManager action = new ActionManager();
     LogInPage logInPage;
     GeneralUtility utility = new GeneralUtility();
 
@@ -45,9 +47,12 @@ public class LogInSteps extends DriverBase {
     @And("^I log in to admin portal$")
     public void i_log_in_to_admin_portal() {
         try {
-            logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
-            logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
-            logInPage.Button_LogIn().click();
+            action.sendKeys(logInPage.TextBox_Phone(),PropertyUtility.getDataProperties("admin.user"));
+            action.sendKeys(logInPage.TextBox_Pass(),PropertyUtility.getDataProperties("admin.password"));
+            //logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
+            //logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
+            //logInPage.Button_LogIn().click();
+            action.click(logInPage.Button_LogIn());
             pass("I log in to admin portal",
                     "I got log in to admin portal", true);
         } catch (Exception e) {
