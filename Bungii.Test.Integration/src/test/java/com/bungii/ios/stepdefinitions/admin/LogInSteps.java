@@ -31,8 +31,6 @@ public class LogInSteps extends DriverBase {
         try {
             SetupManager.getDriver().navigate().to(utility.GetAdminUrl());
             String navigatedUrl = SetupManager.getDriver().getCurrentUrl();
-            logger.detail(SetupManager.getDriver().getPageSource());
-            logger.detail(SetupManager.getDriver().getWindowHandle());
 
             pass("I should be navigate to admin portal",
                     "I navigate to admin portal url : "+ navigatedUrl, true);
