@@ -48,7 +48,7 @@ public class ResultManager {
         String name = ThreadLocalStepDefinitionMatch.get();
        // reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), screenDump));
 
-        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), screenDump));
+        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), false));
         logger.detail("TEST STEP - PASS| Actual Result : " + actual);
     }
 
