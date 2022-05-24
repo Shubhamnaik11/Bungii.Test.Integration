@@ -459,6 +459,8 @@
         And I slide update button on "DRIVING TO DROP OFF" Screen
         And I slide update button on "UNLOADING ITEM" Screen
         Then I accept Alert message for "Reminder: both driver at drop off"
+        When Bungii Driver "rates driver"
+        And Bungii Driver "skips to rate customer"
         Then Bungii Driver "tab On to Next"
         And I Select "SCHEDULED BUNGIIS" from driver App menu
         Then I should able to see "one" scheduled trip

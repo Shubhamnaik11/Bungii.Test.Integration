@@ -1136,6 +1136,11 @@ public class BungiiSteps extends DriverBase {
                     action.click(Page_BungiiComplete.RatingBar());
                     break;
 
+                case "rates driver":
+                    action.click(Page_BungiiComplete.RatingBar());
+                    action.click(Page_BungiiComplete.Button_SubmitRating());
+                    break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
