@@ -311,7 +311,7 @@ public class SetupManager extends EventFiringWebDriver {
         Map<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("download.default_directory", SystemUtils.getUserHome().getPath() + File.separator + "Downloads");
         chromeOptions.setExperimentalOption("prefs", prefs);
-        chromeOptions.addArguments("no-sandbox");
+        chromeOptions.addArguments("--no-sandbox");
          if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
         //chromeOptions.addArguments("--headless");
         //chromeOptions.addArguments("window-size=1920,1080");
@@ -323,7 +323,7 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
-        chromeOptions.addArguments("--start-maximized");
+        chromeOptions.addArguments("start-maximized");
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
