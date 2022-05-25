@@ -150,7 +150,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "Details From Customer":
-                    noteText=action.getText(inProgressPages.Text_CustomerNote());
+                    noteText=action.getText(inProgressPages.Text_DeliveryInstructions());
                     enteredNoteText=(String)cucumberContextManager.getScenarioContext("NOTE_TEXT");
                     if(noteText.equals(enteredNoteText)){
                         testStepAssert.isTrue(true, "The note text of customer and driver should match.", "The note text of customer and driver didn't match.");
@@ -207,7 +207,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "SAVE TIME":
                     action.click(tripAlertSettingsPage.TimePicker_OK());
                     action.click(tripAlertSettingsPage.Button_SaveTime());
-
                     break;
 
                 case "ADD":
@@ -299,6 +298,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "Itemized Earnings":
                     action.click(earningsPage.Button_ItemizedEarnings());
+                    break;
+
+                case "Delivery Instructions":
+                    action.click(inProgressPages.Button_DeliveryInstructions());
                     break;
 
                 default:

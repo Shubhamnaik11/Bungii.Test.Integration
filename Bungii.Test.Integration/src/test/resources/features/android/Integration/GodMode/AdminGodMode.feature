@@ -206,7 +206,7 @@
         When I request "duo" Bungii as a customer in "goa" geofence
           | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
           | NEXT_POSSIBLE  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
-        And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "Duo Scheduled" trip
+        And As a driver "GoaD DriverD" and "GoaE DriverE" perform below action with respective "Duo Scheduled" trip
           | driver1 state  |  driver2 state  |
           | Accepted       |  Enroute       |
     
@@ -291,7 +291,7 @@
         Then I wait for "2" mins
         And I open the trip for "Testcustomertywd_appleand_A Android" the customer
         And I Select "Edit Trip Details" option
-        And I check if a validation message "Driver 2: Add driver below or Bungii driver search will continue" is shown
+        And I check if a validation message "Driver 1: Add driver below or Bungii driver search will continue" is shown
         And I assign driver for the "control" trip
         And I click on "VERIFY" button
         And the "Your changes are good to be saved." message is displayed
@@ -382,8 +382,8 @@
         When I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I change the "particular trip time 2 hours later" to future time
-        And I click on "VERIFY" button
         And I Select reason as "Customer initiated" to edit datetime
+        And I click on "VERIFY" button
         And the "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
         And the "Bungii Saved!" message is displayed

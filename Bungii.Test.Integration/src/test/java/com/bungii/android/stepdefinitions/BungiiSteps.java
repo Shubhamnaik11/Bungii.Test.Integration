@@ -1078,6 +1078,7 @@ public class BungiiSteps extends DriverBase {
             switch (arg0) {
                 case "cancels Bungii request":
                     Thread.sleep(5000);
+                    action.scrollToBottom();
                     action.click(Page_DriverBungiiProgress.Button_CancelBungii());
                     Thread.sleep(5000);
                     break;
@@ -1133,6 +1134,11 @@ public class BungiiSteps extends DriverBase {
 
                 case "rates customer":
                     action.click(Page_BungiiComplete.RatingBar());
+                    break;
+
+                case "rates driver":
+                    action.click(Page_BungiiComplete.RatingBar());
+                    action.click(Page_BungiiComplete.Button_SubmitRating());
                     break;
 
                 default:
