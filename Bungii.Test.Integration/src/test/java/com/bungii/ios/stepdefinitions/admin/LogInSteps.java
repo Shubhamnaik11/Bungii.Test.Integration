@@ -11,6 +11,7 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.WebElement;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.pass;
@@ -48,7 +49,15 @@ public class LogInSteps extends DriverBase {
             logger.detail(SetupManager.getDriver().getTitle());
             logger.detail(SetupManager.getDriver().getWindowHandle());
             logger.detail(SetupManager.getDriver().manage().window().getSize());
-            action.waitUntilIsElementExistsAndDisplayed(logInPage.Button_LogIn(),Long.valueOf(30));
+            WebElement element = logInPage.Button_LogIn();
+            if(element==null)
+            {
+                logger.detail("Element received is null " );
+            }
+            else
+            {
+                logger.detail("Element found " );
+            }
             action.sendKeys(logInPage.TextBox_Phone(),PropertyUtility.getDataProperties("admin.user"));
             action.sendKeys(logInPage.TextBox_Pass(),PropertyUtility.getDataProperties("admin.password"));
             //logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
