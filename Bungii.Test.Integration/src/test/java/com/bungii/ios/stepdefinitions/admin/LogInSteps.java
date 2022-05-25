@@ -60,13 +60,8 @@ public class LogInSteps extends DriverBase {
             }
             else
             {
-                logger.detail("Element found " );
+                logger.detail("Element not found" );
 
-            }
-            List<WebElement> els = logInPage.findElements("//*", PageBase.LocatorType.XPath);
-            for (WebElement el: els
-            ) {
-                logger.detail("Element xpath: "+el.getTagName());
             }
             action.sendKeys(logInPage.TextBox_Phone(),PropertyUtility.getDataProperties("admin.user"));
             action.sendKeys(logInPage.TextBox_Pass(),PropertyUtility.getDataProperties("admin.password"));
