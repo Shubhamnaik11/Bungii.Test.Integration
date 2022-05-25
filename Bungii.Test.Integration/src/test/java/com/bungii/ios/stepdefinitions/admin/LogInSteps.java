@@ -46,7 +46,6 @@ public class LogInSteps extends DriverBase {
     public void i_log_in_to_admin_portal() {
         try {
             logger.detail(SetupManager.getDriver().getTitle());
-            logger.detail(SetupManager.getDriver().getPageSource());
             logger.detail(SetupManager.getDriver().getWindowHandle());
             logger.detail(SetupManager.getDriver().manage().window().getSize());
             action.waitUntilIsElementExistsAndDisplayed(logInPage.Button_LogIn(),Long.valueOf(30));
