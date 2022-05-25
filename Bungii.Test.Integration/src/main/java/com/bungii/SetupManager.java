@@ -314,7 +314,7 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("--no-sandbox");
          if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
           chromeOptions.addArguments("--headless");
-          chromeOptions.addArguments("window-size=1920,1080");
+          chromeOptions.addArguments("--window-size=1920,1080");
              chromeOptions.addArguments("--disable-dev-shm-usage");
              chromeOptions.addArguments("--disable-gpu");
 
