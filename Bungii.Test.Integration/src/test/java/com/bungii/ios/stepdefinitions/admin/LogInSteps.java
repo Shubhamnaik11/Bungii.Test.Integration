@@ -2,6 +2,7 @@ package com.bungii.ios.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -12,6 +13,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.pass;
@@ -53,10 +56,17 @@ public class LogInSteps extends DriverBase {
             if(element==null)
             {
                 logger.detail("Element received is null " );
+               List<WebElement> els = logInPage.findElements("//*", PageBase.LocatorType.XPath);
             }
             else
             {
                 logger.detail("Element found " );
+
+            }
+            List<WebElement> els = logInPage.findElements("//*", PageBase.LocatorType.XPath);
+            for (WebElement el: els
+            ) {
+                logger.detail("Element xpath: "+el.getAttribute("xpath"));
             }
             action.sendKeys(logInPage.TextBox_Phone(),PropertyUtility.getDataProperties("admin.user"));
             action.sendKeys(logInPage.TextBox_Pass(),PropertyUtility.getDataProperties("admin.password"));
