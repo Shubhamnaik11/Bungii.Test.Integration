@@ -321,7 +321,8 @@ public class SetupManager extends EventFiringWebDriver {
              chromeOptions.addArguments("--disable-gpu");
             chromeOptions.addArguments("--no-gui");
         chromeOptions.addArguments("--ignore-zoom-level");
-             chromeOptions.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+        chromeOptions.addArguments("--force-device-scale-factor=1");
+        chromeOptions.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
         // }
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.addArguments("--disable-extensions");
