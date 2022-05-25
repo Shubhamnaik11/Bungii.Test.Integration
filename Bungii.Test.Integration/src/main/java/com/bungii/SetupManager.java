@@ -331,6 +331,7 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
         chromeOptions.addArguments("--disable-infobars");
+        chromeOptions.addArguments("--disable-features=VizDisplayCompositor");
         return chromeOptions;
     }
     /**
