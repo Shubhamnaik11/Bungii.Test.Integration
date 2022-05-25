@@ -33,6 +33,7 @@ import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.URL;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -125,10 +126,10 @@ public class SetupManager extends EventFiringWebDriver {
                 CucumberContextManager.getObject().setScenarioContext("SESSION", sessionid);
             }
             driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-        DriverManager.getObject().setPrimaryInstanceKey("ORIGINAL");
-        DriverManager.getObject().storeDriverInstance("ORIGINAL", driver);
-        DriverManager.getObject().setDriver(driver);
-    }
+            DriverManager.getObject().setPrimaryInstanceKey("ORIGINAL");
+            DriverManager.getObject().storeDriverInstance("ORIGINAL", driver);
+            DriverManager.getObject().setDriver(driver);
+        }
         Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
     }
     private static void removeWebdriverAgent(){
@@ -150,7 +151,7 @@ public class SetupManager extends EventFiringWebDriver {
                 String udid = jsonCaps.getString("udid");
 
 
-                   Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
+                Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
                 logger.detail("Deleted WebdriverAgent for Device : " + deviceId);
             }
         } catch (Exception e) {
@@ -210,7 +211,7 @@ public class SetupManager extends EventFiringWebDriver {
      * @return Appium server url
      */
     public static String getAppiumServerURL(String portNumber) {
-       // String browserlocal ="false";
+        // String browserlocal ="false";
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost") || APPIUM_SERVER_IP.equals("") || APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP = "127.0.0.1";
 
@@ -220,7 +221,7 @@ public class SetupManager extends EventFiringWebDriver {
         else {
             return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
         }
-       //return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
+        //return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
     }
 
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber) {
@@ -266,7 +267,7 @@ public class SetupManager extends EventFiringWebDriver {
     public static WebDriver getDriver() {
         // return APPIUM_DRIVER;
         if (DriverManager.getObject().getDriver()!=null)
-        return DriverManager.getObject().getDriver();
+            return DriverManager.getObject().getDriver();
         else
             return null;
     }
@@ -296,6 +297,7 @@ public class SetupManager extends EventFiringWebDriver {
                         .usingAnyFreePort()
                         .build();
                 driver = new ChromeDriver(service, options);
+                driver.manage().window().maximize();
                 break;
             default:
                 logger.error("webdriver method for " + browser + "is not implemented ");
@@ -311,20 +313,27 @@ public class SetupManager extends EventFiringWebDriver {
         Map<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("download.default_directory", SystemUtils.getUserHome().getPath() + File.separator + "Downloads");
         chromeOptions.setExperimentalOption("prefs", prefs);
-        chromeOptions.addArguments("no-sandbox");
-        // if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
+        chromeOptions.addArguments("--no-sandbox");
+        //if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
         chromeOptions.addArguments("--headless");
-        chromeOptions.addArguments("window-size=1920,1080");
-        // }
+        chromeOptions.addArguments("--window-size=1920,1080");
+        if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
+            chromeOptions.addArguments("--disable-dev-shm-usage");
+            chromeOptions.addArguments("--disable-gpu");
+            chromeOptions.addArguments("--no-gui");
+            chromeOptions.addArguments("--force-device-scale-factor=1");
+            chromeOptions.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+        }
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
-        chromeOptions.addArguments("--start-maximized");
+        chromeOptions.addArguments("start-maximized");
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
         chromeOptions.addArguments("--disable-infobars");
+        chromeOptions.addArguments("--disable-features=VizDisplayCompositor");
         return chromeOptions;
     }
     /**
@@ -343,7 +352,7 @@ public class SetupManager extends EventFiringWebDriver {
             //logger.detail("Appium Driver Running at port : " + portNumber); //Not needed for browserstack
 
         } catch (Exception e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
             logger.detail("Error in creating Appium Session : " + e.getLocalizedMessage());
         }
         return driver;
@@ -374,7 +383,7 @@ public class SetupManager extends EventFiringWebDriver {
             String key = keys.next();
             if(key.toString().equalsIgnoreCase("otherApps"))
             {
-               String[] Arrary = new String[]{jsonCaps.get(key).toString()};
+                String[] Arrary = new String[]{jsonCaps.get(key).toString()};
                 capabilities.setCapability(key, Arrary);
             }
             else {
@@ -447,7 +456,7 @@ public class SetupManager extends EventFiringWebDriver {
             return (int) jsonCaps.get(deviceId);
         } catch (Exception e) {
 
-          //  logger.error("NOT able to fetch port number from JSON file . Please  verify key " + deviceId + " in JSON file"); // Not needed for Browserstack
+            //  logger.error("NOT able to fetch port number from JSON file . Please  verify key " + deviceId + " in JSON file"); // Not needed for Browserstack
             return 0;
         }
 
