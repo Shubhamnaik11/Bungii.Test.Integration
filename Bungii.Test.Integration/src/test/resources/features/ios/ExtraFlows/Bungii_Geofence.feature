@@ -5,8 +5,8 @@ Feature: Bungii Geofence Based Calculation
     @testmac
     #Stable
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Solo Is Selected By Customer
-    Given I am on the "LOG IN" page
-    And I logged in Customer application using  "valid chicago" user
+    #Given I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid chicago" user
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
