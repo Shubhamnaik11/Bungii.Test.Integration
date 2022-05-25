@@ -33,6 +33,7 @@ import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.URL;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -317,7 +318,7 @@ public class SetupManager extends EventFiringWebDriver {
           chromeOptions.addArguments("--window-size=1920,1080");
              chromeOptions.addArguments("--disable-dev-shm-usage");
              chromeOptions.addArguments("--disable-gpu");
-
+             chromeOptions.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
          }
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.addArguments("--disable-extensions");
