@@ -729,6 +729,9 @@ public class GeneralUtility extends DriverBase {
             case "SCHEDULED BUNGII":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.scheduled.bungii");
                 break;
+            case "AVAILABLE BUNGIIS":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.available.trips");
+                break;
             case "LEADERBOARD":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.leaderboard");
                 break;
