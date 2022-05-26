@@ -221,8 +221,11 @@ public class DbUtility extends DbContextManager {
     }
     public static String getEstimateDistanceByPartnerReference(String partnerRef) {
         String Estimate_distance;
-        String queryString = "SELECT EstDistance FROM pickupdetails where customerRef in (select CustomerRef from business_partner_location bpl join customer c on c.id = bpl.customer_id where business_partner_location_ref = '"+partnerRef+"')order by  pickupid desc limit 1";
-        Estimate_distance = getDataFromMySqlServer(queryString);
+//        String queryString = "SELECT EstDistance FROM pickupdetails where customerRef in (select CustomerRef from business_partner_location bpl join customer c on c.id = bpl.customer_id where business_partner_location_ref = '"+partnerRef+"')order by  pickupid desc limit 1";
+        String queryString1 = "select Reference from bungii_admin_qa_auto.bp_store bp join bungii_admin_qa_auto.customer c on c.id = bp.customer_id where bp_store_ref ='"+partnerRef+"'";
+        String partnerReference = getDataFromMySqlMgmtServer(queryString1);
+        String queryString2= "SELECT EstDistance FROM pickupdetails where customerRef = '" + partnerReference +"'";
+        Estimate_distance = getDataFromMySqlServer(queryString2);
         logger.detail("Estimate Distance =  " + Estimate_distance + " of Partner Location Reference " );
         return Estimate_distance;
 
@@ -230,8 +233,11 @@ public class DbUtility extends DbContextManager {
 
     public static String getEstimateTimeByPartnerReference(String partnerRef) {
         String Estimate_time;
-        String queryString = "SELECT EstTime FROM pickupdetails where customerRef in (select CustomerRef from business_partner_location bpl join customer c on c.id = bpl.customer_id where business_partner_location_ref = '"+partnerRef+"')order by  pickupid desc limit 1";
-        Estimate_time = getDataFromMySqlServer(queryString);
+//        String queryString = "SELECT EstTime FROM pickupdetails where customerRef in (select CustomerRef from business_partner_location bpl join customer c on c.id = bpl.customer_id where business_partner_location_ref = '"+partnerRef+"')order by  pickupid desc limit 1";
+        String queryString1 = "select Reference from bungii_admin_qa_auto.bp_store bp join bungii_admin_qa_auto.customer c on c.id = bp.customer_id where bp_store_ref ='"+partnerRef+"'";
+        String partnerReference = getDataFromMySqlMgmtServer(queryString1);
+        String queryString2= "SELECT EstTime FROM pickupdetails where customerRef = '" + partnerReference +"'";
+        Estimate_time = getDataFromMySqlServer(queryString2);
         logger.detail("Estimate Time =  " + Estimate_time + " of latest trip of Partner Location Reference " + partnerRef );
         return Estimate_time;
 
