@@ -282,7 +282,7 @@ public class CommonStepsDriver extends DriverBase {
         String actualMessage ="";
         String expectedMessage="";;
         try {
-            action.waitForAlert();
+            //action.waitForAlert();
             actualMessage = action.getAlertMessage();
 
             switch (message.toUpperCase()) {

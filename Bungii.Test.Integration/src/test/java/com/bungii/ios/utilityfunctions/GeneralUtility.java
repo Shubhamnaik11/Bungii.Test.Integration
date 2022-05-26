@@ -605,8 +605,8 @@ public class GeneralUtility extends DriverBase {
         boolean isCorrectPage = false;
         String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
 
-        action.textToBePresentInElementName(driverHomePage.Text_DriverNavigationBar(key), expectedMessage);
-        isCorrectPage = action.getScreenHeader(driverHomePage.Text_DriverNavigationBar(key)).equals(expectedMessage);
+        action.textToBePresentInElementName(driverHomePage.Text_LoginNavigationBar(key), expectedMessage);
+        isCorrectPage = action.getScreenHeader(driverHomePage.Text_LoginNavigationBar(key)).equals(expectedMessage);
 
         return isCorrectPage;
     }

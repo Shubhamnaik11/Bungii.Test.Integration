@@ -1231,7 +1231,7 @@ public class CommonSteps extends DriverBase {
         String actualMessage = "";
         try {
             Thread.sleep(4000);
-            action.waitForAlert();
+            //action.waitForAlert();
              actualMessage = action.getAlertMessage();
             if(actualMessage.equalsIgnoreCase("")){Thread.sleep(30000);actualMessage = action.getAlertMessage();}
         } catch (Throwable e) {
