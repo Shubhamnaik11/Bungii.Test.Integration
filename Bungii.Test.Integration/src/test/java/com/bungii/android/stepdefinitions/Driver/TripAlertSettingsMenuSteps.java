@@ -230,7 +230,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "MORE":
-                    action.click(inProgressPages.Button_More());
+                    action.click(inProgressPages.Button_MoreOptions());
                     break;
 
                 case "DETAILS FROM CUSTOMER":
