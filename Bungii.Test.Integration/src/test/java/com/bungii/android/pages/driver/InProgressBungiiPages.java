@@ -25,7 +25,7 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Slider() { return findElement("com.bungii.driver:id/view_sliding_bottom_sheet_slider_view", LocatorType.Id); }
 
 
-    public WebElement Button_More() { return findElement("com.bungii.driver:id/pickup_details_ellipsise", LocatorType.Id); }
+    public WebElement Button_More() { return findElement("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.ImageView", LocatorType.XPath); }
 
 
     //More incas of duo
