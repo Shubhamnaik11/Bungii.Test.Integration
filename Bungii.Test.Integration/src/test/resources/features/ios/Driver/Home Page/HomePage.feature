@@ -32,5 +32,5 @@ Feature: Driver Home screen
     And Info text should be updated
     #And The navigation title should change to "Online"---Sprint 48 Online/Offline title is removed now BUNGII will be shown
 
-    When I click "Available Bungiis" button on "Home" screen on driverApp
-    Then I should be navigated to "Available Bungiis" screen on driverApp
+    When I click "AVAILABLE BUNGIIS" button on "Home" screen on driverApp
+    Then I should be navigated to "AVAILABLE BUNGIIS" screen on driverApp

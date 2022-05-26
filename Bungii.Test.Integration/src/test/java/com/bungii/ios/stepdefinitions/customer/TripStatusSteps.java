@@ -105,13 +105,13 @@ public class TripStatusSteps extends DriverBase {
                 case "ARRIVED":
                     validateArrivedInfo(getTripInformation(), key);
                     break;
-                case "LOADING ITEM":
+                case "LOADING ITEMS":
                     validateArrivedInfo(getTripInformation(), key);
                     break;
-                case "DRIVING TO DROP OFF":
+                case "DRIVING TO DROP-OFF":
                     validateDrivingInfo(getTripInformation());
                     break;
-                case "UNLOADING ITEM":
+                case "UNLOADING ITEMS":
                     validateUnloadingInfo(getTripInformation());
                     break;
                 default:
