@@ -112,14 +112,14 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    Then Trip Information should be correctly displayed on "DRIVING TO DROPOFF" status screen for customer
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEMS" Screen
