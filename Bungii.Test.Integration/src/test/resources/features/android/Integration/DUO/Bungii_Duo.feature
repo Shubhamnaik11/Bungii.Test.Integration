@@ -104,8 +104,10 @@ Feature: Scheduled Duo Bungiis
 	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I wait for "3" mins
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I wait for "2" mins
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
+	Then Bungii driver should see "General Instructions"
 	Then Bungii driver should see "Enroute screen"
 	Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 	
@@ -117,7 +119,8 @@ Feature: Scheduled Duo Bungiis
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
-	Then Bungii driver should see "Enroute screen"
+	Then Bungii driver should see "General Instructions"
+    Then Bungii driver should see "Enroute screen"
 	
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
@@ -138,7 +141,8 @@ Feature: Scheduled Duo Bungiis
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
-	Then Bungii driver should see "Enroute screen"
+	Then Bungii driver should see "General Instructions"
+    Then Bungii driver should see "Enroute screen"
  
 	And I connect to "extra1" using "Driver2" instance
 	And I Open "driver" application on "same" devices
@@ -148,7 +152,8 @@ Feature: Scheduled Duo Bungiis
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
-	Then Bungii driver should see "Enroute screen"
+  	Then Bungii driver should see "General Instructions"
+    Then Bungii driver should see "Enroute screen"
  
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
