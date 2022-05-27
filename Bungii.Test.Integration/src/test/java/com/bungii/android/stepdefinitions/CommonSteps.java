@@ -572,6 +572,7 @@ public class CommonSteps extends DriverBase {
                             "Correct Header should be displayed",
                             "Correct Header is displayed" ,
                             "Correct Header is not displayed");
+                    break;
 
             }
             boolean isCorrectPage = utility.isCorrectPage(page);
