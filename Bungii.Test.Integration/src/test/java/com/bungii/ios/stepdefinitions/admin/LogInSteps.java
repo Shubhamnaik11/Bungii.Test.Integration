@@ -48,7 +48,6 @@ public class LogInSteps extends DriverBase {
             logger.detail(SetupManager.getDriver().getTitle());
             logger.detail(SetupManager.getDriver().getWindowHandle());
             logger.detail(SetupManager.getDriver().manage().window().getSize());
-            action.waitUntilIsElementExistsAndDisplayed(logInPage.Button_LogIn(),Long.valueOf(30));
             action.sendKeys(logInPage.TextBox_Phone(),PropertyUtility.getDataProperties("admin.user"));
             action.sendKeys(logInPage.TextBox_Pass(),PropertyUtility.getDataProperties("admin.password"));
             //logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));

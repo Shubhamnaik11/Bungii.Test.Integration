@@ -1137,6 +1137,7 @@ public class BungiiSteps extends DriverBase {
                     break;
 
                 case "rates driver":
+                    Thread.sleep(5000);
                     action.click(Page_BungiiComplete.RatingBar());
                     action.click(Page_BungiiComplete.Button_SubmitRating());
                     break;
