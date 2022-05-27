@@ -276,8 +276,8 @@ Feature: Solo Scheduled Bungii Part A
   Scenario: Verify Customer Can Cancel Solo Scheduled Bungii on Bungii Details screen
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
-    Given I login as "valid denver" customer and on Home page
+      | denver1   | Scheduled    | NEXT_POSSIBLE |
+    Given I login as "valid denver1" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
@@ -310,10 +310,10 @@ Feature: Solo Scheduled Bungii Part A
   Scenario: Verify Status Of Scheduled Solo Bungii Trip In Drivers Scheduled Bungiis Menu Screen When Required Number Of Drivers Have Not Accepted It
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
+      | denver2   | Scheduled    | NEXT_POSSIBLE |
     #When I am on the "LOG IN" page
     #And I logged in Customer application using  "valid denver" user
-    Given I login as "valid denver" customer and on Home page
+    Given I login as "valid denver2" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     Then trips status should be "Contacting Drivers"
     And I select already scheduled bungii
