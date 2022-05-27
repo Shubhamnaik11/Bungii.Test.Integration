@@ -605,8 +605,8 @@ public class GeneralUtility extends DriverBase {
         boolean isCorrectPage = false;
         String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
 
-        action.textToBePresentInElementName(driverHomePage.Text_DriverNavigationBar(key), expectedMessage);
-        isCorrectPage = action.getScreenHeader(driverHomePage.Text_DriverNavigationBar(key)).equals(expectedMessage);
+        action.textToBePresentInElementName(driverHomePage.Text_LoginNavigationBar(key), expectedMessage);
+        isCorrectPage = action.getScreenHeader(driverHomePage.Text_LoginNavigationBar(key)).equals(expectedMessage);
 
         return isCorrectPage;
     }
@@ -728,6 +728,9 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "SCHEDULED BUNGII":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.scheduled.bungii");
+                break;
+            case "AVAILABLE BUNGIIS":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.available.trips");
                 break;
             case "LEADERBOARD":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.leaderboard");

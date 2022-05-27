@@ -144,9 +144,12 @@ Feature: Solo Scheduled Bungii Part C
     
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
+    And I select "4" Ratting star for solo Driver 1
+    And I click "Submit" button on "Rate duo teammate" screen
+    And I click "Skip This Step" button on "Rate customer" screen
     Then non control driver should see "waiting for other driver" screen
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "UNLOADING ITEM" screen
+    Then I should be navigated to "UNLOADING ITEMS" screen
 
     #control driver complete bungii
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Duo Scheduled" trip
@@ -161,8 +164,8 @@ Feature: Solo Scheduled Bungii Part C
     Then I should be navigated to "Home" screen
 
     When I Switch to "driver" application on "same" devices
-    And I click "Skip This Step" button on "Rate customer" screen
-    Then Bungii driver should see "correct details" on Bungii completed page
+    #And I click "Skip This Step" button on "Rate customer" screen
+    #Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii completed" screen
 
   @ready
