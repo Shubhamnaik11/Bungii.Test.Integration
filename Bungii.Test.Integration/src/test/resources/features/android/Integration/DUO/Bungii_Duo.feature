@@ -120,7 +120,7 @@ Feature: Scheduled Duo Bungiis
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
 	Then Bungii driver should see "General Instructions"
-    Then Bungii driver should see "Enroute screen"
+        Then Bungii driver should see "Enroute screen"
 	
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
@@ -142,7 +142,7 @@ Feature: Scheduled Duo Bungiis
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
 	Then Bungii driver should see "General Instructions"
-    Then Bungii driver should see "Enroute screen"
+        Then Bungii driver should see "Enroute screen"
  
 	And I connect to "extra1" using "Driver2" instance
 	And I Open "driver" application on "same" devices
@@ -153,7 +153,7 @@ Feature: Scheduled Duo Bungiis
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
   	Then Bungii driver should see "General Instructions"
-    Then Bungii driver should see "Enroute screen"
+        Then Bungii driver should see "Enroute screen"
  
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
@@ -198,7 +198,7 @@ Feature: Scheduled Duo Bungiis
 	When I Switch to "driver" application on "same" devices
 	And I am on the LOG IN page on driver app
 	And I am logged in as "Kansas driver 1" driver
-    And I terminate "driver" app on "same" devices
+        And I terminate "driver" app on "same" devices
     #driver1 in background
 	And I connect to "extra1" using "Driver1" instance
 	When I Switch to "driver" application on "same" devices
