@@ -121,6 +121,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     @And("^I click the \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void i_click_the_something_button_on_something_screen(String strArg1, String strArg2) throws Throwable {
         try {
+            action.click(inProgressBungiiPages.Button_MoreOptions());
             action.click(inProgressBungiiPages.Button_Cancel());
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

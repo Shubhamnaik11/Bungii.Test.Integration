@@ -90,7 +90,7 @@ Feature: Admin_Live_Delivery_Edit
 
     #CORE-3257
     @ready
-    Scenario Outline:Verify that admin user is able to cancel customer live delivery with <StatusType> status
+    Scenario Outline:Verify that admin user is able to cancel customer live delivery with <TripStatus> status
       When I request "Solo Scheduled" Bungii as a customer in "nashville" geofence
         | Bungii Time   | Customer Phone  | Customer Name |
         | NEXT_POSSIBLE | <CustomerPhone> | <CustomerName>|

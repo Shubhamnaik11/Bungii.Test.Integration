@@ -586,9 +586,10 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
             }
-            else
+            else {
+                Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
-
+            }
             testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I should be navigated to " + screen, "Error in navigating to " + screen + " screen ");
 
@@ -1445,6 +1446,30 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("denver.customer.phone");
                     password = PropertyUtility.getDataProperties("denver.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver1":
+                    userName = PropertyUtility.getDataProperties("denver1.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver1.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver2":
+                    userName = PropertyUtility.getDataProperties("denver2.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver2.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver3":
+                    userName = PropertyUtility.getDataProperties("denver3.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver3.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver4":
+                    userName = PropertyUtility.getDataProperties("denver4.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver4.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid customer2":
