@@ -57,13 +57,13 @@ public class TripStatusSteps extends DriverBase {
                 pageFlag = isUpdatePage(Status.ARRIVED.toString());activeStatus=1;}
             else if (screen.equals(Status.EN_ROUTE.toString())){
                 pageFlag = isUpdatePage(Status.EN_ROUTE.toString());activeStatus=0;}
-            else if (screen.equals(Status.LOADING_ITEM.toString())){
-                pageFlag = isUpdatePage(Status.LOADING_ITEM.toString());activeStatus=2;}
+            else if (screen.equals(Status.LOADING_ITEMS.toString())){
+                pageFlag = isUpdatePage(Status.LOADING_ITEMS.toString());activeStatus=2;}
 
-            else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())){
-                pageFlag = isUpdatePage(Status.DRIVING_TO_DROP_OFF.toString());activeStatus=3;}
-            else if (screen.equals(Status.UNLOADING_ITEM.toString())){
-                pageFlag = isUpdatePage(Status.UNLOADING_ITEM.toString());activeStatus=4;}
+            else if (screen.equals(Status.DRIVING_TO_DROPOFF.toString())){
+                pageFlag = isUpdatePage(Status.DRIVING_TO_DROPOFF.toString());activeStatus=3;}
+            else if (screen.equals(Status.UNLOADING_ITEMS.toString())){
+                pageFlag = isUpdatePage(Status.UNLOADING_ITEMS.toString());activeStatus=4;}
 
             boolean[] statusCheck=utility.checkStatusOnCustomer();
             for(int i=0;i<statusCheck.length;i++){
