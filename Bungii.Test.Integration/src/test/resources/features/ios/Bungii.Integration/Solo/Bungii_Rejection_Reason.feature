@@ -3,6 +3,7 @@
 Feature: Rejection Popup on Driver App
 
     @ready
+
     Scenario: Verify that rejection popup,cancel functionality and all reasons are displayed for scheduled deliveries on available trips page
         When I Switch to "driver" application on "same" devices
         And I am on the "LOG IN" page on driverApp
@@ -35,13 +36,14 @@ Feature: Rejection Popup on Driver App
 
       When I Switch to "driver" application on "same" devices
       And I am on the "LOG IN" page on driverApp
-      And I enter phoneNumber :9049840043 and  Password :Cci12345
+      And I enter phoneNumber :9049840018 and  Password :Cci12345
       And I click "Log In" button on "Log In" screen on driverApp
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
+      Given I Switch to "customer" application on "same" devices
       Given I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-          | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
-          | NEXT_POSSIBLE | 9999999141     | Cci12345          | Testcustomertywd_appleNewRP Customer |
+        | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
+        | NEXT_POSSIBLE | 8877661003     | Cci12345          | Testcustomertywd_appleMarkD LutherD |
 
       When I Switch to "driver" application on "same" devices
       And I Select "AVAILABLE BUNGIIS" from driver App menu
@@ -53,11 +55,11 @@ Feature: Rejection Popup on Driver App
     @ready
 #      driver issue
 #        works
-#  @testsweta
+#   @testsweta
     Scenario: Verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
       When I Switch to "driver" application on "same" devices
       And I am on the "LOG IN" page on driverApp
-      And I enter phoneNumber :9049840209 and  Password :Cci12345
+      And I enter phoneNumber :9049840210 and  Password :Cci12345
       And I click "Log In" button on "Log In" screen on driverApp
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
@@ -65,18 +67,18 @@ Feature: Rejection Popup on Driver App
             |Geofence| Bungii Time   | Customer Phone | Customer Name |
             |Kansas| NEXT_POSSIBLE | 9999999142 | Testcustomertywd_appleNewRQ Customer|
 
-#        Then I wait for "2" mins
-#        When I open new "Chrome" browser for "ADMIN PORTAL"
-##        And I wait for "4" mins
-#        And I navigate to admin portal
-##        And I wait for "4" mins
-#        And I log in to admin portal
-##        And I wait for "4" mins
-#        And I Select "Scheduled Trip" from admin sidebar
-##        And I wait for "4" mins
-#        And I open the trip for "Testcustomertywd_appleNewRQ Customer" the customer for delivery details
-#        And I wait for "4" mins
-#       Then I check if delivery status is "No Driver(s) Found"
+        Then I wait for "2" mins
+        When I open new "Chrome" browser for "ADMIN PORTAL"
+        And I wait for "4" mins
+        And I navigate to admin portal
+        And I wait for "4" mins
+        And I log in to admin portal
+        And I wait for "4" mins
+        And I Select "Scheduled Trip" from admin sidebar
+        And I wait for "4" mins
+        And I open the trip for "Testcustomertywd_appleNewRQ Customer" the customer for delivery details
+        And I wait for "4" mins
+       Then I check if delivery status is "No Driver(s) Found"
 
         When I switch to "ORIGINAL" instance
         When I Switch to "driver" application on "same" devices

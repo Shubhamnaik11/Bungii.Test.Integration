@@ -7,9 +7,15 @@ Feature: Rejection Popup on Driver App
 #    works
 #  @testsweta
   Scenario: Verify that rejection popup,cancel functionality and all reasons are displayed for scheduled deliveries on available trips page
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Testdrivertywd_appleks_a_drvaf Kansas_af" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
     Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
-      | NEXT_POSSIBLE | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
+      | NEXT_POSSIBLE | 8877661005     | Cci12345          | Testcustomertywd_appleMarkF LutherF |
 
     Then I wait for "2" mins
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -20,17 +26,13 @@ Feature: Rejection Popup on Driver App
     And I wait for "4" mins
     And I Select "Scheduled Trip" from admin sidebar
     And I wait for "4" mins
-    And I open the trip for "Testcustomertywd_appleRicha Test" the customer for delivery details
+    And I open the trip for "Testcustomertywd_appleMarkF LutherF" the customer for delivery details
     Then I check if delivery status is "No Driver(s) Found"
 
 #    Core-3008: To verify that customer trip with "no driver found" status is displayed under Available Deliveries of driver app
 
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881019 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     And I click on the back button and verify the rejection popup
@@ -46,17 +48,17 @@ Feature: Rejection Popup on Driver App
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleRicha Test" the customer for delivery details
+    And I open the trip for "Testcustomertywd_appleMarkF LutherF" the customer for delivery details
     Then I stop searching driver
 
     And I wait for "2" mins
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881019 and  Password :Cci12345
+    And I am logged in as "Testdrivertywd_appleks_a_drvaf Kansas_af" driver
     And I click "Log In" button on Log In screen on driver app
     And I Select "AVAILABLE BUNGIIS" from driver App menu
-    Then I check if "Testcustomertywd_appleRicha Test" customer trip that is rejected is displayed
+    Then I check if "Testcustomertywd_appleMarkF LutherF" customer trip that is rejected is displayed
 
 
   @ready
@@ -71,7 +73,7 @@ Feature: Rejection Popup on Driver App
     Given I Switch to "customer" application on "same" devices
     Given I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
-      | NEXT_POSSIBLE | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
+      | NEXT_POSSIBLE | 8877661003     | Cci12345          | Testcustomertywd_appleMarkD LutherD |
 
     Then I wait for "2" mins
     And I Switch to "driver" application on "same" devices
@@ -92,7 +94,7 @@ Feature: Rejection Popup on Driver App
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+      | now         | 8877661004     | Testcustomertywd_appleMarkE LutherE | 2              | Cci12345          |
 
     And I Switch to "driver" application on "ORIGINAL" devices
     Then I click on notification for "STACK TRIP"
@@ -109,6 +111,7 @@ Feature: Rejection Popup on Driver App
 
 
     @ready
+
     Scenario: Verify rejection reason pop-up for on-demand trips
       Given I am on customer Log in page
       When I am logged in as "valid boston" customer
@@ -138,10 +141,16 @@ Feature: Rejection Popup on Driver App
 
 #    Core-3008: To verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
   @ready
+
     Scenario: Verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
+      When I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdrivertywd_appledc_a_drvJ WashingtonJ" driver
+
       When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
-        |washingtondc| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+        |washingtondc| NEXT_POSSIBLE | 8877661010 | Testcustomertywd_appleMarkK LutherK|
       Then I wait for "2" mins
       When I open new "Chrome" browser for "ADMIN PORTAL"
       And I wait for "4" mins
@@ -151,12 +160,10 @@ Feature: Rejection Popup on Driver App
       And I wait for "4" mins
       And I Select "Scheduled Trip" from admin sidebar
       And I wait for "3" mins
-      And I open the trip for "Testcustomertywd_appleNewRB Customer" the customer for delivery details
+      And I open the trip for "Testcustomertywd_appleMarkK LutherK" the customer for delivery details
       Then I check if delivery status is "No Driver(s) Found"
 
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
-      And I am on the LOG IN page on driver app
-      And I am logged in as "Testdrivertywd_appledc_a_drvC WashingtonC" driver
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       Then I Select Trip from available trip
