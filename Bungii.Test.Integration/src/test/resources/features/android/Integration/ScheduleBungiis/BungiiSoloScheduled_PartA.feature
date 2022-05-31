@@ -53,12 +53,14 @@ Feature: SoloScheduled
       | Enroute      |
 
 
-    Given I login as customer "9871450107" and is on Home Page
+    
+
+    And I Switch to "customer" application on "same" devices
+    Given I login as customer "9999999103" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations greater than 30mins" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
-    Then "Estimate" page should be opened
     When I confirm trip with following details
       | Day | Trip Type | Time          |
       | 0   | SOLO      | <AFTER TELET> |
@@ -69,8 +71,13 @@ Feature: SoloScheduled
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I click "Done" button on "Success" screen
 
+
     And I Switch to "driver" application on "same" devices
     And I am logged in as "Testdrivertywd_appleks_rathree Test" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "EN ROUTE" Screen
+
     Then Bungii driver should see "Arrived screen"
+    And I wait for 2 minutes
+    And I slide update button on "ARRIVED" Screen
+    Then Bungii driver should see "Loading Items screen"
