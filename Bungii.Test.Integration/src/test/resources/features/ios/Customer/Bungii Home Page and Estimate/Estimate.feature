@@ -13,17 +13,17 @@ Feature: Customer Estimate screen
   Scenario: Verify Trip limit [150 miles] For Solo Bungii
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
   
     
   @regression
     #stable
-  Scenario: Verify If Customer Cancels Ondemand Bungii While It Is In Searching driver State Then He Is Navigated To Home Screen - Also Pickup And Dropoff Location Of Previous Trip Is Not Reset
+  Scenario: Verify If Customer Cancels Ondemand Bungii While It Is In Searching driver State Then He Is Navigated To Home Screen & Pickup And Dropoff Location Of Previous Trip Is Retained
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand |
     And I click "Get Estimate" button on "Home" screen
     And I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -33,13 +33,13 @@ Feature: Customer Estimate screen
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
-  
-  
+
   @regression
-  Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details Remains Unchanged
+  #stable
+  Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details are retained
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
@@ -53,12 +53,12 @@ Feature: Customer Estimate screen
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method   | Time | Terms And Condition | REQUEST BUNGII |
       | {PREVIOUS VALUE} | 15 mins          |            | {PREVIOUS VALUE} | {PREVIOUS VALUE} | Now  | CHECK               | ENABLED        |
   
-  
+
   @regression
   Scenario: Verify When Customer Cancels On Estimate Page Then He Is Navigated To Home Screen
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa|
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand|
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen
@@ -68,12 +68,12 @@ Feature: Customer Estimate screen
     And I click "Cancel" button on "Estimate" screen
     Then I should be navigated to "Home" screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
-  
+
   @regression
   Scenario: Verify If The Information Icons Display Correct Information On Estimate Screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand |
     And I click "Get Estimate" button on "Home" screen
 
     Then I should be navigated to "Estimate" screen
@@ -90,7 +90,7 @@ Feature: Customer Estimate screen
   Scenario: Verify Field Elements Of Estimate Screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen
@@ -103,7 +103,7 @@ Feature: Customer Estimate screen
   Scenario: Verify Load Unload Time Functionality And Verify If Estimate Cost Is Recalculated
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And check if I have ability to select different load time and Estimate cost is re calculated
@@ -117,7 +117,7 @@ Feature: Customer Estimate screen
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand | goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
@@ -132,7 +132,7 @@ Feature: Customer Estimate screen
     And I click "Log In" button on "Log In" screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -145,12 +145,12 @@ Feature: Customer Estimate screen
     And "ADD" should be present in "PAYMENT" screen
     When I Switch to "customer" application on "same" devices
     And I Select "ACCOUNT > LOGOUT" from Customer App menu
-    
+
     @regression
     Scenario:Verify Customer Can Add Atleast One And Maximum Of Four Images Of Items On Estimate Screen
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Location | Drop Location                |
-        | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa |
+        | Solo   | Margao Railway Overbridge  | Panjim bus stand |
       And I click "Get Estimate" button on "Home" screen
       When I enter following details on "Estimate" screen
         | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -170,7 +170,7 @@ Feature: Customer Estimate screen
   Scenario: Verify When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To SET PICKUP TIME Screen With Prefilled Date
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Panjim bus stand  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Panjim bus stand  | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     And I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |

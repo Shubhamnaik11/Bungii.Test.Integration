@@ -8,6 +8,7 @@ import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
@@ -40,22 +41,19 @@ public class HomePageSteps extends DriverBase {
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
             Thread.sleep(15000);
-            if (action.isAlertPresent()) {
-                if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
-                    utility.acceptNotificationAlert();
-                    if (action.isAlertPresent()) {
-                        if (action.isElementPresent(estimatePage.Button_OK(true)))
-                            action.click(estimatePage.Button_OK());
+            if(action.isAlertPresent()){
+                if(action.isElementPresent(Page_BungiiRequest.findElement("com.bungii.driver:id/appCompatTextView21", PageBase.LocatorType.Id,true))){
+                    if (action.getText(Page_BungiiRequest.Alert_Msg_Stay_Online()).contains(PropertyUtility.getMessage("driver.alert.stay.online"))) {
+                        action.click(Page_BungiiRequest.Button_Stay_Online());
                     }
-                } else {
-                    action.click(Page_BungiiRequest.AlertButton_Cancel());
                 }
-
             }
-            Thread.sleep(3000);
+            if(action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true))){
+                action.click(Page_BungiiRequest.Button_No_Thanks());
+            }
             boolean isClicked = false;
             if(action.isElementPresent(driverHomePage.Button_NavigationBar(true)))
-            action.click(driverHomePage.Button_NavigationBar());
+                action.click(driverHomePage.Button_NavigationBar());
             else{
                 if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                     action.click(estimatePage.Button_RequestConfirmCancel());
@@ -339,6 +337,25 @@ public class HomePageSteps extends DriverBase {
         String dayOfWeek=simpleDateformat.format(calendar.getTime());
         i_update_sms_setting_of_sunday_to_something_to_something(dayOfWeek,strdate,"11:59 PM");
         Thread.sleep(5000);
+    }
+
+    @Then("^I check if driver cut is reflected$")
+    public void i_check_if_driver_cut_is_reflected() throws Throwable {
+        try{
+            String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
+            String driverCharges =action.getText(driverHomePage.Text_OverriddenPrice());
+            String actualDriverCharges = driverCharges.substring(1);
+            testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges,
+                    "Driver Charges should be overridden",
+                    "Driver Charges are overridden",
+                    "Driver Charges are not overridden");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
     }
 
 }

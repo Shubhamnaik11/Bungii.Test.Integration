@@ -229,6 +229,7 @@ Feature: Solo Scheduled Bungii Part B
   
   @regression
     #stable
+    @authfailure
   Scenario: Verify Customer Can Contact Control Driver When Non-control Driver Starts The Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

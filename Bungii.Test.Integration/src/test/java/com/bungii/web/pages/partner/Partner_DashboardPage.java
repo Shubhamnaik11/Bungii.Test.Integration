@@ -94,6 +94,8 @@ public class Partner_DashboardPage extends PageBase {
 
     public WebElement Label_Distance() { return findElement("//label[contains(text(),'Distance in Miles -')]/strong",LocatorType.XPath);}
 
+    public WebElement Label_EstDeliveryTime(){return findElement("//label[contains(text(),'Est. Delivery Time')]/strong",LocatorType.XPath);}
+
     //Continue button
     //public  WebElement Button_Continue() { return findElement("//a[@class='btn']",LocatorType.XPath);}
     public  WebElement Button_Continue() { return findElement("//button[@class='btn']",LocatorType.XPath);}
@@ -183,4 +185,54 @@ public class Partner_DashboardPage extends PageBase {
     //Label 2Pallets
     public WebElement Label_2Pallets() { return findElement("//label[contains(text(),'2 Pallets')]",LocatorType.XPath);}
 
+    //time
+    public WebElement Time() { return findElement(" //form/div[5]/div[2]",LocatorType.XPath);}
+
+
+    public WebElement SelectTime() { return findElement("//div/ul[@class =\"MuiList-root MuiMenu-list jss3 MuiList-padding\"]/li[3]",LocatorType.XPath);}
+    //Tracking Id Column
+    public WebElement Text_TrackingId_Column() { return findElement("//tr/th[2]/div",LocatorType.XPath);}
+
+    // Summary Tracking Id
+    public WebElement Text_Summary_TrackingId() { return findElement("//section/div[1]/p",LocatorType.XPath);}
+    // Summary Delivery pick up address
+    public WebElement Text_Summary_PickupAddress() { return findElement("//section/div[1]/div/p",LocatorType.XPath);}
+
+    // Summary Delivery Address
+    public WebElement Text_Summary_DeliveryAddress() { return findElement("//section/div[2]/div/p",LocatorType.XPath);}
+
+
+
+    //Search Bar
+    public WebElement Textbox_SearchBar() { return findElement("searchText", LocatorType.Id); }
+
+    //Trip DeliveryDate
+    public WebElement Trip_DeliveryDate() { return findElement("//tbody/tr[1]/td[1]/div",LocatorType.XPath);}
+
+    //Trip TrackingId
+    public WebElement Text_Trip_TrackingId() { return findElement("//tr[1]/td[2]/div[1]",LocatorType.XPath);}
+
+    //trip Customer
+    public WebElement Text_Trip_Customer() { return findElement("//tr[1]/td[3]/div[1]",LocatorType.XPath);}
+
+    //Trip Delivery Address
+    public WebElement Text_Trip_DeliveryAddress() { return findElement("//tr[1]/td[4]/div[1]",LocatorType.XPath);}
+
+    //Trip Delivery Status
+    public WebElement Trip_DeliveryStatus() { return findElement("//tr[1]/td[5]/div[1]",LocatorType.XPath);}
+
+    //No Trip Message
+    public WebElement Label_Trip_ErrorMessage() { return findElement("//td/div/div[text() =\"Sorry, no records found\"]",LocatorType.XPath);}
+
+    //Text Support
+    public WebElement Text_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]",LocatorType.XPath);}
+
+    //Text Support Number
+    public WebElement Number_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]/following-sibling::span",LocatorType.XPath);}
+
+    //Text Email Support
+    public WebElement Text_EmailSupport() { return findElement("//strong[contains(text(),'Email Support:')]",LocatorType.XPath);}
+
+    //Email Support value
+    public WebElement Email_EmailSupport() { return findElement("//strong[contains(text(),'Email Support:')]/following-sibling::span/a",LocatorType.XPath);}
 }

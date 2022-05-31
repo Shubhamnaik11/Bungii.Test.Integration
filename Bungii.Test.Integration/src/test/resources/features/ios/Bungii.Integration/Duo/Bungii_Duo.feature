@@ -10,7 +10,7 @@ Feature: Scheduled DUO Bungii
   Background:
   When I Switch to "customer" application on "same" devices
 	
-  @ready
+  @regression
     #Stable
   Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
     Given that duo schedule bungii is in progress
@@ -21,24 +21,28 @@ Feature: Scheduled DUO Bungii
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I click "Offline" button on "Home" screen on driverApp
     
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select delivery "1" from scheduled deliveries
     Then I should be navigated to "BUNGII DETAILS" screen
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" screen
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+    #Then I should be navigated to "EN ROUTE" screen
     
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I click "Offline" button on "Home" screen on driverApp
     
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select delivery "1" from scheduled deliveries
     Then I should be navigated to "BUNGII DETAILS" screen
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" screen
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+    #Then I should be navigated to "EN ROUTE" screen
 
     And I Switch to "customer" application on "ORIGINAL" devices
     And I logged in Customer application using  "customer-duo" user
@@ -48,47 +52,62 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" screen
+    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+    #Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" screen
+    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+    #Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
+    Then I should see "Your duo teammate is on the way" message
+    Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
+   # When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    Then I should be navigated to "LOADING ITEM" screen
+    #Then I accept Alert message for "Reminder: both driver at pickup"
+    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
+    #Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "driver" application on "Driver2" devices
+    Then I should see "Your duo teammate is on the way" message
+    Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
     And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    Then I should be navigated to "LOADING ITEM" screen
+    #Then I accept Alert message for "Reminder: both driver at pickup"
+    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
+    #Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
     Then I should be navigated to "LOADING ITEM" screen
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
+    And I slide update button on "LOADING ITEMS" Screen
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
+    #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
     When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
+    And I slide update button on "LOADING ITEMS" Screen
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
+    #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
+    #Then I should be navigated to "UNLOADING ITEMS" screen
 
     When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
+    #Then I should be navigated to "UNLOADING ITEMS" screen
+    And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "UNLOADING ITEM" Screen
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+
+    #When I Switch to "driver" application on "Driver2" devices
+    #And I slide update button on "UNLOADING ITEM" Screen
     #Then I accept Alert message for "Reminder: both driver at drop off"
 
     And I Switch to "customer" application on "ORIGINAL" devices
@@ -101,13 +120,15 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "Home" screen
 
     And I Switch to "driver" application on "ORIGINAL" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
     And I Select "HOME" from driver App menu
   
     When I Switch to "driver" application on "Driver2" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
     And I Select "HOME" from driver App menu
     
     
@@ -133,7 +154,7 @@ Feature: Scheduled DUO Bungii
     
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -152,7 +173,8 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" screen
+    #Then I should be navigated to "ARRIVED" screen
+    Then I should be navigated to "ARRIVED" screen on driverApp
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
 
@@ -161,20 +183,24 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" screen
+    #Then I should be navigated to "LOADING ITEMS" screen
+    Then I should be navigated to "LOADING ITEMS" screen on driverApp
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
+    And I slide update button on "LOADING ITEMS" Screen
+    #Then I should be navigated to "DRIVING TO DROP-OFF" screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" screen on driverApp
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    #Then I should be navigated to "UNLOADING ITEMS" screen
+    Then I should be navigated to "UNLOADING ITEMS" screen on driverApp
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "same" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -186,21 +212,26 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" screen
+    #Then I should be navigated to "ARRIVED" screen
+    Then I should be navigated to "ARRIVED" screen on driverApp
     And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" screen
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" screen
+    #Then I should be navigated to "LOADING ITEMS" screen
+    Then I should be navigated to "LOADING ITEMS" screen on driverApp
+    And I slide update button on "LOADING ITEMS" Screen
+    #Then I should be navigated to "DRIVING TO DROP-OFF" screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" screen on driverApp
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    #Then I should be navigated to "UNLOADING ITEMS" screen
+    Then I should be navigated to "UNLOADING ITEMS" screen on driverApp
 
     When I Switch to "customer" application on "Customer2" devices
     Then I should be navigated to "UNLOADING ITEM" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -231,7 +262,7 @@ Feature: Scheduled DUO Bungii
     And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -258,8 +289,9 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "same" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -279,8 +311,9 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -310,7 +343,7 @@ Feature: Scheduled DUO Bungii
     And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -335,8 +368,9 @@ Feature: Scheduled DUO Bungii
     And try to finish time should be correctly displayed for short stack trip
     
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "same" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -352,8 +386,9 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -377,7 +412,7 @@ Feature: Scheduled DUO Bungii
     And I close "Tutorial" if exist
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location        | Drop Location                |
-      | Solo   | Creative capsule verna | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -399,8 +434,9 @@ Feature: Scheduled DUO Bungii
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for short stack trip
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
     
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "EN ROUTE" screen
@@ -411,8 +447,9 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
   
     And I Switch to "customer" application on "same" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen

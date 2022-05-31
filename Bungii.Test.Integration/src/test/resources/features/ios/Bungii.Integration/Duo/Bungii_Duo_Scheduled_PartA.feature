@@ -110,7 +110,7 @@ Feature: Scheduled DUO Bungii Part A
     
 #change login
   @failed
-  @ready
+  @regression
   Scenario:Verify That Driver Is Not Able To Accept The DUO Request If The Trip Is Already Accepted By Required Number Of Drivers
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -197,8 +197,14 @@ Feature: Scheduled DUO Bungii Part A
     And I click "Log In" button on "Log In" screen
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state    | driver2 state    |
+      | Unloading item | Unloading item |
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state    | driver2 state    |
       | Bungii Completed | Bungii Completed |
     When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "Bungii Completed" trip status screen
     And Bungii customer should see "correct rating detail for duo" on Bungii completed page
     When I select "3" Ratting star for duo Driver 1
     Then "3" stars should be highlighted for Driver1

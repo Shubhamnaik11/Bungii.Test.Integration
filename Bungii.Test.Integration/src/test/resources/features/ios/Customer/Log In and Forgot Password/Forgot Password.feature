@@ -7,9 +7,9 @@ Feature: FORGOT PASSWORD
 
   Background:
     Given I am on the "LOG IN" page
-  @capability
+
   @regression
-  Scenario Outline: Verify Customer Is Alerted If Adds Invalid Phone Number During Forget Password Functionality - Scenario:<Scenario>
+  Scenario Outline: Verify Customer Is Alerted If Adds <Scenario> During Forget Password Functionality
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page
     When I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page
@@ -22,7 +22,7 @@ Feature: FORGOT PASSWORD
       | Invalid Phone Number      | 212121212121 | FAILED TO SEND TOKEN |
 
   @regression
-  Scenario Outline: Verify Customer Is Alerted If Enters Invalid Password Or Sms Code During Forget Password Functionality - Scenario:<Scenario>
+  Scenario Outline: Verify Customer Is Alerted If Enters <Scenario> During Forget Password Functionality
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page
     When I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page

@@ -3,10 +3,10 @@ Feature: Admin_Revival
   
   Background:
 	Given I am logged in as Admin
-	
+
+	 @testing
   @regression
   Scenario: Verify Admin can cancel the Revived Delivery
-	And I wait for 2 minutes
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999227     | Testcustomertywd_appleNewMN Customer|
@@ -27,7 +27,7 @@ Feature: Admin_Revival
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Driver(s) Not Found |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
 	And I enter cancellation fee and Comments
@@ -36,7 +36,8 @@ Feature: Admin_Revival
 	Then The "Pick up has been successfully canceled." message should be displayed
 	When I view the Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
-  
+
+ @testing
   @regression
 	  #stable
   Scenario: Verify Admin can Assign driver and assigned driver can complete the Revived Delivery
@@ -62,7 +63,7 @@ Feature: Admin_Revival
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Driver(s) Not Found |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
 	And I assign driver "Testdrivertywd_appledc_a_drvs Driver" for the trip
@@ -110,7 +111,7 @@ Feature: Admin_Revival
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Driver(s) Not Found |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
 	And I assign driver "Testdrivertywd_appledc_a_drvt Driver" for the trip
@@ -169,7 +170,7 @@ Feature: Admin_Revival
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Driver(s) Not Found |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
 	And I assign driver "Testdrivertywd_appledc_a_drvt Driver" for the trip

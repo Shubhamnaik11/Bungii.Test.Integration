@@ -72,7 +72,7 @@ Feature: SoloScheduled Part D
       | CUSTOMER1_PHONE |                 |
     
     ##########################################
-  @ready
+  @regression
   Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |

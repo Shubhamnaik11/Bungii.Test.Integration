@@ -339,7 +339,7 @@ public class GeneralUtility extends DriverBase {
                     action.clickAlertButton("Initiate");
                 }
             }
-            action.click(driverBungiiCompletedPage.Button_NextTrip());
+            action.click(driverBungiiCompletedPage.Button_Next_Bungii());
         } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
             logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
             updateStatus();
@@ -349,7 +349,7 @@ public class GeneralUtility extends DriverBase {
                     action.clickAlertButton("Initiate");
                 }
             }
-            action.click(driverBungiiCompletedPage.Button_NextTrip());
+            action.click(driverBungiiCompletedPage.Button_Next_Bungii());
         } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
             logger.detail("Driver struck on UNLOADING_ITEM screen");
             updateStatus();
@@ -358,10 +358,10 @@ public class GeneralUtility extends DriverBase {
                     action.clickAlertButton("Initiate");
                 }
             }
-            action.click(driverBungiiCompletedPage.Button_NextTrip());
+            action.click(driverBungiiCompletedPage.Button_Next_Bungii());
         } else if (screen.equals(PropertyUtility.getMessage("driver.navigation.bungii.completed"))) {
             logger.detail("Driver struck on bungii completed screen");
-            action.click(driverBungiiCompletedPage.Button_NextTrip());
+            action.click(driverBungiiCompletedPage.Button_Next_Bungii());
         }
 
     }
@@ -599,6 +599,18 @@ public class GeneralUtility extends DriverBase {
 
     }
 
+    public boolean verifyDriverPageHeader(String key) throws InterruptedException{
+        String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
+
+        boolean isCorrectPage = false;
+        String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
+
+        action.textToBePresentInElementName(driverHomePage.Text_LoginNavigationBar(key), expectedMessage);
+        isCorrectPage = action.getScreenHeader(driverHomePage.Text_LoginNavigationBar(key)).equals(expectedMessage);
+
+        return isCorrectPage;
+    }
+
     public boolean verifyPageHeader(String key) throws InterruptedException {
         String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 
@@ -643,7 +655,15 @@ public class GeneralUtility extends DriverBase {
                     isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
                     break;}
                     //Customer app
-
+            case "BUNGII COMPLETED":
+                logger.detail("DRIVER APP");
+                String bungiiCompleted = PropertyUtility.getMessage("driver.navigation.bungii.completed");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Text_Bungii_Completed()).equals(bungiiCompleted);
+                break;
+            case "ITEMIZED EARNINGS":
+                logger.detail("DRIVER APP");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_ItemizedEarnings()).equals("ITEMIZED EARNINGS");
+                break;
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {
@@ -662,8 +682,14 @@ public class GeneralUtility extends DriverBase {
                             logger.detail("Bypassed BUNGII ACCEPTED screen and directly showing Enroute screen");
                         }
                         else {
-                            action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
-                            isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                            if(currentApplication.equalsIgnoreCase("DRIVER")){
+                                action.textToBePresentInElementName(driverHomePage.Text_DriverNavigationBar(key), expectedMessage);
+                                isCorrectPage = action.getScreenHeader(driverHomePage.Text_DriverNavigationBar(key)).equals(expectedMessage);
+                            }
+                            else {
+                                action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
+                                isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                            }
                         }
                     }
         }
@@ -702,6 +728,9 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "SCHEDULED BUNGII":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.scheduled.bungii");
+                break;
+            case "AVAILABLE BUNGIIS":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.available.trips");
                 break;
             case "LEADERBOARD":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.leaderboard");
@@ -743,6 +772,9 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "BUNGII COMPLETED":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.bungii.completed");
+                break;
+            case "RATE CUSTOMER":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.rate.customer");
                 break;
             case "BUNGII COMPLETE":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.bungii.complete");
@@ -799,11 +831,20 @@ public class GeneralUtility extends DriverBase {
             case "LOADING ITEM":
                 expectedMessage = Status.LOADING_ITEM.toString();
                 break;
+            case "LOADING ITEMS":
+                expectedMessage = Status.LOADING_ITEMS.toString();
+                break;
             case "DRIVING TO DROP OFF":
                 expectedMessage = Status.DRIVING_TO_DROP_OFF.toString();
                 break;
+            case "DRIVING TO DROP-OFF":
+                expectedMessage = Status.DRIVING_TO_DROPOFF.toString();
+                break;
             case "UNLOADING ITEM":
                 expectedMessage = Status.UNLOADING_ITEM.toString();
+                break;
+            case "UNLOADING ITEMS":
+                expectedMessage = Status.UNLOADING_ITEMS.toString();
                 break;
             default:
                 // error("Verify Screen " + screen, "UnImplemented Step or in correct screen", "UnImplemented Step", true);

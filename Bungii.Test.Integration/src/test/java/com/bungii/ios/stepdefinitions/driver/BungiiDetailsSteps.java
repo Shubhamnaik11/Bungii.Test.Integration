@@ -43,6 +43,10 @@ public class BungiiDetailsSteps extends DriverBase {
                 SetupManager.getDriver().switchTo().alert().accept();
 
             action.click(bungiiDetailsPage.Button_StartBungii());
+            Thread.sleep(2000);
+            if(action.isElementPresent(bungiiDetailsPage.Text_General_Instruction(true))) {
+                action.click(bungiiDetailsPage.Button_General_Instruction_Got_It());
+            }
             log("I start selected Bungii ", "I started selected Bungii", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

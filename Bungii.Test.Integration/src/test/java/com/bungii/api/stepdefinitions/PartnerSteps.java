@@ -36,6 +36,7 @@ public class PartnerSteps extends DriverBase {
         String Access_Token = authServices.partnerLogin(Partner_Portal);
 
         cucumberContextManager.setScenarioContext("Partner_Access_Token",Access_Token);
+        cucumberContextManager.setScenarioContext("Portal_Name",Partner_Portal);
 
         String[] PartnerSettings = authServices.partnerSettings(Access_Token);
 
@@ -49,7 +50,7 @@ public class PartnerSteps extends DriverBase {
 
         String ClientToken = paymentServices.GetTokenForPartner(Access_Token);
             //String token = coreServices.partner_graphql();
-        coreServices.partnerDeliveryInformation(PickupRequestID);
+        coreServices.partnerDeliveryInformation(PickupRequestID,Partner_Portal);
         coreServices.partnerConfirmPickup(PickupRequestID);
 
     }

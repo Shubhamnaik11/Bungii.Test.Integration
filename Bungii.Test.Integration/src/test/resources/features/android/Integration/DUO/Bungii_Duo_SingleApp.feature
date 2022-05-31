@@ -288,8 +288,8 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	  | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
 	  | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
 	
-	When I Switch to "driver" application on "same" devices
-	Then I click on notification for "STACK TRIP"
+	When I Switch to "driver" application on "ORIGINAL" devices
+#	Then I click on notification for "STACK TRIP"
 	And Bungii Driver "accepts stack message" request
 	Then I accept Alert message for "Alert: Display Stack trip after current trip"
 	And stack trip information should be displayed on deck

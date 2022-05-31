@@ -748,6 +748,7 @@ public class HomeSteps extends DriverBase {
             case "LOGOUT":
             case "ACCOUNT > LOGOUT":
                 action.click(homePage.AppMenu_Account());
+                Thread.sleep(5000);
                 action.click(homePage.AppMenu_LogOut());
                 Thread.sleep(5000);
                 break;

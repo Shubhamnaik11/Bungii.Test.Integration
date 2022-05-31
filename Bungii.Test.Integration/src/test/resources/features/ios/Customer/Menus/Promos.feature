@@ -9,7 +9,7 @@ Feature: Promos
   
   @regression
     #stable
-  Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching Trip Having Promocode Applied To It
+  Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching
     And I Switch to "customer" application on "ORIGINAL" devices
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
@@ -23,7 +23,7 @@ Feature: Promos
     
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE  | Default     |
+      | 30       |           |              | NEXT_SECOND_POSSIBLE  | Default     |
     And I click "PROMO CODE LINE" button on "Estimate" screen
     #  And I Enter "PROMOCODE" value in "Promo Code" field in "Promo" Page
     And I add "PROMO PERCENT OFF" PromoCode
@@ -39,6 +39,7 @@ Feature: Promos
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
@@ -65,9 +66,10 @@ Feature: Promos
     When I slide update button on "ARRIVED" Screen
     And I Switch to "customer" application on "same" devices
     And I Switch to "driver" application on "same" devices
-    When I slide update button on "LOADING ITEM" Screen
-    When I slide update button on "DRIVING TO DROP OFF" Screen
-    When I slide update button on "UNLOADING ITEM" Screen
+    When I slide update button on "LOADING ITEMS" Screen
+    When I slide update button on "DRIVING TO DROP-OFF" Screen
+    When I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
     
     And I Switch to "customer" application on "same" devices
@@ -246,7 +248,7 @@ Feature: Promos
     And I Select "HOME" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand | goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should see "first time only" code selected on Bungii estimate
     When I enter following details on "Estimate" screen
@@ -282,7 +284,7 @@ Feature: Promos
     And I Select "HOME" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -307,7 +309,7 @@ Feature: Promos
     And I click "Log In" button on "Log In" screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -335,7 +337,7 @@ Feature: Promos
     And I click "Log In" button on "Log In" screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location            | Drop Location                | Geofence  |
-      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Panjim bus stand | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |

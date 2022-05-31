@@ -1,5 +1,6 @@
 package com.bungii.web.stepdefinitions.admin;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -13,6 +14,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 
 import java.text.DecimalFormat;
@@ -35,7 +37,10 @@ public class Admin_RevivalSteps extends DriverBase {
     public void revive_button_should_be_displayed_beside_the_trip() throws Throwable {
         try {
             String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-            String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']", customerName);
+            SetupManager.getDriver().manage().window().maximize();
+            SetupManager.getDriver().manage().window().setSize(new Dimension(1900, 1280));
+
+            String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']/img", customerName);
             testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
             cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
         } catch(Exception e){
@@ -62,6 +67,24 @@ public class Admin_RevivalSteps extends DriverBase {
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+    @Then("^I should see \"([^\"]*)\" message on popup with PickupId, Pickup Origin and Partner Name$")
+    public void i_should_see_something_message_on_popup_with_pickupid_pickup_origin_and_partner_name(String message) throws Throwable {
+        try{
+            testStepAssert.isTrue(action.isElementPresent(admin_RevivalPage.Label_HeaderPopup()),message+" should be displayed", message+" is displayed", message+" is not displayed");
+            String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String pickupId = dbUtility.getPickupIdFromFactPickup(pickuprequest);
+            String source = "Customer Delivery";
+            String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+
+            testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupId(),pickupId, pickupId +" should be displayed", pickupId +" is displayed", pickupId+" is not displayed");
+            testStepAssert.isElementDisplayed(admin_RevivalPage.Label_PickupPartnerPortal(),"Pickup Partner portal is displayed","Pickup Partner portal is displayed","Pickup Partner portal is not displayed");
+
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @When("^I click on \"([^\"]*)\" button on Revival Popup$")
     public void i_click_on_something_button_on_revival_popup(String button) throws Throwable {

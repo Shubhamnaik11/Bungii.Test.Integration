@@ -18,7 +18,7 @@ Feature: Admin_Delivery_Type_Change
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Searching Drivers |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
 	And I change delivery type from "Duo to Solo"
@@ -145,7 +145,7 @@ Feature: Admin_Delivery_Type_Change
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Searching Drivers |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
 	And I change delivery type from "Solo to Duo"
@@ -165,7 +165,7 @@ Feature: Admin_Delivery_Type_Change
 	And the cost of the delivery should be doubled
 	And I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Searching Drivers |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	Then Under Drivers: for both Driver 1 and 2 : "Bungii driver is being searched" should be displayed
 	And I should see Bungii Type as "DUO" in "Research Scheduled Bungii" section
@@ -186,7 +186,7 @@ Feature: Admin_Delivery_Type_Change
 	And I search the delivery of Customer
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Searching Drivers |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
 	And I change delivery type from "Duo to Solo"
@@ -206,7 +206,7 @@ Feature: Admin_Delivery_Type_Change
 	And the cost of the delivery should be halved
 	And I should be able to see the respective bungii with the below status
 	  |  Status |
-	  | Searching Drivers |
+	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	Then Under Drivers: for Driver 1: "Bungii driver is being searched" should be displayed
 	And I should see Bungii Type as "SOLO" in "Research Scheduled Bungii" section
@@ -226,7 +226,7 @@ Feature: Admin_Delivery_Type_Change
 	  And I search the delivery of Customer
 	  Then I should be able to see the respective bungii with the below status
 		  |  Status |
-		  | Searching Drivers |
+		  | Assigning Driver(s) |
 	  And I view the searched delivery
 	  Then I note the Driver Est. Earnings for the search delivery
 	  And I navigate back to Scheduled Deliveries
@@ -272,5 +272,5 @@ Feature: Admin_Delivery_Type_Change
   	  And I navigate back to Scheduled Deliveries
 	  Then I should be able to see the respective bungii with the below status
 		  |  Status |
-		  | Searching Drivers |
+		  | Assigning Driver(s) |
 

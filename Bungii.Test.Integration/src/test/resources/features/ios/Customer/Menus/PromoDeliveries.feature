@@ -56,8 +56,9 @@ When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 Then I should be navigated to "Home" screen
 
 When I Switch to "driver" application on "same" devices
-  Then Bungii driver should see "correct details" on Bungii completed page
-  And I click "On To The Next One" button on "Bungii Completed" screen
+And I click "Skip This Step" button on "Rate customer" screen
+Then Bungii driver should see "correct details" on Bungii completed page
+And I click "On To The Next One" button on "Bungii completed" screen
 
 And I open new "Chrome" browser for "ADMIN PORTAL"
 And I navigate to admin portal
@@ -74,7 +75,8 @@ Examples:
 
 
 @regression
-Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code : Promoter Type Promocode
+  @authfailure
+Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promoter Type Promocode
 When I Switch to "customer" application on "same" devices
 Given I am on the "LOG IN" page
 When I logged in Customer application using  "<User>" user
@@ -105,11 +107,12 @@ Then I should be navigated to "SEARCHING" screen
 
 And I view and accept virtual notification for "Driver" for "on demand trip"
 
-And I slide update button on "EN ROUTE" Screen
+
   And I Switch to "customer" application on "same" devices
   When I click "Ok" button on "BUNGII ACCEPTED" screen
   
   When I Switch to "driver" application on "same" devices
+  And I slide update button on "EN ROUTE" Screen
   And I slide update button on "ARRIVED" Screen
 And I slide update button on "LOADING ITEM" Screen
 And I slide update button on "DRIVING TO DROP OFF" Screen
