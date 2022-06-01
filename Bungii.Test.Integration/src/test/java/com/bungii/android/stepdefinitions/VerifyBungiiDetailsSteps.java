@@ -282,7 +282,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
             testStepAssert.isElementDisplayed(myBungiisPage.Button_ItemizedEarnings(),"The itemized earnings button should be displayed","The itemized earnings button is displayed","The itemized earnings button is not displayed");
 
             String actualDisclaimer = action.getText(myBungiisPage.Text_Disclaimer());
-            String expectedDisclaimer = "This info does not include today's trips.";
+            String expectedDisclaimer = PropertyUtility.getMessage("android.earnings.page.disclaimer");
             testStepAssert.isEquals(actualDisclaimer,expectedDisclaimer,
                     "The Disclaimer displayed should be "+expectedDisclaimer,
                     "The Disclaimer displayed is "+expectedDisclaimer,
