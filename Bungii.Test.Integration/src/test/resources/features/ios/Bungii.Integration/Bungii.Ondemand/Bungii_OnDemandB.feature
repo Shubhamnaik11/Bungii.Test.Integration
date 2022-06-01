@@ -133,7 +133,7 @@ Then I should be navigated to "Home" screen
     Then I should be navigated to "LOADING ITEMS" screen on driverApp
     
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "LOADING ITEM" trip status screen
+    Then Customer should be navigated to "LOADING ITEMS" trip status screen
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEMS" Screen
@@ -141,7 +141,7 @@ Then I should be navigated to "Home" screen
     Then I should be navigated to "DRIVING TO DROP-OFF" screen on driverApp
     
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then Customer should be navigated to "DRIVING TO DROP-OFF" trip status screen
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP-OFF" Screen
@@ -149,7 +149,7 @@ Then I should be navigated to "Home" screen
     Then I should be navigated to "UNLOADING ITEMS" screen on driverApp
     
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    Then Customer should be navigated to "UNLOADING ITEMS" trip status screen
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEMS" Screen

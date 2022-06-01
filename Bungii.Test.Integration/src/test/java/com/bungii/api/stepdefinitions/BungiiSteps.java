@@ -392,8 +392,41 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appleks_a_drvz Kansas_z":
                 phone = PropertyUtility.getDataProperties("Kansas.driver16.phone");
                 break;
+            case "Testdrivertywd_appleks_a_gruE Stark_ksOnE":
+                phone = PropertyUtility.getDataProperties("Kansas.driver19.phone");
+                break;
+            case "Testdrivertywd_appleks_a_gruF Stark_ksOnF":
+                phone = PropertyUtility.getDataProperties("Kansas.driver20.phone");
+                break;
+            case "Testdrivertywd_appleks_a_gruG Stark_ksOnG":
+                phone = PropertyUtility.getDataProperties("Kansas.driver21.phone");
+                break;
+            case "Testdrivertywd_appleks_a_gruH Stark_ksOnH":
+                phone = PropertyUtility.getDataProperties("Kansas.driver22.phone");
+                break;
+            case "Testdrivertywd_appleks_a_gruI Stark_ksOnI":
+                phone = PropertyUtility.getDataProperties("Kansas.driver23.phone");
+                break;
             case "Testdrivertywd_appledc_a_drvB WashingtonB":
                 phone = PropertyUtility.getDataProperties("Washington.driver9.phone");
+                break;            
+            case "GoaD DriverD":
+                phone = PropertyUtility.getDataProperties("goa.driver3.phone");
+                break;
+            case "GoaE DriverE":
+                phone = PropertyUtility.getDataProperties("goa.driver4.phone");
+                break;
+            case "GoaF DriverF":
+                phone = PropertyUtility.getDataProperties("goa.driver5.phone");
+                break;
+            case "GoaG DriverG":
+                phone = PropertyUtility.getDataProperties("goa.driver6.phone");
+                break;
+            case "GoaH DriverH":
+                phone = PropertyUtility.getDataProperties("goa.driver7.phone");
+                break;
+            case "GoaI DriverI":
+                phone = PropertyUtility.getDataProperties("goa.driver8.phone");
                 break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
@@ -2639,8 +2672,40 @@ else
 
             if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
 
-                if (geofence.equalsIgnoreCase("denver")) {
-                    custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
+                if (geofence.equalsIgnoreCase("denver")||geofence.equalsIgnoreCase("denver1")||geofence.equalsIgnoreCase("denver2")||geofence.equalsIgnoreCase("denver3")||geofence.equalsIgnoreCase("denver4")) {
+                    switch (geofence.toLowerCase()){
+                        case "denver":
+                            custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                            break;
+                        case "denver1":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver1.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver1.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver2":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver2.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver2.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver3":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver3.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver3.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver4":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver4.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver4.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        default:
+                            break;
+                    }
+
                     custPassword = PropertyUtility.getDataProperties("denver.customer.password");
 
                     driverPhoneNum = PropertyUtility.getDataProperties("denver.driver.phone");
@@ -2648,7 +2713,7 @@ else
 
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver.name"));
 
-                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+
                 } else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer.user");
                     custPassword = PropertyUtility.getDataProperties("customer.password");
@@ -3756,10 +3821,14 @@ else
     @When("^I wait for 2 minutes$")
     public void i_wait_for_2_minutes() throws Throwable {
         Thread.sleep(120000);
+        pass("I wait for 2 minutes",
+                "I waited for 2 minutes");
     }
     @When("^I wait for 1 minutes$")
     public void i_wait_for_1_minutes() throws Throwable {
         Thread.sleep(60000);
+        pass("I wait for 1 minute",
+                "I waited for 1 minute");
     }
 
     @When("^I request \"([^\"]*)\" Bungii as a customer in \"([^\"]*)\" geofence from a partner location$")
