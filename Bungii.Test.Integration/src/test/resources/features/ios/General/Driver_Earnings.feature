@@ -34,6 +34,9 @@ Feature: Driver Earnings
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_appledc_a_drvB WashingtonB" driver
     And I Select "EARNINGS" from driver App menu
+
+       #    Core-2372  Verify UI of itemized earnings page on driver app
+    And I verify all the elements on earnings page
     And I get "Itemized Earnings" from earnings page
 
         #    Core-2469  Verify UI of itemized earnings page on driver app
