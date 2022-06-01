@@ -345,6 +345,20 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I check online or offline pop up is not displayed$")
+    public void i_check_online_or_offline_pop_up_is_not_displayed() throws Throwable {
+       try{
+           testStepAssert.isFalse(action.isElementPresent(driverBungiiCompletedPage.Notification_DriverStatus(true)),
+                   "The driver should not get a pop-up to change status",
+                   "The driver did not get a pop-up to change status",
+                   "The driver did get a pop-up to change status");
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void iClickButtonOnScreen(String button, String screen) {
         try {
