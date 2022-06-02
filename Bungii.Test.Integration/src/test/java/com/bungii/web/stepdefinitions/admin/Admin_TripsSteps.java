@@ -1639,8 +1639,8 @@ try{
     public void all_the_clients_named_something_should_be_displayed_on_the_trip_list_grid(String searchString) throws Throwable {
         try{
         Thread.sleep(10000);
-        try {
-            for (WebElement e : admin_TripsPage.Client_names()) {
+        testStepAssert.isTrue(admin_TripsPage.Client_names().size() > 0, "Search using customer firstname should retrieve correct records","Search using customer name retrives 0 records");
+        try { for (WebElement e : admin_TripsPage.Client_names()) {
                 testStepAssert.isTrue(e.getText().contains(searchString), "Client Name contains " + searchString, "Client Name is " + e.getText());
             }
             action.clear(admin_TripsPage.TextBox_Search());
