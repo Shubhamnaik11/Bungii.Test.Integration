@@ -432,4 +432,32 @@ Feature: Solo Scheduled Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
-  
+
+  @testAllan
+  Scenario:  1
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+    And I wait for 1 minutes
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Enroute       |
+
+    And I Switch to "customer" application on "same" devices
+    And I logged in Customer application using  "valid denver" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+1 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+    And I Switch to "customer" application on "same" devices
+    And I wait for 1 minutes
+    And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"

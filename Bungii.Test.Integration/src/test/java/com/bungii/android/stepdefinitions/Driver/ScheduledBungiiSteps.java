@@ -8,6 +8,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
@@ -30,6 +31,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
+    TripDetailsPage tripDetailsPage = new TripDetailsPage();
     private static LogUtility logger = new LogUtility(ScheduledBungiiSteps.class);
     @And("I open first Trip from driver scheduled trip")
     public void iSelectFirstTripFromDriverScheduledTrip() {
@@ -165,4 +167,40 @@ public class ScheduledBungiiSteps extends DriverBase {
         */
         logger.detail("Temparory Commented since it is taking longer time.");
     }
+
+
+    @Then("^I should a popup \"([^\"]*)\" displayed$")
+    public void i_should_a_popup_something_displayed(String strArg1) throws Throwable {
+        Thread.sleep(3000);
+        boolean isDisplayed = action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+        testStepAssert.isTrue(isDisplayed,"Schedule bungii popup should be displayed","Schedule bungii popup is displayed","Schedule bungii popup is not displayed");
+        String  popupText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+        testStepVerify.isEquals(popupText,strArg1,"New bungii request text should displayed","New bungii request text is displayed","New bungii request text is not displayed");
+    }
+
+    @Then("^I should see the trip details$")
+    public void i_should_see_the_trip_details() throws Throwable {
+        String pickupLine1 = (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1");
+        String pickupLine2 = (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2");
+        String dropOffLine1 = (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1");
+        String dropOffLine2 = (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2");
+        String totalDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+
+        Thread.sleep(3000);
+        String a =action.getText(tripDetailsPage.Text_Pickup_Location_line1());
+        String b =action.getText(tripDetailsPage.Text_Pickup_Location_line2());
+        String c = action.getText(tripDetailsPage.Text_DropOff_Location_line1());
+        String d =action.getText(tripDetailsPage.Text_DropOff_Location_line2());
+        String distance = action.getText(tripDetailsPage.Text_Total_Distance());
+        Thread.sleep(3000);
+
+        testStepAssert.isEquals(a,pickupLine1,"Pickup Location line 1 text should be " + pickupLine1,"Pickup Location line 1 text is " + a,"Pickup Location line 1 text is not " + pickupLine1);
+        testStepAssert.isEquals(b,pickupLine2,"Pickup Location line 2 text should be " + pickupLine2,"Pickup Location line 2 text is " + b,"Pickup Location line 2 text is not " + pickupLine2);
+        testStepAssert.isEquals(c,dropOffLine1,"DropOff Location line 1 text should be " + dropOffLine1,"dropOff Location line 1 text is " + c,"dropOff Location line 1 text is not " + dropOffLine1);
+        testStepAssert.isEquals(d,dropOffLine2,"DropOff Location line 2 text should be " + dropOffLine2,"dropOff Location line 2 text is " + d,"dropOff Location line 2 text is not " + dropOffLine2);
+        testStepAssert.isEquals(distance,totalDistance,"total distance should be " + totalDistance,"total distance is " + distance,"total distance is not " + totalDistance);
+
+        Thread.sleep(2000);
+    }
+
 }

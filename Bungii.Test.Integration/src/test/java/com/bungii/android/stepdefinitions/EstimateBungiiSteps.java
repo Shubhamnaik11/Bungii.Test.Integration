@@ -705,6 +705,13 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "baltimore");
                     break;
 
+                case "kansas very short trip location":
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.very.short"));
+                    action.click(Page_CustHome.Button_ETASet());
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.very.short"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
+                    break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
