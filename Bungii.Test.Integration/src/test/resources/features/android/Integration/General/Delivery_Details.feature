@@ -120,7 +120,7 @@ Feature: Bungii Details and Pickup Note
     #Stable
   Scenario: Apostrophe in Customer note : Verify that application error is not thrown on re-search of delivery with apostrophe in Customer notes
     Given I am on customer Log in page
-    And I am logged in as "Testcustomertywd_appleand_F Android" customer
+    And I am logged in as "Testcustomertywd_appleMarkF LutherF" customer
     
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -145,7 +145,7 @@ Feature: Bungii Details and Pickup Note
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleand_F Android" the customer
+    And I open the trip for "Testcustomertywd_appleMarkF LutherF" the customer
     And I Select "Edit Trip Details" option
     And I assign driver for the "Solo" trip
     And I click on "VERIFY" button
@@ -155,7 +155,7 @@ Feature: Bungii Details and Pickup Note
     When I close "Edit Trip Details" popup
   
     And I wait for "2" mins
-    And I open the trip for "Testcustomertywd_appleand_F Android" the customer
+    And I open the trip for "Testcustomertywd_appleMarkF LutherF" the customer
     And I Select "Edit Trip Details" option
     And I wait for "1" mins
     And I assign driver for the "Solo" trip
@@ -163,4 +163,4 @@ Feature: Bungii Details and Pickup Note
     
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | 9999999999      |                 |
+      | 8877661005      |                 |

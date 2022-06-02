@@ -13,7 +13,7 @@
       And I get TELET time of of the current trip
       When I request another "Solo Scheduled" Bungii as a customer in "goa" geofence
         | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
-        | TELET SAME TIME  | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
+        | TELET SAME TIME  | 8877661004     | Testcustomertywd_appleMarkE LutherE | Cci12345          |
    
       Then I wait for "2" mins
       When I open new "Chrome" browser for "ADMIN"
@@ -31,7 +31,7 @@
       When I click on "Close" button
    
       #And I click on "Edit Trip2" button
-   And I open the trip for "Testcustomertywd_appleand_C Android" the customer
+   And I open the trip for "Testcustomertywd_appleMarkE LutherE" the customer
    And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
