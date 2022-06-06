@@ -54,12 +54,19 @@ Feature: Admin_Trips
       | NEXT_POSSIBLE | 9284000001 | Testcustomertywd_appleweb CustA|
    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
-    And I view the all Scheduled Deliveries list on the admin portal
     And I wait for "2" mins
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    When I search the delivery of Customer
+    Then I should see the delivery highlighted in "Blue"
+    When I view the all Scheduled Deliveries list on the admin portal
     And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers|
+      | Assigning Driver(s)|
+    And The delivery should not be highlighted in "Blue" for "Scheduled Deliveries"
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |
@@ -76,6 +83,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Trip Started |
+    And The delivery should not be highlighted in "Blue" for "Live Deliveries"
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Arrived |
@@ -109,6 +117,8 @@ Feature: Admin_Trips
       | Bungii Completed |
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
+    And I search the delivery of Customer
+    And The delivery should not be highlighted in "Blue" for "All Deliveries"
     And Customer should receive "Your Bungii Receipt" email
 
   @sanity
@@ -123,7 +133,7 @@ Feature: Admin_Trips
     And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
@@ -142,7 +152,7 @@ Feature: Admin_Trips
       |  Status |
       | Driver Removed|
 
-  @ready
+  @regression
     #Failed in Sprint 49
     #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Solo Scheduled Trip
@@ -155,7 +165,7 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Jerome Seinfield"
     Then Trip should be listed in the grid
 
-  @ready
+  @regression
     #Failed in Sprint 49
       #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Duo Scheduled Trip
@@ -168,7 +178,7 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Krishna Hoderker"
     Then Trip should be listed in the grid
   
-  @ready
+  @regression
     #Failed in Sprint 49
   Scenario: Verify Driver Est. Earnings for for Customer Delivery
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -208,21 +218,22 @@ Feature: Admin_Trips
     And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I change filter to "This Week" on Scheduled deliveries
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     When I change filter to "This Month" on Scheduled deliveries
     Then I should be able to see the respective bungii with the below status
       |  Status |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     And I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for "2" mins
 	And I view All Deliveries list on the admin portal
     And I search the delivery of Customer
     Then The Delivery List page should display the delivery in "Admin Canceled" state
@@ -234,7 +245,7 @@ Feature: Admin_Trips
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     When I change filter to "The Past 3 Months" on All deliveries
     Then The Delivery List page should display the delivery in "Admin Canceled" state
-    When I change filter to "The Beginning Of Time" on All deliveries
+    When I change filter to "The Beginning of Time" on All deliveries
     Then The Delivery List page should display the delivery in "Admin Canceled" state
   
   @sanity

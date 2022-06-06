@@ -38,6 +38,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Driver_DashboardPage driver_DashboardPage = new  Driver_DashboardPage();
     Driver_PickUpInfoPage Page_Driver_PickupInfo = new Driver_PickUpInfoPage();
     Admin_PartnerPortalPage admin_partnerPortalPage = new Admin_PartnerPortalPage();
+    Admin_PartnersPage admin_partnersPage=new Admin_PartnersPage();
     private static LogUtility logger = new LogUtility(Admin_DriverApprovalSteps.class);
 
     GeneralUtility utility = new GeneralUtility();
@@ -246,6 +247,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Partner Portal Page":
                 testStepAssert.isElementDisplayed(admin_partnerPortalPage.Label_PartnerListHeader(),"I should be navigated to "+screen, "I am navigated to "+ screen, "I am not navigates to "+ screen);
                 break;
+            case "Unlock Partners Page":
+                testStepAssert.isElementDisplayed(admin_partnersPage.Label_Unlock_Partners(),"I should be navigated to "+screen, "I am navigated to "+ screen, "I am not navigates to "+ screen);
+                break;
+
         }
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

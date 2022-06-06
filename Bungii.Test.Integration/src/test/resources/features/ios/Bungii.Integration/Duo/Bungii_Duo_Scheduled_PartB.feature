@@ -15,7 +15,7 @@ Feature: Scheduled DUO Bungii Cancellation in Denver Geofence
   Background:
     When I Switch to "customer" application on "same" devices
 
-  @ready
+  @regression
     #stable
   Scenario:Verify Driver Cannot Cancel Scheduled Bungii From App When Bungii Is Not Started And He Should Send SMS To Cancel Duo Scheduled Bungii
     Given that duo schedule bungii is in progress

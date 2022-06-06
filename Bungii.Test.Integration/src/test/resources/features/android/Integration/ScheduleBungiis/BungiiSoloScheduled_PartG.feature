@@ -30,7 +30,7 @@ Feature: SoloScheduled Part G
   
   @regression
     #Stable
-  Scenario:Verify Driver Recieves Scheduled Bungii Request While In Offline State
+  Scenario:Verify Driver Receives Scheduled Bungii Request While In Offline State
     When I clear all notification
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -54,6 +54,7 @@ Feature: SoloScheduled Part G
     And I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                    |
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
+    And I wait for "2" mins
     And I click on notification for the "SCHEDULED PICKUP AVAILABLE"
     Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
     When I click "View" on alert message
@@ -108,6 +109,7 @@ Feature: SoloScheduled Part G
     And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
       | Bungii Time | Customer Phone | Customer Name                    | Customer Password |
       | now         | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And I wait for "2" mins
     Then I click on notification for the "SCHEDULED PICKUP AVAILABLE"
     Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
     When I click "View" on alert message

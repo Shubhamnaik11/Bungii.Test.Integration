@@ -1,7 +1,6 @@
 package com.bungii.api.utilityFunctions;
 
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.utilities.ApiHelper;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
@@ -9,14 +8,11 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import io.restassured.http.Cookies;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.apache.commons.collections.map.HashedMap;
 
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.bungii.common.manager.ResultManager.fail;
-import static com.bungii.common.manager.ResultManager.log;
 import static io.restassured.RestAssured.given;
 
 
@@ -65,6 +61,7 @@ public class WebPortal extends DriverBase {
             verificationToken=matcher.group(1);
            // logger.detail("Verification Token POST Parameter : "+ verificationToken);
         }
+
         Response response = given().cookies(adminCookies).contentType("application/x-www-form-urlencoded; charset=UTF-8").urlEncodingEnabled(false)
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
@@ -81,6 +78,7 @@ public class WebPortal extends DriverBase {
         //logger.detail("Admin Cookie : "+adminCookies2);
         return response;
     }
+
 
     public void cancelScheduledBungii(String pickupRequestId) {
         logger.detail("API REQUEST : Cancel Scheduled Bungii " + pickupRequestId);
@@ -119,10 +117,44 @@ public class WebPortal extends DriverBase {
                         post(cancelBungii);
         // response.then().log().body();
     }
-
+    public void unlockPartner(String partnerLocRef) {
+        logger.detail("API REQUEST : Unlock Partner Portal " + partnerLocRef);
+        String lockedPartner = UrlBuilder.createApiUrl("web core", "/Partner/UnlockPartners");
+        Response responseGet = given().cookies(adminCookies).cookies(adminCookies2)
+                .header("Accept-Language", "en-US,en;q=0.5")
+                .header("X-Requested-With", "XMLHttpRequest")
+                .header("Upgrade-Insecure-Requests", "1")
+                .header("Accept-Encoding", "gzip, deflate")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                .when().redirects().follow(false).
+                get(lockedPartner);
+        String responseData= responseGet.asString();
+        String csrfToken = "";
+        Pattern pattern = Pattern.compile("return '(.+?)'");
+        Matcher matcher = pattern.matcher(responseData);
+        if (matcher.find())
+        {
+            csrfToken =matcher.group(1);
+        }
+        String unlockPartner = UrlBuilder.createApiUrl("web core", "/Partner/UnlockPartner");
+        Response response = given().cookies(adminCookies).cookies(adminCookies2)
+                .header("__requestverificationtoken",csrfToken)
+                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .header("cookies", adminCookies+";"+adminCookies2)
+                .header("x-requested-with", "XMLHttpRequest")
+                .formParams("PartnerLocationRef", partnerLocRef)
+                .when().redirects().follow(false).
+                post(unlockPartner);
+    }
     public void cancelBungiiAsAdmin(String pickupRequestId) {
         AdminLogin();
         cancelScheduledBungii(pickupRequestId);
+    }
+    public void unlockPartnerAsAdmin() {
+        AdminLogin();
+        String partnerLocRef= PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref");
+        unlockPartner(partnerLocRef);
     }
 
     public void asAdminManuallyEndBungii(String pickupRequestId) {

@@ -22,20 +22,21 @@ Feature: SoloScheduled Part C
     #And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
     Then User should see message "60 MINS BEFORE SCHEDULE TRIP TIME" text on the screen
+    And I terminate "driver" app on "same" devices
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889916     |                 |
     
  
-  
+
   @regression
     #stable
   Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled delivery start time
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                        | Customer Password |
-      | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer | cci12345          |
+      | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer | Cci12345          |
     And I get TELET time of of the current trip
-    And As a driver "Testdrivertywd_appleks_a_drvh Kansas_h" perform below action with respective "SOLO SCHEDULED" trip
+    And As a driver "Testdrivertywd_appleks_a_drvv Kansas_v" perform below action with respective "SOLO SCHEDULED" trip
       | driver1 state |
       | Accepted      |
 
@@ -44,7 +45,7 @@ Feature: SoloScheduled Part C
     And I close "Tutorial" if exist
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Testdrivertywd_appleks_a_drvh Kansas_h" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drvv Kansas_v" driver
     And I wait for "4" mins
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I wait for "3" mins
@@ -53,11 +54,12 @@ Feature: SoloScheduled Part C
     And I Select Trip from driver scheduled trip
     And I wait for "3" mins
     And Bungii Driver "Start Schedule Bungii" request
+    And Bungii driver should see "General Instructions"
     Then Bungii driver should see "Enroute screen"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 9999999103     |                 |
-  
+
   @regression
     #stable
   Scenario: Verify That a Solo scheduled Bungii can be started 30 mins before the scheduled delivery start time
@@ -72,7 +74,8 @@ Feature: SoloScheduled Part C
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
-    Then Bungii driver should see "Enroute screen"
+    Then Bungii driver should see "General Instructions"
+    And Bungii driver should see "Enroute screen"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889916     |                 |

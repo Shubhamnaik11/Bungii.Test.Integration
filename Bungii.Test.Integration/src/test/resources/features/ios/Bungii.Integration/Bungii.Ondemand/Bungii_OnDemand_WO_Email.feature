@@ -22,9 +22,10 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence(Without Email)
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
     
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen

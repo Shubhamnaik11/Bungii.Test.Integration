@@ -19,7 +19,7 @@ Feature: Scheduled Bungii on one device
     
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Duo    | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
+      | Duo    | Margao Railway Overbridge  | Panjim bus stand |
     And I click "Get Estimate" button on "Home" screen
     
     Then I should be navigated to "Estimate" screen
@@ -61,29 +61,31 @@ Feature: Scheduled Bungii on one device
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
     And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    Then I should be navigated to "LOADING ITEM" screen
+    #Then I accept Alert message for "Reminder: both driver at pickup"
+    Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "LOADING ITEM" screen
+    Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
+    And I slide update button on "LOADING ITEMS" Screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" screen
     Then I check ETA of "control driver"
 
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
+    Then I should be navigated to "DRIVING TO DROP-OFF" screen
     Then "control driver" eta should be displayed to customer
     
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" screen
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should be navigated to "UNLOADING ITEMS" screen
+    And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
+    And I select "4" Ratting star for solo Driver 1
+    And I click "Submit" button on "Rate duo teammate" screen
+    And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
-    Then I wait for "1" mins
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
 
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
@@ -147,18 +149,18 @@ Feature: Scheduled Bungii on one device
   @regression
     #stable
   Scenario: Verify Scheduled Duo Bungii can be accepted by drivers and they are shown under displayed under Scheduled List upon accepting [1 Device]
-	Given I Switch to "driver" application on "same" devices
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | Requested     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
+    When I Switch to "driver" application on "same" devices
 	And I am on the "LOG IN" page on driverApp
 	And I am logged in as "valid duo driver 1" driver
 	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	
-	And that duo schedule bungii is in progress
-	  | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-	  | goa      | Requested     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
-	
-	Given I Switch to "driver" application on "same" devices
-	And I am on the "LOG IN" page on driverApp
-	And I am logged in as "valid duo driver 1" driver
+    And I click "Offline" button on "Home" screen on driverApp
+	#Given I Switch to "driver" application on "same" devices
+    #And I am on the "Home" page on driverApp
+	#And I am on the "LOG IN" page on driverApp
+	#And I am logged in as "valid duo driver 1" driver
 	
 	And I Select "AVAILABLE BUNGIIS" from driver App menu
 	And I Select Trip from available trip
@@ -176,6 +178,7 @@ Feature: Scheduled Bungii on one device
 	
 	And I Select "AVAILABLE BUNGIIS" from driver App menu
 	And I Select Trip from available trip
+    Then I should be navigated to "BUNGII DETAILS" screen
 	Then Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
 	When I accept selected Bungii
 	

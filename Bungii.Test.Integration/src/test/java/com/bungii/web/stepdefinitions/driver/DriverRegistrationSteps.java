@@ -7,6 +7,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.driver.*;
+import com.bungii.web.pages.partner.Partner_Delivery_StatusPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -16,6 +17,7 @@ import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jsoup.nodes.Document;
 
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,6 +39,7 @@ public class DriverRegistrationSteps extends DriverBase {
     Driver_VideoTrainingPage Page_Driver_Video = new Driver_VideoTrainingPage();
     Driver_FinishPage Page_Driver_Finish = new Driver_FinishPage();
     Driver_DashboardPage Page_Driver_Dashboard = new Driver_DashboardPage();
+    Partner_Delivery_StatusPage partner_Delivery_StatusPage= new Partner_Delivery_StatusPage();
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
 
@@ -50,6 +53,18 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
             case "Driver Details":
                 action.click(Page_Driver_Details.Menu_DriverDetails());
+                break;
+            case "Delivery Status URL":
+                utility.NavigateDriverRatingWebLink();
+                Thread.sleep(1000);
+                testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Label_DeliveryDetailsTitle(),"Delivery Status Page should be shown","Delivery Status page is shown","Delivery Status page is not shown");
+                log("I navigate to Delivery status page" ,
+                        "I navigated to Delivery status page" , false);
+                break;
+            case "Delivery Status URL again":
+                action.switchToTab(2);
+                action.refreshPage();
+                Thread.sleep(1000);
                 break;
         }
         pass("I should be navigate to " + page,
@@ -94,12 +109,13 @@ try{
             case "valid":
                 action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName"));
                 String Lastname = utility.GetUniqueLastName();
+                int randomnumber = utility.GetUniqueNumber();
                 action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(),Lastname);
                 cucumberContextManager.setScenarioContext("FIRSTNAME", PropertyUtility.getDataProperties("DriverFirstName"));
                 cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
                 cucumberContextManager.setFeatureContextContext("LASTNAME", Lastname);
 
-                action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), "bungiiauto"+Lastname+"@cci.com"); //PropertyUtility.getDataProperties("DriverEmail"));
+                action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), "bungiiauto+"+randomnumber+"@gmail.com"); //PropertyUtility.getDataProperties("DriverEmail"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_CreatePassword(), PropertyUtility.getDataProperties("DriverPassword"));
                 //action.clearSendKeys(Page_Driver_Reg.TextBox_ConfirmPassword(), PropertyUtility.getDataProperties("DriverPassword"));
                 action.selectElementByText(Page_Driver_Reg.Dropdown_Location(),PropertyUtility.getDataProperties("DriverLocation"));
@@ -450,6 +466,73 @@ try{
         logger.detail("Email Body (Expected) : "+ message);
         testStepAssert.isEquals(emailBody, message,"Email (Expected): "+message+" content should match", "Email (Actual): "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
 
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
+    }
+    @Then("^I should see the \"([^\"]*)\" displayed$")
+    public void i_should_see_the_something_displayed(String strArg1) throws Throwable {
+        try {
+        String updatedVerbiage = "Driving with Bungii is a flexible, easy way to earn extra money on the side. To get started, fill out the application below and we’ll get you on the road in no time.";
+        Thread.sleep(1000);
+        String existingVerbiage = action.getText(Page_Driver_Reg.Text_Verbiage());
+        testStepAssert.isEquals(existingVerbiage,updatedVerbiage,"Verbiage text should be updated to newest text","Verbiage text is updated to newest text","Verbiage text is not updated to newest text");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I should see the \"([^\"]*)\" textbox not displayed$")
+    public void i_should_see_the_something_textbox_not_displayed(String strArg1) throws Throwable {
+        try {
+            testStepAssert.isFalse(action.isElementPresent(Page_Driver_Reg.TextBox_ConfirmPassword(true)), "Confirm password textbox should not be displayed", "Confirm password textbox is not displayed","Confirm password textbox is displayed");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^The password should be masked$")
+    public void the_password_should_be_masked() throws Throwable {
+        try {
+            String passwordMasked = "password";
+            Thread.sleep(1000);
+            String expectedPasswordMasked =Page_Driver_Reg.TextBox_CreatePassword().getAttribute("type");
+            testStepAssert.isTrue(expectedPasswordMasked.contentEquals(passwordMasked),"Password should be masked","Password is masked","Password is not masked");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @When("^I click on the \"([^\"]*)\" button$")
+    public void i_click_on_the_something_button(String strArg1) throws Throwable {
+        try {
+        Thread.sleep(1000);
+        action.click(Page_Driver_Reg.Link_EyeOpen());
+        log("I should be able to click on the closed eye button","I could click on the closed eye button",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
+    }
+
+    @Then("^I should see the password as text$")
+    public void i_should_see_the_password_as_text() throws Throwable {
+        try {
+            String passwordUnmasked = "text";
+            Thread.sleep(1000);
+            String expectedPasswordUnMasked =Page_Driver_Reg.TextBox_CreatePassword().getAttribute("type");
+            testStepAssert.isTrue(expectedPasswordUnMasked.contentEquals(passwordUnmasked),"Password should not be masked","Password is not masked","Password is masked");
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",

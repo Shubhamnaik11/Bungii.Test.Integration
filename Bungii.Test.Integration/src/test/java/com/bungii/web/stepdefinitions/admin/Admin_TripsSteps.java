@@ -352,14 +352,16 @@ public class Admin_TripsSteps extends DriverBase {
             //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
             utility.selectGeofenceDropdown(geofenceName);
 
+            String pageName = action.getText(admin_LiveTripsPage.Text_Page_Header());
 
             cucumberContextManager.setScenarioContext("STATUS", status);
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
-            if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
+            if (status.equalsIgnoreCase("Scheduled") || (status.equalsIgnoreCase("Assigning Driver(s)") && pageName.contains("Scheduled")) || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType[0].toUpperCase(), customer);
                 String costPath =  String.format("//td[contains(.,'%s')]/preceding-sibling::td[1]/span", customer);
+
                 TripPath= xpath;
                 int retrycount = 10;
                 action.clearSendKeys(admin_ScheduledTripsPage.Textbox_Search(), customer.substring(0, customer.indexOf(" ")));
@@ -393,6 +395,7 @@ public class Admin_TripsSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
                 cucumberContextManager.setScenarioContext("COSTPATH", costPath);
                 cucumberContextManager.setScenarioContext("COST", action.getText(action.getElementByXPath(costPath)).replace("/ $",""));
+
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
@@ -588,6 +591,7 @@ public class Admin_TripsSteps extends DriverBase {
             //action.click(admin_LiveTripsPage.Menu_LiveTrips());
             SetupManager.getDriver().navigate().refresh();
             action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
+            Thread.sleep(2000);
             log("I view All Deliveries on the admin portal",
                     "I viewed All Deliveries on the admin portal", true);
         }
@@ -932,6 +936,16 @@ try{
                 action.click(admin_EditScheduledBungiiPage.RadioButton_EditTripDetails());
                 Thread.sleep(3000);
                 break;
+            case "Edit Delivery Status":
+                action.click(admin_LiveTripsPage.RadioButton_EditDeliveryStatus());
+                Thread.sleep(1000);
+                break;
+            case "Delivery Canceled":
+                action.click(admin_LiveTripsPage.RadioButton_DeliveryCanceled());
+                Thread.sleep(1000);
+                break;
+            default:
+                break;
         }
         log("I click "+ radiobutton,
                 "I have clicked on "+ radiobutton, false);
@@ -941,6 +955,38 @@ try{
             true);
 }
     }
+
+    @And("^I enter delivery completion date and time as per geofence$")
+    public void i_enter_delivery_completion_date_and_time_as_per_geofence() throws Throwable {
+        try{
+            String strDate="";
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+            Calendar calendar = Calendar.getInstance();
+            DateFormat formatter = new SimpleDateFormat("MMddYYYY-hh:mm-a");
+            formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+           // calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)-1);
+            //calendar.add(Calendar.MINUTE,-5);
+
+            strDate = formatter.format(calendar.getTime());
+            String[] dateTime = strDate.split("-");
+            String date = dateTime[0];
+            String time = dateTime[1];
+            String meridian = dateTime[2];
+
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),date);
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),time);
+           // action.click(liveTripsPage.Dropdown_ddlpickupEndTime());
+            action.selectElementByText(liveTripsPage.Dropdown_ddlpickupEndTime(),meridian);
+            log("Correct date= "+date+" and time= "+time+meridian+" should be enter for the "+geofence+" geofence.","Correct date= "+date+" and time= "+time+meridian+" is enter for the "+geofence+" geofence.",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @And("^I change delivery type from \"([^\"]*)\"")
     public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
 try{
@@ -1083,7 +1129,7 @@ try{
             //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
            // action.click(admin_EditScheduledBungiiPage.findElement(xpath,PageBase.LocatorType.XPath));
             action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", customer),PageBase.LocatorType.XPath));
-            action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'View Delivery Details')]", customer),PageBase.LocatorType.XPath));
+            action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'Delivery Details')]", customer),PageBase.LocatorType.XPath));
 
 
             log("I view the delivery details in admin portal",
@@ -1122,7 +1168,7 @@ try{
             String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
             //String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/preceding::td[4]", driver,customer);
             action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//td/div/img")));
-            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'View Delivery Details')]")));
+            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'Delivery Details')]")));
             //String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
             //action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
 
@@ -1215,6 +1261,17 @@ try{
     public void the_something_message_should_be_displayed(String message) throws Throwable {
         testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessage(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
     }
+
+    @Then("^The \"([^\"]*)\" message should be displayed for live delivery$")
+    public void the_something_message_should_be_displayed_for_live_delivery(String message) throws Throwable {
+        if(message.equalsIgnoreCase("Pick up has been successfully updated.")){
+            testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_DeliverySuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+        }
+        else {
+            testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+        }
+    }
+
     @Then("^Pickup should be unassigned from the driver$")
     public void pickup_should_be_unassigned_from_the_driver() throws Throwable {
 
@@ -1582,8 +1639,9 @@ try{
     public void all_the_clients_named_something_should_be_displayed_on_the_trip_list_grid(String searchString) throws Throwable {
         try{
         Thread.sleep(10000);
-        try {
-            for (WebElement e : admin_TripsPage.Client_names()) {
+        List<WebElement> customerNames = admin_TripsPage.Client_names();
+        testStepAssert.isTrue(customerNames.size() > 0, "Search using customer firstname should retrieve correct records","Search using customer name retrives 0 records");
+        try { for (WebElement e : customerNames) {
                 testStepAssert.isTrue(e.getText().contains(searchString), "Client Name contains " + searchString, "Client Name is " + e.getText());
             }
             action.clear(admin_TripsPage.TextBox_Search());
@@ -1723,7 +1781,7 @@ try{
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterPriceEstimated());
                         break;
-                    case "Driver(s) Not Found":
+                    case "No Driver(s) Found":
                         action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterDriversNotFound());
@@ -1841,8 +1899,8 @@ try{
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
-                case "Driver(s) Not Found Status":
-                    xpath = String.format("//td[contains(.,'Driver(s) Not Found')]");
+                case "No Driver(s)Found Status":
+                    xpath = String.format("//td[contains(.,'No Driver(s) Found')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
@@ -2155,7 +2213,7 @@ try{
             //action.click();
             Thread.sleep(4000);
             action.click(admin_ScheduledTripsPage.findElement((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr/td/div/img",PageBase.LocatorType.XPath));
-            action.click(admin_ScheduledTripsPage.findElement((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr/td/div/ul/li/p[contains(text(),'View Delivery Details')]",PageBase.LocatorType.XPath));
+            action.click(admin_ScheduledTripsPage.findElement((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr/td/div/ul/li/p[contains(text(),'Delivery Details')]",PageBase.LocatorType.XPath));
             //action.click(admin_ScheduledTripsPage.Link_Grid_First_Row());
             log("I should able to view searched delivery.", "I have viewed the searched delivery", false);
 

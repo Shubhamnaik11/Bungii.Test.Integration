@@ -145,6 +145,7 @@ public class Admin_DriverDetails extends DriverBase{
 
              */
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate); // removed ss
+            formattedDate= utility.getbungiiDayLightTimeValue(formattedDate);
             XPath = String.format("//td[text()='%s']/following-sibling::td[contains(.,'%s')]", formattedDate, status);
         }
         else
@@ -252,6 +253,8 @@ public class Admin_DriverDetails extends DriverBase{
                     String Xpath = String.format("//strong[contains(text(),'Other Geofences')]/parent::td/parent::tr/following-sibling::tr/td[text()='%s']",region);
                     testStepAssert.isNotElementDisplayed(admin_Driverspage.findElement(Xpath, PageBase.LocatorType.XPath,true), "Region" + regions + " should not be displayed" , "Region" + regions + " is displayed" , "Region" + regions + " is not displayed");
                 }
+                action.click(admin_TripDetailsPage.Button_Cancel());
+                action.acceptAlert();
             } catch(Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",

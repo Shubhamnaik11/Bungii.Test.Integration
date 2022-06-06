@@ -391,9 +391,17 @@ try{
     }
 
     @Then("^The \"([^\"]*)\" button should not be displayed$")
-    public void the_something_button_should_not_be_displayed(String strArg1) throws Throwable {
+    public void the_something_button_should_not_be_displayed(String button) throws Throwable {
         Thread.sleep(5000);
-        testStepAssert.isFalse(action.isElementPresent(admin_refundsPage.Button_IssueRefund(true)),"Issue Refund button should not be displayed", "Issue Refund button is not displayed", "Issue Refund button is displayed");
+        switch (button)
+        {
+            case "New Partner":
+                testStepAssert.isNotElementDisplayed(admin_refundsPage.findElement("btnCreateBusinessUser", PageBase.LocatorType.Id,true),"Add Partner button should not be visible","Add partner button is not visible","Add partner button is visible");
+                break;
+            default:
+                testStepAssert.isFalse(action.isElementPresent(admin_refundsPage.Button_IssueRefund(true)),"Issue Refund button should not be displayed", "Issue Refund button is not displayed", "Issue Refund button is displayed");
+                break;
+        }
     }
 
     @Then("^The \"([^\"]*)\" button should be displayed$")

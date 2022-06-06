@@ -259,7 +259,15 @@ public class CommonSteps extends DriverBase {
                     String text= action.getAlertMessage().toString();
                     action.clickAlertButton("OK");
                     testStepAssert.isTrue(text.contains("No Mail Accounts"),"No Mail Accounts Popup should be displayed", text +" is displayed",text+" is not displayed");
-
+                    break;
+                case "Your duo teammate is on the way":
+                    String textMessage= action.getAlertMessage().toString();
+                    testStepAssert.isTrue(message.contains(textMessage),"Your duo teammate is on the way message should be shown.","Your duo teammate is on the way message is not shown instead of that following message is shown "+textMessage);
+                    break;
+                case "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading":
+                    String arrivedTextMessage= action.getAlertMessage().toString();
+                    testStepAssert.isTrue(message.contains(arrivedTextMessage),"Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message should be shown.","Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message is not shown instead of that following message is shown "+arrivedTextMessage);
+                    break;
             }
             log("No Mail Accounts Popup should be displayed",
                     "No Mail Accounts Popup is displayed", true);
@@ -376,7 +384,15 @@ public class CommonSteps extends DriverBase {
                         SetupManager.getDriver().switchTo().alert().dismiss();
                         Thread.sleep(1000);
                     }
-                    action.click(driverBungiiCompletedPage.Button_NextTrip());
+                    action.click(driverBungiiCompletedPage.Button_Next_Bungii());
+                    break;
+                case "SUBMIT":
+                    Thread.sleep(1000);
+                    action.click(driverBungiiCompletedPage.Button_Submit());
+                    break;
+                case "SKIP THIS STEP":
+                    Thread.sleep(1000);
+                    action.click(driverBungiiCompletedPage.Button_Skip_This_Step());
                     break;
                 case "I DON'T LIKE FREE MONEY":
                     takeActionOnPromotion("REJECT");
@@ -570,9 +586,10 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
             }
-            else
+            else {
+                Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
-
+            }
             testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I should be navigated to " + screen, "Error in navigating to " + screen + " screen ");
 
@@ -682,6 +699,66 @@ public class CommonSteps extends DriverBase {
 
     }
 
+    @Then("^I see \"([^\"]*)\" screen$")
+    public void i_see_something_screen(String screen) throws Throwable {
+        try {
+            boolean isCorrectPage = false;
+            switch (screen) {
+                case "Rate customer":
+                    Thread.sleep(5000);
+                    //String abc = bungiiCompletePage.Text_RateCustomer().getText();
+                    isCorrectPage = action.getScreenHeader(driverBungiiCompletedPage.Text_RateCustomer()).equals(screen);
+                    testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+                            "I should be navigated to " + screen, "Error in navigating to " + screen + " screen ");
+                    break;
+                default:
+                    logger.detail("Lands on wrong screen");
+                    break;
+            }
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+
+    }
+
+    @And("^I select \"([^\"]*)\" customer rating$")
+    public void i_select_something_customer_rating(String ratingStar) throws Throwable {
+        try {
+            int i = 0;
+            switch (ratingStar) {
+                case "1":
+                    i = 1;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "2":
+                    i = 2;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "3":
+                    i = 3;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "4":
+                    i = 4;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                case "5":
+                    i = 5;
+                    action.click(driverBungiiCompletedPage.StarRatings(i));
+                    break;
+                default:
+                    logger.detail("Not selected any start rating");
+            }
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+    }
     @Given("^I am on the \"([^\"]*)\" page$")
     public void i_am_on_the_something_page(String screen) {
         try {
@@ -827,6 +904,20 @@ public class CommonSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+            case "valid nashville1":
+                phone = PropertyUtility.getDataProperties("nashville.driver1.phone");
+                password = PropertyUtility.getDataProperties("nashville.driver1.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver1.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "valid nashville2":
+                phone = PropertyUtility.getDataProperties("nashville.driver2.phone");
+                password = PropertyUtility.getDataProperties("nashville.driver2.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver2.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             case "valid denver":
                 phone = PropertyUtility.getDataProperties("denver.driver.phone");
                 password = PropertyUtility.getDataProperties("denver.driver.password");
@@ -849,9 +940,9 @@ public class CommonSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             case "valid partner kansas driver":
-                phone = PropertyUtility.getDataProperties("partner.kansas.driver.phone");
+                phone = PropertyUtility.getDataProperties("valid.driver.kansas.phone");
                 password = PropertyUtility.getDataProperties("partner.kansas.driver.password");
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.kansas.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             default:
@@ -973,7 +1064,7 @@ public class CommonSteps extends DriverBase {
 
         }
         if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
-            action.click(driverBungiiCompletedPage.Button_NextTrip());
+            action.click(driverBungiiCompletedPage.Button_Next_Bungii());
             //homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
         }
 
@@ -1355,6 +1446,30 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("denver.customer.phone");
                     password = PropertyUtility.getDataProperties("denver.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver1":
+                    userName = PropertyUtility.getDataProperties("denver1.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver1.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver2":
+                    userName = PropertyUtility.getDataProperties("denver2.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver2.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver3":
+                    userName = PropertyUtility.getDataProperties("denver3.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver3.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver4":
+                    userName = PropertyUtility.getDataProperties("denver4.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver4.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid customer2":
@@ -2182,7 +2297,8 @@ public class CommonSteps extends DriverBase {
                     expectedText = PropertyUtility.getMessage("customer.promos.already.existing.code");
                     break;
                 case "FAILED TO SEND TOKEN":
-                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
+                    //expectedText = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
+                    expectedText = PropertyUtility.getMessage("common.failed.message");
                     break;
                 case "PASSWORD CHANGE SUCCESS":
                     expectedText = PropertyUtility.getMessage("customer.forgotpassword.sucess");
@@ -2624,6 +2740,12 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("nashville.customer.phone");
                     password = PropertyUtility.getDataProperties("nashville.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid nashville2":
+                    userName = PropertyUtility.getDataProperties("nashville.customer2.phone");
+                    password = PropertyUtility.getDataProperties("nashville.customer2.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer2.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid nashville first time":

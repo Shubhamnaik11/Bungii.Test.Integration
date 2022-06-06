@@ -13,11 +13,11 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     @testing
     #Stable
     #move to end
-  Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
+  Scenario: Verify Manually End Bungii Option Is not Available In The any States of bungii
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
-  
+
 	When I Switch to "customer" application on "same" devices
 	When I am on the "LOG IN" page
 #    And I logged in Customer application using  "valid nashville" user
@@ -27,7 +27,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
+    #And I am logged in as "valid nashville" driver
+    And I login as "valid nashville" driver on "same" device and make driver status as "Online"
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I wait for "2" mins
     And I open Admin portal and navigate to "Live Deliveries" page
@@ -48,20 +49,24 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Driving To Dropoff"
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
-    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Unloading Items"
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
-    And I slide update button on "UNLOADING ITEM" Screen
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I see "Rate customer" screen
+    And I select "4" customer rating
+    #And I click "Submit" button on Rate customer screen
+    And I click "Submit" button on "Rate customer" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "same" devices
     And I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -73,15 +78,16 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   Scenario: Verify Delivery information & Bungii completed screen For Ondemand Delivery
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
-      | nashville | Enroute      |
+      | nashville2 | Enroute      |
 	When I Switch to "customer" application on "same" devices
     When I am on the "LOG IN" page
-    And I logged in as "valid nashville" customer
+    And I logged in as "valid nashville2" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
+    #And I am logged in as "valid nashville" driver
+    And I login as "valid nashville2" driver on "same" device and make driver status as "Online"
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     When I Switch to "customer" application on "same" devices
@@ -96,28 +102,29 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
+    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
+    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for customer
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
+    And I slide update button on "LOADING ITEMS" Screen
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for customer
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for customer
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
@@ -128,8 +135,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then I should be navigated to "Home" screen
 
     When I Switch to "driver" application on "same" devices
+    #And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
     And I Select "ACCOUNT > LOGOUT" from driver App menu
   
   @regression
@@ -167,10 +175,11 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
 
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
+
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
     And Bungii customer should see "correct rating detail for solo" on Bungii completed page
@@ -197,8 +206,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I am logged in as "valid nashville" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
-    And I should be navigated to "Bungii Completed" screen
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    And I should be navigated to "Bungii completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
@@ -243,8 +253,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then I should be navigated to "Home" screen
 
     When I Switch to "driver" application on "same" devices
+    And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii completed" screen
 
 
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case

@@ -132,7 +132,7 @@ Feature: Admin_PaymentMethods
       |Card Number | Expiration Date | CVV | Postal Code|
       |4000111111111511 | 12/39      | 1236  |     12345|
     And I click on "Save" button on "Bungii Cards" screen
-    Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed
+    Then "payment declined error" message is displayed
   
   @regression
   Scenario: Verify Fraud Card detection - Partner Cards
@@ -142,4 +142,11 @@ Feature: Admin_PaymentMethods
       |Card Number | Expiration Date | CVV | Postal Code|
       |4000111111111511 | 12/39      | 1236  |     12345|
     And I click on "Save" button on "Partner Cards" screen
-    Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed
+    Then "payment declined error" message is displayed
+
+  #Core-2397 : Verify duplicate partner entries are shown in dropdown on Partner Card page
+  @ready
+  Scenario: Verify duplicate partner entries are shown in dropdown on Partner Card page
+    When I click on "Partner Portal  > Partner Card" Menu
+    And I click on "Partners" dropdown
+    Then I check if duplicate partner entries are shown in dropdown

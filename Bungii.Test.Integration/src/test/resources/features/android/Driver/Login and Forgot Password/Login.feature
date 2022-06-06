@@ -26,11 +26,15 @@ Feature: Log In
 
   @sanity
   @regression
-  Scenario: Verify Driver Should be Able To Login To Application Using Valid Password
-    When I enter phoneNumber :{VALID} and  Password :{VALID}
+  Scenario Outline: Verify Driver Should be Able To Login To Application Using Valid Password
+    When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then I should be navigated to Home screen on driver app
+
+    Examples:
+      | Username   | Password   |
+      | 9049840008 | Cci12345   |
 
   @regression
 #stable
