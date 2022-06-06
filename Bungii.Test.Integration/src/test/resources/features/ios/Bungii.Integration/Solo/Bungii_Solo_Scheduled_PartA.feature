@@ -433,19 +433,22 @@ Feature: Solo Scheduled Bungii Part A
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @testAllan
-  Scenario:  1
+#CORE-2753 : To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
+  @ready
+  Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I wait for 1 minutes
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Enroute       |
-
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid denver driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "valid denver" user
     And I request for  bungii for given pickup and drop location
@@ -457,7 +460,17 @@ Feature: Solo Scheduled Bungii Part A
       | 30       |           |              | Today+1 1:00 PM | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
-
-    And I Switch to "customer" application on "same" devices
-    And I wait for 1 minutes
+    And I Switch to "driver" application on "same" devices
+    And I wait for 2 minutes
+    And I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "ARRIVED" trip status screen on driver
     And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    Then I should be navigated to "ARRIVED" trip status screen on driver
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    Then The trip should be present in schedule trip

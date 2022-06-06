@@ -6,6 +6,8 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.*;
 import com.bungii.ios.pages.customer.EstimatePage;
+import com.bungii.ios.pages.customer.ScheduledBungiiPage;
+import com.bungii.ios.pages.driver.BungiiCompletedPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -34,6 +36,7 @@ public class EstimateSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
+    com.bungii.ios.pages.customer.ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
     // private EstimatePage estimatePage;
     private String[] loadTimeValue = {"15", "30", "45", "60", "75", "90+"};
 
@@ -148,6 +151,9 @@ public class EstimateSteps extends DriverBase {
             }
             action.swipeUP();
             action.swipeUP();
+            Thread.sleep(3000);
+            String tripDateAndTime= action.getText(scheduledBungiiPage.Text_CustomerTrip_DateTime());
+            cucumberContextManager.setScenarioContext("date",tripDateAndTime);
             clickAcceptTerms();
             i_request_for_bungii_using_request_bungii_button();
 

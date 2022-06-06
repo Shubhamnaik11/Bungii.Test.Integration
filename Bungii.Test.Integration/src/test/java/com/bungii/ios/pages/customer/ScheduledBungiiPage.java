@@ -60,4 +60,7 @@ public class ScheduledBungiiPage extends PageBase {
         return findElement("//XCUIElementTypeImage[@name='bungii_type-duo']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
     }
 
+    public WebElement Text_CustomerTrip_DateTime()
+    {return findElement("//XCUIElementTypeApplication[@name=\"Bungii QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText",LocatorType.XPath);}
+
 }

@@ -38,8 +38,10 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-#  @testAllan
-  Scenario: test1
+
+#CORE-2753 : To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
+@ready
+  Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
