@@ -33,7 +33,11 @@ public class AvailableTripsSteps extends DriverBase {
 			Thread.sleep(5000);
 			String milesText  = action.getText(availableTripsPage.Text_FromHomeMiles());
 			Thread.sleep(2000);
-			boolean isMilesPresent = milesText.contains("miles");
+			boolean isMilesPresent = false;
+			if(milesText.contains("miles") || milesText.contains("mile")){
+				isMilesPresent = true;
+			}
+
 			testStepAssert.isTrue(isMilesPresent,"Text should be updated to miles","Text is updated to miles","Text is not updated to miles");
 
 			if (action.isAlertPresent()){ SetupManager.getDriver().switchTo().alert().dismiss();   Thread.sleep(1000);        }
