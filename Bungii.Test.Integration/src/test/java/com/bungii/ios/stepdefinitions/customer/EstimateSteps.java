@@ -153,7 +153,7 @@ public class EstimateSteps extends DriverBase {
             action.swipeUP();
             Thread.sleep(3000);
             String tripDateAndTime= action.getText(scheduledBungiiPage.Text_CustomerTrip_DateTime());
-            cucumberContextManager.setScenarioContext("date",tripDateAndTime);
+            cucumberContextManager.setScenarioContext("CUSTOMER_APP_TRIP_TIME",tripDateAndTime);
             clickAcceptTerms();
             i_request_for_bungii_using_request_bungii_button();
 

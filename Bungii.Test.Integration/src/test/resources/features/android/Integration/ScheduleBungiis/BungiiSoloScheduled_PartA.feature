@@ -46,22 +46,19 @@ Feature: SoloScheduled
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
     And I get TELET time of of the current trip
-    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "SOLO SCHEDULED" trip
+    And As a driver "Testdrivertywd_appleks_a_drvah Kansas_ah" perform below action with respective "SOLO SCHEDULED" trip
       | driver1 state |
       | Accepted      |
     And I wait for 1 minutes
-    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "SOLO SCHEDULED" trip
+    And As a driver "Testdrivertywd_appleks_a_drvah Kansas_ah" perform below action with respective "SOLO SCHEDULED" trip
       | driver1 state |
       | Enroute      |
     And I Switch to "driver" application on "same" devices
-    And I am logged in as "Testdrivertywd_appleks_rathree Test" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drvah Kansas_ah" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then Bungii driver should see "Enroute screen"
-
-
-
-   And I Switch to "customer" application on "same" devices
-    Given I login as customer "9999999103" and is on Home Page
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid kansas 3" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I enter "kansas very short trip location" on Bungii estimate
@@ -76,9 +73,9 @@ Feature: SoloScheduled
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I click "Done" button on "Success" screen
 
-   And I Switch to "driver" application on "same" devices
-   And I wait for 1 minutes
-    Then I should a popup "New Bungii Request" displayed
+    And I Switch to "driver" application on "same" devices
+    And I wait for 1 minutes
+   Then I should see a popup "New Bungii Request" displayed
     And I click on "View Request" button
     And I wait for 1 minutes
     Then I should see the trip details
@@ -86,3 +83,6 @@ Feature: SoloScheduled
     Then Bungii driver should see "Enroute screen"
     And I slide update button on "EN ROUTE" Screen
 
+    And I cancel all bungiis of customer
+     | Customer Phone  | Customer2 Phone |
+     | CUSTOMER1_PHONE |                 |

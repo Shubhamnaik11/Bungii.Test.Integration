@@ -439,18 +439,18 @@ Feature: Solo Scheduled Bungii Part A
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    And As a driver "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledv_b_mattB Stark_dvOnEB" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I wait for 1 minutes
-    And As a driver "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledv_b_mattB Stark_dvOnEB" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Enroute       |
     And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid denver driver 2" driver
+    And I am logged in as "valid denver driver 3" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Switch to "customer" application on "same" devices
-    And I logged in Customer application using  "valid denver" user
+    And I logged in Customer application using  "valid denver5" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |

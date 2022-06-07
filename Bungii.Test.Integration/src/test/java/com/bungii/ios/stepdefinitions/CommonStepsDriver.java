@@ -569,7 +569,7 @@ public class CommonStepsDriver extends DriverBase {
         try {
             Thread.sleep(3000);
             String driverAppTripTimeDate = action.getText(scheduledBungiipage.Text_Trip_DateTime());
-            String customerAppTripTimeDate = (String) cucumberContextManager.getScenarioContext("tripDateAndTime");
+            String customerAppTripTimeDate = (String) cucumberContextManager.getScenarioContext("CUSTOMER_APP_TRIP_TIME");
             testStepAssert.isEquals(driverAppTripTimeDate, customerAppTripTimeDate, "Trip should be present in schedule bungiis", "Trip is  present in schedule bungiis", "Trip is not present in schedule bungiis");
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
