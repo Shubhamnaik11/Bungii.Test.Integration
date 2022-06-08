@@ -272,12 +272,19 @@ Feature: Solo Scheduled Bungii Part A
     Then I Cancel selected Bungii
 
   @regression
+    #Added case of CORE-3685 to exsting script
     #stable
   Scenario: Verify Customer Can Cancel Solo Scheduled Bungii on Bungii Details screen
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver1   | Scheduled    | NEXT_POSSIBLE |
     Given I login as "valid denver1" customer and on Home page
+    When I Select "ACCOUNT > ACCOUNT INFO" from Customer App menu
+    Then I should be navigated to "ACCOUNT INFO" screen
+    And I click "Delete account" button on "ACCOUNT INFO" screen
+    And I enter "valid" password and click on delete button
+    Then I should see "Account can't deleted due to pending deliveries" message
+    And I click "Cancel" button on "Delete Account" screen
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen

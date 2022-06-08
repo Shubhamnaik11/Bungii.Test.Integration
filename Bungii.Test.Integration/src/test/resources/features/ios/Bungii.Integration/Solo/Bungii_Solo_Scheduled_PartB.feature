@@ -145,6 +145,7 @@ Feature: Solo Scheduled Bungii Part B
       | 8888889917     |                 |
 
   @ready
+    #Added case of CORE-3685 to existing script
   Scenario: Verify Customer Receives Notification When Driver Starts Solo Scheduled Bungii
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -157,7 +158,15 @@ Feature: Solo Scheduled Bungii Part B
       | driver1 state |
       | Accepted      |
       | Enroute       |
+    When I Select "ACCOUNT > ACCOUNT INFO" from Customer App menu
+    Then I should be navigated to "ACCOUNT INFO" screen
+    And I click "Delete account" button on "ACCOUNT INFO" screen
+    #And I confirm the account deletion for customer
+    And I enter "valid" password and click on delete button
+    Then I should see "Account can't deleted due to active deliveries" message
+    And I click "Cancel" button on "Delete Account" screen
     And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
+    #this notification is not logged in the db since(browserstack issue)
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
