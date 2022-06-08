@@ -2225,4 +2225,21 @@ try{
         }
     }
 
+    @Then("^Confirmation Message on Edit Live Delivery Pop up should be displayed$")
+    public void confirmation_message_on_edit_live_delivery_pop_up_should_be_displayed() throws Throwable {
+        try
+        {
+            String expectedMessage = "", actualMessage = "";
+            expectedMessage = PropertyUtility.getMessage("admin.complete.confirm");
+            actualMessage = action.getText(admin_LiveTripsPage.Message_AdminCompleteConfirm());
+            testStepAssert.isEquals(actualMessage, expectedMessage, expectedMessage + "should be displayed", expectedMessage + "is displayed", actualMessage + "is displayed");
+        }
+
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Cost of the delivery is not shown as zero",
+                    true);
+        }
+    }
+
 }
