@@ -1879,7 +1879,7 @@ try{
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
-                    break
+                    break;
                 case "Driver Not Arrived Status":
                     xpath = String.format("//td[contains(.,'Driver Not Arrived')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
