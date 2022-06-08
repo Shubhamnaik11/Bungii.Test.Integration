@@ -2229,9 +2229,8 @@ try{
     public void confirmation_message_on_edit_live_delivery_pop_up_should_be_displayed() throws Throwable {
         try
         {
-            String expectedMessage = "", actualMessage = "";
-            expectedMessage = PropertyUtility.getMessage("admin.complete.confirm");
-            actualMessage = action.getText(admin_LiveTripsPage.Message_AdminCompleteConfirm());
+            String expectedMessage = PropertyUtility.getMessage("admin.complete.confirm");
+            String actualMessage = action.getText(admin_LiveTripsPage.Message_AdminCompleteConfirm());
             testStepAssert.isEquals(actualMessage, expectedMessage, expectedMessage + "should be displayed", expectedMessage + "is displayed", actualMessage + "is displayed");
         }
 
