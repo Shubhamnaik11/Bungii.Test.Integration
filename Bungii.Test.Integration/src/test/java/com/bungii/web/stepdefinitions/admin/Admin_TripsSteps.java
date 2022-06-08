@@ -395,7 +395,6 @@ public class Admin_TripsSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
                 cucumberContextManager.setScenarioContext("COSTPATH", costPath);
                 cucumberContextManager.setScenarioContext("COST", action.getText(action.getElementByXPath(costPath)).replace("/ $",""));
-
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
@@ -819,6 +818,7 @@ try{
         String Display_Change_DropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
         //testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
         testStepAssert.isTrue(Display_Change_DropOff.contains(Expected_Change_DropOff),"Correct address need to display","Correct address is display","Incorrect address is displayed");
+        testStepAssert.isFalse(Expected_Change_DropOff.contentEquals((String) cucumberContextManager.getScenarioContext("OLD_DROPOFF_LOCATION")),"Dropoff Address should be changed","Dropoff address is changed","Dropoff address is not changed");
         log(" I confirm the change drop off address on delivery details page",
                 "I have confirmed the change drop off address on delivery details page", false);
     } catch(Exception e){
@@ -920,6 +920,33 @@ try{
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+    @And("^I confirm Pickup note is \"([^\"]*)\"$")
+    public void i_confirm_pickup_note_is_something(String noteStatus) throws Throwable {
+        try{
+            String Display_Pickup_Note = action.getText(admin_EditScheduledBungiiPage.Text_Pickup_Note());
+            String Change_Pickup_Note = (String) cucumberContextManager.getScenarioContext("Change_Pickup_Note");
+            switch (noteStatus){
+                case "Updated":
+                    Thread.sleep(1000);
+                    testStepVerify.isEquals(Change_Pickup_Note,Display_Pickup_Note);
+                    testStepAssert.isFalse(Display_Pickup_Note.contentEquals((String) cucumberContextManager.getScenarioContext("OLD_ADDITION_NOTE")),"Edited note should be displayed","Edited note should be displayed","Edited note is not displayed");
+                    break;
+                case "Added":
+                    Thread.sleep(1000);
+                    testStepAssert.isEquals(Change_Pickup_Note,Display_Pickup_Note,"Admin added note should be displayed","Admin added note is  displayed","Admin added note is not displayed");
+                    break;
+                case "Deleted":
+                    Thread.sleep(1000);
+                    testStepAssert.isFalse(Display_Pickup_Note.contentEquals((String) cucumberContextManager.getScenarioContext("OLD_ADDITION_NOTE")),"Note should be deleted","Note is deleted","Note is not deleted");
+                    break;
+            }
+
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I click on \"([^\"]*)\" radiobutton$")
@@ -1031,7 +1058,9 @@ try{
         try{
         testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
         action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
-
+        Thread.sleep(1000);
+        cucumberContextManager.setScenarioContext("OLD_DROPOFF_LOCATION",action.getText(admin_ScheduledTripsPage.DropOff_Address()));
+        cucumberContextManager.setScenarioContext("OLD_ADDITION_NOTE",action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note()));
         log("I edit the drop off address ",
                 "I have edited the dropoff address ");
     } catch(Exception e){
@@ -2221,6 +2250,45 @@ try{
         catch (Exception ex){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Unable to view the searched delivery",
+                    true);
+        }
+    }
+
+    @Then("^I should see \"([^\"]*)\" field empty$")
+    public void i_should_see_something_field_empty(String notetype) throws Throwable {
+        try{
+            switch (notetype){
+                case "Additional Notes":
+                    Thread.sleep(1000);
+                    String addNote = action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note());
+                    testStepAssert.isTrue(addNote.length() <1,"Additional notes field should be empty","Additional notes field is empty","Additional notes field is not empty");
+                    break;
+                case "Additional Instructions":
+                    String addInstruction = action.getText(admin_EditScheduledBungiiPage.Text_Additional_Instructions());
+                    testStepAssert.isTrue(addInstruction.length() <1,"Additional notes field should be empty","Additional notes field is empty","Additional notes field is not empty");
+                    String additionalNotes = "Additional Notes";
+                    Thread.sleep(1000);
+                    String expectedAdditionalNotesTitle = action.getText(admin_EditScheduledBungiiPage.Label_AdditionalNotes());
+                    testStepAssert.isFalse(expectedAdditionalNotesTitle.contentEquals(additionalNotes),"Special Instructions should be displayed", "Special Instructions is displayed","Special Instructions is not displayed");
+                    Thread.sleep(1000);
+                    break;
+            }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I remove the customer note$")
+    public void i_remove_the_customer_note() throws Throwable {
+        try{
+            Thread.sleep(1000);
+            action.clear(admin_EditScheduledBungiiPage.Text_Additional_Note());
+            log("I should be able to remove the customer note","I could remove the customer note",false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
