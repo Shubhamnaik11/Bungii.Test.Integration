@@ -17,7 +17,8 @@ public class EnableLocationPage extends PageBase{
     }*/
 
     public WebElement Button_Sure(boolean ...ignoreException) {
-        return findElement("SURE", LocatorType.AccessibilityId,ignoreException);
+        //return findElement("SURE", LocatorType.AccessibilityId,ignoreException);
+        return findElement("//XCUIElementTypeButton[@name='SURE']",LocatorType.XPath,ignoreException);
     }
     public WebElement Text_Header() {
         return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(0);
