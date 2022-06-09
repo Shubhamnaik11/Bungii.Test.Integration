@@ -121,41 +121,22 @@ Feature: Bungii Requests
 
 	@ready
 	Scenario: Verify online/Offline pop up is shown when Driver has schedule trip accepted for future days
-
 		And I Switch to "driver" application on "same" devices
 		And I am on the LOG IN page on driver app
 		And I am logged in as "valid boston" driver
 		And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
-		And I Switch to "customer" application on "same" devices
-		Given I login as customer "8805368840" and is on Home Page
-		And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-		And I close "Tutorial" if exist
-		And I enter "boston pickup and dropoff locations" on Bungii estimate
-		And I tap on "Get Estimate button" on Bungii estimate
-		And I add loading/unloading time of "30 mins"
-		And I get Bungii details on Bungii Estimate
-		And I add "1" photos to the Bungii
-		When I confirm trip with following detail
-			| Day | Trip Type |
-			| 2   | SOLO      |
-		And I tap on "Request Bungii" on Bungii estimate
-		And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-		And I click "Done" button on "Success" screen
+		When I request "Solo" Bungii as a customer in "boston" geofence
+			| Bungii Time   | Customer Phone | Customer Name |
+			| 3_DAY_LATER | 8877661007       | Testcustomertywd_appleMarkH LutherH|
 
-		And I Switch to "driver" application on "same" devices
-		And I Select "AVAILABLE BUNGIIS" from driver App menu
-		And I Select Trip from available trip
-		And I click "ACCEPT" button on "Bungii Request" screen
+		And I select "View Request" from pop-up
+		And I click "ACCEPT NOTIFICATION" button on Bungii Request screen
 
 		And I Switch to "customer" application on "same" devices
-		And I tap on "Menu" > "Home" link
-		And I enter "new boston pickup and dropoff locations" on Bungii estimate
-		And I tap on "Get Estimate button" on Bungii estimate
-		And I add "2" photos to the Bungii
-		And I add loading/unloading time of "30 mins"
-		And I tap on "Request Bungii" on Bungii estimate
-		And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+		When I request "Solo Scheduled" Bungii as a customer in "boston" geofence
+			| Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+			| NEXT_POSSIBLE | 8877661004     | Testcustomertywd_appleMarkE LutherE | Cci12345          |
 
 		And As a driver "valid boston" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state |
@@ -168,9 +149,8 @@ Feature: Bungii Requests
 
 		And I Switch to "driver" application on "same" devices
 		And I am logged in as "valid boston" driver
-		And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 		And I slide update button on "UNLOADING ITEMS" Screen
-		And I click "Skip This Step" button on "Rate customer" screen
-		Then I should be navigated to "Bungii Completed" screen
-		When I click "On To The Next One" button on "Bungii completed" screen
+		And Bungii Driver "skips to rate customer"
+		Then Bungii Driver "completes Bungii"
+		And I click "Next Bungii" button on the "Bungii Completed" screen
 		And I check online or offline pop up is displayed

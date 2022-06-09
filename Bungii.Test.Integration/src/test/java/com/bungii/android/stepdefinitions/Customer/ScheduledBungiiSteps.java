@@ -373,6 +373,22 @@ public class ScheduledBungiiSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I select \"([^\"]*)\" from pop-up$")
+    public void i_select_something_from_popup(String notificationButton) throws Throwable {
+       try{
+           switch (notificationButton){
+               case "View Request":
+                   action.click(bungiiRequest.Alert_ViewRequest());
+                   break;
+           }
+           log("I should be able to click on the notification button","I was able to click on the notification button",false);
+
+       }catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error Occured While Requesting Bungii. Check Screenshot for more details",
+                   true);
+       }
+    }
 
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void i_click_something_button_on_something_screen(String button, String strArg2) throws Throwable {
@@ -406,6 +422,10 @@ public class ScheduledBungiiSteps extends DriverBase {
 
                case "REJECT":
                    action.click(estimatePage.Button_CancelRequest());
+                   break;
+
+               case "ACCEPT NOTIFICATION":
+                   action.click(bungiiRequest.Button_Accept());
                    break;
            }
        }
