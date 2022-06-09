@@ -271,15 +271,15 @@ public class CommonSteps extends DriverBase {
                     testStepAssert.isTrue(incorrectPassword.contains("Incorrect password"),"Incorrect password Popup should be displayed", incorrectPassword +" is displayed",incorrectPassword+" is not displayed");
                     action.click(accountPage.Button_Cancel());
                     break;
-                case "Account can't deleted due to pending deliveries":
+                case "Account can't be deleted due to pending deliveries":
                     String textMsg1= action.getAlertMessage().toString();
                     action.clickAlertButton("OK");
-                    testStepAssert.isTrue(textMsg1.contains("You seem to have scheduled Bungii(s), please cancel any pending deliveries to proceed or contact admin in case of any issues"),"Account can't deleted due to pending deliveries Popup should be displayed", textMsg1 +" is displayed",textMsg1+" is not displayed");
+                    testStepAssert.isTrue(textMsg1.contains("You seem to have scheduled Bungii(s), please cancel any pending deliveries to proceed or contact admin in case of any issues"),"Account can't be deleted due to pending deliveries Popup should be displayed", textMsg1 +" is displayed",textMsg1+" is not displayed");
                     break;
-                case "Account can't deleted due to active deliveries":
+                case "Account can't be deleted due to active deliveries":
                     String textMsg2= action.getAlertMessage().toString();
                     action.clickAlertButton("OK");
-                    testStepAssert.isTrue(textMsg2.contains("You seem to have an active Bungii, please cancel any active delivery to proceed or contact admin in case of any issues."),"Account can't deleted due to active deliveries Popup should be displayed", textMsg2 +" is displayed",textMsg2+" is not displayed");
+                    testStepAssert.isTrue(textMsg2.contains("You seem to have an active Bungii, please cancel any active delivery to proceed or contact admin in case of any issues."),"Account can't be deleted due to active deliveries Popup should be displayed", textMsg2 +" is displayed",textMsg2+" is not displayed");
                     break;
 
                 case "Your duo teammate is on the way":
@@ -2758,14 +2758,14 @@ public class CommonSteps extends DriverBase {
             String NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
             String userName = "", password = "";
             switch (key.toLowerCase()) {
-                case "valid existing customer":
+                case "valid existing":
                     userName = PropertyUtility.getDataProperties("valid.existing.customer.phone");
                     password = PropertyUtility.getDataProperties("customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("valid.existing.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     cucumberContextManager.setScenarioContext("CUSTOMER_PASSWORD", password);
                     break;
-                case "valid existing stack customer":
+                case "valid existing stack":
                     userName = PropertyUtility.getDataProperties("valid.existing.stackcustomer.phone");
                     //userName = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE") ;
                     password = PropertyUtility.getDataProperties("customer.password");

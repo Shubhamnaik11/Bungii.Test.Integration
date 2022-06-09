@@ -163,7 +163,7 @@ Feature: Solo Scheduled Bungii Part B
     And I click "Delete account" button on "ACCOUNT INFO" screen
     #And I confirm the account deletion for customer
     And I enter "valid" password and click on delete button
-    Then I should see "Account can't deleted due to active deliveries" message
+    Then I should see "Account can't be deleted due to active deliveries" message
     And I click "Cancel" button on "Delete Account" screen
     And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
     #this notification is not logged in the db since(browserstack issue)

@@ -129,7 +129,7 @@ Feature: Customer Home screen
       When I Switch to "customer" application on "same" devices
       When I am on the "LOG IN" page
 #    And I logged in Customer application using  "valid nashville" user
-      And I logged in as "valid existing customer" customer
+      And I logged in as "valid existing" customer
       And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       And I close "Tutorial" if exist
       When I Select "ACCOUNT > ACCOUNT INFO" from Customer App menu
@@ -142,6 +142,6 @@ Feature: Customer Home screen
       And I enter "valid" password and click on delete button
       Then I should see "Account deleted successfully" message
       Then I should be navigated to "LOG IN" screen
-      And I logged in as "valid existing customer" customer
+      And I logged in as "valid existing" customer
       Then Alert message with INVALID_PASSWORD text should be displayed
       When I accept Alert message

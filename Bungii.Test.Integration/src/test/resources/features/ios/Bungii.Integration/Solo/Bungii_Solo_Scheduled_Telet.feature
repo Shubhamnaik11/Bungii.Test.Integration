@@ -146,7 +146,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I am logged in as "valid denver" driver
     And I wait for "2" mins
     When I Switch to "customer" application on "same" devices
-    And I logged in as "valid existing stack customer" customer
+    And I logged in as "valid existing stack" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I should be navigated to "Home" screen
@@ -165,7 +165,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I click "Delete account" button on "ACCOUNT INFO" screen
     #And I confirm the account deletion for customer
     And I enter "valid" password and click on delete button
-    Then I should see "Account can't deleted due to pending deliveries" message
+    Then I should see "Account can't be deleted due to pending deliveries" message
     And I click "Cancel" button on "Delete Account" screen
     When I Select "ACCOUNT > LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
