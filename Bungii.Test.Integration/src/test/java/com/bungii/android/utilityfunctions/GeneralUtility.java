@@ -324,6 +324,10 @@ Thread.sleep(5000);
                     isCorrectPage=action.isElementPresent(myBungiisPage.Header_ItemizedEarnings());
                     break;
 
+                case "EARNINGS":
+                    isCorrectPage=action.isElementPresent(myBungiisPage.Header_Earnings());
+                    break;
+
                 default:
                     String expectedMessage = p0;
                     try {
