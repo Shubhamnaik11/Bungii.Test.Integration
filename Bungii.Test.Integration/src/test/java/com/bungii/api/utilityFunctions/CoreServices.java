@@ -134,10 +134,6 @@ public class CoreServices extends DriverBase {
 
     }
     public Response validatePickupRequestOfPartnerFirm(String authToken, String geoFence) {
-        if(geoFence.equals("kansas1")){
-            String location = geoFence.replace("1","");
-            geoFence =location;
-        }
         String RequestText ="API REQUEST : Validate Pickup Request Of Partner Firm : " + authToken +" : "+ geoFence;
 
         JSONObject jsonObj = new JSONObject();
