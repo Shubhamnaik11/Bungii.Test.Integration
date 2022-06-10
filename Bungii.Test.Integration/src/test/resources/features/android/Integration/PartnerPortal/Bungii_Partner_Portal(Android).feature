@@ -67,7 +67,7 @@
       Then I check if driver cut is reflected
 
 #  Core-2411:Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip
-    @testAllan
+    @ready
     Scenario: Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
