@@ -1006,9 +1006,9 @@ public class CommonSteps extends DriverBase {
                 break;
 
             case "valid partner kansas driver2":
-                phone = PropertyUtility.getDataProperties("android.new.driver1.phone");
+                phone = PropertyUtility.getDataProperties("Kansas.driver25.phone");
                 password = PropertyUtility.getDataProperties("partner.kansas.driver.password");
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver25.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             default:
