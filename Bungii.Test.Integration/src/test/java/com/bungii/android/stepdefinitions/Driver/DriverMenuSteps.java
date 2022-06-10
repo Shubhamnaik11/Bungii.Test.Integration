@@ -75,6 +75,7 @@ public class DriverMenuSteps extends DriverBase {
             switch (strArg1) {
                 case "FAQ":
                     Thread.sleep(10000);
+                    action.scrollToTop();
                     data = action.getText(homePage.Text_CommonQuestions1()).toString();
                     testStepAssert.isEquals(data, "Common Questions", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;

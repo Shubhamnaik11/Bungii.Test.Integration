@@ -204,6 +204,7 @@ public class ActionManager {
     public void JavaScriptClick(WebElement element) {
         try{
             JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+            executor.executeScript("arguments[0].scrollIntoView(true);",element);
             executor.executeScript("arguments[0].click();", element);
         logger.detail("JS Click on element by locator" + getElementDetails(element));
 
@@ -401,4 +402,8 @@ catch(Exception ex)
         }
     }
 
+    public void switchToTab(int tab) {
+        ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
+        SetupManager.getDriver().switchTo().window(tabs.get(tab));
+    }
 }

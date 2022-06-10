@@ -83,7 +83,7 @@
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
-  
+
       @ready
       @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress
@@ -106,7 +106,7 @@
         And I click on "ADD NOTE" button
         Then "Estimate" page should be opened
         #And I select Bungii Time as "OLD BUNGII TIME"
-        And I select Bungii Time as "2 HOUR DELAY"
+        And I select Bungii Time as "next possible scheduled"
     
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
@@ -122,14 +122,13 @@
         Then Bungii driver should see "General Instructions"
         When I slide update button on "EN ROUTE" Screen
         And I slide update button on "ARRIVED" Screen
-        And I click on "MORE" button
-        And I click on "DETAILS FROM CUSTOMER" button
+        And I click on "Delivery Instructions" button
         Then I should be able to see "Details From Customer" Text
         And I terminate "driver" app on "same" devices
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
-		
+
       @ready
       @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page
@@ -152,7 +151,7 @@
         And I click on "ADD NOTE" button
         Then "Estimate" page should be opened
         #And I select Bungii Time as "next possible scheduled"
-        And I select Bungii Time as "2 HOUR DELAY"
+        And I select Bungii Time as "1 HOUR DELAY"
     
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
@@ -167,7 +166,7 @@
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
         
-  
+
       @ready
       @nonstable
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request
@@ -191,7 +190,7 @@
         And I click on "ADD NOTE" button
         Then "Estimate" page should be opened
         #And I select Bungii Time as "BUNGII TIME"
-        And I select Bungii Time as "2 HOUR DELAY"
+        And I select Bungii Time as "1 HOUR DELAY"
   
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate

@@ -3,6 +3,8 @@ package com.bungii.web.pages.partner;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class Partner_Done extends PageBase {
 
     //Trip Schedule Done text
@@ -22,5 +24,8 @@ public class Partner_Done extends PageBase {
 
     //Apply button
     public WebElement Button_Apply() { return findElement("//button[contains(text(),'Apply')]",LocatorType.XPath);}
+
+    // Report link in dropdown
+    public WebElement Text_Report() { return findElement("//span[contains(text(),'Reports')]",LocatorType.XPath);}
 }
 

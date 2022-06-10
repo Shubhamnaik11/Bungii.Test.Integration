@@ -94,6 +94,8 @@ public class Partner_DashboardPage extends PageBase {
 
     public WebElement Label_Distance() { return findElement("//label[contains(text(),'Distance in Miles -')]/strong",LocatorType.XPath);}
 
+    public WebElement Label_EstDeliveryTime(){return findElement("//label[contains(text(),'Est. Delivery Time')]/strong",LocatorType.XPath);}
+
     //Continue button
     //public  WebElement Button_Continue() { return findElement("//a[@class='btn']",LocatorType.XPath);}
     public  WebElement Button_Continue() { return findElement("//button[@class='btn']",LocatorType.XPath);}
@@ -193,9 +195,8 @@ public class Partner_DashboardPage extends PageBase {
 
     // Summary Tracking Id
     public WebElement Text_Summary_TrackingId() { return findElement("//section/div[1]/p",LocatorType.XPath);}
-
-
-
+    // Summary Delivery pick up address
+    public WebElement Text_Summary_PickupAddress() { return findElement("//section/div[1]/div/p",LocatorType.XPath);}
 
     // Summary Delivery Address
     public WebElement Text_Summary_DeliveryAddress() { return findElement("//section/div[2]/div/p",LocatorType.XPath);}

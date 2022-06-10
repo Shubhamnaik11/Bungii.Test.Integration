@@ -7,6 +7,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.driver.*;
+import com.bungii.web.pages.partner.Partner_Delivery_StatusPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -38,6 +39,7 @@ public class DriverRegistrationSteps extends DriverBase {
     Driver_VideoTrainingPage Page_Driver_Video = new Driver_VideoTrainingPage();
     Driver_FinishPage Page_Driver_Finish = new Driver_FinishPage();
     Driver_DashboardPage Page_Driver_Dashboard = new Driver_DashboardPage();
+    Partner_Delivery_StatusPage partner_Delivery_StatusPage= new Partner_Delivery_StatusPage();
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
 
@@ -51,6 +53,18 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
             case "Driver Details":
                 action.click(Page_Driver_Details.Menu_DriverDetails());
+                break;
+            case "Delivery Status URL":
+                utility.NavigateDriverRatingWebLink();
+                Thread.sleep(1000);
+                testStepAssert.isElementDisplayed(partner_Delivery_StatusPage.Label_DeliveryDetailsTitle(),"Delivery Status Page should be shown","Delivery Status page is shown","Delivery Status page is not shown");
+                log("I navigate to Delivery status page" ,
+                        "I navigated to Delivery status page" , false);
+                break;
+            case "Delivery Status URL again":
+                action.switchToTab(2);
+                action.refreshPage();
+                Thread.sleep(1000);
                 break;
         }
         pass("I should be navigate to " + page,

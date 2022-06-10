@@ -260,6 +260,28 @@ public class CommonSteps extends DriverBase {
                     action.clickAlertButton("OK");
                     testStepAssert.isTrue(text.contains("No Mail Accounts"),"No Mail Accounts Popup should be displayed", text +" is displayed",text+" is not displayed");
                     break;
+                case "Account deleted successfully":
+                    String textMsg= action.getAlertMessage().toString();
+                    action.clickAlertButton("OK");
+                    testStepAssert.isTrue(textMsg.contains("Account deleted successfully"),"Account deleted successfully Popup should be displayed", textMsg +" is displayed",textMsg+" is not displayed");
+                    break;
+                case "Incorrect password":
+                    String incorrectPassword= action.getAlertMessage().toString();
+                    action.clickAlertButton("OK");
+                    testStepAssert.isTrue(incorrectPassword.contains("Incorrect password"),"Incorrect password Popup should be displayed", incorrectPassword +" is displayed",incorrectPassword+" is not displayed");
+                    action.click(accountPage.Button_Cancel());
+                    break;
+                case "Account can't be deleted due to pending deliveries":
+                    String textMsg1= action.getAlertMessage().toString();
+                    action.clickAlertButton("OK");
+                    testStepAssert.isTrue(textMsg1.contains("You seem to have scheduled Bungii(s), please cancel any pending deliveries to proceed or contact admin in case of any issues"),"Account can't be deleted due to pending deliveries Popup should be displayed", textMsg1 +" is displayed",textMsg1+" is not displayed");
+                    break;
+                case "Account can't be deleted due to active deliveries":
+                    String textMsg2= action.getAlertMessage().toString();
+                    action.clickAlertButton("OK");
+                    testStepAssert.isTrue(textMsg2.contains("You seem to have an active Bungii, please cancel any active delivery to proceed or contact admin in case of any issues."),"Account can't be deleted due to active deliveries Popup should be displayed", textMsg2 +" is displayed",textMsg2+" is not displayed");
+                    break;
+
                 case "Your duo teammate is on the way":
                     String textMessage= action.getAlertMessage().toString();
                     testStepAssert.isTrue(message.contains(textMessage),"Your duo teammate is on the way message should be shown.","Your duo teammate is on the way message is not shown instead of that following message is shown "+textMessage);
@@ -414,6 +436,8 @@ public class CommonSteps extends DriverBase {
                         action.click(paymentPage.Button_Cancel());
                     else if (screen.equalsIgnoreCase("update"))
                         action.click(driverUpdateStatusPage.Button_Cancel());
+                    else if(screen.equalsIgnoreCase("Delete Account"))
+                        action.click(accountPage.Button_Cancel());
                     else
                         action.click(estimatePage.Button_Cancel());
                     break;
@@ -513,6 +537,9 @@ public class CommonSteps extends DriverBase {
                 case "SCHEDULE BUNGII":
                     action.click(estimatePage.Button_ScheduleBungii());
                     break;
+                case "DELETE ACCOUNT":
+                    action.click(accountPage.Button_DeleteAccount());
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name",
                             "UnImplemented Step");
@@ -525,6 +552,38 @@ public class CommonSteps extends DriverBase {
             e.printStackTrace();
             error("Step  Should be successful",
                     "Error in clicking button " +button + " on "+screen+" screen", true);
+        }
+    }
+
+    @And("^I enter \"([^\"]*)\" password and click on delete button$")
+    public void i_enter_something_password_and_click_on_delete_button(String password) throws Throwable {
+        try{
+            if(password.equalsIgnoreCase("valid")) {
+                action.clearSendKeys(accountPage.Text_AccountPassword(), PropertyUtility.getDataProperties("customer.password"));
+            }
+            else if(password.equalsIgnoreCase("invalid")){
+                action.clearSendKeys(accountPage.Text_AccountPassword(), PropertyUtility.getDataProperties("customer.password.invalid"));
+            }
+            action.click(accountPage.Button_Delete());
+        }catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error for customer account deletion", true);
+        }
+    }
+
+    @And("^I confirm that Delete button is disable$")
+    public void i_confirm_that_delete_button_is_disable() throws Throwable {
+        try{
+            //action.click(accountPage.Button_Delete());
+            testStepAssert.isElementNotEnabled(accountPage.Button_Delete(),"Delete button should be disable","Delete button is disabled.","Delete button is enable.");
+
+        }catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Delete button is not disable", true);
         }
     }
 
@@ -586,9 +645,10 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
             }
-            else
+            else {
+                Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
-
+            }
             testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I should be navigated to " + screen, "Error in navigating to " + screen + " screen ");
 
@@ -939,9 +999,9 @@ public class CommonSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             case "valid partner kansas driver":
-                phone = PropertyUtility.getDataProperties("partner.kansas.driver.phone");
+                phone = PropertyUtility.getDataProperties("valid.driver.kansas.phone");
                 password = PropertyUtility.getDataProperties("partner.kansas.driver.password");
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.kansas.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
 
@@ -1452,6 +1512,30 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("denver.customer.phone");
                     password = PropertyUtility.getDataProperties("denver.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver1":
+                    userName = PropertyUtility.getDataProperties("denver1.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver1.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver2":
+                    userName = PropertyUtility.getDataProperties("denver2.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver2.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver3":
+                    userName = PropertyUtility.getDataProperties("denver3.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver3.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver4":
+                    userName = PropertyUtility.getDataProperties("denver4.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver4.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid customer2":
@@ -2093,9 +2177,15 @@ public class CommonSteps extends DriverBase {
             }
             else
             if (!value.equalsIgnoreCase("{RANDOM_PHONE_NUM}")) {
-                inputValue = value.equalsIgnoreCase("{EMPTY}") ? "     " : inputValue;
-                inputValue = value.equalsIgnoreCase("{BLANK}") ? "" : inputValue;
-            } else {
+                if(value.equalsIgnoreCase("Deleted Phone")){
+                    inputValue = (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
+                }
+                else {
+                    inputValue = value.equalsIgnoreCase("{EMPTY}") ? "     " : inputValue;
+                    inputValue = value.equalsIgnoreCase("{BLANK}") ? "" : inputValue;
+                }
+            }
+            else {
                 inputValue = generateMobileNumber();
             }
 
@@ -2675,6 +2765,21 @@ public class CommonSteps extends DriverBase {
             String NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
             String userName = "", password = "";
             switch (key.toLowerCase()) {
+                case "valid existing":
+                    userName = PropertyUtility.getDataProperties("valid.existing.customer.phone");
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("valid.existing.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PASSWORD", password);
+                    break;
+                case "valid existing stack":
+                    userName = PropertyUtility.getDataProperties("valid.existing.stackcustomer.phone");
+                    //userName = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE") ;
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("valid.existing.stackcustomer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PASSWORD", password);
+                    break;
                 case "existing":
                     userName = PropertyUtility.getDataProperties("customer.user");
                     password = PropertyUtility.getDataProperties("customer.password");

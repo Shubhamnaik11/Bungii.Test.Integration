@@ -8,7 +8,6 @@ import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.web.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import io.appium.java_client.MobileElement;
@@ -35,7 +34,7 @@ public class AvailableTripsSteps extends DriverBase {
             String numberOfDriver = (String) cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
             //   customerName="Vishal Bagi";numberOfDriver="SOLO";
             boolean isSelected = selectBungiiFromList(numberOfDriver, customerName.substring(0, customerName.indexOf(" ") + 2));
-            if (!isSelected) {
+            if(!isSelected){
 
                 if (action.isNotificationAlertDisplayed()) {
                     if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
@@ -50,8 +49,8 @@ public class AvailableTripsSteps extends DriverBase {
                 }
             }
 
-            log("I Select Trip from driver available trip", "I Select Trip from driver available trip");
-            //  testStepVerify.isTrue(isSelected, "I should able to select trip from available trip", "I was not able find available trip for customer " + customerName + " Estimate and Customer Cancel type " + numberOfDriver);
+            log("I Select Trip from driver available trip","I Select Trip from driver available trip");
+          //  testStepVerify.isTrue(isSelected, "I should able to select trip from available trip", "I was not able find available trip for customer " + customerName + " Estimate and Customer Cancel type " + numberOfDriver);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -89,48 +88,53 @@ public class AvailableTripsSteps extends DriverBase {
                 expectedInstance = "4";
 
             }
-            if (action.isElementPresent(driverHomePage.Alert_NewBungii(true))) {
+            if(action.isElementPresent(driverHomePage.Alert_NewBungii(true)))
+            {
                 action.click(driverHomePage.Notification_AlertReject());
 
             }
             //List_AvailableBungiis
             List<WebElement> elements = availableTrips.List_AvailableBungiis();
-            if (elements.size() == 0) {
+            if(elements.size()==0)
+            {
                 fail("Trip should be displayed in available bungii list of driver",
                         "Trip is not displayed in available bungii list of driver", true);
-            } else if (elements.size() == 1) {
-                logger.detail("Only One Available Bungii List Is Available. : " + elements.get(0).getText());
+            }
+            else if (elements.size()==1)
+            {
+                logger.detail("Only One Available Bungii List Is Available. : "+ elements.get(0).getText());
                 for (WebElement element : elements) {
+                element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_arrow")).click();
+                isSelected = true;
+                }
+            }
+            else
+            for (WebElement element : elements) {
+                MobileElement image = element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_type"));
+                WebElement actualCustomer = element.findElement(By.id("com.bungii.driver:id/row_available_pickup_drivername"));
+                String actualCustomerName = actualCustomer.getText();
+                System.out.println(SetupManager.getDriver().getPageSource());
+                //      String  instance =image.getAttribute("instance");
+                if (actualCustomerName.equals(customerName)) {
                     element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_arrow")).click();
                     isSelected = true;
+                    break;
                 }
-            } else
-                for (WebElement element : elements) {
-                    MobileElement image = element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_type"));
-                    WebElement actualCustomer = element.findElement(By.id("com.bungii.driver:id/row_available_pickup_drivername"));
-                    String actualCustomerName = actualCustomer.getText();
-                    System.out.println(SetupManager.getDriver().getPageSource());
-                    //      String  instance =image.getAttribute("instance");
-                    if (actualCustomerName.equals(customerName)) {
-                        element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_arrow")).click();
-                        isSelected = true;
-                        break;
-                    }
-                }
+            }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            //    error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        //    error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
         return isSelected;
 
     }
-
     @Then("^I should be navigated to Available Nungiis screen on driver app$")
     public void i_should_be_navigated_to_something_screen_on_driver_app() throws Throwable {
         try {
             String getNaviagationText = action.getText(availableTrips.NavigationBar_Text());
             testStepVerify.isEquals(PropertyUtility.getMessage("driver.navigation.available.trips"), getNaviagationText, "I should be navigated to Available Trip page", "I am not navigated to Available Trip, Title is" + getNaviagationText);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
@@ -139,22 +143,27 @@ public class AvailableTripsSteps extends DriverBase {
 
     @And("^I Select Trip from available trip$")
     public void i_select_trip_from_available_trip() throws Throwable {
-        try {
+        try{
             Thread.sleep(6000);
-            action.click(availableTrips.Row_AvailableTrip());
-        } catch (Exception e) {
+            String expectedText = action.getText(availableTrips.Text_FromHomeMiles());
+            boolean textDisplayed = expectedText.contains("miles");
+            testStepAssert.isTrue(textDisplayed,"Text should be updated to miles","Text is updated to miles","Text is not updated to miles");
+        action.click(availableTrips.Row_AvailableTrip());
+        }
+        catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Trips are not listed in Available Bungiis of Driver", true);
         }
     }
-
     @And("^I Select second Trip from available trip$")
     public void i_select_second_trip_from_available_trip() throws Throwable {
-        try {
+        try{
             Thread.sleep(6000);
+
             action.click(availableTrips.Row_SecondAvailable());
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Trips are not listed in Available Bungiis of Driver", true);
@@ -165,6 +174,10 @@ public class AvailableTripsSteps extends DriverBase {
     public void partner_portal_name_should_be_displayed_in_something_section(String Screen) throws Throwable {
         try {
             String partnerNameExpected = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
+            String customerNameFull= (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String [] customerName = customerNameFull.split(" ");
+            String expectedCustomerName =customerName[0];
+
 
             switch (Screen) {
                 case "AVAILABLE BUNGIIS":
@@ -174,50 +187,25 @@ public class AvailableTripsSteps extends DriverBase {
                     break;
                 case "EN ROUTE":
                 case "ARRIVED":
-                case "LOADING ITEM":
+                case "LOADING ITEMS":
                     String partnerNameText = action.getText(availableTrips.Partner_Name_For_Enroute());
                     testStepAssert.isEquals(partnerNameText, partnerNameExpected, "Partner Portal name should be displayed on " + Screen + " screen", "Partner Portal name is displayed in " + Screen + " screen", "Partner Portal name is not displayed in " + Screen + " screen");
                     break;
-                case "DRIVING TO DROP OFF":
-                case "UNLOADING ITEM":
+                case "DRIVING TO DROP-OFF":
+                case "UNLOADING ITEMS":
+                    String[] customerNameText = action.getText(availableTrips.Partner_Name_For_Enroute()).split(" ");
+                    String customerNameproper = customerNameText[0];
+                    testStepAssert.isEquals(customerNameproper, expectedCustomerName, "Customer  name should be displayed on " + Screen + " screen", "Customer name is displayed in " + Screen + " screen", "Customer name is not displayed in " + Screen + " screen");
                     break;
                 default:
                     log("Correct screen", "Wrong screen", true);
                     break;
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Partner Portal name is not displayed on " + Screen,
+            error("Step should be successful", "Partner Portal name is not displayed on "+Screen,
                     true);
-        }
-    }
-    @And("^Driver status should be \"([^\"]*)\"$")
-    public void driver_status_should_be_something(String strArg1) throws Throwable {
-        try {
-            String expectedDriverOnlineStatus ="1";
-            String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-            String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
-            testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
-
-        } catch (Throwable e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
-        }
-    }
-
-    @Then("^I should see \"([^\"]*)\" popup displayed$")
-    public void i_should_see_something_popup_displayed(String expectedPopupText) throws Throwable {
-        try {
-            Thread.sleep(4000);
-            String popupText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
-            boolean popupDisplayed = Page_BungiiRequest.Alert_NewBungiiRequest(true).isDisplayed();
-            testStepAssert.isTrue(popupDisplayed, "Stack trip request should be displayed", "Stack trip request is  displayed", "Stack trip request is not displayed");
-            testStepAssert.isEquals(popupText, expectedPopupText, "Stack trip request should be present", "Stack trip request is present", "Stack trip request is not present");
-        } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
         }
     }
 }

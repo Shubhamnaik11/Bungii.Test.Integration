@@ -36,7 +36,7 @@ Feature: SoloScheduled Part C
       | Bungii Time   | Customer Phone | Customer Name                        | Customer Password |
       | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer | Cci12345          |
     And I get TELET time of of the current trip
-    And As a driver "Testdrivertywd_appleks_a_drvh Kansas_h" perform below action with respective "SOLO SCHEDULED" trip
+    And As a driver "Testdrivertywd_appleks_a_drvv Kansas_v" perform below action with respective "SOLO SCHEDULED" trip
       | driver1 state |
       | Accepted      |
 
@@ -45,7 +45,7 @@ Feature: SoloScheduled Part C
     And I close "Tutorial" if exist
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Testdrivertywd_appleks_a_drvh Kansas_h" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drvv Kansas_v" driver
     And I wait for "4" mins
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I wait for "3" mins

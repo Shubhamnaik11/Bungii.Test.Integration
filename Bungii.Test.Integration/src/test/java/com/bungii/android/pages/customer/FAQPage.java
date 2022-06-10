@@ -19,7 +19,7 @@ public class FAQPage extends PageBase {
     public WebElement FAQ_AppFAQTitle() { return findElement("", LocatorType.Id); }
 
     // public WebElement FAQ_FirstQuestion() { return findElement("//android.view.View[3][@instance='33']", LocatorType.XPath); }
-    public WebElement FAQ_FirstQuestion() { return findElement("//android.view.View[contains(@text,'So what exactly is Bungii?')]", LocatorType.XPath); }
+    public WebElement FAQ_FirstQuestion() { return findElement("//android.view.View[@content-desc=\"What is your approach to COVID-19?\"]/android.widget.TextView", LocatorType.XPath); }
     public WebElement FAQ_FirstQuestion_open() { return findElement("//android.view.View[3][@instance='35']", LocatorType.XPath); }
   //  public WebElement FAQ_FirstAnswer(boolean...ignoreException) { return findElement("//android.view.View[contains(@text,'So what exactly is Bungii?')]/following-sibling::android.view.View", LocatorType.XPath,ignoreException); }
    // public WebElement FAQ_FirstAnswer(boolean...ignoreException) { return findElement("//android.view.View[@resource-id='elementor-tab-content-1261']", LocatorType.XPath,ignoreException); }
