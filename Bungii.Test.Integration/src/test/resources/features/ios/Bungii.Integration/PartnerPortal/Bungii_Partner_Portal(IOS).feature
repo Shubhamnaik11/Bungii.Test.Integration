@@ -41,7 +41,7 @@ Feature: Partner Portal Cases integration with IOS
   Scenario: Verify that driver's status remains Online when his previous status was Online once he starts the schedule tripfor ios
     When I request Partner Portal "SOLO" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      |Kansas| NEXT_POSSIBLE | 8877661017 | Testcustomertywd_appleMarkR LutherR|
     And I Switch to "driver" application on "same" devices
     And I login to driver app
     And I Select "AVAILABLE BUNGIIS" from driver App menu
