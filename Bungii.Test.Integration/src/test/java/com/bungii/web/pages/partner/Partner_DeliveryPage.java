@@ -60,6 +60,12 @@ public class Partner_DeliveryPage extends PageBase {
     //Scheduled By
     public WebElement TextBox_Scheduled_By() { return findElement("//label[text()='Scheduled By']/following::input[1]",LocatorType.XPath);}
 
+    //Bodc Code
+    public WebElement Dropdown_Bodc_Code() { return findElement("//label[text()='BODC Code']/following::div[1]/div[1]",LocatorType.XPath);}
+
+    //Bodc Code value
+    public WebElement Dropdown_Bodc_Code_Value() { return findElement("//li[contains(text(),'SVC02/09/00')]",LocatorType.XPath);}
+
     //Pickup Date Time
     public WebElement Label_Pickup_Date_Time() { return findElement("//label[contains(text(),'Pickup Date & Time:')]/following-sibling::p",LocatorType.XPath);}
 
@@ -115,6 +121,11 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Partner Pay Radio button
     public WebElement Radio_Button_Partner_Pay() { return findElement("//label[contains(text(),'Partner Pay')]",LocatorType.XPath);}
+
+    //Partner Invoice Radio button
+    //public WebElement Radio_Button_Partner_Invoice() { return findElement("//label[contains(text(),'Partner Invoice')]",LocatorType.XPath);}
+    public WebElement Radio_Button_Partner_Invoice() { return findElement("MI",LocatorType.Id);}
+
 
     //Schedule Bungii button
     //public WebElement Button_Schedule_Bungii() { return findElement("submit-details",LocatorType.Id);}
