@@ -66,16 +66,14 @@
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       Then I check if driver cut is reflected
 
-#  Core-2411:Verify that driver's status remains Online when his pervious status was Online once he starts the schedule trip
+#  Core-2411:Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip
     @ready
-    Scenario: Verify that driver's status remains Online when his pervious status was Online once he starts the schedule trip
+    Scenario: Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
         |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
-     And I am logged in as "Testdrivertywd_appleks_andro_a Kansas_a" driver
+     And I am logged in as "Testdrivertywd_appleks_a_drval Kansas_al" driver
       Then I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-      When I switch to "ORIGINAL" instance
-      And I Switch to "driver" application on "same" devices
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section

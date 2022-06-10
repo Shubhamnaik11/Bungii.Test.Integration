@@ -1241,6 +1241,34 @@ public class BungiiSteps extends DriverBase {
     public void simulatorBungiiDriver(String arg0) throws Throwable {
 
     }
+    @And("^Driver status should be \"([^\"]*)\"$")
+    public void driver_status_should_be_something(String strArg1) throws Throwable {
+        try {
+            String expectedDriverOnlineStatus ="1";
+            String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+            testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I should see \"([^\"]*)\" popup displayed$")
+    public void i_should_see_something_popup_displayed(String expectedMessage) throws Throwable {
+        try{
+      boolean isDisplayed =Page_BungiiRequest.Alert_NewBungiiRequest(true).isDisplayed();
+      testStepAssert.isTrue(isDisplayed,"Stack trip request should be displayed","Stack trip request is displayed","Stack trip request is not displayed");
+      String popUpText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+      testStepAssert.isEquals(popUpText,expectedMessage,"Stack trip request should be present","Stack trip request is present","Stack trip request is not present");
+     }catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     private void validateSMSNumber(String actualValue,String expectedValue) {
         try {
             String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
