@@ -2236,7 +2236,7 @@ try{
 
         catch (Exception ex){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Cost of the delivery is not shown as zero",
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
