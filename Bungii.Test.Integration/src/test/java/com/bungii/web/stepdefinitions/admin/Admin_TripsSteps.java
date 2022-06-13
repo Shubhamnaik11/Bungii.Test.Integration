@@ -2225,8 +2225,8 @@ try{
         }
     }
 
-    @Then("^Confirmation Message on Edit Live Delivery Pop up should be displayed$")
-    public void confirmation_message_on_edit_live_delivery_pop_up_should_be_displayed() throws Throwable {
+    @Then("^Confirmation message on edit live delivery pop up should be displayed$")
+    public void confirmation_message_on_edit_live_delivery_pop_up_should_be_displayed() throws Throwable  {
         try
         {
             String expectedMessage = PropertyUtility.getMessage("admin.complete.confirm");
