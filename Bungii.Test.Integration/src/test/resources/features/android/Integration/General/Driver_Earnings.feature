@@ -87,7 +87,7 @@ Feature: Driver Earnings
     Then I compare with earnings from admin portal for "duo second driver"
 
 #  Core-2117 Verify that driver receives notification of address change when app is in foreground/background
-    @ready
+  @ready
     Scenario: Verify that driver receives notification of address change when app is in foreground/background
       Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
         | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
@@ -113,6 +113,8 @@ Feature: Driver Earnings
       And I select the live trip for "Testcustomertywd_appleMarkO LutherO" customer
       And I edit the drop off address
       Then I change the drop off address to "4800 East 63rd Street, Kansas City"
+      And I edit the pickup address
+      Then I change the pickup address to "6700 Lewis Road, Kansas City"
       And I click on "VERIFY" button
       And the "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
@@ -124,10 +126,16 @@ Feature: Driver Earnings
       And I wait for "2" mins
       And I should see the notification for address change
 
+#  Core-2117 Verify that driver can view updated pickup and drop off address after polling refresh on app (live trip)
+      And I swipe to check trip details
+      Then I check if "dropoff address" is updated for live trip
+      Then I check if "pickup address" is updated for live trip
 
- #  Core-2117 Verify that driver can view updated pickup/drop-off address after polling refresh on app
+
+
+ #  Core-2345 Verify that driver can view updated pickup/drop-off address after polling refresh on app (scheduled trip)
     @ready
-    Scenario: To verify that driver can view updated pickup/drop-off address after polling refresh on app
+    Scenario: Verify that driver can view updated pickup/drop-off address after polling refresh on app (scheduled trip)
       Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
         | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
         | NEXT_POSSIBLE | 8877661015     | Cci12345          | Testcustomertywd_appleMarkP LutherP |
@@ -165,10 +173,12 @@ Feature: Driver Earnings
       And I check if "dropoff address" is updated
       And I check if "pickup address" is updated
 
+      Then I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 8877661015      |                 |
+
 #    Core-2117  Verify that already accepted stacked trip does not change if current trips address(s) changes
    @ready
-#     @testsweta
-#     works
    Scenario: Verify that already accepted stacked trip does not change if current trips address(s) changes
      Given that ondemand bungii is in progress
        | geofence | Bungii State        |
@@ -178,7 +188,6 @@ Feature: Driver Earnings
      And I am on the LOG IN page on driver app
      And I am logged in as "valid atlanta" driver
 
-    #switch to customer so that driver app is in background :Click by notification
      When I Switch to "customer" application on "same" devices
      When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
        | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |

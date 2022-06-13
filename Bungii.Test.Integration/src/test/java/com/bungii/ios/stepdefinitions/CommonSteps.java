@@ -32,6 +32,7 @@ import cucumber.api.java.en.When;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -1658,8 +1659,14 @@ public class CommonSteps extends DriverBase {
     public void i_select_the_live_trip_for_something_customer(String custName) throws Throwable {
         try {
             String pickupReference= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-
             action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupReference);
+
+            if(custName.equalsIgnoreCase("Ondemand"))
+            {
+                String pickupReferenceOndemand=(String) cucumberContextManager.getScenarioContext("ONDEMAND_PICKUP_ID");
+                action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupReferenceOndemand);
+            }
+
             action.click(scheduledTripsPage.Button_Search());
 
             Thread.sleep(25000);
@@ -1847,6 +1854,44 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing  step" +  ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
+        }
+    }
+    @And("^I swipe to check trip details$")
+    public void i_swipe_to_check_trip_details() throws Throwable {
+        try{
+            swipeForTripDetails();
+            Thread.sleep(3000);
+
+            log("I should be able to swipe to view delivery details","I am able to swipe to view delivery details",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check if \"([^\"]*)\" is updated for live trip$")
+    public void i_check_if_something_is_updated_for_live_trip(String address) throws Throwable {
+        try{
+            switch (address){
+                case "dropoff address":
+                    action.swipeUP();
+                    String changedDropOff= (String) cucumberContextManager.getScenarioContext("Change_Drop_Off");
+                    String actualDropOff=bungiiRequestPage.Text_DropOffAddress().getText();
+                    testStepAssert.isEquals(actualDropOff,changedDropOff, "The drop off address should be updated", "The drop off address is updated", "The drop off address is not updated");
+                    break;
+
+                case "pickup address":
+                    action.swipeDown();
+                    String changedPickup = (String) cucumberContextManager.getScenarioContext("Change_Pickup");
+                    String actualPickUp = bungiiRequestPage.Text_PickUpAddress().getText();
+                    testStepAssert.isEquals(actualPickUp,changedPickup, "The pick up address should be updated", "The pick up address is updated", "The pick up address is not updated");
+                    break;
+
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
     @And("^I check if \"([^\"]*)\" is updated$")
@@ -3000,5 +3045,17 @@ public class CommonSteps extends DriverBase {
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
+
+    }
+    public void swipeForTripDetails(){
+        WebElement sliderStart = bungiiRequestPage.Text_SwipeUpDetails();
+        WebElement sliderEnd = bungiiRequestPage.Navbar_DeliveryProgress();
+        Rectangle initialPoint;
+        Rectangle finalPoint;
+        initialPoint = action.getLocatorRectangle(sliderStart);
+        finalPoint = action.getLocatorRectangle(sliderEnd);
+        action.dragFromToForDuration(initialPoint.getX(),initialPoint.getY(),finalPoint.getX(),finalPoint.getY(),1);
+
+
     }
 }
