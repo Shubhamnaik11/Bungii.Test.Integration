@@ -31,7 +31,6 @@ public class ScheduledBungiiSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
-    BungiiRequest bungiiRequestPage = new BungiiRequest();
     private static LogUtility logger = new LogUtility(ScheduledBungiiSteps.class);
     @And("I open first Trip from driver scheduled trip")
     public void iSelectFirstTripFromDriverScheduledTrip() {
@@ -75,8 +74,9 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void i_should_see_the_notification_for_address_change() throws Throwable {
       try{
           action.scrollToTop();
-          action.isElementPresent(bungiiRequestPage.Notification_AddressChanged());
-          action.click(bungiiRequestPage.Button_NotificationOk());
+          action.isElementPresent(Page_BungiiRequest.Notification_AddressChanged());
+          action.click(Page_BungiiRequest.Button_NotificationOk());
+          log("I should be to see address change notification","I was able to see address change notification",false);
       }
       catch (Exception e) {
           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -104,14 +104,14 @@ public class ScheduledBungiiSteps extends DriverBase {
                case "dropoff address":
                    action.scrollToBottom();
                    String changedDropOff= (String) cucumberContextManager.getScenarioContext("Change_Drop_Off");
-                   String actualDropOff=bungiiRequestPage.Text_DropOffAddress().getText();
+                   String actualDropOff=Page_BungiiRequest.Text_DropOffAddress().getText();
                    testStepAssert.isEquals(actualDropOff,changedDropOff, "The drop off address should be updated", "The drop off address is updated", "The drop off address is not updated");
                    break;
 
                case "pickup address":
                    action.scrollToTop();
                    String changedPickup = (String) cucumberContextManager.getScenarioContext("Change_Pickup");
-                   String actualPickUp = bungiiRequestPage.Text_PickUpAddress().getText();
+                   String actualPickUp = Page_BungiiRequest.Text_PickUpAddress().getText();
                    testStepAssert.isEquals(actualPickUp,changedPickup, "The pick up address should be updated", "The pick up address is updated", "The pick up address is not updated");
                    break;
 
@@ -130,13 +130,13 @@ public class ScheduledBungiiSteps extends DriverBase {
                 case "pickup address":
                     action.scrollToTop();
                     String changedPickup[] = cucumberContextManager.getScenarioContext("Change_Pickup").toString().split(",");
-                    String actualPickUpLineOne=action.getText(bungiiRequestPage.Text_PickupLocation_LineOne1());;
+                    String actualPickUpLineOne=action.getText(Page_BungiiRequest.Text_PickupLocation_LineOne1());;
                     testStepAssert.isEquals(actualPickUpLineOne,changedPickup[0], "The pick up address should be updated", "The pick up address is updated", "The pick up address is not updated");
                     break;
                 case "dropoff address":
                     action.scrollToTop();
                     String changedDropOff[]=cucumberContextManager.getScenarioContext("Change_Drop_Off").toString().split(",");
-                    String actualDropOffLineOne=action.getText(bungiiRequestPage.Text_DropOffLocation_LineOne1());;
+                    String actualDropOffLineOne=action.getText(Page_BungiiRequest.Text_DropOffLocation_LineOne1());;
                     testStepAssert.isEquals(actualDropOffLineOne,changedDropOff[0], "The drop off address should be updated", "The drop off address is updated", "The drop off address is not updated");
                     break;
             }
