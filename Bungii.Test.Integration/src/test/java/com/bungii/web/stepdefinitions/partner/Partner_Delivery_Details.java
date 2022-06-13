@@ -373,9 +373,9 @@ public class Partner_Delivery_Details extends DriverBase {
     @And("^I select the value in Bodc Code$")
     public void i_select_the_value_in_bodc_code() throws Throwable{
        try {
-           action.click(Page_Partner_Delivery.Dropdown_Bodc_Code());
-           action.click(Page_Partner_Delivery.Dropdown_Bodc_Code_Value());
-           String BodcCode=action.getText(Page_Partner_Delivery.Dropdown_Bodc_Code());
+           action.click(Page_Partner_Delivery.Dropdown_BodcCode());
+           action.click(Page_Partner_Delivery.Dropdown_BodcCodeValue());
+           String BodcCode=action.getText(Page_Partner_Delivery.Dropdown_BodcCode());
            log("I should able to select SVC2/09/00 in Scheduled by field", "I selected " + BodcCode + " in Scheduled by field.", false);
        }
        catch (Exception e) {
@@ -388,7 +388,7 @@ public class Partner_Delivery_Details extends DriverBase {
     @Then("^Partner invoice should be selected as default Payment Method$")
     public void partner_invoice_should_be_selected_as_default_payment_method() throws Throwable {
         try {
-            testStepAssert.isTrue(Page_Partner_Delivery.Radio_Button_Partner_Invoice().isSelected(), "Partner Invoice is selected by default", "Partner Invoice is Not selected by Default");
+            testStepAssert.isTrue(Page_Partner_Delivery.RadioButton_PartnerInvoice().isSelected(), "Partner Invoice is selected by default", "Partner Invoice is Not selected by Default");
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
