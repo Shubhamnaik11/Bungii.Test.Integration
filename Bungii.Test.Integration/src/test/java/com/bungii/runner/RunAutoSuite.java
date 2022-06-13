@@ -18,11 +18,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
-@CucumberOptions(features = "target/test-classes/features/web", monochrome = true, tags = "@web and @Siddhi", plugin = {
+@CucumberOptions(features = "target/test-classes/features/android", monochrome = true, tags = "@android and @regression", plugin = {
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
-        glue = {"com.bungii.web.stepdefinitions", "com.bungii.api", "com.bungii.hooks"}
+        glue = {"com.bungii.android.stepdefinitions", "com.bungii.api", "com.bungii.hooks"}
 )
 public class RunAutoSuite extends AbstractTestNGCucumberTests {
     CucumberHooks hooks;
