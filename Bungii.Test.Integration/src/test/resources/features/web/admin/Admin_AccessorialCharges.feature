@@ -40,7 +40,7 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 | Fee Type         | Driver Cut |
 | Excess Wait Time | 2          |
 | Cancelation      | 4.5        |
-| Mountainious     | 10.0       |
+| Mountainous     | 10.0       |
 | Other            | 20         |
  And "accessorial_fee_amount" should show total amount in the triprequest table in Database
  And "business_notes" should show comment without quotes in the trippaymentdetails table in Database
@@ -156,7 +156,7 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 | Fee Type         | Driver Cut |
 | Excess Wait Time | 2          |
 | Cancelation      | 4.5        |
-| Mountainious     | 10         |
+| Mountainous     | 10         |
 | Other            | 20         |
 And I login to driver portal on a new tab with driver phone number "9049840210"
 Then the accessorial charges cut should be displayed in total earnings

@@ -179,7 +179,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("CancellationCut",properDriverCutForCancelation.trim());
                         testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("CancellationCut"), "Cancelation driver cut charges should match","Cancelation driver cut charges match","Cancelation driver cut charges dont match");
                         break;
-                    case "Mountainious":
+                    case "Mountainous":
                         String mountainous= feeType.replace(" ", "");
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(3));
                         Thread.sleep(2000);
@@ -395,8 +395,8 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     public void i_click_on_something_link_to_get_the_total_driver_earnings_value_screen_and_navigate_back_to_admin_portal(String strArg1) throws Throwable {
         try{
         Thread.sleep(1000);
-        action.click(driver_DashboardPage.Link_Driver_BasicInfo());
-        String entireDriverEarning = action.getText(Page_Driver_Details.Text_Driver_TotalEarnings()).replace("\\$","");
+        action.click(driver_DashboardPage.Link_DriverBasicInfo());
+        String entireDriverEarning = action.getText(Page_Driver_Details.Text_DriverTotalEarnings()).replace("\\$","");
         cucumberContextManager.setScenarioContext("Initial_Driver_Total_Earning",entireDriverEarning);
         ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
         SetupManager.getDriver().switchTo().window(tabs.get(0));
@@ -440,9 +440,9 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     public void the_accessorial_charges_cut_should_be_displayed_in_total_earnings() throws Throwable {
         try {
         Thread.sleep(1000);
-        action.click(driver_DashboardPage.Link_Driver_BasicInfo());
+        action.click(driver_DashboardPage.Link_DriverBasicInfo());
 
-        Float entireDriverEarning = Float.parseFloat(action.getText(Page_Driver_Details.Text_Driver_TotalEarnings()).replace("$", ""));
+        Float entireDriverEarning = Float.parseFloat(action.getText(Page_Driver_Details.Text_DriverTotalEarnings()).replace("$", ""));
         String initialDriverTotal =(String)  cucumberContextManager.getScenarioContext("Initial_Driver_Total_Earning").toString().replace("$","");
         String driverExcessWaitCutAmount =(String) cucumberContextManager.getScenarioContext("ExcessWaitCut").toString().replace("$","");
         String driverCancellationCutAmount =(String) cucumberContextManager.getScenarioContext("CancellationCut").toString().replace("$","");

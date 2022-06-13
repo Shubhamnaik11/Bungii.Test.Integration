@@ -108,5 +108,5 @@ public class Driver_DetailsPage extends PageBase {
 
     public WebElement Link_Logout () { return findElement("//a[text()='log out']", LocatorType.XPath); }
 
-    public WebElement Text_Driver_TotalEarnings () { return findElement("//div[2]/div[1]/div[1]/div[@class=\"media-body\"]/h3", LocatorType.XPath); }
+    public WebElement Text_DriverTotalEarnings () { return findElement("//div[2]/div[1]/div[1]/div[@class=\"media-body\"]/h3", LocatorType.XPath); }
 }
