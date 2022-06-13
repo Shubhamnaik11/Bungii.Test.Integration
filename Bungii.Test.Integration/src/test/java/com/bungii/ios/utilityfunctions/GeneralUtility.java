@@ -400,8 +400,14 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void navigateFromTermToHomeScreen() throws InterruptedException {
-        action.click(termsAndConditionPage.Button_CheckOff());
-        action.click(termsAndConditionPage.Button_Continue());
+        //action.click(termsAndConditionPage.Button_CheckOff());
+        //action.click(termsAndConditionPage.Button_Continue());
+        if(action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
+            action.click(termsAndConditionPage.Button_CheckOff());
+            action.click(termsAndConditionPage.Button_Continue());
+            Thread.sleep(3000);
+            // pageHeader = utility.getPageHeader();
+        }
         if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
             action.click(enableNotificationPage.Button_Sure());
             action.clickAlertButton("Allow");
@@ -409,6 +415,7 @@ public class GeneralUtility extends DriverBase {
 
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
+            Thread.sleep(3000);
             action.clickAlertButton("Always Allow"); // Added for customer App changes  Krishna
         }
         Thread.sleep(5000);

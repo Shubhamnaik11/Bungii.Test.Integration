@@ -167,7 +167,7 @@ Feature: Admin_Live_Delivery_Edit
     And I click on "Delivery Completed" radiobutton
     And I enter delivery completion date and time as per geofence
     And I click on "CALCULATE COST" button
-    Then Confirmation message on edit live delivery Pop up should be displayed
+    Then Confirmation message on edit live delivery pop up should be displayed
     And I click on "Confirm" button
     Then The "Pick up has been successfully updated." message should be displayed for live delivery
     And I view the Deliveries list on the admin portal
@@ -201,7 +201,7 @@ Feature: Admin_Live_Delivery_Edit
     And I click on "Delivery Completed" radiobutton
     And I enter delivery completion date and time as per geofence
     And I click on "CALCULATE COST" button
-    Then Confirmation message on edit live delivery Pop up should be displayed
+    Then Confirmation message on edit live delivery pop up should be displayed
     And I click on "Confirm" button
     Then The "Pick up has been successfully updated." message should be displayed for live delivery
     And I view the Deliveries list on the admin portal
