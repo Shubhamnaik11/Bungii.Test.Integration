@@ -193,20 +193,17 @@ public class ScheduledBungiiSteps extends DriverBase {
         String dropOffLine2 = (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2");
         String totalDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 
-        Thread.sleep(3000);
-        String a =action.getText(tripDetailsPage.Text_Pickup_Location_line1());
-        String b =action.getText(tripDetailsPage.Text_Pickup_Location_line2());
-        String c = action.getText(tripDetailsPage.Text_DropOff_Location_line1());
-        String d =action.getText(tripDetailsPage.Text_DropOff_Location_line2());
+        String uiPickupLocationline1 =action.getText(tripDetailsPage.Text_Pickup_Location_line1());
+        String uiPickupLocationline2 =action.getText(tripDetailsPage.Text_Pickup_Location_line2());
+        String uiDropOffLocationline1 = action.getText(tripDetailsPage.Text_DropOff_Location_line1());
+        String uiDropOffLocationline2 =action.getText(tripDetailsPage.Text_DropOff_Location_line2());
         String distance = action.getText(tripDetailsPage.Text_Total_Distance());
-        Thread.sleep(3000);
 
-        testStepAssert.isEquals(a,pickupLine1,"Pickup Location line 1 text should be " + pickupLine1,"Pickup Location line 1 text is " + a,"Pickup Location line 1 text is not " + pickupLine1);
-        testStepAssert.isEquals(b,pickupLine2,"Pickup Location line 2 text should be " + pickupLine2,"Pickup Location line 2 text is " + b,"Pickup Location line 2 text is not " + pickupLine2);
-        testStepAssert.isEquals(c,dropOffLine1,"DropOff Location line 1 text should be " + dropOffLine1,"dropOff Location line 1 text is " + c,"dropOff Location line 1 text is not " + dropOffLine1);
-        testStepAssert.isEquals(d,dropOffLine2,"DropOff Location line 2 text should be " + dropOffLine2,"dropOff Location line 2 text is " + d,"dropOff Location line 2 text is not " + dropOffLine2);
+        testStepAssert.isEquals(uiPickupLocationline1,pickupLine1,"Pickup Location line 1 text should be " + pickupLine1,"Pickup Location line 1 text is " + uiPickupLocationline1,"Pickup Location line 1 text is not " + pickupLine1);
+        testStepAssert.isEquals(uiPickupLocationline2,pickupLine2,"Pickup Location line 2 text should be " + pickupLine2,"Pickup Location line 2 text is " + uiPickupLocationline2,"Pickup Location line 2 text is not " + pickupLine2);
+        testStepAssert.isEquals(uiDropOffLocationline1,dropOffLine1,"DropOff Location line 1 text should be " + dropOffLine1,"dropOff Location line 1 text is " + uiDropOffLocationline1,"dropOff Location line 1 text is not " + dropOffLine1);
+        testStepAssert.isEquals(uiDropOffLocationline2,dropOffLine2,"DropOff Location line 2 text should be " + dropOffLine2,"dropOff Location line 2 text is " + uiDropOffLocationline2,"dropOff Location line 2 text is not " + dropOffLine2);
         testStepAssert.isEquals(distance,totalDistance,"total distance should be " + totalDistance,"total distance is " + distance,"total distance is not " + totalDistance);
-        Thread.sleep(2000);
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

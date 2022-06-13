@@ -473,4 +473,4 @@ Feature: Solo Scheduled Bungii Part A
     And I click "Skip This Step" button on "Rate customer" screen
     When I click "On To The Next One" button on "Bungii completed" screen
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    Then The trip should be present in schedule trip
+    Then The trip should be present in schedule delivery

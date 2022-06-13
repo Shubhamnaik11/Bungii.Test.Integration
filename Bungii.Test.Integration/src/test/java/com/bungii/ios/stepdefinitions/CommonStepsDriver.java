@@ -564,8 +564,9 @@ public class CommonStepsDriver extends DriverBase {
                     true);
         }
     }
-    @Then("^The trip should be present in schedule trip$")
-    public void the_trip_should_be_present_in_schedule_trip() throws Throwable {
+
+    @Then("^The trip should be present in schedule delivery$")
+    public void the_trip_should_be_present_in_schedule_delivery() throws Throwable {
         try {
             Thread.sleep(3000);
             String driverAppTripTimeDate = action.getText(scheduledBungiipage.Text_Trip_DateTime());
