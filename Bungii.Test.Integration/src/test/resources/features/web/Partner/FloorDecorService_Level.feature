@@ -36,4 +36,4 @@ Feature: Floor and Decore Service Level
     And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|

@@ -60,7 +60,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         switch (scheduleDate) {
             case "Time":
                     action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
-                    Thread.sleep(1000);
+                    Thread.sleep(3000);
                     action.click(admin_EditScheduledBungiiPage.Dropdown_ScheduledDate_Time());
                     String timeChanged = admin_EditScheduledBungiiPage.TimePicker_Time().getText();
                     cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);

@@ -36,8 +36,8 @@ public class DriverHomePage extends PageBase {
     public WebElement Notification_AlertReject () { return findElement("com.bungii.driver:id/notification_alert_button_negative", LocatorType.Id); }
 
     public WebElement Text_CommonQuestions () { return findElement("//android.view.View[@text='WHAT IS THIS PAGE FOR?']",LocatorType.XPath); }
-    public WebElement Text_CommonQuestions1 () { return findElement("//android.view.View[@text='Common Questions']",LocatorType.XPath); }
-    public WebElement Text_Leaderboard () { return findElement("//*[@resource-id='content']/android.view.View[2]/descendant::android.view.View[last()]", LocatorType.XPath); }
+    public WebElement Text_CommonQuestions1 () { return findElement("//android.widget.TextView[@text='Common Questions']",LocatorType.XPath); }
+    public WebElement Text_Leaderboard () { return findElement("//*[@resource-id='content']/android.view.View[2]/descendant::android.view.View[last()]/android.widget.TextView", LocatorType.XPath); }
     public WebElement Text_ScheduledBungiis () { return findElement("//android.widget.TextView[@text='No Bungiis']",LocatorType.XPath); }
     public WebElement Text_AvailableTrips () { return findElement("//android.widget.TextView[@text='No Bungiis available']",LocatorType.XPath); }
     public WebElement Text_NoDeliveriesAvailable () { return findElement( "//android.widget.TextView[2]",LocatorType.XPath); }

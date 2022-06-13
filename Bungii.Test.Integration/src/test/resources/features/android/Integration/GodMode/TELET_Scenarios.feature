@@ -9,11 +9,11 @@
     Scenario: Verify that TELET time of solo scheduled when trip is not started and same driver is assigned to another scheduled trip at same time
       When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
         | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+        | NEXT_POSSIBLE | 8877661003     | Testcustomertywd_appleMarkD LutherD | Cci12345          |
       And I get TELET time of of the current trip
       When I request another "Solo Scheduled" Bungii as a customer in "goa" geofence
         | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
-        | TELET SAME TIME  | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
+        | TELET SAME TIME  | 8877661004     | Testcustomertywd_appleMarkE LutherE | Cci12345          |
    
       Then I wait for "2" mins
       When I open new "Chrome" browser for "ADMIN"
@@ -21,7 +21,7 @@
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
       #And I click on "Edit Trip1" button
-      And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+      And I open the trip for "Testcustomertywd_appleMarkD LutherD" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
@@ -31,7 +31,7 @@
       When I click on "Close" button
    
       #And I click on "Edit Trip2" button
-   And I open the trip for "Testcustomertywd_appleand_C Android" the customer
+   And I open the trip for "Testcustomertywd_appleMarkE LutherE" the customer
    And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
@@ -459,6 +459,8 @@
         And I slide update button on "DRIVING TO DROP OFF" Screen
         And I slide update button on "UNLOADING ITEM" Screen
         Then I accept Alert message for "Reminder: both driver at drop off"
+        When Bungii Driver "rates driver"
+        And Bungii Driver "skips to rate customer"
         Then Bungii Driver "tab On to Next"
         And I Select "SCHEDULED BUNGIIS" from driver App menu
         Then I should able to see "one" scheduled trip

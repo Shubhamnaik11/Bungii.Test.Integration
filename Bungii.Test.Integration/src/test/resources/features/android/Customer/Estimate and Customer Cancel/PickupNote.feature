@@ -136,9 +136,8 @@ Feature: PickupNote Feature
 	And I am logged in as "Testdriver_goa_e Android_test" driver
 	When I slide update button on "EN ROUTE" Screen
 	And I slide update button on "ARRIVED" Screen
-	And I click on "MORE" button
-	And I click on "DETAILS FROM CUSTOMER" button
-	And I should be able to see "Details From Customer" Text
+	  And I click on "Delivery Instructions" button
+	  Then I should be able to see "Details From Customer" Text
 	And I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | 9889889888      |                 |

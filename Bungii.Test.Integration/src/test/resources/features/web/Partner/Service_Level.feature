@@ -81,7 +81,7 @@ Feature: Service Level
     And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
-      | Searching Drivers|
+      | Assigning Driver(s)|
     #Then the Bungii details is displayed successfully
     #And I should logout from Partner Portal
 
@@ -122,7 +122,7 @@ Feature: Service Level
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     And I select the partner portal scheduled trip on scheduled delivery
     Then I should "see correct Estimation Duration" for "Biglots" Alias
 

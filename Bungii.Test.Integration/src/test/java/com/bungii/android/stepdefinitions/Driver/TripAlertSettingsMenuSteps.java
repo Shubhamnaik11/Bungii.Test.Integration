@@ -10,7 +10,6 @@ import com.bungii.android.pages.customer.PromosPage;
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
@@ -39,6 +38,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     SearchingPage searchingPage = new SearchingPage();
+    MyBungiisPage myBungiisPage = new MyBungiisPage();
     EarningsPage earningsPage = new EarningsPage();
 
 
@@ -150,7 +150,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "Details From Customer":
-                    noteText=action.getText(inProgressPages.Text_CustomerNote());
+                    noteText=action.getText(inProgressPages.Text_DeliveryInstructions());
                     enteredNoteText=(String)cucumberContextManager.getScenarioContext("NOTE_TEXT");
                     if(noteText.equals(enteredNoteText)){
                         testStepAssert.isTrue(true, "The note text of customer and driver should match.", "The note text of customer and driver didn't match.");
@@ -207,7 +207,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "SAVE TIME":
                     action.click(tripAlertSettingsPage.TimePicker_OK());
                     action.click(tripAlertSettingsPage.Button_SaveTime());
-
                     break;
 
                 case "ADD":
@@ -231,7 +230,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "MORE":
-                    action.click(inProgressPages.Button_More());
+                    action.click(inProgressPages.Button_MoreOptions());
                     break;
 
                 case "DETAILS FROM CUSTOMER":
@@ -239,10 +238,12 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "VERIFY":
+                    action.javaScriptScrollDown(scheduledTripsPage.Button_VerifyDriver());
                     action.click(scheduledTripsPage.Button_VerifyDriver());
                     break;
 
                 case "SAVE CHANGES":
+                    action.javaScriptScrollDown(scheduledTripsPage.Button_SaveChanges());
                     action.click(scheduledTripsPage.Button_SaveChanges());
                     break;
 
@@ -291,8 +292,16 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     action.click(setPickupTimePage.Button_SubmitCancellationReason());
                     break;
 
+                case "BACK":
+                    action.click(myBungiisPage.Button_Back());
+                    break;
+
                 case "Itemized Earnings":
                     action.click(earningsPage.Button_ItemizedEarnings());
+                    break;
+
+                case "Delivery Instructions":
+                    action.click(inProgressPages.Button_DeliveryInstructions());
                     break;
 
                 default:

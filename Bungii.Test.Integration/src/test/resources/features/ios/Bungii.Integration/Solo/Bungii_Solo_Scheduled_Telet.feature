@@ -134,6 +134,7 @@ Feature: Solo Scheduled Bungii - TELET
 
 
   @ready
+    #Added case of CORE-3685 to existing script
   #stable
   Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked request (Trip 2) Then Driver Doesnt Receive Scheduled Notification
     Given that ondemand bungii is in progress
@@ -145,6 +146,10 @@ Feature: Solo Scheduled Bungii - TELET
     And I am logged in as "valid denver" driver
     And I wait for "2" mins
     When I Switch to "customer" application on "same" devices
+    And I logged in as "valid existing stack" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I should be navigated to "Home" screen
 
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
@@ -155,7 +160,16 @@ Feature: Solo Scheduled Bungii - TELET
     And I get TELET time of currrent trip of customer 2
 
     And I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
+    When I Select "ACCOUNT > ACCOUNT INFO" from Customer App menu
+    Then I should be navigated to "ACCOUNT INFO" screen
+    And I click "Delete account" button on "ACCOUNT INFO" screen
+    #And I confirm the account deletion for customer
+    And I enter "valid" password and click on delete button
+    Then I should see "Account can't be deleted due to pending deliveries" message
+    And I click "Cancel" button on "Delete Account" screen
+    When I Select "ACCOUNT > LOGOUT" from Customer App menu
+    Then I should be navigated to "LOG IN" screen
+    #Given I am on the "LOG IN" page
     When I enter Username :8888889907 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
 
@@ -181,7 +195,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario: Verify TELET Is Calculated Correctly [InitialRequestTime+EstimatedDuration*1.5+30Mins] For Solo Scheduled Delivery
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
+      | denver3   | Scheduled    | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
     Then Telet time of current trip should be correctly calculated
     Then I cancel all bungiis of customer
@@ -194,10 +208,10 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario: Verify Customer Cannot Schedule Solo Bungii That Overlaps With Another Scheduled Deliveries TELET Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
+      | denver4   | Scheduled    | NEXT_POSSIBLE |
     
     And I get TELET time of of the current trip
-    Given I login as "valid denver" customer and on Home page
+    Given I login as "valid denver4" customer and on Home page
     
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |

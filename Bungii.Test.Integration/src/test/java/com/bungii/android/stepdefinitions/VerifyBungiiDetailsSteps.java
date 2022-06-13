@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.pages.customer.MyBungiisPage;
 import com.bungii.android.stepdefinitions.Customer.LoginSteps;
@@ -36,6 +37,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
     MyBungiisPage myBungiisPage = new MyBungiisPage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
 
     @Then("^I verify driver names and trip cost$")
     public void i_verify_driver_names_pickup_and_drop_off_address_and_trip_cost() throws Throwable {
@@ -206,5 +208,214 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Completed Delivery for customer of driver "+ driverName+" is not displayed in Past Trips", true);
         }
     }
+    @And("^I get \"([^\"]*)\" from earnings page$")
+    public void i_get_something_from_earnings_page(String earningsType) throws Throwable {
+        try{
+            switch (earningsType){
+                case "Itemized Earnings":
+                    Thread.sleep(7000);
+                    action.click(myBungiisPage.Button_ItemizedEarnings());
+                    Thread.sleep(5000);
+                    String itemizedEarnings = action.getText(myBungiisPage.Text_ItemizedEarnings());
+                    String actualItemizedEarnings = itemizedEarnings.substring(1);
+                    cucumberContextManager.setScenarioContext("DRIVER_ITEMIZED_EARNINGS",actualItemizedEarnings);
+                    break;
+            }
+            log("I should be able to get "+earningsType,
+                    "I could get the "+earningsType,false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while getting earnings from earnings page", true);
+        }
+    }
+    @And("^I verify all the elements on itemized earnings page$")
+    public void i_verify_all_the_elements_on_itemized_earnings_page() throws Throwable {
+        try{
+            boolean isCorrectPage = false;
+            isCorrectPage = utility.isCorrectPage("ITEMIZED EARNINGS");
+            testStepAssert.isTrue(isCorrectPage,
+                    "I should be navigated to ITEMIZED EARNINGS screen",
+                    "I have navigated to ITEMIZED EARNINGS screen" ,
+                    "I was not navigated to ITEMIZED EARNINGS screen ");
+
+            testStepAssert.isElementDisplayed(myBungiisPage.Dropdown_EndDate(),"The element should be displayed","The element is displayed","The element is not displayed");
+            action.click(myBungiisPage.Dropdown_EndDate());
+            testStepAssert.isElementDisplayed(myBungiisPage.Calendar_StartDate(),"The element should be displayed","The element is displayed","The element is not displayed");
+            action.click(myBungiisPage.Button_Cancel());
+
+            testStepAssert.isElementDisplayed(myBungiisPage.Dropdown_StartDate(),"The element should be displayed","The element is displayed","The element is not displayed");
+            action.click(myBungiisPage.Dropdown_StartDate());
+            testStepAssert.isElementDisplayed(myBungiisPage.Calendar_StartDate(),"The element should be displayed","The element is displayed","The element is not displayed");
+
+            action.click(myBungiisPage.Calendar_SelectDate());
+            String date = action.getText(myBungiisPage.Text_Date());
+            int length= date.length();
+            String year = action.getText(myBungiisPage.Text_Year());
+            String expectedDate;
+            if(length==10){
+                expectedDate  = date.substring(5,8)+" 0"+date.substring(9,10)+", "+year;
+            }
+            else {
+                 expectedDate= date.substring(5,8)+" "+date.substring(9,11)+", "+year;
+            }
+            action.click(myBungiisPage.Button_Okay());
+            String actualDate=action.getText(myBungiisPage.Text_StartDate());
+            testStepAssert.isEquals(actualDate,expectedDate,"The date set on calendar should be same as date displayed","The date set on calendar is same as date displayed","The date set on calendar is not same as date displayed");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while verifying if element is present", true);
+        }
+    }
+    @And("^I verify all the elements on earnings page$")
+    public void i_verify_all_the_elements_on_earnings_page() throws Throwable {
+        try {
+            boolean isCorrectPage = false;
+            isCorrectPage = utility.isCorrectPage("EARNINGS");
+            testStepAssert.isTrue(isCorrectPage,
+                    "I should be navigated to EARNINGS screen",
+                    "I have navigated to EARNINGS screen" ,
+                    "I was not navigated to EARNINGS screen ");
+
+            testStepAssert.isElementDisplayed(myBungiisPage.Dropdown_SelectYear(),"The element should be displayed","The element is displayed","The element is not displayed");
+            testStepAssert.isElementDisplayed(myBungiisPage.Button_ItemizedEarnings(),"The itemized earnings button should be displayed","The itemized earnings button is displayed","The itemized earnings button is not displayed");
+
+            String actualDisclaimer = action.getText(myBungiisPage.Text_Disclaimer());
+            String expectedDisclaimer = PropertyUtility.getMessage("android.earnings.page.disclaimer");
+            testStepAssert.isEquals(actualDisclaimer,expectedDisclaimer,
+                    "The Disclaimer displayed should be "+expectedDisclaimer,
+                    "The Disclaimer displayed is "+expectedDisclaimer,
+                    "The Disclaimer displayed is incorrect");
+
+            testStepAssert.isElementDisplayed(myBungiisPage.Text_MilesDriven(),"The Miles Driven should be displayed","The Miles Driven are displayed","The  Miles Driven are not displayed");
+            testStepAssert.isElementDisplayed(myBungiisPage.Text_WorkHours(),"The Work Hours should be displayed","The Work Hours are displayed","The Work Hours are not displayed");
+            testStepAssert.isElementDisplayed(myBungiisPage.Text_NoOfTrips(),"The number of trips should be displayed","The number of trips are displayed","The number of trips are not displayed");
+            testStepAssert.isElementDisplayed(myBungiisPage.Text_DisbursementInfo(),"The Disbursement Info should be displayed","The Disbursement Info  is displayed","The Disbursement Info is not displayed");
+
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while verifying if element is present", true);
+        }
+    }
+    @And("^I search for \"([^\"]*)\" driver on driver details$")
+    public void i_search_for_something_driver_on_driver_details(String driverName) throws Throwable {
+        try{
+            action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),driverName);
+            action.click(scheduledTripsPage.Button_Search());
+
+            Thread.sleep(25000);
+            log("I should be able to search for the driver",
+                    "I was able to search the driver",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in searching the driver", true);
+        }
+    }
+    @And("^I click on \"([^\"]*)\" icon on driver page$")
+    public void i_click_on_something_icon_on_driver_page(String icon) throws Throwable {
+        try {
+            switch (icon){
+                case "Driver Earnings":
+                    action.click(myBungiisPage.Icon_DriverEarnings());
+                    break;
+                case "View":
+                    action.click(myBungiisPage.Link_ViewTrips());
+                    break;
+            }
+            log("I should be able to click on "+icon,
+                    "I could click on"+icon,false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while clicking on"+icon, true);
+        }
+    }
+    @And("^I get \"([^\"]*)\" from driver earnings page on admin portal for \"([^\"]*)\"$")
+    public void i_get_something_from_driver_earnings_page_on_admin_portal_for_something(String strArg1, String bungiiType) throws Throwable {
+        try{
+            switch(bungiiType){
+                case "solo driver":
+                    String driverEarnings = action.getText(myBungiisPage.Text_DriverEarnings());
+                    String actualDriverEarnings = driverEarnings.substring(1);
+                    cucumberContextManager.setScenarioContext("DRIVER_EARNINGS_ADMIN",actualDriverEarnings);
+                    break;
+                case "duo first driver":
+                    String firstDriverEarnings = action.getText(myBungiisPage.Text_DriverEarnings());
+                    String firstActualDriverEarnings = firstDriverEarnings.substring(1);
+                    cucumberContextManager.setScenarioContext("DRIVER_ONE_EARNINGS_ADMIN",firstActualDriverEarnings);
+                    break;
+                case "duo second driver":
+                    String secondDriverEarnings = action.getText(myBungiisPage.Text_DriverEarnings());
+                    String secondActualDriverEarnings = secondDriverEarnings.substring(1);
+                    cucumberContextManager.setScenarioContext("DRIVER_TWO_EARNINGS_ADMIN",secondActualDriverEarnings);
+                    break;
+
+            }
+            log("I should get the driver earnings from the admin portal",
+                    "I could get the driver earnings from the admin portal",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in verifying details under Past Bungiis", true);
+        }
+
+    }
+    @Then("^I compare with earnings from admin portal for \"([^\"]*)\"$")
+    public void i_compare_with_earnings_from_admin_portal_for_something(String bungiiDriver) throws Throwable {
+        try{
+            switch (bungiiDriver){
+                case "solo driver":
+                    String driverEarningsOnAdminPortal= (String) cucumberContextManager.getScenarioContext("DRIVER_EARNINGS_ADMIN");
+                    String driverEarningsOnDriverApp= (String) cucumberContextManager.getScenarioContext("DRIVER_ITEMIZED_EARNINGS");
+                    testStepAssert.isEquals(driverEarningsOnDriverApp,driverEarningsOnAdminPortal,
+                            "The earnings should be same on admin portal and driver app",
+                            "The earnings are same on admin portal and driver app",
+                            "The earnings are not same on admin portal and driver app");
+                    break;
+                case "duo first driver":
+                    String firstDriverEarningsOnAdminPortal= (String) cucumberContextManager.getScenarioContext("DRIVER_ONE_EARNINGS_ADMIN");
+                    String firstDriverEarningsOnDriverApp= (String) cucumberContextManager.getScenarioContext("DRIVER_ITEMIZED_EARNINGS");
+                    testStepAssert.isEquals(firstDriverEarningsOnDriverApp,firstDriverEarningsOnAdminPortal,
+                            "The earnings should be same on admin portal and driver app",
+                            "The earnings are same on admin portal and driver app",
+                            "The earnings are not same on admin portal and driver app");
+                    break;
+                case "duo second driver":
+                    String secondDriverEarningsOnAdminPortal= (String) cucumberContextManager.getScenarioContext("DRIVER_TWO_EARNINGS_ADMIN");
+                    String secondDriverEarningsOnDriverApp= (String) cucumberContextManager.getScenarioContext("DRIVER_ITEMIZED_EARNINGS");
+                    testStepAssert.isEquals(secondDriverEarningsOnDriverApp,secondDriverEarningsOnAdminPortal,
+                            "The earnings should be same on admin portal and driver app",
+                            "The earnings are same on admin portal and driver app",
+                            "The earnings are not same on admin portal and driver app");
+                    break;
+            }
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while getting driver earnings", true);
+        }
+    }
+    @Then("^I compare with earnings from admin portal$")
+    public void i_compare_with_earnings_from_admin_portal() throws Throwable {
+      try{
+          String driverEarningsOnAdminPortal= (String) cucumberContextManager.getScenarioContext("DRIVER_EARNINGS_ADMIN");
+          String driverEarningsOnDriverApp= (String) cucumberContextManager.getScenarioContext("DRIVER_ITEMIZED_EARNINGS");
+          testStepAssert.isEquals(driverEarningsOnDriverApp,driverEarningsOnAdminPortal,
+                  "The earnings should be same on admin portal and driver app",
+                  "The earnings are same on admin portal and driver app",
+                  "The earnings are not same on admin portal and driver app");
+      }
+      catch (Exception e) {
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step  Should be successful", "Error while comparing the driver earnings on admin portal and driver app", true);
+      }
+    }
+
+
 }
 

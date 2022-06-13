@@ -94,6 +94,8 @@ public class Partner_DashboardPage extends PageBase {
 
     public WebElement Label_Distance() { return findElement("//label[contains(text(),'Distance in Miles -')]/strong",LocatorType.XPath);}
 
+    public WebElement Label_EstDeliveryTime(){return findElement("//label[contains(text(),'Est. Delivery Time')]/strong",LocatorType.XPath);}
+
     //Continue button
     //public  WebElement Button_Continue() { return findElement("//a[@class='btn']",LocatorType.XPath);}
     public  WebElement Button_Continue() { return findElement("//button[@class='btn']",LocatorType.XPath);}
@@ -193,9 +195,8 @@ public class Partner_DashboardPage extends PageBase {
 
     // Summary Tracking Id
     public WebElement Text_Summary_TrackingId() { return findElement("//section/div[1]/p",LocatorType.XPath);}
-
-
-
+    // Summary Delivery pick up address
+    public WebElement Text_Summary_PickupAddress() { return findElement("//section/div[1]/div/p",LocatorType.XPath);}
 
     // Summary Delivery Address
     public WebElement Text_Summary_DeliveryAddress() { return findElement("//section/div[2]/div/p",LocatorType.XPath);}
@@ -223,6 +224,15 @@ public class Partner_DashboardPage extends PageBase {
     //No Trip Message
     public WebElement Label_Trip_ErrorMessage() { return findElement("//td/div/div[text() =\"Sorry, no records found\"]",LocatorType.XPath);}
 
+    //Text Support
+    public WebElement Text_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]",LocatorType.XPath);}
 
+    //Text Support Number
+    public WebElement Number_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]/following-sibling::span",LocatorType.XPath);}
 
+    //Text Email Support
+    public WebElement Text_EmailSupport() { return findElement("//strong[contains(text(),'Email Support:')]",LocatorType.XPath);}
+
+    //Email Support value
+    public WebElement Email_EmailSupport() { return findElement("//strong[contains(text(),'Email Support:')]/following-sibling::span/a",LocatorType.XPath);}
 }
