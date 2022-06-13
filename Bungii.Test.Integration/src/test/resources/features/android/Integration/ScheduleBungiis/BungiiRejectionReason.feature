@@ -62,7 +62,6 @@ Feature: Rejection Popup on Driver App
 
 
   @ready
-
   Scenario: Verify that Rejection reason pop-up is not displayed to driver when the toggle is disabled on Admin Portal
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -82,7 +81,6 @@ Feature: Rejection Popup on Driver App
     And I click on the back button and verify that rejection popup is absent
 
   @ready
-
   Scenario: Verify UI and behaviour of Rejection reason pop-up for stacked trips
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -111,7 +109,6 @@ Feature: Rejection Popup on Driver App
 
 
     @ready
-
     Scenario: Verify rejection reason pop-up for on-demand trips
       Given I am on customer Log in page
       When I am logged in as "valid boston" customer
@@ -141,7 +138,6 @@ Feature: Rejection Popup on Driver App
 
 #    Core-3008: To verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
   @ready
-
     Scenario: Verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices

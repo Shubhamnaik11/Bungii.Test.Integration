@@ -14,7 +14,7 @@ Feature: Rejection Popup on Driver App
         Given I Switch to "customer" application on "same" devices
         Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
             | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
-            | NEXT_POSSIBLE | 9999999140     | Cci12345          | Testcustomertywd_appleNewRO Customer |
+            | NEXT_POSSIBLE | 8877661020     | Cci12345          |Testcustomertywd_appleMarkU LutherU |
 
         Then I wait for "2" mins
         When I Switch to "driver" application on "same" devices
@@ -43,7 +43,7 @@ Feature: Rejection Popup on Driver App
       Given I Switch to "customer" application on "same" devices
       Given I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
         | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
-        | NEXT_POSSIBLE | 8877661003     | Cci12345          | Testcustomertywd_appleMarkD LutherD |
+        | NEXT_POSSIBLE | 8877661021     | Cci12345          | Testcustomertywd_appleMarkV LutherV |
 
       When I Switch to "driver" application on "same" devices
       And I Select "AVAILABLE BUNGIIS" from driver App menu
