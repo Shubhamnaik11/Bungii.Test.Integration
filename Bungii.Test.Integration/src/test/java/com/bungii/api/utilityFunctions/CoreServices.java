@@ -581,6 +581,60 @@ public class CoreServices extends DriverBase {
         ApiHelper.genericResponseValidation(response, RequestText);
         return response;
     }
+
+    public Response customerConfirmationWithoutNotes(String pickRequestID, String paymentMethodID, String authToken, String scheduledDateTime) {
+        String RequestText ="API REQUEST : Customer Confirmation of pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken +" | Scheduled Date Time : "+ scheduledDateTime;
+
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("WalletRef", (String)cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"));
+        jsonObj.put("EstLoadUnloadTimeInMilliseconds", 900000);
+        jsonObj.put("PickupRequestID", pickRequestID);
+        jsonObj.put("PaymentMethodID", paymentMethodID);
+        jsonObj.put("Description", "");
+        String str="";
+        if (!scheduledDateTime.equals("")) {
+            jsonObj.put("IsScheduledPickup", true);
+            jsonObj.put("ScheduledDateTime", scheduledDateTime);
+            str= "";
+        } else {
+            jsonObj.put("IsScheduledPickup", false);
+            str= "TestNote for OnDemand "+pickRequestID;
+
+        }
+        jsonObj.put("PickupNote",str);
+        cucumberContextManager.setScenarioContext("PICKUP_NOTE",str);
+        Header header = new Header("AuthorizationToken", authToken);
+
+        String apiURL = null;
+        try{
+            Thread.sleep(10000);} catch(Exception ex){}
+
+        apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CONFIRMATION);
+        Response response = ApiHelper.uploadImage(apiURL, jsonObj, header);
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        HashMap error = jsonPathEvaluator.get("Error");
+        if (error != null && error.size()!=0) {
+            String errorCode = jsonPathEvaluator.get("Error.Code").toString();
+            if (errorCode=="20027")
+            {
+                scheduledDateTime = getNextTime(scheduledDateTime);
+                logger.detail("Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Requesting with 15 minutes later time.");
+                response = customerConfirmationWithoutNotes(pickRequestID, paymentMethodID, authToken, scheduledDateTime);
+            }
+            else if (errorCode=="3004")
+            {
+                try{ Thread.sleep(30000);}catch (InterruptedException e){}
+                scheduledDateTime = getNextTime(scheduledDateTime);
+                logger.detail("There was a problem processing your credit card; please double check your payment information and try again. | Retrying in 30 Seconds");
+                response = customerConfirmationWithoutNotes(pickRequestID, paymentMethodID, authToken, scheduledDateTime);
+            }
+            else
+                ApiHelper.genericResponseValidation(response, RequestText);
+        }
+        else
+            ApiHelper.genericResponseValidation(response, RequestText);
+        return response;
+    }
     public String getNextTime(String scheduledDateTime)
     {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
@@ -818,7 +872,12 @@ public class CoreServices extends DriverBase {
         //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
         int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
-        customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
+        if(cucumberContextManager.getScenarioContext("Customer_Notes").equals("Blank")){
+            customerConfirmationWithoutNotes(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
+        }
+        else {
+            customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
+        }
         return waitDuraton;
     }
 
