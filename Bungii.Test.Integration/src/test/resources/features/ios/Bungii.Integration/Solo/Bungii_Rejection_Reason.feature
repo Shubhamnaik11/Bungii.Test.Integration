@@ -3,7 +3,6 @@
 Feature: Rejection Popup on Driver App
 
     @ready
-
     Scenario: Verify that rejection popup,cancel functionality and all reasons are displayed for scheduled deliveries on available trips page
         When I Switch to "driver" application on "same" devices
         And I am on the "LOG IN" page on driverApp
@@ -29,14 +28,10 @@ Feature: Rejection Popup on Driver App
         Then I check if the reason is saved in db
 
   @ready
-#  works
-#    driver issue
-#  @testsweta
   Scenario: Verify that Rejection reason pop-up is not displayed to driver when the toggle is disabled on Admin Portal
-
       When I Switch to "driver" application on "same" devices
       And I am on the "LOG IN" page on driverApp
-      And I enter phoneNumber :9049840018 and  Password :Cci12345
+      And I enter phoneNumber :8888885001 and  Password :Cci12345
       And I click "Log In" button on "Log In" screen on driverApp
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
@@ -53,13 +48,10 @@ Feature: Rejection Popup on Driver App
 
 #  Core-3008: To verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
     @ready
-#      driver issue
-#        works
-#   @testsweta
     Scenario: Verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
       When I Switch to "driver" application on "same" devices
       And I am on the "LOG IN" page on driverApp
-      And I enter phoneNumber :9049840210 and  Password :Cci12345
+      And I enter phoneNumber :9284000070 and  Password :Cci12345
       And I click "Log In" button on "Log In" screen on driverApp
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
