@@ -325,14 +325,14 @@ public class CommonSteps extends DriverBase {
                     "The driver did not get a pop-up to change status");
 
             String header = driverBungiiCompletedPage.Notification_DriverStatus().getText();
-            String expectedHeader = "Are you available for more deliveries today?";
+            String expectedHeader =PropertyUtility.getMessage("header.stayOnline.goOffline.notification");
             testStepAssert.isEquals(header,expectedHeader,
                     expectedHeader+" should be displayed as header",
                     expectedHeader+" is displayed as header",
                     expectedHeader+" is not displayed as header");
 
             String subText = driverBungiiCompletedPage.Text_NotificationDriverStatus().getText();
-            String expectedSubText = "Staying online makes you eligible for on-demand requests. Go offline if you would rather not receive any.";
+            String expectedSubText =PropertyUtility.getMessage("subHeader.stayOnline.goOffline.notification");
             testStepAssert.isEquals(subText,expectedSubText,
                     expectedSubText+" should be displayed as sub text",
                     expectedSubText+" is displayed as sub text",

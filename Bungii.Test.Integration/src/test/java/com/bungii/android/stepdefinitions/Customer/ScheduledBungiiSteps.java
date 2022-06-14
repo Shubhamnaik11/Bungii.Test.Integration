@@ -457,6 +457,24 @@ public class ScheduledBungiiSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I check if the status is \"([^\"]*)\"$")
+    public void i_check_if_the_status_is_something(String status) throws Throwable {
+        try{
+            switch (status){
+                case "ONLINE":
+                    action.isElementPresent(bungiiCompletedPage.Slider_Online());
+                    break;
+                case "OFFLINE":
+                    action.isElementPresent(bungiiCompletedPage.Slider_Offline());
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @And("^I check online or offline pop up is displayed$")
     public void i_check_online_or_offline_pop_up_is_displayed() throws Throwable {
         try {
@@ -466,14 +484,14 @@ public class ScheduledBungiiSteps extends DriverBase {
                         "The driver did not get a pop-up to change status");
 
                 String header = bungiiCompletedPage.Notification_DriverStatus().getText();
-                String expectedHeader = "Are you available for more deliveries today?";
+                String expectedHeader =PropertyUtility.getMessage("header.stayOnline.goOffline.notification");
                 testStepAssert.isEquals(header,expectedHeader,
                         expectedHeader+" should be displayed as header",
                     expectedHeader+" is displayed as header",
                     expectedHeader+" is not displayed as header");
 
                 String subText = bungiiCompletedPage.Text_NotificationDriverStatus().getText();
-                String expectedSubText = "Staying online makes you eligible for on-demand requests. Go offline if you would rather not receive any.";
+                String expectedSubText =PropertyUtility.getMessage("subHeader.stayOnline.goOffline.notification");
                 testStepAssert.isEquals(subText,expectedSubText,
                         expectedSubText+" should be displayed as sub text",
                         expectedSubText+" is displayed as sub text",

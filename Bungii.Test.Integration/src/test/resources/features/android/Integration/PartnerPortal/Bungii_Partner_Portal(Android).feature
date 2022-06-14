@@ -35,10 +35,13 @@
     Then Partner Portal name should be displayed in "UNLOADING ITEMS" section
     And I slide update button on "UNLOADING ITEM" Screen
 
-#  Core-3098 Verify online/offline pop up is shown for solo Partner portal trip
+#  Core-3098 Verify online/offline pop up is shown for solo Partner portal trip and check stay online functionality
     And Bungii Driver "skips to rate customer"
     And I click "Next Bungii" button on the "Bungii Completed" screen
     And I check online or offline pop up is displayed
+    And I click on "STAY ONLINE" button
+    And I Select "HOME" from driver App menu
+    And I check if the status is "ONLINE"
 
 #  Core-2638: Verify the changed Driver cut is reflected in driver app
     @ready
