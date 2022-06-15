@@ -462,10 +462,14 @@ public class ScheduledBungiiSteps extends DriverBase {
         try{
             switch (status){
                 case "ONLINE":
-                    action.isElementPresent(bungiiCompletedPage.Slider_Online());
+                    testStepAssert.isTrue(action.isElementPresent(bungiiCompletedPage.Slider_Online()),
+                            "The status should be online",
+                            "The status is not online");
                     break;
                 case "OFFLINE":
-                    action.isElementPresent(bungiiCompletedPage.Slider_Offline());
+                    testStepAssert.isTrue(action.isElementPresent(bungiiCompletedPage.Slider_Offline()),
+                            "The status should be offline",
+                            "The status is not offline");
                     break;
             }
         }

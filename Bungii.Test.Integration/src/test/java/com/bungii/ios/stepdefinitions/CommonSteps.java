@@ -303,10 +303,14 @@ public class CommonSteps extends DriverBase {
        try{
            switch (status){
                case "ONLINE":
-                action.isElementPresent(driverBungiiCompletedPage.Slider_Online());
+                   testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Slider_Online()),
+                           "The status should be online",
+                           "The status is not online");
                 break;
                case "OFFLINE":
-                   action.isElementPresent(driverBungiiCompletedPage.Slider_Offline());
+                   testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Slider_Offline()),
+                           "The status should be offline",
+                           "The status is not offline");
                    break;
            }
        }
