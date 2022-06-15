@@ -42,4 +42,25 @@ public class MyBungiisPage extends PageBase {
     public WebElement Text_DriverEarnings(){return findElement("//div[@class='info-box']/h1[@class='text-info']", LocatorType.XPath);}
     public WebElement Button_Back(){return findElement("//android.widget.ImageButton[contains(@content-desc,\"Navigate up\")]", LocatorType.XPath);}
 
+    //Itemized Earnings Page
+    public WebElement Header_ItemizedEarnings(){return findElement("//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.LinearLayout/android.view.ViewGroup/android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath);}
+    public WebElement Dropdown_StartDate(){return findElement("com.bungii.driver:id/linearLayoutCompat", LocatorType.Id);}
+    public WebElement Dropdown_EndDate(){return findElement("com.bungii.driver:id/linearLayoutCompat3", LocatorType.Id);}
+    public WebElement Calendar_StartDate(){return findElement("android:id/parentPanel", LocatorType.Id);}
+    public WebElement Button_Cancel(){return findElement("android:id/button2", LocatorType.Id);}
+    public WebElement Button_Okay(){return findElement("android:id/button1", LocatorType.Id);}
+    public WebElement Calendar_SelectDate(){return findElement("//android.view.View[@checked=\"true\"]/following-sibling::android.view.View[1]", LocatorType.XPath);}
+    public WebElement Text_Date(){return findElement("android:id/date_picker_header_date", LocatorType.Id);}
+    public WebElement Text_Year(){return findElement("android:id/date_picker_header_year", LocatorType.Id);}
+    public WebElement Text_StartDate(){return findElement("//android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat[1]/android.widget.TextView[2]", LocatorType.XPath);}
+
+    //Earnings page
+    public WebElement Header_Earnings(){return findElement("com.bungii.driver:id/toolbar_main_title", LocatorType.Id);}
+    public WebElement Dropdown_SelectYear(){return findElement("com.bungii.driver:id/earnings_spinner_tv", LocatorType.Id);}
+    public WebElement Text_Disclaimer(){return findElement("//android.widget.LinearLayout/android.view.ViewGroup[2]/android.widget.TextView[3]", LocatorType.XPath);}
+    public WebElement Text_MilesDriven(){return findElement("//android.widget.LinearLayout/android.view.ViewGroup[3]/android.widget.LinearLayout[1]/android.widget.TextView[1]", LocatorType.XPath);}
+    public WebElement Text_WorkHours(){return findElement("//android.widget.LinearLayout/android.view.ViewGroup[3]/android.widget.LinearLayout[2]/android.widget.TextView[1]", LocatorType.XPath);}
+    public WebElement Text_NoOfTrips(){return findElement("//android.widget.LinearLayout/android.view.ViewGroup[3]/android.widget.LinearLayout[3]/android.widget.TextView[1]", LocatorType.XPath);}
+    public WebElement Text_DisbursementInfo(){return findElement("com.bungii.driver:id/appCompatTextView9", LocatorType.Id);}
+
 }

@@ -80,7 +80,8 @@
       And I wait for "1" mins
       And I Open "driver" application on "same" devices
       And Bungii Driver "accepts On Demand Bungii" request
-      Then Driver should see "Enroute screen"
+      Then Bungii driver should see "General Instructions"
+      Then Bungii driver should see "Enroute screen"
       When Bungii Driver "clicks More Options"
       When Bungii Driver "cancels Bungii"
       And I Switch to "customer" application on "same" devices
@@ -116,7 +117,8 @@
       And I wait for "1" mins
       And I Open "driver" application on "same" devices
       And Bungii Driver "accepts On Demand Bungii" request
-      Then Bungii driver should see "Enroute screen"
+      Then Bungii driver should see "General Instructions"
+      And Bungii driver should see "Enroute screen"
       When Bungii Driver "slides to the next state"
       Then Bungii driver should see "Arrived screen"
       When Bungii Driver "clicks More Options"

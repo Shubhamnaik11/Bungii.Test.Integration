@@ -1,5 +1,6 @@
 package com.bungii.web.stepdefinitions.admin;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -13,6 +14,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 
 import java.text.DecimalFormat;
@@ -35,6 +37,9 @@ public class Admin_RevivalSteps extends DriverBase {
     public void revive_button_should_be_displayed_beside_the_trip() throws Throwable {
         try {
             String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            SetupManager.getDriver().manage().window().maximize();
+            SetupManager.getDriver().manage().window().setSize(new Dimension(1900, 1280));
+
             String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']/img", customerName);
             testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
             cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
