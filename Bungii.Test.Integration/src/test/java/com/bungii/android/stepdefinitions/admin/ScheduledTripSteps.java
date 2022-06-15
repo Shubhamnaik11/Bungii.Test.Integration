@@ -558,12 +558,12 @@ public class ScheduledTripSteps extends DriverBase {
 			action.click(scheduledTripsPage.Option_Edit());
 
 
-			pass("I should able to open trip", "I viewed scheduled delivery",
+			pass("I should able to open trip", "I viewed live delivery",
 					false);
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-			error("Step  Should be successful", "Problem in selecting a Bungii Scheduled deliveries in admin portal for customer "+custName,
+			error("Step  Should be successful", "Problem in selecting Live delivery in admin portal for customer "+custName,
 					true);
 		}
 	}
