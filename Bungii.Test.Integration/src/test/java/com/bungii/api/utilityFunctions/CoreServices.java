@@ -657,7 +657,13 @@ public class CoreServices extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         int mnts = calendar.get(Calendar.MINUTE);
 
-        calendar.set(Calendar.MINUTE, mnts+ 45); // Always choose 2nd possible slot to avoid issues with delay in requesting bungii
+        String slot= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+        if(slot.equalsIgnoreCase("NEXT_POSSIBLE_FIRST_SLOT")){
+            calendar.set(Calendar.MINUTE, mnts+ 30);
+        }
+        else{
+            calendar.set(Calendar.MINUTE, mnts+ 45);// Always choose 2nd possible slot to avoid issues with delay in requesting bungii
+        }
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));

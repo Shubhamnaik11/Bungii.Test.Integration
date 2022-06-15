@@ -1655,6 +1655,11 @@ public class BungiiSteps extends DriverBase {
             {
                 coreServices.customerConfirmationScheduledForFuture(pickupRequest, paymentMethod, custAccessToken, getDaysLaterTime(3).toString());
             }
+            else if(bungiiTime.equalsIgnoreCase(("NEXT_POSSIBLE_FIRST_SLOT"))){
+                cucumberContextManager.setScenarioContext("BUNGII_TIME",bungiiTime);
+                int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
+                cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START", wait);
+            }
             else{
                 int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
                 cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START", wait);

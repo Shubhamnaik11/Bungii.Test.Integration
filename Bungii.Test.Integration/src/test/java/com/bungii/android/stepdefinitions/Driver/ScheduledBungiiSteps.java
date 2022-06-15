@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class ScheduledBungiiSteps extends DriverBase {
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
@@ -69,6 +68,18 @@ public class ScheduledBungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I open second Trip from driver scheduled trip$")
+    public void i_open_second_trip_from_driver_scheduled_trip() throws Throwable {
+        try{
+            action.click(scheduledBungiiPage.Cell_SecondTrip());
+            pass("I select already scheduled bungii", "I select second scheduled bungii", true);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @And("I Select Trip from driver scheduled trip")
     public void iSelectTripFromDriverScheduledTrip() {
         try{
