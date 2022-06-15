@@ -21,6 +21,9 @@ And As a driver "Testdrivertywd_appledc_a_drva Driver" perform below action with
 | Unloading Item |
 | Bungii Completed |
 And I wait for 2 minutes
+And I view the Deliveries list on the admin portal
+And I search the delivery of Customer and view it
+Then I should see "Accessorial Charges" section displayed
 When I add following accessorial charges and save it
 | Amount   | Fee Type         | Comment                           | Driver Cut |
 |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
