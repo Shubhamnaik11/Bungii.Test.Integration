@@ -180,7 +180,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("CancellationCut",properDriverCutForCancelation.trim());
                         testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("CancellationCut"), "Cancelation driver cut charges should match","Cancelation driver cut charges match","Cancelation driver cut charges dont match");
                         break;
-                    case "Mountainous":
+                    case "Mountainious":
                         String mountainous= feeType.replace(" ", "");
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(3));
                         Thread.sleep(2000);
