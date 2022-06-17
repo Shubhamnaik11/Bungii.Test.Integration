@@ -8,6 +8,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
@@ -75,6 +76,83 @@ public class ScheduledBungiiSteps extends DriverBase {
             pass("I select already scheduled bungii", "I select second scheduled bungii", true);
 
         } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I should see the notification for address change$")
+    public void i_should_see_the_notification_for_address_change() throws Throwable {
+      try{
+          action.scrollToTop();
+          action.isElementPresent(Page_BungiiRequest.Notification_AddressChanged());
+          action.click(Page_BungiiRequest.Button_NotificationOk());
+          log("I should be to see address change notification","I was able to see address change notification",false);
+      }
+      catch (Exception e) {
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+      }
+    }
+    @And("^I swipe to check trip details$")
+    public void i_swipe_to_check_trip_details() throws Throwable {
+      try{
+          action.scrollToBottom();
+          Thread.sleep(3000);
+
+          log("I should be able to swipe to view delivery details","I am able to swipe to view delivery details",false);
+      }
+      catch (Exception e) {
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+      }
+    }
+
+    @Then("^I check if \"([^\"]*)\" is updated for live trip$")
+    public void i_check_if_something_is_updated_for_live_trip(String address) throws Throwable {
+       try{
+           switch (address){
+               case "dropoff address":
+                   action.scrollToBottom();
+                   String changedDropOff= (String) cucumberContextManager.getScenarioContext("Change_Drop_Off");
+                   String actualDropOff=Page_BungiiRequest.Text_DropOffAddress().getText();
+                   testStepAssert.isEquals(actualDropOff,changedDropOff, "The drop off address should be updated", "The drop off address is updated", "The drop off address is not updated");
+                   break;
+
+               case "pickup address":
+                   action.scrollToTop();
+                   String changedPickup = (String) cucumberContextManager.getScenarioContext("Change_Pickup");
+                   String actualPickUp = Page_BungiiRequest.Text_PickUpAddress().getText();
+                   testStepAssert.isEquals(actualPickUp,changedPickup, "The pick up address should be updated", "The pick up address is updated", "The pick up address is not updated");
+                   break;
+
+           }
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+       }
+    }
+
+    @And("^I check if \"([^\"]*)\" is updated$")
+    public void i_check_if_something_is_updated(String addressType) throws Throwable {
+        try{
+            switch (addressType){
+                case "pickup address":
+                    action.scrollToTop();
+                    String changedPickup[] = cucumberContextManager.getScenarioContext("Change_Pickup").toString().split(",");
+                    String actualPickUpLineOne=action.getText(Page_BungiiRequest.Text_PickupLocation_LineOne1());;
+                    testStepAssert.isEquals(actualPickUpLineOne,changedPickup[0], "The pick up address should be updated", "The pick up address is updated", "The pick up address is not updated");
+                    break;
+                case "dropoff address":
+                    action.scrollToTop();
+                    String changedDropOff[]=cucumberContextManager.getScenarioContext("Change_Drop_Off").toString().split(",");
+                    String actualDropOffLineOne=action.getText(Page_BungiiRequest.Text_DropOffLocation_LineOne1());;
+                    testStepAssert.isEquals(actualDropOffLineOne,changedDropOff[0], "The drop off address should be updated", "The drop off address is updated", "The drop off address is not updated");
+                    break;
+            }
+        }
+        catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }

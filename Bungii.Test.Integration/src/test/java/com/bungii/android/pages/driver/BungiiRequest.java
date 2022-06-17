@@ -63,4 +63,11 @@ public class BungiiRequest extends PageBase {
 
     public WebElement Button_No_Thanks() {return findElement("com.bungii.driver:id/appCompatTextView33",LocatorType.Id);}
 
+    public WebElement Notification_AddressChanged() { return findElement("//android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout",LocatorType.XPath);}
+    public WebElement Button_NotificationOk() { return findElement("//android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.Button",LocatorType.XPath);}
+
+    //Live trip details
+    public WebElement Text_DropOffAddress() { return findElement("//android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.TextView[4]",LocatorType.XPath);}
+    public WebElement Text_PickUpAddress() { return findElement("com.bungii.driver:id/layout_waypoint_address",LocatorType.Id);}
+
 }
