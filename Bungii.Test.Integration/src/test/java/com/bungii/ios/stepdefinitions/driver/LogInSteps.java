@@ -85,7 +85,7 @@ public class LogInSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
-            case "Testdrivertywd_appledc_a_drvC WashingtonC":
+            case "testdrivertywd_appledc_a_drvc washingtonc":
                 phone = PropertyUtility.getDataProperties("Washington.driver8.phone");
                 password = PropertyUtility.getDataProperties("new.driver.password");
                 shouldLoginSucessful = true;

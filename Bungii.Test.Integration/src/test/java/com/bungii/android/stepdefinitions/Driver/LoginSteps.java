@@ -288,18 +288,18 @@ public class LoginSteps extends DriverBase {
                     shouldLoginSucessful = true;
                     break;
                 case "testdrivertywd_appledc_a_drvj washingtonj":
-                    phone = PropertyUtility.getDataProperties("Washington.driver10.phone");
+                    phone = PropertyUtility.getDataProperties("Washington.driver11.phone");
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-                    password = PropertyUtility.getDataProperties("Washington.driver10.password");
-                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Testdrivertywd_appledc_a_drvJ WashingtonJ"));
+                    password = PropertyUtility.getDataProperties("Washington.driver11.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Washington.driver11.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
                 case "testdrivertywd_appleks_a_drvaf kansas_af":
-                    phone = PropertyUtility.getDataProperties("Kansas.driver13.phone");
+                    phone = PropertyUtility.getDataProperties("Kansas.driver37.phone");
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                     password = PropertyUtility.getDataProperties("Kansas.driver.password");
-                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Testdrivertywd_appleks_a_drvaf Kansas_af"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver37.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
