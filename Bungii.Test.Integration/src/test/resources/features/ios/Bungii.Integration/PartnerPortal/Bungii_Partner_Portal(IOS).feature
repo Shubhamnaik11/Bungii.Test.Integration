@@ -44,6 +44,7 @@ Feature: Partner Portal Cases integration with IOS
       |Kansas| NEXT_POSSIBLE | 8877661017 | Testcustomertywd_appleMarkR LutherR|
     And I Switch to "driver" application on "same" devices
     And I login to driver app
+    And Driver status should be "Offline"
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen

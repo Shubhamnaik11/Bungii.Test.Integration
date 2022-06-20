@@ -74,6 +74,7 @@
         |Kansas| NEXT_POSSIBLE | 8877661018 | Testcustomertywd_appleMarkS LutherS|
      And I am logged in as "Testdrivertywd_appleks_a_drval Kansas_al" driver
       Then I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And Driver status should be "Offline"
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section

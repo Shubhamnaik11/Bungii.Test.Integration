@@ -2912,13 +2912,21 @@ public class CommonSteps extends DriverBase {
     }
 
     @And("^Driver status should be \"([^\"]*)\"$")
-    public void driver_status_should_be_something(String strArg1) throws Throwable {
+    public void driver_status_should_be_something(String DriverStatus) throws Throwable {
         try {
-         String expectedDriverOnlineStatus ="1";
-        String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-        String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
-        testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
-
+            String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            switch (DriverStatus){
+                case "Online":
+                    String expectedDriverOnlineStatus ="1";
+                    String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
+                    break;
+                case "Offline":
+                    String driverStatus ="0";
+                    String driverOfflineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOfflineStatus,driverStatus,"Driver status should be offline","Driver Status is offline","Driver status is not offline");
+                    break;
+            }
         } catch (Throwable e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful",

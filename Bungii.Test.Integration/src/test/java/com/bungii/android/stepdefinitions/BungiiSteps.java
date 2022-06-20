@@ -1242,13 +1242,21 @@ public class BungiiSteps extends DriverBase {
 
     }
     @And("^Driver status should be \"([^\"]*)\"$")
-    public void driver_status_should_be_something(String strArg1) throws Throwable {
+    public void driver_status_should_be_something(String DriverStatus) throws Throwable {
         try {
-            String expectedDriverOnlineStatus ="1";
             String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-            String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
-            testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
-
+            switch (DriverStatus){
+                case "Online":
+                    String expectedDriverOnlineStatus ="1";
+                    String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
+                    break;
+                case "Offline":
+                    String driverStatus ="0";
+                    String driverOfflineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOfflineStatus,driverStatus,"Driver status should be offline","Driver Status is offline","Driver status is not offline");
+                    break;
+            }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -1262,7 +1270,7 @@ public class BungiiSteps extends DriverBase {
       boolean isDisplayed =Page_BungiiRequest.Alert_NewBungiiRequest(true).isDisplayed();
       testStepAssert.isTrue(isDisplayed,"Stack trip request should be displayed","Stack trip request is displayed","Stack trip request is not displayed");
       String popUpText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
-      testStepAssert.isEquals(popUpText,expectedMessage,"Stack trip request should be present","Stack trip request is present","Stack trip request is not present");
+      testStepAssert.isEquals(popUpText,expectedMessage,"Stack trip request should be "+expectedMessage,"Stack trip request is "+popUpText,expectedMessage +" request is not present");
      }catch (Exception e){
             logger.error("Error performing step", e);
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
