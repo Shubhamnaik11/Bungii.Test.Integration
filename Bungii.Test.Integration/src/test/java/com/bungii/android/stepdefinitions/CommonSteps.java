@@ -951,7 +951,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "THERE IS A CONFLICTING DELIVERY":
                     actualMessage = utility.getDriverSnackBarMessage();
-                    expectedMessage = PropertyUtility.getMessage("browser.uninstalled.message");
+                    expectedMessage = PropertyUtility.getMessage("conflicting.delivery.error.message");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

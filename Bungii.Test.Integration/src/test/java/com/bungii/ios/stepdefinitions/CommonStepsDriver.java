@@ -19,7 +19,13 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -41,6 +47,7 @@ public class CommonStepsDriver extends DriverBase {
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
     GeneralUtility utility = new GeneralUtility();
+    com.bungii.web.utilityfunctions.DbUtility dbUtility = new com.bungii.web.utilityfunctions.DbUtility();
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
@@ -580,6 +587,20 @@ public class CommonStepsDriver extends DriverBase {
         }
 
     }
+    @And("^I assign driver \"([^\"]*)\" for the trip$")
+    public void i_assign_driver_something_for_the_trip(String driverName) throws Throwable {
+        try{
+            scheduledTripsPage.TextBox_DriverSearch().sendKeys(driverName);
+            scheduledTripsPage.Select_TestDriver().click();
+            String driver1Name=scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+            cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);
+            cucumberContextManager.setScenarioContext("DRIVER2_NAME",driver1Name);
+        }catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error in assigning driver "+driverName+" to the delivery by admin or viewing assigned driver slot", true);
+        }
+    }
     @And("^I click on \"([^\"]*)\" button$")
     public void i_click_on_something_button(String button) throws Throwable {
         try{
@@ -594,12 +615,93 @@ public class CommonStepsDriver extends DriverBase {
                 case "SAVE CHANGES":
                     action.click(scheduledTripsPage.Button_SaveChanges());
                     break;
+                case "REVIVE":
+                    action.click(scheduledTripsPage.Button_ReviveTrip());
+                    break;
+                case "CONFIRM":
+                    action.click(scheduledTripsPage.Button_Confirm());
+                    Thread.sleep(10000);
+                    String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
+                    cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
+                    break;
             }
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
+        }
+    }
+    @And("^I change the \"([^\"]*)\" to future time$")
+    public void i_change_the_something_to_future_time(String strArg1) throws Throwable {
+        try{
+            Thread.sleep(2000);
+            String newTime ="";
+            String currentTime=scheduledTripsPage.Time_EditTripDetailsTime().getAttribute("value");
+            switch (strArg1) {
+                case "trip time to before the overlapping trip":
+                    newTime = currentTime;
+                    DateFormat formatterBefore = new SimpleDateFormat("hh:mm a");
+                    Date Newtime = formatterBefore.parse(newTime);
+
+                    Calendar cL = Calendar.getInstance();
+                    cL.setTime(Newtime);
+                    cL.add(Calendar.MINUTE,-30);
+
+                    Date NewtimeOne = cL.getTime();
+                    String newTimeOne = formatterBefore.format(NewtimeOne);
+
+                    cucumberContextManager.setScenarioContext("NEW_TIME", newTimeOne);
+                    action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+                    WebElement selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTimeOne + "')]"));
+                    action.click(selectTime);
+                    logger.detail("I update time to "+newTimeOne,"I updated time to "+newTimeOne, false);
+                    break;
+
+                case "trip time to after the overlapping trip":
+                    newTime = currentTime;
+                    DateFormat formatterAfter = new SimpleDateFormat("hh:mm a");
+                    Date NewtimeAfter = formatterAfter.parse(newTime);
+
+                    Calendar cLAfter = Calendar.getInstance();
+                    cLAfter.setTime(NewtimeAfter);
+                    cLAfter.add(Calendar.MINUTE,30);
+
+                    Date NewtimeAfterOne = cLAfter.getTime();
+                    String newTimeAfterOne = formatterAfter.format(NewtimeAfterOne);
+
+                    cucumberContextManager.setScenarioContext("NEW_TIME", newTimeAfterOne);
+                    action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+                    selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTimeAfterOne + "')]"));
+                    action.click(selectTime);
+                    logger.detail("I update time to "+newTimeAfterOne,"I updated time to "+newTimeAfterOne, false);
+                    break;
+            }
+        }catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I Select reason as \"([^\"]*)\" to edit datetime$")
+    public void i_select_reason_as_something_to_edit_datetime(String reason) throws Throwable {
+        try {
+            testStepAssert.isElementDisplayed(scheduledTripsPage.Select_EditReason(),"Select reason dropdown should be displayed on editing date/time","Select reason dropdown is displayed on editing date/time","Select reason dropdown is NOT displayed on editing date/time");
+            switch (reason)
+            {
+                case "Partner initiated" :
+                    action.selectElementByText(scheduledTripsPage.Select_EditReason(),reason);
+                    break;
+                case "Customer initiated" :
+                    action.selectElementByText(scheduledTripsPage.Select_EditReason(),reason);
+                    break;
+            }
+        }
+        catch (Exception e){
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 
