@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
@@ -31,6 +32,7 @@ public class UpdateStatusSteps extends DriverBase {
     Rectangle initial;
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    private TripDetailsPage tripDetails;
     int[][] rgb = {
             {238, 29, 58},
             {255, 169, 61},
@@ -847,6 +849,13 @@ public class UpdateStatusSteps extends DriverBase {
 
         testStepVerify.isTrue(driverToPickUP>100,"Driver to pickp value should be greater that 100 ", "Driver to pickup value is "+driverToPickUP +" min","Driver to pickup value is "+driverToPickUP +" min");
     }
+    @And("^I click on the Duo teammate image$")
+    public void i_click_on_the_duo_teammate_image() throws Throwable {
+        Thread.sleep(1000);
+     action.click(tripDetails.Image_DuoTeamMateIcon());
+     Thread.sleep(2000);
+    }
+
 
     public boolean isMessageAppPage() {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), PropertyUtility.getMessage("messages.navigation.new"));
