@@ -1954,12 +1954,9 @@ public class CoreServices extends DriverBase {
         }
         else if(Partner_Portal.equalsIgnoreCase("BestBuy")) {
 
-            //customer name
+//            //customer name
             JSONArray customFields = new JSONArray();
-            JSONObject field1 = new JSONObject();
-            field1.put("FieldRef", "8b0c893b-0be2-11ec-a1b2-0280ec37d420");
-            field1.put("FieldValue", "Test");
-            customFields.put(field1);
+
 
             JSONArray ItemsToDeliver = new JSONArray();
             if(No_Of_Driver=="1"){
@@ -1977,17 +1974,12 @@ public class CoreServices extends DriverBase {
                 //items details for duo
                 JSONObject firstDeliverables = new JSONObject();
                 JSONObject secondDeliverables = new JSONObject();
-                firstDeliverables.put("Depth", "18 inches");
-                firstDeliverables.put("Height",  "24 inches");
-                firstDeliverables.put("Name", "Insignia™ - TV Stand for Most Flat-Panel TVs Up to 60\" - Mocha");
-                firstDeliverables.put("Quantity", "1");
-                firstDeliverables.put("Width", "54 inches");
-                firstDeliverables.put("SKU", "5067400");
-                firstDeliverables.put("Quantity", "1");
-                secondDeliverables.put("Dimensions", "32");
-                secondDeliverables.put("ID", "2");
-                secondDeliverables.put("Name", "Chair");
-                secondDeliverables.put("Weight", "1111");
+                secondDeliverables.put("Depth", JSONObject.NULL);
+                secondDeliverables.put("Height", JSONObject.NULL);
+                secondDeliverables.put("Name", "Samsung - 75” Class QN85B Neo QLED 4K Smart Tizen TV");
+                secondDeliverables.put("Quantity", "1");
+                firstDeliverables.put("Width", "65.7 inches");
+                firstDeliverables.put("SKU", "6500302");
                 ItemsToDeliver.put(secondDeliverables);
             }
 
