@@ -86,7 +86,6 @@ Feature: Overlapping TELET
     Then I should be navigated to "EN ROUTE" trip status screen on driver
 
   @ready
-#    @testsweta
   Scenario: Verify solo1 and solo2 delivery at same time  for same driver , solo2 by admin assign, driver cancelled  solo1 and revived and solo2 is started but before starting driver accepts solo1
 #   solo-1
     Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
@@ -121,7 +120,7 @@ Feature: Overlapping TELET
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I open first Trip from driver scheduled trip
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen
+    And I click "More Options" button on "update" screen
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
@@ -135,10 +134,6 @@ Feature: Overlapping TELET
     When I click on "REVIVE" button
     When I click on "CONFIRM" button
     And I wait for "2" mins
-
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I open the trip for "Testcustomertywd_appleMarkAD LutherAD" the customer
     And I Select "Edit Trip Details" option
@@ -156,7 +151,6 @@ Feature: Overlapping TELET
     Then I should be navigated to "EN ROUTE" trip status screen on driver
 
   @ready
-  @testsweta
   Scenario: Verify driver1 control driver of trip1-duo trip accepted and delivery is in no driver found, driver1 accepted trip2 ,admin assign driver2 to trip1, driver1 should be able to start trip1
 #  trip1
     Given I request "duo" Bungii as a customer in "kansas" geofence
@@ -200,7 +194,6 @@ Feature: Overlapping TELET
     Then I should be navigated to "EN ROUTE" trip status screen on driver
 
   @ready
-    #  @testsweta
   Scenario: Verify driver1 control driver of trip1-duo trip accepted and delivery is in no driver found, driver1 accepted trip2 ,admin assign driver2 to trip1, driver1 should be able to start trip2
   #  trip1
     Given I request "duo" Bungii as a customer in "kansas" geofence
@@ -240,7 +233,7 @@ Feature: Overlapping TELET
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I open second Trip from driver scheduled trip
-    And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    Then I start selected Bungii
+
 
 
