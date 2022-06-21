@@ -5,10 +5,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.web.manager.ActionManager;
-import com.bungii.web.pages.admin.Admin_LiveTripsPage;
-import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
-import com.bungii.web.pages.admin.Admin_TripDetailsPage;
-import com.bungii.web.pages.admin.Admin_TripsPage;
+import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.partner.*;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -38,7 +35,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_LiveTripsPage admin_LiveTripsPage = new Admin_LiveTripsPage();
-
+    Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
     @Given("^I'm logged into \"([^\"]*)\" portal and  created a new  delivery$")
     public void im_logged_into_something_portal_and_created_a_new_delivery(String strArg1) throws Throwable {
         try {
@@ -296,8 +293,16 @@ public class Partner_TrackingIdSteps extends DriverBase {
     @When("^I click on the \"([^\"]*)\" button from the dropdown$")
     public void i_click_on_the_something_button_from_the_dropdown(String buttonText) throws Throwable {
         try {
-        action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
-        action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+            Thread.sleep(5000);
+            action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
+            switch (buttonText){
+                case "Delivery Details":
+                    action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+                    break;
+                case "Edit":
+                    action.click(admin_EditScheduledBungiiPage.Button_Edit());
+                    break;
+            }
         Thread.sleep(5000);
         log("I should be able to click on the "+ buttonText+" button from the dropdown","I could  click on the  "+ buttonText+"  button from the dropdown",false);
     }catch (Exception e) {
