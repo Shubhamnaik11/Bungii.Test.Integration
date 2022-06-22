@@ -12,6 +12,7 @@ Feature: Scheduled DUO Bungii
 	
   @regression
     #Stable
+    @testAllan
   Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -27,9 +28,9 @@ Feature: Scheduled DUO Bungii
     And I Select delivery "1" from scheduled deliveries
     Then I should be navigated to "BUNGII DETAILS" screen
     And I start selected Bungii
-    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+#    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     #Then I should be navigated to "EN ROUTE" screen
-    
+
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -41,7 +42,7 @@ Feature: Scheduled DUO Bungii
     And I Select delivery "1" from scheduled deliveries
     Then I should be navigated to "BUNGII DETAILS" screen
     And I start selected Bungii
-    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+#    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     #Then I should be navigated to "EN ROUTE" screen
 
     And I Switch to "customer" application on "ORIGINAL" devices
@@ -51,22 +52,28 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "driver" application on "same" devices
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
     And I slide update button on "EN ROUTE" Screen
-    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+#    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
     #Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "EN ROUTE" Screen
-    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+#    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
     #Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
     Then I should see "Your duo teammate is on the way" message
     Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
    # When I Switch to "driver" application on "ORIGINAL" devices
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
     And I slide update button on "ARRIVED" Screen
     #Then I accept Alert message for "Reminder: both driver at pickup"
-    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
+#    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     #Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "driver" application on "Driver2" devices
@@ -74,35 +81,44 @@ Feature: Scheduled DUO Bungii
     Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
     And I slide update button on "ARRIVED" Screen
     #Then I accept Alert message for "Reminder: both driver at pickup"
-    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
+#    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     #Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
     Then I should be navigated to "LOADING ITEM" screen
 
     When I Switch to "driver" application on "same" devices
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
     And I slide update button on "LOADING ITEMS" Screen
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
+#    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "LOADING ITEMS" Screen
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
+#    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
     And I slide update button on "DRIVING TO DROP-OFF" Screen
-    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
+#    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     #Then I should be navigated to "UNLOADING ITEMS" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "DRIVING TO DROP-OFF" Screen
-    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
+#    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     #Then I should be navigated to "UNLOADING ITEMS" screen
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
     When I Switch to "driver" application on "ORIGINAL" devices
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
