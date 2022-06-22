@@ -35,7 +35,7 @@ public class UpdateStatusSteps extends DriverBase {
     Rectangle initial;
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
-    private TripDetailsPage tripDetails;
+    private TripDetailsPage tripDetailsPage;
     int[][] rgb = {
             {238, 29, 58},
             {255, 169, 61},
@@ -46,9 +46,10 @@ public class UpdateStatusSteps extends DriverBase {
     };
     private UpdateStatusPage updateStatusPage;
 
-    public UpdateStatusSteps(UpdateStatusPage updateStatusPage, MessagesPage messagesPage) {
+    public UpdateStatusSteps(UpdateStatusPage updateStatusPage, MessagesPage messagesPage,TripDetailsPage tripDetailsPage) {
         this.updateStatusPage = updateStatusPage;
         this.messagesPage = messagesPage;
+        this.tripDetailsPage= tripDetailsPage;
     }
 
     @Then("^I check ETA of \"([^\"]*)\"$")
@@ -866,12 +867,23 @@ public class UpdateStatusSteps extends DriverBase {
     }
     @Then("^I should see the driver vehicle information$")
     public void i_should_see_the_driver_vehicle_information() throws Throwable {
-        boolean isVehicleModelDisplayed = tripDetails.Text_DriverVehicleModel().isDisplayed();
-        String VehicleModel = action.getText(tripDetails.Text_DriverVehicleModel());
+        boolean isVehicleModelDisplayed = tripDetailsPage.Text_DriverVehicleModel().isDisplayed();
+        String VehicleModel = action.getText(tripDetailsPage.Text_DriverVehicleModel());
         testStepVerify.isTrue(isVehicleModelDisplayed,"Driver vehicle model " +VehicleModel +" should be displayed","Driver vehicle model " +VehicleModel +" is displayed","Driver vehicle model " +VehicleModel +" is not displayed" );
-        boolean isVehicleLicenseNumberDisplayed = tripDetails.Text_DriverVehicleLicenseNumber().isDisplayed();
-        String VehicleLicenseNumber = action.getText(tripDetails.Text_DriverVehicleLicenseNumber());
+        boolean isVehicleLicenseNumberDisplayed = tripDetailsPage.Text_DriverVehicleLicenseNumber().isDisplayed();
+        String VehicleLicenseNumber = action.getText(tripDetailsPage.Text_DriverVehicleLicenseNumber());
         testStepVerify.isTrue(isVehicleLicenseNumberDisplayed,"Driver vehicle licence number " +VehicleLicenseNumber +" should be displayed","Driver vehicle licence number " +VehicleLicenseNumber +" is displayed","Driver licence number " +VehicleLicenseNumber +" is not displayed" );
+
+    }
+
+    @And("^I navigate back$")
+    public void i_navigate_back() throws Throwable {
+        AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
+        TouchAction touchAction = new TouchAction(driver);
+        Thread.sleep(3000);
+        PointOption pointStart = PointOption.point(201,265);
+        touchAction.press(pointStart).release().perform();
+        Thread.sleep(7000);
     }
 
 
