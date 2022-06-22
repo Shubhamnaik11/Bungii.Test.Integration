@@ -1048,6 +1048,8 @@ public class CoreServices extends DriverBase {
             String utcTime= utility.getCurrentUTCTime();
             String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID +" at "+ utcTime;
 
+            cucumberContextManager.setScenarioContext("ONDEMAND_PICKUP_ID",pickupID);
+
             JSONObject jsonObj = new JSONObject();
             JSONObject status = new JSONObject();
             JSONArray statusArray = new JSONArray();

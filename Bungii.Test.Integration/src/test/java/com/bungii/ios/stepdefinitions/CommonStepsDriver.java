@@ -588,6 +588,12 @@ public class CommonStepsDriver extends DriverBase {
                 case "BACK":
                     action.click(driverHomePage.Button_BackItemizedEarnings());
                     break;
+                case "VERIFY":
+                    action.click(scheduledTripsPage.Button_VerifyDriver());
+                    break;
+                case "SAVE CHANGES":
+                    action.click(scheduledTripsPage.Button_SaveChanges());
+                    break;
             }
         }
         catch (Throwable e) {
