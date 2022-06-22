@@ -7,6 +7,7 @@ import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.web.utilityfunctions.DbUtility.getLinkedPickupRef;
 
 public class TripDetailsSteps extends DriverBase {
 
@@ -27,7 +29,8 @@ public class TripDetailsSteps extends DriverBase {
     GeneralUtility utility= new GeneralUtility();
     AvailableTripsPage availableTripsPage=new AvailableTripsPage();
     ScheduledBungiiPage scheduledBungiiPage=new ScheduledBungiiPage();
-
+    InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
+    Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
     @When("I tap on \"([^\"]*)\" on driver Trip details Page")
     public void iTapOnOnDriverTripDetailsPage(String arg0) throws InterruptedException {
         try {
@@ -117,4 +120,65 @@ public class TripDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I click on the Duo teammate image$")
+    public void i_click_on_the_duo_teammate_image() throws Throwable {
+        Thread.sleep(4000);
+        action.click(inProgressBungiiPages.Image_BungiiDuoTeeammate());
+    }
+    @Then("^I should see the driver vehicle information$")
+    public void i_should_see_the_driver_vehicle_information() throws Throwable {
+        Thread.sleep(5000);
+        boolean isVehicleModelDisplayed = inProgressBungiiPages.Text_DuoDriverVehicleModel().isDisplayed();
+        String VehicleModel = action.getText(inProgressBungiiPages.Text_DuoDriverVehicleModel());
+        testStepVerify.isTrue(isVehicleModelDisplayed,"Driver vehicle model " +VehicleModel +" should be displayed","Driver vehicle model " +VehicleModel +" is displayed","Driver vehicle model " +VehicleModel +" is not displayed" );
+        boolean isVehicleLicenseNumberDisplayed = inProgressBungiiPages.Text_DuoDriverVehicleNumber().isDisplayed();
+        String VehicleLicenseNumber = action.getText(inProgressBungiiPages.Text_DuoDriverVehicleNumber());
+        testStepVerify.isTrue(isVehicleLicenseNumberDisplayed,"Driver vehicle licence number " +VehicleLicenseNumber +" should be displayed","Driver vehicle licence number " +VehicleLicenseNumber +" is displayed","Driver licence number " +VehicleLicenseNumber +" is not displayed" );
+    }
+
+    @And("^I change delivery type from \"([^\"]*)\"")
+    public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
+        try{
+            switch (radiobutton) {
+                case "Solo to Duo":
+                    action.click(admin_EditScheduledBungiiPage.RadioButton_Duo());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE","DUO");
+                    break;
+                case "Duo to Solo":
+                    action.click(admin_EditScheduledBungiiPage.RadioButton_Solo());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE","SOLO");
+                    break;
+            }
+            log("I change delivery type from  "+ radiobutton,
+                    "I changed delivery type from "+ radiobutton, false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^The bungii teammate icon should not be displayed$")
+    public void the_bungii_teammate_icon_should_not_be_displayed() throws Throwable {
+        Thread.sleep(4000);
+       testStepVerify.isElementDisplayed(inProgressBungiiPages.Image_BungiiDuoTeeammate(true),"TeamMate icon should not be displayed","TeamMate icon is displayed","TeamMate icon is not displayed");
+    }
+
+    @And("^I get the new pickup reference generated$")
+    public void i_get_the_new_pickup_reference_generated() throws Throwable {
+
+        try {
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            pickupRequest = getLinkedPickupRef(pickupRequest);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            log("I get the new pickup reference generated",
+                    "Pickupref is " + pickupRequest, false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "New pickup reference is not generated",
+                    true);
+        }
+
+    }
+
 }
