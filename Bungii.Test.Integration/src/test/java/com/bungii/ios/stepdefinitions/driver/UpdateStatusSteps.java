@@ -15,7 +15,10 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
@@ -852,8 +855,23 @@ public class UpdateStatusSteps extends DriverBase {
     @And("^I click on the Duo teammate image$")
     public void i_click_on_the_duo_teammate_image() throws Throwable {
         Thread.sleep(1000);
-     action.click(tripDetails.Image_DuoTeamMateIcon());
-     Thread.sleep(2000);
+        AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
+        TouchAction touchAction = new TouchAction(driver);
+        Thread.sleep(3000);
+        PointOption pointStart = PointOption.point(367,443);
+        PointOption pointEnd = PointOption.point(367,448);
+        touchAction.press(pointStart).moveTo(pointEnd).release().perform();
+        Thread.sleep(7000);
+
+    }
+    @Then("^I should see the driver vehicle information$")
+    public void i_should_see_the_driver_vehicle_information() throws Throwable {
+        boolean isVehicleModelDisplayed = tripDetails.Text_DriverVehicleModel().isDisplayed();
+        String VehicleModel = action.getText(tripDetails.Text_DriverVehicleModel());
+        testStepVerify.isTrue(isVehicleModelDisplayed,"Driver vehicle model " +VehicleModel +" should be displayed","Driver vehicle model " +VehicleModel +" is displayed","Driver vehicle model " +VehicleModel +" is not displayed" );
+        boolean isVehicleLicenseNumberDisplayed = tripDetails.Text_DriverVehicleLicenseNumber().isDisplayed();
+        String VehicleLicenseNumber = action.getText(tripDetails.Text_DriverVehicleLicenseNumber());
+        testStepVerify.isTrue(isVehicleLicenseNumberDisplayed,"Driver vehicle licence number " +VehicleLicenseNumber +" should be displayed","Driver vehicle licence number " +VehicleLicenseNumber +" is displayed","Driver licence number " +VehicleLicenseNumber +" is not displayed" );
     }
 
 

@@ -461,12 +461,11 @@ Feature: Scheduled DUO Bungii
     Scenario: test1
 #      Given that duo schedule bungii is in progress
 #        | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-#        | goa      | enroute     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+#        | goa      | enroute     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2  |
       And I Switch to "driver" application on "same" devices
       And I am on the "LOG IN" page on driverApp
       And I am logged in as "valid duo driver 1" driver
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 #      Then I should be navigated to "EN ROUTE" screen
       And I click on the Duo teammate image
-      And I slide update button on "EN ROUTE" Screen
-
+      Then I should see the driver vehicle information
