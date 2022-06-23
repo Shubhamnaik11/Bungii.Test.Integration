@@ -1954,7 +1954,7 @@ public class CoreServices extends DriverBase {
                 ApiHelper.genericResponseValidation(response, RequestText);
 
         }
-        else if(Partner_Portal.equalsIgnoreCase("BestBuy")) {
+        else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")) {
 
 //            //customer name
             JSONArray customFields = new JSONArray();

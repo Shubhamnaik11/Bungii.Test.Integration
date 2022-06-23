@@ -94,7 +94,7 @@ public class AuthServices extends DriverBase {
             logger.detail("PartnerLocationReference="+Partner_Location_Reference);
         }
         // Best buy
-        else if(Partner_Portal.equalsIgnoreCase("BestBuy")){
+        else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")){
             Partner_Location_Reference= PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref");
             cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
             partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");

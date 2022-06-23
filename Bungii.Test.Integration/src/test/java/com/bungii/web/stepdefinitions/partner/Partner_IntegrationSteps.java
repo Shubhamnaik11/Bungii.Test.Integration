@@ -573,7 +573,7 @@ public class Partner_IntegrationSteps extends DriverBase {
     @Then("^In \"([^\"]*)\" the trip should be  having a indicator with the text \"([^\"]*)\"$")
     public void in_something_the_trip_should_be_having_a_indicator_with_the_text_something(String TripPosition, String tripNumber) throws Throwable {
        try {
-        String expectedBackgroundColor = "rgba(104, 141, 45, 1)";
+           String expectedBackgroundColor = PropertyUtility.getDataProperties("partner.baltimore.bestbuy2.trip.indicator");
         switch (TripPosition){
           case "Scheduled Deliveries":
             case "Live Deliveries":
@@ -603,7 +603,7 @@ public class Partner_IntegrationSteps extends DriverBase {
     @Then("^The delivery should not be having indicator$")
     public void the_delivery_should_not_be_having_indicator() throws Throwable {
         try{
-        testStepAssert.isNotElementDisplayed(admin_ScheduledTripsPage.Text_TripIndicator(true), "Indicator Should not be displayed", "Indicator is not displayed","Indicator Should not be displayed");
+        testStepAssert.isNotElementDisplayed(admin_ScheduledTripsPage.Text_TripIndicator(true), "Indicator Should not be displayed", "Indicator is not displayed","Indicator is displayed");
 
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

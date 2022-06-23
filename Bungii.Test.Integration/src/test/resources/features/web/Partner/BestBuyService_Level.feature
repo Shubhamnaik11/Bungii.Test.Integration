@@ -36,7 +36,7 @@ Feature: Service Level
 #CORE-3199-To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
  @ready
    Scenario: To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
-    When I request Partner Portal "SOLO" Trip for "BestBuy" partner
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
     And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
@@ -68,7 +68,7 @@ Feature: Service Level
     And In "All Deliveries" the trip should be  having a indicator with the text "New-1"
 
 
-   When I request Partner Portal "SOLO" Trip for "BestBuy" partner
+   When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
      |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
    When As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
@@ -108,7 +108,7 @@ Feature: Service Level
    Then The "All Deliveries" page should display the delivery in "Payment Successful" form
    And In "All Deliveries" the trip should be  having a indicator with the text "New-2"
 
-   When I request Partner Portal "SOLO" Trip for "BestBuy" partner
+   When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
      |Geofence| Bungii Time   | Customer Phone | Customer Name |
      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
    When I navigate to "Partner" portal configured for "BestBuy2 service level" URL
@@ -128,7 +128,7 @@ Feature: Service Level
 
 
 
-   When I request Partner Portal "SOLO" Trip for "BestBuy" partner
+   When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
      |Geofence| Bungii Time   | Customer Phone | Customer Name |
      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
    And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" partner portal trip
@@ -141,7 +141,7 @@ Feature: Service Level
    And  I search the delivery using "Pickup Reference"
    Then In "All Deliveries" the trip should be  having a indicator with the text "New-4"
 
-   When I request Partner Portal "SOLO" Trip for "BestBuy" partner
+   When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
      |Geofence| Bungii Time   | Customer Phone | Customer Name |
      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
    And I wait for 2 minutes
@@ -168,7 +168,7 @@ Feature: Service Level
      | Assigning Driver(s) |
    Then In "Scheduled Deliveries" the trip should be  having a indicator with the text "New-5"
 
-    When I request Partner Portal "SOLO" Trip for "BestBuy" partner
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661036 | Testcustomertywd_appleMarkAK LutherAK|
     And I wait for 2 minutes
