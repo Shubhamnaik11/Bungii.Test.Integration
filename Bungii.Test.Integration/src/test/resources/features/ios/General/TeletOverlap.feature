@@ -121,7 +121,7 @@ Feature: Overlapping TELET
     And I open first Trip from driver scheduled trip
     And I start selected Bungii
     And I click "More Options" button on "update" screen
-    And I click "Cancel" button on "update" screen
+    And I click "Cancel Delivery" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "YES" on alert message
     And I wait for "2" mins
