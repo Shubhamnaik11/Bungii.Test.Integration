@@ -34,7 +34,6 @@ Feature: Scheduled Duo Bungiis
   @sanity
    #stable
 	@add
-	  @testAllan
   Scenario: Verify Duo Bungii Completion - Android [Kansas Geofence]
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -58,14 +57,14 @@ Feature: Scheduled Duo Bungiis
 	Then I should see the driver vehicle information
 	And I click on device "Back" button
 	And Bungii Driver "slides to the next state"
-	Then I accept Alert message for "Reminder: both driver at pickup"
-	And Bungii driver should see "Loading Item screen"
+#	Then I accept Alert message for "Reminder: both driver at pickup"
+#	And Bungii driver should see "Loading Item screen"
 	And I click on the Duo teammate image
 	Then I should see the driver vehicle information
 	And I click on device "Back" button
 
-	When I Switch to "customer" application on "same" devices
-	Then "Loading Item screen" page should be opened
+#	When I Switch to "customer" application on "same" devices
+#	Then "Loading Item screen" page should be opened
 
 	And I connect to "extra1" using "Driver2" instance
 	And I Open "driver" application on "same" devices
@@ -77,8 +76,8 @@ Feature: Scheduled Duo Bungiis
 	Then Bungii driver should see "General Instructions"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
-	Then I accept Alert message for "Reminder: both driver at pickup"
-	And Bungii driver should see "Loading Item screen"
+#	Then I accept Alert message for "Reminder: both driver at pickup"
+#	And Bungii driver should see "Loading Item screen"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
@@ -341,7 +340,7 @@ Scenario:To verify that for converted trip from solo to duo displays the vehicle
 	Then I should be navigated to "Rate duo teammate" screen
 
 #CORE-3507 : To verify that vehicle info is not displayed for solo trips --pp
-	@ready
+@ready
 Scenario:To verify that for converted trip from duo to solo does not display the vehicle info on drivers app
 	When I request Partner Portal "Duo" Trip for "MRFM" partner
 		|Geofence| Bungii Time   | Customer Phone | Customer Name |
