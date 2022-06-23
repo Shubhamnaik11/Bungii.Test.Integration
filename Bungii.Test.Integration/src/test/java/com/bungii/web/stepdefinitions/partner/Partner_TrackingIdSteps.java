@@ -307,7 +307,6 @@ public class Partner_TrackingIdSteps extends DriverBase {
                     action.click(admin_EditScheduledBungiiPage.Button_Edit());
                     break;
             }
-        Thread.sleep(5000);
         log("I should be able to click on the "+ buttonText+" button from the dropdown","I could  click on the  "+ buttonText+"  button from the dropdown",false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
