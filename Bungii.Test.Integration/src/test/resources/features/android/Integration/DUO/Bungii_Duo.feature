@@ -270,7 +270,7 @@ Feature: Scheduled Duo Bungiis
 
 
 
-@testAllan
+@ready
 Scenario:To verify that for converted trip from solo to duo displays the vehicle info on drivers app
 	  When I request Partner Portal "Solo" Trip for "MRFM" partner
 		  |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -324,11 +324,7 @@ Scenario:To verify that for converted trip from solo to duo displays the vehicle
 	And I slide update button on "DRIVING TO DROP OFF" Screen
 	And I slide update button on "UNLOADING ITEM" Screen
 	Then I accept Alert message for "Reminder: both driver at drop off"
-	And I select "4" Ratting star for solo Driver 1
-	And I click "Submit" button on "Rate duo teammate" screen
-	And I click "Skip This Step" button on "Rate customer" screen
-	Then Bungii driver should see "correct details" on Bungii completed page
-	Then Bungii Driver "completes Bungii"
+	Then I should be navigated to "Rate duo teammate" screen
 
 	When I Switch to "driver" application on "ORIGINAL" devices
 	And I slide update button on "LOADING ITEM" Screen
@@ -341,8 +337,7 @@ Scenario:To verify that for converted trip from solo to duo displays the vehicle
 	And I click on device "Back" button
 	And I slide update button on "UNLOADING ITEM" Screen
 	Then I accept Alert message for "Reminder: both driver at drop off"
-	Then Bungii driver should see "correct details" on Bungii completed page
-	Then Bungii Driver "completes Bungii"
+	Then I should be navigated to "Rate duo teammate" screen
 
 
 @ready
