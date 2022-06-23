@@ -28,12 +28,13 @@ Feature: Scheduled Duo Bungiis
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |                 |
-  
+
+#CORE-3507 : To verify that driver's vehicle info is displayed on Duo teammate scree
   @regression
   @sanity
    #stable
 	@add
-#	  @testAllan
+	  @testAllan
   Scenario: Verify Duo Bungii Completion - Android [Kansas Geofence]
 	Given that duo schedule bungii is in progress
 	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -269,7 +270,7 @@ Feature: Scheduled Duo Bungiis
 	  |PROMO PERCENT OFF|
 
 
-
+#CORE-3507:To verify that for converted trip from solo to duo displays the vehicle info on drivers app -pp
 @ready
 Scenario:To verify that for converted trip from solo to duo displays the vehicle info on drivers app
 	  When I request Partner Portal "Solo" Trip for "MRFM" partner
@@ -339,8 +340,8 @@ Scenario:To verify that for converted trip from solo to duo displays the vehicle
 	Then I accept Alert message for "Reminder: both driver at drop off"
 	Then I should be navigated to "Rate duo teammate" screen
 
-
-@ready
+#CORE-3507 : To verify that vehicle info is not displayed for solo trips --pp
+	@ready
 Scenario:To verify that for converted trip from duo to solo does not display the vehicle info on drivers app
 	When I request Partner Portal "Duo" Trip for "MRFM" partner
 		|Geofence| Bungii Time   | Customer Phone | Customer Name |
