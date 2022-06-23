@@ -34,79 +34,79 @@ Feature: Scheduled Duo Bungiis
    #stable
 	@add
 #	  @testAllan
-#  Scenario: Verify Duo Bungii Completion - Android [Kansas Geofence]
-##	Given that duo schedule bungii is in progress
-##	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
-##	  | Kansas   | Accepted     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
-#
-#	When I Switch to "customer" application on "same" devices
-#	And I am logged in as "valid kansas" customer
-#
-#	When I Switch to "driver" application on "same" devices
-#	And I am on the LOG IN page on driver app
-#	And I am logged in as "kansas driver 1" driver
-#	And I Select "SCHEDULED BUNGIIS" from driver App menu
-#	And I Select Trip from driver scheduled trip
-#	And Bungii Driver "Start Schedule Bungii" request
-#	Then Bungii driver should see "General Instructions"
-#	  And I click on the Duo teammate image
-#	  Then I should see the driver vehicle information
-#	  And I click on device "Back" button
-#	And Bungii Driver "slides to the next state"
-#	  And I click on the Duo teammate image
-#	  Then I should see the driver vehicle information
-#	  And I click on device "Back" button
-#	  And Bungii Driver "slides to the next state"
-#	Then I accept Alert message for "Reminder: both driver at pickup"
-#	And Bungii driver should see "Loading Item screen"
-#	  And I click on the Duo teammate image
-#	  Then I should see the driver vehicle information
-#	  And I click on device "Back" button
-#
-#	When I Switch to "customer" application on "same" devices
-#	Then "Loading Item screen" page should be opened
-#
-#	And I connect to "extra1" using "Driver2" instance
-#	And I Open "driver" application on "same" devices
-#	And I am on the LOG IN page on driver app
-#	And I am logged in as "kansas driver 2" driver
-#	And I Select "SCHEDULED BUNGIIS" from driver App menu
-#	And I Select Trip from driver scheduled trip
-#	And Bungii Driver "Start Schedule Bungii" request
-#	  Then Bungii driver should see "General Instructions"
-#	And Bungii Driver "slides to the next state"
-#	And Bungii Driver "slides to the next state"
-#	Then I accept Alert message for "Reminder: both driver at pickup"
-#	And Bungii driver should see "Loading Item screen"
-#	And Bungii Driver "slides to the next state"
-#	And Bungii Driver "slides to the next state"
-#	And Bungii Driver "slides to the next state"
-#	Then I accept Alert message for "Reminder: both driver at drop off"
-#
-#	When I Switch to "driver" application on "ORIGINAL" devices
-#	And Bungii Driver "slides to the next state"
-#	  And I click on the Duo teammate image
-#	  Then I should see the driver vehicle information
-#	  And I click on device "Back" button
-#	And Bungii Driver "slides to the next state"
-#	  And I click on the Duo teammate image
-#	  Then I should see the driver vehicle information
-#	  And I click on device "Back" button
-#	And Bungii Driver "slides to the next state"
-#	Then I accept Alert message for "Reminder: both driver at drop off"
-#
-#	When I Switch to "customer" application on "same" devices
-#	And Bungii customer should see "correct details" on Bungii completed page
-#	And I tap on "OK on complete" on Bungii estimate
-#	And I tap on "No free money" on Bungii estimate
-#
-#	When I Switch to "driver" application on "same" devices
-#	Then Bungii driver should see "correct details" on Bungii completed page
-#	Then Bungii Driver "completes Bungii"
-#
-#	And I Switch to "driver" application on "Driver2" devices
-#	Then Bungii driver should see "correct details" on Bungii completed page
-#	Then Bungii Driver "completes Bungii"
+  Scenario: Verify Duo Bungii Completion - Android [Kansas Geofence]
+	Given that duo schedule bungii is in progress
+	  | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+	  | Kansas   | Accepted     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+
+	When I Switch to "customer" application on "same" devices
+	And I am logged in as "valid kansas" customer
+
+	When I Switch to "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "kansas driver 1" driver
+	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I Select Trip from driver scheduled trip
+	And Bungii Driver "Start Schedule Bungii" request
+	Then Bungii driver should see "General Instructions"
+	And I click on the Duo teammate image
+	Then I should see the driver vehicle information
+	And I click on device "Back" button
+	And Bungii Driver "slides to the next state"
+	And I click on the Duo teammate image
+	Then I should see the driver vehicle information
+	And I click on device "Back" button
+	And Bungii Driver "slides to the next state"
+	Then I accept Alert message for "Reminder: both driver at pickup"
+	And Bungii driver should see "Loading Item screen"
+	And I click on the Duo teammate image
+	Then I should see the driver vehicle information
+	And I click on device "Back" button
+
+	When I Switch to "customer" application on "same" devices
+	Then "Loading Item screen" page should be opened
+
+	And I connect to "extra1" using "Driver2" instance
+	And I Open "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "kansas driver 2" driver
+	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	And I Select Trip from driver scheduled trip
+	And Bungii Driver "Start Schedule Bungii" request
+	Then Bungii driver should see "General Instructions"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	Then I accept Alert message for "Reminder: both driver at pickup"
+	And Bungii driver should see "Loading Item screen"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	Then I accept Alert message for "Reminder: both driver at drop off"
+
+	When I Switch to "driver" application on "ORIGINAL" devices
+	And Bungii Driver "slides to the next state"
+	  And I click on the Duo teammate image
+	  Then I should see the driver vehicle information
+	  And I click on device "Back" button
+	And Bungii Driver "slides to the next state"
+	  And I click on the Duo teammate image
+	  Then I should see the driver vehicle information
+	  And I click on device "Back" button
+	And Bungii Driver "slides to the next state"
+	Then I accept Alert message for "Reminder: both driver at drop off"
+
+	When I Switch to "customer" application on "same" devices
+	And Bungii customer should see "correct details" on Bungii completed page
+	And I tap on "OK on complete" on Bungii estimate
+	And I tap on "No free money" on Bungii estimate
+
+	When I Switch to "driver" application on "same" devices
+	Then Bungii driver should see "correct details" on Bungii completed page
+	Then Bungii Driver "completes Bungii"
+
+	And I Switch to "driver" application on "Driver2" devices
+	Then Bungii driver should see "correct details" on Bungii completed page
+	Then Bungii Driver "completes Bungii"
 	
   @regression
 	#stable
@@ -270,7 +270,7 @@ Feature: Scheduled Duo Bungiis
 
 
 
-@testingAllan
+@testAllan
 Scenario:To verify that for converted trip from solo to duo displays the vehicle info on drivers app
 	  When I request Partner Portal "Solo" Trip for "MRFM" partner
 		  |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -300,6 +300,50 @@ Scenario:To verify that for converted trip from solo to duo displays the vehicle
 	And I click on the Duo teammate image
 	Then I should see the driver vehicle information
 	And I click on device "Back" button
+	And I slide update button on "EN ROUTE" Screen
+	And I click on the Duo teammate image
+	Then I should see the driver vehicle information
+	And I click on device "Back" button
+	And I slide update button on "ARRIVED" Screen
+	And I accept Alert message for "Reminder: both driver at pickup"
+	And I click on the Duo teammate image
+	Then I should see the driver vehicle information
+	And I click on device "Back" button
+
+	And I connect to "extra1" using "Driver2" instance
+	And I Open "driver" application on "same" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "Testdrivertywd_appleks_a_drvaj Kansas_aj" driver
+	And I slide update button on "EN ROUTE" Screen
+	And I click on the Duo teammate image
+	Then I should see the driver vehicle information
+	And I click on device "Back" button
+	And I slide update button on "ARRIVED" Screen
+	Then I accept Alert message for "Reminder: both driver at pickup"
+	And I slide update button on "LOADING ITEM" Screen
+	And I slide update button on "DRIVING TO DROP OFF" Screen
+	And I slide update button on "UNLOADING ITEM" Screen
+	Then I accept Alert message for "Reminder: both driver at drop off"
+	And I select "4" Ratting star for solo Driver 1
+	And I click "Submit" button on "Rate duo teammate" screen
+	And I click "Skip This Step" button on "Rate customer" screen
+	Then Bungii driver should see "correct details" on Bungii completed page
+	Then Bungii Driver "completes Bungii"
+
+	When I Switch to "driver" application on "ORIGINAL" devices
+	And I slide update button on "LOADING ITEM" Screen
+	And I click on the Duo teammate image
+	Then I should see the driver vehicle information
+	And I click on device "Back" button
+	And I slide update button on "DRIVING TO DROP OFF" Screen
+	And I click on the Duo teammate image
+	Then I should see the driver vehicle information
+	And I click on device "Back" button
+	And I slide update button on "UNLOADING ITEM" Screen
+	Then I accept Alert message for "Reminder: both driver at drop off"
+	Then Bungii driver should see "correct details" on Bungii completed page
+	Then Bungii Driver "completes Bungii"
+
 
 @ready
 Scenario:To verify that for converted trip from duo to solo does not display the vehicle info on drivers app
