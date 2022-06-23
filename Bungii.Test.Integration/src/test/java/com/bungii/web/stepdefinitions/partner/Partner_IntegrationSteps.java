@@ -593,23 +593,23 @@ public class Partner_IntegrationSteps extends DriverBase {
                 testStepAssert.isEquals(indicatorbgForAllTrips,expectedBackgroundColor,"Indictor color should be green","Indicator color is green","Indicator color is not green");
                 break;
       }
-    } catch (Exception e) {
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step Should be successful", "Error in viewing Quotes only page",
-                true);
-    }
+       } catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
     }
 
     @Then("^The delivery should not be having indicator$")
     public void the_delivery_should_not_be_having_indicator() throws Throwable {
         try{
-        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_TripIndicator(true), "Indicator Should not be displayed", "Indicator is not displayed","Indicator Should not be displayed");
+        testStepAssert.isNotElementDisplayed(admin_ScheduledTripsPage.Text_TripIndicator(true), "Indicator Should not be displayed", "Indicator is not displayed","Indicator Should not be displayed");
 
-        } catch (Exception e) {
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step Should be successful", "Error in viewing Quotes only page",
-                true);
-    }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 
