@@ -59,5 +59,7 @@ public class ScheduledBungiiPage extends PageBase {
     public WebElement Label_MinutesDuo() {
         return findElement("//XCUIElementTypeImage[@name='bungii_type-duo']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
     }
+    public WebElement Text_DropOffLocation_LineOne1() { return  findElement("//XCUIElementTypeTable/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[8]", LocatorType.XPath);}
+    public WebElement Text_PickupLocation_LineOne1() { return  findElement("//XCUIElementTypeTable/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[6]", LocatorType.XPath);}
 
 }
