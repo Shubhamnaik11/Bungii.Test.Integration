@@ -120,6 +120,8 @@ public class Partner_DeliveryPage extends PageBase {
     //public WebElement Button_Schedule_Bungii() { return findElement("submit-details",LocatorType.Id);}
     public WebElement Button_Schedule_Bungii() { return findElement("//button[@id='submit-details']",LocatorType.XPath);}
 
+    public WebElement Button_New_Bungii() { return findElement("//div/button[text()='New Bungii']",LocatorType.XPath);}
+
     //Driver and truck text in summary
     public WebElement Text_Driver_Truck() { return findElement("//label[contains(text(),'s needed:')]/following-sibling::p",LocatorType.XPath);}
 
