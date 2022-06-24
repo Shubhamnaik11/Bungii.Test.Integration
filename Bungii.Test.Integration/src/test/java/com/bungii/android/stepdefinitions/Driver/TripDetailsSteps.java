@@ -122,11 +122,17 @@ public class TripDetailsSteps extends DriverBase {
     }
     @And("^I click on the Duo teammate image$")
     public void i_click_on_the_duo_teammate_image() throws Throwable {
+        try{
         Thread.sleep(4000);
         action.click(inProgressBungiiPages.Image_BungiiDuoTeeammate());
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
     @Then("^I should see the driver vehicle information$")
     public void i_should_see_the_driver_vehicle_information() throws Throwable {
+        try {
         Thread.sleep(5000);
         boolean isVehicleModelDisplayed = inProgressBungiiPages.Text_DuoDriverVehicleModel().isDisplayed();
         String VehicleModel = action.getText(inProgressBungiiPages.Text_DuoDriverVehicleModel());
@@ -134,6 +140,10 @@ public class TripDetailsSteps extends DriverBase {
         boolean isVehicleLicenseNumberDisplayed = inProgressBungiiPages.Text_DuoDriverVehicleNumber().isDisplayed();
         String VehicleLicenseNumber = action.getText(inProgressBungiiPages.Text_DuoDriverVehicleNumber());
         testStepVerify.isTrue(isVehicleLicenseNumberDisplayed,"Driver vehicle licence number " +VehicleLicenseNumber +" should be displayed","Driver vehicle licence number " +VehicleLicenseNumber +" is displayed","Driver licence number " +VehicleLicenseNumber +" is not displayed" );
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @And("^I change delivery type from \"([^\"]*)\"")
@@ -159,8 +169,13 @@ public class TripDetailsSteps extends DriverBase {
     }
     @Then("^The bungii teammate icon should not be displayed$")
     public void the_bungii_teammate_icon_should_not_be_displayed() throws Throwable {
-        Thread.sleep(4000);
-       testStepVerify.isElementDisplayed(inProgressBungiiPages.Image_BungiiDuoTeeammate(true),"TeamMate icon should not be displayed","TeamMate icon is displayed","TeamMate icon is not displayed");
+        try{
+        Thread.sleep(2000);
+       testStepAssert.isNotElementDisplayed(inProgressBungiiPages.Image_BungiiDuoTeeammate(true),"TeamMate icon should not be displayed","TeamMate icon is displayed","TeamMate icon is not displayed");
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @And("^I get the new pickup reference generated$")

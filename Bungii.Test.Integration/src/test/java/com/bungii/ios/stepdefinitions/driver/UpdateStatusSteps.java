@@ -856,6 +856,7 @@ public class UpdateStatusSteps extends DriverBase {
     }
     @And("^I click on the Duo teammate image$")
     public void i_click_on_the_duo_teammate_image() throws Throwable {
+        try{
         Thread.sleep(1000);
         AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
         TouchAction touchAction = new TouchAction(driver);
@@ -864,27 +865,43 @@ public class UpdateStatusSteps extends DriverBase {
         PointOption pointEnd = PointOption.point(367,448);
         touchAction.press(pointStart).moveTo(pointEnd).release().perform();
         Thread.sleep(7000);
+        log("I should be able to click on duo teammate image","I could click on duo teammate image",false);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
 
     }
     @Then("^I should see the driver vehicle information$")
     public void i_should_see_the_driver_vehicle_information() throws Throwable {
+        try{
         boolean isVehicleModelDisplayed = tripDetailsPage.Text_DriverVehicleModel().isDisplayed();
         String VehicleModel = action.getText(tripDetailsPage.Text_DriverVehicleModel());
         testStepVerify.isTrue(isVehicleModelDisplayed,"Driver vehicle model " +VehicleModel +" should be displayed","Driver vehicle model " +VehicleModel +" is displayed","Driver vehicle model " +VehicleModel +" is not displayed" );
         boolean isVehicleLicenseNumberDisplayed = tripDetailsPage.Text_DriverVehicleLicenseNumber().isDisplayed();
         String VehicleLicenseNumber = action.getText(tripDetailsPage.Text_DriverVehicleLicenseNumber());
         testStepVerify.isTrue(isVehicleLicenseNumberDisplayed,"Driver vehicle licence number " +VehicleLicenseNumber +" should be displayed","Driver vehicle licence number " +VehicleLicenseNumber +" is displayed","Driver licence number " +VehicleLicenseNumber +" is not displayed" );
-
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @And("^I navigate back$")
     public void i_navigate_back() throws Throwable {
+        try{
         AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
         TouchAction touchAction = new TouchAction(driver);
         Thread.sleep(3000);
         PointOption pointStart = PointOption.point(201,265);
         touchAction.press(pointStart).release().perform();
         Thread.sleep(7000);
+        log("I should be able to navigate back","I could navigate back",false);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+
     }
     @And("^I get the new pickup reference generated$")
     public void i_get_the_new_pickup_reference_generated() throws Throwable {
