@@ -93,7 +93,15 @@ public class AuthServices extends DriverBase {
             cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerURL);
             logger.detail("PartnerLocationReference="+Partner_Location_Reference);
         }
-        // Best buy
+        //Cort
+        else if(Partner_Portal.equalsIgnoreCase("Cort")){
+            Partner_Location_Reference= PropertyUtility.getDataProperties("qa.cort_service_level_partner.ref");
+            cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
+            partnerURL = PropertyUtility.getDataProperties("qa.cort_service_level_partner.url");
+            cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerURL);
+            logger.detail("PartnerLocationReference="+Partner_Location_Reference);
+        }
+        // bestbuy11
         else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")){
             Partner_Location_Reference= PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref");
             cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
