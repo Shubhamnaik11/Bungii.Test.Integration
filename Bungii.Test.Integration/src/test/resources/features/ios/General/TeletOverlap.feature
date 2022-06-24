@@ -3,18 +3,19 @@
 Feature: Overlapping TELET
 
   @ready
-  Scenario: Verify that driver is allowed to start only the first scheduled solo customer trip when there is another overlapping (TELET) Solo customer trip
-    Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
-      | NEXT_POSSIBLE_FIRST_SLOT | 8877661025     | Cci12345          | Testcustomertywd_appleMarkZ LutherZ |
+    @testsweta
+  Scenario: Verify that driver is allowed to start only the first scheduled solo partner trip when there is another overlapping (TELET) Solo partner trip
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas  | NEXT_POSSIBLE_FIRST_SLOT | 8877661025     | Testcustomertywd_appleMarkZ LutherZ|
     And I wait for "1" mins
     And As a driver "Testdrivertywd_appleks_a_drvar Kansas_ar" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted  |
 
-    Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
-      | NEXT_POSSIBLE | 8877661026     | Cci12345          | Testcustomertywd_appleMarkAA LutherAA |
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas  | NEXT_POSSIBLE | 8877661026     | Testcustomertywd_appleMarkAA LutherAA |
     And I wait for "2" mins
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
