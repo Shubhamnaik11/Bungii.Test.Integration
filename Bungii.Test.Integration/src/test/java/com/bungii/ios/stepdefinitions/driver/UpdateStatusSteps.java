@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
+import static com.bungii.web.utilityfunctions.DbUtility.getLinkedPickupRef;
 
 
 public class UpdateStatusSteps extends DriverBase {
@@ -884,6 +885,23 @@ public class UpdateStatusSteps extends DriverBase {
         PointOption pointStart = PointOption.point(201,265);
         touchAction.press(pointStart).release().perform();
         Thread.sleep(7000);
+    }
+    @And("^I get the new pickup reference generated$")
+    public void i_get_the_new_pickup_reference_generated() throws Throwable {
+
+        try {
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            pickupRequest = getLinkedPickupRef(pickupRequest);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            log("I get the new pickup reference generated",
+                    "Pickupref is " + pickupRequest, false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "New pickup reference is not generated",
+                    true);
+        }
+
     }
 
 

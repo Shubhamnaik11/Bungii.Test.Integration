@@ -12,7 +12,6 @@ Feature: Scheduled DUO Bungii
 	
   @regression
     #Stable
-    @testAllan
   Scenario: Verify Scheduled Duo Bungii Completion [2 Devices]
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -473,16 +472,81 @@ Feature: Scheduled DUO Bungii
 
 
 
-    @testAllan
-    Scenario: test1
-#      Given that duo schedule bungii is in progress
-#        | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-#        | goa      | enroute     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2  |
-      And I Switch to "driver" application on "same" devices
-      And I am on the "LOG IN" page on driverApp
+
+
+
       And I am logged in as "valid duo driver 1" driver
 #      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 #      Then I should be navigated to "EN ROUTE" screen
-      And I click on the Duo teammate image
-      Then I should see the driver vehicle information
-      And I navigate back
+#      And I click on the Duo teammate image
+#      Then I should see the driver vehicle information
+#      And I navigate back
+
+  @testAllan
+  Scenario: To verify that for converted trip from solo to duo displays the vehicle info on drivers app
+    When I request Partner Portal "Solo" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | 8877661037 | Testcustomertywd_appleMarkAL LutherAL|
+    Then I wait for "2" mins
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkAL LutherAL" the customer
+    And I Select "Edit Trip Details" option
+    And I change delivery type from "Solo to Duo"
+    And I click on "VERIFY" button
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+    When I click on "Close" button
+    Then I wait for "2" mins
+    And I get the new pickup reference generated
+    When As a driver "Testdrivertywd_appleks_a_drvay Kansas_ay" and "Testdrivertywd_appleks_a_drvaz Kansas_az" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+      | Enroute       | Enroute       |
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appleks_a_drvay Kansas_ay" driver
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "EN ROUTE" Screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "ARRIVED" Screen
+    And I accept Alert message for "Reminder: both driver at pickup"
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+
+    And I connect to "extra1" using "Driver2" instance
+    And I Open "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appleks_a_drvaz Kansas_az" driver
+    And I slide update button on "EN ROUTE" Screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "ARRIVED" Screen
+    Then I accept Alert message for "Reminder: both driver at pickup"
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    Then I should be navigated to "Rate duo teammate" screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "LOADING ITEM" Screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    Then I should be navigated to "Rate duo teammate" screen
