@@ -1060,7 +1060,9 @@ try{
         action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
         Thread.sleep(1000);
         cucumberContextManager.setScenarioContext("OLD_DROPOFF_LOCATION",action.getText(admin_ScheduledTripsPage.DropOff_Address()));
-        cucumberContextManager.setScenarioContext("OLD_ADDITION_NOTE",action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note()));
+        if(action.isElementPresent(admin_EditScheduledBungiiPage.Text_Additional_Note(true))) {
+            cucumberContextManager.setScenarioContext("OLD_ADDITION_NOTE", action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note()));
+        }
         log("I edit the drop off address ",
                 "I have edited the dropoff address ");
     } catch(Exception e){
@@ -2292,5 +2294,22 @@ try{
                     true);
         }
     }
+
+    @Then("^Confirmation message on edit live delivery pop up should be displayed$")
+    public void confirmation_message_on_edit_live_delivery_pop_up_should_be_displayed() throws Throwable  {
+        try
+        {
+            String expectedMessage = PropertyUtility.getMessage("admin.complete.confirm");
+            String actualMessage = action.getText(admin_LiveTripsPage.Message_AdminCompleteConfirm());
+            testStepAssert.isEquals(actualMessage, expectedMessage, expectedMessage + "should be displayed", expectedMessage + "is displayed", actualMessage + "is displayed");
+        }
+
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 
 }

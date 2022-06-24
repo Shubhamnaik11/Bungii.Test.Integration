@@ -594,7 +594,12 @@ public class CommonStepsDriver extends DriverBase {
                 case "GO OFFLINE":
                     action.click(driverBungiiCompletedPage.Button_GoOffline());
                     break;
-
+                case "VERIFY":
+                    action.click(scheduledTripsPage.Button_VerifyDriver());
+                    break;
+                case "SAVE CHANGES":
+                    action.click(scheduledTripsPage.Button_SaveChanges());
+                    break;
             }
         }
         catch (Throwable e) {
