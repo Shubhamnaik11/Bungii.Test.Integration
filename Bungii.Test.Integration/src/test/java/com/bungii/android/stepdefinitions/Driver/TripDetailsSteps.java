@@ -65,7 +65,7 @@ public class TripDetailsSteps extends DriverBase {
                     testStepAssert.isTrue(listOfBungii.size() == 0, "There should be zero available deliveries", listOfBungii.size()+" available deliveries are displayed.");
                     break;
                 case "two customer":
-                    testStepAssert.isTrue(listOfCustomerBungii.size() == 2, "There should be two available app customer deliveries",listOfBungii.size()+" available app customer deliveries are displayed");
+                    testStepAssert.isTrue(listOfCustomerBungii.size() >= 2, "There should be two available app customer deliveries",listOfBungii.size()+" available app customer deliveries are displayed");
                     break;
                 case "old":
                     int count = Integer.parseInt(String.valueOf(cucumberContextManager.getScenarioContext("COUNT_OF_AVAILABLE_TRIPS")));
