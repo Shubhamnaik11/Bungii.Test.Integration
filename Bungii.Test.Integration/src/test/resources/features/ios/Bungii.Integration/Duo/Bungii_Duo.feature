@@ -27,7 +27,7 @@ Feature: Scheduled DUO Bungii
     And I Select delivery "1" from scheduled deliveries
     Then I should be navigated to "BUNGII DETAILS" screen
     And I start selected Bungii
-#    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+   Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     #Then I should be navigated to "EN ROUTE" screen
 
     And I connect to "extra1" using "Driver2" instance
@@ -41,7 +41,7 @@ Feature: Scheduled DUO Bungii
     And I Select delivery "1" from scheduled deliveries
     Then I should be navigated to "BUNGII DETAILS" screen
     And I start selected Bungii
-#    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     #Then I should be navigated to "EN ROUTE" screen
 
     And I Switch to "customer" application on "ORIGINAL" devices
@@ -51,36 +51,30 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "driver" application on "same" devices
-    And I click on the Duo teammate image
-    Then I should see the driver vehicle information
-    And I navigate back
     And I slide update button on "EN ROUTE" Screen
-#    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
     #Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "EN ROUTE" Screen
-#    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
     #Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
     Then I should see "Your duo teammate is on the way" message
     Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
    # When I Switch to "driver" application on "ORIGINAL" devices
-    And I click on the Duo teammate image
-    Then I should see the driver vehicle information
-    And I navigate back
     And I slide update button on "ARRIVED" Screen
-    #Then I accept Alert message for "Reminder: both driver at pickup"
-#    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
+    Then I accept Alert message for "Reminder: both driver at pickup"
+    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     #Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "driver" application on "Driver2" devices
     Then I should see "Your duo teammate is on the way" message
     Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
     And I slide update button on "ARRIVED" Screen
-    #Then I accept Alert message for "Reminder: both driver at pickup"
-#    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
+    Then I accept Alert message for "Reminder: both driver at pickup"
+    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     #Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
@@ -91,12 +85,12 @@ Feature: Scheduled DUO Bungii
     Then I should see the driver vehicle information
     And I navigate back
     And I slide update button on "LOADING ITEMS" Screen
-#    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "LOADING ITEMS" Screen
-#    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
+   Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
@@ -104,12 +98,12 @@ Feature: Scheduled DUO Bungii
     Then I should see the driver vehicle information
     And I navigate back
     And I slide update button on "DRIVING TO DROP-OFF" Screen
-#    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
+    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     #Then I should be navigated to "UNLOADING ITEMS" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "DRIVING TO DROP-OFF" Screen
-#    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
+    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     #Then I should be navigated to "UNLOADING ITEMS" screen
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
@@ -472,23 +466,14 @@ Feature: Scheduled DUO Bungii
 
 
 
-
-
-
-      And I am logged in as "valid duo driver 1" driver
-#      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-#      Then I should be navigated to "EN ROUTE" screen
-#      And I click on the Duo teammate image
-#      Then I should see the driver vehicle information
-#      And I navigate back
-
-  @testAllan
+#Core-3507 : To verify that for converted trip from solo to duo displays the vehicle info on drivers app -partner trip
+  @ready
   Scenario: To verify that for converted trip from solo to duo displays the vehicle info on drivers app
     When I request Partner Portal "Solo" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |Kansas| NEXT_POSSIBLE | 8877661037 | Testcustomertywd_appleMarkAL LutherAL|
-    Then I wait for "2" mins
-    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
@@ -505,10 +490,82 @@ Feature: Scheduled DUO Bungii
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
       | Enroute       | Enroute       |
-    When I switch to "ORIGINAL" instance
-    When I Switch to "driver" application on "same" devices
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_appleks_a_drvay Kansas_ay" driver
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    When I slide update button on "EN ROUTE" Screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "ARRIVED" Screen
+    And I accept Alert message for "Reminder: both driver at pickup"
+    When I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+
+    And I connect to "extra1" using "Driver2" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appleks_a_drvaz Kansas_az" driver
+    And I slide update button on "EN ROUTE" Screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "ARRIVED" Screen
+    And I accept Alert message for "Reminder: both driver at pickup"
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    And I should be navigated to "Rate duo teammate" screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "LOADING ITEM" Screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I click on the Duo teammate image
+    When I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    And I should be navigated to "Rate duo teammate" screen
+
+#Core-3507 : To verify that vehicle info is displayed on duo teammate screen for duo customer trip
+  @ready
+  Scenario: To verify that vehicle info is displayed on duo teammate screen for duo customer trip
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | enroute     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    When I slide update button on "EN ROUTE" Screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I slide update button on "ARRIVED" Screen
+    And I accept Alert message for "Reminder: both driver at pickup"
+    When I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+
+
+    And I connect to "extra1" using "Driver2" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid driver 2" driver
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
@@ -521,22 +578,20 @@ Feature: Scheduled DUO Bungii
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
-
-    And I connect to "extra1" using "Driver2" instance
-    And I Open "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_appleks_a_drvaz Kansas_az" driver
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "LOADING ITEM" Screen
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
-    And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
-    Then I should be navigated to "Rate duo teammate" screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+    And I should be navigated to "Rate duo teammate" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "LOADING ITEM" Screen
@@ -545,8 +600,9 @@ Feature: Scheduled DUO Bungii
     And I navigate back
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click on the Duo teammate image
-    Then I should see the driver vehicle information
+    When I should see the driver vehicle information
     And I navigate back
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
-    Then I should be navigated to "Rate duo teammate" screen
+    And I should be navigated to "Rate duo teammate" screen
+

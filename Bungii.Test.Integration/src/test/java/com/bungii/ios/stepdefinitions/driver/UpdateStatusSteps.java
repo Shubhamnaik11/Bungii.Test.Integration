@@ -749,17 +749,17 @@ public class UpdateStatusSteps extends DriverBase {
         String expectedText = "";
         switch (strArg1) {
             case "Reminder: both driver at pickup":
-                
                 expectedText = PropertyUtility.getMessage("bungii.duo.driver.pickup");
+                testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
+                action.clickAlertButton("Initiate");
                 break;
             case "Reminder: both driver at drop off":
                 expectedText = PropertyUtility.getMessage("bungii.duo.driver.drop");
+                testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
+                action.clickAlertButton("Complete");
                 break;
 
         }
-        testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
-        //action.clickAlertButton("Initiate");
-        action.clickAlertButton("Complete");
     }
 
     @And("^stack trip information should be displayed on deck$")

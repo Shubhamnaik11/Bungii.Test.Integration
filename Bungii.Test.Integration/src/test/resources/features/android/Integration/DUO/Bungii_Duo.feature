@@ -57,14 +57,14 @@ Feature: Scheduled Duo Bungiis
 	Then I should see the driver vehicle information
 	And I click on device "Back" button
 	And Bungii Driver "slides to the next state"
-#	Then I accept Alert message for "Reminder: both driver at pickup"
-#	And Bungii driver should see "Loading Item screen"
+	Then I accept Alert message for "Reminder: both driver at pickup"
+	And Bungii driver should see "Loading Item screen"
 	And I click on the Duo teammate image
 	Then I should see the driver vehicle information
 	And I click on device "Back" button
 
-#	When I Switch to "customer" application on "same" devices
-#	Then "Loading Item screen" page should be opened
+	When I Switch to "customer" application on "same" devices
+	Then "Loading Item screen" page should be opened
 
 	And I connect to "extra1" using "Driver2" instance
 	And I Open "driver" application on "same" devices
@@ -76,8 +76,8 @@ Feature: Scheduled Duo Bungiis
 	Then Bungii driver should see "General Instructions"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
-#	Then I accept Alert message for "Reminder: both driver at pickup"
-#	And Bungii driver should see "Loading Item screen"
+	Then I accept Alert message for "Reminder: both driver at pickup"
+	And Bungii driver should see "Loading Item screen"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
@@ -85,13 +85,13 @@ Feature: Scheduled Duo Bungiis
 
 	When I Switch to "driver" application on "ORIGINAL" devices
 	And Bungii Driver "slides to the next state"
-	  And I click on the Duo teammate image
-	  Then I should see the driver vehicle information
-	  And I click on device "Back" button
+	And I click on the Duo teammate image
+	Then I should see the driver vehicle information
+	And I click on device "Back" button
 	And Bungii Driver "slides to the next state"
-	  And I click on the Duo teammate image
-	  Then I should see the driver vehicle information
-	  And I click on device "Back" button
+	And I click on the Duo teammate image
+	Then I should see the driver vehicle information
+	And I click on device "Back" button
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at drop off"
 
