@@ -66,3 +66,26 @@
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       Then I check if driver cut is reflected
 
+#    Core-2418: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
+    @ready
+    @testsweta
+    Scenario: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
+#      When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
+#        |Geofence| Bungii Time   | Customer Phone | Customer Name |
+#        |washingtondc| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+      When I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I enter phoneNumber :9766000001 and  Password :Cci12345
+      And I click "Log In" button on Log In screen on driver app
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+#      And I Select "AVAILABLE BUNGIIS" from driver App menu
+#      And I Select Trip from available trip
+#      And I tap on "ACCEPT" on driver Trip details Page
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      And I Select Trip from driver scheduled trip
+      And I start selected Bungii for "floor and decor"
+      Then Bungii driver should see "General Instructions"
+      And I slide update button on "EN ROUTE" Screen
+      Then Bungii driver should see "Pickup Instructions"
+      And I slide update button on "ARRIVED" Screen

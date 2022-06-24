@@ -688,6 +688,12 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Title_RateCustomer(),"Rate customer screen should be shown to the driver","Rate customer screen is shown to the driver", "Rate customer screen is not shown to the driver");
                     break;
 
+                    case "Pickup Instructions":
+                    testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Header_GeneralInstructions(),"General Instructions should be shown","General Instructions are shown","General Instructions are not shown");
+                    testStepVerify.isEquals(Page_DriverBungiiProgress.Text_GeneralInstructions().getText(),PropertyUtility.getMessage("General.Instructions.Geofence.Based"),"General Instructions text should be correct","General Instructions text is correct","General Instructions text is incorrect");
+                    action.click((Page_DriverBungiiProgress.Button_GeneralInstructions_GotIt()));
+                    break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
