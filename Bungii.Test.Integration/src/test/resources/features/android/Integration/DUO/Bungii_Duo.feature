@@ -49,19 +49,10 @@ Feature: Scheduled Duo Bungiis
 	And I Select Trip from driver scheduled trip
 	And Bungii Driver "Start Schedule Bungii" request
 	Then Bungii driver should see "General Instructions"
-	And I click on the Duo teammate image
-	Then I should see the driver vehicle information
-	And I click on device "Back" button
 	And Bungii Driver "slides to the next state"
-	And I click on the Duo teammate image
-	Then I should see the driver vehicle information
-	And I click on device "Back" button
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at pickup"
 	And Bungii driver should see "Loading Item screen"
-	And I click on the Duo teammate image
-	Then I should see the driver vehicle information
-	And I click on device "Back" button
 
 	When I Switch to "customer" application on "same" devices
 	Then "Loading Item screen" page should be opened
@@ -85,13 +76,7 @@ Feature: Scheduled Duo Bungiis
 
 	When I Switch to "driver" application on "ORIGINAL" devices
 	And Bungii Driver "slides to the next state"
-	And I click on the Duo teammate image
-	Then I should see the driver vehicle information
-	And I click on device "Back" button
 	And Bungii Driver "slides to the next state"
-	And I click on the Duo teammate image
-	Then I should see the driver vehicle information
-	And I click on device "Back" button
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at drop off"
 
@@ -337,7 +322,7 @@ Scenario:To verify that for converted trip from solo to duo displays the vehicle
 	And I click on device "Back" button
 	And I slide update button on "UNLOADING ITEM" Screen
 	Then I accept Alert message for "Reminder: both driver at drop off"
-	Then I should be navigated to "Rate duo teammate" screen
+	And I should be navigated to "Rate duo teammate" screen
 
 #CORE-3507 : To verify that vehicle info is not displayed for solo trips --pp
 @ready
@@ -368,3 +353,57 @@ Scenario:To verify that for converted trip from duo to solo does not display the
 	And I am on the LOG IN page on driver app
 	And I am logged in as "Testdrivertywd_appleks_a_drvak kansas_ak" driver
 	Then The bungii teammate icon should not be displayed
+
+#CORE-3507 : To verify that vehicle info is displayed on duo teammate screen for duo customer trip
+@testAllan
+Scenario:To verify that vehicle info is displayed on duo teammate screen for duo customer trip
+Given that duo schedule bungii is in progress
+| geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+| Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+When I Switch to "driver" application on "same" devices
+And I am on the LOG IN page on driver app
+And I am logged in as "kansas driver 1" driver
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
+And Bungii Driver "slides to the next state"
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
+And Bungii Driver "slides to the next state"
+Then I accept Alert message for "Reminder: both driver at pickup"
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
+
+When I connect to "extra1" using "Driver2" instance
+And I Open "driver" application on "same" devices
+And I am on the LOG IN page on driver app
+And I am logged in as "kansas driver 2" driver
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
+When Bungii Driver "slides to the next state"
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+When I click on device "Back" button
+And Bungii Driver "slides to the next state"
+Then I accept Alert message for "Reminder: both driver at pickup"
+And Bungii Driver "slides to the next state"
+And Bungii Driver "slides to the next state"
+And Bungii Driver "slides to the next state"
+When I accept Alert message for "Reminder: both driver at drop off"
+Then I should be navigated to "Rate duo teammate" screen
+
+When I Switch to "driver" application on "ORIGINAL" devices
+And Bungii Driver "slides to the next state"
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+When I click on device "Back" button
+And Bungii Driver "slides to the next state"
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
+And Bungii Driver "slides to the next state"
+When I accept Alert message for "Reminder: both driver at drop off"
+Then I should be navigated to "Rate duo teammate" screen

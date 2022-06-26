@@ -588,9 +588,6 @@ Feature: Scheduled DUO Bungii
     And I navigate back
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
-    And I click on the Duo teammate image
-    Then I should see the driver vehicle information
-    And I navigate back
     And I should be navigated to "Rate duo teammate" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
