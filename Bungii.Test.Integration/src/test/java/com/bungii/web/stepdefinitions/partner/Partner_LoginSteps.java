@@ -844,5 +844,37 @@ public class Partner_LoginSteps extends DriverBase {
 
        }
     }
+    @When("^I check in the db the number of timeslots available \"([^\"]*)\" new portal$")
+    public void i_check_in_the_db_the_number_of_timeslots_available_something_new_portal(String duration) throws Throwable {
+       try{
+           String scheduledTime= (String) cucumberContextManager.getScenarioContext("BUNGII_UTC");
+           String time=scheduledTime.substring(11,16);
+           Date now = new Date();
+           LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+           String date = String.valueOf(localDate);
+           switch (duration){
+               case "for bestbuy first address":
+                   String bestBuyStore1=PropertyUtility.getDataProperties("partner.new.bestbuy.store1");
+                   String timeSlotsUsedBestBuyStore1 = dbUtility.getSlotUsedCountByStoreName(date,time,bestBuyStore1);
+                   testStepAssert.isTrue(timeSlotsUsedBestBuyStore1 == "1",
+                           "Time slot used count should be one for solo schedule for the first address","Time slot used count is not one");
+                   break;
+
+               case "for bestbuy second address":
+                   String bestBuyStore2=PropertyUtility.getDataProperties("partner.new.bestbuy.store2");
+                   String timeSlotsUsedBestBuyStore2 = dbUtility.getSlotUsedCountByStoreName(date,time,bestBuyStore2);
+                   testStepAssert.isTrue(timeSlotsUsedBestBuyStore2 == "0",
+                           "Time slot used count should not be affected when a delivery is placed in different address for partner portal","Time slot used count is affected when a delivery is placed in different address for partner portal");
+
+                   break;
+           }
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("The number of slots available should be correctly received.", "The number of slots available is not correctly received.",
+                   true);
+
+       }
+    }
 }
 
