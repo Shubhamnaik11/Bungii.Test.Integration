@@ -428,6 +428,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                    action.click(bungiiRequest.Button_Accept());
                    break;
            }
+           log("I should be able to click on "+buttonName,"I was able to click on "+buttonName,false);
        }
        catch (Exception e) {
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
