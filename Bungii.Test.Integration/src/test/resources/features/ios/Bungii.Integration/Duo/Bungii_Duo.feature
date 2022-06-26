@@ -81,9 +81,6 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "LOADING ITEM" screen
 
     When I Switch to "driver" application on "same" devices
-    And I click on the Duo teammate image
-    Then I should see the driver vehicle information
-    And I navigate back
     And I slide update button on "LOADING ITEMS" Screen
     Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
@@ -94,9 +91,6 @@ Feature: Scheduled DUO Bungii
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I click on the Duo teammate image
-    Then I should see the driver vehicle information
-    And I navigate back
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     #Then I should be navigated to "UNLOADING ITEMS" screen
@@ -109,9 +103,6 @@ Feature: Scheduled DUO Bungii
     Then I accept Alert message for "Reminder: both driver at drop off"
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I click on the Duo teammate image
-    Then I should see the driver vehicle information
-    And I navigate back
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
