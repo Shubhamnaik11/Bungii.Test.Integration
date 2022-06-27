@@ -1124,6 +1124,25 @@ try{
                     true);
         }
         }
+    @Then("^I should be able to schedule a trip \"([^\"]*)\"days from today$")
+    public void i_should_be_able_to_schedule_a_trip_somethingdays_from_today(String strArg1) throws Throwable {
+
+    }
+
+    @And("^I click on the checkbox$")
+    public void i_click_on_the_checkbox() throws Throwable {
+
+    }
+
+    @And("^I add the delivery address as \"([^\"]*)\"$")
+    public void i_add_the_delivery_address_as_something(List<String> list1) throws Throwable {
+
+    }
+
+    @And("^I click on next month$")
+    public void i_click_on_next_month() throws Throwable {
+
+    }
 
     public String getGeofence(String geofence) {
         String geofenceName = "";

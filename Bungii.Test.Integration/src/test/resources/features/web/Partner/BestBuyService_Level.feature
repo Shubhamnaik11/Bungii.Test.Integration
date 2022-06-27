@@ -33,4 +33,24 @@ Feature: Service Level
     And I select the Scheduled Bungii from Delivery List
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
 
+@testAllan
+  Scenario: Verify that the delivery scheduling days can be configured to more than 5 days
+    Given I navigate to "Partner" portal configured for "Cort service level" URL
+    When I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "be logged in"
+  And I click on the checkbox
+  And I add the delivery address as "1641 Cobb Pkwy SE, Marietta, GA, US, 30060"
+  And I click on next month
+
+#  And I select Pickup Date and Pickup Time on partner portal
+#    |PickUp_Date  |PickUp_Time          |
+#    |Today+4      |02:30 PM             |
+
+#  And I Select "Customer Card" as Payment Method
+#  And I enter following Credit Card details on Partner Portal
+#    |CardNo   |Expiry |Postal_Code      |Cvv      |
+#    |VISA CARD2|12/29  |VALID POSTAL CODE|VALID CVV|
+#  And I click "Schedule Bungii" button on Partner Portal
+#  Then I should "see Done screen"
 

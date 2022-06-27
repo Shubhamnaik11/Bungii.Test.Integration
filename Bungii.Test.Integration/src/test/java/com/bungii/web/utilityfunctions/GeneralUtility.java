@@ -86,6 +86,11 @@ public class GeneralUtility extends DriverBase {
                 cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.ref"));
 
             }
+            else if(PP_Site.equalsIgnoreCase("Cort service level")){
+                partnerURL = PropertyUtility.getDataProperties("qa.cort.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.cort.service_level_partner.ref"));
+
+            }
         }
         return  partnerURL;
     }
