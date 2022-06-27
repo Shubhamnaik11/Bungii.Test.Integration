@@ -22,6 +22,7 @@ import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -1125,23 +1126,36 @@ try{
         }
         }
     @Then("^I should be able to schedule a trip \"([^\"]*)\"days from today$")
-    public void i_should_be_able_to_schedule_a_trip_somethingdays_from_today(String strArg1) throws Throwable {
-
+    public void i_should_be_able_to_schedule_a_trip_somethingdays_from_today(String tripDate) throws Throwable {
+        String [] entireDayAndMonth20DayAhead = new DateTime().plusDays(Integer.parseInt(tripDate)).toDate().toString().split(" ");
+        String date = entireDayAndMonth20DayAhead[2];
+        action.click(Page_Partner_Dashboard.FutureTrip(date));
+        Thread.sleep(2000);
     }
 
     @And("^I click on the checkbox$")
     public void i_click_on_the_checkbox() throws Throwable {
-
+        action.click(Page_Partner_Dashboard.Label_Checkbox());
     }
 
     @And("^I add the delivery address as \"([^\"]*)\"$")
-    public void i_add_the_delivery_address_as_something(List<String> list1) throws Throwable {
+    public void i_add_the_delivery_address_as_something(String Delivery_Address) throws Throwable {
+        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+        Thread.sleep(1000);
+        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+        Thread.sleep(1000);
+        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+        Thread.sleep(5000);
+        action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
     }
 
     @And("^I click on next month$")
     public void i_click_on_next_month() throws Throwable {
-
+        Thread.sleep(4000);
+        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
+        Thread.sleep(3000);
+        action.click(Page_Partner_Dashboard.Link_NextMonth());
     }
 
     public String getGeofence(String geofence) {

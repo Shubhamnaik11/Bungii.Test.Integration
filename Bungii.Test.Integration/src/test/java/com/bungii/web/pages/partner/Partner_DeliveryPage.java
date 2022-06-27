@@ -185,4 +185,6 @@ public class Partner_DeliveryPage extends PageBase {
     public WebElement Text_NoDeliveryError() { return findElement("err",LocatorType.ClassName);}
 
 
+    //Schedule by
+    public WebElement Textbox_ScheduleBy() { return findElement("f2bd91d1-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
 }

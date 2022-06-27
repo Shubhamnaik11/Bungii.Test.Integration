@@ -40,17 +40,25 @@ Feature: Service Level
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
   And I click on the checkbox
-  And I add the delivery address as "1641 Cobb Pkwy SE, Marietta, GA, US, 30060"
+  And I add the delivery address as "250 Cobb Parkway North, Marietta, United States, Georgia, 30062"
   And I click on next month
-
-#  And I select Pickup Date and Pickup Time on partner portal
-#    |PickUp_Date  |PickUp_Time          |
-#    |Today+4      |02:30 PM             |
-
-#  And I Select "Customer Card" as Payment Method
-#  And I enter following Credit Card details on Partner Portal
-#    |CardNo   |Expiry |Postal_Code      |Cvv      |
-#    |VISA CARD2|12/29  |VALID POSTAL CODE|VALID CVV|
-#  And I click "Schedule Bungii" button on Partner Portal
-#  Then I should "see Done screen"
-
+  Then I should be able to schedule a trip "20"days from today
+  And I select Next Possible Pickup Date and Pickup Time
+    |Trip_Time            |
+    |NEXT_POSSIBLE        |
+  And I click "Service Level List" button on Partner Portal
+  Then I should "see all the Service Level" for "Biglots" Alias
+  And I change the service level to "First Threshold" in "Partner" portal
+  And I click "Continue" button on Partner Portal
+  Then I should "see Delivery Details screen"
+  When I enter all details on "Delivery Details" for "Cort service level" on partner screen
+    |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Bodc_Code|Schedule_By  |
+    |Furniture         |Handle with care   |Testpartner U |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |SVC02/09/00         |20 days|
+  And I Select "Customer Card" as Payment Method
+  And I enter following Credit Card details on Partner Portal
+    |CardNo   |Expiry |Postal_Code      |Cvv      |
+    |VISA CARD2|12/29  |VALID POSTAL CODE|VALID CVV|
+  And I click "Schedule Bungii" button on Partner Portal
+  Then I should "see Done screen"
+  When I am logged in as Admin
+  And I wait for 2 minutes

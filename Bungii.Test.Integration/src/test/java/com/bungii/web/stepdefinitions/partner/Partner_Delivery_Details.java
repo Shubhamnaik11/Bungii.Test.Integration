@@ -96,6 +96,8 @@ public class Partner_Delivery_Details extends DriverBase {
             String DeliveryPurpose = "";
             String RbSbNumber = "";
             String Items_deliver = "";
+            String ScheduleBy ="";
+            String BodcCode ="";
 
             if(dataMap.containsKey("Items_To_Deliver")){
                 Items_deliver = dataMap.get("Items_To_Deliver");
@@ -134,6 +136,12 @@ public class Partner_Delivery_Details extends DriverBase {
             }
             if (dataMap.containsKey("Rb_Sb_Number")) {
                 RbSbNumber = dataMap.get("Rb_Sb_Number").trim();
+            }
+            if (dataMap.containsKey("Schedule_By")) {
+                ScheduleBy = dataMap.get("Schedule_By").trim();
+            }
+            if (dataMap.containsKey("Bodc_Code")) {
+                BodcCode = dataMap.get("Bodc_Code").trim();
             }
 
             //cucumberContextManager.setScenarioContext("Customer", CustomerName);
@@ -291,6 +299,38 @@ public class Partner_Delivery_Details extends DriverBase {
                 }
                 log("I enter all details on "+str+" for "+Site+" on partner screen", "I have entered all details on "+str+" for "+Site+" on partner screen", false);
 
+            }
+            else if (Site.equalsIgnoreCase("Cort service level")) {
+
+                switch (str) {
+                    case "Delivery Details":
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                        //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                        action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+
+                        String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                        cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
+                        cucumberContextManager.setScenarioContext("Customer_Name", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
+                        cucumberContextManager.setScenarioContext("Customer_Mobile", Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value"));
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
+
+                        action.click(Page_Partner_Delivery.Dropdown_SoldBuy());
+                        action.click(Page_Partner_Delivery.List_StoreAssociate(BodcCode));
+
+                        action.clearSendKeys(Page_Partner_Delivery.Textbox_ScheduleBy(), ScheduleBy);
+                        break;
+                    default:
+                        break;
+                }
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
