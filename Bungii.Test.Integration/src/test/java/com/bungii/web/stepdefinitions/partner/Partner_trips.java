@@ -1158,6 +1158,23 @@ try{
         action.click(Page_Partner_Dashboard.Link_NextMonth());
     }
 
+    @And("^I click on the delivery based on customer name$")
+    public void i_click_on_the_delivery_based_on_customer_name() throws Throwable {
+        try{
+        action.click(Page_Partner_Dashboard.Textbox_SearchBar());
+        Thread.sleep(1000);
+        action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), (String)cucumberContextManager.getScenarioContext("CUSTOMER") + Keys.ENTER);
+        Thread.sleep(1000);
+        action.click(Page_Partner_Dashboard.Link_SelectTripTrackDeliveries());
+        log("I should be able to click on the customer trip","I could click on the customer trip",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+
     public String getGeofence(String geofence) {
         String geofenceName = "";
         switch (geofence) {

@@ -236,6 +236,9 @@ public class Partner_DashboardPage extends PageBase {
     //Email Support value
     public WebElement Email_EmailSupport() { return findElement("//strong[contains(text(),'Email Support:')]/following-sibling::span/a",LocatorType.XPath);}
 
+    //Select trip from track delivery
+    public WebElement Link_SelectTripTrackDeliveries() { return findElement("//table/tbody/tr",LocatorType.XPath);}
+
     public WebElement Label_Checkbox() { return findElement("DriverHelpCarryFields",LocatorType.Id);}
     public WebElement Link_NextMonth() { return findElement("//div/div[@class=\"react-datepicker\"]/button[text()=\"Next Month\"]",LocatorType.XPath);}
     public WebElement FutureTrip(String date) { return findElement(String.format("//div[@class=\"react-datepicker__week\"]/div[text()=\"%s\"]",date),LocatorType.XPath);}
