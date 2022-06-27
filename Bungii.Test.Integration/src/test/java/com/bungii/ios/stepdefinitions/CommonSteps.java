@@ -435,8 +435,11 @@ public class CommonSteps extends DriverBase {
                 case "CANCEL":
                     if (screen.equalsIgnoreCase("payment"))
                         action.click(paymentPage.Button_Cancel());
-                    else if (screen.equalsIgnoreCase("update"))
+                    else if (screen.equalsIgnoreCase("update")) {
+                        action.click(driverUpdateStatusPage.Button_MoreOptions());
+                        Thread.sleep(1000);
                         action.click(driverUpdateStatusPage.Button_Cancel());
+                    }
                     else if(screen.equalsIgnoreCase("Delete Account"))
                         action.click(accountPage.Button_Cancel());
                     else

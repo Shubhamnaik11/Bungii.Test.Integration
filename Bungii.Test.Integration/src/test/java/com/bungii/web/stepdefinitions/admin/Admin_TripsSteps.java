@@ -1060,7 +1060,9 @@ try{
         action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
         Thread.sleep(1000);
         cucumberContextManager.setScenarioContext("OLD_DROPOFF_LOCATION",action.getText(admin_ScheduledTripsPage.DropOff_Address()));
-        cucumberContextManager.setScenarioContext("OLD_ADDITION_NOTE",action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note()));
+        if(action.isElementPresent(admin_EditScheduledBungiiPage.Text_Additional_Note(true))) {
+            cucumberContextManager.setScenarioContext("OLD_ADDITION_NOTE", action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note()));
+        }
         log("I edit the drop off address ",
                 "I have edited the dropoff address ");
     } catch(Exception e){
