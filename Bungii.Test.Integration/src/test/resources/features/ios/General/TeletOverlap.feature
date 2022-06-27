@@ -3,7 +3,6 @@
 Feature: Overlapping TELET
 
   @ready
-    @testsweta
   Scenario: Verify that driver is allowed to start only the first scheduled solo partner trip when there is another overlapping (TELET) Solo partner trip
     When I request Partner Portal "SOLO" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
