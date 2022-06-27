@@ -836,6 +836,7 @@ public class Partner_LoginSteps extends DriverBase {
                            "Time slot used count should remain unchanged","Time slot used count changes");
                    break;
            }
+           log("I should be able to check the number of slots used","I am able to check the number of slots used",false);
        }
        catch (Exception e) {
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -870,6 +871,7 @@ public class Partner_LoginSteps extends DriverBase {
 
                    break;
            }
+           log("I should be able to check the number of slots used","I am able to check the number of slots used",false);
        }
        catch (Exception e) {
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
