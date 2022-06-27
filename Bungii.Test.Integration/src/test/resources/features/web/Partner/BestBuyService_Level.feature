@@ -59,13 +59,13 @@ Feature: Service Level
       #CORE-3199-To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
   @ready
   Scenario: To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
-
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
     And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
+
 #   Core - 2619  Verify that Partner Portals with multiple addresses have independent time slots for each store address.
     When I check in the db the number of timeslots available "for bestbuy first address" new portal
     When I check in the db the number of timeslots available "for bestbuy second address" new portal
