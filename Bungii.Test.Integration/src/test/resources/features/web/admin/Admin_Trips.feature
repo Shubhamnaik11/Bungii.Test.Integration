@@ -386,7 +386,7 @@ Feature: Admin_Trips
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999355 | Testcustomertywd_appleWashA Shah|
-    When As a driver "Testdrivertywd_appledc_a_web Sundarb" perform below action with respective "Duo" Delivery
+    When As a driver "Testdrivertywd_appledc_a_web Sundarb" perform below action with respective "Duo Scheduled" Delivery
       | driver1 state|
       | Accepted |
     And I wait for 2 minutes
