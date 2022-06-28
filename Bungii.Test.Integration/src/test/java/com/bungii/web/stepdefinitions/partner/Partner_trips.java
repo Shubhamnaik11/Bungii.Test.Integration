@@ -61,7 +61,6 @@ public class Partner_trips extends DriverBase {
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
-
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
     //ActionManager action = new ActionManager();
     //private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
@@ -1127,6 +1126,7 @@ try{
         }
     @Then("^I should be able to schedule a trip \"([^\"]*)\"days from today$")
     public void i_should_be_able_to_schedule_a_trip_somethingdays_from_today(String tripDate) throws Throwable {
+        cucumberContextManager.setScenarioContext("TRIPDATE",tripDate);
         String [] entireDayAndMonth20DayAhead = new DateTime().plusDays(Integer.parseInt(tripDate)).toDate().toString().split(" ");
         String date = entireDayAndMonth20DayAhead[2];
         action.click(Page_Partner_Dashboard.FutureTrip(date));
@@ -1140,6 +1140,8 @@ try{
 
     @And("^I add the delivery address as \"([^\"]*)\"$")
     public void i_add_the_delivery_address_as_something(String Delivery_Address) throws Throwable {
+
+
         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
         Thread.sleep(1000);
         action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
@@ -1173,6 +1175,64 @@ try{
                 true);
     }
     }
+
+    @Then("^I should see the trip scheduled for \"([^\"]*)\" days ahead$")
+    public void i_should_see_the_trip_scheduled_for_something_days_ahead(String tripdays) throws Throwable {
+//       cucumberContextManager.setScenarioContext("Schedule_Date_Time","Jul 17, 2022 12:00 AM EST");
+        String[] TripTime=  cucumberContextManager.getScenarioContext("Schedule_Date_Time").toString().split(" ");
+        Thread.sleep(3000);
+        String TripTime1 = TripTime[0].substring(0,3) + TripTime[1];
+        String a[] = action.getText(admin_ScheduledTripsPage.Text_ScheduledTripDate()).split(" ");
+        String b = a[0]+a[1];
+        testStepVerify.isEquals(b.replace(","," "),TripTime1.replace(","," "),"Scheduled trips should be  " +tripdays +" days ahead","Scheduled trips is " +tripdays +" days ahead","Scheduled trips should be " +tripdays +" days ahead");
+        cucumberContextManager.setScenarioContext("FUTURETRIP",b);
+    }
+
+    @And("^I change the trip delivery date to \"([^\"]*)\" days ahead from today$")
+    public void i_change_the_trip_delivery_date_to_something_days_ahead_from_today(String noOfDays) throws Throwable {
+        String [] entireDayAndMonth20DayAhead = new DateTime().plusDays(Integer.parseInt(noOfDays)).toDate().toString().split(" ");
+        String tripAhead = entireDayAndMonth20DayAhead[2];
+        String [] todaysDate =  new DateTime().toDate().toString().split(" ");
+        int todayDate = Integer.parseInt(todaysDate[2]);
+        if(todayDate>=28){
+            action.click(admin_EditScheduledBungiiPage.DatePicker_ScheduledDate());
+            action.click(admin_ScheduledTripsPage.Link_EditScheduleTripCalenderNextMonth());
+            if(tripAhead.startsWith("0")){
+                String datewithoutzero= tripAhead.replace("0","");
+                action.click(admin_ScheduledTripsPage.Link_newScheduleDeliverydate(datewithoutzero));
+            }
+            else {
+                action.click(admin_ScheduledTripsPage.Link_newScheduleDeliverydate(tripAhead));
+            }
+        }
+        else{
+            if(tripAhead.startsWith("0")){
+                String datewithoutzero= tripAhead.replace("0"," ");
+                action.click(admin_EditScheduledBungiiPage.DatePicker_ScheduledDate());
+                action.click(admin_ScheduledTripsPage.Link_newScheduleDeliverydate(datewithoutzero));
+            }
+            else {
+                action.click(admin_EditScheduledBungiiPage.DatePicker_ScheduledDate());
+                action.click(admin_ScheduledTripsPage.Link_newScheduleDeliverydate(tripAhead));
+            }
+        }
+
+    }
+
+    @And("^I unselect the Pending status from the filter category$")
+    public void i_unselect_the_pending_status_from_the_filter_category() throws Throwable {
+        action.click(admin_TripsPage.Button_Filter());
+        Thread.sleep(1000);
+        action.click(admin_TripsPage.CheckBox_FilterPending());
+    }
+
+    @Then("^I should see the message \"([^\"]*)\" displayed$")
+    public void i_should_see_the_message_something_displayed(String expectedMessage) throws Throwable {
+        Thread.sleep(3000);
+        String NoDeliveries = action.getText(admin_TripsPage.Text_NoDeliveriesFound());
+        testStepVerify.isEquals(NoDeliveries,expectedMessage,"I should see " +expectedMessage+ " text displayed","Text message displayed is " + NoDeliveries,expectedMessage +" is not displayed");
+    }
+
 
 
     public String getGeofence(String geofence) {

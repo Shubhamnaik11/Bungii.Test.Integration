@@ -318,6 +318,7 @@ public class Partner_Delivery_Details extends DriverBase {
                         String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
                         cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
                         cucumberContextManager.setScenarioContext("Customer_Name", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
+                        cucumberContextManager.setScenarioContext("CUSTOMER", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
                         cucumberContextManager.setScenarioContext("Customer_Mobile", Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value"));
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
                         action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
