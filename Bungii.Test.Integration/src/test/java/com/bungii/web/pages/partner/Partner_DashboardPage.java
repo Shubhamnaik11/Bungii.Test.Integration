@@ -239,9 +239,22 @@ public class Partner_DashboardPage extends PageBase {
     //Select trip from track delivery
     public WebElement Link_SelectTripTrackDeliveries() { return findElement("//table/tbody/tr",LocatorType.XPath);}
 
+    //click checkbox
     public WebElement Label_Checkbox() { return findElement("DriverHelpCarryFields",LocatorType.Id);}
+
+    //Select Next month on calender
     public WebElement Link_NextMonth() { return findElement("//div/div[@class=\"react-datepicker\"]/button[text()=\"Next Month\"]",LocatorType.XPath);}
+
+    //Select the date on calender
     public WebElement FutureTrip(String date) { return findElement(String.format("//div[@class=\"react-datepicker__week\"]/div[text()=\"%s\"]",date),LocatorType.XPath);}
 
+    //Partner portal trip time
+    public WebElement Text_PartnerPortalGeofenceTime() { return findElement("//div[@class =\"col-padding row\"]/div[2]/div/div/div/div",LocatorType.XPath);}
+
+    //Click pickup address in partner portal
+    public WebElement DropDown_PickupAddressPartnerPortal() { return findElement("//div[@class =\"position-relative form-group\"][1]/div/div",LocatorType.XPath);}
+
+    //Select pickup address from dropdown
+    public WebElement Text_PickupAddressesFromPartnerPortalDropDown(int addressNo) { return findElement(String.format("//div[3]/ul/li[%d]",addressNo),LocatorType.XPath);}
 
 }
