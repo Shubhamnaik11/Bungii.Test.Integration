@@ -34,6 +34,7 @@ public class ScheduledTripSteps extends DriverBase {
 	private ScheduledTripsPage scheduledTripsPage;
 	ActionManager action = new ActionManager();
 	GeneralUtility utility = new GeneralUtility();
+	private com.bungii.ios.utilityfunctions.DbUtility dbUtility = new com.bungii.ios.utilityfunctions.DbUtility();
 	private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.admin.ScheduledTripSteps.class);
 
 	public ScheduledTripSteps(ScheduledTripsPage scheduledTripsPage) {
@@ -1013,7 +1014,69 @@ public class ScheduledTripSteps extends DriverBase {
 					true);
 		}
 	}
+	@And("^I click on the \"([^\"]*)\" and select future time$")
+	public void i_click_on_the_something_and_select_future_time(String scheduleDate) throws Throwable {
+		try{
+			switch (scheduleDate) {
+				case "Time":
+					action.click(scheduledTripsPage.TimePicker_Time());
+					Thread.sleep(3000);
+					action.click(scheduledTripsPage.Dropdown_ScheduledDate_Time());
+					String timeChanged = scheduledTripsPage.TimePicker_Time().getText();
+					cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
+					break;
 
+				default: break;
+			}
+			log("I can select future time/date",
+					"I was able to change time/date to future time/date", false);
+		}
+		catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step Should be successful", "Error in viewing result set",
+					true);
+		}
+
+	}
+	@And("^I click on \"([^\"]*)\" for change time$")
+	public void i_click_on_something_for_change_time(String strArg1) throws Throwable {
+
+		try {
+			action.click(scheduledTripsPage.Dropdown_Result());
+
+			log("I can click on reason dropdown",
+					"I clicked on reason dropdown", false);
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+
+	}
+	@And("^I click on \"([^\"]*)\" in the dropdown$")
+	public void i_click_on_something_in_the_dropdown(String dropdown) throws Throwable {
+		try{
+			switch (dropdown) {
+				case "Customer initiated":
+					Select selectCustomer = new Select((WebElement) scheduledTripsPage.Dropdown_Result());
+					selectCustomer.selectByVisibleText("Customer initiated");
+					break;
+				case "Partner initiated":
+					Select selectPartner = new Select((WebElement) scheduledTripsPage.Dropdown_Result());
+					selectPartner.selectByVisibleText("Partner initiated");
+					break;
+				default: break;
+			}
+			log("I view "+dropdown+" in the dropdown",
+					"I could see "+dropdown+" in the dropdown", false);
+		}
+		catch (Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step Should be successful", "Error in viewing result set",
+					true);
+		}
+	}
 
 	@And("^I Select \"([^\"]*)\" option$")
 	public void i_select_something_option(String option) throws Throwable {
@@ -1253,7 +1316,26 @@ public class ScheduledTripSteps extends DriverBase {
 					true);
 		}
 	}
+	@And("^I change the service level to \"([^\"]*)\" in \"([^\"]*)\" portal$")
+	public void i_change_the_service_level_to_something_in_something_portal(String Service_Name, String Site_Name) throws Throwable {
+		try {
+			switch (Site_Name) {
+				case "Admin":
+					//action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
+					action.selectElementByText(scheduledTripsPage.Admin_Dropdown_ServiceLevel(), Service_Name);
+					cucumberContextManager.setScenarioContext("Change_service", Service_Name);
+					break;
+				default:
+					logger.error("Wrong site name is pass.Please Pass correct site.");
+			}
+			log("I should able to change the service level to " + Service_Name, "Service name should get changed to " + Service_Name, true);
 
+		} catch (Exception ex) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "Unable to change the service " + Service_Name + "for" + Site_Name + "portal",
+					true);
+		}
+	}
 	@Then("^I am not allowed to assign more drivers$")
 	public void i_am_not_allowed_to_assign_more_drivers() throws Throwable {
 		//String textBoxAttribute= scheduledTripsPage.TextBox_DriverSearch().getAttribute("disabled");
@@ -1634,5 +1716,204 @@ public class ScheduledTripSteps extends DriverBase {
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
+	}
+	@And("^I get the estimated charge \"([^\"]*)\"$")
+	public void i_get_the_estimated_charge_something(String type) throws Throwable {
+		try{
+			switch (type)
+			{
+				case "for customer":
+					String estimateCharge = action.getText(scheduledTripsPage.Text_EstimateCharge()).substring(1);
+					cucumberContextManager.setScenarioContext("CUSTOMER_CHARGE",estimateCharge);
+					break;
+			}
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+	@And("^I get the driver earnings displayed for \"([^\"]*)\"$")
+	public void i_get_the_driver_earnings_displayed_for_something(String type) throws Throwable {
+		try{
+			switch (type)
+			{
+				case "solo":
+					String soloDriverEarnings = action.getText(scheduledTripsPage.Text_SoloDriverEarnings()).substring(1);
+					cucumberContextManager.setScenarioContext("SOLO_DRIVER_EARNING",soloDriverEarnings);
+					break;
+
+				case "duo":
+					String duoDriver1Earnings = action.getText(scheduledTripsPage.Text_DuoDriver1Earnings()).substring(1);
+					cucumberContextManager.setScenarioContext("DUO_DRIVER1_EARNING",duoDriver1Earnings);
+					String duoDriver2Earnings = action.getText(scheduledTripsPage.Text_DuoDriver2Earnings()).substring(1);
+					cucumberContextManager.setScenarioContext("DUO_DRIVER2_EARNING",duoDriver2Earnings);
+					break;
+			}
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+	@And("^I calculate the driver share and check for \"([^\"]*)\"$")
+	public void i_calculate_the_driver_share_and_check_for_something(String type) throws Throwable {
+		try {
+			float estimateCustomerCharge = Float.parseFloat((String) cucumberContextManager.getScenarioContext("CUSTOMER_CHARGE"));
+			switch (type)
+			{
+				case "solo":
+					float soloAmt= Float.parseFloat((dbUtility.getDriverShareSameTier()));
+					float merchantAmt=(float) (Math.round((estimateCustomerCharge-soloAmt)* 100.0) / 100.0);
+					float transFeeSolo= (float) (Math.round(((merchantAmt+soloAmt)*0.029+0.30)* 100.0) / 100.0);
+					float driverEarningsCalculated =(float) (Math.round((soloAmt-transFeeSolo)* 100.0) / 100.0);
+					float driverShareCalculatedRound = (float) (Math.round(driverEarningsCalculated * 100.0) / 100.0);
+					cucumberContextManager.setScenarioContext("CALCULATED_DRIVER_SHARE",driverShareCalculatedRound);
+					float driverShareDisplayed = Float.parseFloat((String) cucumberContextManager.getScenarioContext("SOLO_DRIVER_EARNING"));
+					testStepAssert.isTrue(driverShareCalculatedRound==driverShareDisplayed,
+							"The driver share calculated should be same as displayed",
+							"The driver share calculated is same as displayed",
+							"The driver share calculated is not same as displayed");
+					break;
+
+				case "duo":
+					float duoAmt= Float.parseFloat((dbUtility.getDriverShareSameTier()));
+					float merchantAmount=(float) (Math.round((estimateCustomerCharge-(duoAmt+duoAmt))* 100.0) / 100.0);
+					float merchantAmountPerTF=(float) (Math.round((merchantAmount/2)* 100.0) / 100.0);
+					float transFeeDuo= (float)  (Math.round(((merchantAmountPerTF+duoAmt)*0.029+0.30)* 100.0) / 100.0);
+					float driverEarningsCalculatedDuo =  (float) (Math.round((duoAmt-transFeeDuo)* 100.0) / 100.0);
+					float driverShareCalculatedRoundDuo = (float) (Math.round(driverEarningsCalculatedDuo * 100.0) / 100.0);
+					cucumberContextManager.setScenarioContext("CALCULATED_DRIVER_SHARE_SAME_TIRE",driverShareCalculatedRoundDuo);
+					float driverShareDisplayedDriver1 = Float.parseFloat((String) cucumberContextManager.getScenarioContext("DUO_DRIVER1_EARNING"));
+					testStepAssert.isTrue(driverShareCalculatedRoundDuo==driverShareDisplayedDriver1,
+							"The driver share calculated should be same as displayed",
+							"The driver share calculated is same as displayed",
+							"The driver share calculated is not same as displayed");
+					float driverShareDisplayedDriver2 = Float.parseFloat((String) cucumberContextManager.getScenarioContext("DUO_DRIVER2_EARNING"));
+					testStepAssert.isTrue(driverShareCalculatedRoundDuo==driverShareDisplayedDriver2,
+							"The driver share calculated should be same as displayed",
+							"The driver share calculated is same as displayed",
+							"The driver share calculated is not same as displayed");
+					break;
+
+				case "duo-different tier":
+					float duoDriver1Amt= Float.parseFloat((dbUtility.getDriverShareSameTier()));
+					float duoDriver2Amt= Float.parseFloat((dbUtility.getDriverShareDifferentTier()));
+					float merchantAmountDuo=estimateCustomerCharge-(duoDriver1Amt+duoDriver2Amt);
+					float merchantAmtPerTF=merchantAmountDuo/2;
+					float transFeeDuoDriver1= (float) ((merchantAmtPerTF+duoDriver1Amt)*0.029+0.30);
+					float transFeeDuoDriver2= (float) ((merchantAmtPerTF+duoDriver2Amt)*0.029+0.30);
+					float driver1EarningsCalculatedDuo = duoDriver1Amt-transFeeDuoDriver1;
+					float driver2EarningsCalculatedDuo = duoDriver2Amt-transFeeDuoDriver2;
+					float driver1ShareCalculatedRoundDuo = (float) (Math.round(driver1EarningsCalculatedDuo * 100.0) / 100.0);
+					float driver2ShareCalculatedRoundDuo = (float) (Math.round(driver2EarningsCalculatedDuo * 100.0) / 100.0);
+					cucumberContextManager.setScenarioContext("CALCULATED_DRIVER1_SHARE_DIFFERENT_TIRE",driver1ShareCalculatedRoundDuo);
+					cucumberContextManager.setScenarioContext("CALCULATED_DRIVER2_SHARE_DIFFERENT_TIRE",driver2ShareCalculatedRoundDuo);
+
+					float driverShareDisplayedDriver1Tier = Float.parseFloat((String) cucumberContextManager.getScenarioContext("DUO_DRIVER1_EARNING"));
+					testStepAssert.isTrue(driver1ShareCalculatedRoundDuo==driverShareDisplayedDriver1Tier,
+							"The driver share calculated should be same as displayed",
+							"The driver share calculated is same as displayed",
+							"The driver share calculated is not same as displayed");
+
+					float driverShareDisplayedDriver2Tire = Float.parseFloat((String) cucumberContextManager.getScenarioContext("DUO_DRIVER2_EARNING"));
+					testStepAssert.isTrue(driver2ShareCalculatedRoundDuo==driverShareDisplayedDriver2Tire,
+							"The driver share calculated should be same as displayed",
+							"The driver share calculated is same as displayed",
+							"The driver share calculated is not same as displayed");
+					break;
+
+				case "changed address and service level":
+					float soloDriverAmt=Float.parseFloat((dbUtility.getDriverShareDifferentSeviceLevel()));
+					float merchantAmtChangedSL= (float) (Math.round((estimateCustomerCharge-soloDriverAmt)* 100.0) / 100.0);
+					float transFeeSoloChangedSL= (float) (Math.round((((merchantAmtChangedSL+soloDriverAmt)*0.029+0.30)* 100.0)) / 100.0);
+					float changedDriverEarningsCalculated =(float) (Math.round((soloDriverAmt-transFeeSoloChangedSL) * 100.0) / 100.0);
+					float changedDriverShareCalculatedRound = (float) (Math.round(changedDriverEarningsCalculated * 100.0) / 100.0);
+					cucumberContextManager.setScenarioContext("DRIVER_SHARE_FOR_CHANGED_SL_AND_ADDRESS",changedDriverShareCalculatedRound);
+					break;
+
+				case "duo to solo conversion":
+					float duoToSoloAmt1= Float.parseFloat((dbUtility.getDriverShareSameTier()));
+					float duoToSoloAmt2= Float.parseFloat((dbUtility.getDriverShareDifferentTier()));
+					float processingFee= (float) (Math.floor((estimateCustomerCharge+0.30)*0.029)* 100.0 / 100.0);
+					float driverEarningsCalculatedDuoToSolo =(float) (Math.floor((duoToSoloAmt1+duoToSoloAmt2)-processingFee)* 100.0 / 100.0);
+					cucumberContextManager.setScenarioContext("CALCULATED_DRIVER_SHARE",driverEarningsCalculatedDuoToSolo);
+					float driverShareDisplayedDuoToSolo = Float.parseFloat((String) cucumberContextManager.getScenarioContext("SOLO_DRIVER_EARNING"));
+					testStepAssert.isTrue(driverEarningsCalculatedDuoToSolo==driverShareDisplayedDuoToSolo,
+							"The driver share calculated should be same as displayed",
+							"The driver share calculated is same as displayed",
+							"The driver share calculated is not same as displayed");
+					break;
+
+			}
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+	@Then("^I verify the driver earnings displayed on driver app for \"([^\"]*)\"$")
+	public void i_verify_the_driver_earnings_displayed_on_driver_app_for_something(String type) throws Throwable {
+		try{
+			switch (type)
+			{
+				case "solo":
+					float soloDriverEarnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp()).substring(1)));
+					float driverShareCalculated =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE"));
+					testStepAssert.isTrue(soloDriverEarnings==driverShareCalculated,
+							"The driver earnings calculated should be same as displayed",
+							"The driver earnings calculated is same as displayed",
+							"The driver earnings calculated is not same as displayed");
+					break;
+				case "duo":
+
+					float duoDriver1Earnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver1EarningsApp()).substring(1)));
+					float driverShareCalculatedDriver1 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE_SAME_TIRE"));
+					testStepAssert.isTrue(duoDriver1Earnings==driverShareCalculatedDriver1,
+							"The driver earnings calculated should be same as displayed",
+							"The driver earnings calculated is same as displayed",
+							"The driver earnings calculated is not same as displayed");
+					float duoDriver2Earnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver2EarningsApp()).substring(1)));
+					float driverShareCalculatedDriver2 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE_SAME_TIRE"));
+					testStepAssert.isTrue(duoDriver2Earnings==driverShareCalculatedDriver2,
+							"The driver earnings calculated should be same as displayed",
+							"The driver earnings calculated is same as displayed",
+							"The driver earnings calculated is not same as displayed");
+					break;
+
+				case "duo-different tier":
+					float duoDriver1EarningsTier1 = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver1EarningsApp()).substring(1)));
+					float driverShareCalculatedDriver1Tier1 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER1_SHARE_DIFFERENT_TIRE"));
+					testStepAssert.isTrue(duoDriver1EarningsTier1==driverShareCalculatedDriver1Tier1,
+							"The driver earnings calculated should be same as displayed",
+							"The driver earnings calculated is same as displayed",
+							"The driver earnings calculated is not same as displayed");
+					float duoDriver2EarningsTier2 = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver2EarningsApp()).substring(1)));
+					float driverShareCalculatedDriver2Tier2 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER2_SHARE_DIFFERENT_TIRE"));
+					testStepAssert.isTrue(duoDriver2EarningsTier2==driverShareCalculatedDriver2Tier2,
+							"The driver earnings calculated should be same as displayed",
+							"The driver earnings calculated is same as displayed",
+							"The driver earnings calculated is not same as displayed");
+
+					break;
+
+				case "changed address and service level":
+					float soloDriverEarningsChangedSL = Float.parseFloat((action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp()).substring(1)));
+					float driverShareCalculatedChangedSL =Float.parseFloat((String) cucumberContextManager.getScenarioContext("DRIVER_SHARE_FOR_CHANGED_SL_AND_ADDRESS"));
+					testStepAssert.isTrue(soloDriverEarningsChangedSL==driverShareCalculatedChangedSL,
+							"The driver earnings calculated should be same as displayed",
+							"The driver earnings calculated is same as displayed",
+							"The driver earnings calculated is not same as displayed");
+					break;
+			}
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
 	}
 }

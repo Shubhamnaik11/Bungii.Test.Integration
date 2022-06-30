@@ -10,6 +10,7 @@ import com.bungii.android.pages.customer.PromosPage;
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
@@ -23,6 +24,7 @@ import java.util.List;
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
+import static com.bungii.web.utilityfunctions.DbUtility.getLinkedPickupRef;
 
 public class TripAlertSettingsMenuSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LoginSteps.class);
@@ -198,6 +200,39 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
 
+    }
+    @And("^I get the new pickup reference generated$")
+    public void i_get_the_new_pickup_reference_generated() throws Throwable {
+
+        try {
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            pickupRequest = getLinkedPickupRef(pickupRequest);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            log("I get the new pickup reference generated",
+                    "Pickupref is " + pickupRequest, false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "New pickup reference is not generated",
+                    true);
+        }
+
+    }
+    @And("^I select the live trip for \"([^\"]*)\" customer for delivery details$")
+    public void i_select_the_live_trip_for_something_customer_for_delivery_details(String cust) throws Throwable {
+        try {
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            action.sendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+            action.click(scheduledTripsPage.Button_Search());
+            Thread.sleep(5000);
+            action.click(scheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", custName), PageBase.LocatorType.XPath));
+            action.click(scheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'Delivery Details')]", custName),PageBase.LocatorType.XPath));
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I click on \"([^\"]*)\" button$")

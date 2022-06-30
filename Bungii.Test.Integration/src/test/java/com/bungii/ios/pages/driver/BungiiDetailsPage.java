@@ -10,6 +10,13 @@ public class BungiiDetailsPage extends PageBase {
 	public WebElement Text_General_Instruction(boolean... ignoreException) { return findElement("//XCUIElementTypeStaticText[@name='General instructions']",LocatorType.XPath,ignoreException);}
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
+	//Photo Verification by driver
+	public WebElement Text_PickupInstructions(){return findElement("//XCUIElementTypeStaticText[@name='Pickup instructions']",LocatorType.XPath);}
+	public WebElement Text_PhotoVerification(){return findElement("//XCUIElementTypeNavigationBar[@name='PHOTO VERIFICATION']",LocatorType.XPath);}
+	public WebElement Tab_AddPhoto(){return findElement("//XCUIElementTypeStaticText[@name='Tap to add photo']",LocatorType.XPath);}
+	public WebElement Button_SavePhotos(){return findElement("//XCUIElementTypeButton[@name='Save']",LocatorType.XPath);}
+	public WebElement Text_DropOffInstructions(){return findElement("//XCUIElementTypeStaticText[@name='Drop-off instructions']",LocatorType.XPath);}
+
 	public WebElement Text_ContactDriverMessage(){return findElement("//android.widget.TextView[@text='You will have the ability to contact your drivers when the Bungii begins']", LocatorType.XPath);}
 	public WebElement TextBox_Pickup_LineOne() {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[6]", LocatorType.XPath); }
 	public WebElement TextBox_Pickup_LineTwo(boolean ...ignoreException) {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[7]", LocatorType.XPath,ignoreException); }

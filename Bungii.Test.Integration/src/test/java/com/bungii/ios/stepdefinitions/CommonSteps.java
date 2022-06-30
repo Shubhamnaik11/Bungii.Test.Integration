@@ -1655,6 +1655,23 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I change delivery type from \"([^\"]*)\"")
+    public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
+        try{
+            switch (radiobutton) {
+                case "Duo to Solo":
+                    action.click(scheduledTripsPage.RadioButton_Solo());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE","SOLO");
+                    break;
+            }
+            log("I change delivery type from  "+ radiobutton,
+                    "I changed delivery type from "+ radiobutton, false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @And("^I Select \"([^\"]*)\" option$")
     public void i_select_something_option(String option) throws Throwable {
         try {
@@ -3140,5 +3157,25 @@ public class CommonSteps extends DriverBase {
         action.dragFromToForDuration(initialPoint.getX(),initialPoint.getY(),finalPoint.getX(),finalPoint.getY(),1);
 
 
+    }
+    @And("^I change the service level to \"([^\"]*)\" in \"([^\"]*)\" portal$")
+    public void i_change_the_service_level_to_something_in_something_portal(String Service_Name, String Site_Name) throws Throwable {
+        try {
+            switch (Site_Name) {
+                case "Admin":
+                    //action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
+                    action.selectElementByText(scheduledTripsPage.Admin_Dropdown_ServiceLevel(), Service_Name);
+                    cucumberContextManager.setScenarioContext("Change_service", Service_Name);
+                    break;
+                default:
+                    logger.error("Wrong site name is pass.Please Pass correct site.");
+            }
+            log("I should able to change the service level to " + Service_Name, "Service name should get changed to " + Service_Name, true);
+
+        } catch (Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to change the service " + Service_Name + "for" + Site_Name + "portal",
+                    true);
+        }
     }
 }
