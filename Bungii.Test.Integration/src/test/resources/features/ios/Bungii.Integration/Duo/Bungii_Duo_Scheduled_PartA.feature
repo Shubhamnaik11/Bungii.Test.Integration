@@ -154,6 +154,9 @@ Feature: Scheduled DUO Bungii Part A
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
     And I Select Trip from available trip
+        #    Core - 2569 Verify ~ sign under earnings is shown on Driver app for Customer Deliveries
+    And I check if variable sign is shown under "available bungii details"
+
     And I click "ACCEPT" button on "Bungii Request" screen
     Then I should be navigated to "AVAILABLE BUNGIIS" screen
     Then I should able to see "zero" available trip

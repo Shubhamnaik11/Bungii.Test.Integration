@@ -208,5 +208,32 @@ public class AvailableTripsSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I check if variable sign is shown under \"([^\"]*)\"$")
+    public void i_check_if_variable_sign_is_shown_under_something(String page) throws Throwable {
+      try{
+          switch (page){
+              case "available bungii details":
+                  Thread.sleep(2000);
+                String driverEarnings = availableTrips.Text_DriverEarning().getText();
+                testStepAssert.isTrue(driverEarnings.contains("~"),
+                        "The variable sign (~) should be present",
+                        "The variable sign (~) is not present");
+                  break;
+              case "schedule bungii details":
+                  Thread.sleep(2000);
+                  String driverEarningsSchedulePage = availableTrips.Text_DriverEarningSchedulePage().getText();
+                  testStepAssert.isTrue(driverEarningsSchedulePage.contains("~"),
+                          "The variable sign (~) should be present",
+                          "The variable sign (~) is not present");
+                  break;
+          }
+          log("I should be able to check the variable sign","I was able to check the variable sign",false);
+      }
+      catch (Exception e) {
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step  Should be successful",
+                  "Error performing step,Please check logs for more details", true);
+      }
+    }
 }
 

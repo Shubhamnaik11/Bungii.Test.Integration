@@ -6,6 +6,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.TripDetailsPage;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -36,7 +37,33 @@ public class TripDetailsSteps extends DriverBase {
         }
 
     }
-
+    @And("^I check if variable sign is shown under \"([^\"]*)\"$")
+    public void i_check_if_variable_sign_is_shown_under_something(String page) throws Throwable {
+        try{
+            switch (page){
+                case "available bungii details":
+                    Thread.sleep(2000);
+                    String driverEarnings = tripDetailsPage.Text_EstimatedEarnings().getText();
+                    testStepAssert.isTrue(driverEarnings.contains("~"),
+                            "The variable sign (~) should be present",
+                            "The variable sign (~) is not present");
+                    break;
+                case "schedule bungii details":
+                    Thread.sleep(2000);
+                    String driverEarningsSchedulePage = tripDetailsPage.Text_EstimatedEarningsSchedule().getText();
+                    testStepAssert.isTrue(driverEarningsSchedulePage.contains("~"),
+                            "The variable sign (~) should be present",
+                            "The variable sign (~) is not present");
+                    break;
+            }
+            log("I should be able to check the variable sign","I was able to check the variable sign",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     @Then("^Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen$")
     public void driver_information_should_be_correctly_displayed_on_somethingBUNGIIDETAILS_screen() {

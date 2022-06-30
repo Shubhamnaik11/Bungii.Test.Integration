@@ -11,11 +11,16 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     #And I Select Trip from available trip
     And I Select Partner portal Trip from available trip
+
+    #    Core - 2569 Verify ~ sign under earnings is shown on Driver app for Variable pricing Deliveries
+    And I check if variable sign is shown under "available bungii details"
+
     Then I should be navigated to "BUNGII DETAILS" screen
     Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
     When I accept selected Bungii
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
+    And I check if variable sign is shown under "schedule bungii details"
     Then I should be navigated to "BUNGII DETAILS" screen
     Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
     And I start selected Bungii
