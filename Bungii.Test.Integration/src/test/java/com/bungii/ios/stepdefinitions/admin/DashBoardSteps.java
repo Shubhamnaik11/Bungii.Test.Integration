@@ -149,7 +149,7 @@ public class DashBoardSteps extends DriverBase {
                case "duo to solo conversion":
                    float duoToSoloAmt1= Float.parseFloat((dbUtility.getDriverShareSameTier()));
                    float duoToSoloAmt2= Float.parseFloat((dbUtility.getDriverShareDifferentTier()));
-                   float processingFee= (float) (Math.floor((estimateCustomerCharge+0.30)*0.029)* 100.0 / 100.0);
+                   float processingFee= (float) ((float)(estimateCustomerCharge+0.30)*0.029);
                    float driverEarningsCalculatedDuoToSolo =(float) (Math.floor((duoToSoloAmt1+duoToSoloAmt2)-processingFee)* 100.0 / 100.0);
                    cucumberContextManager.setScenarioContext("CALCULATED_DRIVER_SHARE",driverEarningsCalculatedDuoToSolo);
                    float driverShareDisplayedDuoToSolo = Float.parseFloat((String) cucumberContextManager.getScenarioContext("SOLO_DRIVER_EARNING"));

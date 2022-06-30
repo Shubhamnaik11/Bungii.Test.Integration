@@ -86,9 +86,7 @@
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
-      And I enter phoneNumber :8888885002 and  Password :Cci12345
-      And I click "Log In" button on Log In screen on driver app
-      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       And I verify the driver earnings displayed on driver app for "solo"
@@ -173,7 +171,7 @@
 
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
-      And I enter phoneNumber :9766000001 and  Password :Cci12345
+      And I enter phoneNumber :9999996828 and  Password :Cci12345
       And I click "Log In" button on Log In screen on driver app
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       And I Select "AVAILABLE BUNGIIS" from driver App menu

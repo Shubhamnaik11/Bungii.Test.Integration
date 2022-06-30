@@ -1869,7 +1869,7 @@ public class ScheduledTripSteps extends DriverBase {
 							"The driver earnings calculated is not same as displayed");
 					break;
 				case "duo":
-
+					action.hardWaitWithSwipeUp(1);
 					float duoDriver1Earnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver1EarningsApp()).substring(1)));
 					float driverShareCalculatedDriver1 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE_SAME_TIRE"));
 					testStepAssert.isTrue(duoDriver1Earnings==driverShareCalculatedDriver1,
