@@ -110,5 +110,18 @@ public class Admin_RevivalSteps extends DriverBase {
                 true);
     }
     }
+    @And("^I select \"([^\"]*)\" from the dropdown $")
+    public void i_select_something_from_the_dropdown(String status) throws Throwable {
+        switch (status){
+            action.click(;);
+            case "Admin Cancel":
+
+                break;
+            case "Drivr Cancel":
+                break;
+            case "Customr Cancel":
+                break;
+        }
+    }
 
 }

@@ -381,3 +381,7 @@ Feature: Admin_Reason_Code
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
     Then the updated time should be displayed on delivery details page
+
+  @testAllan
+  Scenario: Verify Reason dropdown for PARTNER DUO(Geofence based pricing) re-scheduled delivery when Both Driver do not accept and admin edits only time when Partner Initiated
+    And I select "Admin Cancel" from the dropdown
