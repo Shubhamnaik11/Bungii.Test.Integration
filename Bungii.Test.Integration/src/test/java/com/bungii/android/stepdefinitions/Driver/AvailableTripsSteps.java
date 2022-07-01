@@ -339,7 +339,7 @@ public class AvailableTripsSteps extends DriverBase {
         }
         catch (Exception ex){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "I cannot click on back button",
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }

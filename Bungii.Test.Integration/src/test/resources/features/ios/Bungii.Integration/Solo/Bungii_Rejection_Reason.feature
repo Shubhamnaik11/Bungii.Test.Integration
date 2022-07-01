@@ -2,6 +2,7 @@
 
 Feature: Rejection Popup on Driver App
 
+  #  Rejection popup functionality enabled for Kansas geofence
     @ready
     Scenario: Verify that rejection popup,cancel functionality and all reasons are displayed for scheduled deliveries on available trips page
         When I Switch to "driver" application on "same" devices
@@ -27,6 +28,7 @@ Feature: Rejection Popup on Driver App
         And I click on "SUBMIT" button on rejection popup
         Then I check if the reason is saved in db
 
+#  Rejection popup functionality is disabled for Washington geofence
   @ready
   Scenario: Verify that Rejection reason pop-up is not displayed to driver when the toggle is disabled on Admin Portal
       When I Switch to "driver" application on "same" devices

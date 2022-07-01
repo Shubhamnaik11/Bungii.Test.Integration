@@ -2,10 +2,8 @@
 
 Feature: Rejection Popup on Driver App
 
+#  Rejection popup functionality enabled for Kansas geofence
   @ready
-#    check
-#    works
-#  @testsweta
   Scenario: Verify that rejection popup,cancel functionality and all reasons are displayed for scheduled deliveries on available trips page
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
@@ -60,7 +58,7 @@ Feature: Rejection Popup on Driver App
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I check if "Testcustomertywd_appleMarkF LutherF" customer trip that is rejected is displayed
 
-
+#  Rejection popup functionality is disabled for Washington geofence
   @ready
   Scenario: Verify that Rejection reason pop-up is not displayed to driver when the toggle is disabled on Admin Portal
     And I Switch to "driver" application on "same" devices
