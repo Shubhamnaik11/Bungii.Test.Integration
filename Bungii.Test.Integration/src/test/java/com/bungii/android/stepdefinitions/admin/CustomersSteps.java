@@ -11,7 +11,7 @@ import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-
+import static com.bungii.common.manager.ResultManager.log;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

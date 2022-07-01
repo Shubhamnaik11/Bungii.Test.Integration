@@ -284,7 +284,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "CANCEL":
                     action.click(searchingPage.Link_CancelSearch());
                     break;
-
+                case "Account Cancel":
+                    action.click(accountPage.Button_Cancel());
+                    break;
                 case "SUBMIT":
                     action.click(setPickupTimePage.Button_EnterCancellationReason());
                     break;

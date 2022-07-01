@@ -148,6 +148,10 @@ public class LoginSteps extends DriverBase {
                     //testStepVerify.isElementTextEquals(loginPage.Snackbar(), PropertyUtility.getMessage("customer.error.invalidpassword"));
                     testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.error.invalidpassword.accountdeletion"));
                     break;
+                case "snackbar validation message scheduled bungii for account deletion":
+                    testStepAssert.isEquals(utility.getCustomerSnackBarMessage(),PropertyUtility.getMessage("customer.error.scheduledbungii.accountdeletion"),"message should display","message is display","message is not display");
+                    //testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.error.scheduledbungii.accountdeletion"));
+                    break;
                 case "field validations for password":
                     actualMessage = utility.trimString(action.getText(loginPage.Error_EnterPassword()));
                     expectedMessage = PropertyUtility.getMessage("customer.login.password.error");
