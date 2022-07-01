@@ -71,3 +71,11 @@
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       Then I check if driver cut is reflected
 
+  #  Core-2569: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
+    @ready
+#      @testsweta
+    Scenario: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
+      When I request Partner Portal "SOLO" Trip for "Biglots" partner
+        |Geofence| Bungii Time   | Customer Phone | Customer Name |
+        |atlanta  | NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+

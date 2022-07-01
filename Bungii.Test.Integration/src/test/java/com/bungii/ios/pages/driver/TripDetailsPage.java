@@ -11,6 +11,6 @@ public class TripDetailsPage extends PageBase {
 	public WebElement Text_EstimatedEarnings() { return findElement("//XCUIElementTypeStaticText[@name='EARNINGS']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 	public WebElement Text_ScheduledDateTime() { return findElement("//XCUIElementTypeStaticText[@name='WHEN']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 //	public WebElement Text_ScheduledTime () { return findElement("//XCUIElementTypeStaticText[@name='Trip Scheduled Time']/following::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
-	public WebElement Text_EstimatedEarningsSchedule() { return findElement("//XCUIElementTypeOther[@name='MRFM']/XCUIElementTypeStaticText[5]", PageBase.LocatorType.XPath); }
+	public WebElement Text_EstimatedEarningsSchedule() { return findElement("//XCUIElementTypeTable/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[5]", LocatorType.XPath); }
 
 }
