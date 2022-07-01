@@ -59,4 +59,8 @@ public class Admin_TripsPage extends PageBase {
     public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
 
     public WebElement Text_AllTripIndicator () { return findElement("//tbody[@id=\"TripListsTBody\"]/tr/td[1]/label", LocatorType.XPath); }
+
+    public WebElement RadioButton_SoloTrip () { return findElement("PickupDetails_TripType", LocatorType.Id); }
+
+    public WebElement RadioButton_DuoTrip () { return findElement("tripTypeDuo", LocatorType.Id); }
 }
