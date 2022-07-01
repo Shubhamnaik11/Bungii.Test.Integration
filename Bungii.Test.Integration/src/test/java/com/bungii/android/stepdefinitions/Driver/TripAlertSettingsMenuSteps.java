@@ -40,6 +40,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     SearchingPage searchingPage = new SearchingPage();
     MyBungiisPage myBungiisPage = new MyBungiisPage();
     EarningsPage earningsPage = new EarningsPage();
+    AccountPage accountPage = new AccountPage();
 
 
     @And("^I click on \"([^\"]*)\" tab$")
@@ -303,7 +304,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Delivery Instructions":
                     action.click(inProgressPages.Button_DeliveryInstructions());
                     break;
-
+                case "Delete":
+                    action.click(accountPage.Button_Delete());
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }

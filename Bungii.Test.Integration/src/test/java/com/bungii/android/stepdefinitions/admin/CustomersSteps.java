@@ -38,6 +38,20 @@ public class CustomersSteps extends DriverBase {
         }
     }
 
+    @And("^I Search for customer with phone number$")
+    public void i_search_for_customer_with_phone_number() throws Throwable {
+        try {
+            Thread.sleep(3000);
+            action.sendKeys(customersPage.TextBox_SearchCustomer(), (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE") + Keys.ENTER);
+            log("Customer associated with phone number should get search.","Customer associated with phone number is get searched.",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @Then("^I verify the trip count$")
     public void i_verify_the_trip_count() throws Throwable {
         try {

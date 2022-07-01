@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions.Customer;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.driver.AccountsPage;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -23,6 +24,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
     ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
     SignupPage Page_Signup = new SignupPage();
     LoginPage Page_CustomerLogin = new LoginPage();
+    AccountPage Page_AccountInfo = new AccountPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbutility = new DbUtility();
@@ -56,6 +58,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     break;
                 case "Resend Code":
                     action.click(Page_Signup.Link_Resend());
+                    break;
+                case "Delete account":
+                    action.click(Page_AccountInfo.Link_DeleteAccount());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

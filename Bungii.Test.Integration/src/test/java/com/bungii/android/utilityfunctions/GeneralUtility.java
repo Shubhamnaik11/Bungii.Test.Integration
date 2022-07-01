@@ -212,6 +212,14 @@ public class GeneralUtility extends DriverBase {
             case "ACCOUNT INFO":
                 isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountInfoPage(true));
                 break;
+            case "Delete account":
+                Thread.sleep(2000);
+                isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_DeleteAccount(true));
+                if(isCorrectPage){
+                    testStepAssert.isElementTextEquals(cutomerAccountPage.Text_PasswordToConfirm(),"You are about to delete your account.\nEnter password to confirm","You are about to delete your account. Enter password to confirm text should be display.","You are about to delete your account. Enter password to confirm text is display.","You are about to delete your account. Enter password to confirm text is not display.");
+                    testStepAssert.isElementTextEquals(cutomerAccountPage.Text_ActionCannotUndone(),"This action cannot be undone!","This action cannot be undone! text should be display.","This action cannot be undone! text is display.","This action cannot be undone! text is not display.");
+                }
+                break;
             case "MY BUNGIIS":
                 isCorrectPage = action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
                 break;
