@@ -538,7 +538,35 @@ public class ScheduledTripSteps extends DriverBase {
 					true);
 		}
 	}
+	@And("^I select the live trip for \"([^\"]*)\" customer$")
+	public void i_select_the_live_trip_for_something_customer(String custName) throws Throwable {
+		try {
+			String pickupReference= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupReference);
 
+			if(custName.equalsIgnoreCase("Ondemand"))
+			{
+				String pickupReferenceOndemand=(String) cucumberContextManager.getScenarioContext("ONDEMAND_PICKUP_ID");
+				action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupReferenceOndemand);
+			}
+
+			action.click(scheduledTripsPage.Button_Search());
+
+			Thread.sleep(25000);
+
+			action.click(scheduledTripsPage.Icon_Dropdown());
+			action.click(scheduledTripsPage.Option_Edit());
+
+
+			pass("I should able to open trip", "I viewed live delivery",
+					false);
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Problem in selecting Live delivery in admin portal for customer "+custName,
+					true);
+		}
+	}
 	@And("^I open the trip for \"([^\"]*)\" the customer$")
 	public void i_open_the_trip_for_something_the_customer(String custName) throws Throwable {
 		try {
@@ -1151,8 +1179,81 @@ public class ScheduledTripSteps extends DriverBase {
 					"Error performing step,Please check logs for more details", true);
 		}
 	}
+	@And("^I edit the pickup address$")
+	public void i_edit_the_pickup_address() throws Throwable {
+		try{
+			testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Pickup_Location(),"Pickup location should display","Pickup location is display","Pickup location is not display");
+			action.click(scheduledTripsPage.Button_Edit_Pickup_Address());
+			log("I edit the pickup address.",
+					"I have edited the pickup address.");
+		} catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
 
-  
+	}
+	@Then("^I change the pickup address to \"([^\"]*)\"$")
+	public void i_change_the_pickup_address_to_something(String arg1) throws Throwable {
+
+		try{
+			action.sendKeys(scheduledTripsPage.Textbox_Pickup_Location(),arg1);
+			//action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
+			Thread.sleep(1000);
+			action.sendKeys(scheduledTripsPage.Textbox_Pickup_Location()," ");
+
+			//action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
+			action.JavaScriptClick(scheduledTripsPage.DropdownPickupResult(arg1));
+			Thread.sleep(1000);
+			String Change_Address = action.getText(scheduledTripsPage.Pickup_Address());
+			cucumberContextManager.setScenarioContext("Change_Pickup",Change_Address);
+
+			log("I change the pickup address to "+arg1,
+					"I have changed the pickup address to "+arg1);
+		} catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+	@And("^I edit the drop off address$")
+	public void i_edit_the_drop_off_address() throws Throwable {
+		try{
+			testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
+			action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address());
+
+			log("I edit the drop off address ",
+					"I have edited the dropoff address ");
+		} catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+	@Then("^I change the drop off address to \"([^\"]*)\"$")
+	public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
+
+		try{
+			action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
+			//action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
+			Thread.sleep(1000);
+			action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location()," ");
+
+			//action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
+			action.JavaScriptClick(scheduledTripsPage.DropdownResult(arg1));
+			Thread.sleep(1000);
+			String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
+			cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
+
+			log("I change the dropoff address to "+arg1,
+					"I have changed the dropoff address to "+arg1);
+		} catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+
 	@Then("^I am not allowed to assign more drivers$")
 	public void i_am_not_allowed_to_assign_more_drivers() throws Throwable {
 		//String textBoxAttribute= scheduledTripsPage.TextBox_DriverSearch().getAttribute("disabled");

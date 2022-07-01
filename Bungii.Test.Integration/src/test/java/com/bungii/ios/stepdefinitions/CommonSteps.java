@@ -32,6 +32,7 @@ import cucumber.api.java.en.When;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -260,6 +261,28 @@ public class CommonSteps extends DriverBase {
                     action.clickAlertButton("OK");
                     testStepAssert.isTrue(text.contains("No Mail Accounts"),"No Mail Accounts Popup should be displayed", text +" is displayed",text+" is not displayed");
                     break;
+                case "Account deleted successfully":
+                    String textMsg= action.getAlertMessage().toString();
+                    action.clickAlertButton("OK");
+                    testStepAssert.isTrue(textMsg.contains("Account deleted successfully"),"Account deleted successfully Popup should be displayed", textMsg +" is displayed",textMsg+" is not displayed");
+                    break;
+                case "Incorrect password":
+                    String incorrectPassword= action.getAlertMessage().toString();
+                    action.clickAlertButton("OK");
+                    testStepAssert.isTrue(incorrectPassword.contains("Incorrect password"),"Incorrect password Popup should be displayed", incorrectPassword +" is displayed",incorrectPassword+" is not displayed");
+                    action.click(accountPage.Button_Cancel());
+                    break;
+                case "Account can't be deleted due to pending deliveries":
+                    String textMsg1= action.getAlertMessage().toString();
+                    action.clickAlertButton("OK");
+                    testStepAssert.isTrue(textMsg1.contains("You seem to have scheduled Bungii(s), please cancel any pending deliveries to proceed or contact admin in case of any issues"),"Account can't be deleted due to pending deliveries Popup should be displayed", textMsg1 +" is displayed",textMsg1+" is not displayed");
+                    break;
+                case "Account can't be deleted due to active deliveries":
+                    String textMsg2= action.getAlertMessage().toString();
+                    action.clickAlertButton("OK");
+                    testStepAssert.isTrue(textMsg2.contains("You seem to have an active Bungii, please cancel any active delivery to proceed or contact admin in case of any issues."),"Account can't be deleted due to active deliveries Popup should be displayed", textMsg2 +" is displayed",textMsg2+" is not displayed");
+                    break;
+
                 case "Your duo teammate is on the way":
                     String textMessage= action.getAlertMessage().toString();
                     testStepAssert.isTrue(message.contains(textMessage),"Your duo teammate is on the way message should be shown.","Your duo teammate is on the way message is not shown instead of that following message is shown "+textMessage);
@@ -412,8 +435,13 @@ public class CommonSteps extends DriverBase {
                 case "CANCEL":
                     if (screen.equalsIgnoreCase("payment"))
                         action.click(paymentPage.Button_Cancel());
-                    else if (screen.equalsIgnoreCase("update"))
+                    else if (screen.equalsIgnoreCase("update")) {
+                        action.click(driverUpdateStatusPage.Button_MoreOptions());
+                        Thread.sleep(1000);
                         action.click(driverUpdateStatusPage.Button_Cancel());
+                    }
+                    else if(screen.equalsIgnoreCase("Delete Account"))
+                        action.click(accountPage.Button_Cancel());
                     else
                         action.click(estimatePage.Button_Cancel());
                     break;
@@ -513,6 +541,9 @@ public class CommonSteps extends DriverBase {
                 case "SCHEDULE BUNGII":
                     action.click(estimatePage.Button_ScheduleBungii());
                     break;
+                case "DELETE ACCOUNT":
+                    action.click(accountPage.Button_DeleteAccount());
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name",
                             "UnImplemented Step");
@@ -525,6 +556,38 @@ public class CommonSteps extends DriverBase {
             e.printStackTrace();
             error("Step  Should be successful",
                     "Error in clicking button " +button + " on "+screen+" screen", true);
+        }
+    }
+
+    @And("^I enter \"([^\"]*)\" password and click on delete button$")
+    public void i_enter_something_password_and_click_on_delete_button(String password) throws Throwable {
+        try{
+            if(password.equalsIgnoreCase("valid")) {
+                action.clearSendKeys(accountPage.Text_AccountPassword(), PropertyUtility.getDataProperties("customer.password"));
+            }
+            else if(password.equalsIgnoreCase("invalid")){
+                action.clearSendKeys(accountPage.Text_AccountPassword(), PropertyUtility.getDataProperties("customer.password.invalid"));
+            }
+            action.click(accountPage.Button_Delete());
+        }catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error for customer account deletion", true);
+        }
+    }
+
+    @And("^I confirm that Delete button is disable$")
+    public void i_confirm_that_delete_button_is_disable() throws Throwable {
+        try{
+            //action.click(accountPage.Button_Delete());
+            testStepAssert.isElementNotEnabled(accountPage.Button_Delete(),"Delete button should be disable","Delete button is disabled.","Delete button is enable.");
+
+        }catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Delete button is not disable", true);
         }
     }
 
@@ -1557,6 +1620,132 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I open the trip for \"([^\"]*)\" the customer$")
+    public void i_open_the_trip_for_something_the_customer(String custName) throws Throwable {
+        try {
+            String[] name = custName.split(" ");
+
+            action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),name[0]);
+            action.click(scheduledTripsPage.Button_Search());
+
+            Thread.sleep(25000);
+/*			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
+			if(rows.size()>0)
+			rows.get(0).click();
+			else {
+			    String xpath = String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]);
+                error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
+            }*/
+
+            List<WebElement> rows_editicon = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]),PageBase.LocatorType.XPath);
+            List<WebElement> rows_editlink = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Edit')]",name[0]),PageBase.LocatorType.XPath);
+
+            if(rows_editicon.size()>0)
+            {
+                rows_editicon.get(0).click();
+                rows_editlink.get(0).click();
+            }
+
+            pass("I should able to open trip", "I viewed scheduled delivery",
+                    false);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Problem in selecting a Bungii Scheduled deliveries in admin portal for customer "+custName,
+                    true);
+        }
+    }
+    @And("^I Select \"([^\"]*)\" option$")
+    public void i_select_something_option(String option) throws Throwable {
+        try {
+            switch (option) {
+                case "Edit Trip Details":
+                    Thread.sleep(10000);
+                    action.click(scheduledTripsPage.RadioBox_EditTrip());
+                    break;
+                case "Research Driver":
+                    action.click(scheduledTripsPage.RadioBox_Research());
+                    break;
+                case "Cancel Trip":
+                    action.click(scheduledTripsPage.RadioBox_Cancel());
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect option.", "UnImplemented Step");
+                    break;
+            }
+            pass("I should able to select option", "I was able to select option");
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I edit the drop off address$")
+    public void i_edit_the_drop_off_address() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
+            action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address());
+
+            log("I edit the drop off address ",
+                    "I have edited the dropoff address ");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^I change the drop off address to \"([^\"]*)\"$")
+    public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
+
+        try{
+            action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
+            //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
+            Thread.sleep(1000);
+            action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location()," ");
+
+            //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
+            action.JavaScriptClick(scheduledTripsPage.DropdownResult(arg1));
+            Thread.sleep(1000);
+            String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
+            cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
+
+            log("I change the dropoff address to "+arg1,
+                    "I have changed the dropoff address to "+arg1);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I select the live trip for \"([^\"]*)\" customer$")
+    public void i_select_the_live_trip_for_something_customer(String custName) throws Throwable {
+        try {
+            String pickupReference= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupReference);
+
+            if(custName.equalsIgnoreCase("Ondemand"))
+            {
+                String pickupReferenceOndemand=(String) cucumberContextManager.getScenarioContext("ONDEMAND_PICKUP_ID");
+                action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupReferenceOndemand);
+            }
+
+            action.click(scheduledTripsPage.Button_Search());
+
+            Thread.sleep(25000);
+
+            action.click(scheduledTripsPage.Icon_Dropdown());
+            action.click(scheduledTripsPage.Option_Edit());
+
+
+            pass("I should able to open trip", "I viewed live delivery",
+                    false);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Problem in selecting Live delivery in admin portal for customer "+custName,
+                    true);
+        }
+    }
 
     @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
@@ -1729,6 +1918,128 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I swipe to check trip details$")
+    public void i_swipe_to_check_trip_details() throws Throwable {
+        try{
+            swipeForTripDetails();
+            Thread.sleep(3000);
+
+            log("I should be able to swipe to view delivery details","I am able to swipe to view delivery details",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check if \"([^\"]*)\" is updated for live trip$")
+    public void i_check_if_something_is_updated_for_live_trip(String address) throws Throwable {
+        try{
+            switch (address){
+                case "dropoff address":
+                    action.swipeUP();
+                    String changedDropOff= (String) cucumberContextManager.getScenarioContext("Change_Drop_Off");
+                    String actualDropOff=bungiiRequestPage.Text_DropOffAddress().getText();
+                    testStepAssert.isEquals(actualDropOff,changedDropOff, "The drop off address should be updated", "The drop off address is updated", "The drop off address is not updated");
+                    break;
+
+                case "pickup address":
+                    action.swipeDown();
+                    String changedPickup = (String) cucumberContextManager.getScenarioContext("Change_Pickup");
+                    String actualPickUp = bungiiRequestPage.Text_PickUpAddress().getText();
+                    testStepAssert.isEquals(actualPickUp,changedPickup, "The pick up address should be updated", "The pick up address is updated", "The pick up address is not updated");
+                    break;
+
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I check if \"([^\"]*)\" is updated$")
+    public void i_check_if_something_is_updated(String addressType) throws Throwable {
+        try{
+            switch (addressType){
+                case "pickup address":
+                    action.swipeDown();
+                    String changedPickup[] = cucumberContextManager.getScenarioContext("Change_Pickup").toString().split(",");
+                    String actualPickUpLineOne[]=action.getText(scheduledBungiiPage.Text_PickupLocation_LineOne1()).split(",");;
+                    testStepAssert.isEquals(actualPickUpLineOne[0],changedPickup[0], "The drop off address should be updated", "The drop off address is updated", "The drop off address is not updated");
+                    break;
+                case "dropoff address":
+                    action.swipeDown();
+                    String changedDropOff[]=cucumberContextManager.getScenarioContext("Change_Drop_Off").toString().split(",");
+                    String actualDropOffLineOne[]=action.getText(scheduledBungiiPage.Text_DropOffLocation_LineOne1()).split(",");;
+                    testStepAssert.isEquals(actualDropOffLineOne[0],changedDropOff[0], "The drop off address should be updated", "The drop off address is updated", "The drop off address is not updated");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I edit the pickup address$")
+    public void i_edit_the_pickup_address() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Pickup_Location(),"Pickup location should display","Pickup location is display","Pickup location is not display");
+            action.click(scheduledTripsPage.Button_Edit_Pickup_Address());
+            log("I edit the pickup address.",
+                    "I have edited the pickup address.");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+    @And("^the \"([^\"]*)\" message is displayed$")
+    public void the_something_message_is_displayed(String message) throws Throwable {
+        try{
+            String actualMessage = null;
+            switch (message){
+                case "Your changes are good to be saved.":
+                    actualMessage=action.getText(scheduledTripsPage.Text_VerifyChangesSavedMessage());
+                    break;
+                case "Bungii Saved!":
+                    actualMessage=action.getText(scheduledTripsPage.Text_SuccessMessage());
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect option.", "UnImplemented Step");
+                    break;
+            }
+            testStepAssert.isTrue(actualMessage.contains(message),"Expected message is displayed.","Expected message is not displayed. Actual is : "+actualMessage );
+
+        }catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error in viewing "+message+"message", true);
+        }
+    }
+    @Then("^I change the pickup address to \"([^\"]*)\"$")
+    public void i_change_the_pickup_address_to_something(String arg1) throws Throwable {
+
+        try{
+            action.sendKeys(scheduledTripsPage.Textbox_Pickup_Location(),arg1);
+            //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
+            Thread.sleep(1000);
+            action.sendKeys(scheduledTripsPage.Textbox_Pickup_Location()," ");
+            Thread.sleep(2000);
+            //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
+            action.JavaScriptClick(scheduledTripsPage.DropdownPickupResult(arg1));
+            Thread.sleep(1000);
+            String Change_Address = action.getText(scheduledTripsPage.Pickup_Address());
+            cucumberContextManager.setScenarioContext("Change_Pickup",Change_Address);
+
+            log("I change the pickup address to "+arg1,
+                    "I have changed the pickup address to "+arg1);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @And("^I Select Trip from scheduled trip$")
     public void i_select_trip_from_scheduled_trip() {
         try {
@@ -2111,9 +2422,15 @@ public class CommonSteps extends DriverBase {
             }
             else
             if (!value.equalsIgnoreCase("{RANDOM_PHONE_NUM}")) {
-                inputValue = value.equalsIgnoreCase("{EMPTY}") ? "     " : inputValue;
-                inputValue = value.equalsIgnoreCase("{BLANK}") ? "" : inputValue;
-            } else {
+                if(value.equalsIgnoreCase("Deleted Phone")){
+                    inputValue = (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
+                }
+                else {
+                    inputValue = value.equalsIgnoreCase("{EMPTY}") ? "     " : inputValue;
+                    inputValue = value.equalsIgnoreCase("{BLANK}") ? "" : inputValue;
+                }
+            }
+            else {
                 inputValue = generateMobileNumber();
             }
 
@@ -2693,6 +3010,21 @@ public class CommonSteps extends DriverBase {
             String NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
             String userName = "", password = "";
             switch (key.toLowerCase()) {
+                case "valid existing":
+                    userName = PropertyUtility.getDataProperties("valid.existing.customer.phone");
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("valid.existing.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PASSWORD", password);
+                    break;
+                case "valid existing stack":
+                    userName = PropertyUtility.getDataProperties("valid.existing.stackcustomer.phone");
+                    //userName = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE") ;
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("valid.existing.stackcustomer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PASSWORD", password);
+                    break;
                 case "existing":
                     userName = PropertyUtility.getDataProperties("customer.user");
                     password = PropertyUtility.getDataProperties("customer.password");
@@ -2796,5 +3128,17 @@ public class CommonSteps extends DriverBase {
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
+
+    }
+    public void swipeForTripDetails(){
+        WebElement sliderStart = bungiiRequestPage.Text_SwipeUpDetails();
+        WebElement sliderEnd = bungiiRequestPage.Navbar_DeliveryProgress();
+        Rectangle initialPoint;
+        Rectangle finalPoint;
+        initialPoint = action.getLocatorRectangle(sliderStart);
+        finalPoint = action.getLocatorRectangle(sliderEnd);
+        action.dragFromToForDuration(initialPoint.getX(),initialPoint.getY(),finalPoint.getX(),finalPoint.getY(),1);
+
+
     }
 }
