@@ -1855,21 +1855,23 @@ public class ScheduledTripSteps extends DriverBase {
 					true);
 		}
 	}
-	@Then("^I verify the driver earnings displayed on driver app for \"([^\"]*)\"$")
+	@And("^I verify the driver earnings displayed on driver app for \"([^\"]*)\"$")
 	public void i_verify_the_driver_earnings_displayed_on_driver_app_for_something(String type) throws Throwable {
 		try{
 			switch (type)
 			{
 				case "solo":
-					float soloDriverEarnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp()).substring(1)));
+					Thread.sleep(2000);
+					String soloDriverEarnings = action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp());
+					float soloDriverEarnings1 = Float.parseFloat(soloDriverEarnings.substring(1));
 					float driverShareCalculated =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE"));
-					testStepAssert.isTrue(soloDriverEarnings==driverShareCalculated,
+					testStepAssert.isTrue(soloDriverEarnings1==driverShareCalculated,
 							"The driver earnings calculated should be same as displayed",
 							"The driver earnings calculated is same as displayed",
 							"The driver earnings calculated is not same as displayed");
 					break;
 				case "duo":
-					action.hardWaitWithSwipeUp(1);
+					Thread.sleep(2000);
 					float duoDriver1Earnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver1EarningsApp()).substring(1)));
 					float driverShareCalculatedDriver1 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE_SAME_TIRE"));
 					testStepAssert.isTrue(duoDriver1Earnings==driverShareCalculatedDriver1,
@@ -1885,6 +1887,7 @@ public class ScheduledTripSteps extends DriverBase {
 					break;
 
 				case "duo-different tier":
+					Thread.sleep(2000);
 					float duoDriver1EarningsTier1 = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver1EarningsApp()).substring(1)));
 					float driverShareCalculatedDriver1Tier1 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER1_SHARE_DIFFERENT_TIRE"));
 					testStepAssert.isTrue(duoDriver1EarningsTier1==driverShareCalculatedDriver1Tier1,
@@ -1901,6 +1904,7 @@ public class ScheduledTripSteps extends DriverBase {
 					break;
 
 				case "changed address and service level":
+					Thread.sleep(2000);
 					float soloDriverEarningsChangedSL = Float.parseFloat((action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp()).substring(1)));
 					float driverShareCalculatedChangedSL =Float.parseFloat((String) cucumberContextManager.getScenarioContext("DRIVER_SHARE_FOR_CHANGED_SL_AND_ADDRESS"));
 					testStepAssert.isTrue(soloDriverEarningsChangedSL==driverShareCalculatedChangedSL,

@@ -131,9 +131,9 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Text_DuoDriver1Earnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings - Pallet 1')]/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Text_DuoDriver2Earnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings - Pallet 2')]/following-sibling::td/strong", LocatorType.XPath);}
-
     public WebElement Text_EstimateCharge() {return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong", LocatorType.XPath);}
-    public WebElement Text_SoloDriverEarningsApp() {return findElement("//android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView[2]", LocatorType.XPath);}
+
+    public WebElement Text_SoloDriverEarningsApp() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView[2]", LocatorType.XPath);}
     public WebElement Text_DuoDriver1EarningsApp() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[2]", LocatorType.XPath);}
     public WebElement Text_DuoDriver2EarningsApp() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.TextView[2]", LocatorType.XPath);}
 
