@@ -14,6 +14,10 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import java.util.Map;
@@ -394,6 +398,35 @@ public class Partner_Delivery_Details extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
+        }
+    }
+
+    @And("^I check the Bodc Code dropdown options$")
+    public void i_check_the_bodc_code_dropdown_options() throws Throwable {
+        try {
+            List<String> expectedOptions = new ArrayList() {{
+                add("Select");
+                add("SVC02/09/00");
+                add("SVC02/307/03");
+            }};
+            action.click(Page_Partner_Delivery.Dropdown_BodcCode());
+            List<WebElement> actualOptions = Page_Partner_Delivery.Dropdown_BodcCodeOptions();
+            List<String> Options= new ArrayList();
+            int size = actualOptions.size();
+            for (int i = 0; i < size; i++)
+            {
+                String options = actualOptions.get(i).getText();
+                Options.add(options);
+            }
+            action.click(Page_Partner_Delivery.Dropdown_BodcCodeValue());
+            testStepAssert.isTrue(Options.containsAll(expectedOptions), "Correct dropdown options need to be displayed", "Correct dropdown options are displayed", "Incorrect dropdown options are displayed");
+        }
+
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+
         }
     }
 }
