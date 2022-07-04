@@ -588,6 +588,12 @@ public class CommonStepsDriver extends DriverBase {
                 case "BACK":
                     action.click(driverHomePage.Button_BackItemizedEarnings());
                     break;
+                case "STAY ONLINE":
+                    action.click(driverBungiiCompletedPage.Button_StayOnline());
+                    break;
+                case "GO OFFLINE":
+                    action.click(driverBungiiCompletedPage.Button_GoOffline());
+                    break;
                 case "VERIFY":
                     action.click(scheduledTripsPage.Button_VerifyDriver());
                     break;

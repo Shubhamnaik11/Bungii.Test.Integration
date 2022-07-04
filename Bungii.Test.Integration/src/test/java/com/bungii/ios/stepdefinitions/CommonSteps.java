@@ -321,7 +321,71 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+    @And("^I check if the status is \"([^\"]*)\"$")
+    public void i_check_if_the_status_is_something(String status) throws Throwable {
+       try{
+           switch (status){
+               case "ONLINE":
+                   testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Slider_Online()),
+                           "The status should be online",
+                           "The status is not online");
+                break;
+               case "OFFLINE":
+                   testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Slider_Offline()),
+                           "The status should be offline",
+                           "The status is not offline");
+                   break;
+           }
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
+    @And("^I check online or offline pop up is displayed$")
+    public void i_check_online_or_offline_pop_up_is_displayed() throws Throwable {
+        try {
+            testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Notification_DriverStatus(),
+                    "The driver should get a pop-up to change status",
+                    "The driver got a pop-up to change status",
+                    "The driver did not get a pop-up to change status");
 
+            String header = driverBungiiCompletedPage.Notification_DriverStatus().getText();
+            String expectedHeader =PropertyUtility.getMessage("header.stayOnline.goOffline.notification");
+            testStepAssert.isEquals(header,expectedHeader,
+                    expectedHeader+" should be displayed as header",
+                    expectedHeader+" is displayed as header",
+                    expectedHeader+" is not displayed as header");
+
+            String subText = driverBungiiCompletedPage.Text_NotificationDriverStatus().getText();
+            String expectedSubText =PropertyUtility.getMessage("subHeader.stayOnline.goOffline.notification");
+            testStepAssert.isEquals(subText,expectedSubText,
+                    expectedSubText+" should be displayed as sub text",
+                    expectedSubText+" is displayed as sub text",
+                    expectedSubText+" is not displayed as sub text");
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I check online or offline pop up is not displayed$")
+    public void i_check_online_or_offline_pop_up_is_not_displayed() throws Throwable {
+       try{
+           testStepAssert.isFalse(action.isElementPresent(driverBungiiCompletedPage.Notification_DriverStatus(true)),
+                   "The driver should not get a pop-up to change status",
+                   "The driver did not get a pop-up to change status",
+                   "The driver did get a pop-up to change status");
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void iClickButtonOnScreen(String button, String screen) {
         try {

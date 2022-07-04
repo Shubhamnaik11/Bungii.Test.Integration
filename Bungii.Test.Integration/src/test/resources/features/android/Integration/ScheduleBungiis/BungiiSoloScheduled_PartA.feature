@@ -33,7 +33,7 @@ Feature: SoloScheduled
     When Bungii Driver "cancels Bungii request"
     Then user is alerted for "FOR EMERGENCY CONTACT SUPPORT LINE"
     And correct details should be displayed on the "SMS FOR CANCEL INCASE OF EMERGENCEY" app
-    
+
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
