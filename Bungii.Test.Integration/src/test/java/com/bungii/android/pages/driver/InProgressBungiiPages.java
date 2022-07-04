@@ -104,7 +104,7 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Text_NextLabel(boolean ... ignoreException) { return findElement("com.bungii.driver:id/stack_widget_tv_next", LocatorType.Id,ignoreException); }
     public WebElement Text_OnDeckLabel(boolean ... ignoreException) { return findElement("com.bungii.driver:id/appCompatTextView24", LocatorType.Id,ignoreException); }
     public WebElement Text_StackCustomer(boolean ... ignoreException) { return findElement("com.bungii.driver:id/stack_customer_name_textview", LocatorType.Id,ignoreException); }
-    public WebElement Text_FinishBy() { return findElement("com.bungii.driver:id/pickup_details_status_tv_pickup_end_time", LocatorType.Id); }
+    public WebElement Text_FinishBy() { return findElement("com.bungii.driver:id/appCompatTextView24", LocatorType.Id); }
     public WebElement Button_StackInfo() { return findElement("com.bungii.driver:id/pickup_details_iv_stack_info", LocatorType.Id); }
 
     //Details Note

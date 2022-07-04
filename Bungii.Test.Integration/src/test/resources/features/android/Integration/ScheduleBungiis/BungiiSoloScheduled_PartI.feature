@@ -153,7 +153,7 @@ Feature: SoloScheduled Part I
     And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state    | driver2 state    |
       | Unloading item   | Unloading item |
-    
+
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
     

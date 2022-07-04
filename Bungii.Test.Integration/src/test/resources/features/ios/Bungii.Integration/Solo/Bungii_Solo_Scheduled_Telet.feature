@@ -134,6 +134,7 @@ Feature: Solo Scheduled Bungii - TELET
 
 
   @ready
+    #Added case of CORE-3685 to existing script
   #stable
   Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked request (Trip 2) Then Driver Doesnt Receive Scheduled Notification
     Given that ondemand bungii is in progress
@@ -145,6 +146,10 @@ Feature: Solo Scheduled Bungii - TELET
     And I am logged in as "valid denver" driver
     And I wait for "2" mins
     When I Switch to "customer" application on "same" devices
+    And I logged in as "valid existing stack" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I should be navigated to "Home" screen
 
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
@@ -155,7 +160,16 @@ Feature: Solo Scheduled Bungii - TELET
     And I get TELET time of currrent trip of customer 2
 
     And I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
+    When I Select "ACCOUNT > ACCOUNT INFO" from Customer App menu
+    Then I should be navigated to "ACCOUNT INFO" screen
+    And I click "Delete account" button on "ACCOUNT INFO" screen
+    #And I confirm the account deletion for customer
+    And I enter "valid" password and click on delete button
+    Then I should see "Account can't be deleted due to pending deliveries" message
+    And I click "Cancel" button on "Delete Account" screen
+    When I Select "ACCOUNT > LOGOUT" from Customer App menu
+    Then I should be navigated to "LOG IN" screen
+    #Given I am on the "LOG IN" page
     When I enter Username :8888889907 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
 

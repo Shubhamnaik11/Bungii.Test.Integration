@@ -484,6 +484,38 @@ public class CommonStepsDriver extends DriverBase {
             error("Step  Should be successful", "Error while verifying if element is present", true);
         }
     }
+    @And("^I verify all the elements on earnings page$")
+    public void i_verify_all_the_elements_on_earnings_page() throws Throwable {
+        try {
+            boolean isCorrectPage = false;
+            isCorrectPage = utility.verifyPageHeader("EARNINGS");
+            testStepAssert.isTrue(isCorrectPage,
+                    "I should be navigated to EARNINGS screen",
+                    "I have navigated to EARNINGS screen" ,
+                    "I was not navigated to EARNINGS screen ");
+
+            testStepAssert.isElementDisplayed(driverHomePage.Dropdown_SelectYear(),"The element should be displayed","The element is displayed","The element is not displayed");
+            testStepAssert.isElementDisplayed(driverHomePage.Button_ItemizedEarnings(),"The itemized earnings button should be displayed","The itemized earnings button is displayed","The itemized earnings button is not displayed");
+
+            String actualDisclaimer = action.getText(driverHomePage.Text_Disclaimer());
+            String expectedDisclaimer = PropertyUtility.getMessage("ios.earnings.page.disclaimer");
+            testStepAssert.isEquals(actualDisclaimer,expectedDisclaimer,
+                    "The Disclaimer displayed should be "+expectedDisclaimer,
+                    "The Disclaimer displayed is "+expectedDisclaimer,
+                    "The Disclaimer displayed is incorrect");
+
+            testStepAssert.isElementDisplayed(driverHomePage.Text_MilesDriven(),"The Miles Driven should be displayed","The Miles Driven are displayed","The  Miles Driven are not displayed");
+            testStepAssert.isElementDisplayed(driverHomePage.Text_WorkHours(),"The Work Hours should be displayed","The Work Hours are displayed","The Work Hours are not displayed");
+            testStepAssert.isElementDisplayed(driverHomePage.Text_NoOfTrips(),"The number of trips should be displayed","The number of trips are displayed","The number of trips are not displayed");
+            testStepAssert.isElementDisplayed(driverHomePage.Text_DisbursementInfo(),"The Disbursement Info should be displayed","The Disbursement Info  is displayed","The Disbursement Info is not displayed");
+
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while verifying if element is present", true);
+        }
+    }
     @And("^I search for \"([^\"]*)\" driver on driver details$")
     public void i_search_for_something_driver_on_driver_details(String driverName) throws Throwable {
         try{
@@ -555,6 +587,18 @@ public class CommonStepsDriver extends DriverBase {
             {
                 case "BACK":
                     action.click(driverHomePage.Button_BackItemizedEarnings());
+                    break;
+                case "STAY ONLINE":
+                    action.click(driverBungiiCompletedPage.Button_StayOnline());
+                    break;
+                case "GO OFFLINE":
+                    action.click(driverBungiiCompletedPage.Button_GoOffline());
+                    break;
+                case "VERIFY":
+                    action.click(scheduledTripsPage.Button_VerifyDriver());
+                    break;
+                case "SAVE CHANGES":
+                    action.click(scheduledTripsPage.Button_SaveChanges());
                     break;
             }
         }

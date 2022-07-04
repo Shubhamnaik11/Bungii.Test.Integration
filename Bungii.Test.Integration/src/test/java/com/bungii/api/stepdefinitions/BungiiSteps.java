@@ -428,6 +428,27 @@ public class BungiiSteps extends DriverBase {
             case "GoaI DriverI":
                 phone = PropertyUtility.getDataProperties("goa.driver8.phone");
                 break;
+            case "valid denver":
+                phone = PropertyUtility.getDataProperties("denver.driver.phone");
+                break;
+            case "valid boston":
+                phone = PropertyUtility.getDataProperties("boston.driver.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvai Kansas_ai":
+                phone = PropertyUtility.getDataProperties("Kansas.driver24.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvaj Kansas_aj":
+                phone = PropertyUtility.getDataProperties("Kansas.driver25.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvak Kansas_ak":
+                phone = PropertyUtility.getDataProperties("Kansas.driver26.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvan Kansas_an":
+                phone = PropertyUtility.getDataProperties("Kansas.driver27.phone");
+                break;
+            case "TestDrivertywd_applemd_a_billC Stark_bltTwO":
+                phone = PropertyUtility.getDataProperties("baltimore.driver2.phone");
+                break;
             case "Testdrivertywd_appledv_b_mattB Stark_dvOnEB":
                 phone = PropertyUtility.getDataProperties("denver.driver3.phone");
                 break;
@@ -1588,7 +1609,10 @@ public class BungiiSteps extends DriverBase {
             String bungiiTime = dataMap.get("Bungii Time").trim();
             String customer = dataMap.get("Customer Phone").trim();
             String customerName = dataMap.get("Customer Name").trim();
-
+            if (dataMap.containsKey("Customer Note")){
+                String customerNote = dataMap.get("Customer Note").trim();
+                cucumberContextManager.setScenarioContext("Customer_Notes",customerNote);
+            }
             cucumberContextManager.setScenarioContext("Bungii_Type",bungiiType);
             cucumberContextManager.setScenarioContext("BUNGII_TYPE",bungiiType);
             String customerPasswordLabel = "";

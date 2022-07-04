@@ -40,6 +40,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     SearchingPage searchingPage = new SearchingPage();
     MyBungiisPage myBungiisPage = new MyBungiisPage();
     EarningsPage earningsPage = new EarningsPage();
+    BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
 
     @And("^I click on \"([^\"]*)\" tab$")
@@ -314,6 +315,13 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     action.click(Page_BungiiRequest.Alert_ViewRequest());
                     break;
 
+                case "STAY ONLINE":
+                    action.click(bungiiCompletedPage.Button_StayOnline());
+                    break;
+
+                case "GO OFFLINE":
+                    action.click(bungiiCompletedPage.Button_GoOffline());
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }
