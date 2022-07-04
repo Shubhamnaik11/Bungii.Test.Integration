@@ -19,6 +19,10 @@ public class BungiiCompletedPage extends PageBase {
 
 	public WebElement Textbox_AdditionalFeedback() {return findElement("//XCUIElementTypeTextView[@value='Any additional feedback (Optional)']",LocatorType.XPath);}
 
+	public WebElement Textbox_Additional() {return findElement("//XCUIElementTypeStaticText[@name='Additional']",LocatorType.XPath);}
+
+	public WebElement ExperienceRating() {return findElement("//XCUIElementTypeButton[1][@name='rating unselected star icon']",LocatorType.XPath);}
+
 
 		public WebElement Title_Status() { return findElement("//XCUIElementTypeStaticText[@name='Bungii completed']", LocatorType.XPath); }
 
