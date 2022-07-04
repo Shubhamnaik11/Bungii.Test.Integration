@@ -110,18 +110,59 @@ public class Admin_RevivalSteps extends DriverBase {
                 true);
     }
     }
-    @And("^I select \"([^\"]*)\" from the dropdown $")
+    @And("^I select \"([^\"]*)\" from the dropdown$")
     public void i_select_something_from_the_dropdown(String status) throws Throwable {
+        Thread.sleep(5000);
+        action.click(admin_RevivalPage.Link_ChangeDeliveryStatus());
+        Thread.sleep(4000);
+        action.click(admin_RevivalPage.DropDown_DeliveryStatus());
         switch (status){
-            action.click(;);
-            case "Admin Cancel":
-
-                break;
-            case "Drivr Cancel":
-                break;
-            case "Customr Cancel":
+            case "Admin Canceled":
+            case "Partner Canceled":
+            case "Driver Canceled":
+                action.click(admin_RevivalPage.Text_DeliveryStatus(status));
                 break;
         }
+    }
+    @Then("^I should see the change status link \"([^\"]*)\"$")
+    public void i_should_see_the_change_status_link_something(String changeStatusLink) throws Throwable {
+        switch (changeStatusLink){
+            case "Not Displayed":
+                testStepVerify.isElementNotDisplayed(admin_RevivalPage.Link_ChangeDeliveryStatus(true),"Element should not be displayed","Element is not displayed","Element is displayed");
+                break;
+            case "Is Displayed":
+                testStepAssert.isElementDisplayed(admin_RevivalPage.Link_ChangeDeliveryStatus(),"Element should be displayed","Element is displayed","Element is not displayed");
+                break;
+        }
+    }
+
+    @And("^I select \"([^\"]*)\" as the reason from the reason dropdown$")
+    public void i_select_something_as_the_reason_from_the_reason_dropdown(String changestatusreason) throws Throwable {
+        action.click(admin_RevivalPage.DropDown_DeliveryStatusReason());
+        switch (changestatusreason){
+            case "Driver initiated":
+            case "Customer initiated - other reason":
+            case "Outside of delivery scope":
+            case "Other":
+                action.click(admin_RevivalPage.Text_DeliveryStatusReason(changestatusreason));
+                break;
+        }
+    }
+    @Then("^I should be able to see the comment textbox displayed$")
+    public void i_should_be_able_to_see_the_comment_textbox_displayed() throws Throwable {
+        testStepVerify.isElementDisplayed(admin_RevivalPage.Textbox_CommentForStatus(),"Textbox should be displayed","Textbox is displayed","Textbox is not  displayed");
+    }
+
+
+    @And("^I enter the text \"([^\"]*)\" in the textarea$")
+    public void i_enter_the_text_something_in_the_textarea(String textmessage) throws Throwable {
+        action.clearSendKeys(admin_RevivalPage.Textbox_CommentForStatus(), textmessage+ Keys.ENTER);
+        Thread.sleep(3000);
+    }
+    @Then("^I should see teh message \"([^\"]*)\" displayed$")
+    public void i_should_see_teh_message_something_displayed(String xptdtxt) throws Throwable {
+        String a = action.getText(admin_RevivalPage.Text_SuccessMessage());
+        testStepVerify.isEquals(a,xptdtxt);
     }
 
 }
