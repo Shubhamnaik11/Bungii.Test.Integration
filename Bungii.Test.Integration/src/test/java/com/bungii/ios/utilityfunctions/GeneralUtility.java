@@ -612,9 +612,16 @@ public class GeneralUtility extends DriverBase {
         boolean isCorrectPage = false;
         String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
 
-        action.textToBePresentInElementName(driverHomePage.Text_LoginNavigationBar(key), expectedMessage);
-        isCorrectPage = action.getScreenHeader(driverHomePage.Text_LoginNavigationBar(key)).equals(expectedMessage);
+        if(key.equalsIgnoreCase("Bungii")){
+            List<WebElement> count = Collections.singletonList(driverHomePage.Text_HomeLoginNavigationBar());
+            if(count.size() == 1)
+            isCorrectPage = true;
 
+        }
+        else {
+            action.textToBePresentInElementName(driverHomePage.Text_LoginNavigationBar(key), expectedMessage);
+            isCorrectPage = action.getScreenHeader(driverHomePage.Text_LoginNavigationBar(key)).equals(expectedMessage);
+        }
         return isCorrectPage;
     }
 
@@ -723,6 +730,7 @@ public class GeneralUtility extends DriverBase {
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.trip.details");
                 break;*/
             case "HOME":
+            case "BUNGII":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.home");
                 break;
             case "SET PICKUP TIME":
