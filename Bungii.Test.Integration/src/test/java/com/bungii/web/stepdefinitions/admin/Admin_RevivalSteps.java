@@ -143,6 +143,7 @@ public class Admin_RevivalSteps extends DriverBase {
             case "Driver initiated":
             case "Customer initiated - other reason":
             case "Outside of delivery scope":
+            case "Solo: Driver not found":
             case "Other":
                 action.click(admin_RevivalPage.Text_DeliveryStatusReason(changestatusreason));
                 break;
@@ -163,6 +164,23 @@ public class Admin_RevivalSteps extends DriverBase {
     public void i_should_see_teh_message_something_displayed(String xptdtxt) throws Throwable {
         String a = action.getText(admin_RevivalPage.Text_SuccessMessage());
         testStepVerify.isEquals(a,xptdtxt);
+    }
+
+    @Then("^The delivery should be in \"([^\"]*)\" state$")
+    public void the_delivery_should_be_in_something_state(String deliveryStatus) throws Throwable {
+        Thread.sleep(3000);
+        String status = action.getText(admin_RevivalPage.Text_DeliveryStatus());
+        testStepVerify.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",
+                "Delivery is  in " +status+ " state",
+                "Delivery is not in " +deliveryStatus+ " state");
+    }
+
+    @Then("^The amount should be \"([^\"]*)\" and in \"([^\"]*)\" state$")
+    public void the_amount_should_be_something_and_in_something_state(String strArg1, String deliveryStat) throws Throwable {
+//        String PickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String PickupRequest ="db472232-9cde-6690-18c3-e22e9bfeefdb";
+        String paymentStatus = new DbUtility().getPaymentTransactionType(PickupRequest);
+        System.out.println(paymentStatus);
     }
 
 }

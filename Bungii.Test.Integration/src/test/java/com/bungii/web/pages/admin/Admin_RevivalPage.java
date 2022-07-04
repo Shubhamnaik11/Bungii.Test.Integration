@@ -38,4 +38,6 @@ public class Admin_RevivalPage extends PageBase {
 
     public WebElement Button_CloseStatus() { return findElement("//div[@id=\"edit-status-success-modal\"]/div/div/div[2]/button", LocatorType.XPath);}
 
+    public WebElement Text_DeliveryStatus() { return findElement("//tbody/tr/td[11]", LocatorType.XPath);}
+
 }

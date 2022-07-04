@@ -460,4 +460,31 @@ public class DbUtility extends DbContextManager {
         return partnerName;
 
     }
+
+    public static String getPaymentTransactionType(String Pickup_Reference) {
+        String transactionType;
+        String queryString = "select PaymentTransactionType from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 1";
+        transactionType = getDataFromMySqlServer(queryString);
+        logger.detail("Partner_Name =  " + transactionType + " of Subdomain="+Pickup_Reference);
+        return transactionType;
+
+    }
+
+    public static String getStatusMessage(String Pickup_Reference) {
+        String statusMessage;
+        String queryString = "select * from bungii_admin_qa_auto.paymenttransaction where clientgroupref =''"+Pickup_Reference+"'";
+        statusMessage = getDataFromMySqlServer(queryString);
+        logger.detail("Partner_Name =  " + statusMessage + " of Subdomain="+Pickup_Reference);
+        return statusMessage;
+
+    }
+
+    public static String getriverPaid(String Pickup_Reference) {
+        String driverPaid;
+        String queryString = "select * from bungii_admin_qa_auto.paymenttransaction where clientgroupref =''"+Pickup_Reference+"'";
+        driverPaid = getDataFromMySqlServer(queryString);
+        logger.detail("Partner_Name =  " + driverPaid + " of Subdomain="+Pickup_Reference);
+        return driverPaid;
+
+    }
 }
