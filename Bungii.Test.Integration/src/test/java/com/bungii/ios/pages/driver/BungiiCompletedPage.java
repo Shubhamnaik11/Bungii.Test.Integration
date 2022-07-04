@@ -13,6 +13,12 @@ public class BungiiCompletedPage extends PageBase {
 
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
+	public WebElement Text_ChooseRating() {return findElement("//XCUIElementTypeStaticText[@name='Choose your rating']",LocatorType.XPath);}
+
+	public WebElement Text_DriverExperience() {return findElement("//XCUIElementTypeStaticText[@name ='How was your experience with the customer?']",LocatorType.XPath);}
+
+	public WebElement Textbox_AdditionalFeedback() {return findElement("//XCUIElementTypeTextView[@value='Any additional feedback (Optional)']",LocatorType.XPath);}
+
 
 		public WebElement Title_Status() { return findElement("//XCUIElementTypeStaticText[@name='Bungii completed']", LocatorType.XPath); }
 
