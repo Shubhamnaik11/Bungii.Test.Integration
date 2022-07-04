@@ -1072,6 +1072,13 @@ public class CommonSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.kansas.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+            case "valid denver driver 3":
+                phone = PropertyUtility.getDataProperties("denver.driver3.phone");
+                password = PropertyUtility.getDataProperties("denver.driver3.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver3.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             default:
                 throw new Exception("Please specify valid input");
         }
@@ -1609,6 +1616,12 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("chicago.customer.phone");
                     password = PropertyUtility.getDataProperties("chicago.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("chicago.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver5":
+                    userName = PropertyUtility.getDataProperties("denver5.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver5.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 default:

@@ -37,3 +37,52 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+
+#CORE-2753 : To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
+@ready
+  Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And I get TELET time of of the current trip
+    And As a driver "Testdrivertywd_appleks_a_drvah Kansas_ah" perform below action with respective "SOLO SCHEDULED" trip
+      | driver1 state |
+      | Accepted      |
+    And I wait for 1 minutes
+    And As a driver "Testdrivertywd_appleks_a_drvah Kansas_ah" perform below action with respective "SOLO SCHEDULED" trip
+      | driver1 state |
+      | Enroute      |
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appleks_a_drvah Kansas_ah" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    Then Bungii driver should see "Enroute screen"
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid kansas 3" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I enter "kansas very short trip location" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    When I confirm trip with following detail
+      | Day | Trip Type |
+      | 1   | SOLO      |
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    And I Switch to "driver" application on "same" devices
+    And I wait for 1 minutes
+   Then I should see a popup "New Bungii Request" displayed
+    And I click on "View Request" button
+    And I wait for 1 minutes
+    Then I should see the trip details
+    And I click on "Accept" button
+    Then Bungii driver should see "Enroute screen"
+    And I slide update button on "EN ROUTE" Screen
+
+    And I cancel all bungiis of customer
+     | Customer Phone  | Customer2 Phone |
+     | CUSTOMER1_PHONE |                 |

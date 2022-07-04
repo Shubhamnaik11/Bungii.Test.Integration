@@ -41,6 +41,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     MyBungiisPage myBungiisPage = new MyBungiisPage();
     EarningsPage earningsPage = new EarningsPage();
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
+    BungiiRequest Page_BungiiRequest = new BungiiRequest();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -302,6 +303,16 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "Delivery Instructions":
                     action.click(inProgressPages.Button_DeliveryInstructions());
+                    break;
+
+                case "Accept":
+                    Thread.sleep(5000);
+                    action.click(Page_BungiiRequest.Button_Accept());
+                    break;
+
+                case "View Request":
+                    Thread.sleep(3000);
+                    action.click(Page_BungiiRequest.Alert_ViewRequest());
                     break;
 
                 case "STAY ONLINE":
