@@ -41,3 +41,26 @@ Feature: Partner Portal Cases integration with IOS
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
+
+     #  Core-2569: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
+  @ready
+#    @testsweta
+  Scenario: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applega_a_steveB Stark_altOnEB" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I request Partner Portal "SOLO" Trip for "Biglots" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |atlanta  | NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Trip from available trip
+    And I check if variable sign is not shown under "available bungii details"
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I check if variable sign is not shown under "schedule bungii details"

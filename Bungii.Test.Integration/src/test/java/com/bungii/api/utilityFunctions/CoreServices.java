@@ -1861,8 +1861,8 @@ public class CoreServices extends DriverBase {
             jsonObj.put("PickupRequestID",JSONObject.NULL);
             jsonObj.put("ServiceLevelRef", ServiceLevelRef);
             jsonObj.put("NoOfDrivers",No_of_Driver);
-            jsonObj.put("BusinessPartnerDefaultAddressRef", BusinessPartnerDefaultAddressRef);
-            jsonObj.put("BusinessPartnerDefaultAddressConfigVersionID",BusinessPartnerDefaultAddressConfigVersionID);
+            jsonObj.put("BusinessPartnerDefaultAddressRef", JSONObject.NULL);
+            jsonObj.put("BusinessPartnerDefaultAddressConfigVersionID",JSONObject.NULL);
 
             //Header header = new Header("AuthorizationToken", AccessToken);
             response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);//body(jsonObj.toString()).
@@ -2157,9 +2157,9 @@ public class CoreServices extends DriverBase {
             jsonObj.put("CustomerMobile", Partner_Customer_Phone);
             jsonObj.put("ItemsToDeliver", itemsToDeliver);
             jsonObj.put("StaticFields", staticFields);
-            jsonObj.put("PaymentMethodNonce", "tokencc_bj_zc5vsn_bpw6fg_xvpjm2_zbcppt_353");
-            jsonObj.put("PickupNote","Books");
             jsonObj.put("PaymentOption", "CC");
+            jsonObj.put("PaymentMethodNonce", "fake-valid-nonce");
+            jsonObj.put("PickupNote","Books");
             jsonObj.put("SpecialInstructions", "SPL from QA script");
 
             Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);

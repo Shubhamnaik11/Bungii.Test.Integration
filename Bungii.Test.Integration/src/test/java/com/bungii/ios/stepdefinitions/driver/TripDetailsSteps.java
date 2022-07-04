@@ -64,6 +64,33 @@ public class TripDetailsSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I check if variable sign is not shown under \"([^\"]*)\"$")
+    public void i_check_if_variable_sign_is_not_shown_under_something(String page) throws Throwable {
+        try{
+            switch (page){
+                case "available bungii details":
+                    Thread.sleep(2000);
+                    String driverEarnings = tripDetailsPage.Text_EstimatedEarnings().getText();
+                    testStepAssert.isFalse(driverEarnings.contains("~"),
+                            "The variable sign (~) should not be present",
+                            "The variable sign (~) is present");
+                    break;
+                case "schedule bungii details":
+                    Thread.sleep(2000);
+                    String driverEarningsSchedulePage = tripDetailsPage.Text_EstimatedEarningsSchedule().getText();
+                    testStepAssert.isFalse(driverEarningsSchedulePage.contains("~"),
+                            "The variable sign (~) should not be present",
+                            "The variable sign (~) is present");
+                    break;
+            }
+            log("I should be able to check if the variable sign is absent","I was able to check if the variable sign is absent",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     @Then("^Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen$")
     public void driver_information_should_be_correctly_displayed_on_somethingBUNGIIDETAILS_screen() {

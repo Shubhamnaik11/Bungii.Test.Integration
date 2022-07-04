@@ -73,9 +73,21 @@
 
   #  Core-2569: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
     @ready
-#      @testsweta
     Scenario: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
+      When I am logged in as "Testdrivertywd_applega_a_steveB Stark_altOnEB" driver
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
       When I request Partner Portal "SOLO" Trip for "Biglots" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
-        |atlanta  | NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+        |atlanta  | NEXT_POSSIBLE | 8877661046 | Testcustomertywd_appleMarkAU LutherAU|
+
+      When I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
+      And I Select Trip from available trip
+      And I check if variable sign is not shown under "available bungii details"
+      And I tap on "ACCEPT" on driver Trip details Page
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      And I Select Trip from driver scheduled trip
+      Then I check if variable sign is not shown under "schedule bungii details"
 

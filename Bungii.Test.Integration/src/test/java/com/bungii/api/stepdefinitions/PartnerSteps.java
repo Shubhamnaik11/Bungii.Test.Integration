@@ -39,17 +39,19 @@ public class PartnerSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("Portal_Name",Partner_Portal);
 
         String[] PartnerSettings = authServices.partnerSettings(Access_Token);
+        String PickupRequestID;
 
-        cucumberContextManager.setScenarioContext("Partner_Location_Config_VersionRef",PartnerSettings[0]);
-
-        String PickupRequestID = coreServices.partnerPickupEstimate(Partner_Portal,geofence,bungii_time,PartnerSettings[0],PartnerSettings[1]);
+        if(Partner_Portal.equalsIgnoreCase("Biglots")){
+            PickupRequestID = coreServices.partnerPickupEstimate(Partner_Portal,geofence,bungii_time,"null","null");
+        }else{
+            cucumberContextManager.setScenarioContext("Partner_Location_Config_VersionRef",PartnerSettings[0]);
+            PickupRequestID = coreServices.partnerPickupEstimate(Partner_Portal,geofence,bungii_time,PartnerSettings[0],PartnerSettings[1]);
+        }
         cucumberContextManager.setScenarioContext("Pickup_Request",PickupRequestID);
         cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequestID);
-
         coreServices.partnerPickupDetails(PickupRequestID);
-
         String ClientToken = paymentServices.GetTokenForPartner(Access_Token);
-            //String token = coreServices.partner_graphql();
+        //String token = coreServices.partner_graphql();
         coreServices.partnerDeliveryInformation(PickupRequestID,Partner_Portal);
         coreServices.partnerConfirmPickup(PickupRequestID);
 

@@ -151,8 +151,13 @@ public class AuthServices extends DriverBase {
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response, RequestText);
 
-        String[] abc = {jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressRef[0]").toString(),jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressConfigVersionID[0]").toString()};
-        return abc;
+        String portalName= (String) cucumberContextManager.getScenarioContext("Portal_Name");
+        if (portalName.equalsIgnoreCase("Biglots")){
+            return null;
+        }else {
+            String[] abc = {jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressRef[0]").toString(),jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressConfigVersionID[0]").toString()};
+            return abc;
+        }
         //return response;
 
     }
