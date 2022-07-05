@@ -31,6 +31,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
+    TripDetailsPage tripDetailsPage = new TripDetailsPage();
     private static LogUtility logger = new LogUtility(ScheduledBungiiSteps.class);
     @And("I open first Trip from driver scheduled trip")
     public void iSelectFirstTripFromDriverScheduledTrip() {
@@ -243,4 +244,47 @@ public class ScheduledBungiiSteps extends DriverBase {
         */
         logger.detail("Temparory Commented since it is taking longer time.");
     }
+
+
+    @Then("^I should see a popup \"([^\"]*)\" displayed$")
+    public void i_should_see_a_popup_something_displayed(String popupNotificationText) throws Throwable {
+        try{
+        Thread.sleep(3000);
+        boolean isDisplayed = action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+        testStepAssert.isTrue(isDisplayed,"Schedule bungii popup should be displayed","Schedule bungii popup is displayed","Schedule bungii popup is not displayed");
+        String  popupText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+        testStepVerify.isEquals(popupText,popupNotificationText,"New bungii request text should displayed","New bungii request text is displayed","New bungii request text is not displayed");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+    @Then("^I should see the trip details$")
+    public void i_should_see_the_trip_details() throws Throwable {
+        try
+        {
+        String pickupLine1 = (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1");
+        String pickupLine2 = (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2");
+        String dropOffLine1 = (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1");
+        String dropOffLine2 = (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2");
+        String totalDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+
+        String uiPickupLocationline1 =action.getText(tripDetailsPage.Text_Pickup_Location_line1());
+        String uiPickupLocationline2 =action.getText(tripDetailsPage.Text_Pickup_Location_line2());
+        String uiDropOffLocationline1 = action.getText(tripDetailsPage.Text_DropOff_Location_line1());
+        String uiDropOffLocationline2 =action.getText(tripDetailsPage.Text_DropOff_Location_line2());
+        String distance = action.getText(tripDetailsPage.Text_Total_Distance());
+
+        testStepAssert.isEquals(uiPickupLocationline1,pickupLine1,"Pickup Location line 1 text should be " + pickupLine1,"Pickup Location line 1 text is " + uiPickupLocationline1,"Pickup Location line 1 text is not " + pickupLine1);
+        testStepAssert.isEquals(uiPickupLocationline2,pickupLine2,"Pickup Location line 2 text should be " + pickupLine2,"Pickup Location line 2 text is " + uiPickupLocationline2,"Pickup Location line 2 text is not " + pickupLine2);
+        testStepAssert.isEquals(uiDropOffLocationline1,dropOffLine1,"DropOff Location line 1 text should be " + dropOffLine1,"dropOff Location line 1 text is " + uiDropOffLocationline1,"dropOff Location line 1 text is not " + dropOffLine1);
+        testStepAssert.isEquals(uiDropOffLocationline2,dropOffLine2,"DropOff Location line 2 text should be " + dropOffLine2,"dropOff Location line 2 text is " + uiDropOffLocationline2,"dropOff Location line 2 text is not " + dropOffLine2);
+        testStepAssert.isEquals(distance,totalDistance,"total distance should be " + totalDistance,"total distance is " + distance,"total distance is not " + totalDistance);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
+
 }

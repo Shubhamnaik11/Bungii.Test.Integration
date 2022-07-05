@@ -41,7 +41,7 @@ public class CommonStepsDriver extends DriverBase {
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
     GeneralUtility utility = new GeneralUtility();
-
+    private ScheduledBungiiPage scheduledBungiipage = new ScheduledBungiiPage();
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
                        ScheduledTripsPage scheduledTripsPage,
@@ -588,6 +588,12 @@ public class CommonStepsDriver extends DriverBase {
                 case "BACK":
                     action.click(driverHomePage.Button_BackItemizedEarnings());
                     break;
+                case "STAY ONLINE":
+                    action.click(driverBungiiCompletedPage.Button_StayOnline());
+                    break;
+                case "GO OFFLINE":
+                    action.click(driverBungiiCompletedPage.Button_GoOffline());
+                    break;
                 case "VERIFY":
                     action.click(scheduledTripsPage.Button_VerifyDriver());
                     break;
@@ -597,6 +603,20 @@ public class CommonStepsDriver extends DriverBase {
             }
         }
         catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^The trip should be present in schedule delivery$")
+    public void the_trip_should_be_present_in_schedule_delivery() throws Throwable {
+        try {
+            Thread.sleep(3000);
+            String driverAppTripTimeDate = action.getText(scheduledBungiipage.Text_Trip_DateTime());
+            String customerAppTripTimeDate = (String) cucumberContextManager.getScenarioContext("CUSTOMER_APP_TRIP_TIME");
+            testStepAssert.isEquals(driverAppTripTimeDate, customerAppTripTimeDate, "Trip should be present in schedule bungiis", "Trip is  present in schedule bungiis", "Trip is not present in schedule bungiis");
+        } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);

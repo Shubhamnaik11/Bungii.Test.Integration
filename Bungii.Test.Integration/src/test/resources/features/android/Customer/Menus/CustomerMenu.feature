@@ -52,7 +52,7 @@ Feature: CustomerMenu
     And I should see "Scheduled info" message displayed
     And I click on "Past" tab
     And I should see "Past info" message displayed
-    
+
     When I tap on "Menu" > "SIGN UP TO DRIVE" link
     Then "bungii.com" page should be opened
     

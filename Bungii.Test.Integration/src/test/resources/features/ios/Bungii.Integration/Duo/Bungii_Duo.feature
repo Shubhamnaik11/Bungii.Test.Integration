@@ -437,10 +437,10 @@ Feature: Scheduled DUO Bungii
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
-    
+
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "EN ROUTE" screen
-    
+
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
@@ -450,7 +450,7 @@ Feature: Scheduled DUO Bungii
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
-  
+
     And I Switch to "customer" application on "same" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
