@@ -382,39 +382,38 @@ Feature: Admin_Reason_Code
     And I wait for "2" mins
     Then the updated time should be displayed on delivery details page
 
+  #CORE:2507-Verify Admin is able to change the status of the trip to Admin cancelled/partner cancelled/ driver cancelled
+  @ready
+  Scenario Outline: Verify Admin is able to change the status of the trip to Admin cancelled/partner cancelled/ driver cancelled
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
+    And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      |Accepted |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
+      | Bungii Completed |
+    And I wait for 2 minutes
+    And I view All Deliveries list on the admin portal
+    And I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" page should display the delivery in "Payment Successful" form
+    And  I search the delivery using "Pickup Reference"
+   Then I should see the change status link "Is Displayed"
+    And I select "<Status>" from the dropdown
+    And I select "<Reason>" as the reason from the reason dropdown
 
-  @testAllan
-  Scenario Outline: Verify Admin is able to change the status of the trip to Admin cancelled/partnr cancelled/ drivr cancelled
-#    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
-#      |Geofence| Bungii Time   | Customer Phone | Customer Name |
-#      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
-#    And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
-#      | driver1 state|
-#      |Accepted |
-#      | Enroute  |
-#      | Arrived |
-#      | Loading Item |
-#      | Driving To Dropoff |
-#      | Unloading Item |
-#      | Bungii Completed |
-#    And I wait for 2 minutes
-#    And I view All Deliveries list on the admin portal
-#    And I search the delivery using "Pickup Reference"
-#    Then The "All Deliveries" page should display the delivery in "Payment Successful" form
-#    And  I search the delivery using "Pickup Reference"
-#   Then I should see the change status link "Is Displayed"
-#    And I select "<Status>" from the dropdown
-#    And I select "<Reason>" as the reason from the reason dropdown
-#
-#    And I click on "Confirm Status" button
-##    Then I should see teh message "The transaction has been fully refunded. Please apply any accessorial fees separately." displayed
-#    And I click on "Cancel Status" button
-#    And I wait for 2 minutes
-#    And I view All Deliveries list on the admin portal
-#    And  I search the delivery using "Pickup Reference"
-#    Then Revive button should be displayed beside the trip
-#    Then The delivery should be in "<Trip Status>" state
-    And The amount should be "Refunded" and in "Voided" state
+    And I click on "Confirm Status" button
+    And I click on "Cancel Status" button
+    And I wait for 2 minutes
+    And I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+   Then Revive button should be displayed beside the trip
+    Then The "All Deliveries" should be in "<Trip Status>" state
+    And The amount should be "Refunded" and in "voided" state
     When I click on "Revive" button
     Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
     When I click on "Confirm" button on Revival Popup
@@ -422,21 +421,20 @@ Feature: Admin_Reason_Code
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
-    Then I should be able to see the respective bungii with the below status
-      |  Status |
-      | Assigning Driver(s) |
+    Then The "Scheduled Deliveries" should be in "<After Revive Status>" state
     When I click on the "Edit" button from the dropdown
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
     Examples:
-      | Status            | Reason                         | Trip Status      |
-      | Admin Canceled    | Solo: Driver not found         |  Admin Canceled - No Driver(s) Found  |
-      | Partner Canceled  |Outside of delivery scope       |  Partner Canceled |
-#      | Driver Canceled   | Driver initiated               |   Driver Canceled |
+      | Status            | Reason                         | Trip Status                           |    After Revive Status                |
+      | Admin Canceled    | Solo: Driver not found         |  Admin Canceled - No Driver(s) Found  |      Assigning Driver(s)              |
+      | Partner Canceled  |Outside of delivery scope       |  Partner Canceled                     |      Assigning Driver(s)             |
+      | Driver Canceled   | Driver initiated               |  Driver Canceled                      |      Assigning Driver(s)              |
 
-  @
+  #CORE-2507 :Verify accessorial charges are not refunded on status change
+  @ready
   Scenario: Verify Reason dropdown for PARTNER DUO(Geofence based pricing) re-scheduled delivery when Both Driver do not accept and admin edits only time when Partner Initiated
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -452,9 +450,9 @@ Feature: Admin_Reason_Code
       | Bungii Completed |
     And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
-    Then The Delivery List page should display the delivery in "Payment Successful" state
     And  I search the delivery using "Pickup Reference"
-    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The Delivery List page should display the delivery in "Payment Successful" state
+    And I search the delivery of Customer and view it
     When I add following accessorial charges and save it
       | Amount   | Fee Type         | Comment                           | Driver Cut |
       |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
@@ -464,11 +462,12 @@ Feature: Admin_Reason_Code
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then I should see the change status link "Is Displayed"
-    And I select "Admin Cancel" from the dropdown
+    And I select "Customer Canceled" from the dropdown
     And I select "Other" as the reason from the reason dropdown
     Then I should be able to see the comment textbox displayed
     And I enter the text "Vehicle breakdown" in the textarea
     And I click on "Confirm Status" button
-    Then I should see teh message "STATUS CHANGE SUCCESSFUL" displayed
     And I click on "Cancel Status" button
-    And The amount should be "Refunded" and in "Voided" state
+    Then The Below accessorial charges should be present in the db
+      | Excess Wait Time | Cancelation | Mountainous | Other |
+      | 10.00            | 20.50      | 25.65        | 100.00 |

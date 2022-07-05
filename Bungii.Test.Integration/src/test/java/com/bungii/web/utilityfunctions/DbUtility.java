@@ -465,26 +465,33 @@ public class DbUtility extends DbContextManager {
         String transactionType;
         String queryString = "select PaymentTransactionType from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 1";
         transactionType = getDataFromMySqlServer(queryString);
-        logger.detail("Partner_Name =  " + transactionType + " of Subdomain="+Pickup_Reference);
+        logger.detail("Payment transaction status is  " + transactionType + " for pickup reference"+Pickup_Reference);
         return transactionType;
 
     }
 
     public static String getStatusMessage(String Pickup_Reference) {
         String statusMessage;
-        String queryString = "select * from bungii_admin_qa_auto.paymenttransaction where clientgroupref =''"+Pickup_Reference+"'";
+        String queryString = "select StatusMessage from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 1";
         statusMessage = getDataFromMySqlServer(queryString);
-        logger.detail("Partner_Name =  " + statusMessage + " of Subdomain="+Pickup_Reference);
+        logger.detail("The status message is " + statusMessage + " for pickup reference"+Pickup_Reference);
         return statusMessage;
 
     }
 
-    public static String getriverPaid(String Pickup_Reference) {
+    public static String getDriverPaid(String Pickup_Reference) {
         String driverPaid;
-        String queryString = "select * from bungii_admin_qa_auto.paymenttransaction where clientgroupref =''"+Pickup_Reference+"'";
+        String queryString = "select IsDriverPaid from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 1";
         driverPaid = getDataFromMySqlServer(queryString);
-        logger.detail("Partner_Name =  " + driverPaid + " of Subdomain="+Pickup_Reference);
+        logger.detail("Drive paid paid status is " + driverPaid + " for pickup reference"+Pickup_Reference);
         return driverPaid;
+
+    }
+    public static List<HashMap<String,Object>>  getAccessorialAmount(String Pickup_Reference) {
+        List<HashMap<String,Object>> allcharges = new ArrayList<>();
+        String queryString = "select Amount from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 5";
+        allcharges = getListDataFromMySqlMgmtServer(queryString);
+        return allcharges;
 
     }
 }
