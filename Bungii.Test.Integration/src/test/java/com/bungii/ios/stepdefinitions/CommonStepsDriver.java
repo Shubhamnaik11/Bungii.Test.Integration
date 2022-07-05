@@ -596,6 +596,9 @@ public class CommonStepsDriver extends DriverBase {
             String driver1Name=scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
             cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);
             cucumberContextManager.setScenarioContext("DRIVER2_NAME",driver1Name);
+
+            log("I should be able to assign driver to the trip","I am able to assign driver to the trip",false);
+
         }catch (Throwable e) {
             logger.error("Error performing step" + e);
             error("Step  Should be successful",
@@ -633,6 +636,7 @@ public class CommonStepsDriver extends DriverBase {
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
                     break;
             }
+            log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -704,6 +708,9 @@ public class CommonStepsDriver extends DriverBase {
                     action.selectElementByText(scheduledTripsPage.Select_EditReason(),reason);
                     break;
             }
+
+            log("I should be able to select the reason for date/time change",
+                    "I am able to select the reason for date/time change",false);
         }
         catch (Exception e){
             logger.error("Error performing step" + e);
