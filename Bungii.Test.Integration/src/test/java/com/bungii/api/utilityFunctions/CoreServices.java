@@ -657,7 +657,16 @@ public class CoreServices extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         int mnts = calendar.get(Calendar.MINUTE);
 
-        calendar.set(Calendar.MINUTE, mnts+ 45); // Always choose 2nd possible slot to avoid issues with delay in requesting bungii
+        String slot= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+        if(slot.equalsIgnoreCase("NEXT_POSSIBLE_FIRST_SLOT")){
+            calendar.set(Calendar.MINUTE, mnts+ 30);
+        }
+        else if(slot.equalsIgnoreCase("NEXT_POSSIBLE_THIRD_SLOT")){
+            calendar.set(Calendar.MINUTE, mnts+ 60);
+        }
+        else{
+            calendar.set(Calendar.MINUTE, mnts+ 45);// Always choose 2nd possible slot to avoid issues with delay in requesting bungii
+        }
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));
@@ -1451,7 +1460,7 @@ public class CoreServices extends DriverBase {
             No_of_Driver=2;
         }
         cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER",No_of_Driver);
-        if(Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE")){
+        if(Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE") || Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE_FIRST_SLOT") || Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE_THIRD_SLOT")){
             nextAvailableBungii = getScheduledBungiiTime();
             String temp = nextAvailableBungii[0];
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -1675,6 +1684,107 @@ public class CoreServices extends DriverBase {
             JsonPath jsonPathEvaluator = response.jsonPath();
             ApiHelper.genericResponseValidation(response, RequestText);
         }
+        else if(Geofence.equalsIgnoreCase("baltimore")) {
+
+            String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+
+            String Pickup_Address1 = PropertyUtility.getDataProperties("partner.baltimore.pickup_address1");
+            String Pickup_City = PropertyUtility.getDataProperties("partner.baltimore.pickup_city");
+            String Pickup_Country = PropertyUtility.getDataProperties("partner.baltimore.pickup_country");
+            String Pickup_Latitude = PropertyUtility.getDataProperties("partner.baltimore.pickup_latitude");
+            String Pickup_Longitude = PropertyUtility.getDataProperties("partner.baltimore.pickup_longitude");
+            String Pickup_State = PropertyUtility.getDataProperties("partner.baltimore.pickup_state");
+            String Pickup_ZipPostalCode = PropertyUtility.getDataProperties("partner.baltimore.pickup_zippostalcode");
+
+            String ServiceLevelRef = PropertyUtility.getDataProperties("partner.baltimore.service_level_ref");
+            String PricingModelConfigVersionRef=PropertyUtility.getDataProperties("partner.baltimore.pricing_model_ref");
+
+            String DropOff_Address_Id = PropertyUtility.getDataProperties("partner.baltimore.dropoff_address_id");
+            String DropOff_Address1 = PropertyUtility.getDataProperties("partner.baltimore.dropoff_address1");
+            String DropOff_City = PropertyUtility.getDataProperties("partner.baltimore.dropoff_city");
+            String DropOff_Country = PropertyUtility.getDataProperties("partner.baltimore.dropoff_country");
+            String DropOff_Latitude = PropertyUtility.getDataProperties("partner.baltimore.dropoff_latitude");
+            String DropOff_Longitude = PropertyUtility.getDataProperties("partner.baltimore.dropoff_longitude");
+            String DropOff_State = PropertyUtility.getDataProperties("partner.baltimore.dropoff_state");
+            String DropOff_ZipPostalCode = PropertyUtility.getDataProperties("partner.baltimore.dropoff_zippostalcode");
+
+            //for Pickup Location
+            JSONObject jsonPickupLocation = new JSONObject();
+            jsonPickupLocation.put("Latitude", Pickup_Latitude);
+            jsonPickupLocation.put("Longitude", Pickup_Longitude);
+
+            //for Default Feilds
+            JSONArray DefaultFeilds = new JSONArray();
+
+            //for Pickup Address
+            JSONObject jsonPickupAddress = new JSONObject();
+            jsonPickupAddress.put("Address1", Pickup_Address1);
+            jsonPickupAddress.put("Address2", JSONObject.NULL);
+            jsonPickupAddress.put("AddressLabel", "store address");
+            jsonPickupAddress.put("BusinessPartnerDefaultAddressRef", BusinessPartnerDefaultAddressRef);
+            jsonPickupAddress.put("BusinessPartnerDefaultAddressConfigVersionID",BusinessPartnerDefaultAddressConfigVersionID);
+            jsonPickupAddress.put("City", Pickup_City);
+            jsonPickupAddress.put("Country", Pickup_Country);
+            jsonPickupAddress.put("DefaultStaticFields", DefaultFeilds);
+            jsonPickupAddress.put("IsDefault", true);
+            jsonPickupAddress.put("Location", jsonPickupLocation);
+            jsonPickupAddress.put("PickupInstructions",JSONObject.NULL );
+            jsonPickupAddress.put("State", Pickup_State);
+            jsonPickupAddress.put("ZipPostalCode", Pickup_ZipPostalCode);
+
+
+            //for Dropoff location
+            JSONObject jsonDropOffLocation = new JSONObject();
+            jsonDropOffLocation.put("Latitude", DropOff_Latitude);
+            jsonDropOffLocation.put("Longitude", DropOff_Longitude);
+
+            //for Dropoff Address
+            JSONObject jsonDropoffAddress = new JSONObject();
+            jsonDropoffAddress.put("AddressId", DropOff_Address_Id);
+            jsonDropoffAddress.put("Address1", DropOff_Address1);
+            jsonDropoffAddress.put("Address2", JSONObject.NULL);
+            jsonDropoffAddress.put("City", DropOff_City);
+            jsonDropoffAddress.put("Country", DropOff_Country);
+            jsonDropoffAddress.put("Location", jsonDropOffLocation);
+            jsonDropoffAddress.put("State", DropOff_State);
+            jsonDropoffAddress.put("ZipPostalCode", DropOff_ZipPostalCode);
+
+            JSONArray jsonCompletePickup= new JSONArray();
+            jsonCompletePickup.put(jsonPickupAddress);
+            JSONArray jsonCompleteDropOff= new JSONArray();
+            jsonCompleteDropOff.put(jsonDropoffAddress);
+
+            //for Service Level
+            String apiServiceLevel = null;
+            apiServiceLevel = UrlBuilder.createApiUrl("core",PARTNER_SERVICELEVEL);
+            JSONObject jsonServiceLevel = new JSONObject();
+            jsonServiceLevel.put("DropoffLocation", jsonDropOffLocation);
+            jsonServiceLevel.put("NoOfDrivers",No_of_Driver);
+            jsonServiceLevel.put("PickupLocation",jsonPickupLocation);
+            jsonServiceLevel.put("PricingModelConfigVersionRef",PricingModelConfigVersionRef);
+            response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonServiceLevel.toString()).when().post(apiServiceLevel);//body(jsonObj.toString()).
+
+
+            //final main json for request payload
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("PickupAddress", jsonPickupAddress);
+            jsonObj.put("DropOffAddress", jsonDropoffAddress);
+            jsonObj.put("DeliveryDateTime", nextAvailableBungii[0]);
+            jsonObj.put("EstLoadUnloadTimeInMilliseconds", 0);
+            jsonObj.put("IsScheduledPickup", true);
+            jsonObj.put("PricingModelConfigVersionRef", PricingModelConfigVersionRef);
+            jsonObj.put("PickupRequestID",JSONObject.NULL);
+            jsonObj.put("ServiceLevelRef", ServiceLevelRef);
+            jsonObj.put("NoOfDrivers",No_of_Driver);
+            jsonObj.put("BusinessPartnerDefaultAddressRef", BusinessPartnerDefaultAddressRef);
+            jsonObj.put("BusinessPartnerDefaultAddressConfigVersionID",BusinessPartnerDefaultAddressConfigVersionID);
+
+            //Header header = new Header("AuthorizationToken", AccessToken);
+            response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);//body(jsonObj.toString()).
+            //response.then().log().body();
+            JsonPath jsonPathEvaluator = response.jsonPath();
+            ApiHelper.genericResponseValidation(response, RequestText);
+        }
 
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response, RequestText);
@@ -1851,6 +1961,90 @@ public class CoreServices extends DriverBase {
                 Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
                 JsonPath jsonPathEvaluator = response.jsonPath();
                 ApiHelper.genericResponseValidation(response, RequestText);
+
+        }
+        else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")) {
+
+//            //customer name
+            JSONArray customFields = new JSONArray();
+
+
+            JSONArray ItemsToDeliver = new JSONArray();
+            if(No_Of_Driver=="1"){
+                //items details for solo
+                JSONObject deliverables = new JSONObject();
+                deliverables.put("Depth", "18 inches");
+                deliverables.put("Height",  "24 inches");
+                deliverables.put("Name", "Insignia™ - TV Stand for Most Flat-Panel TVs Up to 60\" - Mocha");
+                deliverables.put("Quantity", "1");
+                deliverables.put("Width", "54 inches");
+                deliverables.put("SKU", "5067400");
+                ItemsToDeliver.put(deliverables);
+            }
+            else{
+                //items details for duo
+                JSONObject firstDeliverables = new JSONObject();
+                JSONObject secondDeliverables = new JSONObject();
+                secondDeliverables.put("Depth", JSONObject.NULL);
+                secondDeliverables.put("Height", JSONObject.NULL);
+                secondDeliverables.put("Name", "Samsung - 75” Class QN85B Neo QLED 4K Smart Tizen TV");
+                secondDeliverables.put("Quantity", "1");
+                firstDeliverables.put("Width", "65.7 inches");
+                firstDeliverables.put("SKU", "6500302");
+                ItemsToDeliver.put(secondDeliverables);
+            }
+
+
+            //static fields
+            JSONArray staticFields = new JSONArray();
+
+            JSONObject field2 = new JSONObject();
+            field2.put("FieldRef", "f2bd9004-6757-11ea-a4a3-00155d0a8706");
+            field2.put("FieldValue", "Best Buy Customer Service");
+
+            JSONObject field3 = new JSONObject();
+            field3.put("FieldRef", "f2bd908c-6757-11ea-a4a3-00155d0a8706");
+            field3.put("FieldValue", "9923261261");
+
+            JSONObject field4 = new JSONObject();
+            field4.put("FieldRef", "f2bd90b3-6757-11ea-a4a3-00155d0a8706");
+            field4.put("FieldValue",  "Test Dropcontact");
+
+            JSONObject field5 = new JSONObject();
+            field5.put("FieldRef", "f2bd90d3-6757-11ea-a4a3-00155d0a8706");
+            field5.put("FieldValue", "9998881112");
+
+            JSONObject field6 = new JSONObject();
+            field6.put("FieldRef", "f2bd9171-6757-11ea-a4a3-00155d0a8706");
+            field6.put("FieldValue", "01");
+
+            JSONObject field7 = new JSONObject();
+            field7.put("FieldRef", "f2bd91b2-6757-11ea-a4a3-00155d0a8706");
+            field7.put("FieldValue", "Krishna");
+
+            staticFields.put(field2);
+            staticFields.put(field3);
+            staticFields.put(field4);
+            staticFields.put(field5);
+            staticFields.put(field6);
+            staticFields.put(field7);
+
+            //main payload
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("PickupRequestID", PickupRequest);
+            jsonObj.put("CustomerName", Partner_Customer);
+            jsonObj.put("CustomFields", customFields);
+            jsonObj.put("CustomerMobile", Partner_Customer_Phone);
+            jsonObj.put("ItemsToDeliver", ItemsToDeliver);
+            jsonObj.put("StaticFields", staticFields);
+            jsonObj.put("PaymentMethodNonce", JSONObject.NULL);
+            jsonObj.put("PickupNote", JSONObject.NULL);
+            jsonObj.put("PaymentOption", "MI");
+            jsonObj.put("SpecialInstructions", "SPL from QA script");
+
+            Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
+            JsonPath jsonPathEvaluator = response.jsonPath();
+            ApiHelper.genericResponseValidation(response, RequestText);
 
         }
         else {

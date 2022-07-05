@@ -235,4 +235,7 @@ public class Partner_DashboardPage extends PageBase {
 
     //Email Support value
     public WebElement Email_EmailSupport() { return findElement("//strong[contains(text(),'Email Support:')]/following-sibling::span/a",LocatorType.XPath);}
+
+    //Select trip from track delivery
+    public WebElement Link_SelectTripTrackDeliveries() { return findElement("//table/tbody/tr",LocatorType.XPath);}
 }
