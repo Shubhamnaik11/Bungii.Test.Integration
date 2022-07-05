@@ -124,7 +124,8 @@ public class TripDetailsSteps extends DriverBase {
     public void i_click_on_the_duo_teammate_image() throws Throwable {
         try{
         Thread.sleep(4000);
-        action.click(inProgressBungiiPages.Image_BungiiDuoTeeammate());
+        action.click(inProgressBungiiPages.Image_BungiiDuoTeammate());
+        log("I should be able to click on duo teammat image","I could click on duo teammate image",false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -171,7 +172,7 @@ public class TripDetailsSteps extends DriverBase {
     public void the_bungii_teammate_icon_should_not_be_displayed() throws Throwable {
         try{
         Thread.sleep(2000);
-       testStepAssert.isNotElementDisplayed(inProgressBungiiPages.Image_BungiiDuoTeeammate(true),"TeamMate icon should not be displayed","TeamMate icon is displayed","TeamMate icon is not displayed");
+       testStepAssert.isNotElementDisplayed(inProgressBungiiPages.Image_BungiiDuoTeammate(true),"TeamMate icon should not be displayed","TeamMate icon is not displayed","TeamMate icon is displayed");
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

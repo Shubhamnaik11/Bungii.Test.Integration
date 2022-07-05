@@ -858,13 +858,7 @@ public class UpdateStatusSteps extends DriverBase {
     public void i_click_on_the_duo_teammate_image() throws Throwable {
         try{
         Thread.sleep(1000);
-        AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
-        TouchAction touchAction = new TouchAction(driver);
-        Thread.sleep(3000);
-        PointOption pointStart = PointOption.point(367,443);
-        PointOption pointEnd = PointOption.point(367,448);
-        touchAction.press(pointStart).moveTo(pointEnd).release().perform();
-        Thread.sleep(7000);
+        action.clickBy4Points(367,443,367,448);
         log("I should be able to click on duo teammate image","I could click on duo teammate image",false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -890,12 +884,7 @@ public class UpdateStatusSteps extends DriverBase {
     @And("^I navigate back$")
     public void i_navigate_back() throws Throwable {
         try{
-        AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
-        TouchAction touchAction = new TouchAction(driver);
-        Thread.sleep(3000);
-        PointOption pointStart = PointOption.point(201,265);
-        touchAction.press(pointStart).release().perform();
-        Thread.sleep(7000);
+        action.clickBy2Points(201,265);
         log("I should be able to navigate back","I could navigate back",false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
