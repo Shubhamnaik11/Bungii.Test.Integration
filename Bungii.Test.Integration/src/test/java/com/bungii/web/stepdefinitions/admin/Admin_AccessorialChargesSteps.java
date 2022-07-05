@@ -490,8 +490,8 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
     }
 
-    @Then("^the accessorial charges cut should be displayed in total earnings$")
-    public void the_accessorial_charges_cut_should_be_displayed_in_total_earnings() throws Throwable {
+    @Then("^The accessorial charges cut should be displayed in total earnings$")
+    public void The_accessorial_charges_cut_should_be_displayed_in_total_earnings() throws Throwable {
         try {
         Thread.sleep(1000);
         action.click(driver_DashboardPage.Link_DriverBasicInfo());
