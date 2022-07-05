@@ -608,6 +608,12 @@ public class CommonSteps extends DriverBase {
                 case "DELETE ACCOUNT":
                     action.click(accountPage.Button_DeleteAccount());
                     break;
+                case "MORE OPTIONS":
+                    action.click(driverUpdateStatusPage.Button_MoreOptions());
+                    break;
+                case "CANCEL DELIVERY":
+                    action.click(driverUpdateStatusPage.Tab_CancelDelivery());
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name",
                             "UnImplemented Step");
