@@ -8,6 +8,7 @@ import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
+import com.bungii.web.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,6 +18,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -31,6 +33,7 @@ public class Partner_Delivery_Details extends DriverBase {
 
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     ActionManager action = new ActionManager();
+    DbUtility dbUtility = new DbUtility();
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
     public void i_enter_following_details_on_some_partner_screen(String str, String Site, DataTable data) {
@@ -404,11 +407,12 @@ public class Partner_Delivery_Details extends DriverBase {
     @And("^I check the Bodc Code dropdown options$")
     public void i_check_the_bodc_code_dropdown_options() throws Throwable {
         try {
-            List<String> expectedOptions = new ArrayList() {{
-                add("Select");
-                add("SVC02/09/00");
-                add("SVC02/307/03");
-            }};
+            String currentUrl= action.getCurrentURL();
+            int indexValueOne = currentUrl.indexOf("/",(currentUrl.indexOf("/") + 1));
+            int indexValueTwo = currentUrl.indexOf(".");
+            String subDomainName= currentUrl.substring(indexValueOne+1,indexValueTwo);
+            List<String> expectedOptions= dbUtility.getBodcCode(subDomainName);
+
             action.click(Page_Partner_Delivery.Dropdown_BodcCode());
             List<WebElement> actualOptions = Page_Partner_Delivery.Dropdown_BodcCodeOptions();
             List<String> Options= new ArrayList();
