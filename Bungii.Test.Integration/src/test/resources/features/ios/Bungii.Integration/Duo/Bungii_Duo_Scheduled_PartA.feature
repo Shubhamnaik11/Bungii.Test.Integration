@@ -197,9 +197,9 @@ Feature: Scheduled DUO Bungii Part A
     And I click "Log In" button on "Log In" screen
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state    | driver2 state    |
-      | Unloading item | Unloading item |
+      | Unloading items | Unloading items |
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    Then Customer should be navigated to "UNLOADING ITEMS" trip status screen
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state    | driver2 state    |
       | Bungii Completed | Bungii Completed |
@@ -225,7 +225,7 @@ Feature: Scheduled DUO Bungii Part A
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-    
+    And I wait for "2" mins
     And I remove current driver and researches Bungii
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -247,8 +247,8 @@ Feature: Scheduled DUO Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
-    
-  
+
+
   @regression
  #stable
   Scenario: Verify TELET Is Calculated Correctly For Duo Scheduled Trip

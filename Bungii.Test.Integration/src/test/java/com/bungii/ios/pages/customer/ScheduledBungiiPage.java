@@ -67,4 +67,7 @@ public class ScheduledBungiiPage extends PageBase {
     public WebElement Button_NotificationOk() { return  findElement("//XCUIElementTypeButton[@name=\"OK\"]", LocatorType.XPath);}
     public WebElement Cell_FirstScheduledTrip() { return  findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[1]", LocatorType.XPath);}
 
+    public WebElement Text_CustomerTrip_DateTime()
+    {return findElement("//XCUIElementTypeApplication[@name=\"Bungii QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText",LocatorType.XPath);}
+
 }

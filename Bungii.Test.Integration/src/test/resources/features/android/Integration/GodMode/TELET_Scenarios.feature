@@ -100,19 +100,19 @@
     Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip at same time
       
       When I request "duo" Bungii as a customer in "goa" geofence
-        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+        | Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
+        | NEXT_POSSIBLE | 8877661038     | Testcustomertywd_appleMarkAM LutherAM | Cci12345          |
       And I get TELET time of of the current trip
       When I request another "duo" Bungii as a customer in "goa" geofence
-        | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
-        | TELET SAME TIME  | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
+        | Bungii Time      | Customer Phone | Customer Name                         | Customer Password |
+        | TELET SAME TIME  | 8877661039     | Testcustomertywd_appleMarkAN LutherAN | Cci12345          |
 
       Then I wait for "2" mins
       When I open new "Chrome" browser for "ADMIN"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      And I open the trip for "Testcustomertywd_appleand_D Android" the customer
+      And I open the trip for "Testcustomertywd_appleMarkAM LutherAM" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -122,7 +122,7 @@
       And the "Bungii Saved!" message is displayed
       When I click on "Close" button
   
-      And I open the trip for "Testcustomertywd_appleand_C Android" the customer
+      And I open the trip for "Testcustomertywd_appleMarkAN LutherAN" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
@@ -140,7 +140,7 @@
    
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
-        | 9999990074      | 9999992222      |
+        | 8877661038      | 8877661039      |
   
 	  @ready
    #Stable

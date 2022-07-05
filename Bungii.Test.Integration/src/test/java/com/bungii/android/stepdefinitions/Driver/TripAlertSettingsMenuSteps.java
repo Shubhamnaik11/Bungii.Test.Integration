@@ -42,7 +42,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     SearchingPage searchingPage = new SearchingPage();
     MyBungiisPage myBungiisPage = new MyBungiisPage();
     EarningsPage earningsPage = new EarningsPage();
-
+    BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
+    BungiiRequest Page_BungiiRequest = new BungiiRequest();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -323,7 +324,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Delivery Instructions":
                     action.click(inProgressPages.Button_DeliveryInstructions());
                     break;
-
                 case "Revive":
                     action.click(scheduledTripsPage.Button_ReviveTrip());
                     break;
@@ -335,6 +335,23 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
                     break;
 
+                case "Accept":
+                    Thread.sleep(5000);
+                    action.click(Page_BungiiRequest.Button_Accept());
+                    break;
+
+                case "View Request":
+                    Thread.sleep(3000);
+                    action.click(Page_BungiiRequest.Alert_ViewRequest());
+                    break;
+
+                case "STAY ONLINE":
+                    action.click(bungiiCompletedPage.Button_StayOnline());
+                    break;
+
+                case "GO OFFLINE":
+                    action.click(bungiiCompletedPage.Button_GoOffline());
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }

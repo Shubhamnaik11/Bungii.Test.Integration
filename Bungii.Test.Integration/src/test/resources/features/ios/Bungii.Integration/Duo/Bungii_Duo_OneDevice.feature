@@ -42,7 +42,7 @@ Feature: Scheduled Bungii on one device
     
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
+    And I login as "valid duo driver 1" driver on "same" device and make driver status as "Online"
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select delivery "1" from scheduled deliveries
@@ -61,7 +61,6 @@ Feature: Scheduled Bungii on one device
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
     And I slide update button on "ARRIVED" Screen
-    #Then I accept Alert message for "Reminder: both driver at pickup"
     Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "customer" application on "same" devices

@@ -1060,7 +1060,9 @@ try{
         action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
         Thread.sleep(1000);
         cucumberContextManager.setScenarioContext("OLD_DROPOFF_LOCATION",action.getText(admin_ScheduledTripsPage.DropOff_Address()));
-        cucumberContextManager.setScenarioContext("OLD_ADDITION_NOTE",action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note()));
+        if(action.isElementPresent(admin_EditScheduledBungiiPage.Text_Additional_Note(true))) {
+            cucumberContextManager.setScenarioContext("OLD_ADDITION_NOTE", action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note()));
+        }
         log("I edit the drop off address ",
                 "I have edited the dropoff address ");
     } catch(Exception e){
@@ -2289,6 +2291,64 @@ try{
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I change the delivery type from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_change_the_delivery_type_from_something_to_something(String initialTripTypeStatus, String expectedTripTypeStatus) throws Throwable {
+        try {
+            switch (expectedTripTypeStatus) {
+                case "Solo":
+                    Thread.sleep(1000);
+                    action.click(admin_TripsPage.RadioButton_SoloTrip());
+                    break;
+                case "Duo":
+                    Thread.sleep(1000);
+                    action.click(admin_TripsPage.RadioButton_DuoTrip());
+                    break;
+            }
+            log("I should be able to change delivery type to " + expectedTripTypeStatus,"I could change delivery type to " + expectedTripTypeStatus);
+        } catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Unable to view the searched delivery",
+                    true);
+        }
+    }
+
+    @And("^I get the new \"([^\"]*)\"$")
+    public void i_get_the_new_something(String strArg1) throws Throwable {
+        try{
+            String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
+            String pickupref = new DbUtility().getLatestPickupRefOfCustomer(customerRef);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupref);
+            String tripType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+            if (tripType.contains("Solo")) {
+                cucumberContextManager.setScenarioContext("BUNGII_TYPE", "Duo Scheduled");
+            } else if (tripType.contains("Duo")) {
+                cucumberContextManager.setScenarioContext("BUNGII_TYPE", "Solo Scheduled");
+            }
+            utility.resetGeofenceDropdown();
+            Thread.sleep(1000);
+            log("I should be able to get the new pickup reference","I could get the new pickup reference",false);
+        }catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Unable to view the searched delivery",
+                    true);
+        }
+    }
+
+
+    @And("^I get the latest \"([^\"]*)\"$")
+    public void i_get_the_latest_something(String strArg1) throws Throwable {
+        try{
+            String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
+            String pickupref = new DbUtility().getLatestPickupRefOfCustomer(customerRef);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupref);
+            utility.resetGeofenceDropdown();
+            log("I should be able to get the latest pickup reference","I could get the latest pickup reference",false);
+        }catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to view the searched delivery",
                     true);
         }
     }

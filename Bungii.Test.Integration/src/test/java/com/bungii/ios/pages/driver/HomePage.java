@@ -46,6 +46,7 @@ public class HomePage extends PageBase {
     public WebElement Text_NavigationBar (boolean ...ignoreException) { return findElement("//XCUIElementTypeNavigationBar", LocatorType.XPath,ignoreException); }
     public WebElement Text_DriverNavigationBar (String screen) { return findElement("//XCUIElementTypeStaticText[@name='"+screen+"']", LocatorType.XPath); }
     public WebElement Text_LoginNavigationBar (String screen) { return findElement("//XCUIElementTypeNavigationBar[@name='"+screen+"']", LocatorType.XPath); }
+    public WebElement Text_HomeLoginNavigationBar () { return findElement("title-bungii-logo", LocatorType.AccessibilityId); }
     public WebElement NavigationBar_Text() {return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName); }
     public WebElement Text_Bungii_Completed() { return findElement("//XCUIElementTypeStaticText[@name='Bungii completed']",LocatorType.XPath);}
     public WebElement Header_ItemizedEarnings() { return findElement("//XCUIElementTypeOther[@name=\"ITEMIZED EARNINGS\"]",LocatorType.XPath);}
