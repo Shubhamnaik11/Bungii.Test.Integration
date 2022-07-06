@@ -49,7 +49,7 @@ Feature: Partner Portal Cases integration with IOS
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |Kansas| NEXT_POSSIBLE | 8877661017 | Testcustomertywd_appleMarkR LutherR|
     And I Switch to "driver" application on "same" devices
-    And I login to driver app
+    And I login as "valid partner kansas driver2" driver on "same" device and make driver status as "Offline"
     And Driver status should be "Offline"
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
@@ -61,7 +61,7 @@ Feature: Partner Portal Cases integration with IOS
     Then I should be navigated to "BUNGII DETAILS" screen
     And Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
     When I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    And I slide update button on "EN ROUTE" Screen
     And Driver status should be "Online"
     And I Switch to "customer" application on "same" devices
     When I am on Customer logged in Home page

@@ -1087,9 +1087,9 @@ public class CommonSteps extends DriverBase {
                 break;
 
             case "valid partner kansas driver2":
-                phone = PropertyUtility.getDataProperties("Kansas.driver25.phone");
+                phone = PropertyUtility.getDataProperties("Kansas.driver48.phone");
                 password = PropertyUtility.getDataProperties("partner.kansas.driver.password");
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver25.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver48.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             default:
@@ -3230,32 +3230,6 @@ public class CommonSteps extends DriverBase {
         action.dragFromToForDuration(initialPoint.getX(),initialPoint.getY(),finalPoint.getX(),finalPoint.getY(),1);
 
 
-    }
-    @And("^I login to driver app$")
-    public void i_login_to_driver_app() throws Throwable {
-        try {
-        String driverName = "valid partner kansas driver2";
-        String navigationBarName = "";
-        int retry =2;
-        while(retry>0) {
-            if (action.isElementPresent(driverHomePage.Text_NavigationBar(true)))
-                navigationBarName = action.getScreenHeader(driverHomePage.Text_NavigationBar(true));
-            else
-                Thread.sleep(5000);
-            retry--;
-        }
-        goToDriverLogInPage(navigationBarName);
-
-        List<String> credentials =  getDriverCredentials(driverName);
-        utility.loginToDriverApp(credentials.get(0), credentials.get(1));
-        Thread.sleep(5000);
-        acceptDriverPermissions("ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
-
-    } catch (Throwable e) {
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful",
-                "Error performing step,Please check logs for more details", true);
-    }
     }
 
     @And("^Driver status should be \"([^\"]*)\"$")
