@@ -40,6 +40,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     SearchingPage searchingPage = new SearchingPage();
     MyBungiisPage myBungiisPage = new MyBungiisPage();
     EarningsPage earningsPage = new EarningsPage();
+    BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
 
 
     @And("^I click on \"([^\"]*)\" tab$")
@@ -302,6 +303,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "Delivery Instructions":
                     action.click(inProgressPages.Button_DeliveryInstructions());
+                    break;
+                case "SUBMIT RATING":
+                    action.click(Page_BungiiComplete.Button_SubmitRating());
                     break;
 
                 default:

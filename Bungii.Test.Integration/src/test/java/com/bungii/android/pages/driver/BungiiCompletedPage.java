@@ -40,5 +40,8 @@ public class BungiiCompletedPage extends PageBase {
 
     public WebElement Button_SubmitRating(){return findElement("com.bungii.driver:id/appCompatButton3",LocatorType.Id);}
 
+    public WebElement Text_ChooseRating() {return findElement("com.bungii.driver:id/appCompatTextView64",LocatorType.Id);}
+    public WebElement Text_DriverExperience() {return findElement("com.bungii.driver:id/appCompatTextView62",LocatorType.Id);}
+    public WebElement Textbox_AdditionalFeedback() {return findElement("com.bungii.driver:id/activity_rate_delivery_participants_edit_text_additional_comments",LocatorType.Id);}
 
 }

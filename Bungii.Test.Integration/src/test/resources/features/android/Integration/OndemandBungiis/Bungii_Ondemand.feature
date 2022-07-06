@@ -23,7 +23,10 @@ Feature: On Demand Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I slide update button on "UNLOADING ITEM" Screen
-    And Bungii Driver "skips to rate customer"
+       #  Core - 3113 Verify that Rate customer page UI and elements are displayed correctly to driver
+    And I check the elements displayed on rate customer screen
+    When Bungii Driver "rates customer"
+    And I click on "SUBMIT RATING" button
     And I click "Next Bungii" button on the "Bungii Completed" screen
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
   
