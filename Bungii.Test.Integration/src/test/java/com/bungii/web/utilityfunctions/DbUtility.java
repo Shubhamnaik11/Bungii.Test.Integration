@@ -2,7 +2,6 @@ package com.bungii.web.utilityfunctions;
 
 import com.bungii.common.manager.DbContextManager;
 import com.bungii.common.utilities.LogUtility;
-import io.restassured.path.json.JsonPath;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -463,13 +462,18 @@ public class DbUtility extends DbContextManager {
 
     public static List<String> getBodcCode(String Sub_Domain_Name) {
         List<String> bodcCodeOptions= new ArrayList<>();
-        String queryString = "select cvss.config_value from bungii_admin_qa_auto.bp_store bs\n" +
+        String queryString = "select JSON_EXTRACT(cvss.config_value ,'$.ControlValues') as DropdownValues from bungii_admin_qa_auto.bp_store bs\n" +
                 "inner join bungii_admin_qa_auto.bp_store_setting_fn_matrix fn on fn.bp_store_id = bs.bp_store_id\n" +
                 "inner join bungii_admin_qa_auto.bp_config_version_store_setting cvss on cvss.bp_config_version_id = fn.bp_config_version_id\n" +
                 "where bs.subdomain_name ='"+Sub_Domain_Name+"' and fn.bp_setting_fn_id = 1 and config_field_display_label='BODC Code'";
         String response = getDataFromMySqlMgmtServer(queryString);
-        JsonPath jsonPathEvaluator = response.jsonPath();
-        bodcCodeOptions= jsonPathEvaluator.get("ControlValues");
+        response = response.replace("[", "").replace("]","").replace("\"","");
+        String[] bodcCodeOptions1=response.split(", ");
+        bodcCodeOptions.add("Select");
+        for (int i=0; i<bodcCodeOptions1.length; i++)
+        {
+            bodcCodeOptions.add(bodcCodeOptions1[i]);
+        }
         logger.detail("BodcCodeOptions=  " + bodcCodeOptions + " of Subdomain="+Sub_Domain_Name);
         return bodcCodeOptions;
 
