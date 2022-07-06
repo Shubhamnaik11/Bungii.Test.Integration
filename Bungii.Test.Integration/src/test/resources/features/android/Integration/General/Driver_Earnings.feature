@@ -135,7 +135,6 @@ Feature: Driver Earnings
 
  #  Core-2345 Verify that driver can view updated pickup/drop-off address after polling refresh on app (scheduled trip)
     @ready
-#      @testsweta
     Scenario: Verify that driver can view updated pickup/drop-off address after polling refresh on app (scheduled trip)
       Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
         | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
@@ -173,7 +172,7 @@ Feature: Driver Earnings
       And I Select Trip from driver scheduled trip
       And I check if "dropoff address" is updated
       And I check if "pickup address" is updated
-#      Core-3113 Verify that driver can rate customer after delivery completes with any admin edits.
+#     Core - 3113 Verify that driver can rate customer after delivery completes with any admin edits.
       And I start selected Bungii
       Then Bungii driver should see "General Instructions"
       Then Bungii driver should see "Enroute screen"
