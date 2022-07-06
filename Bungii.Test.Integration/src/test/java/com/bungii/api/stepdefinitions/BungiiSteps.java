@@ -470,6 +470,30 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appleks_a_drvah Kansas_ah":
                 phone = PropertyUtility.getDataProperties("Kansas.driver45.phone");
                 break;
+            case "Testdrivertywd_appleks_a_drvao Kansas_ao":
+                phone = PropertyUtility.getDataProperties("Kansas.driver28.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvap Kansas_ap":
+                phone = PropertyUtility.getDataProperties("Kansas.driver29.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvaq Kansas_aq":
+                phone = PropertyUtility.getDataProperties("Kansas.driver30.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvar Kansas_ar":
+                phone = PropertyUtility.getDataProperties("Kansas.driver31.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvas Kansas_as":
+                phone = PropertyUtility.getDataProperties("Kansas.driver32.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvat Kansas_at":
+                phone = PropertyUtility.getDataProperties("Kansas.driver33.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvau Kansas_au":
+                phone = PropertyUtility.getDataProperties("Kansas.driver34.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvav Kansas_av":
+                phone = PropertyUtility.getDataProperties("Kansas.driver35.phone");
+                break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
 
@@ -1696,6 +1720,11 @@ public class BungiiSteps extends DriverBase {
             else if(bungiiTime.equalsIgnoreCase("3_DAY_LATER"))
             {
                 coreServices.customerConfirmationScheduledForFuture(pickupRequest, paymentMethod, custAccessToken, getDaysLaterTime(3).toString());
+            }
+            else if(bungiiTime.equalsIgnoreCase(("NEXT_POSSIBLE_FIRST_SLOT")) ||bungiiTime.equalsIgnoreCase(("NEXT_POSSIBLE_THIRD_SLOT"))){
+                cucumberContextManager.setScenarioContext("BUNGII_TIME",bungiiTime);
+                int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
+                cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START", wait);
             }
             else{
                 int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
