@@ -155,8 +155,8 @@ public class AuthServices extends DriverBase {
         if (portalName.equalsIgnoreCase("Biglots")){
             return null;
         }else {
-            String[] abc = {jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressRef[0]").toString(),jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressConfigVersionID[0]").toString()};
-            return abc;
+            String[] businessPartnerDefaultAddressRef = {jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressRef[0]").toString(),jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressConfigVersionID[0]").toString()};
+            return businessPartnerDefaultAddressRef;
         }
         //return response;
 

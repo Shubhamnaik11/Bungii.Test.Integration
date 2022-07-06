@@ -20,8 +20,8 @@ And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
 And I Select "SCHEDULED BUNGIIS" from driver App menu
 And I Select Trip from driver scheduled trip
-	#    Core - 2569 Verify ~ sign under earnings is shown on Driver app for Customer Deliveries
-	And I check if variable sign is shown under "schedule bungii details"
+#    Core - 2569 Verify ~ sign under earnings is shown on Driver app for Customer Deliveries
+And I check if variable sign is shown under "schedule bungii details"
 
 When Bungii Driver "cancels Bungii request"
 Then user is alerted for "FOR EMERGENCY CONTACT SUPPORT LINE"
