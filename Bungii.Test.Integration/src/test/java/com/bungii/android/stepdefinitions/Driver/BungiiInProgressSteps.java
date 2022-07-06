@@ -387,7 +387,7 @@ public class BungiiInProgressSteps extends DriverBase {
     @Then("^try to finish time should be correctly displayed for short stack trip$")
     public void try_to_finish_time_should_be_correctly_displayed_ShortStack() throws Throwable {
         calculateShortStack();
-        testStepVerify.isElementTextEquals(bungiiProgressPage.Text_FinishBy(),"Try to finish by "+((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY"))+" "+utility.getTimeZoneBasedOnGeofence());
+        testStepVerify.isElementTextEquals(bungiiProgressPage.Text_FinishBy(),"Bungii on deck, try to finish up by "+((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY"))+" "+utility.getTimeZoneBasedOnGeofence());
 
     }
     @Then("^I calculate projected driver arrival time$")
