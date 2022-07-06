@@ -460,6 +460,34 @@ public class DbUtility extends DbContextManager {
         return partnerName;
 
     }
+
+    public String getSlotUsedCount(String date, String time, String address) {
+        String slotUsedCount = "";
+        String queryString = "SELECT slot_used_count\n" +
+                "FROM bp_store_location sl\n" +
+                "JOIN bp_store_slot ss ON ss.bp_store_location_id = sl.bp_store_location_id\n" +
+                "JOIN time_slot ts ON ts.time_slot_id = ss.time_slot_id\n" +
+                "WHERE address1 like '%"+address+"%'\n" +
+                "and slot_date in ('"+date+"') and time_slot_from in('"+time+"')\n" +
+                "ORDER BY slot_date, time_slot_from;\n";
+        slotUsedCount = getDataFromMySqlServer(queryString);
+        logger.detail("Slots used are " + slotUsedCount);
+        return slotUsedCount;
+    }
+
+    public String getSlotUsedCountByStoreName(String date, String time, String storeName) {
+        String slotUsedCount = "";
+        String queryString = "SELECT slot_used_count\n" +
+                "FROM bp_store_location sl\n" +
+                "JOIN bp_store_slot ss ON ss.bp_store_location_id = sl.bp_store_location_id\n" +
+                "JOIN time_slot ts ON ts.time_slot_id = ss.time_slot_id\n" +
+                "WHERE store_location_name ='"+storeName+"'\n" +
+                "and slot_date in ('"+date+"') and time_slot_from in('"+time+"')\n" +
+                "ORDER BY slot_date, time_slot_from;";
+        slotUsedCount = getDataFromMySqlServer(queryString);
+        logger.detail("Slots used are " + slotUsedCount);
+        return slotUsedCount;
+    }
     public static String getDriverStatus(String phoneNumber){
         String driverStatus;
         String entireQueryString = "select OnlineStatus from driver where Phone= " +phoneNumber;
