@@ -321,7 +321,71 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+    @And("^I check if the status is \"([^\"]*)\"$")
+    public void i_check_if_the_status_is_something(String status) throws Throwable {
+       try{
+           switch (status){
+               case "ONLINE":
+                   testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Slider_Online()),
+                           "The status should be online",
+                           "The status is not online");
+                break;
+               case "OFFLINE":
+                   testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Slider_Offline()),
+                           "The status should be offline",
+                           "The status is not offline");
+                   break;
+           }
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
+    @And("^I check online or offline pop up is displayed$")
+    public void i_check_online_or_offline_pop_up_is_displayed() throws Throwable {
+        try {
+            testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Notification_DriverStatus(),
+                    "The driver should get a pop-up to change status",
+                    "The driver got a pop-up to change status",
+                    "The driver did not get a pop-up to change status");
 
+            String header = driverBungiiCompletedPage.Notification_DriverStatus().getText();
+            String expectedHeader =PropertyUtility.getMessage("header.stayOnline.goOffline.notification");
+            testStepAssert.isEquals(header,expectedHeader,
+                    expectedHeader+" should be displayed as header",
+                    expectedHeader+" is displayed as header",
+                    expectedHeader+" is not displayed as header");
+
+            String subText = driverBungiiCompletedPage.Text_NotificationDriverStatus().getText();
+            String expectedSubText =PropertyUtility.getMessage("subHeader.stayOnline.goOffline.notification");
+            testStepAssert.isEquals(subText,expectedSubText,
+                    expectedSubText+" should be displayed as sub text",
+                    expectedSubText+" is displayed as sub text",
+                    expectedSubText+" is not displayed as sub text");
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I check online or offline pop up is not displayed$")
+    public void i_check_online_or_offline_pop_up_is_not_displayed() throws Throwable {
+       try{
+           testStepAssert.isFalse(action.isElementPresent(driverBungiiCompletedPage.Notification_DriverStatus(true)),
+                   "The driver should not get a pop-up to change status",
+                   "The driver did not get a pop-up to change status",
+                   "The driver did get a pop-up to change status");
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void iClickButtonOnScreen(String button, String screen) {
         try {
@@ -543,6 +607,12 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "DELETE ACCOUNT":
                     action.click(accountPage.Button_DeleteAccount());
+                    break;
+                case "MORE OPTIONS":
+                    action.click(driverUpdateStatusPage.Button_MoreOptions());
+                    break;
+                case "CANCEL DELIVERY":
+                    action.click(driverUpdateStatusPage.Tab_CancelDelivery());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -1006,6 +1076,13 @@ public class CommonSteps extends DriverBase {
                 phone = PropertyUtility.getDataProperties("valid.driver.kansas.phone");
                 password = PropertyUtility.getDataProperties("partner.kansas.driver.password");
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.kansas.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "valid denver driver 3":
+                phone = PropertyUtility.getDataProperties("denver.driver3.phone");
+                password = PropertyUtility.getDataProperties("denver.driver3.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver3.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             default:
@@ -1545,6 +1622,12 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("chicago.customer.phone");
                     password = PropertyUtility.getDataProperties("chicago.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("chicago.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver5":
+                    userName = PropertyUtility.getDataProperties("denver5.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver5.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 default:

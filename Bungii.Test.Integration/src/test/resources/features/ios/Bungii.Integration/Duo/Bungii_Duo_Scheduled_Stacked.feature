@@ -84,6 +84,13 @@ Then I cancel all bungiis of customer
 	And I wait for 2 minutes
 	And I view and accept virtual notification for "second" delivery of "Driver" for "stack trip"
 	And stack trip information should be displayed on deck
+
+#	  Core-3098 Verify online/offline pop up is not shown when driver has accepted stack trip
+	  And I slide update button on "UNLOADING ITEMS" Screen
+	  And I click "Skip This Step" button on "Rate customer" screen
+	  Then I should be navigated to "Bungii Completed" screen
+	  When I click "On To The Next One" button on "Bungii completed" screen
+	  And I check online or offline pop up is not displayed
 	
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |

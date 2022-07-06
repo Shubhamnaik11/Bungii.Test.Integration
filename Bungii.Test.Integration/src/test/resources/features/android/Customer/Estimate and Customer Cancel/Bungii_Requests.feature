@@ -116,3 +116,41 @@ Feature: Bungii Requests
 	  And I Open "driver" application on "same" devices
 	  And Bungii Driver "rejects On Demand Bungii" request
 	  Then Bungii driver should see "Home screen"
+
+#	  Core-3098 Verify online/Offline pop up is shown when Driver has schedule trip accepted for future days
+
+	@ready
+	Scenario: Verify online/Offline pop up is shown when Driver has schedule trip accepted for future days
+		And I Switch to "driver" application on "same" devices
+		And I am on the LOG IN page on driver app
+		And I am logged in as "valid boston" driver
+		And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+		When I request "Solo" Bungii as a customer in "boston" geofence
+			| Bungii Time   | Customer Phone | Customer Name |
+			| 3_DAY_LATER | 8877661007       | Testcustomertywd_appleMarkH LutherH|
+
+		And I select "View Request" from pop-up
+		And I click "ACCEPT NOTIFICATION" button on Bungii Request screen
+
+		And I Switch to "customer" application on "same" devices
+		When I request "Solo Scheduled" Bungii as a customer in "boston" geofence
+			| Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+			| NEXT_POSSIBLE | 8877661004     | Testcustomertywd_appleMarkE LutherE | Cci12345          |
+
+		And As a driver "valid boston" perform below action with respective "Solo Scheduled" Delivery
+			| driver1 state |
+			|Accepted |
+			| Enroute  |
+			| Arrived |
+			| Loading Item |
+			| Driving To Dropoff |
+			| Unloading Item |
+
+		And I Switch to "driver" application on "same" devices
+		And I am logged in as "valid boston" driver
+		And I slide update button on "UNLOADING ITEMS" Screen
+		And Bungii Driver "skips to rate customer"
+		Then Bungii Driver "completes Bungii"
+		And I click "Next Bungii" button on the "Bungii Completed" screen
+		And I check online or offline pop up is displayed

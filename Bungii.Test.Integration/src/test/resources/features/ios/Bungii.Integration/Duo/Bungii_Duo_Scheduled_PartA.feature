@@ -248,8 +248,8 @@ Feature: Scheduled DUO Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
-    
-  
+
+
   @regression
  #stable
   Scenario: Verify TELET Is Calculated Correctly For Duo Scheduled Trip

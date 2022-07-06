@@ -657,7 +657,16 @@ public class CoreServices extends DriverBase {
         Calendar calendar = Calendar.getInstance();
         int mnts = calendar.get(Calendar.MINUTE);
 
-        calendar.set(Calendar.MINUTE, mnts+ 45); // Always choose 2nd possible slot to avoid issues with delay in requesting bungii
+        String slot= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+        if(slot.equalsIgnoreCase("NEXT_POSSIBLE_FIRST_SLOT")){
+            calendar.set(Calendar.MINUTE, mnts+ 30);
+        }
+        else if(slot.equalsIgnoreCase("NEXT_POSSIBLE_THIRD_SLOT")){
+            calendar.set(Calendar.MINUTE, mnts+ 60);
+        }
+        else{
+            calendar.set(Calendar.MINUTE, mnts+ 45);// Always choose 2nd possible slot to avoid issues with delay in requesting bungii
+        }
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));
@@ -1451,7 +1460,7 @@ public class CoreServices extends DriverBase {
             No_of_Driver=2;
         }
         cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER",No_of_Driver);
-        if(Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE")){
+        if(Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE") || Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE_FIRST_SLOT") || Bungii_Time.equalsIgnoreCase("NEXT_POSSIBLE_THIRD_SLOT")){
             nextAvailableBungii = getScheduledBungiiTime();
             String temp = nextAvailableBungii[0];
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
