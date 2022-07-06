@@ -173,6 +173,8 @@ public class Partner_LoginSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("Price_Estimate_Page", Price_Estimated_Page);
                         String Estimate_distance = action.getText(Page_Partner_Dashboard.Label_Distance()).replace(" miles","");//calculate values as per the displayed miles value to avoid mismatch in calculation
                         cucumberContextManager.setScenarioContext("Distance_Estimate_Page", Estimate_distance);
+                        String Estimated_Delivery_Time=action.getText(Page_Partner_Dashboard.Label_EstDeliveryTime());
+                        cucumberContextManager.setScenarioContext("Estimated_Delivery_Time", Estimated_Delivery_Time);
 
                         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                     } else {
@@ -241,6 +243,36 @@ public class Partner_LoginSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step , I Should "+ str,
                     true);
         }
+    }
+    @Then("^I check if correct \"([^\"]*)\" is displayed$")
+    public void i_check_if_correct_something_is_displayed(String portal) throws Throwable {
+       try{
+           String deliveryEstimateTimePP= (String) cucumberContextManager.getScenarioContext("Estimated_Delivery_Time");
+           switch (portal){
+               case "estimated time on admin portal":
+                   String deliveryEstimateTimeAdminPortal=action.getText(Page_Partner_Delivery_List.Text_Estimated_Delivery_Time());
+                   testStepAssert.isEquals(deliveryEstimateTimeAdminPortal,deliveryEstimateTimePP,
+                           "Estimated delivery time displayed on partner portal and admin portal should be same.",
+                           "Estimated delivery time displayed on partner portal and admin portal is the same.",
+                           "Estimated delivery time displayed on partner portal and admin portal are not the same.");
+                   break;
+
+               case "estimated time on partner portal":
+                   String deliveryEstimateTimePartnerPortal=action.getText(Page_Partner_Delivery_List.Text_Delivery_Time());
+                   testStepAssert.isEquals(deliveryEstimateTimePartnerPortal,deliveryEstimateTimePP,
+                           "Estimated delivery time displayed on partner portal delivery details and while creating trip should be same.",
+                           "Estimated delivery time displayed on partner portal delivery details and while creating trip is the same.",
+                           "Estimated delivery time displayed on partner portal delivery details and while creating trip are not the same.");
+
+                   break;
+           }
+            log("I should be able to check the estimated delivery time.","I am able to check the estimated delivery time.",false);
+       }
+       catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
     }
 
     @Then("^I should \"([^\"]*)\" for \"([^\"]*)\" Alias$")

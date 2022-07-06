@@ -47,6 +47,7 @@ Feature: Service Level
 
   @regression
     #stable
+#    @testsweta
   Scenario: Verify that service level partner portal trip is shown in Admin portal
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -74,6 +75,8 @@ Feature: Service Level
     Then I should "see the trip in the Delivery List"
     And I select the Scheduled Bungii from Delivery List
     Then I should "see the service name"
+#    Core-3391 Verify that new field Estimated Delivery Time is displayed on details delivery page of Partner portal
+    And I check if correct "estimated time on partner portal" is displayed
     Then I close the Trip Delivery Details page
     When I navigate to "Admin" portal configured for "QA" URL
     #When I navigate to "Bungii Admin Portal in new tab" URL
@@ -82,6 +85,10 @@ Feature: Service Level
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Assigning Driver(s)|
+
+#    Core-3391 Verify that new field Estimated Delivery Time is displayed on details delivery page of Admin portal
+    When I view the delivery details
+    Then I check if correct "estimated time on admin portal" is displayed
     #Then the Bungii details is displayed successfully
     #And I should logout from Partner Portal
 
