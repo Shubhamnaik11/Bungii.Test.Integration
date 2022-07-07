@@ -1194,32 +1194,6 @@ public class BungiiSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
-    @And("^I add comment on rate customer page$")
-    public void i_add_comment_on_rate_customer_page() throws Throwable {
-        try{
-            action.scrollToBottom();
-            action.scrollToBottom();
-
-
-            testStepAssert.isElementDisplayed(Page_BungiiComplete.Textbox_AdditionalFeedback(),
-                    "Textbox for additional feedback should be displayed",
-                    "Textbox for additional feedback is displayed",
-                    "Textbox for additional feedback is not displayed");
-
-            action.sendKeys(Page_BungiiComplete.Textbox_AdditionalFeedback(),"The customer was friendly.");
-
-
-            action.click(Page_BungiiComplete.Button_SubmitRating());
-
-            log("I should be able to add a comment for customer rating","I am able to add a comment for customer rating",false);
-        }
-        catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
-        }
-    }
-
     @Then("^I accept Alert message for \"([^\"]*)\"$")
     public void i_accept_alert_message_for_something(String strArg1) throws Throwable {
         try {
