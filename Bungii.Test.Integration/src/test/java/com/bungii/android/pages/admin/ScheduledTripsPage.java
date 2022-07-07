@@ -121,6 +121,11 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_Success_Ok() { return findElement("//div[@class='modal-footer']/button[text()='Ok']",LocatorType.XPath);}
     public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
 
+    public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
+    public WebElement Label_HeaderPopup() { return findElement("//p[text()='Are you sure you want to revive the trip?']", LocatorType.XPath); }
+    public WebElement Label_PickupId() { return findElement("revive-pickup-id", LocatorType.Id); }
+    public WebElement Label_PickupCustomer() { return findElement("revive-pickup-customer", LocatorType.Id); }
+    public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
 
 
 }
