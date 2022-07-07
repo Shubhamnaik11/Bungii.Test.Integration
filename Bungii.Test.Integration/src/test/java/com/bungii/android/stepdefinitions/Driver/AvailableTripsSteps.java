@@ -4,12 +4,12 @@ import com.bungii.SetupManager;
 import com.bungii.android.enums.Rejection_Reason;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.*;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import io.appium.java_client.MobileElement;
@@ -317,7 +317,7 @@ public class AvailableTripsSteps extends DriverBase {
     @Then("^I check if the reason is saved in db$")
     public void i_check_if_the_reason_is_saved_in_db() throws Throwable {
         try{
-            String driverNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_NUMBER");
+            String driverNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
             String reason = dbUtility.checkRejectionReason(driverNumber);
             if(!(reason.isEmpty()))
             {
