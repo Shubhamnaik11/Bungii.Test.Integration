@@ -1153,7 +1153,47 @@ public class BungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I check the elements displayed on rate customer screen$")
+    public void i_check_the_elements_displayed_on_rate_customer_screen() throws Throwable {
+        try {
+            testStepAssert.isElementDisplayed(Page_BungiiComplete.RatingBar(),
+                    "No rating should be selected",
+                    "No rating is selected",
+                    "Rating is selected before driver can select");
 
+            testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Title_RateCustomer(),PropertyUtility.getMessage("driver.navigation.rate.customer"));
+
+            testStepAssert.isElementDisplayed(Page_BungiiComplete.Text_ChooseRating(),
+                    "Choose Rating should be displayed",
+                    "Choose Rating is displayed",
+                    "Choose Rating is not displayed");
+
+            testStepAssert.isElementDisplayed(Page_BungiiComplete.Text_DriverExperience(),
+                    "Driver experience question should be displayed",
+                    "Driver experience question is displayed",
+                    "Driver experience question is not displayed");
+
+            testStepAssert.isElementDisplayed(Page_BungiiComplete.Button_SubmitRating(),
+                    "Submit button should be displayed",
+                    "Submit button is displayed",
+                    "Submit button is not displayed");
+
+            testStepAssert.isElementDisplayed(Page_DriverBungiiProgress.Link_SkipRating(),
+                    "Skip this step button should be displayed",
+                    "Skip this step button is displayed",
+                    "Skip this step button is not displayed");
+
+
+            log("I should be able to verify the elements present on rate customer page",
+                    "I am able to verify the elements present on rate customer page",false);
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^I accept Alert message for \"([^\"]*)\"$")
     public void i_accept_alert_message_for_something(String strArg1) throws Throwable {
         try {
