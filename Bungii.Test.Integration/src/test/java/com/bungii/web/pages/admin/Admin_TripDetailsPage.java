@@ -71,4 +71,6 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Driver_Cut_Error() { return findElement("errorMessageFields",LocatorType.Id);}
 
+    public WebElement Label_Partner() { return findElement("//table[@class='table table-striped']/tbody/tr[1]/td[1]",LocatorType.XPath);}
+
 }

@@ -2370,4 +2370,33 @@ try{
     }
 
 
+    @And("^I should see field name as partner on delivery listing screen$")
+    public void i_should_see_field_name_as_partner_on_delivery_listing_screen() throws Throwable {
+        try {
+            String expectedHeader = PropertyUtility.getMessage("PartnerColumnHeader");
+            String actualHeader = admin_TripsPage.Header_Partner().getText();
+            testStepAssert.isEquals(actualHeader, expectedHeader, expectedHeader + " should be displayed", expectedHeader + "is displayed", actualHeader + " is displayed");
+        }
+
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I should see field name as partner on delivery detail screen$")
+    public void i_should_see_field_name_as_partner_on_delivery_detail_screen() throws Throwable{
+        try {
+            String expectedLabel = PropertyUtility.getMessage("PartnerColumnHeader");
+            String actualLabel = admin_TripDetailsPage.Label_Partner().getText();
+            testStepAssert.isEquals(actualLabel, expectedLabel, expectedLabel + " should be displayed", expectedLabel + "is displayed", actualLabel + " is displayed");
+        }
+
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

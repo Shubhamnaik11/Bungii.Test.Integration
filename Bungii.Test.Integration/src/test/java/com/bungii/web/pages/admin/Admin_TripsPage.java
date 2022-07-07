@@ -63,4 +63,6 @@ public class Admin_TripsPage extends PageBase {
     public WebElement RadioButton_SoloTrip () { return findElement("PickupDetails_TripType", LocatorType.Id); }
 
     public WebElement RadioButton_DuoTrip () { return findElement("tripTypeDuo", LocatorType.Id); }
+
+    public WebElement Header_Partner () { return findElement("//th[text()='Customer']/following-sibling::th[1]", LocatorType.XPath); }
 }
