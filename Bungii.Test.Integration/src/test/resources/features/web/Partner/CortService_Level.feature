@@ -6,7 +6,7 @@ Feature: Cort Service Level
     And I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-   @Siddhi
+
   @ready
   Scenario: Verify partner invoice Payment method selected by default
     When I request "Solo" Bungii trip in partner portal configured for "Cort service level" in "washingtondc" geofence
