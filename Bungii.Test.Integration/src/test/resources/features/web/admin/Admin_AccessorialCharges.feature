@@ -43,7 +43,7 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 | Fee Type         | Driver Cut |
 | Excess Wait Time | 2          |
 | Cancelation      | 4.5        |
-| Mountainious     | 10.0       |
+| Mountainious     | 10         |
 | Other            | 20         |
  And "accessorial_fee_amount" should show total amount in the triprequest table in Database
  And "business_notes" should show comment without quotes in the trippaymentdetails table in Database
@@ -106,3 +106,60 @@ And I should get following error for following accessorial charges fields values
 | 10.5689      | -100       | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
 | -10          | Blank      | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
 | -1.56        | 231        | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
+
+#Core 2968 -To verify that admin can add accessorial fees to driver cancelled partner delivery
+@ready
+Scenario: To verify the revive trip when accessorial charges are added
+When I request Partner Portal "SOLO" Trip for "MRFM" partner
+|Geofence| Bungii Time   | Customer Phone | Customer Name |
+|Kansas  | NEXT_POSSIBLE | 9999999228     | Testcustomertywd_appleNewMO Customer|
+And As a driver "Testdrivertywd_appleks_a_drvae Kansas_ae" perform below action with respective "Solo Scheduled" partner portal trip
+| driver1 state |
+| Accepted      |
+| Enroute      |
+And I wait for 1 minutes
+And As a driver "Testdrivertywd_appleks_a_drvae Kansas_ae" perform below action with respective "Solo Scheduled" partner portal trip
+| driver1 state |
+| Driver Canceled |
+And I login to driver portal on a new tab with driver phone number "9049840210"
+And I click on "Driver Details" link to get the total driver earnings value screen and navigate back to admin portal
+And I wait for 2 minutes
+And I view the Deliveries list on the admin portal
+When  I search the delivery using "Pickup Reference"
+And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+Then I should see "Accessorial Charges" section displayed
+When I add following accessorial charges and save it
+| Amount   | Fee Type         | Comment                           | Driver Cut |
+|  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
+|   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
+|  25.65   | Mountainous      | Charges due to mountainous reason | 10       |
+|  100     | Other            | Charges due to other reasons      | 20         |
+And I should see following details in the Accessorial charges section
+| Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+| $10              | $20.5       | $25.65      | $100  | $156.15 |
+And I view the Deliveries list on the admin portal
+When  I search the delivery using "Pickup Reference"
+Then Revive button should be displayed beside the trip
+When I click on "Revive" button
+Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+When I click on "Confirm" button on Revival Popup
+And I wait for 2 minutes
+And I view the all Scheduled Deliveries list on the admin portal
+When  I search the delivery using "Pickup Reference"
+And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+Then the Accessorial Charges should not be displayed
+And I view the Deliveries list on the admin portal
+And I use the old pickup reference to search the driver cancelled trip
+And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+Then I should see "Accessorial Charges" section displayed
+And I should see following details in the Accessorial charges section
+| Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+| $10              | $20.5       | $25.65      | $100  | $156.15 |
+And I click on the Accessorial Charges links and I should see the Drivers cut displayed
+| Fee Type         | Driver Cut |
+| Excess Wait Time | 2          |
+| Cancelation      | 4.5        |
+| Mountainious     | 10         |
+| Other            | 20         |
+And I login to driver portal on a new tab with driver phone number "9049840210"
+Then The accessorial charges cut should be displayed in total earnings

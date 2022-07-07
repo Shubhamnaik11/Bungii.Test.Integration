@@ -386,6 +386,75 @@ public class CommonSteps extends DriverBase {
                    true);
        }
     }
+    @And("^I check the elements displayed on rate customer screen$")
+    public void i_check_the_elements_displayed_on_rate_customer_screen() throws Throwable {
+      try {
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.ExperienceRating(),
+                  "No rating should be selected",
+                  "No rating is selected",
+                  "Rating is selected before driver can select");
+
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Text_RateCustomer(),
+                  "Header Rate customer should be displayed",
+                  "Header Rate customer is displayed",
+                  "Header Rate customer is not displayed");
+
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Text_ChooseRating(),
+                  "Choose Rating should be displayed",
+                  "Choose Rating is displayed",
+                  "Choose Rating is not displayed");
+
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Text_DriverExperience(),
+                  "Driver experience question should be displayed",
+                  "Driver experience question is displayed",
+                  "Driver experience question is not displayed");
+
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Button_Submit(),
+                  "Submit button should be displayed",
+                  "Submit button is displayed",
+                  "Submit button is not displayed");
+
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Button_Skip_This_Step(),
+                  "Skip this step button should be displayed",
+                  "Skip this step button is displayed",
+                  "Skip this step button is not displayed");
+
+
+          log("I should be able to verify the elements present on rate customer page",
+                  "I am able to verify the elements present on rate customer page",false);
+
+      }
+      catch (Exception e) {
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step  Should be successful",
+                  "Error performing step,Please check logs for more details", true);
+      }
+    }
+    @And("^I add comment on rate customer page$")
+    public void i_add_comment_on_rate_customer_page() throws Throwable {
+        try{
+            action.swipeUP();
+
+            testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Textbox_AdditionalFeedback(),
+                    "Textbox for additional feedback should be displayed",
+                    "Textbox for additional feedback is displayed",
+                    "Textbox for additional feedback is not displayed");
+
+            action.sendKeys(driverBungiiCompletedPage.Textbox_AdditionalFeedback(),"The customer was friendly.");
+
+            action.click(driverBungiiCompletedPage.Textbox_Additional());
+
+            action.click(driverBungiiCompletedPage.Button_Submit());
+
+            log("I should be able to add a comment for customer rating","I am able to add a comment for customer rating",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void iClickButtonOnScreen(String button, String screen) {
         try {
@@ -607,6 +676,12 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "DELETE ACCOUNT":
                     action.click(accountPage.Button_DeleteAccount());
+                    break;
+                case "MORE OPTIONS":
+                    action.click(driverUpdateStatusPage.Button_MoreOptions());
+                    break;
+                case "CANCEL DELIVERY":
+                    action.click(driverUpdateStatusPage.Tab_CancelDelivery());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",

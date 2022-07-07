@@ -1448,6 +1448,44 @@ public class ScheduledTripSteps extends DriverBase {
 				logger.detail("I update time to "+newTime1,"I updated time to "+newTime1, false);
 
 				break;
+
+			case "trip time to before the overlapping trip":
+				newTime = currentTime;
+				DateFormat formatterBefore = new SimpleDateFormat("hh:mm a");
+				Date Newtime = formatterBefore.parse(newTime);
+
+				Calendar cL = Calendar.getInstance();
+				cL.setTime(Newtime);
+				cL.add(Calendar.MINUTE,-30);
+
+				Date NewtimeOne = cL.getTime();
+				String newTimeOne = formatterBefore.format(NewtimeOne);
+
+				cucumberContextManager.setScenarioContext("NEW_TIME", newTimeOne);
+				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTimeOne + "')]"));
+				action.click(selectTime);
+				logger.detail("I update time to "+newTimeOne,"I updated time to "+newTimeOne, false);
+				break;
+
+			case "trip time to after the overlapping trip":
+				newTime = currentTime;
+				DateFormat formatterAfter = new SimpleDateFormat("hh:mm a");
+				Date NewtimeAfter = formatterAfter.parse(newTime);
+
+				Calendar cLAfter = Calendar.getInstance();
+				cLAfter.setTime(NewtimeAfter);
+				cLAfter.add(Calendar.MINUTE,30);
+
+				Date NewtimeAfterOne = cLAfter.getTime();
+				String newTimeAfterOne = formatterAfter.format(NewtimeAfterOne);
+
+				cucumberContextManager.setScenarioContext("NEW_TIME", newTimeAfterOne);
+				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTimeAfterOne + "')]"));
+				action.click(selectTime);
+				logger.detail("I update time to "+newTimeAfterOne,"I updated time to "+newTimeAfterOne, false);
+				break;
 		}
 		}catch (Throwable e) {
 			logger.error("Error performing step" + e);
