@@ -28,6 +28,11 @@ Feature: On Demand Bungii
     When Bungii Driver "rates customer"
     And I click on "SUBMIT RATING" button
     And I click "Next Bungii" button on the "Bungii Completed" screen
+
+#    Core-3098 Verify online/Offline pop up is shown for on demand trip and check go offline functionality
+    And I check online or offline pop up is displayed
+    And I click on "GO OFFLINE" button
+    And I check if the status is "OFFLINE"
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
   
   @regression
