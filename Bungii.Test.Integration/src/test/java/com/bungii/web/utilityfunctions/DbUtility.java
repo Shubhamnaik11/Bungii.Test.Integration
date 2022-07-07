@@ -395,11 +395,11 @@ public class DbUtility extends DbContextManager {
 
     public static long getDefaultPickupTime(String Service_Name,String SubDomain){
         long default_Pickup_Time=0;
-        String queryString ="select ss.default_pickup_time\n" +
-                "from bp_supplementary_service ss\n"+
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =ss.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "where c.IsActive = 1 and service_name='"+Service_Name+"' and subdomainname like '%"+SubDomain+"%'";
+        String queryString ="select sl.default_pickup_time\n" +
+                "from bp_service_level sl\n"+
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id =sl.bp_config_version_id\n" +
+                "join bp_store st on st.bp_store_id = fnm.bp_store_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and service_name='"+Service_Name+"' and subdomain_name like '%"+SubDomain+"%'";
 
         String default_Pickup_Time_Db = getDataFromMySqlMgmtServer(queryString);
         if(default_Pickup_Time_Db!=null){
@@ -416,11 +416,11 @@ public class DbUtility extends DbContextManager {
 
     public static long getDefaultDropoffTime(String Service_Name,String SubDomain){
         long default_Dropoff_Time=0;
-        String queryString ="select ss.default_dropoff_time\n" +
-                "from bp_supplementary_service ss\n"+
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =ss.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "where c.IsActive = 1 and service_name='"+Service_Name+"' and subdomainname like '%"+SubDomain+"%'";
+        String queryString ="select sl.default_dropoff_time\n" +
+                "from bp_service_level sl\n"+
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id =sl.bp_config_version_id\n" +
+                "join bp_store st on st.bp_store_id = fnm.bp_store_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and service_name='"+Service_Name+"' and subdomain_name like '%"+SubDomain+"%'";
 
         String default_Dropoff_Time_Db = getDataFromMySqlMgmtServer(queryString);
         if(default_Dropoff_Time_Db!=null){
@@ -437,10 +437,10 @@ public class DbUtility extends DbContextManager {
     public static List<HashMap<String,Object>> getListOfService(String Alias_Name){
         List<HashMap<String,Object>> Service = new ArrayList<>();
         String queryString = "select ss.service_name\n" +
-                "from bp_supplementary_service ss\n" +
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =ss.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "where c.IsActive = 1 and alias like '"+Alias_Name+"%'";
+                "from bp_service_level ss\n" +
+                "join bp_store_setting_fn_matrix c on c.bp_config_version_id =ss.bp_config_version_id\n" +
+                "join bp_store d on d.bp_store_id = c.bp_store_id\n" +
+                "where c.bp_setting_fn_id = 3 and store_alias like '"+Alias_Name+"%'";
         Service = getListDataFromMySqlMgmtServer(queryString);
         return Service;
     }
