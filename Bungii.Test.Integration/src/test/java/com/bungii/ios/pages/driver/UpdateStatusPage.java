@@ -34,7 +34,7 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Image_Trip_State_4() { return findElement("pickup_state_4", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Image_Trip_State_5() { return findElement("pickup_state_5", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_Slide() { return findElement("slide_to_start_button", PageBase.LocatorType.AccessibilityId); }
-	public WebElement Button_Cancel() { return findElement("Cancel", PageBase.LocatorType.AccessibilityId); }
+	public WebElement Button_Cancel() { return findElement("Cancel delivery", LocatorType.Name); }
 	public WebElement Button_Call() { return findElement("//XCUIElementTypeButton[@name='Call']", LocatorType.XPath); }
 	public WebElement Button_Sms() { return findElement("//XCUIElementTypeButton[@name='Text']", LocatorType.XPath); }
 	public WebElement Button_CallDriver() { return findElement("Call driver", PageBase.LocatorType.AccessibilityId); }
@@ -43,6 +43,7 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_ViewItems() { return findElement("//XCUIElementTypeImage[@name='slide_to_start_button']/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[2]", LocatorType.XPath); }
 //	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.Name); }
 	public WebElement Button_MoreOptions() { return findElement("//XCUIElementTypeImage[@name='slide_to_start_button']/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[4]", LocatorType.XPath); }
+	public WebElement Tab_CancelDelivery() { return findElement("//XCUIElementTypeButton[@name=\"Cancel delivery\"]", LocatorType.XPath); }
 	public WebElement Text_NavigationBarScreen(String screen) { return findElement("//XCUIElementTypeStaticText[@name='"+screen+"']", LocatorType.XPath); }
 	public WebElement Text_NavigationBar(boolean ...ignoreException) { return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName,ignoreException); }
 

@@ -62,7 +62,9 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Text_Pickup_Note() { return findElement("//td[text()='Pickup Note']/following-sibling::td",LocatorType.XPath);}
 
-    public WebElement Text_Additional_Note() { return findElement("PickupDetails_PickupNote",LocatorType.Id);}
+    public WebElement Text_Additional_Note(boolean ...ignoreException) { return findElement("PickupDetails_PickupNote",LocatorType.Id,ignoreException);}
+
+    public WebElement Text_Additional_Instructions() { return findElement("PickupDetails_SpecialInstructions",LocatorType.Id);}
 
     public WebElement RadioButton_Solo() { return findElement("//input[@value='Solo']", LocatorType.XPath); }
     public WebElement RadioButton_Duo() { return findElement("//input[@value='Duo']", LocatorType.XPath); }
@@ -89,4 +91,5 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_ErrorMessage() { return findElement("verify-error", LocatorType.Id); }
 
+    public WebElement Label_AdditionalNotes() { return findElement("//div/p[text() =\"Special Instructions:\"]", LocatorType.XPath); }
 }

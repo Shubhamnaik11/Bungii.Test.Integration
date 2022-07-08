@@ -380,6 +380,57 @@ public class Partner_IntegrationSteps extends DriverBase {
                         break;
                 }
 
+            }
+            else if (Site.equalsIgnoreCase("Cort service level")) {
+                    switch (Type) {
+                        case "Solo":
+                            action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+
+                            action.click(Page_Partner_Dashboard.Button_PickupClear());
+                            action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                            action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                            Thread.sleep(3000);
+                            action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                            Thread.sleep(5000);
+                            action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                            Thread.sleep(3000);
+                            action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                            Thread.sleep(5000);
+                            action.click(Page_Partner_Dashboard.List_Delivery_Address());
+
+                            Thread.sleep(5000);
+
+
+                            action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                            break;
+
+                        case "Duo":
+
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                            //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
+                            action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                            Thread.sleep(1000);
+                            action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                            Thread.sleep(5000);
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                            action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                            Thread.sleep(5000);
+                            action.click(Page_Partner_Dashboard.List_Delivery_Address());
+
+                            //Clicking on duo radio button
+                            action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+                            Thread.sleep(2000);
+
+                            //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                            break;
+                        default:
+                            break;
+                    }
+
             } else if (Site.equalsIgnoreCase("BestBuy service level")) {
                 switch (Type) {
                     case "Solo":
@@ -399,13 +450,13 @@ public class Partner_IntegrationSteps extends DriverBase {
                         break;
                     case "Duo":
 
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
-                        //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
-                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-                        Thread.sleep(1000);
-                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
-
-                        Thread.sleep(2000);
+//                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+//                        //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
+//                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+//                        Thread.sleep(1000);
+//                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
+//
+//                        Thread.sleep(2000);
                         action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
@@ -570,4 +621,47 @@ public class Partner_IntegrationSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^In \"([^\"]*)\" the trip should be  having a indicator with the text \"([^\"]*)\"$")
+    public void in_something_the_trip_should_be_having_a_indicator_with_the_text_something(String TripPosition, String tripNumber) throws Throwable {
+       try {
+           String expectedBackgroundColor = PropertyUtility.getDataProperties("partner.baltimore.bestbuy2.trip.indicator");
+        switch (TripPosition){
+          case "Scheduled Deliveries":
+            case "Live Deliveries":
+                Thread.sleep(1000);
+                String indicatorText = action.getText(admin_ScheduledTripsPage.Text_TripIndicator());
+                testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_TripIndicator(), "Indicator with text "+ tripNumber + " should be displayed", "Indicator with text "+ tripNumber + " should be displayed", "Indicator with text is not "+ tripNumber + " should be displayed");
+                testStepAssert.isEquals(indicatorText,tripNumber,"Indicator text should be " +tripNumber ,"Indicator text is "+ indicatorText,"Indicator text is not " +tripNumber );
+                String indicatorBgColor = admin_ScheduledTripsPage.Text_TripIndicator().getCssValue("background-color");
+                testStepVerify.isEquals(indicatorBgColor,expectedBackgroundColor,"Indictor color should be green","Indicator color is green","Indicator color is not green");
+            break;
+            case "All Deliveries":
+                Thread.sleep(1000);
+                String indicatorTextForAllDeliveries = action.getText(admin_TripsPage.Text_AllTripIndicator());
+                testStepAssert.isElementDisplayed(admin_TripsPage.Text_AllTripIndicator(), "Indicator with text "+ tripNumber + " should be displayed", "Indicator with text "+ tripNumber + " should be displayed", "Indicator with text is not "+ tripNumber + " should be displayed");
+                testStepAssert.isEquals(indicatorTextForAllDeliveries,tripNumber,"Indicator text should be " +tripNumber ,"Indicator text is "+ indicatorTextForAllDeliveries,"Indicator text is not " +tripNumber );
+                String indicatorbgForAllTrips = admin_TripsPage.Text_AllTripIndicator().getCssValue("background-color");
+                testStepAssert.isEquals(indicatorbgForAllTrips,expectedBackgroundColor,"Indictor color should be green","Indicator color is green","Indicator color is not green");
+                break;
+      }
+       } catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
+
+    @Then("^The delivery should not be having indicator$")
+    public void the_delivery_should_not_be_having_indicator() throws Throwable {
+        try{
+        testStepAssert.isNotElementDisplayed(admin_ScheduledTripsPage.Text_TripIndicator(true), "Indicator Should not be displayed", "Indicator is not displayed","Indicator is displayed");
+
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
 }
