@@ -238,4 +238,13 @@ public class Partner_DashboardPage extends PageBase {
 
     //Select trip from track delivery
     public WebElement Link_SelectTripTrackDeliveries() { return findElement("//table/tbody/tr",LocatorType.XPath);}
+//friom here
+    public WebElement DropDown_Filter() { return findElement("//div[@class=\"caret filter\"]",LocatorType.XPath);}
+
+    public WebElement Checkbox_Completed(String filter) { return findElement(String.format("//div/div/label[text()='%s']",filter),LocatorType.XPath);}
+
+    public WebElement Button_Apply() { return findElement("//div[@class=\"dropdown-menu show\"]/div/div[6]/button[1]",LocatorType.XPath);}
+
+    public WebElement Text_DriverName() { return findElement("//div/div[@class=\"media\"]/div/p",LocatorType.XPath);}
+
 }

@@ -13,10 +13,21 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.openqa.selenium.JavascriptExecutor;
 
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -24,7 +35,7 @@ import static com.bungii.common.manager.ResultManager.log;
 public class Partner_Delivery_Details extends DriverBase {
 
     private static LogUtility logger = new LogUtility(DashBoardSteps.class);
-
+    Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     ActionManager action = new ActionManager();
 
@@ -395,5 +406,120 @@ public class Partner_Delivery_Details extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+//    @And("^I get the time in CST$")
+//    public void i_get_the_time_in_cst() throws Throwable {
+//       cucumberContextManager.setScenarioContext("UTC_TIME","2022-07-07 06:06:15");
+//        String timeWithZone = (String) cucumberContextManager.getScenarioContext("UTC_TIME");
+////        System.out.println("Date with default formatter: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(a));
+////
+////        // This prints: Date with IST time zone formatter: 2013-03-15 10:30:12 GMT+05:30
+////        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+////        TimeZone tz = TimeZone.getTimeZone("CDT");
+////        sdf.setTimeZone(tz);
+////        Date dateIST = sdf.parse(a);
+////        System.out.println("Date with IST time zone formatter: " + dateIST);
+////
+////        // This prints: Date CST time zone formatter: 2013-03-15 00:00:12 CDT
+////        tz = TimeZone.getTimeZone("CST");
+////        sdf.setTimeZone(tz);
+////        System.out.println("Date CST time zone formatter: " + sdf.format(a));
+////        Instant instant = Instant.parse( "2022-07-07 06:06:15" ) ;
+////        String a = instant.toString();
+////
+////        String timestamp = "2018-12-18 16:00:28";
+//        String zone = "UTC";
+////        String timeWithZone = a;
+//
+//        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+//                .append(DateTimeFormatter.ISO_LOCAL_DATE)
+//                .appendLiteral(' ')
+//                .append(DateTimeFormatter.ISO_LOCAL_TIME)
+//                .appendLiteral(' ')
+//                .appendPattern("yyyy-MM-dd HH:mm:ss") // Zone
+//                .toFormatter();
+//
+//        ZonedDateTime edt = ZonedDateTime.parse(timeWithZone, formatter);
+//        ZonedDateTime utc = edt.withZoneSameInstant(ZoneId.of("CTD"));;
+//
+//    }
+
+    @Then("^I should see the delivery status highlighted and to be set as \"([^\"]*)\" on partner portal delivery details page$")
+    public void i_should_see_the_delivery_status_highlighted_and_to_be_set_as_something_on_partner_portal_delivery_details_page(String deliveryStatus) throws Throwable {
+        Thread.sleep(3000);
+        String highlightedColor = "rgb(254, 238, 2)";
+        String uiDeliveryStatus = action.getText(Page_Partner_Delivery.Text_PartnerDeliveryStatus(deliveryStatus));
+        switch (deliveryStatus){
+            case"Scheduled":
+                String color = Page_Partner_Delivery.Icon_ScheduledDeliveryProgress().getCssValue("color");
+                testStepVerify.isEquals(color,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
+                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                break;
+            case "En Route To Pickup":
+                String color1 = Page_Partner_Delivery.Icon_EnRouteToPickupProgress().getCssValue("background-color");
+                testStepVerify.isEquals(color1,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
+                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                break;
+                case "Driver Arrived At Pickup":
+                String color2 = Page_Partner_Delivery.Icon_DriverArrivedAtPickupDeliveryProgress().getCssValue("background-color");
+                testStepVerify.isEquals(color2,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
+                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                break;
+            case "Loading Items":
+                String color3 = Page_Partner_Delivery.Icon_LoadingItemsDeliveryProgress().getCssValue("background-color");
+                testStepVerify.isEquals(color3,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
+                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                break;
+            case "Driving To Drop Off":
+                String color4 = Page_Partner_Delivery.Icon_DrivingToDropOffDeliveryProgress().getCssValue("background-color");
+                testStepVerify.isEquals(color4,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
+                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                break;
+            case "Unloading Items":
+                String color5 = Page_Partner_Delivery.Icon_UnloadingItemsDeliveryProgress().getCssValue("background-color");
+                testStepVerify.isEquals(color5,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
+                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                break;
+            case "Done":
+                String color6 = Page_Partner_Delivery.Icon_ScheduledDeliveryProgress().getCssValue("background-color");
+                testStepVerify.isEquals(color6,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
+                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                break;
+            case "Canceled":
+//                String color7 = Page_Partner_Delivery.Icon_CancelledDelivery().getCssValue("background-color");
+//                testStepVerify.isEquals(color7,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
+                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                break;
+        }
+    }
+
+    @And("^I select \"([^\"]*)\" option from the filter$")
+    public void i_select_something_option_from_the_filter(String filterOption) throws Throwable {
+        Thread.sleep(3000);
+        action.click(Page_Partner_Dashboard.DropDown_Filter());
+        switch (filterOption){
+            case "Completed":
+                action.click(Page_Partner_Dashboard.Checkbox_Completed(filterOption));
+                break;
+            case "Canceled":
+                action.click(Page_Partner_Dashboard.Checkbox_Completed(filterOption));
+                break;
+            case "Check / uncheck all":
+                action.click(Page_Partner_Dashboard.Checkbox_Completed(filterOption));
+                break;
+        }
+    }
+
+    @And("^I save the delivery details$")
+    public void i_save_the_delivery_details() throws Throwable {
+        String driver = action.getText(Page_Partner_Dashboard.Text_DriverName());
+        cucumberContextManager.setScenarioContext("DriverName",driver);
+    }
+
+    @And("^The driver name should be changed$")
+    public void the_driver_name_should_be_changed() throws Throwable {
+        String newDriverName = action.getText(Page_Partner_Dashboard.Text_DriverName());
+        String oldDriverName = (String) cucumberContextManager.getScenarioContext("DriverName");
+        testStepVerify.isNotEquals(newDriverName,oldDriverName);
     }
 }

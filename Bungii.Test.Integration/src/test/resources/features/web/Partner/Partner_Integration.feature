@@ -224,6 +224,15 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status    |
       | Canceled       |
+   #CORE-3372: To verify delivery status is updated when Partner Portal delivery is Driver canceled
+    And I select "Check / uncheck all" option from the filter
+    And I click on "Apply" button
+    And I select "Check / uncheck all" option from the filter
+    And I click on "Apply" button
+    And I select "Canceled" option from the filter
+    And I click on "Apply" button
+    And I click on the delivery based on customer name
+    Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
 
   @regression
     #stable

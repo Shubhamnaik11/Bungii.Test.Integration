@@ -198,4 +198,27 @@ public class Partner_DeliveryPage extends PageBase {
     public WebElement Text_NoDeliveryError() { return findElement("err",LocatorType.ClassName);}
 
 
+    //from Here
+    public WebElement Text_PartnerDeliveryStatus(String status) { return findElement(String.format("//div[@class ='delivery-status']/div/div/label[text() ='%s']",status),LocatorType.XPath);}
+
+//    public WebElement Icon_ScheduledDeliveryProgress() { return findElement("5",LocatorType.Id);}
+
+    public WebElement Icon_ScheduledDeliveryProgress() { return findElement("//div[@class=\"trip-progress-icon Scheduled\"]",LocatorType.XPath);}
+
+
+    public WebElement Icon_EnRouteToPickupProgress() { return findElement("23",LocatorType.Id);}
+
+    public WebElement Icon_LoadingItemsDeliveryProgress() { return findElement("25",LocatorType.Id);}
+
+    public WebElement Icon_DrivingToDropOffDeliveryProgress() { return findElement("26",LocatorType.Id);}
+
+    public WebElement Icon_UnloadingItemsDeliveryProgress() { return findElement("27",LocatorType.Id);}
+
+   public WebElement Icon_DriverArrivedAtPickupDeliveryProgress() { return findElement("24",LocatorType.Id);}
+
+    public WebElement Icon_DoneDeliveryProgress() { return findElement("28",LocatorType.Id);}
+
+    public WebElement Icon_CancelledDelivery() { return findElement("66",LocatorType.Id);}
+
+
 }

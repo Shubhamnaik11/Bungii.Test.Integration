@@ -1127,6 +1127,7 @@ try{
 
     @And("^I click on the delivery based on customer name$")
     public void i_click_on_the_delivery_based_on_customer_name() throws Throwable {
+//        cucumberContextManager.setScenarioContext("CUSTOMER","Testpartner C");
         try{
         action.click(Page_Partner_Dashboard.Textbox_SearchBar());
         Thread.sleep(1000);
