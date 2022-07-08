@@ -47,6 +47,8 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 | Other            | 20         |
  And "accessorial_fee_amount" should show total amount in the triprequest table in Database
  And "business_notes" should show comment without quotes in the trippaymentdetails table in Database
+ And I wait for 2 minutes
+ And "accessorial_fee_type" should show in the Report Database
 
 
   @regression

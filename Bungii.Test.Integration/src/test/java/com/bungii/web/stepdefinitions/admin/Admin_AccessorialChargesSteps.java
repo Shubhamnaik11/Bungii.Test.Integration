@@ -514,4 +514,18 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
 
 
+    @And("^\"([^\"]*)\" should show in the Report Database$")
+    public void something_should_show_in_the_report_database(String strArg1) throws Throwable {
+        try {
+            String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String expectedFeeType = (String) cucumberContextManager.getScenarioContext("Fee Type");
+            String actualFeeType = dbUtility.getAccessorialFeeType(pickuprequest);
+            testStepAssert.isEquals(actualFeeType,expectedFeeType, expectedFeeType+" should be displayed", expectedFeeType+" is displayed", expectedFeeType+" is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }
