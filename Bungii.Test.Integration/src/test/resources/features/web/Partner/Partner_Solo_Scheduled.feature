@@ -185,9 +185,7 @@
       Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
 
       #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is moved from one status to other for change in driver
-#    @testAllan
-    @testing
-      #        "Message": "Pickup Assigned to another Driver"
+    @ready
     Scenario:To verify delivery status is updated when PartnerPortal delivery is moved from one status to other for change in driver
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -234,6 +232,7 @@
       And I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
       When I wait for 2 minutes
+      And I get the new pickup reference generated
       And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state|
         |Enroute      |
@@ -275,3 +274,38 @@
       Then I should see the delivery status highlighted and to be set as "Done" on partner portal delivery details page
 
 
+#CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Schedule deliveries
+    @ready
+  Scenario: To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Schedule deliveries
+  When I request Partner Portal "SOLO" Trip for "MRFM" partner
+   |Geofence| Bungii Time   | Customer Phone | Customer Name |
+   |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+    And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" partner portal trip
+    | driver1 state|
+    | Accepted |
+   When I navigate to "Admin" portal configured for "QA" URL
+   And I wait for 2 minutes
+      And I view the all Scheduled Deliveries list on the admin portal
+      And  I search the delivery using "Pickup Reference"
+      Then I should be able to see the respective bungii with the below status
+        |  Status       |
+        | Scheduled|
+      When I click on the "Edit" button from the dropdown
+      And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+      And I enter cancellation fee and Comments
+      And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
+      And I click on "Submit" button
+      Then The "Pick up has been successfully canceled." message should be displayed
+      Given I navigate to "Partner" portal configured for "normal" URL
+      And I enter "valid" password on Partner Portal
+      And I click "SIGN IN" button on Partner Portal
+      Then I should "be logged in"
+      When I click "Track Deliveries" button on Partner Portal
+      And I select "Check / uncheck all" option from the filter
+      And I click on "Apply" button
+      And I select "Check / uncheck all" option from the filter
+      And I click on "Apply" button
+      And I select "Canceled" option from the filter
+      And I click on "Apply" button
+      And I click on the delivery based on customer name
+      Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
