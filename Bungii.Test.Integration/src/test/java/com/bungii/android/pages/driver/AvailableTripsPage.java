@@ -50,6 +50,9 @@ public class AvailableTripsPage extends PageBase {
 
     public WebElement Text_FromHomeMiles() { return findElement("com.bungii.driver:id/row_available_pickup_textview_time_home", LocatorType.Id);}
 
+    public WebElement Text_DriverEarning() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView[2]", LocatorType.XPath);}
+    public WebElement Text_DriverEarningSchedulePage() { return findElement("//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView[2]", LocatorType.XPath);}
+
     public WebElement Text_RejectionPopup(boolean...ignoreException) {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id,ignoreException);}
 
     public WebElement Text_RejectionReason(int i){return findElement("//android.widget.ListView/android.widget.LinearLayout["+i+"]/android.widget.LinearLayout/android.widget.TextView",LocatorType.XPath);}

@@ -23,8 +23,16 @@ Feature: On Demand Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I slide update button on "UNLOADING ITEM" Screen
-    And Bungii Driver "skips to rate customer"
+       #  Core - 3113 Verify that Rate customer page UI and elements are displayed correctly to driver
+    And I check the elements displayed on rate customer screen
+    When Bungii Driver "rates customer"
+    And I click on "SUBMIT RATING" button
     And I click "Next Bungii" button on the "Bungii Completed" screen
+
+#    Core-3098 Verify online/Offline pop up is shown for on demand trip and check go offline functionality
+    And I check online or offline pop up is displayed
+    And I click on "GO OFFLINE" button
+    And I check if the status is "OFFLINE"
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
   
   @regression

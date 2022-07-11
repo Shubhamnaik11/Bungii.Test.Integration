@@ -178,4 +178,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_DeliveryStatus(String status) { return findElement(String.format("//tbody/tr/td[contains(text() ,'%s')]",status), LocatorType.XPath); }
 
     public WebElement Button_View(){return  findElement("//div/button[text() =\"View\"]",LocatorType.XPath);}
+
+    public WebElement Text_TripIndicator(boolean...ignoreException){return  findElement("//tr[@id=\"row1\"]/td[1]/label",LocatorType.XPath,ignoreException);}
+
 }

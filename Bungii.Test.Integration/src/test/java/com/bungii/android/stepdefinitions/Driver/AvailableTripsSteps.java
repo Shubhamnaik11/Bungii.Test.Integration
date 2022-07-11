@@ -150,7 +150,8 @@ public class AvailableTripsSteps extends DriverBase {
         try{
             Thread.sleep(6000);
             String expectedText = action.getText(availableTrips.Text_FromHomeMiles());
-            boolean textDisplayed = expectedText.contains("miles");
+            boolean textDisplayed = (expectedText.contains("miles") || expectedText.contains("mile") )? true : false;
+
             testStepAssert.isTrue(textDisplayed,"Text should be updated to miles","Text is updated to miles","Text is not updated to miles");
         action.click(availableTrips.Row_AvailableTrip());
         }
@@ -210,6 +211,60 @@ public class AvailableTripsSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Partner Portal name is not displayed on "+Screen,
                     true);
+        }
+    }
+    @And("^I check if variable sign is shown under \"([^\"]*)\"$")
+    public void i_check_if_variable_sign_is_shown_under_something(String page) throws Throwable {
+      try{
+          switch (page){
+              case "available bungii details":
+                  Thread.sleep(2000);
+                String driverEarnings = availableTrips.Text_DriverEarning().getText();
+                testStepAssert.isTrue(driverEarnings.contains("~"),
+                        "The variable sign (~) should be present",
+                        "The variable sign (~) is not present");
+                  break;
+              case "schedule bungii details":
+                  Thread.sleep(2000);
+                  String driverEarningsSchedulePage = availableTrips.Text_DriverEarningSchedulePage().getText();
+                  testStepAssert.isTrue(driverEarningsSchedulePage.contains("~"),
+                          "The variable sign (~) should be present",
+                          "The variable sign (~) is not present");
+                  break;
+          }
+          log("I should be able to check the variable sign","I was able to check the variable sign",false);
+      }
+      catch (Exception e) {
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step  Should be successful",
+                  "Error performing step,Please check logs for more details", true);
+      }
+    }
+    @And("^I check if variable sign is not shown under \"([^\"]*)\"$")
+    public void i_check_if_variable_sign_is_not_shown_under_something(String page) throws Throwable {
+        try{
+            switch (page){
+                case "available bungii details":
+                    Thread.sleep(2000);
+                    String driverEarnings = availableTrips.Text_DriverEarning().getText();
+                    testStepAssert.isFalse(driverEarnings.contains("~"),
+                            "The variable sign (~) should not be present",
+                            "The variable sign (~) is present");
+                    break;
+                case "schedule bungii details":
+                    Thread.sleep(2000);
+                    String driverEarningsSchedulePage = availableTrips.Text_DriverEarningSchedulePage().getText();
+                    testStepAssert.isFalse(driverEarningsSchedulePage.contains("~"),
+                            "The variable sign (~) should not be present",
+                            "The variable sign (~) is present");
+                    break;
+            }
+            log("I should be able to check if the variable sign is absent","I was able to check if the variable sign is absent",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
     @And("^I click on the back button and verify the rejection popup$")

@@ -87,46 +87,46 @@ Feature: Duo Test
 	And I slide update button on "ARRIVED" Screen
 	Then I accept Alert message for "Reminder: both driver at pickup"
   #  And I should be navigated to "LOADING ITEM" trip status screen
-	Then I should be navigated to "LOADING ITEM" screen
+	Then I should be navigated to "LOADING ITEMS" screen
  
 	When I Switch to "customer" application on "ORIGINAL" devices
  #   Then Customer should be navigated to "LOADING ITEM" trip status screen
-	Then I should be navigated to "LOADING ITEM" screen
+	Then I should be navigated to "LOADING ITEMS" screen
  
 	When I Switch to "driver" application on "same" devices
-	And I slide update button on "LOADING ITEM" Screen
+	And I slide update button on "LOADING ITEMS" Screen
   #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-	Then I should be navigated to "DRIVING TO DROP OFF" screen
+	Then I should be navigated to "DRIVING TO DROP-OFF" screen
  
 	When I Switch to "driver" application on "Driver2" devices
-	And I slide update button on "LOADING ITEM" Screen
+	And I slide update button on "LOADING ITEMS" Screen
   #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-	Then I should be navigated to "DRIVING TO DROP OFF" screen
+	Then I should be navigated to "DRIVING TO DROP-OFF" screen
  
 	When I Switch to "customer" application on "ORIGINAL" devices
   #  Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
-	Then I should be navigated to "DRIVING TO DROP OFF" screen
+	Then I should be navigated to "DRIVING TO DROP-OFF" screen
  
 	When I Switch to "driver" application on "same" devices
-	And I slide update button on "DRIVING TO DROP OFF" Screen
+	And I slide update button on "DRIVING TO DROP-OFF" Screen
 #    Then I should be navigated to "UNLOADING ITEM" trip status screen
-	Then I should be navigated to "UNLOADING ITEM" screen
+	Then I should be navigated to "UNLOADING ITEMS" screen
  
 	When I Switch to "driver" application on "Driver2" devices
-	And I slide update button on "DRIVING TO DROP OFF" Screen
+	And I slide update button on "DRIVING TO DROP-OFF" Screen
   #  Then I should be navigated to "UNLOADING ITEM" trip status screen
-	Then I should be navigated to "UNLOADING ITEM" screen
+	Then I should be navigated to "UNLOADING ITEMS" screen
  
 	When I Switch to "customer" application on "ORIGINAL" devices
 #    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
-	Then I should be navigated to "UNLOADING ITEM" screen
+	Then I should be navigated to "UNLOADING ITEMS" screen
  
 	When I Switch to "driver" application on "same" devices
-	And I slide update button on "UNLOADING ITEM" Screen
+	And I slide update button on "UNLOADING ITEMS" Screen
 	Then I accept Alert message for "Reminder: both driver at drop off"
  
 	When I Switch to "driver" application on "Driver2" devices
-	And I slide update button on "UNLOADING ITEM" Screen
+	And I slide update button on "UNLOADING ITEMS" Screen
 	Then I accept Alert message for "Reminder: both driver at drop off"
  
  

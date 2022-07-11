@@ -268,6 +268,38 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error while verifying if element is present", true);
         }
     }
+    @And("^I verify all the elements on earnings page$")
+    public void i_verify_all_the_elements_on_earnings_page() throws Throwable {
+        try {
+            boolean isCorrectPage = false;
+            isCorrectPage = utility.isCorrectPage("EARNINGS");
+            testStepAssert.isTrue(isCorrectPage,
+                    "I should be navigated to EARNINGS screen",
+                    "I have navigated to EARNINGS screen" ,
+                    "I was not navigated to EARNINGS screen ");
+
+            testStepAssert.isElementDisplayed(myBungiisPage.Dropdown_SelectYear(),"The element should be displayed","The element is displayed","The element is not displayed");
+            testStepAssert.isElementDisplayed(myBungiisPage.Button_ItemizedEarnings(),"The itemized earnings button should be displayed","The itemized earnings button is displayed","The itemized earnings button is not displayed");
+
+            String actualDisclaimer = action.getText(myBungiisPage.Text_Disclaimer());
+            String expectedDisclaimer = PropertyUtility.getMessage("android.earnings.page.disclaimer");
+            testStepAssert.isEquals(actualDisclaimer,expectedDisclaimer,
+                    "The Disclaimer displayed should be "+expectedDisclaimer,
+                    "The Disclaimer displayed is "+expectedDisclaimer,
+                    "The Disclaimer displayed is incorrect");
+
+            testStepAssert.isElementDisplayed(myBungiisPage.Text_MilesDriven(),"The Miles Driven should be displayed","The Miles Driven are displayed","The  Miles Driven are not displayed");
+            testStepAssert.isElementDisplayed(myBungiisPage.Text_WorkHours(),"The Work Hours should be displayed","The Work Hours are displayed","The Work Hours are not displayed");
+            testStepAssert.isElementDisplayed(myBungiisPage.Text_NoOfTrips(),"The number of trips should be displayed","The number of trips are displayed","The number of trips are not displayed");
+            testStepAssert.isElementDisplayed(myBungiisPage.Text_DisbursementInfo(),"The Disbursement Info should be displayed","The Disbursement Info  is displayed","The Disbursement Info is not displayed");
+
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error while verifying if element is present", true);
+        }
+    }
     @And("^I search for \"([^\"]*)\" driver on driver details$")
     public void i_search_for_something_driver_on_driver_details(String driverName) throws Throwable {
         try{

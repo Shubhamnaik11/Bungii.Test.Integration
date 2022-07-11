@@ -323,6 +323,10 @@ Thread.sleep(5000);
                     isCorrectPage=action.isElementPresent(availableTripsPage.PageTitle_BungiiDetails());
                     break;
 
+                case "EARNINGS":
+                    isCorrectPage=action.isElementPresent(myBungiisPage.Header_Earnings());
+                    break;
+
                 default:
                     String expectedMessage = p0;
                     try {
