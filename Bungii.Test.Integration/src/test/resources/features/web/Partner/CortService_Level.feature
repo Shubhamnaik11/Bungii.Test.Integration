@@ -128,14 +128,3 @@ Feature: Cort Service Level
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then Revive button should be displayed beside the trip
-
-  #CORE-2419:Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
-  @ready
-  Scenario: Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
-    When I navigate to "Partner" portal configured for "BestBuy2 service level" URL
-    And I enter "valid" password on Partner Portal
-    And I click "SIGN IN" button on Partner Portal
-    Then I should "be logged in"
-    When I select the "First" address from the pickup address dropdown
-    And I select the "Second" address from the pickup address dropdown
-    Then The pickup time should be same for both the addresses from the dropdown
