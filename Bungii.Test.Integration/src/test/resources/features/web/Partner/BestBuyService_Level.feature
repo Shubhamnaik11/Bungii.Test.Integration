@@ -183,5 +183,7 @@ Feature: Service Level
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
     When I select the "First" address from the pickup address dropdown
+    And I should be able to schedule a trip "29"days from today
     And I select the "Second" address from the pickup address dropdown
+    And I should be able to schedule a trip "29"days from today
     Then The pickup time should be same for both the addresses from the dropdown

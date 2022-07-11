@@ -1176,10 +1176,11 @@ try{
                 if(date.startsWith("0")){
                     String dateWithoutZero = date.replace("0","");
                     action.click(Page_Partner_Dashboard.FutureTrip(dateWithoutZero));
-
+                    cucumberContextManager.setScenarioContext("Future_Date",dateWithoutZero);
                 }
                 else{
                     action.click(Page_Partner_Dashboard.FutureTrip(date));
+                    cucumberContextManager.setScenarioContext("Future_Date",date);
                 }
 
             }
@@ -1190,6 +1191,8 @@ try{
                     action.click(Page_Partner_Dashboard.Link_NextMonth());
                     action.click(Page_Partner_Dashboard.FutureTrip(dateWithoutZero));
                     Thread.sleep(2000);
+                    cucumberContextManager.setScenarioContext("Future_Date",dateWithoutZero);
+
                 }
 
                 else{
@@ -1197,11 +1200,16 @@ try{
                     action.click(Page_Partner_Dashboard.Link_NextMonth());
                     action.click(Page_Partner_Dashboard.FutureTrip(date));
                     Thread.sleep(2000);
-                }
+                    cucumberContextManager.setScenarioContext("Future_Date",date);
 
+                }
             }
-            log("I should be able to schedule a delivery "+tripDate+ " days from today",
-                    "I could schedule schedule a delivery "+tripDate+ " days from today",false);
+            String [] dateMonthAndDayFromUi =Page_Partner_Dashboard.Text_DateSelectedFromUi().getAttribute("value").split("\\(");
+            String onlyMonthAndDateFromUi = dateMonthAndDayFromUi[1].replace(")","").replace(" ","");
+            String dateAndMonthFromCalender =deliveryMonth + (String) cucumberContextManager.getScenarioContext("Future_Date");
+            testStepAssert.isEquals(onlyMonthAndDateFromUi,dateAndMonthFromCalender,"I should be able to select a date "+tripDate+ " days ahead",
+                    "I could select a date "+tripDate+ " days ahead",
+                    "I coudnt select a date "+tripDate+ " days ahead");
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",

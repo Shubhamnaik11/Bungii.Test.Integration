@@ -96,7 +96,6 @@ public class Partner_Delivery_Details extends DriverBase {
             String DeliveryPurpose = "";
             String RbSbNumber = "";
             String Items_deliver = "";
-            String ScheduleBy ="";
             String BodcCode ="";
 
             if(dataMap.containsKey("Items_To_Deliver")){
@@ -136,9 +135,6 @@ public class Partner_Delivery_Details extends DriverBase {
             }
             if (dataMap.containsKey("Rb_Sb_Number")) {
                 RbSbNumber = dataMap.get("Rb_Sb_Number").trim();
-            }
-            if (dataMap.containsKey("Schedule_By")) {
-                ScheduleBy = dataMap.get("Schedule_By").trim();
             }
             if (dataMap.containsKey("Bodc_Code")) {
                 BodcCode = dataMap.get("Bodc_Code").trim();
@@ -327,7 +323,6 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.click(Page_Partner_Delivery.Dropdown_SoldBuy());
                         action.click(Page_Partner_Delivery.List_StoreAssociate(BodcCode));
 
-                        action.clearSendKeys(Page_Partner_Delivery.Textbox_ScheduleBy(), ScheduleBy);
                         break;
                     default:
                         break;

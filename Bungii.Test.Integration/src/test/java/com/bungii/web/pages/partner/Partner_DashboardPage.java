@@ -248,6 +248,8 @@ public class Partner_DashboardPage extends PageBase {
     //Select the date on calender
     public WebElement FutureTrip(String date) { return findElement(String.format("//div[@class=\"react-datepicker__week\"]/div[text()=\"%s\"]",date),LocatorType.XPath);}
 
+    public WebElement Text_DateSelectedFromUi() { return findElement("//div[@class=\"input-wrapper\"]/input",LocatorType.XPath);}
+
     //Partner portal trip time
     public WebElement Text_PartnerPortalGeofenceTime() { return findElement("//div[@class =\"col-padding row\"]/div[2]/div/div/div/div",LocatorType.XPath);}
 
