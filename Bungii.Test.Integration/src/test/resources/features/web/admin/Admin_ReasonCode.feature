@@ -387,8 +387,8 @@ Feature: Admin_Reason_Code
   Scenario Outline: Verify Admin is able to change the status of the trip to Admin cancelled/partner cancelled/ driver cancelled
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
-    And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
+      |baltimore| NEXT_POSSIBLE | 8877661049 | Testcustomertywd_appleMarkAX LutherAX|
+    And As a driver "TestDrivertywd_applemd_a_billD Stark_bltTwOD" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       |Accepted |
       | Enroute  |
@@ -438,8 +438,8 @@ Feature: Admin_Reason_Code
   Scenario: Verify Reason dropdown for PARTNER DUO(Geofence based pricing) re-scheduled delivery when Both Driver do not accept and admin edits only time when Partner Initiated
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
+      | NEXT_POSSIBLE | 8877661050 | Testcustomertywd_appleMarkAY LutherAY|
+    And As a driver "Testdrivertywd_appledc_a_drvK WashingtonK" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       |Accepted |
       | Enroute  |
