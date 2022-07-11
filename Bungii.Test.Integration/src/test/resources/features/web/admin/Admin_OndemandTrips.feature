@@ -165,3 +165,28 @@ Feature: Admin_OndemandTrips
     When I select filter "Category" as "Scheduled"
     And I click on "Apply" button on "All Deliveries" page
     Then the triplist grid shows the results by type "Scheduled Category"
+
+#Core 2968 -To verify that admin can add Accessorial fee for driver cancelled on demand trip
+@ready
+Scenario:To verify that admin can add Accessorial fee for driver cancelled on demand trip
+ When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
+| Bungii Time   | Customer Phone | Customer Name |
+| NEXT_POSSIBLE | 9999999101 | Testcustomertywd_appleNewQA Customer|
+And As a driver "Testdrivertywd_appledc_a_drvI WashingtonI" perform below action with respective "Solo Ondemand" Delivery
+| driver1 state|
+|Accepted      |
+When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvI WashingtonI"
+And I wait for 2 minutes
+And I view the Deliveries list on the admin portal
+When  I search the delivery using "Pickup Reference"
+And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+Then I should see "Accessorial Charges" section displayed
+When I add following accessorial charges and save it
+| Amount   | Fee Type         | Comment                           | Driver Cut |
+|  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
+|   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
+|  25.65   | Mountainous      | Charges due to mountainous reason | 10.0       |
+|  100     | Other            | Charges due to other reasons      | 20         |
+And I should see following details in the Accessorial charges section
+| Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+| $10              | $20.5       | $25.65      | $100  | $156.15 |

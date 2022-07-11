@@ -85,25 +85,11 @@ public class LogInSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
-            case "testdrivertywd_appledc_a_drvb washingtonb":
-                phone = PropertyUtility.getDataProperties("Washington.driver9.phone");
+            case "testdrivertywd_appledc_a_drvc washingtonc":
+                phone = PropertyUtility.getDataProperties("Washington.driver8.phone");
                 password = PropertyUtility.getDataProperties("new.driver.password");
                 shouldLoginSucessful = true;
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Washington.driver9.name"));
-                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
-                break;
-            case "testdrivertywd_appleks_a_drvz kansas_z":
-                phone = PropertyUtility.getDataProperties("Kansas.driver16.phone");
-                password = PropertyUtility.getDataProperties("new.driver.password");
-                shouldLoginSucessful = true;
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver16.name"));
-                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
-                break;
-            case "testdrivertywd_appleks_a_drvy kansas_y":
-                phone = PropertyUtility.getDataProperties("Kansas.driver15.phone");
-                password = PropertyUtility.getDataProperties("new.driver.password");
-                shouldLoginSucessful = true;
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver15.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Washington.driver8.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             case "testdrivertywd_appleks_a_drvai kansas_ai":
@@ -118,6 +104,55 @@ public class LogInSteps extends DriverBase {
                 password = PropertyUtility.getDataProperties("new.driver.password");
                 shouldLoginSucessful = true;
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver27.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_applega_a_stevec stark_altonec":
+                phone = PropertyUtility.getDataProperties("atlanta.driver2.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver2.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_appleks_a_drvar kansas_ar":
+                phone = PropertyUtility.getDataProperties("Kansas.driver31.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver31.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_appleks_a_drvas kansas_as":
+                phone = PropertyUtility.getDataProperties("Kansas.driver32.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver32.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_appleks_a_drvat kansas_at":
+                phone = PropertyUtility.getDataProperties("Kansas.driver33.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver33.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_appleks_a_drvau kansas_au":
+                phone = PropertyUtility.getDataProperties("Kansas.driver34.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver34.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_appleks_a_drvav kansas_av":
+                phone = PropertyUtility.getDataProperties("Kansas.driver35.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver35.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "valid denver driver 3":
+                phone = PropertyUtility.getDataProperties("denver.driver3.phone");
+                password = PropertyUtility.getDataProperties("denver.driver3.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver3.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             default:
@@ -149,6 +184,8 @@ public class LogInSteps extends DriverBase {
 
             action.clearEnterText(loginPage.TextField_PhoneNumber(),strUserName);
             action.clearEnterText(loginPage.Textfield_Password(),strPassWord);
+
+            cucumberContextManager.setScenarioContext("DRIVER_PHONE_NUMBER",username);
 
             pass( "Username and Password should be added successfully",
                     "Entered Driver Credentials ["+ strUserName+" / "+strPassWord+"] successfully");

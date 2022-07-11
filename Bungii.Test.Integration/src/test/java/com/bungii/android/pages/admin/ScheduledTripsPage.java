@@ -62,12 +62,12 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
     public WebElement Button_Research() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[2]", LocatorType.XPath); }
-   // wait
-   //public WebElement CheckBox_Driver1() {return findElement("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath); }
-   public WebElement CheckBox_DriverByName(String Name) {return findElement(String.format("//div[@id='tripDriverDetails']/div[@class='driver-research row']/span[contains(text(),'%s')]/preceding-sibling::label/span",Name), LocatorType.XPath); }
+    // wait
+    //public WebElement CheckBox_Driver1() {return findElement("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath); }
+    public WebElement CheckBox_DriverByName(String Name) {return findElement(String.format("//div[@id='tripDriverDetails']/div[@class='driver-research row']/span[contains(text(),'%s')]/preceding-sibling::label/span",Name), LocatorType.XPath); }
 
-  public WebElement CheckBox_Driver1() {return findElements("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath).get(0); }
-  public WebElement CheckBox_Driver2() {return findElements("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath).get(1); }
+    public WebElement CheckBox_Driver1() {return findElements("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath).get(0); }
+    public WebElement CheckBox_Driver2() {return findElements("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath).get(1); }
     public WebElement Button_Remove() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[1]", LocatorType.XPath); }
 
     public WebElement CheckBox_Driver1_Edit() {return findElement("//tr[1]/td/label/input", LocatorType.XPath); }
@@ -98,7 +98,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_SaveChanges(){return findElement("//button[@class='btn btn-primary ml15 saveTrip']", LocatorType.XPath);}
     public WebElement Text_SuccessMessage(){return findElement("//p[@id='success-message']/i[2]", LocatorType.XPath);}
     public WebElement Label_IconTextMessage(){return findElement("//table[@id='editTripDrivers']/tbody/tr/td/table/tbody/tr/td", LocatorType.XPath);}
-     public WebElement Label_StaticText(){return findElement("//em", LocatorType.XPath);}
+    public WebElement Label_StaticText(){return findElement("//em", LocatorType.XPath);}
 
     public WebElement Label_ChangedScheduledTime(){return findElement("//div[@class='tripDrivers row']//p[contains(text(),'Schedule Time:')]/following-sibling::p[1]", LocatorType.XPath);}
     public WebElement Button_ClosePopUp(){return findElement("//button[@class='close']/span", LocatorType.XPath);}
@@ -113,13 +113,29 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement Select_EditReason() {return findElement("ddEditDeliveryRemark",LocatorType.Id);}
 
+
+    public WebElement Button_StopSearching() {return findElement("btnStopSearch",LocatorType.Id);}
+
+    public WebElement Button_ConfirmStopSearching() {return findElement("btnConfirm",LocatorType.Id);}
+
+    public WebElement Button_CloseConfirm() {return findElement("//div[@id='stop-search-success-modal']/div/div/div/button[text()='Close']",LocatorType.XPath);}
+
+    public WebElement Text_BungiiStatus(){return findElement("//td[text()='Status']/following::td[1]/strong", LocatorType.XPath);}
+
     public WebElement Button_Price_Override() {return findElement("//td/a[@id='btnAdminOverride']",LocatorType.XPath);}
     public WebElement Text_Driver_Est_Earnings() {return findElement("//td[text()=' Driver Fixed Earnings - Pallet 1(1111 lbs)']/following::td[1]/strong",LocatorType.XPath);}
     public WebElement Textbox_Override_Driver_Cut() {return findElement("//div/input[@id='driverOneShare']",LocatorType.XPath);}
     public WebElement Dropdown_Reason_Override_Driver_Cut() { return findElement("//div/select[@id='driverEarningsReason']",LocatorType.XPath);}
     public WebElement Button_Save() { return findElement("saveAdminOverride",LocatorType.Id);}
     public WebElement Button_Success_Ok() { return findElement("//div[@class='modal-footer']/button[text()='Ok']",LocatorType.XPath);}
+
     public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
+
+    public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
+    public WebElement Label_HeaderPopup() { return findElement("//p[text()='Are you sure you want to revive the trip?']", LocatorType.XPath); }
+    public WebElement Label_PickupId() { return findElement("revive-pickup-id", LocatorType.Id); }
+    public WebElement Label_PickupCustomer() { return findElement("revive-pickup-customer", LocatorType.Id); }
+    public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
 
 
 

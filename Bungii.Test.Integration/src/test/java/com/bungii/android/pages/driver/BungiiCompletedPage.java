@@ -40,5 +40,16 @@ public class BungiiCompletedPage extends PageBase {
 
     public WebElement Button_SubmitRating(){return findElement("com.bungii.driver:id/appCompatButton3",LocatorType.Id);}
 
+    //Stay online/offline pop-up
+    public WebElement Notification_DriverStatus(boolean...ignoreException){return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id,ignoreException);}
+    public WebElement Text_NotificationDriverStatus(){return findElement("com.bungii.driver:id/appCompatTextView22",LocatorType.Id);}
+    public WebElement Button_StayOnline(){return findElement("com.bungii.driver:id/btnStayOnline_alert_dialog_controller",LocatorType.Id);}
+    public WebElement Button_GoOffline(){return findElement("com.bungii.driver:id/btnOffline_alert_dialog_controller",LocatorType.Id);}
+    public WebElement Slider_Online(){return findElement("com.bungii.driver:id/tvThumbStateOnline",LocatorType.Id);}
+    public WebElement Slider_Offline(){return findElement("com.bungii.driver:id/tvThumbStateOffline",LocatorType.Id);}
+
+    public WebElement Text_ChooseRating() {return findElement("com.bungii.driver:id/appCompatTextView64",LocatorType.Id);}
+    public WebElement Text_DriverExperience() {return findElement("com.bungii.driver:id/appCompatTextView62",LocatorType.Id);}
+    public WebElement Textbox_AdditionalFeedback() {return findElement("com.bungii.driver:id/activity_rate_delivery_participants_edit_text_additional_comments",LocatorType.Id);}
 
 }

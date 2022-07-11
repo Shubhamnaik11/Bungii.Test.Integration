@@ -11,7 +11,7 @@ public class Admin_AccessorialChargesPage extends PageBase {
     public WebElement DropDown_AccessorialFeeType() { return findElement("AccessorialFeeType", LocatorType.Name); }
     public WebElement Button_Save() { return findElement("//button[text()='Save']", LocatorType.XPath); }
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm' and @class='btn btn-primary']", LocatorType.XPath); }
-    public WebElement Header_Section() { return findElement("//h4[text()='Accessorial Charges']", LocatorType.XPath); }
+    public WebElement Header_Section(boolean...ignoreException) { return findElement("//h4[text()='Accessorial Charges']", LocatorType.XPath,ignoreException); }
     public WebElement Error_AccessoricalCharges() { return findElement("accessorial-fee-error", LocatorType.Name); }
     public WebElement Message_Mandatory() { return findElement("//div[@id='accessorial-charge']/label[2]", LocatorType.XPath); }
    public WebElement GridRow(String feeType) { return findElement(String.format("//td[text()='%s']/following-sibling::td",feeType), LocatorType.XPath); }

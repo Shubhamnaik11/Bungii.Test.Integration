@@ -395,11 +395,11 @@ public class DbUtility extends DbContextManager {
 
     public static long getDefaultPickupTime(String Service_Name,String SubDomain){
         long default_Pickup_Time=0;
-        String queryString ="select ss.default_pickup_time\n" +
-                "from bp_supplementary_service ss\n"+
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =ss.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "where c.IsActive = 1 and service_name='"+Service_Name+"' and subdomainname like '%"+SubDomain+"%'";
+        String queryString ="select sl.default_pickup_time\n" +
+                "from bp_service_level sl\n"+
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id =sl.bp_config_version_id\n" +
+                "join bp_store st on st.bp_store_id = fnm.bp_store_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and service_name='"+Service_Name+"' and subdomain_name like '%"+SubDomain+"%'";
 
         String default_Pickup_Time_Db = getDataFromMySqlMgmtServer(queryString);
         if(default_Pickup_Time_Db!=null){
@@ -416,11 +416,11 @@ public class DbUtility extends DbContextManager {
 
     public static long getDefaultDropoffTime(String Service_Name,String SubDomain){
         long default_Dropoff_Time=0;
-        String queryString ="select ss.default_dropoff_time\n" +
-                "from bp_supplementary_service ss\n"+
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =ss.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "where c.IsActive = 1 and service_name='"+Service_Name+"' and subdomainname like '%"+SubDomain+"%'";
+        String queryString ="select sl.default_dropoff_time\n" +
+                "from bp_service_level sl\n"+
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id =sl.bp_config_version_id\n" +
+                "join bp_store st on st.bp_store_id = fnm.bp_store_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and service_name='"+Service_Name+"' and subdomain_name like '%"+SubDomain+"%'";
 
         String default_Dropoff_Time_Db = getDataFromMySqlMgmtServer(queryString);
         if(default_Dropoff_Time_Db!=null){
@@ -437,10 +437,10 @@ public class DbUtility extends DbContextManager {
     public static List<HashMap<String,Object>> getListOfService(String Alias_Name){
         List<HashMap<String,Object>> Service = new ArrayList<>();
         String queryString = "select ss.service_name\n" +
-                "from bp_supplementary_service ss\n" +
-                "join business_partner_location_config_version c on c.business_partner_location_config_version_id =ss.business_partner_location_config_version_id\n" +
-                "join business_partner_location d on d.business_partner_location_id = c.business_partner_location_id\n" +
-                "where c.IsActive = 1 and alias like '"+Alias_Name+"%'";
+                "from bp_service_level ss\n" +
+                "join bp_store_setting_fn_matrix c on c.bp_config_version_id =ss.bp_config_version_id\n" +
+                "join bp_store d on d.bp_store_id = c.bp_store_id\n" +
+                "where c.bp_setting_fn_id = 3 and store_alias like '"+Alias_Name+"%'";
         Service = getListDataFromMySqlMgmtServer(queryString);
         return Service;
     }
@@ -458,6 +458,53 @@ public class DbUtility extends DbContextManager {
         partnerName = getDataFromMySqlServer(queryString);
         logger.detail("Partner_Name =  " + partnerName + " of Subdomain="+Sub_Domain_Name);
         return partnerName;
+
+    }
+
+    public String getSlotUsedCount(String date, String time, String address) {
+        String slotUsedCount = "";
+        String queryString = "SELECT slot_used_count\n" +
+                "FROM bp_store_location sl\n" +
+                "JOIN bp_store_slot ss ON ss.bp_store_location_id = sl.bp_store_location_id\n" +
+                "JOIN time_slot ts ON ts.time_slot_id = ss.time_slot_id\n" +
+                "WHERE address1 like '%"+address+"%'\n" +
+                "and slot_date in ('"+date+"') and time_slot_from in('"+time+"')\n" +
+                "ORDER BY slot_date, time_slot_from;\n";
+        slotUsedCount = getDataFromMySqlServer(queryString);
+        logger.detail("Slots used are " + slotUsedCount);
+        return slotUsedCount;
+    }
+
+    public String getSlotUsedCountByStoreName(String date, String time, String storeName) {
+        String slotUsedCount = "";
+        String queryString = "SELECT slot_used_count\n" +
+                "FROM bp_store_location sl\n" +
+                "JOIN bp_store_slot ss ON ss.bp_store_location_id = sl.bp_store_location_id\n" +
+                "JOIN time_slot ts ON ts.time_slot_id = ss.time_slot_id\n" +
+                "WHERE store_location_name ='"+storeName+"'\n" +
+                "and slot_date in ('"+date+"') and time_slot_from in('"+time+"')\n" +
+                "ORDER BY slot_date, time_slot_from;";
+        slotUsedCount = getDataFromMySqlServer(queryString);
+        logger.detail("Slots used are " + slotUsedCount);
+        return slotUsedCount;
+    }
+
+    public static List<String> getBodcCode(String Sub_Domain_Name) {
+        List<String> bodcCodeOptions= new ArrayList<>();
+        String queryString = "select JSON_EXTRACT(cvss.config_value ,'$.ControlValues') as DropdownValues from bungii_admin_qa_auto.bp_store bs\n" +
+                "inner join bungii_admin_qa_auto.bp_store_setting_fn_matrix fn on fn.bp_store_id = bs.bp_store_id\n" +
+                "inner join bungii_admin_qa_auto.bp_config_version_store_setting cvss on cvss.bp_config_version_id = fn.bp_config_version_id\n" +
+                "where bs.subdomain_name ='"+Sub_Domain_Name+"' and fn.bp_setting_fn_id = 1 and config_field_display_label='BODC Code'";
+        String response = getDataFromMySqlMgmtServer(queryString);
+        response = response.replace("[", "").replace("]","").replace("\"","");
+        String[] bodcCodeOptions1=response.split(", ");
+        bodcCodeOptions.add("Select");
+        for (int i=0; i<bodcCodeOptions1.length; i++)
+        {
+            bodcCodeOptions.add(bodcCodeOptions1[i]);
+        }
+        logger.detail("BodcCodeOptions=  " + bodcCodeOptions + " of Subdomain="+Sub_Domain_Name);
+        return bodcCodeOptions;
 
     }
 }
