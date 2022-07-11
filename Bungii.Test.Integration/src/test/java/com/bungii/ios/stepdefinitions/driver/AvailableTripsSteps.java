@@ -2,6 +2,7 @@ package com.bungii.ios.stepdefinitions.driver;
 
 
 import com.bungii.SetupManager;
+import com.bungii.ios.enums.Rejection_Reason;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -226,14 +227,14 @@ public class AvailableTripsSteps extends DriverBase {
 	public void i_check_if_all_reasons_are_displayed_on_rejection_popup() throws Throwable {
 		try{
 			List<String> expectedOptions = new ArrayList() {{
-				add("Too far away");
-				add("Earnings");
-				add("Labor requirements");
-				add("Type of item(s)");
-				add("Not enough information");
-				add("Not available");
+				Rejection_Reason.TOO_FAR_AWAY.toString();
+				Rejection_Reason.EARNINGS.toString();
+				Rejection_Reason.LABOR_REQUIREMENTS.toString();
+				Rejection_Reason.TYPE_OF_ITEM.toString();
+				Rejection_Reason.NOT_ENOUGH_INFORMATION.toString();
+				Rejection_Reason.NOT_AVAILABLE.toString();
 			}};
-			for (int j =0;j<6;j++){
+			for (int j =0;j<expectedOptions.size();j++){
 				String expectedReason= expectedOptions.get(j);
 				String actualReason = availableTripsPage.Text_RejectionReasons(expectedReason).getAttribute("name");
 				testStepAssert.isEquals(actualReason,expectedReason,"The actual and expected reasons should be same","The actual and expected reasons are the same","The actual and expected reasons are not the same");

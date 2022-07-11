@@ -217,7 +217,7 @@ public class AvailableTripsSteps extends DriverBase {
       try{
             Thread.sleep(1000);
             action.click(availableTrips.Button_Back());
-            Thread.sleep(12000);
+            Thread.sleep(2000);
 
             testStepAssert.isElementDisplayed(availableTrips.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
       }
@@ -287,10 +287,10 @@ public class AvailableTripsSteps extends DriverBase {
           }
 
        }
-       catch (Exception e){
+       catch (Exception e) {
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-           error("Step Should be successful", "Error in viewing result set",
-                   true);
+           error("Step  Should be successful",
+                   "Error performing step,Please check logs for more details", true);
        }
     }
     @And("^I click on \"([^\"]*)\" button on rejection popup$")
@@ -324,7 +324,7 @@ public class AvailableTripsSteps extends DriverBase {
                 testStepAssert.isTrue(true,"The rejection reason is saved in db","The rejection reason is not saved in db");
             }
             else{
-                testStepAssert.isTrue(false,"The rejection reason is saved in db","The rejection reason is not saved in db");
+                testStepAssert.isTrue(false,"The rejection reason should be saved in db","The rejection reason is not saved in db");
             }
         }
         catch (Exception e) {
