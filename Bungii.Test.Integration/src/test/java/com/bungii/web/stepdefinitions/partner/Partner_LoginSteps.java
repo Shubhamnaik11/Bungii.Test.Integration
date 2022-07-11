@@ -356,6 +356,20 @@ public class Partner_LoginSteps extends DriverBase {
                    break;
 
                case "estimated time fixed distance based Partner portal":
+                   String calLowerRange1 = (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
+                   String calUpperRange1 = (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
+                   String actualLowerRange1 = action.getText(Page_Partner_Delivery_List.Text_Delivery_Time()).toString().substring(0,5);
+                   testStepAssert.isEquals(actualLowerRange1,calLowerRange1,
+                           "The calculated lower range and the displayed should be same",
+                           "The calculated lower range and the displayed is same",
+                           "The calculated lower range and the displayed is not the same");
+                   String actualUpperRange1 = action.getText(Page_Partner_Delivery_List.Text_Delivery_Time()).toString().substring(11,16);
+                   testStepAssert.isEquals(actualUpperRange1,calUpperRange1,
+                           "The calculated upper range and the displayed should be same",
+                           "The calculated upper range and the displayed is same",
+                           "The calculated upper range and the displayed is not the same");
+                   break;
+
                case "estimated time geofence based Partner portal":
                    action.refreshPage();
                    String calLowerRange = (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");

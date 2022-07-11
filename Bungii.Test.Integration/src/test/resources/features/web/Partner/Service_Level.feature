@@ -124,7 +124,7 @@ Feature: Service Level
     Then I should "see the service name"
     #    Core - 3842 Verify that Estimated Delivery time is displayed correctly on delivery details of Fixed distance based Partner portal
     And I calculate the estimated delivery time for "fixed distance based"
-    And I check if correct "estimated time on partner portal" is displayed
+    And I check if correct "estimated time fixed distance based Partner portal" is displayed
     Then I close the Trip Delivery Details page
     When I navigate to "Admin" portal configured for "QA" URL
     And I wait for 2 minutes
