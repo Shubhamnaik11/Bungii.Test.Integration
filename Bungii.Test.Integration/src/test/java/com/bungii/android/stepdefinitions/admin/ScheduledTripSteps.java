@@ -603,6 +603,42 @@ public class ScheduledTripSteps extends DriverBase {
 		}
 	}
 
+	@And("^I stop searching driver$")
+	public void i_stop_searching_driver() throws Throwable {
+		try{
+			action.click(scheduledTripsPage.Button_StopSearching());
+			Thread.sleep(3000);
+			action.JavaScriptClick(scheduledTripsPage.Button_ConfirmStopSearching());
+			Thread.sleep(2000);
+			action.JavaScriptClick(scheduledTripsPage.Button_CloseConfirm());
+			Thread.sleep(2000);
+			action.JavaScriptClick(scheduledTripsPage.Button_Ok());
+			Thread.sleep(1000);
+
+			log("I should be able to stop searching driver",
+					"I am able to stop searching driver",
+					false);
+
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+	@Then("^I check if delivery status is \"([^\"]*)\"$")
+	public void i_check_if_delivery_status_is_something(String status) throws Throwable {
+		try {
+			action.refreshPage();
+			testStepAssert.isEquals(scheduledTripsPage.Text_BungiiStatus().getText(),status,"The status should be No Driver(s) Found","The status is No Driver(s) Found","The status is not No Driver(s) Found");
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+
 	@And("^I open the trip for customer using pickupref$")
 	public void i_open_the_trip_for_customer() throws Throwable {
 		String pickupref = "";
@@ -1005,8 +1041,8 @@ public class ScheduledTripSteps extends DriverBase {
 			pass("I should able to open trip", "I viewed scheduled delivery",
 					false);
 
-			log(" I click on Edit link besides the scheduled bungii",
-					"I have clicked on Edit link besides the scheduled bungii", false);
+			log(" I click on Delivery Details besides the scheduled bungii",
+					"I have clicked on Delivery Details besides the scheduled bungii", false);
 		} catch(Exception e){
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error("Step should be successful", "Error performing step,Please check logs for more details",
