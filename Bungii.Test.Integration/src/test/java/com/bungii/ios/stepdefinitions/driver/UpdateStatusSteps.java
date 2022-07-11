@@ -37,14 +37,6 @@ public class UpdateStatusSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     private TripDetailsPage tripDetailsPage;
-    int[][] rgb = {
-            {238, 29, 58},
-            {255, 169, 61},
-            {169, 204, 50},
-            {37, 171, 226},
-            {50, 51, 255},
-
-    };
     private UpdateStatusPage updateStatusPage;
 
     public UpdateStatusSteps(UpdateStatusPage updateStatusPage, MessagesPage messagesPage,TripDetailsPage tripDetailsPage) {
