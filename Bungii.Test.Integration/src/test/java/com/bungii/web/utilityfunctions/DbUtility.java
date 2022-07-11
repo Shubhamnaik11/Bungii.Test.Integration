@@ -488,4 +488,18 @@ public class DbUtility extends DbContextManager {
         logger.detail("Slots used are " + slotUsedCount);
         return slotUsedCount;
     }
+    public String getLoadUnloadTime(String pickUpID) {
+        String loadUnloadTime = "";
+        String queryString = "select LoadingUnloadingTime from pickupdetails where pickupref = '"+pickUpID+"'";
+        loadUnloadTime = getDataFromMySqlServer(queryString);
+        logger.detail("Load/Unload time required is " + loadUnloadTime);
+        return loadUnloadTime;
+    }
+    public String getProjectedDriverTime(String pickUpID) {
+        String projectedDriverTime = "";
+        String queryString = "select EstTime from pickupdetails where pickupref = '"+pickUpID+"'";
+        projectedDriverTime = getDataFromMySqlServer(queryString);
+        logger.detail("Projected Driver Time is " + projectedDriverTime);
+        return projectedDriverTime;
+    }
 }
