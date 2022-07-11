@@ -140,7 +140,13 @@ public class GeneralUtility extends DriverBase {
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");
         return adminURL;
     }
-
+    public String GetPartnerUrl() {
+        String partnerURL = null;
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")|| environment.equalsIgnoreCase("QA_AUTO_AWS"))
+            partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+        return partnerURL;
+    }
 
     public void handleIosUpdateMessage() {
         try {
