@@ -197,6 +197,8 @@ public class Admin_RevivalSteps extends DriverBase {
         try{
         action.clearSendKeys(admin_RevivalPage.Textbox_CommentForStatus(), textmessage+ Keys.ENTER);
         Thread.sleep(3000);
+        log("I should be able to enter the text "+textmessage+" in the textarea",
+                "I could enter the text "+textmessage+" in the textarea",false);
     }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -219,6 +221,7 @@ public class Admin_RevivalSteps extends DriverBase {
                                     "Delivery is not in " +deliveryStatus+ " state");
                             break;
                     }
+                    break;
                 case "All Deliveries":
                     switch (deliveryStatus){
                         case "Admin Canceled - No Driver(s) Found":
@@ -231,6 +234,7 @@ public class Admin_RevivalSteps extends DriverBase {
                                     "Delivery is not in " +deliveryStatus+ " state");
                             break;
                     }
+                    break;
             }
     }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
