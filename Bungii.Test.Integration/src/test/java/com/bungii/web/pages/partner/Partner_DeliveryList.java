@@ -18,7 +18,7 @@ public class Partner_DeliveryList extends PageBase {
     public WebElement Record1() { return findElement("//tr[@id='MUIDataTableBodyRow-0']",LocatorType.XPath);}
 
     //Estimated delivery time on partner portal delivery details
-    public WebElement Text_Delivery_Time() {return findElement("//label[contains(text(),'ESTIMATED DELIVERY TIME')]/following-sibling::p",LocatorType.XPath);}
+    public WebElement Text_DeliveryTime() {return findElement("//label[contains(text(),'ESTIMATED DELIVERY TIME')]/following-sibling::p",LocatorType.XPath);}
 
     //Delivery Details
     public WebElement Delivery_Details_Dashboard() { return findElement("//h2[contains(text(),'Delivery Details')]",LocatorType.XPath);}
@@ -74,7 +74,7 @@ public class Partner_DeliveryList extends PageBase {
     //Estimated Duration on Admin Portal
     public WebElement Text_Estimated_Duration() { return findElement("//td[contains(text(),'Estimated Duration')]/following-sibling::td[1]",LocatorType.XPath);}
 
-    public WebElement Text_Estimated_Delivery_Time() { return findElement("//td[contains(text(),'Estimated Delivery Time')]/following-sibling::td[1]",LocatorType.XPath);}
+    public WebElement Text_EstimatedDeliveryTime() { return findElement("//td[contains(text(),'Estimated Delivery Time')]/following-sibling::td[1]",LocatorType.XPath);}
 
     public WebElement Row_DeliveryList(String scheduled_time, String customer) { return findElements(String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer),LocatorType.XPath).get(0);}
 
