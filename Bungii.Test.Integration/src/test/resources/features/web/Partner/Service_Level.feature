@@ -94,7 +94,6 @@ Feature: Service Level
   #CORE-1541
   @regression
     #stable
-#    @testsweta
   Scenario: Verify that correct Estimate duration for service level partner portal trip is shown in Admin portal
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -128,7 +127,6 @@ Feature: Service Level
     Then I close the Trip Delivery Details page
     When I navigate to "Admin" portal configured for "QA" URL
     And I wait for 2 minutes
-    And I view the all Scheduled Deliveries list on the admin portal
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
@@ -156,9 +154,7 @@ Feature: Service Level
     Then I should "see the trip in the Delivery List"
     And I select the Scheduled Bungii from Delivery List
     And I calculate the estimated delivery time for "fixed distance based"
-    And I check if correct "estimated time on partner portal" is displayed
-
-
+    And I check if correct "estimated time fixed distance based Partner portal" is displayed
 
 #CORE-1862 scenario
   @regression
