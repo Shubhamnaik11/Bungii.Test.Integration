@@ -435,7 +435,7 @@ Feature: Admin_Reason_Code
 
   #CORE-2507 :Verify accessorial charges are not refunded on status change
   @ready
-  Scenario: Verify Reason dropdown for PARTNER DUO(Geofence based pricing) re-scheduled delivery when Both Driver do not accept and admin edits only time when Partner Initiated
+  Scenario: Verify accessorial charges are not refunded on status change
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 8877661050 | Testcustomertywd_appleMarkAY LutherAY|
