@@ -432,3 +432,42 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
     |  Status |
     | Assigning Driver(s)|
+
+    #CORE-3381:To verify that customer trips can be revived after admin cancels
+@testAllan
+  Scenario: Verify Driver Removal Research and Cancel As An Admin For Solo Scheduled Pickup
+  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+    | Bungii Time   | Customer Phone | Customer Name |
+    | NEXT_POSSIBLE | 9999999358 | Testcustomertywd_appleWashC Shah|
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Edit" button from the dropdown
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
+    And I click on "Submit" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for 2 minutes
+    And I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then I should see the cancelled trip icon displayed for the delivery
+    Then Revive button should be displayed beside the trip
+    When I click on "Revive" button
+	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+    When I click on "Cancel" button on Revival Popup
+    Then Revive button should be displayed beside the trip
+    When I click on "Revive" button
+    Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+	When I click on "Confirm" button on Revival Popup
+    And I get the new pickup reference generated
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+    |  Status |
+    | Assigning Driver(s)|
+   When I click on the "Delivery Details" button from the dropdown
+  Then The pickup reference should be changed to the new pickup reference
+    And I view All Deliveries list on the admin portal
+    And I search the delivery using old pickup reference
+    Then The Delivery List page should display the delivery in "Admin Canceled" state

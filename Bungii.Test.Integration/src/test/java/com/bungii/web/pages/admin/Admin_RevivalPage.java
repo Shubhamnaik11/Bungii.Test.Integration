@@ -19,4 +19,8 @@ public class Admin_RevivalPage extends PageBase {
 
     public WebElement Label_PickupPartnerPortal() { return findElement("revive-pickup-partner-portal", LocatorType.Id); }
 
+    public WebElement Icon_CancelledTrip() { return findElement("//tbody/tr/td[1]/a/img", LocatorType.XPath); }
+
+    public WebElement Label_PickUpReference() { return findElement("//tbody/tr/td[1]/a/img", LocatorType.XPath); }
+
 }

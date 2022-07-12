@@ -14,8 +14,9 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.text.DecimalFormat;
 
@@ -31,8 +32,7 @@ public class Admin_RevivalSteps extends DriverBase {
     DbUtility dbUtility = new DbUtility();
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
-
-
+    Admin_TripsPage adminTripsPage = new Admin_TripsPage();
     @Then("^Revive button should be displayed beside the trip$")
     public void revive_button_should_be_displayed_beside_the_trip() throws Throwable {
         try {
@@ -112,5 +112,29 @@ public class Admin_RevivalSteps extends DriverBase {
                 true);
     }
     }
+
+    @Then("^I should see the cancelled trip icon displayed for the delivery$")
+    public void i_should_see_the_cancelled_trip_icon_displayed_for_the_delivery() throws Throwable {
+        Thread.sleep(1000);
+        testStepAssert.isElementDisplayed(admin_RevivalPage.Icon_CancelledTrip(),"Cancelled icon should be displayed","Cancelled icon is displayed","Cancelled icon is not displayed");
+    }
+
+    @And("^I search the delivery using old pickup reference$")
+    public void i_search_the_delivery_using_old_pickup_reference() throws Throwable {
+        String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
+        Thread.sleep(2000);
+        action.clearSendKeys(adminTripsPage.TextBox_Search(), oldPickupRef + Keys.ENTER);
+        log("I should be able to search the delivery using the old pickup reference",
+                "I could search the delivery using the old pickup reference",false);
+    }
+
+    @Then("^The pickup reference should be changed to the new pickup reference$")
+    public void the_pickup_reference_should_be_changed_to_the_new_pickup_reference() throws Throwable {
+      String newPickupReference = action.getText(admin_RevivalPage.Label_PickUpReference());
+      String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
+      testStepAssert.isEquals(newPickupReference,oldPickupRef,"The pickup reference should be changed to " +newPickupReference,"The pickup reference is changed to " +newPickupReference,"The pickup reference is not changed to " +newPickupReference);
+
+    }
+
 
 }
