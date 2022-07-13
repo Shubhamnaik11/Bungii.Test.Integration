@@ -130,10 +130,10 @@ public class Admin_RevivalSteps extends DriverBase {
 
     @Then("^The pickup reference should be changed to the new pickup reference$")
     public void the_pickup_reference_should_be_changed_to_the_new_pickup_reference() throws Throwable {
-      String newPickupReference = action.getText(admin_RevivalPage.Label_PickUpReference());
+      String[] newPickupReferenceEntireText = action.getText(admin_RevivalPage.Label_PickUpReference()).split(":");
+      String newPickupReference = newPickupReferenceEntireText[1].trim();
       String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
-      testStepAssert.isEquals(newPickupReference,oldPickupRef,"The pickup reference should be changed to " +newPickupReference,"The pickup reference is changed to " +newPickupReference,"The pickup reference is not changed to " +newPickupReference);
-
+      testStepVerify.isEquals(newPickupReference,oldPickupRef,"The pickup reference should be changed to " +newPickupReference,"The pickup reference is changed to " +newPickupReference,"The pickup reference is not changed to " +newPickupReference);
     }
 
 

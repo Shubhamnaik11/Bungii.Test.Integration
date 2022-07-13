@@ -21,6 +21,6 @@ public class Admin_RevivalPage extends PageBase {
 
     public WebElement Icon_CancelledTrip() { return findElement("//tbody/tr/td[1]/a/img", LocatorType.XPath); }
 
-    public WebElement Label_PickUpReference() { return findElement("//tbody/tr/td[1]/a/img", LocatorType.XPath); }
+    public WebElement Label_PickUpReference() { return findElement("//div/div[@class=\"panel-heading\"]/h4[2]", LocatorType.XPath); }
 
 }
