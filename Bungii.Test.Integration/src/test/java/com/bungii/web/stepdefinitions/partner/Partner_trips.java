@@ -1264,10 +1264,10 @@ try{
         if(deliveryMonth.equals(currentMonth)) {
             if(tripDateAhead.startsWith("0")){
                 String TripAheadWithoutZero= tripDateAhead.replace("0","");
-                action.click(admin_ScheduledTripsPage.Link_newScheduleDeliveryDate(TripAheadWithoutZero));
+                action.click(admin_ScheduledTripsPage.Link_NewScheduleDeliveryDate(TripAheadWithoutZero));
             }
             else {
-                action.click(admin_ScheduledTripsPage.Link_newScheduleDeliveryDate(tripDateAhead));
+                action.click(admin_ScheduledTripsPage.Link_NewScheduleDeliveryDate(tripDateAhead));
             }
 
         }
@@ -1276,9 +1276,9 @@ try{
 
                 if (tripDateAhead.startsWith("0")) {
                     String datewithoutzero = tripDateAhead.replace("0", "");
-                    action.click(admin_ScheduledTripsPage.Link_newScheduleDeliveryDate(datewithoutzero));
+                    action.click(admin_ScheduledTripsPage.Link_NewScheduleDeliveryDate(datewithoutzero));
                 } else {
-                    action.click(admin_ScheduledTripsPage.Link_newScheduleDeliveryDate(tripDateAhead));
+                    action.click(admin_ScheduledTripsPage.Link_NewScheduleDeliveryDate(tripDateAhead));
                 }
         }
         log("I should be able to schedule the delivery "+noOfDays +" days from today","I could schedule the delivery " +noOfDays+" days from today",false);

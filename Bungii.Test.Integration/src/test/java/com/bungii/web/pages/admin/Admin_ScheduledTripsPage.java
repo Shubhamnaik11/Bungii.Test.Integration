@@ -187,6 +187,6 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_EditScheduleTripCalenderPreviousMonth(){return  findElement("//div/a[1]/span[1]",LocatorType.XPath);}
 
-    public WebElement Link_newScheduleDeliveryDate(String newDate){return  findElement(String.format("//tbody/tr/td/a[text()=\"%s\"]",newDate),LocatorType.XPath);}
+    public WebElement Link_NewScheduleDeliveryDate(String newDate){return  findElement(String.format("//tbody/tr/td/a[text()=\"%s\"]",newDate),LocatorType.XPath);}
 
 }
