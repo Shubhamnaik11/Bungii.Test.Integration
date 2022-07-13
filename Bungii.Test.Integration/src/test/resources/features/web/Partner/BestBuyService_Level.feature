@@ -166,19 +166,7 @@ Feature: Service Level
     And  I search the delivery using "Pickup Reference"
     Then In "All Deliveries" the trip should be  having a indicator with the text "New-4"
 
-   When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
-     |Geofence| Bungii Time   | Customer Phone | Customer Name |
-     |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
-   And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" partner portal trip
-     | driver1 state   |
-     | Accepted      |
-     | Enroute       |
-     | Driver Canceled |
-   And I wait for 2 minutes
-   And I view All Deliveries list on the admin portal
-   And  I search the delivery using "Pickup Reference"
-   Then In "All Deliveries" the trip should be  having a indicator with the text "New-4"
-
+    
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
