@@ -145,7 +145,7 @@ public class Admin_RevivalSteps extends DriverBase {
         try{
         switch (changeStatusLink){
             case "Not Displayed":
-                testStepVerify.isElementNotDisplayed(admin_RevivalPage.Link_ChangeDeliveryStatus(true),"Element should not be displayed","Element is not displayed","Element is displayed");
+                testStepAssert.isNotElementDisplayed(admin_RevivalPage.Link_ChangeDeliveryStatus(true),"Element should not be displayed","Element is not displayed","Element is displayed");
                 break;
             case "Is Displayed":
                 testStepAssert.isElementDisplayed(admin_RevivalPage.Link_ChangeDeliveryStatus(),"Element should be displayed","Element is displayed","Element is not displayed");
@@ -183,7 +183,7 @@ public class Admin_RevivalSteps extends DriverBase {
     @Then("^I should be able to see the comment textbox displayed$")
     public void i_should_be_able_to_see_the_comment_textbox_displayed() throws Throwable {
         try{
-        testStepVerify.isElementDisplayed(admin_RevivalPage.Textbox_CommentForStatus(),"Textbox should be displayed","Textbox is displayed","Textbox is not  displayed");
+        testStepAssert.isElementDisplayed(admin_RevivalPage.Textbox_CommentForStatus(),"Textbox should be displayed","Textbox is displayed","Textbox is not  displayed");
     }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -216,7 +216,7 @@ public class Admin_RevivalSteps extends DriverBase {
                         case "Assigning Driver(s)":
                             Thread.sleep(3000);
                             String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(12));
-                            testStepVerify.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",
+                            testStepAssert.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",
                                     "Delivery is  in " +status+ " state",
                                     "Delivery is not in " +deliveryStatus+ " state");
                             break;
@@ -229,7 +229,7 @@ public class Admin_RevivalSteps extends DriverBase {
                         case "Driver Canceled":
                             Thread.sleep(3000);
                             String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(11));
-                            testStepVerify.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",
+                            testStepAssert.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",
                                     "Delivery is  in " +status+ " state",
                                     "Delivery is not in " +deliveryStatus+ " state");
                             break;
