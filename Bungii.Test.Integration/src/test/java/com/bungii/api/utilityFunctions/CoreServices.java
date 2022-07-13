@@ -26,6 +26,7 @@ import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.utilities.ApiHelper.gson;
+import static io.restassured.RestAssured.given;
 
 public class CoreServices extends DriverBase {
     private static LogUtility logger = new LogUtility(CoreServices.class);
@@ -54,6 +55,8 @@ public class CoreServices extends DriverBase {
     private static String PARTNER_DELIVERYINFOMATION = "/api/partner/deliveryinformation";
     private static String PARTNER_GRAPHQL = "/graphql";
     private static String PARTNER_CONFIRM_PICKUP = "/api/partner/confirmpickup";
+    private static String DRIVER_REJECTION_REASON = "/api/driver/getRemarks?remarkby=4";
+    private static String DRIVER_SAVE_REJECTION_REASON = "/api/driver/pickupremark";
 
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
@@ -1050,7 +1053,37 @@ public class CoreServices extends DriverBase {
         //ApiHelper.genericResponseValidation(response);
         return response;
     }
+    public void updateStatusForDriverReject(String pickupID, String authToken) {
+        try {
+            String utcTime= utility.getCurrentUTCTime();
+            String RequestText = "API REQUEST : Select rejection reason pickup id : "+ pickupID + " | Authtoken : "+ authToken + " at "+ utcTime;
+            String apiURL = null;
+            apiURL = UrlBuilder.createApiUrl("core",DRIVER_REJECTION_REASON);
 
+            Header header = new Header("AuthorizationToken", authToken);
+
+            Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickupID).when().get(apiURL);
+            //response.then().log().body();
+            String rejectionReason= response.getBody().jsonPath().get("Remarks[1].Description");
+
+            String apiurl = null;
+            apiurl=UrlBuilder.createApiUrl("core",DRIVER_SAVE_REJECTION_REASON);
+
+            String remarkID=new DbUtility().getRemarkId(rejectionReason);
+
+            JSONObject jsonObj = new JSONObject();
+            JSONObject status = new JSONObject();
+                status.put("PickupRequestID", pickupID);
+                status.put("RemarkID", remarkID);
+                status.put("RemarkText", "");
+
+            Response respons = ApiHelper.postDetailsForDriver(apiurl, status, header);
+            ApiHelper.genericResponseValidation(respons,RequestText);
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+
+    }
 
     public void updateStatus(String pickupID, String authToken, int statusID) {
         try {

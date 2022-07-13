@@ -172,10 +172,18 @@ Feature: Driver Earnings
       And I Select Trip from driver scheduled trip
       And I check if "dropoff address" is updated
       And I check if "pickup address" is updated
-
-      Then I cancel all bungiis of customer
-        | Customer Phone  | Customer2 Phone |
-        | 8877661015      |                 |
+#     Core - 3113 Verify that driver can rate customer after delivery completes with any admin edits.
+      And I start selected Bungii
+      Then Bungii driver should see "General Instructions"
+      Then Bungii driver should see "Enroute screen"
+      And I slide update button on "EN ROUTE" Screen
+      And I slide update button on "ARRIVED" Screen
+      And I slide update button on "LOADING ITEM" Screen
+      And I slide update button on "DRIVING TO DROP OFF" Screen
+      And I slide update button on "UNLOADING ITEM" Screen
+      When Bungii Driver "rates customer"
+      And I click on "SUBMIT RATING" button
+      Then I click "Next Bungii" button on the "Bungii Completed" screen
 
 #    Core-2117  Verify that already accepted stacked trip does not change if current trips address(s) changes
    @ready

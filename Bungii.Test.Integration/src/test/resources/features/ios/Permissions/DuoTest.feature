@@ -143,7 +143,7 @@ Feature: Duo Test
 	And I click "Skip This Step" button on "Rate customer" screen
 	Then Bungii driver should see "correct details" on Bungii completed page
 	And I click "On To The Next One" button on "Bungii completed" screen
- 
+
  
 	When I Switch to "driver" application on "Driver2" devices
 	And I click "Skip This Step" button on "Rate customer" screen

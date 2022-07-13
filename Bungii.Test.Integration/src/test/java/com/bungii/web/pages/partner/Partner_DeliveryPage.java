@@ -63,6 +63,9 @@ public class Partner_DeliveryPage extends PageBase {
     //Bodc Code
     public WebElement Dropdown_BodcCode() { return findElement("//label[text()='BODC Code']/following::div[1]/div[1]",LocatorType.XPath);}
 
+    //Bodc Options
+    public List<WebElement> Dropdown_BodcCodeOptions() {return findElements("//div/div/ul/li", LocatorType.XPath); }
+
     //Select Bodc Code value
     public WebElement Dropdown_BodcCodeValue() { return findElement("//li[contains(text(),'SVC02/09/00')]",LocatorType.XPath);}
 
