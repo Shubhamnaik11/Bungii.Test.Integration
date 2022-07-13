@@ -434,8 +434,8 @@ Feature: Admin_Trips
     | Assigning Driver(s)|
 
     #CORE-3381:To verify that customer trips can be revived after admin cancels
-@testAllan
-  Scenario: Verify Driver Removal Research and Cancel As An Admin For Solo Scheduled Pickup
+@ready
+  Scenario:To verify that customer trips can be revived after admin cancels
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
     | NEXT_POSSIBLE | 9999999358 | Testcustomertywd_appleWashC Shah|
@@ -514,3 +514,43 @@ Feature: Admin_Trips
   And I click on "Process Refund" button on Issue Refund popup
   Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
   When I click on "OK" button
+
+#  @testAllan
+  Scenario:To verify that admin can fully refund completed trips which were revived
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999999358 | Testcustomertywd_appleWashC Shah|
+    And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      |Accepted |
+      | Enroute  |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Trip Started |
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Canceled" radiobutton
+    And I click on "UPDATE BUNGII" button
+    Then The "Pick up has been successfully canceled." message should be displayed for live delivery
+    And I wait for 2 minutes
+    And I view the Deliveries list on the admin portal
+    Then The Delivery List page should display the delivery in "Driver Canceled" state
+    Then Revive button should be displayed beside the trip
+    When I click on "Revive" button
+    Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+    When I click on "Confirm" button on Revival Popup
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
+      | Bungii Completed |
