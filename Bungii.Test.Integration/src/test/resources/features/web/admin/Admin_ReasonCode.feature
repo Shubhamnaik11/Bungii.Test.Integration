@@ -411,7 +411,7 @@ Feature: Admin_Reason_Code
     And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
-   Then Revive button should be displayed beside the trip
+    Then Revive button should be displayed beside the trip
     Then The "All Deliveries" should be in "<Trip Status>" state
     And The amount should be "Refunded" and in "voided" state
     When I click on "Revive" button
