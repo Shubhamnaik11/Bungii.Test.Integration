@@ -507,4 +507,10 @@ public class DbUtility extends DbContextManager {
         return bodcCodeOptions;
 
     }
+    public static String getDriverStatus(String phoneNumber){
+        String driverStatus;
+        String entireQueryString = "select OnlineStatus from driver where Phone= " +phoneNumber;
+        driverStatus = getDataFromMySqlServer(entireQueryString);
+        return driverStatus;
+    }
 }
