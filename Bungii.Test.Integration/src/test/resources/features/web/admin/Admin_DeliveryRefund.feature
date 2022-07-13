@@ -41,7 +41,7 @@ Feature: Admin_Refund
 	Then The "Issue Refund" button should not be displayed
 	#CORE-2507: Verify Change status icon is not displayed for trip which was partially refunded prior status change
 	When I view All Deliveries list on the admin portal
-      And I search the delivery using "Pickup Reference"
+    And I search the delivery using "Pickup Reference"
 	Then I should see the change status link "Not Displayed"
   
   @regression
