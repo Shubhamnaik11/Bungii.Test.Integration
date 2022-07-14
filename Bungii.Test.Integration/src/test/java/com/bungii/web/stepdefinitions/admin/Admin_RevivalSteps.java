@@ -297,6 +297,7 @@ public class Admin_RevivalSteps extends DriverBase {
 
     @And("^I search the delivery using old pickup reference$")
     public void i_search_the_delivery_using_old_pickup_reference() throws Throwable {
+//        cucumberContextManager.setScenarioContext("OLD_PICKUP_REQUEST","a0befc38-17d3-77db-9d50-a7df0a3b0c09");
         String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
         Thread.sleep(2000);
         action.clearSendKeys(adminTripsPage.TextBox_Search(), oldPickupRef + Keys.ENTER);
@@ -311,6 +312,15 @@ public class Admin_RevivalSteps extends DriverBase {
       String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
       testStepVerify.isEquals(newPickupReference,oldPickupRef,"The pickup reference should be changed to " +newPickupReference,"The pickup reference is changed to " +newPickupReference,"The pickup reference is not changed to " +newPickupReference);
     }
+
+
+    @And("^I set the cancelled delivery pickup reference as recent pickup reference to verify data in db$")
+    public void i_set_the_cancelled_delivery_pickup_reference_as_recent_pickup_reference_to_verify_data_in_db() throws Throwable {
+        String pickupreference = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
+        cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupreference);
+
+    }
+
 
 
 }

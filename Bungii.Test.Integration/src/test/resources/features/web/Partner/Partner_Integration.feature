@@ -753,7 +753,7 @@ Feature: Partner Integration with Admin and Driver
     #  | Partner_Status |
     #  | Completed      |
 
-  @testAllan
+#  @testAllan
   Scenario: To verify that revive button works fine for partner portal/customers having special characters in name field
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
