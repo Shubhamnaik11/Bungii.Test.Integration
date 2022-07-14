@@ -1008,6 +1008,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Generate Report":
                     action.click(Page_Partner_Delivery.Button_GenerateReport());
                     break;
+                case "Confirm Status":
+                    action.click(admin_revivalPage.Button_ConfirmStatus());
+                    break;
+                case "Cancel Status":
+                    action.click(admin_revivalPage.Button_CloseStatus());
+                    break;
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", false);
