@@ -109,6 +109,14 @@ public class AuthServices extends DriverBase {
             cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerURL);
             logger.detail("PartnerLocationReference="+Partner_Location_Reference);
         }
+        //biglots
+        else if(Partner_Portal.equalsIgnoreCase("Biglots")){
+            Partner_Location_Reference= PropertyUtility.getDataProperties("qa.service_level_partner.ref");
+            cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
+            partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
+            cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerURL);
+            logger.detail("PartnerLocationReference="+Partner_Location_Reference);
+        }
         else{
             logger.detail("Please provide proper partner portal alias.");
         }
@@ -143,8 +151,13 @@ public class AuthServices extends DriverBase {
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response, RequestText);
 
-        String[] abc = {jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressRef[0]").toString(),jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressConfigVersionID[0]").toString()};
-        return abc;
+        String portalName= (String) cucumberContextManager.getScenarioContext("Portal_Name");
+        if (portalName.equalsIgnoreCase("Biglots")){
+            return null;
+        }else {
+            String[] businessPartnerDefaultAddressRef = {jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressRef[0]").toString(),jsonPathEvaluator.get("PartnerLocationSettings.DefaultPickupLocationInfo.Address.BusinessPartnerDefaultAddressConfigVersionID[0]").toString()};
+            return businessPartnerDefaultAddressRef;
+        }
         //return response;
 
     }

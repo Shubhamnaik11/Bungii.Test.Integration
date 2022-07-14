@@ -26,6 +26,7 @@ import org.openqa.selenium.WebElement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -181,6 +182,9 @@ public class Partner_LoginSteps extends DriverBase {
                 case "Schedule Bungii":
                     action.JavaScriptScrolldown();
                     action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
+                    break;
+                case "New Bungii":
+                    action.click(Page_Partner_Delivery.Button_New_Bungii());
                     break;
                 case "Track Deliveries":
                     Thread.sleep(5000);
@@ -723,6 +727,158 @@ public class Partner_LoginSteps extends DriverBase {
                     true);
 
         }
+    }
+    @And("^I check in the db the number of timeslots available \"([^\"]*)\"$")
+    public void i_check_in_the_db_the_number_of_timeslots_available_something(String duration) throws Throwable {
+       try{
+           String scheduledTime= (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
+           String bestBuyAddress=PropertyUtility.getDataProperties("partner.bestbuy.address1");
+           String time=scheduledTime.substring(8,13);
+           Date now = new Date();
+           LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+           String date = String.valueOf(localDate);
+           switch (duration){
+               case "before schedule for best buy":
+                   String timeSlotsUsed = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   cucumberContextManager.setScenarioContext("TIME_SLOTS_BEFORE_SCHEDULE",timeSlotsUsed);
+                   break;
+
+               case "after schedule for best buy":
+                   String beforeSchedule= (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_BEFORE_SCHEDULE");
+                   int timeSlotsBefore = Integer.parseInt(beforeSchedule);
+                   String timeSlotsUsedAfterSchedule = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int timeSlotsAfter = Integer.parseInt(timeSlotsUsedAfterSchedule);
+                   cucumberContextManager.setScenarioContext("TIME_SLOTS_AFTER_SCHEDULE",timeSlotsUsedAfterSchedule);
+                   testStepAssert.isTrue(timeSlotsAfter == (timeSlotsBefore+1),
+                               "Time slot used count should increase after schedule","Time slot used count is not increased after schedule");
+                   break;
+
+               case "after schedule for duo for best buy":
+                   String beforeScheduleDuo= (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_BEFORE_SCHEDULE");
+                   int timeSlotsBeforeDuo = Integer.parseInt(beforeScheduleDuo);
+                   String timeSlotsUsedAfterScheduleDuo = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int timeSlotsAfterDuo = Integer.parseInt(timeSlotsUsedAfterScheduleDuo);
+                   cucumberContextManager.setScenarioContext("TIME_SLOTS_AFTER_SCHEDULE",timeSlotsUsedAfterScheduleDuo);
+                   testStepAssert.isTrue(timeSlotsAfterDuo ==(timeSlotsBeforeDuo +2),
+                               "Time slot used count should increase after schedule","Time slot used count is not increased after schedule");
+                   break;
+
+               case "after changing bungii type from solo to duo":
+                   String afterSchedule = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_SCHEDULE");
+                   int timeSlotsAfterSoloToDuo = Integer.parseInt(afterSchedule);
+                   String timeSlotsUsedAfterChangingBungiiTypeSoloToDuo = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int soloToDuoCount= Integer.parseInt(timeSlotsUsedAfterChangingBungiiTypeSoloToDuo);
+                   testStepAssert.isTrue(soloToDuoCount == (timeSlotsAfterSoloToDuo+1),
+                           "Time slot used count should increase after change from solo to duo","Time slot used count remains unchanged");
+                  cucumberContextManager.setScenarioContext("TIME_SLOTS_AFTER_CONVERSION_SOLO_TO_DUO",timeSlotsUsedAfterChangingBungiiTypeSoloToDuo);
+                   break;
+
+               case "after changing bungii type from duo to solo":
+                   String afterScheduleDuoToSolo = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_SCHEDULE");
+                   int timeSlotsAfterDuoToSolo = Integer.parseInt(afterScheduleDuoToSolo);
+                   String timeSlotsUsedAfterChangingBungiiTypeDuoToSolo = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int duoToSoloCount= Integer.parseInt(timeSlotsUsedAfterChangingBungiiTypeDuoToSolo);
+                   testStepAssert.isTrue(duoToSoloCount == (timeSlotsAfterDuoToSolo-1),
+                           "Time slot used count should decrease after change from solo to duo","Time slot used count remains unchanged");
+                   cucumberContextManager.setScenarioContext("TIME_SLOTS_AFTER_SCHEDULE_DUO_TO_SOLO",timeSlotsUsedAfterChangingBungiiTypeDuoToSolo);
+                   break;
+
+               case "after cancelling duo trip":
+                   String afterScheduleSoloToDuo = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_CONVERSION_SOLO_TO_DUO");
+                   int timeSlotsAfterScheduleSoloToDuo = Integer.parseInt(afterScheduleSoloToDuo);
+                   String timeSlotsUsedAfterCancellingDuoTrip = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int cancellingDuoTrip= Integer.parseInt(timeSlotsUsedAfterCancellingDuoTrip);
+                   testStepAssert.isTrue(cancellingDuoTrip == (timeSlotsAfterScheduleSoloToDuo-2),
+                           "Time slot used count should decrease by two after cancelling duo trip","Time slot used count remains unchanged");
+                   break;
+
+               case "after cancelling solo trip":
+                   String afterScheduleTrip = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_SCHEDULE");
+                   int timeSlotsAfterSchedule = Integer.parseInt(afterScheduleTrip);
+                   String timeSlotsUsedAfterCancellingSoloTrip = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int cancellingSoloTrip= Integer.parseInt(timeSlotsUsedAfterCancellingSoloTrip);
+                   testStepAssert.isTrue(cancellingSoloTrip == (timeSlotsAfterSchedule-1),
+                           "Time slot used count should decrease by one after cancelling solo trip","Time slot used count remains unchanged");
+
+                   break;
+
+               case "after changing date and time":
+                   String AfterSchedule = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_SCHEDULE");
+                   int timeSlotAfterSchedule = Integer.parseInt(AfterSchedule);
+                   String timeSlotsUsedAfterChangingTime = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int changingTime= Integer.parseInt(timeSlotsUsedAfterChangingTime);
+                   testStepAssert.isTrue(changingTime != timeSlotAfterSchedule,
+                           "Time slot used count should change after admin changes date and time","Time slot used count remains unchanged");
+                   break;
+
+               case "after changing address":
+                   String afterSchedule1 = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_SCHEDULE_DUO_TO_SOLO");
+                   int timeSlotAfterSchedule1 = Integer.parseInt(afterSchedule1);
+                   String timeSlotsUsedAfterChangingAddress = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int changingAddress= Integer.parseInt(timeSlotsUsedAfterChangingAddress);
+                   testStepAssert.isTrue(changingAddress != timeSlotAfterSchedule1,
+                           "Time slot used count should change after admin changes address","Time slot used count remains unchanged");
+                   break;
+
+               case "before schedule for mrfm":
+                   String mrfmAddress=PropertyUtility.getDataProperties("partner.mrfm.address1");
+                   String timeSlotMrfm = dbUtility.getSlotUsedCount(date,time,mrfmAddress);
+                   cucumberContextManager.setScenarioContext("TIME_SLOT_BEFORE_SCHEDULE_MRFM",timeSlotMrfm);
+                   break;
+
+               case "after schedule for mrfm":
+                   String beforeScheduleMrfm= (String) cucumberContextManager.getScenarioContext("TIME_SLOT_BEFORE_SCHEDULE_MRFM");
+                   int timeSlotsBeforeMrfm = Integer.parseInt(beforeScheduleMrfm);
+                   String mrfmAddress1=PropertyUtility.getDataProperties("partner.mrfm.address1");
+                   String timeSlotsUsedAfterScheduleMrfm = dbUtility.getSlotUsedCount(date,time,mrfmAddress1);
+                   int timeSlotsAfterMrfm = Integer.parseInt(timeSlotsUsedAfterScheduleMrfm);
+                   testStepAssert.isTrue(timeSlotsBeforeMrfm == timeSlotsAfterMrfm,
+                           "Time slot used count should remain unchanged","Time slot used count changes");
+                   break;
+           }
+           log("I should be able to check the number of slots used","I am able to check the number of slots used",false);
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("The number of slots available should be correctly received.", "The number of slots available is not correctly received.",
+                   true);
+
+       }
+    }
+    @When("^I check in the db the number of timeslots available \"([^\"]*)\" new portal$")
+    public void i_check_in_the_db_the_number_of_timeslots_available_something_new_portal(String duration) throws Throwable {
+       try{
+           String scheduledTime= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+           String time=scheduledTime.substring(8,13);
+           Date now = new Date();
+           LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+           String date = String.valueOf(localDate);
+           switch (duration){
+               case "for bestbuy first address":
+                   String bestBuyStore1=PropertyUtility.getDataProperties("partner.new.bestbuy.store1");
+                   String timeSlotsUsedBestBuyStore1 = dbUtility.getSlotUsedCountByStoreName(date,time,bestBuyStore1);
+                   int timeSlots = Integer.parseInt(timeSlotsUsedBestBuyStore1);
+                   testStepAssert.isTrue(timeSlots == 1,
+                           "Time slot used count should be one for solo schedule for the first address","Time slot used count is not one");
+                   break;
+
+               case "for bestbuy second address":
+                   String bestBuyStore2=PropertyUtility.getDataProperties("partner.new.bestbuy.store2");
+                   String timeSlotsUsedBestBuyStore2 = dbUtility.getSlotUsedCountByStoreName(date,time,bestBuyStore2);
+                   int timeSlots2 = Integer.parseInt(timeSlotsUsedBestBuyStore2);
+                   testStepAssert.isTrue(timeSlots2 == 0,
+                           "Time slot used count should not be affected when a delivery is placed in different address for partner portal","Time slot used count is affected when a delivery is placed in different address for partner portal");
+
+                   break;
+           }
+           log("I should be able to check the number of slots used","I am able to check the number of slots used",false);
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("The number of slots available should be correctly received.", "The number of slots available is not correctly received.",
+                   true);
+
+       }
     }
 }
 

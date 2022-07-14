@@ -219,4 +219,12 @@ public class DbUtility extends DbContextManager {
         String businessPartnerDefaultAddressRef  = getDataFromMySqlMgmtServer(queryString2);
         return businessPartnerDefaultAddressRef;
     }
+    public static String getRemarkId(String rejectionReason) {
+        String remarkID;
+        String queryString = "select remark_id from pickup_remarks where description like '"+rejectionReason+"'";
+        remarkID = getDataFromMySqlServer(queryString);
+        logger.detail("Remark_ID for description '"+rejectionReason+"' is "+remarkID);
+        return remarkID;
+
+    }
 }
