@@ -23,6 +23,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -253,7 +254,7 @@ public class Partner_LoginSteps extends DriverBase {
                     String scheduledDate= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
                     String pickUpId = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
                     String time=scheduledDate.substring(8,13);
-                    java.sql.Time timeValue = new java.sql.Time(formatter.parse(time).getTime());
+                    Time timeValue = new Time(formatter.parse(time).getTime());
 
                     int  loadUnloadTime = Math.round(Float.valueOf(dbUtility.getLoadUnloadTime(pickUpId)));
                     int calLoadUnload=loadUnloadTime/3;
@@ -266,7 +267,7 @@ public class Partner_LoginSteps extends DriverBase {
                     String changedTime= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
                     String newPickUpId = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
                     String time1=changedTime.substring(8,13);
-                    java.sql.Time timeValue1 = new java.sql.Time(formatter.parse(time1).getTime());
+                    Time timeValue1 = new Time(formatter.parse(time1).getTime());
 
                     int  loadUnloadTime1 = Math.round(Float.valueOf(dbUtility.getLoadUnloadTime(newPickUpId)));
                     int calLoadUnload1=loadUnloadTime1/3;
@@ -275,8 +276,8 @@ public class Partner_LoginSteps extends DriverBase {
                     utility.calculateEstDeliveryTime(mins,timeValue1);
                     String lowerRange= (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
                     String upperRange= (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
-                    java.sql.Time lowerTimeValue = new java.sql.Time(formatter.parse(lowerRange).getTime());
-                    java.sql.Time upperTimeValue = new java.sql.Time(formatter.parse(upperRange).getTime());
+                    Time lowerTimeValue = new Time(formatter.parse(lowerRange).getTime());
+                    Time upperTimeValue = new Time(formatter.parse(upperRange).getTime());
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(lowerTimeValue);
                     calendar.add(Calendar.MINUTE, -5);
@@ -295,7 +296,7 @@ public class Partner_LoginSteps extends DriverBase {
                     String pickUpReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
                     String serviceName = (String) cucumberContextManager.getScenarioContext("Selected_service");
                     String Time=scheduledDat.substring(16,20);
-                    java.sql.Time timeValue2 = new java.sql.Time(formatter.parse(Time).getTime());
+                    Time timeValue2 = new Time(formatter.parse(Time).getTime());
 
                     long default_Pickup_Time = dbUtility.getDefaultPickupTime(serviceName, "Biglots");
                     default_Pickup_Time = utility.Milliseconds_To_Minutes(default_Pickup_Time);
