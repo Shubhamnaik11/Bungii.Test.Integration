@@ -7,6 +7,8 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.customer.EstimatePage;
+import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
@@ -27,6 +29,8 @@ import static com.bungii.common.manager.ResultManager.*;
 
 public class UpdateStatusSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(UpdateStatusSteps.class);
+    BungiiDetailsPage bungiiDetailsPage = new BungiiDetailsPage();
+    com.bungii.ios.pages.customer.EstimatePage estimatePage = new EstimatePage();
     MessagesPage messagesPage;
     Rectangle initial;
     ActionManager action = new ActionManager();
@@ -852,7 +856,65 @@ public class UpdateStatusSteps extends DriverBase {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), PropertyUtility.getMessage("messages.navigation.new"));
         return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(PropertyUtility.getMessage("messages.navigation.new"));
     }
+    @And("^I driver adds photos to the Bungii$")
+    public void i_driver_adds_photos_to_the_bungii() throws Throwable {
+        try{
+            action.click(bungiiDetailsPage.Tab_AddPhoto());
+            addBungiiPickUpImage("3 images");
+            Thread.sleep(1000);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    public void addBungiiPickUpImage(String option) throws InterruptedException{
+        if (option.equalsIgnoreCase("3 images")) {
+            addImage(3);
+        } else if (option.equalsIgnoreCase("Default")) {
+            addImage(1);
+        } else if (option.equalsIgnoreCase("No image")) {
+            addImage(0);
+        } else if (option.equalsIgnoreCase("large image")) {
+            addImage(1);
+        } else
+            addImage(1);
 
+    }
+
+    private void addImage(int numberOfImage) throws InterruptedException {
+
+        if(action.isAlertPresent()){
+            try {
+                Thread.sleep(3000);
+                action.clickAlertButton("OK");
+                Thread.sleep(3000);
+            }
+            catch (Exception ex){
+
+            }
+        }
+        for (int i = 1; i <= numberOfImage; i++) {
+
+            //capture image instead of uploading existing image. this saves some time
+            if (action.isElementPresent(estimatePage.Button_PhotoCapture(true))) {
+                //do nothing, directly move to steps after IF conditions
+            } else if (action.isElementPresent(estimatePage.Button_OK(true)))
+                action.click(estimatePage.Button_OK());
+            Thread.sleep(3000);
+            action.click(estimatePage.Button_PhotoCapture());
+            Thread.sleep(3000);
+            action.click(estimatePage.Button_UsePhoto());
+
+            if(i<3){
+                action.click(bungiiDetailsPage.Tab_AddPhoto());
+            }
+            else{
+                action.click(bungiiDetailsPage.Button_SavePhotos());
+            }
+
+        }
+    }
     /**
      * Slide the slider to update status
      */
