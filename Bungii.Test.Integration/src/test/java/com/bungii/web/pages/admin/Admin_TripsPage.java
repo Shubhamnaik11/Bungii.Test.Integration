@@ -63,4 +63,7 @@ public class Admin_TripsPage extends PageBase {
     public WebElement RadioButton_SoloTrip () { return findElement("PickupDetails_TripType", LocatorType.Id); }
 
     public WebElement RadioButton_DuoTrip () { return findElement("tripTypeDuo", LocatorType.Id); }
+
+    public WebElement Button_ReviveTrip (boolean... IgnoreException) { return findElement("//tbody/tr/td[11]/a/img", LocatorType.XPath,IgnoreException); }
+
 }

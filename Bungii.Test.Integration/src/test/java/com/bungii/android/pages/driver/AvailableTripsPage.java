@@ -69,4 +69,5 @@ public class AvailableTripsPage extends PageBase {
 
     public WebElement PageTitle_BungiiDetails() { return findElement("//android.widget.LinearLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath);}
 
+    public List <WebElement> Row_AvailableTrip1() {return findElements("//*[@resource-id='com.bungii.driver:id/row_available_pickup_imageview_arrow']",LocatorType.XPath);}
 }

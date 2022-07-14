@@ -14,6 +14,8 @@ import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
+import com.bungii.web.pages.admin.Admin_TripsPage;
 import com.google.common.collect.ImmutableMap;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -28,6 +30,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -67,7 +70,9 @@ public class CommonSteps extends DriverBase {
     LogInPage logInPage=  new LogInPage();
     DashBoardPage dashBoardPage=new DashBoardPage();
     PhonePage phonePage = new PhonePage();
-
+    Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
+    Admin_TripsPage adminTripsPage = new Admin_TripsPage();
+    AvailableTripsPage availableTrips = new AvailableTripsPage();
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
         List<String> removePicsArgs = Arrays.asList(
@@ -1394,4 +1399,59 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+    @And("^I search the delivery using \"([^\"]*)\"$")
+    public void i_search_the_delivery_using_something(String strArg1) throws Throwable {
+        try {
+            Thread.sleep(1000);
+            cucumberContextManager.setScenarioContext("ADMIN1_NAME",action.getText(admin_ScheduledTripsPage.Text_AdminName()));
+            action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
+            log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @Then("^The revive button should not be displayed$")
+    public void the_revive_button_should_not_be_displayed() throws Throwable {
+        try{
+        testStepAssert.isFalse(action.isElementPresent(adminTripsPage.Button_ReviveTrip(true)),"Revive button should not be displayed", "Revive button is not displayed", "Revive button is displayed");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error in viewing alert", true);
+    }
+    }
+
+    @Then("^The trip should not be present in available bungiis$")
+    public void the_trip_should_not_be_present_in_available_bungiis() throws Throwable {
+        String cus = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        List<WebElement> a =availableTrips.Row_AvailableTrip1();
+        if(a.size()==0){
+            System.out.println("lol");
+        }
+        else{
+            for(int i=0;i<a.size();i++){
+                System.out.println(a.get(i));
+                if(a.get(i).toString().contentEquals(cus)){
+                    testStepAssert.isFail("Delivery is present in available bungiis");
+                }
+                else {
+                    testStepAssert.isFalse(a.get(i).toString().contentEquals(cus),"Delivery should not be present in available bungiis",
+                            "Delivery is not present in available bungiis",
+                            "Delivery is present in available bungiis");
+                }
+            }
+        }
+
+    }
+    @When("^I wait for 2 minutes$")
+    public void i_wait_for_2_minutes() throws Throwable {
+        Thread.sleep(120000);
+        pass("I wait for 2 minutes",
+                "I waited for 2 minutes");
+    }
+
+
 }

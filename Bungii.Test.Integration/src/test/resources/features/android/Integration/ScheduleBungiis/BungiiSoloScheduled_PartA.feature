@@ -86,3 +86,51 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
      | Customer Phone  | Customer2 Phone |
      | CUSTOMER1_PHONE |                 |
+
+  #CORE-3381 :To verify that admin is unable to revive trips canceled by customer from app /add customer
+  @ready
+  Scenario:To verify that admin is unable to revive trips canceled by customer from app
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8877661005     | Testcustomertywd_appleMarkF LutherF | Cci12345          |
+    When I Switch to "customer" application on "same" devices
+    And I am on customer Log in page
+    And I am logged in as "Testcustomertywd_appleMarkF LutherF" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I select already scheduled bungii
+    Then I Cancel selected Bungii
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I wait for 2 minutes
+    And I Select "trips" from admin sidebar
+    When  I search the delivery using "Pickup Reference"
+    Then The revive button should not be displayed
+
+  @testAllan
+  Scenario:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+
+#
+#    When I open new "Chrome" browser for "ADMIN PORTAL"
+#    And I navigate to admin portal
+#    And I log in to admin portal
+#    And I Select "trips" from admin sidebar
+#    And I Select "Scheduled Trip" from admin sidebar
+#    And I open the trip for "Testcustomertywd_appleMarkAU LutherAU" the customer
+#    And I Select "Cancel Trip" option
+#    And I click on "Verify" button on Edit Scheduled bungii popup
+#    When I click on "Save" button on Edit Scheduled bungii popup
+#    Then "Bungii Saved!" message should be displayed
+    And I Switch to "driver" application on "same" devices
+    When I am logged in as "Testdrivertywd_appleks_rathree Test" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    Then The trip should not be present in available bungiis
