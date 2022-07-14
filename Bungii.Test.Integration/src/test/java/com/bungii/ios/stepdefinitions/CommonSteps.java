@@ -1154,6 +1154,13 @@ public class CommonSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver3.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+
+            case "valid partner kansas driver2":
+                phone = PropertyUtility.getDataProperties("Kansas.driver48.phone");
+                password = PropertyUtility.getDataProperties("partner.kansas.driver.password");
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver48.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             default:
                 throw new Exception("Please specify valid input");
         }
@@ -3293,4 +3300,28 @@ public class CommonSteps extends DriverBase {
 
 
     }
+
+    @And("^Driver status should be \"([^\"]*)\"$")
+    public void driver_status_should_be_something(String DriverStatus) throws Throwable {
+        try {
+            String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            switch (DriverStatus){
+                case "Online":
+                    String expectedDriverOnlineStatus ="1";
+                    String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
+                    break;
+                case "Offline":
+                    String driverStatus ="0";
+                    String driverOfflineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOfflineStatus,driverStatus,"Driver status should be offline","Driver Status is offline","Driver status is not offline");
+                    break;
+            }
+        } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
+    }
+
 }
