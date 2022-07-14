@@ -90,6 +90,7 @@ public class GeneralUtility extends DriverBase {
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
     ScheduledBungiisPage scheduledBungiisPage = new ScheduledBungiisPage();
+    MyBungiisPage myBungiisPage = new MyBungiisPage();
     InvitePage invitePage = new InvitePage();
     LocationPage locationPage= new LocationPage();
     com.bungii.android.pages.driver.LocationPage driverLocation = new com.bungii.android.pages.driver.LocationPage();

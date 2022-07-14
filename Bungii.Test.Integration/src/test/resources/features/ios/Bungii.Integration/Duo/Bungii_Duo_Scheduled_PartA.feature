@@ -261,4 +261,45 @@ Feature: Scheduled DUO Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+#    Core-3107 Verify that both driver(s) can rate each other successfully in a duo delivery
+  @ready
+#   @testsweta
+  Scenario: Verify that both driver(s) can rate each other successfully in a duo delivery
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8877661051     | Testcustomertywd_appleMarkAZ LutherAZ | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_mattC Stark_dvOnEC" and "Testdrivertywd_appledv_b_mattD Stark_dvOnED" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Unloading Items | Unloading Items |
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I enter phoneNumber :9049840049 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+#  Core-3107 Verify the elements on Driver rating page for each driver in Duo trip
+    And I check all the elements are displayed on driver rating page
+    And I select "4" Ratting star for solo Driver 1
+#  Core-3107 Verify that comments field is correctly validated on driver rating page
+    And I add a comment for driver
+    And I click "Submit" button on "Rate duo teammate" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii Completed" screen
+
+    And I connect to "extra1" using "Driver2" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I enter phoneNumber :9049840050 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    And I select "4" Ratting star for solo Driver 1
+    And I add a comment for driver
+    And I click "Submit" button on "Rate duo teammate" screen
+
     

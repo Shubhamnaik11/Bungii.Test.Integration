@@ -5,6 +5,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.*;
 import com.bungii.ios.pages.customer.BungiiCompletePage;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 
 public class BungiiCompleteSteps extends DriverBase {
@@ -141,7 +143,62 @@ public class BungiiCompleteSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I check all the elements are displayed on driver rating page$")
+    public void i_check_all_the_elements_are_displayed_on_driver_rating_page() throws Throwable {
+         try
+         {
+             testStepAssert.isElementDisplayed(bungiiCompletePage.Header_RateTeamate(),
+                        "The header Rate Duo teammate should be displayed",
+                        "The header Rate Duo teammate is displayed",
+                        "The header Rate Duo teammate is not displayed");
 
+             testStepAssert.isElementDisplayed(bungiiCompletePage.Star_Rating(),
+                     "Star ratings should be displayed",
+                     "Star ratings are displayed",
+                     "Star ratings is not displayed");
+
+             testStepAssert.isElementDisplayed(bungiiCompletePage.Text_ChooseRating(),
+                     "Choose Rating should be displayed",
+                     "Choose Rating is displayed",
+                     "Choose Rating is not displayed");
+
+             testStepAssert.isElementDisplayed(bungiiCompletePage.Text_DriverExperience(),
+                     "Driver experience should be displayed",
+                     "Driver experience is displayed",
+                     "Driver experience is not displayed");
+
+             testStepAssert.isElementDisplayed(bungiiCompletePage.Button_Submit(),
+                     "The submit button should be displayed",
+                     "The submit button is displayed",
+                     "The submit button is not displayed");
+
+         }
+         catch (Exception e) {
+             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+             error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                     true);
+         }
+    }
+    @And("^I add a comment for driver$")
+    public void i_add_a_comment_for_driver() throws Throwable {
+        try{
+            action.swipeUP();
+            testStepAssert.isElementDisplayed(bungiiCompletePage.Textbox_AdditionalFeedback(),
+                    "The textbox to add additional feedback should be displayed",
+                    "The textbox to add additional feedback is displayed",
+                    "The textbox to add additional feedback is not displayed");
+
+            action.sendKeys(bungiiCompletePage.Textbox_AdditionalFeedback(),"The driver was helpful");
+            action.click(bungiiCompletePage.Text_Additional());
+
+            log("I should be able to add a comment for duo driver teammate","I was able to add a comment for duo driver teammate",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @When("^I select \"([^\"]*)\" Ratting star for duo Driver 2$")
     public void i_select_somethingrd_ratting_star_for_driver_2(String strArg1) throws Throwable {
         try {

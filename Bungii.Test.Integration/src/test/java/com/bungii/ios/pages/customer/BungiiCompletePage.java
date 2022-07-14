@@ -80,4 +80,14 @@ public class BungiiCompletePage extends PageBase {
 	public List<WebElement> Button_DriverSoloFilled() {return findElements("//XCUIElementTypeButton[@name=\"rating filled star icon\"]", LocatorType.XPath); }
 	public List<WebElement> Button_DriverSoloUnFilled() {return findElements("//XCUIElementTypeButton[@name=\"rating unselected star icon\"]", LocatorType.XPath); }
 
+	//Driver Rates Driver
+	public WebElement Header_RateTeamate() {return findElement("//XCUIElementTypeStaticText[@name=\"Rate duo teammate\"]", LocatorType.XPath);}
+	public WebElement Star_Rating() {return findElement("//XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther", LocatorType.XPath);}
+	public WebElement Text_ChooseRating() {return findElement("//XCUIElementTypeStaticText[@name=\"Choose your rating\"]", LocatorType.XPath);}
+	public WebElement Text_DriverExperience() {return findElement("//XCUIElementTypeStaticText[@name=\"Tell us about the other driver\"]", LocatorType.XPath);}
+	public WebElement Textbox_AdditionalFeedback() {return findElement("//XCUIElementTypeTextView[@value='Any additional feedback (Optional)']", LocatorType.XPath);}
+	public WebElement Button_Submit() {return findElement("//XCUIElementTypeButton[@name=\"Submit\"]", LocatorType.XPath);}
+	public WebElement Text_Additional() {return findElement("//XCUIElementTypeStaticText[@name='Additional']", LocatorType.XPath);}
+
+
 }
