@@ -788,9 +788,6 @@ Feature: Partner Integration with Admin and Driver
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
-    And I navigate to partner portal and view the Trip status with below status
-      | Partner_Status |
-      | Scheduled      |
     And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
@@ -799,7 +796,6 @@ Feature: Partner Integration with Admin and Driver
     When I click on "Revive" button
     Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
     When I click on "Confirm" button on Revival Popup
-    And I get the new pickup reference generated
     And I wait for 2 minutes
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
@@ -831,3 +827,6 @@ Feature: Partner Integration with Admin and Driver
     And I click on "Process Refund" button on Issue Refund popup
     Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
     When I click on "OK" button
+    And I navigate to partner portal and view the Trip status with below status
+      | Partner_Status |
+      | Completed      |
