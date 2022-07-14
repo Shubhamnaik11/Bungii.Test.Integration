@@ -513,4 +513,38 @@ public class DbUtility extends DbContextManager {
         driverStatus = getDataFromMySqlServer(entireQueryString);
         return driverStatus;
     }
+
+    public static String getPaymentTransactionType(String Pickup_Reference) {
+        String transactionType;
+        String queryString = "select PaymentTransactionType from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 1";
+        transactionType = getDataFromMySqlServer(queryString);
+        logger.detail("Payment transaction status is  " + transactionType + " for pickup reference"+Pickup_Reference);
+        return transactionType;
+
+    }
+
+    public static String getStatusMessage(String Pickup_Reference) {
+        String statusMessage;
+        String queryString = "select StatusMessage from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 1";
+        statusMessage = getDataFromMySqlServer(queryString);
+        logger.detail("The status message is " + statusMessage + " for pickup reference"+Pickup_Reference);
+        return statusMessage;
+
+    }
+
+    public static String getDriverPaid(String Pickup_Reference) {
+        String driverPaid;
+        String queryString = "select IsDriverPaid from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 1";
+        driverPaid = getDataFromMySqlServer(queryString);
+        logger.detail("Drive paid paid status is " + driverPaid + " for pickup reference"+Pickup_Reference);
+        return driverPaid;
+
+    }
+    public static List<HashMap<String,Object>>  getAccessorialAmount(String Pickup_Reference) {
+        List<HashMap<String,Object>> allcharges = new ArrayList<>();
+        String queryString = "select Amount from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 5";
+        allcharges = getListDataFromMySqlMgmtServer(queryString);
+        return allcharges;
+
+    }
 }
