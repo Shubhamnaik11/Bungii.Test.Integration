@@ -23,6 +23,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -173,6 +174,8 @@ public class Partner_LoginSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("Price_Estimate_Page", Price_Estimated_Page);
                         String Estimate_distance = action.getText(Page_Partner_Dashboard.Label_Distance()).replace(" miles","");//calculate values as per the displayed miles value to avoid mismatch in calculation
                         cucumberContextManager.setScenarioContext("Distance_Estimate_Page", Estimate_distance);
+                        String Estimated_Delivery_Time=action.getText(Page_Partner_Dashboard.Label_EstDeliveryTime());
+                        cucumberContextManager.setScenarioContext("Estimated_Delivery_Time", Estimated_Delivery_Time);
 
                         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                     } else {
@@ -241,6 +244,140 @@ public class Partner_LoginSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step , I Should "+ str,
                     true);
         }
+    }
+    @And("^I calculate the estimated delivery time for \"([^\"]*)\"$")
+    public void i_calculate_the_estimated_delivery_time_for_something(String portalType) throws Throwable {
+        try {
+            DateFormat formatter = new SimpleDateFormat("HH:mm");
+            switch (portalType){
+                case "geofence based portal":
+                    String scheduledDate= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+                    String pickUpId = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String time=scheduledDate.substring(8,13);
+                    Time timeValue = new Time(formatter.parse(time).getTime());
+
+                    int  loadUnloadTime = Math.round(Float.valueOf(dbUtility.getLoadUnloadTime(pickUpId)));
+                    int calLoadUnload=loadUnloadTime/3;
+                    int projectedDriveTime= Integer.parseInt(dbUtility.getProjectedDriverTime(pickUpId));
+                    int minutes=calLoadUnload+projectedDriveTime+40;
+                    utility.calculateEstDeliveryTime(minutes,timeValue);
+                    break;
+
+                case "edited address for geofence based portal":
+                    String changedTime= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+                    String newPickUpId = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String time1=changedTime.substring(8,13);
+                    Time timeValue1 = new Time(formatter.parse(time1).getTime());
+
+                    int  loadUnloadTime1 = Math.round(Float.valueOf(dbUtility.getLoadUnloadTime(newPickUpId)));
+                    int calLoadUnload1=loadUnloadTime1/3;
+                    int projectedDriveTime1= Integer.parseInt(dbUtility.getProjectedDriverTime(newPickUpId));
+                    int mins=calLoadUnload1+projectedDriveTime1+40;
+                    utility.calculateEstDeliveryTime(mins,timeValue1);
+                    String lowerRange= (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
+                    String upperRange= (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
+                    Time lowerTimeValue = new Time(formatter.parse(lowerRange).getTime());
+                    Time upperTimeValue = new Time(formatter.parse(upperRange).getTime());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(lowerTimeValue);
+                    calendar.add(Calendar.MINUTE, -5);
+                    String lowerRangeTime=String.valueOf(calendar.getTime());
+                    calendar.setTime(upperTimeValue);
+                    calendar.add(Calendar.MINUTE, -5);
+                    String upperRangeTime=String.valueOf(calendar.getTime());
+                    String estimateLowerRange=lowerRangeTime.substring(11,16);
+                    cucumberContextManager.setScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME",estimateLowerRange);
+                    String estimateUpperRange=upperRangeTime.substring(11,16);
+                    cucumberContextManager.setScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME",estimateUpperRange);
+                    break;
+
+                case "fixed distance based":
+                    String scheduledDat= (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
+                    String pickUpReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String serviceName = (String) cucumberContextManager.getScenarioContext("Selected_service");
+                    String Time=scheduledDat.substring(16,20);
+                    Time timeValue2 = new Time(formatter.parse(Time).getTime());
+
+                    long default_Pickup_Time = dbUtility.getDefaultPickupTime(serviceName, "Biglots");
+                    default_Pickup_Time = utility.Milliseconds_To_Minutes(default_Pickup_Time);
+                    long default_Dropoff_time = dbUtility.getDefaultDropoffTime(serviceName, "Biglots");
+                    default_Dropoff_time = utility.Milliseconds_To_Minutes(default_Dropoff_time);
+                    int  sumLoadUnload = (int) (default_Pickup_Time+default_Dropoff_time);
+                    int loadUnload=sumLoadUnload/3;
+                    int projectedDriveTime2= Integer.parseInt(dbUtility.getProjectedDriverTime(pickUpReference));
+                    int min=loadUnload+projectedDriveTime2+40;
+                    utility.calculateEstDeliveryTime(min,timeValue2);
+                    break;
+            }
+            log("I should be able to calculate the correct estimated delivery time range","I am able to calculate the correct estimated delivery time range",false);
+
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I check if correct \"([^\"]*)\" is displayed$")
+    public void i_check_if_correct_something_is_displayed(String portal) throws Throwable {
+       try{
+           String deliveryEstimateTimePP= (String) cucumberContextManager.getScenarioContext("Estimated_Delivery_Time");
+           switch (portal){
+               case "estimated time on admin portal":
+                   String deliveryEstimateTimeAdminPortal=action.getText(Page_Partner_Delivery_List.Text_EstimatedDeliveryTime());
+                   testStepAssert.isEquals(deliveryEstimateTimeAdminPortal,deliveryEstimateTimePP,
+                           "Estimated delivery time displayed on partner portal and admin portal should be same.",
+                           "Estimated delivery time displayed on partner portal and admin portal is the same.",
+                           "Estimated delivery time displayed on partner portal and admin portal are not the same.");
+                   break;
+
+               case "estimated time on partner portal":
+                   String deliveryEstimateTimePartnerPortal=action.getText(Page_Partner_Delivery_List.Text_DeliveryTime());
+                   testStepAssert.isEquals(deliveryEstimateTimePartnerPortal,deliveryEstimateTimePP,
+                           "Estimated delivery time displayed on partner portal delivery details and while creating trip should be same.",
+                           "Estimated delivery time displayed on partner portal delivery details and while creating trip is the same.",
+                           "Estimated delivery time displayed on partner portal delivery details and while creating trip are not the same.");
+                   break;
+
+               case "estimated time fixed distance based Partner portal":
+                   String calLowerRange1 = (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
+                   String calUpperRange1 = (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
+                   String actualLowerRange1 = action.getText(Page_Partner_Delivery_List.Text_DeliveryTime()).toString().substring(0,5);
+                   testStepAssert.isEquals(actualLowerRange1,calLowerRange1,
+                           "The calculated lower range and the displayed should be same",
+                           "The calculated lower range and the displayed is same",
+                           "The calculated lower range and the displayed is not the same");
+                   String actualUpperRange1 = action.getText(Page_Partner_Delivery_List.Text_DeliveryTime()).toString().substring(11,16);
+                   testStepAssert.isEquals(actualUpperRange1,calUpperRange1,
+                           "The calculated upper range and the displayed should be same",
+                           "The calculated upper range and the displayed is same",
+                           "The calculated upper range and the displayed is not the same");
+                   break;
+
+               case "estimated time geofence based Partner portal":
+                   action.refreshPage();
+                   String calLowerRange = (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
+                   String calUpperRange = (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
+                   String actualLowerRange = action.getText(Page_Partner_Delivery_List.Text_EstimatedDeliveryTime()).toString().substring(0,5);
+                   testStepAssert.isEquals(actualLowerRange,calLowerRange,
+                           "The calculated lower range and the displayed should be same",
+                           "The calculated lower range and the displayed is same",
+                           "The calculated lower range and the displayed is not the same");
+                   String actualUpperRange = action.getText(Page_Partner_Delivery_List.Text_EstimatedDeliveryTime()).toString().substring(11,16);
+                   testStepAssert.isEquals(actualUpperRange,calUpperRange,
+                           "The calculated upper range and the displayed should be same",
+                           "The calculated upper range and the displayed is same",
+                           "The calculated upper range and the displayed is not the same");
+                   break;
+           }
+            log("I should be able to check the estimated delivery time.","I am able to check the estimated delivery time.",false);
+       }
+       catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
     }
 
     @Then("^I should \"([^\"]*)\" for \"([^\"]*)\" Alias$")
