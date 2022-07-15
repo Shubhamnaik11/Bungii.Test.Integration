@@ -262,10 +262,10 @@ Feature: Scheduled DUO Bungii Part A
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-#    Core-3107 Verify that both driver(s) can rate each other successfully in a duo delivery
+#    Core-3107 Verify driver(s) can rate each other successfully in a duo delivery
   @ready
 #   @testsweta
-  Scenario: Verify that both driver(s) can rate each other successfully in a duo delivery
+  Scenario: Verify driver(s) can rate each other successfully in a duo delivery
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8877661051     | Testcustomertywd_appleMarkAZ LutherAZ | Cci12345          |
@@ -290,20 +290,6 @@ Feature: Scheduled DUO Bungii Part A
     And I add a comment for driver
     And I click "Submit" button on "Rate duo teammate" screen
     And I click "Skip This Step" button on "Rate customer" screen
-    Then I should be navigated to "Bungii Completed" screen
-
-    And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I enter phoneNumber :9049840050 and  Password :Cci12345
-    And I click "Log In" button on "Log In" screen on driverApp
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
-    Then I accept Alert message for "Reminder: both driver at drop off"
-    And I select "4" Ratting star for solo Driver 1
-    And I add a comment for driver
-    And I click "Submit" button on "Rate duo teammate" screen
-
+    And I should be navigated to "Bungii Completed" screen
+    Then I check if the rating is saved in the db
     

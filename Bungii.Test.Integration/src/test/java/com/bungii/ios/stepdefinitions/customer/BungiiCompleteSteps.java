@@ -4,6 +4,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.*;
 import com.bungii.ios.pages.customer.BungiiCompletePage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -26,6 +27,7 @@ public class BungiiCompleteSteps extends DriverBase {
     BungiiCompletePage bungiiCompletePage = new BungiiCompletePage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    DbUtility dbUtility = new DbUtility();
 
 
     @Then("^Bungii customer should see \"([^\"]*)\" on Bungii completed page$")
@@ -178,6 +180,25 @@ public class BungiiCompleteSteps extends DriverBase {
              error("Step  Should be successful", "Error performing step,Please check logs for more details",
                      true);
          }
+    }
+    @Then("^I check if the rating is saved in the db$")
+    public void i_check_if_the_rating_is_saved_in_the_db() throws Throwable {
+       try{
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String driverRating = dbUtility.getDriverRatingFromDriver(pickupRef);
+           if(!(driverRating.isEmpty()))
+           {
+               testStepAssert.isTrue(true,"The driver rating is saved in db","The driver rating is not saved in db");
+           }
+           else{
+               testStepAssert.isTrue(false,"The driver rating should be saved in db","The driver rating is not saved in db");
+           }
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
     }
     @And("^I add a comment for driver$")
     public void i_add_a_comment_for_driver() throws Throwable {

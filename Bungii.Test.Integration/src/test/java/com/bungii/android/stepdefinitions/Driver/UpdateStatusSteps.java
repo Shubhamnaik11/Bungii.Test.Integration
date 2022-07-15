@@ -1,5 +1,7 @@
 package com.bungii.android.stepdefinitions.Driver;
 
+import com.bungii.SetupManager;
+import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -8,12 +10,19 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.pages.driver.UpdateStatusPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 
+import java.awt.event.KeyEvent;
+
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
@@ -24,6 +33,7 @@ public class UpdateStatusSteps extends DriverBase {
     ActionManager action = new ActionManager();
     UpdateStatusPage updateStatusPage = new UpdateStatusPage();
     InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
+    EstimatePage bungiiEstimatePage = new EstimatePage();
     GeneralUtility utility = new GeneralUtility();
 
     @When("^I slide update button on \"([^\"]*)\" Screen$")
@@ -116,4 +126,71 @@ public class UpdateStatusSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }    }
+
+    @And("^I driver adds photos to the Bungii$")
+    public void i_driver_adds_photos_to_the_bungii() throws Throwable {
+        try{
+            action.click(updateStatusPage.Tab_AddPhoto());
+           // addBungiiPickUpImage("3 images");
+            Thread.sleep(1000);
+            if(action.isAlertPresent()){
+                try {
+                    Thread.sleep(3000);
+                    action.clickAlertButton("ALLOW");
+                    Thread.sleep(3000);
+                }
+                catch (Exception ex){
+
+                }
+                for (int i=0;i<3;i++){
+//                    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+//                    ((AndroidDriver<?>) driver).pressKey(new KeyEvent(AndroidKey.CAMERA));
+                    action.click(updateStatusPage.Button_CLick());
+                    action.click(bungiiEstimatePage.Button_Camera_OK());
+                    action.click(updateStatusPage.Tab_AddPhoto());
+                }
+            }
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I check all the elements are displayed on driver rating page$")
+    public void i_check_all_the_elements_are_displayed_on_driver_rating_page() throws Throwable {
+        try
+        {
+//            testStepAssert.isElementDisplayed(updateStatusPage.Header_RateTeamate(),
+//                    "The header Rate Duo teammate should be displayed",
+//                    "The header Rate Duo teammate is displayed",
+//                    "The header Rate Duo teammate is not displayed");
+//
+//            testStepAssert.isElementDisplayed(updateStatusPage.Star_Rating(),
+//                    "Star ratings should be displayed",
+//                    "Star ratings are displayed",
+//                    "Star ratings is not displayed");
+//
+//            testStepAssert.isElementDisplayed(updateStatusPage.Text_ChooseRating(),
+//                    "Choose Rating should be displayed",
+//                    "Choose Rating is displayed",
+//                    "Choose Rating is not displayed");
+//
+//            testStepAssert.isElementDisplayed(updateStatusPage.Text_DriverExperience(),
+//                    "Driver experience should be displayed",
+//                    "Driver experience is displayed",
+//                    "Driver experience is not displayed");
+//
+//            testStepAssert.isElementDisplayed(updateStatusPage.Button_Submit(),
+//                    "The submit button should be displayed",
+//                    "The submit button is displayed",
+//                    "The submit button is not displayed");
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }
