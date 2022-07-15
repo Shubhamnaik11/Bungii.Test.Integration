@@ -194,7 +194,6 @@ Feature: Partner Portal Cases integration with IOS
 
     #  Core-2418: Verify Driver Pricing by weight for Duo delivery with Pallet weight in different tier for Floor n Decor Partner
   @ready
-#  @testsweta
   Scenario:Verify Driver Pricing by weight for Duo delivery with Pallet weight in different tier for Floor n Decor Partner
     When I request Partner Portal "DUO" Trip for "Floor and Decor - Different Weights" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
