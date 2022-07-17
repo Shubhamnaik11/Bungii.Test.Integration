@@ -166,6 +166,7 @@ Feature: Service Level
     And  I search the delivery using "Pickup Reference"
     Then In "All Deliveries" the trip should be  having a indicator with the text "New-4"
 
+    
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
@@ -391,3 +392,17 @@ Feature: Service Level
 
     And I check in the db the number of timeslots available "after changing bungii type from duo to solo"
 
+
+
+     #CORE-2419:Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
+  @ready
+  Scenario: Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
+    When I navigate to "Partner" portal configured for "BestBuy2 service level" URL
+    And I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "be logged in"
+    When I select the "First" address from the pickup address dropdown
+    And I should be able to schedule a trip "29"days from today
+    And I select the "Second" address from the pickup address dropdown
+    And I should be able to schedule a trip "29"days from today
+    Then The pickup time should be same for both the addresses from the dropdown

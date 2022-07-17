@@ -59,6 +59,7 @@ public class Partner_IntegrationSteps extends DriverBase {
             SetupManager.getDriver().manage().window().maximize();
 
             cucumberContextManager.setScenarioContext("Bungii_Type", Type);
+            cucumberContextManager.setScenarioContext("BUNGII_TYPE", Type);
             cucumberContextManager.setScenarioContext("Partner_Bungii_type", Type);
 
             Pickup_Address = dataMap.get("Pickup_Address");

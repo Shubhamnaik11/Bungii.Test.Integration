@@ -92,6 +92,7 @@ public class GeneralUtility extends DriverBase {
     ScheduledBungiisPage scheduledBungiisPage = new ScheduledBungiisPage();
     InvitePage invitePage = new InvitePage();
     LocationPage locationPage= new LocationPage();
+    MyBungiisPage myBungiisPage = new MyBungiisPage();
     com.bungii.android.pages.driver.LocationPage driverLocation = new com.bungii.android.pages.driver.LocationPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     DbUtility dbUtility=new DbUtility();
