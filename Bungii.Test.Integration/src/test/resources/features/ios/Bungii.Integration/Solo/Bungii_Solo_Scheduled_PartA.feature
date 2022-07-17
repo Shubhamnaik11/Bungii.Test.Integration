@@ -530,8 +530,8 @@ Feature: Solo Scheduled Bungii Part A
   Scenario:To verify that admin is unable to revive trips canceled by customer from app
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8877661011     |  Testcustomertywd_appleMarkL LutherL| Cci12345          |
-    Given I login as "valid denver5" customer and on Home page
+      | NEXT_POSSIBLE | 8877661054     |  Testcustomertywd_BppleMarkBC LutherBC| Cci12345          |
+    Given I login as "valid denver6" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then I Cancel selected Bungii
@@ -548,13 +548,13 @@ Feature: Solo Scheduled Bungii Part A
   Scenario:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     |  Testcustomertywd_appleZTDafc Stark | Cci12345        |
+      | NEXT_POSSIBLE | 8877661055     |  Testcustomertywd_BppleMarkBD LutherBD | Cci12345        |
     And I wait for "2" minutes
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleZTDafc Stark" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBD LutherBD" the customer
     And I Select "Cancel Trip" option
     And I enter cancellation fee and Comments
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
@@ -570,11 +570,11 @@ Feature: Solo Scheduled Bungii Part A
     And I wait for 2 minutes
     When I switch to "ORIGINAL" instance
    And I Switch to "driver" application on "same" devices
-    And I login as "valid denver driver 2" driver on "same" device and make driver status as "Online"
+    And I login as "valid denver driver 6" driver on "same" device and make driver status as "Online"
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then The trip should not be present in available bungiis
     And I Switch to "customer" application on "same" devices
-    And I login as "valid denver5" customer and on Home page
+    And I login as "valid denver7" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     Then The trip should be present in my bungiis
 

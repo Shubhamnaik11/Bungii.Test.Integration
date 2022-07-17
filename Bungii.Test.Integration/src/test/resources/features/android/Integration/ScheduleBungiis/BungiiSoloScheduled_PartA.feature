@@ -92,10 +92,10 @@ Feature: SoloScheduled
   Scenario:To verify that admin is unable to revive trips canceled by customer from app
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8877661005     | Testcustomertywd_appleMarkF LutherF | Cci12345          |
+      | NEXT_POSSIBLE | 8877661052     | Testcustomertywd_BppleMarkBA LutherBA | Cci12345          |
     When I Switch to "customer" application on "same" devices
     And I am on customer Log in page
-    And I am logged in as "Testcustomertywd_appleMarkF LutherF" customer
+    And I am logged in as "valid kansas 4" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
@@ -112,15 +112,15 @@ Feature: SoloScheduled
   #CORE-3381:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
   @ready
   Scenario:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
-    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8877661005     | Testcustomertywd_appleMarkF LutherF | Cci12345          |
+      | NEXT_POSSIBLE | 8877661053     | Testcustomertywd_BppleMarkBB LutherBB | Cci12345          |
     And I wait for "2" minutes
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkF LutherF" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBB LutherBB" the customer
     And I Select "Cancel Trip" option
     And I enter cancellation fee and Comments
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
@@ -136,10 +136,10 @@ Feature: SoloScheduled
     And I wait for 2 minutes
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
-    When I am logged in as "Testdrivertywd_appleks_rathree Test" driver
+    When I am logged in as "Testdrivertywd_appledv_b_mattF Stark_dvOnEF" driver
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then The trip should not be present in available bungiis
     And I Switch to "customer" application on "same" devices
-    And I am logged in as "Testcustomertywd_appleMarkF LutherF" customer
+    And I am logged in as "valid denver8" customer
     And I tap on "Menu" > "MY BUNGIIS" link
     Then The trip should be present in my bungiis
