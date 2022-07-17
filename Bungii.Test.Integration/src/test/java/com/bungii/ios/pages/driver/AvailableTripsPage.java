@@ -19,5 +19,12 @@ public class AvailableTripsPage extends PageBase {
 	public WebElement Button_Cancel() { return findElement("//XCUIElementTypeButton[@name=\"Cancel\"]", LocatorType.XPath);}
 	public WebElement Button_Submit() { return findElement("//XCUIElementTypeButton[@name=\"Submit\"]", LocatorType.XPath);}
 
+	public List<WebElement> List_AllAvailableDeliveriesDriverApp() { return findElements("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell", LocatorType.XPath);}
+
+	public List<WebElement> List_AllAvailableDeliveriesCustomerApp() { return findElements("//XCUIElementTypeApplication[@name=\"Bungii QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell", LocatorType.XPath);}
+
+	public WebElement Text_DeliveryTime(int number) { return findElement(String.format("//XCUIElementTypeApplication[@name=\"Bungii QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[%d]/XCUIElementTypeStaticText",number), LocatorType.XPath);}
+
+	public WebElement Text_CustomerName(int number) { return findElement(String.format("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[%d]/XCUIElementTypeStaticText",number), LocatorType.XPath);}
 
 }

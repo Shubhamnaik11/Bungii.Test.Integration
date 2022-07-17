@@ -212,5 +212,16 @@ public class AssertManager {
         }
         isFalse(isEnabled,expectedText,successMessage, errorMessage);
     }
+    /**
+     * Check is boolean value is true
+     *
+     * @param passMessage If check if pass , this message will be displayed  in report
+     */
+    public void isPass(String passMessage) {
+        ResultManager.pass("Step should be successful",passMessage, true);
+        Assert.assertTrue(true, passMessage);
+    };
+
+
 
 }

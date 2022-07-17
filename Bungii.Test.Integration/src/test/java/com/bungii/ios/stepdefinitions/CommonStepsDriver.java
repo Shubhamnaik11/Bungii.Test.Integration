@@ -14,6 +14,7 @@ import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
+import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -49,6 +50,7 @@ public class CommonStepsDriver extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     private ScheduledBungiiPage scheduledBungiipage = new ScheduledBungiiPage();
     com.bungii.web.utilityfunctions.DbUtility dbUtility = new com.bungii.web.utilityfunctions.DbUtility();
+    Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
@@ -65,6 +67,7 @@ public class CommonStepsDriver extends DriverBase {
         //this.enableLocationPage=enableLocationPage;
 
     }
+
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page on driverApp$")
     public void something_message_should_be_displayed_on_something_page_driverApp(String messageElement, String screen) {
@@ -627,6 +630,7 @@ public class CommonStepsDriver extends DriverBase {
                     break;
                 case "REVIVE":
                     action.click(scheduledTripsPage.Button_ReviveTrip());
+                    Thread.sleep(10000);
                     break;
                 case "CONFIRM":
                     action.click(scheduledTripsPage.Button_Confirm());
@@ -634,6 +638,9 @@ public class CommonStepsDriver extends DriverBase {
                     String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
                     pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
+                    break;
+                case "Cancel Bungii":
+                    action.click(admin_ScheduledTripsPage.Button_Submit());
                     break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);

@@ -164,7 +164,7 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 And I login to driver portal on a new tab with driver phone number "9049840210"
 Then The accessorial charges cut should be displayed in total earnings
 
-@testAllan
+@ready #3381
 Scenario: To verify that admin can add accessorial charges for partner canceled deliveries after revival
    When I request Partner Portal "Duo" Trip for "MRFM" partner
    |Geofence| Bungii Time   | Customer Phone | Customer Name |

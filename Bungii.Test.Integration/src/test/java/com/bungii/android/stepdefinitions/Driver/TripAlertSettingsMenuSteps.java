@@ -13,6 +13,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -45,7 +46,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
-
+    Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -305,6 +306,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "CANCEL":
                     action.click(searchingPage.Link_CancelSearch());
+                    break;
+
+                case "Cancel Bungii":
+                    action.click(admin_ScheduledTripsPage.Button_Submit());
                     break;
 
                 case "SUBMIT":

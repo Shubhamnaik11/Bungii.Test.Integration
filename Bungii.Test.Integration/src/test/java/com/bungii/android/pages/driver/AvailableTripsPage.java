@@ -69,5 +69,10 @@ public class AvailableTripsPage extends PageBase {
 
     public WebElement PageTitle_BungiiDetails() { return findElement("//android.widget.LinearLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath);}
 
-    public List <WebElement> Row_AvailableTrip1() {return findElements("//*[@resource-id='com.bungii.driver:id/row_available_pickup_imageview_arrow']",LocatorType.XPath);}
+    public List <WebElement> List_AllDeliveriesDriverApp()         {return findElements("//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout/android.view.ViewGroup",LocatorType.XPath);}
+    public List <WebElement> List_AllCustomerDeliveries() {return findElements("//android.view.ViewGroup/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout",LocatorType.XPath);}
+
+    public WebElement CustomerName(int number) {return findElement(String.format("//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[%d]/android.view.ViewGroup/android.widget.TextView[1]",number),LocatorType.XPath);}
+    public WebElement Text_CustomerDeliveryTime(int number) {return findElement(String.format("//android.view.ViewGroup/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[%d]/android.widget.RelativeLayout/android.widget.TextView[1]",number),LocatorType.XPath);}
+
 }

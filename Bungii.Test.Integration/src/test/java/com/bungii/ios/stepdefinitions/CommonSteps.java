@@ -1,6 +1,7 @@
 package com.bungii.ios.stepdefinitions;
 
 import com.bungii.SetupManager;
+import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.api.utilityFunctions.AuthServices;
 import com.bungii.api.utilityFunctions.CoreServices;
 import com.bungii.common.core.DriverBase;
@@ -25,15 +26,14 @@ import com.bungii.ios.stepdefinitions.customer.LogInSteps;
 import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
+import com.bungii.web.pages.admin.*;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Rectangle;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.bungii.ios.stepdefinitions.driver.*;
@@ -52,6 +52,17 @@ import static com.bungii.common.manager.ResultManager.*;
 public class CommonSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(CommonSteps.class);
     ActionManager action = new ActionManager();
+    Admin_TripsPage adminTripsPage = new Admin_TripsPage();
+    AvailableTripsPage availableTrips = new AvailableTripsPage();
+    Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
+    Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
+    Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
+    Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
+    com.bungii.web.utilityfunctions.DbUtility dbUtilites = new com.bungii.web.utilityfunctions.DbUtility();
+    Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
+    Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
+
+
     String Image_Solo = "bungii_type-solo", Image_Duo = "bungii_type-duo";
     private EstimatePage estimatePage;
     private com.bungii.ios.pages.customer.HomePage homePage;
@@ -1701,9 +1712,9 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid denver5":
-                    userName = PropertyUtility.getDataProperties("denver5.customer.phone");
+                    userName = PropertyUtility.getDataProperties("valid.existing.stackcustomer.phone");
                     password = PropertyUtility.getDataProperties("denver.customer.password");
-                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver5.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("valid.existing.stackcustomer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 default:
@@ -3323,5 +3334,146 @@ public class CommonSteps extends DriverBase {
                 "Error performing step,Please check logs for more details", true);
     }
     }
+    @And("^I search the delivery using \"([^\"]*)\"$")
+    public void i_search_the_delivery_using_something(String strArg1) throws Throwable {
+        try {
+            Thread.sleep(1000);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST","74355e88-4beb-5615-4344-568d7741cedb");
+            cucumberContextManager.setScenarioContext("ADMIN1_NAME",action.getText(admin_ScheduledTripsPage.Text_AdminName()));
+            action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
+            log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @Then("^The revive button should not be displayed$")
+    public void the_revive_button_should_not_be_displayed() throws Throwable {
+        try{
+            testStepAssert.isFalse(action.isElementPresent(adminTripsPage.Button_ReviveTrip(true)),"Revive button should not be displayed", "Revive button is not displayed", "Revive button is displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in viewing alert", true);
+        }
+    }
+
+    @And("^I wait for \"([^\"]*)\" minutes$")
+    public void i_wait_for_something_minutes(String strArg1) throws Throwable {
+        Thread.sleep(120000);
+        pass("I wait for 2 minutes",
+                "I waited for 2 minutes");
+    }
+
+    @And("^I enter cancellation fee and Comments$")
+    public void i_enter_cancellation_fee_and_comments() throws Throwable {
+        try{
+            action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationFee(), "0");
+            action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationComment(), "Cancelling");
+            action.selectElementByText(admin_ScheduledTripsPage.Dropdown_CancellationReason(), "Other");
+            log("I enter cancellation fee amount and comments",
+                    "I have entered cancellation fee amount and comments", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I select \"([^\"]*)\" from the \"([^\"]*)\" dropdown$")
+    public void i_select_something_from_the_something_dropdown(String strArg1, String field) throws Throwable {
+        try{
+            String Name = null;
+            switch(field) {
+//            case "Select Business User":
+                case "Select Partner":
+                    Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
+
+                    action.selectElementByText(admin_BusinessUsersPage.DropDown_AddBusinessUserPayment(),Name);
+                    log("I select element from Select Business User dropdown",
+                            "I have selected element from Select Business User dropdown", true);
+                    break;
+                case "Select Partners":
+                    Name = (String) cucumberContextManager.getScenarioContext("PROMOTER_NAME");
+                    action.selectElementByText(admin_PromoterPage.DropDown_SelectPromoter(),Name);
+                    log("I select element from Select Business User dropdown",
+                            "I have selected element from Select Business User dropdown", true);
+                    break;
+                case "Cancellation Reason":
+                    //Name = (String) cucumberContextManager.getScenarioContext("REASON_NAME");
+                    action.selectElementByText(admin_ScheduledTripsPage.Dropdown_CancellationReason(),strArg1);
+                    log("I select element from Cancellation reason dropdown",
+                            "I have selected element from Cancellation reason dropdown", true);
+                    break;
+                case "Partner Cards":
+                    action.selectElementByText(admin_paymentMethodsPage.Dropdown_Partners(),strArg1);
+                    log("I select element from Partner Cards dropdown",
+                            "I have selected element from Partner Cards dropdown", true);
+                    break;
+            }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @When("^I click on \"([^\"]*)\" button on Revival Popup$")
+    public void i_click_on_something_button_on_revival_popup(String button) throws Throwable {
+        try{
+            switch(button)
+            {
+                case "Confirm":
+                    action.click(admin_revivalPage.Button_Confirm());
+                    Thread.sleep(10000);
+                    String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    cucumberContextManager.setScenarioContext("OLD_PICKUP_REQUEST",pickuprequest);
+                    pickuprequest = dbUtilites.getLinkedPickupRef(pickuprequest);
+                    cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
+                    break;
+                case "Cancel":
+                    action.click(admin_revivalPage.Button_Cancel());
+                    break;
+            }
+            log("I click on the "+button+" button on Revival Popup",
+                    "I have clicked the "+button+" button on Revival Popup", true);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^The \"([^\"]*)\" message should be displayed$")
+    public void the_something_message_should_be_displayed(String message) throws Throwable {
+        try{
+        Thread.sleep(3000);
+        testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessage(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+    } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+    @Then("^Revive button should be displayed beside the trip$")
+    public void revive_button_should_be_displayed_beside_the_trip() throws Throwable {
+        try {
+            String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            SetupManager.getDriver().manage().window().maximize();
+            SetupManager.getDriver().manage().window().setSize(new Dimension(1900, 1280));
+
+            String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']/img", customerName);
+            testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
+            cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
 
 }
