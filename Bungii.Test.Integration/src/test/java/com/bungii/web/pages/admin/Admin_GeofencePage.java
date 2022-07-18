@@ -102,4 +102,6 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Checkbox_Geofence(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath, ignoreException);}
     public WebElement Checkbox_GeofenceLabel(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]",geofence) , LocatorType.XPath, ignoreException);}
 
+    public WebElement Text_GeofenceHighlighted() { return findElement("//ul/li/div/span/mark", LocatorType.XPath);}
+
 }

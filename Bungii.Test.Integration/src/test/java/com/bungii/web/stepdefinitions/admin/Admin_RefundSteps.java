@@ -4,9 +4,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
-import com.bungii.web.pages.admin.Admin_AccessorialChargesPage;
-import com.bungii.web.pages.admin.Admin_RefundsPage;
-import com.bungii.web.pages.admin.Admin_TripsPage;
+import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -30,6 +28,8 @@ public class Admin_RefundSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(Admin_RefundSteps.class);
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+    Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_DashboardPage admin_DashboardPage = new Admin_DashboardPage();
      boolean partial = true;
 
     @When("^I select \"([^\"]*)\" radio button$")
@@ -518,5 +518,56 @@ try{
                     true);
         }
     }
+    @When("^I click on the \"([^\"]*)\" dropdown$")
+    public void i_click_on_the_something_dropdown(String name) throws Throwable {
+        switch (name){
+            case "Select Geofence":
+             action.click(admin_GeofencePage.List_Geofence());
+             break;
+        }
+    }
+
+    @And("^I Enter the text \"([^\"]*)\"$")
+    public void i_enter_the_text_something(String stateName) throws Throwable {
+        action.click(admin_GeofencePage.Button_Clear());
+        action.clearSendKeys(admin_GeofencePage.TextBox_SearchGeofence(),stateName);
+    }
+
+    @Then("^I should see \"([^\"]*)\" highlighted$")
+    public void i_should_see_something_highlighted(String expectedcity) throws Throwable {
+        String textColor = "rgba(255, 255, 0, 1)";
+        String color = admin_GeofencePage.Text_GeofenceHighlighted().getCssValue("background-color");
+        String cityName = action.getText(admin_GeofencePage.Text_GeofenceHighlighted());
+        testStepAssert.isEquals(cityName,expectedcity,"same","same","same");
+        testStepAssert.isEquals(color,textColor,"The text should be highlight","The text is highlighted","The text is not highlighted");
+    }
+
+    @And("^I click on the \"([^\"]*)\" checkbox$")
+    public void i_click_on_the_something_checkbox(String strArg1) throws Throwable {
+        switch (strArg1){
+            case "Washington DC":
+            case "Boston":
+                action.JavaScriptClick(admin_GeofencePage.Checkbox_Geofence(strArg1));
+                break;
+        }
+        action.click(admin_GeofencePage.Button_ApplyGeofence());
+    }
+
+    @And("^I click on the \"([^\"]*)\" link from the sidebar$")
+    public void i_click_on_the_something_link_from_the_sidebar(String navigateTo) throws Throwable {
+        switch (navigateTo){
+            case "Customer":
+                action.click(admin_DashboardPage.Button_Customers());
+                break;
+            case "Driver":
+                action.click(admin_DashboardPage.Button_Drivers());
+                break;
+        }
+        action.click(admin_GeofencePage.Button_Clear());
+        action.click(admin_GeofencePage.Button_ApplyGeofence());
+    }
+
+
+
 
 }
