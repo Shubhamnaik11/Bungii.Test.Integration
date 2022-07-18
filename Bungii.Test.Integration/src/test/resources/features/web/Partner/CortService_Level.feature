@@ -131,3 +131,45 @@ Feature: Cort Service Level
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then Revive button should be displayed beside the trip
+
+
+  #CORE-3381: To verify that Revive button is not present for deliveries scheduled more than 5 days in advance
+  @ready
+  Scenario: To verify that Revive button is not present for deliveries scheduled more than 5 days in advance
+    And I request "Solo" Bungii trip in partner portal configured for "Cort service level" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |
+    And I should be able to schedule a trip "10"days from today
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    When I click "Service Level List" button on Partner Portal
+    Then I should "see all the Service Level" for "Biglots" Alias
+    When I change the service level to "First Threshold" in "Partner" portal
+    And I click "Continue" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    When I enter all details on "Delivery Details" for "Cort service level" on partner screen
+      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Bodc_Code|
+      |Furniture         |Handle with care   |Testpartner U |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |SVC02/09/00 |
+    And I enter the value "Test ScheduledBy" in Scheduled by field
+    And I Select "Customer Card" as Payment Method
+    And I enter following Credit Card details on Partner Portal
+      |CardNo   |Expiry |Postal_Code      |Cvv      |
+      |VISA CARD2|12/29  |VALID POSTAL CODE|VALID CVV|
+    And I click "Schedule Bungii" button on Partner Portal
+    Then I should "see Done screen"
+    And I wait for 2 minutes
+    When I am logged in as Admin
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Pending |
+    And I click on the "Edit" button from the dropdown
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    When I click on "Submit" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for "2" mins
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The revive button should not be displayed

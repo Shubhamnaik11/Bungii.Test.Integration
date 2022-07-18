@@ -164,9 +164,10 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 And I login to driver portal on a new tab with driver phone number "9049840210"
 Then The accessorial charges cut should be displayed in total earnings
 
-@ready #3381
+#CORE-3881 : To verify that admin can add accessorial charges for partner canceled deliveries after revival
+@testAllan
 Scenario: To verify that admin can add accessorial charges for partner canceled deliveries after revival
-   When I request Partner Portal "Duo" Trip for "MRFM" partner
+   When I request Partner Portal "SOLO" Trip for "MRFM" partner
    |Geofence| Bungii Time   | Customer Phone | Customer Name |
    |Kansas  | NEXT_POSSIBLE | 9999999228     | Testcustomertywd_appleNewMO Customer|
 	Given I navigate to "Partner" portal configured for "normal" URL
@@ -193,7 +194,6 @@ Scenario: To verify that admin can add accessorial charges for partner canceled 
 	Then I should be able to see the respective bungii with the below status
 		|  Status |
 		| Assigning Driver(s)|
-
 	And I view the Deliveries list on the admin portal
 	And I search the delivery using old pickup reference
 	And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
@@ -206,7 +206,7 @@ Scenario: To verify that admin can add accessorial charges for partner canceled 
 		|  100     | Other            | Charges due to other reasons      | 20         |
 	And I should see following details in the Accessorial charges section
 		| Excess Wait Time | Cancelation | Mountainous | Other | Total   |
-		| $10.00             | $20.5       | $25.65      | $100.00  | $156.15 |
+		| $10            | $20.5       | $25.65      | $100  | $156.15 |
 	And I set the cancelled delivery pickup reference as recent pickup reference to verify data in db
 	Then The Below accessorial charges should be present in the db
 		| Excess Wait Time | Cancelation | Mountainous | Other |

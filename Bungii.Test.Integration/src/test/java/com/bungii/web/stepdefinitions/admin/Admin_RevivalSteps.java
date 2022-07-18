@@ -265,7 +265,7 @@ public class Admin_RevivalSteps extends DriverBase {
     @Then("^The Below accessorial charges should be present in the db$")
     public void the_below_accessorial_charges_should_be_present_in_the_db(DataTable data) throws Throwable {
         try{
-        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String excessWaitTimeAmount = dataMap.get("Excess Wait Time").trim();
         String cancelationAmount = dataMap.get("Cancelation").trim();
         String mountainousAmount = dataMap.get("Mountainous").trim();
@@ -297,7 +297,6 @@ public class Admin_RevivalSteps extends DriverBase {
 
     @And("^I search the delivery using old pickup reference$")
     public void i_search_the_delivery_using_old_pickup_reference() throws Throwable {
-       cucumberContextManager.setScenarioContext("OLD_PICKUP_REQUEST","c59ed309-0aa2-0d77-238a-75173ebe66de");
         String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
         Thread.sleep(2000);
         action.clearSendKeys(adminTripsPage.TextBox_Search(), oldPickupRef + Keys.ENTER);

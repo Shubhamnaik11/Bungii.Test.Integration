@@ -792,8 +792,8 @@ Feature: Partner Integration with Admin and Driver
 #   Core-3391 Verify that Estimated time on admin portal details delivery page gets updated when delivery address is changed
     Then I check if correct "estimated time geofence based Partner portal" is displayed
 
-
-#  @testAllan
+ #CORE-3381 -To verify that revive button works fine for partner portal/customers having special characters in name field
+  @ready
   Scenario: To verify that revive button works fine for partner portal/customers having special characters in name field
     When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -870,3 +870,4 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed      |
+    And The amount should be "Refunded" and in "voided" state
