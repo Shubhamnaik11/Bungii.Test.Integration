@@ -124,6 +124,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Request Bungii":
+                    String custTripTime= action.getText(bungiiEstimatePage.Text_ScheduledTime());
+                    cucumberContextManager.setScenarioContext("SCHEDULED_TIME",custTripTime);
                     String cost = action.getText(bungiiEstimatePage.Text_GetCost());
                     cost = cost.replace("~", "");
                     cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER", cost);
@@ -136,6 +138,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (checked.equals("false")) {
                         action.click(bungiiEstimatePage.Checkbox_AgreeEstimate());
                     }
+
                     if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))
                         action.scrollToBottom();
                     action.click(bungiiEstimatePage.Button_RequestBungii());

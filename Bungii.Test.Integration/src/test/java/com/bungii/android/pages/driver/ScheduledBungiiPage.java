@@ -16,4 +16,9 @@ public class ScheduledBungiiPage extends  PageBase {
 
     public WebElement Text_ScheduledBungiiStatus() { return  findElement("com.bungii.driver:id/scheduled_row_textview_status", LocatorType.Id);}
 
+    public WebElement Button_ThreeDot() { return findElement("//android.view.ViewGroup[@resource-id='com.bungii.driver:id/appCompatImageView37']/android.widget.ImageView",LocatorType.XPath);}
+
+    public WebElement Link_ScheduledBungiis() { return findElement("//android.widget.Button[@resource-id='com.bungii.driver:id/activity_more_options_btn_scheduled_bungiis']",LocatorType.XPath);}
+
+    public WebElement Customer_ScheduledDelivery() { return findElement("//android.widget.TextView[@resource-id='com.bungii.driver:id/scheduled_row_textview_scheduleddatetime']",LocatorType.XPath);}
 }

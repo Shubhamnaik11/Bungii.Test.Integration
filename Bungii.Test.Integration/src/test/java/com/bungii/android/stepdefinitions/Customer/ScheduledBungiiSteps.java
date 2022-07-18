@@ -390,6 +390,21 @@ public class ScheduledBungiiSteps extends DriverBase {
        }
     }
 
+    @And("^I should select the \"([^\"]*)\" customer on driver app$")
+    public void i_should_select_the_something_customer_on_driver_app(String customer) throws Throwable {
+        try{
+            //String customerTripDateTime = (String) cucumberContextManager.getScenarioContext("CUSTOMER_APP_TRIP_TIME");
+            //action.click(scheduledBungiiPage.Customer_ScheduledDelivery(customerTripDateTime));
+            action.click(scheduledBungiiPage.Customer_ScheduledDelivery());
+            pass("I should able to select scheduled bungii for customer"+customer,"I have selected scheduled bungii for customer"+customer);
+        }
+        catch (Exception e) {
+            //logger.error("Error performing step", SetupManager.getDriver().getPageSource());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void i_click_something_button_on_something_screen(String button, String strArg2) throws Throwable {
         try {
@@ -401,6 +416,11 @@ public class ScheduledBungiiSteps extends DriverBase {
                     break;
                 case "On To The Next One":
                     action.click(estimatePage.Button_NextBungii());
+                    break;
+                case "Scheduled Bungiis":
+                    action.click(scheduledBungiiPage.Button_ThreeDot());
+                    Thread.sleep(1000);
+                    action.click(scheduledBungiiPage.Link_ScheduledBungiis());
                     break;
             }
         } catch (Exception e) {

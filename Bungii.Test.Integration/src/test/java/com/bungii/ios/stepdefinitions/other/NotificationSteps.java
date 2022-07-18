@@ -135,7 +135,12 @@ public class NotificationSteps extends DriverBase {
     }
     @And("^I view and accept virtual notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_view_and_accept_virtual_notification_for_something_for_something(String strArg1, String expectedNotification) throws Throwable {
-        acceptVirtualNotificationAsDriver("first",(String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_PUSH"),(String) cucumberContextManager.getScenarioContext("DRIVER_PWD_PUSH"),expectedNotification);
+        if(expectedNotification.equalsIgnoreCase("SCHEDULED PICKUP2 AVAILABLE")){
+            acceptVirtualNotificationAsDriver("second", (String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_PUSH"), (String) cucumberContextManager.getScenarioContext("DRIVER_PWD_PUSH"), expectedNotification);
+        }
+        else {
+            acceptVirtualNotificationAsDriver("first", (String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_PUSH"), (String) cucumberContextManager.getScenarioContext("DRIVER_PWD_PUSH"), expectedNotification);
+        }
     }
     @And("^I view and try accepting virtual notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_view_and_try_accepting_virtual_notification_for_something_for_something(String strArg1, String expectedNotification) throws Throwable {
