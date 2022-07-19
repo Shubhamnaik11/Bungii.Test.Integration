@@ -13,6 +13,7 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -567,7 +568,32 @@ try{
         action.click(admin_GeofencePage.Button_ApplyGeofence());
     }
 
+    @And("^I clear the filter applied$")
+    public void i_clear_the_filter_applied() throws Throwable {
+        action.click(admin_GeofencePage.List_Geofence());
+        action.click(admin_GeofencePage.Button_Clear());
+        action.click(admin_GeofencePage.Button_ApplyGeofence());
+    }
 
+    @Then("^I should see the region of the city highlighted$")
+    public void i_should_see_the_region_of_the_city_highlighted() throws Throwable {
+        action.click(admin_GeofencePage.List_Geofence());
+        List <WebElement> allRegions = admin_GeofencePage.List_GeofenceRegions();
+        String expectedRegionColor ="rgba(42, 132, 196, 1)";
+        for(int i=0;i<allRegions.size();i++){
+            String regionColor = allRegions.get(i).getCssValue("color");
+            System.out.println(regionColor);
+            if(regionColor.contentEquals(expectedRegionColor)){
+                String regionName = action.getText(allRegions.get(i));
+                cucumberContextManager.setScenarioContext("HighlightedRegion",regionName);
+            }
+        }
+        String regionSelected = (String)cucumberContextManager.getScenarioContext("HighlightedRegion");
+        testStepVerify.isTrue(true,regionSelected+" Region should be highlighted",
+                regionSelected+" Region is highlighted",
+                regionSelected+" Region is not highlighted" );
+        action.click(admin_GeofencePage.List_Geofence());
+    }
 
 
 }

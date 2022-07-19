@@ -431,23 +431,25 @@ Feature: Admin_Refund
 		And I Enter the text "Washington DC"
 		Then I should see "Washington DC" highlighted
 		And I click on the "Washington DC" checkbox
-		And I click on the "Customer" link from the sidebar
+		Then I should see the region of the city highlighted
+		And I clear the filter applied
+#		And I click on the "Customer" link from the sidebar
 		When I click on the "Select Geofence" dropdown
-		And I Enter the text "Washington DC"
-		Then I should see "Washington DC" highlighted
-		And I click on the "Washington DC" checkbox
+		And I Enter the text "Boston"
+		Then I should see "Boston" highlighted
+		And I click on the "Boston" checkbox
+		Then I should see the region of the city highlighted
 		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 			| Bungii Time   | Customer Phone | Customer Name |
 			| NEXT_POSSIBLE | 9284000006 | Testcustomertywd_appleweb CustF|
 		And I wait for 2 minutes
 		And I view the all Scheduled Deliveries list on the admin portal
-		When I click on the "Select Geofence" dropdown
-		And I Enter the text "Washington DC"
-		Then I should see "Washington DC" highlighted
-		And I click on the "Washington DC" checkbox
+		And I clear the filter applied
 		Then I should be able to see the respective bungii with the below status
 			|  Status |
 			| Assigning Driver(s)|
+		Then I should see the region of the city highlighted
+		And I clear the filter applied
 		When I click on the "Select Geofence" dropdown
 		And I Enter the text "Boston"
 		Then I should see "Boston" highlighted
@@ -460,18 +462,16 @@ Feature: Admin_Refund
 		    |Enroute    |
 		And I wait for 2 minutes
 		And I view the Live Deliveries list on  admin portal
-		When I click on the "Select Geofence" dropdown
-		And I Enter the text "Washington DC"
-		Then I should see "Washington DC" highlighted
-		And I click on the "Washington DC" checkbox
-		And  I search the delivery using "Pickup Reference"
+		And I clear the filter applied
 		Then I should be able to see the respective bungii with the below status
 			|  Status |
-			| Assigning Driver(s)|
+			| Trip Started|
+		And I clear the filter applied
 		When I click on the "Select Geofence" dropdown
 		And I Enter the text "Boston"
 		Then I should see "Boston" highlighted
 		And I click on the "Boston" checkbox
+		Then I should see the region of the city highlighted
 		And  I search the delivery using "Pickup Reference"
 		Then I should see the message "No deliveries found." displayed
 		And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" Delivery
@@ -483,15 +483,14 @@ Feature: Admin_Refund
 			| Bungii Completed |
 		And I wait for 2 minutes
 		And I view All Deliveries list on the admin portal
-		When I click on the "Select Geofence" dropdown
-		And I Enter the text "Washington DC"
-		Then I should see "Washington DC" highlighted
-		And I click on the "Washington DC" checkbox
-		Then The Driver Trip List page should display the trip in "Payment Successful" state
+		And I clear the filter applied
+		Then The Delivery List page should display the delivery in "Payment Successful" state
+		And I clear the filter applied
 		When I click on the "Select Geofence" dropdown
 		And I Enter the text "Boston"
 		Then I should see "Boston" highlighted
 		And I click on the "Boston" checkbox
+		Then I should see the region of the city highlighted
 		And  I search the delivery using "Pickup Reference"
 		Then I should see the message "No deliveries found." displayed
 

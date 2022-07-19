@@ -3,6 +3,8 @@ package com.bungii.web.pages.admin;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class Admin_GeofencePage extends PageBase {
 
     public WebElement Menu_Geofences () { return findElement("adminmenu-geofences", LocatorType.Id); }
@@ -103,5 +105,7 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Checkbox_GeofenceLabel(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]",geofence) , LocatorType.XPath, ignoreException);}
 
     public WebElement Text_GeofenceHighlighted() { return findElement("//ul/li/div/span/mark", LocatorType.XPath);}
+
+    public List<WebElement> List_GeofenceRegions() { return findElements("//div[@id=\"tree\"]/ul/li/div/span[4]", LocatorType.XPath);}
 
 }
