@@ -165,7 +165,7 @@ And I login to driver portal on a new tab with driver phone number "9049840210"
 Then The accessorial charges cut should be displayed in total earnings
 
 #CORE-3881 : To verify that admin can add accessorial charges for partner canceled deliveries after revival
-@testAllan
+@ready
 Scenario: To verify that admin can add accessorial charges for partner canceled deliveries after revival
    When I request Partner Portal "SOLO" Trip for "MRFM" partner
    |Geofence| Bungii Time   | Customer Phone | Customer Name |

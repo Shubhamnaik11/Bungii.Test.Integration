@@ -851,22 +851,6 @@ Feature: Partner Integration with Admin and Driver
       | Unloading Item |
       | Bungii Completed |
     And I wait for 2 minutes
-    And I view the Deliveries list on the admin portal
-    And I search the delivery of Customer and view it
-    When I click on "ISSUE REFUND" button
-    Then The "Issue Refund" section should be displayed
-    When I select "Complete Refund" radio button
-    Then I should see Customer Refund Amount and Driver Earnings
-    When I enter "Bungii Internal Notes" as "Internal Note"
-    And I click on "Continue" button on Issue Refund popup
-    Then I should see "Issue Refund - Confirm Details" popup
-    And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
-    And I should see breakdown of Before and After Refund earnings
-    And I should see Bungii Internal Note
-    When I select "Are you sure you want to proceed with refund request ?" checkbox
-    And I click on "Process Refund" button on Issue Refund popup
-    Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
-    When I click on "OK" button
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed      |
