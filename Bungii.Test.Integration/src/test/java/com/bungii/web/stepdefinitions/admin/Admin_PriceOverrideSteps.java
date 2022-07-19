@@ -77,9 +77,13 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                             String driverCut = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings());
                             String oldDriverCut = driverCut.substring(1);
                             float oldDriverPrice= Float.parseFloat(oldDriverCut);
-                            float newDriverPrice= (float) (oldDriverPrice+20.08);
+                            float newDriverPrice= (float) (oldDriverPrice+10.08);
+                            float conversionDriverPrice=newDriverPrice+newDriverPrice;
                             cucumberContextManager.setScenarioContext("OLD_DRIVER_CUT",oldDriverCut);
                             cucumberContextManager.setScenarioContext("NEW_DRIVER_CUT",newDriverPrice);
+                            cucumberContextManager.setScenarioContext("NEW_DRIVER_ONE_CUT",newDriverPrice);
+                            cucumberContextManager.setScenarioContext("NEW_DRIVER_TWO_CUT",newDriverPrice);
+                            cucumberContextManager.setScenarioContext("NEW_DRIVER_CUT_AFTER_CONVERSION",conversionDriverPrice);
                             break;
                     }
                     break;
@@ -131,6 +135,30 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                             cucumberContextManager.setScenarioContext("NEW_DRIVER_CUT",newFormatedDriverPrice);
                             break;
                     }
+                    break;
+                case "Service level - fnd-duo":
+                    switch (price){
+                        case "Driver cut":
+                            String driverOneCut = action.getText(admin_tripDetailsPage.Text_DriverOneEarnings());
+                            String driverTwoCut = action.getText(admin_tripDetailsPage.Text_DriverTwoEarnings());
+                            String oldDriverOneCut = driverOneCut.substring(1);
+                            String oldDriverTwoCut = driverTwoCut.substring(1);
+                            float oldDriverOnePrice= Float.parseFloat(oldDriverOneCut);
+                            float oldDriverTwoPrice= Float.parseFloat(oldDriverTwoCut);
+                            float newDriverOnePrice= (float) (oldDriverOnePrice+2.08);
+                            float newDriverTwoPrice= (float) (oldDriverTwoPrice+2.08);
+                            DecimalFormat df = new DecimalFormat("0.00");
+                            float newFormatedDriverOnePrice = Float.parseFloat(df.format(newDriverOnePrice));
+                            float newFormatedDriverTwoPrice = Float.parseFloat(df.format(newDriverTwoPrice));
+                            float conversionDriverPrice = newFormatedDriverOnePrice+newFormatedDriverTwoPrice;
+                            cucumberContextManager.setScenarioContext("OLD_DRIVER_ONE_CUT",oldDriverOneCut);
+                            cucumberContextManager.setScenarioContext("OLD_DRIVER_TWO_CUT",oldDriverTwoCut);
+                            cucumberContextManager.setScenarioContext("NEW_DRIVER_ONE_CUT",newFormatedDriverOnePrice);
+                            cucumberContextManager.setScenarioContext("NEW_DRIVER_TWO_CUT",newFormatedDriverTwoPrice);
+                            cucumberContextManager.setScenarioContext("NEW_DRIVER_CUT_AFTER_CONVERSION",conversionDriverPrice);
+                            break;
+                    }
+                    break;
 
             }
             log("I should be able to save the old values of customer price and driver cut",
@@ -258,6 +286,16 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                 case "Driver cut":
                     String newDriverCut = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
                     action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Driver_Cut(),newDriverCut);
+                    break;
+
+                case "Driver cut-duo":
+                    String newDriverOneCut = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_ONE_CUT");
+                    String newDriverTwoCut = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_TWO_CUT");
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    float roundDriverOneCut = (float) (Math.floor( Float.parseFloat(newDriverOneCut)* 100) / 100);
+                    float roundDriverTwoCut = (float) (Math.floor( Float.parseFloat(newDriverTwoCut)* 100) / 100);
+                    action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Driver_Cut(), String.valueOf(roundDriverOneCut));
+                    action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Driver_Cut_Duo(), String.valueOf(roundDriverTwoCut));
                     break;
             }
             log("I should be able to override the customer price and driver cut",
@@ -525,7 +563,50 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^I check \"([^\"]*)\" is retained after \"([^\"]*)\" conversion$")
+    public void i_check_something_is_retained_after_something_conversion(String charge, String conversion) throws Throwable {
+       try{
+           switch (conversion){
+               case "duo to solo":
+                   switch (charge){
+                       case "Customer price":
+                           action.refreshPage();
+                           String estimatedCharges = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
+                           String actualEstimatedCharges = estimatedCharges.substring(1);
+                           String expectedEstimatedCharges = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
+                           testStepAssert.isEquals(actualEstimatedCharges, expectedEstimatedCharges, "Estimated Charges overriden should be retained after converted from DUO to SOLO", "Estimated Charges overriden are retained after converted from DUO to SOLO", "Estimated Charges overriden are not retained after converted from DUO to SOLO");
+                           break;
+                       case "Driver Earning":
+                           action.refreshPage();
+                           String driverOneCut = action.getText(admin_tripDetailsPage.Text_DriverOneEarnings());
+                           String actualDriverCharges = driverOneCut.substring(1);
+                           String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT_AFTER_CONVERSION");
+                           testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges, "Driver Charges overriden should be retained after converted from DUO to SOLO", "Driver Charges overriden are retained after converted from DUO to SOLO", "Driver Charges overriden are not retained after converted from DUO to SOLO");
+                           break;
+                   }
+                   break;
+           }
+       }
+       catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
 
+    @Then("^I check if DUO option is disabled$")
+    public void i_check_if_duo_option_is_disabled() throws Throwable {
+        try{
+            Thread.sleep(1000);
+           String duoDisabled = admin_editScheduledBungiiPage.RadioButton_Duo().getAttribute("disabled");
+           testStepAssert.isTrue(duoDisabled.equals("disabled"),"Duo should be disabled","Duo is disabled","Duo is not disabled");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
 
 }
