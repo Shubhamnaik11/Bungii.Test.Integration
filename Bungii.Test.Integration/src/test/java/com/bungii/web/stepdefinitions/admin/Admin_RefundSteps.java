@@ -542,6 +542,7 @@ try{
         try{
         action.click(admin_GeofencePage.Button_Clear());
         action.clearSendKeys(admin_GeofencePage.TextBox_SearchGeofence(),stateName);
+        log("I should be able to enter the text"+stateName+" in the textbox","I could enter the text"+stateName+" in the textbox");
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -555,7 +556,7 @@ try{
         String textColor =PropertyUtility.getDataProperties("city.text.highlight");
         String color = admin_GeofencePage.Text_GeofenceHighlighted().getCssValue("background-color");
         String cityName = action.getText(admin_GeofencePage.Text_GeofenceHighlighted());
-        testStepAssert.isEquals(cityName,expectedcity,"same","same","same");
+        testStepAssert.isEquals(cityName,expectedcity,"I should be able to see the city name "+expectedcity,"I could see the city name "+expectedcity, "The city name "+expectedcity+ " is not displayed");
         testStepAssert.isEquals(color,textColor,"The text should be highlight","The text is highlighted","The text is not highlighted");
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
