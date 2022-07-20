@@ -291,7 +291,7 @@ Feature: Solo Scheduled Bungii Part A
     When I Cancel selected Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @ready
+  @regression
   Scenario: Verify When Admin Cancels Bungii Then Trip Is Removed From The Scheduled Trip In App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -330,7 +330,7 @@ Feature: Solo Scheduled Bungii Part A
       | CUSTOMER1_PHONE |                 |
 
 
-  @ready
+  @regression
   #Stable
   Scenario:  Verify Customer Can Schedule Solo Bungii Only 5 Days Ahead Including Current Date
     Given I login as "valid denver" customer and on Home page
