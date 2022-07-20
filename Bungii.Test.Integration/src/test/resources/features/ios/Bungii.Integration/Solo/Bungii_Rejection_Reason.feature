@@ -3,7 +3,7 @@
 Feature: Rejection Popup on Driver App
 
   #  Rejection popup functionality enabled for Kansas geofence
-    @ready
+  @regression
     Scenario: Verify that rejection popup,cancel functionality and all reasons are displayed for scheduled deliveries on available trips page
         When I Switch to "driver" application on "same" devices
         And I am on the "LOG IN" page on driverApp
@@ -29,7 +29,7 @@ Feature: Rejection Popup on Driver App
         Then I check if the reason is saved in db
 
 #  Rejection popup functionality is disabled for Washington geofence
-  @ready
+  @regression
   Scenario: Verify that Rejection reason pop-up is not displayed to driver when the toggle is disabled on Admin Portal
       When I Switch to "driver" application on "same" devices
       And I am on the "LOG IN" page on driverApp
@@ -49,7 +49,7 @@ Feature: Rejection Popup on Driver App
 
 
 #  Core-3008: To verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
-    @ready
+  @regression
     Scenario: Verify that partner portal trip with "no driver found" status is displayed under Available Deliveries of driver app
       When I Switch to "driver" application on "same" devices
       And I am on the "LOG IN" page on driverApp
@@ -79,7 +79,7 @@ Feature: Rejection Popup on Driver App
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         Then I Select Partner portal Trip from available trip
 
-  @ready
+  @regression
   Scenario: Verify rejection reason pop-up for on-demand trips
     When I Switch to "driver" application on "same" devices
     And I login as "valid nashville" driver on "same" device and make driver status as "Online"
