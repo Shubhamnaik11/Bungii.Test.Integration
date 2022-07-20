@@ -1,9 +1,12 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
+import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import cucumber.api.java.en.And;
@@ -14,9 +17,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.*;
 
 
 public class Admin_PriceOverrideSteps extends DriverBase {
@@ -28,6 +31,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
     Partner_DeliveryPage partner_deliveryPage = new Partner_DeliveryPage();
     Admin_TripDetailsPage Page_Admin_Trips_Details = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_editScheduledBungiiPage= new Admin_EditScheduledBungiiPage();
+    Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
 
     @And("^I check if \"([^\"]*)\" button is displayed$")
     public void i_check_if_something_button_is_displayed(String strArg1) throws Throwable {
@@ -181,7 +185,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                             String estimatedCharges = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
                             String actualEstimatedCharges = estimatedCharges.substring(1);
                             String expectedEstimatedCharges = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
-                            testStepAssert.isEquals(actualEstimatedCharges, expectedEstimatedCharges, "Estimated Charges should be overridden", "Estimated Charges are overridden", "Estimated Charges are not overridden");
+                            float newExpectedEstimatedCharges = (float) (Math.floor( Float.parseFloat(expectedEstimatedCharges)* 100) / 100);
+                            testStepAssert.isEquals(actualEstimatedCharges, String.valueOf(newExpectedEstimatedCharges), "Estimated Charges should be overridden", "Estimated Charges are overridden", "Estimated Charges are not overridden");
                             break;
 
                         case "Driver Fixed Earnings":
@@ -189,7 +194,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                             String driverCharges = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings());
                             String actualDriverCharges = driverCharges.substring(1);
                             String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
-                            testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges, "Driver Charges should be overridden", "Driver Charges are overridden", "Driver Charges are not overridden");
+                            float newExpectedDriverCharges = (float) (Math.floor( Float.parseFloat(expectedDriverCharges)* 100) / 100);
+                            testStepAssert.isEquals(actualDriverCharges, String.valueOf(newExpectedDriverCharges), "Driver Charges should be overridden", "Driver Charges are overridden", "Driver Charges are not overridden");
                             break;
                     }
                     break;
@@ -285,7 +291,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
 
                 case "Driver cut":
                     String newDriverCut = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
-                    action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Driver_Cut(),newDriverCut);
+                    float roundDriverCut = (float) (Math.floor( Float.parseFloat(newDriverCut)* 100) / 100);
+                    action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Driver_Cut(), String.valueOf(roundDriverCut));
                     break;
 
                 case "Driver cut-duo":
@@ -296,6 +303,12 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     float roundDriverTwoCut = (float) (Math.floor( Float.parseFloat(newDriverTwoCut)* 100) / 100);
                     action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Driver_Cut(), String.valueOf(roundDriverOneCut));
                     action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Driver_Cut_Duo(), String.valueOf(roundDriverTwoCut));
+                    break;
+
+                case "Customer price - equal to driver earnings":
+                    String driverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
+                    float expectedDriverCharge = (float) (Math.floor( Float.parseFloat(driverCharges)* 100) / 100);
+                    action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Customer_Price(), String.valueOf(expectedDriverCharge));
                     break;
             }
             log("I should be able to override the customer price and driver cut",
@@ -573,19 +586,43 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                            action.refreshPage();
                            String estimatedCharges = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
                            String actualEstimatedCharges = estimatedCharges.substring(1);
-                           String expectedEstimatedCharges = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
-                           testStepAssert.isEquals(actualEstimatedCharges, expectedEstimatedCharges, "Estimated Charges overriden should be retained after converted from DUO to SOLO", "Estimated Charges overriden are retained after converted from DUO to SOLO", "Estimated Charges overriden are not retained after converted from DUO to SOLO");
+                           String expectedEstimatedCharge = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
+                           float expectedEstimatedCharges = (float) (Math.floor( Float.parseFloat(expectedEstimatedCharge)* 100) / 100);
+                           testStepAssert.isEquals(actualEstimatedCharges, String.valueOf(expectedEstimatedCharges), "Estimated Charges overriden should be retained after converted from DUO to SOLO", "Estimated Charges overriden are retained after converted from DUO to SOLO", "Estimated Charges overriden are not retained after converted from DUO to SOLO");
                            break;
                        case "Driver Earning":
                            action.refreshPage();
                            String driverOneCut = action.getText(admin_tripDetailsPage.Text_DriverOneEarnings());
                            String actualDriverCharges = driverOneCut.substring(1);
                            String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT_AFTER_CONVERSION");
-                           testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges, "Driver Charges overriden should be retained after converted from DUO to SOLO", "Driver Charges overriden are retained after converted from DUO to SOLO", "Driver Charges overriden are not retained after converted from DUO to SOLO");
+                           float expectedDriverCharge = (float) (Math.floor( Float.parseFloat(expectedDriverCharges)* 100) / 100);
+                           testStepAssert.isEquals(actualDriverCharges, String.valueOf(expectedDriverCharge), "Driver Charges overriden should be retained after converted from DUO to SOLO", "Driver Charges overriden are retained after converted from DUO to SOLO", "Driver Charges overriden are not retained after converted from DUO to SOLO");
+                           break;
+                   }
+                   break;
+               case "solo to duo":
+                   switch (charge){
+                       case "Customer price":
+                           action.refreshPage();
+                           String estimatedCharges = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
+                           String actualEstimatedCharges = estimatedCharges.substring(1);
+                           String expectedEstimatedCharge = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
+                           float expectedEstimatedCharges = (float) (Math.floor( Float.parseFloat(expectedEstimatedCharge)* 100) / 100);
+                           float newExpectedEstimatedCharges = (float) (Math.floor((expectedEstimatedCharges*2)* 100) / 100);
+                           testStepAssert.isEquals(actualEstimatedCharges, String.valueOf(newExpectedEstimatedCharges), "Estimated Charges overriden should be retained after converted from DUO to SOLO", "Estimated Charges overriden are retained after converted from DUO to SOLO", "Estimated Charges overriden are not retained after converted from DUO to SOLO");
+                           break;
+                       case "Driver Earning":
+                           action.refreshPage();
+                           String driverOneCut = action.getText(admin_tripDetailsPage.Text_DriverOneEarnings());
+                           String actualDriverCharges = driverOneCut.substring(1);
+                           String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
+                           float expectedDriverCharge = (float) (Math.floor( Float.parseFloat(expectedDriverCharges)* 100) / 100);
+                           testStepAssert.isEquals(actualDriverCharges, String.valueOf(expectedDriverCharge), "Driver Charges overriden should be retained after converted from DUO to SOLO", "Driver Charges overriden are retained after converted from DUO to SOLO", "Driver Charges overriden are not retained after converted from DUO to SOLO");
                            break;
                    }
                    break;
            }
+
        }
        catch(Exception e){
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -599,7 +636,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
         try{
             Thread.sleep(1000);
            String duoDisabled = admin_editScheduledBungiiPage.RadioButton_Duo().getAttribute("disabled");
-           testStepAssert.isTrue(duoDisabled.equals("disabled"),"Duo should be disabled","Duo is disabled","Duo is not disabled");
+           testStepAssert.isTrue(duoDisabled.equals("true"),"Duo should be disabled","Duo is disabled","Duo is not disabled");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -607,6 +644,50 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I open the trip for \"([^\"]*)\" the customer for delivery details$")
+    public void i_open_the_trip_for_something_the_customer_for_delivery_details(String custName) throws Throwable {
+        try{
+            String[] name = custName.split(" ");
 
+            action.clearSendKeys(admin_ScheduledTripsPage.Textbox_Search(),name[0]);
+            action.click(admin_ScheduledTripsPage.Button_Search());
 
+            Thread.sleep(25000);
+            List<WebElement> rows_editicon = admin_ScheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]), PageBase.LocatorType.XPath);
+            List<WebElement> rows_editlink = admin_ScheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Delivery Details')]",name[0]),PageBase.LocatorType.XPath);
+
+            if(rows_editicon.size()>0)
+            {
+                rows_editicon.get(0).click();
+                rows_editlink.get(0).click();
+            }
+
+            pass("I should able to open trip", "I viewed scheduled delivery",
+                    false);
+
+            log(" I click on Delivery Details besides the scheduled bungii",
+                    "I have clicked on Delivery Details besides the scheduled bungii", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I check if error message is displayed$")
+    public void i_check_if_error_message_is_displayed() throws Throwable {
+        try{
+            String errorMessage = PropertyUtility.getMessage("error.message.price.override");
+            testStepVerify.isEquals(admin_tripDetailsPage.Text_PriceOverrideError().getText(),errorMessage,
+                    "The correct error message should be displayed when customer cost is less than or equal to driver earnings",
+                    "The correct error message is displayed when customer cost is less than or equal to driver earnings",
+                    "The correct error message is not displayed when customer cost is less than or equal to driver earnings");
+
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }
