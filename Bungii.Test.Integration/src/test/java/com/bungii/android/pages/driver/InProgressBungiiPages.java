@@ -133,4 +133,10 @@ public class InProgressBungiiPages extends PageBase {
 
     public WebElement Text_DeliveryInstructions(){return findElement("com.bungii.driver:id/view_customer_note_markdown_instructions",LocatorType.Id);}
 
+    //Duo trip second driver vehicle information
+    public WebElement Image_BungiiDuoTeammate(boolean...ignoreException){return findElement("com.bungii.driver:id/duo_driver_imageview",LocatorType.Id,ignoreException);}
+    public WebElement Text_DuoDriverVehicleModel(){return findElement("com.bungii.driver:id/activity_teammate_tv_vehicle_info",LocatorType.Id);}
+    public WebElement Text_DuoDriverVehicleNumber(){return findElement("//android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.TextView",LocatorType.XPath);}
+
+
 }

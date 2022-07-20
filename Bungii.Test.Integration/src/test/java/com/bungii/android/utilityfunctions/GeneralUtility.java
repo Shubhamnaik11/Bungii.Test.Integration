@@ -328,6 +328,10 @@ Thread.sleep(5000);
                     isCorrectPage=action.isElementPresent(myBungiisPage.Header_Earnings());
                     break;
 
+            case "Rate duo teammate":
+                isCorrectPage=action.isElementPresent(myBungiisPage.Header_RateDuoTeammate());
+                break;
+
                 default:
                     String expectedMessage = p0;
                     try {
