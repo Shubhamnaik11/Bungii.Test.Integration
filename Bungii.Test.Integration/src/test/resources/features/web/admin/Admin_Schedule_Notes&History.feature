@@ -60,7 +60,7 @@ Feature: Admin Notes & History
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
 
 
-  @ready
+  @regression
   Scenario:To verify the Notes-Customer service notes of Admin1 can be edited by Admin1 only
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                       |
@@ -257,7 +257,7 @@ Feature: Admin Notes & History
     And I close the Note
 
 
-  @ready
+  @regression
   Scenario: To verify the Notes-Customer service notes field is displayed on delivery details page for Fixed pricing portal
     When I navigate to "Partner" portal configured for "BestBuy service level"
     And I enter "valid" password on Partner Portal
@@ -314,7 +314,7 @@ Feature: Admin Notes & History
     And I close the Note
 
 
-  @ready
+  @regression
   Scenario:To verify the Notes-Customer service notes of Admin1 can be added multiple times after ADMIN2 has added Notes to the same delivery
     When  I am logged in as TestAdmin
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
