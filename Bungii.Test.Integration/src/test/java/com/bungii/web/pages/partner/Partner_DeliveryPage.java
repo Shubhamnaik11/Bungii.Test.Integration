@@ -63,6 +63,9 @@ public class Partner_DeliveryPage extends PageBase {
     //Bodc Code
     public WebElement Dropdown_BodcCode() { return findElement("//label[text()='BODC Code']/following::div[1]/div[1]",LocatorType.XPath);}
 
+    //Bodc Options
+    public List<WebElement> Dropdown_BodcCodeOptions() {return findElements("//div/div/ul/li", LocatorType.XPath); }
+
     //Select Bodc Code value
     public WebElement Dropdown_BodcCodeValue() { return findElement("//li[contains(text(),'SVC02/09/00')]",LocatorType.XPath);}
 
@@ -130,6 +133,8 @@ public class Partner_DeliveryPage extends PageBase {
     //Schedule Bungii button
     //public WebElement Button_Schedule_Bungii() { return findElement("submit-details",LocatorType.Id);}
     public WebElement Button_Schedule_Bungii() { return findElement("//button[@id='submit-details']",LocatorType.XPath);}
+
+    public WebElement Button_New_Bungii() { return findElement("//div/button[text()='New Bungii']",LocatorType.XPath);}
 
     //Driver and truck text in summary
     public WebElement Text_Driver_Truck() { return findElement("//label[contains(text(),'s needed:')]/following-sibling::p",LocatorType.XPath);}

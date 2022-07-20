@@ -11,6 +11,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.text.DecimalFormat;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class BungiiRequestSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(BungiiRequestSteps.class);
@@ -107,7 +108,11 @@ public class BungiiRequestSteps extends DriverBase {
                 case "ACCEPT":
                     action.click(bungiiRequestPage.Button_Accept());
                     break;
+                case "REJECT":
+                    action.click(bungiiRequestPage.Button_Reject());
+                    break;
             }
+            log("I should be able to click on "+option,"I am able to click on "+option,false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

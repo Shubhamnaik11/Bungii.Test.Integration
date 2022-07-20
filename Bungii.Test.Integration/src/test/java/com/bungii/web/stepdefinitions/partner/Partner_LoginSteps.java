@@ -23,9 +23,11 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -172,6 +174,8 @@ public class Partner_LoginSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("Price_Estimate_Page", Price_Estimated_Page);
                         String Estimate_distance = action.getText(Page_Partner_Dashboard.Label_Distance()).replace(" miles","");//calculate values as per the displayed miles value to avoid mismatch in calculation
                         cucumberContextManager.setScenarioContext("Distance_Estimate_Page", Estimate_distance);
+                        String Estimated_Delivery_Time=action.getText(Page_Partner_Dashboard.Label_EstDeliveryTime());
+                        cucumberContextManager.setScenarioContext("Estimated_Delivery_Time", Estimated_Delivery_Time);
 
                         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                     } else {
@@ -181,6 +185,9 @@ public class Partner_LoginSteps extends DriverBase {
                 case "Schedule Bungii":
                     action.JavaScriptScrolldown();
                     action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
+                    break;
+                case "New Bungii":
+                    action.click(Page_Partner_Delivery.Button_New_Bungii());
                     break;
                 case "Track Deliveries":
                     Thread.sleep(5000);
@@ -237,6 +244,140 @@ public class Partner_LoginSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step , I Should "+ str,
                     true);
         }
+    }
+    @And("^I calculate the estimated delivery time for \"([^\"]*)\"$")
+    public void i_calculate_the_estimated_delivery_time_for_something(String portalType) throws Throwable {
+        try {
+            DateFormat formatter = new SimpleDateFormat("HH:mm");
+            switch (portalType){
+                case "geofence based portal":
+                    String scheduledDate= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+                    String pickUpId = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String time=scheduledDate.substring(8,13);
+                    Time timeValue = new Time(formatter.parse(time).getTime());
+
+                    int  loadUnloadTime = Math.round(Float.valueOf(dbUtility.getLoadUnloadTime(pickUpId)));
+                    int calLoadUnload=loadUnloadTime/3;
+                    int projectedDriveTime= Integer.parseInt(dbUtility.getProjectedDriverTime(pickUpId));
+                    int minutes=calLoadUnload+projectedDriveTime+40;
+                    utility.calculateEstDeliveryTime(minutes,timeValue);
+                    break;
+
+                case "edited address for geofence based portal":
+                    String changedTime= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+                    String newPickUpId = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String time1=changedTime.substring(8,13);
+                    Time timeValue1 = new Time(formatter.parse(time1).getTime());
+
+                    int  loadUnloadTime1 = Math.round(Float.valueOf(dbUtility.getLoadUnloadTime(newPickUpId)));
+                    int calLoadUnload1=loadUnloadTime1/3;
+                    int projectedDriveTime1= Integer.parseInt(dbUtility.getProjectedDriverTime(newPickUpId));
+                    int mins=calLoadUnload1+projectedDriveTime1+40;
+                    utility.calculateEstDeliveryTime(mins,timeValue1);
+                    String lowerRange= (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
+                    String upperRange= (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
+                    Time lowerTimeValue = new Time(formatter.parse(lowerRange).getTime());
+                    Time upperTimeValue = new Time(formatter.parse(upperRange).getTime());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(lowerTimeValue);
+                    calendar.add(Calendar.MINUTE, -5);
+                    String lowerRangeTime=String.valueOf(calendar.getTime());
+                    calendar.setTime(upperTimeValue);
+                    calendar.add(Calendar.MINUTE, -5);
+                    String upperRangeTime=String.valueOf(calendar.getTime());
+                    String estimateLowerRange=lowerRangeTime.substring(11,16);
+                    cucumberContextManager.setScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME",estimateLowerRange);
+                    String estimateUpperRange=upperRangeTime.substring(11,16);
+                    cucumberContextManager.setScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME",estimateUpperRange);
+                    break;
+
+                case "fixed distance based":
+                    String scheduledDat= (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
+                    String pickUpReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String serviceName = (String) cucumberContextManager.getScenarioContext("Selected_service");
+                    String Time=scheduledDat.substring(16,20);
+                    Time timeValue2 = new Time(formatter.parse(Time).getTime());
+
+                    long default_Pickup_Time = dbUtility.getDefaultPickupTime(serviceName, "Biglots");
+                    default_Pickup_Time = utility.Milliseconds_To_Minutes(default_Pickup_Time);
+                    long default_Dropoff_time = dbUtility.getDefaultDropoffTime(serviceName, "Biglots");
+                    default_Dropoff_time = utility.Milliseconds_To_Minutes(default_Dropoff_time);
+                    int  sumLoadUnload = (int) (default_Pickup_Time+default_Dropoff_time);
+                    int loadUnload=sumLoadUnload/3;
+                    int projectedDriveTime2= Integer.parseInt(dbUtility.getProjectedDriverTime(pickUpReference));
+                    int min=loadUnload+projectedDriveTime2+40;
+                    utility.calculateEstDeliveryTime(min,timeValue2);
+                    break;
+            }
+            log("I should be able to calculate the correct estimated delivery time range","I am able to calculate the correct estimated delivery time range",false);
+
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I check if correct \"([^\"]*)\" is displayed$")
+    public void i_check_if_correct_something_is_displayed(String portal) throws Throwable {
+       try{
+           String deliveryEstimateTimePP= (String) cucumberContextManager.getScenarioContext("Estimated_Delivery_Time");
+           switch (portal){
+               case "estimated time on admin portal":
+                   String deliveryEstimateTimeAdminPortal=action.getText(Page_Partner_Delivery_List.Text_EstimatedDeliveryTime());
+                   testStepAssert.isEquals(deliveryEstimateTimeAdminPortal,deliveryEstimateTimePP,
+                           "Estimated delivery time displayed on partner portal and admin portal should be same.",
+                           "Estimated delivery time displayed on partner portal and admin portal is the same.",
+                           "Estimated delivery time displayed on partner portal and admin portal are not the same.");
+                   break;
+
+               case "estimated time on partner portal":
+                   String deliveryEstimateTimePartnerPortal=action.getText(Page_Partner_Delivery_List.Text_DeliveryTime());
+                   testStepAssert.isEquals(deliveryEstimateTimePartnerPortal,deliveryEstimateTimePP,
+                           "Estimated delivery time displayed on partner portal delivery details and while creating trip should be same.",
+                           "Estimated delivery time displayed on partner portal delivery details and while creating trip is the same.",
+                           "Estimated delivery time displayed on partner portal delivery details and while creating trip are not the same.");
+                   break;
+
+               case "estimated time fixed distance based Partner portal":
+                   String calLowerRange1 = (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
+                   String calUpperRange1 = (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
+                   String actualLowerRange1 = action.getText(Page_Partner_Delivery_List.Text_DeliveryTime()).toString().substring(0,5);
+                   testStepAssert.isEquals(actualLowerRange1,calLowerRange1,
+                           "The calculated lower range and the displayed should be same",
+                           "The calculated lower range and the displayed is same",
+                           "The calculated lower range and the displayed is not the same");
+                   String actualUpperRange1 = action.getText(Page_Partner_Delivery_List.Text_DeliveryTime()).toString().substring(11,16);
+                   testStepAssert.isEquals(actualUpperRange1,calUpperRange1,
+                           "The calculated upper range and the displayed should be same",
+                           "The calculated upper range and the displayed is same",
+                           "The calculated upper range and the displayed is not the same");
+                   break;
+
+               case "estimated time geofence based Partner portal":
+                   action.refreshPage();
+                   String calLowerRange = (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
+                   String calUpperRange = (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
+                   String actualLowerRange = action.getText(Page_Partner_Delivery_List.Text_EstimatedDeliveryTime()).toString().substring(0,5);
+                   testStepAssert.isEquals(actualLowerRange,calLowerRange,
+                           "The calculated lower range and the displayed should be same",
+                           "The calculated lower range and the displayed is same",
+                           "The calculated lower range and the displayed is not the same");
+                   String actualUpperRange = action.getText(Page_Partner_Delivery_List.Text_EstimatedDeliveryTime()).toString().substring(11,16);
+                   testStepAssert.isEquals(actualUpperRange,calUpperRange,
+                           "The calculated upper range and the displayed should be same",
+                           "The calculated upper range and the displayed is same",
+                           "The calculated upper range and the displayed is not the same");
+                   break;
+           }
+            log("I should be able to check the estimated delivery time.","I am able to check the estimated delivery time.",false);
+       }
+       catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
     }
 
     @Then("^I should \"([^\"]*)\" for \"([^\"]*)\" Alias$")
@@ -723,6 +864,158 @@ public class Partner_LoginSteps extends DriverBase {
                     true);
 
         }
+    }
+    @And("^I check in the db the number of timeslots available \"([^\"]*)\"$")
+    public void i_check_in_the_db_the_number_of_timeslots_available_something(String duration) throws Throwable {
+       try{
+           String scheduledTime= (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
+           String bestBuyAddress=PropertyUtility.getDataProperties("partner.bestbuy.address1");
+           String time=scheduledTime.substring(8,13);
+           Date now = new Date();
+           LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+           String date = String.valueOf(localDate);
+           switch (duration){
+               case "before schedule for best buy":
+                   String timeSlotsUsed = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   cucumberContextManager.setScenarioContext("TIME_SLOTS_BEFORE_SCHEDULE",timeSlotsUsed);
+                   break;
+
+               case "after schedule for best buy":
+                   String beforeSchedule= (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_BEFORE_SCHEDULE");
+                   int timeSlotsBefore = Integer.parseInt(beforeSchedule);
+                   String timeSlotsUsedAfterSchedule = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int timeSlotsAfter = Integer.parseInt(timeSlotsUsedAfterSchedule);
+                   cucumberContextManager.setScenarioContext("TIME_SLOTS_AFTER_SCHEDULE",timeSlotsUsedAfterSchedule);
+                   testStepAssert.isTrue(timeSlotsAfter == (timeSlotsBefore+1),
+                               "Time slot used count should increase after schedule","Time slot used count is not increased after schedule");
+                   break;
+
+               case "after schedule for duo for best buy":
+                   String beforeScheduleDuo= (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_BEFORE_SCHEDULE");
+                   int timeSlotsBeforeDuo = Integer.parseInt(beforeScheduleDuo);
+                   String timeSlotsUsedAfterScheduleDuo = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int timeSlotsAfterDuo = Integer.parseInt(timeSlotsUsedAfterScheduleDuo);
+                   cucumberContextManager.setScenarioContext("TIME_SLOTS_AFTER_SCHEDULE",timeSlotsUsedAfterScheduleDuo);
+                   testStepAssert.isTrue(timeSlotsAfterDuo ==(timeSlotsBeforeDuo +2),
+                               "Time slot used count should increase after schedule","Time slot used count is not increased after schedule");
+                   break;
+
+               case "after changing bungii type from solo to duo":
+                   String afterSchedule = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_SCHEDULE");
+                   int timeSlotsAfterSoloToDuo = Integer.parseInt(afterSchedule);
+                   String timeSlotsUsedAfterChangingBungiiTypeSoloToDuo = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int soloToDuoCount= Integer.parseInt(timeSlotsUsedAfterChangingBungiiTypeSoloToDuo);
+                   testStepAssert.isTrue(soloToDuoCount == (timeSlotsAfterSoloToDuo+1),
+                           "Time slot used count should increase after change from solo to duo","Time slot used count remains unchanged");
+                  cucumberContextManager.setScenarioContext("TIME_SLOTS_AFTER_CONVERSION_SOLO_TO_DUO",timeSlotsUsedAfterChangingBungiiTypeSoloToDuo);
+                   break;
+
+               case "after changing bungii type from duo to solo":
+                   String afterScheduleDuoToSolo = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_SCHEDULE");
+                   int timeSlotsAfterDuoToSolo = Integer.parseInt(afterScheduleDuoToSolo);
+                   String timeSlotsUsedAfterChangingBungiiTypeDuoToSolo = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int duoToSoloCount= Integer.parseInt(timeSlotsUsedAfterChangingBungiiTypeDuoToSolo);
+                   testStepAssert.isTrue(duoToSoloCount == (timeSlotsAfterDuoToSolo-1),
+                           "Time slot used count should decrease after change from solo to duo","Time slot used count remains unchanged");
+                   cucumberContextManager.setScenarioContext("TIME_SLOTS_AFTER_SCHEDULE_DUO_TO_SOLO",timeSlotsUsedAfterChangingBungiiTypeDuoToSolo);
+                   break;
+
+               case "after cancelling duo trip":
+                   String afterScheduleSoloToDuo = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_CONVERSION_SOLO_TO_DUO");
+                   int timeSlotsAfterScheduleSoloToDuo = Integer.parseInt(afterScheduleSoloToDuo);
+                   String timeSlotsUsedAfterCancellingDuoTrip = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int cancellingDuoTrip= Integer.parseInt(timeSlotsUsedAfterCancellingDuoTrip);
+                   testStepAssert.isTrue(cancellingDuoTrip == (timeSlotsAfterScheduleSoloToDuo-2),
+                           "Time slot used count should decrease by two after cancelling duo trip","Time slot used count remains unchanged");
+                   break;
+
+               case "after cancelling solo trip":
+                   String afterScheduleTrip = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_SCHEDULE");
+                   int timeSlotsAfterSchedule = Integer.parseInt(afterScheduleTrip);
+                   String timeSlotsUsedAfterCancellingSoloTrip = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int cancellingSoloTrip= Integer.parseInt(timeSlotsUsedAfterCancellingSoloTrip);
+                   testStepAssert.isTrue(cancellingSoloTrip == (timeSlotsAfterSchedule-1),
+                           "Time slot used count should decrease by one after cancelling solo trip","Time slot used count remains unchanged");
+
+                   break;
+
+               case "after changing date and time":
+                   String AfterSchedule = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_SCHEDULE");
+                   int timeSlotAfterSchedule = Integer.parseInt(AfterSchedule);
+                   String timeSlotsUsedAfterChangingTime = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int changingTime= Integer.parseInt(timeSlotsUsedAfterChangingTime);
+                   testStepAssert.isTrue(changingTime != timeSlotAfterSchedule,
+                           "Time slot used count should change after admin changes date and time","Time slot used count remains unchanged");
+                   break;
+
+               case "after changing address":
+                   String afterSchedule1 = (String) cucumberContextManager.getScenarioContext("TIME_SLOTS_AFTER_SCHEDULE_DUO_TO_SOLO");
+                   int timeSlotAfterSchedule1 = Integer.parseInt(afterSchedule1);
+                   String timeSlotsUsedAfterChangingAddress = dbUtility.getSlotUsedCount(date,time,bestBuyAddress);
+                   int changingAddress= Integer.parseInt(timeSlotsUsedAfterChangingAddress);
+                   testStepAssert.isTrue(changingAddress != timeSlotAfterSchedule1,
+                           "Time slot used count should change after admin changes address","Time slot used count remains unchanged");
+                   break;
+
+               case "before schedule for mrfm":
+                   String mrfmAddress=PropertyUtility.getDataProperties("partner.mrfm.address1");
+                   String timeSlotMrfm = dbUtility.getSlotUsedCount(date,time,mrfmAddress);
+                   cucumberContextManager.setScenarioContext("TIME_SLOT_BEFORE_SCHEDULE_MRFM",timeSlotMrfm);
+                   break;
+
+               case "after schedule for mrfm":
+                   String beforeScheduleMrfm= (String) cucumberContextManager.getScenarioContext("TIME_SLOT_BEFORE_SCHEDULE_MRFM");
+                   int timeSlotsBeforeMrfm = Integer.parseInt(beforeScheduleMrfm);
+                   String mrfmAddress1=PropertyUtility.getDataProperties("partner.mrfm.address1");
+                   String timeSlotsUsedAfterScheduleMrfm = dbUtility.getSlotUsedCount(date,time,mrfmAddress1);
+                   int timeSlotsAfterMrfm = Integer.parseInt(timeSlotsUsedAfterScheduleMrfm);
+                   testStepAssert.isTrue(timeSlotsBeforeMrfm == timeSlotsAfterMrfm,
+                           "Time slot used count should remain unchanged","Time slot used count changes");
+                   break;
+           }
+           log("I should be able to check the number of slots used","I am able to check the number of slots used",false);
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("The number of slots available should be correctly received.", "The number of slots available is not correctly received.",
+                   true);
+
+       }
+    }
+    @When("^I check in the db the number of timeslots available \"([^\"]*)\" new portal$")
+    public void i_check_in_the_db_the_number_of_timeslots_available_something_new_portal(String duration) throws Throwable {
+       try{
+           String scheduledTime= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+           String time=scheduledTime.substring(8,13);
+           Date now = new Date();
+           LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+           String date = String.valueOf(localDate);
+           switch (duration){
+               case "for bestbuy first address":
+                   String bestBuyStore1=PropertyUtility.getDataProperties("partner.new.bestbuy.store1");
+                   String timeSlotsUsedBestBuyStore1 = dbUtility.getSlotUsedCountByStoreName(date,time,bestBuyStore1);
+                   int timeSlots = Integer.parseInt(timeSlotsUsedBestBuyStore1);
+                   testStepAssert.isTrue(timeSlots == 1,
+                           "Time slot used count should be one for solo schedule for the first address","Time slot used count is not one");
+                   break;
+
+               case "for bestbuy second address":
+                   String bestBuyStore2=PropertyUtility.getDataProperties("partner.new.bestbuy.store2");
+                   String timeSlotsUsedBestBuyStore2 = dbUtility.getSlotUsedCountByStoreName(date,time,bestBuyStore2);
+                   int timeSlots2 = Integer.parseInt(timeSlotsUsedBestBuyStore2);
+                   testStepAssert.isTrue(timeSlots2 == 0,
+                           "Time slot used count should not be affected when a delivery is placed in different address for partner portal","Time slot used count is affected when a delivery is placed in different address for partner portal");
+
+                   break;
+           }
+           log("I should be able to check the number of slots used","I am able to check the number of slots used",false);
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("The number of slots available should be correctly received.", "The number of slots available is not correctly received.",
+                   true);
+
+       }
     }
 }
 

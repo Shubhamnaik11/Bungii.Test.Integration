@@ -92,6 +92,7 @@ public class GeneralUtility extends DriverBase {
     ScheduledBungiisPage scheduledBungiisPage = new ScheduledBungiisPage();
     InvitePage invitePage = new InvitePage();
     LocationPage locationPage= new LocationPage();
+    MyBungiisPage myBungiisPage = new MyBungiisPage();
     com.bungii.android.pages.driver.LocationPage driverLocation = new com.bungii.android.pages.driver.LocationPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     DbUtility dbUtility=new DbUtility();
@@ -99,7 +100,7 @@ public class GeneralUtility extends DriverBase {
     BungiiProgressPage Page_CustomerBungiiProgress = new BungiiProgressPage();
     AccountsPage accountPage = new AccountsPage();
     DashBoardPage admin_dashboardPage = new DashBoardPage();
-    MyBungiisPage myBungiisPage = new MyBungiisPage();
+    AvailableTripsPage availableTripsPage = new AvailableTripsPage();
 
     EmailUtility emailUtility = new EmailUtility();
     /**
@@ -319,9 +320,8 @@ Thread.sleep(5000);
                 case "BUNGII COMPLETE":
                     isCorrectPage=action.isElementPresent(customerBungiiCompletePage.PageTitle_BungiiCompleteGeneric());
                     break;
-
-                case "ITEMIZED EARNINGS":
-                    isCorrectPage=action.isElementPresent(myBungiisPage.Header_ItemizedEarnings());
+                case "BUNGII DETAILS":
+                    isCorrectPage=action.isElementPresent(availableTripsPage.PageTitle_BungiiDetails());
                     break;
 
                 case "EARNINGS":

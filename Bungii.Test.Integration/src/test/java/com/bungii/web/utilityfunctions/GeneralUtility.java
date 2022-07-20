@@ -1115,5 +1115,22 @@ public class GeneralUtility extends DriverBase {
         int random_int = random.nextInt(1000);
         return random_int;
     }
+    public void calculateEstDeliveryTime(int minutes, java.sql.Time timeValue){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(timeValue);
+        calendar.add(Calendar.MINUTE, minutes);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 5;
+        calendar.add(Calendar.MINUTE, (5 - mod));
+        calendar.add(Calendar.MINUTE,-60);
+        String lowerRangeTime=String.valueOf(calendar.getTime());
+        calendar.add(Calendar.MINUTE,120);
+        String upperRangeTime=String.valueOf(calendar.getTime());
+
+        String estimateLowerRange=lowerRangeTime.substring(11,16);
+        cucumberContextManager.setScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME",estimateLowerRange);
+        String estimateUpperRange=upperRangeTime.substring(11,16);
+        cucumberContextManager.setScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME",estimateUpperRange);
+    }
 }
 
