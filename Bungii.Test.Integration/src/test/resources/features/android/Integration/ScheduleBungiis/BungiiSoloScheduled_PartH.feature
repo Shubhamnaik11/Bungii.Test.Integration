@@ -34,7 +34,7 @@ Feature: SoloScheduled Part H
       | CUSTOMER1_PHONE | 8888889916      |
     ########################################################################
   
-  @ready
+  @regression
   Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |

@@ -104,8 +104,7 @@ And I Switch to "customer" application on "same" devices
 And I tap on "Menu" > "MY BUNGIIS" link
 Then Bungii must be removed from "MY BUNGIIS" screen
 
-      #@regression
-  @ready
+  @regression
   Scenario:  Verify Customer Receives Notification When Control Driver Starts Solo Bungii
     When I clear all notification
     And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
