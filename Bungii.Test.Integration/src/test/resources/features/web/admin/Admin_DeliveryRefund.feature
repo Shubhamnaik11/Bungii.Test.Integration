@@ -425,38 +425,55 @@ Feature: Admin_Refund
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
 
-	@testAllan
-	Scenario: To verify that on admin dashboard marketing filter only searched region and geofence is displayed on UI
+   #CORE-3380 : To verify that on Driver listing marketing filter only searched region and geofence is displayed on UI
+	@ready
+	Scenario:To verify that on Driver listing marketing filter only searched region and geofence is displayed on UI
 		When I click on the "Select Geofence" dropdown
 		And I Enter the text "Washington DC"
 		Then I should see "Washington DC" highlighted
 		And I click on the "Washington DC" checkbox
-		Then I should see the region of the city highlighted
+		And I should see the region of the city highlighted
 		And I clear the filter applied
-#		And I click on the "Customer" link from the sidebar
+		And I click on the "Customer" link from the sidebar
 		When I click on the "Select Geofence" dropdown
 		And I Enter the text "Boston"
 		Then I should see "Boston" highlighted
-		And I click on the "Boston" checkbox
+		When I click on the "Boston" checkbox
+        And I should see the region of the city highlighted
+		And I click on the "Driver" link from the sidebar
+		And I click on the "Select Geofence" dropdown
+		And I Enter the text "Goa"
+		Then I should see "Goa" highlighted
+		When I click on the "Goa" checkbox
 		Then I should see the region of the city highlighted
+		When I click on the "Sort City" link
+		Then I should see the drivers sorted with the applied geofence filter
+		And I clear the filter applied
+		And I click on the "Non Active Drivers" link from the sidebar
+		When I click on the "Select Geofence" dropdown
+		And I Enter the text "Washington DC"
+		Then I should see "Washington DC" highlighted
+		When I click on the "Washington DC" checkbox
+		Then I should see the region of the city highlighted
+		And I clear the filter applied
 		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 			| Bungii Time   | Customer Phone | Customer Name |
-			| NEXT_POSSIBLE | 9284000006 | Testcustomertywd_appleweb CustF|
+			| NEXT_POSSIBLE | 8877661060 | Testcustomertywd_BppleMarkBI LutherBI|
 		And I wait for 2 minutes
 		And I view the all Scheduled Deliveries list on the admin portal
 		And I clear the filter applied
 		Then I should be able to see the respective bungii with the below status
 			|  Status |
 			| Assigning Driver(s)|
-		Then I should see the region of the city highlighted
+		And I should see the region of the city highlighted
 		And I clear the filter applied
 		When I click on the "Select Geofence" dropdown
 		And I Enter the text "Boston"
 		Then I should see "Boston" highlighted
-		And I click on the "Boston" checkbox
+		When I click on the "Boston" checkbox
 		And  I search the delivery using "Pickup Reference"
 		Then I should see the message "No deliveries found." displayed
-		And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" Delivery
+		When As a driver "Testdrivertywd_appledc_a_drvL WashingtonLE" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state|
 			| Accepted  |
 		    |Enroute    |
@@ -470,11 +487,11 @@ Feature: Admin_Refund
 		When I click on the "Select Geofence" dropdown
 		And I Enter the text "Boston"
 		Then I should see "Boston" highlighted
-		And I click on the "Boston" checkbox
+		When I click on the "Boston" checkbox
 		Then I should see the region of the city highlighted
-		And  I search the delivery using "Pickup Reference"
+		When  I search the delivery using "Pickup Reference"
 		Then I should see the message "No deliveries found." displayed
-		And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" Delivery
+		And As a driver "Testdrivertywd_appledc_a_drvL WashingtonL" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state|
 			| Arrived |
 			| Loading Item |
@@ -483,14 +500,14 @@ Feature: Admin_Refund
 			| Bungii Completed |
 		And I wait for 2 minutes
 		And I view All Deliveries list on the admin portal
-		And I clear the filter applied
+		When I clear the filter applied
 		Then The Delivery List page should display the delivery in "Payment Successful" state
 		And I clear the filter applied
 		When I click on the "Select Geofence" dropdown
 		And I Enter the text "Boston"
 		Then I should see "Boston" highlighted
 		And I click on the "Boston" checkbox
-		Then I should see the region of the city highlighted
+		When I should see the region of the city highlighted
 		And  I search the delivery using "Pickup Reference"
 		Then I should see the message "No deliveries found." displayed
 

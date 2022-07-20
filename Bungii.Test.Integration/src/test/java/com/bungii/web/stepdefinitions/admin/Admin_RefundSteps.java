@@ -3,6 +3,7 @@ package com.bungii.web.stepdefinitions.admin;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -31,6 +32,7 @@ public class Admin_RefundSteps extends DriverBase {
     DbUtility dbUtility = new DbUtility();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_DashboardPage admin_DashboardPage = new Admin_DashboardPage();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
      boolean partial = true;
 
     @When("^I select \"([^\"]*)\" radio button$")
@@ -521,79 +523,199 @@ try{
     }
     @When("^I click on the \"([^\"]*)\" dropdown$")
     public void i_click_on_the_something_dropdown(String name) throws Throwable {
+        try{
         switch (name){
             case "Select Geofence":
              action.click(admin_GeofencePage.List_Geofence());
              break;
         }
+
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I Enter the text \"([^\"]*)\"$")
     public void i_enter_the_text_something(String stateName) throws Throwable {
+        try{
         action.click(admin_GeofencePage.Button_Clear());
         action.clearSendKeys(admin_GeofencePage.TextBox_SearchGeofence(),stateName);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should see \"([^\"]*)\" highlighted$")
     public void i_should_see_something_highlighted(String expectedcity) throws Throwable {
-        String textColor = "rgba(255, 255, 0, 1)";
+        try{
+        String textColor =PropertyUtility.getDataProperties("city.text.highlight");
         String color = admin_GeofencePage.Text_GeofenceHighlighted().getCssValue("background-color");
         String cityName = action.getText(admin_GeofencePage.Text_GeofenceHighlighted());
         testStepAssert.isEquals(cityName,expectedcity,"same","same","same");
         testStepAssert.isEquals(color,textColor,"The text should be highlight","The text is highlighted","The text is not highlighted");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click on the \"([^\"]*)\" checkbox$")
-    public void i_click_on_the_something_checkbox(String strArg1) throws Throwable {
-        switch (strArg1){
+    public void i_click_on_the_something_checkbox(String geofence) throws Throwable {
+        try{
+        switch (geofence){
             case "Washington DC":
             case "Boston":
-                action.JavaScriptClick(admin_GeofencePage.Checkbox_Geofence(strArg1));
+            case "Goa":
+                action.JavaScriptClick(admin_GeofencePage.Checkbox_Geofence(geofence));
                 break;
         }
         action.click(admin_GeofencePage.Button_ApplyGeofence());
+        cucumberContextManager.setScenarioContext("GeofenceRegion",geofence);
+        log("I should be able to click on "+geofence+" checkbox","I could click on "+geofence+" checkbox",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click on the \"([^\"]*)\" link from the sidebar$")
     public void i_click_on_the_something_link_from_the_sidebar(String navigateTo) throws Throwable {
+        try{
         switch (navigateTo){
             case "Customer":
-                action.click(admin_DashboardPage.Button_Customers());
+                action.click(admin_DashboardPage.Link_Customers());
                 break;
             case "Driver":
-                action.click(admin_DashboardPage.Button_Drivers());
+                action.click(admin_DashboardPage.Link_Drivers());
+                break;
+            case "Non Active Drivers":
+                action.click(admin_DashboardPage.Link_NonActiveDriver());
                 break;
         }
-        action.click(admin_GeofencePage.Button_Clear());
-        action.click(admin_GeofencePage.Button_ApplyGeofence());
+            utility.resetGeofenceDropdown();
+            log("I should be able to click on "+navigateTo+" link from the sidebar","I could click on "+navigateTo+" link from the sidebar",false);
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I clear the filter applied$")
     public void i_clear_the_filter_applied() throws Throwable {
+        try{
         action.click(admin_GeofencePage.List_Geofence());
         action.click(admin_GeofencePage.Button_Clear());
         action.click(admin_GeofencePage.Button_ApplyGeofence());
+        log("I should be able to clear the geofence filter","I should be able to clear the geofence filter",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should see the region of the city highlighted$")
     public void i_should_see_the_region_of_the_city_highlighted() throws Throwable {
+        try{
         action.click(admin_GeofencePage.List_Geofence());
         List <WebElement> allRegions = admin_GeofencePage.List_GeofenceRegions();
-        String expectedRegionColor ="rgba(42, 132, 196, 1)";
+        String expectedRegionColor =PropertyUtility.getDataProperties("region.text.highlight");
         for(int i=0;i<allRegions.size();i++){
             String regionColor = allRegions.get(i).getCssValue("color");
-            System.out.println(regionColor);
             if(regionColor.contentEquals(expectedRegionColor)){
                 String regionName = action.getText(allRegions.get(i));
                 cucumberContextManager.setScenarioContext("HighlightedRegion",regionName);
             }
         }
         String regionSelected = (String)cucumberContextManager.getScenarioContext("HighlightedRegion");
-        testStepVerify.isTrue(true,regionSelected+" Region should be highlighted",
+        testStepAssert.isTrue(true,regionSelected+" Region should be highlighted",
                 regionSelected+" Region is highlighted",
                 regionSelected+" Region is not highlighted" );
         action.click(admin_GeofencePage.List_Geofence());
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
+    @Then("^I should see the drivers sorted with the applied geofence filter$")
+    public void i_should_see_the_drivers_sorted_with_the_applied_geofence_filter() throws Throwable {
+        try{
+        int validCity = 0;
+        int invalidCity = 0;
+        String expectedGeofenceRegion = (String) cucumberContextManager.getScenarioContext("GeofenceRegion");
+        Thread.sleep(3000);
+        boolean isPageinationDisplayed =action.isElementPresent(admin_DriverPage.Text_AllPageNumber(true));
+        if (isPageinationDisplayed == true) {
+            List<WebElement> pageNumber = admin_DriverPage.List_AllPages();
+            for (int i = 0; i < (pageNumber.size()-1); i++) {
+                List<WebElement> allCities = admin_DriverPage.List_AllCityNames();
 
-}
+                for (WebElement eachDriverCityName : allCities) {
+                    Thread.sleep(1500);
+                    String uiCityName = eachDriverCityName.getText();
+
+                    if (uiCityName.contains(expectedGeofenceRegion.substring(0,3))) {
+                        validCity += 1;
+
+                    } else {
+                        invalidCity += 1;
+                    }
+
+                }
+                action.JavaScriptScrolldown();
+                action.JavaScriptScrolldown();
+                action.JavaScriptScrolldown();
+                String nextPage = admin_DriverPage.Button_Next().getAttribute("class");
+
+                if (nextPage.equals("page-link")) {
+
+                    action.click(admin_DriverPage.Button_Next());
+                    Thread.sleep(3000);
+
+                }
+            }
+            action.JavaScriptScrolldown();
+            action.JavaScriptScrolldown();
+            action.JavaScriptScrolldown();
+
+            if(invalidCity<=9){
+                testStepVerify.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
+                        "Drivers profiles is displayed based on "+ expectedGeofenceRegion+" geofence" ,"Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
+            }
+        }
+        else{
+            List<WebElement> allCities = admin_DriverPage.List_AllCityNames();
+            for (WebElement eachDriverCityName : allCities) {
+                Thread.sleep(1500);
+                String uiCityName = eachDriverCityName.getText();
+
+                if (uiCityName.contains(expectedGeofenceRegion.substring(0,3))) {
+
+                    validCity += 1;
+                } else {
+
+                    invalidCity += 1;
+                }
+            }
+        }
+        if(invalidCity<=9){
+            testStepVerify.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
+                    "Drivers profiles is displayed based on "+ expectedGeofenceRegion+" geofence" ,"Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
+        }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+        }
+
+    }
