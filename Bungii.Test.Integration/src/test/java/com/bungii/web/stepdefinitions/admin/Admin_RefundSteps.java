@@ -542,7 +542,7 @@ try{
         try{
         action.click(admin_GeofencePage.Button_Clear());
         action.clearSendKeys(admin_GeofencePage.TextBox_SearchGeofence(),stateName);
-        log("I should be able to enter the text"+stateName+" in the textbox","I could enter the text"+stateName+" in the textbox");
+        log("I should be able to enter the text"+stateName+" in the textbox","I could enter the text"+stateName+" in the textbox",false);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
