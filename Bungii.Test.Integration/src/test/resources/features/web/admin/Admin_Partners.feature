@@ -6,7 +6,7 @@ Feature: Admin_Partners_Business_And_EAPI
     When I click on "Partner Portal  > Partners" Menu
     Then I should be directed to "Partner Portal Page"
 
-  @ready
+  @regression
   Scenario: Verify that Add New Partner button is disabled
     And The "New Partner" button should not be displayed
     

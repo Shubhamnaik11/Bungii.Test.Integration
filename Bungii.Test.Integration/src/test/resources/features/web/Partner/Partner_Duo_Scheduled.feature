@@ -7,7 +7,7 @@ Feature: Partner Duo Scheduled Delivery
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
 
-  @ready
+  @regression
     #Failed in sprint 49
   Scenario: Verify that Partner portal can scheduled Duo bungii Delivery
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
