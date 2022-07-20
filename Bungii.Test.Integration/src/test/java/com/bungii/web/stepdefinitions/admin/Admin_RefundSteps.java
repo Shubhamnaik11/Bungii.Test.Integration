@@ -529,7 +529,7 @@ try{
              action.click(admin_GeofencePage.List_Geofence());
              break;
         }
-
+        log("I should be able to click on "+name+ " dropdown","I could click on "+name+ " dropdown" ,false);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
