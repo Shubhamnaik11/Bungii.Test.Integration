@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -8,6 +9,7 @@ import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
+import com.bungii.web.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,6 +20,7 @@ import org.joda.time.DateTimeZone;
 import org.openqa.selenium.JavascriptExecutor;
 
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -25,6 +28,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
@@ -38,6 +42,8 @@ public class Partner_Delivery_Details extends DriverBase {
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     ActionManager action = new ActionManager();
+    GeneralUtility utility = new GeneralUtility();
+    DbUtility dbUtility = new DbUtility();
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
     public void i_enter_following_details_on_some_partner_screen(String str, String Site, DataTable data) {
@@ -521,5 +527,64 @@ public class Partner_Delivery_Details extends DriverBase {
         String newDriverName = action.getText(Page_Partner_Dashboard.Text_DriverName());
         String oldDriverName = (String) cucumberContextManager.getScenarioContext("DriverName");
         testStepVerify.isNotEquals(newDriverName,oldDriverName);
+    }
+
+    @And("^its blah$")
+    public void its_blah() throws Throwable {
+        String[] timeZoneValue=utility.getDayLightTimeZoneBasedOnGeofence();
+      String zone = timeZoneValue[1];
+        Date teletTimeInUtc = null;
+//        cucumberContextManager.setScenarioContext("Timezone","CST");
+//        String zone = (String) cucumberContextManager.getScenarioContext("Timezone");
+//        cucumberContextManager.setScenarioContext("PICKUP_REQUEST","2a5111d3-0439-8168-e5a7-20e793402e24");
+        String pickupRef =(String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String time =dbUtility.getPartnerName2(pickupRef);
+//        String time ="2022-07-21 07:05:45.000";
+        System.out.println(time);
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        teletTimeInUtc = formatter.parse(time);
+        Calendar calendar = Calendar.getInstance();
+        TimeZone.setDefault(TimeZone.getTimeZone(zone));
+        formatter.setTimeZone(TimeZone.getTimeZone(zone));
+        String strdate = formatter.format(calendar.getTime());
+        System.out.println(strdate);
+//        DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//
+//        formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(zone));
+//
+//        formatter.setTimeZone(TimeZone.getTimeZone(zone));
+//        String format = "yyyy-MM-dd HH:mm:ss";
+//        SimpleDateFormat estFormatter = new SimpleDateFormat(format);
+//        Date date = estFormatter.parse(time);
+//
+//        SimpleDateFormat utcFormatter = new SimpleDateFormat(format);
+//        utcFormatter.setTimeZone(TimeZone.getTimeZone(zone));
+//
+//        System.out.println(utcFormatter.format(date));
+//        String strdate = formatter.format(calendar.getTime());
+//        Date teletTimeInLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(time);
+//        System.out.println(teletTimeInLocal);
+//        Instant a = teletTimeInLocal.toInstant();
+//       ZonedDateTime b= a.atZone(ZoneId.of(zone));
+//       System.out.println(b);
+//
+//        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//        //By default data is in UTC
+//        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+//        teletTimeInUtc = formatter.parse(time);
+//        System.out.println(teletTimeInUtc);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        Date nextQuatter = calendar.getTime();
+//        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+//
+//        DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//        formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+//
+//        formatter.getTimeZone(TimeZone.getTimeZone(geofenceLabel));
+//
+//        String strdate = formatter.format(calendar.getTime());
+//        Date teletTimeInLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(strdate);
+
     }
 }

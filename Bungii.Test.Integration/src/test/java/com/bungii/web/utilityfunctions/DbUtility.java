@@ -488,4 +488,22 @@ public class DbUtility extends DbContextManager {
         logger.detail("Slots used are " + slotUsedCount);
         return slotUsedCount;
     }
+
+    public static String getPartnerName2(String Pickup_Reference) {
+        System.out.println(Pickup_Reference);
+        String timeStamp;
+        String PickupStatus;
+        String pickupId;
+        String queryStringForPickupId = "select PickupID from pickupdetails where PickupRef = '"+Pickup_Reference+"'";;
+        pickupId = getDataFromMySqlServer(queryStringForPickupId);
+        logger.detail("PickupId is "+pickupId+ " for pickup reference "+ Pickup_Reference);
+        String queryStringForPickupPickupStatus = "select PickupStatus from pickupdetails where PickupRef = '"+Pickup_Reference+"'";
+        PickupStatus = getDataFromMySqlServer(queryStringForPickupPickupStatus);
+        logger.detail("PickupStatus is "+PickupStatus+ " for pickup reference "+ Pickup_Reference);
+        String queryStringForTime = "select StatusTimestamp from tripevents where pickupid ='"+pickupId+"'"+"and TripStatus = '"+PickupStatus+"'";
+        timeStamp = getDataFromMySqlServer(queryStringForTime);
+        logger.detail("StatusTimestamp is "+timeStamp+ " for pickup reference "+ Pickup_Reference);
+        return timeStamp;
+
+    }
 }

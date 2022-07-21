@@ -97,21 +97,3 @@
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from driver scheduled trip
       Then I check if variable sign is not shown under "schedule bungii details"
-
-    @testAllan
-    Scenario: To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Schedule deliveries
-#      When I request Partner Portal "SOLO" Trip for "MRFM" partner
-#        |Geofence| Bungii Time   | Customer Phone | Customer Name |
-#        |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
-#      And As a driver "Testdrivertywd_appleks_a_drvah Kansas_ah" perform below action with respective "SOLO SCHEDULED" trip
-#        | driver1 state |
-#        | Accepted      |
-#      And I wait for 1 minutes
-#      And As a driver "Testdrivertywd_appleks_a_drvah Kansas_ah" perform below action with respective "SOLO SCHEDULED" trip
-#        | driver1 state |
-#        | Enroute      |
-#      And I am logged in as "Testdrivertywd_appleks_a_drvah Kansas_ah" driver
-#      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-      When I open new "Chrome" browser for "ADMIN PORTAL"
-   And  I navigate to partner portal
-      And I log in to admin portal
