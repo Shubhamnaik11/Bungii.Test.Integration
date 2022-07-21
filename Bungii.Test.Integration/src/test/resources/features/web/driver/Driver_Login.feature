@@ -36,7 +36,7 @@ Feature: Driver_Login
     And I click "LOG IN button" on driver portal
     Then the driver should "see validation message for incorrect credentials"
 
-  @ready
+  @regression
   Scenario: Verify unmasked password(show password)is provided for password field on login page
     When I enter "valid" driver Phone Number on Driver portal
     And I enter "valid" driver Password on Driver portal

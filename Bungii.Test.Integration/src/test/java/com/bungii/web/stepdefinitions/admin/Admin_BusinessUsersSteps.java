@@ -992,6 +992,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
                 case "Revive":
                     String reviveLink = (String) cucumberContextManager.getScenarioContext("REVIVE_LINK");
+                    Thread.sleep(2000);
                     action.click(admin_TripsPage.findElement(reviveLink,PageBase.LocatorType.XPath));
                     break;
                 case "Confirm":
@@ -1008,6 +1009,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
                 case "Generate Report":
                     action.click(Page_Partner_Delivery.Button_GenerateReport());
+                    break;
+                case "Confirm Status":
+                    action.click(admin_revivalPage.Button_ConfirmStatus());
+                    break;
+                case "Cancel Status":
+                    action.click(admin_revivalPage.Button_CloseStatus());
                     break;
                 case "Apply":
                     action.click(Page_Partner_Dashboard.Button_Apply());

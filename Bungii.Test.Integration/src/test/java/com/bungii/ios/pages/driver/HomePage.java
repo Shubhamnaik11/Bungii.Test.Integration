@@ -136,4 +136,9 @@ public class HomePage extends PageBase {
     public WebElement Link_ViewTrips(){return findElement("//div/a[text()='View']", LocatorType.XPath);}
     public WebElement Text_DriverEarnings(){return findElement("//div[@class='info-box']/h1[@class='text-info']", LocatorType.XPath);}
 
+
+    //driver duo rating page
+    public WebElement Header_RateDuoTeammate(){return findElement("//XCUIElementTypeStaticText[@name=\"Rate duo teammate\"]", LocatorType.XPath);}
+
+
 }

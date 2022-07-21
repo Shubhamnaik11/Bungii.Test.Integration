@@ -94,7 +94,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
       | VALID    | Mike       | Test      | Bungiiauto+TEs123@gmail.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
 
-    @ready
+  @regression
       #Added case of CORE-3685 to exsting script
   Scenario Outline: Verify deletion of new created customer account and then reuse the same account for new customer creation
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page

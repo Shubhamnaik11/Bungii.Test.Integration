@@ -18,6 +18,11 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 import java.text.DateFormat;
@@ -42,8 +47,9 @@ public class Partner_Delivery_Details extends DriverBase {
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     ActionManager action = new ActionManager();
-    GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+    GeneralUtility utility = new GeneralUtility();
+
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
     public void i_enter_following_details_on_some_partner_screen(String str, String Site, DataTable data) {
@@ -113,6 +119,7 @@ public class Partner_Delivery_Details extends DriverBase {
             String DeliveryPurpose = "";
             String RbSbNumber = "";
             String Items_deliver = "";
+            String BodcCode ="";
 
             if(dataMap.containsKey("Items_To_Deliver")){
                 Items_deliver = dataMap.get("Items_To_Deliver");
@@ -151,6 +158,9 @@ public class Partner_Delivery_Details extends DriverBase {
             }
             if (dataMap.containsKey("Rb_Sb_Number")) {
                 RbSbNumber = dataMap.get("Rb_Sb_Number").trim();
+            }
+            if (dataMap.containsKey("Bodc_Code")) {
+                BodcCode = dataMap.get("Bodc_Code").trim();
             }
 
             //cucumberContextManager.setScenarioContext("Customer", CustomerName);
@@ -309,6 +319,38 @@ public class Partner_Delivery_Details extends DriverBase {
                 log("I enter all details on "+str+" for "+Site+" on partner screen", "I have entered all details on "+str+" for "+Site+" on partner screen", false);
 
             }
+            else if (Site.equalsIgnoreCase("Cort service level")) {
+
+                switch (str) {
+                    case "Delivery Details":
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                        //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                        action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+
+                        String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                        cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
+                        cucumberContextManager.setScenarioContext("Customer_Name", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
+                        cucumberContextManager.setScenarioContext("CUSTOMER", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
+                        cucumberContextManager.setScenarioContext("Customer_Mobile", Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value"));
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
+
+                        action.click(Page_Partner_Delivery.Dropdown_SoldBuy());
+                        action.click(Page_Partner_Delivery.List_StoreAssociate(BodcCode));
+
+                        break;
+                    default:
+                        break;
+                }
+            }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -411,6 +453,36 @@ public class Partner_Delivery_Details extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
+        }
+    }
+
+    @And("^I check the Bodc Code dropdown options$")
+    public void i_check_the_bodc_code_dropdown_options() throws Throwable {
+        try {
+            String currentUrl= action.getCurrentURL();
+            int indexValueOne = currentUrl.indexOf("/",(currentUrl.indexOf("/") + 1));
+            int indexValueTwo = currentUrl.indexOf(".");
+            String subDomainName= currentUrl.substring(indexValueOne+1,indexValueTwo);
+            List<String> expectedOptions= dbUtility.getBodcCode(subDomainName);
+
+            action.click(Page_Partner_Delivery.Dropdown_BodcCode());
+            List<WebElement> actualOptions = Page_Partner_Delivery.Dropdown_BodcCodeOptions();
+            List<String> Options= new ArrayList();
+            int size = actualOptions.size();
+            for (int i = 0; i < size; i++)
+            {
+                String options = actualOptions.get(i).getText();
+                Options.add(options);
+            }
+            action.click(Page_Partner_Delivery.Dropdown_BodcCodeValue());
+            testStepAssert.isTrue(Options.containsAll(expectedOptions), "Correct dropdown options need to be displayed", "Correct dropdown options are displayed", "Incorrect dropdown options are displayed");
+        }
+
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+
         }
     }
 //    @And("^I get the time in CST$")

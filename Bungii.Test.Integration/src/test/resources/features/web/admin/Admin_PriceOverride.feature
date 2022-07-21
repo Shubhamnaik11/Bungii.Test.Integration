@@ -1,8 +1,7 @@
 @web
 Feature: Admin_Price_Override
 
-  @ready
-
+  @regression
   Scenario: Verify the Price override button is displayed, check save and cancel button functionality and Estimated Customer charge is updated on admin portal
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -68,7 +67,6 @@ Feature: Admin_Price_Override
     Then I check if "Price Override" icon is displayed
 
   @ready
-
   Scenario: Verify customer price override menu, driver cut price override menu and admin override multiple times on same delivery
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -125,8 +123,7 @@ Feature: Admin_Price_Override
     And I wait for "2" mins
     Then I check the new values of "Estimated Charge" for "Service level"
 
-  @ready
-
+  @regression
   Scenario: Verify change Pickup/Drop off address after override for driver earnings and customer cost before driver accepts, check if price override is reflected on partner portal,indicator is displayed and verify Driver cut is less than Customer price for Admin override
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -199,8 +196,7 @@ Feature: Admin_Price_Override
     And I check if the delivery cost is updated on partner portal
     Then I close the Trip Delivery Details page
 
-  @ready
-
+  @regression
   Scenario: Verify Admin override is not present for Schedule Customer delivery and Live delivery
     When I am logged in as Admin
     And I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -318,8 +314,7 @@ Feature: Admin_Price_Override
     And I wait for "2" mins
     Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level"
 
-  @ready
-
+  @regression
   Scenario: Verify Price override for driver earnings only in Duo fixed pricing portals and when different driver share is entered ,minimum of both share is displayed in admin portal and check if indicator is displayed
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -373,8 +368,7 @@ Feature: Admin_Price_Override
     Then "Bungii Saved!" message should be displayed
 
 
-  @ready
-
+  @regression
   Scenario: Verify fnd deliveries and driver app for change Service Level after override for driver earnings and customer cost before driver accepts and check if indicator is displayed
     When I navigate to "Partner" portal configured for "FloorDecor service level" URL
     And I enter "valid" password on Partner Portal

@@ -97,3 +97,42 @@
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from driver scheduled trip
       Then I check if variable sign is not shown under "schedule bungii details"
+
+#  Core-2411:Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip
+    @ready
+    Scenario: Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip
+      When I request Partner Portal "SOLO" Trip for "MRFM" partner
+        |Geofence| Bungii Time   | Customer Phone | Customer Name |
+        |Kansas| NEXT_POSSIBLE | 8877661018 | Testcustomertywd_appleMarkS LutherS|
+      And I am logged in as "Testdrivertywd_appleks_a_drval Kansas_al" driver
+      Then I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And Driver status should be "Offline"
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
+      And I Select Trip from available trip
+      Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
+      And I tap on "ACCEPT" on driver Trip details Page
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      When I Select Trip from driver scheduled trip
+      Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
+      And I start selected Bungii
+      And Bungii driver should see "General Instructions"
+      And Bungii driver should see "Enroute screen"
+      And Partner Portal name should be displayed in "EN ROUTE" section
+      And Driver status should be "Online"
+      And I Switch to "customer" application on "same" devices
+      When I am on customer Log in page
+      And I am logged in as "valid kansas" customer
+      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I close "Tutorial" if exist
+      And I enter "new Kansas pickup less than 10 miles" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I add "2" photos to the Bungii
+      And I add loading/unloading time of "30 mins"
+      And I tap on "Request Bungii" on Bungii estimate
+      And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+      And I Switch to "driver" application on "ORIGINAL" devices
+      Then I click on notification for "STACK TRIP"
+      And I should see "New Bungii Request" popup displayed
+
+
+

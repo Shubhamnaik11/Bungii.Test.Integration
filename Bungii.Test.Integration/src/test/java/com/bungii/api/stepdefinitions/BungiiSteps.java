@@ -409,7 +409,7 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "Testdrivertywd_appledc_a_drvB WashingtonB":
                 phone = PropertyUtility.getDataProperties("Washington.driver9.phone");
-                break;            
+                break;
             case "GoaD DriverD":
                 phone = PropertyUtility.getDataProperties("goa.driver3.phone");
                 break;
@@ -445,6 +445,12 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "Testdrivertywd_appleks_a_drvan Kansas_an":
                 phone = PropertyUtility.getDataProperties("Kansas.driver27.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvay Kansas_ay":
+                phone = PropertyUtility.getDataProperties("Kansas.driver43.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvaz Kansas_az":
+                phone = PropertyUtility.getDataProperties("Kansas.driver44.phone");
                 break;
             case "TestDrivertywd_applemd_a_billC Stark_bltTwO":
                 phone = PropertyUtility.getDataProperties("baltimore.driver2.phone");
@@ -493,6 +499,24 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "Testdrivertywd_appleks_a_drvav Kansas_av":
                 phone = PropertyUtility.getDataProperties("Kansas.driver35.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvae Kansas_ae":
+                phone = PropertyUtility.getDataProperties("Kansas.driver46.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvI WashingtonI":
+                phone = PropertyUtility.getDataProperties("Washington.driver10.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drval Kansas_al":
+                phone = PropertyUtility.getDataProperties("Kansas.driver24.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvam Kansas_am":
+                phone = PropertyUtility.getDataProperties("Kansas.driver25.phone");
+                break;
+            case "TestDrivertywd_applemd_a_billD Stark_bltTwOD":
+                phone = PropertyUtility.getDataProperties("baltimore.driver3.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvK WashingtonK":
+                phone = PropertyUtility.getDataProperties("Washington.driver13.phone");
                 break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
@@ -1687,7 +1711,7 @@ public class BungiiSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("CUSTOMER_PASSWORD", custPassword);
 
             //cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
-            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
+             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
             logger.detail("*** Requesting " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence + " ***");
 
             //LOGIN
@@ -2787,7 +2811,7 @@ else
 
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver.name"));
 
-
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
                 } else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer.user");
                     custPassword = PropertyUtility.getDataProperties("customer.password");
