@@ -61,5 +61,20 @@ public class DriverHomePage extends PageBase {
 
     public WebElement Text_OverriddenPrice() { return findElement("com.bungii.driver:id/scheduled_row_textview_status", LocatorType.Id);}
 
+    //Driver Referral Page
+    public WebElement Icon_Referral (boolean ...ignoreException) { return findElement("//android.widget.LinearLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.ImageView[1]", LocatorType.XPath,ignoreException); }
+    public WebElement Text_SubHeader () { return findElement("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Icon_DollarSign () { return findElement("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView", LocatorType.XPath); }
+    public WebElement Text_Instructions () { return findElement("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Tab_ReferralCode () { return findElement("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView", LocatorType.XPath); }
+    public WebElement Text_TapToCopy () { return findElement("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[3]", LocatorType.XPath); }
+    public WebElement Button_Share () { return findElement("//android.widget.Button[contains(@text,\"SHARE\")]", LocatorType.XPath); }
+    public WebElement Text_ShareToContacts () { return findElement("//android.widget.TextView[contains(@text,\"Share to contacts\")]", LocatorType.XPath); }
+    public WebElement Text_ShareOnMedia () { return findElement("//android.widget.TextView[contains(@text,\"Share on social media\")]", LocatorType.XPath); }
+    public WebElement Text_MoreInformation () { return findElement("//android.widget.TextView[contains(@text,\"More information\")]", LocatorType.XPath); }
+    public WebElement Text_ReferralHistory () { return findElement("//android.widget.TextView[contains(@text,\"Referral history\")]", LocatorType.XPath); }
+    public WebElement Text_Footer() { return findElement("//androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView", LocatorType.XPath); }
+    public WebElement Button_Back () { return findElement("//android.widget.ImageButton[contains(@content-desc,\"Navigate up\")]", LocatorType.XPath); }
+
 
 }

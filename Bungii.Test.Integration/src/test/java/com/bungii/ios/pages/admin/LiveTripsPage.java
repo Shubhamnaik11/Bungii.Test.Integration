@@ -43,4 +43,20 @@ public class LiveTripsPage extends PageBase{
 
     public WebElement Button_ApplyGeofenceFilter () { return findElement("btnApplyGeofence", LocatorType.Id); }
 
+    //Driver Referral Page
+    public WebElement Icon_Referral (boolean ...ignoreException) { return findElement("//XCUIElementTypeImage[@name='referral-invite-foreground']", LocatorType.XPath,ignoreException); }
+    public WebElement Text_SubHeader () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeStaticText", LocatorType.XPath); }
+    public WebElement Icon_DollarSign () { return findElement("//XCUIElementTypeImage[@name='icon-dollar']", LocatorType.XPath); }
+    public WebElement Text_Instructions () { return findElement("//XCUIElementTypeImage[@name='icon-dollar']/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath); }
+    public WebElement Tab_ReferralCode () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath); }
+    public WebElement Text_TapToCopy () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
+    public WebElement Button_Share () { return findElement("//XCUIElementTypeButton[@name='SHARE']", LocatorType.XPath); }
+    public WebElement Text_ShareToContacts () { return findElement("//XCUIElementTypeStaticText[@name='Share to contacts']", LocatorType.XPath); }
+    public WebElement Text_ShareOnMedia () { return findElement("//XCUIElementTypeStaticText[@name='Share on social media']", LocatorType.XPath); }
+    public WebElement Text_MoreInformation () { return findElement("//XCUIElementTypeStaticText[@name='More information']", LocatorType.XPath); }
+    public WebElement Text_ReferralHistory () { return findElement("//XCUIElementTypeStaticText[@name='Referral history']", LocatorType.XPath); }
+    public WebElement Text_Footer() { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeStaticText", LocatorType.XPath); }
+    public WebElement Button_Back () { return findElement("//XCUIElementTypeButton[@name='Back']", LocatorType.XPath); }
+
+
 }

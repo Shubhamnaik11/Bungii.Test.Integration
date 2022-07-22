@@ -140,5 +140,7 @@ public class HomePage extends PageBase {
     //driver duo rating page
     public WebElement Header_RateDuoTeammate(){return findElement("//XCUIElementTypeStaticText[@name=\"Rate duo teammate\"]", LocatorType.XPath);}
 
+    public WebElement Header_Referral(){return findElement("//XCUIElementTypeStaticText[@name=\"REFERRAL\"]", LocatorType.XPath);}
+
 
 }

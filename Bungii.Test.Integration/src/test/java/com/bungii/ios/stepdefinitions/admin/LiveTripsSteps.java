@@ -7,6 +7,7 @@ import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.pages.admin.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import com.bungii.web.manager.ActionManager;
@@ -508,5 +509,126 @@ public class LiveTripsSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^I check if \"([^\"]*)\" icon is displayed$")
+    public void i_check_if_something_icon_is_displayed(String icon) throws Throwable {
+        try{
+            switch (icon){
+                case "$":
+                    testStepAssert.isElementDisplayed(liveTripsPage.Icon_Referral(),
+                            "The referral icon $ should be displayed",
+                            "The referral icon $ is displayed",
+                            "The referral icon $ is not displayed");
+                    break;
+            }
+            log("I should be able to see the icon","I am able to see the icon",false);
+
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I click on \"([^\"]*)\" icon$")
+    public void i_click_on_something_icon(String icon) throws Throwable {
+        try{
+            switch (icon){
+                case "$":
+                    action.click(liveTripsPage.Icon_Referral());
+                    break;
+                case "Back":
+                    action.click(liveTripsPage.Button_Back());
+                    break;
+            }
+            log("I should be able to click on the icon","I am able to click on the icon",false);
+
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I verify the elements on driver referral page$")
+    public void i_verify_the_elements_on_driver_referral_page() throws Throwable {
+       try{
+            String expectedSubHeader= PropertyUtility.getMessage("subHeader.driver.referral.page");
+            testStepAssert.isEquals(liveTripsPage.Text_SubHeader().getText(),expectedSubHeader,
+                    "The sub-header should be displayed",
+                    "The sub-header is displayed",
+                    "The sub-header is not displayed");
+
+            testStepAssert.isElementDisplayed(liveTripsPage.Icon_DollarSign(),
+                    "The dollar sign should be displayed",
+                    "The dollar sign is displayed",
+                    "The dollar sign is not displayed");
+
+           String expectedInstructions= PropertyUtility.getMessage("message.driver.referral.page");
+           testStepAssert.isEquals(liveTripsPage.Text_Instructions().getText(),expectedInstructions,
+                   "The correct instructions should be displayed",
+                   "The correct instructions are displayed",
+                   "The correct instructions are not displayed");
+
+           testStepAssert.isElementDisplayed(liveTripsPage.Tab_ReferralCode(),
+                   "The referral code should be displayed",
+                   "The referral code is displayed",
+                   "The referral code is not displayed");
+
+           testStepAssert.isElementDisplayed(liveTripsPage.Text_TapToCopy(),
+                   "Tab to copy should be displayed",
+                   "Tab to copy is displayed",
+                   "Tab to copy is not displayed");
+
+           testStepAssert.isElementDisplayed(liveTripsPage.Button_Share(),
+                   "Share button should be displayed",
+                   "Share button is displayed",
+                   "Share button is not displayed");
+
+           testStepAssert.isElementDisplayed(liveTripsPage.Text_ShareToContacts(),
+                   "The tab Share to contacts should be displayed",
+                   "The tab Share to contacts is displayed",
+                   "The tab Share to contacts is not displayed");
+           testStepAssert.isElementDisplayed(liveTripsPage.Text_ShareOnMedia(),
+                   "The tab Share on social media should be displayed",
+                   "The tab Share on social media is displayed",
+                   "The tab Share on social media is not displayed");
+           testStepAssert.isElementDisplayed(liveTripsPage.Text_MoreInformation(),
+                   "The tab for more information should be displayed",
+                   "The tab for more information is displayed",
+                   "The tab for more information is not displayed");
+           testStepAssert.isElementDisplayed(liveTripsPage.Text_ReferralHistory(),
+                   "The tab for referral history should be displayed",
+                   "The tab for referral history is displayed",
+                   "The tab for referral history is not displayed");
+
+           String expectedFooter= PropertyUtility.getMessage("footer.driver.referral.page");
+           testStepAssert.isEquals(liveTripsPage.Text_Footer().getText(),expectedFooter,
+                   "The correct footer should be displayed",
+                   "The correct footer is displayed",
+                   "The correct footer is not displayed");
+
+       }
+       catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
+    @And("^I check if referral icon is not shown$")
+    public void i_check_if_referral_icon_is_not_shown() throws Throwable {
+       try{
+           testStepVerify.isElementNotDisplayed(liveTripsPage.Icon_Referral(true),
+                   "Referral icon should not be displayed",
+                   "Referral icon is not displayed",
+                   "Referral icon is displayed");
+       }
+       catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
+
 
 }

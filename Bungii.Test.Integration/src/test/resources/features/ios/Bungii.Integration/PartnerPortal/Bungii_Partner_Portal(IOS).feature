@@ -26,6 +26,8 @@ Feature: Partner Portal Cases integration with IOS
     And I start selected Bungii
     Then I should be navigated to "EN ROUTE" trip status screen on driver
     Then Partner Portal name should be displayed in "EN ROUTE" section
+    #   Core-2618 Verify that referral icon is not shown during in process trip on driver app
+    And I check if referral icon is not shown
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen on driver
     Then Partner Portal name should be displayed in "ARRIVED" section
@@ -46,14 +48,13 @@ Feature: Partner Portal Cases integration with IOS
     And I add comment on rate customer page
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
-
   #    Core-3098 Verify online/offline pop up is shown for solo Partner portal trip and go-offline functionality
     And I check online or offline pop up is displayed
     And I click on "GO OFFLINE" button
     And I Select "HOME" from driver App menu
     And I check if the status is "OFFLINE"
 
-     #  Core-2569: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
+#  Core-2569: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
   @ready
   Scenario: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
     When I Switch to "driver" application on "same" devices
