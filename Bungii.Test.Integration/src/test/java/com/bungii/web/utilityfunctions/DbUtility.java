@@ -30,7 +30,11 @@ public class DbUtility extends DbContextManager {
         String Scheduled_Time = getDataFromMySqlServer("SELECT ScheduledTimestamp FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
         return Scheduled_Time;
     }
+    public static String getScheduledDays(String subdomain){
+        String Scheduled_Time = getDataFromMySqlMgmtServer("select advance_schedule_days from bp_store st join bp_store_portal_setting ps on ps.bp_store_id = st.bp_store_id where st.subdomain_name like '%"+subdomain+"%';");
+        return Scheduled_Time;
 
+    }
     public static String getPickupRef(String customerPhone){
         String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
         String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
