@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.admin.DashBoardPage;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.customer.EnableLocationPage;
 import com.bungii.ios.pages.customer.EnableNotificationPage;
@@ -48,9 +49,9 @@ public class CommonStepsDriver extends DriverBase {
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
     GeneralUtility utility = new GeneralUtility();
+    private DbUtility dbUtility = new DbUtility();
     private ScheduledBungiiPage scheduledBungiipage = new ScheduledBungiiPage();
-    com.bungii.web.utilityfunctions.DbUtility dbUtility = new com.bungii.web.utilityfunctions.DbUtility();
-    Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
+    DashBoardPage admin_dashboardPage = new DashBoardPage();
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
@@ -640,7 +641,7 @@ public class CommonStepsDriver extends DriverBase {
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
                     break;
                 case "Cancel Bungii":
-                    action.click(admin_ScheduledTripsPage.Button_Submit());
+                    action.click(admin_dashboardPage.Button_Submit());
                     break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);

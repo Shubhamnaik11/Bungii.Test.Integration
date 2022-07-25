@@ -68,10 +68,7 @@ public class CommonSteps extends DriverBase {
     LogInPage logInPage=  new LogInPage();
     DashBoardPage dashBoardPage=new DashBoardPage();
     PhonePage phonePage = new PhonePage();
-    Admin_TripsPage adminTripsPage = new Admin_TripsPage();
     AvailableTripsPage availableTrips = new AvailableTripsPage();
-    Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
-    Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     DashBoardPage admin_dashboardPage = new DashBoardPage();
 
@@ -1571,7 +1568,7 @@ public class CommonSteps extends DriverBase {
             SetupManager.getDriver().manage().window().setSize(new Dimension(1900, 1280));
 
             String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']/img", customerName);
-            testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
+            testStepAssert.isTrue(action.isElementPresent(scheduledTripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
             cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

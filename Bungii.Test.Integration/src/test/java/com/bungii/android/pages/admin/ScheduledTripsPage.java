@@ -143,7 +143,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_ReviveTrip (boolean... IgnoreException) { return findElement("//tbody/tr/td[11]/a/img", LocatorType.XPath,IgnoreException); }
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
     public WebElement Button_Cancel() { return findElement("//button[text()='Cancel']", LocatorType.XPath); }
-
+    public WebElement Button_Submit () { return findElement("CustomerCancel", LocatorType.Name); }
 
 
 }

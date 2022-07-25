@@ -2,12 +2,12 @@ package com.bungii.ios.stepdefinitions.driver;
 
 
 import com.bungii.SetupManager;
-import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.enums.Rejection_Reason;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.driver.AvailableTripsPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -32,7 +32,7 @@ public class AvailableTripsSteps extends DriverBase {
 	}
 	String Image_Solo="bungii_type-solo",Image_Duo="bungii_type-duo";
 	ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
-	com.bungii.web.utilityfunctions.DbUtility dbUtilities = new com.bungii.web.utilityfunctions.DbUtility();
+
 	@And("^I Select Trip from available trip$")
 	public void i_select_trip_from_available_trip() {
 		try {
@@ -367,9 +367,9 @@ public class AvailableTripsSteps extends DriverBase {
 	public void i_should_see_something_message_on_popup_with_pickupid_anad_pickup_origin(String message) throws Throwable {
 
 		try{
-			testStepAssert.isTrue(action.isElementPresent(scheduledTripsPage.Label_HeaderPopup()),message+" should be displayed", message+" is displayed", message+" is not displayed");
+			testStepAssert.isTrue(action.isElementPresent(scheduledTripsPage.Label_HeaderPopup()), message + " should be displayed", message + " is displayed", message + " is not displayed");
 			String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-			String pickupId = dbUtilities.getPickupIdFromFactPickup(pickuprequest);
+			String pickupId = dbUtility.getLinkedPickupRef(pickuprequest);
 			String source = "Customer Delivery";
 			String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
 
