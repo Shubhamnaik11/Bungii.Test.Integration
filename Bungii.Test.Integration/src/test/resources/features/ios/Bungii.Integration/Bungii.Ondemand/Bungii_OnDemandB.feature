@@ -46,6 +46,11 @@ And I click "Skip This Step" button on "Rate customer" screen
 Then I should be navigated to "Bungii completed" screen
 When I click "On To The Next One" button on "Bungii completed" screen
 
+  #    Core-3098 Verify online/Offline pop up is shown for on demand trip and stay online functionality
+  And I check online or offline pop up is displayed
+  And I click on "STAY ONLINE" button
+  And I check if the status is "ONLINE"
+
 And I Switch to "customer" application on "same" devices
 Then I should be navigated to "Bungii Complete" screen
 When I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -128,7 +133,7 @@ Then I should be navigated to "Home" screen
     Then I should be navigated to "LOADING ITEMS" screen on driverApp
     
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "LOADING ITEM" trip status screen
+    Then Customer should be navigated to "LOADING ITEMS" trip status screen
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEMS" Screen
@@ -136,7 +141,7 @@ Then I should be navigated to "Home" screen
     Then I should be navigated to "DRIVING TO DROP-OFF" screen on driverApp
     
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then Customer should be navigated to "DRIVING TO DROP-OFF" trip status screen
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP-OFF" Screen
@@ -144,7 +149,7 @@ Then I should be navigated to "Home" screen
     Then I should be navigated to "UNLOADING ITEMS" screen on driverApp
     
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    Then Customer should be navigated to "UNLOADING ITEMS" trip status screen
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEMS" Screen

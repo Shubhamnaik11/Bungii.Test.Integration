@@ -1,7 +1,7 @@
 @ios
 Feature: Bungii Geofence Based Calculation
 
-  @ready
+  @regression
     @testmac
     #Stable
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Solo Is Selected By Customer

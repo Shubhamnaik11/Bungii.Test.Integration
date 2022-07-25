@@ -86,6 +86,14 @@ public class GeneralUtility extends DriverBase {
                 cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.ref"));
 
             }
+            else if(PP_Site.equalsIgnoreCase("Cort service level")){
+                partnerURL = PropertyUtility.getDataProperties("qa.cort_service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.cort_service_level_partner.ref"));
+             }   
+            else if(PP_Site.equalsIgnoreCase("BestBuy2 service level")){
+                 partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");
+                 cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref"));
+            }
         }
         return  partnerURL;
     }
@@ -1125,6 +1133,23 @@ public class GeneralUtility extends DriverBase {
         // Generate random integers in range 0 to 999
         int random_int = random.nextInt(1000);
         return random_int;
+    }
+    public void calculateEstDeliveryTime(int minutes, java.sql.Time timeValue){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(timeValue);
+        calendar.add(Calendar.MINUTE, minutes);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 5;
+        calendar.add(Calendar.MINUTE, (5 - mod));
+        calendar.add(Calendar.MINUTE,-60);
+        String lowerRangeTime=String.valueOf(calendar.getTime());
+        calendar.add(Calendar.MINUTE,120);
+        String upperRangeTime=String.valueOf(calendar.getTime());
+
+        String estimateLowerRange=lowerRangeTime.substring(11,16);
+        cucumberContextManager.setScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME",estimateLowerRange);
+        String estimateUpperRange=upperRangeTime.substring(11,16);
+        cucumberContextManager.setScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME",estimateUpperRange);
     }
 }
 

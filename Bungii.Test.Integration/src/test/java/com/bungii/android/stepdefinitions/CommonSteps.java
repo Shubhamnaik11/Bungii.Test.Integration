@@ -566,8 +566,14 @@ public class CommonSteps extends DriverBase {
             switch(page)
             {
                 case "bungii.com":
-                    action.click(locationPage.Option_Chrome());
-                    action.click(locationPage.Button_Always());
+//                    action.click(locationPage.Option_Chrome());
+//                    action.click(locationPage.Button_Always());
+                    testStepAssert.isElementDisplayed(locationPage.Header_DrivePage(),
+                            "Correct Header should be displayed",
+                            "Correct Header is displayed" ,
+                            "Correct Header is not displayed");
+                    break;
+
             }
             boolean isCorrectPage = utility.isCorrectPage(page);
             testStepAssert.isTrue(isCorrectPage, page + " should be displayed", page + " is displayed correctly  ", page + " is not displayed correct");
@@ -942,6 +948,10 @@ public class CommonSteps extends DriverBase {
                     actualMessage = utility.getCustomerSnackBarMessage();
                     expectedMessage = PropertyUtility.getMessage("browser.uninstalled.message");
                     action.click(inProgressBungiiPages.Button_Cancel_Yes());
+                    break;
+                case "THERE IS A CONFLICTING DELIVERY":
+                    actualMessage = utility.getDriverSnackBarMessage();
+                    expectedMessage = PropertyUtility.getMessage("conflicting.delivery.error.message");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

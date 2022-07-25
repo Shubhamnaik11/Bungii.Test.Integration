@@ -37,7 +37,7 @@ Feature: Solo Scheduled Bungii Part A
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-    
+
     #Then I should be navigated to "ARRIVED" trip status screen
     Then I should be navigated to "ARRIVED" trip status screen on driver
     And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
@@ -48,23 +48,27 @@ Feature: Solo Scheduled Bungii Part A
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
     #Then I should be navigated to "LOADING ITEMS" trip status screen
     Then I should be navigated to "LOADING ITEMS" trip status screen on driver
     And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "LOADING ITEM" trip status screen
-    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
+    Then Customer should be navigated to "LOADING ITEMS" trip status screen
+    And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for customer
     
     When I Switch to "driver" application on "same" devices
+    And I slide update button on "LOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
     #Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
     And Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
-    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
+    Then Customer should be navigated to "DRIVING TO DROP-OFF" trip status screen
+    And Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for customer
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP-OFF" Screen
@@ -73,10 +77,12 @@ Feature: Solo Scheduled Bungii Part A
     And Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
-    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+    Then Customer should be navigated to "UNLOADING ITEMS" trip status screen
+    And Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for customer
     
     When I Switch to "driver" application on "same" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
@@ -140,8 +146,8 @@ Feature: Solo Scheduled Bungii Part A
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "LOADING ITEM" trip status screen
-    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
+    Then Customer should be navigated to "LOADING ITEMS" trip status screen
+    And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for customer
     And correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
@@ -159,8 +165,8 @@ Feature: Solo Scheduled Bungii Part A
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
-    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+    Then Customer should be navigated to "UNLOADING ITEMS" trip status screen
+    And Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for customer
     And correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
@@ -223,19 +229,19 @@ Feature: Solo Scheduled Bungii Part A
     #Then I should be navigated to "LOADING ITEM" trip status screen
     Then I should be navigated to "LOADING ITEMS" trip status screen on driver
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "LOADING ITEM" trip status screen
+    Then Customer should be navigated to "LOADING ITEMS" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "LOADING ITEMS" Screen
     #Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then Customer should be navigated to "DRIVING TO DROP-OFF" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "DRIVING TO DROP-OFF" Screen
     #Then I should be navigated to "UNLOADING ITEM" trip status screen
     Then I should be navigated to "UNLOADING ITEMS" trip status screen on driver
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    Then Customer should be navigated to "UNLOADING ITEMS" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
@@ -272,19 +278,26 @@ Feature: Solo Scheduled Bungii Part A
     Then I Cancel selected Bungii
 
   @regression
+    #Added case of CORE-3685 to exsting script
     #stable
   Scenario: Verify Customer Can Cancel Solo Scheduled Bungii on Bungii Details screen
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
-    Given I login as "valid denver" customer and on Home page
+      | denver1   | Scheduled    | NEXT_POSSIBLE |
+    Given I login as "valid denver1" customer and on Home page
+    When I Select "ACCOUNT > ACCOUNT INFO" from Customer App menu
+    Then I should be navigated to "ACCOUNT INFO" screen
+    And I click "Delete account" button on "ACCOUNT INFO" screen
+    And I enter "valid" password and click on delete button
+    Then I should see "Account can't be deleted due to pending deliveries" message
+    And I click "Cancel" button on "Delete Account" screen
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     When I Cancel selected Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @ready
+  @regression
   Scenario: Verify When Admin Cancels Bungii Then Trip Is Removed From The Scheduled Trip In App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -310,10 +323,10 @@ Feature: Solo Scheduled Bungii Part A
   Scenario: Verify Status Of Scheduled Solo Bungii Trip In Drivers Scheduled Bungiis Menu Screen When Required Number Of Drivers Have Not Accepted It
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
+      | denver2   | Scheduled    | NEXT_POSSIBLE |
     #When I am on the "LOG IN" page
     #And I logged in Customer application using  "valid denver" user
-    Given I login as "valid denver" customer and on Home page
+    Given I login as "valid denver2" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     Then trips status should be "Contacting Drivers"
     And I select already scheduled bungii
@@ -323,7 +336,7 @@ Feature: Solo Scheduled Bungii Part A
       | CUSTOMER1_PHONE |                 |
 
 
-  @ready
+  @regression
   #Stable
   Scenario:  Verify Customer Can Schedule Solo Bungii Only 5 Days Ahead Including Current Date
     Given I login as "valid denver" customer and on Home page
@@ -432,4 +445,88 @@ Feature: Solo Scheduled Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
-  
+
+#   Core-3098 Verify online/Offline pop up is shown when Driver has schedule trip accepted for future days
+    @ready
+  Scenario:  Verify online/Offline pop up is shown when Driver has schedule trip accepted for future days
+
+    And I login as "valid denver" customer and on Home page
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+1 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+      When I Switch to "driver" application on "same" devices
+      And I am on the "LOG IN" page on driverApp
+      And I am logged in as "valid denver" driver
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
+      And I Select Trip from available trip
+      And I click "ACCEPT" button on "Bungii Request" screen
+
+      When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+        | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+        | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+
+      And As a driver "valid denver" perform below action with respective "Solo Scheduled" Delivery
+        | driver1 state |
+        |Accepted |
+        | Enroute  |
+        | Arrived |
+        | Loading Item |
+        | Driving To Dropoff |
+        | Unloading Item |
+
+      When I Switch to "driver" application on "same" devices
+      And I am logged in as "valid denver" driver
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I slide update button on "UNLOADING ITEMS" Screen
+      And I click "Skip This Step" button on "Rate customer" screen
+      Then I should be navigated to "Bungii Completed" screen
+      When I click "On To The Next One" button on "Bungii completed" screen
+      Then I check online or offline pop up is displayed
+#CORE-2753 : To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
+  @ready
+  Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_mattB Stark_dvOnEB" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+    And I wait for 1 minutes
+    And As a driver "Testdrivertywd_appledv_b_mattB Stark_dvOnEB" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Enroute       |
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid denver driver 3" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Switch to "customer" application on "same" devices
+    And I logged in Customer application using  "valid denver5" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+1 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+    And I Switch to "driver" application on "same" devices
+    And I wait for 2 minutes
+    And I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "ARRIVED" trip status screen on driver
+    And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    Then I should be navigated to "ARRIVED" trip status screen on driver
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    Then The trip should be present in schedule delivery

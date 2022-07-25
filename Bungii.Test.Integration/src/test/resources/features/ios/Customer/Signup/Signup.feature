@@ -93,7 +93,50 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
       | VALID    | Mike       | Test      | Bungiiauto+TEs123@gmail.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
-  
+
+  @regression
+      #Added case of CORE-3685 to exsting script
+  Scenario Outline: Verify deletion of new created customer account and then reuse the same account for new customer creation
+    When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
+    And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
+    And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
+    And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
+    And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
+    And I Select Referral source as "<Source>"
+    And I click "SIGN UP" button on "SIGN UP" screen
+    Then I should be navigated to "VERIFICATION" screen
+    When I Get SMS CODE for new "Customer"
+    And I enter "valid" Verification code
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    Then I should be navigated to "Home" screen
+    When I Select "ACCOUNT > ACCOUNT INFO" from Customer App menu
+    Then I should be navigated to "ACCOUNT INFO" screen
+    And I click "Delete account" button on "ACCOUNT INFO" screen
+    #And I confirm the account deletion for customer
+    And I enter "valid" password and click on delete button
+    Then I should see "Account deleted successfully" message
+    Then I should be navigated to "LOG IN" screen
+    And I click "SIGN UP" button on "LOG IN" screen
+    #And I click on "SIGN UP" button on "LOG IN" screen
+      When I Enter "Deleted Phone" value in "Phone Number" field in "SIGN UP" Page
+      And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
+      And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
+      And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
+      And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
+      And I Select Referral source as "<Source>"
+      And I click "SIGN UP" button on "SIGN UP" screen
+      Then I should be navigated to "VERIFICATION" screen
+      When I Get SMS CODE for new "Customer"
+      And I enter "valid" Verification code
+      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I close "Tutorial" if exist
+      Then I should be navigated to "Home" screen
+
+      Examples:
+      | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
+      | VALID    | Shaun      | Test      | Bungiiauto+TEs1234@gmail.com    | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
+
   @knownissue
   Scenario Outline: Verify Customer Can Submit Registration Form Without Promocode
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page

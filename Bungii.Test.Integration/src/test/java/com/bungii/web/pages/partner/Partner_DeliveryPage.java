@@ -60,6 +60,15 @@ public class Partner_DeliveryPage extends PageBase {
     //Scheduled By
     public WebElement TextBox_Scheduled_By() { return findElement("//label[text()='Scheduled By']/following::input[1]",LocatorType.XPath);}
 
+    //Bodc Code
+    public WebElement Dropdown_BodcCode() { return findElement("//label[text()='BODC Code']/following::div[1]/div[1]",LocatorType.XPath);}
+
+    //Bodc Options
+    public List<WebElement> Dropdown_BodcCodeOptions() {return findElements("//div/div/ul/li", LocatorType.XPath); }
+
+    //Select Bodc Code value
+    public WebElement Dropdown_BodcCodeValue() { return findElement("//li[contains(text(),'SVC02/09/00')]",LocatorType.XPath);}
+
     //Pickup Date Time
     public WebElement Label_Pickup_Date_Time() { return findElement("//label[contains(text(),'Pickup Date & Time:')]/following-sibling::p",LocatorType.XPath);}
 
@@ -116,9 +125,16 @@ public class Partner_DeliveryPage extends PageBase {
     //Partner Pay Radio button
     public WebElement Radio_Button_Partner_Pay() { return findElement("//label[contains(text(),'Partner Pay')]",LocatorType.XPath);}
 
+    //Partner Invoice Radio button
+    //public WebElement Radio_Button_Partner_Invoice() { return findElement("//label[contains(text(),'Partner Invoice')]",LocatorType.XPath);}
+    public WebElement RadioButton_PartnerInvoice() { return findElement("MI",LocatorType.Id);}
+
+
     //Schedule Bungii button
     //public WebElement Button_Schedule_Bungii() { return findElement("submit-details",LocatorType.Id);}
     public WebElement Button_Schedule_Bungii() { return findElement("//button[@id='submit-details']",LocatorType.XPath);}
+
+    public WebElement Button_New_Bungii() { return findElement("//div/button[text()='New Bungii']",LocatorType.XPath);}
 
     //Driver and truck text in summary
     public WebElement Text_Driver_Truck() { return findElement("//label[contains(text(),'s needed:')]/following-sibling::p",LocatorType.XPath);}
