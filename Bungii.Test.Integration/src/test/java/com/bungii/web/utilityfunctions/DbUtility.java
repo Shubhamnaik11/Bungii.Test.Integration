@@ -31,8 +31,8 @@ public class DbUtility extends DbContextManager {
         return Scheduled_Time;
     }
     public static String getScheduledDays(String subdomain){
-        String Scheduled_Time = getDataFromMySqlMgmtServer("select advance_schedule_days from bp_store st join bp_store_portal_setting ps on ps.bp_store_id = st.bp_store_id where st.subdomain_name like '%"+subdomain+"%';");
-        return Scheduled_Time;
+        String scheduledTime = getDataFromMySqlMgmtServer("select advance_schedule_days from bp_store st join bp_store_portal_setting ps on ps.bp_store_id = st.bp_store_id where st.subdomain_name like '%"+subdomain+"%';");
+        return scheduledTime;
 
     }
     public static String getPickupRef(String customerPhone){
