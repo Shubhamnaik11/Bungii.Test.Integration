@@ -48,7 +48,7 @@ Feature: Driver_Login
   Scenario: Verify updated text is displayed in "Earn Extra Cash" potential earnings on driver portal
     Then I should see updated text "$45" in "Earn Extra Cash" potential earnings on "driver" portal
 
-  @read
+  @ready
   Scenario: Verify updated text is displayed in "Earn Extra Cash" potential earnings on bungii.com portal
     When I am on the "bungii.com" Portal
     Then I should see updated text "$45" in "Earn Extra Cash" potential earnings on "bungii.com" portal
