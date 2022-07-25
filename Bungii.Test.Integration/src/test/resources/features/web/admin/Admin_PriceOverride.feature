@@ -590,10 +590,9 @@ Feature: Admin_Price_Override
       And I click on "Edit" link beside scheduled bungii
       When I click on "Edit Trip Details" radiobutton
       And I change delivery type from "Duo to Solo"
-      And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
-      Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      And I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
       When I click on "Close" button
       And I refresh the page
       And I get the new pickup reference generated
@@ -618,10 +617,9 @@ Feature: Admin_Price_Override
       And I click on "Edit" link beside scheduled bungii
       When I click on "Edit Trip Details" radiobutton
       And I change delivery type from "Duo to Solo"
-      And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
-      Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      And I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
       When I click on "Close" button
       And I refresh the page
       And I get the new pickup reference generated
@@ -637,10 +635,9 @@ Feature: Admin_Price_Override
       Then I check if DUO option is disabled
 #     Core-2960 Verify for weight based matrix delivery SOLO to DUO option is disabled when admin assign driver
       And I click on "Add Driver" and add "Testdrivertywd_appledc_a_drvl WashingtonDC_l" driver
-      And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
-      Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      And I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
       Then I check if DUO option is disabled
 
 #    Core-2960 Verify customer price override and driver earnings override is retained for a fixed pricing delivery converted from DUO to SOLO when driver accepted the delivery
@@ -649,7 +646,7 @@ Feature: Admin_Price_Override
       When I request Partner Portal "DUO" Trip for "Biglots" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
         |atlanta  | NEXT_POSSIBLE_THIRD_SLOT | 8877661058 | Testcustomertywd_BppleMarkBG LutherBG|
-      And As a driver "Testdrivertywd_applega_a_steveB Stark_altOnEB" and "Testdrivertywd_applega_a_steveC Stark_altOnEC" perform below action with respective "DUO SCHEDULED" trip
+      And As a driver "Testdrivertywd_applega_a_steveE Stark_altOnEE" and "Testdrivertywd_applega_a_steveF Stark_altOnEF" perform below action with respective "DUO SCHEDULED" trip
         | driver1 state | driver2 state |
         | Accepted      | Accepted      |
       When I am logged in as Admin
@@ -674,11 +671,10 @@ Feature: Admin_Price_Override
       And I click on "Edit" link beside scheduled bungii
       When I click on "Edit Trip Details" radiobutton
       And I change delivery type from "Duo to Solo"
-      When I remove control driver "Testdrivertywd_applega_a_steveB Stark_altOnEB" on edit popup
-      And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
-      Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      When I remove control driver "Testdrivertywd_applega_a_steveE Stark_altOnEE" on edit popup
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      And I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
       When I click on "Close" button
       And I wait for 2 minutes
       And I refresh the page
@@ -722,10 +718,9 @@ Feature: Admin_Price_Override
     When I click on "Edit Trip Details" radiobutton
     And I change delivery type from "Solo to Duo"
     And I assign driver "Testdrivertywd_applega_c_mark Stark_altThree" for the trip
-    And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
-    Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
     When I click on "Close" button
     And I wait for 2 minutes
     And I refresh the page
