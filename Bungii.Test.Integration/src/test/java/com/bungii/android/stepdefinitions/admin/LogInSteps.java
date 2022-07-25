@@ -51,9 +51,6 @@ public class LogInSteps extends DriverBase {
                     true);
         }
     }
-    @And("^I navigate to partner portal$")
-    public void i_navigate_to_partner_portal() throws Throwable {
-        SetupManager.getDriver().get(utility.GetPartnerUrl());
-    }
+
 
 }

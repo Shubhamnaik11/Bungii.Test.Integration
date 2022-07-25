@@ -570,7 +570,7 @@ public class DbUtility extends DbContextManager {
         String queryStringForPickupId = "select PickupID from pickupdetails where PickupRef = '"+Pickup_Reference+"'";;
         pickupId = getDataFromMySqlServer(queryStringForPickupId);
         logger.detail("PickupId is "+pickupId+ " for pickup reference "+ Pickup_Reference);
-        String queryStringForPickupPickupStatus = "select PickupStatus from pickupdetails where PickupRef = '"+Pickup_Reference+"'";
+        String queryStringForPickupPickupStatus = "select PickupStatus from pickupdetails where PickupID='"+pickupId+"'";
         PickupStatus = getDataFromMySqlServer(queryStringForPickupPickupStatus);
         logger.detail("PickupStatus is "+PickupStatus+ " for pickup reference "+ Pickup_Reference);
         String queryStringForTime = "select StatusTimestamp from tripevents where pickupid ='"+pickupId+"'"+"and TripStatus = '"+PickupStatus+"'";

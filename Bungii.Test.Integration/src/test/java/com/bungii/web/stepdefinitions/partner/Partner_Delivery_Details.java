@@ -20,6 +20,8 @@ import org.joda.time.DateTimeZone;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import java.time.LocalTime;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -525,48 +527,56 @@ public class Partner_Delivery_Details extends DriverBase {
     @Then("^I should see the delivery status highlighted and to be set as \"([^\"]*)\" on partner portal delivery details page$")
     public void i_should_see_the_delivery_status_highlighted_and_to_be_set_as_something_on_partner_portal_delivery_details_page(String deliveryStatus) throws Throwable {
         Thread.sleep(3000);
-        String highlightedColor = "rgb(254, 238, 2)";
+        String dbDeliveryStepCompletionTime = (String) cucumberContextManager.getScenarioContext("DeliveryStepCompletionTime");
         String uiDeliveryStatus = action.getText(Page_Partner_Delivery.Text_PartnerDeliveryStatus(deliveryStatus));
         switch (deliveryStatus){
             case"Scheduled":
-                String color = Page_Partner_Delivery.Icon_ScheduledDeliveryProgress().getCssValue("color");
-                testStepVerify.isEquals(color,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
-                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                String [] fullScheduledStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(1)).split(" ");
+                String properScheduledStepCompletionTime = fullScheduledStepCompletionText[4] + " " + fullScheduledStepCompletionText[5];
+                testStepVerify.isEquals(properScheduledStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
+                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
                 break;
             case "En Route To Pickup":
-                String color1 = Page_Partner_Delivery.Icon_EnRouteToPickupProgress().getCssValue("background-color");
-                testStepVerify.isEquals(color1,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
-                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                String []fullEnrouteStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(2)).split(" ");
+                String properEnrouteStepCompletionTime = fullEnrouteStepCompletionText[4] + " " + fullEnrouteStepCompletionText[5];
+                testStepVerify.isEquals(properEnrouteStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
+                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
                 break;
                 case "Driver Arrived At Pickup":
-                String color2 = Page_Partner_Delivery.Icon_DriverArrivedAtPickupDeliveryProgress().getCssValue("background-color");
-                testStepVerify.isEquals(color2,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
-                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                String[] fullDriverArrivedStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(3)).split(" ");
+                String properDriverArrivedStepCompletionTime = fullDriverArrivedStepCompletionText[4] + " " + fullDriverArrivedStepCompletionText[5];
+                testStepVerify.isEquals(properDriverArrivedStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
+                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
                 break;
             case "Loading Items":
-                String color3 = Page_Partner_Delivery.Icon_LoadingItemsDeliveryProgress().getCssValue("background-color");
-                testStepVerify.isEquals(color3,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
-                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                String []fullLoadingItemsStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(4)).split(" ");
+                 String properLoadingItemsStepCompletionTime = fullLoadingItemsStepCompletionText[4] + " " + fullLoadingItemsStepCompletionText[5];
+                 testStepVerify.isEquals(properLoadingItemsStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
+                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
                 break;
             case "Driving To Drop Off":
-                String color4 = Page_Partner_Delivery.Icon_DrivingToDropOffDeliveryProgress().getCssValue("background-color");
-                testStepVerify.isEquals(color4,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
-                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                String []fullDrivingToDropoffStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(5)).split(" ");
+                 String properDrivingToDropoffStepCompletionTime = fullDrivingToDropoffStepCompletionText[4] + " " + fullDrivingToDropoffStepCompletionText[5];
+                 testStepVerify.isEquals(properDrivingToDropoffStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
+                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
                 break;
             case "Unloading Items":
-                String color5 = Page_Partner_Delivery.Icon_UnloadingItemsDeliveryProgress().getCssValue("background-color");
-                testStepVerify.isEquals(color5,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
-                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                String []fullUnloadingItemsStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(6)).split(" ");
+                String fullUnloadingItemsCompletionTime = fullUnloadingItemsStepCompletionText[4] + " " + fullUnloadingItemsStepCompletionText[5];
+                 testStepVerify.isEquals(fullUnloadingItemsCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
+                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
                 break;
             case "Done":
-                String color6 = Page_Partner_Delivery.Icon_ScheduledDeliveryProgress().getCssValue("background-color");
-                testStepVerify.isEquals(color6,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
-                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                String []fullDoneStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(7)).split(" ");
+                 String properDoneStepCompletionTime = fullDoneStepCompletionText[4] + " " + fullDoneStepCompletionText[5];
+                 testStepVerify.isEquals(properDoneStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
+                 testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
                 break;
             case "Canceled":
-//                String color7 = Page_Partner_Delivery.Icon_CancelledDelivery().getCssValue("background-color");
-//                testStepVerify.isEquals(color7,highlightedColor,"Trip should be highlighted","Trip is highlighted","Trip is not highlighted");
-                testStepVerify.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
+                String[] fullCancellationStepCompletionTime =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(2)).split(" ");
+                 String properCanceledStepCompletionTime = fullCancellationStepCompletionTime[4].toString() + " " + fullCancellationStepCompletionTime[5].toString();
+                 testStepVerify.isEquals(properCanceledStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
+                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
                 break;
         }
     }
@@ -577,11 +587,7 @@ public class Partner_Delivery_Details extends DriverBase {
         action.click(Page_Partner_Dashboard.DropDown_Filter());
         switch (filterOption){
             case "Completed":
-                action.click(Page_Partner_Dashboard.Checkbox_Completed(filterOption));
-                break;
             case "Canceled":
-                action.click(Page_Partner_Dashboard.Checkbox_Completed(filterOption));
-                break;
             case "Check / uncheck all":
                 action.click(Page_Partner_Dashboard.Checkbox_Completed(filterOption));
                 break;
@@ -603,60 +609,19 @@ public class Partner_Delivery_Details extends DriverBase {
 
     @And("^its blah$")
     public void its_blah() throws Throwable {
-        String[] timeZoneValue=utility.getDayLightTimeZoneBasedOnGeofence();
-      String zone = timeZoneValue[1];
-        Date teletTimeInUtc = null;
-//        cucumberContextManager.setScenarioContext("Timezone","CST");
-//        String zone = (String) cucumberContextManager.getScenarioContext("Timezone");
-//        cucumberContextManager.setScenarioContext("PICKUP_REQUEST","2a5111d3-0439-8168-e5a7-20e793402e24");
         String pickupRef =(String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String time =dbUtility.getPartnerName2(pickupRef);
-//        String time ="2022-07-21 07:05:45.000";
-        System.out.println(time);
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        teletTimeInUtc = formatter.parse(time);
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
+        String timer=time.substring(11,23);
+        Time timeValue = new Time(formatter.parse(timer).getTime());
         Calendar calendar = Calendar.getInstance();
-        TimeZone.setDefault(TimeZone.getTimeZone(zone));
-        formatter.setTimeZone(TimeZone.getTimeZone(zone));
-        String strdate = formatter.format(calendar.getTime());
-        System.out.println(strdate);
-//        DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-//
-//        formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(zone));
-//
-//        formatter.setTimeZone(TimeZone.getTimeZone(zone));
-//        String format = "yyyy-MM-dd HH:mm:ss";
-//        SimpleDateFormat estFormatter = new SimpleDateFormat(format);
-//        Date date = estFormatter.parse(time);
-//
-//        SimpleDateFormat utcFormatter = new SimpleDateFormat(format);
-//        utcFormatter.setTimeZone(TimeZone.getTimeZone(zone));
-//
-//        System.out.println(utcFormatter.format(date));
-//        String strdate = formatter.format(calendar.getTime());
-//        Date teletTimeInLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(time);
-//        System.out.println(teletTimeInLocal);
-//        Instant a = teletTimeInLocal.toInstant();
-//       ZonedDateTime b= a.atZone(ZoneId.of(zone));
-//       System.out.println(b);
-//
-//        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-//        //By default data is in UTC
-//        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-//        teletTimeInUtc = formatter.parse(time);
-//        System.out.println(teletTimeInUtc);
-//
-//        Calendar calendar = Calendar.getInstance();
-//        Date nextQuatter = calendar.getTime();
-//        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
-//
-//        DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-//        formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
-//
-//        formatter.getTimeZone(TimeZone.getTimeZone(geofenceLabel));
-//
-//        String strdate = formatter.format(calendar.getTime());
-//        Date teletTimeInLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(strdate);
-
+        calendar.setTime(timeValue);
+        calendar.add(Calendar.MINUTE, -300);
+        String lowerRangeTime=String.valueOf(calendar.getTime());
+        String estimateLowerRange=lowerRangeTime.substring(11,16);
+        System.out.println(estimateLowerRange);
+        String result = LocalTime.parse(estimateLowerRange, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
+        System.out.println(result);
+        cucumberContextManager.setScenarioContext("DeliveryStepCompletionTime",result);
     }
 }

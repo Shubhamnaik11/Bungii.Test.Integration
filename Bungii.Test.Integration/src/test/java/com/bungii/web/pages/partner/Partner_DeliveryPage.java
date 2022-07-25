@@ -208,20 +208,6 @@ public class Partner_DeliveryPage extends PageBase {
 
     public WebElement Icon_ScheduledDeliveryProgress() { return findElement("//div[@class=\"trip-progress-icon Scheduled\"]",LocatorType.XPath);}
 
-
-    public WebElement Icon_EnRouteToPickupProgress() { return findElement("23",LocatorType.Id);}
-
-    public WebElement Icon_LoadingItemsDeliveryProgress() { return findElement("25",LocatorType.Id);}
-
-    public WebElement Icon_DrivingToDropOffDeliveryProgress() { return findElement("26",LocatorType.Id);}
-
-    public WebElement Icon_UnloadingItemsDeliveryProgress() { return findElement("27",LocatorType.Id);}
-
-   public WebElement Icon_DriverArrivedAtPickupDeliveryProgress() { return findElement("24",LocatorType.Id);}
-
-    public WebElement Icon_DoneDeliveryProgress() { return findElement("28",LocatorType.Id);}
-
-    public WebElement Icon_CancelledDelivery() { return findElement("66",LocatorType.Id);}
-
+    public WebElement Text_DeliveryCompletedStepTime(int number) { return findElement(String.format("//div[%d]/div/p[@class=\"timeStamp\"]",number),LocatorType.XPath);}
 
 }
