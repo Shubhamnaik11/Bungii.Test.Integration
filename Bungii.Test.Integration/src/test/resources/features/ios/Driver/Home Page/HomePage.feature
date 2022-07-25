@@ -48,3 +48,11 @@ Feature: Driver Home screen
 #   Core-2618 Verify back button of invite screen redirect user to Home screen
     And I click on "Back" icon
     Then I should be navigated to "Home" screen on driverApp
+#   Core-2844 Verify UI on driver home page
+    And I verify the elements of home page
+#   Core-2844 Verify that Referral history option on invite screen
+    And I click on "$" icon
+    And I click on "Referral history" link
+    Then I should be navigated to "REFERRAL HISTORY" screen
+    And I click on "Back" icon
+    Then I should be navigated to "REFERRAL" screen

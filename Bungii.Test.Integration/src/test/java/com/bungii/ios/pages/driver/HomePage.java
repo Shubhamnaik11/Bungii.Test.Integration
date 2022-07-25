@@ -142,5 +142,6 @@ public class HomePage extends PageBase {
 
     public WebElement Header_Referral(){return findElement("//XCUIElementTypeStaticText[@name=\"REFERRAL\"]", LocatorType.XPath);}
 
+    public WebElement Header_ReferralHistory(){return findElement("//XCUIElementTypeStaticText[@name=\"REFERRAL HISTORY\"]", LocatorType.XPath);}
 
 }

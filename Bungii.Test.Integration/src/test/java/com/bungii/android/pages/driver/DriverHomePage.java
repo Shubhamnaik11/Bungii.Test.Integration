@@ -76,5 +76,11 @@ public class DriverHomePage extends PageBase {
     public WebElement Text_Footer() { return findElement("//androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView", LocatorType.XPath); }
     public WebElement Button_Back () { return findElement("//android.widget.ImageButton[contains(@content-desc,\"Navigate up\")]", LocatorType.XPath); }
 
+    //Home page
+    public WebElement Tab_ReferralMessage () { return findElement("//android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]", LocatorType.XPath); }
+    public WebElement Text_ReferralHeader () { return findElement("//android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_ReferralSubHeader () { return findElement("//android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Button_Invite () { return findElement("//android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[3]", LocatorType.XPath); }
+
 
 }

@@ -334,6 +334,9 @@ Thread.sleep(5000);
             case "REFERRAL":
                 isCorrectPage=action.isElementPresent(myBungiisPage.Header_ReferralPage());
                 break;
+            case "REFERRAL HISTORY":
+                isCorrectPage=action.isElementPresent(myBungiisPage.Header_ReferralHistory());
+                break;
 
                 default:
                     String expectedMessage = p0;

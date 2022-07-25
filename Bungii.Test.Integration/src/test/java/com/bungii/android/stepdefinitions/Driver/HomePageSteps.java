@@ -457,5 +457,46 @@ public class HomePageSteps extends DriverBase {
                     true);
         }
     }
-
+    @And("^I verify the elements of home page$")
+    public void i_verify_the_elements_of_home_page() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(driverHomePage.Tab_ReferralMessage(),
+                    "The tab containing referral instructions should be displayed on home page",
+                    "The tab containing referral instructions is displayed on home page",
+                    "The tab containing referral instructions is not displayed on home page");
+            testStepAssert.isElementDisplayed(driverHomePage.Text_ReferralHeader(),
+                    "The referral header should be displayed on home page",
+                    "The referral header is displayed on home page",
+                    "The referral header is not displayed on home page");
+            testStepAssert.isElementDisplayed(driverHomePage.Text_ReferralSubHeader(),
+                    "The referral sub header should be displayed on home page",
+                    "The referral sub header is displayed on home page",
+                    "The referral sub header is not displayed on home page");
+            testStepAssert.isElementDisplayed(driverHomePage.Button_Invite(),
+                    "The invite button should be displayed on home page",
+                    "The invite button is displayed on home page",
+                    "The invite button is not displayed on home page");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I click on \"([^\"]*)\" link$")
+    public void i_click_on_something_link(String name) throws Throwable {
+        try{
+            switch (name){
+                case "Referral history":
+                    action.click(driverHomePage.Text_ReferralHistory());
+                    break;
+            }
+            log("I should be able to click on link","I am able to click on link",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

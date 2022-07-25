@@ -73,3 +73,19 @@ Feature: Bungii Geofence Based Calculation
     And I tap on "Checkbox" on Payment page
     When I click "SAVE" button on "PAYMENT" screen
     Then I should see "new default card" on Payment page
+
+#    Core-2618 Verify that admin can set referral code amount on geofence settings page
+    @ready
+#      @testsweta
+    Scenario: Verify that admin can set referral code amount on geofence settings page
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Geofence" from admin sidebar
+      And I select "Chicago" geofence
+      And I click on the "Settings" Button on "Geofence" Screen
+      And I set "set referral code amount"
+#     Core-2618 Verify admin can set no. of deliveries for referral payout on geofence setting page
+      And I set "set no. of deliveries"
+      Then I click on the "Save" Button on "GeofenceSettings" Screen
+#     Core-2618 Verify that updating referral amount in geofence settings updates value in invite screen

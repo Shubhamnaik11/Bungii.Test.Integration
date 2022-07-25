@@ -65,5 +65,6 @@ public class MyBungiisPage extends PageBase {
 
     public WebElement Header_RateDuoTeammate(){return findElement("//android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView", LocatorType.XPath);}
     public WebElement Header_ReferralPage(){return findElement("//android.widget.TextView[contains(@text,\"REFERRAL\")]", LocatorType.XPath);}
+    public WebElement Header_ReferralHistory(){return findElement("//android.widget.TextView[contains(@text,\"REFERRAL HISTORY\")]", LocatorType.XPath);}
 
 }

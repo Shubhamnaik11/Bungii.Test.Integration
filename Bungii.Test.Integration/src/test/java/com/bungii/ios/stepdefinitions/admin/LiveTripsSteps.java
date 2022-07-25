@@ -262,7 +262,9 @@ public class LiveTripsSteps extends DriverBase {
                 case "Manually End Bungii":
                     action.click(liveTripsPage.Link_ManuallyEndBungii());
                     break;
-
+                case "Referral history":
+                    action.click(liveTripsPage.Text_ReferralHistory());
+                    break;
 
             }
             log("I click on "+link+" link", "I clicked on "+link+" link", false);
@@ -629,6 +631,31 @@ public class LiveTripsSteps extends DriverBase {
                    true);
        }
     }
-
+    @And("^I verify the elements of home page$")
+    public void i_verify_the_elements_of_home_page() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(liveTripsPage.Tab_ReferralMessage(),
+                    "The tab containing referral instructions should be displayed on home page",
+                    "The tab containing referral instructions is displayed on home page",
+                    "The tab containing referral instructions is not displayed on home page");
+            testStepAssert.isElementDisplayed(liveTripsPage.Text_ReferralHeader(),
+                    "The referral header should be displayed on home page",
+                    "The referral header is displayed on home page",
+                    "The referral header is not displayed on home page");
+            testStepAssert.isElementDisplayed(liveTripsPage.Text_ReferralSubHeader(),
+                    "The referral sub header should be displayed on home page",
+                    "The referral sub header is displayed on home page",
+                    "The referral sub header is not displayed on home page");
+            testStepAssert.isElementDisplayed(liveTripsPage.Button_Invite(),
+                    "The invite button should be displayed on home page",
+                    "The invite button is displayed on home page",
+                    "The invite button is not displayed on home page");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
 }

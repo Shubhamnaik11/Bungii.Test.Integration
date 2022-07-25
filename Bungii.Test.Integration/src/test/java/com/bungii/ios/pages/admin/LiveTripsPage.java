@@ -58,5 +58,10 @@ public class LiveTripsPage extends PageBase{
     public WebElement Text_Footer() { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeStaticText", LocatorType.XPath); }
     public WebElement Button_Back () { return findElement("//XCUIElementTypeButton[@name='Back']", LocatorType.XPath); }
 
+    //Home page
+    public WebElement Tab_ReferralMessage () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther", LocatorType.XPath); }
+    public WebElement Text_ReferralHeader () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath); }
+    public WebElement Text_ReferralSubHeader () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
+    public WebElement Button_Invite () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeButton", LocatorType.XPath); }
 
 }
