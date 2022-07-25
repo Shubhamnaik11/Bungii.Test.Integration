@@ -165,7 +165,7 @@ And I login to driver portal on a new tab with driver phone number "9049840210"
 Then The accessorial charges cut should be displayed in total earnings
 
 #CORE-3881 : To verify that admin can add accessorial charges for partner canceled deliveries after revival
-@ready
+#@testAllan
 Scenario: To verify that admin can add accessorial charges for partner canceled deliveries after revival
    When I request Partner Portal "SOLO" Trip for "MRFM" partner
    |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -199,11 +199,11 @@ Scenario: To verify that admin can add accessorial charges for partner canceled 
 	And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
 	Then I should see "Accessorial Charges" section displayed
 	When I add following accessorial charges and save it
-		| Amount   | Fee Type         | Comment                           | Driver Cut |
-		|  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
-		|   20.5    | Cancelation      | Charges due to Cancelation        | 4.5        |
-		|  25.65   | Mountainous      | Charges due to mountainous reason | 10.0       |
-		|  100     | Other            | Charges due to other reasons      | 20         |
+		| Amount   | Fee Type         | Comment                           |
+		|  10      | Excess Wait Time | Charges due to Excess wait        |
+		|   20.5    | Cancelation      | Charges due to Cancelation        |
+		|  25.65   | Mountainous      | Charges due to mountainous reason |
+		|  100     | Other            | Charges due to other reasons      |
 	And I should see following details in the Accessorial charges section
 		| Excess Wait Time | Cancelation | Mountainous | Other | Total   |
 		| $10            | $20.5       | $25.65      | $100  | $156.15 |

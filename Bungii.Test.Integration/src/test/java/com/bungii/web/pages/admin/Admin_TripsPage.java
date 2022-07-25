@@ -69,6 +69,5 @@ public class Admin_TripsPage extends PageBase {
     public WebElement Text_NoDeliveriesFound () { return findElement("//div/h5", LocatorType.XPath); }
 
 
-    public WebElement Button_ReviveTrip (boolean... IgnoreException) { return findElement("//tbody/tr/td[11]/a/img", LocatorType.XPath,IgnoreException); }
 
 }

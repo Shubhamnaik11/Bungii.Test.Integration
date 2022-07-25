@@ -260,4 +260,12 @@ public class DbUtility extends DbContextManager {
         String reasonId = getDataFromMySqlServer("select pickup_driver_reject_reason_id from pickup_driver_reject_reason where driver_id = "+driverId);
         return reasonId;
     }
+
+    public static String getLinkedPickupRef(String pickupRef) {
+        String linkedpickupref = "";
+        String queryString = "SELECT PICKUPREF FROM pickupdetails WHERE LINKEDPICKUPID in (SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef+"' )";
+        linkedpickupref =getDataFromMySqlServer(queryString);
+        logger.detail("Linked Pickupref " + linkedpickupref + " of pickupref " + pickupRef );
+        return linkedpickupref;
+    }
 }

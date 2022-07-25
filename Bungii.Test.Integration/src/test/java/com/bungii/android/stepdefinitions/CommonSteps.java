@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.admin.DashBoardPage;
 import com.bungii.android.pages.admin.LogInPage;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.LocationPage;
 import com.bungii.android.pages.driver.*;
@@ -67,15 +68,12 @@ public class CommonSteps extends DriverBase {
     LogInPage logInPage=  new LogInPage();
     DashBoardPage dashBoardPage=new DashBoardPage();
     PhonePage phonePage = new PhonePage();
-    Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_TripsPage adminTripsPage = new Admin_TripsPage();
     AvailableTripsPage availableTrips = new AvailableTripsPage();
-    Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
-    Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
-    Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
     Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
-    com.bungii.web.utilityfunctions.DbUtility dbUtilites = new com.bungii.web.utilityfunctions.DbUtility();
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
+    DashBoardPage admin_dashboardPage = new DashBoardPage();
 
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
@@ -1406,8 +1404,8 @@ public class CommonSteps extends DriverBase {
     public void i_search_the_delivery_using_something(String strArg1) throws Throwable {
         try {
             Thread.sleep(1000);
-            cucumberContextManager.setScenarioContext("ADMIN1_NAME",action.getText(admin_ScheduledTripsPage.Text_AdminName()));
-            action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
+            cucumberContextManager.setScenarioContext("ADMIN1_NAME",action.getText(admin_dashboardPage.Text_AdminName()));
+            action.clearSendKeys(scheduledTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
             log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1420,10 +1418,10 @@ public class CommonSteps extends DriverBase {
     @Then("^The revive button should not be displayed$")
     public void the_revive_button_should_not_be_displayed() throws Throwable {
         try{
-        testStepAssert.isFalse(action.isElementPresent(adminTripsPage.Button_ReviveTrip(true)),"Revive button should not be displayed", "Revive button is not displayed", "Revive button is displayed");
-    } catch (Exception e) {
+        testStepAssert.isFalse(action.isElementPresent(scheduledTripsPage.Button_ReviveTrip(true)),"Revive button should not be displayed", "Revive button is not displayed", "Revive button is displayed");
+    } catch (Exception e) {;
+            error("Step  Should be successful", "Error in viewing alert", true);
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Error in viewing alert", true);
     }
     }
 
@@ -1431,9 +1429,7 @@ public class CommonSteps extends DriverBase {
     public void the_trip_should_not_be_present_in_available_bungiis() throws Throwable {
         try{
         boolean isDeliveryPresentInDriverApp = true;
-//        cucumberContextManager.setScenarioContext("CUSTOMER","Testcustomertywd_appleMarkF LutherF");
         String fullCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,27);
-        System.out.println(fullCustomerName);
         List<WebElement> AvailableDeliveriesDriverApp =availableTrips.List_AllDeliveriesDriverApp();
         if(AvailableDeliveriesDriverApp.size()==0){
            testStepAssert.isPass("Delivery is not present in available bungiis");
@@ -1441,7 +1437,6 @@ public class CommonSteps extends DriverBase {
         else{
             for(int i=0;i<AvailableDeliveriesDriverApp.size();i++){
                 String customerNameFromDelivery =action.getText(availableTrips.CustomerName(i+1)).substring(0,27);
-                System.out.println(customerNameFromDelivery);
                 if(customerNameFromDelivery.contentEquals(fullCustomerName)){
                     testStepAssert.isFail("Delivery is present in available bungiis");
                     isDeliveryPresentInDriverApp=false;
@@ -1468,9 +1463,9 @@ public class CommonSteps extends DriverBase {
     @And("^I enter cancellation fee and Comments$")
     public void i_enter_cancellation_fee_and_comments() throws Throwable {
         try{
-            action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationFee(), "0");
-            action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationComment(), "Cancelling");
-            action.selectElementByText(admin_ScheduledTripsPage.Dropdown_CancellationReason(), "Other");
+            action.clearSendKeys(scheduledTripsPage.Textbox_CancellationFee(), "0");
+            action.clearSendKeys(scheduledTripsPage.Textbox_CancellationComment(), "Cancelling");
+            action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(), "Other");
             log("I enter cancellation fee amount and comments",
                     "I have entered cancellation fee amount and comments", false);
         } catch(Exception e){
@@ -1484,7 +1479,7 @@ public class CommonSteps extends DriverBase {
     public void the_something_message_should_be_displayed(String message) throws Throwable {
         try{
         Thread.sleep(3000);
-        testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessage(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+        testStepAssert.isElementTextEquals(scheduledTripsPage.Label_CancelSuccessMessage(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
     } catch (Throwable e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful",
@@ -1495,32 +1490,12 @@ public class CommonSteps extends DriverBase {
     @And("^I select \"([^\"]*)\" from the \"([^\"]*)\" dropdown$")
     public void i_select_something_from_the_something_dropdown(String strArg1, String field) throws Throwable {
         try{
-            String Name = null;
             switch(field) {
-//            case "Select Business User":
-                case "Select Partner":
-                    Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
-
-                    action.selectElementByText(admin_BusinessUsersPage.DropDown_AddBusinessUserPayment(),Name);
-                    log("I select element from Select Business User dropdown",
-                            "I have selected element from Select Business User dropdown", true);
-                    break;
-                case "Select Partners":
-                    Name = (String) cucumberContextManager.getScenarioContext("PROMOTER_NAME");
-                    action.selectElementByText(admin_PromoterPage.DropDown_SelectPromoter(),Name);
-                    log("I select element from Select Business User dropdown",
-                            "I have selected element from Select Business User dropdown", true);
-                    break;
                 case "Cancellation Reason":
                     //Name = (String) cucumberContextManager.getScenarioContext("REASON_NAME");
-                    action.selectElementByText(admin_ScheduledTripsPage.Dropdown_CancellationReason(),strArg1);
+                    action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(),strArg1);
                     log("I select element from Cancellation reason dropdown",
                             "I have selected element from Cancellation reason dropdown", true);
-                    break;
-                case "Partner Cards":
-                    action.selectElementByText(admin_paymentMethodsPage.Dropdown_Partners(),strArg1);
-                    log("I select element from Partner Cards dropdown",
-                            "I have selected element from Partner Cards dropdown", true);
                     break;
             }
         } catch(Exception e){
@@ -1536,15 +1511,15 @@ public class CommonSteps extends DriverBase {
             switch(button)
             {
                 case "Confirm":
-                    action.click(admin_revivalPage.Button_Confirm());
+                    action.click(scheduledTripsPage.Button_Confirm());
                     Thread.sleep(10000);
                     String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
                     cucumberContextManager.setScenarioContext("OLD_PICKUP_REQUEST",pickuprequest);
-                    pickuprequest = dbUtilites.getLinkedPickupRef(pickuprequest);
+                    pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
                     break;
                 case "Cancel":
-                    action.click(admin_revivalPage.Button_Cancel());
+                    action.click(scheduledTripsPage.Button_Cancel());
                     break;
             }
             log("I click on the "+button+" button on Revival Popup",
@@ -1560,11 +1535,8 @@ public class CommonSteps extends DriverBase {
         try{
         Thread.sleep(3000);
         boolean isTripPresent = false;
-//        cucumberContextManager.setScenarioContext("BUNGII_TIME", "Jul 17, 04:30 AM CDT");
         String scheduled_time = cucumberContextManager.getScenarioContext("BUNGII_TIME").toString().substring(0, 16);
-        System.out.println(scheduled_time);
         List<WebElement> allCustomerDeliveries = availableTrips.List_AllCustomerDeliveries();
-        System.out.println(allCustomerDeliveries.size());
         if (allCustomerDeliveries.size() == 0) {
             testStepAssert.isFail("Delivery is not present in available bungiis");
         } else {

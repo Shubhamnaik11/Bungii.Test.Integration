@@ -136,6 +136,13 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Label_PickupId() { return findElement("revive-pickup-id", LocatorType.Id); }
     public WebElement Label_PickupCustomer() { return findElement("revive-pickup-customer", LocatorType.Id); }
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
+    public WebElement Textbox_CancellationFee () { return findElement("txtCancellationFee", LocatorType.Id); }
+    public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
+    public WebElement Dropdown_CancellationReason () { return findElement("txtCancellationRemark", LocatorType.Id); }
+    public WebElement Label_CancelSuccessMessage () { return findElement("//p[@id='cancel-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Button_ReviveTrip (boolean... IgnoreException) { return findElement("//tbody/tr/td[11]/a/img", LocatorType.XPath,IgnoreException); }
+    public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
+    public WebElement Button_Cancel() { return findElement("//button[text()='Cancel']", LocatorType.XPath); }
 
 
 
