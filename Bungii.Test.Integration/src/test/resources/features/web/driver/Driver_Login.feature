@@ -43,3 +43,12 @@ Feature: Driver_Login
     Then The password for driver login should be masked
     When I click on the open "Eye" link on the driver login page
     Then I should see the password in the form of text
+
+  @ready
+  Scenario: Verify updated text is displayed in "Earn Extra Cash" potential earnings on driver portal
+    Then I should see updated text "$45" in "Earn Extra Cash" potential earnings on "driver" portal
+
+  @read
+  Scenario: Verify updated text is displayed in "Earn Extra Cash" potential earnings on bungii.com portal
+    When I am on the "bungii.com" Portal
+    Then I should see updated text "$45" in "Earn Extra Cash" potential earnings on "bungii.com" portal
