@@ -550,7 +550,7 @@ Feature: Solo Scheduled Bungii Part A
     Then The revive button should not be displayed
 
  #CORE-3381 :To verify that admin/partner canceled revived deliveries are not displayed to driver on app
-  @testAllan
+  @ready
   Scenario:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |

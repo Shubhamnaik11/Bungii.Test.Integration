@@ -413,7 +413,7 @@ Feature: Service Level
   Scenario: To verify that Revive button is not present for deliveries scheduled more than 5 days in advance
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
+      |baltimore| NEXT_POSSIBLE | 8877661061 | Testcustomertywd_BppleMarkBJ LutherBJ|
     And I wait for 2 minutes
     And  I am logged in as Admin
     And I view the all Scheduled Deliveries list on the admin portal

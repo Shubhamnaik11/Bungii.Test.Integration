@@ -438,7 +438,7 @@ Feature: Admin_Trips
   Scenario:To verify that customer trips can be revived after admin cancels
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
-    | NEXT_POSSIBLE | 9999999358 | Testcustomertywd_appleWashC Shah|
+    | NEXT_POSSIBLE | 8877661062 | Testcustomertywd_BppleMarkBK LutherBK|
    And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
     |Accepted |
@@ -525,7 +525,7 @@ Feature: Admin_Trips
   Scenario:To verify that admin can fully refund completed trips which were revived
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999358 | Testcustomertywd_appleWashC Shah|
+      | NEXT_POSSIBLE | 8877661063 | Testcustomertywd_BppleMarkBL LutherBL|
     And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       |Accepted |

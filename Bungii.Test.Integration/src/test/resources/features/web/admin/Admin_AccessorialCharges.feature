@@ -169,7 +169,7 @@ Then The accessorial charges cut should be displayed in total earnings
 Scenario: To verify that admin can add accessorial charges for partner canceled deliveries after revival
    When I request Partner Portal "SOLO" Trip for "MRFM" partner
    |Geofence| Bungii Time   | Customer Phone | Customer Name |
-   |Kansas  | NEXT_POSSIBLE | 9999999228     | Testcustomertywd_appleNewMO Customer|
+   |Kansas  | NEXT_POSSIBLE | 8877661064     | Testcustomertywd_BppleMarkBM LutherBM|
 	Given I navigate to "Partner" portal configured for "normal" URL
 	And I enter "valid" password on Partner Portal
 	And I click "SIGN IN" button on Partner Portal
