@@ -232,6 +232,7 @@ Feature: Partner Integration with Admin and Driver
     And I select "Canceled" option from the filter
     And I click on "Apply" button
     And I click on the delivery based on customer name
+    And I get the time stamp of the completed delivery step
     Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
 
   @regression

@@ -487,102 +487,203 @@ public class Partner_Delivery_Details extends DriverBase {
 
         }
     }
-//    @And("^I get the time in CST$")
-//    public void i_get_the_time_in_cst() throws Throwable {
-//       cucumberContextManager.setScenarioContext("UTC_TIME","2022-07-07 06:06:15");
-//        String timeWithZone = (String) cucumberContextManager.getScenarioContext("UTC_TIME");
-////        System.out.println("Date with default formatter: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(a));
-////
-////        // This prints: Date with IST time zone formatter: 2013-03-15 10:30:12 GMT+05:30
-////        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
-////        TimeZone tz = TimeZone.getTimeZone("CDT");
-////        sdf.setTimeZone(tz);
-////        Date dateIST = sdf.parse(a);
-////        System.out.println("Date with IST time zone formatter: " + dateIST);
-////
-////        // This prints: Date CST time zone formatter: 2013-03-15 00:00:12 CDT
-////        tz = TimeZone.getTimeZone("CST");
-////        sdf.setTimeZone(tz);
-////        System.out.println("Date CST time zone formatter: " + sdf.format(a));
-////        Instant instant = Instant.parse( "2022-07-07 06:06:15" ) ;
-////        String a = instant.toString();
-////
-////        String timestamp = "2018-12-18 16:00:28";
-//        String zone = "UTC";
-////        String timeWithZone = a;
-//
-//        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-//                .append(DateTimeFormatter.ISO_LOCAL_DATE)
-//                .appendLiteral(' ')
-//                .append(DateTimeFormatter.ISO_LOCAL_TIME)
-//                .appendLiteral(' ')
-//                .appendPattern("yyyy-MM-dd HH:mm:ss") // Zone
-//                .toFormatter();
-//
-//        ZonedDateTime edt = ZonedDateTime.parse(timeWithZone, formatter);
-//        ZonedDateTime utc = edt.withZoneSameInstant(ZoneId.of("CTD"));;
-//
-//    }
 
     @Then("^I should see the delivery status highlighted and to be set as \"([^\"]*)\" on partner portal delivery details page$")
     public void i_should_see_the_delivery_status_highlighted_and_to_be_set_as_something_on_partner_portal_delivery_details_page(String deliveryStatus) throws Throwable {
-        Thread.sleep(3000);
-        String dbDeliveryStepCompletionTime = (String) cucumberContextManager.getScenarioContext("DeliveryStepCompletionTime");
-        String uiDeliveryStatus = action.getText(Page_Partner_Delivery.Text_PartnerDeliveryStatus(deliveryStatus));
-        switch (deliveryStatus){
-            case"Scheduled":
-                String [] fullScheduledStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(1)).split(" ");
-                String properScheduledStepCompletionTime = fullScheduledStepCompletionText[4] + " " + fullScheduledStepCompletionText[5];
-                testStepVerify.isEquals(properScheduledStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
-                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
-                break;
-            case "En Route To Pickup":
-                String []fullEnrouteStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(2)).split(" ");
-                String properEnrouteStepCompletionTime = fullEnrouteStepCompletionText[4] + " " + fullEnrouteStepCompletionText[5];
-                testStepVerify.isEquals(properEnrouteStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
-                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
-                break;
-                case "Driver Arrived At Pickup":
-                String[] fullDriverArrivedStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(3)).split(" ");
-                String properDriverArrivedStepCompletionTime = fullDriverArrivedStepCompletionText[4] + " " + fullDriverArrivedStepCompletionText[5];
-                testStepVerify.isEquals(properDriverArrivedStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
-                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
-                break;
-            case "Loading Items":
-                String []fullLoadingItemsStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(4)).split(" ");
-                 String properLoadingItemsStepCompletionTime = fullLoadingItemsStepCompletionText[4] + " " + fullLoadingItemsStepCompletionText[5];
-                 testStepVerify.isEquals(properLoadingItemsStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
-                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
-                break;
-            case "Driving To Drop Off":
-                String []fullDrivingToDropoffStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(5)).split(" ");
-                 String properDrivingToDropoffStepCompletionTime = fullDrivingToDropoffStepCompletionText[4] + " " + fullDrivingToDropoffStepCompletionText[5];
-                 testStepVerify.isEquals(properDrivingToDropoffStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
-                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
-                break;
-            case "Unloading Items":
-                String []fullUnloadingItemsStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(6)).split(" ");
-                String fullUnloadingItemsCompletionTime = fullUnloadingItemsStepCompletionText[4] + " " + fullUnloadingItemsStepCompletionText[5];
-                 testStepVerify.isEquals(fullUnloadingItemsCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
-                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
-                break;
-            case "Done":
-                String []fullDoneStepCompletionText =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(7)).split(" ");
-                 String properDoneStepCompletionTime = fullDoneStepCompletionText[4] + " " + fullDoneStepCompletionText[5];
-                 testStepVerify.isEquals(properDoneStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
-                 testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
-                break;
-            case "Canceled":
-                String[] fullCancellationStepCompletionTime =action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(2)).split(" ");
-                 String properCanceledStepCompletionTime = fullCancellationStepCompletionTime[4].toString() + " " + fullCancellationStepCompletionTime[5].toString();
-                 testStepVerify.isEquals(properCanceledStepCompletionTime,dbDeliveryStepCompletionTime,"proper","proper","Proper");
-                testStepAssert.isEquals(uiDeliveryStatus,deliveryStatus,"Delivery should be in " +deliveryStatus+" state","Delivery is in " +deliveryStatus+" state","Delivery is not in " +deliveryStatus+" state");
-                break;
+       try {
+           Thread.sleep(3000);
+           String dbDeliveryStepCompletionTime = (String) cucumberContextManager.getScenarioContext("DeliveryStepCompletionTime").toString().trim();
+           String dbDeliveryStepCompletionTime1minuteAhead = (String) cucumberContextManager.getScenarioContext("hourFormat12Hr1MinuteAhead").toString().trim();
+           String dbDeliveryStepCompletionTime1MinuteBack = (String) cucumberContextManager.getScenarioContext("hourFormat12Hr1MinuteBack").toString().trim();
+
+           String uiDeliveryStatus = action.getText(Page_Partner_Delivery.Text_PartnerDeliveryStatus(deliveryStatus)).trim();
+
+           switch (deliveryStatus) {
+               case "Scheduled":
+                   String[] fullScheduledStepCompletionText = action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(1)).split(" ");
+                   String properScheduledStepCompletionTime = fullScheduledStepCompletionText[4] + " " + fullScheduledStepCompletionText[5];
+
+                   if(properScheduledStepCompletionTime.equals(dbDeliveryStepCompletionTime)) {
+
+                       testStepAssert.isEquals(properScheduledStepCompletionTime, dbDeliveryStepCompletionTime, "Schedule time should be  "+dbDeliveryStepCompletionTime, "Schedule time is   "+properScheduledStepCompletionTime, "Schedule time is not  "+dbDeliveryStepCompletionTime);
+
+                   }
+
+                   else if((properScheduledStepCompletionTime.equals(dbDeliveryStepCompletionTime1minuteAhead))) {
+
+                       testStepAssert.isEquals(properScheduledStepCompletionTime, dbDeliveryStepCompletionTime1minuteAhead, "Schedule time should be  "+dbDeliveryStepCompletionTime1minuteAhead, "Schedule time is   "+properScheduledStepCompletionTime, "Schedule time is not  "+dbDeliveryStepCompletionTime1minuteAhead);
+
+                   }
+                   else{
+
+                       testStepAssert.isEquals(properScheduledStepCompletionTime, dbDeliveryStepCompletionTime1MinuteBack, "Schedule time should be  "+dbDeliveryStepCompletionTime1MinuteBack, "Schedule time is   "+properScheduledStepCompletionTime, "Schedule time is not  "+dbDeliveryStepCompletionTime1MinuteBack);
+
+                   }
+                   testStepAssert.isEquals(uiDeliveryStatus, deliveryStatus, "Delivery should be in " + deliveryStatus + " state", "Delivery is in " + deliveryStatus + " state", "Delivery is not in " + deliveryStatus + " state");
+                   break;
+
+               case "En Route To Pickup":
+                   String[] fullEnrouteStepCompletionText = action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(2)).split(" ");
+                   String properEnrouteStepCompletionTime = fullEnrouteStepCompletionText[4] + " " + fullEnrouteStepCompletionText[5];
+
+                   if(properEnrouteStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime)) {
+
+                       testStepAssert.isEquals(properEnrouteStepCompletionTime, dbDeliveryStepCompletionTime, "Enroute to pickup time should be  "+dbDeliveryStepCompletionTime, "Enroute to pickup time is   "+properEnrouteStepCompletionTime, "Enroute to pickup time is not  "+properEnrouteStepCompletionTime);
+
+                   }
+
+                   else if((properEnrouteStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime1minuteAhead))) {
+
+                       testStepAssert.isEquals(properEnrouteStepCompletionTime, dbDeliveryStepCompletionTime1minuteAhead, "Enroute to pickup time should be  "+dbDeliveryStepCompletionTime1minuteAhead, "Enroute to pickup time is   "+properEnrouteStepCompletionTime, "Enroute to pickup time is not  "+dbDeliveryStepCompletionTime1minuteAhead);
+
+                   }
+                   else{
+
+                       testStepAssert.isEquals(properEnrouteStepCompletionTime, dbDeliveryStepCompletionTime1MinuteBack, "Enroute to pickup time should be  "+dbDeliveryStepCompletionTime1MinuteBack, "Enroute to pickup time is  "+properEnrouteStepCompletionTime, "Enroute to pickup time is not  "+dbDeliveryStepCompletionTime1MinuteBack);
+
+                   }
+                   testStepAssert.isEquals(uiDeliveryStatus, deliveryStatus, "Delivery should be in " + deliveryStatus + " state", "Delivery is in " + deliveryStatus + " state", "Delivery is not in " + deliveryStatus + " state");
+                   break;
+               case "Driver Arrived At Pickup":
+                   String[] fullDriverArrivedStepCompletionText = action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(3)).split(" ");
+                   String properDriverArrivedStepCompletionTime = fullDriverArrivedStepCompletionText[4] + " " + fullDriverArrivedStepCompletionText[5];
+                   if(properDriverArrivedStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime)) {
+
+                       testStepAssert.isEquals(properDriverArrivedStepCompletionTime, dbDeliveryStepCompletionTime, "Driver Arrived At Pickup time should be  "+dbDeliveryStepCompletionTime, "Driver Arrived At Pickup time is   "+properDriverArrivedStepCompletionTime, "Driver Arrived At Pickup time is not  "+dbDeliveryStepCompletionTime);
+
+                   }
+
+                   else if((properDriverArrivedStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime1minuteAhead))) {
+
+                       testStepAssert.isEquals(properDriverArrivedStepCompletionTime, dbDeliveryStepCompletionTime1minuteAhead, "Driver Arrived At Pickup time should be  "+dbDeliveryStepCompletionTime1minuteAhead, "Driver Arrived At Pickup time is   "+properDriverArrivedStepCompletionTime, "Driver Arrived At Pickup time is not  "+dbDeliveryStepCompletionTime1minuteAhead);
+
+                   }
+                   else{
+
+                       testStepAssert.isEquals(properDriverArrivedStepCompletionTime, dbDeliveryStepCompletionTime1MinuteBack, "Driver Arrived At Pickup time should be  "+dbDeliveryStepCompletionTime1MinuteBack, "Driver Arrived At Pickup time is   "+properDriverArrivedStepCompletionTime, "Driver Arrived At Pickup time is not  "+dbDeliveryStepCompletionTime1MinuteBack);
+
+                   }
+                   testStepAssert.isEquals(uiDeliveryStatus, deliveryStatus, "Delivery should be in " + deliveryStatus + " state", "Delivery is in " + deliveryStatus + " state", "Delivery is not in " + deliveryStatus + " state");
+                   break;
+               case "Loading Items":
+                   String[] fullLoadingItemsStepCompletionText = action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(4)).split(" ");
+                   String properLoadingItemsStepCompletionTime = fullLoadingItemsStepCompletionText[4] + " " + fullLoadingItemsStepCompletionText[5];
+                   if(properLoadingItemsStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime)) {
+
+                       testStepAssert.isEquals(properLoadingItemsStepCompletionTime, dbDeliveryStepCompletionTime, "Loading Items time should be  "+dbDeliveryStepCompletionTime, "Loading Items time is   "+properLoadingItemsStepCompletionTime, "Loading Items time is not  "+dbDeliveryStepCompletionTime);
+
+                   }
+
+                   else if((properLoadingItemsStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime1minuteAhead))) {
+
+                       testStepAssert.isEquals(properLoadingItemsStepCompletionTime, dbDeliveryStepCompletionTime1minuteAhead, "Loading Items time should be  "+dbDeliveryStepCompletionTime1minuteAhead, "Loading Items time is   "+properLoadingItemsStepCompletionTime, "Loading Items time is not  "+dbDeliveryStepCompletionTime1minuteAhead);
+
+                   }
+                   else{
+
+                       testStepAssert.isEquals(properLoadingItemsStepCompletionTime, dbDeliveryStepCompletionTime1MinuteBack, "Loading Items time should be  "+dbDeliveryStepCompletionTime1MinuteBack, "Loading Items time is   "+properLoadingItemsStepCompletionTime, "Loading Items time is not  "+dbDeliveryStepCompletionTime1MinuteBack);
+
+                   }
+                   testStepAssert.isEquals(uiDeliveryStatus, deliveryStatus, "Delivery should be in " + deliveryStatus + " state", "Delivery is in " + deliveryStatus + " state", "Delivery is not in " + deliveryStatus + " state");
+                   break;
+
+               case "Driving To Drop Off":
+                   String[] fullDrivingToDropoffStepCompletionText = action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(5)).split(" ");
+                   String properDrivingToDropoffStepCompletionTime = fullDrivingToDropoffStepCompletionText[4] + " " + fullDrivingToDropoffStepCompletionText[5];
+                   if(properDrivingToDropoffStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime)) {
+
+                       testStepAssert.isEquals(properDrivingToDropoffStepCompletionTime, dbDeliveryStepCompletionTime, "Driving To Drop Off time should be  "+dbDeliveryStepCompletionTime, "Driving To Drop Off time is   "+properDrivingToDropoffStepCompletionTime, "Driving To Drop Off time is not  "+dbDeliveryStepCompletionTime);
+
+                   }
+
+                   else if((properDrivingToDropoffStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime1minuteAhead))) {
+
+                       testStepAssert.isEquals(properDrivingToDropoffStepCompletionTime, dbDeliveryStepCompletionTime1minuteAhead, "Driving To Drop Off time should be  "+dbDeliveryStepCompletionTime1minuteAhead, "Driving To Drop Off time is   "+properDrivingToDropoffStepCompletionTime, "Driving To Drop Off time is not  "+dbDeliveryStepCompletionTime1minuteAhead);
+
+                   }
+                   else{
+
+                       testStepAssert.isEquals(properDrivingToDropoffStepCompletionTime, dbDeliveryStepCompletionTime1MinuteBack, "Driving To Drop Off time should be  "+dbDeliveryStepCompletionTime1MinuteBack, "Driving To Drop Off time is   "+properDrivingToDropoffStepCompletionTime, "Driving To Drop Off time is not  "+dbDeliveryStepCompletionTime1MinuteBack);
+
+                   }
+                   testStepAssert.isEquals(uiDeliveryStatus, deliveryStatus, "Delivery should be in " + deliveryStatus + " state", "Delivery is in " + deliveryStatus + " state", "Delivery is not in " + deliveryStatus + " state");
+                   break;
+               case "Unloading Items":
+                   String[] fullUnloadingItemsStepCompletionText = action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(6)).split(" ");
+                   String fullUnloadingItemsCompletionTime = fullUnloadingItemsStepCompletionText[4] + " " + fullUnloadingItemsStepCompletionText[5];
+                   if(fullUnloadingItemsCompletionTime.contentEquals(dbDeliveryStepCompletionTime)) {
+
+                       testStepAssert.isEquals(fullUnloadingItemsCompletionTime, dbDeliveryStepCompletionTime, "Unloading Items time should be  "+dbDeliveryStepCompletionTime, "Unloading Items time is   "+fullUnloadingItemsCompletionTime, "Unloading Items time is not  "+dbDeliveryStepCompletionTime);
+
+                   }
+
+                   else if((fullUnloadingItemsCompletionTime.contentEquals(dbDeliveryStepCompletionTime1minuteAhead))) {
+
+                       testStepAssert.isEquals(fullUnloadingItemsCompletionTime, dbDeliveryStepCompletionTime1minuteAhead, "Unloading Items time should be  "+dbDeliveryStepCompletionTime1minuteAhead, "Unloading Items time is   "+fullUnloadingItemsCompletionTime, "Unloading Items time is not  "+dbDeliveryStepCompletionTime1minuteAhead);
+
+                   }
+                   else{
+
+                       testStepAssert.isEquals(fullUnloadingItemsCompletionTime, dbDeliveryStepCompletionTime1MinuteBack, "Unloading Items time should be  "+dbDeliveryStepCompletionTime1MinuteBack, "Unloading Items time is   "+fullUnloadingItemsCompletionTime, "Unloading Items time is not  "+dbDeliveryStepCompletionTime1MinuteBack);
+
+                   }
+                   testStepAssert.isEquals(uiDeliveryStatus, deliveryStatus, "Delivery should be in " + deliveryStatus + " state", "Delivery is in " + deliveryStatus + " state", "Delivery is not in " + deliveryStatus + " state");
+                   break;
+
+               case "Done":
+                   String[] fullDoneStepCompletionText = action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(7)).split(" ");
+                   String properDoneStepCompletionTime = fullDoneStepCompletionText[4] + " " + fullDoneStepCompletionText[5];
+                   if(properDoneStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime)) {
+
+                       testStepAssert.isEquals(properDoneStepCompletionTime, dbDeliveryStepCompletionTime, "Done time should be  "+dbDeliveryStepCompletionTime, "Done time is   "+properDoneStepCompletionTime, "Done time is not  "+dbDeliveryStepCompletionTime);
+
+                   }
+
+                   else if((properDoneStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime1minuteAhead))) {
+
+                       testStepAssert.isEquals(properDoneStepCompletionTime, dbDeliveryStepCompletionTime1minuteAhead, "Done time should be  "+dbDeliveryStepCompletionTime1minuteAhead, "Done time is   "+properDoneStepCompletionTime, "Done time is not  "+dbDeliveryStepCompletionTime1minuteAhead);
+
+                   }
+                   else{
+
+                       testStepAssert.isEquals(properDoneStepCompletionTime, dbDeliveryStepCompletionTime1MinuteBack, "Done time should be  "+dbDeliveryStepCompletionTime1MinuteBack, "Done time is   "+properDoneStepCompletionTime, "Done time is not  "+dbDeliveryStepCompletionTime1MinuteBack);
+
+                   }
+                   testStepAssert.isEquals(uiDeliveryStatus, deliveryStatus, "Delivery should be in " + deliveryStatus + " state", "Delivery is in " + deliveryStatus + " state", "Delivery is not in " + deliveryStatus + " state");
+                   break;
+               case "Canceled":
+                   String[] fullCancellationStepCompletionTime = action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(2)).split(" ");
+                   String properCanceledStepCompletionTime = fullCancellationStepCompletionTime[4].toString() + " " + fullCancellationStepCompletionTime[5].toString();
+                   if(properCanceledStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime)) {
+
+                       testStepAssert.isEquals(properCanceledStepCompletionTime, dbDeliveryStepCompletionTime, "Cancelled time should be  "+dbDeliveryStepCompletionTime, "Cancelled time is   "+properCanceledStepCompletionTime, "Cancelled time is not  "+dbDeliveryStepCompletionTime);
+
+                   }
+
+                   else if((properCanceledStepCompletionTime.contentEquals(dbDeliveryStepCompletionTime1minuteAhead))) {
+
+                       testStepAssert.isEquals(properCanceledStepCompletionTime, dbDeliveryStepCompletionTime1minuteAhead, "Cancelled time should be  "+dbDeliveryStepCompletionTime1minuteAhead, "Cancelled time is   "+properCanceledStepCompletionTime, "Cancelled time is not  "+dbDeliveryStepCompletionTime1minuteAhead);
+
+                   }
+                   else{
+
+                       testStepAssert.isEquals(properCanceledStepCompletionTime, dbDeliveryStepCompletionTime1MinuteBack, "Cancelled time should be  "+dbDeliveryStepCompletionTime1MinuteBack, "Cancelled time is   "+properCanceledStepCompletionTime, "Cancelled time is not  "+dbDeliveryStepCompletionTime1MinuteBack);
+
+                   }
+                   testStepAssert.isEquals(uiDeliveryStatus, deliveryStatus, "Delivery should be in " + deliveryStatus + " state", "Delivery is in " + deliveryStatus + " state", "Delivery is not in " + deliveryStatus + " state");
+                   break;
+           }
+       }catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+
         }
     }
 
     @And("^I select \"([^\"]*)\" option from the filter$")
     public void i_select_something_option_from_the_filter(String filterOption) throws Throwable {
+        try{
         Thread.sleep(3000);
         action.click(Page_Partner_Dashboard.DropDown_Filter());
         switch (filterOption){
@@ -592,36 +693,95 @@ public class Partner_Delivery_Details extends DriverBase {
                 action.click(Page_Partner_Dashboard.Checkbox_Completed(filterOption));
                 break;
         }
+        log("I should be able to select "+ filterOption+" option from the filter","I should be able to select "+ filterOption+" option from the filter" ,false);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
     }
+}
 
     @And("^I save the delivery details$")
     public void i_save_the_delivery_details() throws Throwable {
+        try{
         String driver = action.getText(Page_Partner_Dashboard.Text_DriverName());
         cucumberContextManager.setScenarioContext("DriverName",driver);
+        log("I should be able to save the delivery details","I could save the delivery details",false);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
     }
+}
 
     @And("^The driver name should be changed$")
     public void the_driver_name_should_be_changed() throws Throwable {
+        try{
         String newDriverName = action.getText(Page_Partner_Dashboard.Text_DriverName());
         String oldDriverName = (String) cucumberContextManager.getScenarioContext("DriverName");
-        testStepVerify.isNotEquals(newDriverName,oldDriverName);
-    }
+        testStepAssert.isFalse(newDriverName.contentEquals(oldDriverName),"Driver name should be changed",
+                "Driver name is  changed","Driver name is not changed");
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
 
-    @And("^its blah$")
-    public void its_blah() throws Throwable {
-        String pickupRef =(String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-        String time =dbUtility.getPartnerName2(pickupRef);
-        DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
-        String timer=time.substring(11,23);
-        Time timeValue = new Time(formatter.parse(timer).getTime());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(timeValue);
-        calendar.add(Calendar.MINUTE, -300);
-        String lowerRangeTime=String.valueOf(calendar.getTime());
-        String estimateLowerRange=lowerRangeTime.substring(11,16);
-        System.out.println(estimateLowerRange);
-        String result = LocalTime.parse(estimateLowerRange, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
-        System.out.println(result);
-        cucumberContextManager.setScenarioContext("DeliveryStepCompletionTime",result);
+    }
+}
+
+    @And("^I get the time stamp of the completed delivery step$")
+    public void i_get_the_time_stamp_of_the_completed_delivery_step() throws Throwable {
+        try {
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String time = dbUtility.getStatusTimestamp(pickupRef);
+            DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
+            String timer = time.substring(11, 23);
+            Time timeValue = new Time(formatter.parse(timer).getTime());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(timeValue);
+            calendar.add(Calendar.MINUTE, -300);
+            String timeInCST = String.valueOf(calendar.getTime());
+            String timeIn24HourFormat = timeInCST.substring(11, 16);
+            String hourFormat12 = LocalTime.parse(timeIn24HourFormat, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
+            if(hourFormat12.startsWith("0")) {
+               String  timeWithoutStartingWithZero=hourFormat12.replace("0","");
+                cucumberContextManager.setScenarioContext("DeliveryStepCompletionTime",timeWithoutStartingWithZero);
+            }
+            else {
+                cucumberContextManager.setScenarioContext("DeliveryStepCompletionTime", hourFormat12);
+            }
+            calendar.setTime(timeValue);
+            calendar.add(Calendar.MINUTE, -301);
+            String timeInCST1MinuteAhead = String.valueOf(calendar.getTime());
+            String timeIn24HourFormat1MinuteAhead = timeInCST1MinuteAhead.substring(11, 16);
+            String hourFormat12Hr1MinuteAhead = LocalTime.parse(timeIn24HourFormat1MinuteAhead, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
+            if(hourFormat12Hr1MinuteAhead.startsWith("0")) {
+                String  timeWithoutStartingWithZero1MinuteAhead=hourFormat12Hr1MinuteAhead.replace("0","");
+                cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteAhead",timeWithoutStartingWithZero1MinuteAhead);
+            }
+            else {
+                cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteAhead", hourFormat12Hr1MinuteAhead);
+            }
+            calendar.setTime(timeValue);
+            calendar.add(Calendar.MINUTE, -299);
+            String timeInCST1MinuteBack = String.valueOf(calendar.getTime());
+            String timeIn24HourFormat1MinuteBack = timeInCST1MinuteBack.substring(11, 16);
+            String hourFormat12Hr1MinuteBack = LocalTime.parse(timeIn24HourFormat1MinuteBack, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
+            if(hourFormat12Hr1MinuteBack.startsWith("0")) {
+                String  timeWithoutStartingWithZero1MinuteBack=hourFormat12Hr1MinuteAhead.replace("0","");
+                cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteBack",timeWithoutStartingWithZero1MinuteBack);
+            }
+            else {
+                cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteBack", hourFormat12Hr1MinuteBack);
+            }
+            log("I should be able to get the timestamp of the completed step","I could  get the timestamp of the completed step",false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+
+        }
     }
 }

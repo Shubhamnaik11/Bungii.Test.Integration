@@ -562,18 +562,17 @@ public class DbUtility extends DbContextManager {
 
     }
 
-    public static String getPartnerName2(String Pickup_Reference) {
-        System.out.println(Pickup_Reference);
+    public static String getStatusTimestamp(String Pickup_Reference) {
         String timeStamp;
-        String PickupStatus;
+        String tripStatus;
         String pickupId;
         String queryStringForPickupId = "select PickupID from pickupdetails where PickupRef = '"+Pickup_Reference+"'";;
         pickupId = getDataFromMySqlServer(queryStringForPickupId);
         logger.detail("PickupId is "+pickupId+ " for pickup reference "+ Pickup_Reference);
-        String queryStringForPickupPickupStatus = "select PickupStatus from pickupdetails where PickupID='"+pickupId+"'";
-        PickupStatus = getDataFromMySqlServer(queryStringForPickupPickupStatus);
-        logger.detail("PickupStatus is "+PickupStatus+ " for pickup reference "+ Pickup_Reference);
-        String queryStringForTime = "select StatusTimestamp from tripevents where pickupid ='"+pickupId+"'"+"and TripStatus = '"+PickupStatus+"'";
+        String queryStringForPickupTripStatus = "select TripStatus from tripevents where PickupID='"+pickupId+"'";
+        tripStatus = getDataFromMySqlServer(queryStringForPickupTripStatus);
+        logger.detail("TripStatus is "+tripStatus+ " for pickup reference "+ Pickup_Reference);
+        String queryStringForTime = "select StatusTimestamp from tripevents where pickupid ='"+pickupId+"'"+"and TripStatus = '"+tripStatus+"'";
         timeStamp = getDataFromMySqlServer(queryStringForTime);
         logger.detail("StatusTimestamp is "+timeStamp+ " for pickup reference "+ Pickup_Reference);
         return timeStamp;

@@ -2,10 +2,10 @@
   Feature: Partner Solo Scheduled Trips
 
     Background:
-#      Given I navigate to "Partner" portal configured for "normal" URL
-#      And I enter "valid" password on Partner Portal
-#      And I click "SIGN IN" button on Partner Portal
-#      Then I should "be logged in"
+      Given I navigate to "Partner" portal configured for "normal" URL
+      And I enter "valid" password on Partner Portal
+      And I click "SIGN IN" button on Partner Portal
+      Then I should "be logged in"
 
     @test
     @regression
@@ -182,6 +182,7 @@
       And I select "Canceled" option from the filter
       And I click on "Apply" button
       And I click on the delivery based on customer name
+      And I get the time stamp of the completed delivery step
       Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
 
       #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is moved from one status to other for change in driver
@@ -194,7 +195,7 @@
         | driver1 state|
         | Accepted |
         | Enroute |
-      And its blah
+      And I get the time stamp of the completed delivery step
       When I click the "Track Deliveries" button on Partner Portal
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "En Route To Pickup" on partner portal delivery details page
@@ -208,7 +209,7 @@
       And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state|
         | Driver Canceled |
-      And its blah
+      And I get the time stamp of the completed delivery step
       When I navigate back to "Partner" portal and click on "Track Deliveries" button
       And I refresh the page
       And I select "Canceled" option from the filter
@@ -238,7 +239,7 @@
       And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state|
         |Enroute      |
-      And its blah
+      And I get the time stamp of the completed delivery step
       When I navigate back to "Partner" portal and click on "Track Deliveries" button
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "En Route To Pickup" on partner portal delivery details page
@@ -246,35 +247,35 @@
       And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state |
         | Arrived |
-      And its blah
+      And I get the time stamp of the completed delivery step
       And I refresh the page
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "Driver Arrived At Pickup" on partner portal delivery details page
       And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state |
         | Loading Item |
-      And its blah
+      And I get the time stamp of the completed delivery step
       And I refresh the page
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "Loading Items" on partner portal delivery details page
       And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state |
         | Driving To Dropoff |
-      And its blah
+      And I get the time stamp of the completed delivery step
       And I refresh the page
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "Driving To Drop Off" on partner portal delivery details page
       And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state |
         | Unloading Item |
-      And its blah
+      And I get the time stamp of the completed delivery step
       And I refresh the page
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "Unloading Items" on partner portal delivery details page
       And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state |
         | Bungii Completed |
-      And its blah
+      And I get the time stamp of the completed delivery step
       And I refresh the page
       And I select "Completed" option from the filter
       And I click on "Apply" button
@@ -316,4 +317,5 @@
       And I select "Canceled" option from the filter
       And I click on "Apply" button
       And I click on the delivery based on customer name
+      And I get the time stamp of the completed delivery step
       Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
