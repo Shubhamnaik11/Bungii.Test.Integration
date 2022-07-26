@@ -13,4 +13,9 @@ public class TripDetailsPage extends PageBase {
 //	public WebElement Text_ScheduledTime () { return findElement("//XCUIElementTypeStaticText[@name='Trip Scheduled Time']/following::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 	public WebElement Text_EstimatedEarningsSchedule() { return findElement("//XCUIElementTypeTable/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[5]", LocatorType.XPath); }
 
+	public WebElement Text_DriverVehicleModel() { return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[3]", LocatorType.XPath); }
+
+	public WebElement Text_DriverVehicleLicenseNumber() { return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath); }
+
+
 }

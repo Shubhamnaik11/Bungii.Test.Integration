@@ -259,4 +259,9 @@ public class Partner_DashboardPage extends PageBase {
     //Select pickup address from dropdown
     public WebElement Text_PickupAddressesFromPartnerPortalDropDown(int addressNo) { return findElement(String.format("//div[3]/ul/li[%d]",addressNo),LocatorType.XPath);}
 
+    //Tooltip Pickup Date
+    public WebElement Icon_ToolTip_PickupDate() { return findElement("//label[text()='Pickup Date']/i",LocatorType.XPath);}
+
+    //Tooltip Pickup Date
+    public WebElement Label_ToolTip_PickupDate() { return findElement("//div[@class='tooltip-inner']",LocatorType.XPath);}
 }

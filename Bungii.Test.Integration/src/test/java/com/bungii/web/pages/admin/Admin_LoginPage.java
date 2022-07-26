@@ -17,4 +17,8 @@ public class Admin_LoginPage  extends PageBase {
     //Admin Login - Login Button
     public WebElement Button_AdminLogin() { return findElement("//form[@id='Login']/button[contains(text(),'LOG IN')]", LocatorType.XPath); }
 
+    //Admin ExtraEarnings - text
+    public WebElement Label_ExtraEarnings() { return findElement("//strong[text()='Earn Extra Cash.']/parent::p", LocatorType.XPath); }
+
+
 }
