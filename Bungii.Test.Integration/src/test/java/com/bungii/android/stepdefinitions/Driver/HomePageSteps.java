@@ -488,6 +488,7 @@ public class HomePageSteps extends DriverBase {
         try{
             switch (name){
                 case "Referral history":
+                    action.scrollToBottom();
                     action.click(driverHomePage.Text_ReferralHistory());
                     break;
             }
@@ -499,4 +500,21 @@ public class HomePageSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^I check if the amount is updated on invite screen$")
+    public void i_check_if_the_amount_is_updated_on_invite_screen() throws Throwable {
+        try{
+            String newReferralAmount= (String) cucumberContextManager.getScenarioContext("NEW_REFERRAL_AMT");
+            String actualDisplayed = driverHomePage.Text_SubHeader().getText();
+            testStepAssert.isTrue(actualDisplayed.contains(newReferralAmount),
+                    "The referral amount should be updated on the invite screen",
+                    "The referral amount is not updated on the invite screen");
+
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }

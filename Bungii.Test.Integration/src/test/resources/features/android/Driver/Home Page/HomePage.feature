@@ -32,7 +32,6 @@ Feature: Driver Home screen
 
 #    Core-2618 Verify the referral $ icon on driver home page
   @ready
-#    @testsweta
   Scenario: Verify the referral $ icon on driver home page
     Then I check if "$" icon is displayed
 #   Core-2618 Verify clicking on $ redirects the user to Invite screen of driver app
@@ -42,7 +41,6 @@ Feature: Driver Home screen
     And I verify the elements on driver referral page
 #   Core-2618 Verify back button of invite screen redirect user to Home screen
     And I click on "Back" icon
-    Then I should be navigated to Home screen on driver app
 #   Core-2844 Verify UI on driver home page
     And I verify the elements of home page
 #   Core-2844 Verify that Referral history option on invite screen

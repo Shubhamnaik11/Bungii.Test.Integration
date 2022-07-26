@@ -26,8 +26,6 @@ Feature: Partner Portal Cases integration with IOS
     And I start selected Bungii
     Then I should be navigated to "EN ROUTE" trip status screen on driver
     Then Partner Portal name should be displayed in "EN ROUTE" section
-    #   Core-2618 Verify that referral icon is not shown during in process trip on driver app
-    And I check if referral icon is not shown
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen on driver
     Then Partner Portal name should be displayed in "ARRIVED" section

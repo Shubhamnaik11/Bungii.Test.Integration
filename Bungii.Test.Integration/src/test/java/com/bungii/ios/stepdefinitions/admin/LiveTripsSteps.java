@@ -532,26 +532,6 @@ public class LiveTripsSteps extends DriverBase {
         }
     }
 
-    @And("^I click on \"([^\"]*)\" icon$")
-    public void i_click_on_something_icon(String icon) throws Throwable {
-        try{
-            switch (icon){
-                case "$":
-                    action.click(liveTripsPage.Icon_Referral());
-                    break;
-                case "Back":
-                    action.click(liveTripsPage.Button_Back());
-                    break;
-            }
-            log("I should be able to click on the icon","I am able to click on the icon",false);
-
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-    }
     @And("^I verify the elements on driver referral page$")
     public void i_verify_the_elements_on_driver_referral_page() throws Throwable {
        try{
@@ -560,11 +540,6 @@ public class LiveTripsSteps extends DriverBase {
                     "The sub-header should be displayed",
                     "The sub-header is displayed",
                     "The sub-header is not displayed");
-
-            testStepAssert.isElementDisplayed(liveTripsPage.Icon_DollarSign(),
-                    "The dollar sign should be displayed",
-                    "The dollar sign is displayed",
-                    "The dollar sign is not displayed");
 
            String expectedInstructions= PropertyUtility.getMessage("message.driver.referral.page");
            testStepAssert.isEquals(liveTripsPage.Text_Instructions().getText(),expectedInstructions,
@@ -642,10 +617,6 @@ public class LiveTripsSteps extends DriverBase {
                     "The referral header should be displayed on home page",
                     "The referral header is displayed on home page",
                     "The referral header is not displayed on home page");
-            testStepAssert.isElementDisplayed(liveTripsPage.Text_ReferralSubHeader(),
-                    "The referral sub header should be displayed on home page",
-                    "The referral sub header is displayed on home page",
-                    "The referral sub header is not displayed on home page");
             testStepAssert.isElementDisplayed(liveTripsPage.Button_Invite(),
                     "The invite button should be displayed on home page",
                     "The invite button is displayed on home page",
@@ -657,5 +628,19 @@ public class LiveTripsSteps extends DriverBase {
                     true);
         }
     }
-
+    @Then("^I check if the amount is updated on invite screen$")
+    public void i_check_if_the_amount_is_updated_on_invite_screen() throws Throwable {
+     try{
+         String newReferralAmount= (String) cucumberContextManager.getScenarioContext("NEW_REFERRAL_AMT");
+         testStepAssert.isElementDisplayed(liveTripsPage.Text_UpdatedSubHeader(newReferralAmount),
+                 "The referral amount should be updated on the invite screen",
+                 "The referral amount is updated on the invite screen",
+                 "The referral amount is not updated on the invite screen");
+     }
+     catch(Exception e){
+         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+         error("Step should be successful", "Error performing step,Please check logs for more details",
+                 true);
+     }
+    }
 }
