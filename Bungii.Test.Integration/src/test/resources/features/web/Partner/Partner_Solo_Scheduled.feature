@@ -132,7 +132,7 @@
 
       #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is moved from one status to other for change in driver
     #need to add kansas driver
-    @testAllan
+    @ready
     Scenario:To verify delivery status is updated when PartnerPortal delivery is moved from one status to other for change in driver
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |

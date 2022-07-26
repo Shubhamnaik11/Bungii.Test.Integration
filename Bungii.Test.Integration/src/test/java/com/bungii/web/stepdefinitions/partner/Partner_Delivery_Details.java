@@ -735,7 +735,7 @@ public class Partner_Delivery_Details extends DriverBase {
     public void i_get_the_time_stamp_of_the_completed_delivery_step() throws Throwable {
         try {
             String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            String time = dbUtility.getStatusTimestamp(pickupRef);
+           String time = dbUtility.getStatusTimestamp(pickupRef);
             DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
             String timer = time.substring(11, 23);
             Time timeValue = new Time(formatter.parse(timer).getTime());
@@ -746,7 +746,7 @@ public class Partner_Delivery_Details extends DriverBase {
             String timeIn24HourFormat = timeInCST.substring(11, 16);
             String hourFormat12 = LocalTime.parse(timeIn24HourFormat, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
             if(hourFormat12.startsWith("0")) {
-               String  timeWithoutStartingWithZero=hourFormat12.replace("0","");
+               String  timeWithoutStartingWithZero=hourFormat12.replaceFirst("0","");
                 cucumberContextManager.setScenarioContext("DeliveryStepCompletionTime",timeWithoutStartingWithZero);
             }
             else {
@@ -758,7 +758,7 @@ public class Partner_Delivery_Details extends DriverBase {
             String timeIn24HourFormat1MinuteAhead = timeInCST1MinuteAhead.substring(11, 16);
             String hourFormat12Hr1MinuteAhead = LocalTime.parse(timeIn24HourFormat1MinuteAhead, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
             if(hourFormat12Hr1MinuteAhead.startsWith("0")) {
-                String  timeWithoutStartingWithZero1MinuteAhead=hourFormat12Hr1MinuteAhead.replace("0","");
+                String  timeWithoutStartingWithZero1MinuteAhead=hourFormat12Hr1MinuteAhead.replaceFirst("0","");
                 cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteAhead",timeWithoutStartingWithZero1MinuteAhead);
             }
             else {
@@ -770,13 +770,70 @@ public class Partner_Delivery_Details extends DriverBase {
             String timeIn24HourFormat1MinuteBack = timeInCST1MinuteBack.substring(11, 16);
             String hourFormat12Hr1MinuteBack = LocalTime.parse(timeIn24HourFormat1MinuteBack, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
             if(hourFormat12Hr1MinuteBack.startsWith("0")) {
-                String  timeWithoutStartingWithZero1MinuteBack=hourFormat12Hr1MinuteAhead.replace("0","");
+                String  timeWithoutStartingWithZero1MinuteBack=hourFormat12Hr1MinuteAhead.replaceFirst("0","");
                 cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteBack",timeWithoutStartingWithZero1MinuteBack);
             }
             else {
                 cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteBack", hourFormat12Hr1MinuteBack);
             }
             log("I should be able to get the timestamp of the completed step","I could  get the timestamp of the completed step",false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+
+        }
+    }
+
+    @Then("^The admin \"([^\"]*)\" delivery should be highlighted in partner portal delivery details page$")
+    public void the_admin_something_delivery_should_be_highlighted_in_partner_portal_delivery_details_page(String deliveryStatus) throws Throwable {
+        try {
+
+            Thread.sleep(3000);
+            String dbDeliveryStepCompletionTime = (String) cucumberContextManager.getScenarioContext("DeliveryStepCompletionTime").toString().trim();
+            String dbDeliveryStepCompletionTime1minuteAhead = (String) cucumberContextManager.getScenarioContext("hourFormat12Hr1MinuteAhead").toString().trim();
+            String dbDeliveryStepCompletionTime1MinuteBack = (String) cucumberContextManager.getScenarioContext("hourFormat12Hr1MinuteBack").toString().trim();
+
+            String uiDeliveryStatus = action.getText(Page_Partner_Delivery.Text_PartnerDeliveryStatus(deliveryStatus)).trim();
+
+            switch (deliveryStatus) {
+                case "Completed":
+                    String[] deliveryCompletedByAdmin = action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(3)).split(" ");
+                    String properDoneStepCompletionByAdmin = deliveryCompletedByAdmin[4] + " " + deliveryCompletedByAdmin[5];
+                    if (properDoneStepCompletionByAdmin.contentEquals(dbDeliveryStepCompletionTime)) {
+
+                        testStepAssert.isEquals(properDoneStepCompletionByAdmin, dbDeliveryStepCompletionTime, "Done time should be  " + dbDeliveryStepCompletionTime, "Done time is   " + properDoneStepCompletionByAdmin, "Done time is not  " + dbDeliveryStepCompletionTime);
+
+                    } else if ((properDoneStepCompletionByAdmin.contentEquals(dbDeliveryStepCompletionTime1minuteAhead))) {
+
+                        testStepAssert.isEquals(properDoneStepCompletionByAdmin, dbDeliveryStepCompletionTime1minuteAhead, "Done time should be  " + dbDeliveryStepCompletionTime1minuteAhead, "Done time is   " + properDoneStepCompletionByAdmin, "Done time is not  " + dbDeliveryStepCompletionTime1minuteAhead);
+
+                    } else {
+
+                        testStepAssert.isEquals(properDoneStepCompletionByAdmin, dbDeliveryStepCompletionTime1MinuteBack, "Done time should be  " + dbDeliveryStepCompletionTime1MinuteBack, "Done time is   " + properDoneStepCompletionByAdmin, "Done time is not  " + dbDeliveryStepCompletionTime1MinuteBack);
+
+                    }
+                    testStepAssert.isEquals(uiDeliveryStatus, deliveryStatus, "Delivery should be in " + deliveryStatus + " state", "Delivery is in " + uiDeliveryStatus + " state", "Delivery is not in " + deliveryStatus + " state");
+                    break;
+                case "Cancelled":
+                    String[] fullCancellationStepCompletionByAdminTime = action.getText(Page_Partner_Delivery.Text_DeliveryCompletedStepTime(3)).split(" ");
+                    String properCanceledStepCompletionByAdminTime = fullCancellationStepCompletionByAdminTime[4].toString() + " " + fullCancellationStepCompletionByAdminTime[5].toString();
+                    if (properCanceledStepCompletionByAdminTime.contentEquals(dbDeliveryStepCompletionTime)) {
+
+                        testStepAssert.isEquals(properCanceledStepCompletionByAdminTime, dbDeliveryStepCompletionTime, "Cancelled time should be  " + dbDeliveryStepCompletionTime, "Cancelled time is   " + properCanceledStepCompletionByAdminTime, "Cancelled time is not  " + dbDeliveryStepCompletionTime);
+
+                    } else if ((properCanceledStepCompletionByAdminTime.contentEquals(dbDeliveryStepCompletionTime1minuteAhead))) {
+
+                        testStepAssert.isEquals(properCanceledStepCompletionByAdminTime, dbDeliveryStepCompletionTime1minuteAhead, "Cancelled time should be  " + dbDeliveryStepCompletionTime1minuteAhead, "Cancelled time is   " + properCanceledStepCompletionByAdminTime, "Cancelled time is not  " + dbDeliveryStepCompletionTime1minuteAhead);
+
+                    } else {
+
+                        testStepAssert.isEquals(properCanceledStepCompletionByAdminTime, dbDeliveryStepCompletionTime1MinuteBack, "Cancelled time should be  " + dbDeliveryStepCompletionTime1MinuteBack, "Cancelled time is   " + properCanceledStepCompletionByAdminTime, "Cancelled time is not  " + dbDeliveryStepCompletionTime1MinuteBack);
+
+                    }
+                    testStepAssert.isEquals(uiDeliveryStatus, deliveryStatus, "Delivery should be in " + deliveryStatus + " state", "Delivery is in " + deliveryStatus + " state", "Delivery is not in " + deliveryStatus + " state");
+                    break;
+            }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
