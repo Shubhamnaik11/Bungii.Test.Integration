@@ -264,13 +264,17 @@ public class Partner_DashboardPage extends PageBase {
 
     //Tooltip Pickup Date
     public WebElement Label_ToolTip_PickupDate() { return findElement("//div[@class='tooltip-inner']",LocatorType.XPath);}
-//friom here
+
+    //Partner portal filter
     public WebElement DropDown_Filter() { return findElement("//div[@class=\"caret filter\"]",LocatorType.XPath);}
 
+    //Select checkbox from partner portal filter
     public WebElement Checkbox_Completed(String filter) { return findElement(String.format("//div/div/label[text()='%s']",filter),LocatorType.XPath);}
 
+    //Partner portal apply filter button
     public WebElement Button_Apply() { return findElement("//div[@class=\"dropdown-menu show\"]/div/div[6]/button[1]",LocatorType.XPath);}
 
+    //Delivery details page partner portal driver Name
     public WebElement Text_DriverName() { return findElement("//div/div[@class=\"media\"]/div/p",LocatorType.XPath);}
 
 }

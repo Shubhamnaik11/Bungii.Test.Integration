@@ -51,6 +51,4 @@ public class LogInSteps extends DriverBase {
                     true);
         }
     }
-
-
 }
