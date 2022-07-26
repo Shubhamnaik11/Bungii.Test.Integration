@@ -1395,7 +1395,29 @@ try{
     }
     }
 
+    @When("^I click on tooltip beside \"([^\"]*)\" field$")
+    public void i_click_on_tooltip_beside_something_field(String field) throws Throwable {
+        try {
+            switch (field) {
+                case "Pickup Date":
+                    action.click(Page_Partner_Dashboard.Icon_ToolTip_PickupDate());
+                    break;
+            }
+            log("I click on tooltip beside "+field ,"I have clicked on tooltip beside "+field,false);
 
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I should see tooltip value based on configured value in database$")
+    public void i_should_see_tooltip_value_based_on_configured_value_in_database() throws Throwable {
+        String subdomain= (action.getCurrentURL().split("[.]")[0]).split("//")[1];
+        String dayCount = DbUtility.getScheduledDays(subdomain);
+       testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Label_ToolTip_PickupDate()), "Please select a delivery date within the next "+dayCount+" days.", dayCount+ " days should be displayed",dayCount+ " days is displayed",dayCount+ " days is not displayed");
+    }
 
     public String getGeofence(String geofence) {
         String geofenceName = "";
