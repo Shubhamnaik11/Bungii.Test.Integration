@@ -433,8 +433,8 @@ Feature: Admin_Trips
     |  Status |
     | Assigning Driver(s)|
 
-    #CORE-3381:To verify that customer trips can be revived after admin cancels
-@ready
+#CORE-3381:To verify that customer trips can be revived after admin cancels
+@testAllan
   Scenario:To verify that customer trips can be revived after admin cancels
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
@@ -491,20 +491,23 @@ Feature: Admin_Trips
     | Scheduled |
   And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
+    | Accepted |
     | Enroute  |
     | Arrived |
     | Loading Item |
     | Driving To Dropoff |
     | Unloading Item |
     | Bungii Completed |
-  When I wait for 2 minutes
+    When I wait for 2 minutes
   And I view All Deliveries list on the admin portal
   And I search the delivery of Customer and view it
   When I click on "ISSUE REFUND" button
   Then The "Issue Refund" section should be displayed
   When I select "Partial Refund" radio button
   And I enter "Customer Refund Amount" as "5" dollars
+  When I update "Earnings" as "10.00" dollars
   And I enter "Bungii Internal Notes" as "Internal Note"
+  When I enter "Notes" as "Driver Note"
   And I click on "Continue" button on Issue Refund popup
   Then I should see "Issue Refund - Confirm Details" popup
   And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
@@ -517,7 +520,8 @@ Feature: Admin_Trips
   And I wait for 1 minutes
   And The amount should be "Refunded" and in "voided" state
 
-  @testAllan
+    #CORE-3381:To verify that admin can fully refund completed trips which were revived
+  @ready
   Scenario:To verify that admin can fully refund completed trips which were revived
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -548,8 +552,9 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Assigning Driver(s)|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
+      | Accepted |
       | Enroute  |
       | Arrived |
       | Loading Item |
@@ -562,13 +567,16 @@ Feature: Admin_Trips
     When I click on "ISSUE REFUND" button
     Then The "Issue Refund" section should be displayed
     When I select "Complete Refund" radio button
+    When I update "Earnings" as "10.00" dollars
     Then I should see Customer Refund Amount and Driver Earnings
     When I enter "Bungii Internal Notes" as "Internal Note"
+    When I enter "Notes" as "Driver Note"
     And I click on "Continue" button on Issue Refund popup
     Then I should see "Issue Refund - Confirm Details" popup
     And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
     And I should see breakdown of Before and After Refund earnings
     And I should see Bungii Internal Note
+    And I should see Bungii Driver Note
     When I select "Are you sure you want to proceed with refund request ?" checkbox
     And I click on "Process Refund" button on Issue Refund popup
     Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed

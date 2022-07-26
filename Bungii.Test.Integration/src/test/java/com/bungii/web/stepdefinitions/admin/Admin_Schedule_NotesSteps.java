@@ -73,7 +73,6 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     public void i_search_the_delivery_using_something(String strArg1) throws Throwable {
         try {
             Thread.sleep(1000);
-            cucumberContextManager.setScenarioContext("PICKUP_REQUEST","65652e04-1ae3-c466-ac76-a4755b6e06be");
             cucumberContextManager.setScenarioContext("ADMIN1_NAME",action.getText(admin_ScheduledTripsPage.Text_AdminName()));
             action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
             log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);

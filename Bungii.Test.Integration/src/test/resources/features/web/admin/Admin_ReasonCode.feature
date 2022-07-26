@@ -434,21 +434,21 @@ Feature: Admin_Reason_Code
       | Driver Canceled   | Driver initiated               |  Driver Canceled                      |      Assigning Driver(s)              |
 
   #CORE-2507 :Verify accessorial charges are not refunded on status change
-  @testAllan
+  @ready
   Scenario: Verify accessorial charges are not refunded on status change
-#    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-#      | Bungii Time   | Customer Phone | Customer Name |
-#      | NEXT_POSSIBLE | 8877661050 | Testcustomertywd_appleMarkAY LutherAY|
-#    And As a driver "Testdrivertywd_appledc_a_drvK WashingtonK" perform below action with respective "Solo Scheduled" Delivery
-#      | driver1 state|
-#      |Accepted |
-#      | Enroute  |
-#      | Arrived |
-#      | Loading Item |
-#      | Driving To Dropoff |
-#      | Unloading Item |
-#      | Bungii Completed |
-#    And I wait for 2 minutes
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 8877661050 | Testcustomertywd_appleMarkAY LutherAY|
+    And As a driver "Testdrivertywd_appledc_a_drvK WashingtonK" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      |Accepted |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
+      | Bungii Completed |
+    And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then The Delivery List page should display the delivery in "Payment Successful" state

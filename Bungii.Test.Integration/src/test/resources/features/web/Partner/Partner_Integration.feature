@@ -854,4 +854,3 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed      |
-    And The amount should be "Refunded" and in "voided" state

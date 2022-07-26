@@ -271,17 +271,35 @@ public class Admin_RevivalSteps extends DriverBase {
         String mountainousAmount = dataMap.get("Mountainous").trim();
         String otherAmount = dataMap.get("Other").trim();
         String PickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String TripType = (String) cucumberContextManager.getScenarioContext("TripType");
 
-        List<HashMap<String,Object>> isDriverPaid = new  DbUtility().getAccessorialAmount(PickupRequest);
-        String DB_ExcessWaitTime_Amount = isDriverPaid.get(4).get("Amount").toString();
-        String DB_Cancellation_Amount =isDriverPaid.get(3).get("Amount").toString();
-        String DB_Mountainious_Amount =isDriverPaid.get(2).get("Amount").toString();
-        String DB_Other_Amount =isDriverPaid.get(1).get("Amount").toString();
+        if(TripType.equals("PartnerTrip")) {
 
-        testStepAssert.isEquals(DB_ExcessWaitTime_Amount,excessWaitTimeAmount,"Excess wait time charges should be present and not refunded","Excess wait time charges is present and not refunded","Excess wait time charges is not present in db");
-        testStepAssert.isEquals(DB_Cancellation_Amount,cancelationAmount,"Cancellation charges should be present and not refunded","Cancellation charges is present and not refunded","Cancellation charges is not present in db");
-        testStepAssert.isEquals(DB_Mountainious_Amount,mountainousAmount,"Mountainious charges should be present and not refunded","Mountainious charges is present and not refunded","Mountainious charges is not present in db");
-        testStepAssert.isEquals(DB_Other_Amount,otherAmount,"Other charges should be present and not refunded","Other charges is present and not refunded","Other charges is not present in db");
+            List<HashMap<String, Object>> isDriverPaid = new DbUtility().getAccessorialAmount(PickupRequest);
+            String DB_ExcessWaitTime_Amount = isDriverPaid.get(3).get("Amount").toString();
+            String DB_Cancellation_Amount = isDriverPaid.get(2).get("Amount").toString();
+            String DB_Mountainious_Amount = isDriverPaid.get(1).get("Amount").toString();
+            String DB_Other_Amount = isDriverPaid.get(0).get("Amount").toString();
+
+            testStepAssert.isEquals(DB_ExcessWaitTime_Amount,excessWaitTimeAmount,"Excess wait time charges should be present and not refunded","Excess wait time charges is present and not refunded","Excess wait time charges is not present in db");
+            testStepAssert.isEquals(DB_Cancellation_Amount,cancelationAmount,"Cancellation charges should be present and not refunded","Cancellation charges is present and not refunded","Cancellation charges is not present in db");
+            testStepAssert.isEquals(DB_Mountainious_Amount,mountainousAmount,"Mountainious charges should be present and not refunded","Mountainious charges is present and not refunded","Mountainious charges is not present in db");
+            testStepAssert.isEquals(DB_Other_Amount,otherAmount,"Other charges should be present and not refunded","Other charges is present and not refunded","Other charges is not present in db");
+
+        }
+        else {
+
+            List<HashMap<String, Object>> isDriverPaid = new DbUtility().getAccessorialAmount(PickupRequest);
+            String DB_ExcessWaitTime_Amount = isDriverPaid.get(4).get("Amount").toString();
+            String DB_Cancellation_Amount = isDriverPaid.get(3).get("Amount").toString();
+            String DB_Mountainious_Amount = isDriverPaid.get(2).get("Amount").toString();
+            String DB_Other_Amount = isDriverPaid.get(1).get("Amount").toString();
+
+            testStepAssert.isEquals(DB_ExcessWaitTime_Amount,excessWaitTimeAmount,"Excess wait time charges should be present and not refunded","Excess wait time charges is present and not refunded","Excess wait time charges is not present in db");
+            testStepAssert.isEquals(DB_Cancellation_Amount,cancelationAmount,"Cancellation charges should be present and not refunded","Cancellation charges is present and not refunded","Cancellation charges is not present in db");
+            testStepAssert.isEquals(DB_Mountainious_Amount,mountainousAmount,"Mountainious charges should be present and not refunded","Mountainious charges is present and not refunded","Mountainious charges is not present in db");
+            testStepAssert.isEquals(DB_Other_Amount,otherAmount,"Other charges should be present and not refunded","Other charges is present and not refunded","Other charges is not present in db");
+        }
     }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -291,33 +309,66 @@ public class Admin_RevivalSteps extends DriverBase {
 
     @Then("^I should see the cancelled trip icon displayed for the delivery$")
     public void i_should_see_the_cancelled_trip_icon_displayed_for_the_delivery() throws Throwable {
+        try{
         Thread.sleep(1000);
         testStepAssert.isElementDisplayed(admin_RevivalPage.Icon_CancelledTrip(),"Cancelled icon should be displayed","Cancelled icon is displayed","Cancelled icon is not displayed");
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I search the delivery using old pickup reference$")
     public void i_search_the_delivery_using_old_pickup_reference() throws Throwable {
+        try{
         String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
         Thread.sleep(2000);
         action.clearSendKeys(adminTripsPage.TextBox_Search(), oldPickupRef + Keys.ENTER);
         log("I should be able to search the delivery using the old pickup reference",
                 "I could search the delivery using the old pickup reference",false);
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^The pickup reference should be changed to the new pickup reference$")
     public void the_pickup_reference_should_be_changed_to_the_new_pickup_reference() throws Throwable {
+        try{
       String[] newPickupReferenceEntireText = action.getText(admin_RevivalPage.Label_PickUpReference()).split(":");
       String newPickupReference = newPickupReferenceEntireText[1].trim();
       String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
       testStepVerify.isEquals(newPickupReference,oldPickupRef,"The pickup reference should be changed to " +newPickupReference,"The pickup reference is changed to " +newPickupReference,"The pickup reference is not changed to " +newPickupReference);
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
     @And("^I set the cancelled delivery pickup reference as recent pickup reference to verify data in db$")
     public void i_set_the_cancelled_delivery_pickup_reference_as_recent_pickup_reference_to_verify_data_in_db() throws Throwable {
+        try{
         String pickupreference = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
         cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupreference);
-
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+    @Then("^The revive button should not be displayed$")
+    public void the_revive_button_should_not_be_displayed() throws Throwable {
+        try{
+            Thread.sleep(2000);
+            testStepAssert.isFalse(action.isElementPresent(admin_RevivalPage.Button_ReviveTrip(true)),"Revive button should not be displayed", "Revive button is not displayed", "Revive button is displayed");
+        } catch (Exception e) {;
+            error("Step  Should be successful", "Error in viewing alert", true);
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
     }
 
 
