@@ -103,69 +103,14 @@
       Then I close the Trip Delivery Details page
       And I should logout from Partner Portal
 
-   #CORE:3372-To verify delivery status is updated when PartnerPortal delivery is moved from one status to other on CHROME browser
-    @ready
-    Scenario:To verify delivery status is updated when PartnerPortal delivery is moved from one status to other on CHROME browser
-      When I request Partner Portal "SOLO" Trip for "MRFM" partner
-        |Geofence| Bungii Time   | Customer Phone | Customer Name |
-        |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
-      And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" Delivery
-        | driver1 state |
-        | Accepted      |
-#      And I get the time in CST
-      When I navigate to "Partner" portal configured for "normal" URL
-      And I enter "valid" password on Partner Portal
-      And I click "SIGN IN" button on Partner Portal
-      Then I should "be logged in"
-      When I click the "Track Deliveries" button on Partner Portal
-      And I click on the delivery based on customer name
-      Then I should see the delivery status highlighted and to be set as "Scheduled" on partner portal delivery details page
-      And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" Delivery
-        | driver1 state |
-        |Enroute|
-      And I refresh the page
-      And I click on the delivery based on customer name
-      Then I should see the delivery status highlighted and to be set as "En Route To Pickup" on partner portal delivery details page
-      And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" Delivery
-        | driver1 state |
-        | Arrived |
-      And I refresh the page
-      And I click on the delivery based on customer name
-      Then I should see the delivery status highlighted and to be set as "Driver Arrived At Pickup" on partner portal delivery details page
-      And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" Delivery
-        | driver1 state |
-        | Loading Item |
-      And I refresh the page
-      And I click on the delivery based on customer name
-      Then I should see the delivery status highlighted and to be set as "Loading Items" on partner portal delivery details page
-      And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" Delivery
-        | driver1 state |
-        | Driving To Dropoff |
-      And I refresh the page
-      And I click on the delivery based on customer name
-      Then I should see the delivery status highlighted and to be set as "Driving To Drop Off" on partner portal delivery details page
-      And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" Delivery
-        | driver1 state |
-        | Unloading Item |
-      And I refresh the page
-      And I click on the delivery based on customer name
-      Then I should see the delivery status highlighted and to be set as "Unloading Items" on partner portal delivery details page
-      And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" Delivery
-        | driver1 state |
-        | Bungii Completed |
-      And I refresh the page
-      And I select "Completed" option from the filter
-      And I click on "Apply" button
-      And I click on the delivery based on customer name
-      Then I should see the delivery status highlighted and to be set as "Done" on partner portal delivery details page
-
 
     #CORE-3372:To verify delivery status is updated when Partner Portal delivery is canceled by partner
+    #need to add kansas driver
     @ready
     Scenario: To verify delivery status is updated when Partner Portal delivery is canceled by partner
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
-        |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+        |Kansas| NEXT_POSSIBLE | 8877661066 | Testcustomertywd_BppleMarkBO LutherBO|
       And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" Delivery
         | driver1 state |
         | Accepted      |
@@ -173,7 +118,7 @@
       And I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
-      When I click the "Track Deliveries" button on Partner Portal
+      And I click "Track Deliveries" button on Partner Portal
       And I click on the delivery based on customer name
       And I click "Cancel Delivery link" button on Partner Portal
       And I click "Cancel Delivery" button on Partner Portal
@@ -186,17 +131,18 @@
       Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
 
       #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is moved from one status to other for change in driver
+    #need to add kansas driver
     @testAllan
     Scenario:To verify delivery status is updated when PartnerPortal delivery is moved from one status to other for change in driver
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
-        |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+        |Kansas| NEXT_POSSIBLE | 8877661065 | Testcustomertywd_BppleMarkBN LutherBN|
       And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state|
         | Accepted |
         | Enroute |
       And I get the time stamp of the completed delivery step
-      When I click the "Track Deliveries" button on Partner Portal
+      And I click "Track Deliveries" button on Partner Portal
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "En Route To Pickup" on partner portal delivery details page
       And I save the delivery details
@@ -284,11 +230,12 @@
 
 
 #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Schedule deliveries
+    #need kansas driver
     @ready
   Scenario: To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Schedule deliveries
   When I request Partner Portal "SOLO" Trip for "MRFM" partner
    |Geofence| Bungii Time   | Customer Phone | Customer Name |
-   |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+   |Kansas| NEXT_POSSIBLE | 8877661067 | Testcustomertywd_BppleMarkBP LutherBP|
     And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" partner portal trip
     | driver1 state|
     | Accepted |
@@ -309,7 +256,7 @@
       And I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
-      When I click "Track Deliveries" button on Partner Portal
+      And I click "Track Deliveries" button on Partner Portal
       And I select "Check / uncheck all" option from the filter
       And I click on "Apply" button
       And I select "Check / uncheck all" option from the filter

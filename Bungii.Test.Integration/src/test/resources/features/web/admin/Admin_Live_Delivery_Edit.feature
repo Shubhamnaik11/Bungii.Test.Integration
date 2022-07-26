@@ -147,11 +147,12 @@ Feature: Admin_Live_Delivery_Edit
     And I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-    When I click the "Track Deliveries" button on Partner Portal
+    And I click "Track Deliveries" button on Partner Portal
     And I select "Check / uncheck all" option from the filter
     And I select "Canceled" option from the filter
     And I click on "Apply" button
     And I click on the delivery based on customer name
+    And I get the time stamp of the completed delivery step
     Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
 
 
@@ -220,12 +221,12 @@ Feature: Admin_Live_Delivery_Edit
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
 
-    #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Schedule deliveries
+    #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Live deliveries
     When I navigate to "Partner" portal configured for "normal" URL
     And I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
-    When I click "Track Deliveries" button on Partner Portal
+    And I click "Track Deliveries" button on Partner Portal
     And I select "Check / uncheck all" option from the filter
     And I click on "Apply" button
     And I select "Check / uncheck all" option from the filter
@@ -233,6 +234,7 @@ Feature: Admin_Live_Delivery_Edit
     And I select "Completed" option from the filter
     And I click on "Apply" button
     And I click on the delivery based on customer name
+    And I get the time stamp of the completed delivery step
     Then I should see the delivery status highlighted and to be set as "Done" on partner portal delivery details page
 
 
