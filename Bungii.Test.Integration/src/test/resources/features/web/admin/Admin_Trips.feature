@@ -434,7 +434,7 @@ Feature: Admin_Trips
     | Assigning Driver(s)|
 
 #CORE-3381:To verify that customer trips can be revived after admin cancels
-@testAllan
+@ready
   Scenario:To verify that customer trips can be revived after admin cancels
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
@@ -455,6 +455,7 @@ Feature: Admin_Trips
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then I should see the cancelled trip icon displayed for the delivery
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
     Then Revive button should be displayed beside the trip
     When I click on "Revive" button
 	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
@@ -491,7 +492,6 @@ Feature: Admin_Trips
     | Scheduled |
   And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
-    | Accepted |
     | Enroute  |
     | Arrived |
     | Loading Item |
