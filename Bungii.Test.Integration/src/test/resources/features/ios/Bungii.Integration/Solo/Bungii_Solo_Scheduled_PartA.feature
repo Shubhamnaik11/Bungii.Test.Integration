@@ -37,7 +37,7 @@ Feature: Solo Scheduled Bungii Part A
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-    
+
     #Then I should be navigated to "ARRIVED" trip status screen
     Then I should be navigated to "ARRIVED" trip status screen on driver
     And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
@@ -48,6 +48,8 @@ Feature: Solo Scheduled Bungii Part A
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
     #Then I should be navigated to "LOADING ITEMS" trip status screen
     Then I should be navigated to "LOADING ITEMS" trip status screen on driver
     And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
@@ -57,6 +59,8 @@ Feature: Solo Scheduled Bungii Part A
     And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for customer
     
     When I Switch to "driver" application on "same" devices
+    And I slide update button on "LOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
     #Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
@@ -77,6 +81,8 @@ Feature: Solo Scheduled Bungii Part A
     And Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for customer
     
     When I Switch to "driver" application on "same" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen

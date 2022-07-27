@@ -121,7 +121,17 @@ public class GeneralUtility extends DriverBase {
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");
         return adminURL;
     }
-
+    public String GetBungiiUrl() {
+        String adminURL = null;
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("DEV"))
+            adminURL = PropertyUtility.getDataProperties("dev.bungii.url");
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS"))
+            adminURL = PropertyUtility.getDataProperties("qa.bungii.url");
+        if (environment.equalsIgnoreCase("STAGE"))
+            adminURL = PropertyUtility.getDataProperties("stage.bungii.url");
+        return adminURL;
+    }
     public String getCurrentUrl() throws InterruptedException {
 
         Thread.sleep(5000);
@@ -160,7 +170,16 @@ public class GeneralUtility extends DriverBase {
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
-
+    public void NavigateToAdminPortal() throws InterruptedException {
+        String adminURL = GetAdminUrl();
+        Thread.sleep(2000);
+        action.navigateTo(adminURL);
+    }
+    public void NavigateToBungiiPortal() throws InterruptedException {
+        String bungiiURL = GetBungiiUrl();
+        Thread.sleep(2000);
+        action.navigateTo(bungiiURL);
+    }
     public void AdminLoginFromPartner() throws InterruptedException {
         String adminURL = GetAdminUrl();
         Thread.sleep(2000);
