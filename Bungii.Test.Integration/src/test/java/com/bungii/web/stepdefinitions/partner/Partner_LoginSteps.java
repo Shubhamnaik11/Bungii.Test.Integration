@@ -181,6 +181,7 @@ public class Partner_LoginSteps extends DriverBase {
                 case "Schedule Bungii":
                     action.JavaScriptScrolldown();
                     action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
+                    cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME", System.currentTimeMillis() / 1000L);
                     break;
                 case "Track Deliveries":
                     Thread.sleep(5000);

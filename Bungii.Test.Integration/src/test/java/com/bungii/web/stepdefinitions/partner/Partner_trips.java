@@ -38,6 +38,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static com.bungii.common.manager.ResultManager.*;
 import static com.bungii.web.utilityfunctions.DbUtility.getActualPrice;
@@ -975,7 +976,29 @@ try{
         }
 
     }
+    @And("^I wait for Minimum duration for \"([^\"]*)\" Bungii to be in Driver not accepted state$")
+    public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_driver_not_accepted_state(String strArg1) {
+        try {
+            long initialTime;
+            if (strArg1.equalsIgnoreCase("current"))
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME");
+            else
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
+            long currentTime = System.currentTimeMillis() / 1000L;
+            long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
+            if (diffInMinutes > 5) {
+                //do nothing
+            } else {
+                // minimum wait of 30 mins
+                action.hardWaitWithSwipeUp(5 - (int) diffInMinutes);
 
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^I view the correct Driver Est. Earnings for geofence based pricing model$")
     public void i_view_the_correct_Driver_Est_Earnings(){
         try{
