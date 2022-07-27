@@ -523,7 +523,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Testcustomertywd_apple_AGQFCg Test":
-                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone"),
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone1"),
                             PropertyUtility.getDataProperties("goa.customer.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("goa.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("goa.customer.phone"));
