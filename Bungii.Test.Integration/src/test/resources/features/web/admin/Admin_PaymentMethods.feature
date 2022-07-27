@@ -145,7 +145,7 @@ Feature: Admin_PaymentMethods
     Then "payment declined error" message is displayed
 
   #Core-2397 : Verify duplicate partner entries are shown in dropdown on Partner Card page
-  @ready
+  @regression
   Scenario: Verify duplicate partner entries are shown in dropdown on Partner Card page
     When I click on "Partner Portal  > Partner Card" Menu
     And I click on "Partners" dropdown

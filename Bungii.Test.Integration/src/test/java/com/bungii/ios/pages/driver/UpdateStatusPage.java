@@ -44,6 +44,7 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_ViewItems() { return findElement("//XCUIElementTypeImage[@name='slide_to_start_button']/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[2]", LocatorType.XPath); }
 //	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.Name); }
 	public WebElement Button_MoreOptions() { return findElement("//XCUIElementTypeImage[@name='slide_to_start_button']/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[4]", LocatorType.XPath); }
+	public WebElement Tab_CancelDelivery() { return findElement("//XCUIElementTypeButton[@name=\"Cancel delivery\"]", LocatorType.XPath); }
 	public WebElement Text_NavigationBarScreen(String screen) { return findElement("//XCUIElementTypeStaticText[@name='"+screen+"']", LocatorType.XPath); }
 	public WebElement Text_NavigationBar(boolean ...ignoreException) { return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName,ignoreException); }
 

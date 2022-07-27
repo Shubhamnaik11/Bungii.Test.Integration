@@ -104,6 +104,12 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     testStepAssert.isTrue(notesDisplayed,"Notes & History option should be displayed","Notes & History option is displayed","Notes & History option is not be displayed");
                     action.click(admin_ScheduledTripsPage.Link_Notes());
                     break;
+                case "Completed Deliveries":
+                    Thread.sleep(4000);
+                    action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
+                    Thread.sleep(2000);
+                    action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+                    break;
             }
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

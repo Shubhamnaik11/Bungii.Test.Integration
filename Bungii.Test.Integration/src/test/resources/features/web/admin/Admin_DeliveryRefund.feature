@@ -39,6 +39,11 @@ Feature: Admin_Refund
 	When I click on "OK" button
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
+	#CORE-2507: Verify Change status icon is not displayed for trip which was partially refunded prior status change
+	#logged issue with ticket number CORE-4452
+	When I view All Deliveries list on the admin portal
+    And I search the delivery using "Pickup Reference"
+	Then I should see the change status link "Not Displayed"
   
   @regression
   Scenario: Verify Complete Refund for Solo Scheduled Delivery and Full Driver Payment
@@ -73,6 +78,12 @@ Feature: Admin_Refund
 	When I click on "OK" button
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
+   #CORE-2507: Verify Change status icon is not displayed for trip which was already refunded prior status change
+	#logged issue with ticket number CORE-4452
+	When I view All Deliveries list on the admin portal
+	And I search the delivery using "Pickup Reference"
+	Then I should see the change status link "Not Displayed"
+
   
   @regression
   Scenario: Verify Complete Refund for Solo Scheduled Delivery and partial Driver payment

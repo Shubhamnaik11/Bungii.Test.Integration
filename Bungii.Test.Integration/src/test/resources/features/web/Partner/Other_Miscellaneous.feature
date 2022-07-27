@@ -39,7 +39,7 @@ Feature: Other Miscellaneous
       |Last Month    |
 
 
-  @ready
+  @regression
   Scenario: verify that on click of generate report csv file is downloaded
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal

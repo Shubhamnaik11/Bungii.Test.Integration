@@ -37,7 +37,7 @@ Feature: Solo Scheduled Bungii Part A
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-    
+
     #Then I should be navigated to "ARRIVED" trip status screen
     Then I should be navigated to "ARRIVED" trip status screen on driver
     And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
@@ -48,6 +48,8 @@ Feature: Solo Scheduled Bungii Part A
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
     #Then I should be navigated to "LOADING ITEMS" trip status screen
     Then I should be navigated to "LOADING ITEMS" trip status screen on driver
     And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
@@ -57,6 +59,8 @@ Feature: Solo Scheduled Bungii Part A
     And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for customer
     
     When I Switch to "driver" application on "same" devices
+    And I slide update button on "LOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
     #Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
@@ -77,6 +81,8 @@ Feature: Solo Scheduled Bungii Part A
     And Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for customer
     
     When I Switch to "driver" application on "same" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
@@ -291,7 +297,7 @@ Feature: Solo Scheduled Bungii Part A
     When I Cancel selected Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @ready
+  @regression
   Scenario: Verify When Admin Cancels Bungii Then Trip Is Removed From The Scheduled Trip In App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -330,7 +336,7 @@ Feature: Solo Scheduled Bungii Part A
       | CUSTOMER1_PHONE |                 |
 
 
-  @ready
+  @regression
   #Stable
   Scenario:  Verify Customer Can Schedule Solo Bungii Only 5 Days Ahead Including Current Date
     Given I login as "valid denver" customer and on Home page

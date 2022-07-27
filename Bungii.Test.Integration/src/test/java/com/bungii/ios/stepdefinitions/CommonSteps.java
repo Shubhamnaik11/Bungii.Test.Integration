@@ -386,6 +386,75 @@ public class CommonSteps extends DriverBase {
                    true);
        }
     }
+    @And("^I check the elements displayed on rate customer screen$")
+    public void i_check_the_elements_displayed_on_rate_customer_screen() throws Throwable {
+      try {
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.ExperienceRating(),
+                  "No rating should be selected",
+                  "No rating is selected",
+                  "Rating is selected before driver can select");
+
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Text_RateCustomer(),
+                  "Header Rate customer should be displayed",
+                  "Header Rate customer is displayed",
+                  "Header Rate customer is not displayed");
+
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Text_ChooseRating(),
+                  "Choose Rating should be displayed",
+                  "Choose Rating is displayed",
+                  "Choose Rating is not displayed");
+
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Text_DriverExperience(),
+                  "Driver experience question should be displayed",
+                  "Driver experience question is displayed",
+                  "Driver experience question is not displayed");
+
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Button_Submit(),
+                  "Submit button should be displayed",
+                  "Submit button is displayed",
+                  "Submit button is not displayed");
+
+          testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Button_Skip_This_Step(),
+                  "Skip this step button should be displayed",
+                  "Skip this step button is displayed",
+                  "Skip this step button is not displayed");
+
+
+          log("I should be able to verify the elements present on rate customer page",
+                  "I am able to verify the elements present on rate customer page",false);
+
+      }
+      catch (Exception e) {
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step  Should be successful",
+                  "Error performing step,Please check logs for more details", true);
+      }
+    }
+    @And("^I add comment on rate customer page$")
+    public void i_add_comment_on_rate_customer_page() throws Throwable {
+        try{
+            action.swipeUP();
+
+            testStepAssert.isElementDisplayed(driverBungiiCompletedPage.Textbox_AdditionalFeedback(),
+                    "Textbox for additional feedback should be displayed",
+                    "Textbox for additional feedback is displayed",
+                    "Textbox for additional feedback is not displayed");
+
+            action.sendKeys(driverBungiiCompletedPage.Textbox_AdditionalFeedback(),"The customer was friendly.");
+
+            action.click(driverBungiiCompletedPage.Textbox_Additional());
+
+            action.click(driverBungiiCompletedPage.Button_Submit());
+
+            log("I should be able to add a comment for customer rating","I am able to add a comment for customer rating",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 
     @And("^I get pickupref for \"([^\"]*)\" customer$")
     public void i_get_pickuref_for_something_customer(String string1) throws Throwable {
@@ -631,6 +700,12 @@ public class CommonSteps extends DriverBase {
                         Thread.sleep(1000);
                         action.click(driverUpdateStatusPage.Button_ScheduledBungiis());
                     }
+                    break;
+                case "MORE OPTIONS":
+                    action.click(driverUpdateStatusPage.Button_MoreOptions());
+                    break;
+                case "CANCEL DELIVERY":
+                    action.click(driverUpdateStatusPage.Tab_CancelDelivery());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -1101,6 +1176,13 @@ public class CommonSteps extends DriverBase {
                 password = PropertyUtility.getDataProperties("denver.driver3.password");
                 shouldLoginSucessful = true;
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver3.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+
+            case "valid partner kansas driver2":
+                phone = PropertyUtility.getDataProperties("Kansas.driver48.phone");
+                password = PropertyUtility.getDataProperties("partner.kansas.driver.password");
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver48.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             default:
@@ -3247,4 +3329,28 @@ public class CommonSteps extends DriverBase {
 
 
     }
+
+    @And("^Driver status should be \"([^\"]*)\"$")
+    public void driver_status_should_be_something(String DriverStatus) throws Throwable {
+        try {
+            String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            switch (DriverStatus){
+                case "Online":
+                    String expectedDriverOnlineStatus ="1";
+                    String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
+                    break;
+                case "Offline":
+                    String driverStatus ="0";
+                    String driverOfflineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOfflineStatus,driverStatus,"Driver status should be offline","Driver Status is offline","Driver status is not offline");
+                    break;
+            }
+        } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
+    }
+
 }

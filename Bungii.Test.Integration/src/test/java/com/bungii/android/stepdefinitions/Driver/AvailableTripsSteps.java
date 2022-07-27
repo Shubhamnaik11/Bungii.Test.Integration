@@ -1,8 +1,10 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
+import com.bungii.android.enums.Rejection_Reason;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.*;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.common.core.DriverBase;
@@ -15,6 +17,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -26,6 +29,7 @@ public class AvailableTripsSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility= new GeneralUtility();
     DriverHomePage driverHomePage = new DriverHomePage();
+    DbUtility dbUtility = new DbUtility();
 
     @And("I Select Trip from driver available trip")
     public void iSelectTripFromDriverAvailableTrip() {
@@ -209,5 +213,206 @@ public class AvailableTripsSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I check if variable sign is shown under \"([^\"]*)\"$")
+    public void i_check_if_variable_sign_is_shown_under_something(String page) throws Throwable {
+      try{
+          switch (page){
+              case "available bungii details":
+                  Thread.sleep(2000);
+                String driverEarnings = availableTrips.Text_DriverEarning().getText();
+                testStepAssert.isTrue(driverEarnings.contains("~"),
+                        "The variable sign (~) should be present",
+                        "The variable sign (~) is not present");
+                  break;
+              case "schedule bungii details":
+                  Thread.sleep(2000);
+                  String driverEarningsSchedulePage = availableTrips.Text_DriverEarningSchedulePage().getText();
+                  testStepAssert.isTrue(driverEarningsSchedulePage.contains("~"),
+                          "The variable sign (~) should be present",
+                          "The variable sign (~) is not present");
+                  break;
+          }
+          log("I should be able to check the variable sign","I was able to check the variable sign",false);
+      }
+      catch (Exception e) {
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step  Should be successful",
+                  "Error performing step,Please check logs for more details", true);
+      }
+    }
+    @And("^I check if variable sign is not shown under \"([^\"]*)\"$")
+    public void i_check_if_variable_sign_is_not_shown_under_something(String page) throws Throwable {
+        try{
+            switch (page){
+                case "available bungii details":
+                    Thread.sleep(2000);
+                    String driverEarnings = availableTrips.Text_DriverEarning().getText();
+                    testStepAssert.isFalse(driverEarnings.contains("~"),
+                            "The variable sign (~) should not be present",
+                            "The variable sign (~) is present");
+                    break;
+                case "schedule bungii details":
+                    Thread.sleep(2000);
+                    String driverEarningsSchedulePage = availableTrips.Text_DriverEarningSchedulePage().getText();
+                    testStepAssert.isFalse(driverEarningsSchedulePage.contains("~"),
+                            "The variable sign (~) should not be present",
+                            "The variable sign (~) is present");
+                    break;
+            }
+            log("I should be able to check if the variable sign is absent","I was able to check if the variable sign is absent",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I click on the back button and verify the rejection popup$")
+    public void i_click_on_the_back_button_and_verify_the_rejection_popup() throws Throwable {
+      try{
+            Thread.sleep(1000);
+            action.click(availableTrips.Button_Back());
+            Thread.sleep(2000);
+
+            testStepAssert.isElementDisplayed(availableTrips.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
+      }
+      catch (Exception ex){
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+          error("Step should be successful", "I cannot click on back button",
+                  true);
+      }
+    }
+    @Then("^I check if \"([^\"]*)\" customer trip that is rejected is displayed$")
+    public void i_check_if_something_customer_trip_that_is_rejected_is_displayed(String custName) throws Throwable {
+       try{
+           String customerName =custName.substring(0,29);
+
+           if (action.isElementPresent(availableTrips.Text_CustomerName(true))){
+               String actualName=availableTrips.Text_CustomerName().getText();
+               if(actualName==customerName)
+               {
+                   testStepAssert.isTrue(false,"Customer trip should not be present","Customer trip is present");
+               }
+           }
+           else if(action.isElementPresent(availableTrips.Text_NoBungiisAvailable(true)))
+           {
+               testStepAssert.isTrue(true,"Customer trip should not be present","Customer trip is present");
+           }
+           else {
+               testStepAssert.isTrue(false,"Customer trip should not be present","Customer trip is present");
+
+           }
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful",
+                   "Error performing step,Please check logs for more details", true);
+       }
+    }
+    @And("^I click on the back button and verify that rejection popup is absent$")
+    public void i_click_on_the_back_button_and_verify_that_rejection_popup_is_absent() throws Throwable {
+        try{
+            action.click(availableTrips.Button_Back());
+            Thread.sleep(2000);
+
+            testStepAssert.isFalse(action.isElementPresent(availableTrips.Text_RejectionPopup(true)),"Rejection Reason pop-up must not be displayed","Rejection Reason pop-up is not displayed", "Rejection Reason pop-up is displayed");
+
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "I cannot click on back button",
+                    true);
+        }
+    }
+    @And("^I check if all reasons are displayed on rejection popup$")
+    public void i_check_if_all_reasons_are_displayed_on_rejection_popup() throws Throwable {
+       try{
+           List<String> expectedOptions = new ArrayList() {{
+              Rejection_Reason.TOO_FAR_AWAY.toString();
+              Rejection_Reason.EARNINGS.toString();
+              Rejection_Reason.LABOR_REQUIREMENTS.toString();
+              Rejection_Reason.TYPE_OF_ITEM.toString();
+              Rejection_Reason.NOT_ENOUGH_INFORMATION.toString();
+              Rejection_Reason.NOT_AVAILABLE.toString();
+           }};
+          for (int j =0;j<expectedOptions.size();j++){
+             String expectedReason= expectedOptions.get(j);
+             String actualReason = availableTrips.Text_RejectionReason(j+1).getAttribute("text");
+             testStepAssert.isEquals(actualReason,expectedReason,"The actual and expected reasons should be same","The actual and expected reasons are the same","The actual and expected reasons are not the same");
+          }
+
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful",
+                   "Error performing step,Please check logs for more details", true);
+       }
+    }
+    @And("^I click on \"([^\"]*)\" button on rejection popup$")
+    public void i_click_on_something_button_on_rejection_popup(String button) throws Throwable {
+        try {
+            switch (button){
+                case "CANCEL":
+                    action.click(availableTrips.Button_Cancel());
+                    break;
+                case "SUBMIT":
+                    action.click(availableTrips.Button_Submit());
+                    break;
+            }
+            log("I should be able to click on "+button+" button",
+                    "I am able to click on "+button+" button",
+                    false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "I cannot click on "+button+" button",
+                    true);
+        }
+    }
+    @Then("^I check if the reason is saved in db$")
+    public void i_check_if_the_reason_is_saved_in_db() throws Throwable {
+        try{
+            String driverNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String reason = dbUtility.checkRejectionReason(driverNumber);
+            if(!(reason.isEmpty()))
+            {
+                testStepAssert.isTrue(true,"The rejection reason is saved in db","The rejection reason is not saved in db");
+            }
+            else{
+                testStepAssert.isTrue(false,"The rejection reason should be saved in db","The rejection reason is not saved in db");
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I verify the rejection popup is displayed$")
+    public void i_verify_the_rejection_popup_is_displayed() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(availableTrips.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I check that latest reason is saved when \"([^\"]*)\" button is clicked$")
+    public void i_check_that_latest_reason_is_saved_when_something_button_is_clicked(String strArg1) throws Throwable {
+        try {
+                Thread.sleep(2000);
+                Boolean checkedRadioButton= Boolean.valueOf(availableTrips.RadioButton_LatestRejectionReason().getAttribute("checked"));
+                Thread.sleep(2000);
+                testStepAssert.isTrue(checkedRadioButton,"The latest reason is selected","The latest reason is selected","The latest reason is not selected");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Latest reason is not saved", true);
+        }
+    }
+
 }
 
