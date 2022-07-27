@@ -163,3 +163,9 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 | Other            | 20         |
 And I login to driver portal on a new tab with driver phone number "9049840210"
 Then The accessorial charges cut should be displayed in total earnings
+
+	@testAllan
+	Scenario: To verify the revive trip when accessorial charges are added
+	When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
+		|Geofence| Bungii Time   | Customer Phone | Customer Name |
+		| atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|

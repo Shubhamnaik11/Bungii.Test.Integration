@@ -269,3 +269,6 @@ Feature: Solo Scheduled Bungii - TELET
 	When I Switch to "driver" application on "same" devices
 	Then Telet time of research trip should be not be same as previous trips
 
+#  @testAllan
+#  Scenario:Customer signature
+
