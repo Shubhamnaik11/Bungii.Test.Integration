@@ -44,11 +44,14 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "ARRIVED" Screen
+    And I driver adds photos to the Bungii
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Loading Items"
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
+    And I slide update button on "LOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Driving To Dropoff"
@@ -61,6 +64,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I see "Rate customer" screen
     And I select "4" customer rating
