@@ -58,6 +58,7 @@ Feature: Service Level
 
       #CORE-3199-To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
   @ready
+#    @testsweta
   Scenario: To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -90,6 +91,9 @@ Feature: Service Level
       | driver1 state|
       | Bungii Completed |
     And I wait for 2 minutes
+#   Core-3647 Verify that email notification is sent on configured email id's once first 3 partner portal trips are completed
+    And Partner firm should receive "Initial deliveries" email
+
     And I view All Deliveries list on the admin portal
     And I search the delivery using "Pickup Reference"
     Then The "All Deliveries" page should display the delivery in "Payment Successful" form

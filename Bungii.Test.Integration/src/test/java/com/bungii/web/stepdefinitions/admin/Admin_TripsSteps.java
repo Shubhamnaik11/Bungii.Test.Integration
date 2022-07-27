@@ -1340,6 +1340,12 @@ try{
     @Then("^Partner firm should receive \"([^\"]*)\" email$")
     public void partner_firm_should_receive_something_email(String emailSubject) throws Throwable {
 
+        String portalName= (String) cucumberContextManager.getScenarioContext("Portal_Name");
+        if (portalName.equalsIgnoreCase("BestBuy2 service level")){
+            String partnerPortal=PropertyUtility.getDataProperties("partner.baltimore.name");
+            emailSubject=partnerPortal+" has completed one of their initial deliveries!";
+        }
+
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody == null) {
              testStepAssert.isFail("Email : " + emailSubject + " not received");
@@ -1442,6 +1448,10 @@ try{
                     message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
                 }
                 //message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                break;
+            case "Initial deliveries":
+                String partnerPortal=PropertyUtility.getDataProperties("partner.baltimore.name");
+                message = utility.getExpectedPartnerFirmInitialDeliveriesEmailContent(partnerPortal);
                 break;
         }
         message= message.replaceAll(" ","");
