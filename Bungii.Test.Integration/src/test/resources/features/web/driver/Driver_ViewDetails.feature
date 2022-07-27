@@ -24,3 +24,5 @@ Feature: Driver_ViewDetails
       | Bungii Completed |
     And I wait for data to synch
     Then The My Stats section should be updated
+    When I open datepicker and hit enter key
+    Then I should see delivery details displayed to the driver

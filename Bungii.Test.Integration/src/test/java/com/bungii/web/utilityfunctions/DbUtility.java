@@ -24,7 +24,20 @@ public class DbUtility extends DbContextManager {
         logger.detail("SMS code is" + smsCode + ", query, " + queryString);
         return smsCode;
     }
-
+    public static String getDriverRatings(String pickupref) {
+        String rating = "";
+        String queryString = "select DriverRating from triprequest where pickupid in (select pickupid from pickupdetails where pickupref='"+pickupref+"')";
+        rating = getDataFromMySqlServer(queryString);
+        logger.detail("Driver Rating is" + rating + ", query, " + queryString);
+        return rating;
+    }
+    public static String getDriverShare(String pickupref) {
+        String amount = "";
+        String queryString = "select submerchant_amount from triprequest where pickupid in (select pickupid from pickupdetails where pickupref='"+pickupref+"')";
+        amount = getDataFromMySqlServer(queryString);
+        logger.detail("Driver submerchant_amount is" + amount + ", query, " + queryString);
+        return amount;
+    }
     public static String getScheduledTime(String customerPhone){
         String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
         String Scheduled_Time = getDataFromMySqlServer("SELECT ScheduledTimestamp FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
