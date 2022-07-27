@@ -269,6 +269,28 @@ Feature: Solo Scheduled Bungii - TELET
 	When I Switch to "driver" application on "same" devices
 	Then Telet time of research trip should be not be same as previous trips
 
-#  @testAllan
-#  Scenario:Customer signature
-
+  @testAllan
+  Scenario:Customer signature
+#    When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
+#      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+#      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+#    And As a driver "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "Solo Scheduled" Delivery
+#      | driver1 state |
+#      | Accepted      |
+#      | Enroute  |
+#      | Arrived |
+#      | Loading Item |
+#      | Driving To Dropoff |
+#      | Unloading Item |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applega_a_steve Stark_altOnE" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I click "More Options" button on "update" screen
+    And I click "Customer Signature" button on "update" screen
+    Then I should see the customers name under the customer name field
+    And I should be able to add the text "Signed By customer" in the signed by field
+    And I should be able to add customer signature
+    And I click "Submit Data" button on "update" screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    And Bungii Driver "skips to rate customer"

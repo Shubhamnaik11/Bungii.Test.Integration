@@ -542,7 +542,7 @@ public class CommonSteps extends DriverBase {
                     }
                     action.click(driverBungiiCompletedPage.Button_Next_Bungii());
                     break;
-                case "SUBMIT":
+                case "SUBMIT DATA":
                     Thread.sleep(1000);
                     action.click(driverBungiiCompletedPage.Button_Submit());
                     break;
@@ -682,6 +682,12 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "CANCEL DELIVERY":
                     action.click(driverUpdateStatusPage.Tab_CancelDelivery());
+                    break;
+                case "CUSTOMER SIGNATURE":
+                    action.click(driverUpdateStatusPage.Tab_CustomerSignature());
+                    break;
+                case "SUBMIT":
+                    action.click(driverUpdateStatusPage.Button_Submit());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",

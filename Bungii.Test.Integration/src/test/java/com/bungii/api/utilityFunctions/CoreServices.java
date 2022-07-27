@@ -1819,7 +1819,7 @@ public class CoreServices extends DriverBase {
             JsonPath jsonPathEvaluator = response.jsonPath();
             ApiHelper.genericResponseValidation(response, RequestText);
         }
-        else if(Geofence.equalsIgnoreCase("atlanta")){
+        else if(Geofence.equalsIgnoreCase("atlanta")&& Partner_Portal.equalsIgnoreCase("biglots")){
             String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
 
             String Pickup_Address_Id = PropertyUtility.getDataProperties("partner.biglots.pickup_address_id");
@@ -1913,7 +1913,7 @@ public class CoreServices extends DriverBase {
             JsonPath jsonPathEvaluator = response.jsonPath();
             ApiHelper.genericResponseValidation(response, RequestText);
         }
-        else if(Geofence.equalsIgnoreCase("Atlanta new")) {
+        else if(Geofence.equalsIgnoreCase("atlanta") && Partner_Portal.equalsIgnoreCase("Cort Furniture")) {
 
             String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
 
@@ -2010,7 +2010,8 @@ public class CoreServices extends DriverBase {
 
             //Header header = new Header("AuthorizationToken", AccessToken);
             response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);//body(jsonObj.toString()).
-            //response.then().log().body();
+            System.out.println(response);
+            response.then().log().body();
             JsonPath jsonPathEvaluator = response.jsonPath();
             ApiHelper.genericResponseValidation(response, RequestText);
         }
@@ -2245,6 +2246,7 @@ public class CoreServices extends DriverBase {
             jsonObj.put("PaymentMethodNonce", JSONObject.NULL);
             jsonObj.put("PickupNote", "Furniture");
             jsonObj.put("PaymentOption", "CC");
+            jsonObj.put("PaymentMethodNonce", "fake-valid-nonce");
             jsonObj.put("SpecialInstructions", "SPL from QA script");
 
             Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);

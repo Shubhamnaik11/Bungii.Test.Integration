@@ -68,5 +68,9 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Text_StackInfo(){return findElement("//XCUIElementTypeStaticText[contains(@name,'try to finish up by')]",LocatorType.XPath);}
 	public WebElement Button_Info(){return findElement("//XCUIElementTypeStaticText[contains(@label,'Try to finish by')]/following-sibling::XCUIElementTypeButton",LocatorType.XPath);}
 	public WebElement Text_ETAValue(){return findElement("//XCUIElementTypeStaticText[contains(@name,\"ETA:\")]",LocatorType.XPath);}
+	public WebElement Tab_CustomerSignature(){return findElement("//XCUIElementTypeSheet[@name=\"What do you want to do?\"]/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]",LocatorType.XPath);}
+	public WebElement Text_CustomerNameOnDriverApp(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+	public WebElement TextBox_SignedByField(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]",LocatorType.XPath);}
+	public WebElement Button_Submit(){return findElement("Submit",LocatorType.AccessibilityId);}
 
 }

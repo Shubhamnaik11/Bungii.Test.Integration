@@ -6,6 +6,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.TripDetailsPage;
+import com.bungii.ios.pages.driver.UpdateStatusPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -19,8 +20,10 @@ public class TripDetailsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(TripDetailsSteps.class);
     ActionManager action = new ActionManager();
     private TripDetailsPage tripDetailsPage;
-    public TripDetailsSteps(TripDetailsPage tripDetailsPage) {
+    private UpdateStatusPage updateStatusPage;
+    public TripDetailsSteps(TripDetailsPage tripDetailsPage,UpdateStatusPage updateStatusPage) {
         this.tripDetailsPage = tripDetailsPage;
+        this.updateStatusPage = updateStatusPage;
     }
 
     @When("^I accept selected Bungii$")
@@ -167,6 +170,26 @@ public class TripDetailsSteps extends DriverBase {
         }
         return tripDetails;
     }
+    @Then("^I should see the customers name under the customer name field$")
+    public void i_should_see_the_customers_name_under_the_customer_name_field() throws Throwable {
+        String deliveryCreatedCustomerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp());
+        testStepVerify.isEquals(customerName,deliveryCreatedCustomerName);
+    }
 
+    @And("^I should be able to add the text \"([^\"]*)\" in the signed by field$")
+    public void i_should_be_able_to_add_the_text_something_in_the_signed_by_field(String text) throws Throwable {
+        Thread.sleep(1000);
+        action.clearSendKeys(updateStatusPage.TextBox_SignedByField(),text);
+    }
+
+    @And("^I should be able to add customer signature$")
+    public void i_should_be_able_to_add_customer_signature() throws Throwable {
+        Thread.sleep(1000);
+        action.clickBy4Points(160,353,130,464);
+        action.clickBy4Points(168,350,188,464);
+        action.clickBy4Points(122,401,199,399);
+        action.clickBy4Points(78,509,249,441);
+    }
 
 }
