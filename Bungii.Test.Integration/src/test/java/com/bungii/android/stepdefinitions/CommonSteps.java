@@ -32,7 +32,9 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.*;
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.WebElement;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
@@ -1439,7 +1441,7 @@ public class CommonSteps extends DriverBase {
                     isDeliveryPresentInDriverApp=false;
                 }
             }
-            if(isDeliveryPresentInDriverApp=true) {
+            if(isDeliveryPresentInDriverApp ==true) {
                 testStepAssert.isPass("Delivery is not present in available bungiis");
             }
         }
@@ -1489,7 +1491,6 @@ public class CommonSteps extends DriverBase {
         try{
             switch(field) {
                 case "Cancellation Reason":
-                    //Name = (String) cucumberContextManager.getScenarioContext("REASON_NAME");
                     action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(),strArg1);
                     log("I select element from Cancellation reason dropdown",
                             "I have selected element from Cancellation reason dropdown", true);
@@ -1549,7 +1550,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 }
             }
-            if (isTripPresent = false) {
+            if (isTripPresent == false) {
                 testStepAssert.isFail("Delivery is not present in available bungiis");
             }
         }

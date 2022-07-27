@@ -37,7 +37,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.bungii.ios.stepdefinitions.driver.*;
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.WebElement;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -3330,12 +3332,12 @@ public class CommonSteps extends DriverBase {
             switch (DriverStatus) {
                 case "Online":
                     String expectedDriverOnlineStatus = "1";
-                    String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    String driverOnlineStatus = DbUtility.getDriverStatus(phoneNumber);
                     testStepAssert.isEquals(driverOnlineStatus, expectedDriverOnlineStatus, "Driver status should be online", "Driver Status is online", "Driver status is not online");
                     break;
                 case "Offline":
                     String driverStatus = "0";
-                    String driverOfflineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    String driverOfflineStatus = DbUtility.getDriverStatus(phoneNumber);
                     testStepAssert.isEquals(driverOfflineStatus, driverStatus, "Driver status should be offline", "Driver Status is offline", "Driver status is not offline");
                     break;
             }
@@ -3399,7 +3401,6 @@ public class CommonSteps extends DriverBase {
         try {
             switch (field) {
                 case "Cancellation Reason":
-                    //Name = (String) cucumberContextManager.getScenarioContext("REASON_NAME");
                     action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(), strArg1);
                     log("I select element from Cancellation reason dropdown",
                             "I have selected element from Cancellation reason dropdown", true);

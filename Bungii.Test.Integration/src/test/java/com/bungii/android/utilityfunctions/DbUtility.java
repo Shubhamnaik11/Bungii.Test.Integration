@@ -274,4 +274,10 @@ public class DbUtility extends DbContextManager {
         logger.detail("Linked Pickupref " + linkedpickupref + " of pickupref " + pickupRef );
         return linkedpickupref;
     }
+    public static String getDriverStatus(String phoneNumber){
+        String driverStatus;
+        String entireQueryString = "select OnlineStatus from driver where Phone= " +phoneNumber;
+        driverStatus = getDataFromMySqlServer(entireQueryString);
+        return driverStatus;
+    }
 }

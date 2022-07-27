@@ -4,7 +4,7 @@ Feature: Admin_Accessorial_Charges
   Background:
 	Given I am logged in as Admin
 
-#@testAllan
+@test
 @regression
   #CORE-2447 : issue still exist in qaauto
 Scenario: Verify Accessorial Charges Can be added to Payment Successful Solo Scheduled Deliveries

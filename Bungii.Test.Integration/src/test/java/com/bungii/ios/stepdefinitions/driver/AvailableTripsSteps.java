@@ -301,28 +301,22 @@ public class AvailableTripsSteps extends DriverBase {
 		try{
 		Thread.sleep(3000);
 		boolean isTripPresent = false;
-//		cucumberContextManager.setScenarioContext("BUNGII_TIME", "Jul 17, 08:30 AM MST");
 		String scheduled_time = cucumberContextManager.getScenarioContext("BUNGII_TIME").toString().substring(0, 17).toUpperCase();
-		System.out.println(scheduled_time);
 		List<WebElement> availableDeliveries = availableTripsPage.List_AllAvailableDeliveriesCustomerApp();
-		System.out.println(availableDeliveries.size());
 		if (availableDeliveries.size() == 0) {
 			testStepAssert.isFail("Delivery is not present in available bungiis");
 		} else {
 			for (int i = 1; i < (availableDeliveries.size()+1); i++) {
-//				Jul 17, 05:45 AM GMT-6
 				String deliveryTime = action.getText(availableTripsPage.Text_DeliveryTime(i));
-				System.out.println(deliveryTime);
 				Thread.sleep(1000);
 				String  deliveryTimeAndDate= deliveryTime.substring(0, 17).toUpperCase();
-//				String dateAndTime = d + ", " + f;
 				if (deliveryTimeAndDate.contentEquals(scheduled_time)) {
 					testStepAssert.isPass("Delivery is present in available bungiis");
 					isTripPresent = true;
 					break;
 				}
 			}
-			if (isTripPresent = false) {
+			if (isTripPresent ==false) {
 				testStepAssert.isFail("Delivery is not present in available bungiis");
 			}
 		}
@@ -338,7 +332,6 @@ public class AvailableTripsSteps extends DriverBase {
 		boolean isDeliveryPresentInDriverApp = true;
         cucumberContextManager.setScenarioContext("CUSTOMER","Testcustomertywd_appleZTDafc Stark");
 		String fullCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,27);
-		System.out.println(fullCustomerName);
 		List<WebElement> availableDeliveriesDriverApp =availableTripsPage.List_AllAvailableDeliveriesDriverApp();
 		if(availableDeliveriesDriverApp.size()==0){
 			testStepAssert.isPass("Delivery is not present in available bungiis");
@@ -346,13 +339,12 @@ public class AvailableTripsSteps extends DriverBase {
 		else{
 			for(int i=0;i<availableDeliveriesDriverApp.size();i++){
 				String deliveryTime =action.getText(availableTripsPage.Text_CustomerName(i+1)).substring(0,27);
-				System.out.println(deliveryTime);
 				if(deliveryTime.contentEquals(fullCustomerName)){
 					testStepAssert.isFail("Delivery is present in available bungiis");
 					isDeliveryPresentInDriverApp=false;
 				}
 			}
-			if(isDeliveryPresentInDriverApp=true) {
+			if(isDeliveryPresentInDriverApp==true) {
 				testStepAssert.isPass("Delivery is not present in available bungiis");
 			}
 		}
@@ -374,7 +366,6 @@ public class AvailableTripsSteps extends DriverBase {
 			String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
 
 			testStepAssert.isElementTextEquals(scheduledTripsPage.Label_PickupId(),pickupId, pickupId +" should be displayed", pickupId +" is displayed", pickupId+" is not displayed");
-			//testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupOrigin(),source, source +" should be displayed", source +" is displayed", source+" is not displayed");
 			testStepAssert.isElementTextEquals(scheduledTripsPage.Label_PickupCustomer(),customerName, customerName +" should be displayed", customerName +" is displayed", customerName+" is not displayed");
 		} catch(Exception e){
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
