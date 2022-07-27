@@ -2,7 +2,6 @@
 Feature: Admin_Price_Override
 
   @ready
-
   Scenario: Verify the Price override button is displayed, check save and cancel button functionality and Estimated Customer charge is updated on admin portal
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -38,6 +37,7 @@ Feature: Admin_Price_Override
     And I get the old values of "Driver cut" for "Service level"
     And I check if "Price Override" button is displayed
     And I click on "Price Override" button on delivery details
+    And "Save" and "Cancel" buttons should have background color "blue" and "white" respectively
     And I change the "Customer price"
     And I select Reason as "Custom Quote"
     And I change the "Driver cut"

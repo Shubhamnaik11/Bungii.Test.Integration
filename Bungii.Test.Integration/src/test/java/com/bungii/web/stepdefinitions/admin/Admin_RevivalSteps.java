@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_RefundsPage;
 import com.bungii.web.pages.admin.Admin_RevivalPage;
+import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.admin.Admin_TripsPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -31,7 +32,7 @@ public class Admin_RevivalSteps extends DriverBase {
     DbUtility dbUtility = new DbUtility();
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
-
+    Admin_TripDetailsPage admin_tripDetailsPage = new Admin_TripDetailsPage();
 
     @Then("^Revive button should be displayed beside the trip$")
     public void revive_button_should_be_displayed_beside_the_trip() throws Throwable {
@@ -49,6 +50,52 @@ public class Admin_RevivalSteps extends DriverBase {
                 true);
     }
     }
+
+    @And("^\"([^\"]*)\" and \"([^\"]*)\" buttons should have background color \"([^\"]*)\" and \"([^\"]*)\" respectively$")
+    public void something_and_something_buttons_should_have_background_color_something_and_something_respectively(String primaryButton, String secondaryButton, String primaryColor, String secondaryColor) throws Throwable {
+
+        try {
+            String expectedHighlightColor = "";
+            switch (primaryColor.toLowerCase()) {
+                case "blue":
+                    expectedHighlightColor = "rgba(68, 138, 193, 1)";
+                    break;
+                case "white":
+                    expectedHighlightColor = "rgba(232, 232, 232, 1)";
+                    break;
+            }
+            String primaryButtonBackgroundColor ="";
+            switch (primaryButton.toLowerCase()) {
+                case "confirm":
+                primaryButtonBackgroundColor = admin_revivalPage.Button_Confirm().getCssValue("background-color");
+                  break;
+                case "save":
+                    primaryButtonBackgroundColor = admin_tripDetailsPage.Button_Save().getCssValue("background-color");
+                    break;
+            }
+
+            testStepAssert.isEquals(primaryButtonBackgroundColor, expectedHighlightColor, primaryButton +" button should be highlighted with "+primaryColor+" color", primaryButton +" button is highlighted with "+primaryColor+" color", primaryButton +" button is not highlighted with "+primaryColor+" color");
+
+            switch (secondaryColor.toLowerCase()) {
+                case "blue":
+                    expectedHighlightColor = "rgba(68, 138, 193, 1)";
+                    break;
+                case "white":
+                    expectedHighlightColor = "rgba(232, 232, 232, 1)";
+                    break;
+            }
+            String secondaryButtonBackgroundColor = admin_revivalPage.Button_Cancel().getCssValue("background-color");
+            testStepAssert.isEquals(secondaryButtonBackgroundColor, expectedHighlightColor, secondaryButton +" button should be highlighted with "+secondaryColor+" color", secondaryButton +" button is highlighted with "+secondaryColor+" color", secondaryButton +" button is not highlighted with "+secondaryColor+" color");
+
+
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @Then("^I should see \"([^\"]*)\" message on popup with PickupId anad Pickup Origin$")
     public void i_should_see_something_message_on_popup_with_pickupid_anad_pickup_origin(String message) throws Throwable {
 

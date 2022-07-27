@@ -19,6 +19,7 @@ Feature: Admin_Revival
 	And I view the Deliveries list on the admin portal
 	And I search the delivery of Customer
 	Then Revive button should be displayed beside the trip
+	And "Confirm" and "Cancel" buttons should have background color "blue" and "white" respectively
 	When I click on "Revive" button
 	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
 	When I click on "Confirm" button on Revival Popup
