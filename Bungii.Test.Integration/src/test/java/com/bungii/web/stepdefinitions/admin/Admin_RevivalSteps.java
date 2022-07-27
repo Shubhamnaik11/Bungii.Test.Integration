@@ -75,17 +75,16 @@ public class Admin_RevivalSteps extends DriverBase {
             }
 
             testStepAssert.isEquals(primaryButtonBackgroundColor, expectedHighlightColor, primaryButton +" button should be highlighted with "+primaryColor+" color", primaryButton +" button is highlighted with "+primaryColor+" color", primaryButton +" button is not highlighted with "+primaryColor+" color");
-
             switch (secondaryColor.toLowerCase()) {
                 case "blue":
                     expectedHighlightColor = "rgba(68, 138, 193, 1)";
                     break;
                 case "white":
-                    expectedHighlightColor = "rgba(232, 232, 232, 1)";
+                    expectedHighlightColor = "none";
                     break;
             }
-            String secondaryButtonBackgroundColor = admin_revivalPage.Button_Cancel().getCssValue("background-color");
-            testStepAssert.isEquals(secondaryButtonBackgroundColor, expectedHighlightColor, secondaryButton +" button should be highlighted with "+secondaryColor+" color", secondaryButton +" button is highlighted with "+secondaryColor+" color", secondaryButton +" button is not highlighted with "+secondaryColor+" color");
+            String secondaryButtonBackgroundColor = admin_revivalPage.Button_Cancel().getCssValue("background");
+            testStepAssert.isTrue(secondaryButtonBackgroundColor.contains(expectedHighlightColor), secondaryButton +" button should be highlighted with "+secondaryColor+" color", secondaryButton +" button is highlighted with "+secondaryColor+" color", secondaryButton +" button is not highlighted with "+secondaryColor+" color");
 
 
 
