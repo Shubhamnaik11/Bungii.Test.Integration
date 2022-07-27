@@ -28,8 +28,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(UpdateStatusSteps.class);
@@ -55,7 +54,50 @@ public class HomePageSteps extends DriverBase {
         }
 
     }
+    @And("I open first Trip from driver scheduled trip")
+    public void iSelectFirstTripFromDriverScheduledTrip() {
+        try{
+            action.click(scheduledBungiiPage.Cell_FirstScheduledTrip());
+            pass("I select already scheduled bungii", "I select first scheduled bungii", true);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I open second Trip from driver scheduled trip$")
+    public void i_open_second_trip_from_driver_scheduled_trip() throws Throwable {
+        try{
+            action.click(scheduledBungiiPage.Cell_SecondTrip());
+            pass("I select already scheduled bungii", "I select second scheduled bungii", true);
 
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I check conflicting pop up is displayed$")
+    public void i_check_conflicting_pop_up_is_displayed() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(scheduledBungiiPage.Notification_ConflictingDelivery(),
+                    "Conflicting delivery notification should be displayed",
+                    "Conflicting delivery notification is displayed",
+                    "Conflicting delivery notification is not displayed");
+
+            String expectedMessage = PropertyUtility.getMessage("conflicting.delivery.error.message");
+            String actualMessage = action.getText(scheduledBungiiPage.Notification_ConflictingDelivery());
+
+            testStepAssert.isEquals(actualMessage,expectedMessage,
+                    "Correct conflicting delivery message should be displayed",
+                    "Correct conflicting delivery message is displayed",
+                    "Correct conflicting delivery message is not displayed");
+            action.click(scheduledBungiiPage.Button_NotificationOk());
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {

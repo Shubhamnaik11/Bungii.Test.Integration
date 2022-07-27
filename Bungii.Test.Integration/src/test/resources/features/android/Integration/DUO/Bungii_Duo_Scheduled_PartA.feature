@@ -174,7 +174,12 @@ Feature: Bungii Duo Scheduled Part A
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for short stack trip
     And Bungii Driver "slides to the next state"
+    And Bungii Driver "skips to rate customer"
     Then Bungii Driver "completes Bungii"
+    And I click "Next Bungii" button on the "Bungii Completed" screen
+
+#    Core-3098 Verify online/offline pop up is not shown when driver has accepted stack trip
+    And I check online or offline pop up is not displayed
     
     Then I click on notification for "CUSTOMER -Driver started stack Bungii"
     Then "Enroute screen" page should be opened
@@ -191,6 +196,7 @@ Feature: Bungii Duo Scheduled Part A
     And I tap on "No free money" on Bungii estimate
     
     And I Switch to "driver" application on "ORIGINAL" devices
+    And Bungii Driver "skips to rate customer"
     Then Bungii Driver "completes Bungii"
     
     Then I cancel all bungiis of customer

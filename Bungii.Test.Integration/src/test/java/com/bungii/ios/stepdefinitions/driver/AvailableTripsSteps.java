@@ -2,6 +2,7 @@ package com.bungii.ios.stepdefinitions.driver;
 
 
 import com.bungii.SetupManager;
+import com.bungii.ios.enums.Rejection_Reason;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -11,8 +12,10 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
+import com.bungii.ios.utilityfunctions.DbUtility;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -21,6 +24,7 @@ import static com.bungii.common.manager.ResultManager.*;
 public class AvailableTripsSteps extends DriverBase {
 	AvailableTripsPage availableTripsPage;
 	private static LogUtility logger = new LogUtility(AvailableTripsSteps.class);
+	DbUtility dbUtility = new DbUtility();
 	ActionManager action = new ActionManager();
 	public AvailableTripsSteps(AvailableTripsPage availableTripsPage) {
 		this.availableTripsPage = availableTripsPage;
@@ -33,7 +37,8 @@ public class AvailableTripsSteps extends DriverBase {
 			Thread.sleep(5000);
 			String milesText  = action.getText(availableTripsPage.Text_FromHomeMiles());
 			Thread.sleep(2000);
-			boolean isMilesPresent = milesText.contains("miles");
+			boolean isMilesPresent = (milesText.contains("miles") || milesText.contains("mile") )? true : false;
+
 			testStepAssert.isTrue(isMilesPresent,"Text should be updated to miles","Text is updated to miles","Text is not updated to miles");
 
 			if (action.isAlertPresent()){ SetupManager.getDriver().switchTo().alert().dismiss();   Thread.sleep(1000);        }
@@ -183,6 +188,110 @@ public class AvailableTripsSteps extends DriverBase {
 			action.click(availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true));
 	}
 
+	@And("^I click on the back button and verify the rejection popup$")
+	public void i_click_on_the_back_button_and_verify_the_rejection_popup() throws Throwable {
+		try{
+			action.click(availableTripsPage.Button_Back());
+			Thread.sleep(3000);
+			testStepAssert.isElementDisplayed(availableTripsPage.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
 
+		}
+		catch (Exception ex){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "I cannot click on back button",
+					true);
+		}
+	}
+
+	@And("^I click on \"([^\"]*)\" button on rejection popup$")
+	public void i_click_on_something_button_on_rejection_popup(String button) throws Throwable {
+		try {
+			switch (button){
+				case "CANCEL":
+					action.click(availableTripsPage.Button_Cancel());
+					break;
+				case "SUBMIT":
+					action.click(availableTripsPage.Button_Submit());
+					break;
+			}
+			log("I should be able to click on "+button+" button",
+					"I am able to click on "+button+" button",
+					false);
+		}
+		catch (Exception ex){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "I cannot click on "+button+" button",
+					true);
+		}
+	}
+	@And("^I check if all reasons are displayed on rejection popup$")
+	public void i_check_if_all_reasons_are_displayed_on_rejection_popup() throws Throwable {
+		try{
+			List<String> expectedOptions = new ArrayList() {{
+				Rejection_Reason.TOO_FAR_AWAY.toString();
+				Rejection_Reason.EARNINGS.toString();
+				Rejection_Reason.LABOR_REQUIREMENTS.toString();
+				Rejection_Reason.TYPE_OF_ITEM.toString();
+				Rejection_Reason.NOT_ENOUGH_INFORMATION.toString();
+				Rejection_Reason.NOT_AVAILABLE.toString();
+			}};
+			for (int j =0;j<expectedOptions.size();j++){
+				String expectedReason= expectedOptions.get(j);
+				String actualReason = availableTripsPage.Text_RejectionReasons(expectedReason).getAttribute("name");
+				testStepAssert.isEquals(actualReason,expectedReason,"The actual and expected reasons should be same","The actual and expected reasons are the same","The actual and expected reasons are not the same");
+			}
+
+		}
+		catch (Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step Should be successful", "Error in viewing result set",
+					true);
+		}
+	}
+	@Then("^I check if the reason is saved in db$")
+	public void i_check_if_the_reason_is_saved_in_db() throws Throwable {
+		try{
+			String driverNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_PHONE_NUMBER");
+			String reason = dbUtility.checkRejectionReason(driverNumber);
+			if(!(reason.isEmpty()))
+			{
+				testStepAssert.isTrue(true,"The rejection reason is saved in db","The rejection reason is not saved in db");
+			}
+			else{
+				testStepAssert.isTrue(false,"The rejection reason is saved in db","The rejection reason is not saved in db");
+			}
+		}
+		catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
+	@And("^I click on the back button and verify that rejection popup is absent$")
+	public void i_click_on_the_back_button_and_verify_that_rejection_popup_is_absent() throws Throwable {
+		try{
+			action.click(availableTripsPage.Button_Back());
+			Thread.sleep(2000);
+
+			testStepAssert.isFalse(action.isElementPresent(availableTripsPage.Text_RejectionPopup(true)),"Rejection Reason pop-up must not be displayed","Rejection Reason pop-up is not displayed", "Rejection Reason pop-up is displayed");
+
+		}
+		catch (Exception ex){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "I cannot click on back button",
+					true);
+		}
+	}
+	@Then("^I verify the rejection popup is displayed$")
+	public void i_verify_the_rejection_popup_is_displayed() throws Throwable {
+		try{
+			testStepAssert.isElementDisplayed(availableTripsPage.Text_RejectionPopup(),"Rejection Reason pop-up must be displayed","Rejection Reason pop-up is displayed","Rejection Reason pop-up is not displayed");
+		}
+		catch (Exception ex){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+			error("Step should be successful", "I cannot click on back button",
+					true);
+		}
+	}
 
 }

@@ -94,8 +94,8 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
-  
-	  @ready
+
+   @regression
    #Stable
     Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip at same time
       
@@ -142,7 +142,7 @@
         | Customer Phone  | Customer2 Phone |
         | 8877661038      | 8877661039      |
   
-	  @ready
+	@regression
    #Stable
     Scenario: Verify that TELET time of duo scheduled when trip is not started and non controlled driver is assigned to another scheduled trip at same time
 
@@ -189,8 +189,8 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
-  
-	  @ready
+
+   @regression
    #Stable
     Scenario: Verify that TELET time of duo scheduled when trip is not started and both driver is assigned to another scheduled trip at same time
      
@@ -236,8 +236,8 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9999992222      |
   
-	  @ready
-   #Stable
+	  @regression
+      #Stable
       Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned to another scheduled trip TELET overlap
        
         When I request "duo" Bungii as a customer in "goa" geofence
@@ -282,8 +282,8 @@
           | Customer Phone  | Customer2 Phone |
           | 9999990074      | 9999992222      |
   
-	  @ready
-   #Stable
+	  @regression
+      #Stable
       Scenario: Verify that TELET time of duo scheduled when trip is not started and non controlled driver is assigned to another scheduled trip at same time
   
         When I request "duo" Bungii as a customer in "goa" geofence

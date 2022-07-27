@@ -34,7 +34,7 @@ Feature: Customer Home screen
     #Then current location should be present as pickup location
     And "Drop" address should be empty
 
-  @ready
+  @regression
   Scenario:Verify That Dropoff Field Is Displayed Only When Pickup Address Is Set
     Given I am on Customer logged in Home page
     And I open "customer" application on "same" devices
@@ -124,7 +124,7 @@ Feature: Customer Home screen
     Then "Drop" address should be displayed in text box
     And Clear Button should be enabled for "Drop" box
 
-    @ready
+    @regression
     Scenario: Verify that existing customer account is successfully deleted
       When I Switch to "customer" application on "same" devices
       When I am on the "LOG IN" page
