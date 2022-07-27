@@ -34,7 +34,7 @@ Feature: SoloScheduled Part H
       | CUSTOMER1_PHONE | 8888889916      |
     ########################################################################
   
-  @ready
+  @regression
   Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii :arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -152,12 +152,12 @@ Feature: SoloScheduled Part H
     When I click "YES" on the alert message
     And I Select "HOME" from driver App menu
     Then Bungii driver should see "Home screen"
-    
+
     When I go to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then "Home" page should be opened
-    
+
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |

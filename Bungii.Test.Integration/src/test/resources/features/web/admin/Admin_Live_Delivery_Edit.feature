@@ -89,7 +89,7 @@ Feature: Admin_Live_Delivery_Edit
       And Delivery price is recalculated based on updated value of drop off address
 
     #CORE-3257
-    @ready
+  @regression
     Scenario Outline:Verify that admin user is able to cancel customer live delivery with <TripStatus> status
       When I request "Solo Scheduled" Bungii as a customer in "nashville" geofence
         | Bungii Time   | Customer Phone  | Customer Name |
@@ -147,7 +147,7 @@ Feature: Admin_Live_Delivery_Edit
       |DriverStatus        |CustomerPhone|CustomerName                        |DriverName                              |TripStatus  |
       |Enroute             |9999999150   |Testcustomertywd_appleNewRY Customer|Testdrivertywd_appleks_a_drvaa Kansas_aa|Trip Started|
 
-  @ready
+  @regression
   Scenario Outline:Verify that admin user is able to mark customer live delivery complete with <TripStatus> status
     When I request "Solo Scheduled" Bungii as a customer in "nashville" geofence
       | Bungii Time   | Customer Phone  | Customer Name |

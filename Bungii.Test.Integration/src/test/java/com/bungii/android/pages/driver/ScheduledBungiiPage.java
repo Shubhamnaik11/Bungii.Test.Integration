@@ -13,6 +13,7 @@ public class ScheduledBungiiPage extends  PageBase {
     public WebElement Button_Start() { return findElement("//android.widget.Button[@text='START BUNGII']", LocatorType.XPath); }
 
     public WebElement Cell_FirstTrip() { return findElement("(//android.widget.TextView[@resource-id='com.bungii.customer:id/item_my_bungii_tv_date'])[1]", LocatorType.XPath);}
+    public WebElement Cell_SecondTrip() { return findElement("//android.widget.LinearLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[2]/android.view.ViewGroup", LocatorType.XPath);}
 
     public WebElement Text_ScheduledBungiiStatus() { return  findElement("com.bungii.driver:id/scheduled_row_textview_status", LocatorType.Id);}
 

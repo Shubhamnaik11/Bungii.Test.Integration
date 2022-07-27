@@ -752,3 +752,43 @@ Feature: Partner Integration with Admin and Driver
     #And I navigate to partner portal and view the Trip status with below status
     #  | Partner_Status |
     #  | Completed      |
+
+#  Core-3842 Verify that Estimated Delivery time is displayed correctly on delivery details of geofence based Partner portal
+  @ready
+  Scenario:Verify that Estimated Delivery time is displayed correctly on delivery details of geofence based Partner portal
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | 8877661048 | Testcustomertywd_appleMarkAW LutherAW|
+    And I calculate the estimated delivery time for "geofence based portal"
+    And I wait for "2" mins
+
+    When I navigate to "Admin" portal configured for "QA" URL
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s) |
+
+    When I view the delivery details
+    Then I check if correct "estimated time geofence based Partner portal" is displayed
+
+#   Core-3842 Verify that Estimated delivery time is calculated correctly when admin edits scheduled delivery address of partner trip
+    When I navigate back to Scheduled Deliveries
+    And I click on "Edit" link beside scheduled bungii
+    And I click on "Edit Trip Details" radiobutton
+    And I edit the drop off address
+    And I change the drop off address to "4800 East 63rd Street, Kansas City"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    When I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    And I click on "Close" button
+    And I get the new pickup reference generated
+    And I wait for "2" mins
+    When I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s) |
+    When I view the delivery details
+    And I calculate the estimated delivery time for "edited address for geofence based portal"
+#   Core-3391 Verify that Estimated time on admin portal details delivery page gets updated when delivery address is changed
+    Then I check if correct "estimated time geofence based Partner portal" is displayed
+

@@ -226,7 +226,7 @@ Feature: Admin_PartnerFirmTrips
     And I get the new pickup reference generated
 
   @sanity
-  @ready
+  @regression
     #failed in sprint 49 regression
     #test data created in base
     #changed driver name

@@ -3,12 +3,14 @@ package com.bungii.ios.stepdefinitions.admin;
 import com.bungii.SetupManager;
 //import com.bungii.android.pages.admin.DriversPage;
 //import com.bungii.android.pages.admin.LiveTripsPage;
+import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.pages.admin.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -37,7 +39,8 @@ public class LiveTripsSteps extends DriverBase {
     ActionManager action = new ActionManager();
     DriversPage driversPage = new DriversPage();
     GeneralUtility utility = new GeneralUtility();
-
+    InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
+    Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
     @Then("^I select trip from live trips$")
     public void i_select_trip_from_live_trips() throws Throwable {
         try {
@@ -484,4 +487,26 @@ public class LiveTripsSteps extends DriverBase {
         }
         return geofenceName;
     }
+    @And("^I change delivery type from \"([^\"]*)\"")
+    public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
+        try{
+            switch (radiobutton) {
+                case "Solo to Duo":
+                    action.click(admin_EditScheduledBungiiPage.RadioButton_Duo());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE","DUO");
+                    break;
+                case "Duo to Solo":
+                    action.click(admin_EditScheduledBungiiPage.RadioButton_Solo());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE","SOLO");
+                    break;
+            }
+            log("I change delivery type from  "+ radiobutton,
+                    "I changed delivery type from "+ radiobutton, false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }
