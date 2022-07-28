@@ -227,6 +227,15 @@ Feature: Partner Integration with Admin and Driver
       | driver1 state   |
       | Driver Canceled |
     And I view the Deliveries list on the admin portal
+    And I wait for 2 minutes
+    And I search the delivery of Customer
+    Then Revive button should be displayed beside the trip
+    When I click on "Revive" button
+    Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+    And I should see "Partner" details on review popup
+    And I should not see "Pickup Origin" on review popup
+    And "Confirm" and "Cancel" buttons should have background color "blue" and "white" respectively
+
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status    |
       | Canceled       |

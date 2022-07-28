@@ -57,4 +57,11 @@ public class Admin_TripsPage extends PageBase {
     public WebElement CheckBox_FilterScheduled () { return findElement("chkPickupCategory-2", LocatorType.Id); }
 
     public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
+
+    public WebElement Label_ReviveCustomerDetail () { return findElement("//div[contains(.,'Customer')]/b[2]", LocatorType.XPath); }
+
+    public WebElement Label_RevivePartnerDetail () { return findElement("//span[contains(.,'Partner')]/b", LocatorType.XPath); }
+
+    public WebElement Label_RevivePickupOriginDetail (boolean...ignoreException) { return findElement("//div[contains(.,'Pickup Origin')]", LocatorType.XPath,ignoreException); }
+
 }

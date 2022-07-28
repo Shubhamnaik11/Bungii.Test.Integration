@@ -44,13 +44,39 @@ public class Admin_RevivalSteps extends DriverBase {
             String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']/img", customerName);
             testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
             cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
+            String partnerName = action.getText(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td[1]", customerName), PageBase.LocatorType.XPath));
+            cucumberContextManager.setScenarioContext("PARTNER",partnerName);
+
         } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
     }
-
+    @And("^I should see \"([^\"]*)\" details on review popup$")
+    public void i_should_see_something_and_something_details_on_review_popup(String who) throws Throwable {
+        String customer ="";
+        switch(who.toLowerCase()) {
+          case "customer":
+               customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+          testStepAssert.isEquals(action.getText(admin_TripsPage.Label_ReviveCustomerDetail()),customer,"Customer "+ customer+" details should be shown","Customer "+ customer+" details are shown","Customer "+ customer+" details are not shown");
+          break;
+          case "partner":
+               customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+              testStepAssert.isEquals(action.getText(admin_TripsPage.Label_ReviveCustomerDetail()),customer,"Customer "+ customer+" details should be shown","Customer "+ customer+" details are shown","Customer "+ customer+" details are not shown");
+              String partner = (String) cucumberContextManager.getScenarioContext("PARTNER");
+              testStepAssert.isEquals(action.getText(admin_TripsPage.Label_RevivePartnerDetail()),partner,"Partner "+ partner+" details should be shown","Partner "+ partner+" details are shown","Partner "+ partner+" details are not shown");
+              break;
+      }
+    }
+    @And("^I should not see \"([^\"]*)\" on review popup$")
+    public void i_should_not_see_something_and_something_details_on_review_popup(String who) throws Throwable {
+        switch(who.toLowerCase()) {
+            case "pickup origin":
+                testStepAssert.isFalse(action.isElementPresent(admin_TripsPage.Label_RevivePickupOriginDetail(true)),"Pickup origin details should not be shown","Pickup origin details is not shown","Pickup origin details is shown");
+                break;
+        }
+    }
     @And("^\"([^\"]*)\" and \"([^\"]*)\" buttons should have background color \"([^\"]*)\" and \"([^\"]*)\" respectively$")
     public void something_and_something_buttons_should_have_background_color_something_and_something_respectively(String primaryButton, String secondaryButton, String primaryColor, String secondaryColor) throws Throwable {
 

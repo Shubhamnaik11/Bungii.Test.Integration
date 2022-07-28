@@ -7,9 +7,10 @@ Feature: Admin_Partners_Business_And_EAPI
     Then I should be directed to "Partner Portal Page"
 
   @ready
+    @read
   Scenario: Verify that Add New Partner button is disabled
     And The "New Partner" button should not be displayed
-    
+    Then I should see "Unlock Portals" submenu
     
   #Core-2441: To verify that admin can unlock locked out partner users for different portal types
   @ready
@@ -118,3 +119,4 @@ Feature: Admin_Partners_Business_And_EAPI
 #      | EAPIMart_<<Unique>>_Edited| Partner | 9766209256 | bungiiauto@gmail.com | Anil  | Bani| 6200 Kansas Zoo | Kansas | Kansas | Kansas | 64132 | This is EAPI edited Partner| CC|Active|
 #    When I click on the "Save" Button on "Add Partner" popup
 #    Then the partner "RMart_<<Unique>>_Edited" gets saved successfully and it is displayed in the Partners grid
+

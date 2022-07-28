@@ -258,6 +258,18 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 true);
     }
     }
+    @Then("^I should see \"([^\"]*)\" submenu$")
+    public void i_should_see_something_submenu(String submenu) throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(admin_partnerPortalPage.Menu_UnlockPartners(),"I should see "+submenu+" submenu", "I see "+submenu+" submenu", "I do not see "+submenu+" submenu");
+
+
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 
     @And("^I verify and approve all the verification fields$")
     public void i_verify_and_approve_all_the_verification_fields() throws Throwable {
