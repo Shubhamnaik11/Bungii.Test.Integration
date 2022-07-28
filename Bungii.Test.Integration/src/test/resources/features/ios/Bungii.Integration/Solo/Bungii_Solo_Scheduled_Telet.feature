@@ -286,6 +286,8 @@ Feature: Solo Scheduled Bungii - TELET
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_applega_a_steve Stark_altOnE" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I click "More Options" button on "update" screen
     And I click "Customer Signature" button on "update" screen
     Then I should see the customers name under the customer name field
@@ -293,4 +295,5 @@ Feature: Solo Scheduled Bungii - TELET
     And I should be able to add customer signature
     And I click "Submit Data" button on "update" screen
     And I slide update button on "UNLOADING ITEM" Screen
-    And Bungii Driver "skips to rate customer"
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
