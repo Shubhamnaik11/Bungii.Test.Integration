@@ -1342,8 +1342,12 @@ try{
 
         String portalName= (String) cucumberContextManager.getScenarioContext("Portal_Name");
         if (portalName.equalsIgnoreCase("BestBuy2 service level")){
+            String deliveryNumber=emailSubject.substring(0,2);
             String partnerPortal=PropertyUtility.getDataProperties("partner.baltimore.name");
-            emailSubject=partnerPortal+" has completed one of their initial deliveries!";
+            if(deliveryNumber.equalsIgnoreCase("1st")){
+                emailSubject=partnerPortal+" has completed one of their initial deliveries!";
+            }
+
         }
 
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);

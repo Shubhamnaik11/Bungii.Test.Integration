@@ -91,8 +91,8 @@ Feature: Service Level
       | driver1 state|
       | Bungii Completed |
     And I wait for 2 minutes
-#   Core-3647 Verify that email notification is sent on configured email id's once first 3 partner portal trips are completed
-    And Partner firm should receive "Initial deliveries" email
+##   Core-3647 Verify that email notification is sent on configured email id's once first 3 partner portal trips are completed
+#    And Partner firm should receive "1st-Initial deliveries" email
 
     And I view All Deliveries list on the admin portal
     And I search the delivery using "Pickup Reference"

@@ -6,12 +6,19 @@
 		<link rel="stylesheet" href="stylesheets/style.css" type="text/css" media="screen" charset="utf-8">
 	</head>
 	<body>
-		Hi,
-		<br><br>
-		New partner %PortalName% has completed their %DeliveryCount% delivery. Take a minute to reach out and congratulate them and follow-up on how we can best help them grow with Bungii.
-		<br><br>
-		Thanks,
-		<br><br>
-		The Bungii Team
+		<p>Hi,</p>
+        <p>New partner %PartnerName% has scheduled their %DeliveryCount% delivery. Please perform the instructions below and give this first delivery special attention to start the partner off on the right foot with Bungii!</p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Get a driver assigned to this order ASAP.</li>
+            <li>Text the drivers the following:<ul>
+                    <li>Hi [driver name]! Heads up, the delivery you accepted for [partner name] on [date/time] is the first delivery for this new partner. Please ensure you&rsquo;ve read, understood and are capable of performing all of the delivery details and arrive on-time for pickup to make a great first impression! Let us know if you have any questions!</li>
+                </ul>
+            </li>
+            <li>Closely monitor that this delivery is executed properly.</li>
+        </ol>
+        <p>Thanks,</p>
+        <p><br></p>
+        <p>The Bungii Team </p>
 	</body>
 </html>
