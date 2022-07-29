@@ -98,6 +98,16 @@
       And I Select Trip from driver scheduled trip
       Then I check if variable sign is not shown under "schedule bungii details"
 
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      When I navigate to "Partner" portal configured for "service level" URL
+      When I enter "valid" password on Partner Portal
+      And I click "SIGN IN" button on Partner Portal
+      When I click the "Track Deliveries" button on Partner Portal
+      And I click on the delivery based on customer name
+      And I click "Cancel Delivery link" button on Partner Portal
+      And I click "Cancel Delivery" button on Partner Portal
+      Then I click "OK" button on Partner Portal
+
 #  Core-2411:Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip
     @ready
     Scenario: Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip

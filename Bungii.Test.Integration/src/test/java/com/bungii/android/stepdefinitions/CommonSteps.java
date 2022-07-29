@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.admin.DashBoardPage;
 import com.bungii.android.pages.admin.LogInPage;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.LocationPage;
 import com.bungii.android.pages.driver.*;
@@ -28,6 +29,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -67,6 +69,7 @@ public class CommonSteps extends DriverBase {
     LogInPage logInPage=  new LogInPage();
     DashBoardPage dashBoardPage=new DashBoardPage();
     PhonePage phonePage = new PhonePage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
 
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
@@ -1394,4 +1397,141 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+    @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
+    public void i_navigate_to_something(String page, String url) throws Throwable {
+        try{  switch (page)
+        {
+            case "Partner":
+                String partnerUrl =  utility.NavigateToPartnerLogin(url);
+                cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerUrl);
+                cucumberContextManager.setScenarioContext("IS_PARTNER","TRUE");
+                pass("I should be navigate to " + page + " portal configured for "+ url ,
+                        "I navigated to " + page + " portal configured for "+ url +" ["+partnerUrl+"]", true);
+                break;
+            default:break;
+        }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @When("^I enter \"([^\"]*)\" password on Partner Portal$")
+    public void WhenIEnterPasswordOnPartnerPortal(String str)
+    {
+        try{
+            //SetupManager.getObject().manage().window().maximize();
+            switch (str)
+            {
+                case "valid":
+                    action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                    break;
+                case "invalid":
+                    action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("Invalid_PartnerPassword"));
+                    break;
+                default: break;
+            }
+            log("I should able to enter "+str+" driver Password on Partner portal","I entered "+str +" partner Password on Partner portal", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I click \"([^\"]*)\" button on Partner Portal$")
+    public void I_Click_Some_Button_On_Partner_Portal(String str) throws InterruptedException {
+        try {
+            switch (str) {
+                case "SIGN IN":
+                    action.click(scheduledTripsPage.Button_Sign_In());
+                    break;
+                case "Track Deliveries":
+                    Thread.sleep(5000);
+                    action.click(scheduledTripsPage.Dropdown_Setting());
+                    Thread.sleep(5000);
+                    action.click(scheduledTripsPage.Button_Track_Deliveries());
+                    Thread.sleep(5000);
+                    if(action.getCurrentURL().contains("login")|| action.getCurrentURL().contains("Login"))
+                    {
+                        //Workaround for app getting logged out when run in parallel
+                        action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                        action.click(scheduledTripsPage.Button_Sign_In());
+                        Thread.sleep(5000);
+                        testStepVerify.isEquals(action.getText(scheduledTripsPage.Label_Start_Over()), PropertyUtility.getMessage("Start_Over_Header"));
+                        Thread.sleep(5000);
+                        if(!action.isElementPresent(scheduledTripsPage.Dropdown_Setting(true))) {
+                            action.click(scheduledTripsPage.Link_Setting());
+                            action.clearSendKeys(scheduledTripsPage.Textbox_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                            action.click(scheduledTripsPage.Button_Continue());
+                        }
+                        action.click(scheduledTripsPage.Dropdown_Setting());
+                        action.click(scheduledTripsPage.Button_Track_Deliveries());
+
+                    }
+                    break;
+                case "Cancel Delivery link":
+                    action.click(scheduledTripsPage.Link_Cancel_Delivery());
+                    break;
+                case "OK":
+                    action.click(scheduledTripsPage.Button_OK());
+                    break;
+                case "OK on Delivery Cancellation Failed":
+                    action.click(scheduledTripsPage.Button_Ok__On_Delivery_Cancellation_Failed());
+                    break;
+                case "Cancel Delivery":
+                    action.click(scheduledTripsPage.Button_Cancel_Delivery());
+                    break;
+                default:
+                    break;
+
+            }
+            log("I click on "+str+ " button ", "I clicked on "+str+ " button ", true);
+
+        }
+        catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step , I Should "+ str,
+                    true);
+        }
+    }
+    @And("^I click the \"([^\"]*)\" button on Partner Portal$")
+    public void I_Click_the_Some_Button_On_Partner_Portal(String str) throws InterruptedException {
+        try {
+            Thread.sleep(2000);
+            action.click(scheduledTripsPage.Dropdown_Setting());
+            action.click(scheduledTripsPage.Button_Track_Deliveries());
+            Thread.sleep(5000);
+            String  columnTracking = "TRACKING ID";
+            cucumberContextManager.setScenarioContext("TRACKINGID_COLUMN", action.getText(scheduledTripsPage.Text_TrackingId_Column()));
+            testStepAssert.isEquals((String) cucumberContextManager.getScenarioContext("TRACKINGID_COLUMN"),columnTracking,"Tracking ID column should  exist","Tracking ID column exists","Tracking Id column doesnt exist");
+
+            cucumberContextManager.setScenarioContext("PARTNER_CUSTOMERNAME",action.getText(scheduledTripsPage.Text_Trip_Customer()));
+            cucumberContextManager.setScenarioContext("PARTNER_TRACKINGID", action.getText(scheduledTripsPage.Text_Trip_TrackingId()));
+            cucumberContextManager.setScenarioContext("DELIVERY_ADDRESS", action.getText(scheduledTripsPage.Text_Trip_DeliveryAddress()).replace(",", ""));
+            Thread.sleep(2000);
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I click on the delivery based on customer name$")
+    public void i_click_on_the_delivery_based_on_customer_name() throws Throwable {
+        try{
+            action.click(scheduledTripsPage.Textbox_SearchBar());
+            Thread.sleep(1000);
+            action.clearSendKeys(scheduledTripsPage.Textbox_SearchBar(), (String)cucumberContextManager.getScenarioContext("CUSTOMER") + Keys.ENTER);
+            Thread.sleep(1000);
+            action.click(scheduledTripsPage.Link_SelectTripTrackDeliveries());
+            log("I should be able to click on the customer trip","I could click on the customer trip",false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }
