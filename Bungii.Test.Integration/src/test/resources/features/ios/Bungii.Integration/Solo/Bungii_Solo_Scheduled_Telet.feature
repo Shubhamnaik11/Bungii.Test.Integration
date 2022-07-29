@@ -269,19 +269,20 @@ Feature: Solo Scheduled Bungii - TELET
 	When I Switch to "driver" application on "same" devices
 	Then Telet time of research trip should be not be same as previous trips
 
-  @testAllan
+  @ready
+    #working proeprly
   Scenario:Customer signature
-#    When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
-#      |Geofence| Bungii Time   | Customer Phone | Customer Name |
-#      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
-#    And As a driver "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "Solo Scheduled" Delivery
-#      | driver1 state |
-#      | Accepted      |
-#      | Enroute  |
-#      | Arrived |
-#      | Loading Item |
-#      | Driving To Dropoff |
-#      | Unloading Item |
+    When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+    And As a driver "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_applega_a_steve Stark_altOnE" driver
@@ -297,3 +298,32 @@ Feature: Solo Scheduled Bungii - TELET
     And I slide update button on "UNLOADING ITEM" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I select "Admin Canceled" from the dropdown
+    And I select "Customer initiated - other reason" as the reason from the reason dropdown
+    And I click on "Confirm Status" button
+    And I click on "Cancel Status" button
+    And I wait for 2 minutes
+    And I Select "trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then I should see the customer signature row present in admin portal all delivery details page
+
+  @testAllan
+  Scenario:Customer signature
+    When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+    And As a driver "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |

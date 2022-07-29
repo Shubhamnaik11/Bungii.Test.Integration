@@ -635,6 +635,12 @@ public class CommonStepsDriver extends DriverBase {
                     pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
                     break;
+                case "Confirm Status":
+                    action.click(scheduledTripsPage.Button_ConfirmStatus());
+                    break;
+                case "Cancel Status":
+                    action.click(scheduledTripsPage.Button_CloseStatus());
+                    break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }

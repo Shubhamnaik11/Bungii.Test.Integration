@@ -5,15 +5,24 @@ import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.MobileDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.PerformsTouchActions;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.*;
 
 
 public class TripDetailsSteps extends DriverBase {
@@ -21,9 +30,13 @@ public class TripDetailsSteps extends DriverBase {
     ActionManager action = new ActionManager();
     private TripDetailsPage tripDetailsPage;
     private UpdateStatusPage updateStatusPage;
-    public TripDetailsSteps(TripDetailsPage tripDetailsPage,UpdateStatusPage updateStatusPage) {
+    private ScheduledTripsPage scheduledTripsPage;
+
+
+    public TripDetailsSteps(TripDetailsPage tripDetailsPage,UpdateStatusPage updateStatusPage,ScheduledTripsPage scheduledTripsPage) {
         this.tripDetailsPage = tripDetailsPage;
         this.updateStatusPage = updateStatusPage;
+        this.scheduledTripsPage = scheduledTripsPage;
     }
 
     @When("^I accept selected Bungii$")
@@ -185,11 +198,105 @@ public class TripDetailsSteps extends DriverBase {
 
     @And("^I should be able to add customer signature$")
     public void i_should_be_able_to_add_customer_signature() throws Throwable {
-        Thread.sleep(1000);
-        action.clickBy4Points(160,353,130,464);
-        action.clickBy4Points(168,350,188,464);
-        action.clickBy4Points(122,401,199,399);
-        action.clickBy4Points(78,509,249,441);
+        Thread.sleep(2000);
+        action.click(updateStatusPage.TextBox_Signature());
+        DrawSignature();
+        Thread.sleep(5000);
+    }
+    public void DrawSignature() throws InterruptedException {
+//        action.dragFromToForDuration(160,335,130,464,1);
+        IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
+
+
+        int startX =160;
+        int startY=335;
+        int endX =130;
+        int endY=461;
+        new TouchAction(driver)
+                .press(new PointOption<>().withCoordinates(startX, startY))
+                .moveTo(new PointOption<>().withCoordinates(endX, endY))
+                .moveTo(new PointOption<>().withCoordinates(endX+50, endY+50))
+                .release()
+                .perform();
+
+        int startX1 =157;
+        int startY2=390;
+        int endX3 =107;
+        int endY4=338;
+        new TouchAction(driver)
+                .press(new PointOption<>().withCoordinates(startX1, startY2))
+                .moveTo(new PointOption<>().withCoordinates(endX3, endY4))
+                .moveTo(new PointOption<>().withCoordinates(endX3+50, endY4+50))
+                .release()
+                .perform();
+    }
+
+    @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
+    public void i_click_on_the_something_link_beside_scheduled_bungii_for_something(String strArg1, String deliveryType) throws Throwable {
+        try{
+            switch (deliveryType){
+                case "Completed Deliveries":
+                    Thread.sleep(4000);
+                    action.click(scheduledTripsPage.Link_DeliveryDetails());
+                    Thread.sleep(2000);
+                    action.click(scheduledTripsPage.List_ViewDeliveries());
+                    break;
+            }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I should see the customer signature row present in admin portal all delivery details page$")
+    public void i_should_see_the_customer_signature_row_present_in_admin_portal_all_delivery_details_page() throws Throwable {
+        boolean isCustomerSignatureDisplayed = scheduledTripsPage.Label_CustomerSignature().isDisplayed();
+        testStepVerify.isTrue(isCustomerSignatureDisplayed,"cus displayed");
+    }
+
+    @And("^I select \"([^\"]*)\" from the dropdown$")
+    public void i_select_something_from_the_dropdown(String status) throws Throwable {
+        try{
+            Thread.sleep(5000);
+            action.click(scheduledTripsPage.Link_ChangeDeliveryStatus());
+            Thread.sleep(4000);
+            action.click(scheduledTripsPage.DropDown_DeliveryStatus());
+            switch (status){
+                case "Admin Canceled":
+                case "Partner Canceled":
+                case "Driver Canceled":
+                case "Customer Canceled":
+                    action.click(scheduledTripsPage.Text_DeliveryStatus(status));
+                    break;
+            }
+            log("I should be able to click on "+status+" link", "I could click on "+status+" link",false);
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I select \"([^\"]*)\" as the reason from the reason dropdown$")
+    public void i_select_something_as_the_reason_from_the_reason_dropdown(String changestatusreason) throws Throwable {
+        try {
+            action.click(scheduledTripsPage.DropDown_DeliveryStatusReason());
+            switch (changestatusreason) {
+                case "Driver initiated":
+                case "Customer initiated - other reason":
+                case "Outside of delivery scope":
+                case "Solo: Driver not found":
+                case "Other":
+                    action.click(scheduledTripsPage.Text_DeliveryStatusReason(changestatusreason));
+                    break;
+            }
+            log("I should be able to click on " + changestatusreason + " option", "I could click on " + changestatusreason + " option", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 }
