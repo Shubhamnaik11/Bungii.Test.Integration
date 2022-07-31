@@ -504,6 +504,7 @@ Feature: Admin_Trips
   When I click on "ISSUE REFUND" button
   Then The "Issue Refund" section should be displayed
   When I select "Partial Refund" radio button
+  When I update "Earnings" as "10.00" dollars
   And I enter "Customer Refund Amount" as "5" dollars
   When I update "Earnings" as "10.00" dollars
   And I enter "Bungii Internal Notes" as "Internal Note"
