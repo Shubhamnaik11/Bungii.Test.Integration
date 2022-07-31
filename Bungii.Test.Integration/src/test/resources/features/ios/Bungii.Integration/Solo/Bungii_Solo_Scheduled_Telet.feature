@@ -269,9 +269,9 @@ Feature: Solo Scheduled Bungii - TELET
 	When I Switch to "driver" application on "same" devices
 	Then Telet time of research trip should be not be same as previous trips
 
-  @ready
+  @testAllan
     #working proeprly
-  Scenario:Customer signature
+  Scenario:Verify Customer Signature screen is shown on driver app for Partner trips
     When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
@@ -283,16 +283,42 @@ Feature: Solo Scheduled Bungii - TELET
       | Loading Item |
       | Driving To Dropoff |
       | Unloading Item |
+
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_appleNewU Customer" customer
+    And I edit the drop off address
+    Then I change the drop off address to "100 Robin Road Extension"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+    When I click on "CLOSE" button
+    And I get the new pickup reference generated
+
+    And I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_applega_a_steve Stark_altOnE" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
     And I slide update button on "UNLOADING ITEMS" Screen
     And I driver adds photos to the Bungii
     And I click "More Options" button on "update" screen
     And I click "Customer Signature" button on "update" screen
     Then I should see the customers name under the customer name field
+
+    When I request "Solo" Bungii as a customer in "atlanta" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | 1_DAY_LATER | 9284174823       | Krishna Hoderker|
+    
     And I should be able to add the text "Signed By customer" in the signed by field
+    And I should be able to add customer signature
+    And I click on "Clear Signature" button
+    And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
     And I should be able to add customer signature
     And I click "Submit Data" button on "update" screen
     And I slide update button on "UNLOADING ITEM" Screen
@@ -313,17 +339,258 @@ Feature: Solo Scheduled Bungii - TELET
     And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row present in admin portal all delivery details page
+    And The customer signature field is "Signature Present"
 
-  @testAllan
-  Scenario:Customer signature
-    When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
+  @ready
+    #done
+  Scenario:Verify Customer signature can be skipped on driver app
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
-    And As a driver "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "Solo Scheduled" Delivery
-      | driver1 state |
-      | Accepted      |
+      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted     |
       | Enroute  |
       | Arrived |
       | Loading Item |
       | Driving To Dropoff |
       | Unloading Item |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I should see the "Customer Signature" header "Displayed"
+    And I click on "Skip Customer Signature" button
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJr" the customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then I should see the customer signature row present in admin portal all delivery details page
+    And The customer signature field is "N/A"
+
+
+  @ready
+  Scenario:Verify customer signature screen is shown for only the control driver when he/she completes the trip first
+    When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" and "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Edit" button from the dropdown
+    And I select the first driver
+    And I click on "Remove Driver" button
+    And I Select "Edit Trip Details" option
+    And I assign driver "Testdrivertywd_applega_a_bryan Stark_altFour" for the trip
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+    When I click on "CLOSE" button
+    And I get the new pickup reference generated
+    And As a driver "Testdrivertywd_applega_a_steve Stark_altOnE" and "Testdrivertywd_applega_a_bryan Stark_altFour" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Driving To Drop-off       | Driving To Drop-off       |
+
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applega_a_steve Stark_altOnE" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I connect to "extra1" using "Driver2" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applega_a_bryan Stark_altFour" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I click on "Got It" button
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I click on "Got It" button
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the customers name under the customer name field
+    And I should be able to add the text "Signed By customer" in the signed by field
+    And I should be able to add customer signature
+    And I click on "Clear Signature" button
+    And I should be able to add customer signature
+    And I click "Submit Data" button on "update" screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    And I should be navigated to "Rate duo teammate" screen
+
+    When I Switch to "driver" application on "Driver2" devices
+    Then I should see the "Customer Signature" header "Not Displayed"
+    And I should be navigated to "Rate duo teammate" screen
+
+
+  @ready
+  Scenario:Verify customer signature screen is shown only for control driver , even when non control driver completes trip first
+    When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" and "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Driving To Drop-off  |  Driving To Drop-off  |
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I connect to "extra1" using "Driver2" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applega_a_steve Stark_altOnE" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I click on "Got It" button
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    #failed to process the bungii
+    And I should be navigated to "Rate duo teammate" screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I click on "Got It" button
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the customers name under the customer name field
+    And I should be able to add the text "Signed By customer" in the signed by field
+    And I should be able to add customer signature
+    And I click "Submit Data" button on "update" screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    And I should be navigated to "Rate duo teammate" screen
+
+
+  @ready
+  Scenario:Verify driver app when admin completes the trip before signature is taken
+    When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted     |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJ" the customer
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Completed" radiobutton
+    And I enter delivery completion date and time as per geofence
+    And I click on "CALCULATE COST" button
+    Then Confirmation message on edit live delivery pop up should be displayed
+    And I click on "CONFIRM CHANGES" button
+    Then The "Pick up has been successfully updated." message should be displayed for live delivery
+    And I click on "CLOSE" button
+    And I wait for 2 minutes
+    And I Select "trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJ" the customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then I should see the customer signature row present in admin portal all delivery details page
+    And The customer signature field is "N/A"
+
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    Then I see "Rate customer" screen
+    And I select "4" customer rating
+    And I click "Submit" button on "Rate customer" screen
+    Then I should be navigated to "Bungii Completed" screen
+
+
+  @ready
+  Scenario:Verify driver app when admin completes the trip after signature is taken
+    When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted     |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the customers name under the customer name field
+    And I should be able to add the text "Signed By customer" in the signed by field
+    And I should be able to add customer signature
+    And I click "Submit Data" button on "update" screen
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Completed" radiobutton
+    And I enter delivery completion date and time as per geofence
+    And I click on "CALCULATE COST" button
+    Then Confirmation message on edit live delivery pop up should be displayed
+    And I click on "CONFIRM CHANGES" button
+    Then The "Pick up has been successfully updated." message should be displayed for live delivery
+    And I click on "CLOSE" button
+    And I wait for 2 minutes
+    And I Select "trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then I should see the customer signature row present in admin portal all delivery details page
+    And The customer signature field is "Signature Present"
+
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    Then I see "Rate customer" screen
+    And I select "4" customer rating
+    And I click "Submit" button on "Rate customer" screen
+    Then I should be navigated to "Bungii Completed" screen
+

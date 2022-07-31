@@ -4,10 +4,13 @@ package com.bungii.ios.stepdefinitions.driver;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
+import com.bungii.ios.utilityfunctions.DbUtility;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,11 +19,20 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -28,6 +40,7 @@ import static com.bungii.common.manager.ResultManager.*;
 public class TripDetailsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(TripDetailsSteps.class);
     ActionManager action = new ActionManager();
+    GeneralUtility GeneralUtility = new GeneralUtility();
     private TripDetailsPage tripDetailsPage;
     private UpdateStatusPage updateStatusPage;
     private ScheduledTripsPage scheduledTripsPage;
@@ -185,7 +198,7 @@ public class TripDetailsSteps extends DriverBase {
     }
     @Then("^I should see the customers name under the customer name field$")
     public void i_should_see_the_customers_name_under_the_customer_name_field() throws Throwable {
-        String deliveryCreatedCustomerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String deliveryCreatedCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,27);
         String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp());
         testStepVerify.isEquals(customerName,deliveryCreatedCustomerName);
     }
@@ -205,30 +218,33 @@ public class TripDetailsSteps extends DriverBase {
     }
     public void DrawSignature() throws InterruptedException {
 //        action.dragFromToForDuration(160,335,130,464,1);
+//
+//
+       int startX =160;
+//        int startY=335;
+       int endX =130;
+//        int endY=461;
+//        new TouchAction(driver)
+//                .press(new PointOption<>().withCoordinates(startX, startY))
+//                .moveTo(new PointOption<>().withCoordinates(endX, endY))
+//                .moveTo(new PointOption<>().withCoordinates(endX+50, endY+50))
+//                .release()
+//                .perform();
+//
+//        int startX1 =157;
+//        int startY2=390;
+//        int endX3 =107;
+//        int endY4=338;
+//        new TouchAction(driver)
+//                .press(new PointOption<>().withCoordinates(startX1, startY2))
+//                .moveTo(new PointOption<>().withCoordinates(endX3, endY4))
+//                .moveTo(new PointOption<>().withCoordinates(endX3+50, endY4+50))
+//                .release()
+//                .perform();
+// a bit more reliable when we add small wait
         IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
-
-
-        int startX =160;
-        int startY=335;
-        int endX =130;
-        int endY=461;
-        new TouchAction(driver)
-                .press(new PointOption<>().withCoordinates(startX, startY))
-                .moveTo(new PointOption<>().withCoordinates(endX, endY))
-                .moveTo(new PointOption<>().withCoordinates(endX+50, endY+50))
-                .release()
-                .perform();
-
-        int startX1 =157;
-        int startY2=390;
-        int endX3 =107;
-        int endY4=338;
-        new TouchAction(driver)
-                .press(new PointOption<>().withCoordinates(startX1, startY2))
-                .moveTo(new PointOption<>().withCoordinates(endX3, endY4))
-                .moveTo(new PointOption<>().withCoordinates(endX3+50, endY4+50))
-                .release()
-                .perform();
+        new TouchAction(driver).press(PointOption.point(160,335))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1))).moveTo(PointOption.point(0,0)) .release().perform();
     }
 
     @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
@@ -299,4 +315,171 @@ public class TripDetailsSteps extends DriverBase {
         }
     }
 
+    @Then("^I should see the \"([^\"]*)\" header \"([^\"]*)\"$")
+    public void i_should_see_the_something_header_something(String expectedText, String signatureDisplayed) throws Throwable {
+        Thread.sleep(1000);
+        switch (signatureDisplayed){
+            case "Displayed":
+                boolean signaturetDisplayed = updateStatusPage.Header_CustomerSignature().isDisplayed();
+                String customerSign = action.getText(updateStatusPage.Header_CustomerSignature());
+                testStepVerify.isTrue(signaturetDisplayed,"is displayed");
+                testStepVerify.isEquals(customerSign,expectedText);
+                break;
+            case "Not Displayed":
+                testStepVerify.isFalse(action.isElementPresent(updateStatusPage.Header_CustomerSignature(true)),expectedText+ " is not displayed",expectedText+ " is not displayed",expectedText+ " is  displayed");
+                break;
+        }
+    }
+
+    @And("^The customer signature field is \"([^\"]*)\"$")
+    public void the_customer_signature_field_is_something(String expectedText) throws Throwable {
+        switch (expectedText) {
+            case "N/A":
+                Thread.sleep(2000);
+                String customerSignatureFieldText =action.getText(scheduledTripsPage.Label_CustomerSignatureNA());
+                testStepVerify.isEquals(customerSignatureFieldText,expectedText);
+            case "Signature Present":
+                Thread.sleep(2000);
+                String ExpectedText ="Customer Signature";
+                boolean isSignaturePresent = scheduledTripsPage.Image_CustomerSignature().isDisplayed();
+               String customerSignaturePresent = (scheduledTripsPage.Image_CustomerSignature().getAttribute("title"));
+               testStepVerify.isTrue(isSignaturePresent,"is displayed");
+               testStepVerify.isEquals(customerSignaturePresent,ExpectedText);
+
+        }
+
+    }
+
+    @Then("^The \"([^\"]*)\" message should be displayed for live delivery$")
+    public void the_something_message_should_be_displayed_for_live_delivery(String message) throws Throwable {
+        if(message.equalsIgnoreCase("Pick up has been successfully updated.")){
+            testStepAssert.isElementTextEquals(updateStatusPage.Label_DeliverySuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+        }
+        else {
+            testStepAssert.isElementTextEquals(updateStatusPage.Label_CancelSuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+        }
+    }
+    @Then("^Confirmation message on edit live delivery pop up should be displayed$")
+    public void confirmation_message_on_edit_live_delivery_pop_up_should_be_displayed() throws Throwable  {
+        try
+        {
+            String expectedMessage = PropertyUtility.getMessage("admin.complete.confirm");
+            String actualMessage = action.getText(updateStatusPage.Message_AdminCompleteConfirm());
+            testStepAssert.isEquals(actualMessage, expectedMessage, expectedMessage + "should be displayed", expectedMessage + "is displayed", actualMessage + "is displayed");
+        }
+
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I enter delivery completion date and time as per geofence$")
+    public void i_enter_delivery_completion_date_and_time_as_per_geofence() throws Throwable {
+        try{
+            String strDate="";
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+            String geofenceLabel = GeneralUtility.getTimeZoneBasedOnGeofenceIdForIos();
+            Calendar calendar = Calendar.getInstance();
+            DateFormat formatter = new SimpleDateFormat("MMddYYYY-hh:mm-a");
+            formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+            // calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)-1);
+            //calendar.add(Calendar.MINUTE,-5);
+
+            strDate = formatter.format(calendar.getTime());
+            String[] dateTime = strDate.split("-");
+            String date = dateTime[0];
+            String time = dateTime[1];
+            String meridian = dateTime[2];
+
+            action.clearSendKeys(updateStatusPage.Textbox_PickupEndDate(),date);
+            action.clearSendKeys(updateStatusPage.Textbox_PickupEndTime(),time);
+            action.selectElementByText(updateStatusPage.Dropdown_ddlpickupEndTime(),meridian);
+            log("Correct date= "+date+" and time= "+time+meridian+" should be enter for the "+geofence+" geofence.","Correct date= "+date+" and time= "+time+meridian+" is enter for the "+geofence+" geofence.",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I click on \"([^\"]*)\" radiobutton$")
+    public void i_click_on_something_radiobutton(String radiobutton) throws Throwable {
+        try{
+            switch (radiobutton) {
+                case "Edit Delivery Status":
+                    action.click(updateStatusPage.RadioButton_EditDeliveryStatus());
+                    Thread.sleep(1000);
+                    break;
+                default:
+                    break;
+            }
+            log("I click "+ radiobutton,
+                    "I have clicked on "+ radiobutton, false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @When("^I click on \"([^\"]*)\" link beside live delivery$")
+    public void i_click_on_something_link_beside_live_delivery(String link) throws Throwable {
+        try{
+            Thread.sleep(4000);
+            action.click(scheduledTripsPage.Icon_Dropdown());
+            action.click(scheduledTripsPage.Option_Edit());
+            log(" I click on Edit link besides the live delivery",
+                    "I have clicked on Edit link besides the live delivery", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I select the first driver$")
+    public void i_select_the_first_driver() throws Throwable {
+        try{
+
+            action.click(scheduledTripsPage.Checkbox_driver());
+            log("I select the driver",
+                    "I selected the driver", true);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @When("^I click on the \"([^\"]*)\" button from the dropdown$")
+    public void i_click_on_the_something_button_from_the_dropdown(String buttonText) throws Throwable {
+        try {
+            Thread.sleep(5000);
+            action.click(scheduledTripsPage.Link_DeliveryDetails());
+            switch (buttonText) {
+                case "Edit":
+                    action.click(scheduledTripsPage.Button_Edit());
+                    break;
+            }
+            log("I should be able to click on the " + buttonText + " button from the dropdown", "I could  click on the  " + buttonText + "  button from the dropdown", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I search the delivery using \"([^\"]*)\"$")
+    public void i_search_the_delivery_using_something(String strArg1) throws Throwable {
+        try {
+            Thread.sleep(1000);
+            action.clearSendKeys(scheduledTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
+            log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

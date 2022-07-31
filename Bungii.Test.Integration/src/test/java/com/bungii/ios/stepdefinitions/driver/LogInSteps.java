@@ -176,6 +176,21 @@ public class LogInSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+            case "testdrivertywd_appledc_a_web testdrivera":
+                phone = PropertyUtility.getDataProperties("web.valid.driver1.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1","Testdrivertywd_appledc_a_web TestdriverA");
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_applega_a_bryan stark_altfour":
+                phone = "9623813997";
+                password = PropertyUtility.getDataProperties("valid.driver2.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1",PropertyUtility.getDataProperties("valid.driver2.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+
             default:
                 throw new Exception("Please specify valid input");
         }

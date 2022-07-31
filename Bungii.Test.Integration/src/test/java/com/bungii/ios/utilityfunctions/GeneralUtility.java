@@ -1878,4 +1878,12 @@ catch (Exception e)
         action.click(admin_dashboardPage.List_Geofence());
         action.click(admin_dashboardPage.Button_ApplyGeofence());
     }
+    public String getTimeZoneBasedOnGeofenceIdForIos() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        // currentGeofence="kansas";
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone.id");
+        return getGeofenceTimeZone;
+    }
 }

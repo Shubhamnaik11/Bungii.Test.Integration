@@ -641,6 +641,27 @@ public class CommonStepsDriver extends DriverBase {
                 case "Cancel Status":
                     action.click(scheduledTripsPage.Button_CloseStatus());
                     break;
+                case "Skip Customer Signature":
+                    action.click(driverUpdateStatusPage.Button_SkipCustomerSignature());
+                    break;
+                case "Clear Signature":
+                    action.click(driverUpdateStatusPage.Button_ClearSignature());
+                    break;
+                case "Got It":
+                    action.click(driverUpdateStatusPage.Alert_DropOffInstructionsGotIt());
+                    break;
+                case "CALCULATE COST":
+                    action.click(driverUpdateStatusPage.Button_CalculateCost());
+                    break;
+                case "CONFIRM CHANGES":
+                    action.click(scheduledTripsPage.Button_Confirm());
+                    break;
+                case "CLOSE":
+                    action.click(scheduledTripsPage.Button_ClosePopUp());
+                    break;
+                case "Remove Driver":
+                    action.click(scheduledTripsPage.Button_RemoveDrivers());
+                    break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }
