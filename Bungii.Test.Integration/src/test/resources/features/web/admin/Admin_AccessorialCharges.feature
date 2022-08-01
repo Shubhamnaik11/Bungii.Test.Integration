@@ -125,10 +125,10 @@ And I login to driver portal on a new tab with driver phone number "9049840210"
 And I click on "Driver Details" link to get the total driver earnings value screen and navigate back to admin portal
 And I wait for 2 minutes
 And I view the Deliveries list on the admin portal
-	And I should see field name as partner on delivery listing screen
+And I should see field name as partner on delivery listing screen
 When  I search the delivery using "Pickup Reference"
 And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-	And I should see field name as partner on delivery detail screen
+And I should see field name as partner on delivery detail screen
 Then I should see "Accessorial Charges" section displayed
 When I add following accessorial charges and save it
 | Amount   | Fee Type         | Comment                           | Driver Cut |
