@@ -44,11 +44,14 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "ARRIVED" Screen
+    And I driver adds photos to the Bungii
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Loading Items"
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
+    And I slide update button on "LOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Driving To Dropoff"
@@ -61,6 +64,8 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I see "Rate customer" screen
     And I select "4" customer rating
@@ -105,21 +110,21 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
+    Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEMS" Screen
     Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+    Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEMS" Screen

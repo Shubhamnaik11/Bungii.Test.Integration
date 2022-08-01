@@ -74,6 +74,8 @@ Feature: Service Level
     Then I should "see the trip in the Delivery List"
     And I select the Scheduled Bungii from Delivery List
     Then I should "see the service name"
+#    Core-3391 Verify that new field Estimated Delivery Time is displayed on details delivery page of Partner portal
+    And I check if correct "estimated time on partner portal" is displayed
     Then I close the Trip Delivery Details page
     When I navigate to "Admin" portal configured for "QA" URL
     #When I navigate to "Bungii Admin Portal in new tab" URL
@@ -82,6 +84,10 @@ Feature: Service Level
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Assigning Driver(s)|
+
+#    Core-3391 Verify that new field Estimated Delivery Time is displayed on details delivery page of Admin portal
+    When I view the delivery details
+    Then I check if correct "estimated time on admin portal" is displayed
     #Then the Bungii details is displayed successfully
     #And I should logout from Partner Portal
 
@@ -115,16 +121,40 @@ Feature: Service Level
     Then I should "see the trip in the Delivery List"
     And I select the Scheduled Bungii from Delivery List
     Then I should "see the service name"
+    #    Core - 3842 Verify that Estimated Delivery time is displayed correctly on delivery details of Fixed distance based Partner portal
+    And I calculate the estimated delivery time for "fixed distance based"
+    And I check if correct "estimated time fixed distance based Partner portal" is displayed
     Then I close the Trip Delivery Details page
     When I navigate to "Admin" portal configured for "QA" URL
     And I wait for 2 minutes
-    And I view the all Scheduled Deliveries list on the admin portal
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Assigning Driver(s) |
     And I select the partner portal scheduled trip on scheduled delivery
     Then I should "see correct Estimation Duration" for "Biglots" Alias
+
+#   Core-3391 Verify that Estimated time on partner portal details delivery page gets updated when delivery address is changed
+    When I navigate back to Scheduled Deliveries
+    And I click on "Edit" link beside scheduled bungii
+    And I click on "Edit Trip Details" radiobutton
+    And I edit the drop off address
+    And I change the drop off address to "4400 Massachusetts Avenue Northwest"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    When I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    And I click on "Close" button
+    And I get the new pickup reference generated
+    And I wait for "2" mins
+
+    When I navigate to "Partner" portal configured for "service level" URL
+    When I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    And I click "Track Deliveries" button on Partner Portal
+    Then I should "see the trip in the Delivery List"
+    And I select the Scheduled Bungii from Delivery List
+    And I calculate the estimated delivery time for "fixed distance based"
+    And I check if correct "estimated time fixed distance based Partner portal" is displayed
 
 #CORE-1862 scenario
   @regression

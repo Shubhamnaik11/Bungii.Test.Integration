@@ -400,8 +400,14 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void navigateFromTermToHomeScreen() throws InterruptedException {
-        action.click(termsAndConditionPage.Button_CheckOff());
-        action.click(termsAndConditionPage.Button_Continue());
+        //action.click(termsAndConditionPage.Button_CheckOff());
+        //action.click(termsAndConditionPage.Button_Continue());
+        if(action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
+            action.click(termsAndConditionPage.Button_CheckOff());
+            action.click(termsAndConditionPage.Button_Continue());
+            Thread.sleep(3000);
+            // pageHeader = utility.getPageHeader();
+        }
         if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
             action.click(enableNotificationPage.Button_Sure());
             action.clickAlertButton("Allow");
@@ -409,6 +415,7 @@ public class GeneralUtility extends DriverBase {
 
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
+            Thread.sleep(3000);
             action.clickAlertButton("Always Allow"); // Added for customer App changes  Krishna
         }
         Thread.sleep(5000);
@@ -605,9 +612,16 @@ public class GeneralUtility extends DriverBase {
         boolean isCorrectPage = false;
         String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
 
-        action.textToBePresentInElementName(driverHomePage.Text_DriverNavigationBar(key), expectedMessage);
-        isCorrectPage = action.getScreenHeader(driverHomePage.Text_DriverNavigationBar(key)).equals(expectedMessage);
+        if(key.equalsIgnoreCase("Bungii")){
+            List<WebElement> count = Collections.singletonList(driverHomePage.Text_HomeLoginNavigationBar());
+            if(count.size() == 1)
+            isCorrectPage = true;
 
+        }
+        else {
+            action.textToBePresentInElementName(driverHomePage.Text_LoginNavigationBar(key), expectedMessage);
+            isCorrectPage = action.getScreenHeader(driverHomePage.Text_LoginNavigationBar(key)).equals(expectedMessage);
+        }
         return isCorrectPage;
     }
 
@@ -664,6 +678,14 @@ public class GeneralUtility extends DriverBase {
                 logger.detail("DRIVER APP");
                 isCorrectPage = action.getScreenHeader(driverHomePage.Header_ItemizedEarnings()).equals("ITEMIZED EARNINGS");
                 break;
+            case "EARNINGS":
+                logger.detail("DRIVER APP");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_Earnings()).equals("EARNINGS");
+                break;
+            case "RATE DUO TEAMMATE":
+                logger.detail("DRIVER APP");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_RateDuoTeammate()).equals("Rate duo teammate");
+                break;
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {
@@ -712,6 +734,7 @@ public class GeneralUtility extends DriverBase {
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.trip.details");
                 break;*/
             case "HOME":
+            case "BUNGII":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.home");
                 break;
             case "SET PICKUP TIME":
@@ -728,6 +751,9 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "SCHEDULED BUNGII":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.scheduled.bungii");
+                break;
+            case "AVAILABLE BUNGIIS":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.available.trips");
                 break;
             case "LEADERBOARD":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.leaderboard");

@@ -26,7 +26,7 @@ Feature: Driver_Signup
     And I click "Signup button" on driver portal
     Then I should see "existing phone error" on Driver Registration
 
-  @ready
+  @regression
     Scenario: Verify verbiage is updated on the Sign up page
     Then I should see the "Verbiage" displayed
     And I enter "valid" details on Signup page

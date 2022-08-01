@@ -4,7 +4,7 @@ Feature: Floor and Decore Service Level
   Background:
     Given I navigate to "Partner" portal configured for "FloorDecor service level" URL
 
-  @ready
+  @regression
   Scenario: Verify that 1pallet and 2pallets are shown instead of solo and duo for floor and decor partner portal
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal

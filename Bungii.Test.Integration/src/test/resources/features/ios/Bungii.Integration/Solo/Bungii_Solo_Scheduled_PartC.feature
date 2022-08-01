@@ -9,7 +9,7 @@ Feature: Solo Scheduled Bungii Part C
     #When I clear all notification
     When I Switch to "customer" application on "same" devices
 
-  @ready
+  @regression
  #stable
   Scenario: Verify Re-searched Trip Request Doesnt Show Urgent Notification Text If Is More Than One Hour From The Scheduled Trip Time in iOS
     Given that solo schedule bungii is in progress
@@ -31,7 +31,7 @@ Feature: Solo Scheduled Bungii Part C
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @ready
+  @regression
     #stable
   Scenario: Verify Validation Message Shown If Driver Tries To Start A Bungii More Than 60 Mins Before The Scheduled Time
     Given that solo schedule bungii is in progress
@@ -144,9 +144,12 @@ Feature: Solo Scheduled Bungii Part C
     
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
+    And I select "4" Ratting star for solo Driver 1
+    And I click "Submit" button on "Rate duo teammate" screen
+    And I click "Skip This Step" button on "Rate customer" screen
     Then non control driver should see "waiting for other driver" screen
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "UNLOADING ITEM" screen
+    Then I should be navigated to "UNLOADING ITEMS" screen
 
     #control driver complete bungii
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Duo Scheduled" trip
@@ -161,11 +164,11 @@ Feature: Solo Scheduled Bungii Part C
     Then I should be navigated to "Home" screen
 
     When I Switch to "driver" application on "same" devices
-    And I click "Skip This Step" button on "Rate customer" screen
-    Then Bungii driver should see "correct details" on Bungii completed page
+    #And I click "Skip This Step" button on "Rate customer" screen
+    #Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii completed" screen
 
-  @ready
+  @regression
   #stable
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting Solo Scheduled Bungii
     Given that solo schedule bungii is in progress
@@ -195,7 +198,7 @@ Feature: Solo Scheduled Bungii Part C
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @ready
+  @regression
   Scenario:Verify Driver Cannot Cancel Scheduled Bungii From App When Bungii Is Not Started And He Should Send SMS To Cancel Solo Scheduled Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -214,7 +217,7 @@ Feature: Solo Scheduled Bungii Part C
       | CUSTOMER1_PHONE |                 |
 
 
-  @ready
+  @regression
     #stable
   Scenario: Verify Customer Can Request Cancel Solo Scheduled Bungii Through SMS To Admin If No Driver Accepts And Processing Gets Over
     Given that solo schedule bungii is in progress
@@ -248,7 +251,7 @@ Feature: Solo Scheduled Bungii Part C
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @ready
+  @regression
     #stable
   Scenario: Verify Customer Can Request Cancel Scheduled Trip Via Admin SMS After 2 Hour (15 mins in QA Auto) Processing Is Over
     When I request "duo" Bungii as a customer in "denver" geofence

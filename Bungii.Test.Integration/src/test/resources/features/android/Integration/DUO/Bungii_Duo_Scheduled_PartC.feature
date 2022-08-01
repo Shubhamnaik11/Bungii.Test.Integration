@@ -20,6 +20,9 @@ And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
 And I Select "SCHEDULED BUNGIIS" from driver App menu
 And I Select Trip from driver scheduled trip
+#    Core - 2569 Verify ~ sign under earnings is shown on Driver app for Customer Deliveries
+And I check if variable sign is shown under "schedule bungii details"
+
 When Bungii Driver "cancels Bungii request"
 Then user is alerted for "FOR EMERGENCY CONTACT SUPPORT LINE"
 And correct details should be displayed on the "SMS FOR CANCEL INCASE OF EMERGENCEY" app
@@ -43,9 +46,8 @@ And I Switch to "driver" application on "same" devices
 And I am on the LOG IN page on driver app
 And I am logged in as "Kansas driver 1" driver
 Then Bungii driver should see "Enroute screen"
-And I click the "Cancel" button on "update" screen
-Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-When I click "YES" on the alert message
+When Bungii Driver "clicks More Options"
+When Bungii Driver "cancels Bungii"
 And I Select "HOME" from driver App menu
 Then Bungii driver should see "Home screen"
 

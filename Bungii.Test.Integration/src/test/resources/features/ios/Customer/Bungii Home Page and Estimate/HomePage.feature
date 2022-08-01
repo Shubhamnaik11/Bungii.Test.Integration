@@ -34,7 +34,7 @@ Feature: Customer Home screen
     #Then current location should be present as pickup location
     And "Drop" address should be empty
 
-  @ready
+  @regression
   Scenario:Verify That Dropoff Field Is Displayed Only When Pickup Address Is Set
     Given I am on Customer logged in Home page
     And I open "customer" application on "same" devices
@@ -123,3 +123,25 @@ Feature: Customer Home screen
     #When I select "Drop" location from customer home screen
     Then "Drop" address should be displayed in text box
     And Clear Button should be enabled for "Drop" box
+
+    @regression
+    Scenario: Verify that existing customer account is successfully deleted
+      When I Switch to "customer" application on "same" devices
+      When I am on the "LOG IN" page
+#    And I logged in Customer application using  "valid nashville" user
+      And I logged in as "valid existing" customer
+      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I close "Tutorial" if exist
+      When I Select "ACCOUNT > ACCOUNT INFO" from Customer App menu
+      Then I should be navigated to "ACCOUNT INFO" screen
+      And I click "Delete account" button on "ACCOUNT INFO" screen
+      And I confirm that Delete button is disable
+      And I enter "invalid" password and click on delete button
+      Then I should see "Incorrect password" message
+      And I click "Delete account" button on "ACCOUNT INFO" screen
+      And I enter "valid" password and click on delete button
+      Then I should see "Account deleted successfully" message
+      Then I should be navigated to "LOG IN" screen
+      And I logged in as "valid existing" customer
+      Then Alert message with INVALID_PASSWORD text should be displayed
+      When I accept Alert message

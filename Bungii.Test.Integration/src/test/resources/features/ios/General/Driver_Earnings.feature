@@ -34,6 +34,9 @@ Feature: Driver Earnings
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_appledc_a_drvB WashingtonB" driver
     And I Select "EARNINGS" from driver App menu
+
+       #    Core-2372  Verify UI of earnings page on driver app
+    And I verify all the elements on earnings page
     And I get "Itemized Earnings" from earnings page
 
         #    Core-2469  Verify UI of itemized earnings page on driver app
@@ -81,3 +84,142 @@ Feature: Driver Earnings
     And I Select "EARNINGS" from driver App menu
     And I get "Itemized Earnings" from earnings page
     Then I compare with earnings from admin portal for "duo second driver"
+
+#  Core-2345 Verify that driver can view updated pickup/drop-off address after polling refresh on app (scheduled trip)
+  @ready
+  Scenario: Verify that driver can view updated pickup/drop-off address after polling refresh on app (scheduled trip)
+    Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
+      | NEXT_POSSIBLE | 8877661019     | Cci12345          | Testcustomertywd_appleMarkT LutherT |
+    
+    And I wait for "1" mins
+    And As a driver "Testdrivertywd_appleks_a_drvan Kansas_an" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted  |
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appleks_a_drvan Kansas_an" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkT LutherT" the customer
+    And I Select "Edit Trip Details" option
+    And I edit the drop off address
+    Then I change the drop off address to "4800 East 63rd Street, Kansas City"
+    And I edit the pickup address
+    Then I change the pickup address to "6700 Lewis Road, Kansas City"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I check if "dropoff address" is updated
+    And I check if "pickup address" is updated
+#   Core - 3113 Verify that driver can rate customer after delivery completes with any admin edits.
+    And I start selected Bungii
+    When I slide update button on "EN ROUTE" Screen
+    When I slide update button on "ARRIVED" Screen
+    When I slide update button on "LOADING ITEMS" Screen
+    When I slide update button on "DRIVING TO DROP-OFF" Screen
+    When I slide update button on "UNLOADING ITEMS" Screen
+    And I select "4" customer rating
+    And I click "Submit" button on "Rate customer" screen
+    Then I should be navigated to "Bungii Completed" screen
+
+#  Core-2117 Verify that driver can view updated pickup and drop off address after polling refresh on app (live trip)
+  @ready
+  Scenario: Verify that driver can view updated pickup/drop-off address after polling refresh on app (live trip)
+    Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
+      | NEXT_POSSIBLE | 8877661013     | Cci12345          | Testcustomertywd_appleMarkN LutherN |
+
+    And As a driver "Testdrivertywd_appleks_a_drvai Kansas_ai" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted  |
+      | Enroute            |
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appleks_a_drvai Kansas_ai" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_appleMarkO LutherO" customer
+    And I Select "Edit Trip Details" option
+    And I edit the drop off address
+    Then I change the drop off address to "4800 East 63rd Street, Kansas City"
+    And I edit the pickup address
+    Then I change the pickup address to "6700 Lewis Road, Kansas City"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+     And I swipe to check trip details
+    Then I check if "dropoff address" is updated for live trip
+    Then I check if "pickup address" is updated for live trip
+
+  #    Core-2117  Verify that already accepted stacked trip does not change if current trips address(s) changes
+  @ready
+  Scenario: Verify that already accepted stacked trip does not change if current trips address(s) changes
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | goa      | Enroute      |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I Switch to "customer" application on "same" devices
+    And I logged in Customer application using  "existing" user
+
+    And I connect to "extra1" using "Customer2" instance
+    And I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid customer2" user
+
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location        | Drop Location                |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
+      | 15       |           |              | Now  | Default     | No             |
+    Then I should be navigated to "SEARCHING" screen
+
+    When I Switch to "customer" application on "ORIGINAL" devices
+    And I view and accept virtual notification for "Driver" for "stack trip"
+    And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Ondemand" customer
+    And I Select "Edit Trip Details" option
+    And I edit the drop off address
+    Then I change the drop off address to "Margao Railway Overbridge"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    Then stack trip information should be displayed on deck

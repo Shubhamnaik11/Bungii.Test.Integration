@@ -36,10 +36,19 @@ Feature: Driver_Login
     And I click "LOG IN button" on driver portal
     Then the driver should "see validation message for incorrect credentials"
 
-  @ready
+  @regression
   Scenario: Verify unmasked password(show password)is provided for password field on login page
     When I enter "valid" driver Phone Number on Driver portal
     And I enter "valid" driver Password on Driver portal
     Then The password for driver login should be masked
     When I click on the open "Eye" link on the driver login page
     Then I should see the password in the form of text
+
+  @ready
+  Scenario: Verify updated text is displayed in "Earn Extra Cash" potential earnings on driver portal
+    Then I should see updated text "$45" in "Earn Extra Cash" potential earnings on "driver" portal
+
+  @ready
+  Scenario: Verify updated text is displayed in "Earn Extra Cash" potential earnings on bungii.com portal
+    When I am on the "bungii.com" Portal
+    Then I should see updated text "$45" in "Earn Extra Cash" potential earnings on "bungii.com" portal

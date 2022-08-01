@@ -409,7 +409,7 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "Testdrivertywd_appledc_a_drvB WashingtonB":
                 phone = PropertyUtility.getDataProperties("Washington.driver9.phone");
-                break;            
+                break;
             case "GoaD DriverD":
                 phone = PropertyUtility.getDataProperties("goa.driver3.phone");
                 break;
@@ -421,6 +421,102 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "GoaG DriverG":
                 phone = PropertyUtility.getDataProperties("goa.driver6.phone");
+                break;
+            case "GoaH DriverH":
+                phone = PropertyUtility.getDataProperties("goa.driver7.phone");
+                break;
+            case "GoaI DriverI":
+                phone = PropertyUtility.getDataProperties("goa.driver8.phone");
+                break;
+            case "valid denver":
+                phone = PropertyUtility.getDataProperties("denver.driver.phone");
+                break;
+            case "valid boston":
+                phone = PropertyUtility.getDataProperties("boston.driver.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvai Kansas_ai":
+                phone = PropertyUtility.getDataProperties("Kansas.driver24.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvaj Kansas_aj":
+                phone = PropertyUtility.getDataProperties("Kansas.driver25.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvak Kansas_ak":
+                phone = PropertyUtility.getDataProperties("Kansas.driver26.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvan Kansas_an":
+                phone = PropertyUtility.getDataProperties("Kansas.driver27.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvay Kansas_ay":
+                phone = PropertyUtility.getDataProperties("Kansas.driver43.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvaz Kansas_az":
+                phone = PropertyUtility.getDataProperties("Kansas.driver44.phone");
+                break;
+            case "TestDrivertywd_applemd_a_billC Stark_bltTwO":
+                phone = PropertyUtility.getDataProperties("baltimore.driver2.phone");
+                break;
+            case "Testdrivertywd_appleks_a_gruJ Stark_ksOnJ":
+                phone = PropertyUtility.getDataProperties("Kansas.driver38.phone");
+                break;
+            case "Testdrivertywd_appleks_a_gruK Stark_ksOnK":
+                phone = PropertyUtility.getDataProperties("Kansas.driver39.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvad Kansas_ad":
+                phone = PropertyUtility.getDataProperties("Kansas.driver40.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvaw Kansas_aw":
+                phone = PropertyUtility.getDataProperties("Kansas.driver41.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvax Kansas_ax":
+                phone = PropertyUtility.getDataProperties("Kansas.driver42.phone");
+                break;
+            case "Testdrivertywd_appledv_b_mattB Stark_dvOnEB":
+                phone = PropertyUtility.getDataProperties("denver.driver3.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvah Kansas_ah":
+                phone = PropertyUtility.getDataProperties("Kansas.driver45.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvao Kansas_ao":
+                phone = PropertyUtility.getDataProperties("Kansas.driver28.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvap Kansas_ap":
+                phone = PropertyUtility.getDataProperties("Kansas.driver29.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvaq Kansas_aq":
+                phone = PropertyUtility.getDataProperties("Kansas.driver30.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvar Kansas_ar":
+                phone = PropertyUtility.getDataProperties("Kansas.driver31.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvas Kansas_as":
+                phone = PropertyUtility.getDataProperties("Kansas.driver32.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvat Kansas_at":
+                phone = PropertyUtility.getDataProperties("Kansas.driver33.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvau Kansas_au":
+                phone = PropertyUtility.getDataProperties("Kansas.driver34.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvav Kansas_av":
+                phone = PropertyUtility.getDataProperties("Kansas.driver35.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvae Kansas_ae":
+                phone = PropertyUtility.getDataProperties("Kansas.driver46.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvI WashingtonI":
+                phone = PropertyUtility.getDataProperties("Washington.driver10.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drval Kansas_al":
+                phone = PropertyUtility.getDataProperties("Kansas.driver24.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvam Kansas_am":
+                phone = PropertyUtility.getDataProperties("Kansas.driver25.phone");
+                break;
+            case "TestDrivertywd_applemd_a_billD Stark_bltTwOD":
+                phone = PropertyUtility.getDataProperties("baltimore.driver3.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvK WashingtonK":
+                phone = PropertyUtility.getDataProperties("Washington.driver13.phone");
                 break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
@@ -1576,7 +1672,10 @@ public class BungiiSteps extends DriverBase {
             String bungiiTime = dataMap.get("Bungii Time").trim();
             String customer = dataMap.get("Customer Phone").trim();
             String customerName = dataMap.get("Customer Name").trim();
-
+            if (dataMap.containsKey("Customer Note")){
+                String customerNote = dataMap.get("Customer Note").trim();
+                cucumberContextManager.setScenarioContext("Customer_Notes",customerNote);
+            }
             cucumberContextManager.setScenarioContext("Bungii_Type",bungiiType);
             cucumberContextManager.setScenarioContext("BUNGII_TYPE",bungiiType);
             String customerPasswordLabel = "";
@@ -1612,7 +1711,7 @@ public class BungiiSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("CUSTOMER_PASSWORD", custPassword);
 
             //cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
-            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
+             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
             logger.detail("*** Requesting " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence + " ***");
 
             //LOGIN
@@ -1645,6 +1744,11 @@ public class BungiiSteps extends DriverBase {
             else if(bungiiTime.equalsIgnoreCase("3_DAY_LATER"))
             {
                 coreServices.customerConfirmationScheduledForFuture(pickupRequest, paymentMethod, custAccessToken, getDaysLaterTime(3).toString());
+            }
+            else if(bungiiTime.equalsIgnoreCase(("NEXT_POSSIBLE_FIRST_SLOT")) ||bungiiTime.equalsIgnoreCase(("NEXT_POSSIBLE_THIRD_SLOT"))){
+                cucumberContextManager.setScenarioContext("BUNGII_TIME",bungiiTime);
+                int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
+                cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START", wait);
             }
             else{
                 int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
@@ -2666,8 +2770,40 @@ else
 
             if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
 
-                if (geofence.equalsIgnoreCase("denver")) {
-                    custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
+                if (geofence.equalsIgnoreCase("denver")||geofence.equalsIgnoreCase("denver1")||geofence.equalsIgnoreCase("denver2")||geofence.equalsIgnoreCase("denver3")||geofence.equalsIgnoreCase("denver4")) {
+                    switch (geofence.toLowerCase()){
+                        case "denver":
+                            custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                            break;
+                        case "denver1":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver1.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver1.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver2":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver2.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver2.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver3":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver3.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver3.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver4":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver4.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver4.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        default:
+                            break;
+                    }
+
                     custPassword = PropertyUtility.getDataProperties("denver.customer.password");
 
                     driverPhoneNum = PropertyUtility.getDataProperties("denver.driver.phone");

@@ -178,4 +178,15 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_DeliveryStatus(String status) { return findElement(String.format("//tbody/tr/td[contains(text() ,'%s')]",status), LocatorType.XPath); }
 
     public WebElement Button_View(){return  findElement("//div/button[text() =\"View\"]",LocatorType.XPath);}
+
+    public WebElement Text_TripIndicator(boolean...ignoreException){return  findElement("//tr[@id=\"row1\"]/td[1]/label",LocatorType.XPath,ignoreException);}
+
+    public WebElement Text_ScheduledTripDate(){return  findElement("//td[@class=\"no-word-break\"]/a",LocatorType.XPath);}
+
+    public WebElement Link_EditScheduleTripCalenderNextMonth(){return  findElement("//div/a[2]/span[1]",LocatorType.XPath);}
+
+    public WebElement Link_EditScheduleTripCalenderPreviousMonth(){return  findElement("//div/a[1]/span[1]",LocatorType.XPath);}
+
+    public WebElement Link_NewScheduleDeliveryDate(String newDate){return  findElement(String.format("//tbody/tr/td/a[text()=\"%s\"]",newDate),LocatorType.XPath);}
+
 }
