@@ -514,13 +514,20 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
 
 
-    @And("^\"([^\"]*)\" should show in the Report Database$")
-    public void something_should_show_in_the_report_database(String strArg1) throws Throwable {
+    @And("^I should see the following fee type displayed in the Report Database$")
+    public void i_should_see_the_following_fee_type_displayed_in_the_report_database(DataTable data) throws Throwable {
         try {
+            Thread.sleep(1000);
             String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            String expectedFeeType = (String) cucumberContextManager.getScenarioContext("Fee Type");
-            String actualFeeType = dbUtility.getAccessorialFeeType(pickuprequest);
-            testStepAssert.isEquals(actualFeeType,expectedFeeType, expectedFeeType+" should be displayed", expectedFeeType+" is displayed", expectedFeeType+" is not displayed");
+            List<Map<String, String>> DataList = data.asMaps();
+            List<String> expectedFeeType=new ArrayList();
+            for (int i=0; i < DataList.size();i++)
+           {Thread.sleep(1000);
+                String feeType = DataList.get(i).get("Fee Type").trim();
+                expectedFeeType.add(feeType);
+           }
+           List<String> actualFeeType = dbUtility.getAccessorialFeeType(pickuprequest);
+            testStepAssert.isTrue(actualFeeType.containsAll(expectedFeeType), expectedFeeType+" should be displayed", expectedFeeType+" is displayed", expectedFeeType+" is not displayed");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

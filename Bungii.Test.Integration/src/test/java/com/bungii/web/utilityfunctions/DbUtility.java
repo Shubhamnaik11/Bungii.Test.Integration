@@ -516,9 +516,14 @@ public class DbUtility extends DbContextManager {
         return bodcCodeOptions;
     }
 
-    public static String getAccessorialFeeType(String pickupref) {
-        String queryString = "select ft.accessorial_fee_type from factpickup fp join facttrip ft on ft.pickupid = fp.id where fp.pickupref = '" + pickupref + "');";
-        String FeeType = getDataFromMySqlReportServer(queryString);
+    public static List<String> getAccessorialFeeType(String pickupref) {
+        List<String> FeeType = new ArrayList<>();
+        String queryString = "select ft.accessorial_fee_type from factpickup fp join facttrip ft on ft.pickupid = fp.id where fp.pickupref = '" + pickupref + "';";
+        String response = getDataFromMySqlReportServer(queryString);
+        String[] FeeType1 = response.split("\\|");
+        for (int i = 0; i < FeeType1.length; i++) {
+            FeeType.add(FeeType1[i].trim());
+        }
         logger.detail("AccessorialFeeType =  " + FeeType + " of delivery " + pickupref);
         return FeeType;
     }

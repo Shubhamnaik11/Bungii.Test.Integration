@@ -48,7 +48,12 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
  And "accessorial_fee_amount" should show total amount in the triprequest table in Database
  And "business_notes" should show comment without quotes in the trippaymentdetails table in Database
  And I wait for 2 minutes
- And "accessorial_fee_type" should show in the Report Database
+ And I should see the following fee type displayed in the Report Database
+| Fee Type         |
+| Excess Wait Time |
+| Cancelation      |
+| Mountainous      |
+| Other            |
 
 
   @regression
