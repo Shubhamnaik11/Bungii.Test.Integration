@@ -10,8 +10,6 @@ import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.EstimatePage;
 import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
-import com.bungii.ios.pages.customer.EstimatePage;
-import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
@@ -36,8 +34,6 @@ import static com.bungii.web.utilityfunctions.DbUtility.getLinkedPickupRef;
 
 public class UpdateStatusSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(UpdateStatusSteps.class);
-    BungiiDetailsPage bungiiDetailsPage = new BungiiDetailsPage();
-    com.bungii.ios.pages.customer.EstimatePage estimatePage = new EstimatePage();
     MessagesPage messagesPage;
     Rectangle initial;
     ActionManager action = new ActionManager();

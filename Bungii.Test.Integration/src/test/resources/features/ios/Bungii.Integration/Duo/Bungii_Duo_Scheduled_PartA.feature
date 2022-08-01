@@ -264,7 +264,6 @@ Feature: Scheduled DUO Bungii Part A
 
 #    Core-3107 Verify driver(s) can rate each other successfully in a duo delivery
   @ready
-#   @testsweta
   Scenario: Verify driver(s) can rate each other successfully in a duo delivery
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

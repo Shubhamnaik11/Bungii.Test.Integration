@@ -54,6 +54,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     PromosPage promosPage=new PromosPage();
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
+    UpdateStatusPage updateStatusPage= new UpdateStatusPage();
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
     }
@@ -402,7 +403,12 @@ public class ScheduledBungiiSteps extends DriverBase {
                 case "On To The Next One":
                     action.click(estimatePage.Button_NextBungii());
                     break;
+                case "Submit":
+                    action.click(updateStatusPage.Button_Submit());
+                    break;
             }
+            log("I should be able to click on the "+button+" button",
+                    "I am able to click on the "+button+" button",false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error Occured While Requesting Bungii. Check Screenshot for more details",

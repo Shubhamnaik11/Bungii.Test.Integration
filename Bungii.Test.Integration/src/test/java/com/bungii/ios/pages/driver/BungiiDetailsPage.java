@@ -16,8 +16,6 @@ public class BungiiDetailsPage extends PageBase {
 	public WebElement TextBox_Drop_LineOne() {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[8]", LocatorType.XPath); }
 	public WebElement TextBox_Drop_LineTwo() {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[9]", LocatorType.XPath); }
 
-	public WebElement Tab_AddPhoto(){return findElement("//XCUIElementTypeStaticText[@name='Tap to add photo']",LocatorType.XPath);}
-	public WebElement Button_SavePhotos(){return findElement("//XCUIElementTypeButton[@name='Save']",LocatorType.XPath);}
 
 	public WebElement Text_DistanceTag() { return findElement("Estimated Duration: ", PageBase.LocatorType.Name); }
 	public WebElement 	Text_ValueDistance() { return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[10]", PageBase.LocatorType.XPath); }

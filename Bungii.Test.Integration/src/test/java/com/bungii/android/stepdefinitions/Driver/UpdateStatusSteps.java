@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions.Driver;
 import com.bungii.SetupManager;
 import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.*;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -28,7 +29,7 @@ import static com.bungii.common.manager.ResultManager.log;
 
 public class UpdateStatusSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(com.bungii.android.stepdefinitions.Driver.UpdateStatusSteps.class);
-
+    DbUtility dbUtility = new DbUtility();
     Rectangle initial;
     ActionManager action = new ActionManager();
     UpdateStatusPage updateStatusPage = new UpdateStatusPage();
@@ -127,65 +128,94 @@ public class UpdateStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }    }
 
-    @And("^I driver adds photos to the Bungii$")
-    public void i_driver_adds_photos_to_the_bungii() throws Throwable {
-        try{
-            action.click(updateStatusPage.Tab_AddPhoto());
-           // addBungiiPickUpImage("3 images");
-            Thread.sleep(1000);
-            if(action.isAlertPresent()){
-                try {
-                    Thread.sleep(3000);
-                    action.clickAlertButton("ALLOW");
-                    Thread.sleep(3000);
-                }
-                catch (Exception ex){
 
-                }
-                for (int i=0;i<3;i++){
-//                    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-//                    ((AndroidDriver<?>) driver).pressKey(new KeyEvent(AndroidKey.CAMERA));
-                    action.click(updateStatusPage.Button_CLick());
-                    action.click(bungiiEstimatePage.Button_Camera_OK());
-                    action.click(updateStatusPage.Tab_AddPhoto());
-                }
-            }
-
-        }
-        catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
-        }
-    }
     @And("^I check all the elements are displayed on driver rating page$")
     public void i_check_all_the_elements_are_displayed_on_driver_rating_page() throws Throwable {
         try
         {
-//            testStepAssert.isElementDisplayed(updateStatusPage.Header_RateTeamate(),
-//                    "The header Rate Duo teammate should be displayed",
-//                    "The header Rate Duo teammate is displayed",
-//                    "The header Rate Duo teammate is not displayed");
-//
-//            testStepAssert.isElementDisplayed(updateStatusPage.Star_Rating(),
-//                    "Star ratings should be displayed",
-//                    "Star ratings are displayed",
-//                    "Star ratings is not displayed");
-//
-//            testStepAssert.isElementDisplayed(updateStatusPage.Text_ChooseRating(),
-//                    "Choose Rating should be displayed",
-//                    "Choose Rating is displayed",
-//                    "Choose Rating is not displayed");
-//
-//            testStepAssert.isElementDisplayed(updateStatusPage.Text_DriverExperience(),
-//                    "Driver experience should be displayed",
-//                    "Driver experience is displayed",
-//                    "Driver experience is not displayed");
-//
-//            testStepAssert.isElementDisplayed(updateStatusPage.Button_Submit(),
-//                    "The submit button should be displayed",
-//                    "The submit button is displayed",
-//                    "The submit button is not displayed");
+            testStepAssert.isElementDisplayed(updateStatusPage.Header_RateTeamate(),
+                    "The header Rate Duo teammate should be displayed",
+                    "The header Rate Duo teammate is displayed",
+                    "The header Rate Duo teammate is not displayed");
 
+            testStepAssert.isElementDisplayed(updateStatusPage.Star_Rating(),
+                    "Star ratings should be displayed",
+                    "Star ratings are displayed",
+                    "Star ratings is not displayed");
+
+            testStepAssert.isElementDisplayed(updateStatusPage.Text_ChooseRating(),
+                    "Choose Rating should be displayed",
+                    "Choose Rating is displayed",
+                    "Choose Rating is not displayed");
+
+            testStepAssert.isElementDisplayed(updateStatusPage.Text_DriverExperience(),
+                    "Driver experience should be displayed",
+                    "Driver experience is displayed",
+                    "Driver experience is not displayed");
+
+            testStepAssert.isElementDisplayed(updateStatusPage.Button_Submit(),
+                    "The submit button should be displayed",
+                    "The submit button is displayed",
+                    "The submit button is not displayed");
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @When("^I select \"([^\"]*)\" Ratting star for solo Driver 1$")
+    public void i_select_somethingrd_ratting_star_for_solodriver_1(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "3":
+                    action.click(updateStatusPage.RatingBar());
+                    cucumberContextManager.setScenarioContext("RATING_VALUE","3");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I add a comment for driver$")
+    public void i_add_a_comment_for_driver() throws Throwable {
+        try{
+            action.scrollToBottom();
+            action.scrollToBottom();
+            testStepAssert.isElementDisplayed(updateStatusPage.Textbox_AdditionalFeedback(),
+                    "The textbox to add additional feedback should be displayed",
+                    "The textbox to add additional feedback is displayed",
+                    "The textbox to add additional feedback is not displayed");
+
+            action.sendKeys(updateStatusPage.Textbox_AdditionalFeedback(),"The driver was helpful");
+            action.click(updateStatusPage.Text_Additional());
+
+            log("I should be able to add a comment for duo driver teammate","I was able to add a comment for duo driver teammate",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^I check if the rating is saved in the db$")
+    public void i_check_if_the_rating_is_saved_in_the_db() throws Throwable {
+        try{
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String driverRating = dbUtility.getDriverRatingFromDriver(pickupRef);
+            if(!(driverRating.isEmpty()))
+            {
+                testStepAssert.isTrue(true,"The driver rating is saved in db","The driver rating is not saved in db");
+            }
+            else{
+                testStepAssert.isTrue(false,"The driver rating should be saved in db","The driver rating is not saved in db");
+            }
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

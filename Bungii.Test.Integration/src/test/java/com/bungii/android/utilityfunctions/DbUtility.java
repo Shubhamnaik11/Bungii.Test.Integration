@@ -267,4 +267,12 @@ public class DbUtility extends DbContextManager {
         String reasonId = getDataFromMySqlServer("select pickup_driver_reject_reason_id from pickup_driver_reject_reason where driver_id = "+driverId);
         return reasonId;
     }
+    public static String getDriverRatingFromDriver(String pickupRef){
+        String pickupId=getDataFromMySqlServer("select PickupID from pickupdetails where PickupRef = '"+pickupRef+"'");
+        String rating = getDataFromMySqlServer("select tr.driverrating from pickupdetails pd\n" +
+                "inner join  triprequest tr on tr.pickupid= pd.pickupid\n" +
+                "where pickupstatus = 11 and pd.pickupid ="+pickupId+" limit 1;");
+        logger.detail("The driver rating for pickupId " + pickupId + " is " + rating);
+        return rating;
+    }
 }

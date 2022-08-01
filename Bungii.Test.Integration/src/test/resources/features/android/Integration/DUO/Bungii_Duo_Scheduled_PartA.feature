@@ -411,12 +411,12 @@ Feature: Bungii Duo Scheduled Part A
     And I click "Log In" button on Log In screen on driver app
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
-#    And I slide update button on "UNLOADING ITEMS" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 #  Core-3107 Verify the elements on Driver rating page for each driver in Duo trip
     And I check all the elements are displayed on driver rating page
-    And I select "4" Ratting star for solo Driver 1
+    And I select "3" Ratting star for solo Driver 1
 #  Core-3107 Verify that comments field is correctly validated on driver rating page
     And I add a comment for driver
     And I click "Submit" button on "Rate duo teammate" screen
