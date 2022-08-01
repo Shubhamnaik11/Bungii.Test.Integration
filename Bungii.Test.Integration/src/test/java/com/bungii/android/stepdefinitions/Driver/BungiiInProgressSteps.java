@@ -770,23 +770,43 @@ public class BungiiInProgressSteps extends DriverBase {
     }
     @Then("^I should see the customers name under the customer name field$")
     public void i_should_see_the_customers_name_under_the_customer_name_field() throws Throwable {
+        try{
         String deliveryCreatedCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,27);
-        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp());
-        testStepVerify.isEquals(customerName,deliveryCreatedCustomerName);
+        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp()).substring(0,27);
+        testStepAssert.isEquals(customerName,deliveryCreatedCustomerName,deliveryCreatedCustomerName+ "Should be displayed",customerName+ "is displayed",deliveryCreatedCustomerName+ "is not displayed");
+    }catch(Exception ex){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+    }
     }
 
     @And("^I should be able to add the text \"([^\"]*)\" in the signed by field$")
     public void i_should_be_able_to_add_the_text_something_in_the_signed_by_field(String text) throws Throwable {
+        try{
         Thread.sleep(1000);
         action.clearSendKeys(updateStatusPage.TextBox_SignedByField(),text);
+            log("I should be able to add the text "+ text + " in the signed by field","I should be able to add the text "+ text + " in the signed by field",false);
+    }catch(Exception ex){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+    }
     }
 
     @And("^I should be able to add customer signature$")
     public void i_should_be_able_to_add_customer_signature() throws Throwable {
+        try{
         Thread.sleep(2000);
         action.click(updateStatusPage.TextBox_Signature());
         DrawSignature();
         Thread.sleep(5000);
+        log("I should be able to add signature","I could add signature",false);
+    }catch(Exception ex){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+    }
     }
     public void DrawSignature() throws InterruptedException {
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
@@ -839,41 +859,52 @@ public class BungiiInProgressSteps extends DriverBase {
     }
 
     @Then("^I should see the \"([^\"]*)\" header \"([^\"]*)\"$")
-    public void i_should_see_the_something_header_something(String expectedText, String signatureDisplayed) throws Throwable {
+    public void i_should_see_the_something_header_something(String expectedText, String signature) throws Throwable {
+        try{
         Thread.sleep(1000);
-        switch (signatureDisplayed){
+        switch (signature){
             case "Displayed":
-                boolean signaturetDisplayed = updateStatusPage.Header_CustomerSignature().isDisplayed();
+                boolean signatureDisplayed = updateStatusPage.Header_CustomerSignature().isDisplayed();
                 String customerSign = action.getText(updateStatusPage.Header_CustomerSignature());
                 boolean CustomerDetails =updateStatusPage.Text_Details().isDisplayed();
-                testStepVerify.isTrue(signaturetDisplayed,"is displayed");
-                testStepVerify.isTrue(CustomerDetails,"its displayed");
-                testStepVerify.isEquals(customerSign,expectedText);
+                testStepAssert.isTrue(signatureDisplayed,customerSign +" should be displayed",customerSign +" is  displayed",customerSign +" is not displayed");
+                testStepAssert.isTrue(CustomerDetails,"Customer details should be displayed","Customer details is displayed","Customer details is not displayed");
+                testStepAssert.isEquals(customerSign,expectedText,"Header should be "+expectedText,"Header should be "+expectedText,"Header should be "+expectedText);
                 break;
             case "Not Displayed":
-                testStepVerify.isFalse(action.isElementPresent(updateStatusPage.Header_CustomerSignature(true)),expectedText+ " is not displayed",expectedText+ " is not displayed",expectedText+ " is  displayed");
+                testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Header_CustomerSignature(true)),expectedText+ " should not  be displayed",expectedText+ " is not displayed",expectedText+ " is displayed");
                 break;
         }
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^The customer signature field is \"([^\"]*)\"$")
     public void the_customer_signature_field_is_something(String expectedText) throws Throwable {
+        try{
         switch (expectedText) {
             case "N/A":
                 Thread.sleep(2000);
                 String customerSignatureFieldText =action.getText(scheduledBungiiPage.Label_CustomerSignatureNA());
-                testStepVerify.isEquals(customerSignatureFieldText,expectedText);
+                testStepAssert.isEquals(customerSignatureFieldText,expectedText,"Signature filed should have the text " +expectedText,"Signature filed has the text " +customerSignatureFieldText,"Signature filed doesnt have the text " +expectedText);
                 break;
             case "Signature Present":
                 Thread.sleep(2000);
                 String ExpectedText ="Customer Signature";
                 boolean isSignaturePresent = scheduledBungiiPage.Image_CustomerSignature().isDisplayed();
                 String customerSignaturePresent = (scheduledBungiiPage.Image_CustomerSignature().getAttribute("title"));
-                testStepVerify.isTrue(isSignaturePresent,"is displayed");
-                testStepVerify.isEquals(customerSignaturePresent,ExpectedText);
-
+                testStepAssert.isTrue(isSignaturePresent, "Customer signature should be displayed","Customer signature is displayed","Customer signature is not  displayed");
+                testStepAssert.isEquals(customerSignaturePresent,ExpectedText,"Customer signature field should have signature present","Customer signature field is having  signature present","Customer signature field is not having signature present");
+                break;
         }
-
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^The \"([^\"]*)\" message should be displayed for live delivery$")
@@ -885,6 +916,8 @@ public class BungiiInProgressSteps extends DriverBase {
             testStepAssert.isElementTextEquals(updateStatusPage.Label_CancelSuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
         }
     }
+
+
     @Then("^Confirmation message on edit live delivery pop up should be displayed$")
     public void confirmation_message_on_edit_live_delivery_pop_up_should_be_displayed() throws Throwable  {
         try
@@ -910,8 +943,7 @@ public class BungiiInProgressSteps extends DriverBase {
             Calendar calendar = Calendar.getInstance();
             DateFormat formatter = new SimpleDateFormat("MMddYYYY-hh:mm-a");
             formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
-            // calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)-1);
-            //calendar.add(Calendar.MINUTE,-5);
+
 
             strDate = formatter.format(calendar.getTime());
             String[] dateTime = strDate.split("-");
@@ -1028,7 +1060,14 @@ public class BungiiInProgressSteps extends DriverBase {
     }
     @Then("^I should see the customer signature row present in admin portal all delivery details page$")
     public void i_should_see_the_customer_signature_row_present_in_admin_portal_all_delivery_details_page() throws Throwable {
+        try{
         boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
-        testStepVerify.isTrue(isCustomerSignatureDisplayed,"cus displayed");
+        testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present","Customer Signature row is  present","Customer Signature row is not present");
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
+    }
+
 }
