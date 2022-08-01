@@ -1058,11 +1058,20 @@ public class BungiiInProgressSteps extends DriverBase {
                     true);
         }
     }
-    @Then("^I should see the customer signature row present in admin portal all delivery details page$")
-    public void i_should_see_the_customer_signature_row_present_in_admin_portal_all_delivery_details_page() throws Throwable {
+
+    @Then("^I should see the customer signature row \"([^\"]*)\" in admin portal all delivery details page$")
+    public void i_should_see_the_customer_signature_row_something_in_admin_portal_all_delivery_details_page(String CustomerSignature) throws Throwable {
         try{
-        boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
-        testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present","Customer Signature row is  present","Customer Signature row is not present");
+            switch (CustomerSignature){
+                case "Present":
+                    boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
+                    testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present","Customer Signature row is  present","Customer Signature row is not present");
+                    break;
+                case "Not Present":
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Label_CustomerSignature(true)),"Customer Signature row should not be present","Customer Signature row is not present","Customer Signature row is present");
+                    break;
+            }
+
     }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",

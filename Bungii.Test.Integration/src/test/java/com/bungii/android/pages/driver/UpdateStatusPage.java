@@ -27,7 +27,7 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Button_RemoveDrivers () { return findElement("//div[@id='tripDriverDetails']//strong[contains(text(),'Remove')]", LocatorType.XPath); }//Richa
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
     public WebElement Header_CustomerSignature(){return findElement("//android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView",LocatorType.XPath);}
-    public WebElement Label_CustomerSignature(){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]",LocatorType.XPath);}
+    public WebElement Label_CustomerSignature(boolean...IgnoreException){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]",LocatorType.XPath,IgnoreException);}
     public WebElement Alert_DropOffInstructionsGotIt(){return findElement("com.bungii.driver:id/view_instructions_btn_next",LocatorType.Id);}
 
 }

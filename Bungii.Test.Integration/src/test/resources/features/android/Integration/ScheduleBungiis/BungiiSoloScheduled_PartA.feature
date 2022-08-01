@@ -89,11 +89,11 @@ Feature: SoloScheduled
 
 
 # #CORE-3606 : Verify Customer Signature screen is shown on driver app for Partner trips
-  @testallan
+  @ready
   Scenario:Verify Customer Signature screen is shown on driver app for Partner trips
   When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
     |Geofence| Bungii Time   | Customer Phone | Customer Name |
-    | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+    | atlanta| NEXT_POSSIBLE | 8877661069 | Testcustomertywd_BppleMarkBR LutherBR|
   And As a driver "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
     | Accepted     |
@@ -108,7 +108,7 @@ Feature: SoloScheduled
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
-    And I select the live trip for "Testcustomertywd_appleNewU Customer" customer
+    And I select the live trip for "Testcustomertywd_BppleMarkBR LutherBR" customer
     And I edit the drop off address
     Then I change the drop off address to "100 Robin Road Extension"
     And I click on "VERIFY" button
@@ -153,16 +153,16 @@ Feature: SoloScheduled
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBR LutherBR" the customer
     And I select "Admin Canceled" from the dropdown
     And I select "Customer initiated - other reason" as the reason from the reason dropdown
     And I click on "Confirm Status" button
     And I click on "Cancel Status" button
     And I wait for 2 minutes
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBR LutherBR" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then I should see the customer signature row present in admin portal all delivery details page
+    Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "Signature Present"
 
  #CORE-3606 : Verify Customer signature can be skipped on driver app
@@ -170,7 +170,7 @@ Feature: SoloScheduled
   Scenario:Verify Customer signature can be skipped on driver app
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
+      |baltimore| NEXT_POSSIBLE | 8877661070 | Testcustomertywd_BppleMarkBS LutherBS|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
@@ -198,9 +198,9 @@ Feature: SoloScheduled
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJr" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBS LutherBS" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then I should see the customer signature row present in admin portal all delivery details page
+    Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "N/A"
 
     #CORE-3606 : Verify customer signature screen is shown for only the control driver when he/she completes the trip first
@@ -208,7 +208,7 @@ Feature: SoloScheduled
   Scenario:Verify customer signature screen is shown for only the control driver when he/she completes the trip first
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      | atlanta| NEXT_POSSIBLE | 8877661071 | Testcustomertywd_BppleMarkBT LutherBT|
 
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" and "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -224,7 +224,7 @@ Feature: SoloScheduled
     And I select the first driver
     And I click on "Remove Driver" button
     And I Select "Edit Trip Details" option
-    And I assign driver "Testdrivertywd_applega_a_bryan Stark_altFour" for the trip
+    And I assign driver "Testcustomertywd_BppleMarkBT LutherBT" for the trip
     And I click on "VERIFY" button
     And the "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
@@ -277,7 +277,7 @@ Feature: SoloScheduled
   Scenario:Verify customer signature screen is shown only for control driver , even when non control driver completes trip first
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      | atlanta| NEXT_POSSIBLE | 8877661072 | Testcustomertywd_BppleMarkBU LutherBU|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" and "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Driving To Drop-off  |  Driving To Drop-off  |
@@ -318,7 +318,7 @@ Feature: SoloScheduled
   Scenario:Verify driver app when admin completes the trip before signature is taken
     When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      | atlanta| NEXT_POSSIBLE | 8877661073 | Testcustomertywd_BppleMarkBV LutherBV|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
@@ -335,7 +335,7 @@ Feature: SoloScheduled
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBV LutherBVr" the customer
     And I click on "Edit" link beside live delivery
     And I click on "Edit Delivery Status" radiobutton
     And I click on "Delivery Completed" radiobutton
@@ -347,9 +347,9 @@ Feature: SoloScheduled
     And I click on "Close" button
     And I wait for 2 minutes
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBV LutherBV" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then I should see the customer signature row present in admin portal all delivery details page
+    Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "N/A"
 
     And I switch to "ORIGINAL" instance
@@ -362,7 +362,7 @@ Feature: SoloScheduled
   Scenario:Verify driver app when admin completes the trip after signature is taken
     When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      | atlanta| NEXT_POSSIBLE | 8877661074 | Testcustomertywd_BppleMarkBW LutherBW|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
@@ -388,7 +388,7 @@ Feature: SoloScheduled
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBW LutherBW" the customer
     And I click on "Edit" link beside live delivery
     And I click on "Edit Delivery Status" radiobutton
     And I click on "Delivery Completed" radiobutton
@@ -400,9 +400,9 @@ Feature: SoloScheduled
     And I click on "Close" button
     And I wait for 2 minutes
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBW LutherBW" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then I should see the customer signature row present in admin portal all delivery details page
+    Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "Signature Present"
 
     And I switch to "ORIGINAL" instance
