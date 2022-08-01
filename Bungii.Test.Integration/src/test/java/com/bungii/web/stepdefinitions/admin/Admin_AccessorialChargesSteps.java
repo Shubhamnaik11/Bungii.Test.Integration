@@ -31,7 +31,7 @@ import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_AccessorialChargesSteps extends DriverBase {
 
-    private static final LogUtility logger = new LogUtility(Admin_AccessorialChargesSteps.class);
+    private static LogUtility logger = new LogUtility(Admin_AccessorialChargesSteps.class);
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     Admin_LiveTripsPage admin_liveTripsPage = new Admin_LiveTripsPage();
     Admin_AccessorialChargesPage admin_accessorialChargesPage= new Admin_AccessorialChargesPage();

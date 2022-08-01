@@ -23,7 +23,7 @@ import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_DriverApprovalSteps extends DriverBase {
-    private static final LogUtility logger = new LogUtility(Admin_DriverApprovalSteps.class);
+    private static LogUtility logger = new LogUtility(Admin_DriverApprovalSteps.class);
     Admin_LoginPage adminLoginPage = new Admin_LoginPage();
     Admin_MenuLinksPage adminMenuLinksPage = new Admin_MenuLinksPage();
     Admin_DashboardPage adminDashboardPage = new Admin_DashboardPage();
