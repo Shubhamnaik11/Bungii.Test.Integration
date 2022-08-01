@@ -274,7 +274,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario:Verify Customer Signature screen is shown on driver app for Partner trips
     When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      | atlanta| NEXT_POSSIBLE | 8877661075 | Testcustomertywd_BppleMarkBX LutherBX|
     And As a driver "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
@@ -289,7 +289,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
-    And I select the live trip for "Testcustomertywd_appleNewU Customer" customer
+    And I select the live trip for "Testcustomertywd_BppleMarkBX LutherBX" customer
     And I edit the drop off address
     Then I change the drop off address to "100 Robin Road Extension"
     And I click on "VERIFY" button
@@ -329,14 +329,14 @@ Feature: Solo Scheduled Bungii - TELET
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBX LutherBX" the customer
     And I select "Admin Canceled" from the dropdown
     And I select "Customer initiated - other reason" as the reason from the reason dropdown
     And I click on "Confirm Status" button
     And I click on "Cancel Status" button
     And I wait for 2 minutes
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBX LutherBXr" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "Signature Present"
@@ -346,7 +346,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario:Verify Customer signature can be skipped on driver app
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
+      |baltimore| NEXT_POSSIBLE | 8877661076 | Testcustomertywd_BppleMarkBY LutherBYJ|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
@@ -357,7 +357,7 @@ Feature: Solo Scheduled Bungii - TELET
       | Unloading Item |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
+    And I am logged in as "Testcustomertywd_BppleMarkBY LutherBY" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEMS" Screen
     And I driver adds photos to the Bungii
@@ -372,7 +372,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJr" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkBY LutherBY" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "N/A"
@@ -382,7 +382,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario:Verify customer signature screen is shown for only the control driver when he/she completes the trip first
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      | atlanta| NEXT_POSSIBLE | 8877661077 | Testcustomertywd_BppleMarkBZ LutherBZ|
 
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" and "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -452,7 +452,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario:Verify customer signature screen is shown only for control driver , even when non control driver completes trip first
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      | atlanta| NEXT_POSSIBLE | 8877661078 | Testcustomertywd_BppleMarkCA LutherCA|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" and "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Driving To Drop-off  |  Driving To Drop-off  |
@@ -473,7 +473,6 @@ Feature: Solo Scheduled Bungii - TELET
     And I driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
-    #failed to process the bungii
     And I should be navigated to "Rate duo teammate" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
@@ -496,7 +495,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario:Verify driver app when admin completes the trip before signature is taken
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      | atlanta| NEXT_POSSIBLE | 8877661079 | Testcustomertywd_BppleMarkCB LutherCB|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
@@ -514,7 +513,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJ" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkCB LutherCB" the customer
     And I click on "Edit" link beside live delivery
     And I click on "Edit Delivery Status" radiobutton
     And I click on "Delivery Completed" radiobutton
@@ -526,7 +525,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I click on "CLOSE" button
     And I wait for 2 minutes
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJ" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkCB LutherCB" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "N/A"
@@ -543,7 +542,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario:Verify driver app when admin completes the trip after signature is taken
     When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      | atlanta| NEXT_POSSIBLE | 8877661080 | Testcustomertywd_BppleMarkCC LutherCC|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
@@ -570,7 +569,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkCC LutherCC" the customer
     And I click on "Edit" link beside live delivery
     And I click on "Edit Delivery Status" radiobutton
     And I click on "Delivery Completed" radiobutton
@@ -582,7 +581,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I click on "CLOSE" button
     And I wait for 2 minutes
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkCC LutherCC" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "Signature Present"
