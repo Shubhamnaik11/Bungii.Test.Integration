@@ -395,11 +395,15 @@ public class Driver_DetailsSteps extends DriverBase {
 
     @Then("^I should see delivery details displayed to the driver$")
     public void i_should_see_delivery_details_displayed_to_the_driver() throws Throwable {
-        String pickupref= (String)cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+       try{
+       String pickupref= (String)cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String amount = "$"+DbUtility.getDriverShare(pickupref);
         String rating = DbUtility.getDriverRatings(pickupref);
         testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.findElements(String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]/following-sibling::td[text()='Processing']",amount,rating), PageBase.LocatorType.XPath).get(0),"My Bungii details should be displayed","My Bungii details is displayed","My Bungii details is not displayed");
-
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
     @When("^I click on calendar to select date range$")
     public void i_click_on_calendar_to_select_date_range() throws Throwable {
