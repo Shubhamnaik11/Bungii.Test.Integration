@@ -839,13 +839,12 @@ Feature: Partner Integration with Admin and Driver
       | Assigning Driver(s)|
     And I should see the delivery highlighted in "Red"
 
-
   @ready
   Scenario: Verify background color turns red when dup delivery remains in Assigning Drivers state with loading icon and scheduled time have passed
     When I request Partner Portal "Duo" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |Kansas  | NEXT_POSSIBLE | 9999999229     | Testcustomertywd_appleNewMP Customer|
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Duo Scheduled" partner portal trip
+      |Kansas  | NEXT_POSSIBLE | 8877661068     | Testcustomertywd_BppleMarkBQ LutherBQ|
+    And As a driver "Testdrivertywd_appleks_a_drvba Kansas_ba" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state |
       | Accepted      |
     And I wait for "15" mins
