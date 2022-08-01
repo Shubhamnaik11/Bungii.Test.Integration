@@ -48,7 +48,7 @@
    
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
-        | 9999990074      | 9999992222      |
+        | 8877661003      | 8877661004      |
   
   
 	  @regression
