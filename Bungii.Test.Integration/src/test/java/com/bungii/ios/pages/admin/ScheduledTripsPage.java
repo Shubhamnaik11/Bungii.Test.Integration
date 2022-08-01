@@ -85,7 +85,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
     public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
     public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
-    public WebElement Label_CustomerSignature(){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]",LocatorType.XPath);}
+    public WebElement Label_CustomerSignature(boolean...ignoreException){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]",LocatorType.XPath,ignoreException);}
     public WebElement Link_ChangeDeliveryStatus(boolean...ignoreException) { return findElement("//tr/td/a/img", LocatorType.XPath,ignoreException); }
     public WebElement DropDown_DeliveryStatus() { return findElement("txtNewStatus", LocatorType.Id); }
     public WebElement Text_DeliveryStatus(String status) { return findElement(String.format("//select/option[text() =\"%s\"]",status), LocatorType.XPath); }

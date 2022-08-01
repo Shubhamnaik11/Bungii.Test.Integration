@@ -269,8 +269,8 @@ Feature: Solo Scheduled Bungii - TELET
 	When I Switch to "driver" application on "same" devices
 	Then Telet time of research trip should be not be same as previous trips
 
-  @testAllan
-    #working proeprly
+    #CORE-3606 :Verify Customer Signature screen is shown on driver app for Partner trips
+  @ready
   Scenario:Verify Customer Signature screen is shown on driver app for Partner trips
     When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -338,11 +338,11 @@ Feature: Solo Scheduled Bungii - TELET
     And I Select "trips" from admin sidebar
     And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then I should see the customer signature row present in admin portal all delivery details page
+    Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "Signature Present"
 
+   #CORE-3606 :Verify Customer signature can be skipped on driver app
   @ready
-    #done
   Scenario:Verify Customer signature can be skipped on driver app
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -374,10 +374,10 @@ Feature: Solo Scheduled Bungii - TELET
     And I Select "trips" from admin sidebar
     And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJr" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then I should see the customer signature row present in admin portal all delivery details page
+    Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "N/A"
 
-
+#CORE-3606 :Verify customer signature screen is shown for only the control driver when he/she completes the trip first
   @ready
   Scenario:Verify customer signature screen is shown for only the control driver when he/she completes the trip first
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
@@ -447,7 +447,7 @@ Feature: Solo Scheduled Bungii - TELET
     Then I should see the "Customer Signature" header "Not Displayed"
     And I should be navigated to "Rate duo teammate" screen
 
-
+#CORE-3606 :Verify customer signature screen is shown only for control driver , even when non control driver completes trip firstfirst
   @ready
   Scenario:Verify customer signature screen is shown only for control driver , even when non control driver completes trip first
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
@@ -491,7 +491,7 @@ Feature: Solo Scheduled Bungii - TELET
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
-
+#CORE-3606 :Verify driver app when admin completes the trip before signature is taken
   @ready
   Scenario:Verify driver app when admin completes the trip before signature is taken
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
@@ -528,7 +528,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I Select "trips" from admin sidebar
     And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJ" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then I should see the customer signature row present in admin portal all delivery details page
+    Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "N/A"
 
     And I switch to "ORIGINAL" instance
@@ -538,7 +538,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I click "Submit" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
 
-
+#CORE-3606 :Verify driver app when admin completes the trip after signature is taken
   @ready
   Scenario:Verify driver app when admin completes the trip after signature is taken
     When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
@@ -584,7 +584,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I Select "trips" from admin sidebar
     And I open the trip for "Testcustomertywd_appleNewU Customer" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then I should see the customer signature row present in admin portal all delivery details page
+    Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "Signature Present"
 
     And I switch to "ORIGINAL" instance

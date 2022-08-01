@@ -198,50 +198,46 @@ public class TripDetailsSteps extends DriverBase {
     }
     @Then("^I should see the customers name under the customer name field$")
     public void i_should_see_the_customers_name_under_the_customer_name_field() throws Throwable {
-        String deliveryCreatedCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,27);
-        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp());
-        testStepVerify.isEquals(customerName,deliveryCreatedCustomerName);
+        try{
+        String deliveryCreatedCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0, 27);
+        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp()).substring(0,27);
+        testStepAssert.isEquals(customerName,deliveryCreatedCustomerName,deliveryCreatedCustomerName+ "Should be displayed",customerName+ "is displayed",deliveryCreatedCustomerName+ "is not displayed");
+    } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @And("^I should be able to add the text \"([^\"]*)\" in the signed by field$")
     public void i_should_be_able_to_add_the_text_something_in_the_signed_by_field(String text) throws Throwable {
+        try{
         Thread.sleep(1000);
         action.clearSendKeys(updateStatusPage.TextBox_SignedByField(),text);
+        log("I should be able to add the text "+ text + " in the signed by field","I should be able to add the text "+ text + " in the signed by field",false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @And("^I should be able to add customer signature$")
     public void i_should_be_able_to_add_customer_signature() throws Throwable {
+        try{
         Thread.sleep(2000);
         action.click(updateStatusPage.TextBox_Signature());
         DrawSignature();
         Thread.sleep(5000);
+        log("I should be able to add signature","I could add signature",false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
     }
+    }
+
     public void DrawSignature() throws InterruptedException {
-//        action.dragFromToForDuration(160,335,130,464,1);
-//
-//
-       int startX =160;
-//        int startY=335;
-       int endX =130;
-//        int endY=461;
-//        new TouchAction(driver)
-//                .press(new PointOption<>().withCoordinates(startX, startY))
-//                .moveTo(new PointOption<>().withCoordinates(endX, endY))
-//                .moveTo(new PointOption<>().withCoordinates(endX+50, endY+50))
-//                .release()
-//                .perform();
-//
-//        int startX1 =157;
-//        int startY2=390;
-//        int endX3 =107;
-//        int endY4=338;
-//        new TouchAction(driver)
-//                .press(new PointOption<>().withCoordinates(startX1, startY2))
-//                .moveTo(new PointOption<>().withCoordinates(endX3, endY4))
-//                .moveTo(new PointOption<>().withCoordinates(endX3+50, endY4+50))
-//                .release()
-//                .perform();
-// a bit more reliable when we add small wait
         IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
         new TouchAction(driver).press(PointOption.point(160,335))
                 .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1))).moveTo(PointOption.point(0,0)) .release().perform();
@@ -265,10 +261,23 @@ public class TripDetailsSteps extends DriverBase {
         }
     }
 
-    @Then("^I should see the customer signature row present in admin portal all delivery details page$")
-    public void i_should_see_the_customer_signature_row_present_in_admin_portal_all_delivery_details_page() throws Throwable {
-        boolean isCustomerSignatureDisplayed = scheduledTripsPage.Label_CustomerSignature().isDisplayed();
-        testStepVerify.isTrue(isCustomerSignatureDisplayed,"cus displayed");
+    @Then("^I should see the customer signature row \"([^\"]*)\" in admin portal all delivery details page$")
+    public void i_should_see_the_customer_signature_row_something_in_admin_portal_all_delivery_details_page(String CustomerSignature) throws Throwable {
+        try{
+            switch (CustomerSignature) {
+                case "Present":
+                    boolean isCustomerSignatureDisplayed = scheduledTripsPage.Label_CustomerSignature().isDisplayed();
+                    testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present", "Customer Signature row is  present", "Customer Signature row is not present");
+                    break;
+                case "Not Present":
+                    testStepAssert.isFalse(action.isElementPresent(scheduledTripsPage.Label_CustomerSignature(true)),"Customer Signature row should not be present","Customer Signature row is not present","Customer Signature row is present");
+                    break;
+            }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @And("^I select \"([^\"]*)\" from the dropdown$")
@@ -316,38 +325,48 @@ public class TripDetailsSteps extends DriverBase {
     }
 
     @Then("^I should see the \"([^\"]*)\" header \"([^\"]*)\"$")
-    public void i_should_see_the_something_header_something(String expectedText, String signatureDisplayed) throws Throwable {
+    public void i_should_see_the_something_header_something(String expectedText, String signature) throws Throwable {
+        try{
         Thread.sleep(1000);
-        switch (signatureDisplayed){
+        switch (signature){
             case "Displayed":
-                boolean signaturetDisplayed = updateStatusPage.Header_CustomerSignature().isDisplayed();
+                boolean signatureDisplayed = updateStatusPage.Header_CustomerSignature().isDisplayed();
                 String customerSign = action.getText(updateStatusPage.Header_CustomerSignature());
-                testStepVerify.isTrue(signaturetDisplayed,"is displayed");
-                testStepVerify.isEquals(customerSign,expectedText);
+                testStepAssert.isTrue(signatureDisplayed,customerSign +" should be displayed",customerSign +" is  displayed",customerSign +" is not displayed");
+                testStepAssert.isEquals(customerSign,expectedText,"Header should be "+expectedText,"Header should be "+expectedText,"Header should be "+expectedText);
                 break;
             case "Not Displayed":
-                testStepVerify.isFalse(action.isElementPresent(updateStatusPage.Header_CustomerSignature(true)),expectedText+ " is not displayed",expectedText+ " is not displayed",expectedText+ " is  displayed");
+                testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Header_CustomerSignature(true)),expectedText+ " should not  be displayed",expectedText+ " is not displayed",expectedText+ " is displayed");
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @And("^The customer signature field is \"([^\"]*)\"$")
     public void the_customer_signature_field_is_something(String expectedText) throws Throwable {
+        try{
         switch (expectedText) {
             case "N/A":
                 Thread.sleep(2000);
                 String customerSignatureFieldText =action.getText(scheduledTripsPage.Label_CustomerSignatureNA());
-                testStepVerify.isEquals(customerSignatureFieldText,expectedText);
+                testStepAssert.isEquals(customerSignatureFieldText,expectedText,"Signature filed should have the text " +expectedText,"Signature filed has the text " +customerSignatureFieldText,"Signature filed doesnt have the text " +expectedText);
             case "Signature Present":
                 Thread.sleep(2000);
                 String ExpectedText ="Customer Signature";
                 boolean isSignaturePresent = scheduledTripsPage.Image_CustomerSignature().isDisplayed();
                String customerSignaturePresent = (scheduledTripsPage.Image_CustomerSignature().getAttribute("title"));
-               testStepVerify.isTrue(isSignaturePresent,"is displayed");
-               testStepVerify.isEquals(customerSignaturePresent,ExpectedText);
-
+                testStepAssert.isTrue(isSignaturePresent, "Customer signature should be displayed","Customer signature is displayed","Customer signature is not  displayed");
+                testStepAssert.isEquals(customerSignaturePresent,ExpectedText,"Customer signature field should have signature present","Customer signature field is having  signature present","Customer signature field is not having signature present");
         }
-
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @Then("^The \"([^\"]*)\" message should be displayed for live delivery$")
@@ -384,8 +403,7 @@ public class TripDetailsSteps extends DriverBase {
             Calendar calendar = Calendar.getInstance();
             DateFormat formatter = new SimpleDateFormat("MMddYYYY-hh:mm-a");
             formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
-            // calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)-1);
-            //calendar.add(Calendar.MINUTE,-5);
+
 
             strDate = formatter.format(calendar.getTime());
             String[] dateTime = strDate.split("-");
