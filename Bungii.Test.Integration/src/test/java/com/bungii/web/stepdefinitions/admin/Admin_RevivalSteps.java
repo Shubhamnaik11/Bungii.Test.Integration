@@ -59,7 +59,8 @@ public class Admin_RevivalSteps extends DriverBase {
     }
     @And("^I should see \"([^\"]*)\" details on review popup$")
     public void i_should_see_something_and_something_details_on_review_popup(String who) throws Throwable {
-        String customer ="";
+        try {
+            String customer ="";
         switch(who.toLowerCase()) {
           case "customer":
                customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
@@ -72,14 +73,25 @@ public class Admin_RevivalSteps extends DriverBase {
               testStepAssert.isEquals(action.getText(admin_TripsPage.Label_RevivePartnerDetail()),partner,"Partner "+ partner+" details should be shown","Partner "+ partner+" details are shown","Partner "+ partner+" details are not shown");
               break;
       }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I should not see \"([^\"]*)\" on review popup$")
     public void i_should_not_see_something_and_something_details_on_review_popup(String who) throws Throwable {
-        switch(who.toLowerCase()) {
+        try {
+            switch(who.toLowerCase()) {
             case "pickup origin":
                 testStepAssert.isFalse(action.isElementPresent(admin_TripsPage.Label_RevivePickupOriginDetail(true)),"Pickup origin details should not be shown","Pickup origin details is not shown","Pickup origin details is shown");
                 break;
         }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
     @And("^\"([^\"]*)\" and \"([^\"]*)\" buttons should have background color \"([^\"]*)\" and \"([^\"]*)\" respectively$")
     public void something_and_something_buttons_should_have_background_color_something_and_something_respectively(String primaryButton, String secondaryButton, String primaryColor, String secondaryColor) throws Throwable {
