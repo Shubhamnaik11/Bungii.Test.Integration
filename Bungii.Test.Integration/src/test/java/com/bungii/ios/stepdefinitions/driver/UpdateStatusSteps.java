@@ -9,6 +9,9 @@ import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.EstimatePage;
 import com.bungii.ios.pages.driver.BungiiDetailsPage;
+import com.bungii.ios.pages.driver.TripDetailsPage;
+import com.bungii.ios.pages.customer.EstimatePage;
+import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
@@ -16,7 +19,10 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
@@ -25,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
+import static com.bungii.web.utilityfunctions.DbUtility.getLinkedPickupRef;
 
 
 public class UpdateStatusSteps extends DriverBase {
@@ -35,19 +42,17 @@ public class UpdateStatusSteps extends DriverBase {
     Rectangle initial;
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
-    int[][] rgb = {
-            {238, 29, 58},
-            {255, 169, 61},
-            {169, 204, 50},
-            {37, 171, 226},
-            {50, 51, 255},
-
-    };
+    private TripDetailsPage tripDetailsPage;
     private UpdateStatusPage updateStatusPage;
+    private EstimatePage estimatePage;
+    private BungiiDetailsPage bungiiDetailsPage;
 
-    public UpdateStatusSteps(UpdateStatusPage updateStatusPage, MessagesPage messagesPage) {
+    public UpdateStatusSteps(BungiiDetailsPage bungiiDetailsPage,EstimatePage estimatePage,UpdateStatusPage updateStatusPage, MessagesPage messagesPage,TripDetailsPage tripDetailsPage) {
+        this.bungiiDetailsPage = bungiiDetailsPage;
+        this.estimatePage = estimatePage;
         this.updateStatusPage = updateStatusPage;
         this.messagesPage = messagesPage;
+        this.tripDetailsPage= tripDetailsPage;
     }
 
     @Then("^I check ETA of \"([^\"]*)\"$")
@@ -119,6 +124,21 @@ public class UpdateStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error in sliding on " + screen + " screen in driver app", true);
         }
     }
+
+    @And("^I driver adds photos to the Bungii$")
+    public void i_driver_adds_photos_to_the_bungii() throws Throwable {
+        try{
+            action.click(bungiiDetailsPage.Tab_AddPhoto());
+            addBungiiPickUpImage("3 images");
+            Thread.sleep(1000);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
     @Then("^non control driver should see \"([^\"]*)\" screen$")
     public void non_control_driver_should_see_something_screen(String strArg1) throws Throwable {
         try{
@@ -194,16 +214,16 @@ public class UpdateStatusSteps extends DriverBase {
                         actualName = getCustomerNameOnDriverApp(5);
                     }
                     else {
-                        actualName = getCustomerNameOnDriverApp(3);
+                        actualName = getCustomerNameOnDriverApp(4);
                     }
                     isInfoCorrectlyDisplayed = validateArrivedInfo(getTripInformation());
                     break;
                 case "LOADING ITEMS":
                     if(TripType.equals("Duo")){
-                        actualName = getCustomerNameOnDriverApp(4);
+                        actualName = getCustomerNameOnDriverApp(5);
                     }
                     else {
-                        actualName = getCustomerNameOnDriverApp(3);
+                        actualName = getCustomerNameOnDriverApp(4);
                     }
                     isInfoCorrectlyDisplayed = validateLoadingItemsInfo(getTripInformation());
                     break;
@@ -221,7 +241,7 @@ public class UpdateStatusSteps extends DriverBase {
                         actualName = getCustomerNameOnDriverApp(5);
                     }
                     else {
-                        actualName = getCustomerNameOnDriverApp(3);
+                        actualName = getCustomerNameOnDriverApp(4);
                     }
                     isInfoCorrectlyDisplayed = validateUnloadingInfo(getTripInformation());
                     break;
@@ -505,7 +525,7 @@ public class UpdateStatusSteps extends DriverBase {
         String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         //boolean isTagDisplayed = actualInfo.get(1).equals("DROP OFF LOCATION");
-        String actualDropOfflocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
+        String actualDropOfflocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
 
         boolean isDropLocationDisplayed = actualDropOfflocation
                 .contains(dropOffLocationLineOne) && actualDropOfflocation
@@ -620,7 +640,7 @@ public class UpdateStatusSteps extends DriverBase {
             actualPickuplocation = actualInfo.get(7).replace(",", "").replace("  ", " ");
         }
         else{
-            actualPickuplocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
+            actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
         }
         boolean isPickupDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation
@@ -656,7 +676,7 @@ public class UpdateStatusSteps extends DriverBase {
             actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
         }
         else {
-            actualPickuplocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
+            actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
         }
         boolean isPickupDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation
@@ -746,17 +766,17 @@ public class UpdateStatusSteps extends DriverBase {
         String expectedText = "";
         switch (strArg1) {
             case "Reminder: both driver at pickup":
-                
                 expectedText = PropertyUtility.getMessage("bungii.duo.driver.pickup");
+                testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
+                action.clickAlertButton("Initiate");
                 break;
             case "Reminder: both driver at drop off":
                 expectedText = PropertyUtility.getMessage("bungii.duo.driver.drop");
+                testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
+                action.clickAlertButton("Complete");
                 break;
 
         }
-        testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
-        //action.clickAlertButton("Initiate");
-        action.clickAlertButton("Complete");
     }
 
     @And("^stack trip information should be displayed on deck$")
@@ -851,70 +871,68 @@ public class UpdateStatusSteps extends DriverBase {
 
         testStepVerify.isTrue(driverToPickUP>100,"Driver to pickp value should be greater that 100 ", "Driver to pickup value is "+driverToPickUP +" min","Driver to pickup value is "+driverToPickUP +" min");
     }
+    @And("^I click on the Duo teammate image$")
+    public void i_click_on_the_duo_teammate_image() throws Throwable {
+        try{
+        Thread.sleep(1000);
+        action.clickBy4Points(367,443,367,448);
+        log("I should be able to click on duo teammate image","I could click on duo teammate image",false);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+
+    }
+    @Then("^I should see the driver vehicle information$")
+    public void i_should_see_the_driver_vehicle_information() throws Throwable {
+        try{
+        boolean isVehicleModelDisplayed = tripDetailsPage.Text_DriverVehicleModel().isDisplayed();
+        String VehicleModel = action.getText(tripDetailsPage.Text_DriverVehicleModel());
+        testStepVerify.isTrue(isVehicleModelDisplayed,"Driver vehicle model " +VehicleModel +" should be displayed","Driver vehicle model " +VehicleModel +" is displayed","Driver vehicle model " +VehicleModel +" is not displayed" );
+        boolean isVehicleLicenseNumberDisplayed = tripDetailsPage.Text_DriverVehicleLicenseNumber().isDisplayed();
+        String VehicleLicenseNumber = action.getText(tripDetailsPage.Text_DriverVehicleLicenseNumber());
+        testStepVerify.isTrue(isVehicleLicenseNumberDisplayed,"Driver vehicle licence number " +VehicleLicenseNumber +" should be displayed","Driver vehicle licence number " +VehicleLicenseNumber +" is displayed","Driver licence number " +VehicleLicenseNumber +" is not displayed" );
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+    @And("^I navigate back$")
+    public void i_navigate_back() throws Throwable {
+        try{
+        action.clickBy2Points(201,265);
+        log("I should be able to navigate back","I could navigate back",false);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+
+    }
+    @And("^I get the new pickup reference generated$")
+    public void i_get_the_new_pickup_reference_generated() throws Throwable {
+
+        try {
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            pickupRequest = getLinkedPickupRef(pickupRequest);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            log("I get the new pickup reference generated",
+                    "Pickupref is " + pickupRequest, false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "New pickup reference is not generated",
+                    true);
+        }
+
+    }
+
 
     public boolean isMessageAppPage() {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), PropertyUtility.getMessage("messages.navigation.new"));
         return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(PropertyUtility.getMessage("messages.navigation.new"));
     }
-    @And("^I driver adds photos to the Bungii$")
-    public void i_driver_adds_photos_to_the_bungii() throws Throwable {
-        try{
-            action.click(bungiiDetailsPage.Tab_AddPhoto());
-            addBungiiPickUpImage("3 images");
-            Thread.sleep(1000);
-        }
-        catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
-        }
-    }
-    public void addBungiiPickUpImage(String option) throws InterruptedException{
-        if (option.equalsIgnoreCase("3 images")) {
-            addImage(3);
-        } else if (option.equalsIgnoreCase("Default")) {
-            addImage(1);
-        } else if (option.equalsIgnoreCase("No image")) {
-            addImage(0);
-        } else if (option.equalsIgnoreCase("large image")) {
-            addImage(1);
-        } else
-            addImage(1);
 
-    }
-
-    private void addImage(int numberOfImage) throws InterruptedException {
-
-        if(action.isAlertPresent()){
-            try {
-                Thread.sleep(3000);
-                action.clickAlertButton("OK");
-                Thread.sleep(3000);
-            }
-            catch (Exception ex){
-
-            }
-        }
-        for (int i = 1; i <= numberOfImage; i++) {
-
-            //capture image instead of uploading existing image. this saves some time
-            if (action.isElementPresent(estimatePage.Button_PhotoCapture(true))) {
-                //do nothing, directly move to steps after IF conditions
-            } else if (action.isElementPresent(estimatePage.Button_OK(true)))
-                action.click(estimatePage.Button_OK());
-            Thread.sleep(3000);
-            action.click(estimatePage.Button_PhotoCapture());
-            Thread.sleep(3000);
-            action.click(estimatePage.Button_UsePhoto());
-
-            if(i<3){
-                action.click(bungiiDetailsPage.Tab_AddPhoto());
-            }
-            else{
-                action.click(bungiiDetailsPage.Button_SavePhotos());
-            }
-
-        }
-    }
     /**
      * Slide the slider to update status
      */
@@ -1053,6 +1071,52 @@ public class UpdateStatusSteps extends DriverBase {
     public boolean verifyStatus(String key) {
 
         return action.verifyImageIsPresent(key);
+    }
+    public void addBungiiPickUpImage(String option) throws InterruptedException{
+        if (option.equalsIgnoreCase("3 images")) {
+            addImage(3);
+        } else if (option.equalsIgnoreCase("Default")) {
+            addImage(1);
+        } else if (option.equalsIgnoreCase("No image")) {
+            addImage(0);
+        } else if (option.equalsIgnoreCase("large image")) {
+            addImage(1);
+        } else
+            addImage(1);
+
+    }
+
+    private void addImage(int numberOfImage) throws InterruptedException {
+
+        if(action.isAlertPresent()){
+            try {
+                Thread.sleep(3000);
+                action.clickAlertButton("OK");
+                Thread.sleep(3000);
+            }
+            catch (Exception ex){
+
+            }
+        }
+        for (int i = 1; i <= numberOfImage; i++) {
+
+            //capture image instead of uploading existing image. this saves some time
+            if (action.isElementPresent(estimatePage.Button_PhotoCapture(true))) {
+                //do nothing, directly move to steps after IF conditions
+            } else if (action.isElementPresent(estimatePage.Button_OK(true)))
+                action.click(estimatePage.Button_OK());
+            Thread.sleep(3000);
+            action.click(estimatePage.Button_PhotoCapture());
+            Thread.sleep(3000);
+            action.click(estimatePage.Button_UsePhoto());
+            if(i<3){
+                action.click(bungiiDetailsPage.Tab_AddPhoto());
+            }
+            else{
+                action.click(bungiiDetailsPage.Button_SavePhotos());
+            }
+
+        }
     }
 
 }

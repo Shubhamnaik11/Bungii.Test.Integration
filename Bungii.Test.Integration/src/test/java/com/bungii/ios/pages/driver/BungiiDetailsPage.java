@@ -31,7 +31,9 @@ public class BungiiDetailsPage extends PageBase {
 	public WebElement Text_TypeTag() { return findElement("//XCUIElementTypeStaticText[@name=\"Type\"]", PageBase.LocatorType.XPath); }
 	public WebElement Text_TypeValue() { return findElement("//XCUIElementTypeStaticText[@name=\"Type\"]/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
+	public WebElement Tab_AddPhoto(){return findElement("//XCUIElementTypeStaticText[@name='Tap to add photo']",LocatorType.XPath);}
 
+	public WebElement Button_SavePhotos(){return findElement("//XCUIElementTypeButton[@name='Save']",LocatorType.XPath);}
 
 
 }

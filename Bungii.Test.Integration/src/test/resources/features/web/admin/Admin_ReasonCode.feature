@@ -169,8 +169,7 @@ Feature: Admin_Reason_Code
     And I wait for "2" mins
     Then the updated date should be displayed on delivery details page
 
-  @ready
-
+  @regression
   Scenario: Verify Reason is not mandatory when pickup/drop off address edited and driver is assigned by Admin for Customer delivery
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -194,8 +193,7 @@ Feature: Admin_Reason_Code
     When I view the delivery details in admin portal
     Then the updated drop off address should be displayed on delivery details page
 
-  @ready
-
+  @regression
   Scenario: Verify reschedule reason is not displayed for LIVE trips
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -224,8 +222,7 @@ Feature: Admin_Reason_Code
     Then the updated drop off address should be displayed on delivery details page
 
 
-  @ready
-
+  @regression
   Scenario: Verify Reason is not mandatory when Service Level edited  for Partner delivery
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -269,8 +266,7 @@ Feature: Admin_Reason_Code
     Then "Bungii Saved!" message should be displayed
 
 
-  @ready
-
+  @regression
   Scenario: Verify Reason is not mandatory when drop-off/pickup address edited and driver is assigned for Partner delivery
     When I request Partner Portal "SOLO" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -434,7 +430,7 @@ Feature: Admin_Reason_Code
       | Driver Canceled   | Driver initiated               |  Driver Canceled                      |      Assigning Driver(s)              |
 
   #CORE-2507 :Verify accessorial charges are not refunded on status change
-  @ready
+  @regression
   Scenario: Verify accessorial charges are not refunded on status change
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
