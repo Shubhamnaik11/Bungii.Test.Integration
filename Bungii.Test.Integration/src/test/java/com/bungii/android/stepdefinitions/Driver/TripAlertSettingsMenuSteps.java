@@ -45,6 +45,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
+    UpdateStatusPage updateStatusPage = new UpdateStatusPage();
 
 
     @And("^I click on \"([^\"]*)\" tab$")
@@ -357,6 +358,30 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "GO OFFLINE":
                     action.click(bungiiCompletedPage.Button_GoOffline());
+                    break;
+                case "Clear Signature":
+                    action.click(updateStatusPage.Button_ClearSignature());
+                    break;
+                case "Confirm Status":
+                    action.click(updateStatusPage.Button_ConfirmStatus());
+                    break;
+                case "Cancel Status":
+                    action.click(updateStatusPage.Button_CloseStatus());
+                    break;
+                case "Remove Driver":
+                    action.click(updateStatusPage.Button_RemoveDrivers());
+                    break;
+                case "CALCULATE COST":
+                    action.click(updateStatusPage.Button_CalculateCost());
+                    break;
+                case "CONFIRM CHANGES":
+                    action.click(updateStatusPage.Button_Confirm());
+                    break;
+                case "Got It":
+                    action.click(updateStatusPage.Alert_DropOffInstructionsGotIt());
+                    break;
+                case "Skip Customer Signature":
+                    action.click(updateStatusPage.Button_SkipCustomerSignature());
                     break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
