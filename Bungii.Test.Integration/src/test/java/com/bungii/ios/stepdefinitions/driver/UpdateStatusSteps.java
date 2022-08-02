@@ -8,6 +8,8 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.LiveTripsPage;
+import com.bungii.ios.pages.customer.EstimatePage;
+import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
@@ -40,8 +42,12 @@ public class UpdateStatusSteps extends DriverBase {
     private TripDetailsPage tripDetailsPage;
     private UpdateStatusPage updateStatusPage;
     LiveTripsPage liveTripsPage = new LiveTripsPage();
+    private EstimatePage estimatePage;
+    private BungiiDetailsPage bungiiDetailsPage;
 
-    public UpdateStatusSteps(UpdateStatusPage updateStatusPage, MessagesPage messagesPage,TripDetailsPage tripDetailsPage) {
+    public UpdateStatusSteps(BungiiDetailsPage bungiiDetailsPage,EstimatePage estimatePage,UpdateStatusPage updateStatusPage, MessagesPage messagesPage,TripDetailsPage tripDetailsPage) {
+        this.bungiiDetailsPage = bungiiDetailsPage;
+        this.estimatePage = estimatePage;
         this.updateStatusPage = updateStatusPage;
         this.messagesPage = messagesPage;
         this.tripDetailsPage= tripDetailsPage;
@@ -116,6 +122,21 @@ public class UpdateStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error in sliding on " + screen + " screen in driver app", true);
         }
     }
+
+    @And("^I driver adds photos to the Bungii$")
+    public void i_driver_adds_photos_to_the_bungii() throws Throwable {
+        try{
+            action.click(bungiiDetailsPage.Tab_AddPhoto());
+            addBungiiPickUpImage("3 images");
+            Thread.sleep(1000);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
     @Then("^non control driver should see \"([^\"]*)\" screen$")
     public void non_control_driver_should_see_something_screen(String strArg1) throws Throwable {
         try{
@@ -191,16 +212,16 @@ public class UpdateStatusSteps extends DriverBase {
                         actualName = getCustomerNameOnDriverApp(5);
                     }
                     else {
-                        actualName = getCustomerNameOnDriverApp(3);
+                        actualName = getCustomerNameOnDriverApp(4);
                     }
                     isInfoCorrectlyDisplayed = validateArrivedInfo(getTripInformation());
                     break;
                 case "LOADING ITEMS":
                     if(TripType.equals("Duo")){
-                        actualName = getCustomerNameOnDriverApp(4);
+                        actualName = getCustomerNameOnDriverApp(5);
                     }
                     else {
-                        actualName = getCustomerNameOnDriverApp(3);
+                        actualName = getCustomerNameOnDriverApp(4);
                     }
                     isInfoCorrectlyDisplayed = validateLoadingItemsInfo(getTripInformation());
                     break;
@@ -218,7 +239,7 @@ public class UpdateStatusSteps extends DriverBase {
                         actualName = getCustomerNameOnDriverApp(5);
                     }
                     else {
-                        actualName = getCustomerNameOnDriverApp(3);
+                        actualName = getCustomerNameOnDriverApp(4);
                     }
                     isInfoCorrectlyDisplayed = validateUnloadingInfo(getTripInformation());
                     break;
@@ -502,7 +523,7 @@ public class UpdateStatusSteps extends DriverBase {
         String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         //boolean isTagDisplayed = actualInfo.get(1).equals("DROP OFF LOCATION");
-        String actualDropOfflocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
+        String actualDropOfflocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
 
         boolean isDropLocationDisplayed = actualDropOfflocation
                 .contains(dropOffLocationLineOne) && actualDropOfflocation
@@ -617,7 +638,7 @@ public class UpdateStatusSteps extends DriverBase {
             actualPickuplocation = actualInfo.get(7).replace(",", "").replace("  ", " ");
         }
         else{
-            actualPickuplocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
+            actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
         }
         boolean isPickupDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation
@@ -653,7 +674,7 @@ public class UpdateStatusSteps extends DriverBase {
             actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
         }
         else {
-            actualPickuplocation = actualInfo.get(4).replace(",", "").replace("  ", " ");
+            actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
         }
         boolean isPickupDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation
@@ -1068,6 +1089,52 @@ public class UpdateStatusSteps extends DriverBase {
     public boolean verifyStatus(String key) {
 
         return action.verifyImageIsPresent(key);
+    }
+    public void addBungiiPickUpImage(String option) throws InterruptedException{
+        if (option.equalsIgnoreCase("3 images")) {
+            addImage(3);
+        } else if (option.equalsIgnoreCase("Default")) {
+            addImage(1);
+        } else if (option.equalsIgnoreCase("No image")) {
+            addImage(0);
+        } else if (option.equalsIgnoreCase("large image")) {
+            addImage(1);
+        } else
+            addImage(1);
+
+    }
+
+    private void addImage(int numberOfImage) throws InterruptedException {
+
+        if(action.isAlertPresent()){
+            try {
+                Thread.sleep(3000);
+                action.clickAlertButton("OK");
+                Thread.sleep(3000);
+            }
+            catch (Exception ex){
+
+            }
+        }
+        for (int i = 1; i <= numberOfImage; i++) {
+
+            //capture image instead of uploading existing image. this saves some time
+            if (action.isElementPresent(estimatePage.Button_PhotoCapture(true))) {
+                //do nothing, directly move to steps after IF conditions
+            } else if (action.isElementPresent(estimatePage.Button_OK(true)))
+                action.click(estimatePage.Button_OK());
+            Thread.sleep(3000);
+            action.click(estimatePage.Button_PhotoCapture());
+            Thread.sleep(3000);
+            action.click(estimatePage.Button_UsePhoto());
+            if(i<3){
+                action.click(bungiiDetailsPage.Tab_AddPhoto());
+            }
+            else{
+                action.click(bungiiDetailsPage.Button_SavePhotos());
+            }
+
+        }
     }
 
 }

@@ -1014,6 +1014,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Cancel Status":
                     action.click(admin_revivalPage.Button_CloseStatus());
                     break;
+                case "Download Zip Codes":
+                    action.click(admin_GeofencePage.Button_DownloadZipCodes());
+                    break;
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", false);
