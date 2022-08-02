@@ -1170,6 +1170,13 @@ Thread.sleep(5000);
                 }
             }
         }
+        else{
+            String message= (String) cucumberContextManager.getScenarioContext("EXPECTED_MESSAGE");
+            if (action.isElementPresent(otherAppsPage.Notification_PartnerCancel(message))) {
+                action.click(otherAppsPage.Notification_PartnerCancel(message));
+                isDisplayed = true;
+            }
+        }
         return isDisplayed;
     }
     public boolean getNofitication(String appName, String notificationMessage) {
