@@ -409,7 +409,6 @@ Feature: Service Level
 
  #CORE-3381: To verify that Revive button is not present for deliveries scheduled more than 5 days in advance
   @ready
-    #add customer
   Scenario: To verify that Revive button is not present for deliveries scheduled more than 5 days in advance
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |

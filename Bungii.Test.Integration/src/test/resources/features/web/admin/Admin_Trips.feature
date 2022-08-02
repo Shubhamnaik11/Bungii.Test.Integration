@@ -439,7 +439,7 @@ Feature: Admin_Trips
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
     | NEXT_POSSIBLE | 8877661062 | Testcustomertywd_BppleMarkBK LutherBK|
-   And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
+   And As a driver "Testdrivertywd_appledc_a_drvN WashingtonM" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
     |Accepted |
     And I wait for 2 minutes
@@ -479,7 +479,7 @@ Feature: Admin_Trips
   And  I search the delivery using "Pickup Reference"
   When I click on the "Edit" button from the dropdown
   And I click on "Edit Trip Details" radiobutton
-  And I click on "Add Driver" and add "Testdrivertywd_appledc_a_web Sundarg" driver
+  And I click on "Add Driver" and add "Testdrivertywd_appledc_a_drvN WashingtonM" driver
   And I click on "Verify" button on Edit Scheduled bungii popup
   And I click on "Save" button on Edit Scheduled bungii popup
   Then "Bungii Saved!" message should be displayed
@@ -490,7 +490,7 @@ Feature: Admin_Trips
   Then I should be able to see the respective bungii with the below status
     |  Status |
     | Scheduled |
-  And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
+  And As a driver "Testdrivertywd_appledc_a_drvN WashingtonM" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
     | Enroute  |
     | Arrived |
@@ -527,7 +527,7 @@ Feature: Admin_Trips
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 8877661063 | Testcustomertywd_BppleMarkBL LutherBL|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_drvM WashingtonN" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       |Accepted |
       | Enroute  |
@@ -553,7 +553,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Assigning Driver(s)|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_drvO WashingtonO" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |
       | Enroute  |
