@@ -217,8 +217,8 @@ public class GeneralUtility extends DriverBase {
                 Thread.sleep(2000);
                 isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_DeleteAccount(true));
                 if(isCorrectPage){
-                    testStepAssert.isElementTextEquals(cutomerAccountPage.Text_PasswordToConfirm(),"You are about to delete your account.\nEnter password to confirm","You are about to delete your account. Enter password to confirm text should be display.","You are about to delete your account. Enter password to confirm text is display.","You are about to delete your account. Enter password to confirm text is not display.");
-                    testStepAssert.isElementTextEquals(cutomerAccountPage.Text_ActionCannotUndone(),"This action cannot be undone!","This action cannot be undone! text should be display.","This action cannot be undone! text is display.","This action cannot be undone! text is not display.");
+                    testStepAssert.isElementTextEquals(cutomerAccountPage.Text_PasswordToConfirm(),PropertyUtility.getMessage("customer.account.deleted.confirm"),PropertyUtility.getMessage("customer.account.deleted.confirm") + "should be display.",PropertyUtility.getMessage("customer.account.deleted.confirm") + "is displayed.",PropertyUtility.getMessage("customer.account.deleted.confirm") + " is not displayed.");
+                    testStepAssert.isElementTextEquals(cutomerAccountPage.Text_ActionCannotUndone(),PropertyUtility.getMessage("customer.account.deleted.undone"),PropertyUtility.getMessage("customer.account.deleted.undone") + "should be display.",PropertyUtility.getMessage("customer.account.deleted.undone") + "text is displayed.",PropertyUtility.getMessage("customer.account.deleted.undone") + "text is not displayed.");
                 }
                 break;
             case "MY BUNGIIS":

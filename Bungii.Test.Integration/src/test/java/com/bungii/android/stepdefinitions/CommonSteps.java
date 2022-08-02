@@ -937,8 +937,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "ACCOUNT DELETED SUCCESSFULLY":
                     actualMessage = utility.getCustomerSnackBarMessage();
-                    expectedMessage="Account deleted successfully";
-                    //expectedMessage = PropertyUtility.getMessage("customer.account.deleted.successfully");
+                    expectedMessage = PropertyUtility.getMessage("customer.account.deleted.successfully");
                     break;
                 case "DELETE WARNING":
                     actualMessage = utility.getCustomerSnackBarMessage();

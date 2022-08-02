@@ -43,7 +43,7 @@ public class CustomersSteps extends DriverBase {
         try {
             Thread.sleep(3000);
             action.sendKeys(customersPage.TextBox_SearchCustomer(), (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE") + Keys.ENTER);
-            log("Customer associated with phone number should get search.","Customer associated with phone number is get searched.",false);
+            log("Customer associated with phone number should get searched.","Customer associated with phone number got searched.",false);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
