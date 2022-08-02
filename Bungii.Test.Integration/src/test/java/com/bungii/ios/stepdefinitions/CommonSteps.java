@@ -542,7 +542,7 @@ public class CommonSteps extends DriverBase {
                     }
                     action.click(driverBungiiCompletedPage.Button_Next_Bungii());
                     break;
-                case "SUBMIT DATA":
+                case "SUBMIT":
                     Thread.sleep(1000);
                     action.click(driverBungiiCompletedPage.Button_Submit());
                     break;
@@ -686,7 +686,7 @@ public class CommonSteps extends DriverBase {
                 case "CUSTOMER SIGNATURE":
                     action.click(driverUpdateStatusPage.Tab_CustomerSignature());
                     break;
-                case "SUBMIT":
+                case "SUBMIT DATA":
                     action.click(driverUpdateStatusPage.Button_Submit());
                     break;
                 default:
