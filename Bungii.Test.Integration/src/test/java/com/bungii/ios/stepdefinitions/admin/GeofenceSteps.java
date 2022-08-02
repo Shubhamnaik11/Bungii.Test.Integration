@@ -199,5 +199,29 @@ public class GeofenceSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I set \"([^\"]*)\"$")
+    public void i_set_something(String type) throws Throwable {
+        try{
+            switch (type){
+                case "set referral code amount":
+                    int referralAmount = Integer.parseInt(geofencePage.Input_ReferralAmount().getAttribute("value"));
+                    int newReferralAmount=referralAmount+1;
+                    action.clearSendKeys(geofencePage.Input_ReferralAmount(), String.valueOf(newReferralAmount));
+                    cucumberContextManager.setScenarioContext("NEW_REFERRAL_AMT",newReferralAmount);
+                    break;
+                case "set no. of deliveries":
+                    int noOfDeliveries = Integer.parseInt(geofencePage.Input_NoOfDeliveries().getAttribute("value"));
+                    int changeNoOfDeliveries=noOfDeliveries+1;
+                    action.clearSendKeys(geofencePage.Input_NoOfDeliveries(), String.valueOf(changeNoOfDeliveries));
+                    cucumberContextManager.setScenarioContext("NEW_NUMBER_OF_DELIVERIES",changeNoOfDeliveries);
+                    break;
+            }
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
 }

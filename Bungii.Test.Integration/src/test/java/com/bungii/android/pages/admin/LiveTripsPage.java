@@ -44,5 +44,14 @@ public class LiveTripsPage extends PageBase {
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
+    //Geofence Settings
+    public WebElement Select_ChicagoGeofence() { return findElement("//tbody[@id='NewApplicantsTBody']/tr/td[contains(text(),'Chicago')]\n", LocatorType.XPath);}
+    public WebElement Button_Settings(){return findElement("btnEditSettings",LocatorType.Id);}
+    public WebElement Button_SaveGeofenceSettings(){return findElement("btnCreateAttribute",LocatorType.Id);}
+    public WebElement Button_Save() { return findElement("btnSave", LocatorType.Id); }
+    public WebElement Input_ReferralAmount() { return findElement("attributeValueDriverReferralBonusAmount", LocatorType.Id); }
+    public WebElement Input_NoOfDeliveries() { return findElement("attributeValueDriverReferralBonusPayoutDeliveries", LocatorType.Id); }
+    public WebElement Menu_Geofences(){return findElement("adminmenu-geofences",LocatorType.Id);}
+
     public WebElement Button_ApplyGeofenceFilter () { return findElement("btnApplyGeofence", LocatorType.Id); }
 }
