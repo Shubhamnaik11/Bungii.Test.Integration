@@ -91,4 +91,50 @@ Feature: SoloScheduled Part B
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
- 
+@ready
+  #Sprint-58==CORE-3396 changes incorporated
+Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
+      | NEXT_POSSIBLE | 8877661081     | Testcustomertywd_BppleMarkCD LutherCD | Cci12345          |
+    And I get TELET time of of the current trip
+    And As a driver "Testdrivertywd_appleks_a_drvbb Kansas_bb" perform below action with respective "SOLO SCHEDULED" trip
+      | driver1 state |
+      | Accepted      |
+      |Enroute        |
+
+    Given I login as customer "8877661082" and is on Home Page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then "Estimate" page should be opened
+
+    When I confirm trip with following details
+      | Day | Trip Type | Time          |
+      | 0   | SOLO      | <AFTER TELET> |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+    And I get the pickupref for "8877661082"
+    And As a driver "Testdrivertywd_appleks_a_drvbb Kansas_bb" perform below action with respective "SECOND SOLO SCHEDULED" trip
+      | driver1 state |
+      | Accepted      |
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appleks_a_drvbb Kansas_bb" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    Then Bungii driver should see "Enroute screen"
+    And I click "Scheduled Bungiis" button on "update" screen
+    And I should select the "8877661082" customer on driver app
+    Then Start button shouldn't not been shown
+    And I click on device "BACK" button
+    And I click on device "BACK" button
+    Then Bungii driver should see "Enroute screen"
+
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8877661081     | 8877661082      |

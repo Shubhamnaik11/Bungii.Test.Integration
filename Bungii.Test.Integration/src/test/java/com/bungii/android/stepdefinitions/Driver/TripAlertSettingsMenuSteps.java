@@ -15,12 +15,16 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
@@ -316,9 +320,14 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "BACK":
+                    ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    //action.click(myBungiisPage.Button_Back());
+                    break;
+                case "BACK TO BACK":
+                    action.click(myBungiisPage.Button_Back());
+                    Thread.sleep(2000);
                     action.click(myBungiisPage.Button_Back());
                     break;
-
                 case "Itemized Earnings":
                     action.click(earningsPage.Button_ItemizedEarnings());
                     break;

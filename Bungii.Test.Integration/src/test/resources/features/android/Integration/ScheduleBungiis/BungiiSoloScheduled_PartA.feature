@@ -75,16 +75,15 @@ Feature: SoloScheduled
     And I click "Done" button on "Success" screen
 
     And I Switch to "driver" application on "same" devices
-    And I wait for 1 minutes
-   Then I should see a popup "New Bungii Request" displayed
+    Then I should see a popup "New Bungii Request" displayed
     And I click on "View Request" button
     And I wait for 1 minutes
-    #Then I should see the trip details
     And I click on "Accept" button
     And I click "Scheduled Bungiis" button on "update" screen
     And I should select the "valid kansas 3" customer on driver app
     Then Start button shouldn't not been shown
-    And I click on "BACK TO BACK" button
+    And I click on device "BACK" button
+    And I click on device "BACK" button
     Then Bungii driver should see "Enroute screen"
     And I slide update button on "EN ROUTE" Screen
 

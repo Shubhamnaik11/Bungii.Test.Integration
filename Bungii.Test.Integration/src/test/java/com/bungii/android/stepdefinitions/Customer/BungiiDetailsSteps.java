@@ -153,6 +153,20 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @Then("^Start button shouldn't not been shown$")
+    public void start_button_shouldnt_not_been_shown() throws Throwable {
+        try {
+            Thread.sleep(2000);
+            testStepAssert.isNotElementDisplayed(bungiiRequest.Button_StartBungii(true),"Start button shouldn't displayed","Start button is not displayed","Start button is displayed");
+
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in Starting Bungii as Driver", true);
+        }
+
+    }
+
     @Then("^I should see \"([^\"]*)\" on screen$")
     public void i_should_see_something_on_screen(String strArg1) throws Throwable {
         try {

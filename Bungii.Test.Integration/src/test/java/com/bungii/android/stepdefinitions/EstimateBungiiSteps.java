@@ -124,8 +124,6 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Request Bungii":
-                    String custTripTime= action.getText(bungiiEstimatePage.Text_ScheduledTime());
-                    cucumberContextManager.setScenarioContext("SCHEDULED_TIME",custTripTime);
                     String cost = action.getText(bungiiEstimatePage.Text_GetCost());
                     cost = cost.replace("~", "");
                     cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER", cost);
