@@ -362,7 +362,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I slide update button on "UNLOADING ITEMS" Screen
     And I driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
-    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the "Customer signature" header "Displayed"
     And I click on "Skip Customer Signature" button
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
@@ -432,7 +432,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I slide update button on "UNLOADING ITEMS" Screen
     And I driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
-    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
     And I should be able to add the text "Signed By customer" in the signed by field
     And I should be able to add customer signature
@@ -444,7 +444,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I should be navigated to "Rate duo teammate" screen
 
     When I Switch to "driver" application on "Driver2" devices
-    Then I should see the "Customer Signature" header "Not Displayed"
+    Then I should see the "Customer signature" header "Not Displayed"
     And I should be navigated to "Rate duo teammate" screen
 
 #CORE-3606 :Verify customer signature screen is shown only for control driver , even when non control driver completes trip firstfirst
@@ -481,7 +481,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I slide update button on "UNLOADING ITEMS" Screen
     And I driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
-    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
     And I should be able to add the text "Signed By customer" in the signed by field
     And I should be able to add customer signature
@@ -538,7 +538,7 @@ Feature: Solo Scheduled Bungii - TELET
     Then I should be navigated to "Bungii Completed" screen
 
 #CORE-3606 :Verify driver app when admin completes the trip after signature is taken
-  @ready
+  @testallan
   Scenario:Verify driver app when admin completes the trip after signature is taken
     When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -559,7 +559,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I slide update button on "UNLOADING ITEM" Screen
     And I driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
-    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
     And I should be able to add the text "Signed By customer" in the signed by field
     And I should be able to add customer signature

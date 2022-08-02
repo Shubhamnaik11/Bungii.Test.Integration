@@ -771,8 +771,8 @@ public class BungiiInProgressSteps extends DriverBase {
     @Then("^I should see the customers name under the customer name field$")
     public void i_should_see_the_customers_name_under_the_customer_name_field() throws Throwable {
         try{
-        String deliveryCreatedCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,27);
-        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp()).substring(0,27);
+        String deliveryCreatedCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,30);
+        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp());
         testStepAssert.isEquals(customerName,deliveryCreatedCustomerName,deliveryCreatedCustomerName+ "Should be displayed",customerName+ "is displayed",deliveryCreatedCustomerName+ "is not displayed");
     }catch(Exception ex){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));

@@ -199,9 +199,9 @@ public class TripDetailsSteps extends DriverBase {
     @Then("^I should see the customers name under the customer name field$")
     public void i_should_see_the_customers_name_under_the_customer_name_field() throws Throwable {
         try{
-        String deliveryCreatedCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0, 27);
-        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp()).substring(0,27);
-        testStepAssert.isEquals(customerName,deliveryCreatedCustomerName,deliveryCreatedCustomerName+ "Should be displayed",customerName+ "is displayed",deliveryCreatedCustomerName+ "is not displayed");
+        String deliveryCreatedCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0, 30);
+        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp());
+       testStepAssert.isEquals(customerName,deliveryCreatedCustomerName,deliveryCreatedCustomerName+ "Should be displayed",customerName+ "is displayed",deliveryCreatedCustomerName+ "is not displayed");
     } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -239,8 +239,8 @@ public class TripDetailsSteps extends DriverBase {
 
     public void DrawSignature() throws InterruptedException {
         IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
-        new TouchAction(driver).press(PointOption.point(160,335))
-                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1))).moveTo(PointOption.point(0,0)) .release().perform();
+        new TouchAction(driver).press(PointOption.point(52,342))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1))).moveTo(PointOption.point(374,519)) .release().perform();
     }
 
     @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")

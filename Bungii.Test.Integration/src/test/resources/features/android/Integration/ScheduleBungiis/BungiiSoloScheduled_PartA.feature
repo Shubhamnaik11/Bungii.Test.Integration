@@ -126,7 +126,7 @@ Feature: SoloScheduled
     When Bungii driver uploads "1" image
     When Bungii Driver "clicks More Options"
     And I click "Customer Signature" button on "update" screen
-    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the "Customer signature" header "Displayed"
     And I click "Customer Signature" button on "update" screen
     Then I should see the customers name under the customer name field
 
@@ -186,7 +186,7 @@ Feature: SoloScheduled
     And I slide update button on "UNLOADING ITEMS" Screen
     When Bungii driver uploads "1" image
     And I slide update button on "UNLOADING ITEMS" Screen
-    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
     And I click on "Skip Customer Signature" button
     And I slide update button on "UNLOADING ITEMS" Screen
@@ -257,7 +257,7 @@ Feature: SoloScheduled
     And I slide update button on "UNLOADING ITEMS" Screen
     When Bungii driver uploads "1" image
     And I slide update button on "UNLOADING ITEMS" Screen
-    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
     And I should be able to add the text "Signed By customer" in the signed by field
     And I should be able to add customer signature
@@ -269,7 +269,7 @@ Feature: SoloScheduled
     And I should be navigated to "Rate duo teammate" screen
 
     When I Switch to "driver" application on "Driver2" devices
-    Then I should see the "Customer Signature" header "Not Displayed"
+    Then I should see the "Customer signature" header "Not Displayed"
     And I should be navigated to "Rate duo teammate" screen
 
   #CORE-3606 :Verify customer signature screen is shown only for control driver , even when non control driver completes trip first
@@ -304,7 +304,7 @@ Feature: SoloScheduled
     And I slide update button on "UNLOADING ITEMS" Screen
     When Bungii driver uploads "1" image
     And I slide update button on "UNLOADING ITEMS" Screen
-    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
     And I should be able to add the text "Signed By customer" in the signed by field
     And I should be able to add customer signature
@@ -378,7 +378,7 @@ Feature: SoloScheduled
     And I slide update button on "UNLOADING ITEM" Screen
     When Bungii driver uploads "1" image
     And I slide update button on "UNLOADING ITEMS" Screen
-    Then I should see the "Customer Signature" header "Displayed"
+    Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
     And I should be able to add the text "Signed By customer" in the signed by field
     And I should be able to add customer signature
