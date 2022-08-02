@@ -5,6 +5,7 @@ import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_LiveTripsPage;
 import com.bungii.web.pages.admin.Admin_LoginPage;
@@ -648,12 +649,22 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     }
 
     @Then("^I should see the \"([^\"]*)\" field not underlined$")
-    public void i_should_see_the_something_field_not_underlined(String strArg1) throws Throwable {
+    public void i_should_see_the_something_field_not_underlined(String link) throws Throwable {
         try {
-            Thread.sleep(1000);
-            boolean notesNotUnderlined = admin_ScheduledTripsPage.Link_Notes().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
-            testStepAssert.isTrue(notesNotUnderlined,"Notes should not be underlined","Notes is not underlined","Notes in Underlined");
-        } catch(Exception e){
+            switch (link) {
+                case "Notes":
+                    Thread.sleep(1000);
+                    boolean notesNotUnderlined = admin_ScheduledTripsPage.Link_Notes().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
+                    testStepAssert.isTrue(notesNotUnderlined, "Notes should not be underlined", "Notes is not underlined", "Notes in Underlined");
+                    break;
+
+                case "History":
+                    Thread.sleep(1000);
+                    boolean historyNotUnderlined = admin_ScheduledTripsPage.Link_History().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
+                    testStepAssert.isTrue(historyNotUnderlined, "History should not be underlined", "History is not underlined", "History is Underlined");
+                    break;
+            }
+            } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
@@ -661,6 +672,38 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     }
 
 
+    @And("^I click on \"([^\"]*)\"$")
+    public void i_click_on_something(String strArg1) throws Throwable {
+        try {
+           action.click(admin_ScheduledTripsPage.Button_History());
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
+    @Then("^The \"([^\"]*)\" tab should be selected$")
+    public void the_something_tab_should_be_selected(String strArg1) throws Throwable {
+        try {
+            boolean historyTabSelected = admin_ScheduledTripsPage.Button_History().getAttribute("Class").contentEquals("modal-title tab active");
+            testStepAssert.isTrue(historyTabSelected, "History should be selected", "History is not selected", "History is selected");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
+    @And("^I should see no history text$")
+    public void i_should_see_no_history_text() throws Throwable {
+        try {testStepVerify.isEquals(action.getText(admin_ScheduledTripsPage.Text_HistoryEmptyMessage()), PropertyUtility.getMessage("No_HistoryData"));
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

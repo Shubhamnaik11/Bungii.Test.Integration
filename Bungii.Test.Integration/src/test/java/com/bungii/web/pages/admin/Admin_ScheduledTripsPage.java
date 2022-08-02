@@ -137,6 +137,8 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_NotesEmpty_Message(){return  findElement("notes-tab",LocatorType.Id);}
 
+    public WebElement Text_HistoryEmptyMessage(){return  findElement("history-tab",LocatorType.Id);}
+
     public WebElement Textbox_AddNote(){return  findElement("newNote",LocatorType.Id);}
 
     public WebElement Button_SaveNote(){return  findElement("saveNote",LocatorType.Id);}
@@ -165,6 +167,8 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_Notes(){return  findElement("//td/div/ul/li/p/span[text() =\"Notes\"]",LocatorType.XPath);}
 
+    public WebElement Link_History(){return  findElement("//td/div/ul/li/p/span[text() =\"History\"]",LocatorType.XPath);}
+
     public List<WebElement> List_Notes(){return  findElements("//div[@class ='note']/div/p",LocatorType.XPath);}
 
     public List<WebElement> List_AllNotes(){return  findElements("//div[@class ='note']",LocatorType.XPath);}
@@ -189,4 +193,5 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_NewScheduleDeliveryDate(String newDate){return  findElement(String.format("//tbody/tr/td/a[text()=\"%s\"]",newDate),LocatorType.XPath);}
 
+    public WebElement Button_History(){return findElement("history-tab-btn",LocatorType.Id);}
 }
