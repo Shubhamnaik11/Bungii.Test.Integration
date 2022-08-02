@@ -2010,8 +2010,7 @@ public class CoreServices extends DriverBase {
 
             //Header header = new Header("AuthorizationToken", AccessToken);
             response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);//body(jsonObj.toString()).
-            System.out.println(response);
-            response.then().log().body();
+//            response.then().log().body();
             JsonPath jsonPathEvaluator = response.jsonPath();
             ApiHelper.genericResponseValidation(response, RequestText);
         }

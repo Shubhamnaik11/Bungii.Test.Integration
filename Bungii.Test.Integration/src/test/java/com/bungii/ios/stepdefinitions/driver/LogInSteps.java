@@ -169,28 +169,69 @@ public class LogInSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver44.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
-            case "testdrivertywd_applega_a_steve stark_altone":
-                phone = PropertyUtility.getDataProperties("atlanta.driver.phone");
-                password = PropertyUtility.getDataProperties("new.driver.password");
-                shouldLoginSucessful = true;
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
-                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
-                break;
-            case "testdrivertywd_appledc_a_web testdrivera":
-                phone = PropertyUtility.getDataProperties("web.valid.driver1.phone");
-                password = PropertyUtility.getDataProperties("new.driver.password");
-                shouldLoginSucessful = true;
-                cucumberContextManager.setScenarioContext("DRIVER_1","Testdrivertywd_appledc_a_web TestdriverA");
-                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
-                break;
             case "testdrivertywd_applega_a_bryan stark_altfour":
-                phone = "9623813997";
+                phone = PropertyUtility.getDataProperties("Kvalid.driver2.phone");
                 password = PropertyUtility.getDataProperties("valid.driver2.password");
                 shouldLoginSucessful = true;
                 cucumberContextManager.setScenarioContext("DRIVER_1",PropertyUtility.getDataProperties("valid.driver2.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
-
+            case "testdrivertywd_applega_a_drvac atlanta_ac":
+                phone = PropertyUtility.getDataProperties("atlanta.driver13.phone");
+                password = PropertyUtility.getDataProperties("atlanta.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver13.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_applega_a_drvad atlanta_ad":
+                phone = PropertyUtility.getDataProperties("atlanta.driver14.phone");
+                password = PropertyUtility.getDataProperties("atlanta.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver14.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_applega_a_drvae atlanta_ae":
+                phone = PropertyUtility.getDataProperties("atlanta.driver15.phone");
+                password = PropertyUtility.getDataProperties("atlanta.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver15.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_applega_a_drvaf atlanta_af":
+                phone = PropertyUtility.getDataProperties("atlanta.driver16.phone");
+                password = PropertyUtility.getDataProperties("atlanta.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver16.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_applega_a_drvag atlanta_ag":
+                phone = PropertyUtility.getDataProperties("atlanta.driver17.phone");
+                password = PropertyUtility.getDataProperties("atlanta.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver17.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_applega_a_drvah atlanta_ah":
+                phone = PropertyUtility.getDataProperties("atlanta.driver18.phone");
+                password = PropertyUtility.getDataProperties("atlanta.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver18.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_applega_a_drvai atlanta_ai":
+                phone = PropertyUtility.getDataProperties("atlanta.driver19.phone");
+                password = PropertyUtility.getDataProperties("atlanta.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver19.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_applemd_a_billf stark_blttwof":
+                phone = PropertyUtility.getDataProperties("baltimore.driver5.phone");
+                password = PropertyUtility.getDataProperties("baltimore.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("baltimore.driver5.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             default:
                 throw new Exception("Please specify valid input");
         }

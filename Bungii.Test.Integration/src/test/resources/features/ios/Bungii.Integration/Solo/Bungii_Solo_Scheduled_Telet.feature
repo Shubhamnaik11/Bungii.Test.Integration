@@ -275,7 +275,7 @@ Feature: Solo Scheduled Bungii - TELET
     When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       | atlanta| NEXT_POSSIBLE | 8877661075 | Testcustomertywd_BppleMarkBX LutherBX|
-    And As a driver "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_applega_a_drvac Atlanta_ac" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
       | Enroute  |
@@ -302,7 +302,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_applega_a_steve Stark_altOnE" driver
+    And I am logged in as "Testdrivertywd_applega_a_drvac Atlanta_ac" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I slide update button on "UNLOADING ITEMS" Screen
@@ -346,8 +346,8 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario:Verify Customer signature can be skipped on driver app
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |baltimore| NEXT_POSSIBLE | 8877661076 | Testcustomertywd_BppleMarkBY LutherBYJ|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
+      |baltimore| NEXT_POSSIBLE | 8877661076 | Testcustomertywd_BppleMarkBY LutherBY|
+    And As a driver "TestDrivertywd_applemd_a_billF Stark_bltTwOF" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
       | Enroute  |
@@ -357,7 +357,7 @@ Feature: Solo Scheduled Bungii - TELET
       | Unloading Item |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testcustomertywd_BppleMarkBY LutherBY" driver
+    And I am logged in as "TestDrivertywd_applemd_a_billF Stark_bltTwOF" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEMS" Screen
     And I driver adds photos to the Bungii
@@ -384,7 +384,7 @@ Feature: Solo Scheduled Bungii - TELET
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       | atlanta| NEXT_POSSIBLE | 8877661077 | Testcustomertywd_BppleMarkBZ LutherBZ|
 
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" and "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "DUO SCHEDULED" trip
+    And As a driver "Testdrivertywd_applega_a_drvad Atlanta_ad" and "Testdrivertywd_applega_a_drvae Atlanta_ae" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
     And I wait for 2 minutes
@@ -404,14 +404,14 @@ Feature: Solo Scheduled Bungii - TELET
     And the "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
     And I get the new pickup reference generated
-    And As a driver "Testdrivertywd_applega_a_steve Stark_altOnE" and "Testdrivertywd_applega_a_bryan Stark_altFour" perform below action with respective "DUO SCHEDULED" trip
+    And As a driver "Testdrivertywd_applega_a_drvae Atlanta_ae" and "Testdrivertywd_applega_a_bryan Stark_altFour" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Driving To Drop-off       | Driving To Drop-off       |
 
     And I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_applega_a_steve Stark_altOnE" driver
+    And I am logged in as "Testdrivertywd_applega_a_drvae Atlanta_ae" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I connect to "extra1" using "Driver2" instance
@@ -453,19 +453,19 @@ Feature: Solo Scheduled Bungii - TELET
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       | atlanta| NEXT_POSSIBLE | 8877661078 | Testcustomertywd_BppleMarkCA LutherCA|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" and "Testdrivertywd_applega_a_steve Stark_altOnE" perform below action with respective "DUO SCHEDULED" trip
+    And As a driver "Testdrivertywd_applega_a_drvaf Atlanta_af" and "Testdrivertywd_applega_a_drvaf Atlanta_af" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Driving To Drop-off  |  Driving To Drop-off  |
     And I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
+    And I am logged in as "Testdrivertywd_applega_a_drvaf Atlanta_af" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I connect to "extra1" using "Driver2" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_applega_a_steve Stark_altOnE" driver
+    And I am logged in as "Testdrivertywd_applega_a_drvaf Atlanta_af" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click on "Got It" button
@@ -496,7 +496,7 @@ Feature: Solo Scheduled Bungii - TELET
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       | atlanta| NEXT_POSSIBLE | 8877661079 | Testcustomertywd_BppleMarkCB LutherCB|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_applega_a_drvah Atlanta_ah" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
       | Enroute  |
@@ -506,7 +506,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
+    And I am logged in as "Testdrivertywd_applega_a_drvah Atlanta_ah" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -543,7 +543,7 @@ Feature: Solo Scheduled Bungii - TELET
     When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       | atlanta| NEXT_POSSIBLE | 8877661080 | Testcustomertywd_BppleMarkCC LutherCC|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_applega_a_drvai Atlanta_ai" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
       | Enroute  |
@@ -554,7 +554,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
+    And I am logged in as "Testdrivertywd_applega_a_drvai Atlanta_ai" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
     And I driver adds photos to the Bungii
