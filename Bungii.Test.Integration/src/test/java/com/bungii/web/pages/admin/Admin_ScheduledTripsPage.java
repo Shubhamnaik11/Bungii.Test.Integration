@@ -194,4 +194,20 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Link_NewScheduleDeliveryDate(String newDate){return  findElement(String.format("//tbody/tr/td/a[text()=\"%s\"]",newDate),LocatorType.XPath);}
 
     public WebElement Button_History(){return findElement("history-tab-btn",LocatorType.Id);}
+
+    public WebElement Text_AdminNameHistoryTab(){return findElement("//div[@id=\"history-tab\"]/div/h5",LocatorType.XPath);}
+
+    public WebElement Header_HistoryEvent(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr/th[1]",LocatorType.XPath);}
+
+    public WebElement Header_HistoryOldValue(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr/th[1]",LocatorType.XPath);}
+
+    public WebElement Header_HistoryNewValue(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr/th[1]",LocatorType.XPath);}
+
+    public WebElement Text_HistoryEventValue(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr[2]/td[1]",LocatorType.XPath);}
+
+    public WebElement Text_HistoryOldValueData(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr[2]/td[2]",LocatorType.XPath);}
+
+    public WebElement Text_HistoryNewValueData(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr[2]/td[3]",LocatorType.XPath);}
+
+    public WebElement Text_HistoryEditedTime(){return findElement("//div[@id=\"history-tab\"]/div/label",LocatorType.XPath);}
 }
