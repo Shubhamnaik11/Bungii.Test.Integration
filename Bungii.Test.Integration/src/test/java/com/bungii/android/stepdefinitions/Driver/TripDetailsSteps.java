@@ -178,23 +178,4 @@ public class TripDetailsSteps extends DriverBase {
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
     }
     }
-
-    @And("^I get the new pickup reference generated$")
-    public void i_get_the_new_pickup_reference_generated() throws Throwable {
-
-        try {
-            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            pickupRequest = getLinkedPickupRef(pickupRequest);
-            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
-            log("I get the new pickup reference generated",
-                    "Pickupref is " + pickupRequest, false);
-        }
-        catch (Exception ex){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "New pickup reference is not generated",
-                    true);
-        }
-
-    }
-
 }

@@ -144,13 +144,13 @@
     Scenario: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
       When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
-        |washingtondc| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+        |washingtondc| NEXT_POSSIBLE | 8877661083 | Testcustomertywd_BppleMarkCF LutherCF|
       And I wait for "2" mins
       When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      And I open the trip for "Testcustomertywd_appleNewRB Customer" the customer for delivery details
+      And I open the trip for "Testcustomertywd_BppleMarkCF LutherCF" the customer for delivery details
       And I get the estimated charge "for customer"
       And I get the driver earnings displayed for "solo"
       And I calculate the driver share and check for "solo"
@@ -172,7 +172,7 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      And I open the trip for "Testcustomertywd_appleNewRB Customer" the customer
+      And I open the trip for "Testcustomertywd_BppleMarkCF LutherCF" the customer
       And I Select "Edit Trip Details" option
       And I edit the drop off address
       Then I change the drop off address to "14800 Carrs Mill Road, Woodbine"
@@ -185,7 +185,7 @@
       And I get the new pickup reference generated
       And I wait for "2" mins
       And I Select "Scheduled Trip" from admin sidebar
-      And I open the trip for "Testcustomertywd_appleNewRB Customer" the customer for delivery details
+      And I open the trip for "Testcustomertywd_BppleMarkCF LutherCF" the customer for delivery details
       And I get the estimated charge "for customer"
       And I calculate the driver share and check for "changed address and service level"
 
@@ -205,7 +205,7 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "live trips" from admin sidebar
-      And I select the live trip for "Testcustomertywd_appleNewRB Customer" customer
+      And I select the live trip for "Testcustomertywd_BppleMarkCF LutherCF" customer
       And I Select "Edit Trip Details" option
       And I edit the drop off address
       Then I change the drop off address to "3315 Shepherd Street, Chevy Chase, Maryland"
@@ -218,13 +218,13 @@
       And I get the new pickup reference generated
       And I wait for "2" mins
       And I Select "live trips" from admin sidebar
-      And I select the live trip for "Testcustomertywd_appleNewRB Customer" customer for delivery details
+      And I select the live trip for "Testcustomertywd_BppleMarkCF LutherCF" customer for delivery details
       And I get the estimated charge "for customer"
       And I get the driver earnings displayed for "solo"
       Then I calculate the driver share and check for "solo"
 
 
-      #  Core-2418: Verify Driver Pricing by weight for Duo delivery with both Pallet weight lies same tier for Floor and Decor Partner
+ #  Core-2418: Verify Driver Pricing by weight for Duo delivery with both Pallet weight lies same tier for Floor and Decor Partner
     @ready
 #      @testsweta
     Scenario:Verify Driver Pricing by weight for Duo delivery with both Pallet weight lies same tier for Floor n Decor Partner
@@ -276,7 +276,7 @@
       And I Select Trip from available trip
       Then I verify the driver earnings displayed on driver app for "duo"
 
-        #  Core-2418: Verify Driver Pricing by weight for Duo delivery with Pallet weight in different tier for Floor n Decor Partner
+#  Core-2418: Verify Driver Pricing by weight for Duo delivery with Pallet weight in different tier for Floor n Decor Partner
     @ready
 #  @testsweta
     Scenario:Verify Driver Pricing by weight for Duo delivery with Pallet weight in different tier for Floor n Decor Partner
