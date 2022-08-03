@@ -17,6 +17,9 @@ public class LoginPage extends PageBase {
     //Log In button
     public WebElement Button_Login(boolean...ignoreException) { return findElement("com.bungii.customer:id/loginGlobalButton", LocatorType.Id,ignoreException); }
 
+    //Sign up button
+    public WebElement Button_Signup(boolean...ignoreException) { return findElement("//android.widget.TextView[@text='SIGN UP']", LocatorType.XPath,ignoreException); }
+
     // Forgot Password link
     public WebElement Link_ForgotPassword() { return findElement("com.bungii.customer:id/login_button_forgot_password", LocatorType.Id); }
 

@@ -73,6 +73,29 @@ public class DashBoardSteps extends DriverBase {
                     true);
         }
     }
+
+    @Then("^I should see \"([^\"]*)\" message$")
+    public void i_should_see_something_message(String message) throws Throwable {
+        try {
+            switch(message){
+                case "No Customers found.":
+                    testStepAssert.isElementTextEquals(dashBoardPage.Message_NoCustomerFound(),"No Customers found.",message+" should be displayed.",message+" is displayed.",message+" is not displayed");
+                    break;
+                case "No Deliveries found.":
+                    testStepAssert.isElementTextEquals(dashBoardPage.Message_NoDeliveriesFound(),"No Deliveries found.",message+" should be displayed.",message+" is displayed.",message+" is not displayed");
+                    break;
+                default:
+                    logger.detail("message option is not present");
+                    break;
+            }
+
+        }catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+  
     @And("^I select \"([^\"]*)\" geofence$")
     public void i_select_something_geofence(String geofenceName) throws Throwable {
         try{
@@ -142,5 +165,8 @@ public class DashBoardSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+
+    }
+
     }
 }

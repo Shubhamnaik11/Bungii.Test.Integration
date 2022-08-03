@@ -45,6 +45,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
+    AccountPage accountPage = new AccountPage();
 
 
     @And("^I click on \"([^\"]*)\" tab$")
@@ -306,7 +307,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "CANCEL":
                     action.click(searchingPage.Link_CancelSearch());
                     break;
-
+                case "Account Cancel":
+                    action.click(accountPage.Button_Cancel());
+                    break;
                 case "SUBMIT":
                     action.click(setPickupTimePage.Button_EnterCancellationReason());
                     break;
@@ -357,6 +360,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "GO OFFLINE":
                     action.click(bungiiCompletedPage.Button_GoOffline());
+                    break;
+                case "Delete":
+                    action.click(accountPage.Button_Delete());
                     break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
