@@ -1184,6 +1184,13 @@ Thread.sleep(5000);
                 }
             }
         }
+        else{
+            String message= (String) cucumberContextManager.getScenarioContext("EXPECTED_MESSAGE");
+            if (action.isElementPresent(otherAppsPage.Notification_PartnerCancel(message))) {
+                action.click(otherAppsPage.Notification_PartnerCancel(message));
+                isDisplayed = true;
+            }
+        }
         return isDisplayed;
     }
     public boolean getNofitication(String appName, String notificationMessage) {
@@ -2161,5 +2168,43 @@ Thread.sleep(5000);
     public void reApplyGeofenceDropdown(){
         action.click(admin_dashboardPage.List_Geofence());
         action.click(admin_dashboardPage.Button_ApplyGeofence());
+    }
+    public String NavigateToPartnerLogin(String Site){
+
+        String partnerURL = GetPartnerUrl(Site);
+        action.deleteAllCookies();
+        action.navigateTo(partnerURL);
+        return partnerURL;
+    }
+    private String GetPartnerUrl(String PP_Site) {
+        String partnerURL = null;
+        cucumberContextManager.setScenarioContext("SiteUrl", PP_Site);
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("QA_AUTO") || environment.equalsIgnoreCase("QA_AUTO_AWS")) {
+            if (PP_Site.equalsIgnoreCase("normal")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("FloorDecor service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.fnd_service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("kiosk mode")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("BestBuy service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.ref"));
+
+            } else if (PP_Site.equalsIgnoreCase("Cort service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.cort_service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.cort_service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("BestBuy2 service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref"));
+            }
+        }
+        return partnerURL;
     }
 }
