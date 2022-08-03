@@ -604,6 +604,42 @@ public class ScheduledTripSteps extends DriverBase {
 		}
 	}
 
+	@And("^I stop searching driver$")
+	public void i_stop_searching_driver() throws Throwable {
+		try{
+			action.click(scheduledTripsPage.Button_StopSearching());
+			Thread.sleep(3000);
+			action.JavaScriptClick(scheduledTripsPage.Button_ConfirmStopSearching());
+			Thread.sleep(2000);
+			action.JavaScriptClick(scheduledTripsPage.Button_CloseConfirm());
+			Thread.sleep(2000);
+			action.JavaScriptClick(scheduledTripsPage.Button_Ok());
+			Thread.sleep(1000);
+
+			log("I should be able to stop searching driver",
+					"I am able to stop searching driver",
+					false);
+
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+	@Then("^I check if delivery status is \"([^\"]*)\"$")
+	public void i_check_if_delivery_status_is_something(String status) throws Throwable {
+		try {
+			action.refreshPage();
+			testStepAssert.isEquals(scheduledTripsPage.Text_BungiiStatus().getText(),status,"The status should be No Driver(s) Found","The status is No Driver(s) Found","The status is not No Driver(s) Found");
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+
 	@And("^I open the trip for customer using pickupref$")
 	public void i_open_the_trip_for_customer() throws Throwable {
 		String pickupref = "";
@@ -1006,8 +1042,8 @@ public class ScheduledTripSteps extends DriverBase {
 			pass("I should able to open trip", "I viewed scheduled delivery",
 					false);
 
-			log(" I click on Edit link besides the scheduled bungii",
-					"I have clicked on Edit link besides the scheduled bungii", false);
+			log(" I click on Delivery Details besides the scheduled bungii",
+					"I have clicked on Delivery Details besides the scheduled bungii", false);
 		} catch(Exception e){
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -1529,6 +1565,44 @@ public class ScheduledTripSteps extends DriverBase {
 				action.click(selectTime);
 				logger.detail("I update time to "+newTime1,"I updated time to "+newTime1, false);
 
+				break;
+
+			case "trip time to before the overlapping trip":
+				newTime = currentTime;
+				DateFormat formatterBefore = new SimpleDateFormat("hh:mm a");
+				Date Newtime = formatterBefore.parse(newTime);
+
+				Calendar cL = Calendar.getInstance();
+				cL.setTime(Newtime);
+				cL.add(Calendar.MINUTE,-30);
+
+				Date NewtimeOne = cL.getTime();
+				String newTimeOne = formatterBefore.format(NewtimeOne);
+
+				cucumberContextManager.setScenarioContext("NEW_TIME", newTimeOne);
+				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTimeOne + "')]"));
+				action.click(selectTime);
+				logger.detail("I update time to "+newTimeOne,"I updated time to "+newTimeOne, false);
+				break;
+
+			case "trip time to after the overlapping trip":
+				newTime = currentTime;
+				DateFormat formatterAfter = new SimpleDateFormat("hh:mm a");
+				Date NewtimeAfter = formatterAfter.parse(newTime);
+
+				Calendar cLAfter = Calendar.getInstance();
+				cLAfter.setTime(NewtimeAfter);
+				cLAfter.add(Calendar.MINUTE,30);
+
+				Date NewtimeAfterOne = cLAfter.getTime();
+				String newTimeAfterOne = formatterAfter.format(NewtimeAfterOne);
+
+				cucumberContextManager.setScenarioContext("NEW_TIME", newTimeAfterOne);
+				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+				selectTime = SetupManager.getDriver().findElement(By.xpath("//li[contains(text(),'" + newTimeAfterOne + "')]"));
+				action.click(selectTime);
+				logger.detail("I update time to "+newTimeAfterOne,"I updated time to "+newTimeAfterOne, false);
 				break;
 		}
 		}catch (Throwable e) {

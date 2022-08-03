@@ -262,4 +262,9 @@ public class DbUtility extends DbContextManager {
         String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
         return pickupRef;
     }
+    public static String checkRejectionReason(String driverPhone){
+        String driverId=getDataFromMySqlServer("Select Id from driver where phone= "+driverPhone);
+        String reasonId = getDataFromMySqlServer("select pickup_driver_reject_reason_id from pickup_driver_reject_reason where driver_id = "+driverId);
+        return reasonId;
+    }
 }

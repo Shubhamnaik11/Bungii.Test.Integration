@@ -1163,7 +1163,47 @@ public class BungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I check the elements displayed on rate customer screen$")
+    public void i_check_the_elements_displayed_on_rate_customer_screen() throws Throwable {
+        try {
+            testStepAssert.isElementDisplayed(Page_BungiiComplete.RatingBar(),
+                    "No rating should be selected",
+                    "No rating is selected",
+                    "Rating is selected before driver can select");
 
+            testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Title_RateCustomer(),PropertyUtility.getMessage("driver.navigation.rate.customer"));
+
+            testStepAssert.isElementDisplayed(Page_BungiiComplete.Text_ChooseRating(),
+                    "Choose Rating should be displayed",
+                    "Choose Rating is displayed",
+                    "Choose Rating is not displayed");
+
+            testStepAssert.isElementDisplayed(Page_BungiiComplete.Text_DriverExperience(),
+                    "Driver experience question should be displayed",
+                    "Driver experience question is displayed",
+                    "Driver experience question is not displayed");
+
+            testStepAssert.isElementDisplayed(Page_BungiiComplete.Button_SubmitRating(),
+                    "Submit button should be displayed",
+                    "Submit button is displayed",
+                    "Submit button is not displayed");
+
+            testStepAssert.isElementDisplayed(Page_DriverBungiiProgress.Link_SkipRating(),
+                    "Skip this step button should be displayed",
+                    "Skip this step button is displayed",
+                    "Skip this step button is not displayed");
+
+
+            log("I should be able to verify the elements present on rate customer page",
+                    "I am able to verify the elements present on rate customer page",false);
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^I accept Alert message for \"([^\"]*)\"$")
     public void i_accept_alert_message_for_something(String strArg1) throws Throwable {
         try {
@@ -1251,6 +1291,42 @@ public class BungiiSteps extends DriverBase {
     public void simulatorBungiiDriver(String arg0) throws Throwable {
 
     }
+    @And("^Driver status should be \"([^\"]*)\"$")
+    public void driver_status_should_be_something(String DriverStatus) throws Throwable {
+        try {
+            String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            switch (DriverStatus){
+                case "Online":
+                    String expectedDriverOnlineStatus ="1";
+                    String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
+                    break;
+                case "Offline":
+                    String driverStatus ="0";
+                    String driverOfflineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOfflineStatus,driverStatus,"Driver status should be offline","Driver Status is offline","Driver status is not offline");
+                    break;
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I should see \"([^\"]*)\" popup displayed$")
+    public void i_should_see_something_popup_displayed(String expectedMessage) throws Throwable {
+        try{
+      boolean isDisplayed =Page_BungiiRequest.Alert_NewBungiiRequest(true).isDisplayed();
+      testStepAssert.isTrue(isDisplayed,"Stack trip request should be displayed","Stack trip request is displayed","Stack trip request is not displayed");
+      String popUpText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+      testStepAssert.isEquals(popUpText,expectedMessage,"Stack trip request should be "+expectedMessage,"Stack trip request is "+popUpText,expectedMessage +" request is not present");
+     }catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     private void validateSMSNumber(String actualValue,String expectedValue) {
         try {
             String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")

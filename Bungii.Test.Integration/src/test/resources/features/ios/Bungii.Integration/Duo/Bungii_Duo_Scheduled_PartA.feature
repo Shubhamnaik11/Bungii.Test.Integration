@@ -154,6 +154,7 @@ Feature: Scheduled DUO Bungii Part A
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
     And I Select Trip from available trip
+
     And I click "ACCEPT" button on "Bungii Request" screen
     Then I should be navigated to "AVAILABLE BUNGIIS" screen
     Then I should able to see "zero" available trip
@@ -247,8 +248,8 @@ Feature: Scheduled DUO Bungii Part A
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
-    
-  
+
+
   @regression
  #stable
   Scenario: Verify TELET Is Calculated Correctly For Duo Scheduled Trip

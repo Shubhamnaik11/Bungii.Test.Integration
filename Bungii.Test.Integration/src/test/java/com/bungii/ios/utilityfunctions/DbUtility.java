@@ -254,6 +254,12 @@ public class DbUtility extends DbContextManager {
         logger.detail("Fullname is" + fullname + ", query, " + queryString);
         return fullname;
     }
+
+    public static String checkRejectionReason(String driverPhone){
+        String driverId=getDataFromMySqlServer("Select Id from driver where phone= "+driverPhone);
+        String reasonId = getDataFromMySqlServer("select pickup_driver_reject_reason_id from pickup_driver_reject_reason where driver_id = "+driverId);
+        return reasonId;
+    }
     public static String getDriverShareSameTier() {
         String driverShare = "";
         String queryString = "select driver_share from bungii_admin_qa_auto.bp_service_level sl\n" +

@@ -164,3 +164,28 @@ Feature: Bungii Details and Pickup Note
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 8877661005      |                 |
+
+#    Core-2618 Verify that admin can set referral code amount on geofence settings page
+  @ready
+  Scenario: Verify that admin can set referral code amount on geofence settings page
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Geofence" from admin sidebar
+    And I select "Chicago" geofence
+    And I click on the "Settings" Button on "Geofence" Screen
+    And I set "set referral code amount"
+#     Core-2618 Verify admin can set no. of deliveries for referral payout on geofence setting page
+    And I set "set no. of deliveries"
+    Then I click on the "Save" Button on "GeofenceSettings" Screen
+#     Core-2618 Verify that updating referral amount in geofence settings updates value in invite screen
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :9049840247 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I click on "$" icon
+    Then I check if the amount is updated on invite screen
+
+

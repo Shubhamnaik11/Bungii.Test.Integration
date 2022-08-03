@@ -30,6 +30,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LoginSteps.class);
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    com.bungii.web.utilityfunctions.DbUtility dbUtility = new com.bungii.web.utilityfunctions.DbUtility();
     TripAlertSettingsPage tripAlertSettingsPage= new TripAlertSettingsPage();
     EstimatePage estimatePage = new EstimatePage();
     ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
@@ -42,6 +43,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     SearchingPage searchingPage = new SearchingPage();
     MyBungiisPage myBungiisPage = new MyBungiisPage();
     EarningsPage earningsPage = new EarningsPage();
+    BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
+    BungiiRequest Page_BungiiRequest = new BungiiRequest();
+    BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
 
 
     @And("^I click on \"([^\"]*)\" tab$")
@@ -234,7 +238,25 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^I should see \"([^\"]*)\" message on popup with PickupId anad Pickup Origin$")
+    public void i_should_see_something_message_on_popup_with_pickupid_anad_pickup_origin(String message) throws Throwable {
 
+        try{
+            testStepAssert.isTrue(action.isElementPresent(scheduledTripsPage.Label_HeaderPopup()),message+" should be displayed", message+" is displayed", message+" is not displayed");
+            String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String pickupId = dbUtility.getPickupIdFromFactPickup(pickuprequest);
+            String source = "Customer Delivery";
+            String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+
+            testStepAssert.isElementTextEquals(scheduledTripsPage.Label_PickupId(),pickupId, pickupId +" should be displayed", pickupId +" is displayed", pickupId+" is not displayed");
+            //testStepAssert.isElementTextEquals(admin_RevivalPage.Label_PickupOrigin(),source, source +" should be displayed", source +" is displayed", source+" is not displayed");
+            testStepAssert.isElementTextEquals(scheduledTripsPage.Label_PickupCustomer(),customerName, customerName +" should be displayed", customerName +" is displayed", customerName+" is not displayed");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @And("^I click on \"([^\"]*)\" button$")
     public void i_click_on_something_button(String Name) throws Throwable {
         try {
@@ -338,7 +360,38 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Delivery Instructions":
                     action.click(inProgressPages.Button_DeliveryInstructions());
                     break;
+                case "SUBMIT RATING":
+                    action.click(Page_BungiiComplete.Button_SubmitRating());
+                    break;
 
+                case "Revive":
+                    action.click(scheduledTripsPage.Button_ReviveTrip());
+                    break;
+                case "Confirm":
+                    action.click(scheduledTripsPage.Button_Confirm());
+                    Thread.sleep(10000);
+                    String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
+                    cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
+                    break;
+
+                case "Accept":
+                    Thread.sleep(5000);
+                    action.click(Page_BungiiRequest.Button_Accept());
+                    break;
+
+                case "View Request":
+                    Thread.sleep(3000);
+                    action.click(Page_BungiiRequest.Alert_ViewRequest());
+                    break;
+
+                case "STAY ONLINE":
+                    action.click(bungiiCompletedPage.Button_StayOnline());
+                    break;
+
+                case "GO OFFLINE":
+                    action.click(bungiiCompletedPage.Button_GoOffline());
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }

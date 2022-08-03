@@ -165,11 +165,14 @@ Feature: Scheduled Bungii on one device
 	And I Select Trip from available trip
 	Then I should be navigated to "BUNGII DETAILS" screen
 	And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
+     #    Core - 2569 Verify ~ sign under earnings is shown on Driver app for Customer Deliveries
+    And I check if variable sign is shown under "available bungii details"
 	When I accept selected Bungii
 	
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select delivery "1" from scheduled deliveries
 	Then I should be navigated to "BUNGII DETAILS" screen
+    And I check if variable sign is shown under "schedule bungii details"
 	
 	When I Select "ACCOUNT > LOGOUT" from driver App menu
 	And I am on the "LOG IN" page on driverApp

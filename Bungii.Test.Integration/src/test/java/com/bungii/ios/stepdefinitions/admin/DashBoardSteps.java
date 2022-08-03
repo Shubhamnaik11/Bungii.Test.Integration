@@ -331,6 +331,55 @@ public class DashBoardSteps extends DriverBase {
         action.click(dashBoardPage.Checkbox_Active_geofence());
         Thread.sleep(1000);
     }
+    @And("^I open the trip for \"([^\"]*)\" the customer for delivery details$")
+    public void i_open_the_trip_for_something_the_customer_for_delivery_details(String custName) throws Throwable {
+        try{
+            String[] name = custName.split(" ");
+
+            action.clearSendKeys(dashBoardPage.Text_SearchCriteria(),name[0]);
+            action.click(dashBoardPage.Button_Search());
+
+            Thread.sleep(25000);
+/*			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
+			if(rows.size()>0)
+			rows.get(0).click();
+			else {
+			    String xpath = String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]);
+                error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
+            }*/
+
+            List<WebElement> rows_editicon = dashBoardPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]), PageBase.LocatorType.XPath);
+            List<WebElement> rows_editlink = dashBoardPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Delivery Details')]",name[0]),PageBase.LocatorType.XPath);
+
+            if(rows_editicon.size()>0)
+            {
+                rows_editicon.get(0).click();
+                rows_editlink.get(0).click();
+            }
+
+            pass("I should able to open trip", "I viewed scheduled delivery",
+                    false);
+
+            log(" I click on Delivery Details besides the scheduled bungii",
+                    "I have clicked on Delivery Details besides the scheduled bungii", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^I check if delivery status is \"([^\"]*)\"$")
+    public void i_check_if_delivery_status_is_something(String status) throws Throwable {
+        try {
+
+            testStepAssert.isEquals(dashBoardPage.Text_BungiiStatus().getText(),status,"The status should be No Driver(s) Found","The status is No Driver(s) Found","The status is not No Driver(s) Found");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
 }
 

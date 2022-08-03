@@ -358,7 +358,7 @@ public class Admin_TripsSteps extends DriverBase {
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
-            if (status.equalsIgnoreCase("Scheduled") || (status.equalsIgnoreCase("Assigning Driver(s)") && pageName.contains("Scheduled")) || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")) {
+            if (status.equalsIgnoreCase("Scheduled") || (status.equalsIgnoreCase("Assigning Driver(s)") && pageName.contains("Scheduled")) || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")||status.equalsIgnoreCase("Pending")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType[0].toUpperCase(), customer);
                 String costPath =  String.format("//td[contains(.,'%s')]/preceding-sibling::td[1]/span", customer);
 
@@ -1832,6 +1832,10 @@ try{
                         uncheck_all_statuses();
                         action.click(admin_TripsPage.CheckBox_FilterPromoterPaymentPending());;
                         break;
+                    case "Pending":
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click(admin_TripsPage.CheckBox_FilterPending());
+                        break;
                 }
                 break;
 
@@ -2291,6 +2295,64 @@ try{
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I change the delivery type from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_change_the_delivery_type_from_something_to_something(String initialTripTypeStatus, String expectedTripTypeStatus) throws Throwable {
+        try {
+            switch (expectedTripTypeStatus) {
+                case "Solo":
+                    Thread.sleep(1000);
+                    action.click(admin_TripsPage.RadioButton_SoloTrip());
+                    break;
+                case "Duo":
+                    Thread.sleep(1000);
+                    action.click(admin_TripsPage.RadioButton_DuoTrip());
+                    break;
+            }
+            log("I should be able to change delivery type to " + expectedTripTypeStatus,"I could change delivery type to " + expectedTripTypeStatus);
+        } catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Unable to view the searched delivery",
+                    true);
+        }
+    }
+
+    @And("^I get the new \"([^\"]*)\"$")
+    public void i_get_the_new_something(String strArg1) throws Throwable {
+        try{
+            String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
+            String pickupref = new DbUtility().getLatestPickupRefOfCustomer(customerRef);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupref);
+            String tripType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+            if (tripType.contains("Solo")) {
+                cucumberContextManager.setScenarioContext("BUNGII_TYPE", "Duo Scheduled");
+            } else if (tripType.contains("Duo")) {
+                cucumberContextManager.setScenarioContext("BUNGII_TYPE", "Solo Scheduled");
+            }
+            utility.resetGeofenceDropdown();
+            Thread.sleep(1000);
+            log("I should be able to get the new pickup reference","I could get the new pickup reference",false);
+        }catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Unable to view the searched delivery",
+                    true);
+        }
+    }
+
+
+    @And("^I get the latest \"([^\"]*)\"$")
+    public void i_get_the_latest_something(String strArg1) throws Throwable {
+        try{
+            String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
+            String pickupref = new DbUtility().getLatestPickupRefOfCustomer(customerRef);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupref);
+            utility.resetGeofenceDropdown();
+            log("I should be able to get the latest pickup reference","I could get the latest pickup reference",false);
+        }catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to view the searched delivery",
                     true);
         }
     }

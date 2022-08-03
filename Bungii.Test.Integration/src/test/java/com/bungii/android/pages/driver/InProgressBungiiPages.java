@@ -104,7 +104,7 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Text_NextLabel(boolean ... ignoreException) { return findElement("com.bungii.driver:id/stack_widget_tv_next", LocatorType.Id,ignoreException); }
     public WebElement Text_OnDeckLabel(boolean ... ignoreException) { return findElement("com.bungii.driver:id/appCompatTextView24", LocatorType.Id,ignoreException); }
     public WebElement Text_StackCustomer(boolean ... ignoreException) { return findElement("com.bungii.driver:id/stack_customer_name_textview", LocatorType.Id,ignoreException); }
-    public WebElement Text_FinishBy() { return findElement("com.bungii.driver:id/pickup_details_status_tv_pickup_end_time", LocatorType.Id); }
+    public WebElement Text_FinishBy() { return findElement("com.bungii.driver:id/appCompatTextView24", LocatorType.Id); }
     public WebElement Button_StackInfo() { return findElement("com.bungii.driver:id/pickup_details_iv_stack_info", LocatorType.Id); }
 
     //Details Note
@@ -138,4 +138,19 @@ public class InProgressBungiiPages extends PageBase {
 
     public WebElement Text_DeliveryInstructions(){return findElement("com.bungii.driver:id/view_customer_note_markdown_instructions",LocatorType.Id);}
 
+    //Duo trip second driver vehicle information
+    public WebElement Image_BungiiDuoTeammate(boolean...ignoreException){return findElement("com.bungii.driver:id/duo_driver_imageview",LocatorType.Id,ignoreException);}
+    public WebElement Text_DuoDriverVehicleModel(){return findElement("com.bungii.driver:id/activity_teammate_tv_vehicle_info",LocatorType.Id);}
+    public WebElement Text_DuoDriverVehicleNumber(){return findElement("//android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.TextView",LocatorType.XPath);}
+
+    //Photo Verification
+    public WebElement Title_PhotoVerification(){return findElement("//android.widget.TextView[@text='PHOTO VERIFICATION']",LocatorType.XPath);}
+    public WebElement Text_PhotoVerificationBeforeLoading(){return findElement("//android.widget.TextView[@text='Photo verification (before loading)']",LocatorType.XPath);}
+    public WebElement Text_PhotoVerificationAfterLoading(){return findElement("//android.widget.TextView[@text='Photo verification (after loading)']",LocatorType.XPath);}
+    public WebElement Text_PhotoVerificationBeforeUnloading(){return findElement("//android.widget.TextView[@text='Photo verification (before loading)']",LocatorType.XPath);}
+
+    public WebElement Button_AddPhoto(){return findElement("com.bungii.driver:id/appCompatImageView19",LocatorType.Id);}
+    public WebElement Button_Save(){return findElement("com.bungii.driver:id/activity_photo_verification_btn_save",LocatorType.Id);}
+
+    public WebElement Image_UploadedImage(){return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/view_driver_captured_photo_image']",LocatorType.XPath);}
 }
