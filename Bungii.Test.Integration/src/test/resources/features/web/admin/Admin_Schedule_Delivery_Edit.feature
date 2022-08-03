@@ -4,7 +4,7 @@ Feature: Admin_Schedule_Delivery_Edit
   Background:
     Given I am logged in as Admin
 
-    @ready
+  @regression
       #failed in sprint 49
     Scenario: Verify editing drop off address for the Solo scheduled delivery
       When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence

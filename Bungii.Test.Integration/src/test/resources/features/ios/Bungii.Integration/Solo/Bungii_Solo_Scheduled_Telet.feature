@@ -53,7 +53,7 @@ Feature: Solo Scheduled Bungii - TELET
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @ready
+  @regression
     #stable
   Scenario: Verify If Incoming Scheduled Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
     Given that solo schedule bungii is in progress
@@ -88,7 +88,7 @@ Feature: Solo Scheduled Bungii - TELET
       | Customer Phone  | Customer2 Phone      |
       | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
 
-  @ready
+  @regression
   Scenario: Verify If Incoming On-demend Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -110,7 +110,7 @@ Feature: Solo Scheduled Bungii - TELET
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @ready
+  @regression
   Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip TELET Then Request Should Not Be Sent To Driver
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -133,7 +133,7 @@ Feature: Solo Scheduled Bungii - TELET
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
-  @ready
+  @regression
     #Added case of CORE-3685 to existing script
   #stable
   Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked request (Trip 2) Then Driver Doesnt Receive Scheduled Notification
@@ -235,7 +235,7 @@ Feature: Solo Scheduled Bungii - TELET
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
 
-  @ready
+  @regression
     #Test this case manually on QA since on QA_Auto working offline time is set as 11.45pm to 12.00am and hence both slot can't consider for this case
    #Stable
   Scenario: Verify Customer Doesnt Receives Notification When Solo Scheduled Bungii Is Requested At A Time Outside Working Hours

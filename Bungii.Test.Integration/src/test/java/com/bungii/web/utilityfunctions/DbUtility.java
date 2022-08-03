@@ -31,10 +31,19 @@ public class DbUtility extends DbContextManager {
         String Scheduled_Time = getDataFromMySqlServer("SELECT ScheduledTimestamp FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
         return Scheduled_Time;
     }
+    public static String getScheduledDays(String subdomain){
+        String scheduledTime = getDataFromMySqlMgmtServer("select advance_schedule_days from bp_store st join bp_store_portal_setting ps on ps.bp_store_id = st.bp_store_id where st.subdomain_name like '%"+subdomain+"%';");
+        return scheduledTime;
 
-    public static String getPickupRef(String customerPhone) {
+
+  public static String getPickupRef(String customerPhone) {
         String pickupId = getPickupIdfrom_pickup_additional_info(customerPhone);
         String pickupRef = getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
+
+    }
+    public static String getPickupRef(String customerPhone){
+        String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
+        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
         return pickupRef;
     }
 
@@ -526,5 +535,59 @@ public class DbUtility extends DbContextManager {
         }
         logger.detail("AccessorialFeeType =  " + FeeType + " of delivery " + pickupref);
         return FeeType;
+    }
+    public String getLoadUnloadTime(String pickUpID) {
+        String loadUnloadTime = "";
+        String queryString = "select LoadingUnloadingTime from pickupdetails where pickupref = '"+pickUpID+"'";
+        loadUnloadTime = getDataFromMySqlServer(queryString);
+        logger.detail("Load/Unload time required is " + loadUnloadTime);
+        return loadUnloadTime;
+    }
+    public String getProjectedDriverTime(String pickUpID) {
+        String projectedDriverTime = "";
+        String queryString = "select EstTime from pickupdetails where pickupref = '"+pickUpID+"'";
+        projectedDriverTime = getDataFromMySqlServer(queryString);
+        logger.detail("Projected Driver Time is " + projectedDriverTime);
+        return projectedDriverTime;
+    }
+    public static String getDriverStatus(String phoneNumber){
+        String driverStatus;
+        String entireQueryString = "select OnlineStatus from driver where Phone= " +phoneNumber;
+        driverStatus = getDataFromMySqlServer(entireQueryString);
+        return driverStatus;
+    }
+
+    public static String getPaymentTransactionType(String Pickup_Reference) {
+        String transactionType;
+        String queryString = "select PaymentTransactionType from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 1";
+        transactionType = getDataFromMySqlServer(queryString);
+        logger.detail("Payment transaction status is  " + transactionType + " for pickup reference"+Pickup_Reference);
+        return transactionType;
+
+    }
+
+    public static String getStatusMessage(String Pickup_Reference) {
+        String statusMessage;
+        String queryString = "select StatusMessage from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 1";
+        statusMessage = getDataFromMySqlServer(queryString);
+        logger.detail("The status message is " + statusMessage + " for pickup reference"+Pickup_Reference);
+        return statusMessage;
+
+    }
+
+    public static String getDriverPaid(String Pickup_Reference) {
+        String driverPaid;
+        String queryString = "select IsDriverPaid from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 1";
+        driverPaid = getDataFromMySqlServer(queryString);
+        logger.detail("Drive paid paid status is " + driverPaid + " for pickup reference"+Pickup_Reference);
+        return driverPaid;
+
+    }
+    public static List<HashMap<String,Object>>  getAccessorialAmount(String Pickup_Reference) {
+        List<HashMap<String,Object>> allcharges = new ArrayList<>();
+        String queryString = "select Amount from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 5";
+        allcharges = getListDataFromMySqlMgmtServer(queryString);
+        return allcharges;
+
     }
 }
