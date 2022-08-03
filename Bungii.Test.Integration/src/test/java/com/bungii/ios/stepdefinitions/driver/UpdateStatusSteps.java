@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.admin.LiveTripsPage;
 import com.bungii.ios.pages.customer.EstimatePage;
 import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
@@ -40,6 +41,7 @@ public class UpdateStatusSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     private TripDetailsPage tripDetailsPage;
     private UpdateStatusPage updateStatusPage;
+    LiveTripsPage liveTripsPage = new LiveTripsPage();
     private EstimatePage estimatePage;
     private BungiiDetailsPage bungiiDetailsPage;
 
@@ -904,6 +906,26 @@ public class UpdateStatusSteps extends DriverBase {
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
     }
 
+    }
+    @And("^I click on \"([^\"]*)\" icon$")
+    public void i_click_on_something_icon(String icon) throws Throwable {
+        try{
+            switch (icon){
+                case "$":
+                    action.clickBy2Points(370,67);
+                    break;
+                case "Back":
+                    action.click(liveTripsPage.Button_Back());
+                    break;
+            }
+            log("I should be able to click on the icon","I am able to click on the icon",false);
+
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I get the new pickup reference generated$")
     public void i_get_the_new_pickup_reference_generated() throws Throwable {
