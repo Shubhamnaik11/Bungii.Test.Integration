@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.admin.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -57,6 +58,10 @@ public class DashBoardSteps extends DriverBase {
                 case "drivers":
                     SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","Admin/GetAllBungiiDrivers"));
                     break;
+                case "geofence":
+                    Thread.sleep(2000);
+                    action.click(liveTripsPage.Menu_Geofences());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -67,5 +72,101 @@ public class DashBoardSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @Then("^I should see \"([^\"]*)\" message$")
+    public void i_should_see_something_message(String message) throws Throwable {
+        try {
+            switch(message){
+                case "No Customers found.":
+                    testStepAssert.isElementTextEquals(dashBoardPage.Message_NoCustomerFound(),"No Customers found.",message+" should be displayed.",message+" is displayed.",message+" is not displayed");
+                    break;
+                case "No Deliveries found.":
+                    testStepAssert.isElementTextEquals(dashBoardPage.Message_NoDeliveriesFound(),"No Deliveries found.",message+" should be displayed.",message+" is displayed.",message+" is not displayed");
+                    break;
+                default:
+                    logger.detail("message option is not present");
+                    break;
+            }
+
+        }catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+  
+    @And("^I select \"([^\"]*)\" geofence$")
+    public void i_select_something_geofence(String geofenceName) throws Throwable {
+        try{
+            switch (geofenceName) {
+                case "Chicago":
+                    action.click(liveTripsPage.Select_ChicagoGeofence());
+                    break;
+
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @When("^I click on the \"([^\"]*)\" Button on \"([^\"]*)\" Screen$")
+    public void i_click_on_the_something_button_on_something_screen(String button,String screen)throws Throwable{
+        try{
+            switch(screen){
+
+                case"Geofence":
+                    switch(button){
+                        case"Settings":
+                            action.click((liveTripsPage.Button_Settings()));
+                            break;
+                        case "Save":
+                            action.click(liveTripsPage.Button_Save());
+                            break;
+                    }
+                    break;
+
+                case"GeofenceSettings":
+                    switch(button){
+                        case"Save":
+                            action.click(liveTripsPage.Button_SaveGeofenceSettings());
+                            break;
+                    }
+            }
+            log("AndIclickonthe"+button+"Buttonon"+screen,
+                    "Ihaveclickedonthe"+button+"Buttonon"+screen,true);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I set \"([^\"]*)\"$")
+    public void i_set_something(String type) throws Throwable {
+        try{
+            switch (type){
+                case "set referral code amount":
+                    int referralAmount = Integer.parseInt(liveTripsPage.Input_ReferralAmount().getAttribute("value"));
+                    int newReferralAmount=referralAmount+1;
+                    action.clearSendKeys(liveTripsPage.Input_ReferralAmount(), String.valueOf(newReferralAmount));
+                    cucumberContextManager.setScenarioContext("NEW_REFERRAL_AMT",newReferralAmount);
+                    break;
+                case "set no. of deliveries":
+                    int noOfDeliveries = Integer.parseInt(liveTripsPage.Input_NoOfDeliveries().getAttribute("value"));
+                    int changeNoOfDeliveries=noOfDeliveries+1;
+                    action.clearSendKeys(liveTripsPage.Input_NoOfDeliveries(), String.valueOf(changeNoOfDeliveries));
+                    cucumberContextManager.setScenarioContext("NEW_NUMBER_OF_DELIVERIES",changeNoOfDeliveries);
+                    break;
+            }
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
     }
 }

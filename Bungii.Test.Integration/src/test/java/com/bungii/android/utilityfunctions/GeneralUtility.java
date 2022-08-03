@@ -213,6 +213,14 @@ public class GeneralUtility extends DriverBase {
             case "ACCOUNT INFO":
                 isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountInfoPage(true));
                 break;
+            case "Delete account":
+                Thread.sleep(2000);
+                isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_DeleteAccount(true));
+                if(isCorrectPage){
+                    testStepAssert.isElementTextEquals(cutomerAccountPage.Text_PasswordToConfirm(),PropertyUtility.getMessage("customer.account.deleted.confirm"),PropertyUtility.getMessage("customer.account.deleted.confirm") + "should be display.",PropertyUtility.getMessage("customer.account.deleted.confirm") + "is displayed.",PropertyUtility.getMessage("customer.account.deleted.confirm") + " is not displayed.");
+                    testStepAssert.isElementTextEquals(cutomerAccountPage.Text_ActionCannotUndone(),PropertyUtility.getMessage("customer.account.deleted.undone"),PropertyUtility.getMessage("customer.account.deleted.undone") + "should be display.",PropertyUtility.getMessage("customer.account.deleted.undone") + "text is displayed.",PropertyUtility.getMessage("customer.account.deleted.undone") + "text is not displayed.");
+                }
+                break;
             case "MY BUNGIIS":
                 isCorrectPage = action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
                 break;
@@ -330,6 +338,12 @@ Thread.sleep(5000);
 
             case "Rate duo teammate":
                 isCorrectPage=action.isElementPresent(myBungiisPage.Header_RateDuoTeammate());
+                break;
+            case "REFERRAL":
+                isCorrectPage=action.isElementPresent(myBungiisPage.Header_ReferralPage());
+                break;
+            case "REFERRAL HISTORY":
+                isCorrectPage=action.isElementPresent(myBungiisPage.Header_ReferralHistory());
                 break;
 
                 default:
