@@ -136,6 +136,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (checked.equals("false")) {
                         action.click(bungiiEstimatePage.Checkbox_AgreeEstimate());
                     }
+
                     if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))
                         action.scrollToBottom();
                     action.click(bungiiEstimatePage.Button_RequestBungii());

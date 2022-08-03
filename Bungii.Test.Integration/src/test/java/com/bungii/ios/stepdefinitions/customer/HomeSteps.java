@@ -249,11 +249,13 @@ public class HomeSteps extends DriverBase {
 
         if(tripDriverType.toUpperCase().equalsIgnoreCase("SOLO"))
         {
+            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER",1);
             return action.getNameAttribute(homePage.Icon_Solo()).equals("1");
         }
         else
         if(tripDriverType.toUpperCase().equalsIgnoreCase("DUO"))
         {
+            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER",2);
             return action.getNameAttribute(homePage.Icon_Duo()).equals("2");
         }
 

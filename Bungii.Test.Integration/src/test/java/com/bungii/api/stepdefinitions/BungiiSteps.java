@@ -512,6 +512,9 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appleks_a_drvam Kansas_am":
                 phone = PropertyUtility.getDataProperties("Kansas.driver25.phone");
                 break;
+            case "Testdrivertywd_appleks_a_drvbb Kansas_bb":
+                phone = PropertyUtility.getDataProperties("Kansas.driver50.phone");
+                break;
             case "TestDrivertywd_applemd_a_billD Stark_bltTwOD":
                 phone = PropertyUtility.getDataProperties("baltimore.driver3.phone");
                 break;
@@ -1349,11 +1352,10 @@ public class BungiiSteps extends DriverBase {
 
                     logger.detail("*** As a driver " + driverAName + "(" + driverPhoneNum + ") " + bungiiType + "(" + pickupRequest + ") is being " + driver1State);
 
-
-                        if (driver1State.equalsIgnoreCase("Accepted")) {
-                            try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
-                            //  coreServices.waitForAvailableTrips(driverAName + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest); //temporary comment
-                        }
+                    if (driver1State.equalsIgnoreCase("Accepted")) {
+                        try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
+                        //  coreServices.waitForAvailableTrips(driverAName + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest); //temporary comment
+                    }
 
                         if (driver1State.equalsIgnoreCase("Accepted")) {
                             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
