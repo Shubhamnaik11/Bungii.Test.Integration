@@ -100,6 +100,26 @@
       And I Select Trip from driver scheduled trip
       Then I check if variable sign is not shown under "schedule bungii details"
 
+      When I tap on "Back" button of android mobile
+      And I Select "HOME" from driver App menu
+      And I tap on "Back" button of android mobile
+#     Core-3371 Verify Push Notification is sent with schedule date/time to driver when partner(Fixed Pricing) cancels trip
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      When I navigate to "Partner" portal configured for "service level" URL
+      When I enter "valid" password on Partner Portal
+      And I click "SIGN IN" button on Partner Portal
+      When I click the "Track Deliveries" button on Partner Portal
+      And I click on the delivery based on customer name
+      And I click "Cancel Delivery link" button on Partner Portal
+      And I click "Cancel Delivery" button on Partner Portal
+      Then I click "OK" button on Partner Portal
+      And I wait for "1" mins
+
+      When I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
+      Then I check the notification for "partner cancel trip"
+
+
 #  Core-2411:Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip
     @ready
     Scenario: Verify that driver's status remains Online when his previous status was Online once he starts the schedule trip

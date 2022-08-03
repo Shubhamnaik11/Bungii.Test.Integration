@@ -455,6 +455,23 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+
+    @And("^I get pickupref for \"([^\"]*)\" customer$")
+    public void i_get_pickuref_for_something_customer(String string1) throws Throwable {
+        try{
+            String custPhone = (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+            //String custRef = dbUtility.getCustomerRefference(custPhone);
+            String pickupRef = dbUtility.getPickupRef(custPhone);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST2",pickupRef);
+            logger.detail("Pickupref for customer "+custPhone+" is"+pickupRef);
+
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in fetching the pickupref for customer ",
+                    true);
+        }
+    }
+
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void iClickButtonOnScreen(String button, String screen) {
         try {
@@ -676,6 +693,13 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "DELETE ACCOUNT":
                     action.click(accountPage.Button_DeleteAccount());
+                    break;
+                case "SCHEDULED BUNGIIS":
+                    if (screen.equalsIgnoreCase("update")) {
+                        action.click(driverUpdateStatusPage.Button_MoreOptions());
+                        Thread.sleep(1000);
+                        action.click(driverUpdateStatusPage.Button_ScheduledBungiis());
+                    }
                     break;
                 case "MORE OPTIONS":
                     action.click(driverUpdateStatusPage.Button_MoreOptions());
@@ -1209,7 +1233,12 @@ public class CommonSteps extends DriverBase {
     public void acceptDriverPermissions(String Notification, String Location) throws Throwable {
         try {
             GeneralUtility utility = new GeneralUtility();
-            String pageName = utility.getPageHeader();
+            //String pageName = utility.getPageHeader();
+            if(action.isAlertPresent())
+            {
+                action.clickAlertButton("Always Allow");
+            }
+
             if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                 action.click(enableNotificationPage.Button_Sure());
                 action.clickAlertButton("Allow");

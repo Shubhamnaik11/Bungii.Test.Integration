@@ -383,8 +383,22 @@ public class ActionManager {
         if(!hour.equals("")) {
             if(Columns.size()==4)
                 Columns.get(1).sendKeys(hour);
-            else
-                Columns.get(1).sendKeys(hour+12);
+            else {
+               // String h1= hour+ Integer.toString(12);
+                //Columns.get(1).sendKeys(hour+12);
+                int num = Integer.parseInt(hour);
+                String hrs ="";
+                if(num>12) {
+                    num = num + 12;
+                     hrs = String.valueOf(num);
+                }
+
+                if(num==24)
+                    hrs="00";
+
+
+                Columns.get(1).sendKeys(hrs);
+            }
         }
         if(!meridiem.equals("")) {
             if(Columns.size()==4) {
