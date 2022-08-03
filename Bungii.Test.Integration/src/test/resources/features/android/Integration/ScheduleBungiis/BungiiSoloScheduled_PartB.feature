@@ -27,6 +27,7 @@ Feature: SoloScheduled Part B
 
 
   @regression
+    #CORE-3685(Android)--test case cannot delete the account when trip is present incorporated
     #stable
   Scenario: Verify Customer Cannot Schedule Bungii That Overlaps With Another Scheduled Trip TELET Time :Solo
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
@@ -40,6 +41,16 @@ Feature: SoloScheduled Part B
     Given I login as customer "8805368840" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
+    When I tap on "Menu" > "ACCOUNT" link
+    Then "ACCOUNT INFO" page should be opened
+    And I tap on the "Delete account" Link
+    Then "Delete account" page should be opened
+    And I enter customers "valid1" Password
+    Then The user should see "snackbar validation message scheduled bungii for account deletion" on log in page
+    And I click on "Account Cancel" button
+    Then I click on "Navigate Back" button on the "ACCOUNT INFO" page of customer app
+    When I tap on "Menu" > "Home" link
+    Then "Home" page should be opened
     And I enter "kansas pickup and dropoff locations less than 150 miles" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened

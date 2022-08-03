@@ -935,7 +935,10 @@ public class CommonSteps extends DriverBase {
                     expectedMessage = "We’re only able to schedule Bungii’s between 12:15 AM - 11:30 PM. Please choose a time in that range."; //PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
                     action.click(estimatePage.Samsung_Time_Cancel());
                     break;
-
+                case "ACCOUNT DELETED SUCCESSFULLY":
+                    actualMessage = utility.getCustomerSnackBarMessage();
+                    expectedMessage = PropertyUtility.getMessage("customer.account.deleted.successfully");
+                    break;
                 case "DELETE WARNING":
                     actualMessage = utility.getCustomerSnackBarMessage();
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
