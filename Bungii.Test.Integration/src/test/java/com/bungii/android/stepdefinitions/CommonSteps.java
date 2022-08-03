@@ -1426,10 +1426,10 @@ public class CommonSteps extends DriverBase {
             switch (str)
             {
                 case "valid":
-                    action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                    action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("PartnerPassword"));
                     break;
                 case "invalid":
-                    action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("Invalid_PartnerPassword"));
+                    action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("Invalid_PartnerPassword"));
                     break;
                 default: break;
             }
@@ -1445,21 +1445,21 @@ public class CommonSteps extends DriverBase {
         try {
             switch (str) {
                 case "SIGN IN":
-                    action.click(scheduledTripsPage.Button_Sign_In());
+                    action.click(scheduledTripsPage.Button_SignIn());
                     break;
                 case "Track Deliveries":
                     Thread.sleep(5000);
                     action.click(scheduledTripsPage.Dropdown_Setting());
                     Thread.sleep(5000);
-                    action.click(scheduledTripsPage.Button_Track_Deliveries());
+                    action.click(scheduledTripsPage.Button_TrackDeliveries());
                     Thread.sleep(5000);
                     if(action.getCurrentURL().contains("login")|| action.getCurrentURL().contains("Login"))
                     {
                         //Workaround for app getting logged out when run in parallel
-                        action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
-                        action.click(scheduledTripsPage.Button_Sign_In());
+                        action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("PartnerPassword"));
+                        action.click(scheduledTripsPage.Button_SignIn());
                         Thread.sleep(5000);
-                        testStepVerify.isEquals(action.getText(scheduledTripsPage.Label_Start_Over()), PropertyUtility.getMessage("Start_Over_Header"));
+                        testStepVerify.isEquals(action.getText(scheduledTripsPage.Label_StartOver()), PropertyUtility.getMessage("Start_Over_Header"));
                         Thread.sleep(5000);
                         if(!action.isElementPresent(scheduledTripsPage.Dropdown_Setting(true))) {
                             action.click(scheduledTripsPage.Link_Setting());
@@ -1467,21 +1467,21 @@ public class CommonSteps extends DriverBase {
                             action.click(scheduledTripsPage.Button_Continue());
                         }
                         action.click(scheduledTripsPage.Dropdown_Setting());
-                        action.click(scheduledTripsPage.Button_Track_Deliveries());
+                        action.click(scheduledTripsPage.Button_TrackDeliveries());
 
                     }
                     break;
                 case "Cancel Delivery link":
-                    action.click(scheduledTripsPage.Link_Cancel_Delivery());
+                    action.click(scheduledTripsPage.Link_CancelDelivery());
                     break;
                 case "OK":
                     action.click(scheduledTripsPage.Button_OK());
                     break;
                 case "OK on Delivery Cancellation Failed":
-                    action.click(scheduledTripsPage.Button_Ok__On_Delivery_Cancellation_Failed());
+                    action.click(scheduledTripsPage.Button_OkOnDeliveryCancellationFailed());
                     break;
                 case "Cancel Delivery":
-                    action.click(scheduledTripsPage.Button_Cancel_Delivery());
+                    action.click(scheduledTripsPage.Button_CancelDelivery());
                     break;
                 default:
                     break;
@@ -1502,15 +1502,15 @@ public class CommonSteps extends DriverBase {
         try {
             Thread.sleep(2000);
             action.click(scheduledTripsPage.Dropdown_Setting());
-            action.click(scheduledTripsPage.Button_Track_Deliveries());
+            action.click(scheduledTripsPage.Button_TrackDeliveries());
             Thread.sleep(5000);
             String  columnTracking = "TRACKING ID";
-            cucumberContextManager.setScenarioContext("TRACKINGID_COLUMN", action.getText(scheduledTripsPage.Text_TrackingId_Column()));
+            cucumberContextManager.setScenarioContext("TRACKINGID_COLUMN", action.getText(scheduledTripsPage.Text_TrackingIdColumn()));
             testStepAssert.isEquals((String) cucumberContextManager.getScenarioContext("TRACKINGID_COLUMN"),columnTracking,"Tracking ID column should  exist","Tracking ID column exists","Tracking Id column doesnt exist");
 
-            cucumberContextManager.setScenarioContext("PARTNER_CUSTOMERNAME",action.getText(scheduledTripsPage.Text_Trip_Customer()));
-            cucumberContextManager.setScenarioContext("PARTNER_TRACKINGID", action.getText(scheduledTripsPage.Text_Trip_TrackingId()));
-            cucumberContextManager.setScenarioContext("DELIVERY_ADDRESS", action.getText(scheduledTripsPage.Text_Trip_DeliveryAddress()).replace(",", ""));
+            cucumberContextManager.setScenarioContext("PARTNER_CUSTOMERNAME",action.getText(scheduledTripsPage.Text_TripCustomer()));
+            cucumberContextManager.setScenarioContext("PARTNER_TRACKINGID", action.getText(scheduledTripsPage.Text_TripTrackingId()));
+            cucumberContextManager.setScenarioContext("DELIVERY_ADDRESS", action.getText(scheduledTripsPage.Text_TripDeliveryAddress()).replace(",", ""));
             Thread.sleep(2000);
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
