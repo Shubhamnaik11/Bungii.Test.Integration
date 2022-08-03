@@ -130,7 +130,7 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     Then Bungii driver should see "Enroute screen"
     And I click "Scheduled Bungiis" button on "update" screen
     And I should select the "8877661082" customer on driver app
-    Then Start button shouldn't not been shown
+    Then Start button should not be shown
     And I click on device "BACK" button
     And I click on device "BACK" button
     Then Bungii driver should see "Enroute screen"

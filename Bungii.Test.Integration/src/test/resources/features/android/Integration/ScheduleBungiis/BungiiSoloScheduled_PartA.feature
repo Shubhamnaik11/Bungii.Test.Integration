@@ -81,7 +81,7 @@ Feature: SoloScheduled
     And I click on "Accept" button
     And I click "Scheduled Bungiis" button on "update" screen
     And I should select the "valid kansas 3" customer on driver app
-    Then Start button shouldn't not been shown
+    Then Start button should not be shown
     And I click on device "BACK" button
     And I click on device "BACK" button
     Then Bungii driver should see "Enroute screen"

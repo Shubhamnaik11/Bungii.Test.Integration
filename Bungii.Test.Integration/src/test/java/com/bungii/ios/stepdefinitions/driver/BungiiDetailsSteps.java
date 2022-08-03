@@ -35,8 +35,8 @@ public class BungiiDetailsSteps extends DriverBase {
 
     }
 
-    @Then("^Start button shouldn't not been shown$")
-    public void start_button_shouldnt_not_been_shown() throws Throwable {
+    @Then("^Start button should not be shown$")
+    public void start_button_should_not_be_shown() throws Throwable {
         try {
             Thread.sleep(2000);
             testStepVerify.isElementNotDisplayed(bungiiDetailsPage.Button_StartBungii(),"Start button shouldn't displayed","Start button is not displayed","Start button is display");

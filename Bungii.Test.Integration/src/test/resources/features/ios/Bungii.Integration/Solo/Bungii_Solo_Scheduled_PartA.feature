@@ -540,8 +540,9 @@ Feature: Solo Scheduled Bungii Part A
     And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP2 AVAILABLE"
     And I click "Scheduled Bungiis" button on "update" screen
     And I should select the "valid denver5" customer on driver app
-    Then Start button shouldn't not been shown
-    And I click on "BACK TO BACK" button
+    Then Start button should not be shown
+    And I click on "BACK" button
+    And I click on "BACK" button
     Then I should be navigated to "ARRIVED" trip status screen on driver
     And I slide update button on "ARRIVED" Screen
     And I driver adds photos to the Bungii
