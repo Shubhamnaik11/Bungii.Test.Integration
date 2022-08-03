@@ -158,7 +158,7 @@ public class BungiiDetailsSteps extends DriverBase {
     public void start_button_should_not_be_shown() throws Throwable {
         try {
             Thread.sleep(2000);
-            testStepAssert.isNotElementDisplayed(bungiiRequest.Button_StartBungii(true),"Start button shouldn't displayed","Start button is not displayed","Start button is displayed");
+            testStepAssert.isNotElementDisplayed(bungiiRequest.Button_StartBungii(true),"Start button shouldn't be displayed","Start button is not displayed","Start button is displayed");
 
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
