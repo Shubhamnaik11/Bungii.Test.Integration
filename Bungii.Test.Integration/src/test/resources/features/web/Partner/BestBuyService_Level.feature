@@ -406,3 +406,18 @@ Feature: Service Level
     And I select the "Second" address from the pickup address dropdown
     And I should be able to schedule a trip "29"days from today
     Then The pickup time should be same for both the addresses from the dropdown
+
+  #CORE-2342:Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
+  @ready
+  Scenario: Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
+    When I navigate to "Partner" portal configured for "BestBuy2 service level" URL
+    And I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "be logged in"
+    And I add the delivery address as "700 South Potomac Street, Baltimore, Maryland, 21224"
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    And I click "GET ESTIMATE" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    Then The Pickup contact name "Best Buy Customer Service" and pickup contact phone number "(992) 326-1261" field should be filled

@@ -91,4 +91,30 @@ Feature: SoloScheduled Part B
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
- 
+
+  @testAllan
+  Scenario:To verify whether service level instructions are displayed on the admin portal live trips for BEST BUY Minnesota Partner Portal
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid baltimore" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
+    And I wait for 1 minutes
+    And I click on "View Request" button
+    Then I should see service level information displayed
+    And I click on "Accept" button
+    And I Select Trip from driver scheduled trip
+    Then The service level information should be displayed
+    And I start selected Bungii
+    Then Bungii driver should see "General Instructions"
+    And I slide update button on "EN ROUTE" Screen
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJ" the customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The delivery details on "Live" deliveries should have proper pickup "Store" location and service level instructions displayed
