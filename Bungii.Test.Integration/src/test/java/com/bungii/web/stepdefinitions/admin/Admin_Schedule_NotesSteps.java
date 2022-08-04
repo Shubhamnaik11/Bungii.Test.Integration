@@ -13,6 +13,7 @@ import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import com.bungii.web.pages.admin.Admin_TripsPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -728,11 +729,58 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             testStepAssert.isTrue(action.getText(admin_ScheduledTripsPage.Text_HistoryEditedTime()).contains(PropertyUtility.getMessage("Text_MinsAgo")),"It should show m ago","It does not show min ago");
             testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_DropoffAddressChange")),"event should be shown","Event not shown");
             testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("WashigtonDropOffLocation")),"Drop off location should be shown","Drop off location not shown");
-            String Expected_Change_DropOff = (String)cucumberContextManager.getScenarioContext("Change_Drop_Off");
-            Expected_Change_DropOff = Expected_Change_DropOff.replace(",","");
-            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).equals(Expected_Change_DropOff),"Changed location should be shown","Changed location not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(PropertyUtility.getMessage("WashigtonChangedLocation")),"Changed location should be shown","Changed location not shown");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I should see pickup address edit history$")
+    public void i_should_see_pickup_address_edit_history() throws Throwable {
+        try {
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_AdminNameHistoryTab())).equals(PropertyUtility.getMessage("AdminName")),"It should show admin name", "It does not show admin Name");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Header_HistoryEvent())).equals(PropertyUtility.getMessage("Header_Event")),"Event Header should be shown","Event Header should be shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Header_HistoryOldValue())).equals(PropertyUtility.getMessage("Header_OldValue")),"Old Value Header should be shown","Old Value Header not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Header_HistoryNewValue())).equals(PropertyUtility.getMessage("Header_NewValue")),"New Value Header should be shown","New Value Header not shown");
+            testStepAssert.isTrue(action.getText(admin_ScheduledTripsPage.Text_HistoryEditedTime()).contains(PropertyUtility.getMessage("Text_MinsAgo")),"It should show m ago","It does not show min ago");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_PickupAddressChange")),"event should be shown","Event not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("WashigtonPickupLocation")),"Pickup location should be shown","Pickup location not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(PropertyUtility.getMessage("WashigtonChangedLocation")),"Changed location should be shown","Changed location not shown");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I should see solo to duo and assign one driver edit history$")
+    public void i_should_see_solo_to_duo_and_assign_one_driver_edit_history() throws Throwable {
+        try {
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_SoloToDuo")),"event should be shown","Event not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("Text_Solo")),"OldValueData should be shown","Old Value Data not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).equals(PropertyUtility.getMessage("Text_Duo")),"New Value data should be shown","New Value Data not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValueRow2())).equals(PropertyUtility.getMessage("Text_DriverAdded")),"event should be shown","Event not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueDataRow2())).isEmpty(),"old Value data should be shown","Old Value Data not shown");
+            String DriverName=(String)cucumberContextManager.getScenarioContext("AddedDriver");
+            String ActualDN=action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueDataRow2());
+            testStepAssert.isTrue((ActualDN).contains(DriverName),"New Value data should be shown","New Value Data not shown");
 
         } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @When("^I click on the Notes link for Live Deliveries$")
+    public void i_click_on_the_notes_link_for_live_deliveries() throws Throwable{
+        try {
+            Thread.sleep(4000);
+            action.click(admin_ScheduledTripsPage.Link_NotesHistoryLiveDelivery());
+            log("I should be able to click on the notesHistory link","I could click on the notesHistory link",false);
+        } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);

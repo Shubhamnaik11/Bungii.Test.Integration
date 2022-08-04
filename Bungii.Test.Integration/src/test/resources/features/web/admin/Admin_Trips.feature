@@ -341,7 +341,7 @@ Feature: Admin_Trips
       |  Status |
       | Scheduled |
 
-
+  @siddhi
  #CORE-2052 : To verify research happens when admin changes from solo to duo and assigns only one driver
 @ready
   Scenario: To verify research happens when admin changes from solo to duo and assigns only one driver
@@ -362,6 +362,13 @@ Feature: Admin_Trips
   And I click on "Save" button on Edit Scheduled bungii popup
   Then "Bungii Saved!" message should be displayed
   When I wait for 2 minutes
+  And  I refresh the page
+  And I click on the dropdown beside scheduled bungii
+  When I click the "Notes & History" link
+  And I click on "History"
+  Then The "History" tab should be selected
+  And I should see solo to duo and assign one driver edit history
+  And I close the Note
   And I get the new "pickup reference"
   And I view the all Scheduled Deliveries list on the admin portal
   Then I should be able to see the respective bungii with the below status

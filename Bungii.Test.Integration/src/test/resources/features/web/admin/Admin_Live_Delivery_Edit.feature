@@ -31,7 +31,7 @@ Feature: Admin_Live_Delivery_Edit
     When I open the live delivery details in admin portal
     Then the updated drop off address should be displayed on delivery details page
     And Delivery price is recalculated based on updated value of drop off address
-  
+
   @regression
     #stable
     Scenario: Verify editing pickup address for the Solo live delivery.
@@ -56,6 +56,14 @@ Feature: Admin_Live_Delivery_Edit
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And  I refresh the page
+    And I click on the dropdown beside scheduled bungii
+    Then I should see the "History" underlined
+    When I click on the Notes link for Live Deliveries
+    And I click on "History"
+    Then The "History" tab should be selected
+    And I should see pickup address edit history
+    And I close the Note
     When I open the live delivery details in admin portal
     Then the updated drop off address should be displayed on delivery details page
     And Delivery price is recalculated based on updated value of drop off address
