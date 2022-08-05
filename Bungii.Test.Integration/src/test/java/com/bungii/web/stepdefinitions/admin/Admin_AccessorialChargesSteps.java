@@ -375,15 +375,23 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
 
     @Then("^I should see the delivery highlighted in \"([^\"]*)\"$")
-    public void i_should_see_the_delivery_highlighted_in_something(String strArg1) throws Throwable {
+    public void i_should_see_the_delivery_highlighted_in_something(String color) throws Throwable {
         try {
-        String expectedHighlightColor = "rgba(228, 242, 255, 1)";
+            String expectedHighlightColor="";
+            switch(color.toLowerCase()){
+                case "red":
+                 expectedHighlightColor = "rgba(254, 201, 166, 1)";
+                    break;
+                case "blue":
+                     expectedHighlightColor = "rgba(228, 242, 255, 1)";
+                    break;
+            }
         Thread.sleep(1000);
         boolean liveDeliveryhighlightDisplayed =  admin_liveTripsPage.Text_DeliveryHighlight().isDisplayed();
         String liveDeliveryHighlightColor =  admin_liveTripsPage.Text_DeliveryHighlight().getCssValue("background-color");
 
         testStepAssert.isTrue(liveDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is not displayed");
-        testStepAssert.isEquals(liveDeliveryHighlightColor,expectedHighlightColor,"Delivery should be highlighted with blue color","Delivery is highlighted with blue color","Delivery is not  highlighted with blue color");
+        testStepAssert.isEquals(liveDeliveryHighlightColor,expectedHighlightColor,"Delivery should be highlighted with "+color+" color","Delivery is highlighted with "+color+" color","Delivery is not  highlighted with "+color+" color");
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -391,7 +399,27 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
     }
 
+    @Then("^I should see \"([^\"]*)\" tooltip beside the bungii$")
+    public void i_should_see_something_tooltip_beside_the_bungii(String expectedTooltipText) throws Throwable {
+        try {
+            action.refreshPage();
+            Thread.sleep(10000);
+            action.Hover(admin_liveTripsPage.Icon_Hover());
+            String actualTooltiptext = action.getText(admin_liveTripsPage.Label_Tooltip());
 
+            testStepAssert.isEquals(actualTooltiptext,expectedTooltipText,"Tooltip "+expectedTooltipText+" should be displayed","Tooltip "+expectedTooltipText+" is displayed","Tooltip "+expectedTooltipText+" is not displayed");
+            String actualWidth = admin_liveTripsPage.Label_Tooltip().getCssValue("width");
+            String expectedWidth = "95px";
+
+            testStepAssert.isEquals(actualWidth,expectedWidth,"Tool tip width should be 95px","Tool tip width is 95px","Tool tip width is not 95px");
+
+
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
 
     @And("^The delivery should not be highlighted in \"([^\"]*)\" for \"([^\"]*)\"$")
     public void the_delivery_should_not_be_highlighted_in_something_for_something(String strArg1, String deliveryType) throws Throwable {
