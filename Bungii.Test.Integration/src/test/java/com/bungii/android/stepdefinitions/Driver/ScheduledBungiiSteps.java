@@ -302,9 +302,10 @@ public class ScheduledBungiiSteps extends DriverBase {
 
     @Then("^I should see service level information displayed$")
     public void i_should_see_service_level_information_displayed() throws Throwable {
+        Thread.sleep(5000);
         String addressLine1 = action.getText(tripDetailsPage.Text_PickupAddressLineOneDriverApp());
-        String addressLine2 = action.getText(tripDetailsPage.Text_PickupAddressLineTwoDriverApp());
-        String properAddress = addressLine1 + addressLine2;
+        String addressLine2 = action.getText(tripDetailsPage.Text_PickupAddressLineTwoDriverApp()).replace(", "," ");
+        String properAddress = addressLine1 +" "+ addressLine2;
         Thread.sleep(2000);
         System.out.println(properAddress);
         String expectedStoreAddress = PropertyUtility.getDataProperties("baltimore.store.address");
@@ -379,6 +380,8 @@ public class ScheduledBungiiSteps extends DriverBase {
 
     @Then("^The service level information should be displayed$")
     public void the_service_level_information_should_be_displayed() throws Throwable {
+        Thread.sleep(6000);
+        action.scrollToBottom();
         boolean isPickupInstructionsOnScheduleBungiiDisplayed = tripDetailsPage.Label_PickupInstructionScheduleBungii().isDisplayed();
         boolean isDropOffInstructionsOnScheduleBungiiDisplayed = tripDetailsPage.Label_DropOffInstructionsScheduleBungii().isDisplayed();
 

@@ -16,7 +16,7 @@ public class TripDetailsPage extends  PageBase{
     public WebElement Text_PickupInstructions() { return findElement("//android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView[4]", LocatorType.XPath); }
     public WebElement Text_DropOffInstructions() { return findElement("//android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView[6]", LocatorType.XPath); }
     public WebElement Text_PickupAddressLineOneDriverApp() { return findElement("//android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout/android.widget.TextView[1]", LocatorType.XPath); }
-    public WebElement Text_PickupAddressLineTwoDriverApp() { return findElement("/android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Text_PickupAddressLineTwoDriverApp() { return findElement("//android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout/android.widget.TextView[2]", LocatorType.XPath); }
     public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
     public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
 
@@ -26,10 +26,10 @@ public class TripDetailsPage extends  PageBase{
     public WebElement Text_DriverDropOffInstructionsServiceAdminPortal(){return  findElement("//div/div[6]/div[2]/p",LocatorType.XPath);}
     public WebElement Text_DriverPickupInstructionsServiceAdminPortal(){return  findElement("//div/div[7]/div[2]/p",LocatorType.XPath);}
 
-    public WebElement Label_PickupInstructionScheduleBungii() { return findElement("//android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.ScrollView/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[5]/android.widget.TextView[1]", LocatorType.XPath); }
-    public WebElement Label_DropOffInstructionsScheduleBungii() { return findElement("//android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.ScrollView/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[5]/android.widget.TextView[2]", LocatorType.XPath); }
-    public WebElement Text_PickupInstructionsScheduleBungii() { return findElement("//android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.ScrollView/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[6]/android.widget.TextView[1]", LocatorType.XPath); }
-    public WebElement Text_DropOffInstructionsScheduleBungii() { return findElement("//android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.ScrollView/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[6]/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Label_PickupInstructionScheduleBungii() { return findElement("//android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.ScrollView/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[3]/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Label_DropOffInstructionsScheduleBungii() { return findElement("//android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.ScrollView/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[4]/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PickupInstructionsScheduleBungii() { return findElement("//android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.ScrollView/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[3]/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Text_DropOffInstructionsScheduleBungii() { return findElement("//android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.ScrollView/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[4]/android.widget.TextView[2]", LocatorType.XPath); }
 
 
 }
