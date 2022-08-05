@@ -167,6 +167,4 @@ public class DashBoardSteps extends DriverBase {
         }
 
     }
-
-    }
 }
