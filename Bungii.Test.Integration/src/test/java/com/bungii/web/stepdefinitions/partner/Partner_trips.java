@@ -1420,25 +1420,39 @@ try{
         String dayCount = DbUtility.getScheduledDays(subdomain);
        testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Label_ToolTip_PickupDate()), "Please select a delivery date within the next "+dayCount+" days.", dayCount+ " days should be displayed",dayCount+ " days is displayed",dayCount+ " days is not displayed");
     }
+
+
     @And("^I add the delivery address as \"([^\"]*)\"$")
-    public void i_add_the_delivery_address_as_something(String strArg1) throws Throwable {
+    public void i_add_the_delivery_address_as_something(String address) throws Throwable {
+        try{
         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), strArg1 + Keys.TAB);
+        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), address + Keys.TAB);
         Thread.sleep(3000);
         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
         Thread.sleep(5000);
         action.click(Page_Partner_Dashboard.List_Delivery_Address());
+        log("I should be able to add the dropoff delivery address as "+address,"I could add the dropoff delivery address as "+address,false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^The Pickup contact name \"([^\"]*)\" and pickup contact phone number \"([^\"]*)\" field should be filled$")
     public void the_pickup_contact_name_something_and_pickup_contact_phone_number_something_field_should_be_filled(String contactName, String contactPhone) throws Throwable {
+     try{
        String uiContactName = action.getAttributeValue(Page_Partner_Delivery.TextBox_Pickup_Contact_Name());
         String uiContactPhone = action.getAttributeValue(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
 
         testStepAssert.isEquals(uiContactName,contactName,"Pickup contact name should be " +contactName,"Pickup contact name is " +uiContactName,"Pickup contact name  " +contactName+" is not displayed");
 
         testStepAssert.isEquals(uiContactPhone,contactPhone,"Pickup contact number should be " +contactPhone,"Pickup contact number is " +uiContactPhone,"Pickup contact number  " +contactPhone+" is not displayed");
-
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     public String getGeofence(String geofence) {
