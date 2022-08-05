@@ -13,7 +13,6 @@ import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import com.bungii.web.pages.admin.Admin_TripsPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -755,17 +754,20 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
         }
     }
 
-    @And("^I should see solo to duo and assign one driver edit history$")
-    public void i_should_see_solo_to_duo_and_assign_one_driver_edit_history() throws Throwable {
+    @And("^I should see solo to duo and assign remove one driver edit history$")
+    public void i_should_see_solo_to_duo_and_assign_remove_one_driver_edit_history() throws Throwable {
         try {
-            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_SoloToDuo")),"event should be shown","Event not shown");
-            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("Text_Solo")),"OldValueData should be shown","Old Value Data not shown");
-            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).equals(PropertyUtility.getMessage("Text_Duo")),"New Value data should be shown","New Value Data not shown");
+            String DriverName=(String)cucumberContextManager.getScenarioContext("Driver_Name");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_DriverRemoved")),"event should be shown","Event not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).contains(DriverName),"OldValueData should be shown","Old Value Data not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).isEmpty(),"New Value data should be shown","New Value Data not shown");
+
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValuePreviousEdit())).equals(PropertyUtility.getMessage("Text_SoloToDuo")),"event should be shown","Event not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueDataPreviousEdit())).equals(PropertyUtility.getMessage("Text_Solo")),"OldValueData should be shown","Old Value Data not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueDataPreviousEdit())).equals(PropertyUtility.getMessage("Text_Duo")),"New Value data should be shown","New Value Data not shown");
             testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValueRow2())).equals(PropertyUtility.getMessage("Text_DriverAdded")),"event should be shown","Event not shown");
             testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueDataRow2())).isEmpty(),"old Value data should be shown","Old Value Data not shown");
-            String DriverName=(String)cucumberContextManager.getScenarioContext("AddedDriver");
-            String ActualDN=action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueDataRow2());
-            testStepAssert.isTrue((ActualDN).contains(DriverName),"New Value data should be shown","New Value Data not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueDataRow2())).contains(DriverName),"New Value data should be shown","New Value Data not shown");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -781,6 +783,46 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             action.click(admin_ScheduledTripsPage.Link_NotesHistoryLiveDelivery());
             log("I should be able to click on the notesHistory link","I could click on the notesHistory link",false);
         } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I should see edit date time history$")
+    public void i_should_see_edit_date_time_history() throws Throwable {
+        try {
+            String DateChanged=(String) cucumberContextManager.getScenarioContext("Date_Changed");
+            String TimeChanged=(String) cucumberContextManager.getScenarioContext("Time_Changed");
+            String OldScheduleTime=(String)cucumberContextManager.getScenarioContext("BUNGII_TIME");
+            String event=action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue());
+            testStepAssert.isTrue((event).equals(PropertyUtility.getMessage("Text_DateTimeEdit")),"event should be shown","Event not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).contains(OldScheduleTime),"OldValueData should be shown","Old Value Data not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(DateChanged),"New Value data should be shown","New Value Data not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(TimeChanged),"New Value data should be shown","New Value Data not shown");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I should see edit Service level history$")
+    public void i_should_see_edit_service_level_history() throws Throwable {
+        try {
+            String changeServiceLevel = (String)cucumberContextManager.getScenarioContext("Change_service");
+            if(changeServiceLevel.equalsIgnoreCase("White Glove"))
+            {
+                changeServiceLevel = PropertyUtility.getDataProperties("change.service.description");
+            }
+            String event=action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue());
+            String OldService=(String)cucumberContextManager.getScenarioContext("Old_service");
+            testStepAssert.isTrue((event).equals(PropertyUtility.getMessage("Text_ServiceLevelEdit")),"event should be shown","Event not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).contains(OldService),"OldValueData should be shown","Old Value Data not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(changeServiceLevel),"New Value data should be shown","New Value Data not shown");
+
+        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);

@@ -91,6 +91,13 @@ Feature: Admin_Reason_Code
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And  I refresh the page
+    And I click on the dropdown beside scheduled bungii
+    When I click the "Notes & History" link
+    And I click on "History"
+    Then The "History" tab should be selected
+    And I should see edit date time history
+    And I close the Note
     Then the updated date should be displayed on delivery details page
 
 

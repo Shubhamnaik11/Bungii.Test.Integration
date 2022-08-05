@@ -162,8 +162,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         Thread.sleep(1000);
         action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
         action.JavaScriptClick(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
-        String AddedDriver=driverName;
-        cucumberContextManager.setScenarioContext("AddedDriver",AddedDriver);
+        cucumberContextManager.setScenarioContext("Driver_Name",driverName);
         Thread.sleep(1000);
 
             log("I can add a driver on edit delivery page",

@@ -203,19 +203,26 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Header_HistoryNewValue(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr/th[3]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryEventValue(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr[2]/td[1]",LocatorType.XPath);}
+    public WebElement Text_HistoryEventValue(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[1]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryOldValueData(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr[2]/td[2]",LocatorType.XPath);}
+    public WebElement Text_HistoryOldValueData(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[2]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryNewValueData(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr[2]/td[3]",LocatorType.XPath);}
+    public WebElement Text_HistoryNewValueData(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[3]",LocatorType.XPath);}
 
     public WebElement Text_HistoryEditedTime(){return findElement("//div[@id=\"history-tab\"]/div/label",LocatorType.XPath);}
 
-    public WebElement Text_HistoryEventValueRow2(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr[3]/td[1]",LocatorType.XPath);}
+    public WebElement Text_HistoryEventValuePreviousEdit(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[2]/td[1]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryOldValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr[3]/td[2]",LocatorType.XPath);}
+    public WebElement Text_HistoryOldValueDataPreviousEdit(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[2]/td[2]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryNewValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr[3]/td[3]",LocatorType.XPath);}
+    public WebElement Text_HistoryNewValueDataPreviousEdit(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[2]/td[3]",LocatorType.XPath);}
+
+
+    public WebElement Text_HistoryEventValueRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[1]",LocatorType.XPath);}
+
+    public WebElement Text_HistoryOldValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[2]",LocatorType.XPath);}
+
+    public WebElement Text_HistoryNewValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[3]",LocatorType.XPath);}
 
     public WebElement Link_NotesHistoryLiveDelivery(){return findElement("//ul[@class=\"dropdown-menu\"]/li[3]/p",LocatorType.XPath);}
 
