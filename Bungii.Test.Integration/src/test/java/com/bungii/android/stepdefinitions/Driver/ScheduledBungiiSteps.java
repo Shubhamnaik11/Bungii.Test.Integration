@@ -284,9 +284,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             String uiDropOffLocationline1 = action.getText(tripDetailsPage.Text_DropOff_Location_line1());
             String uiDropOffLocationline2 = action.getText(tripDetailsPage.Text_DropOff_Location_line2());
             String distance = action.getText(tripDetailsPage.Text_Total_Distance());
-
-            cucumberContextManager.setScenarioContext("UIPickupLocationline1", uiPickupLocationline1);
-            cucumberContextManager.setScenarioContext("UIPickupLocationline2", uiPickupLocationline2);
+            
 
             testStepAssert.isEquals(uiPickupLocationline1, pickupLine1, "Pickup Location line 1 text should be " + pickupLine1, "Pickup Location line 1 text is " + uiPickupLocationline1, "Pickup Location line 1 text is not " + pickupLine1);
             testStepAssert.isEquals(uiPickupLocationline2, pickupLine2, "Pickup Location line 2 text should be " + pickupLine2, "Pickup Location line 2 text is " + uiPickupLocationline2, "Pickup Location line 2 text is not " + pickupLine2);
@@ -302,6 +300,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 
     @Then("^I should see service level information displayed for \"([^\"]*)\" address$")
     public void i_should_see_service_level_information_displayed_for_something_address(String centre) throws Throwable {
+        try{
         Thread.sleep(5000);
         if(centre.equalsIgnoreCase("Store")) {
             String expectedStoreAddress = PropertyUtility.getDataProperties("baltimore.store.address");
@@ -334,6 +333,11 @@ public class ScheduledBungiiSteps extends DriverBase {
 
         testStepAssert.isEquals(expectedServicePickupInstructions, servicePickupInstruction, servicePickupInstruction + "service instructions should be displayed", expectedServicePickupInstructions + "service instructions is displayed", servicePickupInstruction + "service instructions is displayed");
         testStepAssert.isEquals(expectedServiceDropOffInstructions, serviceDropOffInstruction, serviceDropOffInstruction + "service instructions should be displayed", expectedServiceDropOffInstructions + "service instructions is displayed", serviceDropOffInstruction + "service instructions is displayed");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
@@ -356,6 +360,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 
     @Then("^The delivery details on \"([^\"]*)\" deliveries should have proper pickup \"([^\"]*)\" location and service level instructions displayed$")
     public void the_delivery_details_on_something_deliveries_should_have_proper_pickup_something_location_and_service_level_instructions_displayed(String deliveryStatus, String centre) throws Throwable {
+       try{
         Thread.sleep(3000);
         if (centre.equalsIgnoreCase("Store")) {
             String expectedStoreAddress = PropertyUtility.getDataProperties("baltimore.store.address.with.zipcode");
@@ -384,10 +389,16 @@ public class ScheduledBungiiSteps extends DriverBase {
 
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^The service level information should be displayed$")
     public void the_service_level_information_should_be_displayed() throws Throwable {
+        try{
         Thread.sleep(6000);
         action.scrollToBottom();
         boolean isPickupInstructionsOnScheduleBungiiDisplayed = tripDetailsPage.Label_PickupInstructionScheduleBungii().isDisplayed();
@@ -406,6 +417,11 @@ public class ScheduledBungiiSteps extends DriverBase {
         testStepAssert.isEquals(pickupInstructions, expectedPickupServiceProvided, expectedPickupServiceProvided + "Service should be provided for pickup", pickupInstructions + "Service is provided for pickup", expectedPickupServiceProvided + "Service is not provided for pickup");
         testStepAssert.isEquals(dropOffInstructions, expectedDropOffServiceProvided, expectedDropOffServiceProvided + "Service should be provided for dropoff", dropOffInstructions + "Service is provided for dropoff", expectedDropOffServiceProvided + "Service is not provided for dropoff");
 
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 }
