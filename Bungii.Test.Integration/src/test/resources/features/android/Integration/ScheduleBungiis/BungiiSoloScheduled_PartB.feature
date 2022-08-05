@@ -91,19 +91,19 @@ Feature: SoloScheduled Part B
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-
-  @testAllan
-  Scenario:To verify whether service level instructions are displayed on the admin portal live trips for BEST BUY Minnesota Partner Portal
+#CORE-2342:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
+  @ready
+  Scenario Outline:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid baltimore" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+    When I request Partner Portal "SOLO" Trip for "<Partner Service Level>" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
+      |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
     And I wait for 1 minutes
     And I click on "View Request" button
-    Then I should see service level information displayed
+    Then I should see service level information displayed for "<Center>" address
     And I click on "Accept" button
     And I Select Trip from driver scheduled trip
     Then The service level information should be displayed
@@ -115,6 +115,11 @@ Feature: SoloScheduled Part B
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkAJ LutherAJ" the customer
+    And I open the trip for "<Customer Name>" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then The delivery details on "Live" deliveries should have proper pickup "Store" location and service level instructions displayed
+    Then The delivery details on "Live" deliveries should have proper pickup "<Center on admin portal>" location and service level instructions displayed
+
+    Examples:
+      | Center       |  Center on admin portal    |        Customer Name                    |    Customer Phone  |  Partner Service Level          |
+      |  Store       |       Store                |  Testcustomertywd_appleMarkAJ LutherAJ  |      8877661035    | BestBuy2 service level          |
+      |  Warehouse   |      Warehouse             |  Testcustomertywd_appleMarkAK LutherAK  |      8877661036    |BestBuy2 warehouse service level |

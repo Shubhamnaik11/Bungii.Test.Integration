@@ -550,3 +550,34 @@ Feature: Solo Scheduled Bungii Part A
     When I click "On To The Next One" button on "Bungii completed" screen
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then The trip should be present in schedule delivery
+
+ @ready
+  Scenario Outline:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid baltimore driver 6" driver
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
+    And I wait for 1 minutes
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+   Then I should see service level information displayed for "<Center>" address
+    When I accept selected Bungii
+   And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then The service level information should be displayed
+   And I start selected Bungii
+    And I slide update button on "EN ROUTE" Screen
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I open the trip for "<Customer Name>" the customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The delivery details on "Live" deliveries should have proper pickup "<Center on admin portal>" location and service level instructions displayed
+
+   Examples:
+     | Center          |  Center on admin portal        |          Customer Name                      |   Customer Phone       |
+     |  Store          |       Store                    |    Testcustomertywd_appleMarkAJ LutherAJ    |        8877661035      |
+     |  Warehouse      |      Warehouse                 |    Testcustomertywd_appleMarkAK LutherAK    |        8877661036      |

@@ -281,13 +281,3 @@ Feature: Solo Scheduled Bungii Part C
     And I Switch to "customer" application on "same" devices
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-
-  @testAllan
-  Scenario: Verify Customer Can Request Cancel Scheduled Trip Via Admin SMS After 2 Hour (15 mins in QA Auto) Processing Is Over
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid baltimore" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
-      |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|

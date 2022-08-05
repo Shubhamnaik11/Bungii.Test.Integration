@@ -41,7 +41,7 @@ public class BungiiDetailsSteps extends DriverBase {
         try {
             if (action.isAlertPresent())
                 SetupManager.getDriver().switchTo().alert().accept();
-
+            action.swipeUP();
             action.click(bungiiDetailsPage.Button_StartBungii());
             Thread.sleep(2000);
             if(action.isElementPresent(bungiiDetailsPage.Text_General_Instruction(true))) {

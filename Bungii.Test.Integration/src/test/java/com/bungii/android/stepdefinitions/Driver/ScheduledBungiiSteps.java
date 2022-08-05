@@ -300,32 +300,40 @@ public class ScheduledBungiiSteps extends DriverBase {
     }
 
 
-    @Then("^I should see service level information displayed$")
-    public void i_should_see_service_level_information_displayed() throws Throwable {
+    @Then("^I should see service level information displayed for \"([^\"]*)\" address$")
+    public void i_should_see_service_level_information_displayed_for_something_address(String centre) throws Throwable {
         Thread.sleep(5000);
-        String addressLine1 = action.getText(tripDetailsPage.Text_PickupAddressLineOneDriverApp());
-        String addressLine2 = action.getText(tripDetailsPage.Text_PickupAddressLineTwoDriverApp()).replace(", "," ");
-        String properAddress = addressLine1 +" "+ addressLine2;
+        if(centre.equalsIgnoreCase("Store")) {
+            String expectedStoreAddress = PropertyUtility.getDataProperties("baltimore.store.address");
+            String addressLine1 = action.getText(tripDetailsPage.Text_PickupAddressLineOneDriverApp());
+            String addressLine2 = action.getText(tripDetailsPage.Text_PickupAddressLineTwoDriverApp()).replace(", ", " ");
+            String properAddress = addressLine1 + " " + addressLine2;
+            testStepAssert.isEquals(properAddress, expectedStoreAddress, "Proper Store address should be displayed", "Proper Store address is displayed", " Store address displayed is wrong");
+        }
+        else{
+            String expectedWarehouseAddress = PropertyUtility.getDataProperties("baltimore.warehouse.address");
+            String addressLine1 = action.getText(tripDetailsPage.Text_PickupAddressLineOneDriverApp());
+            String addressLine2 = action.getText(tripDetailsPage.Text_PickupAddressLineTwoDriverApp()).replace(", ", " ");
+            String properAddress = addressLine1 + " " + addressLine2;
+            testStepAssert.isEquals(properAddress, expectedWarehouseAddress, "Proper warehouse address should be displayed", "Proper warehouse address is displayed", " warehouse address displayed is wrong");
+        }
+
         Thread.sleep(2000);
-        System.out.println(properAddress);
-        String expectedStoreAddress = PropertyUtility.getDataProperties("baltimore.store.address");
-        String expectedWarehouseAddress = PropertyUtility.getDataProperties("baltimore.store.address");
         String servicePickupInstruction = PropertyUtility.getDataProperties("baltimore.pickup.instructions");
         String serviceDropOffInstruction = PropertyUtility.getDataProperties("baltimore.dropoff.instructions");
 
         action.scrollToBottom();
         boolean pickupInstructions = tripDetailsPage.Label_PickupInstructions().isDisplayed();
         boolean dropOffInstructions = tripDetailsPage.Label_DropOffInstructions().isDisplayed();
+
         String expectedServicePickupInstructions = action.getText(tripDetailsPage.Text_PickupInstructions());
         String expectedServiceDropOffInstructions = action.getText(tripDetailsPage.Text_DropOffInstructions());
+
         testStepAssert.isTrue(pickupInstructions, "Pickup instruction should be displayed", "Pickup instruction is displayed", "Pickup instruction is not displayed");
         testStepAssert.isTrue(dropOffInstructions, "Dropoff instruction should be displayed", "Dropoff instruction is displayed", "Dropoff instruction is not displayed");
 
-        testStepAssert.isEquals(properAddress, expectedStoreAddress, "Proper Store address should be displayed", "Proper Store address is displayed", " Store address displayed is wrong");
         testStepAssert.isEquals(expectedServicePickupInstructions, servicePickupInstruction, servicePickupInstruction + "service instructions should be displayed", expectedServicePickupInstructions + "service instructions is displayed", servicePickupInstruction + "service instructions is displayed");
         testStepAssert.isEquals(expectedServiceDropOffInstructions, serviceDropOffInstruction, serviceDropOffInstruction + "service instructions should be displayed", expectedServiceDropOffInstructions + "service instructions is displayed", serviceDropOffInstruction + "service instructions is displayed");
-
-
     }
 
     @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
@@ -350,11 +358,11 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void the_delivery_details_on_something_deliveries_should_have_proper_pickup_something_location_and_service_level_instructions_displayed(String deliveryStatus, String centre) throws Throwable {
         Thread.sleep(3000);
         if (centre.equalsIgnoreCase("Store")) {
-            String expectedStoreAddress = PropertyUtility.getDataProperties("baltimore.store.address");
+            String expectedStoreAddress = PropertyUtility.getDataProperties("baltimore.store.address.with.zipcode");
             String StoreLocation = action.getText(tripDetailsPage.Text_PickupLocationAdminPortal());
             testStepAssert.isEquals(StoreLocation, expectedStoreAddress, "Store address should be " + expectedStoreAddress, "Store address is " + StoreLocation, "Store address is not " + expectedStoreAddress);
         } else {
-            String expectedWarehouseAddress = PropertyUtility.getDataProperties("baltimore.warehouse.address");
+            String expectedWarehouseAddress = PropertyUtility.getDataProperties("baltimore.warehouse.address.with.zipcode");
             String warehouseLocation = action.getText(tripDetailsPage.Text_PickupLocationAdminPortal());
             testStepAssert.isEquals(warehouseLocation, expectedWarehouseAddress, "Warehouse address should be " + expectedWarehouseAddress, "Warehouse address is " + warehouseLocation, "Warehouse address is not " + expectedWarehouseAddress);
         }

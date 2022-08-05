@@ -407,9 +407,9 @@ Feature: Service Level
     And I should be able to schedule a trip "29"days from today
     Then The pickup time should be same for both the addresses from the dropdown
 
-  #CORE-2342:Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
+  #CORE-2342:To verify whether correct default contact name and phone no. is added when store address is selected as pickup address
   @ready
-  Scenario: Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
+  Scenario:To verify whether correct default contact name and phone no. is added when store address is selected as pickup address
     When I navigate to "Partner" portal configured for "BestBuy2 service level" URL
     And I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
