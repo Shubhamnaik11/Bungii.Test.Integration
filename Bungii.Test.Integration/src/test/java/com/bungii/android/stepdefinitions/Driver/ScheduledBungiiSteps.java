@@ -284,7 +284,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             String uiDropOffLocationline1 = action.getText(tripDetailsPage.Text_DropOff_Location_line1());
             String uiDropOffLocationline2 = action.getText(tripDetailsPage.Text_DropOff_Location_line2());
             String distance = action.getText(tripDetailsPage.Text_Total_Distance());
-            
+
 
             testStepAssert.isEquals(uiPickupLocationline1, pickupLine1, "Pickup Location line 1 text should be " + pickupLine1, "Pickup Location line 1 text is " + uiPickupLocationline1, "Pickup Location line 1 text is not " + pickupLine1);
             testStepAssert.isEquals(uiPickupLocationline2, pickupLine2, "Pickup Location line 2 text should be " + pickupLine2, "Pickup Location line 2 text is " + uiPickupLocationline2, "Pickup Location line 2 text is not " + pickupLine2);

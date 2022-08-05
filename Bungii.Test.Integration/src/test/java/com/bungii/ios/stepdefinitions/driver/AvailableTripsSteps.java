@@ -9,6 +9,7 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.AvailableTripsPage;
+import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -27,8 +28,10 @@ public class AvailableTripsSteps extends DriverBase {
 	private static LogUtility logger = new LogUtility(AvailableTripsSteps.class);
 	DbUtility dbUtility = new DbUtility();
 	ActionManager action = new ActionManager();
-	public AvailableTripsSteps(AvailableTripsPage availableTripsPage) {
+	private BungiiDetailsPage bungiiDetailsPage;
+	public AvailableTripsSteps(AvailableTripsPage availableTripsPage,BungiiDetailsPage bungiiDetailsPage) {
 		this.availableTripsPage = availableTripsPage;
+		this.bungiiDetailsPage = bungiiDetailsPage;
 	}
 	String Image_Solo="bungii_type-solo",Image_Duo="bungii_type-duo";
 
@@ -297,12 +300,14 @@ public class AvailableTripsSteps extends DriverBase {
 
 	@Then("^I should see service level information displayed for \"([^\"]*)\" address$")
 	public void i_should_see_service_level_information_displayed_for_something_address(String centre) throws Throwable {
+		try{
 		Thread.sleep(5000);
 		if(centre.equalsIgnoreCase("Store")){
 			String expectedStoreAddress = PropertyUtility.getDataProperties("baltimore.store.address");
 			String addressLine1 = action.getText(availableTripsPage.Text_PickupAddressLineOneDriverApp()).replace(", ","");;
 			String addressLine2 = action.getText(availableTripsPage.Text_PickupAddressLineTwoDriverApp()).replace(",","");
 			String properAddress = addressLine1 +" "+ addressLine2;
+
 			testStepAssert.isEquals(properAddress, expectedStoreAddress, "Proper Store address should be displayed", "Proper Store address is displayed", " Store address displayed is wrong");
 
 		}
@@ -311,6 +316,7 @@ public class AvailableTripsSteps extends DriverBase {
 			String addressLine1 = action.getText(availableTripsPage.Text_PickupAddressLineOneDriverApp()).replace(", ","");;
 			String addressLine2 = action.getText(availableTripsPage.Text_PickupAddressLineTwoDriverApp()).replace(",","");
 			String properAddress = addressLine1 +" "+ addressLine2;
+
 			testStepAssert.isEquals(properAddress, expectedWarehouseAddress, "Proper warehouse address should be displayed", "Proper warehouse address is displayed", " Warehouse address displayed is wrong");
 
 		}
@@ -328,10 +334,17 @@ public class AvailableTripsSteps extends DriverBase {
 
 		testStepAssert.isEquals(expectedServicePickupInstructions, servicePickupInstruction, servicePickupInstruction + "service instructions should be displayed", expectedServicePickupInstructions + "service instructions is displayed", servicePickupInstruction + "service instructions is displayed");
 		testStepAssert.isEquals(expectedServiceDropOffInstructions, serviceDropOffInstruction, serviceDropOffInstruction + "service instructions should be displayed", expectedServiceDropOffInstructions + "service instructions is displayed", serviceDropOffInstruction + "service instructions is displayed");
-
+	} catch (Exception e) {
+		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+		error("Step should be successful", "Error performing step,Please check logs for more details",
+				true);
 	}
+	}
+
+
 	@Then("^The service level information should be displayed$")
 	public void the_service_level_information_should_be_displayed() throws Throwable {
+		try{
 		String expectedPickupServiceProvided = PropertyUtility.getDataProperties("baltimore.pickup.instructions");
 		String expectedDropOffServiceProvided = PropertyUtility.getDataProperties("baltimore.dropoff.instructions");
 		Thread.sleep(6000);
@@ -346,19 +359,26 @@ public class AvailableTripsSteps extends DriverBase {
 
 		testStepAssert.isEquals(pickupInstructions, expectedPickupServiceProvided, expectedPickupServiceProvided + "Service should be provided for pickup", pickupInstructions + "Service is provided for pickup", expectedPickupServiceProvided + "Service is not provided for pickup");
 		testStepAssert.isEquals(dropOffInstructions, expectedDropOffServiceProvided, expectedDropOffServiceProvided + "Service should be provided for dropoff", dropOffInstructions + "Service is provided for dropoff", expectedDropOffServiceProvided + "Service is not provided for dropoff");
-
+	} catch (Exception e) {
+		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+		error("Step should be successful", "Error performing step,Please check logs for more details",
+				true);
+	}
 	}
 
 	@Then("^The delivery details on \"([^\"]*)\" deliveries should have proper pickup \"([^\"]*)\" location and service level instructions displayed$")
 	public void the_delivery_details_on_something_deliveries_should_have_proper_pickup_something_location_and_service_level_instructions_displayed(String deliveryStatus, String centre) throws Throwable {
+		try{
 		Thread.sleep(3000);
 		if (centre.equalsIgnoreCase("Store")) {
 			String expectedStoreAddress = PropertyUtility.getDataProperties("baltimore.store.address.with.zipcode");
 			String StoreLocation = action.getText(availableTripsPage.Text_PickupLocationAdminPortal());
+
 			testStepAssert.isEquals(StoreLocation, expectedStoreAddress, "Store address should be " + expectedStoreAddress, "Store address is " + StoreLocation, "Store address is not " + expectedStoreAddress);
 		} else {
 			String expectedWarehouseAddress = PropertyUtility.getDataProperties("baltimore.warehouse.address.with.zipcode");
 			String warehouseLocation = action.getText(availableTripsPage.Text_PickupLocationAdminPortal());
+
 			testStepAssert.isEquals(warehouseLocation, expectedWarehouseAddress, "Warehouse address should be " + expectedWarehouseAddress, "Warehouse address is " + warehouseLocation, "Warehouse address is not " + expectedWarehouseAddress);
 		}
 		switch (deliveryStatus) {
@@ -379,6 +399,11 @@ public class AvailableTripsSteps extends DriverBase {
 
 				break;
 		}
+	} catch (Exception e) {
+		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+		error("Step should be successful", "Error performing step,Please check logs for more details",
+				true);
+	}
 	}
 
 	@And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
@@ -398,4 +423,21 @@ public class AvailableTripsSteps extends DriverBase {
 					true);
 		}
 	}
+
+	@And("^I click on start Bungii for service based delivery$")
+	public void i_click_on_start_bungii_for_service_based_delivery() throws Throwable {
+		try{
+		action.swipeUP();
+		action.click(bungiiDetailsPage.Button_StartBungii());
+		Thread.sleep(2000);
+		if(action.isElementPresent(bungiiDetailsPage.Text_General_Instruction(true))) {
+			action.click(bungiiDetailsPage.Button_General_Instruction_Got_It());
+		}
+		log("I start selected Bungii ", "I started selected Bungii", true);
+	} catch (Exception e) {
+		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+		error("Step  Should be successful", "Error in Starting Bungii as Driver", true);
+	}
+	}
+
 }

@@ -551,11 +551,13 @@ Feature: Solo Scheduled Bungii Part A
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then The trip should be present in schedule delivery
 
+
+ #CORE-2342 :To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
  @ready
-  Scenario Outline:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
+  Scenario Outline:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore driver 6" driver
-    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+    When I request Partner Portal "SOLO" Trip for "<Partner Service Level>" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
     And I wait for 1 minutes
@@ -566,7 +568,7 @@ Feature: Solo Scheduled Bungii Part A
    And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then The service level information should be displayed
-   And I start selected Bungii
+   And I click on start Bungii for service based delivery
     And I slide update button on "EN ROUTE" Screen
     And I wait for 2 minutes
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -578,6 +580,6 @@ Feature: Solo Scheduled Bungii Part A
     Then The delivery details on "Live" deliveries should have proper pickup "<Center on admin portal>" location and service level instructions displayed
 
    Examples:
-     | Center          |  Center on admin portal        |          Customer Name                      |   Customer Phone       |
-     |  Store          |       Store                    |    Testcustomertywd_appleMarkAJ LutherAJ    |        8877661035      |
-     |  Warehouse      |      Warehouse                 |    Testcustomertywd_appleMarkAK LutherAK    |        8877661036      |
+     | Center      |  Center on admin portal  |        Customer Name                    |  Customer Phone  | Partner Service Level           |
+     |  Store      |       Store              |  Testcustomertywd_BppleMarkCI LutherCI  |     8877661086   | BestBuy2 service level          |
+     |  Warehouse  |      Warehouse           |  Testcustomertywd_BppleMarkCJ LutherCJ  |     8877661087   |BestBuy2 warehouse service level |
