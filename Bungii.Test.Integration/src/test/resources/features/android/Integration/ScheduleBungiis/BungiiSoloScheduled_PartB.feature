@@ -96,7 +96,7 @@ Feature: SoloScheduled Part B
   Scenario Outline:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid baltimore" driver
+    And I am logged in as "TestDrivertywd_applemd_a_billH Stark_bltTwOH" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     When I request Partner Portal "SOLO" Trip for "<Partner Service Level>" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -121,5 +121,5 @@ Feature: SoloScheduled Part B
 
     Examples:
       | Center       |  Center on admin portal    |        Customer Name                    |    Customer Phone  |  Partner Service Level          |
-      |  Store       |       Store                |  Testcustomertywd_appleMarkAJ LutherAJ  |      8877661035    | BestBuy2 service level          |
-      |  Warehouse   |      Warehouse             |  Testcustomertywd_appleMarkAK LutherAK  |      8877661036    |BestBuy2 warehouse service level |
+      |  Store       |       Store                |  Testcustomertywd_BppleMarkCG LutherCG  |      8877661084    | BestBuy2 service level          |
+      |  Warehouse   |      Warehouse             |  Testcustomertywd_BppleMarkCH LutherCH  |      8877661085    |BestBuy2 warehouse service level |
