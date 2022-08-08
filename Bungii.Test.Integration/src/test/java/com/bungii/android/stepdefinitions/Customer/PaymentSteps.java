@@ -14,7 +14,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.java.sl.In;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.tools.ant.types.selectors.SelectSelector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;

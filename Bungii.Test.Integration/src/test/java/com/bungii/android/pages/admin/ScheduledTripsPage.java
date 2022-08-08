@@ -137,6 +137,25 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Label_PickupCustomer() { return findElement("revive-pickup-customer", LocatorType.Id); }
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
 
+    //partner portal
+    public WebElement TextBox_PartnerLoginPassword() { return findElement("formBasicPassword", LocatorType.Id); }
+    public WebElement Button_SignIn() { return findElement("login", LocatorType.Id); }
+    public WebElement Dropdown_Setting(boolean...ignoreException) { return findElement("//div[@class='dropdown-menu-right dropdown']",LocatorType.XPath, ignoreException);}
+    public WebElement Button_TrackDeliveries() { return findElement("track-deliveries",LocatorType.Id);}
+    public WebElement Label_StartOver() { return findElement("//span[contains(text(),'Start Over')]",LocatorType.XPath);}
+    public WebElement Link_Setting() { return findElement("//i[@title='Menu']", LocatorType.XPath);}
+    public WebElement Textbox_Password() { return findElement("//input[@id='name']",LocatorType.XPath);}
+    public WebElement Button_Continue() { return  findElement("//div[@class='btn-group']//button[@class='btn'][contains(text(),'Continue')]",LocatorType.XPath);}
+    public WebElement Link_CancelDelivery() { return findElement("//button[@class='btn cancel-delivery']",LocatorType.XPath);}
+    public WebElement Button_OK() { return findElement("//button[@class='btn']",LocatorType.XPath);}
+    public WebElement Button_OkOnDeliveryCancellationFailed() { return findElement("//button[@class='btn btn btn-primary']",LocatorType.XPath);}
+    public WebElement Button_CancelDelivery() { return findElement("//button[@class='btn btn-clear btn-clear-red']",LocatorType.XPath);}
+    public WebElement Text_TrackingIdColumn() { return findElement("//tr/th[2]/div",LocatorType.XPath);}
+    public WebElement Text_TripCustomer() { return findElement("//tr[1]/td[3]/div[1]",LocatorType.XPath);}
+    public WebElement Text_TripTrackingId() { return findElement("//tr[1]/td[2]/div[1]",LocatorType.XPath);}
+    public WebElement Text_TripDeliveryAddress() { return findElement("//tr[1]/td[4]/div[1]",LocatorType.XPath);}
+    public WebElement Textbox_SearchBar() { return findElement("searchText", LocatorType.Id); }
+    public WebElement Link_SelectTripTrackDeliveries() { return findElement("//table/tbody/tr",LocatorType.XPath);}
 
 
 }

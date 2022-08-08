@@ -45,8 +45,7 @@
           | Customer Phone  | Customer2 Phone |
           | 8888882028      |                 |
   
-      @ready
-      @nonstable
+      @regression
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in the Bungii Details page for a Scheduled Bungii
         When I Switch to "customer" application on "same" devices
     
@@ -167,8 +166,7 @@
           | 8888882028      |                 |
         
 
-      @ready
-      @nonstable
+      @regression
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request
         When I Switch to "customer" application on "same" devices
   

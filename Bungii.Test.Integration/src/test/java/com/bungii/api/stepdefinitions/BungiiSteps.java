@@ -446,6 +446,12 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appleks_a_drvan Kansas_an":
                 phone = PropertyUtility.getDataProperties("Kansas.driver27.phone");
                 break;
+            case "Testdrivertywd_appleks_a_drvay Kansas_ay":
+                phone = PropertyUtility.getDataProperties("Kansas.driver43.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvaz Kansas_az":
+                phone = PropertyUtility.getDataProperties("Kansas.driver44.phone");
+                break;
             case "TestDrivertywd_applemd_a_billC Stark_bltTwO":
                 phone = PropertyUtility.getDataProperties("baltimore.driver2.phone");
                 break;
@@ -506,11 +512,29 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appleks_a_drvam Kansas_am":
                 phone = PropertyUtility.getDataProperties("Kansas.driver25.phone");
                 break;
+            case "Testdrivertywd_appleks_a_drvbb Kansas_bb":
+                phone = PropertyUtility.getDataProperties("Kansas.driver50.phone");
+                break;
             case "TestDrivertywd_applemd_a_billD Stark_bltTwOD":
                 phone = PropertyUtility.getDataProperties("baltimore.driver3.phone");
                 break;
             case "Testdrivertywd_appledc_a_drvK WashingtonK":
                 phone = PropertyUtility.getDataProperties("Washington.driver13.phone");
+                break;
+            case "Testdrivertywd_applega_a_steveB Stark_altOnEB":
+                phone = PropertyUtility.getDataProperties("atlanta.driver1.phone");
+                break;
+            case "Testdrivertywd_applega_a_steveC Stark_altOnEC":
+                phone = PropertyUtility.getDataProperties("atlanta.driver2.phone");
+                break;
+            case "Testdrivertywd_applega_a_steveD Stark_altOnED":
+                phone = PropertyUtility.getDataProperties("atlanta.driver3.phone");
+                break;
+            case "Testdrivertywd_applega_a_steveE Stark_altOnEE":
+                phone = PropertyUtility.getDataProperties("atlanta.driver4.phone");
+                break;
+            case "Testdrivertywd_applega_a_steveF Stark_altOnEF":
+                phone = PropertyUtility.getDataProperties("atlanta.driver5.phone");
                 break;
             case "Testdrivertywd_appledc_a_drvL WashingtonL":
                 phone = PropertyUtility.getDataProperties("Washington.driver14.phone");
@@ -1331,11 +1355,10 @@ public class BungiiSteps extends DriverBase {
 
                     logger.detail("*** As a driver " + driverAName + "(" + driverPhoneNum + ") " + bungiiType + "(" + pickupRequest + ") is being " + driver1State);
 
-
-                        if (driver1State.equalsIgnoreCase("Accepted")) {
-                            try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
-                            //  coreServices.waitForAvailableTrips(driverAName + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest); //temporary comment
-                        }
+                    if (driver1State.equalsIgnoreCase("Accepted")) {
+                        try{ coreServices.getDriverScheduledPickupList(driverAccessToken);coreServices.driverView("",driverAccessToken);}catch (Exception e){}
+                        //  coreServices.waitForAvailableTrips(driverAName + "(" + driverPhoneNum + ")", driverAccessToken, pickupRequest); //temporary comment
+                    }
 
                         if (driver1State.equalsIgnoreCase("Accepted")) {
                             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);

@@ -4,7 +4,7 @@ import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
 public class BungiiDetailsPage extends PageBase {
-	public WebElement Button_StartBungii() { return findElement("START BUNGII", LocatorType.Name); }
+	public WebElement Button_StartBungii(boolean... ignoreException) { return findElement("START BUNGII", LocatorType.Name,ignoreException); }
 	public WebElement Button_CancelBungii() { return findElement("//XCUIElementTypeStaticText[@name=\"CANCEL BUNGII\"]/preceding-sibling::XCUIElementTypeButton[not(contains(@name, 'START'))]", LocatorType.XPath); }
 	public WebElement Button_General_Instruction_Got_It() { return findElement("//XCUIElementTypeButton[@label='Got it']",LocatorType.XPath);}
 	public WebElement Text_General_Instruction(boolean... ignoreException) { return findElement("//XCUIElementTypeStaticText[@name='General instructions']",LocatorType.XPath,ignoreException);}
@@ -29,7 +29,9 @@ public class BungiiDetailsPage extends PageBase {
 	public WebElement Text_TypeTag() { return findElement("//XCUIElementTypeStaticText[@name=\"Type\"]", PageBase.LocatorType.XPath); }
 	public WebElement Text_TypeValue() { return findElement("//XCUIElementTypeStaticText[@name=\"Type\"]/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
+	public WebElement Tab_AddPhoto(){return findElement("//XCUIElementTypeStaticText[@name='Tap to add photo']",LocatorType.XPath);}
 
+	public WebElement Button_SavePhotos(){return findElement("//XCUIElementTypeButton[@name='Save']",LocatorType.XPath);}
 
 
 }

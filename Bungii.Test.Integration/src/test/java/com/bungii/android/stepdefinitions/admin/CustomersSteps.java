@@ -11,7 +11,7 @@ import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-
+import static com.bungii.common.manager.ResultManager.log;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -30,6 +30,20 @@ public class CustomersSteps extends DriverBase {
         try {
             Thread.sleep(3000);
             action.sendKeys(customersPage.TextBox_SearchCustomer(), (String) cucumberContextManager.getScenarioContext("FIRST_NAME") + Keys.ENTER);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I Search for customer with phone number$")
+    public void i_search_for_customer_with_phone_number() throws Throwable {
+        try {
+            Thread.sleep(3000);
+            action.sendKeys(customersPage.TextBox_SearchCustomer(), (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE") + Keys.ENTER);
+            log("Customer associated with phone number should get searched.","Customer associated with phone number got searched.",false);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

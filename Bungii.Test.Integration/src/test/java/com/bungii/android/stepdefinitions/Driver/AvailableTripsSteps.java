@@ -18,6 +18,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -411,6 +412,46 @@ public class AvailableTripsSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Latest reason is not saved", true);
+        }
+    }
+    @Then("^I check the notification for \"([^\"]*)\"$")
+    public void i_check_the_notification_for_something(String strArg1) throws Throwable {
+        try{
+            String expectedMessage="";
+            action.showNotifications();
+
+            String scheduleDate = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+            String date=scheduleDate.substring(0,6);
+            String checkZero=date.substring(4,5);
+            if (checkZero.equalsIgnoreCase("0"))
+            {
+                date= date.replace("0","");
+            }
+            String time=scheduleDate.substring(8,16);
+            Date d=new Date();
+            String year= String.valueOf(d).substring(24);
+            String message = PropertyUtility.getMessage("biglots.partner.cancel");
+            String subMessage = PropertyUtility.getMessage("partner.cancel.message");
+            expectedMessage = message+" "+date+", "+year+" at "+time+". "+subMessage;
+            cucumberContextManager.setScenarioContext("EXPECTED_MESSAGE",expectedMessage);
+
+            log("Checking notifications","Checking notifications",true);
+
+            boolean isFound = utility.clickOnNofitication("Bungii", expectedMessage);
+            if (!isFound) {
+                Thread.sleep(80000);
+                isFound = utility.clickOnNofitication("Bungii", expectedMessage);
+            }
+            //if no notificatiaon then hide
+            if (!isFound) {
+                action.hideNotifications();
+            }
+            testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message " + expectedMessage, "PUSH NOTIFICATION NOT RECEIVED : " + expectedMessage + " message");
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 

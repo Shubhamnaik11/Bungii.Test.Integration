@@ -26,4 +26,7 @@ public class GeofencePage extends PageBase {
 
     public WebElement Button_Edit() { return findElement("btnEdit", LocatorType.Id); }
 
+    public WebElement Input_ReferralAmount() { return findElement("attributeValueDriverReferralBonusAmount", LocatorType.Id); }
+    public WebElement Input_NoOfDeliveries() { return findElement("attributeValueDriverReferralBonusPayoutDeliveries", LocatorType.Id); }
+
 }

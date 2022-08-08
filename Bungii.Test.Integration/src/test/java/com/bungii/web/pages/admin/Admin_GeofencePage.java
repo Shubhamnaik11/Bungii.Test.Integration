@@ -104,6 +104,10 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Checkbox_Geofence(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath, ignoreException);}
     public WebElement Checkbox_GeofenceLabel(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]",geofence) , LocatorType.XPath, ignoreException);}
 
+    public WebElement Button_DownloadZipCodes() {return findElement("btnDownloadZipcodes" , LocatorType.Id);}
+    public List<WebElement> List_RowCount() {return findElements("//tbody[@id='NewApplicantsTBody']/tr[@class='clickable-row']/td[2]" , LocatorType.XPath);}
+    public WebElement List_ActiveGeofence(int i) {return findElement("//tbody[@id='NewApplicantsTBody']/tr["+i+"]/td[2]" , LocatorType.XPath);}
+
     public WebElement Text_GeofenceHighlighted() { return findElement("//ul/li/div/span/mark", LocatorType.XPath);}
 
     public List<WebElement> List_GeofenceRegions() { return findElements("//div[@id=\"tree\"]/ul/li/div/span[4]", LocatorType.XPath);}
