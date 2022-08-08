@@ -123,20 +123,6 @@ public class UpdateStatusSteps extends DriverBase {
         }
     }
 
-    @And("^I driver adds photos to the Bungii$")
-    public void i_driver_adds_photos_to_the_bungii() throws Throwable {
-        try{
-            action.click(bungiiDetailsPage.Tab_AddPhoto());
-            addBungiiPickUpImage("3 images");
-            Thread.sleep(1000);
-        }
-        catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
-        }
-    }
-
-
     @Then("^non control driver should see \"([^\"]*)\" screen$")
     public void non_control_driver_should_see_something_screen(String strArg1) throws Throwable {
         try{
@@ -927,24 +913,6 @@ public class UpdateStatusSteps extends DriverBase {
                     true);
         }
     }
-    @And("^I get the new pickup reference generated$")
-    public void i_get_the_new_pickup_reference_generated() throws Throwable {
-
-        try {
-            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            pickupRequest = getLinkedPickupRef(pickupRequest);
-            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
-            log("I get the new pickup reference generated",
-                    "Pickupref is " + pickupRequest, false);
-        }
-        catch (Exception ex){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "New pickup reference is not generated",
-                    true);
-        }
-
-    }
-
 
     public boolean isMessageAppPage() {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), PropertyUtility.getMessage("messages.navigation.new"));

@@ -310,12 +310,4 @@ Feature: Partner Portal Cases integration with IOS
     And I open the trip for "Testcustomertywd_appleMarkAP LutherAP" the customer for delivery details
     And I get the estimated charge "for customer"
     And I get the driver earnings displayed for "solo"
-    And I calculate the driver share and check for "duo to solo conversion"
-
-    When I switch to "ORIGINAL" instance
-    When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Partner portal Trip from available trip
-    And I Select "AVAILABLE BUNGIIS" from driver App menu
-    And I Select Partner portal Trip from available trip
-    And I verify the driver earnings displayed on driver app for "solo"
+    Then I calculate the driver share and check for "duo to solo conversion"

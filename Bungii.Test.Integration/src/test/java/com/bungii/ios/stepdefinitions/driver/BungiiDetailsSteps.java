@@ -146,7 +146,6 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-    @When("^I start selected Bungii$")
     @Then("^Start button should not be shown$")
     public void start_button_should_not_be_shown() throws Throwable {
         try {

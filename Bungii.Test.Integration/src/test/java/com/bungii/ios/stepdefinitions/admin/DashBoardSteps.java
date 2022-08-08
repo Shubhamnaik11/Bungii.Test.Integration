@@ -175,7 +175,7 @@ public class DashBoardSteps extends DriverBase {
                 case "solo":
                     float soloDriverEarnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp()).substring(1)));
                     float driverShareCalculated =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE"));
-                    testStepAssert.isTrue(soloDriverEarnings==driverShareCalculated,
+                    testStepVerify.isTrue(soloDriverEarnings==driverShareCalculated,
                             "The driver earnings calculated should be same as displayed",
                             "The driver earnings calculated is same as displayed",
                             "The driver earnings calculated is not same as displayed");

@@ -160,7 +160,6 @@
 
 #    Core-2418: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
     @ready
-#    @testsweta
     Scenario: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
       When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -187,7 +186,7 @@
       And I Select Trip from driver scheduled trip
 
       # Core-2418 Verify Driver Pricing is recalculated for Floor n Decor delivery when admin edits the address and service level of Schedule Trip
-
+      And I wait for "2" mins
       When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
@@ -211,10 +210,10 @@
 
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
-      And I Select "SCHEDULED BUNGIIS" from driver App menu
-      And I Select Trip from scheduled trip
+      When I tap on "Back" button of android mobile
+      And I Select Trip from driver scheduled trip
       And I verify the driver earnings displayed on driver app for "changed address and service level"
-      And I start selected Bungii
+      And I start selected Bungii for "floor and decor"
       Then Bungii driver should see "General Instructions"
       And I slide update button on "EN ROUTE" Screen
       Then Bungii driver should see "Pickup Instructions"
@@ -234,7 +233,7 @@
       And the "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
       Then the "Bungii Saved!" message is displayed
-      When I click on "CLOSE" button
+      When I click on "Close" button
       And I get the new pickup reference generated
       And I wait for "2" mins
       And I Select "live trips" from admin sidebar
@@ -246,7 +245,6 @@
 
  #  Core-2418: Verify Driver Pricing by weight for Duo delivery with both Pallet weight lies same tier for Floor and Decor Partner
     @ready
-#      @testsweta
     Scenario:Verify Driver Pricing by weight for Duo delivery with both Pallet weight lies same tier for Floor n Decor Partner
       When I request Partner Portal "DUO" Trip for "Floor and Decor" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -292,13 +290,13 @@
 
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
-      And I Select "AVAILABLE BUNGIIS" from driver App menu
+      When I tap on "Back" button of android mobile
+      When I tap on "Back" button of android mobile
       And I Select Trip from available trip
       Then I verify the driver earnings displayed on driver app for "duo"
 
 #  Core-2418: Verify Driver Pricing by weight for Duo delivery with Pallet weight in different tier for Floor n Decor Partner
     @ready
-#  @testsweta
     Scenario:Verify Driver Pricing by weight for Duo delivery with Pallet weight in different tier for Floor n Decor Partner
       When I request Partner Portal "DUO" Trip for "Floor and Decor - Different Weights" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -316,10 +314,10 @@
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
       And I enter phoneNumber :9766000001 and  Password :Cci12345
-      And I click "Log In" button on "Log In" screen on driverApp
+      And I click "Log In" button on Log In screen on driver app
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       And I Select "AVAILABLE BUNGIIS" from driver App menu
-      And I Select Partner portal Trip from available trip
+      And I Select Trip from available trip
       Then I verify the driver earnings displayed on driver app for "duo-different tier"
 
 #  Core-2418: Verify Driver Pricing for Floor n Decor delivery when admin convert duo trip to solo
@@ -334,7 +332,7 @@
       And the "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
       Then the "Bungii Saved!" message is displayed
-      When I click on "CLOSE" button
+      When I click on "Close" button
       And I wait for "2" mins
       And I Select "Scheduled Trip" from admin sidebar
       And I open the trip for "Testcustomertywd_appleMarkAR LutherAR" the customer for delivery details
@@ -344,8 +342,6 @@
 
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
-      And I Select "AVAILABLE BUNGIIS" from driver App menu
-      And I Select Partner portal Trip from available trip
-      And I Select "AVAILABLE BUNGIIS" from driver App menu
-      And I Select Partner portal Trip from available trip
-      And I verify the driver earnings displayed on driver app for "solo"
+      And I tap on "Back" button of android mobile
+      And I Select Trip from available trip
+      Then I verify the driver earnings displayed on driver app for "solo"

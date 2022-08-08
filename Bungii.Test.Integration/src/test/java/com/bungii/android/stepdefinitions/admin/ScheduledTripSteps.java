@@ -1915,7 +1915,7 @@ public class ScheduledTripSteps extends DriverBase {
 					float driverEarningsCalculatedDuoToSolo =(float) (Math.floor((duoToSoloAmt1+duoToSoloAmt2)-processingFee)* 100.0 / 100.0);
 					cucumberContextManager.setScenarioContext("CALCULATED_DRIVER_SHARE",driverEarningsCalculatedDuoToSolo);
 					float driverShareDisplayedDuoToSolo = Float.parseFloat((String) cucumberContextManager.getScenarioContext("SOLO_DRIVER_EARNING"));
-					testStepAssert.isTrue(driverEarningsCalculatedDuoToSolo==driverShareDisplayedDuoToSolo,
+					testStepVerify.isTrue(driverEarningsCalculatedDuoToSolo==driverShareDisplayedDuoToSolo,
 							"The driver share calculated should be same as displayed",
 							"The driver share calculated is same as displayed",
 							"The driver share calculated is not same as displayed");

@@ -1537,7 +1537,7 @@ public class CommonSteps extends DriverBase {
         }
     }
 
-    }
+
     @And("^I verify the driver earnings displayed on driver app for \"([^\"]*)\"$")
     public void i_verify_the_driver_earnings_displayed_on_driver_app_for_something(String type) throws Throwable {
         try{
@@ -1548,13 +1548,14 @@ public class CommonSteps extends DriverBase {
                     String soloDriverEarnings = action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp());
                     float soloDriverEarnings1 = Float.parseFloat(soloDriverEarnings.substring(1));
                     float driverShareCalculated =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE"));
-                    testStepAssert.isTrue(soloDriverEarnings1==driverShareCalculated,
+                    testStepVerify.isTrue(soloDriverEarnings1==driverShareCalculated,
                             "The driver earnings calculated should be same as displayed",
                             "The driver earnings calculated is same as displayed",
                             "The driver earnings calculated is not same as displayed");
                     break;
                 case "duo":
                     Thread.sleep(2000);
+                    action.scrollToTop();
                     action.scrollToBottom();
                     float duoDriver1Earnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver1EarningsApp()).substring(1)));
                     float driverShareCalculatedDriver1 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE_SAME_TIRE"));
@@ -1590,7 +1591,7 @@ public class CommonSteps extends DriverBase {
 
                 case "changed address and service level":
                     Thread.sleep(2000);
-                    float soloDriverEarningsChangedSL = Float.parseFloat((action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp()).substring(1)));
+                    float soloDriverEarningsChangedSL = Float.parseFloat((action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp1()).substring(1)));
                     float driverShareCalculatedChangedSL =Float.parseFloat((String) cucumberContextManager.getScenarioContext("DRIVER_SHARE_FOR_CHANGED_SL_AND_ADDRESS"));
                     testStepAssert.isTrue(soloDriverEarningsChangedSL==driverShareCalculatedChangedSL,
                             "The driver earnings calculated should be same as displayed",
@@ -1598,6 +1599,8 @@ public class CommonSteps extends DriverBase {
                             "The driver earnings calculated is not same as displayed");
                     break;
             }
+            log("I should be able to verify the driver earnings displayed",
+                    "I am able to verify the driver earnings displayed",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

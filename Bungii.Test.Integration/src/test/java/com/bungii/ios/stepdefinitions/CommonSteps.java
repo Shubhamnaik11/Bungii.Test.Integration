@@ -22,7 +22,7 @@ import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.stepdefinitions.customer.HomeSteps;
 import com.bungii.ios.stepdefinitions.customer.LogInSteps;
-import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
+import com.bungii.ios.stepdefinitions.driver.*;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -1840,23 +1840,6 @@ public class CommonSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Problem in selecting a Bungii Scheduled deliveries in admin portal for customer "+custName,
-                    true);
-        }
-    }
-    @And("^I change delivery type from \"([^\"]*)\"")
-    public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
-        try{
-            switch (radiobutton) {
-                case "Duo to Solo":
-                    action.click(scheduledTripsPage.RadioButton_Solo());
-                    cucumberContextManager.setScenarioContext("BUNGII_TYPE","SOLO");
-                    break;
-            }
-            log("I change delivery type from  "+ radiobutton,
-                    "I changed delivery type from "+ radiobutton, false);
-        } catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
