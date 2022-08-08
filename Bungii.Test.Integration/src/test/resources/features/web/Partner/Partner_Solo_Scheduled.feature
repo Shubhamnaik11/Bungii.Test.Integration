@@ -105,13 +105,12 @@
 
 
     #CORE-3372:To verify delivery status is updated when Partner Portal delivery is canceled by partner
-    #need to add kansas driver
     @ready
     Scenario: To verify delivery status is updated when Partner Portal delivery is canceled by partner
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
         |Kansas| NEXT_POSSIBLE | 8877661066 | Testcustomertywd_BppleMarkBO LutherBO|
-      And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" Delivery
+      And As a driver "Testdrivertywd_appleks_a_drvbc Kansas_bc" perform below action with respective "Solo Scheduled" Delivery
         | driver1 state |
         | Accepted      |
       Given I navigate to "Partner" portal configured for "normal" URL
@@ -131,13 +130,12 @@
       Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
 
       #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is moved from one status to other for change in driver
-    #need to add kansas driver
     @ready
     Scenario:To verify delivery status is updated when PartnerPortal delivery is moved from one status to other for change in driver
       When I request Partner Portal "SOLO" Trip for "MRFM" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
         |Kansas| NEXT_POSSIBLE | 8877661065 | Testcustomertywd_BppleMarkBN LutherBN|
-      And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" partner portal trip
+      And As a driver "Testdrivertywd_appleks_a_drvbd Kansas_bd" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state|
         | Accepted |
         | Enroute |
@@ -152,7 +150,7 @@
       Then I should be able to see the respective bungii with the below status
         |  Status       |
         | Trip Started|
-      And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" partner portal trip
+      And As a driver "Testdrivertywd_appleks_a_drvbd Kansas_bd" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state|
         | Driver Canceled |
       And I get the time stamp of the completed delivery step
@@ -176,13 +174,13 @@
       And  I search the delivery using "Pickup Reference"
       When I click on the "Edit" button from the dropdown
       And I click on "Edit Trip Details" radiobutton
-      And I click on "Add Driver" and add "Testdrivertywd_appleks_a_drvaa Kansas_aa" driver
+      And I click on "Add Driver" and add "Testdrivertywd_appleks_a_drvbe Kansas_be" driver
       And I click on "Verify" button on Edit Scheduled bungii popup
       And I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
       When I wait for 2 minutes
       And I get the new pickup reference generated
-      And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
+      And As a driver "Testdrivertywd_appleks_a_drvbe Kansas_be" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state|
         |Enroute      |
       And I get the time stamp of the completed delivery step
@@ -190,35 +188,35 @@
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "En Route To Pickup" on partner portal delivery details page
       And The driver name should be changed
-      And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
+      And As a driver "Testdrivertywd_appleks_a_drvbe Kansas_be" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state |
         | Arrived |
       And I get the time stamp of the completed delivery step
       And I refresh the page
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "Driver Arrived At Pickup" on partner portal delivery details page
-      And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
+      And As a driver "Testdrivertywd_appleks_a_drvbe Kansas_be" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state |
         | Loading Item |
       And I get the time stamp of the completed delivery step
       And I refresh the page
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "Loading Items" on partner portal delivery details page
-      And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
+      And As a driver "Testdrivertywd_appleks_a_drvbe Kansas_be" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state |
         | Driving To Dropoff |
       And I get the time stamp of the completed delivery step
       And I refresh the page
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "Driving To Drop Off" on partner portal delivery details page
-      And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
+      And As a driver "Testdrivertywd_appleks_a_drvbe Kansas_be" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state |
         | Unloading Item |
       And I get the time stamp of the completed delivery step
       And I refresh the page
       And I click on the delivery based on customer name
       Then I should see the delivery status highlighted and to be set as "Unloading Items" on partner portal delivery details page
-      And As a driver "Testdrivertywd_appleks_a_drvaa Kansas_aa" perform below action with respective "Solo Scheduled" partner portal trip
+      And As a driver "Testdrivertywd_appleks_a_drvbe Kansas_be" perform below action with respective "Solo Scheduled" partner portal trip
         | driver1 state |
         | Bungii Completed |
       And I get the time stamp of the completed delivery step
@@ -230,13 +228,12 @@
 
 
 #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Schedule deliveries
-    #need kansas driver
     @ready
   Scenario: To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Schedule deliveries
   When I request Partner Portal "SOLO" Trip for "MRFM" partner
    |Geofence| Bungii Time   | Customer Phone | Customer Name |
    |Kansas| NEXT_POSSIBLE | 8877661067 | Testcustomertywd_BppleMarkBP LutherBP|
-    And As a driver "Testdrivertywd_appledc_a_webee Testdriveree" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appleks_a_drvbf Kansas_bf" perform below action with respective "Solo Scheduled" partner portal trip
     | driver1 state|
     | Accepted |
    When I navigate to "Admin" portal configured for "QA" URL
