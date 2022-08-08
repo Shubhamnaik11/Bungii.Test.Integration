@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -26,7 +27,7 @@ public class PromosSteps extends DriverBase {
     EstimatePage estimatePage=new EstimatePage();
     GeneralUtility utilities = new GeneralUtility();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
-
+    DriverHomePage driverHomePage = new DriverHomePage();
     @And("^I add \"([^\"]*)\" PromoCode$")
     public void iAddPromoCode(String arg0) throws Throwable {
         try {
@@ -236,6 +237,14 @@ public class PromosSteps extends DriverBase {
 
                 case "i info":
                     action.click(setPickupTimePage.Icon_PickupTimeInfo());
+                    break;
+
+                case "$":
+                    action.click(driverHomePage.Icon_Referral());
+                    break;
+
+                case "Back":
+                    action.click(driverHomePage.Button_Back());
                     break;
 
                 default:

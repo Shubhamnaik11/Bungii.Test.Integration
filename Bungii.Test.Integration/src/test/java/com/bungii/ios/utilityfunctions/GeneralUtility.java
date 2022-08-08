@@ -685,6 +685,14 @@ public class GeneralUtility extends DriverBase {
                 logger.detail("DRIVER APP");
                 isCorrectPage = action.getScreenHeader(driverHomePage.Header_RateDuoTeammate()).equals("Rate duo teammate");
                 break;
+            case "REFERRAL":
+                logger.detail("DRIVER APP");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_Referral()).equals("REFERRAL");
+                break;
+            case "REFERRAL HISTORY":
+                logger.detail("DRIVER APP");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_ReferralHistory()).equals("REFERRAL HISTORY");
+                break;
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {

@@ -739,4 +739,8 @@ public class ActionManager {
         JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
         executor.executeScript("arguments[0].scrollIntoView();", element);
     }
+
+    public void deleteAllCookies() {
+        SetupManager.getDriver().manage().deleteAllCookies();
+    }
 }
