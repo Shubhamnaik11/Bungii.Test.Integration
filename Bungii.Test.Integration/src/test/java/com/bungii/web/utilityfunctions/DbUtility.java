@@ -569,14 +569,10 @@ public class DbUtility extends DbContextManager {
     public static String getStatusTimestamp(String Pickup_Reference) {
         String timeStamp;
         String tripStatus;
-        String pickupId;
-        String queryStringForPickupId = "select PickupID from pickupdetails where PickupRef = '"+Pickup_Reference+"'";;
-        pickupId = getDataFromMySqlServer(queryStringForPickupId);
-        logger.detail("PickupId is "+pickupId+ " for pickup reference "+ Pickup_Reference);
-        String queryStringForPickupTripStatus = "select TripStatus from tripevents where PickupID='"+pickupId+"'";
+        String queryStringForPickupTripStatus ="select tripevents.TripStatus from tripevents join pickupdetails on tripevents.PickupID=pickupdetails.PickupID where PickupRef ='"+Pickup_Reference+ " order by TripStatus desc limit 1";
         tripStatus = getDataFromMySqlServer(queryStringForPickupTripStatus);
         logger.detail("TripStatus is "+tripStatus+ " for pickup reference "+ Pickup_Reference);
-        String queryStringForTime = "select StatusTimestamp from tripevents where pickupid ='"+pickupId+"'"+"and TripStatus = '"+tripStatus+"'";
+        String queryStringForTime = "select StatusTimestamp from tripevents where TripStatus ='"+tripStatus+"'";
         timeStamp = getDataFromMySqlServer(queryStringForTime);
         logger.detail("StatusTimestamp is "+timeStamp+ " for pickup reference "+ Pickup_Reference);
         return timeStamp;
