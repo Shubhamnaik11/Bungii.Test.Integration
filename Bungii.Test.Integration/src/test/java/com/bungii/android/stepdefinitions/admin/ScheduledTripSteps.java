@@ -1057,7 +1057,7 @@ public class ScheduledTripSteps extends DriverBase {
 				case "Time":
 					action.click(scheduledTripsPage.TimePicker_Time());
 					Thread.sleep(3000);
-					action.click(scheduledTripsPage.Dropdown_ScheduledDate_Time());
+					action.click(scheduledTripsPage.Dropdown_ScheduledDateTime());
 					String timeChanged = scheduledTripsPage.TimePicker_Time().getText();
 					cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
 					break;
@@ -1358,7 +1358,7 @@ public class ScheduledTripSteps extends DriverBase {
 			switch (Site_Name) {
 				case "Admin":
 					//action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
-					action.selectElementByText(scheduledTripsPage.Admin_Dropdown_ServiceLevel(), Service_Name);
+					action.selectElementByText(scheduledTripsPage.Dropdown_ServiceLevel(), Service_Name);
 					cucumberContextManager.setScenarioContext("Change_service", Service_Name);
 					break;
 				default:

@@ -132,9 +132,9 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
     public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
     public WebElement TimePicker_Time () { return findElement("PickupDetails_ScheduledTime", LocatorType.Id); }
-    public WebElement Dropdown_ScheduledDate_Time() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
+    public WebElement Dropdown_ScheduledDateTime() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
     public WebElement RadioButton_Solo() { return findElement("//input[@value='Solo']", LocatorType.XPath); }
-    public WebElement Admin_Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
+    public WebElement Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
 
 
     public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
