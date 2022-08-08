@@ -554,7 +554,7 @@ try{
     public void i_should_see_something_highlighted(String expectedcity) throws Throwable {
         try{
         String textColor =PropertyUtility.getDataProperties("city.text.highlight");
-        String color = admin_GeofencePage.Text_GeofenceHighlighted().getCssValue("background-color");
+        String color = action.getCssBackgroundColor(admin_GeofencePage.Text_GeofenceHighlighted());
         String cityName = action.getText(admin_GeofencePage.Text_GeofenceHighlighted());
         testStepAssert.isEquals(cityName,expectedcity,"I should be able to see the city name "+expectedcity,"I could see the city name "+expectedcity, "The city name "+expectedcity+ " is not displayed");
         testStepAssert.isEquals(color,textColor,"The text should be highlight","The text is highlighted","The text is not highlighted");
@@ -688,8 +688,8 @@ try{
             action.JavaScriptScrolldown();
             action.JavaScriptScrolldown();
 
-            if(invalidCity<=9){
-                testStepVerify.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
+            if(invalidCity>0){
+                testStepAssert.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
                         "Drivers profiles is displayed based on "+ expectedGeofenceRegion+" geofence" ,"Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
             }
         }
@@ -708,8 +708,8 @@ try{
                 }
             }
         }
-        if(invalidCity<=9){
-            testStepVerify.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
+        if(invalidCity>0){
+            testStepAssert.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
                     "Drivers profiles is displayed based on "+ expectedGeofenceRegion+" geofence" ,"Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
         }
     } catch(Exception e){

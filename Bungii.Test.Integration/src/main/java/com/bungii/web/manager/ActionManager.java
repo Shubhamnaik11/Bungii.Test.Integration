@@ -406,4 +406,14 @@ catch(Exception ex)
         ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
         SetupManager.getDriver().switchTo().window(tabs.get(tab));
     }
+
+    public String getCssBackgroundColor(WebElement element) {
+        try {
+            String backgroundColor = element.getCssValue("background-color");
+            logger.detail("Background color value  is  " + backgroundColor );
+            return  backgroundColor;
+        } catch (Exception Ex) {
+            return "Unable to fetch background color";
+        }
+    }
 }
