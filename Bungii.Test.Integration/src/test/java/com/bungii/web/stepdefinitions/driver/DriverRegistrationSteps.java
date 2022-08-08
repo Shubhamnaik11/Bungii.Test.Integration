@@ -265,9 +265,9 @@ try{
                 testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("FinishHeader"),  PropertyUtility.getMessage("FinishHeader")+" should be displayed", PropertyUtility.getMessage("FinishHeader")+" is displayed", PropertyUtility.getMessage("FinishHeader")+" is not displayed");
                 break;
             case "Dashboard":
-               // testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.Header_Dashboard()), PropertyUtility.getMessage("DriverDashboardHeader"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.SideNavigationSetting()), PropertyUtility.getMessage("DriverHomeSetting"),  PropertyUtility.getMessage("DriverHomeSetting")+" should be displayed", PropertyUtility.getMessage("DriverHomeSetting")+" is displayed", PropertyUtility.getMessage("DriverHomeSetting")+" is not displayed");
-                testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.SideNavigationGeneral()), PropertyUtility.getMessage("DriverHomeGENERAL"),  PropertyUtility.getMessage("DriverHomeGENERAL")+" should be displayed", PropertyUtility.getMessage("DriverHomeGENERAL")+" is displayed", PropertyUtility.getMessage("DriverHomeGENERAL")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.Header_Dashboard()), PropertyUtility.getMessage("DriverDashboardHeader"));
+                //testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.SideNavigationSetting()), PropertyUtility.getMessage("DriverHomeSetting"),  PropertyUtility.getMessage("DriverHomeSetting")+" should be displayed", PropertyUtility.getMessage("DriverHomeSetting")+" is displayed", PropertyUtility.getMessage("DriverHomeSetting")+" is not displayed");
+                //testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.SideNavigationGeneral()), PropertyUtility.getMessage("DriverHomeGENERAL"),  PropertyUtility.getMessage("DriverHomeGENERAL")+" should be displayed", PropertyUtility.getMessage("DriverHomeGENERAL")+" is displayed", PropertyUtility.getMessage("DriverHomeGENERAL")+" is not displayed");
                 break;
             default:
                 break;
@@ -362,7 +362,7 @@ try{
             Thread.sleep(3000);
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), phone);
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("web.valid.common.driver.password"));
-      //  action.click(Page_Driver_Login.Button_DriverLogin());
+        //  action.click(Page_Driver_Login.Button_DriverLogin());
         log("I enter driver Phone number as "+phone+" and valid password","I have entered driver Phone number as "+phone+" and valid password", false);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -542,4 +542,16 @@ try{
     }
 
 
+    @And("I note trip count for driver")
+    public void iNoteTripCountForDriver() {
+        try{
+            String tripCount = action.getText(Page_Driver_Details.Count_TotalTrips());
+            cucumberContextManager.setScenarioContext("OldTripCount",tripCount);
+            log("Trip count for driver should be " + tripCount,"Trip count for is driver " + tripCount);
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

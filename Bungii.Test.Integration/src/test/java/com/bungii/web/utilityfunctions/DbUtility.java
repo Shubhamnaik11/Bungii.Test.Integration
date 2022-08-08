@@ -245,6 +245,30 @@ public class DbUtility extends DbContextManager {
 
     }
 
+    public static String getDriverReference(String phoneNumber) {
+        String driverRef = "";
+        String queryString = "SELECT DriverRef  FROM driver WHERE Phone = " + phoneNumber;
+        driverRef = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "DriverRef is " + driverRef);
+        return driverRef;
+    }
+
+    public static List<String> getHoursWorkedQuarterToDate(String driverRef, String quarterStartDate, String quarterEndDate) {
+        List<String> intialTime=null;
+        String queryString = "select actualtime\n" +
+                "from factpickup fp\n" +
+                "inner join facttrip ft on ft.pickupid = fp.id\n" +
+                "inner join dimdriver d on d.id = ft.driver\n" +
+                "where pickup_datetime_per_tz between '"+quarterStartDate+"' and '"+quarterEndDate+"'\n" +
+                "and fp.pickupstatus in (10, 11, 14, 28)\n" +
+                "and d.reference = '"+driverRef+"'";
+        //intialTime = getDataFromMySqlServerMap(queryString);
+        intialTime = getDataFromMySqlReportServerList(queryString);
+
+        //intialTime = getDataFromMySqlServerMap(queryString);
+        return intialTime;
+    }
+
     public static String getEstimateTimeByPartnerReference(String partnerRef) {
         String Estimate_time;
 //        String queryString = "SELECT EstTime FROM pickupdetails where customerRef in (select CustomerRef from business_partner_location bpl join customer c on c.id = bpl.customer_id where business_partner_location_ref = '"+partnerRef+"')order by  pickupid desc limit 1";

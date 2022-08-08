@@ -162,6 +162,30 @@ public class DbContextManager {
         return list;
     }
 
+    public static List<String> getDataFromMySqlReportServerList(String queryString) {
+        String result = "";
+        List<String> list = new ArrayList<String>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(MYSQL_RPT_URL, MYSQL_USER, MYSQL_PASSWORD);
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(queryString);
+            ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
+            int columns = md.getColumnCount();
+
+            while (rs.next()) {
+                list.add(rs.getString(1));
+
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
     public static List<HashMap<String,Object>> getListDataFromMySqlMgmtServer(String queryString) {
         String result = "";
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
