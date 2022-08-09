@@ -4,12 +4,14 @@ import com.bungii.SetupManager;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_GeofencePage;
 import com.bungii.web.pages.driver.*;
+import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -19,6 +21,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -422,7 +426,36 @@ public class Driver_DetailsSteps extends DriverBase {
                     true);
         }
     }
+    @When("^I open datepicker and hit enter key$")
+    public void i_open_datepicker_and_hit_enter_key() throws Throwable {
+        try{
+            action.click(Page_Driver_ViewDetails.Calendar_TripsDaterange());
+            Thread.sleep(3000);
+            Robot r = new Robot();
+            r.keyPress(KeyEvent.VK_ENTER);
+            r.keyRelease(KeyEvent.VK_ENTER);
+            log("I open datepicker and hit enter key",
+                    "I opened datepicker and hit enter key", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
 
+    }
+
+    @Then("^I should see delivery details displayed to the driver$")
+    public void i_should_see_delivery_details_displayed_to_the_driver() throws Throwable {
+       try{
+       String pickupref= (String)cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String amount = "$"+DbUtility.getDriverShare(pickupref);
+        String rating = DbUtility.getDriverRatings(pickupref);
+        testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.findElements(String.format("//td[text()='%s']/following-sibling::td[contains(text(),'%s')]/following-sibling::td[text()='Processing']",amount,rating), PageBase.LocatorType.XPath).get(0),"My Bungii details should be displayed","My Bungii details is displayed","My Bungii details is not displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @When("^I click on calendar to select date range$")
     public void i_click_on_calendar_to_select_date_range() throws Throwable {
        try{

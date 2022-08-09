@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_RefundsPage;
 import com.bungii.web.pages.admin.Admin_RevivalPage;
+import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.admin.Admin_TripsPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -35,7 +36,7 @@ public class Admin_RevivalSteps extends DriverBase {
     DbUtility dbUtility = new DbUtility();
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
-
+    Admin_TripDetailsPage admin_tripDetailsPage = new Admin_TripDetailsPage();
 
     @Then("^Revive button should be displayed beside the trip$")
     public void revive_button_should_be_displayed_beside_the_trip() throws Throwable {
@@ -47,12 +48,95 @@ public class Admin_RevivalSteps extends DriverBase {
             String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']/img", customerName);
             testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
             cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
+            String partnerName = action.getText(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td[1]", customerName), PageBase.LocatorType.XPath));
+            cucumberContextManager.setScenarioContext("PARTNER",partnerName);
+
         } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
     }
+    @And("^I should see \"([^\"]*)\" details on review popup$")
+    public void i_should_see_something_and_something_details_on_review_popup(String who) throws Throwable {
+        try {
+            String customer ="";
+        switch(who.toLowerCase()) {
+          case "customer":
+               customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+          testStepAssert.isEquals(action.getText(admin_TripsPage.Label_ReviveCustomerDetail()),customer,"Customer "+ customer+" details should be shown","Customer "+ customer+" details are shown","Customer "+ customer+" details are not shown");
+          break;
+          case "partner":
+               customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+              testStepAssert.isEquals(action.getText(admin_TripsPage.Label_ReviveCustomerDetail()),customer,"Customer "+ customer+" details should be shown","Customer "+ customer+" details are shown","Customer "+ customer+" details are not shown");
+              String partner = (String) cucumberContextManager.getScenarioContext("PARTNER");
+              testStepAssert.isEquals(action.getText(admin_TripsPage.Label_RevivePartnerDetail()),partner,"Partner "+ partner+" details should be shown","Partner "+ partner+" details are shown","Partner "+ partner+" details are not shown");
+              break;
+      }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I should not see \"([^\"]*)\" on review popup$")
+    public void i_should_not_see_something_and_something_details_on_review_popup(String who) throws Throwable {
+        try {
+            switch(who.toLowerCase()) {
+            case "pickup origin":
+                testStepAssert.isFalse(action.isElementPresent(admin_TripsPage.Label_RevivePickupOriginDetail(true)),"Pickup origin details should not be shown","Pickup origin details is not shown","Pickup origin details is shown");
+                break;
+        }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+    @And("^\"([^\"]*)\" and \"([^\"]*)\" buttons should have background color \"([^\"]*)\" and \"([^\"]*)\" respectively$")
+    public void something_and_something_buttons_should_have_background_color_something_and_something_respectively(String primaryButton, String secondaryButton, String primaryColor, String secondaryColor) throws Throwable {
+
+        try {
+            String expectedHighlightColor = "";
+            switch (primaryColor.toLowerCase()) {
+                case "blue":
+                    expectedHighlightColor = "rgba(68, 138, 193, 1)";
+                    break;
+                case "white":
+                    expectedHighlightColor = "rgba(232, 232, 232, 1)";
+                    break;
+            }
+            String primaryButtonBackgroundColor ="";
+            switch (primaryButton.toLowerCase()) {
+                case "confirm":
+                primaryButtonBackgroundColor = admin_revivalPage.Button_Confirm().getCssValue("background-color");
+                  break;
+                case "save":
+                    primaryButtonBackgroundColor = admin_tripDetailsPage.Button_Save().getCssValue("background-color");
+                    break;
+            }
+
+            testStepAssert.isEquals(primaryButtonBackgroundColor, expectedHighlightColor, primaryButton +" button should be highlighted with "+primaryColor+" color", primaryButton +" button is highlighted with "+primaryColor+" color", primaryButton +" button is not highlighted with "+primaryColor+" color");
+            switch (secondaryColor.toLowerCase()) {
+                case "blue":
+                    expectedHighlightColor = "rgba(68, 138, 193, 1)";
+                    break;
+                case "white":
+                    expectedHighlightColor = "none";
+                    break;
+            }
+            String secondaryButtonBackgroundColor = admin_revivalPage.Button_Cancel().getCssValue("background");
+            testStepAssert.isTrue(secondaryButtonBackgroundColor.contains(expectedHighlightColor), secondaryButton +" button should be highlighted with "+secondaryColor+" color", secondaryButton +" button is highlighted with "+secondaryColor+" color", secondaryButton +" button is not highlighted with "+secondaryColor+" color");
+
+
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @Then("^I should see \"([^\"]*)\" message on popup with PickupId anad Pickup Origin$")
     public void i_should_see_something_message_on_popup_with_pickupid_anad_pickup_origin(String message) throws Throwable {
 
