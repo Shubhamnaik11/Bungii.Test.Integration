@@ -413,6 +413,9 @@ catch(Exception ex)
             logger.detail("Background color value  is  " + backgroundColor );
             return  backgroundColor;
         } catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to fetch background color",
+                    true);
             return "Unable to fetch background color";
         }
     }
