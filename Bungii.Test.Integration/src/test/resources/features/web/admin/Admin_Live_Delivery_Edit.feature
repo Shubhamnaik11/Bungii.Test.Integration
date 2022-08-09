@@ -152,7 +152,7 @@ Feature: Admin_Live_Delivery_Edit
     And I select "Canceled" option from the filter
     And I click on "Apply" button
     When I click on the delivery based on customer name
-    And I get the time stamp of the completed delivery step
+    And I get time stamp for "Admin Cancelled" delivery step
     Then The admin "Cancelled" delivery should be highlighted in partner portal delivery details page
 
 
@@ -234,7 +234,7 @@ Feature: Admin_Live_Delivery_Edit
     And I select "Completed" option from the filter
     And I click on "Apply" button
     When I click on the delivery based on customer name
-    And I get the time stamp of the completed delivery step
+    And I get time stamp for "Admin Completed" delivery step
     Then The admin "Completed" delivery should be highlighted in partner portal delivery details page
 
 

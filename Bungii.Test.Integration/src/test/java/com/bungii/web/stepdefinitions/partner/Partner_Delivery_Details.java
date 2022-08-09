@@ -731,50 +731,60 @@ public class Partner_Delivery_Details extends DriverBase {
     }
 }
 
-    @And("^I get the time stamp of the completed delivery step$")
-    public void i_get_the_time_stamp_of_the_completed_delivery_step() throws Throwable {
+    @And("^I get time stamp for \"([^\"]*)\" delivery step$")
+    public void i_get_time_stamp_for_something_delivery_step(String deliveryStatus) throws Throwable {
         try {
-            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-           String time = dbUtility.getStatusTimestamp(pickupRef);
-            DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
-            String timer = time.substring(11, 23);
-            Time timeValue = new Time(formatter.parse(timer).getTime());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(timeValue);
-            calendar.add(Calendar.MINUTE, -300);
-            String timeInCST = String.valueOf(calendar.getTime());
-            String timeIn24HourFormat = timeInCST.substring(11, 16);
-            String hourFormat12 = LocalTime.parse(timeIn24HourFormat, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
-            if(hourFormat12.startsWith("0")) {
-               String  timeWithoutStartingWithZero=hourFormat12.replaceFirst("0","");
-                cucumberContextManager.setScenarioContext("DeliveryStepCompletionTime",timeWithoutStartingWithZero);
-            }
-            else {
-                cucumberContextManager.setScenarioContext("DeliveryStepCompletionTime", hourFormat12);
-            }
-            calendar.setTime(timeValue);
-            calendar.add(Calendar.MINUTE, -301);
-            String timeInCST1MinuteAhead = String.valueOf(calendar.getTime());
-            String timeIn24HourFormat1MinuteAhead = timeInCST1MinuteAhead.substring(11, 16);
-            String hourFormat12Hr1MinuteAhead = LocalTime.parse(timeIn24HourFormat1MinuteAhead, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
-            if(hourFormat12Hr1MinuteAhead.startsWith("0")) {
-                String  timeWithoutStartingWithZero1MinuteAhead=hourFormat12Hr1MinuteAhead.replaceFirst("0","");
-                cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteAhead",timeWithoutStartingWithZero1MinuteAhead);
-            }
-            else {
-                cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteAhead", hourFormat12Hr1MinuteAhead);
-            }
-            calendar.setTime(timeValue);
-            calendar.add(Calendar.MINUTE, -299);
-            String timeInCST1MinuteBack = String.valueOf(calendar.getTime());
-            String timeIn24HourFormat1MinuteBack = timeInCST1MinuteBack.substring(11, 16);
-            String hourFormat12Hr1MinuteBack = LocalTime.parse(timeIn24HourFormat1MinuteBack, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
-            if(hourFormat12Hr1MinuteBack.startsWith("0")) {
-                String  timeWithoutStartingWithZero1MinuteBack=hourFormat12Hr1MinuteAhead.replaceFirst("0","");
-                cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteBack",timeWithoutStartingWithZero1MinuteBack);
-            }
-            else {
-                cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteBack", hourFormat12Hr1MinuteBack);
+            switch (deliveryStatus) {
+                case "Cancelled":
+                case "Driver Cancelled":
+                case "Enroute":
+                case "Arrived":
+                case "Loading Item":
+                case "Driving To Dropoff":
+                case "Unloading Item":
+                case "Bungii Completed":
+                case "Admin Cancelled":
+                case "Partner Cancelled":
+                case "Admin Completed":
+                String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                String time = dbUtility.getStatusTimestamp(pickupRef);
+                DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
+                String timer = time.substring(11, 23);
+                Time timeValue = new Time(formatter.parse(timer).getTime());
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(timeValue);
+                calendar.add(Calendar.MINUTE, -300);
+                String timeInCST = String.valueOf(calendar.getTime());
+                String timeIn24HourFormat = timeInCST.substring(11, 16);
+                String hourFormat12 = LocalTime.parse(timeIn24HourFormat, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
+                if (hourFormat12.startsWith("0")) {
+                    String timeWithoutStartingWithZero = hourFormat12.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("DeliveryStepCompletionTime", timeWithoutStartingWithZero);
+                } else {
+                    cucumberContextManager.setScenarioContext("DeliveryStepCompletionTime", hourFormat12);
+                }
+                calendar.setTime(timeValue);
+                calendar.add(Calendar.MINUTE, -301);
+                String timeInCST1MinuteAhead = String.valueOf(calendar.getTime());
+                String timeIn24HourFormat1MinuteAhead = timeInCST1MinuteAhead.substring(11, 16);
+                String hourFormat12Hr1MinuteAhead = LocalTime.parse(timeIn24HourFormat1MinuteAhead, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
+                if (hourFormat12Hr1MinuteAhead.startsWith("0")) {
+                    String timeWithoutStartingWithZero1MinuteAhead = hourFormat12Hr1MinuteAhead.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteAhead", timeWithoutStartingWithZero1MinuteAhead);
+                } else {
+                    cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteAhead", hourFormat12Hr1MinuteAhead);
+                }
+                calendar.setTime(timeValue);
+                calendar.add(Calendar.MINUTE, -299);
+                String timeInCST1MinuteBack = String.valueOf(calendar.getTime());
+                String timeIn24HourFormat1MinuteBack = timeInCST1MinuteBack.substring(11, 16);
+                String hourFormat12Hr1MinuteBack = LocalTime.parse(timeIn24HourFormat1MinuteBack, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
+                if (hourFormat12Hr1MinuteBack.startsWith("0")) {
+                    String timeWithoutStartingWithZero1MinuteBack = hourFormat12Hr1MinuteAhead.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteBack", timeWithoutStartingWithZero1MinuteBack);
+                } else {
+                    cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteBack", hourFormat12Hr1MinuteBack);
+                }
             }
             log("I should be able to get the timestamp of the completed step","I could  get the timestamp of the completed step",false);
         } catch (Exception e) {
