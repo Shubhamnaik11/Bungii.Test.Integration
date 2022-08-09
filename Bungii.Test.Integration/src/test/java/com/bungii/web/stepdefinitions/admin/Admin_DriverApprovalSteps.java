@@ -23,7 +23,7 @@ import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_DriverApprovalSteps extends DriverBase {
-    private static final LogUtility logger = new LogUtility(Admin_DriverApprovalSteps.class);
+    private static LogUtility logger = new LogUtility(Admin_DriverApprovalSteps.class);
     Admin_LoginPage adminLoginPage = new Admin_LoginPage();
     Admin_MenuLinksPage adminMenuLinksPage = new Admin_MenuLinksPage();
     Admin_DashboardPage adminDashboardPage = new Admin_DashboardPage();
@@ -261,6 +261,18 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+    @Then("^I should see \"([^\"]*)\" submenu$")
+    public void i_should_see_something_submenu(String submenu) throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(admin_partnerPortalPage.Menu_UnlockPartners(),"I should see "+submenu+" submenu", "I see "+submenu+" submenu", "I do not see "+submenu+" submenu");
+
+
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I verify and approve all the verification fields$")

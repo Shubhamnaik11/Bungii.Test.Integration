@@ -26,6 +26,24 @@ public class DbUtility extends DbContextManager {
         return smsCode;
     }
 
+    public static String getDriverRatings(String pickupref) {
+        String rating = "";
+        String queryString = "select DriverRating from triprequest where pickupid in (select pickupid from pickupdetails where pickupref='"+pickupref+"')";
+        rating = getDataFromMySqlServer(queryString);
+        logger.detail("Driver Rating is" + rating + ", query, " + queryString);
+        return rating;
+    }
+    public static String getDriverShare(String pickupref) {
+        String amount = "";
+        String queryString = "select submerchant_amount from triprequest where pickupid in (select pickupid from pickupdetails where pickupref='"+pickupref+"')";
+        amount = getDataFromMySqlServer(queryString);
+        logger.detail("Driver submerchant_amount is" + amount + ", query, " + queryString);
+        return amount;
+    }
+    public static String getScheduledTime(String customerPhone){
+        String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
+
+
     public static String getScheduledTime(String customerPhone) {
         String pickupId = getPickupIdfrom_pickup_additional_info(customerPhone);
         String Scheduled_Time = getDataFromMySqlServer("SELECT ScheduledTimestamp FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
@@ -243,6 +261,30 @@ public class DbUtility extends DbContextManager {
         logger.detail("Estimate Distance =  " + Estimate_distance + " of Partner Location Reference ");
         return Estimate_distance;
 
+    }
+
+    public static String getDriverReference(String phoneNumber) {
+        String driverRef = "";
+        String queryString = "SELECT DriverRef  FROM driver WHERE Phone = " + phoneNumber;
+        driverRef = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "DriverRef is " + driverRef);
+        return driverRef;
+    }
+
+    public static List<String> getHoursWorkedQuarterToDate(String driverRef, String quarterStartDate, String quarterEndDate) {
+        List<String> intialTime=null;
+        String queryString = "select actualtime\n" +
+                "from factpickup fp\n" +
+                "inner join facttrip ft on ft.pickupid = fp.id\n" +
+                "inner join dimdriver d on d.id = ft.driver\n" +
+                "where pickup_datetime_per_tz between '"+quarterStartDate+"' and '"+quarterEndDate+"'\n" +
+                "and fp.pickupstatus in (10, 11, 14, 28)\n" +
+                "and d.reference = '"+driverRef+"'";
+        //intialTime = getDataFromMySqlServerMap(queryString);
+        intialTime = getListDataFromMySqlReportServer(queryString);
+
+        //intialTime = getDataFromMySqlServerMap(queryString);
+        return intialTime;
     }
 
     public static String getEstimateTimeByPartnerReference(String partnerRef) {
