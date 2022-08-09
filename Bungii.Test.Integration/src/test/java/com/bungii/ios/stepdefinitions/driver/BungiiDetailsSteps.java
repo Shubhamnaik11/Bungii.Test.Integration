@@ -2,7 +2,6 @@ package com.bungii.ios.stepdefinitions.driver;
 
 
 import com.bungii.SetupManager;
-import com.bungii.android.enums.Status;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -15,7 +14,6 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.text.DateFormat;
@@ -69,6 +67,9 @@ public class BungiiDetailsSteps extends DriverBase {
             action.click(bungiiDetailsPage.Tab_AddPhoto());
             addBungiiPickUpImage("3 images");
             Thread.sleep(1000);
+
+            log("I should be able to add photos for delivery",
+                    "I am able to add photos for delivery",false);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

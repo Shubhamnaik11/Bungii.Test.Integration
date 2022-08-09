@@ -237,6 +237,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             action.click(scheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", custName), PageBase.LocatorType.XPath));
             action.click(scheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'Delivery Details')]", custName),PageBase.LocatorType.XPath));
 
+            log("I should be able to open delivery details for the customer",
+                    "I am able to open delivery details for the customer",false);
+
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

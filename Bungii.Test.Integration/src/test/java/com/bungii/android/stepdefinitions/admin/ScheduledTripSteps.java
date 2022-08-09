@@ -34,7 +34,7 @@ public class ScheduledTripSteps extends DriverBase {
 	private ScheduledTripsPage scheduledTripsPage;
 	ActionManager action = new ActionManager();
 	GeneralUtility utility = new GeneralUtility();
-	private com.bungii.ios.utilityfunctions.DbUtility dbUtility = new com.bungii.ios.utilityfunctions.DbUtility();
+	DbUtility dbUtility = new DbUtility();
 	private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.admin.ScheduledTripSteps.class);
 
 	public ScheduledTripSteps(ScheduledTripsPage scheduledTripsPage) {
@@ -1801,6 +1801,8 @@ public class ScheduledTripSteps extends DriverBase {
 					cucumberContextManager.setScenarioContext("CUSTOMER_CHARGE",estimateCharge);
 					break;
 			}
+			log("I should be able to get estimated charge",
+					"I am able to get estimated charge",false);
 		}
 		catch(Exception e){
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1825,6 +1827,8 @@ public class ScheduledTripSteps extends DriverBase {
 					cucumberContextManager.setScenarioContext("DUO_DRIVER2_EARNING",duoDriver2Earnings);
 					break;
 			}
+			log("I should be able to get driver earnings",
+					"I am able to get driver earnings",false);
 		}
 		catch(Exception e){
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

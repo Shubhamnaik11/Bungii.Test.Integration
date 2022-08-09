@@ -615,7 +615,7 @@ public class CommonStepsDriver extends DriverBase {
                 case "Time":
                     action.click(scheduledTripsPage.TimePicker_Time());
                     Thread.sleep(3000);
-                    action.click(scheduledTripsPage.Dropdown_ScheduledDate_Time());
+                    action.click(scheduledTripsPage.Dropdown_ScheduledDateTime());
                     String timeChanged = scheduledTripsPage.TimePicker_Time().getText();
                     cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
                     break;
