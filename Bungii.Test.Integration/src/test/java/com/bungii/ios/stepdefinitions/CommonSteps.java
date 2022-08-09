@@ -22,7 +22,7 @@ import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.stepdefinitions.customer.HomeSteps;
 import com.bungii.ios.stepdefinitions.customer.LogInSteps;
-import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
+import com.bungii.ios.stepdefinitions.driver.*;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -3328,6 +3328,26 @@ public class CommonSteps extends DriverBase {
         action.dragFromToForDuration(initialPoint.getX(),initialPoint.getY(),finalPoint.getX(),finalPoint.getY(),1);
 
 
+    }
+    @And("^I change the service level to \"([^\"]*)\" in \"([^\"]*)\" portal$")
+    public void i_change_the_service_level_to_something_in_something_portal(String Service_Name, String Site_Name) throws Throwable {
+        try {
+            switch (Site_Name) {
+                case "Admin":
+                    //action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
+                    action.selectElementByText(scheduledTripsPage.Admin_Dropdown_ServiceLevel(), Service_Name);
+                    cucumberContextManager.setScenarioContext("Change_service", Service_Name);
+                    break;
+                default:
+                    logger.error("Wrong site name is pass.Please Pass correct site.");
+            }
+            log("I should able to change the service level to " + Service_Name, "Service name should get changed to " + Service_Name, true);
+
+        } catch (Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to change the service " + Service_Name + "for" + Site_Name + "portal",
+                    true);
+        }
     }
 
     @And("^Driver status should be \"([^\"]*)\"$")

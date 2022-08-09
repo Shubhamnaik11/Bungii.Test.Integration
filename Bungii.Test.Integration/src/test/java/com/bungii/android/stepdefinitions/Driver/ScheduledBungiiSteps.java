@@ -207,6 +207,25 @@ public class ScheduledBungiiSteps extends DriverBase {
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
     }
     }
+    @And("^I start selected Bungii for \"([^\"]*)\"$")
+    public void i_start_selected_bungii_for_something(String type) throws Throwable {
+     try{
+         switch (type){
+             case "floor and decor":
+                 Thread.sleep(3000);
+                 action.scrollToBottom();
+                 Thread.sleep(3000);
+                 action.scrollToBottom();
+                 action.click(Page_BungiiRequest.Button_Start());
+                 log("I start selected Bungii ", "I started selected Bungii", true);
+                 break;
+         }
+     }
+     catch (Exception e) {
+         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+     }
+    }
 
     @And("^I click the \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void i_click_the_something_button_on_something_screen(String strArg1, String strArg2) throws Throwable {
