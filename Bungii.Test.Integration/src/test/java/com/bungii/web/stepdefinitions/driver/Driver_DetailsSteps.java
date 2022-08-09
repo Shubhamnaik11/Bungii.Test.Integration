@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.driver;
 
 import com.bungii.SetupManager;
+import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
@@ -18,8 +19,11 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -352,19 +356,66 @@ public class Driver_DetailsSteps extends DriverBase {
 
     @Then("^The My Stats section should be updated$")
     public void the_my_stats_section_should_be_updated() throws Throwable {
-        try{SetupManager.getDriver().navigate().refresh();
+        try{
+            SetupManager.getDriver().navigate().refresh();
         driverRegistrationSteps.i_click_something_on_driver_portal("LOG IN link");
-        driverRegistrationSteps.i_enter_driver_phone_number_as_something_and_valid_password("8888881014");
+        String driverPhone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        driverRegistrationSteps.i_enter_driver_phone_number_as_something_and_valid_password(driverPhone);
         driverRegistrationSteps.i_click_something_on_driver_portal("LOG IN button");
 
+        String driverRef = DbUtility.getDriverReference(driverPhone);
+
+
         //Verify that Total Trips count is incremented by 1
-       // String old_count_string = (String) cucumberContextManager.getScenarioContext("TOTAL_TRIPS");
-       // int old_count = Integer.parseInt(old_count_string);
-        int old_count = 0;
+        String old_count_string = (String) cucumberContextManager.getScenarioContext("OldTripCount");
+        int old_count = Integer.parseInt(old_count_string);
         int new_count = old_count + 1 ;
-        String xpath = String.format("//p[contains(text(),'Total Trips')]/following-sibling::h3[contains(text(),'%s')]",new_count);
-        Boolean isCountIncremented = action.waitForElement(xpath);
-        testStepAssert.isTrue(isCountIncremented == true,"Total Trip count should be incremented", "Total trip count is incremented", "DATA SYNCH ISSUE | Total trip count is not incremented");
+        Boolean isCountIncremented = false;
+
+        String tripCountString = action.getText(Page_Driver_Details.Count_TotalTrips());
+        int tripCount = Integer.parseInt(tripCountString);
+        if(tripCount==new_count){
+            isCountIncremented=true;
+        }
+        testStepAssert.isTrue(isCountIncremented,"Total Trip count should be incremented", "Total trip count is incremented", "DATA SYNCH ISSUE | Total trip count is not incremented");
+
+        testStepAssert.isElementDisplayed(Page_Driver_Details.Text_TotalTrips(),"Total Trips text should be displayed.","Total Trips text is displayed.","Total Trips text is not displayed.");
+        testStepVerify.isEquals(action.getText(Page_Driver_Details.Count_TotalTrips()),String.valueOf(new_count));
+
+        testStepAssert.isElementDisplayed(Page_Driver_Details.Text_TripsMonth(),"Trips/Month text should be displayed","Trips/Month text is displayed","Trips/Month text is not displayed");
+
+        testStepAssert.isElementDisplayed(Page_Driver_Details.Text_EarningsMonth(),"Total Earnings text should be displayed","Total Earnings text is displayed","Total");
+
+         testStepVerify.isElementDisplayed(Page_Driver_Details.Text_MyRating(),"My Rating text should be displayed","My Rating text is display","My Rating text is not displayed");
+
+         testStepVerify.isElementDisplayed(Page_Driver_Details.Text_HoursWorked(),"Hours Worked text should be displayed","Hours Worked text is displayed","Hours Worked text is not displayed");
+
+         testStepVerify.isElementDisplayed(Page_Driver_Details.Text_HoursWorkedQuarterDate(),"Hours worked quarter to date text should be displayed","Hours worked quarter to date text is displayed","Hours worked quarter to date text is not displayed");
+
+         Date currentDate = new Date();
+
+         Date quarterStartDate = getFirstDayOfQuarter(currentDate);
+         Date quarterEndDate = getLastDayOfQuarter(currentDate);
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+         String QSD = dateFormat.format(quarterStartDate);
+         String QED = dateFormat.format(quarterEndDate);
+
+         List <String> valueHoursWorkedQuarterToDate = DbUtility.getHoursWorkedQuarterToDate(driverRef,QSD,QED);
+         int sum =0;
+         for(int j=0; j<=valueHoursWorkedQuarterToDate.size()-1;j++){
+             int value= Integer.parseInt(valueHoursWorkedQuarterToDate.get(j));
+             sum= sum + value;
+         }
+
+         DecimalFormat frmt = new DecimalFormat();
+         frmt.setMaximumFractionDigits(2);
+         float total = (float)sum/60;
+         String sumValue= frmt.format(total);
+
+         testStepVerify.isEquals(action.getText(Page_Driver_Details.Value_HoursWorkedQuarterDate()),sumValue);
+
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -430,6 +481,23 @@ public class Driver_DetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    private static Date getFirstDayOfQuarter(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)/3 * 3);
+        return cal.getTime();
+    }
+
+    private static Date getLastDayOfQuarter(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)/3 * 3 + 2);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return cal.getTime();
     }
 
 }
