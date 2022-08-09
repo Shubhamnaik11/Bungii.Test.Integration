@@ -45,6 +45,7 @@ public class ScheduledTripsPage extends PageBase {
         return findElement("CustomerCancel", LocatorType.Name);
     }
 
+    public WebElement Admin_Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
 
     public WebElement Button_ScheduledDateSort(){return  findElement("span-ScheduledDate",LocatorType.Id);}
     public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria",LocatorType.Id);}
@@ -66,6 +67,21 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_VerifyChangesSavedMessage() {return findElement("//p[@id='verified-message']/i[2]", LocatorType.XPath);}
     public WebElement Button_SaveChanges(){return findElement("//button[@class='btn btn-primary ml15 saveTrip']", LocatorType.XPath);}
     public WebElement Text_SuccessMessage(){return findElement("//p[@id='success-message']/i[2]", LocatorType.XPath);}
+    public WebElement Button_ClosePopUp(){return findElement("//button[@class='close']/span", LocatorType.XPath);}
+    public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
+    public WebElement TimePicker_Time () { return findElement("PickupDetails_ScheduledTime", LocatorType.Id); }
+    public WebElement Dropdown_ScheduledDateTime() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
+    public WebElement RadioButton_Solo() { return findElement("//input[@value='Solo']", LocatorType.XPath); }
+
+    //Driver earnings
+    public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_DuoDriver1Earnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings - Pallet 1')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_DuoDriver2Earnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings - Pallet 2')]/following-sibling::td/strong", LocatorType.XPath);}
+
+    public WebElement Text_EstimateCharge() {return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_SoloDriverEarningsApp() {return findElement("//XCUIElementTypeOther[@name=\"Floor & Decor\"]/XCUIElementTypeStaticText[5]", LocatorType.XPath);}
+    public WebElement Text_DuoDriver1EarningsApp() {return findElement("//XCUIElementTypeStaticText[@name=\"Pallet 1\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
+    public WebElement Text_DuoDriver2EarningsApp() {return findElement("//XCUIElementTypeStaticText[@name=\"Pallet 2\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
 
 
     public void waitForLoadingToDisappear(){
