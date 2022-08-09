@@ -40,9 +40,6 @@ public class DbUtility extends DbContextManager {
         logger.detail("Driver submerchant_amount is" + amount + ", query, " + queryString);
         return amount;
     }
-    public static String getScheduledTime(String customerPhone){
-        String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
-
 
     public static String getScheduledTime(String customerPhone) {
         String pickupId = getPickupIdfrom_pickup_additional_info(customerPhone);
