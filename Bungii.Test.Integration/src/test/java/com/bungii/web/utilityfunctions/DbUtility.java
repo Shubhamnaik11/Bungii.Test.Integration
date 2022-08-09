@@ -263,7 +263,7 @@ public class DbUtility extends DbContextManager {
                 "and fp.pickupstatus in (10, 11, 14, 28)\n" +
                 "and d.reference = '"+driverRef+"'";
         //intialTime = getDataFromMySqlServerMap(queryString);
-        intialTime = getDataFromMySqlReportServerList(queryString);
+        intialTime = getListDataFromMySqlReportServer(queryString);
 
         //intialTime = getDataFromMySqlServerMap(queryString);
         return intialTime;

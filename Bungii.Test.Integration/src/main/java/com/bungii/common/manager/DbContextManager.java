@@ -162,7 +162,7 @@ public class DbContextManager {
         return list;
     }
 
-    public static List<String> getDataFromMySqlReportServerList(String queryString) {
+    public static List<String> getListDataFromMySqlReportServer(String queryString) {
         String result = "";
         List<String> list = new ArrayList<String>();
         try {
