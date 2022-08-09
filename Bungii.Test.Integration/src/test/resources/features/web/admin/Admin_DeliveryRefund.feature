@@ -458,7 +458,7 @@ Feature: Admin_Refund
 		And I clear the filter applied
 		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 			| Bungii Time   | Customer Phone | Customer Name |
-			| NEXT_POSSIBLE | 8877661060 | Testcustomertywd_BppleMarkBI LutherBI|
+			| NEXT_POSSIBLE | 8877661060 | Testcustomertywd_appleMarkBI LutherBI|
 		And I wait for 2 minutes
 		And I view the all Scheduled Deliveries list on the admin portal
 		And I clear the filter applied
