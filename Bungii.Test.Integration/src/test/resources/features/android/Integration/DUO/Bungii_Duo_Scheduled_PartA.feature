@@ -73,6 +73,8 @@ Feature: Bungii Duo Scheduled Part A
     @regression
     #stable
      @sanity
+
+      #CORE-3685(Android)--stack related change incorporated
   Scenario:  LONG STACK BUNGII: Verify Driver can accept and complete long stack Bungii [Altanta Geofence]
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -100,6 +102,12 @@ Feature: Bungii Duo Scheduled Part A
     And I tap on the "Log in" Button on Login screen
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
+    When I tap on "Menu" > "ACCOUNT" link
+    Then "ACCOUNT INFO" page should be opened
+    And I tap on the "Delete account" Link
+    Then "Delete account" page should be opened
+    And I enter customers "valid1" Password
+    Then The user should see "snackbar validation message invalid password for account deletion" on log in page
     And I Switch to "driver" application on "ORIGINAL" devices
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"

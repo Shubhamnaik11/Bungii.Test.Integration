@@ -108,5 +108,41 @@ public class Driver_DetailsPage extends PageBase {
 
     public WebElement Link_Logout () { return findElement("//a[text()='log out']", LocatorType.XPath); }
 
-    public WebElement Text_DriverTotalEarnings () { return findElement("//div[2]/div[1]/div[1]/div[@class=\"media-body\"]/h3", LocatorType.XPath); }
+    public WebElement Text_DriverTotalEarnings () { return findElement("//p[contains(text(),'Total Earnings')]/following-sibling::h3", LocatorType.XPath); }
+
+    public WebElement Text_TotalTrips () { return findElement("//p[contains(text(),'Total Trips')]",LocatorType.XPath);}
+
+    public WebElement Count_TotalTrips () { return findElement("//p[contains(text(),'Total Trips')]/following-sibling::h3",LocatorType.XPath);}
+
+    public WebElement Text_TripsMonth () { return findElement("//p[contains(text(),'Trips / Month')]",LocatorType.XPath);}
+
+    public WebElement Count_TripsMonth () { return findElement("//p[contains(text(),'Trips / Month')]/following-sibling::h3",LocatorType.XPath);}
+
+    public WebElement Text_TotalEarnings () { return findElement("//p[contains(text(),'Total Earnings')]",LocatorType.XPath);}
+
+    public WebElement Text_TotalTips () { return findElement("//p[contains(text(),'Total Tips')]",LocatorType.XPath);}
+
+    public WebElement Money_TotalTips () { return findElement("//p[contains(text(),'Total Tips')]/following-sibling::h3",LocatorType.XPath);}
+
+    public WebElement Text_EarningsMonth () { return findElement("//p[contains(text(),'Earnings / Month')]",LocatorType.XPath);}
+
+    public WebElement Money_EarningsMonth () { return findElement("//p[contains(text(),'Earnings / Month')]/following-sibling::h3",LocatorType.XPath);}
+
+    public WebElement Text_MyRating () { return findElement("//p[contains(text(),'My Rating')]",LocatorType.XPath);}
+
+    public WebElement Value_MyRating () { return findElement("//p[contains(text(),'My Rating')]/following-sibling::h3",LocatorType.XPath);}
+
+    public WebElement Text_HoursWorked () { return findElement("//div[@class='media']/div[@class='media-body']/p[contains(text(),'Hours worked')]",LocatorType.XPath);}
+
+    public WebElement DateRange_HoursWorked () { return findElement("//div[@class='media']/div[@class='media-body']/p[contains(text(),'Hours worked')]/following-sibling::small",LocatorType.XPath);}
+
+    public WebElement Value_HoursWorked () { return findElement("//div[@class='media']/div[@class='media-body']/p[contains(text(),'Hours worked')]/following-sibling::h2",LocatorType.XPath);}
+
+    public WebElement Text_HoursWorkedQuarterDate () { return findElement("//p[contains(text(),'Hours worked quarter to date')]",LocatorType.XPath);}
+
+    //public WebElement DateRange_HoursWorkedQuarterDate () { return findElement("//div[@class='media']/div[@class='media-body']/p[contains(text(),'Hours worked')]/following-sibling::small",LocatorType.XPath);}
+
+    public WebElement Value_HoursWorkedQuarterDate () { return findElement("//p[contains(text(),'Hours worked quarter to date')]/following-sibling::h2",LocatorType.XPath);}
+
+
 }

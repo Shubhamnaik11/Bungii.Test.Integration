@@ -47,6 +47,7 @@ public class OtherAppsPage extends PageBase {
     public WebElement Notification_StackDriverAccepted1(boolean... ignoreException) { return findElement("//*[@text=\"Scheduled delivery accepted! This Bungii now lives in your Scheduled Bungiis page.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriverStarted(boolean... ignoreException) { return findElement("//*[@text=\"Your Bungii driver is on his way!\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriver (boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_PartnerCancel(String message) { return findElement("//*[@text=\""+message+"\"]", LocatorType.XPath); }
 
     public WebElement Button_NotificationClear(boolean... ignoreException){return findElement("//android.widget.ImageButton[@content-desc=\"Clear all notifications.\"]", LocatorType.XPath,ignoreException);}
     public List<WebElement> Cell_Notification() { return findElements("com.android.systemui:id/notification_stack_scroller", LocatorType.Id);};
