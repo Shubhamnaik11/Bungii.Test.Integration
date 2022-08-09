@@ -122,10 +122,7 @@
       And I click "Cancel Delivery link" button on Partner Portal
       And I click "Cancel Delivery" button on Partner Portal
       Then I click "OK" button on Partner Portal
-      And I refresh the page
-      And I select "Canceled" option from the filter
-      And I click on "Apply" button
-      And I click on the delivery based on customer name
+      And I wait for 1 minutes
       And I get time stamp for "Partner Cancelled" delivery step
       Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
 
