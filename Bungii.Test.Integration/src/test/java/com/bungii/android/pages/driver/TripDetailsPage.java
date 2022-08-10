@@ -15,8 +15,6 @@ public class TripDetailsPage extends  PageBase{
     public WebElement Label_DropOffInstructions() { return findElement("//android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView[5]", LocatorType.XPath); }
     public WebElement Text_PickupInstructions() { return findElement("//android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView[4]", LocatorType.XPath); }
     public WebElement Text_DropOffInstructions() { return findElement("//android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView[6]", LocatorType.XPath); }
-    public WebElement Text_PickupAddressLineOneDriverApp() { return findElement("//android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout/android.widget.TextView[1]", LocatorType.XPath); }
-    public WebElement Text_PickupAddressLineTwoDriverApp() { return findElement("//android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout/android.widget.TextView[2]", LocatorType.XPath); }
     public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
     public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
 

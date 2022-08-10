@@ -304,15 +304,15 @@ public class ScheduledBungiiSteps extends DriverBase {
         Thread.sleep(5000);
         if(centre.equalsIgnoreCase("Store")) {
             String expectedStoreAddress = PropertyUtility.getDataProperties("baltimore.store.address");
-            String addressLine1 = action.getText(tripDetailsPage.Text_PickupAddressLineOneDriverApp());
-            String addressLine2 = action.getText(tripDetailsPage.Text_PickupAddressLineTwoDriverApp()).replace(", ", " ");
+            String addressLine1 = action.getText(tripDetailsPage.Text_Pickup_Location_line1());
+            String addressLine2 = action.getText(tripDetailsPage.Text_Pickup_Location_line2()).replace(", ", " ");
             String properAddress = addressLine1 + " " + addressLine2;
             testStepAssert.isEquals(properAddress, expectedStoreAddress, "Proper Store address should be displayed", "Proper Store address is displayed", " Store address displayed is wrong");
         }
         else{
             String expectedWarehouseAddress = PropertyUtility.getDataProperties("baltimore.warehouse.address");
-            String addressLine1 = action.getText(tripDetailsPage.Text_PickupAddressLineOneDriverApp());
-            String addressLine2 = action.getText(tripDetailsPage.Text_PickupAddressLineTwoDriverApp()).replace(", ", " ");
+            String addressLine1 = action.getText(tripDetailsPage.Text_Pickup_Location_line1());
+            String addressLine2 = action.getText(tripDetailsPage.Text_Pickup_Location_line2()).replace(", ", " ");
             String properAddress = addressLine1 + " " + addressLine2;
             testStepAssert.isEquals(properAddress, expectedWarehouseAddress, "Proper warehouse address should be displayed", "Proper warehouse address is displayed", " warehouse address displayed is wrong");
         }
