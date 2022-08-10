@@ -23,6 +23,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
 
@@ -991,6 +993,172 @@ try{
             }
             log("I should be able to change the status of the geofence",
                     "I am able to change the status of the geofence",false);
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I open a newly created geofence")
+    public void iOpenANewlyCreatedGeofence() {
+        try{
+            String geofenceName = (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
+            action.click(admin_GeofencePage.Row_GeofenceName(geofenceName));
+
+            log("I should be able to open newly created geofence",
+                    "I am able to open newly created geofence",false);
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I observe log details in the Geo-History section")
+    public void iObserveLogDetailsInTheGeoHistorySection() {
+        try{
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_GeoHistory(),"I should able to see Geo History text.","I am able to see Geo History text.","I am not able to see Geo History text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_SrNo(),"I should able to see Sr.No. text.","I am able to see Sr.No. text.","I am not able to see Sr.No. text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_ModifiedDate(),"I should able to see Modified Date text.","I am able to see Modified Date text.","I am not able to see Modified Date text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_ModifiedBy(),"I should able to see Modified By text.","I am able to see Modified By text.","I am not able to see Modified By text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_Phone(),"I should able to see Phone text.","I m able to see Phone text.","I am not able to see Phone text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_Changes(),"I should able to see Changes text.","I am able to see Changes text.","I am not able to see Changes text.");
+
+
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I note the Geo History log records count")
+    public void iNoteTheGeoHistoryLogRecordsCount() {
+        try {
+            List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
+            int count = logsRecordCount.size();
+            cucumberContextManager.setScenarioContext("Records_Count", count);
+            log("I should able to note the Geo History log records count.","I am able to note the Geo History records count.");
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I check that log record is shown for \"([^\"]*)\" change in Geo History")
+    public void iCheckThatLogRecordIsShownForChangeInGeoHistory(String logEntryFor) {
+        try{
+            switch (logEntryFor){
+                case "Status":
+                case "Region":
+                case "Timezone":
+                case "Geo-Coding":
+                    String oldRecordCount= (String) cucumberContextManager.getScenarioContext("Records_Count");
+                    List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
+                    int newCount = logsRecordCount.size();
+                    int oldCount = Integer.parseInt(oldRecordCount);
+                    testStepVerify.isEquals(oldCount+1,newCount);
+                    cucumberContextManager.setScenarioContext("Records_Count", newCount);
+                    break;
+                default:
+                    break;
+            }
+            cucumberContextManager.setScenarioContext("Changes",logEntryFor);
+
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I click on changes hyperlink")
+    public void iClickOnChangesHyperlink() {
+        try{
+            List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
+            //int value = logsRecordCount.size()-1;
+            action.click(admin_GeofencePage.Link_Changes());
+            log("I should able to click on changes hyperlink.","I am able to click on changes hyperlink.");
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I should see all fields with old and new changed value")
+    public void iShouldSeeAllFieldsWithOldAndNewChangedValue() {
+        try{
+            //List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
+            //int value = logsRecordCount.size()-1;
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_Feilds(),"I should able to see Fields text.","I am able too see Fields text.","I am not able to see Fields text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_OldValue(),"I should able to see Old Value text.","I am able too see Old Value text.","I am not able to see Old Value text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_NewValue(),"I should able to see New Value text.","I am able too see New Value text.","I am not able to see New Value text.");
+
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I check correct log details are shown")
+    public void iCheckCorrectLogDetailsAreShown() {
+        try {
+            String expectedModifiedBy = PropertyUtility.getDataProperties("admin.testuser.name");
+            Date date1 = new Date();
+            DateFormat dtf = new SimpleDateFormat("M/dd/YYYY");
+
+            String expedtedModifiedDate = dtf.format(date1);
+            String expectedPhone = PropertyUtility.getDataProperties("admin.testuser");
+            String expectedChanges = (String) cucumberContextManager.getScenarioContext("Changes");
+
+            testStepVerify.isEquals(action.getText(admin_GeofencePage.Value_ModifiedDate()), expedtedModifiedDate);
+            testStepVerify.isEquals(action.getText(admin_GeofencePage.Value_ModifiedBy()), expectedModifiedBy);
+            testStepVerify.isEquals(action.getText(admin_GeofencePage.Value_Phone()), expectedPhone);
+            testStepVerify.isEquals(action.getText(admin_GeofencePage.Value_Changes()), expectedChanges);
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+    @And("I change the \"([^\"]*)\" for the geofence")
+    public void iChangeTheForTheGeofence(String valueChange,DataTable data) {
+        try{
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            switch (valueChange){
+                case "Region":
+                    String region = dataMap.get("New_Region").trim();
+                    action.selectElementByText(admin_GeofencePage.Dropdown_Region(),region);
+                    break;
+                case "Timezone":
+                    String timeZone= dataMap.get("Geo-TimeZone").trim();
+                    action.selectElementByText(admin_GeofencePage.Dropdown_Timezone(), timeZone);
+                    break;
+                case "Geo-Coding":
+                    String primaryGeoCoding = dataMap.get("Primary").trim();
+                    String secondaryGeoCoding = dataMap.get("Secondary").trim();
+                    action.clearSendKeys(admin_GeofencePage.TextBox_Primary(),primaryGeoCoding);
+                    action.clearSendKeys(admin_GeofencePage.TextBox_Secondary(),secondaryGeoCoding);
+                    break;
+                default:
+                    break;
+            }
+            log("I should able to change " + valueChange + "for the geofence.","I am able to changed " + valueChange + "for the geofence.");
+
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
