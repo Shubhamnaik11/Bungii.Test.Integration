@@ -201,7 +201,6 @@ Feature: Admin_Schedule_Delivery_Edit
 
 #    Core-3922 Verify that deliveries are highlighted only on Scheduled and Live deliveries page
   @ready
-    @testsweta
   Scenario: Verify that deliveries are highlighted only on Scheduled and Live deliveries page
     Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |

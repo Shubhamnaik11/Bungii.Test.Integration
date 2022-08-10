@@ -2377,12 +2377,14 @@ try{
         try{
             switch (color){
                 case "orange":
-                    String expectedHighlightColor = "rgba(254, 201, 166, 1)";
+                    String expectedHighlightColor = PropertyUtility.getDataProperties("background.colour.orange");
                     Thread.sleep(1000);
                     String actualHighlightColor =  admin_LiveTripsPage.Text_DeliveryHighlight().getCssValue("background-color");
                     testStepAssert.isEquals(actualHighlightColor,expectedHighlightColor,"Delivery should be highlighted with orange color","Delivery is highlighted with orange color","Delivery is not highlighted with orange color");
                     break;
             }
+            log("I should be able to see the correct background colour",
+                    "I am able to see the correct background colour",false);
         }
         catch (Exception ex){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
