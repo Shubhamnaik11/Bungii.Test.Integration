@@ -35,4 +35,10 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Label_Tooltip() {return findElement("//tr[1]/td/a/i[@class='fa fa-exclamation']/following-sibling::span",LocatorType.XPath);}
 
+    public WebElement Icon_LoadingIconSearching() {return findElement("//div[@class=\"driver-search\"]",LocatorType.XPath);}
+
+    public WebElement Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries() {return findElement("//tr[@id='row1']/td[12]",LocatorType.XPath);}
+
+    public WebElement Text_DeliveryStatusAllDeliveries() {return findElement("//tr/td[11]",LocatorType.XPath);}
+
 }

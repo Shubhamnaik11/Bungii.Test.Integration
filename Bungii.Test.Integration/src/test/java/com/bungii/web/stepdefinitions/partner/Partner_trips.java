@@ -1332,8 +1332,8 @@ try{
     public void i_should_see_the_message_something_displayed(String expectedMessage) throws Throwable {
         try{
         Thread.sleep(3000);
-        String NoDeliveries = action.getText(admin_TripsPage.Text_NoDeliveriesFound());
-        testStepAssert.isEquals(NoDeliveries,expectedMessage,"I should see " +expectedMessage+ " text displayed","Text message displayed is " + NoDeliveries,expectedMessage +" is not displayed");
+        String NoDeliveries = action.getText(admin_TripsPage.Text_NoDeliveriesFound()).toLowerCase();
+        testStepAssert.isEquals(NoDeliveries,expectedMessage.toLowerCase(),"I should see " +expectedMessage+ " text displayed","Text message displayed is " + NoDeliveries,expectedMessage +" is not displayed");
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",

@@ -432,3 +432,80 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
     |  Status |
     | Assigning Driver(s)|
+
+
+  @testAllan
+  Scenario: Verify that 'Assigning driver(s)' status with Loading icon is shown when it is searching for driver(s) on Schedule Deliveries screen
+    When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999999356 | Testcustomertywd_appleWashB Shah|
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I click on the filter link and should see "Assigning Driver(s)" checkbox displayed
+    And I click on "Apply" button on "All Deliveries" page
+    When  I search the delivery using "Pickup Reference"
+    Then The delivery should be in "Assigning Driver(s)" state
+    Then I should be able to see the respective bungii with the below status
+      | Status           |
+      | Assigning Driver(s)|
+    When As a driver "Testdrivertywd_appledc_a_web Sundarb" perform below action with respective "Duo Scheduled" Delivery
+      | driver1 state|
+      | Accepted |
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+    Then The delivery should be in "Assigning Driver(s)" state
+    And I view the Live Deliveries list on  admin portal
+    When  I search the delivery using "Pickup Reference"
+    Then The delivery should be in "Assigning Driver(s)" state
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Duo Scheduled" Delivery
+      | driver1 state|
+      | Accepted  |
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled |
+    And I view the Live Deliveries list on  admin portal
+    When  I search the delivery using "Pickup Reference"
+    Then I should see the message "No deliveries found." displayed
+    And I view the all Scheduled Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+    And I click on "Edit" link beside scheduled bungii
+    When I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I select "Duo: Driver not found - one driver" from the "Cancellation Reason" dropdown
+    And I click on "Submit" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for 2 minutes
+    When I click on "Close" button
+    And I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    And I click on the filter link and should see "No Driver(s) Found" checkbox displayed
+    And I click on "Filter" icon on "All Deliveries" Page
+    When I select filter "Statuses" as "Admin Canceled"
+    And I click on "Apply" button on "All Deliveries" page
+    And  I search the delivery using "Pickup Reference"
+    Then The delivery should be in "Admin Canceled - No Driver(s) Found" state
+    Then Revive button should be displayed beside the trip
+    When I click on "Revive" button
+    Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+    When I click on "Confirm" button on Revival Popup
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on  admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then I should be able to see the respective bungii with the below status
+      | Status           |
+      | Assigning Driver(s)|
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Trip Details" radiobutton
+    And I edit the pickup address
+    Then I change the pickup address to "4400 Massachusetts Avenue Northwest"
+    And I edit the drop off address
+    Then I change the drop off address to "4400 Massachusetts Avenue Northwest"
+    Then I should see "Additional Notes" field empty
+    And I change the customer note to "New Note Added by Admin"
+    And I change the delivery type from "Duo" to "Solo"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
