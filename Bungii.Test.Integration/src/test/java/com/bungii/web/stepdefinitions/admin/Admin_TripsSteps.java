@@ -2398,34 +2398,39 @@ try{
 
 
     @Then("^The delivery should be in \"([^\"]*)\" state$")
-    public void the_delivery_should_be_in_something_state(String strArg1) throws Throwable {
-      switch (strArg1){
+    public void the_delivery_should_be_in_something_state(String deliveryStatus) throws Throwable {
+        try{
+      switch (deliveryStatus){
           case "Assigning Driver(s)":
               Thread.sleep(5000);
               boolean isInDriverSearchState = admin_LiveTripsPage.Icon_LoadingIconSearching().isDisplayed();
               String deliveryState = action.getText(admin_LiveTripsPage.Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries());
-              testStepVerify.isEquals(deliveryState,strArg1);
+              testStepAssert.isEquals(deliveryState,deliveryStatus,"Delivery should be in "+deliveryStatus +" state","Delivery is in "+deliveryStatus +" state","Delivery is not in "+deliveryStatus +" state");
               testStepAssert.isTrue(isInDriverSearchState,"Loading Animation should be displayed","Loading animation is displayed","Loading animation is not displayed");
-              break;
-          case "Assigning Driver":
-              String deliveryStateAfter1DriverAccepts = action.getText(admin_LiveTripsPage.Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries());
-              testStepVerify.isEquals(deliveryStateAfter1DriverAccepts,strArg1);
               break;
           case "Admin Canceled - No Driver(s) Found":
               Thread.sleep(5000);
               String deliveryStatusForAdminCancel = action.getText(admin_LiveTripsPage.Text_DeliveryStatusAllDeliveries());
-              testStepVerify.isEquals(deliveryStatusForAdminCancel,strArg1);
+              testStepAssert.isEquals(deliveryStatusForAdminCancel,deliveryStatus,"Delivery should be in "+deliveryStatus +" state","Delivery is in "+deliveryStatus +" state","Delivery is not in "+deliveryStatus +" state");
               break;
           case "Assigning Driver(s) with no loader":
               Thread.sleep(2000);
               testStepAssert.isNotElementDisplayed(admin_LiveTripsPage.Icon_LoadingIconSearching(true),"Loading animation should not be displayed","Loading animation is not  displayed","Loading animation is displayed");
               boolean isInDriverNoSearchingState = admin_LiveTripsPage.Icon_LoadingIconStoppedSearching().isDisplayed();
               testStepAssert.isTrue(isInDriverNoSearchingState,"No Loading animation should be displayed","No Loading animation is displayed","No Loading animation is not displayed");
-
+              break;
       }
+    }	catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
+    }
+
+
     @And("^I click on the filter link and should see \"([^\"]*)\" checkbox displayed$")
     public void i_click_on_the_filter_link_and_should_see_something_checkbox_displayed(String filterBy) throws Throwable {
+      try{
         action.click(admin_TripsPage.Button_Filter());
         switch (filterBy){
             case "Assigning Driver(s)":
@@ -2438,14 +2443,21 @@ try{
                 boolean isDriversNotFoundCheckboxDisplayed =  admin_TripsPage.CheckBox_FilterDriversNotFound().isDisplayed();
                 testStepAssert.isTrue(isDriversNotFoundCheckboxDisplayed,filterBy +" filter checkbox should be displayed" ,filterBy +" filter checkbox is displayed",filterBy +" filter checkbox is not displayed");
                 String expectedText = action.getText(admin_TripsPage.Text_AllFilterOptions(10)).trim();
-                testStepVerify.isEquals(expectedText,filterBy);
+                testStepAssert.isEquals(expectedText,filterBy,filterBy +" Text should be displayed" ,expectedText +" text  is displayed",filterBy +" text is not displayed");
                 break;
 
         }
-
+    }	catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
+    }
+
+
     @Then("^I should see the changes done by admin$")
     public void i_should_see_the_changes_done_by_admin(DataTable data) throws Throwable {
+        try{
         Thread.sleep(3000);
         List<Map<String, String>> dataMap = data.asMaps();
         for(int i=0;i<dataMap.size();i++) {
@@ -2480,13 +2492,26 @@ try{
 
             }
         }
+    }	catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
+    }
+
+
     @Then("^The edit option should not be displayed for live deliveries$")
     public void the_edit_option_should_not_be_displayed_for_live_deliveries() throws Throwable {
+        try{
        Thread.sleep(3000);
         action.click(admin_LiveTripsPage.Icon_Dropdown());
         Thread.sleep(1000);
         testStepAssert.isElementDisplayed(admin_LiveTripsPage.Icon_Dropdown(),"Edit option should not be displayed","Edit option is not displayed","Edit option is displayed");
+    }	catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I stop searching driver$")

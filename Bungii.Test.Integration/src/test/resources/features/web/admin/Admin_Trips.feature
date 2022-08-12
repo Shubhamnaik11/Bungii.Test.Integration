@@ -433,12 +433,12 @@ Feature: Admin_Trips
     |  Status |
     | Assigning Driver(s)|
 
-
+  #CORE-3295:Verify that 'Assigning driver(s)' status with Loading icon is shown when it is searching for driver(s) on Schedule Deliveries screen
   @ready
   Scenario: Verify that 'Assigning driver(s)' status with Loading icon is shown when it is searching for driver(s) on Schedule Deliveries screen
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999356 | Testcustomertywd_appleWashB Shah|
+      | NEXT_POSSIBLE | 8877661088 | Testcustomertywd_appleMarkCK LutherCK|
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     And I click on the filter link and should see "Assigning Driver(s)" checkbox displayed
@@ -517,11 +517,12 @@ Feature: Admin_Trips
       | Dropoff Address Change   |   	Unnamed Road Street Street Washington United States 20015      | 6300 Hillandale Road Bethesda Maryland United States 20815    |
       | Duo To Solo              |   	DUO                                                            | SOLO                                                               |
 
+  #CORE-3295:Verify stop searching should change the status to Assigning drivers without loading icon
   @ready
-  Scenario: Verify that 'Assigning driver(s)' status with Loading icon is shown when it is searching for driver(s) on Schedule Deliveries screen
+  Scenario: Verify stop searching should change the status to Assigning drivers without loading icon
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999356 | Testcustomertywd_appleWashB Shah|
+      | NEXT_POSSIBLE | 8877661089 | Testcustomertywd_appleMarkCL LutherCL|
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     When  I search the delivery using "Pickup Reference"
