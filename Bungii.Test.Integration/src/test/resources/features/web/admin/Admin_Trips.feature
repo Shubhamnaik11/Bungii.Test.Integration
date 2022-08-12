@@ -434,7 +434,7 @@ Feature: Admin_Trips
     | Assigning Driver(s)|
 
 
-  @testAllan
+  @ready
   Scenario: Verify that 'Assigning driver(s)' status with Loading icon is shown when it is searching for driver(s) on Schedule Deliveries screen
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -477,8 +477,8 @@ Feature: Admin_Trips
     And I select "Duo: Driver not found - one driver" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
-    And I wait for 2 minutes
     When I click on "Close" button
+    And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     And I click on the filter link and should see "No Driver(s) Found" checkbox displayed
@@ -494,18 +494,70 @@ Feature: Admin_Trips
     And I wait for 2 minutes
     And I view the Live Deliveries list on  admin portal
     And  I search the delivery using "Pickup Reference"
-    Then I should be able to see the respective bungii with the below status
-      | Status           |
-      | Assigning Driver(s)|
-    And I click on "Edit" link beside live delivery
+    And I click on "Edit" button
     And I click on "Edit Trip Details" radiobutton
     And I edit the pickup address
-    Then I change the pickup address to "4400 Massachusetts Avenue Northwest"
+    Then I change the pickup address to "New Country Lane"
     And I edit the drop off address
-    Then I change the drop off address to "4400 Massachusetts Avenue Northwest"
-    Then I should see "Additional Notes" field empty
+    Then I change the drop off address to "Bethesda Outdoor Pool"
     And I change the customer note to "New Note Added by Admin"
     And I change the delivery type from "Duo" to "Solo"
     And I click on "Verify" button on Edit Scheduled bungii popup
     And I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
+    When I click on "Close" button
+    And I wait for 2 minutes
+    And I get the new pickup reference generated
+    And  I search the delivery using "Pickup Reference"
+    And I click on the "Notes & History" link beside scheduled bungii for "Schedule Deliveries"
+    And I click on "History" button
+    Then I should see the changes done by admin
+      | Event                    |                                Old Value                            |   New Value  |
+      | Pickup Address Change    |   	Western Avenue Street Chevy Chase Maryland United States 2081  | New Country Lane Hickory Ridge Columbia Maryland United States 21044   |
+      | Dropoff Address Change   |   	Unnamed Road Street Street Washington United States 20015      | 6300 Hillandale Road Bethesda Maryland United States 20815    |
+      | Duo To Solo              |   	DUO                                                            | SOLO                                                               |
+
+  @ready
+  Scenario: Verify that 'Assigning driver(s)' status with Loading icon is shown when it is searching for driver(s) on Schedule Deliveries screen
+    When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999999356 | Testcustomertywd_appleWashB Shah|
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+    Then The delivery should be in "Assigning Driver(s)" state
+    Then I should be able to see the respective bungii with the below status
+      | Status           |
+      | Assigning Driver(s)|
+    When I click on the "Delivery Details" button from the dropdown
+    Then I stop searching driver
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+    Then The delivery should be in "Assigning Driver(s) with no loader" state
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Duo Scheduled" Delivery
+      | driver1 state|
+      | Accepted  |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on  admin portal
+    When  I search the delivery using "Pickup Reference"
+    And I click on "Edit" button
+    And I select the first driver
+    And I click on "Remove Driver" button
+    And I click on "Research" button
+    When I click on "Close" button
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on  admin portal
+    And I get the new pickup reference generated
+    When  I search the delivery using "Pickup Reference"
+    And I click on "Edit" button
+    When I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I select "Duo: Driver not found - both driver" from the "Cancellation Reason" dropdown
+    And I click on "Submit" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    When I click on "Close" button
+    And I wait for 2 minutes
+    And I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The delivery should be in "Admin Canceled - No Driver(s) Found" state

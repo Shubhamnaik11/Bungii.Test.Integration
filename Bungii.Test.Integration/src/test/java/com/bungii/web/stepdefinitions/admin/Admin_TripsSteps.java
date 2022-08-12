@@ -52,7 +52,6 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
     LiveTripsPage liveTripsPage = new LiveTripsPage();
-
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
@@ -1836,6 +1835,10 @@ try{
                         action.click(admin_TripsPage.Button_Filter());
                         action.click(admin_TripsPage.CheckBox_FilterPending());
                         break;
+                    case "Assigning Driver(s)":
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click(admin_TripsPage.CheckBox_AssigningDrivers());
+                        break;
                 }
                 break;
 
@@ -2373,5 +2376,118 @@ try{
         }
     }
 
+    @Then("^The delivery should be in \"([^\"]*)\" state$")
+    public void the_delivery_should_be_in_something_state(String strArg1) throws Throwable {
+      switch (strArg1){
+          case "Assigning Driver(s)":
+              Thread.sleep(5000);
+              boolean isInDriverSearchState = admin_LiveTripsPage.Icon_LoadingIconSearching().isDisplayed();
+              String deliveryState = action.getText(admin_LiveTripsPage.Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries());
+              testStepVerify.isEquals(deliveryState,strArg1);
+              testStepAssert.isTrue(isInDriverSearchState,"Loading Animation should be displayed","Loading animation is displayed","Loading animation is not displayed");
+              break;
+          case "Assigning Driver":
+              String deliveryStateAfter1DriverAccepts = action.getText(admin_LiveTripsPage.Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries());
+              testStepVerify.isEquals(deliveryStateAfter1DriverAccepts,strArg1);
+              break;
+          case "Admin Canceled - No Driver(s) Found":
+              Thread.sleep(5000);
+              String deliveryStatusForAdminCancel = action.getText(admin_LiveTripsPage.Text_DeliveryStatusAllDeliveries());
+              testStepVerify.isEquals(deliveryStatusForAdminCancel,strArg1);
+              break;
+          case "Assigning Driver(s) with no loader":
+              Thread.sleep(2000);
+              testStepAssert.isNotElementDisplayed(admin_LiveTripsPage.Icon_LoadingIconSearching(true),"Loading animation should not be displayed","Loading animation is not  displayed","Loading animation is displayed");
+              boolean isInDriverNoSearchingState = admin_LiveTripsPage.Icon_LoadingIconStoppedSearching().isDisplayed();
+              testStepAssert.isTrue(isInDriverNoSearchingState,"No Loading animation should be displayed","No Loading animation is displayed","No Loading animation is not displayed");
 
+      }
+    }
+    @And("^I click on the filter link and should see \"([^\"]*)\" checkbox displayed$")
+    public void i_click_on_the_filter_link_and_should_see_something_checkbox_displayed(String filterBy) throws Throwable {
+        action.click(admin_TripsPage.Button_Filter());
+        switch (filterBy){
+            case "Assigning Driver(s)":
+                boolean isAssigningDriversCheckboxDisplayed =  admin_TripsPage.CheckBox_AssigningDrivers().isDisplayed();
+                String expectedFilterText = action.getText(admin_TripsPage.Text_AllFilterOptions(4));
+                testStepAssert.isTrue(isAssigningDriversCheckboxDisplayed,filterBy +" filter checkbox should be displayed" ,filterBy +" filter checkbox is displayed",filterBy +" filter checkbox is not displayed");
+                testStepAssert.isEquals(expectedFilterText,filterBy,filterBy +" Text should be displayed" ,expectedFilterText +" text  is displayed",filterBy +" text is not displayed");
+                break;
+            case "No Driver(s) Found":
+                boolean isDriversNotFoundCheckboxDisplayed =  admin_TripsPage.CheckBox_FilterDriversNotFound().isDisplayed();
+                testStepAssert.isTrue(isDriversNotFoundCheckboxDisplayed,filterBy +" filter checkbox should be displayed" ,filterBy +" filter checkbox is displayed",filterBy +" filter checkbox is not displayed");
+                String expectedText = action.getText(admin_TripsPage.Text_AllFilterOptions(10)).trim();
+                testStepVerify.isEquals(expectedText,filterBy);
+                break;
+
+        }
+
+    }
+    @Then("^I should see the changes done by admin$")
+    public void i_should_see_the_changes_done_by_admin(DataTable data) throws Throwable {
+        Thread.sleep(3000);
+        List<Map<String, String>> dataMap = data.asMaps();
+        for(int i=0;i<dataMap.size();i++) {
+            String status = dataMap.get(i).get("Event").trim();
+            switch(status){
+                case "Pickup Address Change":
+                    String oldpickupAddress = dataMap.get(i).get("Old Value").trim();
+                    String newPickupAddress = dataMap.get(i).get("New Value").trim();
+                    String expectedOldPickUpaddress = action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(2,2));
+                    String expectedNewPickupAddress =action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(2,3));
+                    testStepAssert.isEquals(expectedOldPickUpaddress,oldpickupAddress,"Old delivery pickup address should be "+oldpickupAddress,"Old delivery pickup address is "+expectedOldPickUpaddress,"Old delivery pickup address is not "+oldpickupAddress);
+                    testStepAssert.isEquals(expectedNewPickupAddress,newPickupAddress,"New delivery pickup address should be "+newPickupAddress,"New delivery pickup address is "+expectedNewPickupAddress,"New delivery pickup address is not "+newPickupAddress);
+                    break;
+                case "Dropoff Address Change":
+                    String oldDropOffAddress = dataMap.get(i).get("Old Value").trim().toLowerCase();
+                    String  newDropOffAddress = dataMap.get(i).get("New Value").trim().toLowerCase();
+                    String expectedOldDropOffddress = action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(3,2)).toLowerCase().trim();
+                    System.out.println(expectedOldDropOffddress);
+                    System.out.println(oldDropOffAddress);
+                    String expectedNewDropOffAddress =action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(3,3)).toLowerCase().trim();
+                    testStepAssert.isEquals(expectedOldDropOffddress,oldDropOffAddress,"Old dropoff address should be "+oldDropOffAddress,"Old dropoff address is "+expectedOldDropOffddress,"Old dropoff address is not "+newDropOffAddress);
+                    testStepAssert.isEquals(expectedNewDropOffAddress,newDropOffAddress,"New dropoff address should be "+newDropOffAddress,"New dropoff address is "+expectedNewDropOffAddress,"New dropoff address is not "+newDropOffAddress);
+                    break;
+                case "Duo To Solo":
+                    String oldDeliveryType = dataMap.get(i).get("Old Value").trim();
+                    String newdDeliveryType = dataMap.get(i).get("New Value").trim();
+                    String expectedOldDeliveryType = action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(4,2));
+                    String expectedNewDeliveryType =action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(4,3));
+                    testStepAssert.isEquals(expectedOldDeliveryType,oldDeliveryType,"Old delivery type should be "+oldDeliveryType,"Old delivery type is "+expectedOldDeliveryType,"Old delivery type is not "+oldDeliveryType);
+                    testStepAssert.isEquals(expectedNewDeliveryType,newdDeliveryType,"New delivery type should be "+newdDeliveryType,"New delivery type is "+expectedNewDeliveryType,"New delivery type is not "+newdDeliveryType);
+                    break;
+
+            }
+        }
+    }
+    @Then("^The edit option should not be displayed for live deliveries$")
+    public void the_edit_option_should_not_be_displayed_for_live_deliveries() throws Throwable {
+       Thread.sleep(3000);
+        action.click(admin_LiveTripsPage.Icon_Dropdown());
+        Thread.sleep(1000);
+        testStepAssert.isElementDisplayed(admin_LiveTripsPage.Icon_Dropdown(),"Edit option should not be displayed","Edit option is not displayed","Edit option is displayed");
+    }
+
+    @And("^I stop searching driver$")
+    public void i_stop_searching_driver() throws Throwable {
+        try{
+            action.click(admin_ScheduledTripsPage.Button_StopSearching());
+            Thread.sleep(3000);
+            action.click(admin_ScheduledTripsPage.Button_ConfirmStopSearching());
+            Thread.sleep(2000);
+            action.click(admin_ScheduledTripsPage.Button_CloseConfirm());
+            Thread.sleep(2000);
+            action.click(admin_ScheduledTripsPage.Button_Ok());
+            Thread.sleep(1000);
+
+            log("I should be able to stop searching driver",
+                    "I am able to stop searching driver",
+                    false);
+
+        }	catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }
