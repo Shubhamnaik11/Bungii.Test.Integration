@@ -557,4 +557,18 @@ Feature: Solo Scheduled Bungii Part A
     And I click "Skip This Step" button on "Rate customer" screen
     When I click "On To The Next One" button on "Bungii completed" screen
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    Then The trip should be present in schedule delivery
+    Then The trip should be present in schedule
+
+  @testAllan
+  Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |baltimore| NEXT_POSSIBLE | 8877661036 | Testcustomertywd_appleMarkAK LutherAK|
+    And As a driver "TestDrivertywd_applemd_a_billD Stark_bltTwOD" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      |Accepted |
+      | Enroute  |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    Then I should see "Pickup Instructions" popup displayed

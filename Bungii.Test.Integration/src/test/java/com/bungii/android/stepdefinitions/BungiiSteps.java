@@ -1317,10 +1317,18 @@ public class BungiiSteps extends DriverBase {
     @And("^I should see \"([^\"]*)\" popup displayed$")
     public void i_should_see_something_popup_displayed(String expectedMessage) throws Throwable {
         try{
-      boolean isDisplayed =Page_BungiiRequest.Alert_NewBungiiRequest(true).isDisplayed();
-      testStepAssert.isTrue(isDisplayed,"Stack trip request should be displayed","Stack trip request is displayed","Stack trip request is not displayed");
-      String popUpText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
-      testStepAssert.isEquals(popUpText,expectedMessage,"Stack trip request should be "+expectedMessage,"Stack trip request is "+popUpText,expectedMessage +" request is not present");
+            switch (expectedMessage){
+                case "New Bungii Request":
+                    boolean isDisplayed =Page_BungiiRequest.Alert_NewBungiiRequest(true).isDisplayed();
+                    testStepAssert.isTrue(isDisplayed,"Stack trip request should be displayed","Stack trip request is displayed","Stack trip request is not displayed");
+                    String popUpText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+                    testStepAssert.isEquals(popUpText,expectedMessage,"Stack trip request should be "+expectedMessage,"Stack trip request is "+popUpText,expectedMessage +" request is not present");
+                    break;
+                case "Pickup Instructions":
+                    boolean isPickUpHeaderDisplayed =Page_BungiiRequest.Alert_NewBungiiRequest(true).isDisplayed();
+
+            }
+
      }catch (Exception e){
             logger.error("Error performing step", e);
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

@@ -46,6 +46,7 @@ public class CommonStepsDriver extends DriverBase {
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
     private ScheduledTripsPage scheduledTripsPage;
     private com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage;
+    private BungiiDetailsPage bungiiDetailsPage;
     //private EnableLocationPage enableLocationPage;
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
@@ -58,13 +59,14 @@ public class CommonStepsDriver extends DriverBase {
                        ScheduledTripsPage scheduledTripsPage,
                        BungiiRequestPage bungiiRequestPage,
                         com.bungii.ios.pages.driver.HomePage driverHomePage,
-                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage) {
+                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage,BungiiDetailsPage bungiiDetailsPage) {
 
         this.driverUpdateStatusPage = updateStatusPage;
         this.scheduledTripsPage = scheduledTripsPage;
         this.driverHomePage = driverHomePage;
         this.driverLoginPage=driverLoginPage;
         this.driverForgotPasswordPage=driverForgotPasswordPage;
+        this.bungiiDetailsPage = bungiiDetailsPage;
         //this.enableLocationPage=enableLocationPage;
 
     }
@@ -819,6 +821,23 @@ public class CommonStepsDriver extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
+        }
+    }
+    @And("^I should see \"([^\"]*)\" popup displayed$")
+    public void i_should_see_something_popup_displayed(String expectedMessage) throws Throwable {
+        try{
+            switch (expectedMessage){
+                case "Pickup Instructions":
+                    boolean isPickUpHeaderDisplayed =bungiiDetailsPage.Alert_PickupInstructions().isDisplayed();
+                    testStepAssert.isTrue(isPickUpHeaderDisplayed,"Pickup instruction alert should be displayed","Pickup instruction alert is displayed","Pickup instruction alert is not displayed");
+                    String pickupInstructionOnPopUp = action.getText(bungiiDetailsPage.Text_PickUpInstructionsOnPopUp());
+//                    testStepAssert.isEquals(pickupInstructionOnPopUp);
+
+            }
+
+        }catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 
