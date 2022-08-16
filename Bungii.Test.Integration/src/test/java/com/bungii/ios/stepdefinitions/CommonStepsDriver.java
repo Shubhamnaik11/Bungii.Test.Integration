@@ -11,14 +11,16 @@ import com.bungii.ios.pages.customer.EnableLocationPage;
 import com.bungii.ios.pages.customer.EnableNotificationPage;
 import com.bungii.ios.pages.driver.*;
 import com.bungii.ios.pages.other.NotificationPage;
-import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
 import com.bungii.ios.utilityfunctions.DbUtility;
+import com.bungii.ios.stepdefinitions.driver.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -29,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
+import static com.bungii.web.utilityfunctions.DbUtility.getLinkedPickupRef;
 
 
 public class CommonStepsDriver extends DriverBase {
@@ -605,6 +608,89 @@ public class CommonStepsDriver extends DriverBase {
                     "Error in assigning driver "+driverName+" to the delivery by admin or viewing assigned driver slot", true);
         }
     }
+    @And("^I click on the \"([^\"]*)\" and select future time$")
+    public void i_click_on_the_something_and_select_future_time(String scheduleDate) throws Throwable {
+        try{
+            switch (scheduleDate) {
+                case "Time":
+                    action.click(scheduledTripsPage.TimePicker_Time());
+                    Thread.sleep(3000);
+                    action.click(scheduledTripsPage.Dropdown_ScheduledDateTime());
+                    String timeChanged = scheduledTripsPage.TimePicker_Time().getText();
+                    cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
+                    break;
+
+                default: break;
+            }
+            log("I can select future time/date",
+                    "I was able to change time/date to future time/date", false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+
+    }
+    @And("^I click on \"([^\"]*)\" in the dropdown$")
+    public void i_click_on_something_in_the_dropdown(String dropdown) throws Throwable {
+        try{
+            switch (dropdown) {
+                case "Customer initiated":
+                    Select selectCustomer = new Select((WebElement) scheduledTripsPage.Dropdown_Result());
+                    selectCustomer.selectByVisibleText("Customer initiated");
+                    break;
+                case "Partner initiated":
+                    Select selectPartner = new Select((WebElement) scheduledTripsPage.Dropdown_Result());
+                    selectPartner.selectByVisibleText("Partner initiated");
+                    break;
+                default: break;
+            }
+            log("I view "+dropdown+" in the dropdown",
+                    "I could see "+dropdown+" in the dropdown", false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+    }
+
+
+    @And("^I click on \"([^\"]*)\" for change time$")
+    public void i_click_on_something_for_change_time(String strArg1) throws Throwable {
+
+        try {
+            action.click(scheduledTripsPage.Dropdown_Result());
+
+            log("I can click on reason dropdown",
+                    "I clicked on reason dropdown", false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+    @And("^I get the new pickup reference generated$")
+    public void i_get_the_new_pickup_reference_generated() throws Throwable {
+
+        try {
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            pickupRequest = getLinkedPickupRef(pickupRequest);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            log("I get the new pickup reference generated",
+                    "Pickupref is " + pickupRequest, false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "New pickup reference is not generated",
+                    true);
+        }
+
+    }
+
     @And("^I click on \"([^\"]*)\" button$")
     public void i_click_on_something_button(String button) throws Throwable {
         try{
@@ -624,6 +710,9 @@ public class CommonStepsDriver extends DriverBase {
                     break;
                 case "SAVE CHANGES":
                     action.click(scheduledTripsPage.Button_SaveChanges());
+                    break;
+                case "CLOSE":
+                    action.click(scheduledTripsPage.Button_ClosePopUp());
                     break;
                 case "REVIVE":
                     action.click(scheduledTripsPage.Button_ReviveTrip());

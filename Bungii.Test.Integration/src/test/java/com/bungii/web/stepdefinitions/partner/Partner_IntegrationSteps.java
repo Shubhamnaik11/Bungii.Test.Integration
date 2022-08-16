@@ -576,8 +576,8 @@ public class Partner_IntegrationSteps extends DriverBase {
     @Then("^Delivery Status should be displayed correctly as \"([^\"]*)\"$")
     public void delivery_status_should_be_displayed_correctly_as_something(String status) throws Throwable {
         try {
-            String PickupDateTime = (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
-            String PickupDatewithoutTimezone = PickupDateTime.substring(0,PickupDateTime.length()-4);
+            String PickupDateTime = (String) cucumberContextManager.getScenarioContext("Schedule_Date_Time");
+            String PickupDatewithoutTimezone = PickupDateTime.substring(0,PickupDateTime.length()-6);
             String PickAddress = (String) cucumberContextManager.getScenarioContext("PickupAddress");
             String DropAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
             String EstimatedDistance = (String) cucumberContextManager.getScenarioContext("ESTIMATED_DISTANCE");

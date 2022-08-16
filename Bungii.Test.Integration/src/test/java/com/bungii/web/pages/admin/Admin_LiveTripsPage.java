@@ -31,4 +31,8 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Message_AdminCompleteConfirm() {return findElement("//div[@id='editEndTime']//following::div[2]/p[1]",LocatorType.XPath);}
 
+    public WebElement Icon_Hover() {return findElement("//tr[1]/td/a/i[@class='fa fa-exclamation']",LocatorType.XPath);}
+
+    public WebElement Label_Tooltip() {return findElement("//tr[1]/td/a/i[@class='fa fa-exclamation']/following-sibling::span",LocatorType.XPath);}
+
 }

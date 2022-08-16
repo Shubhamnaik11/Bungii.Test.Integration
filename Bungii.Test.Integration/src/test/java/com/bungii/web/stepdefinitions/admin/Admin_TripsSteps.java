@@ -2372,6 +2372,27 @@ try{
                     true);
         }
     }
+    @Then("^I should see the \"([^\"]*)\" background colour$")
+    public void i_should_see_the_something_background_colour(String color) throws Throwable {
+        try{
+            switch (color){
+                case "orange":
+                    String expectedHighlightColor = PropertyUtility.getDataProperties("background.colour.orange");
+                    Thread.sleep(1000);
+                    String actualHighlightColor =  admin_LiveTripsPage.Text_DeliveryHighlight().getCssValue("background-color");
+                    testStepAssert.isEquals(actualHighlightColor,expectedHighlightColor,"Delivery should be highlighted with orange color","Delivery is highlighted with orange color","Delivery is not highlighted with orange color");
+                    break;
+            }
+            log("I should be able to see the correct background colour",
+                    "I am able to see the correct background colour",false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 
 
 }

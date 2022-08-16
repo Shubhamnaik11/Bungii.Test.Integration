@@ -504,6 +504,7 @@ Feature: Solo Scheduled Bungii Part A
       When I click "On To The Next One" button on "Bungii completed" screen
       Then I check online or offline pop up is displayed
 #CORE-2753 : To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
+#Sprint-58==CORE-3396 changes incorporated
   @ready
   Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
@@ -516,6 +517,7 @@ Feature: Solo Scheduled Bungii Part A
     And As a driver "Testdrivertywd_appledv_b_mattB Stark_dvOnEB" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Enroute       |
+    And I get TELET time of of the current trip
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid denver driver 3" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -526,15 +528,21 @@ Feature: Solo Scheduled Bungii Part A
       | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following detail
-      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
-      | 30       |           |              | Today+1 1:00 PM | Default     |
+      | LoadTime | PromoCode | Payment Card | Time                 | PickUpImage |
+      | 30       |           |              | <1 HOUR AFTER TELET>   | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
+    And I get pickupref for "valid denver5" customer
     And I Switch to "driver" application on "same" devices
     And I wait for 2 minutes
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen on driver
-    And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP2 AVAILABLE"
+    And I click "Scheduled Bungiis" button on "update" screen
+    And I should select the "valid denver5" customer on driver app
+    Then Start button should not be shown
+    And I click on "BACK" button
+    And I click on "BACK" button
     Then I should be navigated to "ARRIVED" trip status screen on driver
     And I slide update button on "ARRIVED" Screen
     And I driver adds photos to the Bungii

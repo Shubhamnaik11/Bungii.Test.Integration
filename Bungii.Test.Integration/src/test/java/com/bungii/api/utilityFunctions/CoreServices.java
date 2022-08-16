@@ -1335,7 +1335,7 @@ public class CoreServices extends DriverBase {
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
         ApiHelper.genericResponseValidation(response,RequestText);
-       // response.then().log().body();
+        //response.then().log().body();
         return response;
 
     }
@@ -2104,7 +2104,14 @@ public class CoreServices extends DriverBase {
             ApiHelper.genericResponseValidation(response, RequestText);
         }
 
-        else if(Partner_Portal.equalsIgnoreCase("Floor and Decor")) {
+        else if(Partner_Portal.equalsIgnoreCase("Floor and Decor") || Partner_Portal.equalsIgnoreCase("Floor and Decor - Different Weights")) {
+
+                String dimensionsItemOne = PropertyUtility.getDataProperties("partner.washingtondc.dimensions.item.one");
+                String nameItemOne = PropertyUtility.getDataProperties("partner.washingtondc.name.item.one");
+                String weightItemOne = PropertyUtility.getDataProperties("partner.washingtondc.weight.item.one");
+                String dimensionsItemTwo = PropertyUtility.getDataProperties("partner.washingtondc.dimensions.item.two");
+                String nameItemTwo = PropertyUtility.getDataProperties("partner.washingtondc.name.item.two");
+                String weightItemTwo = PropertyUtility.getDataProperties("partner.washingtondc.weight.item.two");
 
                 //customer name
                 JSONArray customFields = new JSONArray();
@@ -2114,31 +2121,45 @@ public class CoreServices extends DriverBase {
                 customFields.put(field1);
 
                 JSONArray ItemsToDeliver = new JSONArray();
-                if(No_Of_Driver=="1"){
-                    //items details for solo
-                    JSONObject deliverables = new JSONObject();
-                    deliverables.put("Dimensions", "12");
-                    deliverables.put("ID", "1");
-                    deliverables.put("Name", "Books");
-                    deliverables.put("Weight", "1111");
-                    ItemsToDeliver.put(deliverables);
-                }
-                else{
-                    //items details for duo
+                if(Partner_Portal.equalsIgnoreCase("Floor and Decor - Different Weights")){
                     JSONObject firstDeliverables = new JSONObject();
                     JSONObject secondDeliverables = new JSONObject();
-                    firstDeliverables.put("Dimensions", "12");
+                    firstDeliverables.put("Dimensions",dimensionsItemOne);
                     firstDeliverables.put("ID", "1");
-                    firstDeliverables.put("Name", "Books");
-                    firstDeliverables.put("Weight", "1111");
+                    firstDeliverables.put("Name",nameItemOne);
+                    firstDeliverables.put("Weight",weightItemOne);
                     ItemsToDeliver.put(firstDeliverables);
-                    secondDeliverables.put("Dimensions", "32");
+                    secondDeliverables.put("Dimensions",dimensionsItemTwo);
                     secondDeliverables.put("ID", "2");
-                    secondDeliverables.put("Name", "Chair");
-                    secondDeliverables.put("Weight", "1111");
+                    secondDeliverables.put("Name",nameItemTwo);
+                    secondDeliverables.put("Weight",weightItemTwo);
                     ItemsToDeliver.put(secondDeliverables);
                 }
-
+                else {
+                    if (No_Of_Driver.equalsIgnoreCase("1")) {
+                        //items details for solo
+                        JSONObject deliverables = new JSONObject();
+                        deliverables.put("Dimensions",dimensionsItemOne);
+                        deliverables.put("ID", "1");
+                        deliverables.put("Name",nameItemOne);
+                        deliverables.put("Weight",weightItemOne);
+                        ItemsToDeliver.put(deliverables);
+                    } else {
+                        //items details for duo
+                        JSONObject firstDeliverables = new JSONObject();
+                        JSONObject secondDeliverables = new JSONObject();
+                        firstDeliverables.put("Dimensions",dimensionsItemOne);
+                        firstDeliverables.put("ID", "1");
+                        firstDeliverables.put("Name",nameItemOne);
+                        firstDeliverables.put("Weight",weightItemOne);
+                        ItemsToDeliver.put(firstDeliverables);
+                        secondDeliverables.put("Dimensions",dimensionsItemTwo);
+                        secondDeliverables.put("ID", "2");
+                        secondDeliverables.put("Name",nameItemTwo);
+                        secondDeliverables.put("Weight",weightItemOne);
+                        ItemsToDeliver.put(secondDeliverables);
+                    }
+                }
 
                 //static fields
                 JSONArray staticFields = new JSONArray();
