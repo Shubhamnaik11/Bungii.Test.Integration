@@ -1584,7 +1584,7 @@ public class CommonSteps extends DriverBase {
         }
     }
 
-    }
+    
     @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
     public void i_navigate_to_something(String page, String url) throws Throwable {
         try{  switch (page)
