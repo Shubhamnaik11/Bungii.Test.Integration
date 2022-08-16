@@ -136,6 +136,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (checked.equals("false")) {
                         action.click(bungiiEstimatePage.Checkbox_AgreeEstimate());
                     }
+
                     if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))
                         action.scrollToBottom();
                     action.click(bungiiEstimatePage.Button_RequestBungii());
@@ -523,7 +524,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Testcustomertywd_apple_AGQFCg Test":
-                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone"),
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone1"),
                             PropertyUtility.getDataProperties("goa.customer.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("goa.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("goa.customer.phone"));

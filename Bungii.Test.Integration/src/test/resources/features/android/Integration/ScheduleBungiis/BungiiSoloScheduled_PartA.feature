@@ -40,7 +40,8 @@ Feature: SoloScheduled
 
 
 #CORE-2753 : To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
-@ready
+#Sprint-58==CORE-3396 changes incorporated
+  @ready
   Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -74,12 +75,15 @@ Feature: SoloScheduled
     And I click "Done" button on "Success" screen
 
     And I Switch to "driver" application on "same" devices
-    And I wait for 1 minutes
-   Then I should see a popup "New Bungii Request" displayed
+    Then I should see a popup "New Bungii Request" displayed
     And I click on "View Request" button
     And I wait for 1 minutes
-    Then I should see the trip details
     And I click on "Accept" button
+    And I click "Scheduled Bungiis" button on "update" screen
+    And I should select the "valid kansas 3" customer on driver app
+    Then Start button should not be shown
+    And I click on device "BACK" button
+    And I click on device "BACK" button
     Then Bungii driver should see "Enroute screen"
     And I slide update button on "EN ROUTE" Screen
 

@@ -69,5 +69,12 @@ public class Admin_TripsPage extends PageBase {
     public WebElement Text_NoDeliveriesFound () { return findElement("//div/h5", LocatorType.XPath); }
 
 
+    public WebElement Label_ReviveCustomerDetail () { return findElement("//div[contains(.,'Customer')]/b[2]", LocatorType.XPath); }
+
+    public WebElement Label_RevivePartnerDetail () { return findElement("//span[contains(.,'Partner')]/b", LocatorType.XPath); }
+
+    public WebElement Label_RevivePickupOriginDetail (boolean...ignoreException) { return findElement("//div[contains(.,'Pickup Origin')]", LocatorType.XPath,ignoreException); }
+
+
 
 }

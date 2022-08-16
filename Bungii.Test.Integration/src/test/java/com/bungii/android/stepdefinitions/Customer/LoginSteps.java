@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.customer.AccountPage;
 import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
@@ -19,6 +20,7 @@ public class LoginSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LoginSteps.class);
     ActionManager action = new ActionManager();
     LoginPage loginPage = new LoginPage();
+    AccountPage customerAccountPage = new AccountPage();
     GeneralUtility utility = new GeneralUtility();
 
     @Given("^I am on customer Log in page$")
@@ -52,6 +54,10 @@ public class LoginSteps extends DriverBase {
                     action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE_EXTRA", PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                     break;
+                case "existing valid":
+                    action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("customer_existing.phonenumber"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_existing.phonenumber"));
+                    break;
                 case "invalid":
                     action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("customer_Invalid.phonenumber"));
                     break;
@@ -82,8 +88,14 @@ public class LoginSteps extends DriverBase {
                 case "valid":
                     action.sendKeys(loginPage.TextField_Password(), PropertyUtility.getDataProperties("customer_generic.password"));
                     break;
+                case "valid1":
+                    action.sendKeys(customerAccountPage.TextField_Password(),PropertyUtility.getDataProperties("customer_generic.password"));
+                    break;
                 case "invalid":
                     action.sendKeys(loginPage.TextField_Password(), PropertyUtility.getDataProperties("customer_LessThan6.password"));
+                    break;
+                case "invalid1":
+                    action.sendKeys(customerAccountPage.TextField_Password(),PropertyUtility.getDataProperties("customer_LessThan6.password"));
                     break;
                 case "blank":
                     action.sendKeys(loginPage.TextField_Password(), "");
@@ -109,6 +121,9 @@ public class LoginSteps extends DriverBase {
                 case "Log in":
                     action.click(loginPage.Button_Login());
                     break;
+                case "Sign up":
+                    action.click(loginPage.Button_Signup());
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -128,6 +143,17 @@ public class LoginSteps extends DriverBase {
                 case "snackbar validation message invalid password":
                     //testStepVerify.isElementTextEquals(loginPage.Snackbar(), PropertyUtility.getMessage("customer.error.invalidpassword"));
                     testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.error.invalidpassword"));
+                    break;
+                case "snackbar validation message invalid password for account deletion":
+                    //testStepVerify.isElementTextEquals(loginPage.Snackbar(), PropertyUtility.getMessage("customer.error.invalidpassword"));
+                    testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.error.invalidpassword.accountdeletion"));
+                    break;
+                case "snackbar validation message scheduled bungii for account deletion":
+                    testStepAssert.isEquals(utility.getCustomerSnackBarMessage(),PropertyUtility.getMessage("customer.error.scheduledbungii.accountdeletion"),"message should display","message is display","message is not display");
+                    //testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.error.scheduledbungii.accountdeletion"));
+                    break;
+                case "snackbar validation message active bungii for account deletion":
+                    testStepAssert.isEquals(utility.getCustomerSnackBarMessage(),PropertyUtility.getMessage("customer.error.activebungii.accountdeletion"),"message should display","message is display","message is not display");
                     break;
                 case "field validations for password":
                     actualMessage = utility.trimString(action.getText(loginPage.Error_EnterPassword()));

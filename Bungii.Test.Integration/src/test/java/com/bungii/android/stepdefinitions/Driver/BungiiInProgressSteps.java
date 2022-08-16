@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions.Driver;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
+import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.stepdefinitions.Customer.*;
@@ -20,6 +21,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -40,6 +42,7 @@ public class BungiiInProgressSteps extends DriverBase {
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     OtherAppsPage otherAppsPage = new OtherAppsPage();
     InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
+    EstimatePage bungiiEstimatePage = new EstimatePage();
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
         try {
@@ -727,4 +730,35 @@ public class BungiiInProgressSteps extends DriverBase {
 
         return action.getText(bungiiProgressPage.Bungii_Customer_Name());
     }
+
+    @When("^Bungii driver uploads \"([^\"]*)\" image$")
+    public void bungii_driver_uploads_something_image(String numberofimages) throws Throwable {
+        try {
+            action.click(inProgressBungiiPages.Button_AddPhoto());
+            if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true)))
+                action.click(bungiiEstimatePage.Permissions_CameraAllow());
+            Thread.sleep(2000);
+            switch (numberofimages){
+                case "1":
+                    action.click(bungiiEstimatePage.Button_CameraIcon());
+                    Thread.sleep(2000);
+                    Point p1 = new Point(360,1310);
+                    Point p2= new Point(430, 1242);
+                    action.click(p1);
+                    Thread.sleep(2000);
+
+                    action.click(p2);
+                    Thread.sleep(2000);
+                    testStepVerify.isElementDisplayed(inProgressBungiiPages.Image_UploadedImage(),"Captured Image should be shown","Captured Image is shown", "Captured Image is not shown");
+                    action.click(bungiiProgressPage.Button_Save());
+                    break;
+            }
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+
+    }
+
 }
