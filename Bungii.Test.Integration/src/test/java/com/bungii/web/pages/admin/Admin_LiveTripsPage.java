@@ -43,7 +43,7 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Text_DeliveryStatusAllDeliveries() {return findElement("//tr/td[11]",LocatorType.XPath);}
 
-    public WebElement Icon_Dropdown(){return  findElement("//div/img[@id='dLabel']",LocatorType.XPath);}
+    public WebElement Dropdown_Icon(){return  findElement("//div/img[@id='dLabel']",LocatorType.XPath);}
 
     public WebElement Option_Edit(boolean...IgnoreException){return  findElement("btnLiveEdit",LocatorType.Id,IgnoreException);}
 

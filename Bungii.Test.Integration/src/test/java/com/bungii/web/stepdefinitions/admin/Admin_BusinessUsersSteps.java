@@ -1022,7 +1022,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
                 case "Edit":
                     Thread.sleep(6000);
-                    action.click(admin_liveTripsPage.Icon_Dropdown());
+                    action.click(admin_liveTripsPage.Dropdown_Icon());
                     Thread.sleep(2000);
                     action.click(admin_liveTripsPage.Option_Edit());
                     break;

@@ -200,4 +200,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Button_CloseConfirm() {return findElement("//div[@id='stop-search-success-modal']/div/div/div/button[text()='Close']",LocatorType.XPath);}
 
     public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
+
+    public WebElement Text_DeliveryDetailsStatus(){return  findElement("//td[text()=\"Status\"]/following-sibling::td/strong",LocatorType.XPath);}
+
 }

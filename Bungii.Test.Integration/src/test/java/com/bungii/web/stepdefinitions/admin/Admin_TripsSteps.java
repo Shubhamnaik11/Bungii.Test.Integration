@@ -2419,6 +2419,11 @@ try{
               boolean isInDriverNoSearchingState = admin_LiveTripsPage.Icon_LoadingIconStoppedSearching().isDisplayed();
               testStepAssert.isTrue(isInDriverNoSearchingState,"No Loading animation should be displayed","No Loading animation is displayed","No Loading animation is not displayed");
               break;
+          case "No Driver(s) Found":
+              Thread.sleep(2000);
+              String noDriverFound = action.getText(admin_LiveTripsPage.Text_DeliveryStatusAllDeliveries());
+              testStepAssert.isEquals(noDriverFound,deliveryStatus,"Delivery should be in "+deliveryStatus +" state","Delivery is in "+noDriverFound +" state","Delivery is not in "+deliveryStatus +" state");
+              break;
       }
     }	catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -2504,9 +2509,9 @@ try{
     public void the_edit_option_should_not_be_displayed_for_live_deliveries() throws Throwable {
         try{
        Thread.sleep(3000);
-        action.click(admin_LiveTripsPage.Icon_Dropdown());
+        action.click(admin_LiveTripsPage.Dropdown_Icon());
         Thread.sleep(1000);
-        testStepAssert.isElementDisplayed(admin_LiveTripsPage.Icon_Dropdown(),"Edit option should not be displayed","Edit option is not displayed","Edit option is displayed");
+        testStepAssert.isElementDisplayed(admin_LiveTripsPage.Dropdown_Icon(),"Edit option should not be displayed","Edit option is not displayed","Edit option is displayed");
     }	catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -2535,5 +2540,18 @@ try{
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @Then("^The delivery should show \"([^\"]*)\" status on delivery details$")
+    public void the_delivery_should_show_something_status_on_delivery_details(String expectedDeliveryStatus) throws Throwable {
+        try{
+        Thread.sleep(3000);
+        String currentDeliveryStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryDetailsStatus());
+        testStepAssert.isEquals(currentDeliveryStatus,expectedDeliveryStatus,"The delivery should be in " +expectedDeliveryStatus+" state in delivery details page","The delivery is in " +currentDeliveryStatus+" state in delivery details page","The delivery is not in " +expectedDeliveryStatus+" state in delivery details page");
+    }	catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 }
