@@ -537,7 +537,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I click "Submit" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
 
-#CORE-3606 :Verify driver app when admin completes the trip after signature is taken
+#CORE-3606:Verify driver app when admin completes the trip after signature is taken
   @ready
   Scenario:Verify driver app when admin completes the trip after signature is taken
     When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
