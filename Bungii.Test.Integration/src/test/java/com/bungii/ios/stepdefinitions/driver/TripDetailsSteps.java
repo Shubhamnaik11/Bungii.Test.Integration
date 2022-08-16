@@ -4,6 +4,7 @@ package com.bungii.ios.stepdefinitions.driver;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import cucumber.api.java.en.And;
@@ -63,6 +64,85 @@ public class TripDetailsSteps extends DriverBase {
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
+    }
+    @And("^I select \"([^\"]*)\" from items$")
+    public void i_select_something_from_items(String pallet) throws Throwable {
+        try{
+            switch (pallet){
+                case "Pallet-1":
+                    action.clickBy2Points(47,650);
+                    break;
+
+                case "Pallet-2":
+                    action.clickBy2Points(45,756);
+                    break;
+            }
+            log("I should be able to select the pallet",
+                    "I am able to select the pallet",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check inadequate payload pop up is displayed$")
+    public void i_check_inadequate_payload_pop_up_is_displayed() throws Throwable {
+      try{
+            testStepAssert.isElementDisplayed(tripDetailsPage.PopUp_InadequatePayload(),
+                    "The pop up for inadequate payload should be displayed",
+                    "The pop up for inadequate payload is displayed",
+                    "The pop up for inadequate payload is not displayed");
+
+            String expectedPopUpMesssage = PropertyUtility.getMessage("low.payload.capacity.message");
+            String actualPopUpMesssage = tripDetailsPage.PopUp_InadequatePayload().getText();
+            testStepAssert.isEquals(actualPopUpMesssage,expectedPopUpMesssage,
+                    "The pop up message displayed should be correct.",
+                    "The pop up message displayed is correct.",
+                    "The pop up message displayed is incorrect.");
+      }
+      catch (Exception e) {
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step  Should be successful",
+                  "Error performing step,Please check logs for more details", true);
+      }
+    }
+    @Then("^I check information of both the pallets are displayed separately$")
+    public void i_check_information_of_both_the_pallets_are_displayed_separately() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(tripDetailsPage.Text_PalletOne(),
+                    "The pallet one information should be displayed",
+                    "The pallet one information is displayed",
+                    "The pallet one information is not displayed");
+
+            testStepAssert.isElementDisplayed(tripDetailsPage.Text_PalletTwo(),
+                    "The pallet two information should be displayed",
+                    "The pallet two information is displayed",
+                    "The pallet two information is not displayed");
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @When("^I click \"([^\"]*)\" button on alert message$")
+    public void i_click_something_button_on_alert_message(String button) throws Throwable {
+        try {
+            switch (button) {
+                case "OK":
+                    action.click(tripDetailsPage.Button_Ok());
+                    break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
     }
     @And("^I check if variable sign is not shown under \"([^\"]*)\"$")
     public void i_check_if_variable_sign_is_not_shown_under_something(String page) throws Throwable {

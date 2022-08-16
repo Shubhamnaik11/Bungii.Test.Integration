@@ -17,5 +17,10 @@ public class TripDetailsPage extends PageBase {
 
 	public WebElement Text_DriverVehicleLicenseNumber() { return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath); }
 
+	public WebElement PopUp_InadequatePayload() { return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeAlert/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath); }
+	public WebElement Text_PalletOne() { return findElement("//XCUIElementTypeStaticText[@name=\"Pallet 1\"]", LocatorType.XPath); }
+	public WebElement Text_PalletTwo() { return findElement("//XCUIElementTypeStaticText[@name=\"Pallet 2\"]", LocatorType.XPath); }
+	public WebElement Button_Ok() { return findElement("//XCUIElementTypeButton[@name=\"OK\"]", LocatorType.XPath); }
+
 
 }
