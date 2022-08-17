@@ -621,7 +621,7 @@ public class UpdateStatusSteps extends DriverBase {
         String actualPickuplocation ="";
         String tripType= (String) cucumberContextManager.getScenarioContext("TripType");
         if(tripType.equalsIgnoreCase("Duo")) {
-            actualPickuplocation = actualInfo.get(7).replace(",", "").replace("  ", " ");
+            actualPickuplocation = actualInfo.get(6).replace(",", "").replace("  ", " ");
         }
         else{
             actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
