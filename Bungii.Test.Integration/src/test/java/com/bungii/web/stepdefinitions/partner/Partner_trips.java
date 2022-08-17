@@ -1440,6 +1440,40 @@ try{
         String dayCount = DbUtility.getScheduledDays(subdomain);
        testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Label_ToolTip_PickupDate()), "Please select a delivery date within the next "+dayCount+" days.", dayCount+ " days should be displayed",dayCount+ " days is displayed",dayCount+ " days is not displayed");
     }
+    @And("^I verify alias is displayed correctly on \"([^\"]*)\"$")
+    public void i_verify_alias_is_displayed_correctly_on_something(String page) throws Throwable {
+        try {
+            String aliasPartnerPortalName= PropertyUtility.getDataProperties("partner.floor.and.decor.alias.name");
+            switch (page){
+                case "scheduled delivery page":
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerName()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+                case "delivery details page":
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerNameDeliveryDetailsPage()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+                case "all delivery page":
+                    Thread.sleep(2000);
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerNameAllDeliveryPage()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+            }
+            log("I should be able to verify the alias is displayed correctly",
+                    "I am able to verify the alias is displayed correctly",false);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
     public String getGeofence(String geofence) {
         String geofenceName = "";
