@@ -183,6 +183,8 @@ Feature: Partner Portal Cases integration with IOS
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
     And I select the live trip for "Testcustomertywd_appleMarkAS LutherAS" customer
+#   Core-2641 Verify alias is displayed for partner portal trips on Live delivery page
+    And I verify alias is displayed correctly on "live delivery page"
     And I Select "Edit Trip Details" option
     And I edit the drop off address
     Then I change the drop off address to "3315 Shepherd Street, Chevy Chase, Maryland"
