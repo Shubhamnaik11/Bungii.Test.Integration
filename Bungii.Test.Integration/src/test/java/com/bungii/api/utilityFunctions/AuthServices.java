@@ -117,6 +117,14 @@ public class AuthServices extends DriverBase {
             cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerURL);
             logger.detail("PartnerLocationReference="+Partner_Location_Reference);
         }
+        //Tile shop
+        else if(Partner_Portal.equalsIgnoreCase("Tile Shop")){
+            Partner_Location_Reference= PropertyUtility.getDataProperties("qa.tileshop.ref");
+            cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
+            partnerURL = PropertyUtility.getDataProperties("qa.tileshop.url");
+            cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerURL);
+            logger.detail("PartnerLocationReference="+Partner_Location_Reference);
+        }
         else{
             logger.detail("Please provide proper partner portal alias.");
         }
