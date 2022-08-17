@@ -1041,7 +1041,7 @@ try{
         try {
             List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
             int count = logsRecordCount.size();
-            cucumberContextManager.setScenarioContext("Records_Count", count);
+            cucumberContextManager.setScenarioContext("RECORDS_COUNT", count);
             log("I should able to note the Geo History log records count.","I am able to note the Geo History records count.");
         }
         catch (Throwable e) {
@@ -1059,17 +1059,17 @@ try{
                 case "Region":
                 case "Timezone":
                 case "Geo-Coding":
-                    String oldRecordCount= (String) cucumberContextManager.getScenarioContext("Records_Count");
+                    String oldRecordCount= (String) cucumberContextManager.getScenarioContext("RECORDS_COUNT");
                     List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
                     int newCount = logsRecordCount.size();
                     int oldCount = Integer.parseInt(oldRecordCount);
                     testStepVerify.isEquals(oldCount+1,newCount);
-                    cucumberContextManager.setScenarioContext("Records_Count", newCount);
+                    cucumberContextManager.setScenarioContext("RECORDS_COUNT", newCount);
                     break;
                 default:
                     break;
             }
-            cucumberContextManager.setScenarioContext("Changes",logEntryFor);
+            cucumberContextManager.setScenarioContext("GEO_CHANGES",logEntryFor);
 
         }
         catch (Throwable e) {
@@ -1099,9 +1099,9 @@ try{
         try{
             //List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
             //int value = logsRecordCount.size()-1;
-            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_Feilds(),"I should able to see Fields text.","I am able too see Fields text.","I am not able to see Fields text.");
-            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_OldValue(),"I should able to see Old Value text.","I am able too see Old Value text.","I am not able to see Old Value text.");
-            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_NewValue(),"I should able to see New Value text.","I am able too see New Value text.","I am not able to see New Value text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_Fields(),"I should be able to see Fields text.","I am able to see Fields text.","I am not able to see Fields text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_OldValue(),"I should be able to see Old Value text.","I am able to see Old Value text.","I am not able to see Old Value text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_NewValue(),"I should be able to see New Value text.","I am able to see New Value text.","I am not able to see New Value text.");
 
         }
         catch (Throwable e) {
@@ -1120,7 +1120,7 @@ try{
 
             String expedtedModifiedDate = dtf.format(date1);
             String expectedPhone = PropertyUtility.getDataProperties("admin.testuser");
-            String expectedChanges = (String) cucumberContextManager.getScenarioContext("Changes");
+            String expectedChanges = (String) cucumberContextManager.getScenarioContext("GEO_CHANGES");
 
             testStepVerify.isEquals(action.getText(admin_GeofencePage.Value_ModifiedDate()), expedtedModifiedDate);
             testStepVerify.isEquals(action.getText(admin_GeofencePage.Value_ModifiedBy()), expectedModifiedBy);

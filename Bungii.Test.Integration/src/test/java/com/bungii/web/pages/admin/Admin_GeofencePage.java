@@ -120,7 +120,7 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Text_Changes() { return findElement("//th[contains(text(),'Changes')]",LocatorType.XPath);}
     public WebElement Button_GeofenceCancel() { return findElement("//div[@id='btnCancel']",LocatorType.XPath);}
     public WebElement Link_Changes() { return findElement("//tbody/tr[@id='historyID0']/td[6]/a",LocatorType.XPath);}
-    public WebElement Text_Feilds() { return findElement("//div[@id='historyLog_historyID0']/table/thead/tr/th[contains(text(),'Fields')]",LocatorType.XPath);}
+    public WebElement Text_Fields() { return findElement("//div[@id='historyLog_historyID0']/table/thead/tr/th[contains(text(),'Fields')]",LocatorType.XPath);}
     public WebElement Text_OldValue() { return findElement("//div[@id='historyLog_historyID0']/table/thead/tr/th[contains(text(),'Old Value')]",LocatorType.XPath);}
     public WebElement Text_NewValue() { return findElement("//div[@id='historyLog_historyID0']/table/thead/tr/th[contains(text(),'New Value')]",LocatorType.XPath);}
 
