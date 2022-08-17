@@ -99,6 +99,8 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Select_EditReason() {return findElement("ddEditDeliveryRemark",LocatorType.Id);}
     public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
+    public WebElement Button_GotIt() {return findElement("Got it", LocatorType.AccessibilityId);}
+    public WebElement Button_SkipCustomerRating() {return findElement("Skip customer signature", LocatorType.AccessibilityId);}
 
 
 }

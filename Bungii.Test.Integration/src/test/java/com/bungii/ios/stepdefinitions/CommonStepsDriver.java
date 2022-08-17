@@ -726,6 +726,12 @@ public class CommonStepsDriver extends DriverBase {
                     pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
                     break;
+                case "GOT IT":
+                    action.click(scheduledTripsPage.Button_GotIt());
+                    break;
+                case "SKIP CUSTOMER SIGNATURE":
+                    action.click(scheduledTripsPage.Button_SkipCustomerRating());
+                    break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }
@@ -826,15 +832,20 @@ public class CommonStepsDriver extends DriverBase {
     @And("^I should see \"([^\"]*)\" popup displayed$")
     public void i_should_see_something_popup_displayed(String expectedMessage) throws Throwable {
         try{
-            switch (expectedMessage){
-                case "Pickup Instructions":
-                    boolean isPickUpHeaderDisplayed =bungiiDetailsPage.Alert_PickupInstructions().isDisplayed();
-                    testStepAssert.isTrue(isPickUpHeaderDisplayed,"Pickup instruction alert should be displayed","Pickup instruction alert is displayed","Pickup instruction alert is not displayed");
-                    String pickupInstructionOnPopUp = action.getText(bungiiDetailsPage.Text_PickUpInstructionsOnPopUp());
-//                    testStepAssert.isEquals(pickupInstructionOnPopUp);
-
+            switch (expectedMessage.toLowerCase()) {
+                case "pickup instructions":
+                    boolean isPickUpHeaderDisplayed = bungiiDetailsPage.Alert_PickupInstructions().isDisplayed();
+                    testStepAssert.isTrue(isPickUpHeaderDisplayed, "Pickup instruction alert should be displayed", "Pickup instruction alert is displayed", "Pickup instruction alert is not displayed");
+                    String pickupInstructionOnPopUp = action.getText(bungiiDetailsPage.Alert_PickupInstructions()).toLowerCase();
+                    testStepVerify.isEquals(pickupInstructionOnPopUp, expectedMessage, expectedMessage + " Header should be displayed", pickupInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
+                    break;
+                case "drop-off instructions":
+                    boolean isDropOffHeaderDisplayed = bungiiDetailsPage.Alert_DropOffInstructions().isDisplayed();
+                    testStepAssert.isTrue(isDropOffHeaderDisplayed, "DropOff instruction alert should be displayed", "DropOff instruction alert is displayed", "DropOff instruction alert is not displayed");
+                    String dropOffInstructionOnPopUp = action.getText(bungiiDetailsPage.Alert_DropOffInstructions()).toLowerCase();
+                    testStepVerify.isEquals(dropOffInstructionOnPopUp, expectedMessage, expectedMessage + " Header should be displayed", dropOffInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
+                    break;
             }
-
         }catch (Exception e){
             logger.error("Error performing step", e);
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

@@ -557,18 +557,38 @@ Feature: Solo Scheduled Bungii Part A
     And I click "Skip This Step" button on "Rate customer" screen
     When I click "On To The Next One" button on "Bungii completed" screen
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    Then The trip should be present in schedule
+    Then The trip should be present in schedule delivery
 
-  @testAllan
+  @ready
   Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661036 | Testcustomertywd_appleMarkAK LutherAK|
-    And As a driver "TestDrivertywd_applemd_a_billD Stark_bltTwOD" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "TestDrivertywd_applemd_a_billI Stark_bltTwOI" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       |Accepted |
       | Enroute  |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "TestDrivertywd_applemd_a_billI Stark_bltTwOI" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
     Then I should see "Pickup Instructions" popup displayed
+    And I click on "GOT IT" button
+    And I slide update button on "ARRIVED" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should see "Drop-Off Instructions" popup displayed
+    And I click on "GOT IT" button
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click on "SKIP CUSTOMER SIGNATURE" button
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii Completed" screen
