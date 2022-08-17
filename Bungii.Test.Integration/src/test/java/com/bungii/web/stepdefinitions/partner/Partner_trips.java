@@ -1446,20 +1446,20 @@ try{
             String aliasPartnerPortalName= PropertyUtility.getDataProperties("partner.floor.and.decor.alias.name");
             switch (page){
                 case "scheduled delivery page":
-                    testStepAssert.isEquals(Page_Partner_Dashboard.Text_PartnerName().getText(),aliasPartnerPortalName,
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerName()),aliasPartnerPortalName,
                             "The portal name displayed should be correct",
                             "The portal name displayed is correct",
                             "The portal name displayed is incorrect");
                     break;
                 case "delivery details page":
-                    testStepAssert.isEquals(Page_Partner_Dashboard.Text_PartnerNameDeliveryDetailsPage().getText(),aliasPartnerPortalName,
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerNameDeliveryDetailsPage()),aliasPartnerPortalName,
                             "The portal name displayed should be correct",
                             "The portal name displayed is correct",
                             "The portal name displayed is incorrect");
                     break;
                 case "all delivery page":
                     Thread.sleep(2000);
-                    testStepAssert.isEquals(Page_Partner_Dashboard.Text_PartnerNameAllDeliveryPage().getText(),aliasPartnerPortalName,
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerNameAllDeliveryPage()),aliasPartnerPortalName,
                             "The portal name displayed should be correct",
                             "The portal name displayed is correct",
                             "The portal name displayed is incorrect");

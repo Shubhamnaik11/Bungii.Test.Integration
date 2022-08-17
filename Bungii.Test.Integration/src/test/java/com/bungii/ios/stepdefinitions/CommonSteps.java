@@ -3379,7 +3379,7 @@ public class CommonSteps extends DriverBase {
             switch (page){
                 case "live delivery page":
                     Thread.sleep(2000);
-                    testStepAssert.isEquals(scheduledTripsPage.Text_PartnerNameLiveDeliveryPage().getText(),aliasPartnerPortalName,
+                    testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PartnerNameLiveDeliveryPage()),aliasPartnerPortalName,
                             "The portal name displayed should be correct",
                             "The portal name displayed is correct",
                             "The portal name displayed is incorrect");
