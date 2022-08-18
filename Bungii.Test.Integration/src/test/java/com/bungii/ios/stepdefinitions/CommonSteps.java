@@ -3373,4 +3373,19 @@ public class CommonSteps extends DriverBase {
     }
     }
 
+    @Then("^I should see \"([^\"]*)\" header displayed$")
+    public void i_should_see_something_header_displayed(String strArg1) throws Throwable {
+        action.swipeUP();
+        Thread.sleep(3000);
+        switch (strArg1){
+            case "SOLO LIFE":
+                boolean isSoloLiftDisplayed = scheduledTripsPage.Header_SoloLift().isDisplayed();
+                testStepAssert.isTrue(isSoloLiftDisplayed,"Solo Lift header should be displayed","Solo Lift header is displayed","Solo Lift header is not displayed");
+                String expectedSoloLiftMessage = PropertyUtility.getDataProperties("solo.lift.message");
+                String soloLiftInstructions = action.getText(scheduledTripsPage.Text_SoloLiftMessage());
+                testStepVerify.isEquals(soloLiftInstructions,expectedSoloLiftMessage,expectedSoloLiftMessage+" Message should be displayed",soloLiftInstructions+" Message is displayed",expectedSoloLiftMessage+" Message is not displayed");
+                break;
+        }
+    }
+
 }

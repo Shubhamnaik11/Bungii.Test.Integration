@@ -311,3 +311,23 @@ Feature: Partner Portal Cases integration with IOS
     And I get the estimated charge "for customer"
     And I get the driver earnings displayed for "solo"
     Then I calculate the driver share and check for "duo to solo conversion"
+
+  @testIos
+  Scenario: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
+    When I request Partner Portal "SOLO" Trip for "Tile Shop" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |nashville| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applens_a_kayQ Stark_nsOnEQ" driver
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I should see "SOLO LIFT" header displayed
+    And I start selected Bungii
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen

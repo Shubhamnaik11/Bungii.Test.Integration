@@ -38,8 +38,5 @@ Feature: Floor and Decore Service Level
       | Status           |
       | Assigning Driver(s)|
 
-    @testWeb
+#    @testWeb
     Scenario: Verify that 1pallet and 2pallets are shown instead of solo and duo for floor and decor partner portal
-      When I request Partner Portal "SOLO" Trip for "Tile Shop" partner
-      |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |washingtondc| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
