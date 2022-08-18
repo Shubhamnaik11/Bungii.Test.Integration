@@ -349,6 +349,7 @@ Feature: Partner Portal Cases integration with IOS
     And I Select Partner portal Trip from available trip
     Then I check information of both the pallets are displayed separately
 
+#  Driver : 9049840258 Payload capacity : 1111 lbs
 #  Core-2546: Verify for DUO delivery when a pallet is already accepted by driver it is not available for other driver
   @ready
 #  @testsweta
@@ -367,6 +368,7 @@ Feature: Partner Portal Cases integration with IOS
     When I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
+    And I check "pallet-1" details are displayed on "available bungii" page
     And I select "Pallet-1" from items
     And I accept selected Bungii
 
@@ -376,3 +378,8 @@ Feature: Partner Portal Cases integration with IOS
     And I enter phoneNumber :9049840259 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    And I select "Pallet-1" from items
+    And I accept selected Bungii
+    Then I check already accepted pallet pop up is displayed

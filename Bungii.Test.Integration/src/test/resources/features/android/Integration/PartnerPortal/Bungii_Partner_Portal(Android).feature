@@ -249,6 +249,12 @@
     @ready
 #      @testsweta
     Scenario:Verify Driver Pricing by weight for Duo delivery with both Pallet weight lies same tier for Floor n Decor Partner
+      When I switch to "ORIGINAL" instance
+      When I Switch to "driver" application on "same" devices
+      And I enter phoneNumber :9049840256 and  Password :Cci12345
+      And I click "Log In" button on Log In screen on driver app
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
       When I request Partner Portal "DUO" Trip for "Floor and Decor" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
         |washingtondc| NEXT_POSSIBLE | 8877661042 | Testcustomertywd_appleMarkAQ LutherAQ|
@@ -264,8 +270,6 @@
 
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
-      And I enter phoneNumber :9049840256 and  Password :Cci12345
-      And I click "Log In" button on Log In screen on driver app
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       Then I verify the driver earnings displayed on driver app for "duo"
@@ -295,7 +299,6 @@
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
       When I tap on "Back" button of android mobile
-      When I tap on "Back" button of android mobile
       And I Select Trip from available trip
       Then I verify the driver earnings displayed on driver app for "duo"
 #   Core-2537: Verify whether driver can accept delivery that are upto 100 lb more then the payload
@@ -307,7 +310,6 @@
 #  Driver : 9049840253 Payload capacity : 500 lbs
 #  Core-2418: Verify Driver Pricing by weight for Duo delivery with Pallet weight in different tier for Floor n Decor Partner
     @ready
-#    @testsweta
     Scenario:Verify Driver Pricing by weight for Duo delivery with Pallet weight in different tier for Floor n Decor Partner
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
@@ -333,11 +335,9 @@
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       Then I verify the driver earnings displayed on driver app for "duo-different tier"
- #   Core-2537: Verify whether drivers with low payload capacity are allowed to accept deliveries with high weight
+#   Core-2537: Verify whether drivers with low payload capacity are allowed to accept deliveries with high weight
       And I select "Pallet-1" from items
-#      And I tap on "ACCEPT" on driver Trip details Page
       Then I check inadequate payload pop up is displayed
-
 #  Core-2418: Verify Driver Pricing for Floor n Decor delivery when admin convert duo trip to solo
       When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal

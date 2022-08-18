@@ -107,6 +107,20 @@ public class TripDetailsSteps extends DriverBase {
                   "Error performing step,Please check logs for more details", true);
       }
     }
+    @Then("^I check already accepted pallet pop up is displayed$")
+    public void i_check_already_accepted_pallet_pop_up_is_displayed() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(tripDetailsPage.PopUp_AlreadyAcceptedPallet(),
+                    "The pop up for already accepted pallet should be displayed",
+                    "The pop up for already accepted pallet is displayed",
+                    "The pop up for already accepted pallet is not displayed");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^I check information of both the pallets are displayed separately$")
     public void i_check_information_of_both_the_pallets_are_displayed_separately() throws Throwable {
         try{
@@ -143,6 +157,28 @@ public class TripDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
+    }
+    @And("^I check \"([^\"]*)\" details are displayed on \"([^\"]*)\" page$")
+    public void i_check_something_details_are_displayed_on_something_page(String pallet, String page) throws Throwable {
+        try{
+            switch (page){
+                case "available bungii":
+                    switch (pallet){
+                        case "pallet-1":
+                            String palletOneWeight= PropertyUtility.getDataProperties("partner.washingtondc.weight.item.one");
+                            String palletOneDimensions= PropertyUtility.getDataProperties("partner.washingtondc.dimensions.item.one");
+                            String palletOneName= PropertyUtility.getDataProperties("partner.washingtondc.name.item.one");
+                            testStepAssert.isEquals(action.getText(tripDetailsPage.Text_PalletOneWeight()),palletOneWeight,"","","");
+
+                            break;
+                    }
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
     @And("^I check if variable sign is not shown under \"([^\"]*)\"$")
     public void i_check_if_variable_sign_is_not_shown_under_something(String page) throws Throwable {

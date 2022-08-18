@@ -1655,6 +1655,8 @@ public class CommonSteps extends DriverBase {
                     "The pallet one information is displayed",
                     "The pallet one information is not displayed");
 
+            action.scrollToBottom();
+
             testStepAssert.isElementDisplayed(scheduledTripsPage.Text_PalletTwo(),
                     "The pallet two information should be displayed",
                     "The pallet two information is displayed",
