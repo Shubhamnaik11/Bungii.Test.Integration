@@ -2385,6 +2385,7 @@ public class BungiiSteps extends DriverBase {
             String geofence = dataMap.get("geofence").trim();
                 String scheduleTime = dataMap.get("Bungii Time").trim();
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+            cucumberContextManager.setScenarioContext("TripType","Duo");
 
             String state = dataMap.get("Bungii State").trim();
             String customer = dataMap.get("Customer").trim();

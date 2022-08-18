@@ -701,6 +701,9 @@ public class CommonSteps extends DriverBase {
                         action.click(driverUpdateStatusPage.Button_ScheduledBungiis());
                     }
                     break;
+                case "TAKE PHOTO":
+                    action.click(driverUpdateStatusPage.Button_TakePhoto());
+                    break;
                 case "MORE OPTIONS":
                     action.click(driverUpdateStatusPage.Button_MoreOptions());
                     break;
