@@ -146,7 +146,7 @@ public class Admin_DriverDetails extends DriverBase{
              */
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate); // removed ss
             formattedDate= utility.getbungiiDayLightTimeValue(formattedDate);
-            XPath = String.format("//td[text()='%s']/following-sibling::td[contains(.,'%s')]", formattedDate, status);
+            XPath = String.format("//a[text()='%s']/parent::td/following-sibling::td[contains(.,'%s')]", formattedDate, status);
         }
         else
         {
