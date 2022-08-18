@@ -325,7 +325,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.click(admin_DriverVerificationPage.Button_DriverResentButton());
                     break;
                 case "Cancel":
-                    action.click(admin_DriverVerificationPage.Button_Cancel());
+                    if(action.isElementPresent(admin_GeofencePage.Text_GeoHistory())){
+                        action.click(admin_GeofencePage.Button_GeofenceCancel());
+                    }
+                    else {
+                        action.click(admin_DriverVerificationPage.Button_Cancel());
+                    }
                     break;
                 case "New Code":
                     action.click(admin_PromoCodesPage.Button_NewCode());
