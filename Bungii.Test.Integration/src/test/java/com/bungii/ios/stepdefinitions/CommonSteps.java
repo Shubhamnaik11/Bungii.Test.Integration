@@ -701,6 +701,9 @@ public class CommonSteps extends DriverBase {
                         action.click(driverUpdateStatusPage.Button_ScheduledBungiis());
                     }
                     break;
+                case "TAKE PHOTO":
+                    action.click(driverUpdateStatusPage.Button_TakePhoto());
+                    break;
                 case "MORE OPTIONS":
                     action.click(driverUpdateStatusPage.Button_MoreOptions());
                     break;
@@ -3371,6 +3374,28 @@ public class CommonSteps extends DriverBase {
         error("Step  Should be successful",
                 "Error performing step,Please check logs for more details", true);
     }
+    }
+    @And("^I verify alias is displayed correctly on \"([^\"]*)\"$")
+    public void i_verify_alias_is_displayed_correctly_on_something(String page) throws Throwable {
+        try {
+            String aliasPartnerPortalName= PropertyUtility.getDataProperties("partner.floor.and.decor.alias.name");
+            switch (page){
+                case "live delivery page":
+                    Thread.sleep(2000);
+                    testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PartnerNameLiveDeliveryPage()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+            }
+            log("I should be able to verify the alias is displayed correctly",
+                    "I am able to verify the alias is displayed correctly",false);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should see \"([^\"]*)\" header displayed$")

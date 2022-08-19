@@ -153,6 +153,8 @@ When I click on "Confirm" button on Revival Popup
 And I wait for 2 minutes
 And I view the all Scheduled Deliveries list on the admin portal
 When  I search the delivery using "Pickup Reference"
+#Core-3295:Verify status is Assigning driver for driver cancelled trip which was revived after adding Accessorial charges
+Then The delivery should be in "Assigning Driver(s) with no loader" state
 And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
 Then the Accessorial Charges should not be displayed
 And I view the Deliveries list on the admin portal
