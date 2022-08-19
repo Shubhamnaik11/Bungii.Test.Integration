@@ -3378,12 +3378,23 @@ public class CommonSteps extends DriverBase {
         action.swipeUP();
         Thread.sleep(3000);
         switch (strArg1){
-            case "SOLO LIFE":
-                boolean isSoloLiftDisplayed = scheduledTripsPage.Header_SoloLift().isDisplayed();
-                testStepAssert.isTrue(isSoloLiftDisplayed,"Solo Lift header should be displayed","Solo Lift header is displayed","Solo Lift header is not displayed");
+            case "SOLO LIFT":
+                boolean isSoloLiftDisplayed = scheduledTripsPage.Label_SoloLift().isDisplayed();
+                testStepAssert.isTrue(isSoloLiftDisplayed,"Solo Lift label should be displayed","Solo Lift label is displayed","Solo Lift label is not displayed");
                 String expectedSoloLiftMessage = PropertyUtility.getDataProperties("solo.lift.message");
                 String soloLiftInstructions = action.getText(scheduledTripsPage.Text_SoloLiftMessage());
                 testStepVerify.isEquals(soloLiftInstructions,expectedSoloLiftMessage,expectedSoloLiftMessage+" Message should be displayed",soloLiftInstructions+" Message is displayed",expectedSoloLiftMessage+" Message is not displayed");
+                break;
+            case "CUSTOMER HELP":
+//                boolean isCustomerHelpIconDisplayed = scheduledTripsPage.Label_SoloLift().isDisplayed();
+//                testStepAssert.isTrue(isCustomerHelpIconDisplayed,"Customer help icon should be displayed","Customer help icon is displayed","Customer help icon is not displayed");
+                boolean isCustomerHelpLabelDisplayed = scheduledTripsPage.Label_CustomerHelp().isDisplayed();
+                testStepAssert.isTrue(isCustomerHelpLabelDisplayed,"Solo Lift header should be displayed","Solo Lift header is displayed","Solo Lift header is not displayed");
+                String expectedCustomerHelpMessage = PropertyUtility.getDataProperties("customer.help.message");
+                String customerHelpInstructions = action.getText(scheduledTripsPage.Text_CustomerHelpMessage());
+                testStepVerify.isEquals(customerHelpInstructions,expectedCustomerHelpMessage,expectedCustomerHelpMessage+" Message should be displayed",customerHelpInstructions+" Message is displayed",expectedCustomerHelpMessage+" Message is not displayed");
+                boolean isCustomerHelpIconDisplayed = scheduledTripsPage.Icon_CustomerHelp().isDisplayed();
+                testStepAssert.isTrue(isCustomerHelpIconDisplayed,"Customer help icon should be displayed","Customer help icon is displayed","Customer help icon is not displayed");
                 break;
         }
     }

@@ -312,8 +312,8 @@ Feature: Partner Portal Cases integration with IOS
     And I get the driver earnings displayed for "solo"
     Then I calculate the driver share and check for "duo to solo conversion"
 
-  @testIos
-  Scenario: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
+#  @testIos
+  Scenario:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
     When I request Partner Portal "SOLO" Trip for "Tile Shop" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |nashville| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
@@ -327,7 +327,48 @@ Feature: Partner Portal Cases integration with IOS
     Then I should see "SOLO LIFT" header displayed
     And I start selected Bungii
     And I slide update button on "EN ROUTE" Screen
+    And I click on "GOT IT" button
     And I slide update button on "ARRIVED" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should see "SOLO LIFT" header displayed
+    And I click on "GOT IT" button
+    And I slide update button on "UNLOADING ITEMS" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+
+#  @testIos
+  Scenario: customer help
+    When I request Partner Portal "SOLO" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |kansas| NEXT_POSSIBLE | 8877661036 | Testcustomertywd_appleMarkAK LutherAK|
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applens_a_kayQ Stark_nsOnEQ" driver
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    Then I should see "CUSTOMER HELP" header displayed
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I should see "CUSTOMER HELP" header displayed
+    And I start selected Bungii
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    When Bungii driver uploads "1" image
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     And I slide update button on "UNLOADING ITEMS" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
