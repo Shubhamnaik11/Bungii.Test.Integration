@@ -594,3 +594,49 @@ Feature: Scheduled DUO Bungii
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
+
+  @testIos
+  Scenario: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applens_a_kayR Stark_nsOnER" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I connect to "extra1" using "Driver2" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applens_a_kayS Stark_nsOnES" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I request Partner Portal "Duo" Trip for "Tile Shop" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |nashville| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I should see "CUSTOMER HELP" header displayed
+    And I start selected Bungii
+
+    And I Switch to "driver" application on "driver2" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I should see "CUSTOMER HELP" header displayed
+    And I start selected Bungii
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    When I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I accept Alert message for "Reminder: both driver at pickup"
+
+    And I Switch to "driver" application on "driver2" devices
+    When I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I accept Alert message for "Reminder: both driver at pickup"

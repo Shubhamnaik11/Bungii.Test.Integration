@@ -99,8 +99,12 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Select_EditReason() {return findElement("ddEditDeliveryRemark",LocatorType.Id);}
     public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
-    public WebElement Header_SoloLift() { return findElement("SOLO LIFT", LocatorType.AccessibilityId); }
+    public WebElement Label_SoloLift() { return findElement("SOLO LIFT", LocatorType.AccessibilityId); }
     public WebElement Text_SoloLiftMessage() { return findElement("You are responsible for loading and unloading the item(s) by yourself", LocatorType.AccessibilityId); }
-
+    public WebElement Button_GotIt() {return findElement("Got it", LocatorType.AccessibilityId);}
+    public WebElement Button_SkipCustomerRating() {return findElement("Skip customer signature", LocatorType.AccessibilityId);}
+    public WebElement Icon_CustomerHelp() {return findElement("//XCUIElementTypeStaticText[@name=\"CUSTOMER HELP\"]/preceding-sibling::XCUIElementTypeOther", LocatorType.XPath);}
+    public WebElement Label_CustomerHelp() { return findElement("SOLO LIFT", LocatorType.AccessibilityId); }
+    public WebElement Text_CustomerHelpMessage() { return findElement("The customer will help you unload the item(s)", LocatorType.AccessibilityId); }
 
 }
