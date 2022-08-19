@@ -25,6 +25,9 @@ public class TripDetailsPage extends PageBase {
 	public WebElement Text_PalletOneWeight() { return findElement("//XCUIElementTypeOther[6]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[3]", LocatorType.XPath); }
 	public WebElement Text_PalletOneDimensions() { return findElement("//XCUIElementTypeOther[6]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[4]", LocatorType.XPath); }
 	public WebElement Text_PalletOneName() { return findElement("//XCUIElementTypeOther[6]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[5]", LocatorType.XPath); }
+	public WebElement Text_PalletOneWeightSchedulePage() { return findElement("//XCUIElementTypeOther [@name=\"No images available\"]/XCUIElementTypeStaticText[4]", LocatorType.XPath); }
+	public WebElement Text_PalletOneDimensionsSchedulePage() { return findElement("//XCUIElementTypeOther [@name=\"No images available\"]/XCUIElementTypeStaticText[5]", LocatorType.XPath); }
+	public WebElement Text_PalletOneNameSchedulePage() { return findElement("//XCUIElementTypeOther [@name=\"No images available\"]/XCUIElementTypeStaticText[6]", LocatorType.XPath); }
 
 
 }

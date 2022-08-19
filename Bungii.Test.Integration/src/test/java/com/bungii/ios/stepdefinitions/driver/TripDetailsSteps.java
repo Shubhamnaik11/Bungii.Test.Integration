@@ -161,16 +161,45 @@ public class TripDetailsSteps extends DriverBase {
     @And("^I check \"([^\"]*)\" details are displayed on \"([^\"]*)\" page$")
     public void i_check_something_details_are_displayed_on_something_page(String pallet, String page) throws Throwable {
         try{
+            String palletOneWeight= PropertyUtility.getDataProperties("partner.washingtondc.weight.item.one");
+            String palletOneDimensions= PropertyUtility.getDataProperties("partner.washingtondc.dimensions.item.one");
+            String palletOneName= PropertyUtility.getDataProperties("partner.washingtondc.name.item.one");
             switch (page){
                 case "available bungii":
                     switch (pallet){
                         case "pallet-1":
-                            String palletOneWeight= PropertyUtility.getDataProperties("partner.washingtondc.weight.item.one");
-                            String palletOneDimensions= PropertyUtility.getDataProperties("partner.washingtondc.dimensions.item.one");
-                            String palletOneName= PropertyUtility.getDataProperties("partner.washingtondc.name.item.one");
-                            testStepAssert.isEquals(action.getText(tripDetailsPage.Text_PalletOneWeight()),palletOneWeight,"","","");
-
+                            testStepAssert.isEquals(action.getText(tripDetailsPage.Text_PalletOneWeight()),palletOneWeight+" lbs",
+                                    "The correct weight should be displayed.",
+                                    "The correct weight is displayed.",
+                                    "The incorrect weight is displayed.");
+                            testStepAssert.isEquals(action.getText(tripDetailsPage.Text_PalletOneDimensions()),palletOneDimensions+" in",
+                                    "The correct dimension should be displayed.",
+                                    "The correct dimension is displayed.",
+                                    "The incorrect dimension is displayed.");
+                            testStepAssert.isEquals(action.getText(tripDetailsPage.Text_PalletOneName()),palletOneName,
+                                    "The correct name should be displayed.",
+                                    "The correct name is displayed.",
+                                    "The incorrect name is displayed.");
                             break;
+                    }
+                    break;
+                case "schedule bungii":
+                    switch (pallet) {
+                        case "pallet-1":
+                            testStepAssert.isEquals(action.getText(tripDetailsPage.Text_PalletOneWeightSchedulePage()),palletOneWeight+" lbs",
+                                    "The correct weight should be displayed.",
+                                    "The correct weight is displayed.",
+                                    "The incorrect weight is displayed.");
+                            testStepAssert.isEquals(action.getText(tripDetailsPage.Text_PalletOneDimensionsSchedulePage()),palletOneDimensions+" in",
+                                    "The correct dimension should be displayed.",
+                                    "The correct dimension is displayed.",
+                                    "The incorrect dimension is displayed.");
+                            testStepAssert.isEquals(action.getText(tripDetailsPage.Text_PalletOneNameSchedulePage()),palletOneName,
+                                    "The correct name should be displayed.",
+                                    "The correct name is displayed.",
+                                    "The incorrect name is displayed.");
+                            break;
+
                     }
                     break;
             }

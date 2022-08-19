@@ -356,7 +356,7 @@ Feature: Partner Portal Cases integration with IOS
   Scenario:Verify for DUO delivery when a pallet is already accepted by driver it is not available for other driver
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
-    And I enter phoneNumber :9049840258 and  Password :Cci12345
+    And I enter phoneNumber :9766000001 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
@@ -368,14 +368,20 @@ Feature: Partner Portal Cases integration with IOS
     When I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
+#   Core-2546: Verify pallet details are displayed on AVAILABLE Bungii menu
     And I check "pallet-1" details are displayed on "available bungii" page
     And I select "Pallet-1" from items
+#   Core-2546: Verify driver can accept using AVAILABLE BUNGII menu when driver pallet is equal to payload capacity
     And I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+#   Core-2546: Verify pallet details are displayed on SCHEDULE Bungii menu
+    And I check "pallet-1" details are displayed on "schedule bungii" page
 
     When I Select "ACCOUNT > LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
-    And I enter phoneNumber :9049840259 and  Password :Cci12345
+    And I enter phoneNumber :9766000006 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "AVAILABLE BUNGIIS" from driver App menu
