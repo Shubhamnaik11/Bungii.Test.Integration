@@ -68,4 +68,16 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Text_NoDeliveriesFound () { return findElement("//div/h5", LocatorType.XPath); }
 
+
+    public WebElement Label_ReviveCustomerDetail () { return findElement("//div[contains(.,'Customer')]/b[2]", LocatorType.XPath); }
+
+    public WebElement Label_RevivePartnerDetail () { return findElement("//span[contains(.,'Partner')]/b", LocatorType.XPath); }
+
+    public WebElement Label_RevivePickupOriginDetail (boolean...ignoreException) { return findElement("//div[contains(.,'Pickup Origin')]", LocatorType.XPath,ignoreException); }
+
+    public WebElement CheckBox_AssigningDrivers () { return findElement("chkStatus-4", LocatorType.Id); }
+
+    public WebElement Text_AllFilterOptions (int number){ return findElement(String.format("//div[@id=\"divFilter\"]/div/label[%d]",number), LocatorType.XPath); }
+
+
 }

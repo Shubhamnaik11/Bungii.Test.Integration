@@ -34,6 +34,15 @@ public class SignupSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER_HAVING_REF_CODE", customerPhone);
                     cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", customerPhone);
                     break;
+                case "new valid":
+                    customerPhone = utility.generateMobileNumber();
+                    cucumberContextManager.setScenarioContext("CUSTOMER_DELETE_ACCOUNT", customerPhone);
+                    cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", customerPhone);
+                    break;
+                case "deleted valid":
+                    customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_DELETE_ACCOUNT");
+                    cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", customerPhone);
+                    break;
                 case "blank":
                     break;
                 case "invalid":

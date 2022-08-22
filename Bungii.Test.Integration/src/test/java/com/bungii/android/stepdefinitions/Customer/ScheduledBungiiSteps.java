@@ -333,6 +333,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                 calendar.setTime(teletTimeInUtc);
                 int mnts = calendar.get(Calendar.MINUTE);
 
+                calendar.add(Calendar.HOUR,1);
                 calendar.set(Calendar.MINUTE, mnts);
                 int unroundedMinutes = calendar.get(Calendar.MINUTE);
                 int mod = unroundedMinutes % 15;
@@ -347,11 +348,16 @@ public class ScheduledBungiiSteps extends DriverBase {
 
                 formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
 
+                Date abc= calendar.getTime();
                 String strdate = formatter.format(calendar.getTime());
                 Date teletTimeInLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(strdate);
 
+
                 String[] dateScroll = commonSteps.bungiiTimeForScroll(teletTimeInLocal);
                 selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3], tripType);
+
+                String custTripTime= action.getText(estimatePage.Text_ScheduledTime());
+                cucumberContextManager.setScenarioContext("SCHEDULED_TIME",custTripTime);
             }
 
         } catch (Exception e) {
@@ -373,6 +379,19 @@ public class ScheduledBungiiSteps extends DriverBase {
                     true);
         }
     }
+
+    @And("I get the pickupref for \"([^\"]*)\"")
+    public void i_get_the_pickupref_for_somenumber(String custNumber) throws Throwable {
+        try {
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST2",dbUtility.getCustomersMostRecentBungii(custNumber));
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error Occured While fetching pickuprequest",
+                    true);
+        }
+    }
+
     @And("^I select \"([^\"]*)\" from pop-up$")
     public void i_select_something_from_popup(String notificationButton) throws Throwable {
        try{
@@ -390,17 +409,37 @@ public class ScheduledBungiiSteps extends DriverBase {
        }
     }
 
+    @And("^I should select the \"([^\"]*)\" customer on driver app$")
+    public void i_should_select_the_something_customer_on_driver_app(String customer) throws Throwable {
+        try{
+            action.click(scheduledBungiiPage.Customer_ScheduledDelivery());
+            pass("I should able to select scheduled bungii for customer"+customer,"I have selected scheduled bungii for customer"+customer);
+        }
+        catch (Exception e) {
+            //logger.error("Error performing step", SetupManager.getDriver().getPageSource());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void i_click_something_button_on_something_screen(String button, String strArg2) throws Throwable {
         try {
-            action.scrollToBottom();
+
             switch (button)
             {
                 case "Done":
+                    action.scrollToBottom();
                     action.click(estimatePage.Button_DoneOnSuccess());
                     break;
                 case "On To The Next One":
+                    action.scrollToBottom();
                     action.click(estimatePage.Button_NextBungii());
+                    break;
+                case "Scheduled Bungiis":
+                    action.click(scheduledBungiiPage.Button_ThreeDot());
+                    Thread.sleep(1000);
+                    action.click(scheduledBungiiPage.Link_ScheduledBungiis());
                     break;
             }
         } catch (Exception e) {

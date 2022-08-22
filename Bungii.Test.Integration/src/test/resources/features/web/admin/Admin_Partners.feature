@@ -9,7 +9,7 @@ Feature: Admin_Partners_Business_And_EAPI
   @regression
   Scenario: Verify that Add New Partner button is disabled
     And The "New Partner" button should not be displayed
-    
+    Then I should see "Unlock Portals" submenu
     
   #Core-2441: To verify that admin can unlock locked out partner users for different portal types
   @ready
