@@ -141,7 +141,6 @@ public class GeneralUtility extends DriverBase {
         return adminURL;
     }
 
-
     public void handleIosUpdateMessage() {
         try {
             if (action.isAlertPresent()) {
