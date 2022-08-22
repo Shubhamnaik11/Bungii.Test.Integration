@@ -177,6 +177,11 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement RadioButton_PalletTwo() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.RadioButton", LocatorType.XPath);}
     public WebElement Text_PalletOne() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[1]", LocatorType.XPath); }
     public WebElement Text_PalletTwo() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.TextView[1]", LocatorType.XPath); }
-
+    public WebElement Text_PalletOneWeight() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PalletOneDimensions() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Text_PalletOneName() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[3]", LocatorType.XPath); }
+    public WebElement Text_PalletOneWeightSchedulePage() { return findElement("//androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PalletOneDimensionsSchedulePage() { return findElement("//androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Text_PalletOneNameSchedulePage() { return findElement("//android.view.ViewGroup/android.widget.TextView[2]", LocatorType.XPath); }
 
 }

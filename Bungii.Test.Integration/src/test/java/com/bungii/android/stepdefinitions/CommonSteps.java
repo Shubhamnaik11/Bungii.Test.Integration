@@ -1612,7 +1612,8 @@ public class CommonSteps extends DriverBase {
     @And("^I select \"([^\"]*)\" from items$")
     public void i_select_something_from_items(String pallet) throws Throwable {
         try{
-//            action.scrollToBottom();
+            action.scrollToBottom();
+            action.scrollToBottom();
             switch (pallet){
                 case "Pallet-1":
                     action.click(scheduledTripsPage.RadioButton_PalletOne());

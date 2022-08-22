@@ -352,17 +352,16 @@ Feature: Partner Portal Cases integration with IOS
 #  Driver : 9049840258 Payload capacity : 1111 lbs
 #  Core-2546: Verify for DUO delivery when a pallet is already accepted by driver it is not available for other driver
   @ready
-#  @testsweta
   Scenario:Verify for DUO delivery when a pallet is already accepted by driver it is not available for other driver
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
-    And I enter phoneNumber :9766000001 and  Password :Cci12345
+    And I enter phoneNumber :9049840258 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     When I request Partner Portal "DUO" Trip for "Floor and Decor" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |washingtondc| NEXT_POSSIBLE | 8877661040 | Testcustomertywd_appleMarkAO LutherAO|
+      |washingtondc| NEXT_POSSIBLE | 8877661091 | Testcustomertywd_appleMarkCN LutherCN|
 
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
@@ -381,7 +380,7 @@ Feature: Partner Portal Cases integration with IOS
     When I Select "ACCOUNT > LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
-    And I enter phoneNumber :9766000006 and  Password :Cci12345
+    And I enter phoneNumber :9049840259 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "AVAILABLE BUNGIIS" from driver App menu
