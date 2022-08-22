@@ -137,3 +137,13 @@ Feature: Cort Service Level
   Scenario: Verify tooltip verbiage reflects number of days based on advance scheduling days configured in database
     When I click on tooltip beside "Pickup Date" field
     Then I should see tooltip value based on configured value in database
+
+
+  @testAllan
+  Scenario: Verify tooltip verbiage reflects number of days based on advance scheduling days configured in database
+#    Given I navigate to "Partner" portal configured for "Equip" URL
+#    And I enter "valid" password on Partner Portal
+#    And I click "SIGN IN" button on Partner Portal
+#    Then I should "be logged in"
+#    And I click on "Duo" button
+    Then The "Solo" deliveries should have "30" minutes lead time

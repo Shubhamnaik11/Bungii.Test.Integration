@@ -3424,11 +3424,31 @@ public class CommonSteps extends DriverBase {
             case "DUO LIFT":
                 boolean isDuoLiftDisplayed = scheduledTripsPage.Label_SoloLift().isDisplayed();
                 testStepAssert.isTrue(isDuoLiftDisplayed,"Solo Lift label should be displayed","Solo Lift label is displayed","Solo Lift label is not displayed");
-                String expectedDuoLiftMessage = PropertyUtility.getDataProperties("solo.lift.message");
+                String expectedDuoLiftMessage = PropertyUtility.getDataProperties("solo.lifted.message");
                 String duoLiftInstructions = action.getText(scheduledTripsPage.Text_SoloLiftMessage());
                 testStepVerify.isEquals(duoLiftInstructions,expectedDuoLiftMessage,expectedDuoLiftMessage+" Message should be displayed",duoLiftInstructions+" Message is displayed",expectedDuoLiftMessage+" Message is not displayed");
                 break;
         }
     }
 
+    @When("^I click on the \"([^\"]*)\" button from the dropdown$")
+    public void i_click_on_the_something_button_from_the_dropdown(String buttonText) throws Throwable {
+        try {
+            Thread.sleep(5000);
+//            action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
+            switch (buttonText) {
+                case "Delivery Details":
+//                    action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+                    break;
+                case "Edit":
+//                    action.click(admin_EditScheduledBungiiPage.Button_Edit());
+                    break;
+            }
+            log("I should be able to click on the " + buttonText + " button from the dropdown", "I could  click on the  " + buttonText + "  button from the dropdown", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

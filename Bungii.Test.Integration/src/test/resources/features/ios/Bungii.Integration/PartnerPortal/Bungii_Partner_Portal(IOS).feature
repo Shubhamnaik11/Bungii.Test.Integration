@@ -326,6 +326,7 @@ Feature: Partner Portal Cases integration with IOS
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I open the trip for "Testcustomertywd_appleMarkAR LutherAR" the customer
+    And I click on the "Edit" button from the dropdown
     And I Select "Edit Trip Details" option
     And I change delivery type from "Duo to Solo"
     And I click on "VERIFY" button

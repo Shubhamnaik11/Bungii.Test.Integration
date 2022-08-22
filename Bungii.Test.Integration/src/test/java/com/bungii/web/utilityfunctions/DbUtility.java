@@ -637,4 +637,22 @@ public class DbUtility extends DbContextManager {
         return timeStamp;
 
     }
+
+    public static String getPartnerPortalLeadTime(String deliveryType) {
+        String leadTime;
+        String queryUsingLowercase =deliveryType.toLowerCase();
+        String queryStringForPickupTripStatus ="use bungii_admin_qa_auto " +
+                "select" +
+                "json_extract(cvss.config_value,'$."+deliveryType+"_EARLIEST_SCHEDULE_TIME') as "+queryUsingLowercase+"_lead_time" +
+                " " +
+                "from bp_store bs " +
+                "inner join bp_store_setting_fn_matrix fn on fn.bp_store_id = bs.bp_store_id " +
+                "inner join bp_config_version_store_setting cvss on cvss.bp_config_version_id = fn.bp_config_version_id " +
+                "where subdomain_name like  'qauto-equip-bid' and fn.bp_setting_fn_id = 12;";
+        System.out.println(queryStringForPickupTripStatus);
+        leadTime = getDataFromMySqlServer(queryStringForPickupTripStatus);
+        logger.detail("TripStatus is "+leadTime+ " for pickup reference "+ leadTime);
+        return leadTime;
+
+    }
 }
