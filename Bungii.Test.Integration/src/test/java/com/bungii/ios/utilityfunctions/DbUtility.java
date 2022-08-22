@@ -260,4 +260,47 @@ public class DbUtility extends DbContextManager {
         String reasonId = getDataFromMySqlServer("select pickup_driver_reject_reason_id from pickup_driver_reject_reason where driver_id = "+driverId);
         return reasonId;
     }
+    public static String getDriverShareSameTier() {
+        String driverShare = "";
+        String queryString = "select driver_share from bungii_admin_qa_auto.bp_service_level sl\n" +
+                "join bungii_admin_qa_auto.bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bungii_admin_qa_auto.bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bungii_admin_qa_auto.bp_fixed_distance_weight_price_matrix pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like 'qaauto-floordecor166%' and sl.service_level_number = 1 and weight_range_min = '1000' and weight_range_max = '1500' \n" +
+                "and mile_range_min = '0' and mile_range_max = '10'\n" +
+                "order by subdomain_name, sl.service_level_number, mile_range_min, weight_range_min;";
+        driverShare = getDataFromMySqlServer(queryString);
+        logger.detail("Driver Share is "+ driverShare);
+        return driverShare;
+    }
+    public static String getDriverShareDifferentTier() {
+        String driverShare = "";
+        String queryString = "select driver_share from bungii_admin_qa_auto.bp_service_level sl\n" +
+                "join bungii_admin_qa_auto.bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bungii_admin_qa_auto.bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bungii_admin_qa_auto.bp_fixed_distance_weight_price_matrix pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like 'qaauto-floordecor166%' and sl.service_level_number = 1 and weight_range_min = '0' and weight_range_max = '500' \n" +
+                "and mile_range_min = '0' and mile_range_max = '10'\n" +
+                "order by subdomain_name, sl.service_level_number, mile_range_min, weight_range_min;";
+        driverShare = getDataFromMySqlServer(queryString);
+        logger.detail("Driver Share is " + driverShare);
+        return driverShare;
+    }
+    public static String getDriverShareDifferentSeviceLevel() {
+        String driverShare = "";
+        String queryString = "select driver_share from bungii_admin_qa_auto.bp_service_level sl\n" +
+                "join bungii_admin_qa_auto.bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bungii_admin_qa_auto.bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bungii_admin_qa_auto.bp_fixed_distance_weight_price_matrix pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like 'qaauto-floordecor166%' and sl.service_level_number = 2 and weight_range_min = '1000' and weight_range_max = '1500' " +
+                "and mile_range_min = '20' and mile_range_max = '30'\n" +
+                "order by subdomain_name, sl.service_level_number, mile_range_min, weight_range_min;";
+        driverShare = getDataFromMySqlServer(queryString);
+        logger.detail("Driver Share is " + driverShare);
+        return driverShare;
+    }
+
 }

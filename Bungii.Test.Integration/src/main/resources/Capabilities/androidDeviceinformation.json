@@ -20,7 +20,8 @@
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
     "settings[waitForIdleTimeout]" : 1000,
-    "deviceOrientation": "potrait"
+    "deviceOrientation": "potrait",
+    "browserstack.networkLogsExcludeHosts" : "^(.+\\.)?gobungii-dev.com"
   },
   "extra3": {
     "platformName": "Android",
@@ -43,8 +44,8 @@
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
     "settings[waitForIdleTimeout]" : 1000,
-    "deviceOrientation": "potrait"
-
+    "deviceOrientation": "potrait",
+    "browserstack.networkLogsExcludeHosts" : "^(.+\\.)?gobungii-dev.com"
   },
   "extra1": {
     "platformName": "Android",
@@ -67,8 +68,8 @@
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
     "settings[waitForIdleTimeout]" : 1000,
-    "deviceOrientation": "potrait"
-
+    "deviceOrientation": "potrait",
+    "browserstack.networkLogsExcludeHosts" : "^(.+\\.)?gobungii-dev.com"
   },
   "extra2": {
     "platformName": "Android",
@@ -91,7 +92,8 @@
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
     "settings[waitForIdleTimeout]" : 1000,
-    "deviceOrientation": "potrait"
+    "deviceOrientation": "potrait",
+    "browserstack.networkLogsExcludeHosts" : "^(.+\\.)?gobungii-dev.com"
   },
   "connection": {
     "device1": 0,

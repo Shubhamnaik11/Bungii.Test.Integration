@@ -1537,4 +1537,75 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+
+    @And("^I verify the driver earnings displayed on driver app for \"([^\"]*)\"$")
+    public void i_verify_the_driver_earnings_displayed_on_driver_app_for_something(String type) throws Throwable {
+        try{
+            switch (type)
+            {
+                case "solo":
+                    Thread.sleep(2000);
+                    String soloDriverEarnings = action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp());
+                    float soloDriverEarnings1 = Float.parseFloat(soloDriverEarnings.substring(1));
+                    float driverShareCalculated =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE"));
+                    testStepVerify.isTrue(soloDriverEarnings1==driverShareCalculated,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+                    break;
+                case "duo":
+                    Thread.sleep(2000);
+                    action.scrollToTop();
+                    action.scrollToBottom();
+                    float duoDriver1Earnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver1EarningsApp()).substring(1)));
+                    float driverShareCalculatedDriver1 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE_SAME_TIRE"));
+                    testStepAssert.isTrue(duoDriver1Earnings==driverShareCalculatedDriver1,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+                    float duoDriver2Earnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver2EarningsApp()).substring(1)));
+                    float driverShareCalculatedDriver2 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE_SAME_TIRE"));
+                    testStepAssert.isTrue(duoDriver2Earnings==driverShareCalculatedDriver2,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+                    break;
+
+                case "duo-different tier":
+                    Thread.sleep(2000);
+                    action.scrollToBottom();
+                    float duoDriver1EarningsTier1 = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver1EarningsApp()).substring(1)));
+                    float driverShareCalculatedDriver1Tier1 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER1_SHARE_DIFFERENT_TIRE"));
+                    testStepAssert.isTrue(duoDriver1EarningsTier1==driverShareCalculatedDriver1Tier1,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+                    float duoDriver2EarningsTier2 = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver2EarningsApp()).substring(1)));
+                    float driverShareCalculatedDriver2Tier2 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER2_SHARE_DIFFERENT_TIRE"));
+                    testStepAssert.isTrue(duoDriver2EarningsTier2==driverShareCalculatedDriver2Tier2,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+
+                    break;
+
+                case "changed address and service level":
+                    Thread.sleep(2000);
+                    float soloDriverEarningsChangedSL = Float.parseFloat((action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp1()).substring(1)));
+                    float driverShareCalculatedChangedSL =Float.parseFloat((String) cucumberContextManager.getScenarioContext("DRIVER_SHARE_FOR_CHANGED_SL_AND_ADDRESS"));
+                    testStepAssert.isTrue(soloDriverEarningsChangedSL==driverShareCalculatedChangedSL,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+                    break;
+            }
+            log("I should be able to verify the driver earnings displayed",
+                    "I am able to verify the driver earnings displayed",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

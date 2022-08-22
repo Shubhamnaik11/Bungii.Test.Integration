@@ -1019,6 +1019,15 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Download Zip Codes":
                     action.click(admin_GeofencePage.Button_DownloadZipCodes());
                     break;
+                case "History":
+                    action.click(admin_ScheduledTripsPage.Button_History());
+                    break;
+                case "Edit":
+                    Thread.sleep(6000);
+                    action.click(admin_liveTripsPage.Dropdown_Icon());
+                    Thread.sleep(2000);
+                    action.click(admin_liveTripsPage.Option_Edit());
+                    break;
                 case "Apply":
                     action.click(Page_Partner_Dashboard.Button_Apply());
                     break;

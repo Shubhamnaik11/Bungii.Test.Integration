@@ -21,8 +21,8 @@ Feature: Admin_Geofence
   Scenario: Verify Add Edit New Geofence
     When I click on the "Scale" Button
     And I enter following values in "Geofence" fields
-      | Primary                                              | Secondary                   | Geo-Name  | Geo-TimeZone | Geo-Status|
-      | e{o~FpctuOjE\|j_Ao\|e@veBfe@mbt@lqe@_rM      | km_}FhtotOznYf~gDcoeDxy]cx@stsBlmoC{orA        | ZONE-<<UniqueNo>> | MST            |Active|
+      | Primary                                | Secondary                              | Geo-Name          | Geo-TimeZone | Geo-Status|
+      | e{o~FpctuOjE\|j_Ao\|e@veBfe@mbt@lqe@_rM| km_}FhtotOznYf~gDcoeDxy]cx@stsBlmoC{orA| ZONE-<<UniqueNo>> | MST          |Active|
     When I click on the "Save" Button on "Geofence" Screen
     Then the geofence gets saved successfully and it is displayed in the "Geofences" grid
     When I click on the geofence name "ZONE-"
@@ -36,8 +36,53 @@ Feature: Admin_Geofence
     Then the geofence gets saved successfully and it is displayed in the "Geofences" grid
 #   Core-3843 Verify that zip codes of newly added geofence are present in downloaded file
     When I click on the geofence "new-geofence"
+    #CORE-4010 test case incorporated
+    Then I observe log details in the Geo-History section
+    And I note the Geo History log records count
     And I edit the geofence "new-geofence"
     And I "activate" status for "new-geofence" geofence
+    And I open a newly created geofence
+    And I check that log record is shown for "Status" change in Geo History
+    And I check correct log details are shown
+    And I click on changes hyperlink
+    Then I should see all fields with old and new changed value
+    And I click on the "Cancel" Button
+    And I open a newly created geofence
+    And I edit the geofence "ZONE-"
+    And I change the "Region" for the geofence
+    |New_Region|
+    |Northeast |
+    When I click on the "Save" Button on "Geofence" Screen
+    And I open a newly created geofence
+    And I check that log record is shown for "Region" change in Geo History
+    And I check correct log details are shown
+    And I click on changes hyperlink
+    Then I should see all fields with old and new changed value
+    And I click on the "Cancel" Button
+    And I open a newly created geofence
+    And I edit the geofence "ZONE-"
+    And I change the "Timezone" for the geofence
+      |Geo-TimeZone|
+      |IST         |
+    When I click on the "Save" Button on "Geofence" Screen
+    And I open a newly created geofence
+    And I check that log record is shown for "Timezone" change in Geo History
+    And I check correct log details are shown
+    And I click on changes hyperlink
+    Then I should see all fields with old and new changed value
+    And I click on the "Cancel" Button
+    And I open a newly created geofence
+    And I edit the geofence "ZONE-"
+    And I change the "Geo-Coding" for the geofence
+      |Primary                                 |Secondary                              |
+      |e{o~FpctuOjE\|j_Ao\|e@veBfe@mbt@lqe@_vN |km_}FhtotOznYf~gDcoeDxy]cx@stsBlmoC{orB|
+    When I click on the "Save" Button on "Geofence" Screen
+    And I open a newly created geofence
+    And I check that log record is shown for "Geo-Coding" change in Geo History
+    And I check correct log details are shown
+    And I click on changes hyperlink
+    Then I should see all fields with old and new changed value
+    And I click on the "Cancel" Button
     And I click on "Download Zip Codes" button
     Then I verify if "new-geofence" are downloaded
 
