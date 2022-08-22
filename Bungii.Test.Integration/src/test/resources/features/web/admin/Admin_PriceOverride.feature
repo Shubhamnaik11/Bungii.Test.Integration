@@ -37,6 +37,7 @@ Feature: Admin_Price_Override
     And I get the old values of "Driver cut" for "Service level"
     And I check if "Price Override" button is displayed
     And I click on "Price Override" button on delivery details
+    And "Save" and "Cancel" buttons should have background color "blue" and "white" respectively
     And I change the "Customer price"
     And I select Reason as "Custom Quote"
     And I change the "Driver cut"
@@ -368,7 +369,8 @@ Feature: Admin_Price_Override
     Then "Bungii Saved!" message should be displayed
 
 
-  @regression
+  @ready
+
   Scenario: Verify fnd deliveries and driver app for change Service Level after override for driver earnings and customer cost before driver accepts and check if indicator is displayed
     When I navigate to "Partner" portal configured for "FloorDecor service level" URL
     And I enter "valid" password on Partner Portal

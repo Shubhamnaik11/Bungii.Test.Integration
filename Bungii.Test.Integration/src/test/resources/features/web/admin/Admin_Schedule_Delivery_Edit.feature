@@ -198,3 +198,52 @@ Feature: Admin_Schedule_Delivery_Edit
     And I wait for "2" mins
     When I view the delivery details in admin portal
     And I confirm Pickup note is "Added"
+
+#    Core-3922 Verify trip is highlighted when gap in scheduled time and initial request time is less than 24hrs (Partner portal)
+  @ready
+  Scenario: Verify trip is highlighted when gap in scheduled time and initial request time is less than 24hrs (Partner portal)
+    Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
+      | NEXT_POSSIBLE_FIRST_SLOT | 8877661022     | Cci12345          | Testcustomertywd_appleMarkW LutherW |
+    And I wait for "3" mins
+    When  I search the delivery using "Pickup Reference"
+    #CORE-3295:Verify status is shown as 'No Driver(s) Found' on All deliveries screen when required number of drivers has not accepted the trip
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then The delivery should be in "Assigning Driver(s)" state
+    Then I should be able to see the respective bungii with the below status
+      | Status           |
+      | Assigning Driver(s)|
+    When I click on the "Delivery Details" button from the dropdown
+    Then The delivery should show "Assigning Driver(s)" status on delivery details
+    And I wait for "3" mins
+    And I wait for "3" mins
+    And I view the Live Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+    When I click on the "Delivery Details" button from the dropdown
+    Then The delivery should show "Assigning Driver(s)" status on delivery details
+    And I wait for "3" mins
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s) |
+    And I wait for "3" mins
+    And I view the all Scheduled Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+    Then The delivery should be in "Assigning Driver(s) with no loader" state
+    When I click on the "Delivery Details" button from the dropdown
+    Then The delivery should show "No Driver(s) Found" status on delivery details
+#    Core-3922 Verify that deliveries are highlighted only on Scheduled and Live deliveries page
+    Then I should see the "orange" background colour
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s) |
+    Then The delivery should be in "Assigning Driver(s) with no loader" state
+    When I click on the "Delivery Details" button from the dropdown
+    Then The delivery should show "No Driver(s) Found" status on delivery details
+    Then I should see the "orange" background colour
+    And I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The delivery should be in "No Driver(s) Found" state
+    When I click on the "Delivery Details" button from the dropdown
+    Then The delivery should show "No Driver(s) Found" status on delivery details

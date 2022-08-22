@@ -521,6 +521,9 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_drvK WashingtonK":
                 phone = PropertyUtility.getDataProperties("Washington.driver13.phone");
                 break;
+            case "Testdrivertywd_appleks_a_drvba Kansas_ba":
+                phone = PropertyUtility.getDataProperties("Kansas.driver49.phone");
+                break;
             case "Testdrivertywd_applega_a_steveB Stark_altOnEB":
                 phone = PropertyUtility.getDataProperties("atlanta.driver1.phone");
                 break;
@@ -535,6 +538,18 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "Testdrivertywd_applega_a_steveF Stark_altOnEF":
                 phone = PropertyUtility.getDataProperties("atlanta.driver5.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvbc Kansas_bc":
+                phone = PropertyUtility.getDataProperties("Kansas.driver51.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvbd Kansas_bd":
+                phone = PropertyUtility.getDataProperties("Kansas.driver52.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvbe Kansas_be":
+                phone = PropertyUtility.getDataProperties("Kansas.driver53.phone");
+                break;
+            case "Testdrivertywd_appleks_a_drvbf Kansas_bf":
+                phone = PropertyUtility.getDataProperties("Kansas.driver54.phone");
                 break;
             case "Testdrivertywd_appledc_a_drvL WashingtonL":
                 phone = PropertyUtility.getDataProperties("Washington.driver14.phone");
@@ -2384,6 +2399,7 @@ public class BungiiSteps extends DriverBase {
             String geofence = dataMap.get("geofence").trim();
                 String scheduleTime = dataMap.get("Bungii Time").trim();
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+            cucumberContextManager.setScenarioContext("TripType","Duo");
 
             String state = dataMap.get("Bungii State").trim();
             String customer = dataMap.get("Customer").trim();

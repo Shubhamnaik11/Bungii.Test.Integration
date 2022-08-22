@@ -355,7 +355,7 @@ Scenario:To verify that for converted trip from duo to solo does not display the
 	Then The bungii teammate icon should not be displayed
 
 #CORE-3507 : To verify that vehicle info is displayed on duo teammate screen for duo customer trip
-@testAllan
+@ready
 Scenario:To verify that vehicle info is displayed on duo teammate screen for duo customer trip
 Given that duo schedule bungii is in progress
 | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |

@@ -23,7 +23,7 @@ import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_DriverApprovalSteps extends DriverBase {
-    private static final LogUtility logger = new LogUtility(Admin_DriverApprovalSteps.class);
+    private static LogUtility logger = new LogUtility(Admin_DriverApprovalSteps.class);
     Admin_LoginPage adminLoginPage = new Admin_LoginPage();
     Admin_MenuLinksPage adminMenuLinksPage = new Admin_MenuLinksPage();
     Admin_DashboardPage adminDashboardPage = new Admin_DashboardPage();
@@ -262,6 +262,18 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^I should see \"([^\"]*)\" submenu$")
+    public void i_should_see_something_submenu(String submenu) throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(admin_partnerPortalPage.Menu_UnlockPartners(),"I should see "+submenu+" submenu", "I see "+submenu+" submenu", "I do not see "+submenu+" submenu");
+
+
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 
     @And("^I verify and approve all the verification fields$")
     public void i_verify_and_approve_all_the_verification_fields() throws Throwable {
@@ -313,7 +325,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.click(admin_DriverVerificationPage.Button_DriverResentButton());
                     break;
                 case "Cancel":
-                    action.click(admin_DriverVerificationPage.Button_Cancel());
+                    if(action.isElementPresent(admin_GeofencePage.Text_GeoHistory())){
+                        action.click(admin_GeofencePage.Button_GeofenceCancel());
+                    }
+                    else {
+                        action.click(admin_DriverVerificationPage.Button_Cancel());
+                    }
                     break;
                 case "New Code":
                     action.click(admin_PromoCodesPage.Button_NewCode());

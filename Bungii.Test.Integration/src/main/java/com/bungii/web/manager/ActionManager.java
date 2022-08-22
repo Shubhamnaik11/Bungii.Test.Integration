@@ -215,7 +215,19 @@ public class ActionManager {
                 true);
     }
     }
+    public void Hover(WebElement element) {
+        try{
+            Actions action = new Actions(SetupManager.getDriver());
+            action.moveToElement(element).build().perform();
+            logger.detail("Hover on element by locator" + getElementDetails(element));
 
+        }  catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to Hover on element -> " + getElementDetails(element) ,
+                    true);
+        }
+    }
     public void JavaScriptScrolldown(){
         JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
         executor.executeScript("window.scrollBy(0,200)","");

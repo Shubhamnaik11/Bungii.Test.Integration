@@ -121,6 +121,11 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Title_BungiiStatus2() { return findElement("//*[@resource-id='com.bungii.driver:id/activity_driver_pickup_details_toolbar']/android.view.ViewGroup/android.widget.TextView[1]", LocatorType.XPath); }
     public WebElement Text_ETA() { return findElement("//*[@resource-id='com.bungii.driver:id/activity_driver_pickup_details_toolbar']/android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[2]", LocatorType.XPath); }
 
+    //Photo Verification by driver
+    public WebElement Text_PhotoVerification(){return findElement("//android.widget.LinearLayout/android.view.ViewGroup/android.widget.TextView",LocatorType.XPath);}
+    public WebElement Tab_AddPhoto(){return findElement("com.bungii.driver:id/appCompatImageView19",LocatorType.Id);}
+    public WebElement Button_SavePhotos(){return findElement("com.bungii.driver:id/activity_photo_verification_btn_save",LocatorType.Id);}
+
 
     //*[@resource-id='com.bungii.driver:id/activity_driver_pickup_details_toolbar']/android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]
     //DriverRatingcustomer screen
