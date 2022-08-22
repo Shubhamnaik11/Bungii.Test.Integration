@@ -513,6 +513,7 @@ public class AvailableTripsSteps extends DriverBase {
     @Then("^I check already accepted pallet pop up is displayed$")
     public void i_check_already_accepted_pallet_pop_up_is_displayed() throws Throwable {
         try{
+            action.click(scheduledTripsPage.Button_Accept());
             String expectedSnackMsg = PropertyUtility.getMessage("pallet.already.accepted.message");
             testStepVerify.isEquals(utility.getDriverSnackBarMessage(), expectedSnackMsg);
 

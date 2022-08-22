@@ -1615,7 +1615,6 @@ public class CommonSteps extends DriverBase {
             switch (pallet){
                 case "Pallet-1":
                     action.scrollToBottom();
-                    action.scrollToBottom();
                     action.click(scheduledTripsPage.RadioButton_PalletOne());
                     break;
                 case "Pallet-1 available page":

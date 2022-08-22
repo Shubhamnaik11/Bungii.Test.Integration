@@ -247,7 +247,6 @@
 #  Driver : 9049840256 Payload capacity : 1011 lbs
 #  Core-2418: Verify Driver Pricing by weight for Duo delivery with both Pallet weight lies same tier for Floor and Decor Partner
     @ready
-#      @testsweta
     Scenario:Verify Driver Pricing by weight for Duo delivery with both Pallet weight lies same tier for Floor n Decor Partner
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
@@ -369,7 +368,6 @@
 #  Driver : 9049840258 Payload capacity : 1111 lbs
 #  Core-2546: Verify for DUO delivery when a pallet is already accepted by driver it is not available for other driver
     @ready
-#      @testsweta
     Scenario:Verify for DUO delivery when a pallet is already accepted by driver it is not available for other driver
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
@@ -381,8 +379,6 @@
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
         |washingtondc| NEXT_POSSIBLE | 8877661092 | Testcustomertywd_appleMarkCO LutherCO|
 
-      When I switch to "ORIGINAL" instance
-      When I Switch to "driver" application on "same" devices
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
 #   Core-2546: Verify pallet details are displayed on AVAILABLE Bungii menu
@@ -395,7 +391,6 @@
 #   Core-2546: Verify pallet details are displayed on SCHEDULE Bungii menu
       And I check "pallet-1" details are displayed on "schedule bungii" page
       And I tap on "Back" button of android mobile
-
       And I connect to "extra1" using "Driver2" instance
       And I Open "driver" application on "same" devices
       And I am on the LOG IN page on driver app
@@ -405,7 +400,6 @@
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       And I select "Pallet-1" from items
-      And I tap on "ACCEPT" on driver Trip details Page
       Then I check already accepted pallet pop up is displayed
 
 
