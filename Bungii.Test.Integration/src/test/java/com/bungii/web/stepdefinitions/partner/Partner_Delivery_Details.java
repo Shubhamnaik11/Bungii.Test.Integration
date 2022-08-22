@@ -1,7 +1,6 @@
 package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
-import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -50,7 +49,6 @@ public class Partner_Delivery_Details extends DriverBase {
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     ActionManager action = new ActionManager();
     DbUtility dbUtility = new DbUtility();
-    GeneralUtility utility = new GeneralUtility();
 
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
