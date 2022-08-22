@@ -607,7 +607,7 @@ Feature: Scheduled DUO Bungii
     And I should be navigated to "Rate duo teammate" screen
 
 
-  @testIos
+#  @testIos
   Scenario: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
 
     When I Switch to "driver" application on "same" devices
@@ -645,10 +645,14 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     When I slide update button on "EN ROUTE" Screen
+    And I click on "GOT IT" button
+    And I slide update button on "ARRIVED" Screen
     And I slide update button on "ARRIVED" Screen
     And I accept Alert message for "Reminder: both driver at pickup"
 
     And I Switch to "driver" application on "driver2" devices
     When I slide update button on "EN ROUTE" Screen
+    And I click on "GOT IT" button
+    And I slide update button on "ARRIVED" Screen
     And I slide update button on "ARRIVED" Screen
     And I accept Alert message for "Reminder: both driver at pickup"

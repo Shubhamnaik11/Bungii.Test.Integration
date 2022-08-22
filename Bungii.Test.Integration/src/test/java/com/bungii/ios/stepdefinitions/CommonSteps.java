@@ -3421,6 +3421,13 @@ public class CommonSteps extends DriverBase {
                 boolean isCustomerHelpIconDisplayed = scheduledTripsPage.Icon_CustomerHelp().isDisplayed();
                 testStepAssert.isTrue(isCustomerHelpIconDisplayed,"Customer help icon should be displayed","Customer help icon is displayed","Customer help icon is not displayed");
                 break;
+            case "DUO LIFT":
+                boolean isDuoLiftDisplayed = scheduledTripsPage.Label_SoloLift().isDisplayed();
+                testStepAssert.isTrue(isDuoLiftDisplayed,"Solo Lift label should be displayed","Solo Lift label is displayed","Solo Lift label is not displayed");
+                String expectedDuoLiftMessage = PropertyUtility.getDataProperties("solo.lift.message");
+                String duoLiftInstructions = action.getText(scheduledTripsPage.Text_SoloLiftMessage());
+                testStepVerify.isEquals(duoLiftInstructions,expectedDuoLiftMessage,expectedDuoLiftMessage+" Message should be displayed",duoLiftInstructions+" Message is displayed",expectedDuoLiftMessage+" Message is not displayed");
+                break;
         }
     }
 
