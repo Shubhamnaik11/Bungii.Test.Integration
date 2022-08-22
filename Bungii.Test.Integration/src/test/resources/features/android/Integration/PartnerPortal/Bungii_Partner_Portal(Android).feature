@@ -299,12 +299,11 @@
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
       And I click on the back button and verify that rejection popup is absent
-      And I tap on "Back" button of android mobile
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       Then I verify the driver earnings displayed on driver app for "duo"
 #   Core-2537: Verify whether driver can accept delivery that are upto 100 lb more then the payload
-      And I select "Pallet-1" from items
+      And I select "Pallet-1 available page" from items
       And I tap on "ACCEPT" on driver Trip details Page
       Then I should be navigated to "AVAILABLE BUNGIIS" screen
 

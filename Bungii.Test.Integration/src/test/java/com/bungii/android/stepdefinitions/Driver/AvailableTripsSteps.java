@@ -151,6 +151,9 @@ public class AvailableTripsSteps extends DriverBase {
     @And("^I Select Trip from available trip$")
     public void i_select_trip_from_available_trip() throws Throwable {
         try{
+            if(action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true))){
+                action.click(Page_BungiiRequest.Button_No_Thanks());
+            }
             Thread.sleep(6000);
             String expectedText = action.getText(availableTrips.Text_FromHomeMiles());
             boolean textDisplayed = (expectedText.contains("miles") || expectedText.contains("mile") )? true : false;
