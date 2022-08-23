@@ -16,7 +16,6 @@ import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.web.pages.admin.*;
 import com.google.common.collect.ImmutableMap;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -1459,12 +1458,6 @@ public class CommonSteps extends DriverBase {
     }
     }
 
-    @And("^I wait for \"([^\"]*)\" minutes$")
-    public void i_wait_for_something_minutes(String strArg1) throws Throwable {
-        Thread.sleep(120000);
-        pass("I wait for 2 minutes",
-                "I waited for 2 minutes");
-    }
 
     @And("^I enter cancellation fee and Comments$")
     public void i_enter_cancellation_fee_and_comments() throws Throwable {

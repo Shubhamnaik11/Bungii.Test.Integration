@@ -15,7 +15,6 @@ import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.stepdefinitions.driver.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
-import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
