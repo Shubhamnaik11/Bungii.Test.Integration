@@ -3415,21 +3415,17 @@ public class CommonSteps extends DriverBase {
                 testStepVerify.isEquals(soloLiftInstructions,expectedSoloLiftMessage,expectedSoloLiftMessage+" Message should be displayed",soloLiftInstructions+" Message is displayed",expectedSoloLiftMessage+" Message is not displayed");
                 break;
             case "CUSTOMER HELP":
-//                boolean isCustomerHelpIconDisplayed = scheduledTripsPage.Label_SoloLift().isDisplayed();
-//                testStepAssert.isTrue(isCustomerHelpIconDisplayed,"Customer help icon should be displayed","Customer help icon is displayed","Customer help icon is not displayed");
                 boolean isCustomerHelpLabelDisplayed = scheduledTripsPage.Label_CustomerHelp().isDisplayed();
                 testStepAssert.isTrue(isCustomerHelpLabelDisplayed,"Solo Lift header should be displayed","Solo Lift header is displayed","Solo Lift header is not displayed");
                 String expectedCustomerHelpMessage = PropertyUtility.getDataProperties("customer.help.message");
                 String customerHelpInstructions = action.getText(scheduledTripsPage.Text_CustomerHelpMessage());
                 testStepVerify.isEquals(customerHelpInstructions,expectedCustomerHelpMessage,expectedCustomerHelpMessage+" Message should be displayed",customerHelpInstructions+" Message is displayed",expectedCustomerHelpMessage+" Message is not displayed");
-                boolean isCustomerHelpIconDisplayed = scheduledTripsPage.Icon_CustomerHelp().isDisplayed();
-                testStepAssert.isTrue(isCustomerHelpIconDisplayed,"Customer help icon should be displayed","Customer help icon is displayed","Customer help icon is not displayed");
                 break;
             case "DUO LIFT":
-                boolean isDuoLiftDisplayed = scheduledTripsPage.Label_SoloLift().isDisplayed();
-                testStepAssert.isTrue(isDuoLiftDisplayed,"Solo Lift label should be displayed","Solo Lift label is displayed","Solo Lift label is not displayed");
-                String expectedDuoLiftMessage = PropertyUtility.getDataProperties("solo.lifted.message");
-                String duoLiftInstructions = action.getText(scheduledTripsPage.Text_SoloLiftMessage());
+                boolean isDuoLiftDisplayed = scheduledTripsPage.Label_DuoLift().isDisplayed();
+                testStepAssert.isTrue(isDuoLiftDisplayed,"Duo Lift label should be displayed","Duo Lift label is displayed","Duo Lift label is not displayed");
+                String expectedDuoLiftMessage = PropertyUtility.getDataProperties("duo.lift.message");
+                String duoLiftInstructions = action.getText(scheduledTripsPage.Text_DuoLiftMessage());
                 testStepVerify.isEquals(duoLiftInstructions,expectedDuoLiftMessage,expectedDuoLiftMessage+" Message should be displayed",duoLiftInstructions+" Message is displayed",expectedDuoLiftMessage+" Message is not displayed");
                 break;
         }

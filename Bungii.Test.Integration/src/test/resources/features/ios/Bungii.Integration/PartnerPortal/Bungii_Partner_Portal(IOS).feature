@@ -388,7 +388,7 @@ Feature: Partner Portal Cases integration with IOS
     And I select "Pallet-1" from items
     And I accept selected Bungii
     Then I check already accepted pallet pop up is displayed
-  @testAllan
+#  @testAllan
   Scenario:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
     When I request Partner Portal "Duo" Trip for "Tile Shop" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -436,7 +436,7 @@ Feature: Partner Portal Cases integration with IOS
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
 
-  @testAllan
+#  @testAllan
   Scenario: To verify the icon when DUO lift delivery is converted to SOLO with checkbox (partner/customer)
     When I request Partner Portal "Duo" Trip for "Equip-bid" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |

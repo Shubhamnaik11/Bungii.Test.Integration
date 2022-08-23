@@ -607,9 +607,8 @@ Feature: Scheduled DUO Bungii
     And I should be navigated to "Rate duo teammate" screen
 
 
-#  @testIos
-  Scenario: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
-
+  @testAllan
+  Scenario: To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_applens_a_kayR Stark_nsOnER" driver
@@ -628,31 +627,68 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "ORIGINAL" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
-    When I accept selected Bungii
+    And I select "Pallet-1" from items
+    Then I should see "DUO LIFT" header displayed
+    And I accept selected Bungii
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
-    Then I should see "CUSTOMER HELP" header displayed
+    Then I should see "DUO LIFT" header displayed
     And I start selected Bungii
 
     And I Switch to "driver" application on "driver2" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
+    Then I should see "DUO LIFT" header displayed
     When I accept selected Bungii
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
-    Then I should see "CUSTOMER HELP" header displayed
+    Then I should see "DUO LIFT" header displayed
     And I start selected Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
     And I slide update button on "ARRIVED" Screen
+    When Bungii driver uploads "1" image
     And I slide update button on "ARRIVED" Screen
-    And I accept Alert message for "Reminder: both driver at pickup"
 
     And I Switch to "driver" application on "driver2" devices
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
     And I slide update button on "ARRIVED" Screen
+    When Bungii driver uploads "1" image
     And I slide update button on "ARRIVED" Screen
-    And I accept Alert message for "Reminder: both driver at pickup"
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "LOADING ITEM" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "LOADING ITEM" Screen
+
+    And I Switch to "driver" application on "driver2" devices
+    And I slide update button on "LOADING ITEM" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "LOADING ITEM" Screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should see "DUO LIFT" header displayed
+    And I click on "GOT IT" button
+
+    And I Switch to "driver" application on "driver2" devices
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should see "DUO LIFT" header displayed
+    And I click on "GOT IT" button
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    And I should be navigated to "Rate duo teammate" screen
+
+    And I Switch to "driver" application on "driver2" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    And I should be navigated to "Rate duo teammate" screen
