@@ -41,6 +41,10 @@ import com.bungii.ios.stepdefinitions.driver.*;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -3450,5 +3454,54 @@ public class CommonSteps extends DriverBase {
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+    @Then("^The \"([^\"]*)\" deliveries should have a lead time for \"([^\"]*)\" partner portal$")
+    public void the_something_deliveries_should_have_a_lead_time_for_something_partner_portal(String deliveryType, String partnerLocation) throws Throwable {
+        switch (partnerLocation){
+            case "Kansas":
+                ZoneId zoneId = ZoneId.of("America/Chicago");
+                ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.now(), zoneId);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                String expectedTime = zonedDateTime.format(formatter);
+                if(deliveryType.equalsIgnoreCase("Solo")){
+//            String timeInMiliSeconds = dbUtility.getPartnerPortalLeadTimeSoloDelivery();
+                    String timeInMiliSeconds = "1800000";
+                    int timeInMinutes = Integer.parseInt(timeInMiliSeconds)/60000;
+                    zonedDateTime = zonedDateTime.plusMinutes(timeInMinutes);
+
+                }
+                else{
+//                    String timeInMiliSeconds = dbUtility.getPartnerPortalLeadTimeSoloDelivery();
+                    String timeInMiliSeconds = "1800000";
+                    int timeInMinutes = Integer.parseInt(timeInMiliSeconds)/60000;
+                    zonedDateTime = zonedDateTime.plusMinutes(timeInMinutes);
+                }
+                expectedTime = zonedDateTime.format(formatter);
+                int minutes = zonedDateTime.getMinute();
+                int difference = 0;
+                if(minutes > 0 && minutes < 15) {
+                    difference = 15 - minutes;
+                } else if (minutes > 15 && minutes < 30) {
+                    difference = 30 - minutes;
+                } else if (minutes > 30  && minutes < 45) {
+                    difference = 45 - minutes;
+                } else if(minutes > 45) {
+                    difference = 60 - minutes;
+                }
+                zonedDateTime =  zonedDateTime.plusMinutes(difference);
+                expectedTime = zonedDateTime.format(formatter);
+                System.out.println(expectedTime);
+                cucumberContextManager.setScenarioContext("ExpectedLeadTimeDelivery",expectedTime);
+                break;
+        }
+    }
+    @Then("^The scheduled delivery time should match with the added lead time$")
+    public void the_scheduled_delivery_time_should_match_with_the_added_lead_time() throws Throwable {
+       Thread.sleep(3000);
+       String deliveryWithLeadTimeAdded = (String) cucumberContextManager.getScenarioContext("ExpectedLeadTimeDelivery");
+       String [] expectedTime = action.getText(scheduledTripsPage.Text_ScheduledTimeAdminPortal()).split(" ");
+       String time = expectedTime[3] +" "+expectedTime[4];
+       testStepVerify.isEquals(time,deliveryWithLeadTimeAdded,"Delivery with lead time should be " + deliveryWithLeadTimeAdded,"Delivery with lead time is " + time,"Delivery with lead time is not " + deliveryWithLeadTimeAdded);
+
     }
 }

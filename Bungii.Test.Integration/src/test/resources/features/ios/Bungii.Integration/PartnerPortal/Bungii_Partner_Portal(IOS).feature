@@ -314,7 +314,7 @@ Feature: Partner Portal Cases integration with IOS
     And I get the driver earnings displayed for "solo"
     Then I calculate the driver share and check for "duo to solo conversion"
 
-  @testIos
+  @testAllan
   Scenario:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
     When I request Partner Portal "Duo" Trip for "Tile Shop" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -362,14 +362,23 @@ Feature: Partner Portal Cases integration with IOS
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
 
-#  @testIos
-  Scenario: customer help
-    When I request Partner Portal "SOLO" Trip for "Equip-bid" partner
+  @testAllan
+  Scenario: To verify the icon when DUO lift delivery is converted to SOLO with checkbox (partner/customer)
+    When I request Partner Portal "Duo" Trip for "Equip-bid" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |kansas| NEXT_POSSIBLE | 8877661036 | Testcustomertywd_appleMarkAK LutherAK|
+#    Then The "Solo" deliveries should have a lead time for "Kansas" partner portal
+#    When I open new "Chrome" browser for "ADMIN PORTAL"
+#    And I wait for 2 minutes
+#    And I navigate to admin portal
+#    And I log in to admin portal
+#    And I Select "Scheduled Trip" from admin sidebar
+#    And I open the trip for "Testcustomertywd_appleMarkAK LutherAK" the customer
+#    Then The scheduled delivery time should match with the added lead time
+    When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_applens_a_kayQ Stark_nsOnEQ" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drvbg Kansas_bg" driver
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
     Then I should see "CUSTOMER HELP" header displayed

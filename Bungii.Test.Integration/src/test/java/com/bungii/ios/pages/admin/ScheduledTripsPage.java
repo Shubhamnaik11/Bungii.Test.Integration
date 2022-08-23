@@ -108,5 +108,6 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Icon_CustomerHelp() {return findElement("//XCUIElementTypeStaticText[@name=\"CUSTOMER HELP\"]/preceding-sibling::XCUIElementTypeOther", LocatorType.XPath);}
     public WebElement Label_CustomerHelp() { return findElement("SOLO LIFT", LocatorType.AccessibilityId); }
     public WebElement Text_CustomerHelpMessage() { return findElement("The customer will help you unload the item(s)", LocatorType.AccessibilityId); }
+    public WebElement Text_ScheduledTimeAdminPortal() { return findElement("//tr[@id='row1']/td[5]/a", LocatorType.XPath); }
 
 }
