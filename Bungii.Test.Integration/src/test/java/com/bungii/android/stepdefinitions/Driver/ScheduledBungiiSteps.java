@@ -162,6 +162,9 @@ public class ScheduledBungiiSteps extends DriverBase {
     @And("I Select Trip from driver scheduled trip")
     public void iSelectTripFromDriverScheduledTrip() {
         try{
+            if(action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true))){
+                action.click(Page_BungiiRequest.Button_No_Thanks());
+            }
         boolean skipNormalFlow = false;
         boolean isSelected = false;
         if(action.isNotificationAlertDisplayed()){

@@ -99,6 +99,8 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Select_EditReason() {return findElement("ddEditDeliveryRemark",LocatorType.Id);}
     public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
+    public WebElement Text_PartnerNameLiveDeliveryPage() { return findElement("//tbody[@id='TripListsTBody']/tr[1]/td[9]",LocatorType.XPath);}
+
     public WebElement Textbox_CancellationFee () { return findElement("txtCancellationFee", LocatorType.Id); }
     public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
     public WebElement Label_CancelSuccessMessage () { return findElement("//p[@id='cancel-success-message']/i[2]", LocatorType.XPath); }

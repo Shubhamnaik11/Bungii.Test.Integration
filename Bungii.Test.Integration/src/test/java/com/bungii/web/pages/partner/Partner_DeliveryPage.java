@@ -200,5 +200,10 @@ public class Partner_DeliveryPage extends PageBase {
     // 0 delivery present error
     public WebElement Text_NoDeliveryError() { return findElement("err",LocatorType.ClassName);}
 
+    //Partner portal delivery details page delivery status
+    public WebElement Text_PartnerDeliveryStatus(String status) { return findElement(String.format("//div[@class ='delivery-status']/div/div/label[text() ='%s']",status),LocatorType.XPath);}
+
+    //Partner portal delivery details page step completion time
+    public WebElement Text_DeliveryCompletedStepTime(int number) { return findElement(String.format("//div[%d]/div/p[@class=\"timeStamp\"]",number),LocatorType.XPath);}
 
 }

@@ -26,5 +26,8 @@ public class Admin_DashboardPage extends PageBase {
     public WebElement TextBox_SearchCustomer() { return findElement("txtSearchCustomer", LocatorType.Id); }
 
     public WebElement Textbox_DriverSearch () { return findElement("txtSearchDriver",LocatorType.Id);}
+    public WebElement Link_Drivers() { return findElement("//*[@id='adminmenu-drivers-menu']/a", LocatorType.XPath); }
+    public WebElement Link_Customers() { return findElement("//*[@id='adminmenu-customers']/a", LocatorType.XPath); }
+    public WebElement Link_NonActiveDriver() { return findElement("//*[@id='adminmenu-customers']/a", LocatorType.XPath); }
 
 }
