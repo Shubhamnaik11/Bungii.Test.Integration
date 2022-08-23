@@ -174,7 +174,7 @@ Feature: Partner Portal Cases integration with IOS
     And I slide update button on "ARRIVED" Screen
     Then Bungii driver should see "Pickup instructions"
     And I slide update button on "ARRIVED" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
 
 #    Core-2418 Verify Driver Pricing is recalculated for Floor n Decor delivery when admin edits the address and service level of Live Trip
@@ -205,12 +205,12 @@ Feature: Partner Portal Cases integration with IOS
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then Bungii driver should see "Drop-off instructions"
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
