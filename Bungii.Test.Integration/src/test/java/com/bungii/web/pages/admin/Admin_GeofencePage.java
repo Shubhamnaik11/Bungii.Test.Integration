@@ -129,4 +129,8 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Value_Phone() { return findElement("//tbody/tr[@id='historyID0']/td[5]",LocatorType.XPath);}
     public WebElement Value_Changes() { return findElement("//tbody/tr[@id='historyID0']/td[6]/a",LocatorType.XPath);}
 
+    public WebElement Text_GeofenceHighlighted() { return findElement("//ul/li/div/span/mark", LocatorType.XPath);}
+
+    public List<WebElement> List_GeofenceRegions() { return findElements("//div[@id=\"tree\"]/ul/li/div/span[4]", LocatorType.XPath);}
+
 }
