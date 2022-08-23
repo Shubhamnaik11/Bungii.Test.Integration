@@ -170,8 +170,6 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                         String excessWaitTime = feeType.replace(" ", "");
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(1));
                         Thread.sleep(2000);
-                        cucumberContextManager.setScenarioContext("ExcessWaitCut", action.getText(admin_accessorialChargesPage.Text_DriverCut(excessWaitTime)).replace("Testdrivertywd_appledc_a_drva Driver's cut: $", ""));
-                        testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("ExcessWaitCut"), "Excess Wait time driver cut charges should match", "Excess Wait time driver cut charges match", "Excess Wait time driver cut charges dont match");
                         String entireDriverCutForExcessWaitime[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(excessWaitTime)).split("\\$");
 
                         String  properDriverCutForExcessWaitTime =entireDriverCutForExcessWaitime[1];
@@ -260,6 +258,8 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     @And("^I search the delivery of Customer$")
     public void i_search_the_delivery_of_customer() throws Throwable {
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        //pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
+
         String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         Thread.sleep(10000);
         action.clearSendKeys(admin_TripsPage.TextBox_Search(),pickuprequest+Keys.ENTER);
