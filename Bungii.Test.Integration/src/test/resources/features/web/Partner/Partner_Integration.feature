@@ -914,3 +914,43 @@ Feature: Partner Integration with Admin and Driver
       | Status    |
       | Assigning Driver(s) |
     And I should see the delivery highlighted in "Red"
+
+    @test30
+      #this is to test SQS /SNS changes
+    Scenario Outline: To create multiple partner portal trips
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | <Customer_Phone> | <Customer_Name>|
+
+      Examples:
+      |Customer_Phone|Customer_Name                         |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
