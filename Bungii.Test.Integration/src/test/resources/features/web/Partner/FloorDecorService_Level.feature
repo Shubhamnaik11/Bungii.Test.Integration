@@ -53,9 +53,3 @@ Feature: Floor and Decore Service Level
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then I verify alias is displayed correctly on "all delivery page"
-
-#    @testWeb
-#    Scenario: Verify that 1pallet and 2pallets are shown instead of solo and duo for floor and decor partner portal
-#      When I request Partner Portal "SOLO" Trip for "Equip-bid" partner
-#        |Geofence| Bungii Time   | Customer Phone | Customer Name |
-#        |kansas| NEXT_POSSIBLE | 8877661036 | Testcustomertywd_appleMarkAK LutherAK|

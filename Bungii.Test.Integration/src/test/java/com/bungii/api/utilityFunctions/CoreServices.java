@@ -2539,22 +2539,6 @@ public class CoreServices extends DriverBase {
             JSONArray customFields = new JSONArray();
 
            JSONArray ItemsToDeliver = new JSONArray();
-//            if (No_Of_Driver.equalsIgnoreCase("1")) {
-//                           JSONArray ItemsToDeliver = new JSONArray();
-//
-//            }
-//
-//            } else {
-//                       JSONArray ItemsToDeliver = new JSONArray();
-//
-////                //items details for duo
-////                JSONObject firstDeliverables = new JSONObject();
-////                JSONObject secondDeliverables = new JSONObject();
-//////                firstDeliverables.put("Dimensions",dimensionsItemOne);
-//////                ItemsToDeliver.put(firstDeliverables);
-//////                secondDeliverables.put("Dimensions",dimensionsItemTwo);
-//////                ItemsToDeliver.put(secondDeliverables);
-////            }
 
 
             //static fields
