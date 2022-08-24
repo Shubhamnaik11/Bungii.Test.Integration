@@ -135,6 +135,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Dropdown_ScheduledDateTime() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
     public WebElement RadioButton_Solo() { return findElement("//input[@value='Solo']", LocatorType.XPath); }
     public WebElement Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
+    public WebElement Button_Accept() { return findElement("com.bungii.driver:id/activity_pickup_request_accept_available_pickup_button", PageBase.LocatorType.Id); }
 
 
     public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
@@ -173,5 +174,15 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_DuoDriver1EarningsApp() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[2]", LocatorType.XPath);}
     public WebElement Text_DuoDriver2EarningsApp() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.TextView[2]", LocatorType.XPath);}
 
+    public WebElement RadioButton_PalletOne() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.RadioButton", LocatorType.XPath);}
+    public WebElement RadioButton_PalletTwo() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.RadioButton", LocatorType.XPath);}
+    public WebElement Text_PalletOne() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PalletTwo() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PalletOneWeight() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PalletOneDimensions() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Text_PalletOneName() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[3]", LocatorType.XPath); }
+    public WebElement Text_PalletOneWeightSchedulePage() { return findElement("//androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PalletOneDimensionsSchedulePage() { return findElement("//androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Text_PalletOneNameSchedulePage() { return findElement("//android.view.ViewGroup/android.widget.TextView[2]", LocatorType.XPath); }
 
 }
