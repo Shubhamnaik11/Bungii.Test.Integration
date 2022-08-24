@@ -606,8 +606,8 @@ Feature: Scheduled DUO Bungii
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
-
-  @testAllan
+#CORE-3271:To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
+  @ready
   Scenario: To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -622,7 +622,7 @@ Feature: Scheduled DUO Bungii
 
     When I request Partner Portal "Duo" Trip for "Tile Shop" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |nashville| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+      |nashville| NEXT_POSSIBLE | 8877661095 | Testcustomertywd_appleMarkCR LutherCR|
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
@@ -638,6 +638,7 @@ Feature: Scheduled DUO Bungii
     And I Switch to "driver" application on "driver2" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
+    And I select "Pallet-2" from items
     Then I should see "DUO LIFT" header displayed
     When I accept selected Bungii
     And I Select "SCHEDULED BUNGIIS" from driver App menu

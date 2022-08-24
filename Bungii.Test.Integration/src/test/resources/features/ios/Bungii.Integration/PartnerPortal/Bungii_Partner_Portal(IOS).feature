@@ -388,18 +388,20 @@ Feature: Partner Portal Cases integration with IOS
     And I select "Pallet-1" from items
     And I accept selected Bungii
     Then I check already accepted pallet pop up is displayed
-#  @testAllan
+
+#CORE-3271:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
+  @ready
   Scenario:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
     When I request Partner Portal "Duo" Trip for "Tile Shop" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |nashville| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
-    And I wait for 2 minutes
+      |nashville| NEXT_POSSIBLE | 8877661093 | Testcustomertywd_BppleMarkCP LutherCP|
 
+    And I wait for 2 minutes
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkAR LutherAR" the customer
+    And I open the trip for "Testcustomertywd_BppleMarkCP LutherCP" the customer
     And I click on the "Edit" button from the dropdown
     And I Select "Edit Trip Details" option
     And I change delivery type from "Duo to Solo"
@@ -408,7 +410,6 @@ Feature: Partner Portal Cases integration with IOS
     Then I click on "SAVE CHANGES" button
     Then the "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
-
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -436,19 +437,20 @@ Feature: Partner Portal Cases integration with IOS
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
 
-#  @testAllan
-  Scenario: To verify the icon when DUO lift delivery is converted to SOLO with checkbox (partner/customer)
+#CORE-3271:To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
+  @ready
+  Scenario: To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
     When I request Partner Portal "Duo" Trip for "Equip-bid" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |kansas| NEXT_POSSIBLE | 8877661036 | Testcustomertywd_appleMarkAK LutherAK|
-#    Then The "Solo" deliveries should have a lead time for "Kansas" partner portal
-#    When I open new "Chrome" browser for "ADMIN PORTAL"
-#    And I wait for 2 minutes
-#    And I navigate to admin portal
-#    And I log in to admin portal
-#    And I Select "Scheduled Trip" from admin sidebar
-#    And I open the trip for "Testcustomertywd_appleMarkAK LutherAK" the customer
-#    Then The scheduled delivery time should match with the added lead time
+      |kansas| NEXT_POSSIBLE | 8877661094  | Testcustomertywd_appleMarkCQ LutherCQ|
+    Then The "Solo" deliveries should have a lead time for "Kansas" partner portal
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I wait for 2 minutes
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkAK LutherAK" the customer
+    Then The scheduled delivery time should match with the added lead time
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -474,3 +476,10 @@ Feature: Partner Portal Cases integration with IOS
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkCQ LutherCQ" the customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then "Customer Help" icon should be displayed in all deliveries details page

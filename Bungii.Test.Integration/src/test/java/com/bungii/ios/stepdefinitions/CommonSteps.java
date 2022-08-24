@@ -3404,6 +3404,7 @@ public class CommonSteps extends DriverBase {
 
     @Then("^I should see \"([^\"]*)\" header displayed$")
     public void i_should_see_something_header_displayed(String strArg1) throws Throwable {
+        try{
         action.swipeUP();
         Thread.sleep(3000);
         switch (strArg1){
@@ -3429,28 +3430,32 @@ public class CommonSteps extends DriverBase {
                 testStepVerify.isEquals(duoLiftInstructions,expectedDuoLiftMessage,expectedDuoLiftMessage+" Message should be displayed",duoLiftInstructions+" Message is displayed",expectedDuoLiftMessage+" Message is not displayed");
                 break;
         }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
-    @When("^I click on the \"([^\"]*)\" button from the dropdown$")
-    public void i_click_on_the_something_button_from_the_dropdown(String buttonText) throws Throwable {
-        try {
-            Thread.sleep(5000);
-//            action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
-            switch (buttonText) {
-                case "Delivery Details":
-//                    action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
-                    break;
-                case "Edit":
-//                    action.click(admin_EditScheduledBungiiPage.Button_Edit());
+    @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
+    public void i_click_on_the_something_link_beside_scheduled_bungii_for_something(String strArg1, String deliveryType) throws Throwable {
+        try{
+            switch (deliveryType){
+                case "Completed Deliveries":
+                    Thread.sleep(4000);
+                    action.click(scheduledTripsPage.Link_DeliveryDetails());
+                    Thread.sleep(2000);
+                    action.click(scheduledTripsPage.List_ViewDeliveries());
                     break;
             }
-            log("I should be able to click on the " + buttonText + " button from the dropdown", "I could  click on the  " + buttonText + "  button from the dropdown", false);
-        } catch (Exception e) {
+        } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
+
+
     @Then("^The \"([^\"]*)\" deliveries should have a lead time for \"([^\"]*)\" partner portal$")
     public void the_something_deliveries_should_have_a_lead_time_for_something_partner_portal(String deliveryType, String partnerLocation) throws Throwable {
         switch (partnerLocation){
@@ -3491,13 +3496,21 @@ public class CommonSteps extends DriverBase {
                 break;
         }
     }
-    @Then("^The scheduled delivery time should match with the added lead time$")
-    public void the_scheduled_delivery_time_should_match_with_the_added_lead_time() throws Throwable {
-       Thread.sleep(3000);
-       String deliveryWithLeadTimeAdded = (String) cucumberContextManager.getScenarioContext("ExpectedLeadTimeDelivery");
-       String [] expectedTime = action.getText(scheduledTripsPage.Text_ScheduledTimeAdminPortal()).split(" ");
-       String time = expectedTime[3] +" "+expectedTime[4];
-       testStepVerify.isEquals(time,deliveryWithLeadTimeAdded,"Delivery with lead time should be " + deliveryWithLeadTimeAdded,"Delivery with lead time is " + time,"Delivery with lead time is not " + deliveryWithLeadTimeAdded);
-
+    @Then("^\"([^\"]*)\" icon should be displayed in all deliveries details page$")
+    public void something_icon_should_be_displayed_in_all_deliveries_details_page(String expectedText) throws Throwable {
+        try{
+            Thread.sleep(2000);
+            String expectedBackgroundColor =PropertyUtility.getDataProperties("customer.help.highlight");
+            testStepAssert.isTrue(action.isElementPresent(scheduledTripsPage.Icon_CustomerHelpAdminPortal()),"Customer Help Icon should be displayed","Customer Help icon is displayed","Customer help icon is not displayed");
+            String backgroundIconColor = scheduledTripsPage.Icon_CustomerHelpAdminPortal().getCssValue("background-color");
+            testStepAssert.isEquals(backgroundIconColor,expectedBackgroundColor,"Icon should have yellow highlight","Icon has yellow highlight","Icon doesnt have yellow highlight");
+            String iconText =action.getText(scheduledTripsPage.Icon_CustomerHelpAdminPortal()).toLowerCase();
+            testStepAssert.isEquals(iconText,expectedText.toLowerCase(),"The text should be "+ expectedText,"The text is "+iconText,"The text is not  "+ expectedText);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
+
 }

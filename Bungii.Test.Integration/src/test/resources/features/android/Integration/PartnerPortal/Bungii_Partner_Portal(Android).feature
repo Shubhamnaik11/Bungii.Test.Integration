@@ -402,5 +402,89 @@
       And I select "Pallet-1" from items
       Then I check already accepted pallet pop up is displayed
 
+      #CORE-3271:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
+      @ready
+    Scenario:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
+        When I request Partner Portal "SOLO" Trip for "Tile Shop" partner
+          |Geofence| Bungii Time   | Customer Phone | Customer Name |
+          |nashville| NEXT_POSSIBLE | 8877661096 | Testcustomertywd_appleMarkCS LutherCS|
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I open the trip for "Testcustomertywd_BppleMarkCS LutherCS" the customer
+      And I Select "Edit Trip Details" option
+      And I change delivery type from "Duo to Solo"
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      Then the "Bungii Saved!" message is displayed
+      When I click on "CLOSE" button
+
+     When I switch to "ORIGINAL" instance
+     When I Switch to "driver" application on "same" devices
+     And I am logged in as "Testdrivertywd_applens_a_kayT Stark_nsOnET" driver
+     And I Select "AVAILABLE BUNGIIS" from driver App menu
+     And I Select Trip from available trip
+     Then I should see "SOLO LIFT" header displayed
+     And I tap on "ACCEPT" on driver Trip details Page
+     And I Select "SCHEDULED BUNGIIS" from driver App menu
+      And I Select Trip from driver scheduled trip
+      Then I should see "SOLO LIFT" header displayed
+      And I start selected Bungii
+      Then Bungii driver should see "General Instructions"
+      And I slide update button on "EN ROUTE" Screen
+      And I click on "GOT IT" button
+      And I slide update button on "ARRIVED" Screen
+      When Bungii driver uploads "1" image
+      And I slide update button on "ARRIVED" Screen
+      And I slide update button on "LOADING ITEM" Screen
+      When Bungii driver uploads "1" image
+      And I slide update button on "LOADING ITEM" Screen
+      And I slide update button on "DRIVING TO DROP-OFF" Screen
+      Then I should see "SOLO LIFT" header displayed
+      And I click on "GOT IT" button
+      And I slide update button on "UNLOADING ITEMS" Screen
+      When Bungii driver uploads "1" image
+      And I slide update button on "UNLOADING ITEMS" Screen
+
+    #CORE-3271:To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
+      @ready
+    Scenario:To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
+      When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+        |Geofence| Bungii Time   | Customer Phone | Customer Name |
+        |kansas| NEXT_POSSIBLE | 8877661097 | Testcustomertywd_appleMarkCT LutherCT|
+      When I switch to "ORIGINAL" instance
+      When I Switch to "driver" application on "same" devices
+      And I am logged in as "Testdrivertywd_appleks_a_drvbh Kansas_bh" driver
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
+      And I Select Partner portal Trip from available trip
+      Then I should see "CUSTOMER HELP" header displayed
+      When I accept selected Bungii
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      And I Select Trip from driver scheduled trip
+      Then I should see "CUSTOMER HELP" header displayed
+      And I start selected Bungii
+      Then Bungii driver should see "General Instructions"
+      And I slide update button on "EN ROUTE" Screen
+      And I slide update button on "ARRIVED" Screen
+      When Bungii driver uploads "1" image
+      And I slide update button on "ARRIVED" Screen
+      And I slide update button on "LOADING ITEM" Screen
+      When Bungii driver uploads "1" image
+      And I slide update button on "LOADING ITEM" Screen
+      And I slide update button on "DRIVING TO DROP-OFF" Screen
+      And I slide update button on "UNLOADING ITEMS" Screen
+      When Bungii driver uploads "1" image
+      And I slide update button on "UNLOADING ITEMS" Screen
+      And I wait for 2 minutes
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "trips" from admin sidebar
+      And I open the trip for "Testcustomertywd_appleMarkAK LutherAK" the customer
+      And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+      Then "Customer Help" icon should be displayed in all deliveries details page
+
 
 

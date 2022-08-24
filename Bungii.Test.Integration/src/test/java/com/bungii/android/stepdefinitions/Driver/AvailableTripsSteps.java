@@ -526,6 +526,76 @@ public class AvailableTripsSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^I should see \"([^\"]*)\" header displayed$")
+    public void i_should_see_something_header_displayed(String strArg1) throws Throwable {
+        try{
+        action.scrollToBottom();
+        Thread.sleep(3000);
+        action.scrollToBottom();
+        switch (strArg1){
+            case "SOLO LIFT":
+                action.scrollToBottom();
+                boolean isSoloLiftDisplayed = availableTrips.Label_SoloLift().isDisplayed();
+                testStepAssert.isTrue(isSoloLiftDisplayed,"Solo Lift label should be displayed","Solo Lift label is displayed","Solo Lift label is not displayed");
+                String expectedSoloLiftMessage = PropertyUtility.getDataProperties("solo.lift.message");
+                String soloLiftInstructions = action.getText(availableTrips.Text_SoloLiftMessage());
+                testStepAssert.isEquals(soloLiftInstructions,expectedSoloLiftMessage,expectedSoloLiftMessage+" Message should be displayed",soloLiftInstructions+" Message is displayed",expectedSoloLiftMessage+" Message is not displayed");
+                break;
+            case "CUSTOMER HELP":
+                boolean isCustomerHelpLabelDisplayed = availableTrips.Label_CustomerHelp().isDisplayed();
+                testStepAssert.isTrue(isCustomerHelpLabelDisplayed,"Solo Lift header should be displayed","Solo Lift header is displayed","Solo Lift header is not displayed");
+                String expectedCustomerHelpMessage = PropertyUtility.getDataProperties("customer.help.message");
+                String customerHelpInstructions = action.getText(availableTrips.Text_CustomerHelpMessage());
+                testStepAssert.isEquals(customerHelpInstructions,expectedCustomerHelpMessage,expectedCustomerHelpMessage+" Message should be displayed",customerHelpInstructions+" Message is displayed",expectedCustomerHelpMessage+" Message is not displayed");
+                break;
+            case "DUO LIFT":
+                boolean isDuoLiftDisplayed = availableTrips.Label_DuoLift().isDisplayed();
+                testStepAssert.isTrue(isDuoLiftDisplayed,"Duo Lift label should be displayed","Duo Lift label is displayed","Duo Lift label is not displayed");
+                String expectedDuoLiftMessage = PropertyUtility.getDataProperties("duo.lift.message");
+                String duoLiftInstructions = action.getText(availableTrips.Text_DuoLiftMessage());
+                testStepAssert.isEquals(duoLiftInstructions,expectedDuoLiftMessage,expectedDuoLiftMessage+" Message should be displayed",duoLiftInstructions+" Message is displayed",expectedDuoLiftMessage+" Message is not displayed");
+                break;
+        }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 
+    @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
+    public void i_click_on_the_something_link_beside_scheduled_bungii_for_something(String strArg1, String deliveryType) throws Throwable {
+        try{
+            switch (deliveryType){
+                case "Completed Deliveries":
+                    Thread.sleep(4000);
+                    action.click(scheduledTripsPage.Link_DeliveryDetails());
+                    Thread.sleep(2000);
+                    action.click(scheduledTripsPage.List_ViewDeliveries());
+                    break;
+            }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^\"([^\"]*)\" icon should be displayed in all deliveries details page$")
+    public void something_icon_should_be_displayed_in_all_deliveries_details_page(String expectedText) throws Throwable {
+        try{
+        Thread.sleep(2000);
+        String expectedBackgroundColor =PropertyUtility.getDataProperties("customer.help.highlight");
+        testStepAssert.isTrue(action.isElementPresent(scheduledTripsPage.Icon_CustomerHelpAdminPortal()),"Customer Help Icon should be displayed","Customer Help icon is displayed","Customer help icon is not displayed");
+        String backgroundIconColor = scheduledTripsPage.Icon_CustomerHelpAdminPortal().getCssValue("background-color");
+        testStepAssert.isEquals(backgroundIconColor,expectedBackgroundColor,"Icon should have yellow highlight","Icon has yellow highlight","Icon doesnt have yellow highlight");
+        String iconText =action.getText(scheduledTripsPage.Icon_CustomerHelpAdminPortal()).toLowerCase();
+        testStepAssert.isEquals(iconText,expectedText.toLowerCase(),"The text should be "+ expectedText,"The text is "+iconText,"The text is not  "+ expectedText);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 }
 
