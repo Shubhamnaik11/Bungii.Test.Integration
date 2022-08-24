@@ -857,4 +857,16 @@ try {
                     true);
         }
     }
+    public void deleteAllCookies() {
+        SetupManager.getDriver().manage().deleteAllCookies();
+    }
+
+    public void navigateTo(String url) {
+        SetupManager.getDriver().navigate().to(url);
+    }
+
+    public String getCurrentURL() {
+        String s = SetupManager.getDriver().getCurrentUrl();
+        return s;
+    }
 }

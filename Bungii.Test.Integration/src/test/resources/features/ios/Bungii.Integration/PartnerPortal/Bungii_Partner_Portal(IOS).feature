@@ -392,6 +392,18 @@ Feature: Partner Portal Cases integration with IOS
 #CORE-3271:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
   @ready
   Scenario:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    When I navigate to "Partner" portal configured for "Tile Shop" URL
+    #CORE-1735:To verify the pickup time for SOLO and DUO when Partner has not provided Lead time for Partner site
+    Then The "SOLO" delivery shoudnt have lead time
+    When I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    When I click on "Solo" button
+    Then The First timeslot should display the time without partner portal lead time
+    Then The "DUO" delivery shoudnt have lead time
+    When I click on "DUO" button
+    Then The First timeslot should display the time without partner portal lead time
+    #CORE-3271:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without che
     When I request Partner Portal "Duo" Trip for "Tile Shop" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |nashville| NEXT_POSSIBLE | 8877661093 | Testcustomertywd_BppleMarkCP LutherCP|
@@ -440,17 +452,21 @@ Feature: Partner Portal Cases integration with IOS
 #CORE-3271:To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
   @ready
   Scenario: To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
-    When I request Partner Portal "Duo" Trip for "Equip-bid" partner
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    When I navigate to "Partner" portal configured for "Equip-bid" URL
+    #CORE-1735:To verify the pickup time for SOLO and DUO when Partner has provided Lead time specific for Partner site
+    Then The "Solo" deliveries should have a lead time for "Kansas" partner portal
+    When I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    When I click on "Solo" button
+    Then The first timeslot should display the time including the provided partner portal lead time
+    When I click on "DUO" button
+    Then The "Duo" deliveries should have a lead time for "Kansas" partner portal
+    Then The first timeslot should display the time including the provided partner portal lead time
+    #CORE-3271:To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
+    When I request Partner Portal "SOLO" Trip for "Equip-bid" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |kansas| NEXT_POSSIBLE | 8877661094  | Testcustomertywd_appleMarkCQ LutherCQ|
-    Then The "Solo" deliveries should have a lead time for "Kansas" partner portal
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I wait for 2 minutes
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkAK LutherAK" the customer
-    Then The scheduled delivery time should match with the added lead time
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp

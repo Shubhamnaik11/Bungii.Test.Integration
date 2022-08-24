@@ -3458,6 +3458,7 @@ public class CommonSteps extends DriverBase {
 
     @Then("^The \"([^\"]*)\" deliveries should have a lead time for \"([^\"]*)\" partner portal$")
     public void the_something_deliveries_should_have_a_lead_time_for_something_partner_portal(String deliveryType, String partnerLocation) throws Throwable {
+       try{
         switch (partnerLocation){
             case "Kansas":
                 ZoneId zoneId = ZoneId.of("America/Chicago");
@@ -3465,17 +3466,15 @@ public class CommonSteps extends DriverBase {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
                 String expectedTime = zonedDateTime.format(formatter);
                 if(deliveryType.equalsIgnoreCase("Solo")){
-//            String timeInMiliSeconds = dbUtility.getPartnerPortalLeadTimeSoloDelivery();
-                    String timeInMiliSeconds = "1800000";
+                   String timeInMiliSeconds = dbUtility.getPartnerPortalLeadTimeSoloDelivery();
                     int timeInMinutes = Integer.parseInt(timeInMiliSeconds)/60000;
                     zonedDateTime = zonedDateTime.plusMinutes(timeInMinutes);
 
                 }
                 else{
-//                    String timeInMiliSeconds = dbUtility.getPartnerPortalLeadTimeSoloDelivery();
-                    String timeInMiliSeconds = "1800000";
+                    String timeInMiliSeconds = dbUtility.getPartnerPortalLeadTimeDuoDelivery();
                     int timeInMinutes = Integer.parseInt(timeInMiliSeconds)/60000;
-                    zonedDateTime = zonedDateTime.plusMinutes(timeInMinutes);
+                    zonedDateTime = zonedDateTime.plusMinutes(timeInMinutes).minusMinutes(2);
                 }
                 expectedTime = zonedDateTime.format(formatter);
                 int minutes = zonedDateTime.getMinute();
@@ -3491,11 +3490,20 @@ public class CommonSteps extends DriverBase {
                 }
                 zonedDateTime =  zonedDateTime.plusMinutes(difference);
                 expectedTime = zonedDateTime.format(formatter);
-                System.out.println(expectedTime);
                 cucumberContextManager.setScenarioContext("ExpectedLeadTimeDelivery",expectedTime);
                 break;
+
         }
+        log("I should be able to get the current time from" +partnerLocation+ " and  partner specifed lead time",
+                "I could get the current time from" +partnerLocation+ " and  partner specifed lead time",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
+    }
+
+
     @Then("^\"([^\"]*)\" icon should be displayed in all deliveries details page$")
     public void something_icon_should_be_displayed_in_all_deliveries_details_page(String expectedText) throws Throwable {
         try{
@@ -3512,5 +3520,86 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^The first timeslot should display the time including the provided partner portal lead time$")
+    public void the_first_timeslot_should_display_the_time_including_the_provided_partner_portal_lead_time() throws Throwable {
+        try{
+        Thread.sleep(5000);
+        String realTimeWithLead = (String) cucumberContextManager.getScenarioContext("ExpectedLeadTimeDelivery");
+        String expectedTimeWithLead = action.getText(scheduledTripsPage.Text_PickupTime());
+        testStepAssert.isEquals(expectedTimeWithLead,realTimeWithLead,"Partner portal with lead time should be "+realTimeWithLead,"Partner portal with lead is  "+expectedTimeWithLead,"Partner portal with lead time is not "+realTimeWithLead);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 
+    @Then("^The \"([^\"]*)\" delivery shoudnt have lead time$")
+    public void the_something_delivery_shoudnt_have_lead_time(String deliveryType) throws Throwable {
+        try {
+            switch (deliveryType) {
+                case "SOLO":
+                    ZoneId zoneIdForNashVille = ZoneId.of("America/Chicago");
+                    ZonedDateTime zonedDateTimeNashville = ZonedDateTime.ofInstant(Instant.now().plusSeconds(1800), zoneIdForNashVille);
+                    DateTimeFormatter formatterNashville = DateTimeFormatter.ofPattern("hh:mm a");
+                    String expectedTimeNashville = zonedDateTimeNashville.format(formatterNashville);
+                    System.out.println(expectedTimeNashville);
+                    int minutes = zonedDateTimeNashville.getMinute();
+                    int difference = 0;
+                    if (minutes > 0 && minutes < 15) {
+                        difference = 15 - minutes;
+                    } else if (minutes > 15 && minutes < 30) {
+                        difference = 30 - minutes;
+                    } else if (minutes > 30 && minutes < 45) {
+                        difference = 45 - minutes;
+                    } else if (minutes > 45) {
+                        difference = 60 - minutes;
+                    }
+                    zonedDateTimeNashville = zonedDateTimeNashville.plusMinutes(difference);
+                    expectedTimeNashville = zonedDateTimeNashville.format(formatterNashville);
+                    cucumberContextManager.setScenarioContext("PartnerPortalWithoutLeadTime", expectedTimeNashville);
+                    break;
+                case "DUO":
+                    ZoneId zoneIdForNashVilleDuo = ZoneId.of("America/Chicago");
+                    ZonedDateTime zonedDateTimeNashvilleDuo = ZonedDateTime.ofInstant(Instant.now().plusSeconds(1800).minusSeconds(120), zoneIdForNashVilleDuo);
+                    DateTimeFormatter formatterNashvilleDuo = DateTimeFormatter.ofPattern("hh:mm a");
+                    String expectedTimeNashvilleDuo = zonedDateTimeNashvilleDuo.format(formatterNashvilleDuo);
+                    System.out.println(expectedTimeNashvilleDuo);
+                    int minutesDuo = zonedDateTimeNashvilleDuo.getMinute();
+                    int differenceDuo = 0;
+                    if (minutesDuo > 0 && minutesDuo < 15) {
+                        differenceDuo = 15 - minutesDuo;
+                    } else if (minutesDuo > 15 && minutesDuo < 30) {
+                        differenceDuo = 30 - minutesDuo;
+                    } else if (minutesDuo > 30 && minutesDuo < 45) {
+                        differenceDuo = 45 - minutesDuo;
+                    } else if (minutesDuo > 45) {
+                        differenceDuo = 60 - minutesDuo;
+                    }
+                    zonedDateTimeNashvilleDuo = zonedDateTimeNashvilleDuo.plusMinutes(differenceDuo);
+                    expectedTimeNashvilleDuo = zonedDateTimeNashvilleDuo.format(formatterNashvilleDuo);
+                    cucumberContextManager.setScenarioContext("PartnerPortalWithoutLeadTime", expectedTimeNashvilleDuo);
+                    break;
+            }
+            log("I should be able to get the current time based on geofence","I could get the current time based on geofence",false);
+        }catch(Exception e){
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step should be successful", "Error performing step,Please check logs for more details",
+                        true);
+            }
+        }
+
+    @Then("^The First timeslot should display the time without partner portal lead time$")
+    public void the_first_timeslot_should_display_the_time_without_partner_portal_lead_time() throws Throwable {
+    try{
+        Thread.sleep(10000);
+        String realTimeWithoutLead = (String) cucumberContextManager.getScenarioContext("PartnerPortalWithoutLeadTime");
+        String expectedTimeWithoutLead = action.getText(scheduledTripsPage.Text_PickupTime());
+        testStepAssert.isEquals(expectedTimeWithoutLead,realTimeWithoutLead,"Partner portal without lead time should be "+realTimeWithoutLead,"Partner portal without lead is  "+expectedTimeWithoutLead,"Partner portal without lead time is not "+realTimeWithoutLead);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+        true);
+        }
+    }
 }
