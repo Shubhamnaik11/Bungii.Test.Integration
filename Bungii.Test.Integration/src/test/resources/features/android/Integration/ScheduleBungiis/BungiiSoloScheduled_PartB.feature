@@ -118,6 +118,35 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then "Estimate" page should be opened
+    When I confirm trip with following detail
+      | Day | Trip Type | Time          |
+      | 0   | SOLO      | <AFTER TELET> |
+     And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+    And I get the pickupref for "8877661082"
+    And As a driver "Testdrivertywd_appleks_a_drvbb Kansas_bb" perform below action with respective "SECOND SOLO SCHEDULED" trip
+    | driver1 state |
+    | Accepted      |
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appleks_a_drvbb Kansas_bb" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    Then Bungii driver should see "Enroute screen"
+    And I click "Scheduled Bungiis" button on "update" screen
+    And I should select the "8877661082" customer on driver app
+    Then Start button should not be shown
+    And I click on device "BACK" button
+    And I click on device "BACK" button
+    Then Bungii driver should see "Enroute screen"
+
+    Then I cancel all bungiis of customer
+    | Customer Phone | Customer2 Phone |
+    | 8877661081     | 8877661082      |
 
 #CORE-2342:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
   @ready
@@ -127,7 +156,7 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     And I am logged in as "TestDrivertywd_applemd_a_billH Stark_bltTwOH" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I set the pickup address for "<Address>"
-    When I request Partner Portal "SOLO" Trip for "<Partner Service Level>" partner
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
     And I wait for 1 minutes
@@ -148,37 +177,7 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then The delivery details on "Live" deliveries should have proper pickup "<Center on admin portal>" location and service level instructions displayed
 
-    And I tap on "Get Estimate button" on Bungii estimate
-    Then "Estimate" page should be opened
-
-    When I confirm trip with following details
-      | Day | Trip Type | Time          |
-      | 0   | SOLO      | <AFTER TELET> |
-    And I add loading/unloading time of "30 mins"
-    And I get Bungii details on Bungii Estimate
-    And I add "1" photos to the Bungii
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I click "Done" button on "Success" screen
-    And I get the pickupref for "8877661082"
-    And As a driver "Testdrivertywd_appleks_a_drvbb Kansas_bb" perform below action with respective "SECOND SOLO SCHEDULED" trip
-      | driver1 state |
-      | Accepted      |
-    And I Switch to "driver" application on "same" devices
-    And I am logged in as "Testdrivertywd_appleks_a_drvbb Kansas_bb" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    Then Bungii driver should see "Enroute screen"
-    And I click "Scheduled Bungiis" button on "update" screen
-    And I should select the "8877661082" customer on driver app
-    Then Start button should not be shown
-    And I click on device "BACK" button
-    And I click on device "BACK" button
-    Then Bungii driver should see "Enroute screen"
-
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8877661081     | 8877661082      |
     Examples:
-      | Center       |  Center on admin portal    |        Customer Name                    |    Customer Phone  |  Partner Service Level     |  Address     |
-      |  Store       |       Store                |  Testcustomertywd_BppleMarkCG LutherCG  |      8877661084    |  BestBuy2 service level    | Store        |
-      |  Warehouse   |      Warehouse             |  Testcustomertywd_BppleMarkCH LutherCH  |      8877661085    |  BestBuy2 service level    | Warehouse    |
+      | Center       |  Center on admin portal    |        Customer Name                    |    Customer Phone  |   Address        |
+      |  Store       |       Store                |  Testcustomertywd_BppleMarkCG LutherCG  |      8877661084    |   Store          |
+      |  Warehouse   |      Warehouse             |  Testcustomertywd_BppleMarkCH LutherCH  |      8877661085    |   Warehouse      |
