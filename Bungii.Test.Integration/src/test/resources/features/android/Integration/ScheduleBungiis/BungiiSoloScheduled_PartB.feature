@@ -118,12 +118,13 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
+
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened
-    When I confirm trip with following detail
+    When I confirm trip with following details
       | Day | Trip Type | Time          |
       | 0   | SOLO      | <AFTER TELET> |
-     And I add loading/unloading time of "30 mins"
+    And I add loading/unloading time of "30 mins"
     And I get Bungii details on Bungii Estimate
     And I add "1" photos to the Bungii
     And I tap on "Request Bungii" on Bungii estimate
@@ -131,8 +132,8 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     And I click "Done" button on "Success" screen
     And I get the pickupref for "8877661082"
     And As a driver "Testdrivertywd_appleks_a_drvbb Kansas_bb" perform below action with respective "SECOND SOLO SCHEDULED" trip
-    | driver1 state |
-    | Accepted      |
+     | driver1 state |
+     | Accepted      |
     And I Switch to "driver" application on "same" devices
     And I am logged in as "Testdrivertywd_appleks_a_drvbb Kansas_bb" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -145,8 +146,8 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     Then Bungii driver should see "Enroute screen"
 
     Then I cancel all bungiis of customer
-    | Customer Phone | Customer2 Phone |
-    | 8877661081     | 8877661082      |
+     | Customer Phone | Customer2 Phone |
+     | 8877661081     | 8877661082      |
 
 #CORE-2342:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
   @ready

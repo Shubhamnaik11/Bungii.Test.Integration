@@ -2218,7 +2218,7 @@ public class CoreServices extends DriverBase {
                 ApiHelper.genericResponseValidation(response, RequestText);
 
         }
-        else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")||Partner_Portal.equalsIgnoreCase("BestBuy2 warehouse service level")) {
+        else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")) {
 
 //            //customer name
             JSONArray customFields = new JSONArray();
