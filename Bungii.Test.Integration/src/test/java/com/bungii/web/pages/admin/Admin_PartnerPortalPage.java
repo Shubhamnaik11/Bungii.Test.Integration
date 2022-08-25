@@ -37,5 +37,6 @@ public class Admin_PartnerPortalPage extends PageBase {
     public WebElement Label_PartnerCityError () { return  findElement("partner-city-error", LocatorType.Id);}
     public WebElement Label_PartnerStateError () { return  findElement("partner-state-error", LocatorType.Id);}
     public WebElement Label_PartnerZipCodeError () { return  findElement("partner-zipcode-error", LocatorType.Id);}
+    public WebElement Menu_UnlockPartners() { return  findElement("//a[text()='Unlock Portals']", LocatorType.XPath);}
 
 }

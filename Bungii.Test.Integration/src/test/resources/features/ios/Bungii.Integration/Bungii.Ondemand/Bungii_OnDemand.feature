@@ -11,6 +11,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
   @regression
     @testing
+    #CORE-3412 changes added
     #Stable
     #move to end
   Scenario: Verify Manually End Bungii Option Is not Available In The any States of bungii
@@ -44,14 +45,15 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "ARRIVED" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Loading Items"
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "LOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Driving To Dropoff"
@@ -65,7 +67,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I see "Rate customer" screen
     And I select "4" customer rating
@@ -79,6 +81,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     
 
   @regression
+    #CORE-3412 changes added
   #stable
   Scenario: Verify Delivery information & Bungii completed screen For Ondemand Delivery
     Given that ondemand bungii is in progress
@@ -106,6 +109,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
 
     When I Switch to "driver" application on "same" devices
+    And I click "More Options" button on "update" screen
+    And I click "Take Photo" button on "update" screen
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
     Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
 
@@ -113,6 +119,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for customer
 
     When I Switch to "driver" application on "same" devices
+    And I click "More Options" button on "update" screen
+    And I click "Take Photo" button on "update" screen
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
     Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
 
@@ -127,6 +136,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for customer
 
     When I Switch to "driver" application on "same" devices
+    And I click "More Options" button on "update" screen
+    And I click "Take Photo" button on "update" screen
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
@@ -210,6 +222,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I click "More Options" button on "update" screen
+    And I click "Take Photo" button on "update" screen
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     And I should be navigated to "Bungii completed" screen
@@ -243,9 +258,18 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I view and accept virtual notification for "Driver" for "on demand trip"
     
     And I slide update button on "EN ROUTE" Screen
+    And I click "More Options" button on "update" screen
+    And I click "Take Photo" button on "update" screen
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
+    And I click "More Options" button on "update" screen
+    And I click "Take Photo" button on "update" screen
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I click "More Options" button on "update" screen
+    And I click "Take Photo" button on "update" screen
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     And I should be navigated to "Bungii Completed" screen
 

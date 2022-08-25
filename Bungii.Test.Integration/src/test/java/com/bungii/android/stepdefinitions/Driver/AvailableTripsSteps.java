@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions.Driver;
 import com.bungii.SetupManager;
 import com.bungii.android.enums.Rejection_Reason;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
@@ -18,6 +19,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -29,6 +31,7 @@ public class AvailableTripsSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility= new GeneralUtility();
     DriverHomePage driverHomePage = new DriverHomePage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     DbUtility dbUtility = new DbUtility();
 
     @And("I Select Trip from driver available trip")
@@ -148,6 +151,9 @@ public class AvailableTripsSteps extends DriverBase {
     @And("^I Select Trip from available trip$")
     public void i_select_trip_from_available_trip() throws Throwable {
         try{
+            if(action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true))){
+                action.click(Page_BungiiRequest.Button_No_Thanks());
+            }
             Thread.sleep(6000);
             String expectedText = action.getText(availableTrips.Text_FromHomeMiles());
             boolean textDisplayed = (expectedText.contains("miles") || expectedText.contains("mile") )? true : false;
@@ -411,6 +417,113 @@ public class AvailableTripsSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Latest reason is not saved", true);
+        }
+    }
+    @Then("^I check the notification for \"([^\"]*)\"$")
+    public void i_check_the_notification_for_something(String strArg1) throws Throwable {
+        try{
+            String expectedMessage="";
+            action.showNotifications();
+
+            String scheduleDate = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+            String date=scheduleDate.substring(0,6);
+            String checkZero=date.substring(4,5);
+            if (checkZero.equalsIgnoreCase("0"))
+            {
+                date= date.replace("0","");
+            }
+            String time=scheduleDate.substring(8,16);
+            Date d=new Date();
+            String year= String.valueOf(d).substring(24);
+            String message = PropertyUtility.getMessage("biglots.partner.cancel");
+            String subMessage = PropertyUtility.getMessage("partner.cancel.message");
+            expectedMessage = message+" "+date+", "+year+" at "+time+". "+subMessage;
+            cucumberContextManager.setScenarioContext("EXPECTED_MESSAGE",expectedMessage);
+
+            log("Checking notifications","Checking notifications",true);
+
+            boolean isFound = utility.clickOnNofitication("Bungii", expectedMessage);
+            if (!isFound) {
+                Thread.sleep(80000);
+                isFound = utility.clickOnNofitication("Bungii", expectedMessage);
+            }
+            //if no notificatiaon then hide
+            if (!isFound) {
+                action.hideNotifications();
+            }
+            testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message " + expectedMessage, "PUSH NOTIFICATION NOT RECEIVED : " + expectedMessage + " message");
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+   }
+    @And("^I check \"([^\"]*)\" details are displayed on \"([^\"]*)\" page$")
+    public void i_check_something_details_are_displayed_on_something_page(String pallet, String page) throws Throwable {
+        try{
+            String palletOneWeight= PropertyUtility.getDataProperties("partner.washingtondc.weight.item.one");
+            String palletOneDimensions= PropertyUtility.getDataProperties("partner.washingtondc.dimensions.item.one");
+            String palletOneName= PropertyUtility.getDataProperties("partner.washingtondc.name.item.one");
+            switch (page){
+                case "available bungii":
+                    switch (pallet){
+                        case "pallet-1":
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneWeight()),palletOneWeight+" lbs",
+                                    "The correct weight should be displayed.",
+                                    "The correct weight is displayed.",
+                                    "The incorrect weight is displayed.");
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneDimensions()),palletOneDimensions+" in",
+                                    "The correct dimension should be displayed.",
+                                    "The correct dimension is displayed.",
+                                    "The incorrect dimension is displayed.");
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneName()),palletOneName,
+                                    "The correct name should be displayed.",
+                                    "The correct name is displayed.",
+                                    "The incorrect name is displayed.");
+                            break;
+                    }
+                    break;
+                case "schedule bungii":
+                    switch (pallet) {
+                        case "pallet-1":
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneWeightSchedulePage()),palletOneWeight+" lbs",
+                                    "The correct weight should be displayed.",
+                                    "The correct weight is displayed.",
+                                    "The incorrect weight is displayed.");
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneDimensionsSchedulePage()),palletOneDimensions+" in",
+                                    "The correct dimension should be displayed.",
+                                    "The correct dimension is displayed.",
+                                    "The incorrect dimension is displayed.");
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneNameSchedulePage()),palletOneName,
+                                    "The correct name should be displayed.",
+                                    "The correct name is displayed.",
+                                    "The incorrect name is displayed.");
+                            break;
+
+                    }
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check already accepted pallet pop up is displayed$")
+    public void i_check_already_accepted_pallet_pop_up_is_displayed() throws Throwable {
+        try{
+            action.click(scheduledTripsPage.Button_Accept());
+            String expectedSnackMsg = PropertyUtility.getMessage("pallet.already.accepted.message");
+            testStepVerify.isEquals(utility.getDriverSnackBarMessage(), expectedSnackMsg);
+
+            log("I should be able to see the pallet already accepted message",
+                    "I am able to see the pallet already accepted message",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 

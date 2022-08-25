@@ -688,6 +688,16 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Title_RateCustomer(),"Rate customer screen should be shown to the driver","Rate customer screen is shown to the driver", "Rate customer screen is not shown to the driver");
                     break;
 
+                    case "Pickup Instructions":
+                    testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Header_GeneralInstructions(),"Pickup Instructions should be shown","Pickup Instructions are shown","Pickup Instructions are not shown");
+                    testStepVerify.isEquals(Page_DriverBungiiProgress.Text_GeneralInstructions().getText(),PropertyUtility.getMessage("floor.and.decor.pickup.instructions"),"Pickup Instructions text should be correct","Pickup Instructions text is correct","Pickup Instructions text is incorrect");
+                    action.click((Page_DriverBungiiProgress.Button_GeneralInstructions_GotIt()));
+                    break;
+
+                    case "Photo Verification":
+                    testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Text_PhotoVerification(),"Photo Verification should be shown","Photo Verification is shown","Photo Verification is not shown");
+                    break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
