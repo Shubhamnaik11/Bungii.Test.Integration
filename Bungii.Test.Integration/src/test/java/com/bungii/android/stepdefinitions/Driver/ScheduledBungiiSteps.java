@@ -423,5 +423,22 @@ public class ScheduledBungiiSteps extends DriverBase {
                 true);
     }
     }
-
+    @And("^I set the pickup address for \"([^\"]*)\"$")
+    public void i_set_the_pickup_address_for_something(String address) throws Throwable {
+        try {
+            switch (address) {
+                case "Warehouse":
+                    cucumberContextManager.setScenarioContext("WarehouseCity", "Catonsville");
+                    break;
+                case "Store":
+                    cucumberContextManager.setScenarioContext("OfficeCity", "MD");
+                    break;
+            }
+            log("I should be able to set the pickup address", "I could set the pickup address", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

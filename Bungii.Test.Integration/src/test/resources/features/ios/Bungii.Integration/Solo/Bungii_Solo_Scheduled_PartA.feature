@@ -553,11 +553,12 @@ Feature: Solo Scheduled Bungii Part A
 
 
  #CORE-2342 :To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
- @ready
+ @testAllan
   Scenario Outline:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore driver 6" driver
-    When I request Partner Portal "SOLO" Trip for "<Partner Service Level>" partner
+   And I set the pickup address for "<Address>"
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
     And I wait for 1 minutes
@@ -580,6 +581,6 @@ Feature: Solo Scheduled Bungii Part A
     Then The delivery details on "Live" deliveries should have proper pickup "<Center on admin portal>" location and service level instructions displayed
 
    Examples:
-     | Center      |  Center on admin portal  |        Customer Name                    |  Customer Phone  | Partner Service Level           |
-     |  Store      |       Store              |  Testcustomertywd_BppleMarkCI LutherCI  |     8877661086   | BestBuy2 service level          |
-     |  Warehouse  |      Warehouse           |  Testcustomertywd_BppleMarkCJ LutherCJ  |     8877661087   |BestBuy2 warehouse service level |
+     | Center      |  Center on admin portal  |        Customer Name                    |  Customer Phone  |   Address     |
+     |  Store      |       Store              |  Testcustomertywd_BppleMarkCI LutherCI  |     8877661086   |     Store     |
+     |  Warehouse  |      Warehouse           |  Testcustomertywd_BppleMarkCJ LutherCJ  |     8877661087   |   Warehouse   |

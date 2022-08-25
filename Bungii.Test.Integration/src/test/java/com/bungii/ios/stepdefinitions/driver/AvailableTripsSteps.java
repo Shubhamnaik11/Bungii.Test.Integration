@@ -417,6 +417,7 @@ public class AvailableTripsSteps extends DriverBase {
 					action.click(availableTripsPage.List_ViewDeliveries());
 					break;
 			}
+			log("I should be able to click the button next to "+deliveryType,"I could  click the button next to "+deliveryType,false);
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -438,6 +439,24 @@ public class AvailableTripsSteps extends DriverBase {
 		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 		error("Step  Should be successful", "Error in Starting Bungii as Driver", true);
 	}
+	}
+	@And("^I set the pickup address for \"([^\"]*)\"$")
+	public void i_set_the_pickup_address_for_something(String address) throws Throwable {
+		try {
+			switch (address) {
+				case "Warehouse":
+					cucumberContextManager.setScenarioContext("WarehouseCity", "Catonsville");
+					break;
+				case "Store":
+					cucumberContextManager.setScenarioContext("OfficeCity", "MD");
+					break;
+			}
+			log("I should be able to set the pickup address", "I could set the pickup address", false);
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
 	}
 
 }

@@ -1718,30 +1718,33 @@ public class CoreServices extends DriverBase {
             JsonPath jsonPathEvaluator = response.jsonPath();
             ApiHelper.genericResponseValidation(response, RequestText);
         }
-        else if(Geofence.equalsIgnoreCase("baltimore")&& Partner_Portal.equalsIgnoreCase("BestBuy2 service level") ||Geofence.equalsIgnoreCase("baltimore")&& Partner_Portal.equalsIgnoreCase("BestBuy2 warehouse service level")) {
+        else if(Geofence.equalsIgnoreCase("baltimore")&& Partner_Portal.equalsIgnoreCase("BestBuy2 service level") ) {
+            String expectedStoreAddress = (String) cucumberContextManager.getScenarioContext("Store");
+            String expectedWarehouseAddress = (String) cucumberContextManager.getScenarioContext("Warehouss");
 
-            if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")) {
+            if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")&&expectedWarehouseAddress.contentEquals("Catonsville")) {
+
                 String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
 
-                String Pickup_Address1 = PropertyUtility.getDataProperties("partner.baltimore.pickup_address1");
-                String Pickup_City = PropertyUtility.getDataProperties("partner.baltimore.pickup_city");
-                String Pickup_Country = PropertyUtility.getDataProperties("partner.baltimore.pickup_country");
-                String Pickup_Latitude = PropertyUtility.getDataProperties("partner.baltimore.pickup_latitude");
-                String Pickup_Longitude = PropertyUtility.getDataProperties("partner.baltimore.pickup_longitude");
-                String Pickup_State = PropertyUtility.getDataProperties("partner.baltimore.pickup_state");
-                String Pickup_ZipPostalCode = PropertyUtility.getDataProperties("partner.baltimore.pickup_zippostalcode");
+                String Pickup_Address1 = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_address1");
+                String Pickup_City = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_city");
+                String Pickup_Country = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_country");
+                String Pickup_Latitude = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_latitude");
+                String Pickup_Longitude = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_longitude");
+                String Pickup_State = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_state");
+                String Pickup_ZipPostalCode = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_zippostalcode");
 
-                String ServiceLevelRef = PropertyUtility.getDataProperties("partner.baltimore.service_level_ref");
-                String PricingModelConfigVersionRef = PropertyUtility.getDataProperties("partner.baltimore.pricing_model_ref");
+                String ServiceLevelRef = PropertyUtility.getDataProperties("partner.baltimore.warehouse.service_level_ref");
+                String PricingModelConfigVersionRef = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pricing_model_ref");
 
-                String DropOff_Address_Id = PropertyUtility.getDataProperties("partner.baltimore.dropoff_address_id");
-                String DropOff_Address1 = PropertyUtility.getDataProperties("partner.baltimore.dropoff_address1");
-                String DropOff_City = PropertyUtility.getDataProperties("partner.baltimore.dropoff_city");
-                String DropOff_Country = PropertyUtility.getDataProperties("partner.baltimore.dropoff_country");
-                String DropOff_Latitude = PropertyUtility.getDataProperties("partner.baltimore.dropoff_latitude");
-                String DropOff_Longitude = PropertyUtility.getDataProperties("partner.baltimore.dropoff_longitude");
-                String DropOff_State = PropertyUtility.getDataProperties("partner.baltimore.dropoff_state");
-                String DropOff_ZipPostalCode = PropertyUtility.getDataProperties("partner.baltimore.dropoff_zippostalcode");
+                String DropOff_Address_Id = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_address_id");
+                String DropOff_Address1 = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_address1");
+                String DropOff_City = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_city");
+                String DropOff_Country = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_country");
+                String DropOff_Latitude = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_latitude");
+                String DropOff_Longitude = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_longitude");
+                String DropOff_State = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_state");
+                String DropOff_ZipPostalCode = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_zippostalcode");
 
                 //for Pickup Location
                 JSONObject jsonPickupLocation = new JSONObject();
@@ -1820,28 +1823,28 @@ public class CoreServices extends DriverBase {
                 JsonPath jsonPathEvaluator = response.jsonPath();
                 ApiHelper.genericResponseValidation(response, RequestText);
             }
-            else{
+            else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")||expectedStoreAddress.contentEquals("MD")){
                 String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
 
-                String Pickup_Address1 = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_address1");
-                String Pickup_City = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_city");
-                String Pickup_Country = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_country");
-                String Pickup_Latitude = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_latitude");
-                String Pickup_Longitude = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_longitude");
-                String Pickup_State = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_state");
-                String Pickup_ZipPostalCode = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pickup_zippostalcode");
+                String Pickup_Address1 = PropertyUtility.getDataProperties("partner.baltimore.pickup_address1");
+                String Pickup_City = PropertyUtility.getDataProperties("partner.baltimore.pickup_city");
+                String Pickup_Country = PropertyUtility.getDataProperties("partner.baltimore.pickup_country");
+                String Pickup_Latitude = PropertyUtility.getDataProperties("partner.baltimore.pickup_latitude");
+                String Pickup_Longitude = PropertyUtility.getDataProperties("partner.baltimore.pickup_longitude");
+                String Pickup_State = PropertyUtility.getDataProperties("partner.baltimore.pickup_state");
+                String Pickup_ZipPostalCode = PropertyUtility.getDataProperties("partner.baltimore.pickup_zippostalcode");
 
-                String ServiceLevelRef = PropertyUtility.getDataProperties("partner.baltimore.warehouse.service_level_ref");
-                String PricingModelConfigVersionRef = PropertyUtility.getDataProperties("partner.baltimore.warehouse.pricing_model_ref");
+                String ServiceLevelRef = PropertyUtility.getDataProperties("partner.baltimore.service_level_ref");
+                String PricingModelConfigVersionRef = PropertyUtility.getDataProperties("partner.baltimore.pricing_model_ref");
 
-                String DropOff_Address_Id = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_address_id");
-                String DropOff_Address1 = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_address1");
-                String DropOff_City = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_city");
-                String DropOff_Country = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_country");
-                String DropOff_Latitude = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_latitude");
-                String DropOff_Longitude = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_longitude");
-                String DropOff_State = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_state");
-                String DropOff_ZipPostalCode = PropertyUtility.getDataProperties("partner.baltimore.warehouse.dropoff_zippostalcode");
+                String DropOff_Address_Id = PropertyUtility.getDataProperties("partner.baltimore.dropoff_address_id");
+                String DropOff_Address1 = PropertyUtility.getDataProperties("partner.baltimore.dropoff_address1");
+                String DropOff_City = PropertyUtility.getDataProperties("partner.baltimore.dropoff_city");
+                String DropOff_Country = PropertyUtility.getDataProperties("partner.baltimore.dropoff_country");
+                String DropOff_Latitude = PropertyUtility.getDataProperties("partner.baltimore.dropoff_latitude");
+                String DropOff_Longitude = PropertyUtility.getDataProperties("partner.baltimore.dropoff_longitude");
+                String DropOff_State = PropertyUtility.getDataProperties("partner.baltimore.dropoff_state");
+                String DropOff_ZipPostalCode = PropertyUtility.getDataProperties("partner.baltimore.dropoff_zippostalcode");
 
                 //for Pickup Location
                 JSONObject jsonPickupLocation = new JSONObject();
