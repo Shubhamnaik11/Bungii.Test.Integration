@@ -450,6 +450,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                     action.click(tripDetailsPage.List_ViewDeliveries());
                     break;
             }
+            log("I should be able to click the button next to "+deliveryType,"I could  click the button next to "+deliveryType,false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
