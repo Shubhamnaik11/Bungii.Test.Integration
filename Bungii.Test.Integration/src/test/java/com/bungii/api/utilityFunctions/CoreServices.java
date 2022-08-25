@@ -1719,8 +1719,8 @@ public class CoreServices extends DriverBase {
             ApiHelper.genericResponseValidation(response, RequestText);
         }
         else if(Geofence.equalsIgnoreCase("baltimore")&& Partner_Portal.equalsIgnoreCase("BestBuy2 service level") ) {
-            String expectedStoreAddress = (String) cucumberContextManager.getScenarioContext("Store");
-            String expectedWarehouseAddress = (String) cucumberContextManager.getScenarioContext("Warehouss");
+            String expectedStoreAddress = (String) cucumberContextManager.getScenarioContext("StoreCity");
+            String expectedWarehouseAddress = (String) cucumberContextManager.getScenarioContext("WarehouseCity");
 
             if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")&&expectedWarehouseAddress.contentEquals("Catonsville")) {
 

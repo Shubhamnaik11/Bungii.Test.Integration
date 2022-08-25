@@ -118,6 +118,7 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
+
 #CORE-2342:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
   @ready
   Scenario Outline:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
@@ -125,6 +126,7 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     And I am on the LOG IN page on driver app
     And I am logged in as "TestDrivertywd_applemd_a_billH Stark_bltTwOH" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I set the pickup address for "<Address>"
     When I request Partner Portal "SOLO" Trip for "<Partner Service Level>" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
@@ -177,6 +179,6 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
       | Customer Phone | Customer2 Phone |
       | 8877661081     | 8877661082      |
     Examples:
-      | Center       |  Center on admin portal    |        Customer Name                    |    Customer Phone  |  Partner Service Level          |
-      |  Store       |       Store                |  Testcustomertywd_BppleMarkCG LutherCG  |      8877661084    | BestBuy2 service level          |
-      |  Warehouse   |      Warehouse             |  Testcustomertywd_BppleMarkCH LutherCH  |      8877661085    |BestBuy2 warehouse service level |
+      | Center       |  Center on admin portal    |        Customer Name                    |    Customer Phone  |  Partner Service Level     |  Address     |
+      |  Store       |       Store                |  Testcustomertywd_BppleMarkCG LutherCG  |      8877661084    |  BestBuy2 service level    | Store        |
+      |  Warehouse   |      Warehouse             |  Testcustomertywd_BppleMarkCH LutherCH  |      8877661085    |  BestBuy2 service level    | Warehouse    |

@@ -561,7 +561,7 @@ Feature: Solo Scheduled Bungii Part A
 
 
  #CORE-2342 :To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
- @testAllan
+ @ready
   Scenario Outline:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore driver 6" driver

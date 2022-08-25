@@ -348,14 +348,12 @@ public class AvailableTripsSteps extends DriverBase {
 		String expectedPickupServiceProvided = PropertyUtility.getDataProperties("baltimore.pickup.instructions");
 		String expectedDropOffServiceProvided = PropertyUtility.getDataProperties("baltimore.dropoff.instructions");
 		Thread.sleep(6000);
-		boolean isPickupInstructionsOnScheduleBungiiDisplayed = availableTripsPage.Label_PickupInstructions().isDisplayed();
-		boolean isDropOffInstructionsOnScheduleBungiiDisplayed = availableTripsPage.Label_DropOffInstructions().isDisplayed();
 
 		String pickupInstructions = action.getText(availableTripsPage.Text_PickupInstructionsScheduleBungii());
 		String dropOffInstructions = action.getText(availableTripsPage.Text_DropOffInstructionsScheduleBungii());
 
-		testStepAssert.isTrue(isPickupInstructionsOnScheduleBungiiDisplayed, "Driver pickup instructions label should be displayed", "Driver pickup instructions label is displayed", "Driver pickup instructions label is not displayed");
-		testStepAssert.isTrue(isDropOffInstructionsOnScheduleBungiiDisplayed, "Driver dropoff instructions label should be displayed", "Driver dropoff instructions label is displayed", "Driver dropoff instructions label is not displayed");
+		testStepAssert.isTrue(action.isElementPresent(availableTripsPage.Label_PickupInstructions()), "Driver pickup instructions label should be displayed", "Driver pickup instructions label is displayed", "Driver pickup instructions label is not displayed");
+		testStepAssert.isTrue(action.isElementPresent(availableTripsPage.Label_DropOffInstructions()), "Driver dropoff instructions label should be displayed", "Driver dropoff instructions label is displayed", "Driver dropoff instructions label is not displayed");
 
 		testStepAssert.isEquals(pickupInstructions, expectedPickupServiceProvided, expectedPickupServiceProvided + "Service should be provided for pickup", pickupInstructions + "Service is provided for pickup", expectedPickupServiceProvided + "Service is not provided for pickup");
 		testStepAssert.isEquals(dropOffInstructions, expectedDropOffServiceProvided, expectedDropOffServiceProvided + "Service should be provided for dropoff", dropOffInstructions + "Service is provided for dropoff", expectedDropOffServiceProvided + "Service is not provided for dropoff");
@@ -383,16 +381,14 @@ public class AvailableTripsSteps extends DriverBase {
 		}
 		switch (deliveryStatus) {
 			case "Live":
-				boolean isDriverPickupInstructionsDisplayed = availableTripsPage.Label_DriverPickupInstructionsAdminPortal().isDisplayed();
-				boolean isDriverDropOffInstructionsDisplayed = availableTripsPage.Label_DriverDropOffInstructionsAdminPortal().isDisplayed();
 
 				String expectedPickupServiceProvided = PropertyUtility.getDataProperties("baltimore.pickup.instructions");
 				String expectedDropOffServiceProvided = PropertyUtility.getDataProperties("baltimore.dropoff.instructions");
 				String pickupServiceProvided = action.getText(availableTripsPage.Text_DriverPickupInstructionsServiceAdminPortal());
 				String dropOffServiceProvided = action.getText(availableTripsPage.Text_DriverDropOffInstructionsServiceAdminPortal());
 
-				testStepAssert.isTrue(isDriverPickupInstructionsDisplayed, "Driver pickup instructions label should be displayed", "Driver pickup instructions label is displayed", "Driver pickup instructions label is not displayed");
-				testStepAssert.isTrue(isDriverDropOffInstructionsDisplayed, "Driver dropoff instructions label should be displayed", "Driver dropoff instructions label is displayed", "Driver dropoff instructions label is not displayed");
+				testStepAssert.isTrue(action.isElementPresent(availableTripsPage.Label_DriverPickupInstructionsAdminPortal()), "Driver pickup instructions label should be displayed", "Driver pickup instructions label is displayed", "Driver pickup instructions label is not displayed");
+				testStepAssert.isTrue(action.isElementPresent(availableTripsPage.Label_DriverDropOffInstructionsAdminPortal()), "Driver dropoff instructions label should be displayed", "Driver dropoff instructions label is displayed", "Driver dropoff instructions label is not displayed");
 
 				testStepAssert.isEquals(pickupServiceProvided, expectedPickupServiceProvided, expectedPickupServiceProvided + "Service should be provided for pickup", pickupServiceProvided + "Service is provided for pickup", expectedPickupServiceProvided + "Service is not provided for pickup");
 				testStepAssert.isEquals(dropOffServiceProvided, expectedDropOffServiceProvided, expectedDropOffServiceProvided + "Service should be provided for dropoff", dropOffServiceProvided + "Service is provided for dropoff", expectedDropOffServiceProvided + "Service is not provided for dropoff");
@@ -440,6 +436,7 @@ public class AvailableTripsSteps extends DriverBase {
 		error("Step  Should be successful", "Error in Starting Bungii as Driver", true);
 	}
 	}
+
 	@And("^I set the pickup address for \"([^\"]*)\"$")
 	public void i_set_the_pickup_address_for_something(String address) throws Throwable {
 		try {
@@ -448,7 +445,7 @@ public class AvailableTripsSteps extends DriverBase {
 					cucumberContextManager.setScenarioContext("WarehouseCity", "Catonsville");
 					break;
 				case "Store":
-					cucumberContextManager.setScenarioContext("OfficeCity", "MD");
+					cucumberContextManager.setScenarioContext("StoreCity", "MD");
 					break;
 			}
 			log("I should be able to set the pickup address", "I could set the pickup address", false);
@@ -458,5 +455,6 @@ public class AvailableTripsSteps extends DriverBase {
 					true);
 		}
 	}
+
 
 }
