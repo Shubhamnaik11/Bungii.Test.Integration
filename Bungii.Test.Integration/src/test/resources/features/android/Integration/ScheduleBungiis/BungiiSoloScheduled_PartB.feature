@@ -156,13 +156,13 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     And I am on the LOG IN page on driver app
     And I am logged in as "TestDrivertywd_applemd_a_billH Stark_bltTwOH" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I set the pickup address for "<Address>"
+    And I set the pickup address for "<Delivery Center>"
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
     And I wait for 1 minutes
     And I click on "View Request" button
-    Then I should see service level information displayed for "<Center>" address
+    Then I should see service level information displayed for "<Delivery Center>" address
     And I click on "Accept" button
     And I Select Trip from driver scheduled trip
     Then The service level information should be displayed
@@ -176,9 +176,9 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     And I Select "live trips" from admin sidebar
     And I open the trip for "<Customer Name>" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then The delivery details on "Live" deliveries should have proper pickup "<Center on admin portal>" location and service level instructions displayed
+    Then The delivery details on "Live" deliveries should have proper pickup "<Delivery Center>" location and service level instructions displayed
 
     Examples:
-      | Center       |  Center on admin portal    |        Customer Name                    |    Customer Phone  |   Address        |
-      |  Store       |       Store                |  Testcustomertywd_BppleMarkCG LutherCG  |      8877661084    |   Store          |
-      |  Warehouse   |      Warehouse             |  Testcustomertywd_BppleMarkCH LutherCH  |      8877661085    |   Warehouse      |
+      |        Customer Name                     |    Customer Phone  |   Delivery Center        |
+      |   Testcustomertywd_BppleMarkCG LutherCG  |      8877661084    |   Store                  |
+      |   Testcustomertywd_BppleMarkCH LutherCH  |      8877661085    |   Warehouse              |
