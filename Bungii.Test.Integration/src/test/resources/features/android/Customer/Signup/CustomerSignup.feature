@@ -14,7 +14,7 @@ Feature: CustomerSignup
     And I tap on the "Sign Up" button on Signup Page
     Then the new user should see "snackbar validation message for existing user"
     And the new user should see "Signup page"
-    
+
   @regression
   Scenario: Verify Referral Source Count Upon Customer Signup
     When I open new "Chrome" browser for "ADMIN_PORTAL"
@@ -134,7 +134,36 @@ Feature: CustomerSignup
     When I click on "i" icon
     Then The "Info Message" is displayed
     And Customer should receive signup email
-    
+
+  @ready
+    #CORE-3685 (Android)
+  Scenario: Verify deletion of new created customer account and then reuse the same account for new customer creation
+    When I enter "new valid" customer phone number on Signup Page
+    And I enter "valid" data in mandatory fields on Signup Page
+    And I enter "ValidPercent" promo code on Signup Page
+    And I tap on the "Sign Up" button on Signup Page
+    And I enter "valid" Verification code
+    And I tap on the "Verification Continue" Link
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    Then The user should be logged in
+    When I tap on "Menu" > "ACCOUNT" link
+    Then "ACCOUNT INFO" page should be opened
+    And logged in Customer details should be displayed
+    And I tap on the "Delete account" Link
+    Then "Delete account" page should be opened
+    And I enter customers "valid1" Password
+    And I click on "Delete" button
+    And I am on customer Log in page
+    And I tap on the "Sign up" Button on Login screen
+    When I enter "deleted valid" customer phone number on Signup Page
+    And I enter "valid" data in mandatory fields on Signup Page
+    And I enter "ValidPercent" promo code on Signup Page
+    And I tap on the "Sign Up" button on Signup Page
+    And I enter "valid" Verification code
+    And I tap on the "Verification Continue" Link
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    Then The user should be logged in
+
   #used one off
   #Know issue, no alert
   @knownissue

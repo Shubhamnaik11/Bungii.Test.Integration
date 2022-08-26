@@ -22,6 +22,7 @@ import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -38,6 +39,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static com.bungii.common.manager.ResultManager.*;
 import static com.bungii.web.utilityfunctions.DbUtility.getActualPrice;
@@ -60,7 +62,6 @@ public class Partner_trips extends DriverBase {
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
-
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
     //ActionManager action = new ActionManager();
     //private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
@@ -975,7 +976,29 @@ try{
         }
 
     }
+    @And("^I wait for Minimum duration for \"([^\"]*)\" Bungii to be in Driver not accepted state$")
+    public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_driver_not_accepted_state(String strArg1) {
+        try {
+            long initialTime;
+            if (strArg1.equalsIgnoreCase("current"))
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME");
+            else
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
+            long currentTime = System.currentTimeMillis() / 1000L;
+            long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
+            if (diffInMinutes > 5) {
+                //do nothing
+            } else {
+                // minimum wait of 30 mins
+                action.hardWaitWithSwipeUp(5 - (int) diffInMinutes);
 
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^I view the correct Driver Est. Earnings for geofence based pricing model$")
     public void i_view_the_correct_Driver_Est_Earnings(){
         try{
@@ -1125,6 +1148,7 @@ try{
         }
         }
 
+
     @And("^I click on the delivery based on customer name$")
     public void i_click_on_the_delivery_based_on_customer_name() throws Throwable {
         try{
@@ -1141,6 +1165,315 @@ try{
     }
     }
 
+    @Then("^The time should be different when the pickup address is changed to a different geofence$")
+    public void the_time_should_be_different_when_the_pickup_address_is_changed_to_a_different_geofence() throws Throwable {
+        try{
+            String oldGeofencePickupAddressTime= (String) cucumberContextManager.getScenarioContext("OLDGEOFENCETIME");
+            String newGeofencePickupAddressTime = action.getText(Page_Partner_Dashboard.Text_PartnerPortalGeofenceTime());
+            testStepAssert.isFalse(newGeofencePickupAddressTime.contentEquals(oldGeofencePickupAddressTime),
+                    "Time displayed when the pickup address is changed from 1 geofence to other should be different",
+                    "Time displayed when the pickup address is changed from 1 geofence to other is different",
+                    "Time displayed when the pickup address is changed from 1 geofence to other is not different"
+            );
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+
+    @Then("^I should be able to schedule a trip \"([^\"]*)\"days from today$")
+    public void i_should_be_able_to_schedule_a_trip_somethingdays_from_today(String tripDate) throws Throwable {
+        try{
+            action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
+            String [] entireDayAndMonth = new DateTime().plusDays(Integer.parseInt(tripDate)).toDate().toString().split(" ");
+            String date = entireDayAndMonth[2];
+            String deliveryMonth = entireDayAndMonth[1];
+            String [] todaysDate =  new DateTime().toDate().toString().split(" ");
+            String currentMonth = todaysDate[1];
+
+            if(currentMonth.equals(deliveryMonth)){
+
+                if(date.startsWith("0")){
+                    String dateWithoutZero = date.replace("0","");
+                    action.click(Page_Partner_Dashboard.FutureTrip(dateWithoutZero));
+                    cucumberContextManager.setScenarioContext("Future_Date",dateWithoutZero);
+                }
+                else{
+                    action.click(Page_Partner_Dashboard.FutureTrip(date));
+                    cucumberContextManager.setScenarioContext("Future_Date",date);
+                }
+
+            }
+            else{
+                if(date.startsWith("0")){
+                    String dateWithoutZero = date.replace("0","");
+                    Thread.sleep(3000);
+                    action.click(Page_Partner_Dashboard.Link_NextMonth());
+                    action.click(Page_Partner_Dashboard.FutureTrip(dateWithoutZero));
+                    Thread.sleep(2000);
+                    cucumberContextManager.setScenarioContext("Future_Date",dateWithoutZero);
+
+                }
+
+                else{
+                    Thread.sleep(3000);
+                    action.click(Page_Partner_Dashboard.Link_NextMonth());
+                    action.click(Page_Partner_Dashboard.FutureTrip(date));
+                    Thread.sleep(2000);
+                    cucumberContextManager.setScenarioContext("Future_Date",date);
+
+                }
+            }
+            String [] dateMonthAndDayFromUi =Page_Partner_Dashboard.Text_DateSelectedFromUi().getAttribute("value").split("\\(");
+            String onlyMonthAndDateFromUi = dateMonthAndDayFromUi[1].replace(")","").replace(" ","");
+            String dateAndMonthFromCalender =deliveryMonth + (String) cucumberContextManager.getScenarioContext("Future_Date");
+            testStepAssert.isEquals(onlyMonthAndDateFromUi,dateAndMonthFromCalender,"I should be able to select a date "+tripDate+ " days ahead",
+                    "I could select a date "+tripDate+ " days ahead",
+                    "I coudnt select a date "+tripDate+ " days ahead");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+    @And("^I click on the checkbox$")
+    public void i_click_on_the_checkbox() throws Throwable {
+        try{
+            action.click(Page_Partner_Dashboard.Label_Checkbox());
+            String oldPickupAddressTime= action.getText(Page_Partner_Dashboard.Text_PartnerPortalGeofenceTime());
+            cucumberContextManager.setScenarioContext("OLDGEOFENCETIME",oldPickupAddressTime);
+            log("I should be able to click on the checkbox","I could click on the checkbox",false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I should see the trip scheduled for \"([^\"]*)\" days ahead$")
+    public void i_should_see_the_trip_scheduled_for_something_days_ahead(String tripdays) throws Throwable {
+        try{
+        String[] deliveryTime=  cucumberContextManager.getScenarioContext("Schedule_Date_Time").toString().split(" ");
+        Thread.sleep(3000);
+        String deliveryDateAndMonth = deliveryTime[0].substring(0,3) + deliveryTime[1];
+        String []adminPortalDeliveryTime = action.getText(admin_ScheduledTripsPage.Text_ScheduledTripDate()).split(" ");
+        String adminPortalDeliveryDateAndTime = adminPortalDeliveryTime[0]+adminPortalDeliveryTime[1];
+
+        testStepVerify.isEquals(adminPortalDeliveryDateAndTime.replace(","," "),deliveryDateAndMonth.replace(","," "),"Scheduled trips should be  " +tripdays +" days ahead","Scheduled trips is " +tripdays +" days ahead","Scheduled trips should be " +tripdays +" days ahead");
+        cucumberContextManager.setScenarioContext("INITIALTRIP_TIMEANDDATE",adminPortalDeliveryDateAndTime);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I change the trip delivery date to \"([^\"]*)\" days ahead from today$")
+    public void i_change_the_trip_delivery_date_to_something_days_ahead_from_today(String noOfDays) throws Throwable {
+        try {
+        String [] entireDayAndMonth = new DateTime().plusDays(Integer.parseInt(noOfDays)).toDate().toString().split(" ");
+        String tripDateAhead = entireDayAndMonth[2];
+        String deliveryMonth = entireDayAndMonth[1];
+        String [] todaysDate =  new DateTime().toDate().toString().split(" ");
+        String currentMonth =todaysDate[1];
+        action.click(admin_EditScheduledBungiiPage.DatePicker_ScheduledDate());
+        action.click(admin_ScheduledTripsPage.Link_EditScheduleTripCalenderPreviousMonth());
+
+        if(deliveryMonth.equals(currentMonth)) {
+            if(tripDateAhead.startsWith("0")){
+                String TripAheadWithoutZero= tripDateAhead.replace("0","");
+                action.click(admin_ScheduledTripsPage.Link_NewScheduleDeliveryDate(TripAheadWithoutZero));
+            }
+            else {
+                action.click(admin_ScheduledTripsPage.Link_NewScheduleDeliveryDate(tripDateAhead));
+            }
+
+        }
+        else{
+            action.click(admin_ScheduledTripsPage.Link_EditScheduleTripCalenderNextMonth());
+
+                if (tripDateAhead.startsWith("0")) {
+                    String datewithoutzero = tripDateAhead.replace("0", "");
+                    action.click(admin_ScheduledTripsPage.Link_NewScheduleDeliveryDate(datewithoutzero));
+                } else {
+                    action.click(admin_ScheduledTripsPage.Link_NewScheduleDeliveryDate(tripDateAhead));
+                }
+        }
+        log("I should be able to schedule the delivery "+noOfDays +" days from today","I could schedule the delivery " +noOfDays+" days from today",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+
+    @And("^I unselect the Pending status from the filter category$")
+    public void i_unselect_the_pending_status_from_the_filter_category() throws Throwable {
+        try{
+        action.click(admin_TripsPage.Button_Filter());
+        Thread.sleep(1000);
+        action.click(admin_TripsPage.CheckBox_FilterPending());
+        log("I should be able to unclick the pending status from the filter category",
+                "I could unclick the pending status from the filter category",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I should see the message \"([^\"]*)\" displayed$")
+    public void i_should_see_the_message_something_displayed(String expectedMessage) throws Throwable {
+        try{
+        Thread.sleep(3000);
+        String NoDeliveries = action.getText(admin_TripsPage.Text_NoDeliveriesFound()).toLowerCase();
+        testStepAssert.isEquals(NoDeliveries,expectedMessage.toLowerCase(),"I should see " +expectedMessage+ " text displayed","Text message displayed is " + NoDeliveries,expectedMessage +" is not displayed");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I change the pickup address to \"([^\"]*)\" on partner portal$")
+    public void i_change_the_pickup_address_to_something_on_partner_portal(String pickupAddress) throws Throwable {
+        try{
+        action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+        action.click(Page_Partner_Dashboard.Button_PickupClear());
+        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), pickupAddress + Keys.TAB);
+        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+        Thread.sleep(3000);
+        action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+        log("I should be able to change the pickup address on partner portal to " +pickupAddress,
+              "I could change the pickup address on partner portal to " +pickupAddress,false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^The scheduled trip date should be changed to the new date$")
+    public void the_scheduled_trip_date_should_be_changed_to_the_new_date() throws Throwable {
+        try{
+            String []adminPortalDeliveryTime = action.getText(admin_ScheduledTripsPage.Text_ScheduledTripDate()).split(" ");
+            String adminPortalDeliveryDateAndTime = adminPortalDeliveryTime[0]+adminPortalDeliveryTime[1];
+            String oldDeliveryDateAndTime =(String) cucumberContextManager.getScenarioContext("INITIALTRIP_TIMEANDDATE");
+            testStepAssert.isFalse(adminPortalDeliveryDateAndTime.contentEquals(oldDeliveryDateAndTime), "The schedule delivery date should be changed from "+oldDeliveryDateAndTime+" to" +adminPortalDeliveryDateAndTime, "The schedule delivery date is changed from "+oldDeliveryDateAndTime+" to" +adminPortalDeliveryDateAndTime, "The schedule delivery date doesnt change from "+oldDeliveryDateAndTime+" to" +adminPortalDeliveryDateAndTime);
+
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I select the \"([^\"]*)\" address from the pickup address dropdown$")
+    public void i_select_the_something_address_from_the_pickup_address_dropdown(String addressNumber) throws Throwable {
+        try{
+        action.click(Page_Partner_Dashboard.DropDown_PickupAddressPartnerPortal());
+        Thread.sleep(5000);
+        switch(addressNumber){
+            case "First":
+                Thread.sleep(5000);
+                action.click(Page_Partner_Dashboard.Text_PickupAddressesFromPartnerPortalDropDown(1));
+                String addressOnePickupAddressFromDropDown = action.getText(Page_Partner_Dashboard.Text_PartnerPortalGeofenceTime());
+                cucumberContextManager.setScenarioContext("PICKUPADDRESS_1_TIME",addressOnePickupAddressFromDropDown);
+                break;
+            case"Second":
+                System.out.println("second");
+                Thread.sleep(5000);
+                action.click(Page_Partner_Dashboard.Text_PickupAddressesFromPartnerPortalDropDown(2));
+                String addressTwoPickupAddressFromDropDown = action.getText(Page_Partner_Dashboard.Text_PartnerPortalGeofenceTime());
+                cucumberContextManager.setScenarioContext("PICKUPADDRESS_2_TIME",addressTwoPickupAddressFromDropDown);
+                break;
+        }
+        log("I should be able to click on the "+addressNumber+" address" ,"I could click on the "+addressNumber+" address",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^The pickup time should be same for both the addresses from the dropdown$")
+    public void the_pickup_time_should_be_same_for_both_the_addresses_from_the_dropdown() throws Throwable {
+        try{
+        String Address1 = (String)cucumberContextManager.getScenarioContext("PICKUPADDRESS_1_TIME");
+        String address2 =(String) cucumberContextManager.getScenarioContext("PICKUPADDRESS_2_TIME");
+        testStepAssert.isEquals(Address1,address2,"Pickup time for both the addresses should be the same", "Pickup time for both the addresses is the same", "Pickup time for both the addresses are not the same");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @When("^I click on tooltip beside \"([^\"]*)\" field$")
+    public void i_click_on_tooltip_beside_something_field(String field) throws Throwable {
+        try {
+            switch (field) {
+                case "Pickup Date":
+                    action.click(Page_Partner_Dashboard.Icon_ToolTip_PickupDate());
+                    break;
+            }
+            log("I click on tooltip beside "+field ,"I have clicked on tooltip beside "+field,false);
+
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I should see tooltip value based on configured value in database$")
+    public void i_should_see_tooltip_value_based_on_configured_value_in_database() throws Throwable {
+        String subdomain= (action.getCurrentURL().split("[.]")[0]).split("//")[1];
+        String dayCount = DbUtility.getScheduledDays(subdomain);
+       testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Label_ToolTip_PickupDate()), "Please select a delivery date within the next "+dayCount+" days.", dayCount+ " days should be displayed",dayCount+ " days is displayed",dayCount+ " days is not displayed");
+    }
+    @And("^I verify alias is displayed correctly on \"([^\"]*)\"$")
+    public void i_verify_alias_is_displayed_correctly_on_something(String page) throws Throwable {
+        try {
+            String aliasPartnerPortalName= PropertyUtility.getDataProperties("partner.floor.and.decor.alias.name");
+            switch (page){
+                case "scheduled delivery page":
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerName()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+                case "delivery details page":
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerNameDeliveryDetailsPage()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+                case "all delivery page":
+                    Thread.sleep(2000);
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerNameAllDeliveryPage()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+            }
+            log("I should be able to verify the alias is displayed correctly",
+                    "I am able to verify the alias is displayed correctly",false);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
     public String getGeofence(String geofence) {
         String geofenceName = "";

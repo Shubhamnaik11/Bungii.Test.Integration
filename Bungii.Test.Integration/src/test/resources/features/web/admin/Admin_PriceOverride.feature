@@ -1,8 +1,7 @@
 @web
 Feature: Admin_Price_Override
 
-  @ready
-
+  @regression
   Scenario: Verify the Price override button is displayed, check save and cancel button functionality and Estimated Customer charge is updated on admin portal
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -38,6 +37,7 @@ Feature: Admin_Price_Override
     And I get the old values of "Driver cut" for "Service level"
     And I check if "Price Override" button is displayed
     And I click on "Price Override" button on delivery details
+    And "Save" and "Cancel" buttons should have background color "blue" and "white" respectively
     And I change the "Customer price"
     And I select Reason as "Custom Quote"
     And I change the "Driver cut"
@@ -54,7 +54,7 @@ Feature: Admin_Price_Override
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    And I check the new values of "Estimated Charge" for "Service level"
+    And I check the new values of "Customer price" for "Service level"
     Then I check the new values of "Driver Fixed Earnings" for "Service level"
     When I navigate back to Scheduled Deliveries
     And I click on "Edit" link beside scheduled bungii
@@ -68,7 +68,6 @@ Feature: Admin_Price_Override
     Then I check if "Price Override" icon is displayed
 
   @ready
-
   Scenario: Verify customer price override menu, driver cut price override menu and admin override multiple times on same delivery
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -113,7 +112,7 @@ Feature: Admin_Price_Override
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    And I check the new values of "Estimated Charge" for "Service level"
+    And I check the new values of "Customer price" for "Service level"
     Then I check the new values of "Driver Fixed Earnings" for "Service level"
     When I get the old values of "Customer price" for "Service level"
     And I check if "Price Override" button is displayed
@@ -123,10 +122,9 @@ Feature: Admin_Price_Override
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    Then I check the new values of "Estimated Charge" for "Service level"
+    Then I check the new values of "Customer price" for "Service level"
 
-  @ready
-
+  @regression
   Scenario: Verify change Pickup/Drop off address after override for driver earnings and customer cost before driver accepts, check if price override is reflected on partner portal,indicator is displayed and verify Driver cut is less than Customer price for Admin override
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -178,7 +176,7 @@ Feature: Admin_Price_Override
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    And I check the new values of "Estimated Charge" for "Service level"
+    And I check the new values of "Customer price" for "Service level"
     Then I check the new values of "Driver Fixed Earnings" for "Service level"
     And I navigate back to Scheduled Deliveries
     Then I check if "Price Override" icon is displayed
@@ -199,8 +197,7 @@ Feature: Admin_Price_Override
     And I check if the delivery cost is updated on partner portal
     Then I close the Trip Delivery Details page
 
-  @ready
-
+  @regression
   Scenario: Verify Admin override is not present for Schedule Customer delivery and Live delivery
     When I am logged in as Admin
     And I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -281,7 +278,7 @@ Feature: Admin_Price_Override
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    And I check the new values of "Estimated Charge" for "Service level"
+    And I check the new values of "Customer price" for "Service level"
     Then I check the new values of "Driver Fixed Earnings" for "Service level"
     When I navigate back to Scheduled Deliveries
     And As a driver "Testdrivertywd_appledc_a_drvr WashingtonDC_r" perform below action with respective "Solo Scheduled" Delivery
@@ -303,7 +300,7 @@ Feature: Admin_Price_Override
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    And I check the new values of "Estimated Charge" for "Service level"
+    And I check the new values of "Customer price" for "Service level"
     Then I check the new values of "Driver Fixed Earnings" for "Service level"
     When I navigate back to Scheduled Deliveries
     And I click on "Edit" link beside scheduled bungii
@@ -318,8 +315,7 @@ Feature: Admin_Price_Override
     And I wait for "2" mins
     Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level"
 
-  @ready
-
+  @regression
   Scenario: Verify Price override for driver earnings only in Duo fixed pricing portals and when different driver share is entered ,minimum of both share is displayed in admin portal and check if indicator is displayed
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -414,7 +410,7 @@ Feature: Admin_Price_Override
     Then I click on "Save" button on price override pop-up
     And I click on "Ok" button on price override pop-up
     And I wait for "2" mins
-    And I check the new values of "Estimated Charge" for "Service level - fnd"
+    And I check the new values of "Customer price" for "Service level - fnd"
     Then I check the new values of "Driver Fixed Earnings" for "Service level - fnd"
     When I navigate back to Scheduled Deliveries
     And I check if "Price Override" icon is displayed
@@ -561,3 +557,175 @@ Feature: Admin_Price_Override
       |  100     | Other            | Charges due to other reasons      | 20         |
     And I navigate back to Scheduled Deliveries
     Then I check if "Price Override" icon is displayed
+
+#    Core-2960 Verify customer price override and driver earnings override is retained for a weight based delivery converted from DUO to SOLO when driver not accepted the delivery
+    @ready
+    Scenario: Verify customer price override and driver earnings override is retained for a weight based delivery converted from DUO to SOLO when driver not accepted the delivery
+      When I request Partner Portal "DUO" Trip for "Floor and Decor" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |washingtondc| NEXT_POSSIBLE | 8877661056 | Testcustomertywd_BppleMarkBE LutherBE|
+      When I am logged in as Admin
+      And I view the partner portal Scheduled Trips list on the admin portal
+      And I wait for "2" mins
+      Then I should be able to see the respective bungii partner portal trip with the below status
+        | Status           |
+        |Assigning Driver(s)|
+      When I view the delivery details
+      And I get the old values of "Customer price" for "Service level - fnd"
+      And I get the old values of "Driver cut" for "Service level - fnd-duo"
+      And I click on "Price Override" button on delivery details
+      And I change the "Customer price"
+      And I select Reason as "Custom Quote"
+      And I change the "Driver cut-duo"
+      And I select Reason as "Driver Incentive"
+      Then I click on "Save" button on price override pop-up
+      And I click on "Ok" button on price override pop-up
+      And I wait for "2" mins
+      Then I check the new values of "Customer price" for "Service level - fnd"
+      When I navigate back to Scheduled Deliveries
+      And I click on "Edit" link beside scheduled bungii
+      When I click on "Edit Trip Details" radiobutton
+      And I change delivery type from "Duo to Solo"
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      And I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
+      When I click on "Close" button
+      And I refresh the page
+      And I get the new pickup reference generated
+      And I view the all Scheduled Deliveries list on the admin portal
+      And I wait for 2 minutes
+      And I open the trip for "Testcustomertywd_BppleMarkBE LutherBE" the customer for delivery details
+      Then I check "Customer price" is retained after "duo to solo" conversion
+      Then I check "Driver Earning" is retained after "duo to solo" conversion
+
+  @ready
+  Scenario: Verify the schedule delivery can be edited DUO to SOLO Bungii without price override for weight based pricing
+      When I request Partner Portal "DUO" Trip for "Floor and Decor" partner
+        |Geofence| Bungii Time   | Customer Phone | Customer Name |
+        |washingtondc| NEXT_POSSIBLE | 8877661057 | Testcustomertywd_BppleMarkBF LutherBF|
+      When I am logged in as Admin
+      And I view the partner portal Scheduled Trips list on the admin portal
+      And I wait for "2" mins
+      Then I should be able to see the respective bungii partner portal trip with the below status
+        | Status           |
+        |Assigning Driver(s)|
+ #    Core-2960 Verify the schedule delivery can be edited DUO to SOLO Bungii without price override for weight based pricing
+      And I click on "Edit" link beside scheduled bungii
+      When I click on "Edit Trip Details" radiobutton
+      And I change delivery type from "Duo to Solo"
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      And I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
+      When I click on "Close" button
+      And I refresh the page
+      And I get the new pickup reference generated
+      And I view the all Scheduled Deliveries list on the admin portal
+      And I wait for 2 minutes
+      And I search the delivery of Customer
+      Then I should be able to see the respective bungii with the below Delivery Type
+        | Type |
+        | Solo |
+#     Core-2960 Verify for weight based matrix delivery SOLO to DUO option is disabled when driver not accepted
+      And I click on "Edit" link beside scheduled bungii
+      When I click on "Edit Trip Details" radiobutton
+      Then I check if DUO option is disabled
+#     Core-2960 Verify for weight based matrix delivery SOLO to DUO option is disabled when admin assign driver
+      And I click on "Add Driver" and add "Testdrivertywd_appledc_a_drvl WashingtonDC_l" driver
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      And I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
+      Then I check if DUO option is disabled
+
+#    Core-2960 Verify customer price override and driver earnings override is retained for a fixed pricing delivery converted from DUO to SOLO when driver accepted the delivery
+    @ready
+      Scenario: Verify customer price override and driver earnings override is retained for a fixed pricing delivery converted from DUO to SOLO when driver accepted the delivery
+      When I request Partner Portal "DUO" Trip for "Biglots" partner
+        |Geofence| Bungii Time   | Customer Phone | Customer Name |
+        |atlanta  | NEXT_POSSIBLE_THIRD_SLOT | 8877661058 | Testcustomertywd_BppleMarkBG LutherBG|
+      And As a driver "Testdrivertywd_applega_a_steveE Stark_altOnEE" and "Testdrivertywd_applega_a_steveF Stark_altOnEF" perform below action with respective "DUO SCHEDULED" trip
+        | driver1 state | driver2 state |
+        | Accepted      | Accepted      |
+      When I am logged in as Admin
+      And I view the partner portal Scheduled Trips list on the admin portal
+      And I wait for "2" mins
+      Then I should be able to see the respective bungii partner portal trip with the below status
+        | Status           |
+        | Scheduled        |
+      When I view the delivery details
+      And I get the old values of "Customer price" for "Service level"
+      And I get the old values of "Driver cut" for "Service level"
+      And I click on "Price Override" button on delivery details
+      And I change the "Customer price"
+      And I select Reason as "Custom Quote"
+      And I change the "Driver cut-duo"
+      And I select Reason as "Driver Incentive"
+      Then I click on "Save" button on price override pop-up
+      And I click on "Ok" button on price override pop-up
+      And I wait for "2" mins
+      Then I check the new values of "Customer price" for "Service level - fnd"
+      When I navigate back to Scheduled Deliveries
+      And I click on "Edit" link beside scheduled bungii
+      When I click on "Edit Trip Details" radiobutton
+      And I change delivery type from "Duo to Solo"
+      When I remove control driver "Testdrivertywd_applega_a_steveE Stark_altOnEE" on edit popup
+      And I click on "Verify" button on Edit Scheduled bungii popup
+      And I click on "Save" button on Edit Scheduled bungii popup
+      Then "Bungii Saved!" message should be displayed
+      When I click on "Close" button
+      And I wait for 2 minutes
+      And I refresh the page
+      And I get the new pickup reference generated
+      And I view the all Scheduled Deliveries list on the admin portal
+      And I open the trip for "Testcustomertywd_BppleMarkBG LutherBG" the customer for delivery details
+      Then I check "Customer price" is retained after "duo to solo" conversion
+      Then I check "Driver Earning" is retained after "duo to solo" conversion
+
+#    Core-2960 Verify customer price override and driver earnings are retained for a fixed pricing delivery converted from SOLO to DUO when driver1 accepted and driver2 admin assign
+  @ready
+  Scenario: Verify customer price override and driver earnings are retained for a fixed pricing delivery converted from SOLO to DUO when driver1 accepted and driver2 admin assign
+    When I request Partner Portal "SOLO" Trip for "Biglots" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |atlanta  | NEXT_POSSIBLE_THIRD_SLOT | 8877661059 | Testcustomertywd_BppleMarkBH LutherBH|
+    And As a driver "Testdrivertywd_applega_a_steveD Stark_altOnED" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted  |
+    When I am logged in as Admin
+    And I view the partner portal Scheduled Trips list on the admin portal
+    And I wait for "2" mins
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      | Scheduled        |
+    When I view the delivery details
+    And I get the old values of "Customer price" for "Service level"
+    And I get the old values of "Driver cut" for "Service level"
+    And I check if "Price Override" button is displayed
+    And I click on "Price Override" button on delivery details
+    And I change the "Customer price"
+    And I select Reason as "Custom Quote"
+    And I change the "Driver cut"
+    And I select Reason as "Driver Incentive"
+    Then I click on "Save" button on price override pop-up
+    And I click on "Ok" button on price override pop-up
+    And I wait for "2" mins
+    And I check the new values of "Customer price" for "Service level"
+    Then I check the new values of "Driver Fixed Earnings" for "Service level"
+    When I navigate back to Scheduled Deliveries
+    And I click on "Edit" link beside scheduled bungii
+    When I click on "Edit Trip Details" radiobutton
+    And I change delivery type from "Solo to Duo"
+    And I assign driver "Testdrivertywd_applega_c_mark Stark_altThree" for the trip
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    When I click on "Close" button
+    And I wait for 2 minutes
+    And I refresh the page
+    And I open the trip for "Testcustomertywd_BppleMarkBH LutherBH" the customer for delivery details
+    Then I check "Customer price" is retained after "solo to duo" conversion
+    Then I check "Driver Earning" is retained after "solo to duo" conversion
+#    Core-2960 Verify price override validation when customer cost is less than or equal to driver earnings in SOLO to DUO
+    And I click on "Price Override" button on delivery details
+    And I change the "Customer price - equal to driver earnings"
+    And I select Reason as "Custom Quote"
+    And I click on "Save" button on price override pop-up
+    Then I check if error message is displayed

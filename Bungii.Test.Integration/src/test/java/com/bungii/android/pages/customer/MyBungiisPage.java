@@ -63,4 +63,8 @@ public class MyBungiisPage extends PageBase {
     public WebElement Text_NoOfTrips(){return findElement("//android.widget.LinearLayout/android.view.ViewGroup[3]/android.widget.LinearLayout[3]/android.widget.TextView[1]", LocatorType.XPath);}
     public WebElement Text_DisbursementInfo(){return findElement("com.bungii.driver:id/appCompatTextView9", LocatorType.Id);}
 
+    public WebElement Header_RateDuoTeammate(){return findElement("//android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView", LocatorType.XPath);}
+    public WebElement Header_ReferralPage(){return findElement("//android.widget.TextView[contains(@text,\"REFERRAL\")]", LocatorType.XPath);}
+    public WebElement Header_ReferralHistory(){return findElement("//android.widget.TextView[contains(@text,\"REFERRAL HISTORY\")]", LocatorType.XPath);}
+
 }

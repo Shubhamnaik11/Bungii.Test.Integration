@@ -47,6 +47,13 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 | Other            | 20         |
  And "accessorial_fee_amount" should show total amount in the triprequest table in Database
  And "business_notes" should show comment without quotes in the trippaymentdetails table in Database
+ And I wait for 2 minutes
+ And I should see the following fee type displayed in the Report Database
+| Fee Type         |
+| Excess Wait Time |
+| Cancelation      |
+| Mountainous      |
+| Other            |
 
 
   @regression
@@ -148,6 +155,8 @@ When I click on "Confirm" button on Revival Popup
 And I wait for 2 minutes
 And I view the all Scheduled Deliveries list on the admin portal
 When  I search the delivery using "Pickup Reference"
+#Core-3295:Verify status is Assigning driver for driver cancelled trip which was revived after adding Accessorial charges
+Then The delivery should be in "Assigning Driver(s) with no loader" state
 And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
 Then the Accessorial Charges should not be displayed
 And I view the Deliveries list on the admin portal

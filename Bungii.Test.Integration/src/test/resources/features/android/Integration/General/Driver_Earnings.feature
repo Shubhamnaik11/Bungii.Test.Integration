@@ -208,6 +208,22 @@ Feature: Driver Earnings
      And stack trip information should be displayed on deck
      And I get TELET time of currrent trip of customer 2
 
+     When I Switch to "customer" application on "same" devices
+     And I am logged in as "Testcustomertywd_apple_AGQFCg Test" customer
+     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+     And I close "Tutorial" if exist
+     When I tap on "Menu" > "ACCOUNT" link
+     Then "ACCOUNT INFO" page should be opened
+     And I tap on the "Delete account" Link
+     Then "Delete account" page should be opened
+     And I enter customers "valid1" Password
+     And I click on "Delete" button
+     Then The user should see "snackbar validation message active bungii for account deletion" on log in page
+     And I click on "Account Cancel" button
+     Then I click on "Navigate Back" button on the "ACCOUNT INFO" page of customer app
+     When I tap on "Menu" > "Home" link
+     Then "Home" page should be opened
+
      When I open new "Chrome" browser for "ADMIN PORTAL"
      And I navigate to admin portal
      And I log in to admin portal

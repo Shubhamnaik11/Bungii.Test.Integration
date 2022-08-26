@@ -181,4 +181,26 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_TripIndicator(boolean...ignoreException){return  findElement("//tr[@id=\"row1\"]/td[1]/label",LocatorType.XPath,ignoreException);}
 
+    public WebElement Text_ScheduledTripDate(){return  findElement("//td[@class=\"no-word-break\"]/a",LocatorType.XPath);}
+
+    public WebElement Link_EditScheduleTripCalenderNextMonth(){return  findElement("//div/a[2]/span[1]",LocatorType.XPath);}
+
+    public WebElement Link_EditScheduleTripCalenderPreviousMonth(){return  findElement("//div/a[1]/span[1]",LocatorType.XPath);}
+
+    public WebElement Link_NewScheduleDeliveryDate(String newDate){return  findElement(String.format("//tbody/tr/td/a[text()=\"%s\"]",newDate),LocatorType.XPath);}
+
+    public WebElement Button_History(){return  findElement("history-tab-btn",LocatorType.Id);}
+
+    public WebElement Text_HistoryTabInformation(int row ,int col){return  findElement(String.format("//div[@class=\"old-note\"]/table/tbody/tr[%d]/td[%d]",row,col),LocatorType.XPath);}
+
+    public WebElement Button_StopSearching() {return findElement("btnStopSearch",LocatorType.Id);}
+
+    public WebElement Button_ConfirmStopSearching() {return findElement("btnConfirm",LocatorType.Id);}
+
+    public WebElement Button_CloseConfirm() {return findElement("//div[@id='stop-search-success-modal']/div/div/div/button[text()='Close']",LocatorType.XPath);}
+
+    public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
+
+    public WebElement Text_DeliveryDetailsStatus(){return  findElement("//td[text()=\"Status\"]/following-sibling::td/strong",LocatorType.XPath);}
+
 }

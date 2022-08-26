@@ -26,6 +26,7 @@ import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.utilities.ApiHelper.gson;
+import static io.restassured.RestAssured.given;
 
 public class CoreServices extends DriverBase {
     private static LogUtility logger = new LogUtility(CoreServices.class);
@@ -54,6 +55,8 @@ public class CoreServices extends DriverBase {
     private static String PARTNER_DELIVERYINFOMATION = "/api/partner/deliveryinformation";
     private static String PARTNER_GRAPHQL = "/graphql";
     private static String PARTNER_CONFIRM_PICKUP = "/api/partner/confirmpickup";
+    private static String DRIVER_REJECTION_REASON = "/api/driver/getRemarks?remarkby=4";
+    private static String DRIVER_SAVE_REJECTION_REASON = "/api/driver/pickupremark";
 
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
@@ -74,7 +77,8 @@ public class CoreServices extends DriverBase {
             dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.drop.longitude")));
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.latitude")));
             pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.longitude")));
-        } else if (geoFence.equalsIgnoreCase("boston")) {
+        }
+        else if (geoFence.equalsIgnoreCase("boston")) {
             dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("boston.drop.latitude")));
             dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("boston.drop.longitude")));
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("boston.pickup.latitude")));
@@ -1049,7 +1053,37 @@ public class CoreServices extends DriverBase {
         //ApiHelper.genericResponseValidation(response);
         return response;
     }
+    public void updateStatusForDriverReject(String pickupID, String authToken) {
+        try {
+            String utcTime= utility.getCurrentUTCTime();
+            String RequestText = "API REQUEST : Select rejection reason pickup id : "+ pickupID + " | Authtoken : "+ authToken + " at "+ utcTime;
+            String apiURL = null;
+            apiURL = UrlBuilder.createApiUrl("core",DRIVER_REJECTION_REASON);
 
+            Header header = new Header("AuthorizationToken", authToken);
+
+            Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickupID).when().get(apiURL);
+            //response.then().log().body();
+            String rejectionReason= response.getBody().jsonPath().get("Remarks[1].Description");
+
+            String apiurl = null;
+            apiurl=UrlBuilder.createApiUrl("core",DRIVER_SAVE_REJECTION_REASON);
+
+            String remarkID=new DbUtility().getRemarkId(rejectionReason);
+
+            JSONObject jsonObj = new JSONObject();
+            JSONObject status = new JSONObject();
+                status.put("PickupRequestID", pickupID);
+                status.put("RemarkID", remarkID);
+                status.put("RemarkText", "");
+
+            Response respons = ApiHelper.postDetailsForDriver(apiurl, status, header);
+            ApiHelper.genericResponseValidation(respons,RequestText);
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+
+    }
 
     public void updateStatus(String pickupID, String authToken, int statusID) {
         try {
@@ -1301,7 +1335,7 @@ public class CoreServices extends DriverBase {
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
         ApiHelper.genericResponseValidation(response,RequestText);
-       // response.then().log().body();
+        //response.then().log().body();
         return response;
 
     }
@@ -1969,7 +2003,14 @@ public class CoreServices extends DriverBase {
             ApiHelper.genericResponseValidation(response, RequestText);
         }
 
-        else if(Partner_Portal.equalsIgnoreCase("Floor and Decor")) {
+        else if(Partner_Portal.equalsIgnoreCase("Floor and Decor") || Partner_Portal.equalsIgnoreCase("Floor and Decor - Different Weights")) {
+
+                String dimensionsItemOne = PropertyUtility.getDataProperties("partner.washingtondc.dimensions.item.one");
+                String nameItemOne = PropertyUtility.getDataProperties("partner.washingtondc.name.item.one");
+                String weightItemOne = PropertyUtility.getDataProperties("partner.washingtondc.weight.item.one");
+                String dimensionsItemTwo = PropertyUtility.getDataProperties("partner.washingtondc.dimensions.item.two");
+                String nameItemTwo = PropertyUtility.getDataProperties("partner.washingtondc.name.item.two");
+                String weightItemTwo = PropertyUtility.getDataProperties("partner.washingtondc.weight.item.two");
 
                 //customer name
                 JSONArray customFields = new JSONArray();
@@ -1979,31 +2020,45 @@ public class CoreServices extends DriverBase {
                 customFields.put(field1);
 
                 JSONArray ItemsToDeliver = new JSONArray();
-                if(No_Of_Driver=="1"){
-                    //items details for solo
-                    JSONObject deliverables = new JSONObject();
-                    deliverables.put("Dimensions", "12");
-                    deliverables.put("ID", "1");
-                    deliverables.put("Name", "Books");
-                    deliverables.put("Weight", "1111");
-                    ItemsToDeliver.put(deliverables);
-                }
-                else{
-                    //items details for duo
+                if(Partner_Portal.equalsIgnoreCase("Floor and Decor - Different Weights")){
                     JSONObject firstDeliverables = new JSONObject();
                     JSONObject secondDeliverables = new JSONObject();
-                    firstDeliverables.put("Dimensions", "12");
+                    firstDeliverables.put("Dimensions",dimensionsItemOne);
                     firstDeliverables.put("ID", "1");
-                    firstDeliverables.put("Name", "Books");
-                    firstDeliverables.put("Weight", "1111");
+                    firstDeliverables.put("Name",nameItemOne);
+                    firstDeliverables.put("Weight",weightItemOne);
                     ItemsToDeliver.put(firstDeliverables);
-                    secondDeliverables.put("Dimensions", "32");
+                    secondDeliverables.put("Dimensions",dimensionsItemTwo);
                     secondDeliverables.put("ID", "2");
-                    secondDeliverables.put("Name", "Chair");
-                    secondDeliverables.put("Weight", "1111");
+                    secondDeliverables.put("Name",nameItemTwo);
+                    secondDeliverables.put("Weight",weightItemTwo);
                     ItemsToDeliver.put(secondDeliverables);
                 }
-
+                else {
+                    if (No_Of_Driver.equalsIgnoreCase("1")) {
+                        //items details for solo
+                        JSONObject deliverables = new JSONObject();
+                        deliverables.put("Dimensions",dimensionsItemOne);
+                        deliverables.put("ID", "1");
+                        deliverables.put("Name",nameItemOne);
+                        deliverables.put("Weight",weightItemOne);
+                        ItemsToDeliver.put(deliverables);
+                    } else {
+                        //items details for duo
+                        JSONObject firstDeliverables = new JSONObject();
+                        JSONObject secondDeliverables = new JSONObject();
+                        firstDeliverables.put("Dimensions",dimensionsItemOne);
+                        firstDeliverables.put("ID", "1");
+                        firstDeliverables.put("Name",nameItemOne);
+                        firstDeliverables.put("Weight",weightItemOne);
+                        ItemsToDeliver.put(firstDeliverables);
+                        secondDeliverables.put("Dimensions",dimensionsItemTwo);
+                        secondDeliverables.put("ID", "2");
+                        secondDeliverables.put("Name",nameItemTwo);
+                        secondDeliverables.put("Weight",weightItemOne);
+                        ItemsToDeliver.put(secondDeliverables);
+                    }
+                }
 
                 //static fields
                 JSONArray staticFields = new JSONArray();

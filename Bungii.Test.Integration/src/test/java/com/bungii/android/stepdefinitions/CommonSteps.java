@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.admin.DashBoardPage;
 import com.bungii.android.pages.admin.LogInPage;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.LocationPage;
 import com.bungii.android.pages.driver.*;
@@ -28,6 +29,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -62,11 +64,13 @@ public class CommonSteps extends DriverBase {
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     LocationPage locationPage = new LocationPage();
     SignupPage Page_Signup= new SignupPage();
+    TripDetailsPage tripDetailsPage = new TripDetailsPage();
     private DbUtility dbUtility = new DbUtility();
     com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
     LogInPage logInPage=  new LogInPage();
     DashBoardPage dashBoardPage=new DashBoardPage();
     PhonePage phonePage = new PhonePage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
 
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
@@ -935,7 +939,10 @@ public class CommonSteps extends DriverBase {
                     expectedMessage = "We’re only able to schedule Bungii’s between 12:15 AM - 11:30 PM. Please choose a time in that range."; //PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
                     action.click(estimatePage.Samsung_Time_Cancel());
                     break;
-
+                case "ACCOUNT DELETED SUCCESSFULLY":
+                    actualMessage = utility.getCustomerSnackBarMessage();
+                    expectedMessage = PropertyUtility.getMessage("customer.account.deleted.successfully");
+                    break;
                 case "DELETE WARNING":
                     actualMessage = utility.getCustomerSnackBarMessage();
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
@@ -1393,5 +1400,275 @@ public class CommonSteps extends DriverBase {
 
         }
 
+    }
+    @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
+    public void i_navigate_to_something(String page, String url) throws Throwable {
+        try{  switch (page)
+        {
+            case "Partner":
+                String partnerUrl =  utility.NavigateToPartnerLogin(url);
+                cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerUrl);
+                cucumberContextManager.setScenarioContext("IS_PARTNER","TRUE");
+                pass("I should be navigate to " + page + " portal configured for "+ url ,
+                        "I navigated to " + page + " portal configured for "+ url +" ["+partnerUrl+"]", true);
+                break;
+            default:break;
+        }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @When("^I enter \"([^\"]*)\" password on Partner Portal$")
+    public void WhenIEnterPasswordOnPartnerPortal(String str)
+    {
+        try{
+            //SetupManager.getObject().manage().window().maximize();
+            switch (str)
+            {
+                case "valid":
+                    action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("PartnerPassword"));
+                    break;
+                case "invalid":
+                    action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("Invalid_PartnerPassword"));
+                    break;
+                default: break;
+            }
+            log("I should able to enter "+str+" driver Password on Partner portal","I entered "+str +" partner Password on Partner portal", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I click \"([^\"]*)\" button on Partner Portal$")
+    public void I_Click_Some_Button_On_Partner_Portal(String str) throws InterruptedException {
+        try {
+            switch (str) {
+                case "SIGN IN":
+                    action.click(scheduledTripsPage.Button_SignIn());
+                    break;
+                case "Track Deliveries":
+                    Thread.sleep(5000);
+                    action.click(scheduledTripsPage.Dropdown_Setting());
+                    Thread.sleep(5000);
+                    action.click(scheduledTripsPage.Button_TrackDeliveries());
+                    Thread.sleep(5000);
+                    if(action.getCurrentURL().contains("login")|| action.getCurrentURL().contains("Login"))
+                    {
+                        //Workaround for app getting logged out when run in parallel
+                        action.clearSendKeys(scheduledTripsPage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("PartnerPassword"));
+                        action.click(scheduledTripsPage.Button_SignIn());
+                        Thread.sleep(5000);
+                        testStepVerify.isEquals(action.getText(scheduledTripsPage.Label_StartOver()), PropertyUtility.getMessage("Start_Over_Header"));
+                        Thread.sleep(5000);
+                        if(!action.isElementPresent(scheduledTripsPage.Dropdown_Setting(true))) {
+                            action.click(scheduledTripsPage.Link_Setting());
+                            action.clearSendKeys(scheduledTripsPage.Textbox_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                            action.click(scheduledTripsPage.Button_Continue());
+                        }
+                        action.click(scheduledTripsPage.Dropdown_Setting());
+                        action.click(scheduledTripsPage.Button_TrackDeliveries());
+
+                    }
+                    break;
+                case "Cancel Delivery link":
+                    action.click(scheduledTripsPage.Link_CancelDelivery());
+                    break;
+                case "OK":
+                    action.click(scheduledTripsPage.Button_OK());
+                    break;
+                case "OK on Delivery Cancellation Failed":
+                    action.click(scheduledTripsPage.Button_OkOnDeliveryCancellationFailed());
+                    break;
+                case "Cancel Delivery":
+                    action.click(scheduledTripsPage.Button_CancelDelivery());
+                    break;
+                default:
+                    break;
+
+            }
+            log("I click on "+str+ " button ", "I clicked on "+str+ " button ", true);
+
+        }
+        catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step , I Should "+ str,
+                    true);
+        }
+    }
+    @And("^I click the \"([^\"]*)\" button on Partner Portal$")
+    public void I_Click_the_Some_Button_On_Partner_Portal(String str) throws InterruptedException {
+        try {
+            Thread.sleep(2000);
+            action.click(scheduledTripsPage.Dropdown_Setting());
+            action.click(scheduledTripsPage.Button_TrackDeliveries());
+            Thread.sleep(5000);
+            String  columnTracking = "TRACKING ID";
+            cucumberContextManager.setScenarioContext("TRACKINGID_COLUMN", action.getText(scheduledTripsPage.Text_TrackingIdColumn()));
+            testStepAssert.isEquals((String) cucumberContextManager.getScenarioContext("TRACKINGID_COLUMN"),columnTracking,"Tracking ID column should  exist","Tracking ID column exists","Tracking Id column doesnt exist");
+
+            cucumberContextManager.setScenarioContext("PARTNER_CUSTOMERNAME",action.getText(scheduledTripsPage.Text_TripCustomer()));
+            cucumberContextManager.setScenarioContext("PARTNER_TRACKINGID", action.getText(scheduledTripsPage.Text_TripTrackingId()));
+            cucumberContextManager.setScenarioContext("DELIVERY_ADDRESS", action.getText(scheduledTripsPage.Text_TripDeliveryAddress()).replace(",", ""));
+            Thread.sleep(2000);
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I click on the delivery based on customer name$")
+    public void i_click_on_the_delivery_based_on_customer_name() throws Throwable {
+        try{
+            action.click(scheduledTripsPage.Textbox_SearchBar());
+            Thread.sleep(1000);
+            action.clearSendKeys(scheduledTripsPage.Textbox_SearchBar(), (String)cucumberContextManager.getScenarioContext("CUSTOMER") + Keys.ENTER);
+            Thread.sleep(1000);
+            action.click(scheduledTripsPage.Link_SelectTripTrackDeliveries());
+            log("I should be able to click on the customer trip","I could click on the customer trip",false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @And("^I verify the driver earnings displayed on driver app for \"([^\"]*)\"$")
+    public void i_verify_the_driver_earnings_displayed_on_driver_app_for_something(String type) throws Throwable {
+        try{
+            switch (type)
+            {
+                case "solo":
+                    Thread.sleep(2000);
+                    String soloDriverEarnings = action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp());
+                    float soloDriverEarnings1 = Float.parseFloat(soloDriverEarnings.substring(1));
+                    float driverShareCalculated =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE"));
+                    testStepVerify.isTrue(soloDriverEarnings1==driverShareCalculated,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+                    break;
+                case "duo":
+                    Thread.sleep(2000);
+                    action.scrollToTop();
+                    action.scrollToBottom();
+                    float duoDriver1Earnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver1EarningsApp()).substring(1)));
+                    float driverShareCalculatedDriver1 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE_SAME_TIRE"));
+                    testStepAssert.isTrue(duoDriver1Earnings==driverShareCalculatedDriver1,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+                    float duoDriver2Earnings = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver2EarningsApp()).substring(1)));
+                    float driverShareCalculatedDriver2 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER_SHARE_SAME_TIRE"));
+                    testStepAssert.isTrue(duoDriver2Earnings==driverShareCalculatedDriver2,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+                    break;
+
+                case "duo-different tier":
+                    Thread.sleep(2000);
+                    action.scrollToBottom();
+                    float duoDriver1EarningsTier1 = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver1EarningsApp()).substring(1)));
+                    float driverShareCalculatedDriver1Tier1 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER1_SHARE_DIFFERENT_TIRE"));
+                    testStepAssert.isTrue(duoDriver1EarningsTier1==driverShareCalculatedDriver1Tier1,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+                    float duoDriver2EarningsTier2 = Float.parseFloat((action.getText(scheduledTripsPage.Text_DuoDriver2EarningsApp()).substring(1)));
+                    float driverShareCalculatedDriver2Tier2 =Float.parseFloat((String) cucumberContextManager.getScenarioContext("CALCULATED_DRIVER2_SHARE_DIFFERENT_TIRE"));
+                    testStepAssert.isTrue(duoDriver2EarningsTier2==driverShareCalculatedDriver2Tier2,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+
+                    break;
+
+                case "changed address and service level":
+                    Thread.sleep(2000);
+                    float soloDriverEarningsChangedSL = Float.parseFloat((action.getText(scheduledTripsPage.Text_SoloDriverEarningsApp1()).substring(1)));
+                    float driverShareCalculatedChangedSL =Float.parseFloat((String) cucumberContextManager.getScenarioContext("DRIVER_SHARE_FOR_CHANGED_SL_AND_ADDRESS"));
+                    testStepAssert.isTrue(soloDriverEarningsChangedSL==driverShareCalculatedChangedSL,
+                            "The driver earnings calculated should be same as displayed",
+                            "The driver earnings calculated is same as displayed",
+                            "The driver earnings calculated is not same as displayed");
+                    break;
+            }
+            log("I should be able to verify the driver earnings displayed",
+                    "I am able to verify the driver earnings displayed",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I select \"([^\"]*)\" from items$")
+    public void i_select_something_from_items(String pallet) throws Throwable {
+        try{
+            switch (pallet){
+                case "Pallet-1":
+                    action.scrollToBottom();
+                    action.click(scheduledTripsPage.RadioButton_PalletOne());
+                    break;
+                case "Pallet-1 available page":
+                    action.click(scheduledTripsPage.RadioButton_PalletOne());
+                    break;
+                case "Pallet-2":
+                    action.click(scheduledTripsPage.RadioButton_PalletTwo());
+                    break;
+            }
+            log("I should be able to select the pallet",
+                    "I am able to select the pallet",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check inadequate payload pop up is displayed$")
+    public void i_check_inadequate_payload_pop_up_is_displayed() throws Throwable {
+        try{
+            action.click(tripDetailsPage.Button_Accept());
+            String expectedPopUpMesssage = PropertyUtility.getMessage("low.payload.capacity.message");
+            testStepVerify.isEquals(utility.getDriverSnackBarMessage(), expectedPopUpMesssage);
+
+            log("I should be able to see the inadequate payload message",
+                    "I am able to see the inadequate payload message",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check information of both the pallets are displayed separately$")
+    public void i_check_information_of_both_the_pallets_are_displayed_separately() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(scheduledTripsPage.Text_PalletOne(),
+                    "The pallet one information should be displayed",
+                    "The pallet one information is displayed",
+                    "The pallet one information is not displayed");
+
+            action.scrollToBottom();
+
+            testStepAssert.isElementDisplayed(scheduledTripsPage.Text_PalletTwo(),
+                    "The pallet two information should be displayed",
+                    "The pallet two information is displayed",
+                    "The pallet two information is not displayed");
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
     }
 }

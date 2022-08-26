@@ -162,6 +162,9 @@ public class ScheduledBungiiSteps extends DriverBase {
     @And("I Select Trip from driver scheduled trip")
     public void iSelectTripFromDriverScheduledTrip() {
         try{
+            if(action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true))){
+                action.click(Page_BungiiRequest.Button_No_Thanks());
+            }
         boolean skipNormalFlow = false;
         boolean isSelected = false;
         if(action.isNotificationAlertDisplayed()){
@@ -206,6 +209,25 @@ public class ScheduledBungiiSteps extends DriverBase {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
     }
+    }
+    @And("^I start selected Bungii for \"([^\"]*)\"$")
+    public void i_start_selected_bungii_for_something(String type) throws Throwable {
+     try{
+         switch (type){
+             case "floor and decor":
+                 Thread.sleep(3000);
+                 action.scrollToBottom();
+                 Thread.sleep(3000);
+                 action.scrollToBottom();
+                 action.click(Page_BungiiRequest.Button_Start());
+                 log("I start selected Bungii ", "I started selected Bungii", true);
+                 break;
+         }
+     }
+     catch (Exception e) {
+         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+     }
     }
 
     @And("^I click the \"([^\"]*)\" button on \"([^\"]*)\" screen$")

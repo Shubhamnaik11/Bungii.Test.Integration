@@ -21,8 +21,8 @@ Feature: Admin_Geofence
   Scenario: Verify Add Edit New Geofence
     When I click on the "Scale" Button
     And I enter following values in "Geofence" fields
-      | Primary                                              | Secondary                   | Geo-Name  | Geo-TimeZone | Geo-Status|
-      | e{o~FpctuOjE\|j_Ao\|e@veBfe@mbt@lqe@_rM      | km_}FhtotOznYf~gDcoeDxy]cx@stsBlmoC{orA        | ZONE-<<UniqueNo>> | MST            |Active|
+      | Primary                                | Secondary                              | Geo-Name          | Geo-TimeZone | Geo-Status|
+      | e{o~FpctuOjE\|j_Ao\|e@veBfe@mbt@lqe@_rM| km_}FhtotOznYf~gDcoeDxy]cx@stsBlmoC{orA| ZONE-<<UniqueNo>> | MST          |Active|
     When I click on the "Save" Button on "Geofence" Screen
     Then the geofence gets saved successfully and it is displayed in the "Geofences" grid
     When I click on the geofence name "ZONE-"
@@ -34,6 +34,57 @@ Feature: Admin_Geofence
     When I click on the "Save" Button on "Geofence" Screen
     And I uncheck the Active Geofences Only Checkbox
     Then the geofence gets saved successfully and it is displayed in the "Geofences" grid
+#   Core-3843 Verify that zip codes of newly added geofence are present in downloaded file
+    When I click on the geofence "new-geofence"
+    #CORE-4010 test case incorporated
+    Then I observe log details in the Geo-History section
+    And I note the Geo History log records count
+    And I edit the geofence "new-geofence"
+    And I "activate" status for "new-geofence" geofence
+    And I open a newly created geofence
+    And I check that log record is shown for "Status" change in Geo History
+    And I check correct log details are shown
+    And I click on changes hyperlink
+    Then I should see all fields with old and new changed value
+    And I click on the "Cancel" Button
+    And I open a newly created geofence
+    And I edit the geofence "ZONE-"
+    And I change the "Region" for the geofence
+    |New_Region|
+    |Northeast |
+    When I click on the "Save" Button on "Geofence" Screen
+    And I open a newly created geofence
+    And I check that log record is shown for "Region" change in Geo History
+    And I check correct log details are shown
+    And I click on changes hyperlink
+    Then I should see all fields with old and new changed value
+    And I click on the "Cancel" Button
+    And I open a newly created geofence
+    And I edit the geofence "ZONE-"
+    And I change the "Timezone" for the geofence
+      |Geo-TimeZone|
+      |IST         |
+    When I click on the "Save" Button on "Geofence" Screen
+    And I open a newly created geofence
+    And I check that log record is shown for "Timezone" change in Geo History
+    And I check correct log details are shown
+    And I click on changes hyperlink
+    Then I should see all fields with old and new changed value
+    And I click on the "Cancel" Button
+    And I open a newly created geofence
+    And I edit the geofence "ZONE-"
+    And I change the "Geo-Coding" for the geofence
+      |Primary                                 |Secondary                              |
+      |e{o~FpctuOjE\|j_Ao\|e@veBfe@mbt@lqe@_vN |km_}FhtotOznYf~gDcoeDxy]cx@stsBlmoC{orB|
+    When I click on the "Save" Button on "Geofence" Screen
+    And I open a newly created geofence
+    And I check that log record is shown for "Geo-Coding" change in Geo History
+    And I check correct log details are shown
+    And I click on changes hyperlink
+    Then I should see all fields with old and new changed value
+    And I click on the "Cancel" Button
+    And I click on "Download Zip Codes" button
+    Then I verify if "new-geofence" are downloaded
 
   @sanity
   @regression
@@ -210,3 +261,37 @@ Feature: Admin_Geofence
       | Attr1            | Attr                            |  Desc       |      |
     And I click on the "Save" Button on "GeofenceAttributes" Screen
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+
+# Core-3843 Verify that only active geofence zip codes are downloaded in csv file 
+  @ready
+    Scenario: Verify that only active geofence zip codes are downloaded in csv file
+#     Core-3843 Verify the download option on geofence listing page of admin portal
+      When I click on "Download Zip Codes" button
+#     Core-3843 Verify that only active geofence zip codes are downloaded in csv file
+      And I verify if "only active geofence zip codes" are downloaded
+#     Core-3843 Verify the downloaded zip codes file after active geofence is converted to inactive
+      When I click on the geofence "Chicago"
+      And I edit the geofence "Chicago"
+      And I "deactivate" status for "Chicago" geofence
+      And I click on "Download Zip Codes" button
+      And I verify if "deactive geofence is not" are downloaded
+#     Core-3843 Verify the downloaded zip codes after inactive geofence is converted to active
+      And I uncheck the Active Geofences Only Checkbox
+      When I click on the geofence "Chicago-inactive"
+      And I edit the geofence "Chicago"
+      And I "activate" status for "Chicago" geofence
+      And I click on "Download Zip Codes" button
+      Then I verify if "active geofence" are downloaded
+#     Core-3843 Verify that zip codes of extended part of geofence are updated on the csv file
+      Then I verify if "count of Chicago" are downloaded
+      When I click on the geofence "Chicago"
+      And I edit the geofence "Chicago"
+      And I "extend" geofence polylines
+      And I click on "Download Zip Codes" button
+      Then I verify if "count of Chicago after extend" are downloaded
+#    Core-3843 Verify that zip codes are removed from csv file when the geofence plotting is reduced
+      When I click on the geofence "Chicago"
+      And I edit the geofence "Chicago"
+      And I "reduce" geofence polylines
+      And I click on "Download Zip Codes" button
+      Then I verify if "count of Chicago after reduce" are downloaded

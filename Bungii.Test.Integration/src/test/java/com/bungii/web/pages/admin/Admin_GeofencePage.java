@@ -3,6 +3,8 @@ package com.bungii.web.pages.admin;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class Admin_GeofencePage extends PageBase {
 
     public WebElement Menu_Geofences () { return findElement("adminmenu-geofences", LocatorType.Id); }
@@ -22,6 +24,8 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Label_GeoName(boolean...ignoreException) { return findElement("GeofenceSettings_0__Name", LocatorType.Id,ignoreException); }
 
     public WebElement Dropdown_Timezone() { return findElement("drpTimeZone", LocatorType.Id); }
+
+    public WebElement Dropdown_Region() { return findElement("drpRegion", LocatorType.Id); }
 
     public WebElement Dropdown_Status() { return findElement("drpStatus", LocatorType.Id); }
 
@@ -101,5 +105,32 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Checkbox_Geofence(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath, ignoreException);}
     public WebElement Checkbox_GeofenceLabel(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]",geofence) , LocatorType.XPath, ignoreException);}
+
+    public WebElement Button_DownloadZipCodes() {return findElement("btnDownloadZipcodes" , LocatorType.Id);}
+    public List<WebElement> List_RowCount() {return findElements("//tbody[@id='NewApplicantsTBody']/tr[@class='clickable-row']/td[2]" , LocatorType.XPath);}
+    public WebElement List_ActiveGeofence(int i) {return findElement("//tbody[@id='NewApplicantsTBody']/tr["+i+"]/td[2]" , LocatorType.XPath);}
+
+    public WebElement Row_GeofenceName(String geoName) { return findElement("//td[contains(text(),'"+geoName+"')]",LocatorType.XPath);}
+    public WebElement Text_GeoHistory() {return findElement("//h4[contains(text(),'Geo-History')]",LocatorType.XPath);}
+    public List<WebElement> Rows_GeoHistoryLogs() { return findElements("//tbody[@id='GeofenceHistoryTBody']/tr[@class='geo-tr']",LocatorType.XPath);}
+    public WebElement Text_SrNo() { return findElement("//th[contains(text(),'Sr.No.')]",LocatorType.XPath);}
+    public WebElement Text_ModifiedDate() { return findElement("//th[contains(text(),'Modified Date')]",LocatorType.XPath);}
+    public WebElement Text_ModifiedBy() { return findElement("//th[contains(text(),'Modified By')]",LocatorType.XPath);}
+    public WebElement Text_Phone() { return findElement("//th[contains(text(),'Phone')]",LocatorType.XPath);}
+    public WebElement Text_Changes() { return findElement("//th[contains(text(),'Changes')]",LocatorType.XPath);}
+    public WebElement Button_GeofenceCancel() { return findElement("//div[@id='btnCancel']",LocatorType.XPath);}
+    public WebElement Link_Changes() { return findElement("//tbody/tr[@id='historyID0']/td[6]/a",LocatorType.XPath);}
+    public WebElement Text_Fields() { return findElement("//div[@id='historyLog_historyID0']/table/thead/tr/th[contains(text(),'Fields')]",LocatorType.XPath);}
+    public WebElement Text_OldValue() { return findElement("//div[@id='historyLog_historyID0']/table/thead/tr/th[contains(text(),'Old Value')]",LocatorType.XPath);}
+    public WebElement Text_NewValue() { return findElement("//div[@id='historyLog_historyID0']/table/thead/tr/th[contains(text(),'New Value')]",LocatorType.XPath);}
+
+    public WebElement Value_ModifiedDate() { return findElement("//tbody/tr[@id='historyID0']/td[3]",LocatorType.XPath);}
+    public WebElement Value_ModifiedBy() { return findElement("//tbody/tr[@id='historyID0']/td[4]",LocatorType.XPath);}
+    public WebElement Value_Phone() { return findElement("//tbody/tr[@id='historyID0']/td[5]",LocatorType.XPath);}
+    public WebElement Value_Changes() { return findElement("//tbody/tr[@id='historyID0']/td[6]/a",LocatorType.XPath);}
+
+    public WebElement Text_GeofenceHighlighted() { return findElement("//ul/li/div/span/mark", LocatorType.XPath);}
+
+    public List<WebElement> List_GeofenceRegions() { return findElements("//div[@id=\"tree\"]/ul/li/div/span[4]", LocatorType.XPath);}
 
 }

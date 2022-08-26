@@ -688,6 +688,16 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Title_RateCustomer(),"Rate customer screen should be shown to the driver","Rate customer screen is shown to the driver", "Rate customer screen is not shown to the driver");
                     break;
 
+                    case "Pickup Instructions":
+                    testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Header_GeneralInstructions(),"Pickup Instructions should be shown","Pickup Instructions are shown","Pickup Instructions are not shown");
+                    testStepVerify.isEquals(Page_DriverBungiiProgress.Text_GeneralInstructions().getText(),PropertyUtility.getMessage("floor.and.decor.pickup.instructions"),"Pickup Instructions text should be correct","Pickup Instructions text is correct","Pickup Instructions text is incorrect");
+                    action.click((Page_DriverBungiiProgress.Button_GeneralInstructions_GotIt()));
+                    break;
+
+                    case "Photo Verification":
+                    testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Text_PhotoVerification(),"Photo Verification should be shown","Photo Verification is shown","Photo Verification is not shown");
+                    break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -1281,6 +1291,42 @@ public class BungiiSteps extends DriverBase {
     public void simulatorBungiiDriver(String arg0) throws Throwable {
 
     }
+    @And("^Driver status should be \"([^\"]*)\"$")
+    public void driver_status_should_be_something(String DriverStatus) throws Throwable {
+        try {
+            String phoneNumber= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            switch (DriverStatus){
+                case "Online":
+                    String expectedDriverOnlineStatus ="1";
+                    String driverOnlineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOnlineStatus,expectedDriverOnlineStatus,"Driver status should be online","Driver Status is online","Driver status is not online");
+                    break;
+                case "Offline":
+                    String driverStatus ="0";
+                    String driverOfflineStatus = com.bungii.web.utilityfunctions.DbUtility.getDriverStatus(phoneNumber);
+                    testStepAssert.isEquals(driverOfflineStatus,driverStatus,"Driver status should be offline","Driver Status is offline","Driver status is not offline");
+                    break;
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I should see \"([^\"]*)\" popup displayed$")
+    public void i_should_see_something_popup_displayed(String expectedMessage) throws Throwable {
+        try{
+      boolean isDisplayed =Page_BungiiRequest.Alert_NewBungiiRequest(true).isDisplayed();
+      testStepAssert.isTrue(isDisplayed,"Stack trip request should be displayed","Stack trip request is displayed","Stack trip request is not displayed");
+      String popUpText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+      testStepAssert.isEquals(popUpText,expectedMessage,"Stack trip request should be "+expectedMessage,"Stack trip request is "+popUpText,expectedMessage +" request is not present");
+     }catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     private void validateSMSNumber(String actualValue,String expectedValue) {
         try {
             String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")

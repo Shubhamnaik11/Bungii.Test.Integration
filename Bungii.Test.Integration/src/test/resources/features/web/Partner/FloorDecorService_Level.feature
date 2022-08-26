@@ -4,7 +4,7 @@ Feature: Floor and Decore Service Level
   Background:
     Given I navigate to "Partner" portal configured for "FloorDecor service level" URL
 
-  @ready
+  @regression
   Scenario: Verify that 1pallet and 2pallets are shown instead of solo and duo for floor and decor partner portal
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -37,3 +37,19 @@ Feature: Floor and Decore Service Level
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Assigning Driver(s)|
+#   Core-2641 Verify alias is displayed for partner portal trips on scheduled delivery page
+    And I verify alias is displayed correctly on "scheduled delivery page"
+    When I view the delivery details
+    And I verify alias is displayed correctly on "delivery details page"
+    And I navigate back to Scheduled Deliveries
+#   Core-2641 Verify alias is displayed for partner portal trips on all delivery page
+    And I click on "Edit" link beside scheduled bungii
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I click on "Submit" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    When I click on "Close" button
+    And I wait for "2" mins
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then I verify alias is displayed correctly on "all delivery page"
