@@ -320,7 +320,7 @@ Feature: Partner Integration with Admin and Driver
       | Canceled       |
     When I navigate to "Delivery Status URL"
     Then Delivery Status should be displayed correctly as "Delivery Cancelled"
-   #CORE-2266:To verify the driver phone is masked in the tracking sms of in progress bungii for geofence based partner portal delivery (SOLO)
+   #CORE-2266:To verify the driver cannot be called for canceled delivery
     Then The Phone Icon should not be displayed
 
   @ready
