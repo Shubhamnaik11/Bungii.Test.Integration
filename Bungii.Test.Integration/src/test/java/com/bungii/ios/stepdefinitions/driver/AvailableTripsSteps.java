@@ -323,14 +323,12 @@ public class AvailableTripsSteps extends DriverBase {
 		String servicePickupInstruction = PropertyUtility.getDataProperties("baltimore.pickup.instructions");
 		String serviceDropOffInstruction = PropertyUtility.getDataProperties("baltimore.dropoff.instructions");
 
-		boolean pickupInstructions = availableTripsPage.Label_PickupInstructions().isDisplayed();
-		boolean dropOffInstructions = availableTripsPage.Label_DropOffInstructions().isDisplayed();
 
 		String expectedServicePickupInstructions = action.getText(availableTripsPage.Text_PickupInstructions());
 		String expectedServiceDropOffInstructions = action.getText(availableTripsPage.Text_DropOffInstructions());
 
-		testStepAssert.isTrue(pickupInstructions, "Pickup instruction should be displayed", "Pickup instruction is displayed", "Pickup instruction is not displayed");
-		testStepAssert.isTrue(dropOffInstructions, "Dropoff instruction should be displayed", "Dropoff instruction is displayed", "Dropoff instruction is not displayed");
+		testStepAssert.isTrue(action.isElementPresent(availableTripsPage.Label_PickupInstructions()), "Pickup instruction should be displayed", "Pickup instruction is displayed", "Pickup instruction is not displayed");
+		testStepAssert.isTrue(action.isElementPresent(availableTripsPage.Label_DropOffInstructions()), "Dropoff instruction should be displayed", "Dropoff instruction is displayed", "Dropoff instruction is not displayed");
 
 		testStepAssert.isEquals(expectedServicePickupInstructions, servicePickupInstruction, servicePickupInstruction + "service instructions should be displayed", expectedServicePickupInstructions + "service instructions is displayed", servicePickupInstruction + "service instructions is displayed");
 		testStepAssert.isEquals(expectedServiceDropOffInstructions, serviceDropOffInstruction, serviceDropOffInstruction + "service instructions should be displayed", expectedServiceDropOffInstructions + "service instructions is displayed", serviceDropOffInstruction + "service instructions is displayed");
