@@ -559,7 +559,7 @@ Feature: Solo Scheduled Bungii Part A
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then The trip should be present in schedule delivery
 
- #CORE-3381 :To verify that admin is unable to revive trips canceled by customer from app /add customer
+ #CORE-3381 :To verify that admin is unable to revive trips canceled by customer from app
   @ready
   Scenario:To verify that admin is unable to revive trips canceled by customer from app
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
@@ -582,13 +582,13 @@ Feature: Solo Scheduled Bungii Part A
   Scenario:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8877661055     |  Testcustomertywd_BppleMarkBD LutherBD | Cci12345        |
+      | NEXT_POSSIBLE | 8877661055     |  Testcustomertywd_appleMarkBD LutherBD | Cci12345        |
     And I wait for "2" minutes
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
-    And I open the trip for "Testcustomertywd_BppleMarkBD LutherBD" the customer
+    And I open the trip for "Testcustomertywd_appleMarkBD LutherBD" the customer
     And I Select "Cancel Trip" option
     And I enter cancellation fee and Comments
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown

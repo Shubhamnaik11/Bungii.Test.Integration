@@ -1437,7 +1437,7 @@ public class CommonSteps extends DriverBase {
         String fullCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,27);
         List<WebElement> AvailableDeliveriesDriverApp =availableTrips.List_AllDeliveriesDriverApp();
         if(AvailableDeliveriesDriverApp.size()==0){
-           testStepAssert.isPass("Delivery is not present in available bungiis");
+            pass("Delivery should not be present in available bungiis","Delivery is not present in available bungiis");
         }
         else{
             for(int i=0;i<AvailableDeliveriesDriverApp.size();i++){
@@ -1448,7 +1448,7 @@ public class CommonSteps extends DriverBase {
                 }
             }
             if(isDeliveryPresentInDriverApp ==true) {
-                testStepAssert.isPass("Delivery is not present in available bungiis");
+                testStepAssert.isTrue(true,"Delivery should not be present in available bungiis","Delivery is not present in available bungiis","Delivery is  present in available bungiis");
             }
         }
     } catch (Throwable e) {
@@ -1545,7 +1545,7 @@ public class CommonSteps extends DriverBase {
                 String onlyTimeFormat = fullDeliveryTimeFormat[1];
                 String dateAndTime = onlyMonthAndDate + "," + onlyTimeFormat;
                 if (dateAndTime.contentEquals(scheduled_time)) {
-                    testStepAssert.isPass("Delivery is present in available bungiis");
+                    pass("Delivery should be present in available bungiis","Delivery is present in available bungiis",false);
                     isTripPresent = true;
                     break;
                 }
