@@ -405,14 +405,14 @@
       #CORE-3271:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
       @ready
     Scenario:To verify that SOLO lift icon is displayed on driver app for partner delivery that was scheduled without checkbox
-        When I request Partner Portal "SOLO" Trip for "Tile Shop" partner
+        When I request Partner Portal "Duo" Trip for "Tile Shop" partner
           |Geofence| Bungii Time   | Customer Phone | Customer Name |
           |nashville| NEXT_POSSIBLE | 8877661096 | Testcustomertywd_appleMarkCS LutherCS|
       When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      And I open the trip for "Testcustomertywd_BppleMarkCS LutherCS" the customer
+      And I open the trip for "Testcustomertywd_appleMarkCS LutherCS" the customer
       And I Select "Edit Trip Details" option
       And I change delivery type from "Duo to Solo"
       And I click on "VERIFY" button
@@ -482,7 +482,7 @@
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "trips" from admin sidebar
-      And I open the trip for "Testcustomertywd_appleMarkAK LutherAK" the customer
+      And I open the trip for "Testcustomertywd_appleMarkCT LutherCT" the customer
       And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
       Then "Customer Help" icon should be displayed in all deliveries details page
 
