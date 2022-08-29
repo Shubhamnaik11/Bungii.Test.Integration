@@ -371,7 +371,7 @@ public class TripDetailsSteps extends DriverBase {
         try{
         Thread.sleep(2000);
         action.click(updateStatusPage.TextBox_Signature());
-        DrawSignature();
+        action.DrawSignature();
         Thread.sleep(5000);
         log("I should be able to add signature","I could add signature",false);
     } catch (Exception e) {
@@ -381,11 +381,7 @@ public class TripDetailsSteps extends DriverBase {
     }
     }
 
-    public void DrawSignature() throws InterruptedException {
-        IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
-        new TouchAction(driver).press(PointOption.point(52,342))
-                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1))).moveTo(PointOption.point(374,519)) .release().perform();
-    }
+
 
     @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
     public void i_click_on_the_something_link_beside_scheduled_bungii_for_something(String strArg1, String deliveryType) throws Throwable {
@@ -498,6 +494,7 @@ public class TripDetailsSteps extends DriverBase {
                 Thread.sleep(2000);
                 String customerSignatureFieldText =action.getText(scheduledTripsPage.Label_CustomerSignatureNA());
                 testStepAssert.isEquals(customerSignatureFieldText,expectedText,"Signature filed should have the text " +expectedText,"Signature filed has the text " +customerSignatureFieldText,"Signature filed doesnt have the text " +expectedText);
+                break;
             case "Signature Present":
                 Thread.sleep(2000);
                 String ExpectedText ="Customer Signature";
@@ -505,6 +502,7 @@ public class TripDetailsSteps extends DriverBase {
                String customerSignaturePresent = (scheduledTripsPage.Image_CustomerSignature().getAttribute("title"));
                 testStepAssert.isTrue(isSignaturePresent, "Customer signature should be displayed","Customer signature is displayed","Customer signature is not  displayed");
                 testStepAssert.isEquals(customerSignaturePresent,ExpectedText,"Customer signature field should have signature present","Customer signature field is having  signature present","Customer signature field is not having signature present");
+                break;
         }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

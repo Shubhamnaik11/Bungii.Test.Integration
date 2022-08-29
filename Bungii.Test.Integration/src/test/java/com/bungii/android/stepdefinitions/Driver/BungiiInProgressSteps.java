@@ -799,7 +799,7 @@ public class BungiiInProgressSteps extends DriverBase {
         try{
         Thread.sleep(2000);
         action.click(updateStatusPage.TextBox_Signature());
-        DrawSignature();
+        action.DrawSignature();
         Thread.sleep(5000);
         log("I should be able to add signature","I could add signature",false);
     }catch(Exception ex){
@@ -808,11 +808,7 @@ public class BungiiInProgressSteps extends DriverBase {
 
     }
     }
-    public void DrawSignature() throws InterruptedException {
-        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-        new TouchAction(driver).press(PointOption.point(160,335))
-                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1))).moveTo(PointOption.point(0,0)) .release().perform();
-    }
+
 
     @And("^I select \"([^\"]*)\" from the dropdown$")
     public void i_select_something_from_the_dropdown(String status) throws Throwable {
@@ -909,11 +905,17 @@ public class BungiiInProgressSteps extends DriverBase {
 
     @Then("^The \"([^\"]*)\" message should be displayed for live delivery$")
     public void the_something_message_should_be_displayed_for_live_delivery(String message) throws Throwable {
+        try{
         if(message.equalsIgnoreCase("Pick up has been successfully updated.")){
             testStepAssert.isElementTextEquals(updateStatusPage.Label_DeliverySuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
         }
         else {
             testStepAssert.isElementTextEquals(updateStatusPage.Label_CancelSuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+        }
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 

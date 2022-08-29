@@ -745,9 +745,6 @@ public class CommonStepsDriver extends DriverBase {
                 case "CONFIRM CHANGES":
                     action.click(scheduledTripsPage.Button_Confirm());
                     break;
-                case "CLOSE":
-                    action.click(scheduledTripsPage.Button_ClosePopUp());
-                    break;
                 case "Remove Driver":
                     action.click(scheduledTripsPage.Button_RemoveDrivers());
                     break;
