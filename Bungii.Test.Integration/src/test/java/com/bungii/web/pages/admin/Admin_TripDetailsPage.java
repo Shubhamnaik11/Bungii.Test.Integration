@@ -75,5 +75,6 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Text_DriverTwoEarnings() { return findElement("//tr[20]/td/following-sibling::td/strong",LocatorType.XPath);}
     public WebElement Text_PriceOverrideError() { return findElement("errorMessageFields",LocatorType.Id);}
 
+    public WebElement Label_Partner() { return findElement("//table[@class='table table-striped']/tbody/tr[1]/td[1]",LocatorType.XPath);}
 
 }
