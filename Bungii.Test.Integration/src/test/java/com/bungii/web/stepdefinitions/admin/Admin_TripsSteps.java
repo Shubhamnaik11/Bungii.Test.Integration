@@ -2560,7 +2560,7 @@ try{
         try {
             String expectedHeader = PropertyUtility.getMessage("PartnerColumnHeader");
             String actualHeader = action.getText(admin_TripsPage.Header_Partner());
-            testStepAssert.isEquals(actualHeader, expectedHeader, expectedHeader + " should be displayed", expectedHeader + "is displayed", actualHeader + " is displayed");
+            testStepAssert.isEquals(actualHeader, expectedHeader, expectedHeader + " should be displayed", expectedHeader + "is displayed", expectedHeader + " is not displayed");
         }
 
         catch (Exception ex){
