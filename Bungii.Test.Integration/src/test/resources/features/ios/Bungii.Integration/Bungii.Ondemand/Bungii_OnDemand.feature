@@ -46,6 +46,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I switch to "ORIGINAL" instance
     And I slide update button on "ARRIVED" Screen
     And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Loading Items"
     Then manually end bungii should be "disabled"

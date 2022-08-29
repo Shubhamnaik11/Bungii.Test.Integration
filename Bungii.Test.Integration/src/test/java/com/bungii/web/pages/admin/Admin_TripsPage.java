@@ -79,5 +79,6 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Text_AllFilterOptions (int number){ return findElement(String.format("//div[@id=\"divFilter\"]/div/label[%d]",number), LocatorType.XPath); }
 
+    public WebElement Header_Partner () { return findElement("//th[text()='Customer']/following-sibling::th[1]", LocatorType.XPath); }
 
 }

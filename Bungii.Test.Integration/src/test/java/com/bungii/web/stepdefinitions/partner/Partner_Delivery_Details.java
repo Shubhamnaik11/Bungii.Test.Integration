@@ -849,4 +849,46 @@ public class Partner_Delivery_Details extends DriverBase {
 
         }
     }
+    @Then("^The \"([^\"]*)\" should be displayed$")
+    public void the_something_should_be_displayed(String element) throws Throwable {
+        try{
+            switch (element){
+                case "Phone Icon":
+                    testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.Icon_Phone()),"Phone Icon should be displayed","Phone Icon is displayed","Phone Icon is not displayed");
+                    break;
+                case "Confirm":
+                    testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.Icon_Phone()),"Confirm button should be displayed","Confirm button is displayed","Confirm button is not displayed");
+                    break;
+                case "Cancel":
+                    testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.Icon_Phone()),"Cancel button should be displayed","Cancel button is displayed","Cancel button is not displayed");
+                    break;
+                case "Call Alert Message":
+                    String expectedMessage =PropertyUtility.getDataProperties("phone.message.if.tried.to.call");
+                    String alertMessage = action.getText(Page_Partner_Delivery.Alert_MessageForCall());
+                    testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.Alert_MessageForCall()),"Call request text should be displayed","Call request text is displayed","Call request text is not displayed");
+                    testStepAssert.isEquals(alertMessage,expectedMessage,"The text "+expectedMessage+" should be displayed","The text "+alertMessage+" is displayed","The text "+expectedMessage+" should be displayed");
+                    break;
+            }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
+    }
+
+    @Then("^The Phone Icon should not be displayed$")
+    public void the_phone_icon_should_not_be_displayed() throws Throwable {
+        try{
+        Thread.sleep(4000);
+        testStepAssert.isNotElementDisplayed(Page_Partner_Delivery.Icon_Phone(true),"Phone Icon should not be displayed","Phone Icon is not displayed","Phone Icon is displayed");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
+    }
+
+
 }
