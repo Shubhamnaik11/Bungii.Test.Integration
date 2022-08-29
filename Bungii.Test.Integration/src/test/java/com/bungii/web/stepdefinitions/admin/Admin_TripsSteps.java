@@ -2575,7 +2575,7 @@ try{
         try {
             String expectedLabel = PropertyUtility.getMessage("PartnerColumnHeader");
             String actualLabel = action.getText(admin_TripDetailsPage.Label_Partner());
-            testStepAssert.isEquals(actualLabel, expectedLabel, expectedLabel + " should be displayed", expectedLabel + "is displayed", actualLabel + " is displayed");
+            testStepAssert.isEquals(actualLabel, expectedLabel, expectedLabel + " should be displayed", expectedLabel + "is displayed", expectedLabel + " is not displayed");
         }
         catch(Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
