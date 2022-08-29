@@ -200,5 +200,22 @@ public class Partner_DeliveryPage extends PageBase {
     // 0 delivery present error
     public WebElement Text_NoDeliveryError() { return findElement("err",LocatorType.ClassName);}
 
+    //Partner portal delivery details page delivery status
+    public WebElement Text_PartnerDeliveryStatus(String status) { return findElement(String.format("//div[@class ='delivery-status']/div/div/label[text() ='%s']",status),LocatorType.XPath);}
+
+    //Partner portal delivery details page step completion time
+    public WebElement Text_DeliveryCompletedStepTime(int number) { return findElement(String.format("//div[%d]/div/p[@class=\"timeStamp\"]",number),LocatorType.XPath);}
+
+    //Phone icon on SMS
+    public WebElement Icon_Phone(boolean...IgnoreException) { return findElement("//div/span/img",LocatorType.XPath,IgnoreException);}
+
+    //Cancel button on SMS link
+    public WebElement Button_CancelCall() { return findElement("//div/div/button[text()=\"Cancel\"]",LocatorType.XPath);}
+
+    //Confirm button on SMS link
+    public WebElement Button_ConfirmCall() { return findElement("//div/div/button[text()=\"Confirm\"]",LocatorType.XPath);}
+
+    //Text displayed when popup is opened for sms
+    public WebElement Alert_MessageForCall() { return findElement("//div[@class=\"modal-content\"]/div/p",LocatorType.XPath);}
 
 }

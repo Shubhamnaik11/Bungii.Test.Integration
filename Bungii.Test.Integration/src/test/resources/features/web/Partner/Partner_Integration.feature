@@ -72,6 +72,13 @@ Feature: Partner Integration with Admin and Driver
       | Partner_Status |
       | In-Progress    |
     When I navigate to "Delivery Status URL"
+   #CORE-2266:To verify the driver phone is masked in the tracking sms of in progress bungii for geofence based partner portal delivery (SOLO)
+    Then The "Phone Icon" should be displayed
+    And I click on "Phone" button
+    Then The "Call Alert Message" should be displayed
+    Then The "Confirm" should be displayed
+    Then The "Cancel" should be displayed
+    And I click on "Cancel Call" button
     Then Delivery Status should be displayed correctly as "En Route To Pickup"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
@@ -133,7 +140,9 @@ Feature: Partner Integration with Admin and Driver
       | Completed    |
     When I navigate to "Delivery Status URL again"
     Then Delivery Status should be displayed correctly as "Successfully Completed"
-  
+    #CORE-2266:To verify the driver cannot be called for completed delivery
+    Then The Phone Icon should not be displayed
+
   @regression
     #stable
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip from Admin Portal
@@ -239,6 +248,16 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status    |
       | Canceled       |
+   #CORE-3372: To verify delivery status is updated when Partner Portal delivery is Driver canceled
+    And I select "Check / uncheck all" option from the filter
+    And I click on "Apply" button
+    And I select "Check / uncheck all" option from the filter
+    And I click on "Apply" button
+    And I select "Canceled" option from the filter
+    And I click on "Apply" button
+    And I click on the delivery based on customer name
+    And I get time stamp for "Driver Cancelled" delivery step
+    Then I should see the delivery status highlighted and to be set as "Canceled" on partner portal delivery details page
 
   @regression
     #stable
@@ -301,6 +320,8 @@ Feature: Partner Integration with Admin and Driver
       | Canceled       |
     When I navigate to "Delivery Status URL"
     Then Delivery Status should be displayed correctly as "Delivery Cancelled"
+   #CORE-2266:To verify the driver cannot be called for canceled delivery
+    Then The Phone Icon should not be displayed
 
   @ready
     #Failed in Sprint 49
@@ -904,3 +925,43 @@ Feature: Partner Integration with Admin and Driver
       | Status    |
       | Assigning Driver(s) |
     And I should see the delivery highlighted in "Red"
+
+    @test30
+      #this is to test SQS /SNS changes
+    Scenario Outline: To create multiple partner portal trips
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | <Customer_Phone> | <Customer_Name>|
+
+      Examples:
+      |Customer_Phone|Customer_Name                         |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+      |8877661048    |Testcustomertywd_appleMarkAW LutherAW |

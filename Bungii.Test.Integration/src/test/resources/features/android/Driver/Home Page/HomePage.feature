@@ -32,7 +32,7 @@ Feature: Driver Home screen
 
 #    Core-2618 Verify the referral $ icon on driver home page
   @ready
-  Scenario: Verify the referral $ icon on driver home page
+  Scenario: Verify the referral dollar icon on driver home page
     Then I check if "$" icon is displayed
 #   Core-2618 Verify clicking on $ redirects the user to Invite screen of driver app
     And I click on "$" icon

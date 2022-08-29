@@ -65,6 +65,8 @@ Feature: Scheduled DUO Bungii
     Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
    # When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
 #    Then I accept Alert message for "Reminder: both driver at pickup"
     Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     #Then I should be navigated to "LOADING ITEMS" screen
@@ -72,6 +74,8 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "Driver2" devices
     Then I should see "Your duo teammate is on the way" message
     Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
 #    Then I accept Alert message for "Reminder: both driver at pickup"
     Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
@@ -82,10 +86,14 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEMS" Screen
     Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
     When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "LOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
 #   Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
@@ -100,9 +108,13 @@ Feature: Scheduled DUO Bungii
     Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     #Then I should be navigated to "UNLOADING ITEMS" screen
     And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
     When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 

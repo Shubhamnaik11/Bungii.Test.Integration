@@ -624,4 +624,17 @@ public class DbUtility extends DbContextManager {
         return allcharges;
 
     }
+
+    public static String getStatusTimestamp(String Pickup_Reference) {
+        String timeStamp;
+        String tripStatus;
+        String queryStringForPickupTripStatus ="select tripevents.TripStatus from tripevents join pickupdetails on tripevents.PickupID=pickupdetails.PickupID where PickupRef ='"+Pickup_Reference+ "' order by TripStatus desc limit 1";
+        tripStatus = getDataFromMySqlServer(queryStringForPickupTripStatus);
+        logger.detail("TripStatus is "+tripStatus+ " for pickup reference "+ Pickup_Reference);
+        String queryStringForTime = "select StatusTimestamp from tripevents where TripStatus ='"+tripStatus+"'";
+        timeStamp = getDataFromMySqlServer(queryStringForTime);
+        logger.detail("StatusTimestamp is "+timeStamp+ " for pickup reference "+ Pickup_Reference);
+        return timeStamp;
+
+    }
 }

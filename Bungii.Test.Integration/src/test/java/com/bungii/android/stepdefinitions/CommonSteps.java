@@ -64,6 +64,7 @@ public class CommonSteps extends DriverBase {
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     LocationPage locationPage = new LocationPage();
     SignupPage Page_Signup= new SignupPage();
+    TripDetailsPage tripDetailsPage = new TripDetailsPage();
     private DbUtility dbUtility = new DbUtility();
     com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
     LogInPage logInPage=  new LogInPage();
@@ -1606,6 +1607,68 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
+        }
+    }
+    @And("^I select \"([^\"]*)\" from items$")
+    public void i_select_something_from_items(String pallet) throws Throwable {
+        try{
+            switch (pallet){
+                case "Pallet-1":
+                    action.scrollToBottom();
+                    action.click(scheduledTripsPage.RadioButton_PalletOne());
+                    break;
+                case "Pallet-1 available page":
+                    action.click(scheduledTripsPage.RadioButton_PalletOne());
+                    break;
+                case "Pallet-2":
+                    action.click(scheduledTripsPage.RadioButton_PalletTwo());
+                    break;
+            }
+            log("I should be able to select the pallet",
+                    "I am able to select the pallet",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check inadequate payload pop up is displayed$")
+    public void i_check_inadequate_payload_pop_up_is_displayed() throws Throwable {
+        try{
+            action.click(tripDetailsPage.Button_Accept());
+            String expectedPopUpMesssage = PropertyUtility.getMessage("low.payload.capacity.message");
+            testStepVerify.isEquals(utility.getDriverSnackBarMessage(), expectedPopUpMesssage);
+
+            log("I should be able to see the inadequate payload message",
+                    "I am able to see the inadequate payload message",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check information of both the pallets are displayed separately$")
+    public void i_check_information_of_both_the_pallets_are_displayed_separately() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(scheduledTripsPage.Text_PalletOne(),
+                    "The pallet one information should be displayed",
+                    "The pallet one information is displayed",
+                    "The pallet one information is not displayed");
+
+            action.scrollToBottom();
+
+            testStepAssert.isElementDisplayed(scheduledTripsPage.Text_PalletTwo(),
+                    "The pallet two information should be displayed",
+                    "The pallet two information is displayed",
+                    "The pallet two information is not displayed");
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 }

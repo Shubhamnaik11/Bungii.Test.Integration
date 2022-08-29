@@ -1,7 +1,10 @@
 package com.bungii.web.pages.admin;
 
 import com.bungii.common.core.PageBase;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class Admin_DriversPage extends PageBase {
 
@@ -26,5 +29,16 @@ public class Admin_DriversPage extends PageBase {
     public WebElement Link_ViewProfile() {return findElement("//a[contains(text(),'View Profile')]",LocatorType.XPath);}
 
     public WebElement Label_SuccessTripCount (String xpath) {return  findElement(xpath,LocatorType.XPath); }
+
+    public WebElement Button_Next() {return findElement("//div/nav/ul/li/a[@aria-label=\"Next\"]",LocatorType.XPath);}
+
+    public WebElement Link_SortCity() {return findElement("span-City",LocatorType.Id);}
+
+    public List<WebElement> List_AllCityNames() {return findElements("//tbody[@id=\"NewApplicantsTBody\"]/tr/td[5]",LocatorType.XPath);}
+
+    public List<WebElement> List_AllPages() {return findElements("//li[@class=\"page-item\"]/a",LocatorType.XPath);}
+
+    public WebElement Text_AllPageNumber(boolean...ignoreException) {return findElement("//li[@class=\"page-item\"]/a",LocatorType.XPath,ignoreException);}
+
 
 }

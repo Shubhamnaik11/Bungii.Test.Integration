@@ -198,7 +198,8 @@ public class ScheduledBungiiSteps extends DriverBase {
 		bungiiTime=bungiiTime.replace("ST","DT");
 		//XCUIElementTypeStaticText[contains(@name,'Oct 13, 11:45 a.m. GMT-6') or contains(@name,'Oct 13, 2020 - 11:45 AM MDT') ]/parent::XCUIElementTypeCell
 
-		action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
+		//action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
+		action.click(getLocatorForBungii(bungiiType, bungiiTime));
 	}
 
 	/**
