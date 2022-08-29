@@ -513,13 +513,20 @@ public class TripDetailsSteps extends DriverBase {
 
     @Then("^The \"([^\"]*)\" message should be displayed for live delivery$")
     public void the_something_message_should_be_displayed_for_live_delivery(String message) throws Throwable {
+        try{
         if(message.equalsIgnoreCase("Pick up has been successfully updated.")){
             testStepAssert.isElementTextEquals(updateStatusPage.Label_DeliverySuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
         }
         else {
             testStepAssert.isElementTextEquals(updateStatusPage.Label_CancelSuccessMessageLive(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
         }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
     }
+    
     @Then("^Confirmation message on edit live delivery pop up should be displayed$")
     public void confirmation_message_on_edit_live_delivery_pop_up_should_be_displayed() throws Throwable  {
         try
