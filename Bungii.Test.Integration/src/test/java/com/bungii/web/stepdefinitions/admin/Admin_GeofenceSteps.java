@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
@@ -499,25 +500,27 @@ public class Admin_GeofenceSteps extends DriverBase {
     @When("^I click on the geofence \"([^\"]*)\"$")
     public void i_click_on_the_geofence_something(String GeofenceName) throws Throwable {
         try{
+            String xpath;
             switch (GeofenceName){
                 case "Chicago":
-                    String Xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
-                    action.click( SetupManager.getDriver().findElement(By.xpath(Xpath)));
+                    xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
                     break;
 
                 case "Chicago-inactive":
                     GeofenceName="Chicago";
-                    String xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Inactive");
-                    action.click( SetupManager.getDriver().findElement(By.xpath(xpath)));
+                    xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Inactive");
                     break;
 
                 case "new-geofence":
                     GeofenceName = (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
-                    String path =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Inactive");
-                    action.click( SetupManager.getDriver().findElement(By.xpath(path)));
+                    xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Inactive");
                     break;
-            }
 
+                default :
+                    xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
+
+            }
+        action.click(admin_GeofencePage.findElement(xpath, PageBase.LocatorType.XPath));
         log("I click on the geofence" ,
                 "I have clicked on the geofence", false);
         } catch (Exception e) {

@@ -1031,6 +1031,15 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Apply":
                     action.click(Page_Partner_Dashboard.Button_Apply());
                     break;
+                case "Phone":
+                    action.click(Page_Partner_Delivery.Icon_Phone());
+                    break;
+                case "Confirm Call":
+                    action.click(Page_Partner_Delivery.Button_ConfirmCall());
+                    break;
+                case "Cancel Call":
+                    action.click(Page_Partner_Delivery.Button_CancelCall());
+                    break;
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", false);
