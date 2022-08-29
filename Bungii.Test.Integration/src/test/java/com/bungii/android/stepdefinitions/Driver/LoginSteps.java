@@ -386,7 +386,7 @@ public class LoginSteps extends DriverBase {
                 case "testdrivertywd_applens_a_kayt stark_nsonet":
                     phone = PropertyUtility.getDataProperties("Nashville.driver14.phone");
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-                    password = PropertyUtility.getDataProperties("Nashville.driver.password");
+                    password = PropertyUtility.getDataProperties("nashville.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Nashville.driver14.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
@@ -402,7 +402,7 @@ public class LoginSteps extends DriverBase {
                 case "testdrivertywd_applens_a_kayu stark_nsoneu":
                     phone = PropertyUtility.getDataProperties("Nashville.driver15.phone");
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-                    password = PropertyUtility.getDataProperties("Nashville.driver.password");
+                    password = PropertyUtility.getDataProperties("nashville.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Nashville.driver15.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
@@ -410,7 +410,7 @@ public class LoginSteps extends DriverBase {
                 case "testdrivertywd_applens_a_kayv stark_nsonev":
                     phone = PropertyUtility.getDataProperties("Nashville.driver16.phone");
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-                    password = PropertyUtility.getDataProperties("Nashville.driver.password");
+                    password = PropertyUtility.getDataProperties("nashville.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Nashville.driver16.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;

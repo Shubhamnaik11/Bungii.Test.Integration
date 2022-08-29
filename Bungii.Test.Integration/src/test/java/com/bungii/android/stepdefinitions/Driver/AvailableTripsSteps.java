@@ -574,6 +574,7 @@ public class AvailableTripsSteps extends DriverBase {
                     action.click(scheduledTripsPage.List_ViewDeliveries());
                     break;
             }
+            log("I should be able to click on "+deliveryType+" link","I could click on "+deliveryType+" link",false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
