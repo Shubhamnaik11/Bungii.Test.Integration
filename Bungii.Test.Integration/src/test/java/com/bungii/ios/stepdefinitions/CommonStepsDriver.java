@@ -724,6 +724,16 @@ public class CommonStepsDriver extends DriverBase {
                     pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
                     break;
+                case "GOT IT":
+                    action.click(scheduledTripsPage.Button_GotIt());
+                    break;
+                case "SKIP CUSTOMER SIGNATURE":
+                    action.click(scheduledTripsPage.Button_SkipCustomerRating());
+                    break;
+                case "DUO":
+                    Thread.sleep(3000);
+                    action.JavaScriptClick(scheduledTripsPage.Button_Duo());
+                    break;
                 case "Confirm Status":
                     action.click(scheduledTripsPage.Button_ConfirmStatus());
                     break;
@@ -842,6 +852,104 @@ public class CommonStepsDriver extends DriverBase {
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
+    public void i_navigate_to_something(String page, String url) throws Throwable {
+        try{  switch (page)
+        {
+            case "Partner":
+                String partnerUrl =  utility.NavigateToPartnerLogin(url);
+                cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerUrl);
+                cucumberContextManager.setScenarioContext("IS_PARTNER","TRUE");
+                pass("I should be navigate to " + page + " portal configured for "+ url ,
+                        "I navigated to " + page + " portal configured for "+ url +" ["+partnerUrl+"]", true);
+                break;
+            default:break;
+        }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @When("^I enter \"([^\"]*)\" password on Partner Portal$")
+    public void WhenIEnterPasswordOnPartnerPortal(String str)
+    {
+        try{
+            //SetupManager.getObject().manage().window().maximize();
+            switch (str)
+            {
+                case "valid":
+                    action.clearSendKeys(scheduledBungiipage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("PartnerPassword"));
+                    break;
+                case "invalid":
+                    action.clearSendKeys(scheduledBungiipage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("Invalid_PartnerPassword"));
+                    break;
+                default: break;
+            }
+            log("I should able to enter "+str+" driver Password on Partner portal","I entered "+str +" partner Password on Partner portal", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I click \"([^\"]*)\" button on Partner Portal$")
+    public void I_Click_Some_Button_On_Partner_Portal(String str) throws InterruptedException {
+        try {
+            switch (str) {
+                case "SIGN IN":
+                    action.click(scheduledBungiipage.Button_SignIn());
+                    break;
+                case "Track Deliveries":
+                    Thread.sleep(5000);
+                    action.click(scheduledBungiipage.Dropdown_Setting());
+                    Thread.sleep(5000);
+                    action.click(scheduledBungiipage.Button_TrackDeliveries());
+                    Thread.sleep(5000);
+                    if(action.getCurrentURL().contains("login")|| action.getCurrentURL().contains("Login"))
+                    {
+                        //Workaround for app getting logged out when run in parallel
+                        action.clearSendKeys(scheduledBungiipage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("PartnerPassword"));
+                        action.click(scheduledBungiipage.Button_SignIn());
+                        Thread.sleep(5000);
+                        testStepVerify.isEquals(action.getText(scheduledBungiipage.Label_StartOver()), PropertyUtility.getMessage("Start_Over_Header"));
+                        Thread.sleep(5000);
+                        if(!action.isElementPresent(scheduledBungiipage.Dropdown_Setting(true))) {
+                            action.click(scheduledBungiipage.Link_Setting());
+                            action.clearSendKeys(scheduledBungiipage.Textbox_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                            action.click(scheduledBungiipage.Button_Continue());
+                        }
+                        action.click(scheduledBungiipage.Dropdown_Setting());
+                        action.click(scheduledBungiipage.Button_TrackDeliveries());
+
+                    }
+                    break;
+                case "Cancel Delivery link":
+                    action.click(scheduledBungiipage.Link_CancelDelivery());
+                    break;
+                case "OK":
+                    action.click(scheduledBungiipage.Button_OK());
+                    break;
+                case "OK on Delivery Cancellation Failed":
+                    action.click(scheduledBungiipage.Button_OkOnDeliveryCancellationFailed());
+                    break;
+                case "Cancel Delivery":
+                    action.click(scheduledBungiipage.Button_CancelDelivery());
+                    break;
+                default:
+                    break;
+
+            }
+            log("I click on "+str+ " button ", "I clicked on "+str+ " button ", true);
+
+        }
+        catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step , I Should "+ str,
                     true);
         }
     }

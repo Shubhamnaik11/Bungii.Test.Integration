@@ -303,4 +303,21 @@ public class DbUtility extends DbContextManager {
         return driverShare;
     }
 
+    public static String getPartnerPortalLeadTimeSoloDelivery() {
+        String leadTime;
+        String queryString = "select json_extract(cvss.config_value,'$.SOLO_EARLIEST_SCHEDULE_TIME') as solo_lead_time from bungii_admin_qa_auto.bp_store bs inner join bungii_admin_qa_auto.bp_store_setting_fn_matrix fn on fn.bp_store_id = bs.bp_store_id inner join bungii_admin_qa_auto.bp_config_version_store_setting cvss on cvss.bp_config_version_id = fn.bp_config_version_id where subdomain_name like  'qauto-equip-bid' and fn.bp_setting_fn_id = 12;";
+        leadTime = getDataFromMySqlServer(queryString);
+        logger.detail("Partner Portal lead time  is "+leadTime+ " for Solo deliveries");
+        return leadTime;
+
+    }
+
+    public static String getPartnerPortalLeadTimeDuoDelivery() {
+        String leadTime;
+        String queryString = "select json_extract(cvss.config_value,'$.DUO_EARLIEST_SCHEDULE_TIME') as duo_lead_time from bungii_admin_qa_auto.bp_store bs inner join bungii_admin_qa_auto.bp_store_setting_fn_matrix fn on fn.bp_store_id = bs.bp_store_id inner join bungii_admin_qa_auto.bp_config_version_store_setting cvss on cvss.bp_config_version_id = fn.bp_config_version_id where subdomain_name like  'qauto-equip-bid' and fn.bp_setting_fn_id = 12;";
+        leadTime = getDataFromMySqlServer(queryString);
+        logger.detail("Partner Portal lead time  is "+leadTime+ " for Duo deliveries");
+        return leadTime;
+
+    }
 }

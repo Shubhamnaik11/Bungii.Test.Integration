@@ -117,5 +117,18 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement  Button_Edit() {return findElement("//p[@id='btnEdit']",LocatorType.XPath);}
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
 
+    public WebElement Label_SoloLift() { return findElement("SOLO LIFT", LocatorType.AccessibilityId); }
+    public WebElement Text_SoloLiftMessage() { return findElement("You are responsible for loading and unloading the item(s) by yourself", LocatorType.AccessibilityId); }
+    public WebElement Button_GotIt() {return findElement("Got it", LocatorType.AccessibilityId);}
+    public WebElement Button_SkipCustomerRating() {return findElement("Skip customer signature", LocatorType.AccessibilityId);}
+    public WebElement Label_CustomerHelp() { return findElement("SOLO LIFT", LocatorType.AccessibilityId); }
+    public WebElement Text_CustomerHelpMessage() { return findElement("The customer will help you unload the item(s)", LocatorType.AccessibilityId); }
+    public WebElement Label_DuoLift() { return findElement("DUO LIFT", LocatorType.AccessibilityId); }
+    public WebElement Text_DuoLiftMessage() { return findElement("You and your duo teammate are responsible for loading and unloading the item(s)", LocatorType.AccessibilityId); }
+    public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
+    public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
+    public WebElement Icon_CustomerHelpAdminPortal(){return  findElement("//div/span[text() =\"Customer help\"]",LocatorType.XPath);}
+    public WebElement Button_Duo(){return  findElement("duo",LocatorType.Id);}
+    public WebElement Text_PickupTime() { return findElement("//label[text() =\"Pickup Time\"]/following-sibling::div[1]/div/div/div",LocatorType.XPath);}
 
 }
