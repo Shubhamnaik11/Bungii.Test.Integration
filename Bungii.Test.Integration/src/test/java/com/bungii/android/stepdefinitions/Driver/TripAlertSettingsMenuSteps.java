@@ -55,7 +55,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
     UpdateStatusPage updateStatusPage = new UpdateStatusPage();
 
-
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
         try {
@@ -354,6 +353,11 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Account Cancel":
                     action.click(accountPage.Button_Cancel());
                     break;
+
+                case "Cancel Bungii":
+                    action.click(scheduledTripsPage.Button_Submit());
+                    break;
+
                 case "SUBMIT":
                     action.click(setPickupTimePage.Button_EnterCancellationReason());
                     break;

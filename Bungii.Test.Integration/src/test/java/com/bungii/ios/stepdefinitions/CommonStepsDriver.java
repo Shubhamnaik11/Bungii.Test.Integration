@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.admin.DashBoardPage;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.customer.EnableLocationPage;
 import com.bungii.ios.pages.customer.EnableNotificationPage;
@@ -50,8 +51,9 @@ public class CommonStepsDriver extends DriverBase {
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
     GeneralUtility utility = new GeneralUtility();
+    private DbUtility dbUtility = new DbUtility();
     private ScheduledBungiiPage scheduledBungiipage = new ScheduledBungiiPage();
-    com.bungii.web.utilityfunctions.DbUtility dbUtility = new com.bungii.web.utilityfunctions.DbUtility();
+    DashBoardPage admin_dashboardPage = new DashBoardPage();
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
@@ -68,6 +70,7 @@ public class CommonStepsDriver extends DriverBase {
         //this.enableLocationPage=enableLocationPage;
 
     }
+
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page on driverApp$")
     public void something_message_should_be_displayed_on_something_page_driverApp(String messageElement, String screen) {
@@ -716,6 +719,7 @@ public class CommonStepsDriver extends DriverBase {
                     break;
                 case "REVIVE":
                     action.click(scheduledTripsPage.Button_ReviveTrip());
+                    Thread.sleep(10000);
                     break;
                 case "CONFIRM":
                     action.click(scheduledTripsPage.Button_Confirm());
@@ -733,6 +737,9 @@ public class CommonStepsDriver extends DriverBase {
                 case "DUO":
                     Thread.sleep(3000);
                     action.JavaScriptClick(scheduledTripsPage.Button_Duo());
+                    break;
+                case "Cancel Bungii":
+                    action.click(admin_dashboardPage.Button_Submit());
                     break;
                 case "Confirm Status":
                     action.click(scheduledTripsPage.Button_ConfirmStatus());

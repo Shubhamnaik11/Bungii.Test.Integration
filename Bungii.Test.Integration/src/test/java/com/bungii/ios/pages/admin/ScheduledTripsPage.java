@@ -128,5 +128,14 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Icon_CustomerHelpAdminPortal(){return  findElement("//div/span[text() =\"Customer help\"]",LocatorType.XPath);}
     public WebElement Button_Duo(){return  findElement("duo",LocatorType.Id);}
     public WebElement Text_PickupTime() { return findElement("//label[text() =\"Pickup Time\"]/following-sibling::div[1]/div/div/div",LocatorType.XPath);}
+    public WebElement Textbox_CancellationFee () { return findElement("txtCancellationFee", LocatorType.Id); }
+    public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
+    public WebElement Label_CancelSuccessMessage () { return findElement("//p[@id='cancel-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Button_ReviveTrip (boolean... IgnoreException) { return findElement("//tbody/tr/td[11]/a/img", LocatorType.XPath,IgnoreException); }
+    public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
+    public WebElement Button_Cancel() { return findElement("//button[text()='Cancel']", LocatorType.XPath); }
+    public WebElement Label_HeaderPopup() { return findElement("//p[text()='Are you sure you want to revive the trip?']", LocatorType.XPath); }
+    public WebElement Label_PickupId() { return findElement("revive-pickup-id", LocatorType.Id); }
+    public WebElement Label_PickupCustomer() { return findElement("revive-pickup-customer", LocatorType.Id); }
 
 }
