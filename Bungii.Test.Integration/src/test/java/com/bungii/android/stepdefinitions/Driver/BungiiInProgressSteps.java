@@ -799,7 +799,11 @@ public class BungiiInProgressSteps extends DriverBase {
         try{
         Thread.sleep(2000);
         action.click(updateStatusPage.TextBox_Signature());
-        action.DrawSignature();
+        int xStart =Integer.parseInt(PropertyUtility.getDataProperties("signature.x.start"));
+        int yStart =Integer.parseInt(PropertyUtility.getDataProperties("signature.y.start"));
+        int xEnd =Integer.parseInt(PropertyUtility.getDataProperties("signature.x.end"));
+        int yEnd =Integer.parseInt(PropertyUtility.getDataProperties("signature.y.end"));
+        action.DrawSignature(xStart,yStart,xEnd,yEnd);
         Thread.sleep(5000);
         log("I should be able to add signature","I could add signature",false);
     }catch(Exception ex){

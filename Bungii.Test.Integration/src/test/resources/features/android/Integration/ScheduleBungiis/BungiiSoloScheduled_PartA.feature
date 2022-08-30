@@ -97,7 +97,7 @@ Feature: SoloScheduled
   Scenario:Verify Customer Signature screen is shown on driver app for Partner trips
   When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
     |Geofence| Bungii Time   | Customer Phone | Customer Name |
-    | atlanta| NEXT_POSSIBLE | 8877661069 | Testcustomertywd_BppleMarkBR LutherBR|
+    | atlanta| NEXT_POSSIBLE | 8877661069 | Testcustomertywd_appleMarkBR LutherBR|
   And As a driver "Testdrivertywd_applega_a_steveG Stark_altOnEG" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
     | Accepted     |
@@ -208,7 +208,7 @@ Feature: SoloScheduled
     And The customer signature field is "N/A"
 
     #CORE-3606 : Verify customer signature screen is shown for only the control driver when he/she completes the trip first
-  @ready
+  @ready @duo
   Scenario:Verify customer signature screen is shown for only the control driver when he/she completes the trip first
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -277,7 +277,7 @@ Feature: SoloScheduled
     And I should be navigated to "Rate duo teammate" screen
 
   #CORE-3606 :Verify customer signature screen is shown only for control driver , even when non control driver completes trip first
- @ready
+ @ready @duo
   Scenario:Verify customer signature screen is shown only for control driver , even when non control driver completes trip first
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |

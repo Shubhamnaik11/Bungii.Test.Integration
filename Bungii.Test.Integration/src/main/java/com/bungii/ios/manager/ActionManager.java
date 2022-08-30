@@ -858,11 +858,11 @@ try {
         }
     }
 
-    public void DrawSignature() throws InterruptedException {
+    public void DrawSignature(int xStart,int yStart,int xEnd,int yEnd) throws InterruptedException {
         IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
         try {
-            new TouchAction(driver).press(PointOption.point(52, 342))
-                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1))).moveTo(PointOption.point(374, 519)).release().perform();
+            new TouchAction(driver).press(PointOption.point(xStart, yStart))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1))).moveTo(PointOption.point(xEnd, yEnd)).release().perform();
         } catch (Exception ex) {
             logger.error("ACTION FAILED | Error performing step | Could not draw signature -> ", ExceptionUtils.getStackTrace(ex));
             error("I Should be able to draw signature ", "Unable to draw signature ",

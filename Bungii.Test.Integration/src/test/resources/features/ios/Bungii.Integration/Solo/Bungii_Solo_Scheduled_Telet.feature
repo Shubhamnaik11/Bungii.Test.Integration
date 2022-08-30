@@ -378,7 +378,7 @@ Feature: Solo Scheduled Bungii - TELET
     And The customer signature field is "N/A"
 
 #CORE-3606 :Verify customer signature screen is shown for only the control driver when he/she completes the trip first
-  @ready
+  @ready @duo
   Scenario:Verify customer signature screen is shown for only the control driver when he/she completes the trip first
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -448,7 +448,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I should be navigated to "Rate duo teammate" screen
 
 #CORE-3606 :Verify customer signature screen is shown only for control driver , even when non control driver completes trip firstfirst
-  @ready
+  @ready @duo
   Scenario:Verify customer signature screen is shown only for control driver , even when non control driver completes trip first
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -491,7 +491,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I should be navigated to "Rate duo teammate" screen
 
 #CORE-3606 :Verify driver app when admin completes the trip before signature is taken
-  @ready
+  @ready @duo
   Scenario:Verify driver app when admin completes the trip before signature is taken
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
