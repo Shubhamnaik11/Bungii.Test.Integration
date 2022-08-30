@@ -558,3 +558,37 @@ Feature: Solo Scheduled Bungii Part A
     When I click "On To The Next One" button on "Bungii completed" screen
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then The trip should be present in schedule delivery
+
+
+ #CORE-2342 :To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
+ @ready
+  Scenario Outline:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid baltimore driver 6" driver
+   And I set the pickup address for "<Delivery Center>"
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
+    And I wait for 1 minutes
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+   Then I should see service level information displayed for "<Delivery Center>" address
+    When I accept selected Bungii
+   And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then The service level information should be displayed
+   And I click on start Bungii for service based delivery
+    And I slide update button on "EN ROUTE" Screen
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I open the trip for "<Customer Name>" the customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The delivery details on "Live" deliveries should have proper pickup "<Delivery Center>" location and service level instructions displayed
+
+   Examples:
+     |        Customer Name                    |    Customer Phone  |   Delivery Center     |
+     |  Testcustomertywd_BppleMarkCI LutherCI  |     8877661086     |     Store             |
+     |  Testcustomertywd_BppleMarkCJ LutherCJ  |     8877661087     |   Warehouse           |
