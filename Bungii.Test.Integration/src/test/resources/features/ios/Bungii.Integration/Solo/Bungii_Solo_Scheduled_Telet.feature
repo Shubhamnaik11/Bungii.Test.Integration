@@ -274,7 +274,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario:Verify Customer Signature screen is shown on driver app for Partner trips
     When I request Partner Portal "SOLO" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      | atlanta| NEXT_POSSIBLE | 8877661075 | Testcustomertywd_BppleMarkBX LutherBX|
+      | atlanta| NEXT_POSSIBLE | 8877661075 | Testcustomertywd_appleMarkBX LutherBX|
     And As a driver "Testdrivertywd_applega_a_drvac Atlanta_ac" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
@@ -289,7 +289,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
-    And I select the live trip for "Testcustomertywd_BppleMarkBX LutherBX" customer
+    And I select the live trip for "Testcustomertywd_appleMarkBX LutherBX" customer
     And I edit the drop off address
     Then I change the drop off address to "100 Robin Road Extension"
     And I click on "VERIFY" button
@@ -329,14 +329,14 @@ Feature: Solo Scheduled Bungii - TELET
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_BppleMarkBX LutherBX" the customer
+    And I open the trip for "Testcustomertywd_appleMarkBX LutherBX" the customer
     And I select "Admin Canceled" from the dropdown
     And I select "Customer initiated - other reason" as the reason from the reason dropdown
     And I click on "Confirm Status" button
     And I click on "Cancel Status" button
     And I wait for 2 minutes
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_BppleMarkBX LutherBXr" the customer
+    And I open the trip for "Testcustomertywd_appleMarkBX LutherBXr" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "Signature Present"
@@ -346,7 +346,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario:Verify Customer signature can be skipped on driver app
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |baltimore| NEXT_POSSIBLE | 8877661076 | Testcustomertywd_BppleMarkBY LutherBY|
+      |baltimore| NEXT_POSSIBLE | 8877661076 | Testcustomertywd_appleMarkBY LutherBY|
     And As a driver "TestDrivertywd_applemd_a_billF Stark_bltTwOF" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
@@ -372,7 +372,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_BppleMarkBY LutherBY" the customer
+    And I open the trip for "Testcustomertywd_appleMarkBY LutherBY" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "N/A"
