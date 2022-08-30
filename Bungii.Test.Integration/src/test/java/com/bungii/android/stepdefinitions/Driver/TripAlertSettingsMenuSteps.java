@@ -51,6 +51,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     AccountPage accountPage = new AccountPage();
+    InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
+
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -413,6 +415,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
                 case "Delete":
                     action.click(accountPage.Button_Delete());
+                    break;
+                case "GOT IT":
+                    action.click((Page_DriverBungiiProgress.Button_GeneralInstructions_GotIt()));
                     break;
                 default:
                     error("Implemented Step", "UnImplemented Step");

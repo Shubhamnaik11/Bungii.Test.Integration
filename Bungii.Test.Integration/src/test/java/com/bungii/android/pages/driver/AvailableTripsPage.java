@@ -69,6 +69,13 @@ public class AvailableTripsPage extends PageBase {
 
     public WebElement PageTitle_BungiiDetails() { return findElement("//android.widget.LinearLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath);}
 
+    public WebElement Label_SoloLift() {return findElement("com.bungii.driver:id/appCompatTextView37",LocatorType.Id);}
+    public WebElement Text_SoloLiftMessage() { return findElement("com.bungii.driver:id/appCompatTextView39", LocatorType.Id);}
+    public WebElement Label_CustomerHelp() {return findElement("com.bungii.driver:id/appCompatTextView37",LocatorType.Id);}
+    public WebElement Text_CustomerHelpMessage() { return findElement("com.bungii.driver:id/appCompatTextView39", LocatorType.XPath);}
+    public WebElement Label_DuoLift() {return findElement("com.bungii.driver:id/appCompatTextView37",LocatorType.Id);}
+    public WebElement Text_DuoLiftMessage() { return findElement("com.bungii.driver:id/appCompatTextView39", LocatorType.XPath);}
+
     public List <WebElement> List_AllDeliveriesDriverApp()         {return findElements("//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout/android.view.ViewGroup",LocatorType.XPath);}
     public List <WebElement> List_AllCustomerDeliveries() {return findElements("//android.view.ViewGroup/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout",LocatorType.XPath);}
 

@@ -554,7 +554,9 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_drvL WashingtonL":
                 phone = PropertyUtility.getDataProperties("Washington.driver14.phone");
                 break;
-
+            case "Testdrivertywd_applens_a_kayQ Stark_nsOnEQ":
+                phone = PropertyUtility.getDataProperties("Nashville.driver11.phone");
+                break;
             case "Testdrivertywd_appledc_a_drvM WashingtonM":
                 phone = PropertyUtility.getDataProperties("Washington.driver15.phone");
                 break;

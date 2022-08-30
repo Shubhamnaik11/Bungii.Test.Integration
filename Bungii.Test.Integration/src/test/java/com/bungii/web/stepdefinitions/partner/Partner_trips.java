@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.PageBase;
+import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.CucumberContextManager;
@@ -49,6 +50,8 @@ public class Partner_trips extends DriverBase {
     private static LogUtility logger = new LogUtility(DashBoardSteps.class);
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
     Partner_DeliveryList Page_Partner_Delivery_List = new Partner_DeliveryList();
+    Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
+
     Admin_TripDetailsPage Page_Admin_Trips_Details = new Admin_TripDetailsPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
@@ -1473,6 +1476,40 @@ try{
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+
+    @And("^I add the delivery address as \"([^\"]*)\"$")
+    public void i_add_the_delivery_address_as_something(String address) throws Throwable {
+        try{
+        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), address + Keys.TAB);
+        Thread.sleep(3000);
+        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+        Thread.sleep(5000);
+        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+        log("I should be able to add the dropoff delivery address as "+address,"I could add the dropoff delivery address as "+address,false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^The Pickup contact name \"([^\"]*)\" and pickup contact phone number \"([^\"]*)\" field should be filled$")
+    public void the_pickup_contact_name_something_and_pickup_contact_phone_number_something_field_should_be_filled(String contactName, String contactPhone) throws Throwable {
+     try{
+       String uiContactName = action.getAttributeValue(Page_Partner_Delivery.TextBox_Pickup_Contact_Name());
+        String uiContactPhone = action.getAttributeValue(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+
+        testStepAssert.isEquals(uiContactName,contactName,"Pickup contact name should be " +contactName,"Pickup contact name is " +uiContactName,"Pickup contact name  " +contactName+" is not displayed");
+
+        testStepAssert.isEquals(uiContactPhone,contactPhone,"Pickup contact number should be " +contactPhone,"Pickup contact number is " +uiContactPhone,"Pickup contact number  " +contactPhone+" is not displayed");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     public String getGeofence(String geofence) {
