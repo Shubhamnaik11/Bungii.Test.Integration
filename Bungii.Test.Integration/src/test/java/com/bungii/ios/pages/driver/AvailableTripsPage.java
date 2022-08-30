@@ -36,5 +36,12 @@ public class AvailableTripsPage extends PageBase {
 	public WebElement Text_DriverPickupInstructionsServiceAdminPortal(){return  findElement("//div/div[7]/div[2]/p",LocatorType.XPath);}
 
 
+	public List<WebElement> List_AllAvailableDeliveriesDriverApp() { return findElements("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell", LocatorType.XPath);}
+
+	public List<WebElement> List_AllAvailableDeliveriesCustomerApp() { return findElements("//XCUIElementTypeApplication[@name=\"Bungii QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell", LocatorType.XPath);}
+
+	public WebElement Text_DeliveryTime(int number) { return findElement(String.format("//XCUIElementTypeApplication[@name=\"Bungii QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[%d]/XCUIElementTypeStaticText",number), LocatorType.XPath);}
+
+	public WebElement Text_CustomerName(int number) { return findElement(String.format("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[%d]/XCUIElementTypeStaticText",number), LocatorType.XPath);}
 
 }

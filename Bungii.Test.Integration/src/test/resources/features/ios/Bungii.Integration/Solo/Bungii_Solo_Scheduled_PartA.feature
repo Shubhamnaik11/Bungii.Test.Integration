@@ -592,3 +592,59 @@ Feature: Solo Scheduled Bungii Part A
      |        Customer Name                    |    Customer Phone  |   Delivery Center     |
      |  Testcustomertywd_BppleMarkCI LutherCI  |     8877661086     |     Store             |
      |  Testcustomertywd_BppleMarkCJ LutherCJ  |     8877661087     |   Warehouse           |
+
+
+ #CORE-3381 :To verify that admin is unable to revive trips canceled by customer from app
+  @ready
+  Scenario:To verify that admin is unable to revive trips canceled by customer from app
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8877661054     |  Testcustomertywd_BppleMarkBC LutherBC| Cci12345          |
+    Given I login as "valid denver6" customer and on Home page
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    Then I Cancel selected Bungii
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I wait for "2" minutes
+    And I Select "trips" from admin sidebar
+    When  I search the delivery using "Pickup Reference"
+    Then The revive button should not be displayed
+
+ #CORE-3381 :To verify that admin/partner canceled revived deliveries are not displayed to driver on app
+  @ready
+  Scenario:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8877661055     |  Testcustomertywd_appleMarkBD LutherBD | Cci12345        |
+    And I wait for "2" minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkBD LutherBD" the customer
+    And I Select "Cancel Trip" option
+    And I enter cancellation fee and Comments
+    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
+    And I click on "Cancel Bungii" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for "2" minutes
+    And I Select "trips" from admin sidebar
+    When  I search the delivery using "Pickup Reference"
+    And Revive button should be displayed beside the trip
+    When I click on "Revive" button
+    Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+    When I click on "Confirm" button on Revival Popup
+    And I wait for 2 minutes
+    When I switch to "ORIGINAL" instance
+   And I Switch to "driver" application on "same" devices
+    And I login as "valid denver driver 6" driver on "same" device and make driver status as "Online"
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    Then The trip should not be present in available bungiis
+    And I Switch to "customer" application on "same" devices
+    And I login as "valid denver7" customer and on Home page
+    And I Select "MY BUNGIIS" from Customer App menu
+    Then The trip should be present in my bungiis
+
+
