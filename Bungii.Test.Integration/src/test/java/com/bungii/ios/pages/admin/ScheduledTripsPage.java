@@ -115,7 +115,6 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Checkbox_driver () { return findElement("//div[@id='tripDriverDetails']//span[@class='checkmark'][1]", LocatorType.XPath); }//richa
     public WebElement Button_RemoveDrivers () { return findElement("//div[@id='tripDriverDetails']//strong[contains(text(),'Remove')]", LocatorType.XPath); }//Richa
     public WebElement  Button_Edit() {return findElement("//p[@id='btnEdit']",LocatorType.XPath);}
-    public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
 
     public WebElement Label_SoloLift() { return findElement("SOLO LIFT", LocatorType.AccessibilityId); }
     public WebElement Text_SoloLiftMessage() { return findElement("You are responsible for loading and unloading the item(s) by yourself", LocatorType.AccessibilityId); }
