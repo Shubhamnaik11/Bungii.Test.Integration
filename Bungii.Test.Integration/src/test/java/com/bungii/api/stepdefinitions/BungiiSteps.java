@@ -566,6 +566,55 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_drvO WashingtonO":
                 phone = PropertyUtility.getDataProperties("Washington.driver17.phone");
                 break;
+
+            case "Testdrivertywd_applega_a_bryan Stark_altFour":
+                phone = PropertyUtility.getDataProperties("valid.driver2.phone");
+                break;
+            case "Testdrivertywd_applega_a_steveG Stark_altOnEG":
+                phone = PropertyUtility.getDataProperties("atlanta.driver6.phone");
+                break;
+            case "Testdrivertywd_applega_a_steveH Stark_altOnEH":
+                phone = PropertyUtility.getDataProperties("atlanta.driver7.phone");
+                break;
+            case "Testdrivertywd_applega_a_steveI Stark_altOnEI":
+                phone = PropertyUtility.getDataProperties("atlanta.driver8.phone");
+                break;
+            case "Testdrivertywd_applega_a_steveJ Stark_altOnEJ":
+                phone = PropertyUtility.getDataProperties("atlanta.driver9.phone");
+                break;
+            case "Testdrivertywd_applega_a_steveK Stark_altOnEK":
+                phone = PropertyUtility.getDataProperties("atlanta.driver10.phone");
+                break;
+            case "Testdrivertywd_applega_a_drvaa Atlanta_aa":
+                phone = PropertyUtility.getDataProperties("atlanta.driver11.phone");
+                break;
+            case "Testdrivertywd_applega_a_drvab Atlanta_ab":
+                phone = PropertyUtility.getDataProperties("atlanta.driver12.phone");
+                break;
+            case "TestDrivertywd_applemd_a_billE Stark_bltTwOE":
+                phone = PropertyUtility.getDataProperties("baltimore.driver4.phone");
+                break;
+            case "Testdrivertywd_applega_a_drvac Atlanta_ac":
+                phone = PropertyUtility.getDataProperties("atlanta.driver13.phone");
+                break;
+            case "Testdrivertywd_applega_a_drvad Atlanta_ad":
+                phone = PropertyUtility.getDataProperties("atlanta.driver14.phone");
+                break;
+            case "Testdrivertywd_applega_a_drvae Atlanta_ae":
+                phone = PropertyUtility.getDataProperties("atlanta.driver15.phone");
+                break;
+            case "Testdrivertywd_applega_a_drvaf Atlanta_af":
+                phone = PropertyUtility.getDataProperties("atlanta.driver16.phone");
+                break;
+            case "Testdrivertywd_applega_a_drvag Atlanta_ag":
+                phone = PropertyUtility.getDataProperties("atlanta.driver17.phone");
+                break;
+            case "Testdrivertywd_applega_a_drvah Atlanta_ah":
+                phone = PropertyUtility.getDataProperties("atlanta.driver18.phone");
+                break;
+            case "Testdrivertywd_applega_a_drvai Atlanta_ai":
+                phone = PropertyUtility.getDataProperties("atlanta.driver19.phone");
+                break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
 
@@ -1791,6 +1840,10 @@ public class BungiiSteps extends DriverBase {
             else if(bungiiTime.equalsIgnoreCase("3_DAY_LATER"))
             {
                 coreServices.customerConfirmationScheduledForFuture(pickupRequest, paymentMethod, custAccessToken, getDaysLaterTime(3).toString());
+            }
+            else if(bungiiTime.equalsIgnoreCase("1_DAY_LATER"))
+            {
+                coreServices.customerConfirmationScheduledForFuture(pickupRequest, paymentMethod, custAccessToken, getDaysLaterTime(1).toString());
             }
             else if(bungiiTime.equalsIgnoreCase(("NEXT_POSSIBLE_FIRST_SLOT")) ||bungiiTime.equalsIgnoreCase(("NEXT_POSSIBLE_THIRD_SLOT"))){
                 cucumberContextManager.setScenarioContext("BUNGII_TIME",bungiiTime);

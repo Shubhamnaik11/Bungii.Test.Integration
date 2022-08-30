@@ -42,7 +42,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     DbUtility dbUtility = new DbUtility();
     CommonSteps commonSteps = new CommonSteps();
     InvitePage invitePage = new InvitePage();
-
+    InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
     BungiiRequest bungiiRequest = new BungiiRequest();
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
@@ -441,6 +441,13 @@ public class ScheduledBungiiSteps extends DriverBase {
                     Thread.sleep(1000);
                     action.click(scheduledBungiiPage.Link_ScheduledBungiis());
                     break;
+                case "Customer Signature":
+                    action.click(inProgressBungiiPages.Tab_CustomerSignature());
+                    break;
+                case "Submit":
+                    action.click(inProgressBungiiPages.Button_Submit());
+                    break;
+
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

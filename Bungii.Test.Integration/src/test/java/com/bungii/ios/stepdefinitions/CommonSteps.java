@@ -714,6 +714,12 @@ public class CommonSteps extends DriverBase {
                 case "CANCEL DELIVERY":
                     action.click(driverUpdateStatusPage.Tab_CancelDelivery());
                     break;
+                case "CUSTOMER SIGNATURE":
+                    action.click(driverUpdateStatusPage.Tab_CustomerSignature());
+                    break;
+                case "SUBMIT DATA":
+                    action.click(driverUpdateStatusPage.Button_Submit());
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name",
                             "UnImplemented Step");

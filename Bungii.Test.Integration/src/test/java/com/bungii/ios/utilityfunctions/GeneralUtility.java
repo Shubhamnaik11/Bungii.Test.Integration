@@ -1931,4 +1931,12 @@ catch (Exception e)
         }
         return partnerURL;
     }
+    public String getTimeZoneBasedOnGeofenceIdForIos() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        // currentGeofence="kansas";
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone.id");
+        return getGeofenceTimeZone;
+    }
 }

@@ -1925,7 +1925,7 @@ public class CoreServices extends DriverBase {
             }
 
         }
-        else if(Geofence.equalsIgnoreCase("atlanta")){
+        else if(Geofence.equalsIgnoreCase("atlanta")&& Partner_Portal.equalsIgnoreCase("biglots")){
             String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
 
             String Pickup_Address_Id = PropertyUtility.getDataProperties("partner.biglots.pickup_address_id");
@@ -2221,6 +2221,107 @@ public class CoreServices extends DriverBase {
             JsonPath jsonPathEvaluator = response.jsonPath();
             ApiHelper.genericResponseValidation(response, RequestText);
         }
+        else if(Geofence.equalsIgnoreCase("atlanta") && Partner_Portal.equalsIgnoreCase("Cort Furniture")) {
+
+            String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+
+            String Pickup_Address1 = PropertyUtility.getDataProperties("partner.cort.pickup_address1");
+            String Pickup_City = PropertyUtility.getDataProperties("partner.cort.pickup_city");
+            String Pickup_Country = PropertyUtility.getDataProperties("partner.cort.pickup_country");
+            String Pickup_Latitude = PropertyUtility.getDataProperties("partner.cort.pickup_latitude");
+            String Pickup_Longitude = PropertyUtility.getDataProperties("partner.cort.pickup_longitude");
+            String Pickup_State = PropertyUtility.getDataProperties("partner.cort.pickup_state");
+            String Pickup_ZipPostalCode = PropertyUtility.getDataProperties("partner.cort.pickup_zippostalcode");
+
+            String ServiceLevelRef = PropertyUtility.getDataProperties("partner.cort.service_level_ref");
+            String PricingModelConfigVersionRef=PropertyUtility.getDataProperties("partner.cort.pricing_model_ref");
+
+            String DropOff_Address_Id = PropertyUtility.getDataProperties("partner.cort.dropoff_address_id");
+            String DropOff_Address1 = PropertyUtility.getDataProperties("partner.cort.dropoff_address1");
+            String DropOff_City = PropertyUtility.getDataProperties("partner.cort.dropoff_city");
+            String DropOff_Country = PropertyUtility.getDataProperties("partner.cort.dropoff_country");
+            String DropOff_Latitude = PropertyUtility.getDataProperties("partner.cort.dropoff_latitude");
+            String DropOff_Longitude = PropertyUtility.getDataProperties("partner.cort.dropoff_longitude");
+            String DropOff_State = PropertyUtility.getDataProperties("partner.cort.dropoff_state");
+            String DropOff_ZipPostalCode = PropertyUtility.getDataProperties("partner.cort.dropoff_zippostalcode");
+
+            //for Pickup Location
+            JSONObject jsonPickupLocation = new JSONObject();
+            jsonPickupLocation.put("Latitude", Pickup_Latitude);
+            jsonPickupLocation.put("Longitude", Pickup_Longitude);
+
+            //for Default Feilds
+            JSONArray DefaultFeilds = new JSONArray();
+
+            //for Pickup Address
+            JSONObject jsonPickupAddress = new JSONObject();
+            jsonPickupAddress.put("Address1", Pickup_Address1);
+            jsonPickupAddress.put("Address2", "");
+            jsonPickupAddress.put("AddressLabel", "");
+            jsonPickupAddress.put("BusinessPartnerDefaultAddressRef", BusinessPartnerDefaultAddressRef);
+            jsonPickupAddress.put("BusinessPartnerDefaultAddressConfigVersionID",BusinessPartnerDefaultAddressConfigVersionID);
+            jsonPickupAddress.put("City", Pickup_City);
+            jsonPickupAddress.put("Country", Pickup_Country);
+            jsonPickupAddress.put("DefaultStaticFields", DefaultFeilds);
+            jsonPickupAddress.put("IsDefault", true);
+            jsonPickupAddress.put("Location", jsonPickupLocation);
+            jsonPickupAddress.put("PickupInstructions",JSONObject.NULL );
+            jsonPickupAddress.put("State", Pickup_State);
+            jsonPickupAddress.put("ZipPostalCode", Pickup_ZipPostalCode);
+
+
+            //for Dropoff location
+            JSONObject jsonDropOffLocation = new JSONObject();
+            jsonDropOffLocation.put("Latitude", DropOff_Latitude);
+            jsonDropOffLocation.put("Longitude", DropOff_Longitude);
+
+            //for Dropoff Address
+            JSONObject jsonDropoffAddress = new JSONObject();
+            jsonDropoffAddress.put("AddressId", DropOff_Address_Id);
+            jsonDropoffAddress.put("Address1", DropOff_Address1);
+            jsonDropoffAddress.put("Address2", "");
+            jsonDropoffAddress.put("City", DropOff_City);
+            jsonDropoffAddress.put("Country", DropOff_Country);
+            jsonDropoffAddress.put("Location", jsonDropOffLocation);
+            jsonDropoffAddress.put("State", DropOff_State);
+            jsonDropoffAddress.put("ZipPostalCode", DropOff_ZipPostalCode);
+
+            JSONArray jsonCompletePickup= new JSONArray();
+            jsonCompletePickup.put(jsonPickupAddress);
+            JSONArray jsonCompleteDropOff= new JSONArray();
+            jsonCompleteDropOff.put(jsonDropoffAddress);
+
+            //for Service Level
+            String apiServiceLevel = null;
+            apiServiceLevel = UrlBuilder.createApiUrl("core",PARTNER_SERVICELEVEL);
+            JSONObject jsonServiceLevel = new JSONObject();
+            jsonServiceLevel.put("DropoffLocation", jsonDropOffLocation);
+            jsonServiceLevel.put("NoOfDrivers",No_of_Driver);
+            jsonServiceLevel.put("PickupLocation",jsonPickupLocation);
+            jsonServiceLevel.put("PricingModelConfigVersionRef",PricingModelConfigVersionRef);
+            response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonServiceLevel.toString()).when().post(apiServiceLevel);//body(jsonObj.toString()).
+
+
+            //final main json for request payload
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("PickupAddress", jsonPickupAddress);
+            jsonObj.put("DropOffAddress", jsonDropoffAddress);
+            jsonObj.put("DeliveryDateTime", nextAvailableBungii[0]);
+            jsonObj.put("EstLoadUnloadTimeInMilliseconds", 0);
+            jsonObj.put("IsScheduledPickup", true);
+            jsonObj.put("PricingModelConfigVersionRef", PricingModelConfigVersionRef);
+            jsonObj.put("PickupRequestID",JSONObject.NULL);
+            jsonObj.put("ServiceLevelRef", ServiceLevelRef);
+            jsonObj.put("NoOfDrivers",No_of_Driver);
+            jsonObj.put("BusinessPartnerDefaultAddressRef", BusinessPartnerDefaultAddressRef);
+            jsonObj.put("BusinessPartnerDefaultAddressConfigVersionID",BusinessPartnerDefaultAddressConfigVersionID);
+
+            //Header header = new Header("AuthorizationToken", AccessToken);
+            response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);//body(jsonObj.toString()).
+//            response.then().log().body();
+            JsonPath jsonPathEvaluator = response.jsonPath();
+            ApiHelper.genericResponseValidation(response, RequestText);
+        }
 
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response, RequestText);
@@ -2418,6 +2519,67 @@ public class CoreServices extends DriverBase {
                 Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
                 JsonPath jsonPathEvaluator = response.jsonPath();
                 ApiHelper.genericResponseValidation(response, RequestText);
+
+        }
+
+        else if(Partner_Portal.equalsIgnoreCase("Cort Furniture")) {
+
+            //customer name
+            JSONArray customFields = new JSONArray();
+
+
+            JSONArray ItemsToDeliver = new JSONArray();
+
+
+            //static fields
+            JSONArray staticFields = new JSONArray();
+
+            JSONObject field2 = new JSONObject();
+            field2.put("FieldRef", "f2bd9004-6757-11ea-a4a3-00155d0a8706");
+            field2.put("FieldValue", "Test");
+
+            JSONObject field3 = new JSONObject();
+            field3.put("FieldRef", "f2bd908c-6757-11ea-a4a3-00155d0a8706");
+            field3.put("FieldValue", "3213213210");
+
+            JSONObject field4 = new JSONObject();
+            field4.put("FieldRef", "f2bd90b3-6757-11ea-a4a3-00155d0a8706");
+            field4.put("FieldValue", "");
+
+            JSONObject field5 = new JSONObject();
+            field5.put("FieldRef", "f2bd90d3-6757-11ea-a4a3-00155d0a8706");
+            field5.put("FieldValue", "SVC02/307/03");
+
+            JSONObject field6 = new JSONObject();
+            field6.put("FieldRef", "f2bd9171-6757-11ea-a4a3-00155d0a8706");
+            field6.put("FieldValue", "Today");
+
+;
+
+            staticFields.put(field2);
+            staticFields.put(field3);
+            staticFields.put(field4);
+            staticFields.put(field5);
+            staticFields.put(field6);
+
+
+            //main payload
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("PickupRequestID", PickupRequest);
+            jsonObj.put("CustomerName", Partner_Customer);
+            jsonObj.put("CustomFields", customFields);
+            jsonObj.put("CustomerMobile", Partner_Customer_Phone);
+            jsonObj.put("ItemsToDeliver", ItemsToDeliver);
+            jsonObj.put("StaticFields", staticFields);
+            jsonObj.put("PaymentMethodNonce", JSONObject.NULL);
+            jsonObj.put("PickupNote", "Furniture");
+            jsonObj.put("PaymentOption", "CC");
+            jsonObj.put("PaymentMethodNonce", "fake-valid-nonce");
+            jsonObj.put("SpecialInstructions", "SPL from QA script");
+
+            Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
+            JsonPath jsonPathEvaluator = response.jsonPath();
+            ApiHelper.genericResponseValidation(response, RequestText);
 
         }
         else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")) {

@@ -741,6 +741,30 @@ public class CommonStepsDriver extends DriverBase {
                 case "Cancel Bungii":
                     action.click(admin_dashboardPage.Button_Submit());
                     break;
+                case "Confirm Status":
+                    action.click(scheduledTripsPage.Button_ConfirmStatus());
+                    break;
+                case "Cancel Status":
+                    action.click(scheduledTripsPage.Button_CloseStatus());
+                    break;
+                case "Skip Customer Signature":
+                    action.click(driverUpdateStatusPage.Button_SkipCustomerSignature());
+                    break;
+                case "Clear Signature":
+                    action.click(driverUpdateStatusPage.Button_ClearSignature());
+                    break;
+                case "Got It":
+                    action.click(driverUpdateStatusPage.Alert_DropOffInstructionsGotIt());
+                    break;
+                case "CALCULATE COST":
+                    action.click(driverUpdateStatusPage.Button_CalculateCost());
+                    break;
+                case "CONFIRM CHANGES":
+                    action.click(scheduledTripsPage.Button_Confirm());
+                    break;
+                case "Remove Driver":
+                    action.click(scheduledTripsPage.Button_RemoveDrivers());
+                    break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }

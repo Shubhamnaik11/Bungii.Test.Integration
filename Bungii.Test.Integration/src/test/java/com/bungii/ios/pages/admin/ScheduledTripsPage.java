@@ -100,6 +100,21 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
     public WebElement Text_PartnerNameLiveDeliveryPage() { return findElement("//tbody[@id='TripListsTBody']/tr[1]/td[9]",LocatorType.XPath);}
+    public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
+    public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
+    public WebElement Label_CustomerSignature(boolean...ignoreException){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]",LocatorType.XPath,ignoreException);}
+    public WebElement Link_ChangeDeliveryStatus(boolean...ignoreException) { return findElement("//tr/td/a/img", LocatorType.XPath,ignoreException); }
+    public WebElement DropDown_DeliveryStatus() { return findElement("txtNewStatus", LocatorType.Id); }
+    public WebElement Text_DeliveryStatus(String status) { return findElement(String.format("//select/option[text() =\"%s\"]",status), LocatorType.XPath); }
+    public WebElement DropDown_DeliveryStatusReason() { return findElement("txtNewStatusReason", LocatorType.Id);}
+    public WebElement Text_DeliveryStatusReason(String statusReason) { return findElement(String.format("//div/select/option[text() =\"%s\"]",statusReason), LocatorType.XPath); }
+    public WebElement Button_ConfirmStatus() { return findElement("//div[@class=\"modal-footer\"]/p/following-sibling::button[2]", LocatorType.XPath);}
+    public WebElement Button_CloseStatus() { return findElement("//div[@id=\"edit-status-success-modal\"]/div/div/div[2]/button", LocatorType.XPath);}
+    public WebElement Label_CustomerSignatureNA(){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]/following-sibling::td/strong",LocatorType.XPath);}
+    public WebElement Image_CustomerSignature(){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]/following-sibling::td/img",LocatorType.XPath);}
+    public WebElement Checkbox_driver () { return findElement("//div[@id='tripDriverDetails']//span[@class='checkmark'][1]", LocatorType.XPath); }//richa
+    public WebElement Button_RemoveDrivers () { return findElement("//div[@id='tripDriverDetails']//strong[contains(text(),'Remove')]", LocatorType.XPath); }//Richa
+    public WebElement  Button_Edit() {return findElement("//p[@id='btnEdit']",LocatorType.XPath);}
 
     public WebElement Label_SoloLift() { return findElement("SOLO LIFT", LocatorType.AccessibilityId); }
     public WebElement Text_SoloLiftMessage() { return findElement("You are responsible for loading and unloading the item(s) by yourself", LocatorType.AccessibilityId); }
@@ -109,8 +124,6 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_CustomerHelpMessage() { return findElement("The customer will help you unload the item(s)", LocatorType.AccessibilityId); }
     public WebElement Label_DuoLift() { return findElement("DUO LIFT", LocatorType.AccessibilityId); }
     public WebElement Text_DuoLiftMessage() { return findElement("You and your duo teammate are responsible for loading and unloading the item(s)", LocatorType.AccessibilityId); }
-    public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
-    public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
     public WebElement Icon_CustomerHelpAdminPortal(){return  findElement("//div/span[text() =\"Customer help\"]",LocatorType.XPath);}
     public WebElement Button_Duo(){return  findElement("duo",LocatorType.Id);}
     public WebElement Text_PickupTime() { return findElement("//label[text() =\"Pickup Time\"]/following-sibling::div[1]/div/div/div",LocatorType.XPath);}
