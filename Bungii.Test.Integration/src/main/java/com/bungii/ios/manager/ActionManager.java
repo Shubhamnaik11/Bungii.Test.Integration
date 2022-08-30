@@ -857,4 +857,34 @@ try {
                     true);
         }
     }
+    public void deleteAllCookies() {
+        try{
+            SetupManager.getDriver().manage().deleteAllCookies();
+        } catch (Exception ex){
+            logger.error("ACTION FAILED | Error performing step | Could not delete all cookies ", ExceptionUtils.getStackTrace(ex));
+            error("I should be able to delete all cookies -> ", "Could not delete all cookies-> " ,
+                    true);
+        }
+    }
+
+    public void navigateTo(String url) {
+        try{
+        SetupManager.getDriver().navigate().to(url);
+    } catch (Exception ex){
+        logger.error("ACTION FAILED | Error performing step | Could not navigate to "+url, ExceptionUtils.getStackTrace(ex));
+        error("I should be able to navigate to "+ url, "Could not navigate to "+url ,
+                true);
+    }
+    }
+
+    public String getCurrentURL() {
+        try {
+            String s = SetupManager.getDriver().getCurrentUrl();
+            return s;
+        } catch (Exception ex) {
+            error("I should be able to get current URL ", "Could not get current URL", true);
+            return "Could not get current URL";
+        }
+    }
+
 }
