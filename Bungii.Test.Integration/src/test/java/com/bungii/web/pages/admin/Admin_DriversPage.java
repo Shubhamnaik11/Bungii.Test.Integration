@@ -40,5 +40,8 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Text_AllPageNumber(boolean...ignoreException) {return findElement("//li[@class=\"page-item\"]/a",LocatorType.XPath,ignoreException);}
 
+    public WebElement Link_ActiveDriverMap() {return findElement("adminmenu-nonactivedriversy",LocatorType.Id);}
+
+    public WebElement Image_Map() {return findElement("map",LocatorType.Id);}
 
 }

@@ -598,6 +598,9 @@ try{
             case "Non Active Drivers":
                 action.click(admin_DashboardPage.Link_NonActiveDriver());
                 break;
+            case "Active Driver Map":
+                action.click(admin_DriverPage.Link_ActiveDriverMap());
+                break;
         }
             utility.resetGeofenceDropdown();
             log("I should be able to click on "+navigateTo+" link from the sidebar","I could click on "+navigateTo+" link from the sidebar",false);

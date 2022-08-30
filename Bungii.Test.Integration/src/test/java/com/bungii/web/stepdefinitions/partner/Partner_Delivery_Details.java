@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -49,6 +50,7 @@ public class Partner_Delivery_Details extends DriverBase {
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     ActionManager action = new ActionManager();
     DbUtility dbUtility = new DbUtility();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
 
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
@@ -867,6 +869,15 @@ public class Partner_Delivery_Details extends DriverBase {
                     String alertMessage = action.getText(Page_Partner_Delivery.Alert_MessageForCall());
                     testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.Alert_MessageForCall()),"Call request text should be displayed","Call request text is displayed","Call request text is not displayed");
                     testStepAssert.isEquals(alertMessage,expectedMessage,"The text "+expectedMessage+" should be displayed","The text "+alertMessage+" is displayed","The text "+expectedMessage+" should be displayed");
+                    break;
+                case "Active driver Map":
+                    Thread.sleep(2000);
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Link_ActiveDriverMap()),"Active driver map link should be displayed","Active driver map link is displayed","Active driver map link is not displayed");
+                    String activeText = action.getText(admin_DriverPage.Link_ActiveDriverMap());
+                    testStepAssert.isEquals(activeText,element,"The text "+element+" should be displayed","The text "+activeText+" is displayed","The text "+element+" should be displayed");
+                    break;
+                case "Map":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Image_Map()),"Map should be displayed","Map is displayed","Map is not displayed");
                     break;
             }
     } catch (Exception e) {

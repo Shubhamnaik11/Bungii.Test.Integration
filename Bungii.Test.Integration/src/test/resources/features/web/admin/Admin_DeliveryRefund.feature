@@ -511,3 +511,10 @@ Feature: Admin_Refund
 		And  I search the delivery using "Pickup Reference"
 		Then I should see the message "No deliveries found." displayed
 
+   #CORE-3009 :To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
+	@testAllan
+	Scenario:To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
+		And I click on the "Driver" link from the sidebar
+		Then The "Active driver Map" should be displayed
+		And I click on the "Active driver Map" link from the sidebar
+		Then The "Map" should be displayed
