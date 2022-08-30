@@ -330,7 +330,6 @@ public class AvailableTripsSteps extends DriverBase {
 	public void the_trip_should_not_be_present_in_available_bungiis() throws Throwable {
 		try{
 		boolean isDeliveryPresentInDriverApp = true;
-        cucumberContextManager.setScenarioContext("CUSTOMER","Testcustomertywd_appleZTDafc Stark");
 		String fullCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,27);
 		List<WebElement> availableDeliveriesDriverApp =availableTripsPage.List_AllAvailableDeliveriesDriverApp();
 		if(availableDeliveriesDriverApp.size()==0){
