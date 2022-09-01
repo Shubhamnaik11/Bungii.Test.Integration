@@ -400,9 +400,94 @@ Feature: Bungii Duo Scheduled Part A
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |  CUSTOMER1_PHONE |  |
-    
-  
- 
+
+# Core 448: Verify Projected Arrival Time and Try to Finish time when Drop off address was edited by Admin when driver had accepted long stack trip in Arrived Status
+  @ready
+#  @testsweta
+  Scenario:  Verify Projected Arrival Time and Try to Finish time when Drop off address was edited by Admin when driver had accepted long stack trip in Arrived Status
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State   |
+      | atlanta  | ARRIVED |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "accepts stack message" request
+    And I accept Alert message for "Alert: Display Stack trip after current trip"
+    And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
+
+    When I Switch to "customer" application on "same" devices
+    And I am logged in as "Testcustomertywd_apple_AGQFCg Test" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Ondemand" customer
+    And I Select "Edit Trip Details" option
+    And I edit the pickup address
+    Then I change the pickup address to "Hair Kymistry, Powers"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "customer" application on "same" devices
+    And I calculate the "telet" time after "changed pickup"
+    Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
+
+
+# Core 448: Verify Projected Arrival Time and Try to Finish time for short stack when admin edits the drop off address of the Stacked trip
+  @ready
+  Scenario:  Verify Projected Arrival Time and Try to Finish time for short stack when admin edits the drop off address of the Stacked trip
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State        |
+      | atlanta  | DRIVING TO DROP OFF |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "accepts stack message" request
+    And I accept Alert message for "Alert: Display Stack trip after current trip"
+    And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for short stack trip
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_apple_AGQFCg Test" customer
+    And I Select "Edit Trip Details" option
+    And I edit the drop off address
+    Then I change the drop off address to "Hair Kymistry, Powers"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "ORIGINAL" devices
+    And stack trip information should be displayed on deck
+    Then try to finish time should be correctly displayed for short stack trip
+
 
  
 
