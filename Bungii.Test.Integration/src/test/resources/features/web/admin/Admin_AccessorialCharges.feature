@@ -132,8 +132,10 @@ And I login to driver portal on a new tab with driver phone number "9049840210"
 And I click on "Driver Details" link to get the total driver earnings value screen and navigate back to admin portal
 And I wait for 2 minutes
 And I view the Deliveries list on the admin portal
+And I should see field name as partner on delivery listing screen
 When  I search the delivery using "Pickup Reference"
 And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+And I should see field name as partner on delivery detail screen
 Then I should see "Accessorial Charges" section displayed
 When I add following accessorial charges and save it
 | Amount   | Fee Type         | Comment                           | Driver Cut |
@@ -172,3 +174,51 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 | Other            | 20         |
 And I login to driver portal on a new tab with driver phone number "9049840210"
 Then The accessorial charges cut should be displayed in total earnings
+
+#CORE-3381 : To verify that admin can add accessorial charges for partner canceled deliveries after revival
+@ready
+Scenario: To verify that admin can add accessorial charges for partner canceled deliveries after revival
+   When I request Partner Portal "SOLO" Trip for "MRFM" partner
+   |Geofence| Bungii Time   | Customer Phone | Customer Name |
+   |Kansas  | NEXT_POSSIBLE | 8877661064     | Testcustomertywd_BppleMarkBM LutherBM|
+	Given I navigate to "Partner" portal configured for "normal" URL
+	And I enter "valid" password on Partner Portal
+	And I click "SIGN IN" button on Partner Portal
+	Then I should "be logged in"
+	And I click "Track Deliveries" button on Partner Portal
+	And I click on the delivery based on customer name
+	And I click "Cancel Delivery link" button on Partner Portal
+	And I click "Cancel Delivery" button on Partner Portal
+	Then I click "OK" button on Partner Portal
+    And I am logged in as Admin
+	And I wait for 2 minutes
+	And I view All Deliveries list on the admin portal
+	And I search the delivery using "Pickup Reference"
+	Then The "All Deliveries" should be in "Partner Canceled" state
+	Then Revive button should be displayed beside the trip
+	When I click on "Revive" button
+	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+	When I click on "Confirm" button on Revival Popup
+	And I wait for 2 minutes
+	And I view the all Scheduled Deliveries list on the admin portal
+	And  I search the delivery using "Pickup Reference"
+	Then I should be able to see the respective bungii with the below status
+		|  Status |
+		| Assigning Driver(s)|
+	And I view the Deliveries list on the admin portal
+	And I search the delivery using old pickup reference
+	And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+	Then I should see "Accessorial Charges" section displayed
+	When I add following accessorial charges and save it
+		| Amount   | Fee Type         | Comment                           |
+		|  10      | Excess Wait Time | Charges due to Excess wait        |
+		|   20.5    | Cancelation      | Charges due to Cancelation        |
+		|  25.65   | Mountainous      | Charges due to mountainous reason |
+		|  100     | Other            | Charges due to other reasons      |
+	And I should see following details in the Accessorial charges section
+		| Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+		| $10            | $20.5       | $25.65      | $100  | $156.15 |
+	And I set the cancelled delivery pickup reference as recent pickup reference to verify data in db
+	Then The Below accessorial charges should be present in the db
+		| Excess Wait Time | Cancelation | Mountainous | Other |
+		| 10.00            | 20.50      | 25.65        | 100.00 |

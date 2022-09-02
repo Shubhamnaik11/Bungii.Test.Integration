@@ -68,7 +68,6 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Text_NoDeliveriesFound () { return findElement("//div/h5", LocatorType.XPath); }
 
-
     public WebElement Label_ReviveCustomerDetail () { return findElement("//div[contains(.,'Customer')]/b[2]", LocatorType.XPath); }
 
     public WebElement Label_RevivePartnerDetail () { return findElement("//span[contains(.,'Partner')]/b", LocatorType.XPath); }
@@ -79,5 +78,6 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Text_AllFilterOptions (int number){ return findElement(String.format("//div[@id=\"divFilter\"]/div/label[%d]",number), LocatorType.XPath); }
 
+    public WebElement Header_Partner () { return findElement("//th[text()='Customer']/following-sibling::th[1]", LocatorType.XPath); }
 
 }

@@ -407,3 +407,92 @@ And I click on device "Back" button
 And Bungii Driver "slides to the next state"
 When I accept Alert message for "Reminder: both driver at drop off"
 Then I should be navigated to "Rate duo teammate" screen
+
+#CORE-3271:To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
+@ready
+Scenario: To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
+When I request Partner Portal "Duo" Trip for "Tile Shop" partner
+|Geofence| Bungii Time   | Customer Phone | Customer Name |
+|nashville| NEXT_POSSIBLE | 8877661098 | Testcustomertywd_appleMarkCU LutherCU|
+
+When I Switch to "driver" application on "same" devices
+And I am logged in as "Testdrivertywd_applens_a_kayU Stark_nsOnEU" driver
+And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+And I connect to "extra1" using "Driver2" instance
+And I Switch to "driver" application on "same" devices
+And I am logged in as "Testdrivertywd_applens_a_kayV Stark_nsOnEV" driver
+And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+When I Switch to "driver" application on "ORIGINAL" devices
+And I Select "AVAILABLE BUNGIIS" from driver App menu
+And I Select Partner portal Trip from available trip
+And I select "Pallet-1" from items
+Then I should see "DUO LIFT" header displayed
+And I accept selected Bungii
+And I Select "SCHEDULED BUNGIIS" from driver App menu
+And I Select Trip from driver scheduled trip
+Then I should see "DUO LIFT" header displayed
+And I start selected Bungii
+Then Bungii driver should see "General Instructions"
+
+And I Switch to "driver" application on "driver2" devices
+And I Select "AVAILABLE BUNGIIS" from driver App menu
+And I Select Partner portal Trip from available trip
+Then I should see "DUO LIFT" header displayed
+And I select "Pallet-2" from items
+When I accept selected Bungii
+And I Select "SCHEDULED BUNGIIS" from driver App menu
+And I Select Trip from driver scheduled trip
+Then I should see "DUO LIFT" header displayed
+And I start selected Bungii
+Then Bungii driver should see "General Instructions"
+
+
+When I Switch to "driver" application on "ORIGINAL" devices
+When I slide update button on "EN ROUTE" Screen
+And I click on "GOT IT" button
+And I slide update button on "ARRIVED" Screen
+When Bungii driver uploads "1" image
+And I slide update button on "ARRIVED" Screen
+
+And I Switch to "driver" application on "driver2" devices
+When I slide update button on "EN ROUTE" Screen
+And I click on "GOT IT" button
+And I slide update button on "ARRIVED" Screen
+When Bungii driver uploads "1" image
+And I slide update button on "ARRIVED" Screen
+
+When I Switch to "driver" application on "ORIGINAL" devices
+And I slide update button on "LOADING ITEM" Screen
+When Bungii driver uploads "1" image
+And I slide update button on "LOADING ITEM" Screen
+
+And I Switch to "driver" application on "driver2" devices
+And I slide update button on "LOADING ITEM" Screen
+When Bungii driver uploads "1" image
+And I slide update button on "LOADING ITEM" Screen
+
+When I Switch to "driver" application on "ORIGINAL" devices
+And I slide update button on "DRIVING TO DROP-OFF" Screen
+Then I should see "DUO LIFT" header displayed
+And I click on "GOT IT" button
+
+And I Switch to "driver" application on "driver2" devices
+And I slide update button on "DRIVING TO DROP-OFF" Screen
+Then I should see "DUO LIFT" header displayed
+And I click on "GOT IT" button
+
+When I Switch to "driver" application on "ORIGINAL" devices
+And I slide update button on "UNLOADING ITEMS" Screen
+When Bungii driver uploads "1" image
+And I slide update button on "UNLOADING ITEMS" Screen
+Then I accept Alert message for "Reminder: both driver at drop off"
+And I should be navigated to "Rate duo teammate" screen
+
+And I Switch to "driver" application on "driver2" devices
+And I slide update button on "UNLOADING ITEMS" Screen
+When Bungii driver uploads "1" image
+And I slide update button on "UNLOADING ITEMS" Screen
+Then I accept Alert message for "Reminder: both driver at drop off"
+And I should be navigated to "Rate duo teammate" screen

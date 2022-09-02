@@ -1093,7 +1093,7 @@ try{
         action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
         //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
         Thread.sleep(1000);
-        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
+//        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
 
         //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
         action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
@@ -2561,6 +2561,35 @@ try{
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+
+    @And("^I should see field name as partner on delivery listing screen$")
+    public void i_should_see_field_name_as_partner_on_delivery_listing_screen() throws Throwable {
+        try {
+            String expectedHeader = PropertyUtility.getMessage("PartnerColumnHeader");
+            String actualHeader = action.getText(admin_TripsPage.Header_Partner());
+            testStepAssert.isEquals(actualHeader, expectedHeader, expectedHeader + " should be displayed", expectedHeader + "is displayed", expectedHeader + " is not displayed");
+        }
+
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I should see field name as partner on delivery detail screen$")
+    public void i_should_see_field_name_as_partner_on_delivery_detail_screen() throws Throwable{
+        try {
+            String expectedLabel = PropertyUtility.getMessage("PartnerColumnHeader");
+            String actualLabel = action.getText(admin_TripDetailsPage.Label_Partner());
+            testStepAssert.isEquals(actualLabel, expectedLabel, expectedLabel + " should be displayed", expectedLabel + "is displayed", expectedLabel + " is not displayed");
+        }
+        catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @When("^I view the delivery details for live deliveries$")
     public void i_view_the_delivery_details_for_live_deliveries() throws Throwable {

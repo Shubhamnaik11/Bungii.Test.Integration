@@ -121,7 +121,6 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
 
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened
-
     When I confirm trip with following details
       | Day | Trip Type | Time          |
       | 0   | SOLO      | <AFTER TELET> |
@@ -133,8 +132,8 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     And I click "Done" button on "Success" screen
     And I get the pickupref for "8877661082"
     And As a driver "Testdrivertywd_appleks_a_drvbb Kansas_bb" perform below action with respective "SECOND SOLO SCHEDULED" trip
-      | driver1 state |
-      | Accepted      |
+     | driver1 state |
+     | Accepted      |
     And I Switch to "driver" application on "same" devices
     And I am logged in as "Testdrivertywd_appleks_a_drvbb Kansas_bb" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -147,5 +146,39 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
     Then Bungii driver should see "Enroute screen"
 
     Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8877661081     | 8877661082      |
+     | Customer Phone | Customer2 Phone |
+     | 8877661081     | 8877661082      |
+
+#CORE-2342:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
+  @ready
+  Scenario Outline:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "TestDrivertywd_applemd_a_billH Stark_bltTwOH" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I set the pickup address for "<Delivery Center>"
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
+    And I wait for 1 minutes
+    And I click on "View Request" button
+    Then I should see service level information displayed for "<Delivery Center>" address
+    And I click on "Accept" button
+    And I Select Trip from driver scheduled trip
+    Then The service level information should be displayed
+    And I start selected Bungii
+    Then Bungii driver should see "General Instructions"
+    And I slide update button on "EN ROUTE" Screen
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I open the trip for "<Customer Name>" the customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The delivery details on "Live" deliveries should have proper pickup "<Delivery Center>" location and service level instructions displayed
+
+    Examples:
+      |        Customer Name                     |    Customer Phone  |   Delivery Center        |
+      |   Testcustomertywd_BppleMarkCG LutherCG  |      8877661084    |   Store                  |
+      |   Testcustomertywd_BppleMarkCH LutherCH  |      8877661085    |   Warehouse              |
