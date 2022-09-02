@@ -6,6 +6,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_MenuLinksPage;
+import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import com.bungii.web.pages.driver.Driver_DetailsPage;
 import com.bungii.web.utilityfunctions.*;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -21,6 +22,8 @@ public class Admin_DriverVerificationSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
     Admin_MenuLinksPage admin_MenuLinksPage = new Admin_MenuLinksPage();
     Driver_DetailsPage driver_detailsPage = new Driver_DetailsPage();
+    Admin_ScheduledTripsPage admin_scheduledTripsPage=new Admin_ScheduledTripsPage();
+
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
@@ -135,7 +138,14 @@ public class Admin_DriverVerificationSteps extends DriverBase {
                 log("I enter rejection reason in field",
                         "I have entered rejection reason in field", false);
                 break;
+            case "No Driver(s) Found":
+                testStepAssert.isEquals(admin_scheduledTripsPage.Text_TripStatus().getText(),"No Driver(s) Found",
+                        "The status should be No Driver(s) Found",
+                        "The status is No Driver(s) Found",
+                        "Incorrect status displayed");
+                break;
         }
+        log("The status should be changed","The status is changed",false);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
