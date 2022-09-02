@@ -71,7 +71,6 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_SuccessMessage(){return findElement("//p[@id='success-message']/i[2]", LocatorType.XPath);}
     public WebElement Button_ClosePopUp(){return findElement("//button[@class='close']/span", LocatorType.XPath);}
     public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
-    public WebElement TimePicker_Time () { return findElement("PickupDetails_ScheduledTime", LocatorType.Id); }
     public WebElement Dropdown_ScheduledDateTime() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
     public WebElement RadioButton_Solo() { return findElement("//input[@value='Solo']", LocatorType.XPath); }
 

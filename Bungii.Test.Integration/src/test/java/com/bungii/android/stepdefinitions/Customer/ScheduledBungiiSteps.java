@@ -437,8 +437,8 @@ public class ScheduledBungiiSteps extends DriverBase {
                     action.scrollToBottom();
                     action.click(estimatePage.Button_NextBungii());
                     break;
-                case "Submit":
-                    action.click(updateStatusPage.Button_Submit());
+                case "Driver Submit":
+                    action.click(updateStatusPage.Button_DriverSubmit());
                     break;
                 case "Scheduled Bungiis":
                     action.click(scheduledBungiiPage.Button_ThreeDot());

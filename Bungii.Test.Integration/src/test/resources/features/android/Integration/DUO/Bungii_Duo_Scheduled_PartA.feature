@@ -427,7 +427,7 @@ Feature: Bungii Duo Scheduled Part A
     And I select "3" Ratting star for solo Driver 1
 #  Core-3107 Verify that comments field is correctly validated on driver rating page
     And I add a comment for driver
-    And I click "Submit" button on "Rate duo teammate" screen
+    And I click "Driver Submit" button on "Rate duo teammate" screen
     And I click "Skip This Step" button on "Rate customer" screen
     And I should be navigated to "Bungii Completed" screen
     Then I check if the rating is saved in the db
