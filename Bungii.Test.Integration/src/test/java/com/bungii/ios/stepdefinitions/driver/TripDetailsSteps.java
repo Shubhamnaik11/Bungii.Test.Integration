@@ -385,26 +385,6 @@ public class TripDetailsSteps extends DriverBase {
     }
     }
 
-
-
-    @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
-    public void i_click_on_the_something_link_beside_scheduled_bungii_for_something(String strArg1, String deliveryType) throws Throwable {
-        try{
-            switch (deliveryType){
-                case "Completed Deliveries":
-                    Thread.sleep(4000);
-                    action.click(scheduledTripsPage.Link_DeliveryDetails());
-                    Thread.sleep(2000);
-                    action.click(scheduledTripsPage.List_ViewDeliveries());
-                    break;
-            }
-        } catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-    }
-
     @Then("^I should see the customer signature row \"([^\"]*)\" in admin portal all delivery details page$")
     public void i_should_see_the_customer_signature_row_something_in_admin_portal_all_delivery_details_page(String CustomerSignature) throws Throwable {
         try{

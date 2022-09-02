@@ -235,7 +235,6 @@ Feature: Admin_Price_Override
 
 
   @ready
-
   Scenario: Verify the estimated charge and driver earnings before and after driver accepts and when service level is updated over a admin override functionality
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -289,6 +288,8 @@ Feature: Admin_Price_Override
         | Status           |
         | Scheduled |
     When I view the delivery details
+#    Core 3294: Verify stop search button is not displayed for trip in advance schedule status and schedule status
+    Then I check if "Stop Searching" button is not present
     And I get the old values of "Customer price" for "Service level"
     And I get the old values of "Driver cut" for "Service level"
     And I check if "Price Override" button is displayed
