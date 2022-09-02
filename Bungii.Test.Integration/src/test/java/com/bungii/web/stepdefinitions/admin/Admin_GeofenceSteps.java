@@ -2,30 +2,32 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.utilities.FileUtility;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
-import com.bungii.web.pages.driver.Driver_DashboardPage;
-import com.bungii.web.pages.driver.Driver_LoginPage;
-import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
+import org.apache.commons.io.comparator.LastModifiedFileComparator;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.Iterator;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -498,8 +500,27 @@ public class Admin_GeofenceSteps extends DriverBase {
     @When("^I click on the geofence \"([^\"]*)\"$")
     public void i_click_on_the_geofence_something(String GeofenceName) throws Throwable {
         try{
-        String Xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
-        action.click( SetupManager.getDriver().findElement(By.xpath(Xpath)));
+            String xpath;
+            switch (GeofenceName){
+                case "Chicago":
+                    xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
+                    break;
+
+                case "Chicago-inactive":
+                    GeofenceName="Chicago";
+                    xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Inactive");
+                    break;
+
+                case "new-geofence":
+                    GeofenceName = (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
+                    xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Inactive");
+                    break;
+
+                default :
+                    xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
+
+            }
+        action.click(admin_GeofencePage.findElement(xpath, PageBase.LocatorType.XPath));
         log("I click on the geofence" ,
                 "I have clicked on the geofence", false);
         } catch (Exception e) {
@@ -509,7 +530,32 @@ public class Admin_GeofenceSteps extends DriverBase {
         }
 
     }
-
+    @And("^I \"([^\"]*)\" geofence polylines$")
+    public void i_something_geofence_polylines(String actionType) throws Throwable {
+        try{
+            switch (actionType){
+                case "extend":
+                    String primaryPolyline=PropertyUtility.getDataProperties("chicago.extended.primary.polyline");
+                    String secondaryPolyline=PropertyUtility.getDataProperties("chicago.extended.secondary.polyline");
+                    action.clearSendKeys(admin_GeofencePage.TextBox_Primary(),primaryPolyline);
+                    action.clearSendKeys(admin_GeofencePage.TextBox_Secondary(),secondaryPolyline);
+                    action.click(admin_GeofencePage.Button_Save());
+                    break;
+                case "reduce":
+                    String reducedPrimaryPolyline=PropertyUtility.getDataProperties("chicago.reduced.primary.polyline");
+                    String reducedSecondaryPolyline=PropertyUtility.getDataProperties("chicago.reduced.secondary.polyline");
+                    action.clearSendKeys(admin_GeofencePage.TextBox_Primary(),reducedPrimaryPolyline);
+                    action.clearSendKeys(admin_GeofencePage.TextBox_Secondary(),reducedSecondaryPolyline);
+                    action.click(admin_GeofencePage.Button_Save());
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+    }
     @When("^I uncheck both on demand and Scheduled for a geofence$")
     public void i_uncheck_both_on_demand_and_scheduled_for_a_geofence() throws Throwable {
         try{
@@ -829,5 +875,298 @@ try{
                     true);
         }
     }
+    @And("^I verify if \"([^\"]*)\" are downloaded$")
+    public void i_verify_if_something_are_downloaded(String downloadType) throws Throwable {
+        try{
+            Thread.sleep(7000);
+            String home = SystemUtils.getUserHome().getPath();
+            File theNewestFile = null;
+            File dir = new File(home + "/Downloads");
+            FileFilter fileFilter = new WildcardFileFilter("*.csv");
+            File[] files = dir.listFiles(fileFilter);
+            logger.detail("Download directory : "+ home + "/Downloads");
+            if(files!=null) {
+                logger.detail("Files Length : " + files.length);
+                for (int i = 0; i < files.length; i++)
+                    logger.detail("File : " + files[i].getName());
 
+                if (files.length > 0) {
+                    Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+                    theNewestFile = files[0];
+                    String fileName =theNewestFile.getName();
+                    cucumberContextManager.setScenarioContext("CSV_FILE_NAME",fileName);
+                }
+            }
+            String filename= (String) cucumberContextManager.getScenarioContext("CSV_FILE_NAME");
+            BufferedReader reader = new BufferedReader(new FileReader(dir+"/"+filename));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = null;
+            String ls = System.getProperty("line.separator");
+
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+                stringBuilder.append(ls);
+            }
+            // delete the last new line separator
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            reader.close();
+            String content = stringBuilder.toString();
+
+            switch (downloadType){
+                case "only active geofence zip codes":
+                    List <WebElement>numberOfActive=admin_GeofencePage.List_RowCount();
+                    int rows=numberOfActive.size();
+                    for (int j=1;j<=rows;j++){
+                        String geofence = admin_GeofencePage.List_ActiveGeofence(j).getText();
+                        if(geofence.equalsIgnoreCase("Goa")){
+                            //do nothing
+                        }else{
+                            testStepAssert.isTrue(content.contains(geofence),
+                                    "Only active geofence zip codes should be displayed",
+                                    "Only active geofence zip codes are not displayed");
+                        }
+                    }
+                    break;
+                case "deactive geofence is not":
+                    String inactiveGeofence = (String) cucumberContextManager.getScenarioContext("DEACTIVATED_GEOFENCE");
+                    testStepAssert.isFalse(content.contains(inactiveGeofence),
+                            "The inactive geofence zip codes should not be present",
+                            "The inactive geofence zip codes are present");
+                    break;
+                case "active geofence":
+                    String activeGeofence = (String) cucumberContextManager.getScenarioContext("ACTIVATED_GEOFENCE");
+                    testStepAssert.isTrue(content.contains(activeGeofence),
+                            "The active geofence zip codes should be present",
+                            "The active geofence zip codes are not present");
+                    break;
+                case "count of Chicago":
+                    String geofenceName = (String) cucumberContextManager.getScenarioContext("ACTIVATED_GEOFENCE");
+                    cucumberContextManager.setScenarioContext("BEFORE_EXTEND_POLYLINES_COUNT",content.length());
+                    break;
+                case "count of Chicago after extend":
+                    String geofence = (String) cucumberContextManager.getScenarioContext("ACTIVATED_GEOFENCE");
+                    String beforeExtendCount= (String) cucumberContextManager.getScenarioContext("BEFORE_EXTEND_POLYLINES_COUNT");
+                    int beforeExtenDCount= Integer.parseInt(beforeExtendCount);
+                    testStepAssert.isTrue(content.length()>beforeExtenDCount,
+                            "The number of zip codes should be more after extending the polylines",
+                            "The number of zip codes is not more after extending the polylines");
+                    cucumberContextManager.setScenarioContext("AFTER_EXTEND_POLYLINES_COUNT",content.length());
+                    break;
+                case "count of Chicago after reduce":
+                    String afterExtend= (String) cucumberContextManager.getScenarioContext("AFTER_EXTEND_POLYLINES_COUNT");
+                    int afterExtendCount = Integer.parseInt(afterExtend);
+                    testStepAssert.isTrue(content.length()<afterExtendCount,
+                            "The number of zip codes should be less after reducing the polylines",
+                            "The number of zip codes is not less after reducing the polylines");
+                    break;
+                case "new-geofence":
+                    String newGeofence= (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
+                    testStepAssert.isTrue(content.contains(newGeofence),
+                            "The newly added geofence zip codes should be present",
+                            "The newly added  geofence zip codes are not present");
+                    break;
+            }
+            log("I should be able to verify if the file is downloaded correctly",
+                    "I am able to verify if the file is downloaded correctly",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I \"([^\"]*)\" status for \"([^\"]*)\" geofence$")
+    public void i_something_status_for_something_geofence(String status, String geofenceName) throws Throwable {
+        try{
+            switch (status) {
+                case "deactivate":
+                    action.click(admin_GeofencePage.Button_Edit());
+                    action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Inactive");
+                    action.click(admin_GeofencePage.Button_Save());
+                    cucumberContextManager.setScenarioContext("DEACTIVATED_GEOFENCE",geofenceName);
+                    break;
+                case "activate":
+                    action.click(admin_GeofencePage.Button_Edit());
+                    action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Active");
+                    action.click(admin_GeofencePage.Button_Save());
+                    cucumberContextManager.setScenarioContext("ACTIVATED_GEOFENCE",geofenceName);
+                    break;
+
+            }
+            log("I should be able to change the status of the geofence",
+                    "I am able to change the status of the geofence",false);
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I open a newly created geofence")
+    public void iOpenANewlyCreatedGeofence() {
+        try{
+            String geofenceName = (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
+            action.click(admin_GeofencePage.Row_GeofenceName(geofenceName));
+
+            log("I should be able to open newly created geofence",
+                    "I am able to open newly created geofence",false);
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I observe log details in the Geo-History section")
+    public void iObserveLogDetailsInTheGeoHistorySection() {
+        try{
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_GeoHistory(),"I should able to see Geo History text.","I am able to see Geo History text.","I am not able to see Geo History text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_SrNo(),"I should able to see Sr.No. text.","I am able to see Sr.No. text.","I am not able to see Sr.No. text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_ModifiedDate(),"I should able to see Modified Date text.","I am able to see Modified Date text.","I am not able to see Modified Date text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_ModifiedBy(),"I should able to see Modified By text.","I am able to see Modified By text.","I am not able to see Modified By text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_Phone(),"I should able to see Phone text.","I m able to see Phone text.","I am not able to see Phone text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_Changes(),"I should able to see Changes text.","I am able to see Changes text.","I am not able to see Changes text.");
+
+
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I note the Geo History log records count")
+    public void iNoteTheGeoHistoryLogRecordsCount() {
+        try {
+            List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
+            int count = logsRecordCount.size();
+            cucumberContextManager.setScenarioContext("RECORDS_COUNT", count);
+            log("I should able to note the Geo History log records count.","I am able to note the Geo History records count.");
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I check that log record is shown for \"([^\"]*)\" change in Geo History")
+    public void iCheckThatLogRecordIsShownForChangeInGeoHistory(String logEntryFor) {
+        try{
+            switch (logEntryFor){
+                case "Status":
+                case "Region":
+                case "Timezone":
+                case "Geo-Coding":
+                    String oldRecordCount= (String) cucumberContextManager.getScenarioContext("RECORDS_COUNT");
+                    List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
+                    int newCount = logsRecordCount.size();
+                    int oldCount = Integer.parseInt(oldRecordCount);
+                    testStepVerify.isEquals(oldCount+1,newCount);
+                    cucumberContextManager.setScenarioContext("RECORDS_COUNT", newCount);
+                    break;
+                default:
+                    break;
+            }
+            cucumberContextManager.setScenarioContext("GEO_CHANGES",logEntryFor);
+
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I click on changes hyperlink")
+    public void iClickOnChangesHyperlink() {
+        try{
+            List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
+            //int value = logsRecordCount.size()-1;
+            action.click(admin_GeofencePage.Link_Changes());
+            log("I should able to click on changes hyperlink.","I am able to click on changes hyperlink.");
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I should see all fields with old and new changed value")
+    public void iShouldSeeAllFieldsWithOldAndNewChangedValue() {
+        try{
+            //List<WebElement> logsRecordCount = admin_GeofencePage.Rows_GeoHistoryLogs();
+            //int value = logsRecordCount.size()-1;
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_Fields(),"I should be able to see Fields text.","I am able to see Fields text.","I am not able to see Fields text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_OldValue(),"I should be able to see Old Value text.","I am able to see Old Value text.","I am not able to see Old Value text.");
+            testStepVerify.isElementDisplayed(admin_GeofencePage.Text_NewValue(),"I should be able to see New Value text.","I am able to see New Value text.","I am not able to see New Value text.");
+
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I check correct log details are shown")
+    public void iCheckCorrectLogDetailsAreShown() {
+        try {
+            String expectedModifiedBy = PropertyUtility.getDataProperties("admin.testuser.name");
+            Date date1 = new Date();
+            DateFormat dtf = new SimpleDateFormat("M/dd/YYYY");
+
+            String expedtedModifiedDate = dtf.format(date1);
+            String expectedPhone = PropertyUtility.getDataProperties("admin.testuser");
+            String expectedChanges = (String) cucumberContextManager.getScenarioContext("GEO_CHANGES");
+
+            testStepVerify.isEquals(action.getText(admin_GeofencePage.Value_ModifiedDate()), expedtedModifiedDate);
+            testStepVerify.isEquals(action.getText(admin_GeofencePage.Value_ModifiedBy()), expectedModifiedBy);
+            testStepVerify.isEquals(action.getText(admin_GeofencePage.Value_Phone()), expectedPhone);
+            testStepVerify.isEquals(action.getText(admin_GeofencePage.Value_Changes()), expectedChanges);
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+    @And("I change the \"([^\"]*)\" for the geofence")
+    public void iChangeTheForTheGeofence(String valueChange,DataTable data) {
+        try{
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            switch (valueChange){
+                case "Region":
+                    String region = dataMap.get("New_Region").trim();
+                    action.selectElementByText(admin_GeofencePage.Dropdown_Region(),region);
+                    break;
+                case "Timezone":
+                    String timeZone= dataMap.get("Geo-TimeZone").trim();
+                    action.selectElementByText(admin_GeofencePage.Dropdown_Timezone(), timeZone);
+                    break;
+                case "Geo-Coding":
+                    String primaryGeoCoding = dataMap.get("Primary").trim();
+                    String secondaryGeoCoding = dataMap.get("Secondary").trim();
+                    action.clearSendKeys(admin_GeofencePage.TextBox_Primary(),primaryGeoCoding);
+                    action.clearSendKeys(admin_GeofencePage.TextBox_Secondary(),secondaryGeoCoding);
+                    break;
+                default:
+                    break;
+            }
+            log("I should able to change " + valueChange + "for the geofence.","I am able to changed " + valueChange + "for the geofence.");
+
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

@@ -22,7 +22,7 @@ import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.stepdefinitions.customer.HomeSteps;
 import com.bungii.ios.stepdefinitions.customer.LogInSteps;
-import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
+import com.bungii.ios.stepdefinitions.driver.*;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -41,6 +41,10 @@ import com.bungii.ios.stepdefinitions.driver.*;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -455,6 +459,23 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+
+    @And("^I get pickupref for \"([^\"]*)\" customer$")
+    public void i_get_pickuref_for_something_customer(String string1) throws Throwable {
+        try{
+            String custPhone = (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+            //String custRef = dbUtility.getCustomerRefference(custPhone);
+            String pickupRef = dbUtility.getPickupRef(custPhone);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST2",pickupRef);
+            logger.detail("Pickupref for customer "+custPhone+" is"+pickupRef);
+
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in fetching the pickupref for customer ",
+                    true);
+        }
+    }
+
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void iClickButtonOnScreen(String button, String screen) {
         try {
@@ -677,11 +698,27 @@ public class CommonSteps extends DriverBase {
                 case "DELETE ACCOUNT":
                     action.click(accountPage.Button_DeleteAccount());
                     break;
+                case "SCHEDULED BUNGIIS":
+                    if (screen.equalsIgnoreCase("update")) {
+                        action.click(driverUpdateStatusPage.Button_MoreOptions());
+                        Thread.sleep(1000);
+                        action.click(driverUpdateStatusPage.Button_ScheduledBungiis());
+                    }
+                    break;
+                case "TAKE PHOTO":
+                    action.click(driverUpdateStatusPage.Button_TakePhoto());
+                    break;
                 case "MORE OPTIONS":
                     action.click(driverUpdateStatusPage.Button_MoreOptions());
                     break;
                 case "CANCEL DELIVERY":
                     action.click(driverUpdateStatusPage.Tab_CancelDelivery());
+                    break;
+                case "CUSTOMER SIGNATURE":
+                    action.click(driverUpdateStatusPage.Tab_CustomerSignature());
+                    break;
+                case "SUBMIT DATA":
+                    action.click(driverUpdateStatusPage.Button_Submit());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -1209,7 +1246,12 @@ public class CommonSteps extends DriverBase {
     public void acceptDriverPermissions(String Notification, String Location) throws Throwable {
         try {
             GeneralUtility utility = new GeneralUtility();
-            String pageName = utility.getPageHeader();
+            //String pageName = utility.getPageHeader();
+            if(action.isAlertPresent())
+            {
+                action.clickAlertButton("Always Allow");
+            }
+
             if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                 action.click(enableNotificationPage.Button_Sure());
                 action.clickAlertButton("Allow");
@@ -3324,6 +3366,26 @@ public class CommonSteps extends DriverBase {
 
 
     }
+    @And("^I change the service level to \"([^\"]*)\" in \"([^\"]*)\" portal$")
+    public void i_change_the_service_level_to_something_in_something_portal(String Service_Name, String Site_Name) throws Throwable {
+        try {
+            switch (Site_Name) {
+                case "Admin":
+                    //action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
+                    action.selectElementByText(scheduledTripsPage.Admin_Dropdown_ServiceLevel(), Service_Name);
+                    cucumberContextManager.setScenarioContext("Change_service", Service_Name);
+                    break;
+                default:
+                    logger.error("Wrong site name is pass.Please Pass correct site.");
+            }
+            log("I should able to change the service level to " + Service_Name, "Service name should get changed to " + Service_Name, true);
+
+        } catch (Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to change the service " + Service_Name + "for" + Site_Name + "portal",
+                    true);
+        }
+    }
 
     @And("^Driver status should be \"([^\"]*)\"$")
     public void driver_status_should_be_something(String DriverStatus) throws Throwable {
@@ -3347,5 +3409,228 @@ public class CommonSteps extends DriverBase {
                 "Error performing step,Please check logs for more details", true);
     }
     }
+    @And("^I verify alias is displayed correctly on \"([^\"]*)\"$")
+    public void i_verify_alias_is_displayed_correctly_on_something(String page) throws Throwable {
+        try {
+            String aliasPartnerPortalName= PropertyUtility.getDataProperties("partner.floor.and.decor.alias.name");
+            switch (page){
+                case "live delivery page":
+                    Thread.sleep(2000);
+                    testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PartnerNameLiveDeliveryPage()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+            }
+            log("I should be able to verify the alias is displayed correctly",
+                    "I am able to verify the alias is displayed correctly",false);
 
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I should see \"([^\"]*)\" header displayed$")
+    public void i_should_see_something_header_displayed(String strArg1) throws Throwable {
+        try{
+        action.swipeUP();
+        Thread.sleep(3000);
+        switch (strArg1){
+            case "SOLO LIFT":
+                boolean isSoloLiftDisplayed = scheduledTripsPage.Label_SoloLift().isDisplayed();
+                testStepAssert.isTrue(isSoloLiftDisplayed,"Solo Lift label should be displayed","Solo Lift label is displayed","Solo Lift label is not displayed");
+                String expectedSoloLiftMessage = PropertyUtility.getDataProperties("solo.lift.message");
+                String soloLiftInstructions = action.getText(scheduledTripsPage.Text_SoloLiftMessage());
+                testStepVerify.isEquals(soloLiftInstructions,expectedSoloLiftMessage,expectedSoloLiftMessage+" Message should be displayed",soloLiftInstructions+" Message is displayed",expectedSoloLiftMessage+" Message is not displayed");
+                break;
+            case "CUSTOMER HELP":
+                boolean isCustomerHelpLabelDisplayed = scheduledTripsPage.Label_CustomerHelp().isDisplayed();
+                testStepAssert.isTrue(isCustomerHelpLabelDisplayed,"Solo Lift header should be displayed","Solo Lift header is displayed","Solo Lift header is not displayed");
+                String expectedCustomerHelpMessage = PropertyUtility.getDataProperties("customer.help.message");
+                String customerHelpInstructions = action.getText(scheduledTripsPage.Text_CustomerHelpMessage());
+                testStepVerify.isEquals(customerHelpInstructions,expectedCustomerHelpMessage,expectedCustomerHelpMessage+" Message should be displayed",customerHelpInstructions+" Message is displayed",expectedCustomerHelpMessage+" Message is not displayed");
+                break;
+            case "DUO LIFT":
+                boolean isDuoLiftDisplayed = scheduledTripsPage.Label_DuoLift().isDisplayed();
+                testStepAssert.isTrue(isDuoLiftDisplayed,"Duo Lift label should be displayed","Duo Lift label is displayed","Duo Lift label is not displayed");
+                String expectedDuoLiftMessage = PropertyUtility.getDataProperties("duo.lift.message");
+                String duoLiftInstructions = action.getText(scheduledTripsPage.Text_DuoLiftMessage());
+                testStepVerify.isEquals(duoLiftInstructions,expectedDuoLiftMessage,expectedDuoLiftMessage+" Message should be displayed",duoLiftInstructions+" Message is displayed",expectedDuoLiftMessage+" Message is not displayed");
+                break;
+        }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
+    public void i_click_on_the_something_link_beside_scheduled_bungii_for_something(String strArg1, String deliveryType) throws Throwable {
+        try{
+            switch (deliveryType){
+                case "Completed Deliveries":
+                    Thread.sleep(4000);
+                    action.click(scheduledTripsPage.Link_DeliveryDetails());
+                    Thread.sleep(2000);
+                    action.click(scheduledTripsPage.List_ViewDeliveries());
+                    break;
+            }
+            log("I should be able to click on "+deliveryType+" link","I could click on "+deliveryType+" link",false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @Then("^The \"([^\"]*)\" deliveries should have a lead time for \"([^\"]*)\" partner portal$")
+    public void the_something_deliveries_should_have_a_lead_time_for_something_partner_portal(String deliveryType, String partnerLocation) throws Throwable {
+       try{
+        switch (partnerLocation){
+            case "Kansas":
+                ZoneId zoneId = ZoneId.of("America/Chicago");
+                ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.now(), zoneId);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                String expectedTime = zonedDateTime.format(formatter);
+                if(deliveryType.equalsIgnoreCase("Solo")){
+                   String timeInMiliSeconds = dbUtility.getPartnerPortalLeadTimeSoloDelivery();
+                    int timeInMinutes = Integer.parseInt(timeInMiliSeconds)/60000;
+                    zonedDateTime = zonedDateTime.plusMinutes(timeInMinutes);
+
+                }
+                else{
+                    String timeInMiliSeconds = dbUtility.getPartnerPortalLeadTimeDuoDelivery();
+                    int timeInMinutes = Integer.parseInt(timeInMiliSeconds)/60000;
+                    zonedDateTime = zonedDateTime.plusMinutes(timeInMinutes).minusMinutes(2);
+                }
+                expectedTime = zonedDateTime.format(formatter);
+                int minutes = zonedDateTime.getMinute();
+                int difference = 0;
+                if(minutes > 0 && minutes < 15) {
+                    difference = 15 - minutes;
+                } else if (minutes > 15 && minutes < 30) {
+                    difference = 30 - minutes;
+                } else if (minutes > 30  && minutes < 45) {
+                    difference = 45 - minutes;
+                } else if(minutes > 45) {
+                    difference = 60 - minutes;
+                }
+                zonedDateTime =  zonedDateTime.plusMinutes(difference);
+                expectedTime = zonedDateTime.format(formatter);
+                cucumberContextManager.setScenarioContext("ExpectedLeadTimeDelivery",expectedTime);
+                break;
+
+        }
+        log("I should be able to get the current time from" +partnerLocation+ " and  partner specifed lead time",
+                "I could get the current time from" +partnerLocation+ " and  partner specifed lead time",false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+
+    @Then("^\"([^\"]*)\" icon should be displayed in all deliveries details page$")
+    public void something_icon_should_be_displayed_in_all_deliveries_details_page(String expectedText) throws Throwable {
+        try{
+            Thread.sleep(2000);
+            String expectedBackgroundColor =PropertyUtility.getDataProperties("customer.help.highlight");
+            testStepAssert.isTrue(action.isElementPresent(scheduledTripsPage.Icon_CustomerHelpAdminPortal()),"Customer Help Icon should be displayed","Customer Help icon is displayed","Customer help icon is not displayed");
+            String backgroundIconColor = scheduledTripsPage.Icon_CustomerHelpAdminPortal().getCssValue("background-color");
+            testStepAssert.isEquals(backgroundIconColor,expectedBackgroundColor,"Icon should have yellow highlight","Icon has yellow highlight","Icon doesnt have yellow highlight");
+            String iconText =action.getText(scheduledTripsPage.Icon_CustomerHelpAdminPortal()).toLowerCase();
+            testStepAssert.isEquals(iconText,expectedText.toLowerCase(),"The text should be "+ expectedText,"The text is "+iconText,"The text is not  "+ expectedText);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^The first timeslot should display the time including the provided partner portal lead time$")
+    public void the_first_timeslot_should_display_the_time_including_the_provided_partner_portal_lead_time() throws Throwable {
+        try{
+        Thread.sleep(5000);
+        String realTimeWithLead = (String) cucumberContextManager.getScenarioContext("ExpectedLeadTimeDelivery");
+        String expectedTimeWithLead = action.getText(scheduledTripsPage.Text_PickupTime());
+        testStepAssert.isEquals(expectedTimeWithLead,realTimeWithLead,"Partner portal with lead time should be "+realTimeWithLead,"Partner portal with lead is  "+expectedTimeWithLead,"Partner portal with lead time is not "+realTimeWithLead);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^The \"([^\"]*)\" delivery shoudnt have lead time$")
+    public void the_something_delivery_shoudnt_have_lead_time(String deliveryType) throws Throwable {
+        try {
+            switch (deliveryType) {
+                case "SOLO":
+                    ZoneId zoneIdForNashVille = ZoneId.of("America/Chicago");
+                    ZonedDateTime zonedDateTimeNashville = ZonedDateTime.ofInstant(Instant.now().plusSeconds(1800), zoneIdForNashVille);
+                    DateTimeFormatter formatterNashville = DateTimeFormatter.ofPattern("hh:mm a");
+                    String expectedTimeNashville = zonedDateTimeNashville.format(formatterNashville);
+                    System.out.println(expectedTimeNashville);
+                    int minutes = zonedDateTimeNashville.getMinute();
+                    int difference = 0;
+                    if (minutes > 0 && minutes < 15) {
+                        difference = 15 - minutes;
+                    } else if (minutes > 15 && minutes < 30) {
+                        difference = 30 - minutes;
+                    } else if (minutes > 30 && minutes < 45) {
+                        difference = 45 - minutes;
+                    } else if (minutes > 45) {
+                        difference = 60 - minutes;
+                    }
+                    zonedDateTimeNashville = zonedDateTimeNashville.plusMinutes(difference);
+                    expectedTimeNashville = zonedDateTimeNashville.format(formatterNashville);
+                    cucumberContextManager.setScenarioContext("PartnerPortalWithoutLeadTime", expectedTimeNashville);
+                    break;
+                case "DUO":
+                    ZoneId zoneIdForNashVilleDuo = ZoneId.of("America/Chicago");
+                    ZonedDateTime zonedDateTimeNashvilleDuo = ZonedDateTime.ofInstant(Instant.now().plusSeconds(1800).minusSeconds(120), zoneIdForNashVilleDuo);
+                    DateTimeFormatter formatterNashvilleDuo = DateTimeFormatter.ofPattern("hh:mm a");
+                    String expectedTimeNashvilleDuo = zonedDateTimeNashvilleDuo.format(formatterNashvilleDuo);
+                    System.out.println(expectedTimeNashvilleDuo);
+                    int minutesDuo = zonedDateTimeNashvilleDuo.getMinute();
+                    int differenceDuo = 0;
+                    if (minutesDuo > 0 && minutesDuo < 15) {
+                        differenceDuo = 15 - minutesDuo;
+                    } else if (minutesDuo > 15 && minutesDuo < 30) {
+                        differenceDuo = 30 - minutesDuo;
+                    } else if (minutesDuo > 30 && minutesDuo < 45) {
+                        differenceDuo = 45 - minutesDuo;
+                    } else if (minutesDuo > 45) {
+                        differenceDuo = 60 - minutesDuo;
+                    }
+                    zonedDateTimeNashvilleDuo = zonedDateTimeNashvilleDuo.plusMinutes(differenceDuo);
+                    expectedTimeNashvilleDuo = zonedDateTimeNashvilleDuo.format(formatterNashvilleDuo);
+                    cucumberContextManager.setScenarioContext("PartnerPortalWithoutLeadTime", expectedTimeNashvilleDuo);
+                    break;
+            }
+            log("I should be able to get the current time based on geofence","I could get the current time based on geofence",false);
+        }catch(Exception e){
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step should be successful", "Error performing step,Please check logs for more details",
+                        true);
+            }
+        }
+
+    @Then("^The First timeslot should display the time without partner portal lead time$")
+    public void the_first_timeslot_should_display_the_time_without_partner_portal_lead_time() throws Throwable {
+    try{
+        Thread.sleep(10000);
+        String realTimeWithoutLead = (String) cucumberContextManager.getScenarioContext("PartnerPortalWithoutLeadTime");
+        String expectedTimeWithoutLead = action.getText(scheduledTripsPage.Text_PickupTime());
+        testStepAssert.isEquals(expectedTimeWithoutLead,realTimeWithoutLead,"Partner portal without lead time should be "+realTimeWithoutLead,"Partner portal without lead is  "+expectedTimeWithoutLead,"Partner portal without lead time is not "+realTimeWithoutLead);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+        true);
+        }
+    }
 }

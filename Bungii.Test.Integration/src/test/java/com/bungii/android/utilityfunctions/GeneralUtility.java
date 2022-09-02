@@ -213,6 +213,14 @@ public class GeneralUtility extends DriverBase {
             case "ACCOUNT INFO":
                 isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountInfoPage(true));
                 break;
+            case "Delete account":
+                Thread.sleep(2000);
+                isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_DeleteAccount(true));
+                if(isCorrectPage){
+                    testStepAssert.isElementTextEquals(cutomerAccountPage.Text_PasswordToConfirm(),PropertyUtility.getMessage("customer.account.deleted.confirm"),PropertyUtility.getMessage("customer.account.deleted.confirm") + "should be display.",PropertyUtility.getMessage("customer.account.deleted.confirm") + "is displayed.",PropertyUtility.getMessage("customer.account.deleted.confirm") + " is not displayed.");
+                    testStepAssert.isElementTextEquals(cutomerAccountPage.Text_ActionCannotUndone(),PropertyUtility.getMessage("customer.account.deleted.undone"),PropertyUtility.getMessage("customer.account.deleted.undone") + "should be display.",PropertyUtility.getMessage("customer.account.deleted.undone") + "text is displayed.",PropertyUtility.getMessage("customer.account.deleted.undone") + "text is not displayed.");
+                }
+                break;
             case "MY BUNGIIS":
                 isCorrectPage = action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
                 break;
@@ -330,6 +338,12 @@ Thread.sleep(5000);
 
             case "Rate duo teammate":
                 isCorrectPage=action.isElementPresent(myBungiisPage.Header_RateDuoTeammate());
+                break;
+            case "REFERRAL":
+                isCorrectPage=action.isElementPresent(myBungiisPage.Header_ReferralPage());
+                break;
+            case "REFERRAL HISTORY":
+                isCorrectPage=action.isElementPresent(myBungiisPage.Header_ReferralHistory());
                 break;
 
                 default:
@@ -1168,6 +1182,13 @@ Thread.sleep(5000);
                     action.click(otherAppsPage.Notification_ActivateBungii(true));
                     isDisplayed = true;
                 }
+            }
+        }
+        else{
+            String message= (String) cucumberContextManager.getScenarioContext("EXPECTED_MESSAGE");
+            if (action.isElementPresent(otherAppsPage.Notification_PartnerCancel(message))) {
+                action.click(otherAppsPage.Notification_PartnerCancel(message));
+                isDisplayed = true;
             }
         }
         return isDisplayed;
@@ -2147,5 +2168,43 @@ Thread.sleep(5000);
     public void reApplyGeofenceDropdown(){
         action.click(admin_dashboardPage.List_Geofence());
         action.click(admin_dashboardPage.Button_ApplyGeofence());
+    }
+    public String NavigateToPartnerLogin(String Site){
+
+        String partnerURL = GetPartnerUrl(Site);
+        action.deleteAllCookies();
+        action.navigateTo(partnerURL);
+        return partnerURL;
+    }
+    private String GetPartnerUrl(String PP_Site) {
+        String partnerURL = null;
+        cucumberContextManager.setScenarioContext("SiteUrl", PP_Site);
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("QA_AUTO") || environment.equalsIgnoreCase("QA_AUTO_AWS")) {
+            if (PP_Site.equalsIgnoreCase("normal")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("FloorDecor service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.fnd_service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("kiosk mode")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("BestBuy service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.ref"));
+
+            } else if (PP_Site.equalsIgnoreCase("Cort service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.cort_service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.cort_service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("BestBuy2 service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref"));
+            }
+        }
+        return partnerURL;
     }
 }

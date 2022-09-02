@@ -53,5 +53,7 @@ public class DashBoardPage extends PageBase {
     public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria",LocatorType.Id);}
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
     public WebElement Text_BungiiStatus(){return findElement("//td[text()='Status']/following::td[1]/strong", LocatorType.XPath);}
+    public WebElement Text_AdminName(){return  findElement("//div[2]/p[1]/strong",LocatorType.XPath);}
+    public WebElement Button_Submit () { return findElement("CustomerCancel", LocatorType.Name); }
 
 }

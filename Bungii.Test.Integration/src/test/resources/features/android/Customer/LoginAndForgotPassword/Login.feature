@@ -35,6 +35,37 @@ Feature: Login
     And I tap on the "ACCOUNT>LOGOUT" link
     #And I tap on "Menu" > "Logout" link
 
+  @ready
+    #CORE-3685(Android)
+  Scenario: Verify account deletion for existing Customer
+    When I enter customers "existing valid" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    Then The user should be logged in
+    When I tap on "Menu" > "ACCOUNT" link
+    Then "ACCOUNT INFO" page should be opened
+    And I tap on the "Delete account" Link
+    Then "Delete account" page should be opened
+    And I enter customers "invalid1" Password
+    Then The user should see "snackbar validation message invalid password for account deletion" on log in page
+    And I enter customers "valid1" Password
+    And I click on "Delete" button
+    Then User should see message "Account deleted successfully" text on the screen
+    And I am on customer Log in page
+    When I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "customers" from admin sidebar
+    And I Search for customer with phone number
+    Then I should see "No Customers found." message
+    And I Select "trips" from admin sidebar
+    And I Search for customer with phone number
+    Then I should see "No Deliveries found." message
+
+
+
   @regression
   Scenario: Verify Customer Login With Invalid Credentials
     When I enter customers "invalid" Phone Number

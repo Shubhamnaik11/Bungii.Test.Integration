@@ -6,12 +6,14 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.customer.EstimatePage;
 import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import com.bungii.ios.stepdefinitions.customer.SignupSteps;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.MobileElement;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.text.DateFormat;
@@ -22,26 +24,147 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class BungiiDetailsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(SignupSteps.class);
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     private BungiiDetailsPage bungiiDetailsPage;
+    EstimatePage estimatePage = new EstimatePage();
 
     public BungiiDetailsSteps(BungiiDetailsPage bungiiDetailsPage) {
         this.bungiiDetailsPage = bungiiDetailsPage;
 
     }
+    @And("^I start selected Bungii for \"([^\"]*)\"$")
+    public void i_start_selected_bungii_for_something(String type) throws Throwable {
+        try{
+            switch (type){
+                case "floor and decor":
+                    Thread.sleep(3000);
+                    if (action.isAlertPresent())
+                        SetupManager.getDriver().switchTo().alert().accept();
 
-    @When("^I start selected Bungii$")
+                    action.swipeUP();
+                    action.click(bungiiDetailsPage.Button_StartBungii());
+                    Thread.sleep(2000);
+                    if(action.isElementPresent(bungiiDetailsPage.Text_General_Instruction(true))) {
+                        action.click(bungiiDetailsPage.Button_General_Instruction_Got_It());
+                    }
+                    log("I start selected Bungii ", "I started selected Bungii", true);
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^Driver adds photos to the Bungii$")
+    public void driver_adds_photos_to_the_bungii() throws Throwable {
+        try{
+            action.click(bungiiDetailsPage.Tab_AddPhoto());
+            addBungiiPickUpImage("3 images");
+            Thread.sleep(1000);
+
+            log("I should be able to add photos for delivery",
+                    "I am able to add photos for delivery",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    public void addBungiiPickUpImage(String option) throws InterruptedException{
+        if (option.equalsIgnoreCase("3 images")) {
+            addImage(3);
+        } else if (option.equalsIgnoreCase("Default")) {
+            addImage(1);
+        } else if (option.equalsIgnoreCase("No image")) {
+            addImage(0);
+        } else if (option.equalsIgnoreCase("large image")) {
+            addImage(1);
+        } else
+            addImage(1);
+
+    }
+
+    private void addImage(int numberOfImage) throws InterruptedException {
+
+        if(action.isAlertPresent()){
+            try {
+                Thread.sleep(3000);
+                action.clickAlertButton("OK");
+                Thread.sleep(3000);
+            }
+            catch (Exception ex){
+
+            }
+        }
+        for (int i = 1; i <= numberOfImage; i++) {
+
+            //capture image instead of uploading existing image. this saves some time
+            if (action.isElementPresent(estimatePage.Button_PhotoCapture(true))) {
+                //do nothing, directly move to steps after IF conditions
+            } else if (action.isElementPresent(estimatePage.Button_OK(true)))
+                action.click(estimatePage.Button_OK());
+            Thread.sleep(3000);
+            action.click(estimatePage.Button_PhotoCapture());
+            Thread.sleep(3000);
+            action.click(estimatePage.Button_UsePhoto());
+
+            if(i<3){
+                action.click(bungiiDetailsPage.Tab_AddPhoto());
+            }
+            else{
+                action.click(bungiiDetailsPage.Button_SavePhotos());
+            }
+
+        }
+    }
+    @Then("^Bungii driver should see \"([^\"]*)\"$")
+    public void bungiiDriverShouldSee(String arg0) throws Throwable {
+        try {
+            switch (arg0) {
+                case "Pickup instructions":
+                    testStepVerify.isElementDisplayed(bungiiDetailsPage.Text_PickupInstructions(),"Pickup instructions should be shown","Pickup instructions is shown","Pickup instructions is not shown");
+                    action.click(bungiiDetailsPage.Button_General_Instruction_Got_It());
+                    break;
+                case "Photo Verification":
+                    testStepVerify.isElementDisplayed(bungiiDetailsPage.Text_PhotoVerification(),"Photo Verification should be shown","Photo Verification is shown","Photo Verification is not shown");
+                    break;
+                case "Drop-off instructions":
+                    testStepVerify.isElementDisplayed(bungiiDetailsPage.Text_DropOffInstructions(),"Drop-off instructions should be shown","Drop-off instructions is shown","Drop-off instructions is not shown");
+                    action.click(bungiiDetailsPage.Button_General_Instruction_Got_It());
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^Start button should not be shown$")
+    public void start_button_should_not_be_shown() throws Throwable {
+        try {
+            Thread.sleep(2000);
+            testStepVerify.isElementNotDisplayed(bungiiDetailsPage.Button_StartBungii(),"Start button shouldn't displayed","Start button is not displayed","Start button is display");
+
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in Starting Bungii as Driver", true);
+        }
+
+    }
+
+        @When("^I start selected Bungii$")
     public void i_start_selected_bungii() {
         try {
             if (action.isAlertPresent())
                 SetupManager.getDriver().switchTo().alert().accept();
-
             action.click(bungiiDetailsPage.Button_StartBungii());
             Thread.sleep(2000);
             if(action.isElementPresent(bungiiDetailsPage.Text_General_Instruction(true))) {

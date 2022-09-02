@@ -23,9 +23,11 @@ public class PartnerSteps extends DriverBase {
     public void i_request_partner_portal_something_trip_for_something(String Trip_Type, String Partner_Portal, DataTable data) throws Throwable {
 
         cucumberContextManager.setScenarioContext("BUNGII_TYPE",Trip_Type);
+        cucumberContextManager.setScenarioContext("Partner_Bungii_type",Trip_Type);
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String customerName = dataMap.get("Customer Name").trim();
         cucumberContextManager.setScenarioContext("CUSTOMER",customerName);
+        cucumberContextManager.setScenarioContext("Customer_Name",customerName);
         String customerPhone = dataMap.get("Customer Phone").trim();
         cucumberContextManager.setScenarioContext("Phone",customerPhone);
         String geofence = dataMap.get("Geofence").trim();

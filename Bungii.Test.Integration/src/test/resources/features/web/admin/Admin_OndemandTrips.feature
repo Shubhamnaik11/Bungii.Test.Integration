@@ -190,3 +190,14 @@ When I add following accessorial charges and save it
 And I should see following details in the Accessorial charges section
 | Excess Wait Time | Cancelation | Mountainous | Other | Total   |
 | $10              | $20.5       | $25.65      | $100  | $156.15 |
+
+  #CORE-3295:Verify admin is not able to edit the on demand trips when its status is assigning driver on Live deliveries screen
+  @ready
+Scenario:Verify admin is not able to edit the on demand trips when its status is assigning driver on Live deliveries screen
+    When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 8877661090 | Testcustomertywd_appleMarkCM LutherCM|
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+    Then The edit option should not be displayed for live deliveries

@@ -136,6 +136,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (checked.equals("false")) {
                         action.click(bungiiEstimatePage.Checkbox_AgreeEstimate());
                     }
+
                     if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))
                         action.scrollToBottom();
                     action.click(bungiiEstimatePage.Button_RequestBungii());
@@ -523,7 +524,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Testcustomertywd_apple_AGQFCg Test":
-                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone"),
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone1"),
                             PropertyUtility.getDataProperties("goa.customer.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("goa.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("goa.customer.phone"));
@@ -547,6 +548,18 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer3.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("Kansas.customer3.phone"));
                     break;
+
+                case "valid kansas 4":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("Kansas.customer4.phone"), PropertyUtility.getDataProperties("Kansas.customer4.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer4.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("Kansas.customer4.phone"));
+                    break;
+                case "valid denver8":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("denver8.customer.phone"), PropertyUtility.getDataProperties("denver.customer.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver8.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("denver8.customer.phone"));
+                    break;
+
 
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

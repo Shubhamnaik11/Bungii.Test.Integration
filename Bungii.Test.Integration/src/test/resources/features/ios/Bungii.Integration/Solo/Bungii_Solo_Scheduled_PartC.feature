@@ -281,5 +281,3 @@ Feature: Solo Scheduled Bungii Part C
     And I Switch to "customer" application on "same" devices
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-
-

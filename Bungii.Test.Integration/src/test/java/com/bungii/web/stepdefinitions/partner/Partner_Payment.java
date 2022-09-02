@@ -170,11 +170,12 @@ try{
     }
 
     public void addCardDetails(String cardNo, String expiry, String cvv, String postalCode) throws InterruptedException {
+        Thread.sleep(1000);
 
         action.switchToFrame("braintree-hosted-field-number");
         action.click(Page_Partner_Delivery.TextBox_Card_Number());
         action.sendKeys(Page_Partner_Delivery.TextBox_Card_Number(),cardNo);
-        //Thread.sleep(1000);
+        Thread.sleep(1000);
         action.switchToMainFrame();
         //action.switchToFrame("Main");
 
