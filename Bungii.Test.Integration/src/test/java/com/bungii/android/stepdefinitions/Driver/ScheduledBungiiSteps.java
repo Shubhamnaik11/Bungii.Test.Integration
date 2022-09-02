@@ -439,22 +439,4 @@ public class ScheduledBungiiSteps extends DriverBase {
                     true);
         }
     }
-    @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
-    public void i_click_on_the_something_link_beside_scheduled_bungii_for_something(String strArg1, String deliveryType) throws Throwable {
-        try {
-            switch (deliveryType) {
-                case "Completed Deliveries":
-                    Thread.sleep(4000);
-                    action.click(tripDetailsPage.Link_DeliveryDetails());
-                    Thread.sleep(2000);
-                    action.click(tripDetailsPage.List_ViewDeliveries());
-                    break;
-            }
-            log("I should be able to click the button next to "+deliveryType,"I could  click the button next to "+deliveryType,false);
-        } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-    }
 }

@@ -205,7 +205,7 @@ Feature: Bungii Duo Scheduled Part D
 	Scenario:Verify trip is shown on schedule list on driver app when admin stop search Duo trip where one driver has accepted the trip
 	When I request "duo" Bungii as a customer in "kansas" geofence
 		| Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-		| NEXT_POSSIBLE | 8877661099     | Testcustomertywd_BppleMarkCV LutherCV | Cci12345          |
+		| NEXT_POSSIBLE | 8877661099     | Testcustomertywd_appleMarkCV LutherCV | Cci12345          |
 	And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" partner portal trip
 		| driver1 state |
 		| Accepted      |
@@ -214,7 +214,7 @@ Feature: Bungii Duo Scheduled Part D
 	And I navigate to admin portal
 	And I log in to admin portal
 	And I Select "Scheduled Trip" from admin sidebar
-	And I open the trip for "Testcustomertywd_BppleMarkCV LutherCV" the customer for delivery details
+	And I open the trip for "Testcustomertywd_appleMarkCV LutherCV" the customer for delivery details
 	Then I stop searching driver
 
 	When I Switch to "driver" application on "ORIGINAL" devices
