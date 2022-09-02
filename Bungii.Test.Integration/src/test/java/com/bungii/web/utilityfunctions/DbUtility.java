@@ -637,4 +637,12 @@ public class DbUtility extends DbContextManager {
         return timeStamp;
 
     }
+    public static String getStopSearchStatus(String pickUpID) {
+        String statusFlag;
+        String query ="select halt_driver_search from pickup_configurations where pickup_id="+pickUpID;
+        statusFlag = getDataFromMySqlServer(query);
+        logger.detail("The stop search status is "+statusFlag);
+        return statusFlag;
+
+    }
 }

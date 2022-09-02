@@ -2524,8 +2524,16 @@ try{
         try{
             action.click(admin_ScheduledTripsPage.Button_StopSearching());
             Thread.sleep(3000);
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_ConfirmationPopUp(),
+                    "The confirmation pop-up should be displayed",
+                    "The confirmation pop-up is displayed",
+                    "The confirmation pop-up is not displayed");
             action.click(admin_ScheduledTripsPage.Button_ConfirmStopSearching());
             Thread.sleep(2000);
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_SuccessPopUp(),
+                    "The stop searching driver success pop-up should be displayed",
+                    "The stop searching driver success pop-up is displayed",
+                    "The stop searching driver success pop-up is not displayed");
             action.click(admin_ScheduledTripsPage.Button_CloseConfirm());
             Thread.sleep(2000);
             action.click(admin_ScheduledTripsPage.Button_Ok());
@@ -2553,5 +2561,37 @@ try{
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+    @When("^I view the delivery details for live deliveries$")
+    public void i_view_the_delivery_details_for_live_deliveries() throws Throwable {
+      try{
+          Thread.sleep(3000);
+          action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+          log("I should be able to view delivery details for live deliveries","I am able to view delivery details for live deliveries",false);
+      }
+      catch(Exception e){
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step should be successful", "Error performing step,Please check logs for more details",
+                  true);
+      }
+    }
+
+    @Then("^I check if error is shown when admin stop search again before its status is synced$")
+    public void i_check_if_error_is_shown_when_admin_stop_search_again_before_its_status_is_synced() throws Throwable {
+        try{
+            action.click(admin_ScheduledTripsPage.Button_StopSearching());
+            Thread.sleep(3000);
+            action.click(admin_ScheduledTripsPage.Button_ConfirmStopSearching());
+            Thread.sleep(3000);
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_ErrorPopUp(),
+                    "Error pop up should be displayed.",
+                    "Error pop up is displayed.",
+                    "Error pop up is not displayed.");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 }
