@@ -153,7 +153,7 @@ public class UpdateStatusSteps extends DriverBase {
                     "Driver experience is displayed",
                     "Driver experience is not displayed");
 
-            testStepAssert.isElementDisplayed(updateStatusPage.Button_Submit(),
+            testStepAssert.isElementDisplayed(updateStatusPage.Button_DriverSubmit(),
                     "The submit button should be displayed",
                     "The submit button is displayed",
                     "The submit button is not displayed");

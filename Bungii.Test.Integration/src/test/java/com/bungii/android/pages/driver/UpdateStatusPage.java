@@ -16,8 +16,8 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Star_Rating() {return findElement("//android.widget.RatingBar", LocatorType.XPath);}
     public WebElement Text_ChooseRating() {return findElement("//android.widget.TextView[@text='Choose your rating']", LocatorType.XPath);}
     public WebElement Text_DriverExperience() {return findElement("//android.widget.TextView[@text='Tell us about the other driver']", LocatorType.XPath);}
-    public WebElement Textbox_AdditionalFeedback() {return findElement("//XCUIElementTypeTextView[@value='Any additional feedback (Optional)']", LocatorType.XPath);}
-    public WebElement Button_Submit() {return findElement("//android.widget.Button[@text='Submit']", LocatorType.XPath);}
+    public WebElement Textbox_AdditionalFeedback() {return findElement("//android.widget.EditText[@text='Any additional feedback (Optional)']", LocatorType.XPath);}
+    public WebElement Button_DriverSubmit() {return findElement("//android.widget.Button[@text='Submit']", LocatorType.XPath);}
     public WebElement Text_Additional() {return findElement("//android.widget.TextView[@text='Additional']", LocatorType.XPath);}
     public WebElement RatingBar(){return findElement("//*[@resource-id='com.bungii.driver:id/rate_participants_rating_bar_customer']",LocatorType.XPath);}
 

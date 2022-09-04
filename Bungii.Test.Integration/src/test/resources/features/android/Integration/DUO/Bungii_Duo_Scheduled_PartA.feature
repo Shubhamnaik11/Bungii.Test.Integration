@@ -403,7 +403,6 @@ Feature: Bungii Duo Scheduled Part A
 
 
   @ready
-#   @testsweta
   Scenario: Verify driver(s) can rate each other successfully in a duo delivery
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -429,7 +428,6 @@ Feature: Bungii Duo Scheduled Part A
     And I add a comment for driver
     And I click "Driver Submit" button on "Rate duo teammate" screen
     And I click "Skip This Step" button on "Rate customer" screen
-    And I should be navigated to "Bungii Completed" screen
     Then I check if the rating is saved in the db
 
   
