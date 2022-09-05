@@ -176,6 +176,7 @@ public class UpdateStatusSteps extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
+            log("I should be able to select rating star","I am able to select rating star",false);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
