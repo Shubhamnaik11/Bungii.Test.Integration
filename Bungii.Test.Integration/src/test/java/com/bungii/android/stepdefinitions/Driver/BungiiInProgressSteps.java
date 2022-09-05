@@ -18,6 +18,7 @@ import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Point;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -802,16 +803,17 @@ public class BungiiInProgressSteps extends DriverBase {
                             logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance2[0]+" and "+timeToCoverDistance2[1]);
                             int times = (int) (timeToCoverDistance2[0]/60);
 
-                            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse(teletInLocalTime);
+//                            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse(teletInLocalTime);
                             String time=teletInLocalTime.substring(11,16);
-//                            Time timeValue = new Time(formatter.parse(date).getTime());
-                            calendar.setTime(date);
+                            formatter1.format(time);
+                            Time timeValue = new Time(formatter.parse(time).getTime());
+                            calendar.setTime(timeValue);
                             calendar.add(Calendar.MINUTE, times);
                             calendar.add(Calendar.MINUTE, -15);
                             String lowerRangeInLocalTime = String.valueOf(calendar.getTime());
                             cucumberContextManager.setScenarioContext("PAT_LOWER_RANGE",lowerRangeInLocalTime);
 
-                            calendar.setTime(date);
+                            calendar.setTime(timeValue);
                             calendar.add(Calendar.MINUTE, 30);
                             String upperRangeInLocalTime = String.valueOf(calendar.getTime());
                             cucumberContextManager.setScenarioContext("PAT_UPPER_RANGE",upperRangeInLocalTime);
