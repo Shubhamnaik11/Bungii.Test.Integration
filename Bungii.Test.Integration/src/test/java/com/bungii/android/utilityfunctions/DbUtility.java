@@ -331,4 +331,17 @@ public class DbUtility extends DbContextManager {
         logger.detail("Driver Arrival Time is" + drverArrivalTime);
         return drverArrivalTime;
     }
+    public static String getLinkedPickupRef(String pickupRef) {
+        String linkedpickupref = "";
+        String queryString = "SELECT PICKUPREF FROM pickupdetails WHERE LINKEDPICKUPID in (SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef+"' )";
+        linkedpickupref =getDataFromMySqlServer(queryString);
+        logger.detail("Linked Pickupref " + linkedpickupref + " of pickupref " + pickupRef );
+        return linkedpickupref;
+    }
+    public static String getDriverStatus(String phoneNumber){
+        String driverStatus;
+        String entireQueryString = "select OnlineStatus from driver where Phone= " +phoneNumber;
+        driverStatus = getDataFromMySqlServer(entireQueryString);
+        return driverStatus;
+    }
 }

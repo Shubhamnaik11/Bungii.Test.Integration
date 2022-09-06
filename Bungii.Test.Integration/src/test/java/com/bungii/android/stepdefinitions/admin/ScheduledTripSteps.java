@@ -1335,9 +1335,9 @@ public class ScheduledTripSteps extends DriverBase {
 		try{
 			action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
 			//action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location()," ");
-
+			Thread.sleep(4000);
 			//action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
 			action.JavaScriptClick(scheduledTripsPage.DropdownResult(arg1));
 			Thread.sleep(1000);

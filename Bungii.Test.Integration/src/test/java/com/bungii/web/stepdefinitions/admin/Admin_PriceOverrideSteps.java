@@ -9,6 +9,7 @@ import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
 import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
+import com.bungii.web.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -26,6 +27,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
 
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_AccessorialChargesSteps.class);
+    DbUtility dbUtility = new DbUtility();
 
     Admin_TripDetailsPage admin_tripDetailsPage = new Admin_TripDetailsPage();
     Partner_DeliveryPage partner_deliveryPage = new Partner_DeliveryPage();
@@ -34,10 +36,18 @@ public class Admin_PriceOverrideSteps extends DriverBase {
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
 
     @And("^I check if \"([^\"]*)\" button is displayed$")
-    public void i_check_if_something_button_is_displayed(String strArg1) throws Throwable {
+    public void i_check_if_something_button_is_displayed(String button) throws Throwable {
 
         try{
-            testStepAssert.isElementDisplayed(admin_tripDetailsPage.Button_Price_Override(),"I should be able to see Price Override button","I could see the Price Override button","I could not see the Price Override button");
+            switch (button){
+                case "Price Override":
+                    testStepAssert.isElementDisplayed(admin_tripDetailsPage.Button_Price_Override(),"I should be able to see Price Override button","I could see the Price Override button","I could not see the Price Override button");
+                    break;
+                case "Stop Searching":
+                    testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Button_StopSearching(),"I should be able to see Stop Searching button","I could see the Stop Searching button","I could not see the Stop Searching button");
+                    break;
+            }
+            log("I should be able to check if "+button+" button is displayed","I am able to check if "+button+" button is displayed",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -563,12 +573,23 @@ public class Admin_PriceOverrideSteps extends DriverBase {
 
 
     @Then("^I check if \"([^\"]*)\" button is not present$")
-    public void i_check_if_something_button_is_not_present(String strArg1) throws Throwable {
+    public void i_check_if_something_button_is_not_present(String button) throws Throwable {
         try{
-            action.isElementPresent(admin_tripDetailsPage.Button_Price_Override(true));
+            switch (button){
+                case "Price override":
+                    action.isElementPresent(admin_tripDetailsPage.Button_Price_Override(true));
+                    break;
+                case "Stop Searching":
+                    testStepAssert.isFalse(action.isElementPresent(admin_ScheduledTripsPage.Button_StopSearching(true)),
+                            "Stop Searching button should not be displayed",
+                            "Stop Searching button is not be displayed",
+                            "Stop Searching button is displayed");
+                    break;
+            }
 
-            log("I should not be able to see Price Override button",
-                    "I could not see the Price Override button",false);
+
+            log("I should not be able to see "+button+" button",
+                    "I could not see the "+button+" button",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -683,6 +704,20 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     "The correct error message is displayed when customer cost is less than or equal to driver earnings",
                     "The correct error message is not displayed when customer cost is less than or equal to driver earnings");
 
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^I check if stop search status is updated in DB$")
+    public void i_check_if_stop_search_status_is_updated_in_db() throws Throwable {
+        try{
+            String pickUpRef= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String pickUpId = dbUtility.getPickupId(pickUpRef);
+            String driverSearchFlag = dbUtility.getStopSearchStatus(pickUpId);
+            testStepAssert.isTrue(driverSearchFlag.contains("1"),"Stop search status is updated","Stop search status is not updated");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

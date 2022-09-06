@@ -51,7 +51,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     AccountPage accountPage = new AccountPage();
+    InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
 
+    UpdateStatusPage updateStatusPage = new UpdateStatusPage();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -351,6 +353,11 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Account Cancel":
                     action.click(accountPage.Button_Cancel());
                     break;
+
+                case "Cancel Bungii":
+                    action.click(scheduledTripsPage.Button_Submit());
+                    break;
+
                 case "SUBMIT":
                     action.click(setPickupTimePage.Button_EnterCancellationReason());
                     break;
@@ -409,6 +416,33 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
                 case "Delete":
                     action.click(accountPage.Button_Delete());
+                    break;
+                case "GOT IT":
+                    action.click((Page_DriverBungiiProgress.Button_GeneralInstructions_GotIt()));
+                    break;
+                case "Clear Signature":
+                    action.click(updateStatusPage.Button_ClearSignature());
+                    break;
+                case "Confirm Status":
+                    action.click(updateStatusPage.Button_ConfirmStatus());
+                    break;
+                case "Cancel Status":
+                    action.click(updateStatusPage.Button_CloseStatus());
+                    break;
+                case "Remove Driver":
+                    action.click(updateStatusPage.Button_RemoveDrivers());
+                    break;
+                case "CALCULATE COST":
+                    action.click(updateStatusPage.Button_CalculateCost());
+                    break;
+                case "CONFIRM CHANGES":
+                    action.click(updateStatusPage.Button_Confirm());
+                    break;
+                case "Got It":
+                    action.click(updateStatusPage.Alert_DropOffInstructionsGotIt());
+                    break;
+                case "Skip Customer Signature":
+                    action.click(updateStatusPage.Button_SkipCustomerSignature());
                     break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
