@@ -207,8 +207,8 @@ Scenario:Verify admin is not able to edit the on demand trips when its status is
   Scenario:To verify the customer ON DEMAND delivery marked as Payment successful from payment unsuccessful
     When I request "Solo Ondemand" Bungii as a customer in "phoenix" geofence
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 8877661090 | Testcustomertywd_appleMarkCM LutherCM|
-    And As a driver "Testdrivertywd_appleph_a_drvax Phoenix_ax" perform below action with respective "Solo Scheduled" Delivery
+      | NEXT_POSSIBLE | 8877661102 | Testcustomertywd_appleMarkCY LutherCY|
+    And As a driver "Testdrivertywd_appleph_a_drvaz Phoenix_az" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
       |Arrived         |

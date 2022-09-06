@@ -1535,7 +1535,7 @@ public class CoreServices extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_TIME",strdate);
         }
 
-        if(Geofence.equalsIgnoreCase("Kansas")) {
+        if(Geofence.equalsIgnoreCase("Kansas")&&Partner_Portal.equalsIgnoreCase("MRFM")) {
 
             String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
             String Load_Unload = PropertyUtility.getDataProperties("partner.load.unload.time");
