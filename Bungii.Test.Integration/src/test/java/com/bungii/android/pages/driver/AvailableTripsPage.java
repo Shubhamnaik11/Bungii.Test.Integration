@@ -76,4 +76,10 @@ public class AvailableTripsPage extends PageBase {
     public WebElement Label_DuoLift() {return findElement("com.bungii.driver:id/appCompatTextView37",LocatorType.Id);}
     public WebElement Text_DuoLiftMessage() { return findElement("com.bungii.driver:id/appCompatTextView39", LocatorType.XPath);}
 
+    public List <WebElement> List_AllDeliveriesDriverApp()         {return findElements("//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout/android.view.ViewGroup",LocatorType.XPath);}
+    public List <WebElement> List_AllCustomerDeliveries() {return findElements("//android.view.ViewGroup/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout",LocatorType.XPath);}
+
+    public WebElement CustomerName(int number) {return findElement(String.format("//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[%d]/android.view.ViewGroup/android.widget.TextView[1]",number),LocatorType.XPath);}
+    public WebElement Text_CustomerDeliveryTime(int number) {return findElement(String.format("//android.view.ViewGroup/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[%d]/android.widget.RelativeLayout/android.widget.TextView[1]",number),LocatorType.XPath);}
+
 }

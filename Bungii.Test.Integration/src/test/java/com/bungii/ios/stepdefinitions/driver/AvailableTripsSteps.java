@@ -8,6 +8,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.driver.AvailableTripsPage;
 import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import cucumber.api.java.en.And;
@@ -34,6 +35,7 @@ public class AvailableTripsSteps extends DriverBase {
 		this.bungiiDetailsPage = bungiiDetailsPage;
 	}
 	String Image_Solo="bungii_type-solo",Image_Duo="bungii_type-duo";
+	ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
 
 	@And("^I Select Trip from available trip$")
 	public void i_select_trip_from_available_trip() {
@@ -399,26 +401,6 @@ public class AvailableTripsSteps extends DriverBase {
 				true);
 	}
 	}
-
-	@And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
-	public void i_click_on_the_something_link_beside_scheduled_bungii_for_something(String strArg1, String deliveryType) throws Throwable {
-		try {
-			switch (deliveryType) {
-				case "Completed Deliveries":
-					Thread.sleep(4000);
-					action.click(availableTripsPage.Link_DeliveryDetails());
-					Thread.sleep(2000);
-					action.click(availableTripsPage.List_ViewDeliveries());
-					break;
-			}
-			log("I should be able to click the button next to "+deliveryType,"I could  click the button next to "+deliveryType,false);
-		} catch (Exception e) {
-			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-			error("Step should be successful", "Error performing step,Please check logs for more details",
-					true);
-		}
-	}
-
 	@And("^I click on start Bungii for service based delivery$")
 	public void i_click_on_start_bungii_for_service_based_delivery() throws Throwable {
 		try{
@@ -448,6 +430,84 @@ public class AvailableTripsSteps extends DriverBase {
 			}
 			log("I should be able to set the pickup address", "I could set the pickup address", false);
 		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+
+
+	@Then("^The trip should be present in my bungiis$")
+	public void the_trip_should_be_present_in_my_bungiis() throws Throwable {
+		try{
+		Thread.sleep(3000);
+		boolean isTripPresent = false;
+		String scheduled_time = cucumberContextManager.getScenarioContext("BUNGII_TIME").toString().substring(0, 17).toUpperCase();
+		List<WebElement> availableDeliveries = availableTripsPage.List_AllAvailableDeliveriesCustomerApp();
+		if (availableDeliveries.size() == 0) {
+			testStepAssert.isFail("Delivery is not present in available bungiis");
+		} else {
+			for (int i = 1; i < (availableDeliveries.size()+1); i++) {
+				String deliveryTime = action.getText(availableTripsPage.Text_DeliveryTime(i));
+				Thread.sleep(1000);
+				String  deliveryTimeAndDate= deliveryTime.substring(0, 17).toUpperCase();
+				if (deliveryTimeAndDate.contentEquals(scheduled_time)) {
+					pass("Delivery should be present in available bungiis","Delivery is present in available bungiis",false);
+					isTripPresent = true;
+					break;
+				}
+			}
+			if (isTripPresent ==false) {
+				testStepAssert.isFail("Delivery is not present in available bungiis");
+			}
+		}
+	} catch (Throwable e) {
+		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+		error("Step  Should be successful",
+				"Error performing step,Please check logs for more details", true);
+	}
+	}
+	@Then("^The trip should not be present in available bungiis$")
+	public void the_trip_should_not_be_present_in_available_bungiis() throws Throwable {
+		try{
+		boolean isDeliveryPresentInDriverApp = true;
+		String fullCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,27);
+		List<WebElement> availableDeliveriesDriverApp =availableTripsPage.List_AllAvailableDeliveriesDriverApp();
+		if(availableDeliveriesDriverApp.size()==0){
+			pass("Delivery should not be present in available bungiis","Delivery is not present in available bungiis");
+		}
+		else{
+			for(int i=0;i<availableDeliveriesDriverApp.size();i++){
+				String deliveryTime =action.getText(availableTripsPage.Text_CustomerName(i+1)).substring(0,27);
+				if(deliveryTime.contentEquals(fullCustomerName)){
+					testStepAssert.isFail("Delivery is present in available bungiis");
+					isDeliveryPresentInDriverApp=false;
+				}
+			}
+			if(isDeliveryPresentInDriverApp==true) {
+				testStepAssert.isTrue(true,"Delivery should not be present in available bungiis","Delivery is not present in available bungiis","Delivery is  present in available bungiis");
+			}
+		}
+	} catch (Throwable e) {
+		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+		error("Step  Should be successful",
+				"Error performing step,Please check logs for more details", true);
+	}
+	}
+
+	@Then("^I should see \"([^\"]*)\" message on popup with PickupId anad Pickup Origin$")
+	public void i_should_see_something_message_on_popup_with_pickupid_anad_pickup_origin(String message) throws Throwable {
+
+		try{
+			testStepAssert.isTrue(action.isElementPresent(scheduledTripsPage.Label_HeaderPopup()), message + " should be displayed", message + " is displayed", message + " is not displayed");
+			String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+			String pickupId = dbUtility.getLinkedPickupRef(pickuprequest);
+			String source = "Customer Delivery";
+			String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+
+			testStepAssert.isElementTextEquals(scheduledTripsPage.Label_PickupId(),pickupId, pickupId +" should be displayed", pickupId +" is displayed", pickupId+" is not displayed");
+			testStepAssert.isElementTextEquals(scheduledTripsPage.Label_PickupCustomer(),customerName, customerName +" should be displayed", customerName +" is displayed", customerName+" is not displayed");
+		} catch(Exception e){
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error("Step should be successful", "Error performing step,Please check logs for more details",
 					true);

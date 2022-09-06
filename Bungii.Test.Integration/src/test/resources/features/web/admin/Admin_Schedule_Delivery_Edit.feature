@@ -73,7 +73,48 @@ Feature: Admin_Schedule_Delivery_Edit
     And I change the drop off address to "8500 Scudder Avenue, Copiague"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then "Oops! It looks like this trip is a little outside our scope." message should be displayed
-  
+#    Core-3294: Verify Stop search button is displayed for customer schedule trips
+    When I click on the "Delivery Details" button from the dropdown
+    And I check if "Stop Searching" button is displayed
+    Then I stop searching driver
+    And I wait for "2" mins
+#    Core-3294: Verify status of the trip is driver not found after admin stop search
+    When I click on the "Delivery Details" button from the dropdown
+    Then I check if the status has been changed to "No Driver(s) Found"
+#    Core-3294: Verify stop search button is hidden when admin stop search any trip
+    Then I check if "Stop Searching" button is not present
+#    Core-3294: Verify stop search status is updated in DB
+    Then I check if stop search status is updated in DB
+#   Core-3294: Verify stop search button is enabled when admin edit trip after it was stopped searching
+    When I navigate back to Scheduled Deliveries
+    When I click on "Edit" link beside scheduled bungii
+    And I click on "Edit Trip Details" radiobutton
+    And I click on the "Time" and select future time
+    And I click on "Reason" for change time
+    And I click on "Customer initiated" in the dropdown
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    When I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    And I wait for "2" mins
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s) |
+    When I click on the "Delivery Details" button from the dropdown
+    Then I check if "Stop Searching" button is displayed
+#   Core-3294: Verify stop search button is shown under Live delivery for status assigning driver
+    And I get the new pickup reference generated
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Assigning Driver(s)|
+    When I click on the "Delivery Details" button from the dropdown
+    Then I check if "Stop Searching" button is displayed
+#   Core-3294: Verify error is shown when admin stop search again before its status is synced
+    Then I stop searching driver
+    When I click on the "Delivery Details" button from the dropdown
+    Then I check if error is shown when admin stop search again before its status is synced
+
   @regression
     #stable
   Scenario: Verify editing drop off address outside of scope for the Duo scheduled trip.

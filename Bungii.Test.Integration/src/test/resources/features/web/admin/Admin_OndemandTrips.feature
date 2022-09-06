@@ -201,6 +201,9 @@ Scenario:Verify admin is not able to edit the on demand trips when its status is
     And I view the Live Deliveries list on the admin portal
     When  I search the delivery using "Pickup Reference"
     Then The edit option should not be displayed for live deliveries
+#    Core-3294: Verify Stop search button is not displayed for customer on demand trips
+    When I view the delivery details for live deliveries
+    Then I check if "Stop Searching" button is not present
 
 #CORE-2584:To verify the customer ON DEMAND delivery marked as Payment successful from payment unsuccessful
  @ready
