@@ -306,6 +306,14 @@ public class Partner_TrackingIdSteps extends DriverBase {
                 case "Edit":
                     action.click(admin_EditScheduledBungiiPage.Button_Edit());
                     break;
+                case "Change Payment status":
+                    Thread.sleep(2000);
+                    testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.Link_ChangePaymentStatus()),
+                            "Change payment status link should be displayed",
+                            "Change payment status link is displayed",
+                            "Change payment status link is not displayed");
+                    action.click(admin_TripsPage.Link_ChangePaymentStatus());
+                    break;
             }
         log("I should be able to click on the "+ buttonText+" button from the dropdown","I could  click on the  "+ buttonText+"  button from the dropdown",false);
     }catch (Exception e) {

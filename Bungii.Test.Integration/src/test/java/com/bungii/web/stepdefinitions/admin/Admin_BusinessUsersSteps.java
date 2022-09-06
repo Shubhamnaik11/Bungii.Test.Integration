@@ -1040,6 +1040,18 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Cancel Call":
                     action.click(Page_Partner_Delivery.Button_CancelCall());
                     break;
+                case "Confirm Change Payment Status":
+                    action.click(admin_TripsPage.Button_ConfirmPaymentStatusChange());
+                    break;
+                case "Cancel Change Payment Status":
+                    action.click(admin_TripsPage.Button_CancelPaymentStatusChange());
+                    break;
+                case "OK Delivery Details Page":
+                    action.click(admin_TripDetailsPage.Button_Ok());
+                    break;
+                case "Transaction History":
+                    action.click(admin_refundsPage.Button_TransactionDetails());
+                    break;
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", false);
