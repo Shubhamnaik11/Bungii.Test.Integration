@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class BungiiAcceptedSteps extends DriverBase {
     BungiiAcceptedPage bungiiAcceptedPage;
@@ -169,7 +170,6 @@ public class BungiiAcceptedSteps extends DriverBase {
                             break;
 
                         case "telet-short stack":
-//                            TELET = Driver Arrival time + ((Estimated Duration from Pickup point to drop off point + loading/unloading time) * 1.5)
 //                             Formula = (TELET + drive time from drop off A to pickup B) - 10 minutes, + 20 minutes
                             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                             String phoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189"; c/// Stacked trip will be 2 customer you need of first trip
@@ -216,9 +216,9 @@ public class BungiiAcceptedSteps extends DriverBase {
                             newPickupLocations[0] = pickup2Locations[0];
                             newPickupLocations[1] = pickup2Locations[1];
 
-//                            long[] timeToCoverDistance2 = new GoogleMaps().getDurationInTraffic(dropLoc, newPickupLocations);
-//                            logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance2[0]+" and "+timeToCoverDistance2[1]);
-                            int time = (int) (918/60);
+                            long[] timeToCoverDistance2 = new GoogleMaps().getDurationInTraffic(dropLoc, newPickupLocations);
+                            logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance2[0]+" and "+timeToCoverDistance2[1]);
+                            int time = (int) (timeToCoverDistance2[0]/60);
 
                             calendar1.add(Calendar.MINUTE,time);
                             calendar1.add(Calendar.MINUTE,-10);
@@ -235,6 +235,7 @@ public class BungiiAcceptedSteps extends DriverBase {
                     }
                     break;
             }
+            log("I should be able to calculate the telet","I am able to calculate the telet",false);
 
         }
         catch (Throwable e) {

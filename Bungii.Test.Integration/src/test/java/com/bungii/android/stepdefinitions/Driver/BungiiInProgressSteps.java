@@ -765,32 +765,23 @@ public class BungiiInProgressSteps extends DriverBase {
                 case "changed pickup":
                     switch (timeType){
                         case "telet":
-//                      TELET = Pickup address Edited time + ((Estimated Duration from Pickup point to drop off point + loading/unloading time) * 1.5)+30
 //                      Formula = (TELET + drive time from drop off A to pickup B) - 15 minutes, + 30 minutes
                             String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189"; c/// Stacked trip will be 2 customer you need of first trip
                             String custRef = DbUtility.getCustomerRefference(phoneNumber);
-                            String pickUpID = DbUtility.getPickupID(custRef);
                             String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
-
                             String teletTimeInDb = DbUtility.getTELETfromDb(custRef);
-                            System.out.println(teletTimeInDb);
-
                             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            //By default data is in UTC
                             formatter.setTimeZone(TimeZone.getTimeZone("EDT"));
                             formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
                             Date time2 = formatter.parse(teletTimeInDb);
                             Calendar calendar = Calendar.getInstance();
                             calendar.setTime(time2);
-
-
                             String teletInLocalTime = String.valueOf(calendar.getTime());
                             cucumberContextManager.setScenarioContext("NEW_TELET",teletInLocalTime);
                             String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
 
                             String[] pickupLoc= DbUtility.getPickupAndDropLocation(customerPhoneNumber);
                             String[] pickup2Locations = DbUtility.getPickupAndDropLocation("9871450107");
-
                             String[] dropLoc = new String[2];
                             dropLoc[0] = pickupLoc[2];
                             dropLoc[1] = pickupLoc[3];
@@ -798,22 +789,16 @@ public class BungiiInProgressSteps extends DriverBase {
                             newPickupLocations[0] = pickup2Locations[0];
                             newPickupLocations[1] = pickup2Locations[1];
 
-                            DateFormat formatter1 = new SimpleDateFormat("HH:mm");
                             long[] timeToCoverDistance2 = new GoogleMaps().getDurationInTraffic(dropLoc, newPickupLocations);
                             logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance2[0]+" and "+timeToCoverDistance2[1]);
-                            int times = (int) (timeToCoverDistance2[0]/60);
 
-//                            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse(teletInLocalTime);
-                            String time=teletInLocalTime.substring(11,16);
-                            formatter1.format(time);
-                            Time timeValue = new Time(formatter.parse(time).getTime());
-                            calendar.setTime(timeValue);
+                            int times = (int) (timeToCoverDistance2[0]/60);
+                            calendar.setTime(formatter.parse(teletInLocalTime));
                             calendar.add(Calendar.MINUTE, times);
                             calendar.add(Calendar.MINUTE, -15);
                             String lowerRangeInLocalTime = String.valueOf(calendar.getTime());
                             cucumberContextManager.setScenarioContext("PAT_LOWER_RANGE",lowerRangeInLocalTime);
-
-                            calendar.setTime(timeValue);
+                            calendar.setTime(formatter.parse(teletInLocalTime));
                             calendar.add(Calendar.MINUTE, 30);
                             String upperRangeInLocalTime = String.valueOf(calendar.getTime());
                             cucumberContextManager.setScenarioContext("PAT_UPPER_RANGE",upperRangeInLocalTime);
@@ -822,7 +807,7 @@ public class BungiiInProgressSteps extends DriverBase {
                     }
                     break;
             }
-
+            log("I should be able to calculate the telet","I am able to calculate the telet",false);
         }
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

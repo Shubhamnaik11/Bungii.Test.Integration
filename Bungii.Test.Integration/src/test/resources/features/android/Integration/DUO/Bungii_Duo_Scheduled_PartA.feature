@@ -403,7 +403,6 @@ Feature: Bungii Duo Scheduled Part A
 
 # Core 448: Verify Projected Arrival Time and Try to Finish time when Drop off address was edited by Admin when driver had accepted long stack trip in Arrived Status
   @ready
-#  @testsweta
   Scenario:  Verify Projected Arrival Time and Try to Finish time when Drop off address was edited by Admin when driver had accepted long stack trip in Arrived Status
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
