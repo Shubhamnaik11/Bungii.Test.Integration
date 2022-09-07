@@ -57,6 +57,7 @@ public class Admin_TripsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+    Admin_TripsPage adminTripsPage = new Admin_TripsPage();
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -2621,6 +2622,21 @@ try{
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
+        }
+    }
+
+    @And("^I search the delivery based on customer \"([^\"]*)\"$")
+    public void i_search_the_delivery_based_on_customer_something(String text) throws Throwable {
+        String customerFullName[] = cucumberContextManager.getScenarioContext("CUSTOMER").toString().split(" ");
+        switch (text){
+            case "last name":
+                String onlyCustomerLastName = customerFullName[1];
+                action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastName + Keys.ENTER);
+                break;
+            case "last name with space in front and back":
+                String onlyCustomerLastNameWithSpace = " "+ customerFullName[1] +" ";
+                action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastNameWithSpace + Keys.ENTER);
+                break;
         }
     }
 }
