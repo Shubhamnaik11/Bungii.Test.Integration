@@ -2629,12 +2629,12 @@ try{
     public void i_search_the_delivery_based_on_customer_something(String text) throws Throwable {
         String customerFullName[] = cucumberContextManager.getScenarioContext("CUSTOMER").toString().split(" ");
         switch (text){
-            case "last name":
-                String onlyCustomerLastName = customerFullName[1];
+            case "first name":
+                String onlyCustomerLastName = customerFullName[0];
                 action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastName + Keys.ENTER);
                 break;
-            case "last name with space in front and back":
-                String onlyCustomerLastNameWithSpace = " "+ customerFullName[1] +" ";
+            case "first name with space in front and back":
+                String onlyCustomerLastNameWithSpace = " "+ customerFullName[0] +" ";
                 action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastNameWithSpace + Keys.ENTER);
                 break;
         }
