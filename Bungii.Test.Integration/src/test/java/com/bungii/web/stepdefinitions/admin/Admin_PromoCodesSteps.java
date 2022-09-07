@@ -668,6 +668,7 @@ try{
                 else {
                     testStepAssert.isFail("Expected message is not displayed.");
                 }
+                break;
             case "Are you sure, you want to change the payment status?":
                 String expectedMessage = action.getText(admin_TripsPage.Text_ChangePaymentStatusMessage());
                 if(expectedMessage.equalsIgnoreCase(message)){
