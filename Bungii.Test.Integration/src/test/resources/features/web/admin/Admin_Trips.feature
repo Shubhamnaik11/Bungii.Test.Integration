@@ -715,10 +715,10 @@ Feature: Admin_Trips
     And I wait for 1 minutes
     And The amount should be "Refunded" and in "voided" state
 
- #CORE-2826:To verify that admin can fully refund completed trips which were revived
-    #Using last name to search delivery not pushed to prod as core 2826 is rnd ticket
-  @testAllan
-  Scenario:To verify that admin can fully refund completed trips which were revived
+ #CORE-2826:To verify whether text search displays results matching the contains criteria on Deliveries pages
+ # Using last name to search delivery not pushed to prod as core 2826 is rnd ticket
+  @ready
+  Scenario:To verify whether text search displays results matching the contains criteria on Deliveries pages
     When I request Partner Portal "SOLO" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |Kansas  | NEXT_POSSIBLE | 8877661103 | Testcustomertywd_appleMarkCZ LutherCZ|

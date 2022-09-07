@@ -2627,16 +2627,22 @@ try{
 
     @And("^I search the delivery based on customer \"([^\"]*)\"$")
     public void i_search_the_delivery_based_on_customer_something(String text) throws Throwable {
-        String customerFullName[] = cucumberContextManager.getScenarioContext("CUSTOMER").toString().split(" ");
-        switch (text){
-            case "first name":
-                String onlyCustomerLastName = customerFullName[0];
-                action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastName + Keys.ENTER);
-                break;
-            case "first name with space in front and back":
-                String onlyCustomerLastNameWithSpace = " "+ customerFullName[0] +" ";
-                action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastNameWithSpace + Keys.ENTER);
-                break;
+        try {
+            String customerFullName[] = cucumberContextManager.getScenarioContext("CUSTOMER").toString().split(" ");
+            switch (text) {
+                case "first name":
+                    String onlyCustomerLastName = customerFullName[0];
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastName + Keys.ENTER);
+                    break;
+                case "first name with space in front and back":
+                    String onlyCustomerLastNameWithSpace = " " + customerFullName[0] + " ";
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastNameWithSpace + Keys.ENTER);
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 }
