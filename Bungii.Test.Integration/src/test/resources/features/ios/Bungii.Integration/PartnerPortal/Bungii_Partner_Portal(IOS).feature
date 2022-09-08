@@ -435,16 +435,16 @@ Feature: Partner Portal Cases integration with IOS
     And I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
     And I slide update button on "ARRIVED" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then I should see "SOLO LIFT" header displayed
     And I click on "GOT IT" button
     And I slide update button on "UNLOADING ITEMS" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
@@ -481,14 +481,14 @@ Feature: Partner Portal Cases integration with IOS
     And I start selected Bungii
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     And I slide update button on "UNLOADING ITEMS" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
