@@ -2639,6 +2639,8 @@ try{
                     action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastNameWithSpace + Keys.ENTER);
                     break;
             }
+            log("I should be able to search the delivery based on customers "+text,
+                    "I could  search the delivery based on customers "+text,false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
