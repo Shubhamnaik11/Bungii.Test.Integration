@@ -2,16 +2,21 @@
 Feature: Delivery Tracking ID
 
   Background:
-    Given I'm logged into "Partner" portal and  created a new  delivery
+    Given I navigate to "Partner" portal configured for "normal" URL
 
   @ready
-  Scenario: Display and search Tracking ID on partner portals
+  Scenario: Display and search Tracking ID and Order ID or Receipt Number on partner portals delivery list
+    Given I'm logged into "Partner" portal and  created a new  delivery
+      |PickupAddress                                                                    |DropdownAddress                                                  |ItemToDelivery|CustomerName|CustomerMobile|PickupContactName|PickupContactMobile|ReceiptNumber|
+      |601 13th Street Northwest, Washington, United States, District of Columbia, 20005|234 13th Street Northeast, Washington, District of Columbia 20002|Furniture     |TestCustomer|9998887777    |TestPickup       |9999999359         |RN           |
+
     Then I should see the trackingid displayed on the delivery confirmation page
     When I click the "Track Deliveries" button on Partner Portal
-    And I search the trip using a correct tracking id
+    And I search the delivery using a correct "tracking id"
     Then I should see the trip Details
     When I search the trip using invalid tracking id "12345A"
     Then I should see the message "Sorry, no records found"
+
     And  I navigate to the "Admin" portal configured for "QA" URL
     When As a driver "Testdrivertywd_appledc_a_drve Driver" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
@@ -52,3 +57,29 @@ Feature: Delivery Tracking ID
     When  I click on the "All Deliveries" button and enter the "Tracking Id" in the search bar
     Then I should see delivery details displayed
 
+
+      #CORE-4081 changes
+    @ready
+Scenario: Display and search delivery by Order ID or Receipt Number on partner portals delivery list
+  Given I'm logged into "Partner" portal and  created a new  delivery
+    |PickupAddress                                                                    |DropdownAddress                                                  |ItemToDelivery|CustomerName |CustomerMobile|PickupContactName|PickupContactMobile|ReceiptNumber|
+    |601 13th Street Northwest, Washington, United States, District of Columbia, 20005|234 13th Street Northeast, Washington, District of Columbia 20002|Furniture     |TestCustomer1|9998887778    |TestPickup1      |9999999360         |RN           |
+  When I click the "Track Deliveries" button on Partner Portal
+  And I search the delivery using a incorrect "receipt number"
+  Then I should see the message "Sorry, no records found"
+  And I search the delivery using a correct "receipt number"
+  Then I should see the delivery Details with "receipt number"
+  And I open the search delivery
+  And I click "Cancel Delivery link" button on Partner Portal
+  Then I should "see the cancel delivery warning message"
+  And I click "Cancel Delivery" button on Partner Portal
+  Then I should "Your delivery has been canceled message"
+  And I click "OK" button on Partner Portal
+  And I close the Trip Delivery Details page
+  And I select below delivery status in filter
+        | Partner_Status |
+        | Canceled    |
+  And I search the delivery using a correct "receipt number"
+  Then I should see the below trip status for search trip on partner portal
+    | Partner_Status |
+    | Canceled    |
