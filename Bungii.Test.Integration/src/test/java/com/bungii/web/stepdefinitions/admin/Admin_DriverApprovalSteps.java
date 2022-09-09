@@ -397,6 +397,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     break;
 
                 case "Driver Reject Application":
+                case "Driver Status Change":
                     action.click(admin_DriverVerificationPage.Button_DriverConfirmReject_Yes());
                     break;
             }

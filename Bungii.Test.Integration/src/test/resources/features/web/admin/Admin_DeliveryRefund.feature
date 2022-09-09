@@ -515,9 +515,9 @@ Feature: Admin_Refund
 	@testAllan
 	Scenario:To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
 		And I click on the "Driver" link from the sidebar
-#		Then The "Active Driver Map" "Link" should be displayed
+		Then The "Active Driver Map" "Link" should be displayed
 		And I click on the "Active Driver Map" link from the sidebar
-#		Then The "Map" "Image" should be displayed
+		Then The "Map" "Image" should be displayed
 		And I "Unselect" all the "Equipment" checkboxes from the filter
 		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
 		And I click on the "Select Geofence" dropdown
@@ -525,5 +525,37 @@ Feature: Admin_Refund
 		When I click on the "Kansas" checkbox
 		When I select filter "Vehicle Type" as "Box Truck"
 		And I click on Apply button on Filter
-#		Then The "Testdrivertywd_appleks_a_drval Kansas_al" "Driver" should be displayed
-		And I verify the details for driver "lol"
+		Then The "Testdrivertywd_appleks_a_drval Kansas_al" "Driver name" should be displayed
+#		And I verify the details for driver "lol"
+		When I select filter "Vehicle Type" as "Box Truck"
+		When I select filter "Vehicle Type" as "Moving Van"
+		And I click on Apply button on Filter
+		Then The "Testdrivertywd_appleks_a_drvam Kansas_am" "Driver name" should be displayed
+		When I select filter "Vehicle Type" as "Moving Van"
+		When I select filter "Vehicle Type" as "Pickup Truck"
+		And I click on Apply button on Filter
+		Then The "Testdrivertywd_appleks_a_drvbc Kansas_bc" "Driver name" should be displayed
+		When I select filter "Vehicle Type" as "Pickup Truck"
+		When I select filter "Vehicle Type" as "SUV"
+		And I click on Apply button on Filter
+		Then The "Testdrivertywd_appleks_a_drvbd Kansas_bd" "Driver name" should be displayed
+		And I click on the "Driver" link from the sidebar
+		When I search driver "Testdrivertywd_appleks_a_drvbd Kansas_bd"
+		And I click on "Profile" icon
+		And I edit the Driver
+		Then The "Driver Status" "Label" should be displayed
+		And I change the driver status to "Inactive"
+		And I confirm the "Driver Status Change" action
+		And I change the drivers emails address to "bungiiauto@gmail.com"
+        And I click on "Save Driver Details" button
+		And I wait for 1 minutes
+		And I click on the "Driver" link from the sidebar
+		And I click on the "Active Driver Map" link from the sidebar
+		When I clear the filter applied
+		And I "Unselect" all the "Equipment" checkboxes from the filter
+		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+		And I click on the "Select Geofence" dropdown
+		And I Enter the text "Kansas"
+		When I click on the "Kansas" checkbox
+		When I select filter "Vehicle Type" as "SUV"
+		And I click on Apply button on Filter

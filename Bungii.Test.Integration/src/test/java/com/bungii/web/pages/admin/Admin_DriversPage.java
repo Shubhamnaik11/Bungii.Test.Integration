@@ -58,5 +58,10 @@ public class Admin_DriversPage extends PageBase {
     public WebElement Text_DriverName() {return findElement("//div[@id=\"driverList\"]/div",LocatorType.XPath);}
     public WebElement Icon_DriverPosition() {return findElement("//div[@id=\"driverList\"]/div/span/img",LocatorType.XPath);}
 
+    public WebElement Label_DriverStatus() {return findElement("//div/h4[text()=\"Driver Status\"]",LocatorType.XPath);}
+
+    public WebElement TextBox_DriverStatusChangeComment() {return findElement("Comments",LocatorType.Id);}
+
+    public WebElement TextBox_DriverEmail() {return findElement("EmailAddress",LocatorType.Id);}
 
 }

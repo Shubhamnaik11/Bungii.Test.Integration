@@ -57,6 +57,8 @@ public class Admin_TripsSteps extends DriverBase {
     DbUtility dbUtility = new DbUtility();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
     Partner_Done Page_Partner_Done = new Partner_Done();
+    Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -2650,6 +2652,27 @@ try{
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
         Thread.sleep(4000);
+    }
+
+    @And("^I change the driver status to \"([^\"]*)\"$")
+    public void i_change_the_driver_status_to_something(String driverStatus) throws Throwable {
+        action.click(admin_GeofencePage.Dropdown_Status());
+        switch (driverStatus){
+            case "Inactive":
+                action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Inactive");
+                break;
+            case "Suspended":
+                action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Suspended");
+                break;
+        }
+        action.click(admin_DriverPage.TextBox_DriverStatusChangeComment());
+        action.clearSendKeys(admin_DriverPage.TextBox_DriverStatusChangeComment(),"For Testing");
+    }
+
+    @And("^I change the drivers emails address to \"([^\"]*)\"$")
+    public void i_change_the_drivers_emails_address_to_something(String email) throws Throwable {
+        Thread.sleep(2000);
+        action.clearSendKeys(admin_DriverPage.TextBox_DriverEmail(),email);
     }
 
 }

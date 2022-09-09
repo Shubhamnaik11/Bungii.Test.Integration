@@ -881,13 +881,21 @@ public class Partner_Delivery_Details extends DriverBase {
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Image_Map()),"Map should be displayed","Map is displayed","Map is not displayed");
                     break;
                 case "Testdrivertywd_appleks_a_drval Kansas_al":
+                case "Testdrivertywd_appleks_a_drvam Kansas_am":
+                case "Testdrivertywd_appleks_a_drvbc Kansas_bc":
+                case "Testdrivertywd_appleks_a_drvbd Kansas_bd":
                     Thread.sleep(3000);
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Text_DriverName()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Icon_DriverPosition()),"Drivers current location icon should be displayed","Drivers current location icon is displayed","Drivers current location icon is not displayed");
                     String kansasDriver1Name= action.getText(admin_DriverPage.Text_DriverName());
                     testStepAssert.isEquals(kansasDriver1Name,element,"The Driver name "+element+" should be displayed","The Driver name "+kansasDriver1Name+" is displayed","The Driver name  "+element+" should be displayed");
-            break;
-        }
+                    break;
+                case "Driver Status":
+                    action.JavaScriptScrolldown();
+                    action.JavaScriptScrolldown();
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Label_DriverStatus()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
+                    break;
+            }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
