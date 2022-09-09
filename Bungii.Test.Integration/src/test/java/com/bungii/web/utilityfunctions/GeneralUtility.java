@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.*;
+import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.admin.Admin_GeofencePage;
 import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
@@ -62,6 +63,7 @@ public class GeneralUtility extends DriverBase {
     EmailUtility emailUtility = new EmailUtility();
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
     Admin_GeofencePage admin_geofencePage = new Admin_GeofencePage();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
 
     private String GetPartnerUrl(String PP_Site){
         String partnerURL = null;
@@ -1151,5 +1153,22 @@ public class GeneralUtility extends DriverBase {
         String estimateUpperRange=upperRangeTime.substring(11,16);
         cucumberContextManager.setScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME",estimateUpperRange);
     }
+
+    public void clearEquipment(){
+        action.click(admin_DriverPage.Checkbox_ApplianceDolly());
+        action.click(admin_DriverPage.Checkbox_FurnitureDolly());
+        action.click(admin_DriverPage.Checkbox_HandDolly());
+        action.click(admin_DriverPage.Checkbox_LiftGate());
+        action.click(admin_DriverPage.Checkbox_Ramp());
+    }
+
+    public void clearVehicleType(){
+        action.click(admin_DriverPage.Checkbox_BoxTruck());
+        action.click(admin_DriverPage.Checkbox_MovingVan());
+        action.click(admin_DriverPage.Checkbox_PickupTruck());
+        action.click(admin_DriverPage.Checkbox_SUV());
+    }
+
+
 }
 

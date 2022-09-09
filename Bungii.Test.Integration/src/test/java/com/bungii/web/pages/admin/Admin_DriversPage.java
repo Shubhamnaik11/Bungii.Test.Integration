@@ -40,8 +40,23 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Text_AllPageNumber(boolean...ignoreException) {return findElement("//li[@class=\"page-item\"]/a",LocatorType.XPath,ignoreException);}
 
-    public WebElement Link_ActiveDriverMap() {return findElement("adminmenu-nonactivedriversy",LocatorType.Id);}
+    public WebElement Link_ActiveDriverMap() {return findElement("adminmenu-active-driver-map",LocatorType.Id);}
 
     public WebElement Image_Map() {return findElement("map",LocatorType.Id);}
+
+    public WebElement Checkbox_ApplianceDolly() {return findElement("chkEquipment-1",LocatorType.Id);}
+    public WebElement Checkbox_FurnitureDolly() {return findElement("chkEquipment-2",LocatorType.Id);}
+    public WebElement Checkbox_HandDolly() {return findElement("chkEquipment-3",LocatorType.Id);}
+    public WebElement Checkbox_LiftGate() {return findElement("chkEquipment-5",LocatorType.Id);}
+    public WebElement Checkbox_Ramp() {return findElement("chkEquipment-4",LocatorType.Id);}
+
+    public WebElement Checkbox_BoxTruck() {return findElement("chkVehicleType-3",LocatorType.Id);}
+    public WebElement Checkbox_MovingVan() {return findElement("chkVehicleType-2",LocatorType.Id);}
+    public WebElement Checkbox_PickupTruck() {return findElement("chkVehicleType-1",LocatorType.Id);}
+    public WebElement Checkbox_SUV() {return findElement("chkVehicleType-4",LocatorType.Id);}
+
+    public WebElement Text_DriverName() {return findElement("//div[@id=\"driverList\"]/div",LocatorType.XPath);}
+    public WebElement Icon_DriverPosition() {return findElement("//div[@id=\"driverList\"]/div/span/img",LocatorType.XPath);}
+
 
 }

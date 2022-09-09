@@ -572,6 +572,7 @@ try{
             case "Washington DC":
             case "Boston":
             case "Goa":
+            case "Kansas":
                 action.JavaScriptClick(admin_GeofencePage.Checkbox_Geofence(geofence));
                 break;
         }

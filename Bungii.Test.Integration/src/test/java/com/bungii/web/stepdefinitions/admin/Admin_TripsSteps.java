@@ -4,16 +4,12 @@ import com.bungii.SetupManager;
 import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
-import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
+import com.bungii.web.pages.partner.Partner_Done;
 import com.bungii.web.utilityfunctions.DbUtility;
-import com.bungii.web.utilityfunctions.GeneralUtility;
-import com.bungii.web.pages.driver.Driver_DashboardPage;
-import com.bungii.web.pages.driver.Driver_LoginPage;
-import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -23,10 +19,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.sql.Time;
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -35,8 +34,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.List;
 
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -57,6 +55,8 @@ public class Admin_TripsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
+    Partner_Done Page_Partner_Done = new Partner_Done();
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -1871,7 +1871,23 @@ try{
                         break;
                 }
                 break;
-
+            case "Vehicle Type":
+                action.click(admin_TripsPage.Button_Filter());
+                switch (value){
+                    case "Box Truck":
+                        action.click(admin_DriverPage.Checkbox_BoxTruck());
+                        break;
+                    case "Moving Van":
+                        action.click(admin_DriverPage.Checkbox_MovingVan());
+                        break;
+                    case "Pickup Truck":
+                        action.click(admin_DriverPage.Checkbox_PickupTruck());
+                        break;
+                    case "SUV":
+                        action.click(admin_DriverPage.Checkbox_SUV());
+                        break;
+                }
+                break;
         }
         log("I select filter " +filter+" as " + value ,
                 "I have selected filter " +filter+" as " + value, false);
@@ -2583,4 +2599,57 @@ try{
                     true);
         }
     }
+
+    @And("^I \"([^\"]*)\" all the \"([^\"]*)\" checkboxes from the filter$")
+    public void i_something_all_the_something_checkboxes_from_the_filter(String checkboxSelectOrUnselect, String element) throws Throwable {
+       try{
+        switch (checkboxSelectOrUnselect){
+           case "Unselect":
+               action.click(admin_TripsPage.Button_Filter());
+               switch (element){
+
+                   case "Equipment":
+                       utility.clearEquipment();
+                       break;
+                   case "Vehicle Type":
+                       utility.clearVehicleType();
+                       break;
+               }
+               action.click(Page_Partner_Done.Button_Apply());
+               break;
+
+           case "Select":
+               break;
+       }
+       log("I should be able "+checkboxSelectOrUnselect+" all the "+element+" checkboxes from the filter",
+               "I could "+checkboxSelectOrUnselect+" all the "+element+" checkboxes from the filter",
+               false);
+    }
+        catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I verify the details for driver \"([^\"]*)\"$")
+    public void i_verify_the_details_for_driver_something(String strArg1) throws Throwable {
+        Thread.sleep(4000);
+//        String actualTooltiptext = action.getText(admin_liveTripsPage.Label_Tooltip());
+        moveTOCords();
+    }
+
+    public void moveTOCords() throws AWTException, InterruptedException {
+        Thread.sleep(3000);
+        Point coordinates = (admin_DriverPage.Icon_DriverPosition().getLocation());
+        Robot robot = new Robot();
+
+        Actions action = new Actions(SetupManager.getDriver());
+        robot.mouseMove(coordinates.getX()+660,coordinates.getY()+110);
+//        robot.mousePress();
+        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        Thread.sleep(4000);
+    }
+
 }

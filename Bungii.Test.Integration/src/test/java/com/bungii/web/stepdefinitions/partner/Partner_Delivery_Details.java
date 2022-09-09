@@ -851,8 +851,9 @@ public class Partner_Delivery_Details extends DriverBase {
 
         }
     }
-    @Then("^The \"([^\"]*)\" should be displayed$")
-    public void the_something_should_be_displayed(String element) throws Throwable {
+
+    @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
+    public void the_something_something_should_be_displayed(String element, String strArg2) throws Throwable {
         try{
             switch (element){
                 case "Phone Icon":
@@ -870,7 +871,7 @@ public class Partner_Delivery_Details extends DriverBase {
                     testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.Alert_MessageForCall()),"Call request text should be displayed","Call request text is displayed","Call request text is not displayed");
                     testStepAssert.isEquals(alertMessage,expectedMessage,"The text "+expectedMessage+" should be displayed","The text "+alertMessage+" is displayed","The text "+expectedMessage+" should be displayed");
                     break;
-                case "Active driver Map":
+                case "Active Driver Map":
                     Thread.sleep(2000);
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Link_ActiveDriverMap()),"Active driver map link should be displayed","Active driver map link is displayed","Active driver map link is not displayed");
                     String activeText = action.getText(admin_DriverPage.Link_ActiveDriverMap());
@@ -879,7 +880,14 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Map":
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Image_Map()),"Map should be displayed","Map is displayed","Map is not displayed");
                     break;
-            }
+                case "Testdrivertywd_appleks_a_drval Kansas_al":
+                    Thread.sleep(3000);
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Text_DriverName()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Icon_DriverPosition()),"Drivers current location icon should be displayed","Drivers current location icon is displayed","Drivers current location icon is not displayed");
+                    String kansasDriver1Name= action.getText(admin_DriverPage.Text_DriverName());
+                    testStepAssert.isEquals(kansasDriver1Name,element,"The Driver name "+element+" should be displayed","The Driver name "+kansasDriver1Name+" is displayed","The Driver name  "+element+" should be displayed");
+            break;
+        }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details",

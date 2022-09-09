@@ -515,6 +515,15 @@ Feature: Admin_Refund
 	@testAllan
 	Scenario:To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
 		And I click on the "Driver" link from the sidebar
-		Then The "Active driver Map" should be displayed
-		And I click on the "Active driver Map" link from the sidebar
-		Then The "Map" should be displayed
+#		Then The "Active Driver Map" "Link" should be displayed
+		And I click on the "Active Driver Map" link from the sidebar
+#		Then The "Map" "Image" should be displayed
+		And I "Unselect" all the "Equipment" checkboxes from the filter
+		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+		And I click on the "Select Geofence" dropdown
+		And I Enter the text "Kansas"
+		When I click on the "Kansas" checkbox
+		When I select filter "Vehicle Type" as "Box Truck"
+		And I click on Apply button on Filter
+#		Then The "Testdrivertywd_appleks_a_drval Kansas_al" "Driver" should be displayed
+		And I verify the details for driver "lol"
