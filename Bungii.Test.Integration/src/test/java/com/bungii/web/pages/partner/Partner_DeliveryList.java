@@ -42,7 +42,7 @@ public class Partner_DeliveryList extends PageBase {
     public WebElement Button_Ok__On_Delivery_Cancellation_Failed() { return findElement("//button[@class='btn btn btn-primary']",LocatorType.XPath);}
 
     //Close button on Trip Delivery Details
-    public WebElement Button_Close() { return findElement("//span[@class='modal-close']",LocatorType.XPath);}
+    public WebElement Button_Close() { return findElement("//h2[contains(text(),'Delivery Details')]/span",LocatorType.XPath);}
 
     //Cancel message
     public WebElement Message_Cancel_Trip() { return findElement("//p[@class='trip-Canceled-text']",LocatorType.XPath);}
