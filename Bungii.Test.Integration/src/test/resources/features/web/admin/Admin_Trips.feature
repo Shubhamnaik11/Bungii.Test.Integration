@@ -857,3 +857,48 @@ Feature: Admin_Trips
     And I should see following details in the Accessorial charges section
       | Excess Wait Time | Cancelation | Mountainous | Other | Total   |
       | $10              | $20.5       | $25.65      | $100  | $156.15 |
+
+ #CORE-2826:To verify whether text search displays results matching the contains criteria on Deliveries pages
+ # Using last name to search delivery not pushed to prod as core 2826 is rnd ticket
+  @ready
+  Scenario:To verify whether text search displays results matching the contains criteria on Deliveries pages
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas  | NEXT_POSSIBLE | 8877661103 | Testcustomertywd_appleMarkCZ LutherCZ|
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery based on customer "first name"
+    Then The "Scheduled Deliveries" should be in "Assigning Driver(s)" state
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    And As a driver "Testdrivertywd_appleks_a_drvbi Kansas_bi" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted      |
+      | Enroute      |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    And I search the delivery based on customer "first name with space in front and back"
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Trip Started|
+    And As a driver "Testdrivertywd_appleks_a_drvbi Kansas_bi" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Driver Canceled |
+    And I wait for 2 minutes
+    And I view the Deliveries list on the admin portal
+    When I change filter to "The Past Day" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Past Week" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Past 4 Weeks" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Past 3 Months" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Beginning of Time" on All deliveries
+    And I search the delivery based on customer "first name with space in front and back"
+    Then The "All Deliveries" should be in "Driver Canceled" state
