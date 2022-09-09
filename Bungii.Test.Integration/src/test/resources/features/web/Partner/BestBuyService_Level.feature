@@ -166,7 +166,6 @@ Feature: Service Level
     And  I search the delivery using "Pickup Reference"
     Then In "All Deliveries" the trip should be  having a indicator with the text "New-4"
 
-    
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
