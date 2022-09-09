@@ -612,7 +612,7 @@ public class CommonStepsDriver extends DriverBase {
         }
     }
     @And("^I click on the \"([^\"]*)\" and select future time$")
-    public void i_click_on_the_something_and_select_future_time(String scheduleDate) throws Throwable {
+    public void i_click_on_the_something_and_select_future_time1(String scheduleDate) throws Throwable {
         try{
             switch (scheduleDate) {
                 case "Time":
