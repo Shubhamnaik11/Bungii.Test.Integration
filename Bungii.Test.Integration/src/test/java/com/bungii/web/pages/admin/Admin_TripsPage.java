@@ -92,5 +92,7 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Button_CancelPaymentStatusChange () { return findElement("//div[@id=\"tblTrips\"]/div[6]/div/div/div[3]/button[1]", LocatorType.XPath); }
 
+    public WebElement Text_ScheduledDate(){return findElement("//td[4]/a",LocatorType.XPath);}
+
 
 }

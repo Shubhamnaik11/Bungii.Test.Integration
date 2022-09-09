@@ -2743,16 +2743,30 @@ try{
     }
     }
 
-    @Then("^The timezone should be \"([^\"]*)\" for \"([^\"]*)\" and \"([^\"]*)\" date$")
-    public void the_timezone_should_be_something_for_something_and_something_date(String strArg1, String strArg2, String strArg3) throws Throwable{
+    @Then("^The timezone should be \"([^\"]*)\" on \"([^\"]*)\" page$")
+    public void the_timezone_should_be_something_on_something_page(String timezone, String page) throws Throwable{
         try{
-             String initialRequestDate = action.getText(admin_ScheduledTripsPage.Text_InitialRequestDate());
-             String scheduledDate = action.getText(admin_ScheduledTripsPage.Text_InitialRequestDate());
-             testStepVerify.isTrue(initialRequestDate.contains(strArg1),"Timezone should be "+ strArg1, "Time zone is not "+ strArg1);
-             testStepVerify.isTrue(scheduledDate.contains(strArg1),"Timezone should be "+ strArg1, "Time zone is not "+ strArg1);
+            Thread.sleep(5000);
+            String scheduledDate;
+            switch (page){
+                case "Scheduled Deliveries":
+                    String initialRequestDate = action.getText(admin_ScheduledTripsPage.Text_InitialRequestDate());
+                    scheduledDate = action.getText(admin_ScheduledTripsPage.Text_ScheduledDate());
+                    testStepAssert.isTrue(initialRequestDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    testStepAssert.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    break;
+                case "Live Deliveries":
+                    scheduledDate = action.getText(admin_LiveTripsPage.Text_ScheduledDate());
+                    testStepAssert.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    break;
+                case "All Deliveries":
+                    scheduledDate = action.getText(admin_TripsPage.Text_ScheduledDate());
+                    testStepAssert.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    break;
+            }
         }catch (Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
+             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
