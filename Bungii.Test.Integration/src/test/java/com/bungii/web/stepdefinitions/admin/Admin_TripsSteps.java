@@ -61,6 +61,7 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_AccessorialChargesPage admin_accessorialChargesPage= new Admin_AccessorialChargesPage();
     Admin_RefundsPage admin_refundsPage = new Admin_RefundsPage();
 
+    Admin_TripsPage adminTripsPage = new Admin_TripsPage();
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -2743,4 +2744,27 @@ try{
     }
     }
 
+
+    @And("^I search the delivery based on customer \"([^\"]*)\"$")
+    public void i_search_the_delivery_based_on_customer_something(String text) throws Throwable {
+        try {
+            String customerFullName[] = cucumberContextManager.getScenarioContext("CUSTOMER").toString().split(" ");
+            switch (text) {
+                case "first name":
+                    String onlyCustomerLastName = customerFullName[0];
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastName + Keys.ENTER);
+                    break;
+                case "first name with space in front and back":
+                    String onlyCustomerLastNameWithSpace = " " + customerFullName[0] + " ";
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastNameWithSpace + Keys.ENTER);
+                    break;
+            }
+            log("I should be able to search the delivery based on customers "+text,
+                    "I could  search the delivery based on customers "+text,false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }
