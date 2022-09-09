@@ -42,7 +42,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     DbUtility dbUtility = new DbUtility();
     CommonSteps commonSteps = new CommonSteps();
     InvitePage invitePage = new InvitePage();
-
+    InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
     BungiiRequest bungiiRequest = new BungiiRequest();
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
@@ -54,6 +54,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     PromosPage promosPage=new PromosPage();
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
+    UpdateStatusPage updateStatusPage= new UpdateStatusPage();
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
     }
@@ -436,12 +437,24 @@ public class ScheduledBungiiSteps extends DriverBase {
                     action.scrollToBottom();
                     action.click(estimatePage.Button_NextBungii());
                     break;
+                case "Driver Submit":
+                    action.click(updateStatusPage.Button_DriverSubmit());
+                    break;
                 case "Scheduled Bungiis":
                     action.click(scheduledBungiiPage.Button_ThreeDot());
                     Thread.sleep(1000);
                     action.click(scheduledBungiiPage.Link_ScheduledBungiis());
                     break;
+                case "Customer Signature":
+                    action.click(inProgressBungiiPages.Tab_CustomerSignature());
+                    break;
+                case "Submit":
+                    action.click(inProgressBungiiPages.Button_Submit());
+                    break;
+
             }
+            log("I should be able to click on the "+button+" button",
+                    "I am able to click on the "+button+" button",false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error Occured While Requesting Bungii. Check Screenshot for more details",

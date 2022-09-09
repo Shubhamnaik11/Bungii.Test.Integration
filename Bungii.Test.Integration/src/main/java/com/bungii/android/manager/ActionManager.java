@@ -743,4 +743,16 @@ public class ActionManager {
     public void deleteAllCookies() {
         SetupManager.getDriver().manage().deleteAllCookies();
     }
+
+    public void DrawSignature(int xStart,int yStart,int xEnd,int yEnd) throws InterruptedException {
+        try{
+        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            new TouchAction(driver).press(PointOption.point(xStart, yStart))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1))).moveTo(PointOption.point(xEnd, yEnd)).release().perform();
+    } catch (Exception ex) {
+        logger.error("ACTION FAILED | Error performing step | Could not draw signature -> ", ExceptionUtils.getStackTrace(ex));
+        error("I Should be able to draw signature ", "Unable to draw signature ",
+                true);
+    }
+    }
 }

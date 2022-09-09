@@ -1,7 +1,6 @@
 package com.bungii.web.pages.partner;
 
 import com.bungii.common.core.PageBase;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class Partner_DashboardPage extends PageBase {
@@ -191,7 +190,7 @@ public class Partner_DashboardPage extends PageBase {
 
     public WebElement SelectTime() { return findElement("//div/ul[@class =\"MuiList-root MuiMenu-list jss3 MuiList-padding\"]/li[3]",LocatorType.XPath);}
     //Tracking Id Column
-    public WebElement Text_TrackingId_Column() { return findElement("//tr/th[2]/div",LocatorType.XPath);}
+    public WebElement Text_TrackingId_Column() { return findElement("//tr/th[5]/div",LocatorType.XPath);}
 
     // Summary Tracking Id
     public WebElement Text_Summary_TrackingId() { return findElement("//section/div[1]/p",LocatorType.XPath);}
@@ -210,7 +209,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Trip_DeliveryDate() { return findElement("//tbody/tr[1]/td[1]/div",LocatorType.XPath);}
 
     //Trip TrackingId
-    public WebElement Text_Trip_TrackingId() { return findElement("//tr[1]/td[2]/div[1]",LocatorType.XPath);}
+    public WebElement Text_Trip_TrackingId() { return findElement("//tr[1]/td[5]/div[1]",LocatorType.XPath);}
 
     //trip Customer
     public WebElement Text_Trip_Customer() { return findElement("//tr[1]/td[3]/div[1]",LocatorType.XPath);}
@@ -282,4 +281,18 @@ public class Partner_DashboardPage extends PageBase {
     //Delivery details page partner portal driver Name
     public WebElement Text_DriverName() { return findElement("//div/div[@class=\"media\"]/div/p",LocatorType.XPath);}
 
+    //Header Receipt Number
+    public WebElement HeaderText_ReceiptNumber() { return findElement("//th[2]/span/div/div[1]",LocatorType.XPath);}
+
+    //Receipt Number value of first row
+    public WebElement TextValue_ReceiptNumber() { return findElement("//tr[1]/td[2]/div[1]",LocatorType.XPath);}
+
+    //First row of result
+    public WebElement FirstRow(boolean ...ignoreException) { return findElement("//tr[1]",LocatorType.XPath,ignoreException);}
+
+    //First data in first row of result
+    public WebElement FirstRowData() { return findElement("//tr[1]/td[1]/div[1]",LocatorType.XPath);}
+
+    //Status data in first row of result
+    public WebElement Text_DeliveryStatus() { return findElement("//tr[1]/td[6]/div[1]",LocatorType.XPath);}
 }

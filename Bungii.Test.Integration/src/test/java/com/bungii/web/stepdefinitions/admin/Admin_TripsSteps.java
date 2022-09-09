@@ -55,6 +55,11 @@ public class Admin_TripsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+    Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
+    Admin_AccessorialChargesPage admin_accessorialChargesPage= new Admin_AccessorialChargesPage();
+    Admin_RefundsPage admin_refundsPage = new Admin_RefundsPage();
+
+    Admin_TripsPage adminTripsPage = new Admin_TripsPage();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
     Partner_Done Page_Partner_Done = new Partner_Done();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
@@ -2542,8 +2547,16 @@ try{
         try{
             action.click(admin_ScheduledTripsPage.Button_StopSearching());
             Thread.sleep(3000);
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_ConfirmationPopUp(),
+                    "The confirmation pop-up should be displayed",
+                    "The confirmation pop-up is displayed",
+                    "The confirmation pop-up is not displayed");
             action.click(admin_ScheduledTripsPage.Button_ConfirmStopSearching());
             Thread.sleep(2000);
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_SuccessPopUp(),
+                    "The stop searching driver success pop-up should be displayed",
+                    "The stop searching driver success pop-up is displayed",
+                    "The stop searching driver success pop-up is not displayed");
             action.click(admin_ScheduledTripsPage.Button_CloseConfirm());
             Thread.sleep(2000);
             action.click(admin_ScheduledTripsPage.Button_Ok());
@@ -2596,6 +2609,177 @@ try{
             testStepAssert.isEquals(actualLabel, expectedLabel, expectedLabel + " should be displayed", expectedLabel + "is displayed", expectedLabel + " is not displayed");
         }
         catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @When("^I view the delivery details for live deliveries$")
+    public void i_view_the_delivery_details_for_live_deliveries() throws Throwable {
+      try{
+          Thread.sleep(3000);
+          action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+          log("I should be able to view delivery details for live deliveries","I am able to view delivery details for live deliveries",false);
+      }
+      catch(Exception e){
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step should be successful", "Error performing step,Please check logs for more details",
+                  true);
+      }
+    }
+
+    @Then("^I check if error is shown when admin stop search again before its status is synced$")
+    public void i_check_if_error_is_shown_when_admin_stop_search_again_before_its_status_is_synced() throws Throwable {
+        try{
+            action.click(admin_ScheduledTripsPage.Button_StopSearching());
+            Thread.sleep(3000);
+            action.click(admin_ScheduledTripsPage.Button_ConfirmStopSearching());
+            Thread.sleep(3000);
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_ErrorPopUp(),
+                    "Error pop up should be displayed.",
+                    "Error pop up is displayed.",
+                    "Error pop up is not displayed.");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I should see all the information in the change payment status modal$")
+    public void i_should_see_all_the_information_in_the_change_payment_status_modal() throws Throwable {
+        try{
+        String currentStatus = action.getText(admin_TripsPage.Text_CurrentStatus());
+        String newStatus = action.getText(admin_TripsPage.Text_NewStatus());
+        testStepAssert.isEquals(currentStatus, "Payment Unsuccessful", "The current delivery status should be in Payment Unsuccessful state",
+                "The current delivery status is in " + currentStatus + " state",
+                "The current delivery status is not  in Payment Unsuccessful state");
+        testStepAssert.isEquals(newStatus, "Payment Successful", "The new status text message should display the text  Payment Successful",
+                "The new status text message displays the text  " + newStatus,
+                "The new status text message doesnt display the text  Payment Successful");
+        testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.Button_ConfirmPaymentStatusChange()), "Confirm button should be displayed",
+                "Confirm button is displayed",
+                "Confirm button is not displayed");
+        testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.Button_CancelPaymentStatusChange()), "Cancel button should be displayed",
+                "Cancel button is displayed",
+                "Cancel button is not displayed");
+    }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^The \"([^\"]*)\" \"([^\"]*)\" should not be displayed$")
+    public void the_something_something_should_not_be_displayed(String element, String strArg2) throws Throwable {
+        try{
+        switch (element){
+            case "Issue Refund":
+                testStepAssert.isNotElementDisplayed(admin_refundsPage.Button_IssueRefund(true),
+                        "Issue refund button should not be displayed",
+                        "Issue refund button is not displayed",
+                        "Issue refund button is displayed");
+                break;
+        }
+    }    catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I set the pickup address for \"([^\"]*)\"$")
+    public void i_set_the_pickup_address_for_something(String address) throws Throwable {
+        try {
+            switch (address) {
+                case "Warehouse":
+                    cucumberContextManager.setScenarioContext("WarehouseCity", "Catonsville");
+                    break;
+                case "Store":
+                    cucumberContextManager.setScenarioContext("StoreCity", "MD");
+                    break;
+                case "Equip-bid in phoenix geofence":
+                    cucumberContextManager.setScenarioContext("PhoenixEquip-bid", "phoenix");
+                    break;
+            }
+            log("I should be able to set the pickup address", "I could set the pickup address", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^The delivery status should be in \"([^\"]*)\" state in db$")
+    public void the_delivery_status_should_be_in_something_state_in_db(String deliveryStatusMessage) throws Throwable {
+        try{
+        switch (deliveryStatusMessage){
+            case "Payment Successful":
+                String pickupRef= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                String deliveryStatusInDb = dbUtility.getDeliveryStatus(pickupRef);
+                testStepAssert.isTrue(deliveryStatusInDb.contentEquals("11"),"Delivery Should be in payment successfull state",
+                        "Delivery is in payment successfull state",
+                        "Delivery is not in payment successfull state");
+                break;
+        }
+    }    catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I should see the transaction charges \"([^\"]*)\" changing delivery Status$")
+    public void i_should_see_the_transaction_charges_something_changing_delivery_status(String checkingPeriod) throws Throwable {
+        try{
+        switch (checkingPeriod){
+            case "before":
+                Thread.sleep(2000);
+                cucumberContextManager.setScenarioContext("OriginalDeliveryChargeBeforeStatusChange",action.getText(admin_refundsPage.Label_OriginalDeliveryCharge()));
+                cucumberContextManager.setScenarioContext("TotalCustomerChargeBeforeStatusChange", action.getText(admin_refundsPage.Label_TotalCustomerCharge()));
+                cucumberContextManager.setScenarioContext("BungiiBeforeRefundBeforeStatusChange", action.getText(admin_refundsPage.Label_BungiiBeforeRefund()));
+                break;
+            case "after":
+                Thread.sleep(3000);
+                String originalDeliveryChargeBeforeStatusChange = (String) cucumberContextManager.getScenarioContext("OriginalDeliveryChargeBeforeStatusChange");
+                String totalCustomerChargeBeforeStatusChange = (String) cucumberContextManager.getScenarioContext("TotalCustomerChargeBeforeStatusChange");
+                String bungiiBeforeRefundBeforeStatusChange = (String) cucumberContextManager.getScenarioContext("BungiiBeforeRefundBeforeStatusChange");
+
+                String originalDeliveryChargeAfterStatusChange =action.getText(admin_refundsPage.Label_OriginalDeliveryCharge());
+                String totalCustomerChargeAfterStatusChange =action.getText(admin_refundsPage.Label_TotalCustomerCharge());
+                String bungiiBeforeRefundAfterStatusChange =action.getText(admin_refundsPage.Label_BungiiBeforeRefund());
+
+                testStepAssert.isFalse(originalDeliveryChargeAfterStatusChange.contentEquals(originalDeliveryChargeBeforeStatusChange),"Delivery charges should be present","Delivery charges is present","Delivery charges is not present");
+                testStepAssert.isFalse(totalCustomerChargeAfterStatusChange.contentEquals(totalCustomerChargeBeforeStatusChange),"Total customer charges should be present","Total customer charges is present","Total customer charges is not present");
+                testStepAssert.isFalse(bungiiBeforeRefundAfterStatusChange.contentEquals(bungiiBeforeRefundBeforeStatusChange),"Bungii before hand  charges should be present","Bungii before hand  charges is present","Bungii before hand  charges is not present");
+                break;
+        }
+    }    catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+
+    @And("^I search the delivery based on customer \"([^\"]*)\"$")
+    public void i_search_the_delivery_based_on_customer_something(String text) throws Throwable {
+        try {
+            String customerFullName[] = cucumberContextManager.getScenarioContext("CUSTOMER").toString().split(" ");
+            switch (text) {
+                case "first name":
+                    String onlyCustomerLastName = customerFullName[0];
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastName + Keys.ENTER);
+                    break;
+                case "first name with space in front and back":
+                    String onlyCustomerLastNameWithSpace = " " + customerFullName[0] + " ";
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastNameWithSpace + Keys.ENTER);
+                    break;
+            }
+            log("I should be able to search the delivery based on customers "+text,
+                    "I could  search the delivery based on customers "+text,false);
+        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);

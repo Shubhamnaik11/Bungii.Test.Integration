@@ -714,6 +714,12 @@ public class CommonSteps extends DriverBase {
                 case "CANCEL DELIVERY":
                     action.click(driverUpdateStatusPage.Tab_CancelDelivery());
                     break;
+                case "CUSTOMER SIGNATURE":
+                    action.click(driverUpdateStatusPage.Tab_CustomerSignature());
+                    break;
+                case "SUBMIT DATA":
+                    action.click(driverUpdateStatusPage.Button_Submit());
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name",
                             "UnImplemented Step");
@@ -1889,6 +1895,30 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I click on the \"([^\"]*)\" and select future time$")
+    public void i_click_on_the_something_and_select_future_time(String scheduleDate) throws Throwable {
+        try{
+            switch (scheduleDate) {
+                case "Time":
+                    action.click(scheduledTripsPage.TimePicker_Time());
+                    Thread.sleep(3000);
+                    action.click(scheduledTripsPage.Dropdown_ScheduledDate_Time());
+                    String timeChanged = scheduledTripsPage.TimePicker_Time().getText();
+                    cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
+                    break;
+                default: break;
+            }
+            log("I can select future time/date",
+                    "I was able to change time/date to future time/date", false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+
+    }
+
     @Then("^I change the drop off address to \"([^\"]*)\"$")
     public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
 

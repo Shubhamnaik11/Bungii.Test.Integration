@@ -54,10 +54,15 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 String amount = DataList.get(i).get("Amount").trim();
                 String feeType = DataList.get(i).get("Fee Type").trim();
                 String comment = DataList.get(i).get("Comment").trim();
-                String driver_cut = DataList.get(i).get("Driver Cut").trim();
+                if (DataList.get(i).containsKey("Driver Cut")){
+                    String driver_cut = DataList.get(i).get("Driver Cut").trim();
+                    action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
+                }
+                else {
+                    cucumberContextManager.setScenarioContext("TripType", "PartnerTrip");
+                }
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
-                action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
                 cucumberContextManager.setScenarioContext("NOTE",comment);
                 action.click(admin_accessorialChargesPage.Button_Save());

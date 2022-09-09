@@ -10,6 +10,7 @@ import com.bungii.android.pages.customer.LocationPage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.FileUtility;
@@ -32,8 +33,10 @@ import org.jsoup.nodes.Document;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
@@ -71,6 +74,8 @@ public class CommonSteps extends DriverBase {
     DashBoardPage dashBoardPage=new DashBoardPage();
     PhonePage phonePage = new PhonePage();
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
+    AvailableTripsPage availableTrips = new AvailableTripsPage();
+    DashBoardPage admin_dashboardPage = new DashBoardPage();
 
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
@@ -130,7 +135,6 @@ public class CommonSteps extends DriverBase {
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
         boolean isApplicationIsInForeground = false;
-
         try {
             if(action.isElementPresent(phonePage.Container_Notification(true)))
             {
@@ -1401,6 +1405,166 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+
+    @Then("^The revive button should not be displayed$")
+    public void the_revive_button_should_not_be_displayed() throws Throwable {
+        try{
+        testStepAssert.isFalse(action.isElementPresent(scheduledTripsPage.Button_ReviveTrip(true)),"Revive button should not be displayed", "Revive button is not displayed", "Revive button is displayed");
+    } catch (Exception e) {;
+            error("Step  Should be successful", "Error in viewing alert", true);
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+    }
+    }
+
+    @Then("^The trip should not be present in available bungiis$")
+    public void the_trip_should_not_be_present_in_available_bungiis() throws Throwable {
+        try{
+        boolean isDeliveryPresentInDriverApp = true;
+        String fullCustomerName = cucumberContextManager.getScenarioContext("CUSTOMER").toString().substring(0,27);
+        List<WebElement> AvailableDeliveriesDriverApp =availableTrips.List_AllDeliveriesDriverApp();
+        if(AvailableDeliveriesDriverApp.size()==0){
+            pass("Delivery should not be present in available bungiis","Delivery is not present in available bungiis");
+        }
+        else{
+            for(int i=0;i<AvailableDeliveriesDriverApp.size();i++){
+                String customerNameFromDelivery =action.getText(availableTrips.CustomerName(i+1)).substring(0,27);
+                if(customerNameFromDelivery.contentEquals(fullCustomerName)){
+                    testStepAssert.isFail("Delivery is present in available bungiis");
+                    isDeliveryPresentInDriverApp=false;
+                }
+            }
+            if(isDeliveryPresentInDriverApp ==true) {
+                testStepAssert.isTrue(true,"Delivery should not be present in available bungiis","Delivery is not present in available bungiis","Delivery is  present in available bungiis");
+            }
+        }
+    } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+
+    @And("^I enter cancellation fee and Comments$")
+    public void i_enter_cancellation_fee_and_comments() throws Throwable {
+        try{
+            action.clearSendKeys(scheduledTripsPage.Textbox_CancellationFee(), "0");
+            action.clearSendKeys(scheduledTripsPage.Textbox_CancellationComment(), "Cancelling");
+            action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(), "Other");
+            log("I enter cancellation fee amount and comments",
+                    "I have entered cancellation fee amount and comments", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^The \"([^\"]*)\" message should be displayed$")
+    public void the_something_message_should_be_displayed(String message) throws Throwable {
+        try{
+        Thread.sleep(3000);
+        testStepAssert.isElementTextEquals(scheduledTripsPage.Label_CancelSuccessMessage(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+    } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+    @And("^I select \"([^\"]*)\" from the \"([^\"]*)\" dropdown$")
+    public void i_select_something_from_the_something_dropdown(String strArg1, String field) throws Throwable {
+        try{
+            switch(field) {
+                case "Cancellation Reason":
+                    action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(),strArg1);
+                    log("I select element from Cancellation reason dropdown",
+                            "I have selected element from Cancellation reason dropdown", true);
+                    break;
+            }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @When("^I click on \"([^\"]*)\" button on Revival Popup$")
+    public void i_click_on_something_button_on_revival_popup(String button) throws Throwable {
+        try{
+            switch(button)
+            {
+                case "Confirm":
+                    action.click(scheduledTripsPage.Button_Confirm());
+                    Thread.sleep(10000);
+                    String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    cucumberContextManager.setScenarioContext("OLD_PICKUP_REQUEST",pickuprequest);
+                    pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
+                    cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
+                    break;
+                case "Cancel":
+                    action.click(scheduledTripsPage.Button_Cancel());
+                    break;
+            }
+            log("I click on the "+button+" button on Revival Popup",
+                    "I have clicked the "+button+" button on Revival Popup", true);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^The trip should be present in my bungiis$")
+    public void the_trip_should_be_present_in_my_bungiis() throws Throwable {
+        try{
+        Thread.sleep(3000);
+        boolean isTripPresent = false;
+        String scheduled_time = cucumberContextManager.getScenarioContext("BUNGII_TIME").toString().substring(0, 16);
+        List<WebElement> allCustomerDeliveries = availableTrips.List_AllCustomerDeliveries();
+        if (allCustomerDeliveries.size() == 0) {
+            testStepAssert.isFail("Delivery is not present in available bungiis");
+        } else {
+            for (int i = 0; i < allCustomerDeliveries.size(); i++) {
+                String [] fullCustomerTripTime= action.getText(availableTrips.Text_CustomerDeliveryTime(i + 1)).substring(0, 23).split(",");
+                String onlyMonthAndDate = fullCustomerTripTime[0];
+                String [] fullDeliveryTimeFormat = fullCustomerTripTime[1].split("-");
+                String onlyTimeFormat = fullDeliveryTimeFormat[1];
+                String dateAndTime = onlyMonthAndDate + "," + onlyTimeFormat;
+                if (dateAndTime.contentEquals(scheduled_time)) {
+                    pass("Delivery should be present in available bungiis","Delivery is present in available bungiis",false);
+                    isTripPresent = true;
+                    break;
+                }
+            }
+            if (isTripPresent == false) {
+                testStepAssert.isFail("Delivery is not present in available bungiis");
+            }
+        }
+    } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+    @Then("^Revive button should be displayed beside the trip$")
+    public void revive_button_should_be_displayed_beside_the_trip() throws Throwable {
+        try {
+            String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            SetupManager.getDriver().manage().window().maximize();
+            SetupManager.getDriver().manage().window().setSize(new Dimension(1900, 1280));
+
+            String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']/img", customerName);
+            testStepAssert.isTrue(action.isElementPresent(scheduledTripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
+            cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    
     @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
     public void i_navigate_to_something(String page, String url) throws Throwable {
         try{  switch (page)

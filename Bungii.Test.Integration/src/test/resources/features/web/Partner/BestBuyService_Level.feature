@@ -166,7 +166,6 @@ Feature: Service Level
     And  I search the delivery using "Pickup Reference"
     Then In "All Deliveries" the trip should be  having a indicator with the text "New-4"
 
-    
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
@@ -394,7 +393,7 @@ Feature: Service Level
 
 
 
-     #CORE-2419:Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
+#CORE-2419:Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
   @ready
   Scenario: Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
     When I navigate to "Partner" portal configured for "BestBuy2 service level" URL
@@ -406,3 +405,51 @@ Feature: Service Level
     And I select the "Second" address from the pickup address dropdown
     And I should be able to schedule a trip "29"days from today
     Then The pickup time should be same for both the addresses from the dropdown
+
+  #CORE-2342:To verify whether correct default contact name and phone no is added when store address is selected as pickup address
+  @ready
+  Scenario:To verify whether correct default contact name and phone no. is added when store address is selected as pickup address
+    When I navigate to "Partner" portal configured for "BestBuy2 service level" URL
+    And I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "be logged in"
+    And I add the delivery address as "700 South Potomac Street, Baltimore, Maryland, 21224"
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    And I click "GET ESTIMATE" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    Then The Pickup contact name "Best Buy Customer Service" and pickup contact phone number "(992) 326-1261" field should be filled
+
+ #CORE-3381: To verify that Revive button is not present for deliveries scheduled more than 5 days in advance
+  @ready
+  Scenario: To verify that Revive button is not present for deliveries scheduled more than 5 days in advance
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |baltimore| NEXT_POSSIBLE | 8877661061 | Testcustomertywd_BppleMarkBJ LutherBJ|
+    And I wait for 2 minutes
+    And  I am logged in as Admin
+    And I view the all Scheduled Deliveries list on the admin portal
+    When I click on the "Edit" button from the dropdown
+    And I click on "Edit Trip Details" radiobutton
+    And I change the trip delivery date to "7" days ahead from today
+    And I select reason as "Partner initiated"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    And I get the new pickup reference generated
+    And I wait for "2" mins
+    When I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Pending |
+    And The scheduled trip date should be changed to the new date
+    And I click on the "Edit" button from the dropdown
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I click on "Submit" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for "2" mins
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The revive button should not be displayed

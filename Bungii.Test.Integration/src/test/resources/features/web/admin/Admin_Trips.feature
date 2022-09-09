@@ -562,3 +562,340 @@ Feature: Admin_Trips
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then The delivery should be in "Admin Canceled - No Driver(s) Found" state
+
+#CORE-3381:To verify that customer trips can be revived after admin cancels
+@ready
+  Scenario:To verify that customer trips can be revived after admin cancels
+  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+    | Bungii Time   | Customer Phone | Customer Name |
+    | NEXT_POSSIBLE | 8877661062 | Testcustomertywd_BppleMarkBK LutherBK|
+   And As a driver "Testdrivertywd_appledc_a_drvN WashingtonM" perform below action with respective "Solo Scheduled" Delivery
+    | driver1 state|
+    |Accepted |
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Edit" button from the dropdown
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
+    And I click on "Submit" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for 2 minutes
+    And I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then I should see the cancelled trip icon displayed for the delivery
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
+    Then Revive button should be displayed beside the trip
+    When I click on "Revive" button
+	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+    When I click on "Cancel" button on Revival Popup
+    Then Revive button should be displayed beside the trip
+    When I click on "Revive" button
+    Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+	When I click on "Confirm" button on Revival Popup
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+    |  Status |
+    | Assigning Driver(s)|
+   When I click on the "Delivery Details" button from the dropdown
+    Then The pickup reference should be changed to the new pickup reference
+    And I view All Deliveries list on the admin portal
+    And I search the delivery using old pickup reference
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
+  And I get the latest "pickup Reference"
+  And I view the all Scheduled Deliveries list on the admin portal
+  And  I search the delivery using "Pickup Reference"
+  When I click on the "Edit" button from the dropdown
+  And I click on "Edit Trip Details" radiobutton
+  And I click on "Add Driver" and add "Testdrivertywd_appledc_a_drvN WashingtonM" driver
+  And I click on "Verify" button on Edit Scheduled bungii popup
+  And I click on "Save" button on Edit Scheduled bungii popup
+  Then "Bungii Saved!" message should be displayed
+  When I wait for 2 minutes
+  And I view the all Scheduled Deliveries list on the admin portal
+  And I get the latest "pickup Reference"
+  And  I search the delivery using "Pickup Reference"
+  Then I should be able to see the respective bungii with the below status
+    |  Status |
+    | Scheduled |
+  And As a driver "Testdrivertywd_appledc_a_drvN WashingtonM" perform below action with respective "Solo Scheduled" Delivery
+    | driver1 state|
+    | Enroute  |
+    | Arrived |
+    | Loading Item |
+    | Driving To Dropoff |
+    | Unloading Item |
+    | Bungii Completed |
+    When I wait for 2 minutes
+  And I view All Deliveries list on the admin portal
+  And I search the delivery of Customer and view it
+  When I click on "ISSUE REFUND" button
+  Then The "Issue Refund" section should be displayed
+  When I select "Partial Refund" radio button
+  When I update "Earnings" as "10.00" dollars
+  And I enter "Customer Refund Amount" as "5" dollars
+  When I update "Earnings" as "10.00" dollars
+  And I enter "Bungii Internal Notes" as "Internal Note"
+  When I enter "Notes" as "Driver Note"
+  And I click on "Continue" button on Issue Refund popup
+  Then I should see "Issue Refund - Confirm Details" popup
+  And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
+  And I should see breakdown of Before and After Refund earnings
+  And I should see Bungii Internal Note
+  When I select "Are you sure you want to proceed with refund request ?" checkbox
+  And I click on "Process Refund" button on Issue Refund popup
+  Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+  When I click on "OK" button
+  And I wait for 1 minutes
+  And The amount should be "Refunded" and in "voided" state
+
+    #CORE-3381:To verify that admin can fully refund completed trips which were revived
+  @ready
+  Scenario:To verify that admin can fully refund completed trips which were revived
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 8877661063 | Testcustomertywd_BppleMarkBL LutherBL|
+    And As a driver "Testdrivertywd_appledc_a_drvM WashingtonN" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      |Accepted |
+      | Enroute  |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Trip Started |
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Canceled" radiobutton
+    And I click on "UPDATE BUNGII" button
+    Then The "Pick up has been successfully canceled." message should be displayed for live delivery
+    And I wait for 2 minutes
+    And I view the Deliveries list on the admin portal
+    Then The Delivery List page should display the delivery in "Driver Canceled" state
+    Then Revive button should be displayed beside the trip
+    When I click on "Revive" button
+    Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+    When I click on "Confirm" button on Revival Popup
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    And As a driver "Testdrivertywd_appledc_a_drvO WashingtonO" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
+      | Bungii Completed |
+    And I wait for 2 minutes
+    And I view the Deliveries list on the admin portal
+    And I search the delivery of Customer and view it
+    When I click on "ISSUE REFUND" button
+    Then The "Issue Refund" section should be displayed
+    When I select "Complete Refund" radio button
+    When I update "Earnings" as "10.00" dollars
+    Then I should see Customer Refund Amount and Driver Earnings
+    When I enter "Bungii Internal Notes" as "Internal Note"
+    When I enter "Notes" as "Driver Note"
+    And I click on "Continue" button on Issue Refund popup
+    Then I should see "Issue Refund - Confirm Details" popup
+    And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
+    And I should see breakdown of Before and After Refund earnings
+    And I should see Bungii Internal Note
+    And I should see Bungii Driver Note
+    When I select "Are you sure you want to proceed with refund request ?" checkbox
+    And I click on "Process Refund" button on Issue Refund popup
+    Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+    When I click on "OK" button
+    And I wait for 1 minutes
+    And The amount should be "Refunded" and in "voided" state
+
+    #CORE-2584:To verify the customer duo delivery marked as Payment successful from payment unsuccessful
+  @ready
+  Scenario:To verify the customer duo delivery marked as Payment successful from payment unsuccessful
+    When I request "Duo" Bungii as a customer in "phoenix" geofence
+      | Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
+      |  3_DAY_LATER | 8877661100     | Testcustomertywd_appleMarkCW LutherCW| Cci12345          |
+    And As a driver "Testdrivertywd_appleph_a_drvaw Phoenix_aw" and "Testdrivertywd_appleph_a_drvax Phoenix_ax" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    And I wait for 2 minutes
+    When I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Edit" button from the dropdown
+    And I click on "Remove driver(s) and re-search" radiobutton
+    And I select the first driver
+    And I click on "Remove Driver" button
+    And I click on "Research" button
+    Then Pickup should be unassigned from the driver
+    And I wait for 2 minutes
+    And I get the new pickup reference generated
+    When I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then I should see the trip scheduled for "3" days ahead
+    When I click on the "Edit" button from the dropdown
+    And I click on "Edit Trip Details" radiobutton
+    And I change the trip delivery date to "0" days ahead from today
+    And I select reason as "Partner initiated"
+    And I click on "Add Driver" and add "Testdrivertywd_appleph_a_drvay Phoenix_ay" driver
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    And I wait for 2 minutes
+    And I get the new pickup reference generated
+    When I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    And The scheduled trip date should be changed to the new date
+    When As a driver "Testdrivertywd_appleph_a_drvax Phoenix_ax" and "Testdrivertywd_appleph_a_drvay Phoenix_ay" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Enroute       | Enroute       |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Trip Started |
+    And I click on "Edit" button
+    And I click on "Edit Trip Details" radiobutton
+    And I edit the pickup address
+    Then I change the pickup address to "15225 North 71st Drive, Peoria, AZ"
+    And I edit the drop off address
+    Then I change the drop off address to "17334 North 63rd Avenue"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    When As a driver "Testdrivertywd_appleph_a_drvax Phoenix_ax" and "Testdrivertywd_appleph_a_drvay Phoenix_ay" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      |Arrived         |Arrived         |
+      |Loading Item     |Loading Item     |
+      |Driving To Dropoff |Driving To Dropoff |
+      |Unloading Item    |Unloading Item    |
+      |Bungii Completed  |Bungii Completed  |
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Pending" state
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    When I click on the "Change Payment status" button from the dropdown
+    And the "Are you sure, you want to change the payment status?" message is displayed
+    Then I should see all the information in the change payment status modal
+    And I click on "Confirm Change Payment Status" button
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state
+    Then The delivery status should be in "Payment Successful" state in db
+    Then I should see the change status link "Not Displayed"
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The "Issue Refund" "button" should not be displayed
+    Then I should see "Accessorial Charges" section displayed
+    When I add following accessorial charges and save it
+      | Amount   | Fee Type         | Comment                           | Driver Cut |
+      |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
+      |   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
+      |  25.65   | Mountainous      | Charges due to mountainous reason | 10       |
+      |  100     | Other            | Charges due to other reasons      | 20         |
+    And I should see following details in the Accessorial charges section
+      | Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+      | $10              | $20.5       | $25.65      | $100  | $156.15 |
+
+
+#CORE-2584:To verify the Partner geofence based solo delivery marked as Payment successful from payment unsuccessful
+  @ready
+  Scenario:To verify the Partner geofence based solo delivery marked as Payment successful from payment unsuccessful
+    And I set the pickup address for "Equip-bid in phoenix geofence"
+    When I request Partner Portal "SOLO" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |phoenix| NEXT_POSSIBLE | 8877661101 | Testcustomertywd_appleMarkCX LutherCX|
+    And As a driver "Testdrivertywd_appleph_a_drvaw Phoenix_aw" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+      |Arrived         |
+      |Loading Item     |
+      |Driving To Dropoff |
+      |Unloading item    |
+      |Bungii Completed  |
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Pending" state
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    And I click on "Transaction History" button
+    Then I should see the transaction charges "before" changing delivery Status
+    And I click on "Close" button
+    And I click on "OK Delivery Details Page" button
+    When I click on the "Change Payment status" button from the dropdown
+    And the "Are you sure, you want to change the payment status?" message is displayed
+    Then I should see all the information in the change payment status modal
+    And I click on "Confirm Change Payment Status" button
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state
+    Then The delivery status should be in "Payment Successful" state in db
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The "Issue Refund" "button" should not be displayed
+    And I click on "Transaction History" button
+    Then I should see the transaction charges "after" changing delivery Status
+    And I click on "Close" button
+    Then I should see "Accessorial Charges" section displayed
+    When I add following accessorial charges and save it
+      | Amount   | Fee Type         | Comment                           | Driver Cut |
+      |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
+      |   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
+      |  25.65   | Mountainous      | Charges due to mountainous reason | 10       |
+      |  100     | Other            | Charges due to other reasons      | 20         |
+    And I should see following details in the Accessorial charges section
+      | Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+      | $10              | $20.5       | $25.65      | $100  | $156.15 |
+
+ #CORE-2826:To verify whether text search displays results matching the contains criteria on Deliveries pages
+ # Using last name to search delivery not pushed to prod as core 2826 is rnd ticket
+  @ready
+  Scenario:To verify whether text search displays results matching the contains criteria on Deliveries pages
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas  | NEXT_POSSIBLE | 8877661103 | Testcustomertywd_appleMarkCZ LutherCZ|
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery based on customer "first name"
+    Then The "Scheduled Deliveries" should be in "Assigning Driver(s)" state
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    And As a driver "Testdrivertywd_appleks_a_drvbi Kansas_bi" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted      |
+      | Enroute      |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    And I search the delivery based on customer "first name with space in front and back"
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Trip Started|
+    And As a driver "Testdrivertywd_appleks_a_drvbi Kansas_bi" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Driver Canceled |
+    And I wait for 2 minutes
+    And I view the Deliveries list on the admin portal
+    When I change filter to "The Past Day" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Past Week" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Past 4 Weeks" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Past 3 Months" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Beginning of Time" on All deliveries
+    And I search the delivery based on customer "first name with space in front and back"
+    Then The "All Deliveries" should be in "Driver Canceled" state

@@ -193,14 +193,22 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_HistoryTabInformation(int row ,int col){return  findElement(String.format("//div[@class=\"old-note\"]/table/tbody/tr[%d]/td[%d]",row,col),LocatorType.XPath);}
 
-    public WebElement Button_StopSearching() {return findElement("btnStopSearch",LocatorType.Id);}
+    public WebElement Button_StopSearching(boolean...ignoreException) {return findElement("btnStopSearch",LocatorType.Id,ignoreException);}
 
     public WebElement Button_ConfirmStopSearching() {return findElement("btnConfirm",LocatorType.Id);}
+
+    public WebElement Text_ConfirmationPopUp() {return findElement("//h4[contains(text(),'Confirmation')]",LocatorType.XPath);}
+
+    public WebElement Text_SuccessPopUp() {return findElement("//p[contains(text(),'Search stopped successfully.')]",LocatorType.XPath);}
+
+    public WebElement Text_ErrorPopUp() {return findElement("//p[contains(text(),'Oops! something went wrong.')]",LocatorType.XPath);}
 
     public WebElement Button_CloseConfirm() {return findElement("//div[@id='stop-search-success-modal']/div/div/div/button[text()='Close']",LocatorType.XPath);}
 
     public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
 
     public WebElement Text_DeliveryDetailsStatus(){return  findElement("//td[text()=\"Status\"]/following-sibling::td/strong",LocatorType.XPath);}
+
+    public WebElement Text_TripStatus(){return  findElement("//td[text()='Status']/following-sibling::td", LocatorType.XPath);}
 
 }

@@ -102,7 +102,7 @@ public class AuthServices extends DriverBase {
             logger.detail("PartnerLocationReference="+Partner_Location_Reference);
         }
         // bestbuy11
-        else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")){
+        else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level") || Partner_Portal.equalsIgnoreCase("BestBuy2 warehouse service level")){
             Partner_Location_Reference= PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref");
             cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
             partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");
@@ -129,6 +129,13 @@ public class AuthServices extends DriverBase {
             Partner_Location_Reference= PropertyUtility.getDataProperties("qa.equip-bid.ref");
             cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
             partnerURL = PropertyUtility.getDataProperties("qa.equip-bid.url");
+            cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerURL);
+            logger.detail("PartnerLocationReference="+Partner_Location_Reference);
+        }
+        else if(Partner_Portal.equalsIgnoreCase("Cort Furniture")){
+            Partner_Location_Reference= PropertyUtility.getDataProperties("qa.cort.service_level_partner.ref");
+            cucumberContextManager.setScenarioContext("PartnerLocationReference",Partner_Location_Reference);
+            partnerURL = PropertyUtility.getDataProperties("qa.cort.service_level_partner.url");
             cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerURL);
             logger.detail("PartnerLocationReference="+Partner_Location_Reference);
         }
