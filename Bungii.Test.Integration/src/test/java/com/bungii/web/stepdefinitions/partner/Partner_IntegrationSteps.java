@@ -475,7 +475,31 @@ public class Partner_IntegrationSteps extends DriverBase {
                 log("I request " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", "I have requested " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", false);
 
             }
-        } catch (Exception e) {
+            else if (Site.equalsIgnoreCase("Equip-bid")) {
+                switch (Type) {
+                    case "Solo":
+                        action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+
+                        action.click(Page_Partner_Dashboard.Button_PickupClear());
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                        Thread.sleep(1000);
+                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                        Thread.sleep(2000);
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                        Thread.sleep(5000);
+                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+
+                        Thread.sleep(5000);
+                        action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                        break;
+                }
+                log("I request " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", "I have requested " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", false);
+
+            }
+                } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);

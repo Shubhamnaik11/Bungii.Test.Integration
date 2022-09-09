@@ -1534,6 +1534,20 @@ try{
     }
     }
 
+    @Then("default pickup address should be shown")
+    public void defaultPickupAddressShouldBeShown() {
+        try{
+            action.isElementPresent(Page_Partner_Dashboard.Button_Pickup_Edit());
+            testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Text_Pickup_Address()),PropertyUtility.getDataProperties("equipbid_default_address"),"Correct default pickup address should be shown.","Correct default pickup address is shown.","Wrong default pickup address is shown.");
+
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
     public String getGeofence(String geofence) {
         String geofenceName = "";
         switch (geofence) {
