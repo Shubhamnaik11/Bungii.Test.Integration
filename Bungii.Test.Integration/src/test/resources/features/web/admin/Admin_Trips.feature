@@ -727,6 +727,7 @@ Feature: Admin_Trips
     And I wait for 2 minutes
     When I view the all Scheduled Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
+    Then The timezone should be "MST-Phoenix" for "Initial Request" and "Scheduled" date
     When I click on the "Edit" button from the dropdown
     And I click on "Remove driver(s) and re-search" radiobutton
     And I select the first driver

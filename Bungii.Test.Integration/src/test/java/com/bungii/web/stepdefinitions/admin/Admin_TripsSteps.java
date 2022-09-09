@@ -2743,4 +2743,17 @@ try{
     }
     }
 
+    @Then("^The timezone should be \"([^\"]*)\" for \"([^\"]*)\" and \"([^\"]*)\" date$")
+    public void the_timezone_should_be_something_for_something_and_something_date(String strArg1, String strArg2, String strArg3) throws Throwable{
+        try{
+             String initialRequestDate = action.getText(admin_ScheduledTripsPage.Text_InitialRequestDate());
+             String scheduledDate = action.getText(admin_ScheduledTripsPage.Text_InitialRequestDate());
+             testStepVerify.isTrue(initialRequestDate.contains(strArg1),"Timezone should be "+ strArg1, "Time zone is not "+ strArg1);
+             testStepVerify.isTrue(scheduledDate.contains(strArg1),"Timezone should be "+ strArg1, "Time zone is not "+ strArg1);
+        }catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }
