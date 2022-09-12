@@ -53,4 +53,33 @@ public class AvailableTripsPage extends PageBase {
     public WebElement Text_DriverEarning() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView[2]", LocatorType.XPath);}
     public WebElement Text_DriverEarningSchedulePage() { return findElement("//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView[2]", LocatorType.XPath);}
 
+    public WebElement Text_RejectionPopup(boolean...ignoreException) {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id,ignoreException);}
+
+    public WebElement Text_RejectionReason(int i){return findElement("//android.widget.ListView/android.widget.LinearLayout["+i+"]/android.widget.LinearLayout/android.widget.TextView",LocatorType.XPath);}
+
+    public WebElement Button_Cancel() {return findElement("com.bungii.driver:id/alert_dialog_list_btn_cancel",LocatorType.Id);}
+
+    public WebElement Button_Submit() {return findElement("com.bungii.driver:id/alert_dialog_list_btn_submit",LocatorType.Id);}
+
+    public WebElement RadioButton_LatestRejectionReason() {return findElement("//android.view.ViewGroup/android.widget.ListView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.RadioButton",LocatorType.XPath);}
+
+    public WebElement Text_CustomerName(boolean...ignoreException) {return findElement("com.bungii.driver:id/row_available_pickup_drivername",LocatorType.Id,ignoreException);}
+
+    public WebElement Text_NoBungiisAvailable(boolean...ignoreException) {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id,ignoreException);}
+
+    public WebElement PageTitle_BungiiDetails() { return findElement("//android.widget.LinearLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath);}
+
+    public WebElement Label_SoloLift() {return findElement("com.bungii.driver:id/appCompatTextView37",LocatorType.Id);}
+    public WebElement Text_SoloLiftMessage() { return findElement("com.bungii.driver:id/appCompatTextView39", LocatorType.Id);}
+    public WebElement Label_CustomerHelp() {return findElement("com.bungii.driver:id/appCompatTextView37",LocatorType.Id);}
+    public WebElement Text_CustomerHelpMessage() { return findElement("com.bungii.driver:id/appCompatTextView39", LocatorType.XPath);}
+    public WebElement Label_DuoLift() {return findElement("com.bungii.driver:id/appCompatTextView37",LocatorType.Id);}
+    public WebElement Text_DuoLiftMessage() { return findElement("com.bungii.driver:id/appCompatTextView39", LocatorType.XPath);}
+
+    public List <WebElement> List_AllDeliveriesDriverApp()         {return findElements("//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout/android.view.ViewGroup",LocatorType.XPath);}
+    public List <WebElement> List_AllCustomerDeliveries() {return findElements("//android.view.ViewGroup/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout",LocatorType.XPath);}
+
+    public WebElement CustomerName(int number) {return findElement(String.format("//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[%d]/android.view.ViewGroup/android.widget.TextView[1]",number),LocatorType.XPath);}
+    public WebElement Text_CustomerDeliveryTime(int number) {return findElement(String.format("//android.view.ViewGroup/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[%d]/android.widget.RelativeLayout/android.widget.TextView[1]",number),LocatorType.XPath);}
+
 }

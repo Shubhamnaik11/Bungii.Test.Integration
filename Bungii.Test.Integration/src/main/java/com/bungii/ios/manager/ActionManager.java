@@ -383,8 +383,22 @@ public class ActionManager {
         if(!hour.equals("")) {
             if(Columns.size()==4)
                 Columns.get(1).sendKeys(hour);
-            else
-                Columns.get(1).sendKeys(hour+12);
+            else {
+               // String h1= hour+ Integer.toString(12);
+                //Columns.get(1).sendKeys(hour+12);
+                int num = Integer.parseInt(hour);
+                String hrs ="";
+                if(num>12) {
+                    num = num + 12;
+                     hrs = String.valueOf(num);
+                }
+
+                if(num==24)
+                    hrs="00";
+
+
+                Columns.get(1).sendKeys(hrs);
+            }
         }
         if(!meridiem.equals("")) {
             if(Columns.size()==4) {
@@ -814,4 +828,75 @@ try {
         }
     }
 
+    public void clickBy4Points(int Point1,int Point2,int Point3, int Point4) throws InterruptedException {
+        try {
+            AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
+            TouchAction touchAction = new TouchAction(driver);
+            PointOption pointStart = PointOption.point(Point1, Point2);
+            PointOption pointEnd = PointOption.point(Point3, Point4);
+            touchAction.press(pointStart).moveTo(pointEnd).release().perform();
+            Thread.sleep(7000);
+        } catch(Exception ex){
+            logger.error("ACTION FAILED | Error performing step | Could not click on the desired position by 4 points -> ", ExceptionUtils.getStackTrace(ex));
+            error("Click on element based on 4 points -> ", "Unable to click the element based on 4 points-> " ,
+                    true);
+        }
+    }
+
+    public void clickBy2Points(int Point1,int Point2) throws InterruptedException {
+        try {
+            AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
+            TouchAction touchAction = new TouchAction(driver);
+            PointOption pointStart = PointOption.point(Point1, Point2);
+            touchAction.press(pointStart).release().perform();
+            Thread.sleep(7000);
+        }
+        catch (Exception ex){
+            logger.error("ACTION FAILED | Error performing step | Could not click on the desired position by 2 points -> ", ExceptionUtils.getStackTrace(ex));
+            error("Click on element based on 2 points -> ", "Unable to click the element based on 2 points-> " ,
+                    true);
+        }
+    }
+    public void deleteAllCookies() {
+        try{
+            SetupManager.getDriver().manage().deleteAllCookies();
+        } catch (Exception ex){
+            logger.error("ACTION FAILED | Error performing step | Could not delete all cookies ", ExceptionUtils.getStackTrace(ex));
+            error("I should be able to delete all cookies -> ", "Could not delete all cookies-> " ,
+                    true);
+        }
+    }
+
+    public void navigateTo(String url) {
+        try{
+        SetupManager.getDriver().navigate().to(url);
+    } catch (Exception ex){
+        logger.error("ACTION FAILED | Error performing step | Could not navigate to "+url, ExceptionUtils.getStackTrace(ex));
+        error("I should be able to navigate to "+ url, "Could not navigate to "+url ,
+                true);
+    }
+    }
+
+    public String getCurrentURL() {
+        try {
+            String s = SetupManager.getDriver().getCurrentUrl();
+            return s;
+        } catch (Exception ex) {
+            error("I should be able to get current URL ", "Could not get current URL", true);
+            return "Could not get current URL";
+        }
+    }
+
+
+    public void DrawSignature(int xStart,int yStart,int xEnd,int yEnd) throws InterruptedException {
+        IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
+        try {
+            new TouchAction(driver).press(PointOption.point(xStart, yStart))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1))).moveTo(PointOption.point(xEnd, yEnd)).release().perform();
+        } catch (Exception ex) {
+            logger.error("ACTION FAILED | Error performing step | Could not draw signature -> ", ExceptionUtils.getStackTrace(ex));
+            error("I Should be able to draw signature ", "Unable to draw signature ",
+                    true);
+        }
+    }
 }

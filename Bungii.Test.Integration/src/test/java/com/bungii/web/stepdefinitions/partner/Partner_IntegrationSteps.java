@@ -59,6 +59,7 @@ public class Partner_IntegrationSteps extends DriverBase {
             SetupManager.getDriver().manage().window().maximize();
 
             cucumberContextManager.setScenarioContext("Bungii_Type", Type);
+            cucumberContextManager.setScenarioContext("BUNGII_TYPE", Type);
             cucumberContextManager.setScenarioContext("Partner_Bungii_type", Type);
 
             Pickup_Address = dataMap.get("Pickup_Address");
@@ -474,7 +475,31 @@ public class Partner_IntegrationSteps extends DriverBase {
                 log("I request " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", "I have requested " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", false);
 
             }
-        } catch (Exception e) {
+            else if (Site.equalsIgnoreCase("Equip-bid")) {
+                switch (Type) {
+                    case "Solo":
+                        action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+
+                        action.click(Page_Partner_Dashboard.Button_PickupClear());
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                        Thread.sleep(1000);
+                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                        Thread.sleep(2000);
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                        Thread.sleep(5000);
+                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+
+                        Thread.sleep(5000);
+                        action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                        break;
+                }
+                log("I request " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", "I have requested " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", false);
+
+            }
+                } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
@@ -575,8 +600,8 @@ public class Partner_IntegrationSteps extends DriverBase {
     @Then("^Delivery Status should be displayed correctly as \"([^\"]*)\"$")
     public void delivery_status_should_be_displayed_correctly_as_something(String status) throws Throwable {
         try {
-            String PickupDateTime = (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
-            String PickupDatewithoutTimezone = PickupDateTime.substring(0,PickupDateTime.length()-4);
+            String PickupDateTime = (String) cucumberContextManager.getScenarioContext("Schedule_Date_Time");
+            String PickupDatewithoutTimezone = PickupDateTime.substring(0,PickupDateTime.length()-6);
             String PickAddress = (String) cucumberContextManager.getScenarioContext("PickupAddress");
             String DropAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
             String EstimatedDistance = (String) cucumberContextManager.getScenarioContext("ESTIMATED_DISTANCE");

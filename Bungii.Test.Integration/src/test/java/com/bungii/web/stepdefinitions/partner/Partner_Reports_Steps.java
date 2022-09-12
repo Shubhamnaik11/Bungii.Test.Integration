@@ -4,6 +4,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.pages.partner.Partner_Done;
@@ -40,6 +41,8 @@ public class Partner_Reports_Steps extends DriverBase {
     Partner_Done Page_Partner_Done = new Partner_Done();
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
+
 
     @And("^I store the delivery details$")
     public void i_store_the_delivery_details() throws Throwable {
@@ -109,6 +112,10 @@ public class Partner_Reports_Steps extends DriverBase {
                 break;
             case "Today":
                 action.click(Page_Partner_Delivery.Link_ReportFilter(text));
+                break;
+            case "Sort City":
+                Thread.sleep(2000);
+                action.click(admin_DriverPage.Link_SortCity());
                 break;
         }
         log("I should be able to click on the" + text +" button","I could click on the" + text +" button",false);

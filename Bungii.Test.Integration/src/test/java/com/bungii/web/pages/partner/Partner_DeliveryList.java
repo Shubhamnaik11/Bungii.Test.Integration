@@ -17,6 +17,9 @@ public class Partner_DeliveryList extends PageBase {
     //Latest delivery record
     public WebElement Record1() { return findElement("//tr[@id='MUIDataTableBodyRow-0']",LocatorType.XPath);}
 
+    //Estimated delivery time on partner portal delivery details
+    public WebElement Text_DeliveryTime() {return findElement("//label[contains(text(),'ESTIMATED DELIVERY TIME')]/following-sibling::p",LocatorType.XPath);}
+
     //Delivery Details
     public WebElement Delivery_Details_Dashboard() { return findElement("//h2[contains(text(),'Delivery Details')]",LocatorType.XPath);}
 
@@ -39,7 +42,7 @@ public class Partner_DeliveryList extends PageBase {
     public WebElement Button_Ok__On_Delivery_Cancellation_Failed() { return findElement("//button[@class='btn btn btn-primary']",LocatorType.XPath);}
 
     //Close button on Trip Delivery Details
-    public WebElement Button_Close() { return findElement("//span[@class='modal-close']",LocatorType.XPath);}
+    public WebElement Button_Close() { return findElement("//h2[contains(text(),'Delivery Details')]/span",LocatorType.XPath);}
 
     //Cancel message
     public WebElement Message_Cancel_Trip() { return findElement("//p[@class='trip-Canceled-text']",LocatorType.XPath);}
@@ -70,6 +73,8 @@ public class Partner_DeliveryList extends PageBase {
 
     //Estimated Duration on Admin Portal
     public WebElement Text_Estimated_Duration() { return findElement("//td[contains(text(),'Estimated Duration')]/following-sibling::td[1]",LocatorType.XPath);}
+
+    public WebElement Text_EstimatedDeliveryTime() { return findElement("//td[contains(text(),'Estimated Delivery Time')]/following-sibling::td[1]",LocatorType.XPath);}
 
     public WebElement Row_DeliveryList(String scheduled_time, String customer) { return findElements(String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer),LocatorType.XPath).get(0);}
 

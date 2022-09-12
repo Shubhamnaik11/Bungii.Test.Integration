@@ -3,12 +3,15 @@ package com.bungii.ios.stepdefinitions.admin;
 import com.bungii.SetupManager;
 //import com.bungii.android.pages.admin.DriversPage;
 //import com.bungii.android.pages.admin.LiveTripsPage;
+import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.pages.admin.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -37,7 +40,8 @@ public class LiveTripsSteps extends DriverBase {
     ActionManager action = new ActionManager();
     DriversPage driversPage = new DriversPage();
     GeneralUtility utility = new GeneralUtility();
-
+    InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
+    Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
     @Then("^I select trip from live trips$")
     public void i_select_trip_from_live_trips() throws Throwable {
         try {
@@ -258,7 +262,9 @@ public class LiveTripsSteps extends DriverBase {
                 case "Manually End Bungii":
                     action.click(liveTripsPage.Link_ManuallyEndBungii());
                     break;
-
+                case "Referral history":
+                    action.click(liveTripsPage.Text_ReferralHistory());
+                    break;
 
             }
             log("I click on "+link+" link", "I clicked on "+link+" link", false);
@@ -483,5 +489,158 @@ public class LiveTripsSteps extends DriverBase {
                     true);
         }
         return geofenceName;
+    }
+    @And("^I change delivery type from \"([^\"]*)\"")
+    public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
+        try{
+            switch (radiobutton) {
+                case "Solo to Duo":
+                    action.click(admin_EditScheduledBungiiPage.RadioButton_Duo());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE","DUO");
+                    break;
+                case "Duo to Solo":
+                    action.click(admin_EditScheduledBungiiPage.RadioButton_Solo());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE","SOLO");
+                    break;
+            }
+            log("I change delivery type from  "+ radiobutton,
+                    "I changed delivery type from "+ radiobutton, false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^I check if \"([^\"]*)\" icon is displayed$")
+    public void i_check_if_something_icon_is_displayed(String icon) throws Throwable {
+        try{
+            switch (icon){
+                case "$":
+                    testStepAssert.isElementDisplayed(liveTripsPage.Icon_Referral(),
+                            "The referral icon $ should be displayed",
+                            "The referral icon $ is displayed",
+                            "The referral icon $ is not displayed");
+                    break;
+            }
+            log("I should be able to see the icon","I am able to see the icon",false);
+
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I verify the elements on driver referral page$")
+    public void i_verify_the_elements_on_driver_referral_page() throws Throwable {
+       try{
+            String expectedSubHeader= PropertyUtility.getMessage("subHeader.driver.referral.page");
+            testStepAssert.isEquals(liveTripsPage.Text_SubHeader().getText(),expectedSubHeader,
+                    "The sub-header should be displayed",
+                    "The sub-header is displayed",
+                    "The sub-header is not displayed");
+
+           String expectedInstructions= PropertyUtility.getMessage("message.driver.referral.page");
+           testStepAssert.isEquals(liveTripsPage.Text_Instructions().getText(),expectedInstructions,
+                   "The correct instructions should be displayed",
+                   "The correct instructions are displayed",
+                   "The correct instructions are not displayed");
+
+           testStepAssert.isElementDisplayed(liveTripsPage.Tab_ReferralCode(),
+                   "The referral code should be displayed",
+                   "The referral code is displayed",
+                   "The referral code is not displayed");
+
+           testStepAssert.isElementDisplayed(liveTripsPage.Text_TapToCopy(),
+                   "Tab to copy should be displayed",
+                   "Tab to copy is displayed",
+                   "Tab to copy is not displayed");
+
+           testStepAssert.isElementDisplayed(liveTripsPage.Button_Share(),
+                   "Share button should be displayed",
+                   "Share button is displayed",
+                   "Share button is not displayed");
+
+           testStepAssert.isElementDisplayed(liveTripsPage.Text_ShareToContacts(),
+                   "The tab Share to contacts should be displayed",
+                   "The tab Share to contacts is displayed",
+                   "The tab Share to contacts is not displayed");
+           testStepAssert.isElementDisplayed(liveTripsPage.Text_ShareOnMedia(),
+                   "The tab Share on social media should be displayed",
+                   "The tab Share on social media is displayed",
+                   "The tab Share on social media is not displayed");
+           testStepAssert.isElementDisplayed(liveTripsPage.Text_MoreInformation(),
+                   "The tab for more information should be displayed",
+                   "The tab for more information is displayed",
+                   "The tab for more information is not displayed");
+           testStepAssert.isElementDisplayed(liveTripsPage.Text_ReferralHistory(),
+                   "The tab for referral history should be displayed",
+                   "The tab for referral history is displayed",
+                   "The tab for referral history is not displayed");
+
+           String expectedFooter= PropertyUtility.getMessage("footer.driver.referral.page");
+           testStepAssert.isEquals(liveTripsPage.Text_Footer().getText(),expectedFooter,
+                   "The correct footer should be displayed",
+                   "The correct footer is displayed",
+                   "The correct footer is not displayed");
+
+       }
+       catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
+    @And("^I check if referral icon is not shown$")
+    public void i_check_if_referral_icon_is_not_shown() throws Throwable {
+       try{
+           testStepVerify.isElementNotDisplayed(liveTripsPage.Icon_Referral(true),
+                   "Referral icon should not be displayed",
+                   "Referral icon is not displayed",
+                   "Referral icon is displayed");
+       }
+       catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
+    @And("^I verify the elements of home page$")
+    public void i_verify_the_elements_of_home_page() throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(liveTripsPage.Tab_ReferralMessage(),
+                    "The tab containing referral instructions should be displayed on home page",
+                    "The tab containing referral instructions is displayed on home page",
+                    "The tab containing referral instructions is not displayed on home page");
+            testStepAssert.isElementDisplayed(liveTripsPage.Text_ReferralHeader(),
+                    "The referral header should be displayed on home page",
+                    "The referral header is displayed on home page",
+                    "The referral header is not displayed on home page");
+            testStepAssert.isElementDisplayed(liveTripsPage.Button_Invite(),
+                    "The invite button should be displayed on home page",
+                    "The invite button is displayed on home page",
+                    "The invite button is not displayed on home page");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^I check if the amount is updated on invite screen$")
+    public void i_check_if_the_amount_is_updated_on_invite_screen() throws Throwable {
+     try{
+         String newReferralAmount= (String) cucumberContextManager.getScenarioContext("NEW_REFERRAL_AMT");
+         testStepAssert.isElementDisplayed(liveTripsPage.Text_UpdatedSubHeader(newReferralAmount),
+                 "The referral amount should be updated on the invite screen",
+                 "The referral amount is updated on the invite screen",
+                 "The referral amount is not updated on the invite screen");
+     }
+     catch(Exception e){
+         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+         error("Step should be successful", "Error performing step,Please check logs for more details",
+                 true);
+     }
     }
 }

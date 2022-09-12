@@ -94,6 +94,10 @@ public class GeneralUtility extends DriverBase {
                  partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");
                  cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref"));
             }
+            else if (PP_Site.equalsIgnoreCase("Equip-bid")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.equip-bid.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.equip-bid.ref"));
+            }
         }
         return  partnerURL;
     }
@@ -121,7 +125,17 @@ public class GeneralUtility extends DriverBase {
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");
         return adminURL;
     }
-
+    public String GetBungiiUrl() {
+        String adminURL = null;
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("DEV"))
+            adminURL = PropertyUtility.getDataProperties("dev.bungii.url");
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS"))
+            adminURL = PropertyUtility.getDataProperties("qa.bungii.url");
+        if (environment.equalsIgnoreCase("STAGE"))
+            adminURL = PropertyUtility.getDataProperties("stage.bungii.url");
+        return adminURL;
+    }
     public String getCurrentUrl() throws InterruptedException {
 
         Thread.sleep(5000);
@@ -160,7 +174,16 @@ public class GeneralUtility extends DriverBase {
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
-
+    public void NavigateToAdminPortal() throws InterruptedException {
+        String adminURL = GetAdminUrl();
+        Thread.sleep(2000);
+        action.navigateTo(adminURL);
+    }
+    public void NavigateToBungiiPortal() throws InterruptedException {
+        String bungiiURL = GetBungiiUrl();
+        Thread.sleep(2000);
+        action.navigateTo(bungiiURL);
+    }
     public void AdminLoginFromPartner() throws InterruptedException {
         String adminURL = GetAdminUrl();
         Thread.sleep(2000);
@@ -1114,6 +1137,23 @@ public class GeneralUtility extends DriverBase {
         // Generate random integers in range 0 to 999
         int random_int = random.nextInt(1000);
         return random_int;
+    }
+    public void calculateEstDeliveryTime(int minutes, java.sql.Time timeValue){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(timeValue);
+        calendar.add(Calendar.MINUTE, minutes);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 5;
+        calendar.add(Calendar.MINUTE, (5 - mod));
+        calendar.add(Calendar.MINUTE,-60);
+        String lowerRangeTime=String.valueOf(calendar.getTime());
+        calendar.add(Calendar.MINUTE,120);
+        String upperRangeTime=String.valueOf(calendar.getTime());
+
+        String estimateLowerRange=lowerRangeTime.substring(11,16);
+        cucumberContextManager.setScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME",estimateLowerRange);
+        String estimateUpperRange=upperRangeTime.substring(11,16);
+        cucumberContextManager.setScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME",estimateUpperRange);
     }
 }
 

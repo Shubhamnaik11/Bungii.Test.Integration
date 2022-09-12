@@ -4,7 +4,6 @@ Feature: Admin_Revival
   Background:
 	Given I am logged in as Admin
 
-	 @testing
   @regression
   Scenario: Verify Admin can cancel the Revived Delivery
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -21,6 +20,9 @@ Feature: Admin_Revival
 	Then Revive button should be displayed beside the trip
 	When I click on "Revive" button
 	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+	And I should see "Customer" details on review popup
+	And I should not see "Pickup Origin" on review popup
+	And "Confirm" and "Cancel" buttons should have background color "blue" and "white" respectively
 	When I click on "Confirm" button on Revival Popup
 	And I wait for 2 minutes
 	And I view the all Scheduled Deliveries list on the admin portal
@@ -37,7 +39,6 @@ Feature: Admin_Revival
 	When I view the Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
 
- @testing
   @regression
 	  #stable
   Scenario: Verify Admin can Assign driver and assigned driver can complete the Revived Delivery

@@ -215,7 +215,19 @@ public class ActionManager {
                 true);
     }
     }
+    public void Hover(WebElement element) {
+        try{
+            Actions action = new Actions(SetupManager.getDriver());
+            action.moveToElement(element).build().perform();
+            logger.detail("Hover on element by locator" + getElementDetails(element));
 
+        }  catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to Hover on element -> " + getElementDetails(element) ,
+                    true);
+        }
+    }
     public void JavaScriptScrolldown(){
         JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
         executor.executeScript("window.scrollBy(0,200)","");
@@ -405,5 +417,18 @@ catch(Exception ex)
     public void switchToTab(int tab) {
         ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
         SetupManager.getDriver().switchTo().window(tabs.get(tab));
+    }
+
+    public String getCssBackgroundColor(WebElement element) {
+        try {
+            String backgroundColor = element.getCssValue("background-color");
+            logger.detail("Background color value  is  " + backgroundColor );
+            return  backgroundColor;
+        } catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to fetch background color",
+                    true);
+            return "Unable to fetch background color";
+        }
     }
 }

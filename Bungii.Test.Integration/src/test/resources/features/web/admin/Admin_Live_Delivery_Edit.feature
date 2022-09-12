@@ -89,7 +89,7 @@ Feature: Admin_Live_Delivery_Edit
       And Delivery price is recalculated based on updated value of drop off address
 
     #CORE-3257
-    @ready
+  @regression
     Scenario Outline:Verify that admin user is able to cancel customer live delivery with <TripStatus> status
       When I request "Solo Scheduled" Bungii as a customer in "nashville" geofence
         | Bungii Time   | Customer Phone  | Customer Name |
@@ -142,12 +142,26 @@ Feature: Admin_Live_Delivery_Edit
     Then The "Pick up has been successfully canceled." message should be displayed for live delivery
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Driver Canceled" state
+    #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery Canceled on Live deliveries
+    When I navigate to "Partner" portal configured for "normal" URL
+    And I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "be logged in"
+    And I click "Track Deliveries" button on Partner Portal
+    And I select "Check / uncheck all" option from the filter
+    And I select "Canceled" option from the filter
+    And I click on "Apply" button
+    When I click on the delivery based on customer name
+    And I get time stamp for "Admin Cancelled" delivery step
+    Then The admin "Cancelled" delivery should be highlighted in partner portal delivery details page
+
+
 
     Examples:
       |DriverStatus        |CustomerPhone|CustomerName                        |DriverName                              |TripStatus  |
       |Enroute             |9999999150   |Testcustomertywd_appleNewRY Customer|Testdrivertywd_appleks_a_drvaa Kansas_aa|Trip Started|
 
-  @ready
+  @regression
   Scenario Outline:Verify that admin user is able to mark customer live delivery complete with <TripStatus> status
     When I request "Solo Scheduled" Bungii as a customer in "nashville" geofence
       | Bungii Time   | Customer Phone  | Customer Name |
@@ -206,6 +220,22 @@ Feature: Admin_Live_Delivery_Edit
     Then The "Pick up has been successfully updated." message should be displayed for live delivery
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
+
+    #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Live deliveries
+    When I navigate to "Partner" portal configured for "normal" URL
+    And I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "be logged in"
+    And I click "Track Deliveries" button on Partner Portal
+    And I select "Check / uncheck all" option from the filter
+    And I click on "Apply" button
+    And I select "Check / uncheck all" option from the filter
+    And I click on "Apply" button
+    And I select "Completed" option from the filter
+    And I click on "Apply" button
+    When I click on the delivery based on customer name
+    And I get time stamp for "Admin Completed" delivery step
+    Then The admin "Completed" delivery should be highlighted in partner portal delivery details page
 
 
     Examples:
