@@ -1515,7 +1515,7 @@ try{
          if(!Driver_Name.isEmpty()) {
              Driver_Licence_Plate = PropertyUtility.getDataProperties("email.driver.LicencePlate");
          }
-         
+
          String Items_To_Deliver = (String) cucumberContextManager.getScenarioContext("Item_Name");
          String Pickup_Contact_Name = (String) cucumberContextManager.getScenarioContext("PickupContactName");
          String Pickup_Contact_Phone = (String) cucumberContextManager.getScenarioContext("PickupContactPhone");
@@ -2902,6 +2902,18 @@ try{
 
     @Then("^The driver having status \"([^\"]*)\" should not be present in active driver map$")
     public void the_driver_having_status_something_should_not_be_present_in_active_driver_map(String strArg1) throws Throwable {
+        Thread.sleep(12000);
+        String expectedDriversName = (String) cucumberContextManager.getScenarioContext("DRIVER");
+        List <WebElement> allDrivers = admin_Driverspage.List_AllDriversInActiveMap();
+        for(WebElement name:allDrivers){
+            if(name.getText().contentEquals(expectedDriversName)) {
+                System.out.println("Step should fail");
+                testStepAssert.isFail("Driver " + name.getText() + " is present in the list of all drivers");
+                break;
+            }
+        }
+        testStepAssert.isTrue(true,"Driver "+allDrivers+" should not be  present in the list of all drivers","Driver "+allDrivers+" is not present in the list of all drivers",
+                "Driver "+allDrivers+" is present in the list of all drivers");
 
-    }
+}
 }
