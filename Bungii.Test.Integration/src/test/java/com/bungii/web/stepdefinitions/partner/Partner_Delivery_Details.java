@@ -889,6 +889,7 @@ public class Partner_Delivery_Details extends DriverBase {
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Icon_DriverPosition()),"Drivers current location icon should be displayed","Drivers current location icon is displayed","Drivers current location icon is not displayed");
                     String kansasDriver1Name= action.getText(admin_DriverPage.Text_DriverName());
                     testStepAssert.isEquals(kansasDriver1Name,element,"The Driver name "+element+" should be displayed","The Driver name "+kansasDriver1Name+" is displayed","The Driver name  "+element+" should be displayed");
+                    Thread.sleep(3000);
                     break;
                 case "Driver Status":
                     action.JavaScriptScrolldown();

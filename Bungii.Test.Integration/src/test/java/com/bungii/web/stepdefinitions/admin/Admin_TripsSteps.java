@@ -63,6 +63,7 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
     Partner_Done Page_Partner_Done = new Partner_Done();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_DriversPage admin_Driverspage = new Admin_DriversPage();
 
 
     @And("^I view the Customer list on the admin portal$")
@@ -2681,6 +2682,14 @@ try{
                         "Issue refund button is not displayed",
                         "Issue refund button is displayed");
                 break;
+            case "Testdrivertywd_appleks_a_drvbd Kansas_bd":
+            case "Testdrivertywd_appleks_a_drvbc Kansas_bc":
+                Thread.sleep(4000);
+                testStepAssert.isNotElementDisplayed(admin_DriverPage.Text_DriverName(true),
+                        "Driver Name should not be displayed",
+                        "Driver Name is not displayed",
+                        "Driver Name is displayed");
+                break;
         }
     }    catch(Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -2853,10 +2862,19 @@ try{
         action.clearSendKeys(admin_DriverPage.TextBox_DriverStatusChangeComment(),"For Testing");
     }
 
-    @And("^I change the drivers emails address to \"([^\"]*)\"$")
-    public void i_change_the_drivers_emails_address_to_something(String email) throws Throwable {
-        Thread.sleep(2000);
-        action.clearSendKeys(admin_DriverPage.TextBox_DriverEmail(),email);
+    @When("^I select a driver \"([^\"]*)\" whose status is \"([^\"]*)\"$")
+    public void i_select_a_driver_something_whose_status_is_something(String driverName, String driverStatus) throws Throwable {
+        Thread.sleep(3000);
+        action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(),driverName+ Keys.ENTER);
+        cucumberContextManager.setScenarioContext("DRIVER",driverName);
+        Thread.sleep(3000);
+        String statusOfDriver = action.getText(admin_DriverPage.Text_DriverApplicationStatus());
+        testStepAssert.isEquals(statusOfDriver,driverStatus,"The driver application should be "+driverStatus ,"The driver application is "+driverStatus,"The driver application is not "+driverStatus);
     }
 
+
+    @Then("^The driver having status \"([^\"]*)\" should not be present in active driver map$")
+    public void the_driver_having_status_something_should_not_be_present_in_active_driver_map(String strArg1) throws Throwable {
+
+    }
 }

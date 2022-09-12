@@ -55,7 +55,7 @@ public class Admin_DriversPage extends PageBase {
     public WebElement Checkbox_PickupTruck() {return findElement("chkVehicleType-1",LocatorType.Id);}
     public WebElement Checkbox_SUV() {return findElement("chkVehicleType-4",LocatorType.Id);}
 
-    public WebElement Text_DriverName() {return findElement("//div[@id=\"driverList\"]/div",LocatorType.XPath);}
+    public WebElement Text_DriverName(boolean...IgnoreException) {return findElement("//div[@id=\"driverList\"]/div",LocatorType.XPath,IgnoreException);}
     public WebElement Icon_DriverPosition() {return findElement("//div[@id=\"driverList\"]/div/span/img",LocatorType.XPath);}
 
     public WebElement Label_DriverStatus() {return findElement("//div/h4[text()=\"Driver Status\"]",LocatorType.XPath);}
@@ -63,5 +63,13 @@ public class Admin_DriversPage extends PageBase {
     public WebElement TextBox_DriverStatusChangeComment() {return findElement("Comments",LocatorType.Id);}
 
     public WebElement TextBox_DriverEmail() {return findElement("EmailAddress",LocatorType.Id);}
+
+    public WebElement Button_ConfirmDriverStatusChange() {return findElement("//div[1]/div/div/div/button[@id='btnagree']",LocatorType.XPath);}
+
+    public WebElement Button_OkDriverStatusChange() {return findElement("btnDriverStatusChangeOK",LocatorType.Id);}
+
+    public WebElement Text_DriverApplicationStatus() {return findElement("//div/table/tbody/tr/td[8]",LocatorType.XPath);}
+
+    public List<WebElement> List_AllDriversInActiveMap() {return findElements("//div[@id=\"driverList\"]/div",LocatorType.XPath);}
 
 }

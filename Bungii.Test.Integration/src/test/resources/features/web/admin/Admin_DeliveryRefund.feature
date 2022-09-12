@@ -523,19 +523,23 @@ Feature: Admin_Refund
 		And I click on the "Select Geofence" dropdown
 		And I Enter the text "Kansas"
 		When I click on the "Kansas" checkbox
+		And I wait for 1 minutes
 		When I select filter "Vehicle Type" as "Box Truck"
 		And I click on Apply button on Filter
 		Then The "Testdrivertywd_appleks_a_drval Kansas_al" "Driver name" should be displayed
 #		And I verify the details for driver "lol"
 		When I select filter "Vehicle Type" as "Box Truck"
+		And I click on Apply button on Filter
 		When I select filter "Vehicle Type" as "Moving Van"
 		And I click on Apply button on Filter
 		Then The "Testdrivertywd_appleks_a_drvam Kansas_am" "Driver name" should be displayed
 		When I select filter "Vehicle Type" as "Moving Van"
+		And I click on Apply button on Filter
 		When I select filter "Vehicle Type" as "Pickup Truck"
 		And I click on Apply button on Filter
 		Then The "Testdrivertywd_appleks_a_drvbc Kansas_bc" "Driver name" should be displayed
 		When I select filter "Vehicle Type" as "Pickup Truck"
+		And I click on Apply button on Filter
 		When I select filter "Vehicle Type" as "SUV"
 		And I click on Apply button on Filter
 		Then The "Testdrivertywd_appleks_a_drvbd Kansas_bd" "Driver name" should be displayed
@@ -545,9 +549,19 @@ Feature: Admin_Refund
 		And I edit the Driver
 		Then The "Driver Status" "Label" should be displayed
 		And I change the driver status to "Inactive"
-		And I confirm the "Driver Status Change" action
-		And I change the drivers emails address to "bungiiauto@gmail.com"
-        And I click on "Save Driver Details" button
+		And I confirm the "Confirm" action
+		And I click on "OK Driver status change" button
+        And I click on the "Driver" link from the sidebar
+        When I search driver "Testdrivertywd_appleks_a_drvbc Kansas_bc"
+        And I click on "Profile" icon
+        And I edit the Driver
+        Then The "Driver Status" "Label" should be displayed
+        And I change the driver status to "Suspended"
+        And I confirm the "Confirm" action
+        And I click on "OK Driver status change" button
+
+#		And I change the drivers emails address to "bungiiauto@gmail.com"
+#        And I click on "Save Driver Details" button
 		And I wait for 1 minutes
 		And I click on the "Driver" link from the sidebar
 		And I click on the "Active Driver Map" link from the sidebar
@@ -557,5 +571,23 @@ Feature: Admin_Refund
 		And I click on the "Select Geofence" dropdown
 		And I Enter the text "Kansas"
 		When I click on the "Kansas" checkbox
+		And I wait for 1 minutes
 		When I select filter "Vehicle Type" as "SUV"
 		And I click on Apply button on Filter
+        Then The "Testdrivertywd_appleks_a_drvbd Kansas_bd" "Driver name" should not be displayed
+        When I select filter "Vehicle Type" as "SUV"
+        And I click on Apply button on Filter
+        When I select filter "Vehicle Type" as "Pickup Truck"
+        And I click on Apply button on Filter
+        Then The "Testdrivertywd_appleks_a_drvbc Kansas_bc" "Driver name" should not be displayed
+        And I click on the "Driver" link from the sidebar
+        When I select a driver "Adam Buckmaster" whose status is "New Application"
+       And I click on the "Active Driver Map" link from the sidebar
+       When I clear the filter applied
+       And I "Unselect" all the "Equipment" checkboxes from the filter
+       And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+       And I click on the "Select Geofence" dropdown
+       And I Enter the text "Kansas"
+       When I click on the "Kansas" checkbox
+       And I wait for 1 minutes
+       Then The driver having status "New Application" should not be present in active driver map
