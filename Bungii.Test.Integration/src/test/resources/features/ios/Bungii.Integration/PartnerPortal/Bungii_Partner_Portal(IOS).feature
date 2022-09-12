@@ -499,3 +499,97 @@ Feature: Partner Portal Cases integration with IOS
     And I open the trip for "Testcustomertywd_appleMarkCQ LutherCQ" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then "Customer Help" icon should be displayed in all deliveries details page
+
+#    Core-2291: Verify Mileage and Pricing on admin edit pickup address in Loading/Driving to drop off status- Solo Fixed Pricing
+  @ready
+  Scenario: Verify Mileage and Pricing on admin edit pickup address in Loading/Driving to drop off status- Solo Fixed Pricing
+    When I request Partner Portal "Solo" Trip for "Biglots" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |atlanta  | NEXT_POSSIBLE | 8877661110 | Testcustomertywd_appleMarkDG LutherDG|
+    And As a driver "Testdrivertywd_applega_a_steveE Stark_altOnEE" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted      |
+    And I get the old values of pickup and drop off
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I enter phoneNumber :9049840081 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii for "floor and decor"
+    And I slide update button on "EN ROUTE" Screen
+    And I click on "GOT IT" button
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkDG LutherDG" the customer
+    And I click on "Edit" link beside live delivery
+    And I Select "Edit Trip Details" option
+    And I edit the pickup address
+    Then I change the pickup address to "The Punchline Comedy Club"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+    When I click on "CLOSE" button
+    And I wait for "2" mins
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_appleMarkDG LutherDG" customer for delivery details
+    Then I check if miles are updated for "pick-up" in "Loading"
+    Then I check if correct "customer price-loading" is displayed on delivery details
+
+#  Core-2291: Verify Mileage and Pricing on admin edit drop off address in Driving to drop off status- Solo Weight Based
+  @ready
+  Scenario: Verify Mileage and Pricing on admin edit drop off address in Unloading status- Solo Weight Based
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |washingtondc| NEXT_POSSIBLE | 8877661111 | Testcustomertywd_BppleMarkDH LutherDH|
+    And I get the old values of pickup and drop off
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I enter phoneNumber :9766000001 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii for "floor and decor"
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    Then Bungii driver should see "Pickup instructions"
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then Bungii driver should see "Drop-off instructions"
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_BppleMarkDH LutherDH" the customer
+    And I click on "Edit" link beside live delivery
+    And I Select "Edit Trip Details" option
+    And I edit the drop off address
+    Then I change the drop off address to "14800 Carrs Mill Road, Woodbine"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    Then the "Bungii Saved!" message is displayed
+    When I click on "CLOSE" button
+    And I wait for "2" mins
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_BppleMarkDH LutherDH" customer for delivery details
+    Then I check if miles are updated for "drop-off" in "driving to dropoff"
+    Then I check if correct "customer price-driving to dropoff" is displayed on delivery details

@@ -115,6 +115,34 @@ public class GoogleMaps {
         ApiHelper.genericResponseValidation(response,RequestText);
         return  getMilesData(response);
     }
+    public String getMilesWithLatLong(String[] dropCoordinate, String[] stackPickupCoordinate) {
+        Date date= new Date();
+        long epoch = date.getTime();
+        String strOrigins = dropCoordinate[0]+","+dropCoordinate[1];
+        String strDestinations = stackPickupCoordinate[0]+","+stackPickupCoordinate[1];
+        Map<String, String> data = new HashedMap();
+        String RequestText="API REQUEST : Get Distance : "+ DISTANCE_MATRIX_API;
+
+        Response response =given()//.log().all()
+                .header("User-Agent", "okhttp/3.4.1")
+                .header("Content-Type", "x-www-form-urlencoded")
+                .header("Accept-Encoding", "gzip")
+                .urlEncodingEnabled(true)
+                .contentType("x-www-form-urlencoded")
+                .param("units", "imperial")
+                .param("origins", strOrigins)
+                .param("destinations", strDestinations)
+
+                .param("key", "AIzaSyD5z-ZpO46vNQIXTGeNYJSIy9vvlR-ViQI")
+                .param("departure_time", String.valueOf(epoch))
+                .param("traffic_model","best_guess")
+                .param("mode","driving")
+                .when()
+                .get(DISTANCE_MATRIX_API);
+
+        ApiHelper.genericResponseValidation(response,RequestText);
+        return  getMilesData(response);
+    }
     public String getMilesData(Response response){
         String distance= "";
         JsonPath jsonPathEvaluator = response.jsonPath();

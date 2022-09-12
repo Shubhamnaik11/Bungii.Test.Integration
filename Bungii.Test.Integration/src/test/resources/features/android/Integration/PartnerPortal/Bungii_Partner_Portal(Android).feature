@@ -52,6 +52,7 @@
 
 #  Core-2638: Verify the changed Driver cut is reflected in driver app
     @ready
+#      @testsweta
     Scenario: Verify the changed Driver cut is reflected in driver app
       When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -79,6 +80,30 @@
       And I am logged in as "Testdrivertywd_appledc_a_drvC WashingtonC" driver
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       Then I check if driver cut is reflected
+#     Core-2291: Verify Price override Prices is retained on admin edit address for Live trips post price override- weight based partner
+      And I Select Trip from driver scheduled trip
+      And I start selected Bungii for "floor and decor"
+      Then Bungii driver should see "General Instructions"
+      And I slide update button on "EN ROUTE" Screen
+
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "live trips" from admin sidebar
+      And I select the live trip for "Testcustomertywd_appleNewRB Customer" customer
+      And I Select "Edit Trip Details" option
+      And I edit the drop off address
+      Then I change the drop off address to "3315 Shepherd Street, Chevy Chase, Maryland"
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      Then the "Bungii Saved!" message is displayed
+      When I click on "Close" button
+      And I get the new pickup reference generated
+      And I wait for "2" mins
+      And I Select "live trips" from admin sidebar
+      And I select the live trip for "Testcustomertywd_appleNewRB Customer" customer for delivery details
+      Then I check price override prices are retained on admin edit address
 
   #  Core-2569: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
     @ready
