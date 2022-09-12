@@ -22,6 +22,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
@@ -40,29 +42,29 @@ public class Partner_TrackingIdSteps extends DriverBase {
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_LiveTripsPage admin_LiveTripsPage = new Admin_LiveTripsPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+
     @Given("^I'm logged into \"([^\"]*)\" portal and  created a new  delivery$")
-    public void im_logged_into_something_portal_and_created_a_new_delivery(String strArg1) throws Throwable {
+    public void im_logged_into_something_portal_and_created_a_new_delivery(String strArg1,DataTable data) throws Throwable {
         try {
             //Login
-            String partnerUrl =  utility.NavigateToPartnerLogin("normal");
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            //String partnerUrl =  utility.NavigateToPartnerLogin("normal");
             action.clearSendKeys(Page_Partner_Login.TextBox_PartnerLogin_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
             action.click(Page_Partner_Login.Button_Sign_In());
             testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Start_Over()), PropertyUtility.getMessage("Start_Over_Header"));
-
-
 
             // pickup Address , delivery address , load time
             action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
             action.click(Page_Partner_Dashboard.Button_PickupClear());
             action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), "601 13th Street Northwest, Washington, United States, District of Columbia, 20005 " + Keys.TAB);
+            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), dataMap.get("PickupAddress") + Keys.TAB);
             action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
             Thread.sleep(3000);
             action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
             Thread.sleep(5000);
             action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), "234 13th Street Northeast, Washington, District of Columbia 20002" + Keys.TAB);
+            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), dataMap.get("DropdownAddress") + Keys.TAB);
             Thread.sleep(3000);
             action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
             Thread.sleep(5000);
@@ -78,15 +80,21 @@ public class Partner_TrackingIdSteps extends DriverBase {
 
 
             //Delivery Details
-            action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), "Furniture");
-            action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), "Test");
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), dataMap.get("ItemToDelivery"));
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), dataMap.get("CustomerName"));
             action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
 
 
-            action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), "9998887777");
-            action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), "Test Pickup");
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(),dataMap.get("CustomerMobile"));
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(),dataMap.get("PickupContactName"));
             action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
-            action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), "9999999359");
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(),dataMap.get("PickupContactMobile"));
+            String receiptNum = dataMap.get("ReceiptNumber")+ ThreadLocalRandom.current().nextInt();
+            action.clearSendKeys(Page_Partner_Delivery.TextBox_Receipt_Number(),receiptNum);
+            cucumberContextManager.setScenarioContext("Receipt_Number",receiptNum);
+            String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+            cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
+
             action.click(Page_Partner_Delivery.Radio_Button_Customer_Card());
             Thread.sleep(5000);
 
@@ -121,7 +129,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
             testStepVerify.isEquals(action.getText(Page_Partner_Done.Text_Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
 
             Thread.sleep(2000);
-
+            String abc = action.getText(Page_Partner_Dashboard.Text_Summary_TrackingId());
             cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY", action.getText(Page_Partner_Dashboard.Text_Summary_TrackingId()));
             testStepAssert.isTrue(cucumberContextManager.getScenarioContext("TRACKINGID_SUMMARY").toString().length()>0,"Tracking ID should be displayed","Tracking ID is displayed","Tracking ID is not displayed");
 
@@ -156,15 +164,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
             Thread.sleep(2000);
         action.click(Page_Partner_Done.Dropdown_Setting());
         action.click(Page_Partner_Done.Button_Track_Deliveries());
-        Thread.sleep(5000);
-        String  columnTracking = "TRACKING ID";
-        cucumberContextManager.setScenarioContext("TRACKINGID_COLUMN", action.getText(Page_Partner_Dashboard.Text_TrackingId_Column()));
-        testStepAssert.isEquals((String) cucumberContextManager.getScenarioContext("TRACKINGID_COLUMN"),columnTracking,"Tracking ID column should  exist","Tracking ID column exists","Tracking Id column doesnt exist");
 
-        cucumberContextManager.setScenarioContext("PARTNER_CUSTOMERNAME",action.getText(Page_Partner_Dashboard.Text_Trip_Customer()));
-        cucumberContextManager.setScenarioContext("PARTNER_TRACKINGID", action.getText(Page_Partner_Dashboard.Text_Trip_TrackingId()));
-        cucumberContextManager.setScenarioContext("DELIVERY_ADDRESS", action.getText(Page_Partner_Dashboard.Text_Trip_DeliveryAddress()).replace(",", ""));
-        Thread.sleep(2000);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -172,14 +172,58 @@ public class Partner_TrackingIdSteps extends DriverBase {
     }
     }
 
-    @And("^I search the trip using a correct tracking id$")
-    public void i_search_the_trip_using_a_correct_tracking_id() throws Throwable {
+    @And("^I search the delivery using a correct \"([^\"]*)\"$")
+    public void i_search_the_delivery_using_a_correct_search_value(String searchBy) throws Throwable {
         try {
-            action.click(Page_Partner_Dashboard.Textbox_SearchBar());
-            Thread.sleep(1000);
-            action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), (String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
-            log("I should be able to search the delivery using a correct tracking id",
-                    "I could search the delivery using a correct tracking id", false);
+            switch (searchBy.toLowerCase()) {
+                case "tracking id":
+                    action.click(Page_Partner_Dashboard.Textbox_SearchBar());
+                    Thread.sleep(1000);
+                    action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), (String) cucumberContextManager.getScenarioContext("TRACKINGID_SUMMARY") + Keys.ENTER);
+
+                    Thread.sleep(5000);
+                    String columnTracking = "BUNGII TRACKING ID";
+                    cucumberContextManager.setScenarioContext("TRACKINGID_COLUMN", action.getText(Page_Partner_Dashboard.Text_TrackingId_Column()));
+                    testStepAssert.isEquals((String) cucumberContextManager.getScenarioContext("TRACKINGID_COLUMN"), columnTracking, "Tracking ID column should  exist", "Tracking ID column exists", "Tracking Id column doesnt exist");
+
+                    cucumberContextManager.setScenarioContext("PARTNER_CUSTOMERNAME", action.getText(Page_Partner_Dashboard.Text_Trip_Customer()));
+                    cucumberContextManager.setScenarioContext("PARTNER_TRACKINGID", action.getText(Page_Partner_Dashboard.Text_Trip_TrackingId()));
+                    cucumberContextManager.setScenarioContext("DELIVERY_ADDRESS", action.getText(Page_Partner_Dashboard.Text_Trip_DeliveryAddress()).replace(",", ""));
+                    break;
+                case "receipt number":
+                    action.click(Page_Partner_Dashboard.Textbox_SearchBar());
+                    Thread.sleep(1000);
+                    action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), (String) cucumberContextManager.getScenarioContext("Receipt_Number") + Keys.ENTER);
+
+                    Thread.sleep(5000);
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.HeaderText_ReceiptNumber()), "RECEIPT NUMBER", "Receipt Number column should be shown.", "Receipt Number column is shown.", "Receipt Number column is not shown.");
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.TextValue_ReceiptNumber()), (String) cucumberContextManager.getScenarioContext("Receipt_Number"), "Correct value of receipt number should be shown.", "Correct value of receipt number is shown.", "Wrong value of receipt number is shown.");
+                    break;
+            }
+                log("I should be able to search the delivery using a correct "+searchBy,
+                        "I could search the delivery using a correct "+searchBy, false);
+
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I search the delivery using a incorrect \"([^\"]*)\"$")
+    public void i_search_the_delivery_using_a_incorrect_search_value(String searchBy) throws Throwable {
+        try {
+            switch (searchBy.toLowerCase()) {
+                case "receipt number":
+                    action.click(Page_Partner_Dashboard.Textbox_SearchBar());
+                    Thread.sleep(1000);
+                    action.clearSendKeys(Page_Partner_Dashboard.Textbox_SearchBar(), (String) cucumberContextManager.getScenarioContext("Receipt_Number")+123+ Keys.ENTER);
+
+                    break;
+            }
+            log("I shouldn't be able to search the delivery using a incorrect "+searchBy,
+                    "I couldn't search the delivery using a incorrect "+searchBy, false);
+
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -192,7 +236,10 @@ public class Partner_TrackingIdSteps extends DriverBase {
         try{
         Thread.sleep(5000);
          testStepAssert.isEquals((String)cucumberContextManager.getScenarioContext("TRACKINGID_SUMMARY"), (String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID"),"Tracking ID should match the expected data","Tracking ID matches the expected data","Tracking ID doesnt match the expected data");
-         testStepAssert.isEquals((String) cucumberContextManager.getScenarioContext("DELIVERY_SUMMARY"),(String) cucumberContextManager.getScenarioContext("DELIVERY_ADDRESS"),"Delivery Address should match the expected data","Delivery Address matches the expected data","Delivery Address doesnt match the expected data");
+         String expectedDeliveryAddress = (String) cucumberContextManager.getScenarioContext("DELIVERY_SUMMARY");
+         String actualDeliveryAddress = (String) cucumberContextManager.getScenarioContext("DELIVERY_ADDRESS");
+         actualDeliveryAddress.contains(expectedDeliveryAddress);
+         testStepVerify.contains(actualDeliveryAddress,expectedDeliveryAddress,"Delivery Address should match the expected data","Delivery Address matches the expected data","Delivery Address doesnt match the expected data");
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -305,6 +352,14 @@ public class Partner_TrackingIdSteps extends DriverBase {
                     break;
                 case "Edit":
                     action.click(admin_EditScheduledBungiiPage.Button_Edit());
+                    break;
+                case "Change Payment status":
+                    Thread.sleep(2000);
+                    testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.Link_ChangePaymentStatus()),
+                            "Change payment status link should be displayed",
+                            "Change payment status link is displayed",
+                            "Change payment status link is not displayed");
+                    action.click(admin_TripsPage.Link_ChangePaymentStatus());
                     break;
             }
         log("I should be able to click on the "+ buttonText+" button from the dropdown","I could  click on the  "+ buttonText+"  button from the dropdown",false);
@@ -450,7 +505,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
         try {
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_Edit_dropOfflocationAddress(),"Fort Lesley J. McNair, Washington, District of Columbia, 20024");
         action.click(admin_ScheduledTripsPage.Text_SelectAdd());
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         cucumberContextManager.setScenarioContext("NEW_DROPOFF_ADDRESS",action.getText(admin_ScheduledTripsPage.Text_NewDropoffAddress()));
         action.click(admin_ScheduledTripsPage.Button_Edit_Verify());
         action.click(admin_ScheduledTripsPage.Button_Edit_Save());
@@ -500,7 +555,8 @@ public class Partner_TrackingIdSteps extends DriverBase {
         try {
         Thread.sleep(2000);
         cucumberContextManager.setScenarioContext("DELIVERY_ADDRESS", action.getText(Page_Partner_Dashboard.Text_Trip_DeliveryAddress()));
-        testStepAssert.isEquals((String) cucumberContextManager.getScenarioContext("DELIVERY_ADDRESS").toString().replace(",",""),(String) cucumberContextManager.getScenarioContext("NEW_DROPOFF_ADDRESS").toString().replace(",",""),"Delivery addresse's should match","Delivery addresse's  match","Delivery addresse's dont match");
+        //testStepAssert.isEquals((String) cucumberContextManager.getScenarioContext("DELIVERY_ADDRESS").toString().replace(",",""),(String) cucumberContextManager.getScenarioContext("NEW_DROPOFF_ADDRESS").toString().replace(",",""),"Delivery addresse's should match","Delivery addresse's  match","Delivery addresse's dont match");
+        testStepVerify.contains((String) cucumberContextManager.getScenarioContext("DELIVERY_ADDRESS").toString().replace(",",""),(String) cucumberContextManager.getScenarioContext("NEW_DROPOFF_ADDRESS").toString().replace(",",""),"Delivery addresse's should match","Delivery addresse's  match","Delivery addresse's dont match");
         ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
         Thread.sleep(2000);
         SetupManager.getDriver().switchTo().window(tabs.get(1));
@@ -528,5 +584,49 @@ public class Partner_TrackingIdSteps extends DriverBase {
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+
+    @Then("I should see the delivery Details with {string}")
+    public void iShouldSeeTheDeliveryDetailsWith(String searchBy) {
+        try{
+            String actualReceipt = action.getText(Page_Partner_Dashboard.TextValue_ReceiptNumber());
+            String expectedReceipt = (String) cucumberContextManager.getScenarioContext("Receipt_Number");
+            testStepAssert.isEquals(actualReceipt,expectedReceipt,"Delivery with "+searchBy+"should be shown.","Delivery with "+searchBy+" is shown.","Delivery with "+searchBy+" is not shown.");
+
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I open the search delivery")
+    public void iOpenTheSearchDelivery() {
+        try{
+                action.click(Page_Partner_Dashboard.FirstRowData());
+                log("Delivery should get open.","Delivery get open.",false);
+
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I should see the below trip status for search trip on partner portal")
+    public void iShouldSeeTheBelowTripStatusForSearchTripOnPartnerPortal(DataTable data) {
+        try {
+
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String expectedStatus = dataMap.get("Partner_Status").trim();
+            String actualStatus = action.getText(Page_Partner_Dashboard.Text_DeliveryStatus());
+            testStepVerify.isEquals(actualStatus,expectedStatus);
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 }

@@ -714,3 +714,191 @@ Feature: Admin_Trips
     When I click on "OK" button
     And I wait for 1 minutes
     And The amount should be "Refunded" and in "voided" state
+
+    #CORE-2584:To verify the customer duo delivery marked as Payment successful from payment unsuccessful
+  @ready
+  Scenario:To verify the customer duo delivery marked as Payment successful from payment unsuccessful
+    When I request "Duo" Bungii as a customer in "phoenix" geofence
+      | Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
+      |  3_DAY_LATER | 8877661100     | Testcustomertywd_appleMarkCW LutherCW| Cci12345          |
+    And As a driver "Testdrivertywd_appleph_a_drvaw Phoenix_aw" and "Testdrivertywd_appleph_a_drvax Phoenix_ax" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    And I wait for 2 minutes
+    When I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The timezone should be "MST-Phoenix" on "Scheduled Deliveries" page
+    When I click on the "Edit" button from the dropdown
+    And I click on "Remove driver(s) and re-search" radiobutton
+    And I select the first driver
+    And I click on "Remove Driver" button
+    And I click on "Research" button
+    Then Pickup should be unassigned from the driver
+    And I wait for 2 minutes
+    And I get the new pickup reference generated
+    When I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then I should see the trip scheduled for "3" days ahead
+    When I click on the "Edit" button from the dropdown
+    And I click on "Edit Trip Details" radiobutton
+    And I change the trip delivery date to "0" days ahead from today
+    And I select reason as "Partner initiated"
+    And I click on "Add Driver" and add "Testdrivertywd_appleph_a_drvay Phoenix_ay" driver
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    And I wait for 2 minutes
+    And I get the new pickup reference generated
+    When I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    And The scheduled trip date should be changed to the new date
+    When As a driver "Testdrivertywd_appleph_a_drvax Phoenix_ax" and "Testdrivertywd_appleph_a_drvay Phoenix_ay" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Enroute       | Enroute       |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The timezone should be "MST-Phoenix" on "Live Deliveries" page
+    And I should be able to see the respective bungii with the status
+      | Status       |
+      | Trip Started |
+    And I click on "Edit" button
+    And I click on "Edit Trip Details" radiobutton
+    And I edit the pickup address
+    Then I change the pickup address to "15225 North 71st Drive, Peoria, AZ"
+    And I edit the drop off address
+    Then I change the drop off address to "17334 North 63rd Avenue"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    When As a driver "Testdrivertywd_appleph_a_drvax Phoenix_ax" and "Testdrivertywd_appleph_a_drvay Phoenix_ay" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      |Arrived         |Arrived         |
+      |Loading Item     |Loading Item     |
+      |Driving To Dropoff |Driving To Dropoff |
+      |Unloading Item    |Unloading Item    |
+      |Bungii Completed  |Bungii Completed  |
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The timezone should be "MST-Phoenix" on "All Deliveries" page
+    And The "All Deliveries" should be in "Payment Pending" state
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    When I click on the "Change Payment status" button from the dropdown
+    And the "Are you sure, you want to change the payment status?" message is displayed
+    Then I should see all the information in the change payment status modal
+    And I click on "Confirm Change Payment Status" button
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state
+    Then The delivery status should be in "Payment Successful" state in db
+    Then I should see the change status link "Not Displayed"
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The "Issue Refund" "button" should not be displayed
+    Then I should see "Accessorial Charges" section displayed
+    When I add following accessorial charges and save it
+      | Amount   | Fee Type         | Comment                           | Driver Cut |
+      |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
+      |   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
+      |  25.65   | Mountainous      | Charges due to mountainous reason | 10       |
+      |  100     | Other            | Charges due to other reasons      | 20         |
+    And I should see following details in the Accessorial charges section
+      | Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+      | $10              | $20.5       | $25.65      | $100  | $156.15 |
+
+
+#CORE-2584:To verify the Partner geofence based solo delivery marked as Payment successful from payment unsuccessful
+  @ready
+  Scenario:To verify the Partner geofence based solo delivery marked as Payment successful from payment unsuccessful
+    And I set the pickup address for "Equip-bid in phoenix geofence"
+    When I request Partner Portal "SOLO" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |phoenix| NEXT_POSSIBLE | 8877661101 | Testcustomertywd_appleMarkCX LutherCX|
+    And As a driver "Testdrivertywd_appleph_a_drvaw Phoenix_aw" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+      |Arrived         |
+      |Loading Item     |
+      |Driving To Dropoff |
+      |Unloading item    |
+      |Bungii Completed  |
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Pending" state
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    And I click on "Transaction History" button
+    Then I should see the transaction charges "before" changing delivery Status
+    And I click on "Close" button
+    And I click on "OK Delivery Details Page" button
+    When I click on the "Change Payment status" button from the dropdown
+    And the "Are you sure, you want to change the payment status?" message is displayed
+    Then I should see all the information in the change payment status modal
+    And I click on "Confirm Change Payment Status" button
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state
+    Then The delivery status should be in "Payment Successful" state in db
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The "Issue Refund" "button" should not be displayed
+    And I click on "Transaction History" button
+    Then I should see the transaction charges "after" changing delivery Status
+    And I click on "Close" button
+    Then I should see "Accessorial Charges" section displayed
+    When I add following accessorial charges and save it
+      | Amount   | Fee Type         | Comment                           | Driver Cut |
+      |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
+      |   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
+      |  25.65   | Mountainous      | Charges due to mountainous reason | 10       |
+      |  100     | Other            | Charges due to other reasons      | 20         |
+    And I should see following details in the Accessorial charges section
+      | Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+      | $10              | $20.5       | $25.65      | $100  | $156.15 |
+
+ #CORE-2826:To verify whether text search displays results matching the contains criteria on Deliveries pages
+ # Using last name to search delivery not pushed to prod as core 2826 is rnd ticket
+  @ready
+  Scenario:To verify whether text search displays results matching the contains criteria on Deliveries pages
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas  | NEXT_POSSIBLE | 8877661103 | Testcustomertywd_appleMarkCZ LutherCZ|
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery based on customer "first name"
+    Then The "Scheduled Deliveries" should be in "Assigning Driver(s)" state
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    And As a driver "Testdrivertywd_appleks_a_drvbi Kansas_bi" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted      |
+      | Enroute      |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    And I search the delivery based on customer "first name with space in front and back"
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Trip Started|
+    And As a driver "Testdrivertywd_appleks_a_drvbi Kansas_bi" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Driver Canceled |
+    And I wait for 2 minutes
+    And I view the Deliveries list on the admin portal
+    When I change filter to "The Past Day" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Past Week" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Past 4 Weeks" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Past 3 Months" on All deliveries
+    And I search the delivery based on customer "first name"
+    Then The "All Deliveries" should be in "Driver Canceled" state
+    When I change filter to "The Beginning of Time" on All deliveries
+    And I search the delivery based on customer "first name with space in front and back"
+    Then The "All Deliveries" should be in "Driver Canceled" state

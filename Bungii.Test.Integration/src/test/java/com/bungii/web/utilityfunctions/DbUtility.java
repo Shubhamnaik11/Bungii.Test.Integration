@@ -645,6 +645,15 @@ public class DbUtility extends DbContextManager {
         return statusFlag;
 
     }
+
+    public static String getDeliveryStatus(String Pickup_Reference) {
+        String deliveryStatus;
+        String queryStringForPickupTripStatus ="select PickupStatus from pickupdetails where PickupRef ='"+Pickup_Reference+"'";
+        deliveryStatus = getDataFromMySqlServer(queryStringForPickupTripStatus);
+        logger.detail("Delivery Status is "+deliveryStatus+ " for pickup reference "+ Pickup_Reference);
+        return deliveryStatus;
+
+    }
     public static String[] getLatAndLonPickupAndDropLocation(String reference){
         String pickupID = getPickupId(reference);
         String tripLocation[] = new String[4];

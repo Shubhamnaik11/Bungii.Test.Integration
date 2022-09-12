@@ -161,6 +161,7 @@ public class Partner_LoginSteps extends DriverBase {
                 case "SIGN IN":
                     action.click(Page_Partner_Login.Button_Sign_In());
                     break;
+                case "GET QUOTE":
                 case "GET ESTIMATE":
                     action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                     break;

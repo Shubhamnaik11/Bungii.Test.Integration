@@ -306,7 +306,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I click "More Options" button on "update" screen
     And I click "Customer Signature" button on "update" screen
     Then I should see the customers name under the customer name field
@@ -360,7 +360,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I am logged in as "TestDrivertywd_applemd_a_billF Stark_bltTwOF" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
     And I click on "Skip Customer Signature" button
@@ -430,7 +430,7 @@ Feature: Solo Scheduled Bungii - TELET
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
@@ -470,7 +470,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click on "Got It" button
     And I slide update button on "UNLOADING ITEM" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
@@ -479,7 +479,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click on "Got It" button
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
@@ -557,7 +557,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I am logged in as "Testdrivertywd_applega_a_drvai Atlanta_ai" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field

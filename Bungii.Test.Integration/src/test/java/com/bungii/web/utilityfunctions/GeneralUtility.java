@@ -94,6 +94,10 @@ public class GeneralUtility extends DriverBase {
                  partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");
                  cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref"));
             }
+            else if (PP_Site.equalsIgnoreCase("Equip-bid")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.equip-bid.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.equip-bid.ref"));
+            }
         }
         return  partnerURL;
     }

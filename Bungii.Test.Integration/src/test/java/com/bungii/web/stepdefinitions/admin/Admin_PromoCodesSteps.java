@@ -669,6 +669,16 @@ try{
                     testStepAssert.isFail("Expected message is not displayed.");
                 }
                 break;
+            case "Are you sure, you want to change the payment status?":
+                String expectedMessage = action.getText(admin_TripsPage.Text_ChangePaymentStatusMessage());
+                if(expectedMessage.equalsIgnoreCase(message)){
+                    testStepAssert.isTrue(true,"Expected message is displayed.","Expected message is not displayed.");
+                }
+                else {
+                    testStepAssert.isFail("Expected message is not displayed.");
+                }
+                testStepAssert.isEquals(action.getText(admin_TripsPage.Text_ChangePaymentStatusMessage()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                break;
 
         }
 } catch (Exception e) {
