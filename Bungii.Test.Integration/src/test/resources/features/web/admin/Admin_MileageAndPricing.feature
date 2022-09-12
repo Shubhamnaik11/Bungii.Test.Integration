@@ -9,7 +9,7 @@ Feature: Mileage and Pricing after Admin Edits
     When I request Partner Portal "SOLO" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |Kansas  | NEXT_POSSIBLE | 8877661104     | Testcustomertywd_appleMarkDA LutherDA|
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appleks_a_drvbj Kansas_bj" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state |
       | Accepted      |
       | Enroute       |
@@ -34,7 +34,7 @@ Feature: Mileage and Pricing after Admin Edits
     When I request Partner Portal "SOLO" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |Kansas  | NEXT_POSSIBLE | 8877661105     | Testcustomertywd_appleMarkDB LutherDB|
-    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appleks_a_drvbk Kansas_bk" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state |
       | Accepted      |
       | Enroute       |
@@ -57,7 +57,6 @@ Feature: Mileage and Pricing after Admin Edits
     Then I check if correct "customer price-arrived" is displayed on delivery details
 
   @ready
-#  @testsweta
   Scenario: Verify Mileage and Pricing on admin edit Pickup and drop off address in Arrived status-Duo Customer App
     When I request "duo" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -89,7 +88,7 @@ Feature: Mileage and Pricing after Admin Edits
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
       | now         | 8877661107     | Testcustomertywd_appleMarkDD LutherDD | 2              | Cci12345          |
-    And As a driver "Testdrivertywd_applega_a_steveC Stark_altOnEC" perform below action with respective "Solo Ondemand" trip
+    And As a driver "Testdrivertywd_applega_a_drvaj Atlanta_aj" perform below action with respective "Solo Ondemand" trip
       | driver1 state|
       | Accepted |
       | Arrived |
@@ -115,7 +114,7 @@ Feature: Mileage and Pricing after Admin Edits
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 8877661108 | Testcustomertywd_appleMarkDE LutherDE|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_drvW WashingtonW" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |
       | Enroute  |
@@ -125,7 +124,7 @@ Feature: Mileage and Pricing after Admin Edits
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 8877661109 | Testcustomertywd_appleMarkDF LutherDF|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Ondemand" Delivery
+    And As a driver "Testdrivertywd_appledc_a_drvW WashingtonW" perform below action with respective "Solo Ondemand" Delivery
       | driver1 state|
       |Stacked Pickup Accepted |
     And I wait for "2" mins

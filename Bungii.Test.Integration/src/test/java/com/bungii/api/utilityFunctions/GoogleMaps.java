@@ -154,7 +154,7 @@ public class GoogleMaps {
         JSONObject elementelementsjsonEleFourZero = elementsjsonEleFour.getJSONObject(0);
         JSONObject distanceInTraffic =elementelementsjsonEleFourZero.getJSONObject("distance");
 
-        String distanceToDropUp =distanceInTraffic.get("value").toString();
+        String distanceToDropUp =distanceInTraffic.get("text").toString();
         distance=distanceToDropUp.replace(" km","").replace(" mi","");
         return distance;
     }

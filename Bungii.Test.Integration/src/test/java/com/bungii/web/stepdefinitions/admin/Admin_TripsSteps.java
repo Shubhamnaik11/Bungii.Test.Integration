@@ -3063,13 +3063,14 @@ try{
                     newDropLoc[1] = newLocation[3];
                     long[] tim1 = new GoogleMaps().getDurationInTraffic(oldPickupLoc, newPickupLoc);
                     long[] tim2 = new GoogleMaps().getDurationInTraffic(newPickupLoc, newDropLoc);
-                    float Cost= (miles*1)+(tim1[0]/60)+(tim2[0]/60)+loadUnloadTime;
+                    float Cost= (miles*1)+(tim1[0]/60)+(tim2[0]/60);
+                    float Cost1= Cost*2+2*loadUnloadTime;
                     String actuaCost= admin_EditScheduledBungiiPage.Text_Estimated_Price().getText();
-                    testStepVerify.isEquals(actuaCost.substring(1), String.valueOf(Cost*2),
+                    testStepVerify.isEquals(actuaCost.substring(1), String.valueOf(Cost1),
                             "The estimated cost  displayed should be correct after admin edit.",
                             "The estimated cost displayed is incorrect after admin edit.");
-                    float transFeeSolo4= (float) Math.round((Cost*0.029)+0.30);
-                    float driverCutFee4=Math.round(Cost* Float.parseFloat(driverCut));
+                    float transFeeSolo4= (float) Math.round(((Cost+loadUnloadTime)*0.029)+0.30);
+                    float driverCutFee4=Math.round((Cost+loadUnloadTime)* Float.parseFloat(driverCut));
                     float driverEarning4= driverCutFee4-transFeeSolo4;
                     String actualDriverEarning4= admin_TripDetailsPage.Text_Driver_Est_Earnings_Customer_Delivery().getText();
                     testStepVerify.isEquals(actualDriverEarning4.substring(1), String.valueOf(df.format(driverEarning4)),

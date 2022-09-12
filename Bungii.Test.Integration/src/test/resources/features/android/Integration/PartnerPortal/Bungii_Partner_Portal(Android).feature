@@ -52,7 +52,6 @@
 
 #  Core-2638: Verify the changed Driver cut is reflected in driver app
     @ready
-#      @testsweta
     Scenario: Verify the changed Driver cut is reflected in driver app
       When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
