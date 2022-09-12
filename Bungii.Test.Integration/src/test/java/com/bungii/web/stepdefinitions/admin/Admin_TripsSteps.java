@@ -2767,4 +2767,31 @@ try{
                     true);
         }
     }
+    @Then("^The timezone should be \"([^\"]*)\" on \"([^\"]*)\" page$")
+    public void the_timezone_should_be_something_on_something_page(String timezone, String page) throws Throwable{
+        try{
+            Thread.sleep(5000);
+            String scheduledDate;
+            switch (page){
+                case "Scheduled Deliveries":
+                    String initialRequestDate = action.getText(admin_ScheduledTripsPage.Text_InitialRequestDate());
+                    scheduledDate = action.getText(admin_ScheduledTripsPage.Text_ScheduledDate());
+                    testStepVerify.isTrue(initialRequestDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    testStepVerify.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    break;
+                case "Live Deliveries":
+                    scheduledDate = action.getText(admin_LiveTripsPage.Text_ScheduledDate());
+                    testStepVerify.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    break;
+                case "All Deliveries":
+                    scheduledDate = action.getText(admin_TripsPage.Text_ScheduledDate());
+                    testStepVerify.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    break;
+            }
+        }catch (Exception e){
+             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+             error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

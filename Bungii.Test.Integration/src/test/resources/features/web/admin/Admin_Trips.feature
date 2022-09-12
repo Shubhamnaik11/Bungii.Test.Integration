@@ -727,6 +727,7 @@ Feature: Admin_Trips
     And I wait for 2 minutes
     When I view the all Scheduled Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
+    Then The timezone should be "MST-Phoenix" on "Scheduled Deliveries" page
     When I click on the "Edit" button from the dropdown
     And I click on "Remove driver(s) and re-search" radiobutton
     And I select the first driver
@@ -757,7 +758,8 @@ Feature: Admin_Trips
     And I wait for 2 minutes
     And I view the Live Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
-    Then I should be able to see the respective bungii with the status
+    Then The timezone should be "MST-Phoenix" on "Live Deliveries" page
+    And I should be able to see the respective bungii with the status
       | Status       |
       | Trip Started |
     And I click on "Edit" button
@@ -779,7 +781,8 @@ Feature: Admin_Trips
     And I wait for 2 minutes
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
-    Then The "All Deliveries" should be in "Payment Pending" state
+    Then The timezone should be "MST-Phoenix" on "All Deliveries" page
+    And The "All Deliveries" should be in "Payment Pending" state
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     When I click on the "Change Payment status" button from the dropdown
     And the "Are you sure, you want to change the payment status?" message is displayed
