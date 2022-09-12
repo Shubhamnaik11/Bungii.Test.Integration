@@ -163,6 +163,15 @@ public class Partner_DeliveryPage extends PageBase {
     //Delivery Purpose Text fields
     public WebElement TextBox_Delivery_Purpose() { return findElement("//input[@data-field='Delivery purpose']",LocatorType.XPath);}
 
+    //Lot Number Text fields
+    public WebElement TextBox_LotNumber() { return findElement("//input[@data-field='Lot Number']",LocatorType.XPath);}
+
+    //Bidder Number Text fields
+    public WebElement TextBox_BidderNumber() { return findElement("//input[@data-field='Bidder Number']",LocatorType.XPath);}
+
+    //Helper check box
+    public WebElement Checkbox_Helper() { return findElement("//div[@id='helperCheckbox']",LocatorType.XPath);}
+
     //RB/SB NUMBER Text fields
     public WebElement TextBox_Rb_Sb_Number() { return findElement("//label[contains(text(),'RB/SB Number')]//following-sibling::input",LocatorType.XPath);}
 

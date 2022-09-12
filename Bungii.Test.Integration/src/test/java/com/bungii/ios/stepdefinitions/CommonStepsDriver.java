@@ -611,30 +611,7 @@ public class CommonStepsDriver extends DriverBase {
                     "Error in assigning driver "+driverName+" to the delivery by admin or viewing assigned driver slot", true);
         }
     }
-    @And("^I click on the \"([^\"]*)\" and select future time$")
-    public void i_click_on_the_something_and_select_future_time(String scheduleDate) throws Throwable {
-        try{
-            switch (scheduleDate) {
-                case "Time":
-                    action.click(scheduledTripsPage.TimePicker_Time());
-                    Thread.sleep(3000);
-                    action.click(scheduledTripsPage.Dropdown_ScheduledDateTime());
-                    String timeChanged = scheduledTripsPage.TimePicker_Time().getText();
-                    cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
-                    break;
 
-                default: break;
-            }
-            log("I can select future time/date",
-                    "I was able to change time/date to future time/date", false);
-        }
-        catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step Should be successful", "Error in viewing result set",
-                    true);
-        }
-
-    }
     @And("^I click on \"([^\"]*)\" in the dropdown$")
     public void i_click_on_something_in_the_dropdown(String dropdown) throws Throwable {
         try{

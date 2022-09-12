@@ -1,6 +1,5 @@
 package com.bungii.web.stepdefinitions.partner;
 
-import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -15,30 +14,18 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import java.time.LocalTime;
+
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -122,6 +109,8 @@ public class Partner_Delivery_Details extends DriverBase {
             String RbSbNumber = "";
             String Items_deliver = "";
             String BodcCode ="";
+            String bidderNumber = "";
+
 
             if(dataMap.containsKey("Items_To_Deliver")){
                 Items_deliver = dataMap.get("Items_To_Deliver");
@@ -163,6 +152,10 @@ public class Partner_Delivery_Details extends DriverBase {
             }
             if (dataMap.containsKey("Bodc_Code")) {
                 BodcCode = dataMap.get("Bodc_Code").trim();
+            }
+
+            if(dataMap.containsKey("Bidder_Number")){
+                bidderNumber = dataMap.get("Bidder_Number");
             }
 
             //cucumberContextManager.setScenarioContext("Customer", CustomerName);
@@ -277,6 +270,34 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.click(Page_Partner_Delivery.Dropdown_SoldBuy());
                         action.click(Page_Partner_Delivery.List_StoreAssociate("Krishna"));
 
+
+                        break;
+                    default:
+                        break;
+                }
+                log("I enter all details on "+str+" for "+Site+" on partner screen", "I have entered all details on "+str+" for "+Site+" on partner screen", false);
+
+            } else if (Site.equalsIgnoreCase("Equip-bid")) {
+
+                switch (str) {
+                    case "Delivery Details":
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                        //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                        action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_LotNumber(), String.valueOf(ThreadLocalRandom.current().nextInt()));
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(),DeliveryPurpose);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_BidderNumber(),bidderNumber);
+                        action.click(Page_Partner_Delivery.Checkbox_Helper());
+
+                        String scheduled_date_time1 = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                        cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time1);
 
                         break;
                     default:
