@@ -346,29 +346,6 @@ public class DashBoardSteps extends DriverBase {
                     true);
         }
     }
-    @And("^I check if miles are updated$")
-    public void i_check_if_miles_are_updated() throws Throwable {
-        try{
-            String reference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            String[] pickup1Locations = com.bungii.web.utilityfunctions.DbUtility.getPickupAndDropLocation(reference);
-            String[] locations = new String[2];
-            locations[0] = pickup1Locations[0];
-            locations[1] = pickup1Locations[1];
-
-            String expectedMiles = new String(new GoogleMaps().getMiles(locations[0], locations[1]));
-            System.out.println(expectedMiles);
-            String actualMiles= dashBoardPage.Text_DeliveryMiles().getText();
-            testStepVerify.isEquals(actualMiles, expectedMiles,
-                    "The miles displayed should be correct after admin edit.",
-                    "The miles displayed is incorrect after admin edit.");
-
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-    }
 
 }
 
