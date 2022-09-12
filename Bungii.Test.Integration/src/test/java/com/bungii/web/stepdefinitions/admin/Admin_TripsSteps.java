@@ -2776,16 +2776,16 @@ try{
                 case "Scheduled Deliveries":
                     String initialRequestDate = action.getText(admin_ScheduledTripsPage.Text_InitialRequestDate());
                     scheduledDate = action.getText(admin_ScheduledTripsPage.Text_ScheduledDate());
-                    testStepAssert.isTrue(initialRequestDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
-                    testStepAssert.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    testStepVerify.isTrue(initialRequestDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    testStepVerify.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
                     break;
                 case "Live Deliveries":
                     scheduledDate = action.getText(admin_LiveTripsPage.Text_ScheduledDate());
-                    testStepAssert.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    testStepVerify.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
                     break;
                 case "All Deliveries":
                     scheduledDate = action.getText(admin_TripsPage.Text_ScheduledDate());
-                    testStepAssert.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    testStepVerify.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
                     break;
             }
         }catch (Exception e){
