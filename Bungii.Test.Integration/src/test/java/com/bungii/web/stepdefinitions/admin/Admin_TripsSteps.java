@@ -2839,9 +2839,6 @@ try{
                }
                action.click(Page_Partner_Done.Button_Apply());
                break;
-
-           case "Select":
-               break;
        }
        log("I should be able "+checkboxSelectOrUnselect+" all the "+element+" checkboxes from the filter",
                "I could "+checkboxSelectOrUnselect+" all the "+element+" checkboxes from the filter",
@@ -2876,6 +2873,7 @@ try{
 
     @And("^I change the driver status to \"([^\"]*)\"$")
     public void i_change_the_driver_status_to_something(String driverStatus) throws Throwable {
+        try{
         action.click(admin_GeofencePage.Dropdown_Status());
         switch (driverStatus){
             case "Inactive":
@@ -2887,21 +2885,36 @@ try{
         }
         action.click(admin_DriverPage.TextBox_DriverStatusChangeComment());
         action.clearSendKeys(admin_DriverPage.TextBox_DriverStatusChangeComment(),"For Testing");
+        log("I should be able to change the driver status to "+driverStatus,"I could change the driver status to "+driverStatus,false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
     }
 
     @When("^I select a driver \"([^\"]*)\" whose status is \"([^\"]*)\"$")
     public void i_select_a_driver_something_whose_status_is_something(String driverName, String driverStatus) throws Throwable {
+        try{
         Thread.sleep(3000);
         action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(),driverName+ Keys.ENTER);
         cucumberContextManager.setScenarioContext("DRIVER",driverName);
         Thread.sleep(3000);
         String statusOfDriver = action.getText(admin_DriverPage.Text_DriverApplicationStatus());
         testStepAssert.isEquals(statusOfDriver,driverStatus,"The driver application should be "+driverStatus ,"The driver application is "+driverStatus,"The driver application is not "+driverStatus);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
     }
 
 
     @Then("^The driver having status \"([^\"]*)\" should not be present in active driver map$")
     public void the_driver_having_status_something_should_not_be_present_in_active_driver_map(String strArg1) throws Throwable {
+        try{
         Thread.sleep(12000);
         String expectedDriversName = (String) cucumberContextManager.getScenarioContext("DRIVER");
         List <WebElement> allDrivers = admin_Driverspage.List_AllDriversInActiveMap();
@@ -2914,6 +2927,12 @@ try{
         }
         testStepAssert.isTrue(true,"Driver "+allDrivers+" should not be  present in the list of all drivers","Driver "+allDrivers+" is not present in the list of all drivers",
                 "Driver "+allDrivers+" is present in the list of all drivers");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
 
+    }
 }
+
 }
