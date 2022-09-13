@@ -4,6 +4,8 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.pages.driver.ScheduledBungiiPage;
+import com.bungii.android.pages.driver.UpdateStatusPage;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.stepdefinitions.Customer.SignupSteps;
 import com.bungii.android.utilityfunctions.DbUtility;
@@ -1084,7 +1086,6 @@ public class BungiiInProgressSteps extends DriverBase {
                             String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
                             String teletTimeInDb = DbUtility.getTELETfromDb(custRef);
                             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            formatter.setTimeZone(TimeZone.getTimeZone("EDT"));
                             formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
                             Date time2 = formatter.parse(teletTimeInDb);
                             Calendar calendar = Calendar.getInstance();
@@ -1094,7 +1095,7 @@ public class BungiiInProgressSteps extends DriverBase {
                             String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
 
                             String[] pickupLoc= DbUtility.getPickupAndDropLocation(customerPhoneNumber);
-                            String[] pickup2Locations = DbUtility.getPickupAndDropLocation("9871450107");
+                            String[] pickup2Locations = DbUtility.getPickupAndDropLocation(PropertyUtility.getDataProperties("valid.customer.ondemand.phone"));
                             String[] dropLoc = new String[2];
                             dropLoc[0] = pickupLoc[2];
                             dropLoc[1] = pickupLoc[3];
