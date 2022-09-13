@@ -65,6 +65,8 @@ Feature: Scheduled DUO Bungii
     Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
    # When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
 #    Then I accept Alert message for "Reminder: both driver at pickup"
     Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     #Then I should be navigated to "LOADING ITEMS" screen
@@ -72,6 +74,8 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "Driver2" devices
     Then I should see "Your duo teammate is on the way" message
     Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
 #    Then I accept Alert message for "Reminder: both driver at pickup"
     Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
@@ -82,10 +86,14 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEMS" Screen
     Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
     When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "LOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
 #   Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
@@ -100,9 +108,13 @@ Feature: Scheduled DUO Bungii
     Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     #Then I should be navigated to "UNLOADING ITEMS" screen
     And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
     When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
@@ -594,3 +606,90 @@ Feature: Scheduled DUO Bungii
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
+#CORE-3271:To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
+  @ready  @duo
+  Scenario: To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applens_a_kayR Stark_nsOnER" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I connect to "extra1" using "Driver2" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applens_a_kayS Stark_nsOnES" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I request Partner Portal "Duo" Trip for "Tile Shop" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |nashville| NEXT_POSSIBLE | 8877661095 | Testcustomertywd_appleMarkCR LutherCR|
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    And I select "Pallet-1" from items
+    Then I should see "DUO LIFT" header displayed
+    And I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I should see "DUO LIFT" header displayed
+    And I start selected Bungii
+
+    And I Switch to "driver" application on "driver2" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    And I select "Pallet-2" from items
+    Then I should see "DUO LIFT" header displayed
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I should see "DUO LIFT" header displayed
+    And I start selected Bungii
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    When I slide update button on "EN ROUTE" Screen
+    And I click on "GOT IT" button
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+
+    And I Switch to "driver" application on "driver2" devices
+    When I slide update button on "EN ROUTE" Screen
+    And I click on "GOT IT" button
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "LOADING ITEM" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+
+    And I Switch to "driver" application on "driver2" devices
+    And I slide update button on "LOADING ITEM" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should see "DUO LIFT" header displayed
+    And I click on "GOT IT" button
+
+    And I Switch to "driver" application on "driver2" devices
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should see "DUO LIFT" header displayed
+    And I click on "GOT IT" button
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    And I should be navigated to "Rate duo teammate" screen
+
+    And I Switch to "driver" application on "driver2" devices
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    And I should be navigated to "Rate duo teammate" screen

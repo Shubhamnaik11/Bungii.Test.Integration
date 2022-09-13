@@ -36,6 +36,7 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_Slide() { return findElement("slide_to_start_button", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_Cancel() { return findElement("Cancel delivery", LocatorType.Name); }
 	public WebElement Button_ScheduledBungiis() { return findElement("Scheduled Bungiis", LocatorType.Name); }
+	public WebElement Button_TakePhoto() { return findElement("Take photo", LocatorType.Name); }
 	public WebElement Button_Call() { return findElement("//XCUIElementTypeButton[@name='Call']", LocatorType.XPath); }
 	public WebElement Button_Sms() { return findElement("//XCUIElementTypeButton[@name='Text']", LocatorType.XPath); }
 	public WebElement Button_CallDriver() { return findElement("Call driver", PageBase.LocatorType.AccessibilityId); }
@@ -69,5 +70,23 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Text_StackInfo(){return findElement("//XCUIElementTypeStaticText[contains(@name,'try to finish up by')]",LocatorType.XPath);}
 	public WebElement Button_Info(){return findElement("//XCUIElementTypeStaticText[contains(@label,'Try to finish by')]/following-sibling::XCUIElementTypeButton",LocatorType.XPath);}
 	public WebElement Text_ETAValue(){return findElement("//XCUIElementTypeStaticText[contains(@name,\"ETA:\")]",LocatorType.XPath);}
+	public WebElement Tab_CustomerSignature(){return findElement("//XCUIElementTypeSheet[@name=\"What do you want to do?\"]/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]",LocatorType.XPath);}
+	public WebElement Text_CustomerNameOnDriverApp(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+	public WebElement TextBox_SignedByField(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]",LocatorType.XPath);}
+	public WebElement Button_Submit(){return findElement("Submit",LocatorType.AccessibilityId);}
+	public WebElement TextBox_Signature(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]",LocatorType.XPath);}
+	public WebElement Header_CustomerSignature(boolean...IgnoreException){return findElement("Customer signature",LocatorType.AccessibilityId,IgnoreException);}
+	public WebElement Button_ClearSignature(){return findElement("Clear signature",LocatorType.AccessibilityId);}
+	public WebElement Button_SkipCustomerSignature(){return findElement("Skip customer signature",LocatorType.AccessibilityId);}
+	public WebElement Alert_DropOffInstructionsGotIt(){return findElement("Got it",LocatorType.AccessibilityId);}
+	public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//p[@id='delivery-completed-success-message']/i[2]", LocatorType.XPath); }
+	public WebElement Label_CancelSuccessMessageLive () { return findElement("//p[@id='delivery-cancelled-success-message']/i[2]", LocatorType.XPath); }
+	public WebElement Message_AdminCompleteConfirm() {return findElement("//div[@id='editEndTime']//following::div[2]/p[1]",LocatorType.XPath);}
+	public WebElement Button_CalculateCost() { return findElement("//button[@id='btnCost']",LocatorType.XPath);}
+	public WebElement Textbox_PickupEndDate () { return findElement("pickupEndDate", LocatorType.Id); }
+	public WebElement Textbox_PickupEndTime () { return findElement("pickupEndTime", LocatorType.Id); }
+	public WebElement Dropdown_ddlpickupEndTime () { return findElement("ddlpickupEndTime", LocatorType.Id); }
+	public WebElement RadioButton_EditDeliveryStatus() { return findElement("//span[contains(text(),'Edit Delivery Status')]",LocatorType.XPath);}
+
 
 }

@@ -303,4 +303,43 @@ public class DbUtility extends DbContextManager {
         return driverShare;
     }
 
+    public static String getPartnerPortalLeadTimeSoloDelivery() {
+        String leadTime;
+        String queryString = "select json_extract(cvss.config_value,'$.SOLO_EARLIEST_SCHEDULE_TIME') as solo_lead_time from bungii_admin_qa_auto.bp_store bs inner join bungii_admin_qa_auto.bp_store_setting_fn_matrix fn on fn.bp_store_id = bs.bp_store_id inner join bungii_admin_qa_auto.bp_config_version_store_setting cvss on cvss.bp_config_version_id = fn.bp_config_version_id where subdomain_name like  'qauto-equip-bid' and fn.bp_setting_fn_id = 12;";
+        leadTime = getDataFromMySqlServer(queryString);
+        logger.detail("Partner Portal lead time  is "+leadTime+ " for Solo deliveries");
+        return leadTime;
+
+    }
+
+    public static String getPartnerPortalLeadTimeDuoDelivery() {
+        String leadTime;
+        String queryString = "select json_extract(cvss.config_value,'$.DUO_EARLIEST_SCHEDULE_TIME') as duo_lead_time from bungii_admin_qa_auto.bp_store bs inner join bungii_admin_qa_auto.bp_store_setting_fn_matrix fn on fn.bp_store_id = bs.bp_store_id inner join bungii_admin_qa_auto.bp_config_version_store_setting cvss on cvss.bp_config_version_id = fn.bp_config_version_id where subdomain_name like  'qauto-equip-bid' and fn.bp_setting_fn_id = 12;";
+        leadTime = getDataFromMySqlServer(queryString);
+        logger.detail("Partner Portal lead time  is "+leadTime+ " for Duo deliveries");
+        return leadTime;
+
+    }
+
+    public static String getLinkedPickupRef(String pickupRef) {
+        String linkedpickupref = "";
+        String queryString = "SELECT PICKUPREF FROM pickupdetails WHERE LINKEDPICKUPID in (SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef+"' )";
+        linkedpickupref =getDataFromMySqlServer(queryString);
+        logger.detail("Linked Pickupref " + linkedpickupref + " of pickupref " + pickupRef );
+        return linkedpickupref;
+    }
+    public static String getDriverStatus(String phoneNumber){
+        String driverStatus;
+        String entireQueryString = "select OnlineStatus from driver where Phone= " +phoneNumber;
+        driverStatus = getDataFromMySqlServer(entireQueryString);
+        return driverStatus;
+    }
+    public static String getDriverRatingFromDriver(String pickupRef){
+        String pickupId=getDataFromMySqlServer("select PickupID from pickupdetails where PickupRef = '"+pickupRef+"'");
+        String rating = getDataFromMySqlServer("select tr.driverrating from pickupdetails pd\n" +
+                "inner join  triprequest tr on tr.pickupid= pd.pickupid\n" +
+                "where pickupstatus = 11 and pd.pickupid ="+pickupId+" limit 1;");
+        logger.detail("The driver rating for pickupId " + pickupId + " is " + rating);
+        return rating;
+    }
 }

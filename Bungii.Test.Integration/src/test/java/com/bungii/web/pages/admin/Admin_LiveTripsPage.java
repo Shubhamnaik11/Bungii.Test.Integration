@@ -35,4 +35,18 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Label_Tooltip() {return findElement("//tr[1]/td/a/i[@class='fa fa-exclamation']/following-sibling::span",LocatorType.XPath);}
 
+    public WebElement Icon_LoadingIconSearching(boolean...IgnoreException) {return findElement("//div[@class=\"driver-search\"]",LocatorType.XPath,IgnoreException);}
+
+    public WebElement Icon_LoadingIconStoppedSearching() {return findElement("//div[@class=\"driver-search complete\"]",LocatorType.XPath);}
+
+    public WebElement Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries() {return findElement("//tr[@id='row1']/td[12]",LocatorType.XPath);}
+
+    public WebElement Text_DeliveryStatusAllDeliveries() {return findElement("//tr/td[11]",LocatorType.XPath);}
+
+    public WebElement Dropdown_Icon(){return  findElement("//div/img[@id='dLabel']",LocatorType.XPath);}
+
+    public WebElement Option_Edit(boolean...IgnoreException){return  findElement("btnLiveEdit",LocatorType.Id,IgnoreException);}
+
+    public WebElement Text_ScheduledDate(){return findElement("//td[4]/a",LocatorType.XPath);}
+
 }

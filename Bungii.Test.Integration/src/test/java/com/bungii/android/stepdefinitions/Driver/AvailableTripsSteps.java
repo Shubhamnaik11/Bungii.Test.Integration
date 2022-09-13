@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions.Driver;
 import com.bungii.SetupManager;
 import com.bungii.android.enums.Rejection_Reason;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
@@ -30,6 +31,7 @@ public class AvailableTripsSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility= new GeneralUtility();
     DriverHomePage driverHomePage = new DriverHomePage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     DbUtility dbUtility = new DbUtility();
 
     @And("I Select Trip from driver available trip")
@@ -149,6 +151,9 @@ public class AvailableTripsSteps extends DriverBase {
     @And("^I Select Trip from available trip$")
     public void i_select_trip_from_available_trip() throws Throwable {
         try{
+            if(action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true))){
+                action.click(Page_BungiiRequest.Button_No_Thanks());
+            }
             Thread.sleep(6000);
             String expectedText = action.getText(availableTrips.Text_FromHomeMiles());
             boolean textDisplayed = (expectedText.contains("miles") || expectedText.contains("mile") )? true : false;
@@ -453,7 +458,145 @@ public class AvailableTripsSteps extends DriverBase {
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+   }
+    @And("^I check \"([^\"]*)\" details are displayed on \"([^\"]*)\" page$")
+    public void i_check_something_details_are_displayed_on_something_page(String pallet, String page) throws Throwable {
+        try{
+            String palletOneWeight= PropertyUtility.getDataProperties("partner.washingtondc.weight.item.one");
+            String palletOneDimensions= PropertyUtility.getDataProperties("partner.washingtondc.dimensions.item.one");
+            String palletOneName= PropertyUtility.getDataProperties("partner.washingtondc.name.item.one");
+            switch (page){
+                case "available bungii":
+                    switch (pallet){
+                        case "pallet-1":
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneWeight()),palletOneWeight+" lbs",
+                                    "The correct weight should be displayed.",
+                                    "The correct weight is displayed.",
+                                    "The incorrect weight is displayed.");
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneDimensions()),palletOneDimensions+" in",
+                                    "The correct dimension should be displayed.",
+                                    "The correct dimension is displayed.",
+                                    "The incorrect dimension is displayed.");
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneName()),palletOneName,
+                                    "The correct name should be displayed.",
+                                    "The correct name is displayed.",
+                                    "The incorrect name is displayed.");
+                            break;
+                    }
+                    break;
+                case "schedule bungii":
+                    switch (pallet) {
+                        case "pallet-1":
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneWeightSchedulePage()),palletOneWeight+" lbs",
+                                    "The correct weight should be displayed.",
+                                    "The correct weight is displayed.",
+                                    "The incorrect weight is displayed.");
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneDimensionsSchedulePage()),palletOneDimensions+" in",
+                                    "The correct dimension should be displayed.",
+                                    "The correct dimension is displayed.",
+                                    "The incorrect dimension is displayed.");
+                            testStepAssert.isEquals(action.getText(scheduledTripsPage.Text_PalletOneNameSchedulePage()),palletOneName,
+                                    "The correct name should be displayed.",
+                                    "The correct name is displayed.",
+                                    "The incorrect name is displayed.");
+                            break;
+
+                    }
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check already accepted pallet pop up is displayed$")
+    public void i_check_already_accepted_pallet_pop_up_is_displayed() throws Throwable {
+        try{
+            action.click(scheduledTripsPage.Button_Accept());
+            String expectedSnackMsg = PropertyUtility.getMessage("pallet.already.accepted.message");
+            testStepVerify.isEquals(utility.getDriverSnackBarMessage(), expectedSnackMsg);
+
+            log("I should be able to see the pallet already accepted message",
+                    "I am able to see the pallet already accepted message",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I should see \"([^\"]*)\" header displayed$")
+    public void i_should_see_something_header_displayed(String strArg1) throws Throwable {
+        try{
+        action.scrollToBottom();
+        Thread.sleep(3000);
+        action.scrollToBottom();
+        switch (strArg1){
+            case "SOLO LIFT":
+                action.scrollToBottom();
+                boolean isSoloLiftDisplayed = availableTrips.Label_SoloLift().isDisplayed();
+                testStepAssert.isTrue(isSoloLiftDisplayed,"Solo Lift label should be displayed","Solo Lift label is displayed","Solo Lift label is not displayed");
+                String expectedSoloLiftMessage = PropertyUtility.getDataProperties("solo.lift.message");
+                String soloLiftInstructions = action.getText(availableTrips.Text_SoloLiftMessage());
+                testStepAssert.isEquals(soloLiftInstructions,expectedSoloLiftMessage,expectedSoloLiftMessage+" Message should be displayed",soloLiftInstructions+" Message is displayed",expectedSoloLiftMessage+" Message is not displayed");
+                break;
+            case "CUSTOMER HELP":
+                boolean isCustomerHelpLabelDisplayed = availableTrips.Label_CustomerHelp().isDisplayed();
+                testStepAssert.isTrue(isCustomerHelpLabelDisplayed,"Solo Lift header should be displayed","Solo Lift header is displayed","Solo Lift header is not displayed");
+                String expectedCustomerHelpMessage = PropertyUtility.getDataProperties("customer.help.message");
+                String customerHelpInstructions = action.getText(availableTrips.Text_CustomerHelpMessage());
+                testStepAssert.isEquals(customerHelpInstructions,expectedCustomerHelpMessage,expectedCustomerHelpMessage+" Message should be displayed",customerHelpInstructions+" Message is displayed",expectedCustomerHelpMessage+" Message is not displayed");
+                break;
+            case "DUO LIFT":
+                boolean isDuoLiftDisplayed = availableTrips.Label_DuoLift().isDisplayed();
+                testStepAssert.isTrue(isDuoLiftDisplayed,"Duo Lift label should be displayed","Duo Lift label is displayed","Duo Lift label is not displayed");
+                String expectedDuoLiftMessage = PropertyUtility.getDataProperties("duo.lift.message");
+                String duoLiftInstructions = action.getText(availableTrips.Text_DuoLiftMessage());
+                testStepAssert.isEquals(duoLiftInstructions,expectedDuoLiftMessage,expectedDuoLiftMessage+" Message should be displayed",duoLiftInstructions+" Message is displayed",expectedDuoLiftMessage+" Message is not displayed");
+                break;
+        }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
+    @And("^I click on the \"([^\"]*)\" link beside scheduled bungii for \"([^\"]*)\"$")
+    public void i_click_on_the_something_link_beside_scheduled_bungii_for_something(String strArg1, String deliveryType) throws Throwable {
+        try{
+            switch (deliveryType){
+                case "Completed Deliveries":
+                    Thread.sleep(4000);
+                    action.click(scheduledTripsPage.Link_DeliveryDetails());
+                    Thread.sleep(2000);
+                    action.click(scheduledTripsPage.List_ViewDeliveries());
+                    break;
+            }
+            log("I should be able to click on "+deliveryType+" link","I could click on "+deliveryType+" link",false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^\"([^\"]*)\" icon should be displayed in all deliveries details page$")
+    public void something_icon_should_be_displayed_in_all_deliveries_details_page(String expectedText) throws Throwable {
+        try{
+        Thread.sleep(2000);
+        String expectedBackgroundColor =PropertyUtility.getDataProperties("customer.help.highlight");
+        testStepAssert.isTrue(action.isElementPresent(scheduledTripsPage.Icon_CustomerHelpAdminPortal()),"Customer Help Icon should be displayed","Customer Help icon is displayed","Customer help icon is not displayed");
+        String backgroundIconColor = scheduledTripsPage.Icon_CustomerHelpAdminPortal().getCssValue("background-color");
+        testStepAssert.isEquals(backgroundIconColor,expectedBackgroundColor,"Icon should have yellow highlight","Icon has yellow highlight","Icon doesnt have yellow highlight");
+        String iconText =action.getText(scheduledTripsPage.Icon_CustomerHelpAdminPortal()).toLowerCase();
+        testStepAssert.isEquals(iconText,expectedText.toLowerCase(),"The text should be "+ expectedText,"The text is "+iconText,"The text is not  "+ expectedText);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 }
 

@@ -200,4 +200,31 @@ Feature: Bungii Duo Scheduled Part D
 	  | Customer Phone | Customer2 Phone |
 	  | 8805368840     |                 |
 
+#	Core-3294: Verify trip is shown on schedule list on driver app when admin stop search Duo trip where one driver has accepted the trip
+	@ready
+	Scenario:Verify trip is shown on schedule list on driver app when admin stop search Duo trip where one driver has accepted the trip
+	When I request "duo" Bungii as a customer in "kansas" geofence
+		| Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+		| NEXT_POSSIBLE | 8877661099     | Testcustomertywd_appleMarkCV LutherCV | Cci12345          |
+	And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" partner portal trip
+		| driver1 state |
+		| Accepted      |
+
+	When I open new "Chrome" browser for "ADMIN PORTAL"
+	And I navigate to admin portal
+	And I log in to admin portal
+	And I Select "Scheduled Trip" from admin sidebar
+	And I open the trip for "Testcustomertywd_appleMarkCV LutherCV" the customer for delivery details
+	Then I stop searching driver
+
+	When I Switch to "driver" application on "ORIGINAL" devices
+	And I am on the LOG IN page on driver app
+	And I am logged in as "Testdrivertywd_appleks_rathree Test" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	And I Select "SCHEDULED BUNGIIS" from driver App menu
+	Then I Select Trip from driver scheduled trip
+	Then I cancel all bungiis of customer
+		| Customer Phone | Customer2 Phone |
+		| 8877661099     |                 |
+
  

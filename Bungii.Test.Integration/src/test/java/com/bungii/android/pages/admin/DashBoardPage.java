@@ -39,4 +39,6 @@ public class DashBoardPage extends PageBase {
     public WebElement Checkbox_Geofence(String geofence) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath);}
     public WebElement Message_NoCustomerFound() { return findElement("//h5[contains(text(),'No Customers found.')]",LocatorType.XPath);}
     public WebElement Message_NoDeliveriesFound() { return findElement("//h5[contains(text(),'No Deliveries found.')]",LocatorType.XPath);}
+    public WebElement Text_AdminName(){return  findElement("//div[2]/p[1]/strong",LocatorType.XPath);}
+
 }

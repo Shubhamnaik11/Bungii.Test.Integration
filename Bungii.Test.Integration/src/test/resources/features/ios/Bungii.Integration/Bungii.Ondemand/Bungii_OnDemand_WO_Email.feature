@@ -23,7 +23,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence(Without Email)
     And I am logged in as "valid nashville" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen

@@ -61,8 +61,8 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-    @And("^I driver adds photos to the Bungii$")
-    public void i_driver_adds_photos_to_the_bungii() throws Throwable {
+    @And("^Driver adds photos to the Bungii$")
+    public void driver_adds_photos_to_the_bungii() throws Throwable {
         try{
             action.click(bungiiDetailsPage.Tab_AddPhoto());
             addBungiiPickUpImage("3 images");
@@ -165,7 +165,6 @@ public class BungiiDetailsSteps extends DriverBase {
         try {
             if (action.isAlertPresent())
                 SetupManager.getDriver().switchTo().alert().accept();
-
             action.click(bungiiDetailsPage.Button_StartBungii());
             Thread.sleep(2000);
             if(action.isElementPresent(bungiiDetailsPage.Text_General_Instruction(true))) {

@@ -62,6 +62,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
     Admin_RefundsPage admin_refundsPage = new Admin_RefundsPage();
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
+    Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
+
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
         try{
@@ -1016,6 +1018,39 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
                 case "Download Zip Codes":
                     action.click(admin_GeofencePage.Button_DownloadZipCodes());
+                    break;
+                case "History":
+                    action.click(admin_ScheduledTripsPage.Button_History());
+                    break;
+                case "Edit":
+                    Thread.sleep(6000);
+                    action.click(admin_liveTripsPage.Dropdown_Icon());
+                    Thread.sleep(2000);
+                    action.click(admin_liveTripsPage.Option_Edit());
+                    break;
+                case "Apply":
+                    action.click(Page_Partner_Dashboard.Button_Apply());
+                    break;
+                case "Phone":
+                    action.click(Page_Partner_Delivery.Icon_Phone());
+                    break;
+                case "Confirm Call":
+                    action.click(Page_Partner_Delivery.Button_ConfirmCall());
+                    break;
+                case "Cancel Call":
+                    action.click(Page_Partner_Delivery.Button_CancelCall());
+                    break;
+                case "Confirm Change Payment Status":
+                    action.click(admin_TripsPage.Button_ConfirmPaymentStatusChange());
+                    break;
+                case "Cancel Change Payment Status":
+                    action.click(admin_TripsPage.Button_CancelPaymentStatusChange());
+                    break;
+                case "OK Delivery Details Page":
+                    action.click(admin_TripDetailsPage.Button_Ok());
+                    break;
+                case "Transaction History":
+                    action.click(admin_refundsPage.Button_TransactionDetails());
                     break;
             }
             log("I click on the "+Name+" button",

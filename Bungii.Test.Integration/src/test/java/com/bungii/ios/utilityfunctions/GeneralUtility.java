@@ -141,7 +141,6 @@ public class GeneralUtility extends DriverBase {
         return adminURL;
     }
 
-
     public void handleIosUpdateMessage() {
         try {
             if (action.isAlertPresent()) {
@@ -1885,5 +1884,59 @@ catch (Exception e)
     public void reApplyGeofenceDropdown(){
         action.click(admin_dashboardPage.List_Geofence());
         action.click(admin_dashboardPage.Button_ApplyGeofence());
+    }
+    public String NavigateToPartnerLogin(String Site){
+
+        String partnerURL = GetPartnerUrl(Site);
+        action.deleteAllCookies();
+        action.navigateTo(partnerURL);
+        return partnerURL;
+    }
+
+    private String GetPartnerUrl(String PP_Site) {
+        String partnerURL = null;
+        cucumberContextManager.setScenarioContext("SiteUrl", PP_Site);
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("QA_AUTO") || environment.equalsIgnoreCase("QA_AUTO_AWS")) {
+            if (PP_Site.equalsIgnoreCase("normal")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("FloorDecor service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.fnd_service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("kiosk mode")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("BestBuy service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.ref"));
+
+            } else if (PP_Site.equalsIgnoreCase("Cort service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.cort_service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.cort_service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("BestBuy2 service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("Equip-bid")) {
+            partnerURL = PropertyUtility.getDataProperties("qa.equip-bid.url");
+            cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.equip-bid.ref"));
+        }else if (PP_Site.equalsIgnoreCase("Tile Shop")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.tileshop.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.tileshop.ref"));
+            }
+
+        }
+        return partnerURL;
+    }
+    public String getTimeZoneBasedOnGeofenceIdForIos() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        // currentGeofence="kansas";
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone.id");
+        return getGeofenceTimeZone;
     }
 }

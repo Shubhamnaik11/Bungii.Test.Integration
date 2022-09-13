@@ -48,7 +48,7 @@ Feature: Solo Scheduled Bungii Part A
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
     #Then I should be navigated to "LOADING ITEMS" trip status screen
     Then I should be navigated to "LOADING ITEMS" trip status screen on driver
@@ -60,7 +60,7 @@ Feature: Solo Scheduled Bungii Part A
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
     #Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
@@ -82,7 +82,7 @@ Feature: Solo Scheduled Bungii Part A
     
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
@@ -138,7 +138,7 @@ Feature: Solo Scheduled Bungii Part A
     #Then I should be navigated to "ARRIVED" trip status screen
     Then I should be navigated to "ARRIVED" trip status screen on driver
     And I slide update button on "ARRIVED" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEMS" trip status screen
     And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
@@ -155,7 +155,7 @@ Feature: Solo Scheduled Bungii Part A
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEMS" Screen
     #Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
@@ -176,7 +176,7 @@ Feature: Solo Scheduled Bungii Part A
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     #Then I should be navigated to "Bungii Completed" screen
 
@@ -232,7 +232,7 @@ Feature: Solo Scheduled Bungii Part A
     Then Customer should be navigated to "ARRIVED" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "ARRIVED" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     When I slide update button on "ARRIVED" Screen
     #Then I should be navigated to "LOADING ITEM" trip status screen
     Then I should be navigated to "LOADING ITEMS" trip status screen on driver
@@ -240,7 +240,7 @@ Feature: Solo Scheduled Bungii Part A
     Then Customer should be navigated to "LOADING ITEMS" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "LOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     When I slide update button on "LOADING ITEMS" Screen
     #Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
@@ -254,7 +254,7 @@ Feature: Solo Scheduled Bungii Part A
     Then Customer should be navigated to "UNLOADING ITEMS" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     When I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
@@ -497,7 +497,7 @@ Feature: Solo Scheduled Bungii Part A
       And I am logged in as "valid denver" driver
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       And I slide update button on "UNLOADING ITEMS" Screen
-      And I driver adds photos to the Bungii
+      And Driver adds photos to the Bungii
       And I slide update button on "UNLOADING ITEMS" Screen
       And I click "Skip This Step" button on "Rate customer" screen
       Then I should be navigated to "Bungii Completed" screen
@@ -545,19 +545,110 @@ Feature: Solo Scheduled Bungii Part A
     And I click on "BACK" button
     Then I should be navigated to "ARRIVED" trip status screen on driver
     And I slide update button on "ARRIVED" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     When I click "On To The Next One" button on "Bungii completed" screen
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then The trip should be present in schedule delivery
+
+
+ #CORE-2342 :To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
+ @ready
+  Scenario Outline:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid baltimore driver 6" driver
+   And I set the pickup address for "<Delivery Center>"
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
+    And I wait for 1 minutes
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+   Then I should see service level information displayed for "<Delivery Center>" address
+    When I accept selected Bungii
+   And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then The service level information should be displayed
+   And I click on start Bungii for service based delivery
+    And I slide update button on "EN ROUTE" Screen
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I open the trip for "<Customer Name>" the customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The delivery details on "Live" deliveries should have proper pickup "<Delivery Center>" location and service level instructions displayed
+
+   Examples:
+     |        Customer Name                    |    Customer Phone  |   Delivery Center     |
+     |  Testcustomertywd_BppleMarkCI LutherCI  |     8877661086     |     Store             |
+     |  Testcustomertywd_BppleMarkCJ LutherCJ  |     8877661087     |   Warehouse           |
+
+
+ #CORE-3381 :To verify that admin is unable to revive trips canceled by customer from app
+  @ready
+  Scenario:To verify that admin is unable to revive trips canceled by customer from app
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8877661054     |  Testcustomertywd_BppleMarkBC LutherBC| Cci12345          |
+    Given I login as "valid denver6" customer and on Home page
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    Then I Cancel selected Bungii
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I wait for "2" minutes
+    And I Select "trips" from admin sidebar
+    When  I search the delivery using "Pickup Reference"
+    Then The revive button should not be displayed
+
+ #CORE-3381 :To verify that admin/partner canceled revived deliveries are not displayed to driver on app
+  @ready
+  Scenario:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8877661055     |  Testcustomertywd_appleMarkBD LutherBD | Cci12345        |
+    And I wait for "2" minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkBD LutherBD" the customer
+    And I Select "Cancel Trip" option
+    And I enter cancellation fee and Comments
+    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
+    And I click on "Cancel Bungii" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for "2" minutes
+    And I Select "trips" from admin sidebar
+    When  I search the delivery using "Pickup Reference"
+    And Revive button should be displayed beside the trip
+    When I click on "Revive" button
+    Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+    When I click on "Confirm" button on Revival Popup
+    And I wait for 2 minutes
+    When I switch to "ORIGINAL" instance
+   And I Switch to "driver" application on "same" devices
+    And I login as "valid denver driver 6" driver on "same" device and make driver status as "Online"
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    Then The trip should not be present in available bungiis
+    And I Switch to "customer" application on "same" devices
+    And I login as "valid denver7" customer and on Home page
+    And I Select "MY BUNGIIS" from Customer App menu
+    Then The trip should be present in my bungiis
+
+
+
 
   @ready
   Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip

@@ -163,6 +163,15 @@ public class Partner_DeliveryPage extends PageBase {
     //Delivery Purpose Text fields
     public WebElement TextBox_Delivery_Purpose() { return findElement("//input[@data-field='Delivery purpose']",LocatorType.XPath);}
 
+    //Lot Number Text fields
+    public WebElement TextBox_LotNumber() { return findElement("//input[@data-field='Lot Number']",LocatorType.XPath);}
+
+    //Bidder Number Text fields
+    public WebElement TextBox_BidderNumber() { return findElement("//input[@data-field='Bidder Number']",LocatorType.XPath);}
+
+    //Helper check box
+    public WebElement Checkbox_Helper() { return findElement("//div[@id='helperCheckbox']",LocatorType.XPath);}
+
     //RB/SB NUMBER Text fields
     public WebElement TextBox_Rb_Sb_Number() { return findElement("//label[contains(text(),'RB/SB Number')]//following-sibling::input",LocatorType.XPath);}
 
@@ -200,5 +209,22 @@ public class Partner_DeliveryPage extends PageBase {
     // 0 delivery present error
     public WebElement Text_NoDeliveryError() { return findElement("err",LocatorType.ClassName);}
 
+    //Partner portal delivery details page delivery status
+    public WebElement Text_PartnerDeliveryStatus(String status) { return findElement(String.format("//div[@class ='delivery-status']/div/div/label[text() ='%s']",status),LocatorType.XPath);}
+
+    //Partner portal delivery details page step completion time
+    public WebElement Text_DeliveryCompletedStepTime(int number) { return findElement(String.format("//div[%d]/div/p[@class=\"timeStamp\"]",number),LocatorType.XPath);}
+
+    //Phone icon on SMS
+    public WebElement Icon_Phone(boolean...IgnoreException) { return findElement("//div/span/img",LocatorType.XPath,IgnoreException);}
+
+    //Cancel button on SMS link
+    public WebElement Button_CancelCall() { return findElement("//div/div/button[text()=\"Cancel\"]",LocatorType.XPath);}
+
+    //Confirm button on SMS link
+    public WebElement Button_ConfirmCall() { return findElement("//div/div/button[text()=\"Confirm\"]",LocatorType.XPath);}
+
+    //Text displayed when popup is opened for sms
+    public WebElement Alert_MessageForCall() { return findElement("//div[@class=\"modal-content\"]/div/p",LocatorType.XPath);}
 
 }

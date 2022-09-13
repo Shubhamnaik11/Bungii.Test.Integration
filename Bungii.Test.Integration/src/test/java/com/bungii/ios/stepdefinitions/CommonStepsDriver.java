@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.admin.DashBoardPage;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.customer.EnableLocationPage;
 import com.bungii.ios.pages.customer.EnableNotificationPage;
@@ -51,8 +52,9 @@ public class CommonStepsDriver extends DriverBase {
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
     GeneralUtility utility = new GeneralUtility();
+    private DbUtility dbUtility = new DbUtility();
     private ScheduledBungiiPage scheduledBungiipage = new ScheduledBungiiPage();
-    com.bungii.web.utilityfunctions.DbUtility dbUtility = new com.bungii.web.utilityfunctions.DbUtility();
+    DashBoardPage admin_dashboardPage = new DashBoardPage();
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
@@ -70,6 +72,7 @@ public class CommonStepsDriver extends DriverBase {
         //this.enableLocationPage=enableLocationPage;
 
     }
+
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page on driverApp$")
     public void something_message_should_be_displayed_on_something_page_driverApp(String messageElement, String screen) {
@@ -610,30 +613,7 @@ public class CommonStepsDriver extends DriverBase {
                     "Error in assigning driver "+driverName+" to the delivery by admin or viewing assigned driver slot", true);
         }
     }
-    @And("^I click on the \"([^\"]*)\" and select future time$")
-    public void i_click_on_the_something_and_select_future_time(String scheduleDate) throws Throwable {
-        try{
-            switch (scheduleDate) {
-                case "Time":
-                    action.click(scheduledTripsPage.TimePicker_Time());
-                    Thread.sleep(3000);
-                    action.click(scheduledTripsPage.Dropdown_ScheduledDateTime());
-                    String timeChanged = scheduledTripsPage.TimePicker_Time().getText();
-                    cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
-                    break;
 
-                default: break;
-            }
-            log("I can select future time/date",
-                    "I was able to change time/date to future time/date", false);
-        }
-        catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step Should be successful", "Error in viewing result set",
-                    true);
-        }
-
-    }
     @And("^I click on \"([^\"]*)\" in the dropdown$")
     public void i_click_on_something_in_the_dropdown(String dropdown) throws Throwable {
         try{
@@ -718,6 +698,7 @@ public class CommonStepsDriver extends DriverBase {
                     break;
                 case "REVIVE":
                     action.click(scheduledTripsPage.Button_ReviveTrip());
+                    Thread.sleep(10000);
                     break;
                 case "CONFIRM":
                     action.click(scheduledTripsPage.Button_Confirm());
@@ -725,6 +706,43 @@ public class CommonStepsDriver extends DriverBase {
                     String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
                     pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
                     cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickuprequest);
+                    break;
+                case "GOT IT":
+                    action.click(scheduledTripsPage.Button_GotIt());
+                    break;
+                case "SKIP CUSTOMER SIGNATURE":
+                    action.click(scheduledTripsPage.Button_SkipCustomerRating());
+                    break;
+                case "DUO":
+                    Thread.sleep(3000);
+                    action.JavaScriptClick(scheduledTripsPage.Button_Duo());
+                    break;
+                case "Cancel Bungii":
+                    action.click(admin_dashboardPage.Button_Submit());
+                    break;
+                case "Confirm Status":
+                    action.click(scheduledTripsPage.Button_ConfirmStatus());
+                    break;
+                case "Cancel Status":
+                    action.click(scheduledTripsPage.Button_CloseStatus());
+                    break;
+                case "Skip Customer Signature":
+                    action.click(driverUpdateStatusPage.Button_SkipCustomerSignature());
+                    break;
+                case "Clear Signature":
+                    action.click(driverUpdateStatusPage.Button_ClearSignature());
+                    break;
+                case "Got It":
+                    action.click(driverUpdateStatusPage.Alert_DropOffInstructionsGotIt());
+                    break;
+                case "CALCULATE COST":
+                    action.click(driverUpdateStatusPage.Button_CalculateCost());
+                    break;
+                case "CONFIRM CHANGES":
+                    action.click(scheduledTripsPage.Button_Confirm());
+                    break;
+                case "Remove Driver":
+                    action.click(scheduledTripsPage.Button_RemoveDrivers());
                     break;
                 case "GOT IT":
                     action.click(scheduledTripsPage.Button_GotIt());
@@ -826,6 +844,104 @@ public class CommonStepsDriver extends DriverBase {
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Given("^I navigate to \"([^\"]*)\" portal configured for \"([^\"]*)\" URL$")
+    public void i_navigate_to_something(String page, String url) throws Throwable {
+        try{  switch (page)
+        {
+            case "Partner":
+                String partnerUrl =  utility.NavigateToPartnerLogin(url);
+                cucumberContextManager.setScenarioContext("PartnerPortalURL",partnerUrl);
+                cucumberContextManager.setScenarioContext("IS_PARTNER","TRUE");
+                pass("I should be navigate to " + page + " portal configured for "+ url ,
+                        "I navigated to " + page + " portal configured for "+ url +" ["+partnerUrl+"]", true);
+                break;
+            default:break;
+        }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @When("^I enter \"([^\"]*)\" password on Partner Portal$")
+    public void WhenIEnterPasswordOnPartnerPortal(String str)
+    {
+        try{
+            //SetupManager.getObject().manage().window().maximize();
+            switch (str)
+            {
+                case "valid":
+                    action.clearSendKeys(scheduledBungiipage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("PartnerPassword"));
+                    break;
+                case "invalid":
+                    action.clearSendKeys(scheduledBungiipage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("Invalid_PartnerPassword"));
+                    break;
+                default: break;
+            }
+            log("I should able to enter "+str+" driver Password on Partner portal","I entered "+str +" partner Password on Partner portal", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I click \"([^\"]*)\" button on Partner Portal$")
+    public void I_Click_Some_Button_On_Partner_Portal(String str) throws InterruptedException {
+        try {
+            switch (str) {
+                case "SIGN IN":
+                    action.click(scheduledBungiipage.Button_SignIn());
+                    break;
+                case "Track Deliveries":
+                    Thread.sleep(5000);
+                    action.click(scheduledBungiipage.Dropdown_Setting());
+                    Thread.sleep(5000);
+                    action.click(scheduledBungiipage.Button_TrackDeliveries());
+                    Thread.sleep(5000);
+                    if(action.getCurrentURL().contains("login")|| action.getCurrentURL().contains("Login"))
+                    {
+                        //Workaround for app getting logged out when run in parallel
+                        action.clearSendKeys(scheduledBungiipage.TextBox_PartnerLoginPassword(), PropertyUtility.getDataProperties("PartnerPassword"));
+                        action.click(scheduledBungiipage.Button_SignIn());
+                        Thread.sleep(5000);
+                        testStepVerify.isEquals(action.getText(scheduledBungiipage.Label_StartOver()), PropertyUtility.getMessage("Start_Over_Header"));
+                        Thread.sleep(5000);
+                        if(!action.isElementPresent(scheduledBungiipage.Dropdown_Setting(true))) {
+                            action.click(scheduledBungiipage.Link_Setting());
+                            action.clearSendKeys(scheduledBungiipage.Textbox_Password(), PropertyUtility.getDataProperties("PartnerPassword"));
+                            action.click(scheduledBungiipage.Button_Continue());
+                        }
+                        action.click(scheduledBungiipage.Dropdown_Setting());
+                        action.click(scheduledBungiipage.Button_TrackDeliveries());
+
+                    }
+                    break;
+                case "Cancel Delivery link":
+                    action.click(scheduledBungiipage.Link_CancelDelivery());
+                    break;
+                case "OK":
+                    action.click(scheduledBungiipage.Button_OK());
+                    break;
+                case "OK on Delivery Cancellation Failed":
+                    action.click(scheduledBungiipage.Button_OkOnDeliveryCancellationFailed());
+                    break;
+                case "Cancel Delivery":
+                    action.click(scheduledBungiipage.Button_CancelDelivery());
+                    break;
+                default:
+                    break;
+
+            }
+            log("I click on "+str+ " button ", "I clicked on "+str+ " button ", true);
+
+        }
+        catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step , I Should "+ str,
                     true);
         }
     }
