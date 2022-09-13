@@ -80,4 +80,19 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Header_Partner () { return findElement("//th[text()='Customer']/following-sibling::th[1]", LocatorType.XPath); }
 
+    public WebElement Link_ChangePaymentStatus () { return findElement("//tbody/tr/td/div/ul/li[3]", LocatorType.XPath); }
+
+    public WebElement Text_ChangePaymentStatusMessage () { return findElement("//div[@id=\"trip-status-change-confirm-modal\"]/div/div/div[2]/p", LocatorType.XPath); }
+
+    public WebElement Text_CurrentStatus () { return findElement("trip-status-change-current-status", LocatorType.Id); }
+
+    public WebElement Text_NewStatus () { return findElement("trip-status-change-new-status", LocatorType.Id); }
+
+    public WebElement Button_ConfirmPaymentStatusChange () { return findElement("//div[@id=\"tblTrips\"]/div[6]/div/div/div[3]/button[2]", LocatorType.XPath); }
+
+    public WebElement Button_CancelPaymentStatusChange () { return findElement("//div[@id=\"tblTrips\"]/div[6]/div/div/div[3]/button[1]", LocatorType.XPath); }
+
+    public WebElement Text_ScheduledDate(){return findElement("//td[4]/a",LocatorType.XPath);}
+
+
 }

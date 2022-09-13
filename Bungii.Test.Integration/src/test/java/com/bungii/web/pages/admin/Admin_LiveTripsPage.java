@@ -47,4 +47,6 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Option_Edit(boolean...IgnoreException){return  findElement("btnLiveEdit",LocatorType.Id,IgnoreException);}
 
+    public WebElement Text_ScheduledDate(){return findElement("//td[4]/a",LocatorType.XPath);}
+
 }

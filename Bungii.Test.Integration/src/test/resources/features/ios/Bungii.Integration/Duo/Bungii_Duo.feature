@@ -607,7 +607,7 @@ Feature: Scheduled DUO Bungii
     And I should be navigated to "Rate duo teammate" screen
 
 #CORE-3271:To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
-  @ready
+  @ready  @duo
   Scenario: To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -650,24 +650,24 @@ Feature: Scheduled DUO Bungii
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
     And I slide update button on "ARRIVED" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
 
     And I Switch to "driver" application on "driver2" devices
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
     And I slide update button on "ARRIVED" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "LOADING ITEM" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
 
     And I Switch to "driver" application on "driver2" devices
     And I slide update button on "LOADING ITEM" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
@@ -682,14 +682,14 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEMS" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
     And I Switch to "driver" application on "driver2" devices
     And I slide update button on "UNLOADING ITEMS" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen

@@ -401,6 +401,38 @@ Feature: Bungii Duo Scheduled Part A
       | Customer Phone | Customer2 Phone |
       |  CUSTOMER1_PHONE |  |
 
+
+  @ready
+  Scenario: Verify driver(s) can rate each other successfully in a duo delivery
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8877661051     | Testcustomertywd_appleMarkAZ LutherAZ | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_mattC Stark_dvOnEC" and "Testdrivertywd_appledv_b_mattD Stark_dvOnED" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Unloading Items | Unloading Items |
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :9049840050 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "UNLOADING ITEMS" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+#  Core-3107 Verify the elements on Driver rating page for each driver in Duo trip
+    And I check all the elements are displayed on driver rating page
+    And I select "3" Ratting star for solo Driver 1
+#  Core-3107 Verify that comments field is correctly validated on driver rating page
+    And I add a comment for driver
+    And I click "Driver Submit" button on "Rate duo teammate" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I check if the rating is saved in the db
+
+  
+ 
+
 # Core 448: Verify Projected Arrival Time and Try to Finish time when Drop off address was edited by Admin when driver had accepted long stack trip in Arrived Status
   @ready
   Scenario:  Verify Projected Arrival Time and Try to Finish time when Drop off address was edited by Admin when driver had accepted long stack trip in Arrived Status
@@ -488,5 +520,5 @@ Feature: Bungii Duo Scheduled Part A
     Then try to finish time should be correctly displayed for short stack trip
 
 
- 
+
 
