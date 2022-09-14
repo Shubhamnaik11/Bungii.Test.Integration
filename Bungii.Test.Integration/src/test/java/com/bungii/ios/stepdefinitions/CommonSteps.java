@@ -3721,7 +3721,8 @@ public class CommonSteps extends DriverBase {
                             "The driver earnings displayed is incorrect after admin edit.");
                     break;
                 case "customer price-driving to dropoff":
-                    float estimateCharge = Float.parseFloat(action.getText(scheduledTripsPage.Text_EstimateCharge()).substring(1));                    String[] range1 = utility.getMilesRange(miles);
+                    float estimateCharge = Float.parseFloat(action.getText(scheduledTripsPage.Text_EstimateCharge()).substring(1));
+                    String[] range1 = utility.getMilesRange(miles);
                     float amount1 = Float.parseFloat(dbUtility.getDriverShareWeightBased(range1[0],range1[1]));
                     float merchantAmt=(float) (Math.round((estimateCharge-amount1)* 100.0) / 100.0);
                     float transFeeSolo= (float) (Math.round(((merchantAmt+amount1)*0.029+0.30)* 100.0) / 100.0);
