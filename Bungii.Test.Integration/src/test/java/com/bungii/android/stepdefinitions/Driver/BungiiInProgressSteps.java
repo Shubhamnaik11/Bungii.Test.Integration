@@ -1086,9 +1086,8 @@ public class BungiiInProgressSteps extends DriverBase {
                             String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
                             String teletTimeInDb = DbUtility.getTELETfromDb(custRef);
                             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
                             Date time2 = formatter.parse(teletTimeInDb);
-                            Calendar calendar = Calendar.getInstance();
+                            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(geofenceLabel));
                             calendar.setTime(time2);
                             String teletInLocalTime = String.valueOf(calendar.getTime());
                             cucumberContextManager.setScenarioContext("NEW_TELET",teletInLocalTime);
@@ -1107,12 +1106,12 @@ public class BungiiInProgressSteps extends DriverBase {
                             logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance2[0]+" and "+timeToCoverDistance2[1]);
 
                             int times = (int) (timeToCoverDistance2[0]/60);
-                            calendar.setTime(formatter.parse(teletInLocalTime));
+                            calendar.setTime(time2);
                             calendar.add(Calendar.MINUTE, times);
                             calendar.add(Calendar.MINUTE, -15);
                             String lowerRangeInLocalTime = String.valueOf(calendar.getTime());
                             cucumberContextManager.setScenarioContext("PAT_LOWER_RANGE",lowerRangeInLocalTime);
-                            calendar.setTime(formatter.parse(teletInLocalTime));
+                            calendar.setTime(time2);
                             calendar.add(Calendar.MINUTE, 30);
                             String upperRangeInLocalTime = String.valueOf(calendar.getTime());
                             cucumberContextManager.setScenarioContext("PAT_UPPER_RANGE",upperRangeInLocalTime);

@@ -430,9 +430,6 @@ Feature: Bungii Duo Scheduled Part A
     And I click "Skip This Step" button on "Rate customer" screen
     Then I check if the rating is saved in the db
 
-
-
-
 # Core 448: Verify Projected Arrival Time and Try to Finish time when Drop off address was edited by Admin when driver had accepted long stack trip in Arrived Status
   @ready
   Scenario:  Verify Projected Arrival Time and Try to Finish time when Drop off address was edited by Admin when driver had accepted long stack trip in Arrived Status
