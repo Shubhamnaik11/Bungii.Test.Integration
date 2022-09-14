@@ -108,6 +108,12 @@ public class Partner_Delivery_Details extends DriverBase {
             String Items_deliver = "";
             String BodcCode ="";
             String bidderNumber = "";
+            String ProductDescription2="";
+            String Dimensions2="";
+            String Weight2 = "";
+            String SMS_Recipient1 = "";
+            String SMS_Recipient2 = "";
+            String SMS_Recipient3 = "";
 
 
             if(dataMap.containsKey("Items_To_Deliver")){
@@ -117,13 +123,26 @@ public class Partner_Delivery_Details extends DriverBase {
                 ProductDescription = dataMap.get("Product_Description").trim();
                 cucumberContextManager.setScenarioContext("Product_Description",ProductDescription);
             }
+            if (dataMap.containsKey("Product_Description2")) {
+                ProductDescription2 = dataMap.get("Product_Description2").trim();
+                cucumberContextManager.setScenarioContext("Product_Description2", ProductDescription2);
+
+            }
             if(dataMap.containsKey("Dimensions")){
                 Dimensions = dataMap.get("Dimensions").trim();
                 cucumberContextManager.setScenarioContext("Dimensions",Dimensions);
             }
+            if (dataMap.containsKey("Dimensions2")) {
+                Dimensions2 = dataMap.get("Dimensions2").trim();
+                cucumberContextManager.setScenarioContext("Dimensions2", Dimensions2);
+            }
             if(dataMap.containsKey("Weight")){
                 Weight = dataMap.get("Weight").trim();
                 cucumberContextManager.setScenarioContext("Weight",Weight);
+            }
+            if (dataMap.containsKey("Weight2")) {
+                Weight2 = dataMap.get("Weight2").trim();
+                cucumberContextManager.setScenarioContext("Weight2", Weight2);
             }
             if (dataMap.containsKey("Customer_Name")) {
                 CustomerName = dataMap.get("Customer_Name").trim();
@@ -155,6 +174,19 @@ public class Partner_Delivery_Details extends DriverBase {
             if(dataMap.containsKey("Bidder_Number")){
                 bidderNumber = dataMap.get("Bidder_Number");
             }
+            if (dataMap.containsKey("SMS_Recipient1")) {
+                SMS_Recipient1 = dataMap.get("SMS_Recipient1").trim();
+                cucumberContextManager.setScenarioContext("SMS_RecipientNo1", SMS_Recipient1);
+
+            }
+            if (dataMap.containsKey("SMS_Recipient2")) {
+                SMS_Recipient2 = dataMap.get("SMS_Recipient2").trim();
+                cucumberContextManager.setScenarioContext("SMS_RecipientNo2", SMS_Recipient2);
+            }
+            if (dataMap.containsKey("SMS_Recipient3")) {
+                SMS_Recipient3 = dataMap.get("SMS_Recipient3").trim();
+                cucumberContextManager.setScenarioContext("SMS_RecipientNo3", SMS_Recipient3);
+            }
 
             //cucumberContextManager.setScenarioContext("Customer", CustomerName);
             String SpecialInstruction = dataMap.get("Special_Instruction").trim();
@@ -175,20 +207,15 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
                         action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
-
-
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
                         action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
-
                         String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
                         cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
-
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
                         action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Receipt_Number(), ReceiptNumber);
-
                         break;
                     default:
                         break;
@@ -333,6 +360,72 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(),SoldBuy);
 
 
+                        break;
+                    default:
+                        break;
+                }
+                log("I enter all details on "+str+" for "+Site+" on partner screen", "I have entered all details on "+str+" for "+Site+" on partner screen", false);
+
+            }
+            else if (Site.equalsIgnoreCase("fnd multiple phone")) {
+
+                switch (str) {
+
+                    case "Delivery Details":
+
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Product_Description(), ProductDescription);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Dimensions(), Dimensions);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Weight(), Weight);
+                        String BungiiType= (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+                        if(BungiiType.equalsIgnoreCase("Duo"))
+                        {
+                            action.clearSendKeys(Page_Partner_Delivery.TextBox_Product2Description(), ProductDescription2);
+                            action.clearSendKeys(Page_Partner_Delivery.TextBox_Product2Dimensions(), Dimensions2);
+                            action.clearSendKeys(Page_Partner_Delivery.TextBox_Product2Weight(), Weight2);
+                        }
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                        action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+                        action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
+                        String SMS_RecipientNo= (String) cucumberContextManager.getScenarioContext("NofRecipients");
+                        switch (SMS_RecipientNo)
+                        {
+                            case "one time":
+                            action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
+                            action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), SMS_Recipient1);
+                            break;
+                            case "two times":
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), SMS_Recipient1);
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), SMS_Recipient2);
+                                break;
+                            case "three times":
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), SMS_Recipient1);
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), SMS_Recipient2);
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3(), SMS_Recipient3);
+                                action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Name());
+                                break;
+                            default:
+                        }
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+                        String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                        cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
+                        cucumberContextManager.setScenarioContext("Customer_Name", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
+                        cucumberContextManager.setScenarioContext("Customer_Mobile", Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value"));
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(), DeliveryPurpose);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Rb_Sb_Number(), RbSbNumber);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(), SoldBuy);
+                        log("All partner details should be entered with added SMS recipients","All partner details are added with added SMS recipients",false);
                         break;
                     default:
                         break;
@@ -898,6 +991,77 @@ public class Partner_Delivery_Details extends DriverBase {
     }
     }
 
+    @When("^I click \"([^\"]*)\" button \"([^\"]*)\" to add more recipients$")
+    public void i_click_something_button_something_to_add_more_recipients(String strArg1, String strArg2) throws Throwable {
+        {
+            if (Page_Partner_Delivery.Button_AddSMSRecipient().isDisplayed()) {
+                try {
+                     cucumberContextManager.setScenarioContext("NofRecipients",strArg2);
+                     switch((String) cucumberContextManager.getScenarioContext("NofRecipients")) {
+                         case "one time":
+                            action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
+                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
+                            break;
+                        case "two times":
+                            action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
+                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
+                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), (long) 2000);
+                            break;
+                        case "three times":
+                            action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
+                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
+                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), (long) 2000);
+                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3(), (long) 2000);
+                            break;
+                        default:
+
+                     }
+                    log("I am able to click on add recipients button required number of times", " I am unable to add sms recipients", false);
+
+                } catch (Exception e) {
+
+                    logger.error("Add SMS recipients button not present", ExceptionUtils.getStackTrace(e));
+                    error("Add SMS recipients button should be present", "Add SMS recipients button not present",
+                            true);
+                }
+            }
+        }
+    }
+
+
+    @Then("^New mobile recipients field should be added$")
+    public void new_mobile_recipients_field_should_be_added() throws Throwable {
+        try {
+
+            switch((String) cucumberContextManager.getScenarioContext("NofRecipients")){
+                     case "one time":
+                         testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1()), "added recipient1 mobile field should be displayed", "added recipient is displayed", "added recipient1 mobile field is not displayed");
+                         break;
+                    case "two times":
+                        testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1()), "added recipient1 mobile field should be displayed", "added recipient is displayed", "added recipient1 mobile field is not displayed");
+                        testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2()), "added recipient2 mobile field should be displayed", "added recipient is displayed", "added recipient2 mobile field is not displayed");
+                        break;
+                    case "three times":
+                        testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1()), "added recipient1 mobile field should be displayed", "added recipient is displayed", "added recipient1 mobile field is not displayed");
+                        testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2()), "added recipient2 mobile field should be displayed", "added recipient is displayed", "added recipient2 mobile field is not displayed");
+                        testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3()), "added recipient3 mobile field should be displayed", "added recipient is displayed", "added recipient2 mobile field is not displayed");
+                        break;
+                default:
+
+           }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @Then("^The Phone Icon should not be displayed$")
     public void the_phone_icon_should_not_be_displayed() throws Throwable {
         try{
@@ -909,6 +1073,7 @@ public class Partner_Delivery_Details extends DriverBase {
                 true);
 
     }
+
     }
 
 

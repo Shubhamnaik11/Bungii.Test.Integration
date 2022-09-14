@@ -654,4 +654,17 @@ public class DbUtility extends DbContextManager {
         return deliveryStatus;
 
     }
+
+    //for checking added multiple customer sms recipients in database
+    public static List<HashMap<String, Object>> getCustomerSMSRecipients(String PickupRef)
+    {
+
+        List<HashMap<String,Object>> CustSMSRecipients = new ArrayList<>();
+        String Querystring= "select pa.sms_customer_phone_list from pickup_additional_info pa join pickupdetails pd on pa.pickup_id = pd.PickupID where pd.PickupRef ='"+PickupRef+"'";
+        CustSMSRecipients= getDataFromMySqlServerMap(Querystring);
+        return CustSMSRecipients;
+
+    }
+
 }
+

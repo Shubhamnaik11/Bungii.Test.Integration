@@ -611,6 +611,49 @@ public class Partner_LoginSteps extends DriverBase {
                     break;
                 default:
                     break;
+                case "see the extra recipient numbers added on delivery details":
+                    String expected_Recipient1PhoneNumber,displayed_Recipient1PhoneNumber,expected_Recipient2PhoneNumber,expected_Recipient3PhoneNumber, displayed_Recipient2PhoneNumber, displayed_Recipient3PhoneNumber;
+                    switch((String) cucumberContextManager.getScenarioContext("NofRecipients"))
+                    {
+                        case "one time":
+                            expected_Recipient1PhoneNumber= (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo1");
+                            displayed_Recipient1PhoneNumber = (action.getText(Page_Partner_Delivery.PhoneNo_Recipient1())).trim();
+                            displayed_Recipient1PhoneNumber = displayed_Recipient1PhoneNumber.replace("(", "").replace(")", "").replace(" ", "").replace("-", "");
+                            testStepAssert.isEquals(displayed_Recipient1PhoneNumber, expected_Recipient1PhoneNumber, "Recipient number added should match expected", "Phone number is correctly displayed on partner portal", "Incorrect number displayed on partner portal");
+                            log("Added SMS Recipient should be displayed on delivery details page","Added one SMS Recipient has been displayed on delivery details page.",false);
+                            break;
+                        case "two times":
+                            expected_Recipient1PhoneNumber = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo1");
+                            displayed_Recipient1PhoneNumber = (action.getText(Page_Partner_Delivery.PhoneNo_Recipient1())).trim();
+                            displayed_Recipient1PhoneNumber = displayed_Recipient1PhoneNumber.replace("(", "").replace(")", "").replace(" ", "").replace("-", "");
+                            testStepAssert.isEquals(displayed_Recipient1PhoneNumber, expected_Recipient1PhoneNumber, "Recipient number added should match expected", "Phone number is correctly displayed on partner portal", "Incorrect number displayed on partner portal");
+                            expected_Recipient2PhoneNumber = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo2");
+                            displayed_Recipient2PhoneNumber = action.getText(Page_Partner_Delivery.PhoneNo_Recipient2());
+                            displayed_Recipient2PhoneNumber = displayed_Recipient2PhoneNumber.replace("(", "").replace(")", "").replace(" ", "").replace("-", "");
+                            testStepAssert.isEquals(displayed_Recipient2PhoneNumber, expected_Recipient2PhoneNumber, "Recipient number added should match expected", "Phone number is correctly displayed on partner portal", "Incorrect number displayed on partner portal");
+                            log("Added SMS Recipient should be displayed on delivery details page","Added two SMS Recipients have been displayed on delivery details page.",false);
+
+                            break;
+                        case "three times":
+                            expected_Recipient1PhoneNumber = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo1");
+                            displayed_Recipient1PhoneNumber = (action.getText(Page_Partner_Delivery.PhoneNo_Recipient1())).trim();
+                            displayed_Recipient1PhoneNumber = displayed_Recipient1PhoneNumber.replace("(", "").replace(")", "").replace(" ", "").replace("-", "");
+                            testStepAssert.isEquals(displayed_Recipient1PhoneNumber, expected_Recipient1PhoneNumber, "Recipient number added should match expected", "Phone number is correctly displayed on partner portal", "Incorrect number displayed on partner portal");
+                            expected_Recipient2PhoneNumber = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo2");
+                            displayed_Recipient2PhoneNumber = action.getText(Page_Partner_Delivery.PhoneNo_Recipient2());
+                            displayed_Recipient2PhoneNumber = displayed_Recipient2PhoneNumber.replace("(", "").replace(")", "").replace(" ", "").replace("-", "");
+                            testStepAssert.isEquals(displayed_Recipient2PhoneNumber, expected_Recipient2PhoneNumber, "Recipient number added should match expected", "Phone number is correctly displayed on partner portal", "Incorrect number displayed on partner portal");
+                            expected_Recipient3PhoneNumber = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo3");
+                            displayed_Recipient3PhoneNumber = action.getText(Page_Partner_Delivery.PhoneNo_Recipient3());
+                            displayed_Recipient3PhoneNumber = displayed_Recipient3PhoneNumber.replace("(", "").replace(")", "").replace(" ", "").replace("-", "");
+                            testStepAssert.isEquals(displayed_Recipient3PhoneNumber, expected_Recipient3PhoneNumber, "Recipient number added should match expected", "Phone number is correctly displayed on partner portal", "Incorrect number displayed on partner portal");
+                            log("Added SMS Recipient should be displayed on delivery details page","Added three SMS Recipients have been displayed on delivery details page.",false);
+
+                            break;
+                        default:
+                            error("Step should be successful", "Error performing step",true);
+                    }
+                    break;
             }
         }
         catch(Exception e)
