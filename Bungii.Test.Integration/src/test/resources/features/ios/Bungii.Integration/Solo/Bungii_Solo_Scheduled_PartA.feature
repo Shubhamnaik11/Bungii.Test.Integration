@@ -650,22 +650,38 @@ Feature: Solo Scheduled Bungii Part A
 
 
 
-  @ready
+  @testAllan
   Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
-    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |baltimore| NEXT_POSSIBLE | 8877661036 | Testcustomertywd_appleMarkAK LutherAK|
-    And As a driver "TestDrivertywd_applemd_a_billI Stark_bltTwOI" perform below action with respective "Solo Scheduled" Delivery
-      | driver1 state|
-      |Accepted |
-      | Enroute  |
+      |washingtondc| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleNewRB Customer" the customer
+    When I click on the "Edit" button from the dropdown
+    And I click on "Edit Trip Details" radiobutton
+    And I assign driver "Testdrivertywd_appledc_a_drvC WashingtonC" for the trip
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+    When I click on "Close" button
+
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "TestDrivertywd_applemd_a_billI Stark_bltTwOI" driver
+    And I am logged in as "Testdrivertywd_appledc_a_drvC WashingtonC" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I click on start Bungii for service based delivery
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     Then I should see "Pickup Instructions" popup displayed
+    Then The driver instructions should be in markdown format
     And I click on "GOT IT" button
     And I slide update button on "ARRIVED" Screen
     And I driver adds photos to the Bungii
@@ -675,6 +691,7 @@ Feature: Solo Scheduled Bungii Part A
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then I should see "Drop-Off Instructions" popup displayed
+    Then The driver instructions should be in markdown format
     And I click on "GOT IT" button
     And I slide update button on "UNLOADING ITEMS" Screen
     And I driver adds photos to the Bungii

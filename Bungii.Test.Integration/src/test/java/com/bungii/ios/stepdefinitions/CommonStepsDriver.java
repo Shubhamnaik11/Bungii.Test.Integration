@@ -55,13 +55,14 @@ public class CommonStepsDriver extends DriverBase {
     private DbUtility dbUtility = new DbUtility();
     private ScheduledBungiiPage scheduledBungiipage = new ScheduledBungiiPage();
     DashBoardPage admin_dashboardPage = new DashBoardPage();
+    AvailableTripsPage availableTripsPage;
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
                        ScheduledTripsPage scheduledTripsPage,
                        BungiiRequestPage bungiiRequestPage,
                         com.bungii.ios.pages.driver.HomePage driverHomePage,
-                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage,BungiiDetailsPage bungiiDetailsPage) {
+                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage,BungiiDetailsPage bungiiDetailsPage,AvailableTripsPage availableTripsPage) {
 
         this.driverUpdateStatusPage = updateStatusPage;
         this.scheduledTripsPage = scheduledTripsPage;
@@ -70,6 +71,8 @@ public class CommonStepsDriver extends DriverBase {
         this.driverForgotPasswordPage=driverForgotPasswordPage;
         this.bungiiDetailsPage = bungiiDetailsPage;
         //this.enableLocationPage=enableLocationPage;
+        this.availableTripsPage = availableTripsPage;
+
 
     }
 
@@ -744,12 +747,6 @@ public class CommonStepsDriver extends DriverBase {
                 case "Remove Driver":
                     action.click(scheduledTripsPage.Button_RemoveDrivers());
                     break;
-                case "GOT IT":
-                    action.click(scheduledTripsPage.Button_GotIt());
-                    break;
-                case "SKIP CUSTOMER SIGNATURE":
-                    action.click(scheduledTripsPage.Button_SkipCustomerRating());
-                    break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }
@@ -968,4 +965,16 @@ public class CommonStepsDriver extends DriverBase {
         }
     }
 
+
+    @Then("^The driver instructions should be in markdown format$")
+    public void the_driver_instructions_should_be_in_markdown_format() throws Throwable {
+        String expectedServicePickupInstructions = action.getText(availableTripsPage.Text_PickupInstructions());
+        String expectedServiceDropOffInstructions = action.getText(availableTripsPage.Text_DropOffInstructions());
+       if(expectedServicePickupInstructions.contains("•")){
+       System.out.println("it does indeed contain");
+       }
+       else if(expectedServicePickupInstructions.contains("\\•")){
+           System.out.println("it does indeed contain bullut but with special character");
+        }
+}
 }
