@@ -947,16 +947,16 @@ public class CommonStepsDriver extends DriverBase {
         try{
             switch (expectedMessage.toLowerCase()) {
                 case "pickup instructions":
-                    boolean isPickUpHeaderDisplayed = bungiiDetailsPage.Alert_PickupInstructions().isDisplayed();
+                    boolean isPickUpHeaderDisplayed = bungiiDetailsPage.Text_PickupInstructions().isDisplayed();
                     testStepAssert.isTrue(isPickUpHeaderDisplayed, "Pickup instruction alert should be displayed", "Pickup instruction alert is displayed", "Pickup instruction alert is not displayed");
-                    String pickupInstructionOnPopUp = action.getText(bungiiDetailsPage.Alert_PickupInstructions()).toLowerCase();
-                    testStepVerify.isEquals(pickupInstructionOnPopUp, expectedMessage, expectedMessage + " Header should be displayed", pickupInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
+                    String pickupInstructionOnPopUp = action.getText(bungiiDetailsPage.Text_PickupInstructions()).toLowerCase();
+                    testStepVerify.isEquals(pickupInstructionOnPopUp, expectedMessage.toLowerCase(), expectedMessage + " Header should be displayed", pickupInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
                     break;
                 case "drop-off instructions":
-                    boolean isDropOffHeaderDisplayed = bungiiDetailsPage.Alert_DropOffInstructions().isDisplayed();
+                    boolean isDropOffHeaderDisplayed = bungiiDetailsPage.Text_DropOffInstructions().isDisplayed();
                     testStepAssert.isTrue(isDropOffHeaderDisplayed, "DropOff instruction alert should be displayed", "DropOff instruction alert is displayed", "DropOff instruction alert is not displayed");
-                    String dropOffInstructionOnPopUp = action.getText(bungiiDetailsPage.Alert_DropOffInstructions()).toLowerCase();
-                    testStepVerify.isEquals(dropOffInstructionOnPopUp, expectedMessage, expectedMessage + " Header should be displayed", dropOffInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
+                    String dropOffInstructionOnPopUp = action.getText(bungiiDetailsPage.Text_DropOffInstructions()).toLowerCase();
+                    testStepVerify.isEquals(dropOffInstructionOnPopUp, expectedMessage.toLowerCase(), expectedMessage + " Header should be displayed", dropOffInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
                     break;
             }
         }catch (Exception e){
@@ -966,15 +966,34 @@ public class CommonStepsDriver extends DriverBase {
     }
 
 
-    @Then("^The driver instructions should be in markdown format$")
-    public void the_driver_instructions_should_be_in_markdown_format() throws Throwable {
-        String expectedServicePickupInstructions = action.getText(availableTripsPage.Text_PickupInstructions());
-        String expectedServiceDropOffInstructions = action.getText(availableTripsPage.Text_DropOffInstructions());
-       if(expectedServicePickupInstructions.contains("•")){
-       System.out.println("it does indeed contain");
-       }
-       else if(expectedServicePickupInstructions.contains("\\•")){
-           System.out.println("it does indeed contain bullut but with special character");
+    @Then("^The driver \"([^\"]*)\" instructions should be in markdown format$")
+    public void the_driver_something_instructions_should_be_in_markdown_format(String instructionsAt) throws Throwable {
+        try{
+        switch (instructionsAt){
+            case "Pickup":
+                String expectedServicePickupInstructions = action.getText(availableTripsPage.Text_DriverInstructionsInBulletsAtPickup());
+                if(expectedServicePickupInstructions.contains("•")){
+                    testStepAssert.isTrue(true,"The driver pickup Instructions should be in markdown format",
+                            "The driver pickup Instructions is in markdown format","The driver pickup Instructions is not in markdown format");
+                }
+                else{
+                    testStepAssert.isFail("The driver pickup instructions is not in markdown format");
+                }
+                break;
+            case "Dropoff":
+                String expectedServiceDropoffInstructions = action.getText(availableTripsPage.Text_DriverInstructionsInBulletsAtDropOff());
+                if(expectedServiceDropoffInstructions.contains("•")){
+                    testStepAssert.isTrue(true,"The driver dropoff Instructions should be in markdown format",
+                            "The driver dropoff Instructions is in markdown format","The driver dropoff Instructions is not in markdown format");
+                }
+                else{
+                    testStepAssert.isFail("The driver dropoff instructions is not in markdown format");
+                }
+                break;
         }
-}
+    }catch (Exception e){
+        logger.error("Error performing step", e);
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 }
