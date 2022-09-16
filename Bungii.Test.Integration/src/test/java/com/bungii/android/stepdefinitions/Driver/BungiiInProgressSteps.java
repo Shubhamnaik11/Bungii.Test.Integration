@@ -740,9 +740,10 @@ public class BungiiInProgressSteps extends DriverBase {
     public void bungii_driver_uploads_something_image(String numberofimages) throws Throwable {
         try {
             action.click(inProgressBungiiPages.Button_AddPhoto());
-            if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true)))
+            if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true))){
                 Thread.sleep(2000);
                 action.click(bungiiEstimatePage.Permissions_CameraAllow());
+                }
             Thread.sleep(2000);
             switch (numberofimages){
                 case "1":
@@ -1037,7 +1038,7 @@ public class BungiiInProgressSteps extends DriverBase {
     @And("^I search the delivery using \"([^\"]*)\"$")
     public void i_search_the_delivery_using_something(String strArg1) throws Throwable {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
             action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
             log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
         } catch(Exception e){

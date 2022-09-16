@@ -469,3 +469,55 @@ Feature: SoloScheduled
     And I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     And Bungii Driver "skips to rate customer"
+
+  #CORE-3009:Verify driver instructions at pickup and drop off is in Markdown format
+  @testAllan
+  Scenario:Verify driver instructions at pickup and drop off is in Markdown format
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |washingtondc| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Edit" button from the dropdown
+    And I Select "Edit Trip Details" option
+    And I assign driver "Testdrivertywd_appledc_a_web TestdriverA" for the trip
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+    When I click on "Close" button
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And I click on start Bungii for service based delivery
+    Then Bungii driver should see "General Instructions"
+    And I slide update button on "EN ROUTE" Screen
+#    Then I should see "Pickup Instructions" popup displayed
+    Then The driver "Pickup" instructions should be in markdown format
+    And I click on "GOT IT" button
+    And I slide update button on "ARRIVED" Screen
+    And  Bungii driver should see "Photo Verification"
+    When Bungii driver uploads "1" image
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And Bungii driver should see "Photo Verification"
+    When Bungii driver uploads "1" image
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should see "Drop-Off Instructions" popup displayed
+    Then The driver "Dropoff" instructions should be in markdown format
+    And I click on "GOT IT" button
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Bungii driver should see "Photo Verification"
+    When Bungii driver uploads "1" image
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Bungii Driver "skips to rate customer"

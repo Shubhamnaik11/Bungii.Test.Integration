@@ -156,4 +156,8 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Tab_CustomerSignature(){return findElement("com.bungii.driver:id/activity_more_options_btn_customer_signature",LocatorType.Id);}
     public WebElement Button_Submit(){return findElement("com.bungii.driver:id/appCompatButton6",LocatorType.Id);}
 
+    public WebElement Text_DriverInstructionsInBulletsAtPickup(){return  findElement("com.bungii.driver:id/view_instructions_body",LocatorType.Id);}
+    public WebElement Text_DriverInstructionsInBulletsAtDropOff(){return  findElement("com.bungii.driver:id/view_instructions_body",LocatorType.Id);}
+    public WebElement Text_DropOffInstructionsHeader(){return  findElement("com.bungii.driver:id/appCompatTextView31",LocatorType.Id);}
+
 }

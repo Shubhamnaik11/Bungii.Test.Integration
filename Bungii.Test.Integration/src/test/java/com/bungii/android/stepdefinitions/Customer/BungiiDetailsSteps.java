@@ -9,6 +9,7 @@ import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -190,5 +191,21 @@ public class BungiiDetailsSteps extends DriverBase {
     }
 
         }
+
+    @And("^I click on start Bungii for service based delivery$")
+    public void i_click_on_start_bungii_for_service_based_delivery() throws Throwable {
+        try{
+            action.scrollToBottom();
+            action.scrollToBottom();
+            action.scrollToBottom();
+            Thread.sleep(5000);
+            action.click(bungiiRequest.Button_StartBungii());
+
+            log("I start selected Bungii ", "I started selected Bungii", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error in Starting Bungii as Driver", true);
+        }
+    }
 
 }
