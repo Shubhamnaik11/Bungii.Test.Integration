@@ -128,6 +128,7 @@ And I wait for 1 minutes
 And As a driver "Testdrivertywd_appleks_a_drvae Kansas_ae" perform below action with respective "Solo Scheduled" partner portal trip
 | driver1 state |
 | Driver Canceled |
+#	Core-4330 Verify terms and privacy policy is displayed on login page
 And I login to driver portal on a new tab with driver phone number "9049840210"
 And I click on "Driver Details" link to get the total driver earnings value screen and navigate back to admin portal
 And I wait for 2 minutes
