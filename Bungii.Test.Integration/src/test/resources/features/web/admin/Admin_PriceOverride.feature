@@ -198,6 +198,7 @@ Feature: Admin_Price_Override
     Then I close the Trip Delivery Details page
 
   @regression
+#    @testsweta
   Scenario: Verify Admin override is not present for Schedule Customer delivery and Live delivery
     When I am logged in as Admin
     And I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
