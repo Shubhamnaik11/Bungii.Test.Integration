@@ -562,7 +562,7 @@ Feature: Admin_Refund
 		And I confirm the "Confirm" action
 		And I click on "OK Driver status change" button
         And I click on the "Driver" link from the sidebar
-        When I search driver "Testdrivertywd_appleks_a_drvbc Kansas_bc"
+		When I search driver "Testdrivertywd_appleks_a_drvbc Kansas_bc"
         And I click on "Profile" icon
         And I edit the Driver
         Then The "Driver Status" "Label" should be displayed
