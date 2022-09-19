@@ -587,21 +587,21 @@ Feature: Admin_Refund
         Then The "Testdrivertywd_appleks_a_drvbc Kansas_bc" "Driver name" should not be displayed
         And I click on the "Driver" link from the sidebar
 		When I select a driver "9999999931" whose status is "New Application"
-       And I click on the "Active Driver Map" link from the sidebar
-       When I clear the filter applied
-       And I "Unselect" all the "Equipment" checkboxes from the filter
-       And I "Unselect" all the "Vehicle Type" checkboxes from the filter
-       And I click on the "Select Geofence" dropdown
-       And I Enter the text "Kansas"
-       When I click on the "Kansas" checkbox
-       Then The driver having status "New Application" should not be present in active driver map
-       And I click on the "Driver" link from the sidebar
-       When I select a driver "6637633622" whose status is "Rejected"
-       And I click on the "Active Driver Map" link from the sidebar
-       When I clear the filter applied
-       And I "Unselect" all the "Equipment" checkboxes from the filter
-       And I "Unselect" all the "Vehicle Type" checkboxes from the filter
-       And I click on the "Select Geofence" dropdown
-       And I Enter the text "Kansas"
-       When I click on the "Kansas" checkbox
-       Then The driver having status "Rejected" should not be present in active driver map
+        And I click on the "Active Driver Map" link from the sidebar
+        When I clear the filter applied
+        And I "Unselect" all the "Equipment" checkboxes from the filter
+        And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+        And I click on the "Select Geofence" dropdown
+        And I Enter the text "Kansas"
+        When I click on the "Kansas" checkbox
+        Then The driver having status "New Application" should not be present in active driver map
+        And I click on the "Driver" link from the sidebar
+        When I select a driver "6637633622" whose status is "Rejected"
+        And I click on the "Active Driver Map" link from the sidebar
+        When I clear the filter applied
+        And I "Unselect" all the "Equipment" checkboxes from the filter
+        And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+        And I click on the "Select Geofence" dropdown
+        And I Enter the text "Kansas"
+        When I click on the "Kansas" checkbox
+        Then The driver having status "Rejected" should not be present in active driver map
