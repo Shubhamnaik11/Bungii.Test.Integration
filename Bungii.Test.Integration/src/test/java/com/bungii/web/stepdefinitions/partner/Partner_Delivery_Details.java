@@ -905,7 +905,7 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Testdrivertywd_appleks_a_drvam Kansas_am":
                 case "Testdrivertywd_appleks_a_drvbc Kansas_bc":
                 case "Testdrivertywd_appleks_a_drvbd Kansas_bd":
-                    Thread.sleep(3000);
+                    Thread.sleep(8000);
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Text_DriverName()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Icon_DriverPosition()),"Drivers current location icon should be displayed","Drivers current location icon is displayed","Drivers current location icon is not displayed");
                     String kansasDriver1Name= action.getText(admin_DriverPage.Text_DriverName());

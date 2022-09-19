@@ -2875,11 +2875,12 @@ try{
     }
 
     @When("^I select a driver \"([^\"]*)\" whose status is \"([^\"]*)\"$")
-    public void i_select_a_driver_something_whose_status_is_something(String driverName, String driverStatus) throws Throwable {
+    public void i_select_a_driver_something_whose_status_is_something(String driverPhone, String driverStatus) throws Throwable {
         try{
+        Thread.sleep(9000);
+        action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(),driverPhone+ Keys.ENTER);
         Thread.sleep(3000);
-        action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(),driverName+ Keys.ENTER);
-        cucumberContextManager.setScenarioContext("DRIVER",driverName);
+        cucumberContextManager.setScenarioContext("DRIVER",action.getText(admin_DriverPage.Text_DriverName()));
         Thread.sleep(3000);
         String statusOfDriver = action.getText(admin_DriverPage.Text_DriverApplicationStatus());
         testStepAssert.isEquals(statusOfDriver,driverStatus,"The driver application should be "+driverStatus ,"The driver application is "+driverStatus,"The driver application is not "+driverStatus);
@@ -2891,13 +2892,21 @@ try{
     }
     }
 
-    @And("^driver icon should be displayed on the map for \"([^\"]*)\"$")
-    public void driver_icon_should_be_displayed_on_the_map_for_something(String driver) throws Throwable {
+    @And("^Driver icon should be displayed on the map for \"([^\"]*)\"$")
+    public void Driver_icon_should_be_displayed_on_the_map_for_something(String driver) throws Throwable {
+        try{
         Thread.sleep(3000);
         testStepAssert.isElementDisplayed(admin_Driverspage.Icon_Driver1OnMap(),"Icon should be present on the map",
                         "Icon should be present on the map","Icon should be present on the map" );
         action.click(admin_Driverspage.Icon_Driver1OnMap());
         Thread.sleep(3000);
+        log("I should be able to click on driver icon displayed on the map","I could click on the driver icon displayed on the map",false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
         }
 
     @Then("^The driver having status \"([^\"]*)\" should not be present in active driver map$")
@@ -2908,13 +2917,13 @@ try{
         List <WebElement> allDrivers = admin_Driverspage.List_AllDriversInActiveMap();
         for(WebElement name:allDrivers){
             if(name.getText().contentEquals(expectedDriversName)) {
-                System.out.println("Step should fail");
+                System.out.println("Step should fail for ");
                 testStepAssert.isFail("Driver " + name.getText() + " is present in the list of all drivers");
                 break;
             }
         }
-        testStepAssert.isTrue(true,"Driver "+allDrivers+" should not be  present in the list of all drivers","Driver "+allDrivers+" is not present in the list of all drivers",
-                "Driver "+allDrivers+" is present in the list of all drivers");
+        testStepAssert.isTrue(true,"Driver "+expectedDriversName+" should not be  present in the list of all drivers","Driver "+expectedDriversName+" is not present in the list of all drivers",
+                "Driver "+expectedDriversName+" is present in the list of all drivers");
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -2926,13 +2935,24 @@ try{
 
     @Then("^The drivers name \"([^\"]*)\" phone number \"([^\"]*)\" and vehicle type \"([^\"]*)\" should be displayed$")
     public void the_drivers_name_something_phone_number_something_and_vehicle_type_something_should_be_displayed(String driverName, String DriverPhone, String DriverVehicleType) throws Throwable {
+     try{
       Thread.sleep(3000);
-      String name = action.getText(admin_Driverspage.Text_DetailsPopupInformation(2)).toLowerCase().trim();
-      String phoneNo = action.getText(admin_Driverspage.Text_DetailsPopupInformation(3));
-      String vehicle =action.getText(admin_Driverspage.Text_DetailsPopupInformation(5));
-        testStepAssert.isEquals(name,driverName.toLowerCase(),"The driver name should be "+driverName ,"The driver name is "+name,"The driver name is not "+driverName);
+      String driverNameAlongWithNameText[] =  action.getText(admin_Driverspage.Text_DetailsPopupInformation(2)).trim().split(":");
+      String name =driverNameAlongWithNameText[1].trim();
+      String phoneNoWithAdditionalData []= action.getText(admin_Driverspage.Text_DetailsPopupInformation(3)).trim().split(":");
+      String vehicleWithAdditionalData []=action.getText(admin_Driverspage.Text_DetailsPopupInformation(5)).trim().split(":");
+      String phoneNo =  phoneNoWithAdditionalData[1].trim();
+      String vehicle =  vehicleWithAdditionalData[1].trim();
+        testStepAssert.isEquals(name.toLowerCase(),driverName.toLowerCase(),"The driver name should be "+driverName ,"The driver name is "+name,"The driver name is not "+driverName);
         testStepAssert.isEquals(phoneNo,DriverPhone,"The driver phone number should be "+DriverPhone ,"The driver phone number is "+phoneNo,"The driver phone number is not "+DriverPhone);
-        testStepAssert.isEquals(vehicle,DriverVehicleType,"The driver application should be "+DriverVehicleType ,"The driver application is "+vehicle,"The driver application is not "+DriverVehicleType);
+        testStepAssert.isEquals(vehicle.toLowerCase(),DriverVehicleType.toLowerCase(),"The driver application should be "+DriverVehicleType ,"The driver application is "+vehicle,"The driver application is not "+DriverVehicleType);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
     }
+    }
+
 
 }

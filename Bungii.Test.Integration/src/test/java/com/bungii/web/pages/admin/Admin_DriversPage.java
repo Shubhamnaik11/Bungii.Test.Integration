@@ -62,8 +62,6 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement TextBox_DriverStatusChangeComment() {return findElement("Comments",LocatorType.Id);}
 
-    public WebElement TextBox_DriverEmail() {return findElement("EmailAddress",LocatorType.Id);}
-
     public WebElement Button_ConfirmDriverStatusChange() {return findElement("//div[1]/div/div/div/button[@id='btnagree']",LocatorType.XPath);}
 
     public WebElement Button_OkDriverStatusChange() {return findElement("btnDriverStatusChangeOK",LocatorType.Id);}
@@ -77,6 +75,8 @@ public class Admin_DriversPage extends PageBase {
     public WebElement Header_Details() {return findElement("firstHeading",LocatorType.Id);}
 
     public WebElement Text_DetailsPopupInformation(int number) {return findElement(String.format("//div[@id=\"bodyContent\"]/p[%d]",number),LocatorType.XPath);}
+
+    public WebElement Text_DriverName() {return findElement("//div/table/tbody/tr/td[2]",LocatorType.XPath);}
 
 
 }
