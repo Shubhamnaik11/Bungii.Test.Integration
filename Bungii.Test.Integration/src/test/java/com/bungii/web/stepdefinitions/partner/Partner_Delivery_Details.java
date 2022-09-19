@@ -917,6 +917,9 @@ public class Partner_Delivery_Details extends DriverBase {
                     action.JavaScriptScrolldown();
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Label_DriverStatus()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
                     break;
+                case "Details":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Header_Details()),"Details header should be displayed","Details header is displayed","Details header is not displayed");
+                    break;
             }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

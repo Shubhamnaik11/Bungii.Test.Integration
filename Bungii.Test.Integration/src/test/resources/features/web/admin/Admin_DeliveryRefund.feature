@@ -512,22 +512,23 @@ Feature: Admin_Refund
 		Then I should see the message "No deliveries found." displayed
 
    #CORE-3009 :To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
-	@testAllan
+#	@testAllan
 	Scenario:To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
 		And I click on the "Driver" link from the sidebar
 		Then The "Active Driver Map" "Link" should be displayed
 		And I click on the "Active Driver Map" link from the sidebar
-		Then The "Map" "Image" should be displayed
+#		Then The "Map" "Image" should be displayed
 		And I "Unselect" all the "Equipment" checkboxes from the filter
 		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
 		And I click on the "Select Geofence" dropdown
 		And I Enter the text "Kansas"
 		When I click on the "Kansas" checkbox
-		And I wait for 1 minutes
 		When I select filter "Vehicle Type" as "Box Truck"
 		And I click on Apply button on Filter
 		Then The "Testdrivertywd_appleks_a_drval Kansas_al" "Driver name" should be displayed
-#		And I verify the details for driver "lol"
+		And driver icon should be displayed on the map for "Testdrivertywd_appleks_a_drval Kansas_al"
+		Then The "Details" "Popup" should be displayed
+		Then The drivers name "Testdrivertywd_appleks_a_drval Kansas_al" phone number "9049840217" and vehicle type "Box Truck" should be displayed
 		When I select filter "Vehicle Type" as "Box Truck"
 		And I click on Apply button on Filter
 		When I select filter "Vehicle Type" as "Moving Van"

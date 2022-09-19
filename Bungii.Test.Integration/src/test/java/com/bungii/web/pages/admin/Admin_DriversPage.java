@@ -72,4 +72,11 @@ public class Admin_DriversPage extends PageBase {
 
     public List<WebElement> List_AllDriversInActiveMap() {return findElements("//div[@id=\"driverList\"]/div",LocatorType.XPath);}
 
+    public WebElement Icon_Driver1OnMap() {return findElement("//div/span[text()=\"To navigate, press the arrow keys.\"]/following-sibling::div",LocatorType.XPath);}
+
+    public WebElement Header_Details() {return findElement("firstHeading",LocatorType.Id);}
+
+    public WebElement Text_DetailsPopupInformation(int number) {return findElement(String.format("//div[@id=\"bodyContent\"]/p[%d]",number),LocatorType.XPath);}
+
+
 }

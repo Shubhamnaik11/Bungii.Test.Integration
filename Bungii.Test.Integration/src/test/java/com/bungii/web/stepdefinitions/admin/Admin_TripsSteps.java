@@ -2851,26 +2851,6 @@ try{
     }
     }
 
-    @And("^I verify the details for driver \"([^\"]*)\"$")
-    public void i_verify_the_details_for_driver_something(String strArg1) throws Throwable {
-        Thread.sleep(4000);
-//        String actualTooltiptext = action.getText(admin_liveTripsPage.Label_Tooltip());
-        moveTOCords();
-    }
-
-    public void moveTOCords() throws AWTException, InterruptedException {
-        Thread.sleep(3000);
-        Point coordinates = (admin_DriverPage.Icon_DriverPosition().getLocation());
-        Robot robot = new Robot();
-
-        Actions action = new Actions(SetupManager.getDriver());
-        robot.mouseMove(coordinates.getX()+660,coordinates.getY()+110);
-//        robot.mousePress();
-        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        Thread.sleep(4000);
-    }
-
     @And("^I change the driver status to \"([^\"]*)\"$")
     public void i_change_the_driver_status_to_something(String driverStatus) throws Throwable {
         try{
@@ -2911,6 +2891,14 @@ try{
     }
     }
 
+    @And("^driver icon should be displayed on the map for \"([^\"]*)\"$")
+    public void driver_icon_should_be_displayed_on_the_map_for_something(String driver) throws Throwable {
+        Thread.sleep(3000);
+        testStepAssert.isElementDisplayed(admin_Driverspage.Icon_Driver1OnMap(),"Icon should be present on the map",
+                        "Icon should be present on the map","Icon should be present on the map" );
+        action.click(admin_Driverspage.Icon_Driver1OnMap());
+        Thread.sleep(3000);
+        }
 
     @Then("^The driver having status \"([^\"]*)\" should not be present in active driver map$")
     public void the_driver_having_status_something_should_not_be_present_in_active_driver_map(String strArg1) throws Throwable {
@@ -2934,5 +2922,17 @@ try{
 
     }
 }
+
+
+    @Then("^The drivers name \"([^\"]*)\" phone number \"([^\"]*)\" and vehicle type \"([^\"]*)\" should be displayed$")
+    public void the_drivers_name_something_phone_number_something_and_vehicle_type_something_should_be_displayed(String driverName, String DriverPhone, String DriverVehicleType) throws Throwable {
+      Thread.sleep(3000);
+      String name = action.getText(admin_Driverspage.Text_DetailsPopupInformation(2)).toLowerCase().trim();
+      String phoneNo = action.getText(admin_Driverspage.Text_DetailsPopupInformation(3));
+      String vehicle =action.getText(admin_Driverspage.Text_DetailsPopupInformation(5));
+        testStepAssert.isEquals(name,driverName.toLowerCase(),"The driver name should be "+driverName ,"The driver name is "+name,"The driver name is not "+driverName);
+        testStepAssert.isEquals(phoneNo,DriverPhone,"The driver phone number should be "+DriverPhone ,"The driver phone number is "+phoneNo,"The driver phone number is not "+DriverPhone);
+        testStepAssert.isEquals(vehicle,DriverVehicleType,"The driver application should be "+DriverVehicleType ,"The driver application is "+vehicle,"The driver application is not "+DriverVehicleType);
+    }
 
 }
