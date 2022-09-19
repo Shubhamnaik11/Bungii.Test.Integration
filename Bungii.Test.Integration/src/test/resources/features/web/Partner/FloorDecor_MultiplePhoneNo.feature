@@ -4,7 +4,7 @@ Feature: FloorDecor Multiple PhoneNo
 
   Background:
     Given I navigate to "Partner" portal configured for "fnd multiple phone" URL
-  @ready
+@ready
   Scenario: To verify ability to add multiple SMS recipients phone numbers on Delivery Details Screen for solo delivery
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
