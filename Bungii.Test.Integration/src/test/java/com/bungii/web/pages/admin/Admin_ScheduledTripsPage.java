@@ -215,4 +215,6 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_ScheduledDate(){return findElement("//td[5]/a",LocatorType.XPath);}
 
+    public WebElement Text_DeliveryMiles(){return  findElement("//td[text()='Delivery Distance']/following::td[1]/strong",LocatorType.XPath);}
+
 }
