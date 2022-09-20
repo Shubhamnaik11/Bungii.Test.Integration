@@ -459,3 +459,64 @@ Feature: Admin_Reason_Code
     Then The Below accessorial charges should be present in the db
       | Excess Wait Time | Cancelation | Mountainous | Other |
       | 10.00            | 20.50      | 25.65        | 100.00 |
+
+#   Core-3390: Verify driver tracking in each statues of ongoing trip
+  @ready
+#    @testsweta
+  Scenario: Verify driver tracking in each statues of ongoing trip
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 8877661112 | Testcustomertywd_BppleMarkDI LutherDI|
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted     |
+      | Enroute      |
+    And I view the Live Deliveries list on the admin portal
+    And I wait for 2 minutes
+    Then I should be able to see the respective bungii with the below status
+      |  Status       |
+      | Trip Started |
+    When I view the delivery details
+    And I click on "Load" button
+    Then I check if "driver location" is updated for live trip
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Arrived      |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location" is updated for live trip
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Loading Item |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location" is updated for live trip
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Driving To Dropoff |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location" is updated for live trip
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Unloading Item |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location" is updated for live trip
+
+#   Core-3390: Verify both driver's location is tracked in admin portal in case of Duo trip - partner portal
+  @ready
+#    @testsweta
+  Scenario: Verify both driver's location is tracked in admin portal in case of Duo trip - partner portal
+    When I request Partner Portal "DUO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | 8877661113 | Testcustomertywd_BppleMarkDJ LutherDJ|
+    And I wait for "2" mins
+    And As a driver "Testdrivertywd_appleks_a_drvap Kansas_ap" and "Testdrivertywd_appleks_a_drvao Kansas_ao" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+      | Enroute       | Enroute       |
