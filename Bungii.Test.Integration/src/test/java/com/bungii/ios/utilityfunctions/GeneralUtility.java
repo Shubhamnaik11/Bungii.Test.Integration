@@ -1441,14 +1441,14 @@ catch(Exception ex)
             String teletInLocalTime = formatterForLocalTimezone.format(teletTimeInUtc);
             long t = teletTimeInUtc.getTime();
             long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
-            Date minTime = new Date(t - (15 * ONE_MINUTE_IN_MILLIS));
+            Date minTime = new Date(t - (1 * ONE_MINUTE_IN_MILLIS));
             String strMindate = formatterForLocalTimezone.format(minTime);
 
 
-            Date maxTime = new Date(t + (30 * ONE_MINUTE_IN_MILLIS));
+            Date maxTime = new Date(t + (45 * ONE_MINUTE_IN_MILLIS));
             String strMaxdate = formatterForLocalTimezone.format(maxTime);
             calculatedTime[0] = teletInLocalTime;
-            calculatedTime[1] = strMindate;
+            calculatedTime[1] = teletInLocalTime;
             calculatedTime[2] = strMaxdate;
             logger.detail("[As Per calculation Of Long Stack for Trip of Customer "+phoneNumber+"] Driver to Finish By :"+ teletInLocalTime + "Range ["+strMindate+" : "+strMaxdate+"]");
 
