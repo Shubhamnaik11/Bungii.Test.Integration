@@ -36,8 +36,5 @@ public class BungiiDetailsPage extends PageBase {
 	public WebElement Text_TypeTag() { return findElement("//XCUIElementTypeStaticText[@name=\"Type\"]", PageBase.LocatorType.XPath); }
 	public WebElement Text_TypeValue() { return findElement("//XCUIElementTypeStaticText[@name=\"Type\"]/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
-	public WebElement Alert_PickupInstructions() { return findElement("Pickup instructions", LocatorType.AccessibilityId); }
-	public WebElement Text_PickUpInstructionsOnPopUp() { return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]", LocatorType.XPath); }
-    public WebElement Alert_DropOffInstructions() { return findElement("Drop-off instructions", LocatorType.AccessibilityId); }
 
 }

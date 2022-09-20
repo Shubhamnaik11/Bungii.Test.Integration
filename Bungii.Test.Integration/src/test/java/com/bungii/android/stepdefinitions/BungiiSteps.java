@@ -697,6 +697,7 @@ public class BungiiSteps extends DriverBase {
                     case "Photo Verification":
                     testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Text_PhotoVerification(),"Photo Verification should be shown","Photo Verification is shown","Photo Verification is not shown");
                     break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
