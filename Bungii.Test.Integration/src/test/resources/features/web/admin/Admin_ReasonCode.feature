@@ -509,7 +509,6 @@ Feature: Admin_Reason_Code
 
 #   Core-3390: Verify both driver's location is tracked in admin portal in case of Duo trip - partner portal
   @ready
-#    @testsweta
   Scenario: Verify both driver's location is tracked in admin portal in case of Duo trip - partner portal
     When I request Partner Portal "Duo" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -520,10 +519,8 @@ Feature: Admin_Reason_Code
       | Enroute       | Enroute       |
     And I wait for 2 minutes
     And I view the Live Deliveries list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      | Status |
-      | Trip Started |
-    When I view the delivery details
+    And I search the delivery of Customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Live Duo Deliveries"
     And I click on "Load" button
     Then I check if "driver location-duo" is updated for live trip
     When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip

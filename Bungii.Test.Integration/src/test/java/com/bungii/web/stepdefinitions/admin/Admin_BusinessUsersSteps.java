@@ -1142,6 +1142,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     Thread.sleep(2000);
                     String driver1 = (String)cucumberContextManager.getScenarioContext("DRIVER_1");
                     String driver2 = (String)cucumberContextManager.getScenarioContext("DRIVER_2");
+                    Thread.sleep(2000);
                     testStepAssert.isElementDisplayed(admin_liveTripsPage.Image_DriverLocation(driver1),
                             "The duo first driver live location pin should be displayed.",
                             "The duo first driver live location pin is displayed.",
