@@ -390,6 +390,9 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 case "blue":
                      expectedHighlightColor = "rgba(228, 242, 255, 1)";
                     break;
+                case "grey":
+                    expectedHighlightColor = "rgba(238, 239, 239, 1)";
+                    break;
             }
         Thread.sleep(1000);
         boolean liveDeliveryhighlightDisplayed =  admin_liveTripsPage.Text_DeliveryHighlight().isDisplayed();
