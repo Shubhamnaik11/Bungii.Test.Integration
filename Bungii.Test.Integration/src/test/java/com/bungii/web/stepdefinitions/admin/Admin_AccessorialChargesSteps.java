@@ -519,6 +519,22 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         Thread.sleep(1000);
 
         action.click(Page_Driver_Login.Tab_LogIn());
+        testStepAssert.isElementDisplayed(Page_Driver_Login.Link_Terms(),
+                "The terms link should be displayed",
+                "The terms link is displayed",
+                "The terms link is not displayed");
+        testStepAssert.isEquals(Page_Driver_Login.Link_Terms().getAttribute("href"),PropertyUtility.getDataProperties("terms.page.link"),
+                "The correct link should be present for terms.",
+                "The correct link is present for terms.",
+                "The correct link is not present for terms.");
+        testStepAssert.isElementDisplayed(Page_Driver_Login.Link_PrivacyPolicy(),
+                "The privacy policy link should be displayed",
+                "The privacy policy  link is displayed",
+                "The privacy policy link is not displayed");
+        testStepAssert.isEquals(Page_Driver_Login.Link_PrivacyPolicy().getAttribute("href"),PropertyUtility.getDataProperties("privacy.policy.page.link"),
+                    "The correct link should be present for privacy policy.",
+                    "The correct link is present for privacy policy.",
+                    "The correct link is not present for privacy policy.");
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), phone);
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("web.valid.common.driver.password"));
         Thread.sleep(1000);
