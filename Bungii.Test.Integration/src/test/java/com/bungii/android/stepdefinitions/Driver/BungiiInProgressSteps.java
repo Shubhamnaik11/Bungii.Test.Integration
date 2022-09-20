@@ -1038,7 +1038,7 @@ public class BungiiInProgressSteps extends DriverBase {
     @And("^I search the delivery using \"([^\"]*)\"$")
     public void i_search_the_delivery_using_something(String strArg1) throws Throwable {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
             action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
             log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
         } catch(Exception e){
