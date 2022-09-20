@@ -647,12 +647,12 @@ Feature: Solo Scheduled Bungii Part A
     And I Select "MY BUNGIIS" from Customer App menu
     Then The trip should be present in my bungiis
 
-  #CORE-3009:Verify driver instructions at pickup and drop off is in Markdown format
+  #CORE-3417:Verify driver instructions at pickup and drop off is in Markdown format
   @ready
   Scenario:Verify driver instructions at pickup and drop off is in Markdown format
     When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |washingtondc| NEXT_POSSIBLE | 9999999127 | Testcustomertywd_appleNewRB Customer|
+      |washingtondc| NEXT_POSSIBLE | 8877661114 | Testcustomertywd_appleMarkDK LutherDK|
     And I wait for 2 minutes
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -661,7 +661,7 @@ Feature: Solo Scheduled Bungii Part A
     And  I search the delivery using "Pickup Reference"
     When I click on the "Edit" button from the dropdown
     And I Select "Edit Trip Details" option
-    And I assign driver "Testdrivertywd_appledc_a_web TestdriverA" for the trip
+    And I assign driver "Testdrivertywd_appledc_a_drvY WashingtonY" for the trip
     And I click on "VERIFY" button
     And the "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
@@ -671,7 +671,7 @@ Feature: Solo Scheduled Bungii Part A
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_appledc_a_web TestdriverA" driver
+    And I am logged in as "Testdrivertywd_appledc_a_drvY WashingtonY" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
