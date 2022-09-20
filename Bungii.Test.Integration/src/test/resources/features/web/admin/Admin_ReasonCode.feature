@@ -462,19 +462,18 @@ Feature: Admin_Reason_Code
 
 #   Core-3390: Verify driver tracking in each statues of ongoing trip
   @ready
-#    @testsweta
   Scenario: Verify driver tracking in each statues of ongoing trip
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 8877661112 | Testcustomertywd_BppleMarkDI LutherDI|
+      | NEXT_POSSIBLE | 8877661112 | Testcustomertywd_appleMarkDI LutherDI|
     And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted     |
       | Enroute      |
-    And I view the Live Deliveries list on the admin portal
     And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
-      |  Status       |
+      | Status |
       | Trip Started |
     When I view the delivery details
     And I click on "Load" button
@@ -512,11 +511,46 @@ Feature: Admin_Reason_Code
   @ready
 #    @testsweta
   Scenario: Verify both driver's location is tracked in admin portal in case of Duo trip - partner portal
-    When I request Partner Portal "DUO" Trip for "MRFM" partner
+    When I request Partner Portal "Duo" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |Kansas| NEXT_POSSIBLE | 8877661113 | Testcustomertywd_BppleMarkDJ LutherDJ|
-    And I wait for "2" mins
-    And As a driver "Testdrivertywd_appleks_a_drvap Kansas_ap" and "Testdrivertywd_appleks_a_drvao Kansas_ao" perform below action with respective "DUO SCHEDULED" trip
+      |Kansas  | NEXT_POSSIBLE | 8877661113     | Testcustomertywd_appleMarkDJ LutherDJ|
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
       | Enroute       | Enroute       |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Trip Started |
+    When I view the delivery details
+    And I click on "Load" button
+    Then I check if "driver location-duo" is updated for live trip
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Arrived       | Arrived       |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location-duo" is updated for live trip
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Loading Item  | Loading Item       |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location-duo" is updated for live trip
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Driving To Dropoff  | Driving To Dropoff       |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location-duo" is updated for live trip
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Unloading Item| Unloading Item|
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location-duo" is updated for live trip

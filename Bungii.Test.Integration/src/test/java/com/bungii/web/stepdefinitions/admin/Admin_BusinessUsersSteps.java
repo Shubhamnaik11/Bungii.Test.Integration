@@ -1137,6 +1137,20 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             "The driver live location pin is displayed.",
                             "The driver live location pin is not displayed.");
                     break;
+
+                case "driver location-duo":
+                    Thread.sleep(2000);
+                    String driver1 = (String)cucumberContextManager.getScenarioContext("DRIVER_1");
+                    String driver2 = (String)cucumberContextManager.getScenarioContext("DRIVER_2");
+                    testStepAssert.isElementDisplayed(admin_liveTripsPage.Image_DriverLocation(driver1),
+                            "The duo first driver live location pin should be displayed.",
+                            "The duo first driver live location pin is displayed.",
+                            "The duo first driver live location pin is not displayed.");
+                    testStepAssert.isElementDisplayed(admin_liveTripsPage.Image_DriverLocation(driver2),
+                            "The duo second driver live location pin should be displayed.",
+                            "The duo second driver live location pin is displayed.",
+                            "The duo second driver live location pin is not displayed.");
+                    break;
             }
             log("I should be able to check update on live trip","I am able to check update on live trip",false);
         }
