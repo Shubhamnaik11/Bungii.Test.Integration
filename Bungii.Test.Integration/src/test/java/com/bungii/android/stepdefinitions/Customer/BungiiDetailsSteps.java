@@ -191,21 +191,4 @@ public class BungiiDetailsSteps extends DriverBase {
     }
 
         }
-
-    @And("^I click on start Bungii for service based delivery$")
-    public void i_click_on_start_bungii_for_service_based_delivery() throws Throwable {
-        try{
-            action.scrollToBottom();
-            action.scrollToBottom();
-            action.scrollToBottom();
-            Thread.sleep(5000);
-            action.click(bungiiRequest.Button_StartBungii());
-
-            log("I start selected Bungii ", "I started selected Bungii", true);
-        } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error in Starting Bungii as Driver", true);
-        }
-    }
-
 }

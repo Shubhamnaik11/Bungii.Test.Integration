@@ -697,11 +697,6 @@ public class BungiiSteps extends DriverBase {
                     case "Photo Verification":
                     testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Text_PhotoVerification(),"Photo Verification should be shown","Photo Verification is shown","Photo Verification is not shown");
                     break;
-
-                case "Drop-off instructions":
-                    testStepVerify.isElementDisplayed(Page_DriverBungiiProgress.Text_DropOffInstructionsHeader(),"Drop-off Instructions should be shown","Drop-off Instructions is shown","Drop-off Instructions is not shown");
-                    break;
-
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -1328,19 +1323,6 @@ public class BungiiSteps extends DriverBase {
                     String popUpText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
                     testStepAssert.isEquals(popUpText,expectedMessage,"Stack trip request should be "+expectedMessage,"Stack trip request is "+popUpText,expectedMessage +" request is not present");
                     break;
-//                case "pickup instructions":
-//                    boolean isPickUpHeaderDisplayed = bungiiDetailsPage.Text_PickupInstructions().isDisplayed();
-//                    testStepAssert.isTrue(isPickUpHeaderDisplayed, "Pickup instruction alert should be displayed", "Pickup instruction alert is displayed", "Pickup instruction alert is not displayed");
-//                    String pickupInstructionOnPopUp = action.getText(bungiiDetailsPage.Text_PickupInstructions()).toLowerCase();
-//                    testStepVerify.isEquals(pickupInstructionOnPopUp, expectedMessage.toLowerCase(), expectedMessage + " Header should be displayed", pickupInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
-//                    break;
-                case "drop-off instructions":
-                    boolean isDropOffHeaderDisplayed = Page_DriverBungiiProgress.Text_DropOffInstructionsHeader().isDisplayed();
-                    testStepAssert.isTrue(isDropOffHeaderDisplayed, "DropOff instruction alert should be displayed", "DropOff instruction alert is displayed", "DropOff instruction alert is not displayed");
-                    String dropOffInstructionOnPopUp = action.getText(Page_DriverBungiiProgress.Text_DropOffInstructionsHeader()).toLowerCase();
-                    testStepVerify.isEquals(dropOffInstructionOnPopUp, expectedMessage.toLowerCase(), expectedMessage + " Header should be displayed", dropOffInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
-                    break;
-
             }
 
      }catch (Exception e){
@@ -1348,38 +1330,7 @@ public class BungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-    @Then("^The driver \"([^\"]*)\" instructions should be in markdown format$")
-    public void the_driver_something_instructions_should_be_in_markdown_format(String instructionsAt) throws Throwable {
-        try{
-            switch (instructionsAt){
-                case "Pickup":
-                    String expectedServicePickupInstructions = action.getText(Page_DriverBungiiProgress.Text_GeneralInstructions());
-                    System.out.println(expectedServicePickupInstructions);
-                    if(expectedServicePickupInstructions.contains("•")){
-                        testStepAssert.isTrue(true,"The driver pickup Instructions should be in markdown format",
-                                "The driver pickup Instructions is in markdown format","The driver pickup Instructions is not in markdown format");
-                    }
-                    else{
-                        testStepAssert.isFalse(true,"lol","lol2","The driver pickup instructions is not in markdown format");
-                    }
-                    break;
-                case "Dropoff":
-                    String expectedServiceDropoffInstructions = action.getText(Page_DriverBungiiProgress.Text_GeneralInstructions());
-                    System.out.println(expectedServiceDropoffInstructions);
-                    if(expectedServiceDropoffInstructions.contains("•")){
-                        testStepVerify.isTrue(true,"The driver dropoff Instructions should be in markdown format",
-                            "The driver dropoff Instructions is in markdown format","The driver dropoff Instructions is not in markdown format");
-                    }
-                    else{
-                        testStepVerify.isFalse(false,"lol","lol2","The driver dropoff instructions is not in markdown format");
-                    }
-                    break;
-            }
-        }catch (Exception e){
-            logger.error("Error performing step", e);
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
-        }
-    }
+
 
 
     private void validateSMSNumber(String actualValue,String expectedValue) {
