@@ -2572,7 +2572,8 @@ try{
     public void i_should_see_field_name_as_partner_on_delivery_listing_screen() throws Throwable {
         try {
             String expectedHeader = PropertyUtility.getMessage("PartnerColumnHeader");
-            String actualHeader = admin_TripsPage.Header_Partner().getText();
+            Thread.sleep(2000);
+            String actualHeader = action.getText(admin_TripsPage.Header_Partner());
             testStepAssert.isEquals(actualHeader, expectedHeader, expectedHeader + " should be displayed", expectedHeader + "is displayed", expectedHeader + " is not displayed");
         }
 
