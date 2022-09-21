@@ -2747,61 +2747,71 @@ try{
     @Then("^Only First added customer phone number should be displayed on Admin portal Delivery details page$")
     public void only_first_added_customer_phone_number_should_be_displayed_on_admin_portal_delivery_details_page() throws Throwable
     {
-
-        String customer_Mobile = (String) cucumberContextManager.getScenarioContext("Customer_Mobile");
-        String first_CustomerPhone= customer_Mobile.replaceAll("\\D+", "");
-        String phone_No=action.getElementByXPath("//table[@class='table table-striped']/tbody/tr[2]/td[2]").getText();
-        String phone_Num = (phone_No.replaceAll("[a-zA-Z]", "")).trim();
-        String finaldisplayed_CustNo = phone_Num.replaceAll("\\D+", "");
-        testStepAssert.isEquals(finaldisplayed_CustNo, first_CustomerPhone, "First customer number added should be displayed on admin", "First Customer Phone number is correctly displayed on Admin portal", " Incorrect phone number displayed on admin portal");
-
+        try {
+            String customer_Mobile = (String) cucumberContextManager.getScenarioContext("Customer_Mobile");
+            String first_CustomerPhone = customer_Mobile.replaceAll("\\D+", "");
+            String phone_No = action.getElementByXPath("//table[@class='table table-striped']/tbody/tr[2]/td[2]").getText();
+            String phone_Num = (phone_No.replaceAll("[a-zA-Z]", "")).trim();
+            String finaldisplayed_CustNo = phone_Num.replaceAll("\\D+", "");
+            testStepAssert.isEquals(finaldisplayed_CustNo, first_CustomerPhone, "First customer number added should be displayed on admin", "First Customer Phone number is correctly displayed on Admin portal", " Incorrect phone number displayed on admin portal");
+            }
+        catch (Exception e)
+            {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful.", "Error performing step,Please check logs for more details.",true);
+            }
     }
     @And("^Added recipient phone numbers should be stored in database$")
-    public void added_recipient_phone_numbers_should_be_stored_in_database() throws Throwable
-    {
-        String dBRecipient1,dBRecipient2,dBRecipient3 ;
-        String PickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-        List<HashMap<String, Object>> dbCustrecipient= dbUtility.getCustomerSMSRecipients(PickupRef);
-        String dbRecipients = dbCustrecipient.get(0).toString();
-        if(StringUtils.isNotEmpty(dbRecipients))
-        {
-            String expected_Recipient1 = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo1");
-            String expected_Recipient2 = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo2");
-            String expected_Recipient3 = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo3");
-            String[] result = dbRecipients.split(",");
-            String actual_DbRecipient1, actual_dBRecipient2, actual_dBRecipient3;
-            switch((String) cucumberContextManager.getScenarioContext("NofRecipients"))
-            {
-                case"one time":
-                    dBRecipient1 = result[0];
-                    actual_DbRecipient1=dBRecipient1.replaceAll("\\D+", "");
-                    testStepAssert.isEquals(actual_DbRecipient1, expected_Recipient1, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
-                    log("Added 1 SMS recipient should be stored in database.","Added 1 SMS recipient has been stored in database.",false);
-                    break;
-                case "two times":
-                    dBRecipient1 = result[0];
-                    actual_DbRecipient1=dBRecipient1.replaceAll("\\D+", "");
-                    testStepAssert.isEquals(actual_DbRecipient1, expected_Recipient1, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
-                    dBRecipient2 = result[1];
-                    actual_dBRecipient2= dBRecipient2.replaceAll("\\D+", "");
-                    testStepAssert.isEquals(actual_dBRecipient2, expected_Recipient2, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
-                    log("Added 2 SMS recipients should be stored in database.","Added 2 SMS recipients have been stored in database.",false);
-                    break;
-                case "three times":
-                    dBRecipient1 = result[0];
-                    actual_DbRecipient1=dBRecipient1.replaceAll("\\D+", "");
-                    testStepAssert.isEquals(actual_DbRecipient1, expected_Recipient1, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
-                    dBRecipient2 = result[1];
-                    actual_dBRecipient2= dBRecipient2.replaceAll("\\D+", "");
-                    testStepAssert.isEquals(actual_dBRecipient2, expected_Recipient2, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
-                    dBRecipient3 = result[2];
-                    actual_dBRecipient3= dBRecipient3.replaceAll("\\D+", "");
-                    testStepAssert.isEquals(actual_dBRecipient3, expected_Recipient3, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
-                    log("Added 3 SMS recipients should be stored in database.","Added 3 SMS recipients have been stored in database.",false);
-                    break;
-                default:
+    public void added_recipient_phone_numbers_should_be_stored_in_database() throws Throwable {
+        try {
+              String dBRecipient1, dBRecipient2, dBRecipient3;
+              String PickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+              List<HashMap<String, Object>> dbCustrecipient = dbUtility.getCustomerSMSRecipients(PickupRef);
+              String dbRecipients = dbCustrecipient.get(0).toString();
+               if (StringUtils.isNotEmpty(dbRecipients)) {
+                    String expected_Recipient1 = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo1");
+                    String expected_Recipient2 = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo2");
+                    String expected_Recipient3 = (String) cucumberContextManager.getScenarioContext("SMS_RecipientNo3");
+                    String[] result = dbRecipients.split(",");
+                    String actual_DbRecipient1, actual_dBRecipient2, actual_dBRecipient3;
+                    String numRecipients=(String) cucumberContextManager.getScenarioContext("num_Recipients");
+                    switch (numRecipients) {
+                        case "one time":
+                            dBRecipient1 = result[0];
+                            actual_DbRecipient1 = dBRecipient1.replaceAll("\\D+", "");
+                            testStepAssert.isEquals(actual_DbRecipient1, expected_Recipient1, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
+                            log("Added 1 SMS recipient should be stored in database.", "Added 1 SMS recipient has been stored in database.", false);
+                            break;
+                         case "two times":
+                            dBRecipient1 = result[0];
+                            actual_DbRecipient1 = dBRecipient1.replaceAll("\\D+", "");
+                            testStepAssert.isEquals(actual_DbRecipient1, expected_Recipient1, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
+                            dBRecipient2 = result[1];
+                            actual_dBRecipient2 = dBRecipient2.replaceAll("\\D+", "");
+                            testStepAssert.isEquals(actual_dBRecipient2, expected_Recipient2, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
+                            log("Added 2 SMS recipients should be stored in database.", "Added 2 SMS recipients have been stored in database.", false);
+                            break;
+                         case "three times":
+                            dBRecipient1 = result[0];
+                            actual_DbRecipient1 = dBRecipient1.replaceAll("\\D+", "");
+                            testStepAssert.isEquals(actual_DbRecipient1, expected_Recipient1, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
+                            dBRecipient2 = result[1];
+                            actual_dBRecipient2 = dBRecipient2.replaceAll("\\D+", "");
+                            testStepAssert.isEquals(actual_dBRecipient2, expected_Recipient2, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
+                            dBRecipient3 = result[2];
+                            actual_dBRecipient3 = dBRecipient3.replaceAll("\\D+", "");
+                            testStepAssert.isEquals(actual_dBRecipient3, expected_Recipient3, "Customer recipient numbers should be stored in database", "Customer recipient added is successfully saved in database", "Incorrect Customer recipient number saved in database");
+                            log("Added 3 SMS recipients should be stored in database.", "Added 3 SMS recipients have been stored in database.", false);
+                            break;
+                        default:
+                        break;
+                }
             }
-
+        }catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
 
     }

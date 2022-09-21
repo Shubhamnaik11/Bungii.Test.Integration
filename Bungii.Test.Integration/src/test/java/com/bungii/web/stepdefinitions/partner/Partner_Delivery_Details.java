@@ -386,8 +386,8 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
                         action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
-                        String SMS_RecipientNo= (String) cucumberContextManager.getScenarioContext("NofRecipients");
-                        switch (SMS_RecipientNo)
+                        String numRecipients=(String) cucumberContextManager.getScenarioContext("num_Recipients");
+                        switch (numRecipients)
                         {
                             case "one time":
                                 action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
@@ -424,7 +424,6 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(), DeliveryPurpose);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Rb_Sb_Number(), RbSbNumber);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(), SoldBuy);
-                        log("All partner details should be entered with added SMS recipients","All partner details are added with added SMS recipients",false);
                         break;
                     default:
                         break;
@@ -993,36 +992,38 @@ public class Partner_Delivery_Details extends DriverBase {
     @When("^I click \"([^\"]*)\" button \"([^\"]*)\" to add more recipients$")
     public void i_click_something_button_something_to_add_more_recipients(String strArg1, String strArg2) throws Throwable {
         {
-            if (Page_Partner_Delivery.Button_AddSMSRecipient().isDisplayed()) {
-                try {
-                     cucumberContextManager.setScenarioContext("NofRecipients",strArg2);
-                     switch((String) cucumberContextManager.getScenarioContext("NofRecipients")) {
-                         case "one time":
-                            action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
-                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
-                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
-                            break;
-                        case "two times":
-                            action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
-                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
-                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
-                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
-                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), (long) 2000);
-                            break;
-                        case "three times":
-                            action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
-                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
-                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
-                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
-                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), (long) 2000);
-                            action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
-                            action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3(), (long) 2000);
-                            break;
-                        default:
-
-                     }
-                    log("I am able to click on add recipients button required number of times", " I am unable to add sms recipients", false);
-
+            try {
+                    if (Page_Partner_Delivery.Button_AddSMSRecipient().isDisplayed())
+                    {
+                        cucumberContextManager.setScenarioContext("num_Recipients", strArg2);
+                        String numRecipients=(String) cucumberContextManager.getScenarioContext("num_Recipients");
+                        switch (numRecipients) {
+                            case "one time":
+                                action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
+                                break;
+                            case "two times":
+                                action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), (long) 2000);
+                                break;
+                            case "three times":
+                                action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), (long) 2000);
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3(), (long) 2000);
+                                break;
+                            default:
+                                break;
+                        }
+                        log("I am able to click on add recipients button required number of times", " I am unable to add sms recipients", false);
+                    }
                 } catch (Exception e) {
 
                     logger.error("Add SMS recipients button not present", ExceptionUtils.getStackTrace(e));
@@ -1031,7 +1032,7 @@ public class Partner_Delivery_Details extends DriverBase {
                 }
             }
         }
-    }
+
 
 
     @Then("^New mobile recipients field should be added$")
@@ -1052,6 +1053,7 @@ public class Partner_Delivery_Details extends DriverBase {
                         testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3()), "added recipient3 mobile field should be displayed", "added recipient is displayed", "added recipient2 mobile field is not displayed");
                         break;
                 default:
+                    break;
 
            }
         } catch (Exception e) {
